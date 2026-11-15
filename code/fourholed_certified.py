@@ -20,7 +20,7 @@ What is guaranteed/checked in each trial:
      The mod-2 homology class of a word is its vector of exponent-sum parities v in Z_2^3; the cut classes for a set T
      of boundaries are the collections of closed curves with total class v_T = sum_{i in T} [boundary_i]
      ([a]=(0,0,1),[b]=(0,1,0),[c]=(1,0,0) in (g1,g2,g3) coordinates, [d]=(1,1,1)); non-embedded collections never beat
-     embedded ones (PROOFS.md Lemma 6.4).  Hence  F(T) = min over decompositions v_T = v_1+...+v_m of sum g(v_i),
+     embedded ones (PROOFS.md Lemma 6.8).  Hence  F(T) = min over decompositions v_T = v_1+...+v_m of sum g(v_i),
      g(v) = min over words of class v of sum_j w_j length_j(word)   -- the SAME word in all metrics.
      Completeness: Theta is chosen >= max_v g(v) found, so no unvisited word can lower any g(v).
  (3) TIME DEPENDENCE.  For k=2 the two Schottky groups are sampled independently: X_L != X_R, so the spacetime has no

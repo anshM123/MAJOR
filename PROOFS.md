@@ -413,7 +413,7 @@ and which are holonomies of hyperbolic structures `X_L, X_R` on the interior of 
 of Teichmüller space** (i.e. `X_R` is obtained from `X_L` by an orientation-preserving homeomorphism isotopic
 to the identity relative to the marking; boundary elements go to boundary elements). Then
 `Γ = {(ρ_L(γ), ρ_R(γ))}` acts properly discontinuously on the *invisible domain* `D̃ ⊂ AdS_3` of its limit set
-(the open convex set of points not causally related to any point of the limit set `Λ_Γ ⊂ ∂AdS_3`, which is
+(the open set of points not causally related to any point of the limit set `Λ_Γ ⊂ ∂AdS_3`, which is
 the graph of the boundary map over `Λ_L`; a Cantor set for these groups); `M = D̃/Γ` is a
 locally-`AdS_3` spacetime with one asymptotically-AdS region per end of `S` (Mess 1990; Barbot, *Causal
 properties of AdS-isometry groups I, II*; Bonsante–Krasnov–Schlenker, arXiv:math/0610429). Physically:
@@ -469,7 +469,16 @@ not causally related to the limit set (argument supplied by the second referee).
 translated non-trivially has as endpoints two rank-one eigen-matrices with different eigenvalues; the
 rank-one eigen-matrices are `E_{12}` (eigenvalue `e^{a}`), `E_{21}` (`e^{−a}`) and `E_{11}, E_{22}` (eigenvalue
 `1`), and `N(E_{12}, E_{11}) = N(E_{12}, E_{22}) = N(E_{21}, E_{11}) = N(E_{21}, E_{22}) = 0`, so the only pair
-joined by a spacelike geodesic is `E_{12}, E_{21}`. ∎
+joined by a spacelike geodesic is `E_{12}, E_{21}`.
+
+*All causal types, all `a, b > 0` (first referee of revision 5).* Geodesics of `AdS_3` are the intersections
+with 2-planes of `M_2(R)`. A plane invariant under `X ↦ ρ_L(h) X ρ_R(h)^{-1}` is the sum of its intersections
+with the eigenspaces (`RE_{12}`, `RE_{21}`, and `RE_{11}`, `RE_{22}` — the last two forming one eigenspace when
+`a = b`). If it is not `span{E_{12}, E_{21}}` it does not contain both `E_{12}` and `E_{21}`, hence lies in
+`span{E_{11}, E_{22}, E_{12}}` or in `span{E_{11}, E_{22}, E_{21}}`. On the first `N(·, E_{12}) ≡ 0`, on the second
+`N(·, E_{21}) ≡ 0`. Since `E_{12}, E_{21}` represent limit points and `D̃` is defined by `N(·, q) > 0` for all limit
+points `q` (§6.3), such a plane does not meet `D̃`. So `hull{E_{12}, E_{21}}` is the only `h`-invariant geodesic
+in `D̃`, of any causal type. ∎
 
 (b) Let `p = a b^T`, `q = c d^T` with `N := ω(a,c)·ω(b,d) > 0`. Then `x(t) = (e^{t} p + e^{−t} q)/√N`,
 `t ∈ R`, is the unit-speed geodesic of `AdS_3` from `q` to `p`, and the length of its part where the
@@ -495,8 +504,8 @@ where `L^ε(c)` is the total regulated length of the spacetime geodesics of clas
 the conjugacy class of `γ`, the geodesic of (a) in `D̃`; for an arc from `p` to `q` labelled by `γ`, the
 geodesic of (b) from `(ũ_p,ṽ_p)` to `(ρ_L(γ)ũ_q, ρ_R(γ)ṽ_q)`. By Fact 3.1 horoball removal and horocycle
 distance agree once both chiral horoballs are below `ε_0`; rescaling `p → p/ε` shrinks both. For inequalities
-balanced at every endpoint the conclusion does not depend on the cut-off at all. Equation (6.1) is equations (58),
-(60) of arXiv:2407.07165 in hyperbolic-surface language.
+balanced at every endpoint the conclusion does not depend on the cut-off at all. Equation (6.1) is the length
+formula of Appendix A of arXiv:2407.07165 in hyperbolic-surface language.
 
 ### 6.3 Definition of the HRT entropy in these spacetimes
 
@@ -506,7 +515,7 @@ No hypothesis remains.
 
 **Positive lifts.** An *acausal circle* is the graph `C' ⊂ RP¹ × RP¹ = ∂AdS_3` of an orientation-preserving
 homeomorphism. It has a continuous lift `p : C' →` (rank-one matrices), unique up to multiplication by a
-positive function, with `N(p,q) := tr(adj(p) q) > 0` for all distinct `p, q ∈ C'` (take
+positive function and a global sign, with `N(p,q) := tr(adj(p) q) > 0` for all distinct `p, q ∈ C'` (take
 `a = (cos θ, sin θ)`, `b = (cos φ(θ), sin φ(θ))`, `θ ∈ [0, π)`, `φ` increasing; then
 `N = sin(θ' − θ) sin(φ' − φ)`). `N` is twice the polarisation of `det`: `det(X + Y) = det X + det Y + N(X,Y)`.
 For a closed set `Δ ⊂ C'` let `K(Δ)` be the set of finite positive combinations `X = Σ λ_i p_i`, `p_i ∈ Δ`,
@@ -517,6 +526,12 @@ between them (§6.2(b)); for three it is the totally geodesic *ideal triangle* t
 **Spacelike separation.** `x, y ∈ AdS_3 = PSL(2,R)` are *spacelike separated* if `½|tr(x^{-1}y)| > 1`, i.e. if
 they are joined by a spacelike geodesic. For `X, Y` in cones `K(·)` over the same acausal circle,
 `tr([X]^{-1}[Y]) = N(X,Y)/√(det X det Y) > 0`.
+
+*Caution (first referee of revision 5).* In `D̃` the criterion must be read with signs. `D̃` (defined next) has
+a continuous *positive lift* to `SL(2,R)`, the one with `N(X,q) > 0` for the limit points `q`. Two points of
+`D̃` with `tr(X^{-1}Y) < −2` in the positive lift are joined by a spacelike geodesic of `PSL(2,R)` that leaves
+`D̃`, and can be causally related inside `D̃` (explicit example in rotating BTZ found by the referee). The
+correct condition is `tr(X^{-1}Y) > 2` in the positive lift; Lemma 6.3a shows that slices satisfy it.
 
 **The spacetime.** `D̃ := {[X] ∈ AdS_3 : N(X, q) > 0 for all q ∈ Λ_Γ}` (for one of the two lifts `±X`), the
 invisible domain of the limit set; `M = D̃/Γ` (§6.1). For every acausal circle `C' ⊃ Λ_Γ`,
@@ -534,8 +549,26 @@ in the boundary is that of `A`).
 (S3) any two distinct points of `Σ̃` are spacelike separated.
 `Σ := Σ̃/Γ ⊂ M`.
 
+**Lemma 6.3a ((S1) and (S3) give `tr > 2` in the positive lift; acausality).** Let `Σ̃ ⊂ D̃` satisfy (S1) and
+(S3), and let `X, Y` denote positive lifts. Then `tr(X^{-1}Y) > 2` for all distinct `x, y ∈ Σ̃`; the spacelike
+geodesic segment `{[sX + tY] : s, t ≥ 0}` joins them inside `D̃`; and `x, y` are not joined by any causal curve
+in `D̃`.
+
+*Proof.* `Σ̃` is an open disc, so the set of ordered pairs of distinct points of `Σ̃` is connected; on it
+`τ(x,y) = tr(X^{-1}Y)` is continuous, `|τ| > 2` by (S3), and `τ → 2` as `y → x`. Hence `τ > 2` throughout.
+Then `det(sX + tY) = s² + t² + stτ > 0` and `N(sX + tY, q) = sN(X,q) + tN(Y,q) > 0` for limit points `q`, so
+the segment lies in `D̃`; it is the geodesic `cosh`-combination of `X` and `Y`, spacelike because `τ > 2`.
+For the last claim: on `D̃`, normalising two limit points to `E_{12}`, `−E_{21}`, the positive lift has
+`x_{12} − x_{21} > 0`, so the map `X ↦ (x_{11} + x_{22}, x_{12} − x_{21})/|·|`, which induces an isomorphism on
+`π_1(SL(2,R))`, sends `D̃` into a half circle. Hence every loop in `D̃` is null-homotopic in `AdS_3`, and `D̃`
+lifts isometrically to the universal cover of `AdS_3`, a causal curve in `D̃` from `x` to `y` and the
+spacelike segment lifting to paths with the same endpoints. **[standard, cited, not re-proved]** In the
+universal cover of `AdS_3` two points joined by a spacelike geodesic segment are not causally related
+(Bonsante–Seppi, arXiv:2004.14414, §2). (If `Λ_Γ` has fewer than two points — `Γ` trivial — use two points of
+`C'` instead.) ∎
+
 **HRT candidates.** A *candidate* for `A` is a quadruple `(C', Σ̃, γ, R)`: `C'` a slice through `∂A`; `Σ̃` a bulk
-slice anchored on `C'`; `γ ⊂ Σ` a finite disjoint union of complete geodesics of `M`, each closed or having
+slice anchored on `C'`; `γ ⊂ Σ` a finite disjoint union of complete geodesics of `M`, each *simple* (no self-intersection), each closed or having
 both ends at points of `∂A`, with exactly one end at each point of `∂A`; and `R ⊂ Σ` a closed set, equal to the
 closure of its interior, with frontier `γ`, such that the closure of its preimage in `Σ̃ ∪ C'` meets
 `C' \ Λ_Γ` exactly in the lift of `A'`. (`γ` is an extremal curve anchored on `∂A`, and `R` is a spacelike
@@ -544,8 +577,8 @@ region with `∂R = γ ∪ A'`: the homology condition of Headrick–Takayanagi 
 **Definition.** `S^ε(A) := (1/4G_N) · inf { L^ε(γ) : (C', Σ̃, γ, R) a candidate for A }`, with `L^ε` the regulated
 length of §6.2.
 
-*Remarks on the definition.* (i) (S3) is the strongest reasonable reading of "spacelike": it implies
-achronality and acausality in `D̃`. Theorem H below holds verbatim for any class of slices between "(S1), (S2)
+*Remarks on the definition.* (i) (S3) makes the slice acausal (Lemma 6.3a). It does **not** make it smooth
+or uniformly spacelike; see (ii). Theorem H below holds verbatim for any class of slices between "(S1), (S2)
 only" and "(S1)–(S3) and piecewise totally geodesic with spacelike faces", because its proof of `≥` uses only
 (S1), (S2) and its proof of `≤` produces slices of the latter kind. (ii) The slices produced in §6.6 are acausal and have spacelike faces, but they are bent along geodesics,
 and at a closed component of `γ` with `ℓ_L ≠ ℓ_R` their faces accumulate and become asymptotically lightlike
@@ -553,8 +586,13 @@ and at a closed component of `γ` with `ℓ_L ≠ ℓ_R` their faces accumulate 
 spacelike, an additional argument would be needed: rounding a crease is elementary where the bending is
 locally finite, but near such closed components the slice has to be replaced by a boost-twisted smooth
 strip. That is **not carried out here**; Theorem H is proved for the definition as stated, with (S3).
-(iii) Allowing non-embedded configurations with a mod-2 homology condition, as in arXiv:2407.07165, does not
-change the infimum (Lemma 6.8).
+(iii) Components of `γ` are required to be simple, as for an HRT surface that is an embedded submanifold; the
+proof of `≥` in Theorem H uses this (the first referee of revision 5 exhibited, for static BTZ, a
+self-crossing arc plus the horizon with a checkerboard region, which the earlier wording admitted). For
+self-intersecting collections with a mod-2 homology condition, as in arXiv:2407.07165, Lemma 6.8 shows that
+the corresponding collections of curves *on the surface* never beat the minimum; the step from a spacetime
+configuration that lies on no single slice to such a collection on the surface is **not written out**, so no
+claim is made here for definitions of HRT that do not place the homology region in a slice.
 (iv) *Comparison with the definitions in the literature* (wording checked against the sources, 15 Nov 2026).
 Headrick–Hubeny–Lawrence–Rangamani (arXiv:1408.6300, §2.2 and footnotes 4, 10) require the homology region to
 be "a region of a bulk Cauchy slice" of the spacetime with its boundary, and "require all Cauchy slices to be
@@ -644,7 +682,7 @@ fixed compact set subconverges, in the Hausdorff sense in the closed disc, to an
 points (original or auxiliary) or endpoints of axes of `𝓕`.
 
 *Proof.* **Step 0 (auxiliary points, boundary chords).** Add auxiliary marked points so that every ideal
-circle carries at least one, and let `V_Ω ⊂ Ω` be the set of lifts of all marked points; stabilisers of points
+circle carries at least one (at least three in all if `Γ` is trivial), and let `V_Ω ⊂ Ω` be the set of lifts of all marked points; stabilisers of points
 of `V_Ω` are trivial. On `X̄_L` the geodesics joining consecutive marked points of each ideal circle
 ("boundary chords"; a loop around the funnel if the circle carries one point) cut off regions whose lifts are
 half-planes `H_e` over the elementary arcs `e = [v, v']`, with trivial stabiliser. An arc of `c^X` may coincide
@@ -839,7 +877,9 @@ and the infimum in the definition of `S^ε(A)` is attained.
 the free homotopy class of `g ∈ π_1(S)` lifts to a spacelike geodesic of `D̃` invariant under
 `(ρ_L(g), ρ_R(g))` and translated non-trivially by it; by §6.2(a) this is `hull{p(a^−), p(a^+)}`, the
 geodesic joining the repelling and attracting fixed points, which lie in `Λ_Γ ⊂ C'`. An arc component lifts
-to the geodesic joining two lifted points of `∂A`, also on `C'`. So the preimage `γ̃ ⊂ Σ̃` of `γ` is a
+to the geodesic joining two lifted points of `∂A`, also on `C'`. Since `γ` is a finite union of
+disjoint simple complete geodesics, each closed or running out to the boundary at both ends, it is a
+properly embedded 1-manifold in `Σ`, and its preimage is one in `Σ̃`. So the preimage `γ̃ ⊂ Σ̃` of `γ` is a
 `Γ`-invariant, locally finite family of pairwise disjoint arcs, each closed in the closed disc `Σ̃ ∪ C'` with
 its two endpoints on `C'`. By the Jordan curve theorem in the closed disc, each such arc separates it, and
 two disjoint ones have unlinked endpoint pairs. The left coordinate identifies `C'` with `S¹` equivariantly
