@@ -477,10 +477,36 @@ What H contains, item by item:
   proof here.*
 * **H2 (every class is admissible).** For every `c ∈ 𝒞(A)` the spacetime geodesics of class `c` exist in `M`,
   are pairwise spacelike separated, and bound a spacelike region together with `A`. Existence follows from
-  (6.2)(a),(b) and convexity of `D̃`. Pairwise spacelike separation and the existence of the spacelike region
-  are **not proved here**. (The referee reports a computation indicating that two boundary-anchored geodesics
-  with unlinked endpoints on an acausal curve are spacelike separated; I have not verified it and do not rely
-  on it.)
+  (6.2)(a),(b) and convexity of `D̃`. Pairwise spacelike separation is **proved** in Lemma 6.3' below. The
+  existence of a spacelike region bounded by a pairwise-spacelike collection of geodesics and `A` (extension
+  of an acausal set to a Cauchy surface; Bernal–Sánchez for the compact case) is **assumed**.
+
+**Lemma 6.3' (unlinked geodesics are spacelike separated) [proved; computation due to the referee,
+re-derived and checked numerically in `code/spacelike_check.py`].** Let `p_i = a_i b_i^T`, `i = 1,…,4`, be
+boundary points with `N_ij := ω(a_i,a_j)ω(b_i,b_j) > 0` for `i < j`, and with the `[a_i]` and the `[b_i]` in
+the same cyclic order (points of an acausal circle in `∂AdS_3`, e.g. lifts of points of the boundary slice,
+or fixed points on the limit curve). Let `x(t)`, `y(s)` be the geodesics from `p_2` to `p_1` and from `p_4` to
+`p_3`. Then
+
+`min_{t,s} ½ tr(x(t)^{-1} y(s)) = [√(N_13 N_24) + √(N_14 N_23)] / √(N_12 N_34)`,
+
+which is `> 1` if the pairs `{1,2}`, `{3,4}` are unlinked in the cyclic order, including when they share an
+endpoint (then the infimum `1` is not attained), and `≤ 1` if they are linked. Since two points `x, y` of
+`AdS_3` are joined by a spacelike geodesic iff `½|tr(x^{-1}y)| > 1`, unlinked geodesics are everywhere
+spacelike separated.
+
+*Proof.* `det(u + v) = det u + det v + tr(adj(u) v)`, so `tr(adj(p_i) p_j) = N_ij` and
+`tr(x^{-1}y) = [e^{t+s}N_13 + e^{t−s}N_14 + e^{−t+s}N_23 + e^{−t−s}N_24]/√(N_12 N_34)`. The two pairs of terms are
+minimised independently (in `t+s` and `t−s`) by the arithmetic–geometric mean inequality. Write
+`N_ij = A_ij B_ij`, `A_ij = ω(a_i,a_j)`, `B_ij = ω(b_i,b_j)`. For the cyclic order `1,2,3,4` the Plücker
+relation gives `A_13 A_24 = A_12 A_34 + A_14 A_23` and the same for `B`; by Cauchy–Schwarz
+`√(N_13 N_24) ≥ √(N_12 N_34) + √(N_14 N_23)`, so the minimum is `≥ 1 + 2√(N_14N_23)/√(N_12N_34) > 1`, or `= 1`
+(not attained) if `N_23 = 0`. For linked pairs (`{1,3}`, `{2,4}`) the roles are exchanged:
+`A_12A_34 + A_14A_23 = A_13A_24` gives `√(N_12N_34) + √(N_14N_23) ≤ √(N_13N_24)`, i.e. the corresponding ratio is
+`≤ 1`. ∎
+
+Consequently all lifts of all components of an embedded class are pairwise spacelike separated (distinct
+lifts of components of a cut are unlinked or share an endpoint).
 * **H3 (the literature's prescription).** arXiv:2407.07165 minimises over collections of group elements with
   a homology condition checked on abelianised words, which allows non-embedded collections. Lemma 6.4 below
   shows these never beat embedded ones, so the two minima agree.

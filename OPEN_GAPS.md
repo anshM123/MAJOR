@@ -11,6 +11,11 @@ surfaces), not a self-contained proof. Specifically unproved here:
 * that the null congruence from each geodesic component reaches every Cauchy slice in a curve of the same
   class (used to show maximin ≤ length of every class).
 
+What *is* proved towards H: geodesics of an embedded class are pairwise spacelike separated (PROOFS.md
+Lemma 6.3'); non-embedded collections never beat embedded ones (Lemma 6.4). What remains assumed (H2): a
+pairwise spacelike-separated collection of geodesics bounding `A` topologically also bounds a *spacelike*
+region with `A` (extension of an acausal set to a Cauchy surface).
+
 ## G2. Matter (non-vacuum 2+1 spacetimes), multiply connected
 
 Not covered. The proof uses that each chiral length is a Liouville integral of intersection numbers. A
