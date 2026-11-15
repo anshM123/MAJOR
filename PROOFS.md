@@ -558,14 +558,8 @@ in `D̃`.
 `τ(x,y) = tr(X^{-1}Y)` is continuous, `|τ| > 2` by (S3), and `τ → 2` as `y → x`. Hence `τ > 2` throughout.
 Then `det(sX + tY) = s² + t² + stτ > 0` and `N(sX + tY, q) = sN(X,q) + tN(Y,q) > 0` for limit points `q`, so
 the segment lies in `D̃`; it is the geodesic `cosh`-combination of `X` and `Y`, spacelike because `τ > 2`.
-For the last claim: on `D̃`, normalising two limit points to `E_{12}`, `−E_{21}`, the positive lift has
-`x_{12} − x_{21} > 0`, so the map `X ↦ (x_{11} + x_{22}, x_{12} − x_{21})/|·|`, which induces an isomorphism on
-`π_1(SL(2,R))`, sends `D̃` into a half circle. Hence every loop in `D̃` is null-homotopic in `AdS_3`, and `D̃`
-lifts isometrically to the universal cover of `AdS_3`, a causal curve in `D̃` from `x` to `y` and the
-spacelike segment lifting to paths with the same endpoints. **[standard, cited, not re-proved]** In the
-universal cover of `AdS_3` two points joined by a spacelike geodesic segment are not causally related
-(Bonsante–Seppi, arXiv:2004.14414, §2). (If `Λ_Γ` has fewer than two points — `Γ` trivial — use two points of
-`C'` instead.) ∎
+The last claim is proved in §6.3b (Theorem C, Step 1, with Lemma K): the two points are not causally related
+in the conformal model `E`, a fortiori in `D̃`. No cited fact is used. ∎
 
 **HRT candidates.** A *candidate* for `A` is a quadruple `(C', Σ̃, γ, R)`: `C'` a slice through `∂A`; `Σ̃` a bulk
 slice anchored on `C'`; `γ ⊂ Σ` a finite disjoint union of complete geodesics of `M`, each *simple* (no self-intersection), each closed or having
@@ -598,18 +592,130 @@ Headrick–Hubeny–Lawrence–Rangamani (arXiv:1408.6300, §2.2 and footnotes 4
 be "a region of a bulk Cauchy slice" of the spacetime with its boundary, and "require all Cauchy slices to be
 acausal"; they call this the "spacelike homology" condition. Wall (arXiv:1211.3494, Definitions 7–8 and
 footnote 9) uses "complete achronal" slices, "a Cauchy surface [being] permitted to be null". Neither demands
-smoothness or a uniformly spacelike region. Conditions (S1)–(S3) are the present paper's formalisation of
-"acausal Cauchy slice of `M ∪ ∂M` anchored on a boundary Cauchy slice through `∂A`". What is **not proved
-here** is the equivalence of the two formulations: (a) that every acausal Cauchy slice of `M ∪ ∂M` lifts to a
-set whose closure is a closed disc as in (S1) (needed for `≥` with the literature's class), and (b) that every
-set satisfying (S1)–(S3) is a Cauchy slice of `M ∪ ∂M` (needed for `≤`). *Sketch for (b), relying on a cited
-structure theorem:* a globally hyperbolic spacetime with timelike boundary is a product `ℝ × Σ̄_0` with a
-Cauchy temporal function `t` and a timelike vector field tangent to the boundary (Aké–Flores–Sánchez,
-arXiv:1808.04412); `(Σ̃ ∪ C' \ Λ_Γ)/Γ` is a compact acausal surface with boundary in `∂M`; projecting it to
-`Σ̄_0` along the vector field is injective (acausality), continuous, and open (invariance of domain, boundary to
-boundary), hence a homeomorphism onto `Σ̄_0`; so the surface is a compact graph over `Σ̄_0`, `t` is bounded on
-it, and every inextensible causal curve, along which `t` takes all real values, crosses it. The hypotheses of
-the cited theorem have not been verified for `M ∪ ∂M` in this text; (a) and (b) are recorded in OPEN_GAPS.md.
+smoothness or a uniformly spacelike region. §6.3b proves that the sets satisfying (S1)–(S3) are exactly the
+acausal Cauchy slices of the spacetime with its conformal boundary (Theorems C and E), so the definition
+above *is* the first of these. Wall's larger class (achronal, possibly null slices) is **not** treated.
+
+### 6.3b The physical formulation: acausal Cauchy slices of the spacetime with its boundary **[proved]**
+
+This subsection proves that the slices of §6.3 are *exactly* the acausal Cauchy slices of the spacetime with
+its conformal boundary, so that the definition of §6.3 is the HRT prescription with the spacelike homology
+condition of Headrick–Hubeny–Lawrence–Rangamani (region of an acausal bulk Cauchy slice). All causal
+statements are made with the signed criterion; nothing uses `½|tr| > 1`.
+
+**The conformal model.** Let `D̄` be the closed hemisphere `{(χ,φ) : 0 ≤ χ ≤ π/2}` with the round metric and
+distance `d`, and `E := D̄ × R ∋ (z, θ)` with the metric `−dθ² + dχ² + sin²χ dφ²`. With
+`R(θ) = [[cos θ, sin θ],[−sin θ, cos θ]]`, `S(φ) = [[cos φ, sin φ],[sin φ, −cos φ]]` and `sinh ρ = tan χ`, the map
+`(z,θ) ↦ X = cosh ρ R(θ) + sinh ρ S(φ)` is a covering of `SL(2,R)` by the interior `E°`, and
+`−det(dX) = cos^{−2}χ (−dθ² + dχ² + sin²χ dφ²)` (`det` is the quadratic form with `R, R(θ+π/2)` of norm `1`,
+`S, S(φ+π/2)` of norm `−1`, all four orthogonal). A boundary point `(φ, θ) ∈ ∂E` corresponds to the ray of the
+rank-one matrix `b = R(θ) + S(φ)`. `PSL(2,R) ∪ ∂` is the quotient by `(θ,φ) ∼ (θ+π, φ+π)`. A *causal curve*
+in `E` is a non-constant curve along which `θ(s') − θ(s) ≥ d(z(s), z(s'))` for `s < s'`; `J^±` are defined
+accordingly. Since the metric is a product and `D̄` is geodesically convex, `y ∈ J^+(x)` iff
+`θ_y − θ_x ≥ d(z_x, z_y)`.
+
+**Lemma K (signed causal criterion).** Two points of `E` are *not* causally related iff `|Δθ| < d(z,z')`.
+In terms of the matrices attached to the points: for two interior points iff `|Δθ| < π` and `N(X,Y) > 2`; for
+an interior point and a boundary point iff `|Δθ| < π` and `N(X,b) > 0`; for two boundary points iff
+`|Δθ| < π` and `N(b,b') > 0`.
+
+*Proof.* `N(R(θ),R(θ')) = 2cos Δθ`, `N(S(φ),S(φ')) = −2cos Δφ`, `N(R,S) = 0`. Hence
+`N(X,Y) = 2cosh ρ cosh ρ' cos Δθ − 2 sinh ρ sinh ρ' cos Δφ`, while
+`cos d(z,z') = cos χ cos χ' + sin χ sin χ' cos Δφ = (1 + sinh ρ sinh ρ' cos Δφ)/(cosh ρ cosh ρ')`. So
+`N(X,Y) > 2 ⇔ cos Δθ > cos d`. As `d ∈ [0,π]`: if `|Δθ| ≤ π`, `cos Δθ > cos d ⇔ |Δθ| < d`; if `|Δθ| > π ≥ d` the
+points are causally related. The other two cases are the limits `ρ' → ∞`, and `ρ, ρ' → ∞`, after dividing by
+`cosh ρ'` (and `cosh ρ`). ∎
+
+**Lemma L (lifting acausal circles and the domain).** (i) An acausal circle `C'` with positive lift `p` lifts to
+a closed curve `C̃' ⊂ ∂E`, the graph `θ = c(φ)` of a function with `|c(φ) − c(φ')| < d(φ,φ')` for `φ ≠ φ'`, with
+`p ∈ R_+·(R(c(φ)) + S(φ))`; any two of its points are not causally related.
+(ii) Let `Λ̃ ⊂ C̃` be the lift of `Λ_Γ` (`Γ` non-trivial, so `Λ_Γ` has at least two points) and
+`𝔼_Γ := {x ∈ E : x is not causally related to any λ ∈ Λ̃}`. Then `𝔼_Γ` is open in `E` and causally convex (a
+causal curve of `E` between two of its points lies in it), and `(z,θ) ↦ [X]` is a homeomorphism of `𝔼_Γ ∩ E°`
+onto `D̃` whose inverse is given by the positive lift.
+
+*Proof.* (i) Write `p(u) ∈ R_+(R(θ(u)) + S(φ(u)))`. `N(p,p') > 0` reads `cos Δθ > cos Δφ`, so `φ(u) ≠ φ(u')` for
+`u ≠ u'`: `u ↦ φ(u)` is a continuous injection of a circle into a circle, hence a homeomorphism, and `θ` is
+locally a function `c` of `φ` with `|Δc| < |Δφ|` for nearby points. A continuous lift `c : R → R` is therefore
+1-Lipschitz with `c(φ + 2π) = c(φ) + 2πk`, `|k| ≤ 1`; if `|k| = 1` then `|c(φ+π) − c(φ)| = π`, contradicting
+`cos Δc > cos π`. So `k = 0`, `|Δc| ≤ d` and, since `cos Δc > cos d`, `|Δc| < d`. Lemma K gives the last claim.
+(ii) Open: `Λ̃` is compact and `{(x,λ) : |θ_x − θ_λ| ≥ d}` is closed. Causally convex: if `w` on a causal curve
+from `x` to `y` were in `J^+(λ)` then so would `y` be; if in `J^−(λ)`, so would `x`. If `x ∈ 𝔼_Γ ∩ E°`, Lemma K
+gives `N(X, λ) > 0` for all `λ`, so `[X] ∈ D̃` and `X` is its positive lift. Injectivity: another preimage of
+`[X]` is `(θ + kπ, φ + kπ)`, `k ≠ 0`; for odd `k` its distance to `λ` is `π − d` and `|Δθ + kπ| ≥ π − |Δθ| > π − d`;
+for even `k`, `|Δθ + kπ| > π ≥ d`; so it is causally related to `λ`. Surjectivity: let `X` be a positive lift of
+a point of `D̃` and `λ_0 ∈ Λ̃`. `N(X,λ_0) > 0` gives `cos(θ − θ_{λ_0}) > −1`, so the preimage `x` of `X` can be
+chosen with `|θ_x − θ_{λ_0}| < π`, and then `|θ_x − θ_{λ_0}| < d_0 := d(z_x, z_{λ_0})`. For another `λ`, with
+`d_λ := d(z_x, z_λ)`: `N(X,λ) > 0` says that `θ_x − θ_λ` is within `d_λ` of a multiple `2πm` of `2π`. If `m ≠ 0`
+then `|θ_λ − θ_{λ_0}| > 2π − d_λ − d_0`, whereas `|θ_λ − θ_{λ_0}| < d(z_λ, z_{λ_0}) ≤ 2π − d_0 − d_λ` (path through
+the antipode of `z_x`). So `m = 0` and `x ∈ 𝔼_Γ`. ∎
+
+**The spacetime with boundary.** `M̄ := 𝔼_Γ/Γ`. Its interior is `M = D̃/Γ`; its boundary `∂M̄ = (𝔼_Γ ∩ ∂E)/Γ`
+consists of the boundary points not causally related to the limit set, i.e. (§6.1) the domains of
+dependence of the components of `C \ Λ_Γ` — one cylinder per asymptotic region, on which the boundary theory
+lives. This is the bulk-with-boundary of arXiv:1408.6300. A *Cauchy slice of `M̄`* is a subset met exactly
+once by every inextensible causal curve of `M̄`; it is then acausal (a causal curve between two of its points
+extends to an inextensible one). Causal curves of `M̄` are the projections of those of `𝔼_Γ`.
+
+**Theorem C (slices are Cauchy).** Let `C'` be a `Γ`-invariant acausal circle containing `Λ_Γ` and let `Σ̃`
+satisfy (S1)–(S3) with boundary `C'`. Then `Σ̄ := (Σ̃ ∪ (C' \ Λ_Γ))/Γ` is a Cauchy slice of `M̄`, and
+`Σ̄ ∩ ∂M̄ = (C' \ Λ_Γ)/Γ` is a Cauchy slice of `∂M̄`.
+
+*Proof.* Identify `Σ̃` with its preimage in `𝔼_Γ` (Lemma L) and let `G` be its closure in `E`, i.e.
+`Σ̃ ∪ C̃'` (S1).
+*Step 1: no two points of `G` are causally related.* For `x ≠ y` in `Σ̃`, `N(X,Y) > 2` in the positive lift
+(Lemma 6.3a, first part). `N(X,Y) > 2` implies `cos Δθ > −1`; `Δθ` is continuous on the connected set of pairs
+of distinct points of the disc `Σ̃` and tends to `0` at the diagonal, so `|Δθ| < π`; Lemma K. Two points of
+`C̃'`: Lemma L(i). For `x ∈ Σ̃`, `b ∈ C̃'`: `b` is a limit of points of `Σ̃`, so `|θ_b − θ_x| ≤ d(z_x, z_b)`. The
+same closure argument shows that `G` contains no two points on a vertical line and is the graph of a
+1-Lipschitz function over its projection. If `|θ_b − θ_x| = d(z_x,z_b)`, the Lipschitz function has slope
+exactly one along the minimising segment from `z_x` to `z_b`, whose points other than `z_b` are interior; two
+of them give points of `Σ̃` with `|Δθ| = d`, contradicting the first case. So `|θ_b − θ_x| < d`.
+*Step 2: `G` is the graph of a continuous function `f : D̄ → R`.* The projection `G → D̄` is continuous,
+injective (Step 1: points on a vertical line are causally related), maps the boundary circle `C̃'`
+homeomorphically onto `∂D̄` (Lemma L(i)) and the open disc `Σ̃` into the open disc; by invariance of domain
+the image of `Σ̃` is open, and it is closed in the open disc because `G` is compact; so it is everything.
+*Step 3: every inextensible causal curve `κ` of `𝔼_Γ` meets `G`.* Otherwise `κ` lies in `{θ < f}` or in
+`{θ > f}`; by time reversal assume the former, and parametrise `κ` towards the future. `θ` increases along
+`κ` and is bounded by `max f`, and `d(z(s),z(s')) ≤ θ(s') − θ(s)`, so `κ` converges to a point `q ∈ E` with
+`θ_q ≤ f(z_q)`. `q ∉ 𝔼_Γ` because `κ` is inextensible. So `q` is causally related to some `λ ∈ Λ̃`. If
+`q ∈ J^−(λ)`, then `κ ⊂ J^−(q) ⊂ J^−(λ)`, contradicting `κ ⊂ 𝔼_Γ`. If `q ∈ J^+(λ)` and `q ≠ λ`, the point
+`q' = (z_q, f(z_q)) ∈ G` lies in `J^+(q) ⊂ J^+(λ)` and `q' ≠ λ` (else `q ∈ J^+(λ) ∩ J^−(λ) = {λ}`); but `q'` and
+`λ` are both in `G`, contradicting Step 1.
+*Step 4.* A point of `κ ∩ G` lies in `𝔼_Γ ∩ G = Σ̃ ∪ (C̃' \ Λ̃)`. By Step 1 there is exactly one. An
+inextensible causal curve of `M̄` lifts to one of `𝔼_Γ`, and its intersections with `Σ̄` correspond to the
+intersections of the lift with `Σ̃ ∪ (C̃' \ Λ̃)`, which is `Γ`-invariant: exactly one. The boundary statement
+is the same argument in `∂E` (or: `C̃' \ Λ̃` is a graph over each gap of `∂D̄ \ z(Λ̃)`). ∎
+
+**Theorem E (converse: every acausal Cauchy slice is of this form).** Let `Σ̄` be a Cauchy slice of `M̄` and
+`Σ̂ ⊂ 𝔼_Γ` its preimage. Then the closure of `Σ̂` in `E` is `Σ̂ ∪ Λ̃`, `C̃' := (Σ̂ ∩ ∂E) ∪ Λ̃` is the lift of a
+`Γ`-invariant acausal circle `C'`, and `Σ̃ := Σ̂ ∩ E°` satisfies (S1)–(S3) with boundary `C'`. Hence
+`Σ̃ ↦ Σ̄` is a bijection between the slices of §6.3 and the Cauchy slices of `M̄`.
+
+*Proof.* Two points of `Σ̂` are not joined by a causal curve of `𝔼_Γ` (its projection would meet `Σ̄` twice,
+or be a closed causal curve through `Σ̄`, which extended periodically meets it infinitely often); by causal
+convexity they are not causally related in `E`. So `Σ̂` is the graph of a function `g` over a subset `U ⊂ D̄`
+with `|g(z) − g(z')| < d(z,z')`. For `z ∈ D̄ \ z(Λ̃)` the set `{θ : (z,θ) ∈ 𝔼_Γ} = ⋂_λ (θ_λ − d(z,z_λ), θ_λ + d(z,z_λ))`
+is an open interval, non-empty (it contains the point of the graph of Theorem C for the pleated slice of
+any cut class, e.g. the empty one with auxiliary points), and the vertical segment over it is an
+inextensible causal curve of `𝔼_Γ`; it meets `Σ̂` exactly once. So `U = D̄ \ z(Λ̃)`. `g` is 1-Lipschitz, hence
+extends continuously to `D̄`; since `|g(z) − θ_λ| < d(z, z_λ)`, the extension takes the value `θ_λ` at `z_λ`.
+Therefore the closure of `Σ̂` is the graph of the extension `ḡ` — a closed disc — and equals `Σ̂ ∪ Λ̃`; its
+boundary circle `C̃'` is the graph of `ḡ` over `∂D̄`, with `|Δḡ| < d` for all pairs (pairs in `Σ̂`: shown;
+pairs involving `λ`: definition of `𝔼_Γ`, and Lemma L(i) for `λ, λ'`), so by Lemma K it projects to a circle
+with a positive lift, i.e. an acausal circle. This is (S1). (S2): `Σ̂` is `Γ`-invariant. (S3) in the signed
+form: Lemma K gives `N(X,Y) > 2` for distinct points of `Σ̃`, and the matrices are the positive lifts
+(Lemma L(ii)). Bijectivity: Theorem C shows the map is well defined, and `Σ̃` is recovered as the interior
+part of the preimage. ∎
+
+**Corollary (the definition of §6.3 is the HRT prescription with spacelike homology).** By Theorems C and
+E, a candidate `(C', Σ̃, γ, R)` in the sense of §6.3 is the same thing as: a Cauchy slice `Σ̄` of the spacetime
+with boundary `M̄` (necessarily acausal) whose boundary passes through `∂A`; a finite disjoint union `γ ⊂ Σ̄`
+of simple complete geodesics of `M`, closed or anchored at `∂A`; and a region `R ⊂ Σ̄` with `∂R = γ ∪ A'`. For
+`C' ∋ A` this is verbatim the condition "`ℛ_A` is a region of a bulk Cauchy slice with `∂ℛ_A = A ∪ ℰ_A`" with
+Cauchy slices "required to be acausal" (arXiv:1408.6300, §2.2, footnotes 4, 10). Restricting to slices that
+contain `A` itself does not change the infimum: the lower bound of Theorem H holds for all slices through
+`∂A`, and the candidate constructed for the upper bound has `C' = C ⊃ A`.
 
 ### 6.4 Separation Lemma **[proved]**
 
@@ -1052,6 +1158,7 @@ containing intervals the corresponding statement is **not proved** (§5.4).
 | Lemma 6.4 (Separation Lemma), Lemma 6.4a | proved; tested numerically (160,000 cases, control fails) |
 | Lemma T (invariant spun family of ideal triangles containing a cut; closed geodesics are not edges, triangles spiral onto them) | proved given one cited topological fact (triangulations of a compact surface with prescribed vertices); the spiralling step is proved in the text |
 | Proposition P (pleated slice: embedded, invariant, pairwise spacelike separated, contains the geodesics) | proved, given Lemma T |
+| §6.3b: Lemma K (signed causal criterion), Lemma L, Theorem C (slices of §6.3 are acausal Cauchy slices of the spacetime with boundary), Theorem E (converse) | written in revision 7; **not yet reviewed by any referee** |
 | Theorem H (HRT entropy of §6.3 = minimum over cut classes) | proved, given Lemma T and the standard fact in Lemma 6.3a, **for the definition of §6.3** (homology region on an acausal, possibly non-smooth and asymptotically lightlike slice; simple components). One independent automated audit of revision 5: no error in the statement, gaps G2–G4 repaired in revision 6. Closed-geodesic case re-audited separately: see OPEN_GAPS.md G6 |
 | Theorem 2 (HRT, contraction-map inequalities, arbitrary regions) | proved for the HRT entropy of §6.3 (acausal slices); with smooth spacelike slices only when no region has endpoints |
 | Theorem 3' (HRT, full cone, whole-boundary parties) | proved for the HRT entropy of §6.3; also with smooth spacelike homology regions, given (C1)–(C3) of Proposition S |
