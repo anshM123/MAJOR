@@ -99,3 +99,28 @@ boundary slice. A positive answer would need a Lorentzian replacement for the Cr
 one would be a new constraint distinguishing time-dependent from static holography in `d ≥ 3`. The 2+1
 analogue is true (simply connected case). No proof strategy is available yet; recorded as a candidate, to be
 ranked with the others.
+
+## 5. Failure of one construction versus a no-go theorem
+
+Section 4 shows that **one** construction fails: the isometry-invariant measure on totally geodesic
+(1,1)-planes of `AdS_4` is infinite on the planes meeting any piece of spacelike surface, so there is no
+invariant Lorentzian Crofton formula of that type. This is **not** a no-go theorem for positive-measure
+representations in general, for three reasons.
+
+1. *Non-invariant measures are not excluded.* In the reduction of §2 the measure `ν = −∂_a∂_b D` is built from
+   the entropies themselves and is not invariant under anything. An analogue for 2-surfaces would be a
+   positive measure on some auxiliary space of "test objects" whose intersection numbers with HRT surfaces
+   reproduce areas; nothing here rules that out.
+2. *For finitely many regions, existence of a representation is equivalent to the conjecture itself.* By the
+   graph-model characterisation of the RT cone (Bao et al., arXiv:1505.07839), an entropy vector lies in the
+   cone iff it is the vector of minimal cuts of a weighted graph, i.e. iff it has a positive combinatorial
+   "measure" representation. So asking whether *some* positive representation exists for each finite family of
+   regions is exactly Question V4, not a stronger or weaker statement.
+3. *What a genuine no-go would be.* Either an explicit configuration violating one RT inequality (which
+   would settle V4 negatively), or a proof that no assignment of test objects can be made consistently for
+   all regions at once (a statement about a continuum representation, strictly stronger than failure of the
+   inequalities and not implied by §4).
+
+What §4 does establish is narrower and should be quoted as such: the specific mechanism of the AdS3 proof —
+splitting the area functional into Riemannian Crofton integrals via a product structure of the isometry
+group — is unavailable in `AdS_4`.
