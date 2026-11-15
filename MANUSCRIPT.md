@@ -219,15 +219,31 @@ on its normal plane by a boost. If the homology region were required to be smoot
 further argument (replacing the slice near such geodesics by a boost-twisted smooth strip) would be needed;
 it is not given here.
 
+**The slices are exactly the acausal Cauchy slices (Theorems C and E).** Work in the conformal model
+`E = (closed hemisphere) × R` of the universal cover of `AdS_3` with its boundary, with metric
+`−dθ² + dχ² + sin²χ dφ²`. Two points of `E` are causally unrelated iff `|Δθ|` is less than their spherical
+distance; in matrix terms, for interior points, iff `|Δθ| < π` and `tr(X^{-1}Y) > 2` (a signed condition — the
+unsigned `|tr| > 2` is false as a criterion inside the spacetime, as an explicit rotating BTZ pair shows).
+The spacetime with its conformal boundary is `M̄ = 𝔼_Γ/Γ`, where `𝔼_Γ ⊂ E` is the set of points causally
+unrelated to the lifted limit set. *Theorem C:* a slice in our sense, together with its boundary curve, is
+the graph of a continuous function over the closed hemisphere, and every inextensible causal curve of `𝔼_Γ`
+crosses it exactly once: a curve staying below the graph would converge to a point outside `𝔼_Γ`, hence
+causally related to a limit point `λ`; it cannot be in the past of `λ` (the curve would be), and if it is in
+the future of `λ` then the point of the graph above it is too, contradicting acausality of the graph, which
+contains `λ`. *Theorem E:* conversely every Cauchy slice of `M̄` lifts to the graph of a strictly 1-Lipschitz
+function over the hemisphere minus the limit points, which extends continuously, and satisfies our slice
+conditions. Hence the definition used here is the HRT prescription with the homology condition of
+Headrick–Hubeny–Lawrence–Rangamani: the homology region is a region of an acausal Cauchy slice of the
+bulk with its boundary.
+
 **Smooth slices for whole-boundary regions (Proposition S).** If the cut consists of closed geodesics only,
-they form a compact, spacelike, acausal 1-submanifold of the globally hyperbolic quotient `Ω(C)/Γ` of the
-invisible domain of the boundary slice (acausal by the Separation Lemma; globally hyperbolic with the pleated
-slice as a Cauchy surface). The extension theorem of Bernal–Sánchez then gives a smooth spacelike Cauchy
-surface containing them; its lift is a slice in our sense. So for regions that are unions of whole
-boundaries, Theorem H and Theorem 3′ hold with smooth spacelike homology regions, including at rotating
-horizons. This depends on cited results that we have not re-derived (the structure of Cauchy surfaces of
-`Ω(C)`; the extension theorem applied to a closed curve). For regions with endpoints the smooth version is
-open.
+they are acausal in the globally hyperbolic quotient `Ω/Γ` of the invisible domain of the boundary slice (of
+which the pleated slice is a Cauchy surface, by the argument of Theorem C). A thin smooth spacelike strip
+around them is a compact acausal spacelike hypersurface with boundary, to which the extension theorem of
+Bernal–Sánchez applies as stated; it gives a smooth spacelike Cauchy surface containing the geodesics,
+whose lift is a slice in our sense. So for regions that are unions of whole boundaries, Theorem H and
+Theorem 3′ hold with smooth spacelike homology regions, including at rotating horizons. For regions with
+endpoints the smooth version is open.
 
 ## 8. Numerical tests
 

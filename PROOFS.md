@@ -985,50 +985,70 @@ surface that is smooth and spacelike along `g(A)` must have a tangent plane that
 the geodesic; such strips exist locally, but fitting one into a global invariant slice is not done here. This
 is the content of the caveat about smooth slices in §6.3.
 
-### 6.6a Proposition S (smooth spacelike slices for cuts made of closed geodesics) **[proved, given cited theorems whose hypotheses are listed]**
+### 6.6a Proposition S (smooth spacelike slices for cuts made of closed geodesics) **[proved, given one cited theorem used within its stated hypotheses]**
 
 The pleated slice is not smooth and not uniformly spacelike at rotating closed geodesics. For cuts without
-arcs — the case of regions that are unions of whole boundaries — a smooth spacelike slice exists. (Route
-suggested by the first referee of revision 5.)
+arcs — the case of regions that are unions of whole boundaries — a smooth spacelike slice exists.
 
 **Proposition S.** Let `c ∈ 𝒞(A)` consist of closed geodesics only, with axes `𝓕`. Then there is a set `S̃`
-satisfying (S1)–(S3) which is a smooth spacelike surface and contains `g(A')` for every axis `A' ∈ 𝓕`.
+satisfying (S1)–(S3) which is a smooth spacelike surface and contains `g(A')` for every axis `A' ∈ 𝓕`; by
+Theorem C it defines an acausal Cauchy slice of `M̄`.
 
-*Cited inputs.*
-(C1) For an acausal circle `C`, the invisible domain `Ω(C) := {[X] : N(X,p) > 0 for all p ∈ C} ⊂ D̃` is the
-domain of dependence of every properly embedded acausal disc with boundary `C`; in particular it is globally
-hyperbolic and such a disc is a Cauchy surface of it. (C2) Every Cauchy surface of `Ω(C)` is a disc properly
-embedded in `AdS_3` whose closure in `AdS_3 ∪ ∂AdS_3` is a closed disc with boundary `C`. (Mess; Barbot;
-Bonsante–Seppi, arXiv:2004.14414, §4. **Not re-checked against the sources.**)
-(C3) Bernal–Sánchez, arXiv:gr-qc/0512095, Theorem 1.1 (wording checked): "Let `(M,g)` be a globally
-hyperbolic spacetime, and let `H ⊂ M` be a spacelike and acausal compact `m`-submanifold with boundary. Then,
-there exists a spacelike Cauchy hypersurface `S` such that `H ⊂ S`." It is used with `m = 1` and `∂H = ∅`; that
-the empty boundary is allowed is the usual convention and consistent with their Remark 4.14 on
-non-connected `H`, but was **not verified in their proof**.
+**The one cited theorem.** Bernal–Sánchez, arXiv:gr-qc/0512095, Theorem 1.1 (wording checked): "Let `(M,g)` be
+a globally hyperbolic spacetime, and let `H ⊂ M` be a spacelike and acausal compact `m`-submanifold with
+boundary. Then, there exists a spacelike Cauchy hypersurface `S` such that `H ⊂ S`." It is applied below to a
+compact *hypersurface with non-empty boundary* (a strip), not to the closed curves themselves, so that no
+convention about empty boundaries or codimension is relied on. Their proof was not re-read. Also cited:
+Geroch's theorem that a spacetime with a (topological) Cauchy surface is globally hyperbolic.
 
-*Proof.* Let `Z` be the pleated slice of Proposition P for `c`. `Z ⊂ Ω(C)`: for `X = Σλ_i p(u_i)` and `p ∈ C`,
-`N(X,p) > 0`. By (C1) `Z` is a Cauchy surface of `Ω(C)`. `Γ` preserves `C`, hence `Ω(C)`, and acts on it freely
-and properly discontinuously (it does on `D̃`). `N := Ω(C)/Γ` is globally hyperbolic with Cauchy surface `Z/Γ`:
-an inextensible causal curve of `N` lifts to one of `Ω(C)`, which meets `Z` exactly once, so the curve meets
-`Z/Γ` exactly once.
-Let `H ⊂ N` be the image of `⋃_{A' ∈ 𝓕} g(A')`: finitely many disjoint simple closed spacelike geodesics, a
-compact 1-submanifold. `H` is acausal in `N`: a causal curve of `N` between two points of `H` would lift to a
-causal curve of `Ω(C) ⊂ D̃` between two distinct points of `⋃ g(A') ⊂ Z`, contradicting Lemma 6.3a applied to
-`Z`. By (C3) there is a smooth spacelike Cauchy hypersurface `S ⊃ H` of `N`. Its preimage `S̃ ⊂ Ω(C)` is smooth,
-spacelike, `Γ`-invariant (S2), contains the `g(A')`, and is a Cauchy surface of `Ω(C)`: an inextensible causal
-curve of `Ω(C)` projects to an inextensible causal curve of `N`, which meets `S` at exactly one parameter
-value, so the curve meets `S̃` exactly once. By (C2) `S̃ ∪ C` is a closed disc with boundary `C` (S1). (S3): for
-distinct `x, y ∈ S̃` with positive lifts and `τ = tr(X^{-1}Y)`: if `−2 < τ ≤ 2`, the segment `{[sX + tY]}` lies
-in `Ω(C)` (`N(sX+tY, p) > 0`, `det = s² + t² + stτ > 0`) and is a timelike or lightlike geodesic from `x` to
-`y`, contradicting acausality; so `τ ∉ (−2, 2]`; `τ → 2` near the diagonal and the set of pairs of distinct
-points of the disc `S̃` is connected, so `τ > 2` for all pairs. ∎
+*Proof.* Let `C` be the boundary circle, `C̃ ⊂ ∂E` its lift (Lemma L), and
+`Ω := {x ∈ E° : x not causally related to any point of C̃}`, the invisible domain of `C`. `Ω ⊂ 𝔼_Γ`, `Ω` is open,
+causally convex and `Γ`-invariant, and `N := Ω/Γ` is a smooth spacetime (`Γ` acts freely and properly
+discontinuously on `D̃ ⊃ Ω`).
+
+*(1) `Z` is a Cauchy surface of `Ω`, and `N` is globally hyperbolic.* Let `Z` be the pleated slice of `c`,
+`G = Z ∪ C̃` its closure, the graph of `f : D̄ → R` (Theorem C, Steps 1–2). `Z ⊂ Ω`: Step 1. Let `κ` be an
+inextensible causal curve of `Ω` not meeting `Z`, say inside `{θ < f}`, future-parametrised; as in Step 3 it
+converges to `q ∈ E` with `θ_q ≤ f(z_q)`, `q ∉ Ω`. If `q` is an interior point, it is causally related to some
+`p ∈ C̃`; `q ∈ J^−(p)` gives `κ ⊂ J^−(p)`, impossible in `Ω`; `q ∈ J^+(p)` gives `(z_q, f(z_q)) ∈ J^+(p) ∩ G`,
+contradicting Step 1 unless it equals `p`, which is impossible for an interior `z_q`. If `q ∈ ∂E`, then `q`
+lies on the vertical line through `p = (z_q, f(z_q)) ∈ C̃`, at or below it, so `κ ⊂ J^−(q) ⊂ J^−(p)`,
+impossible. Hence every inextensible causal curve of `Ω` meets `Z`, exactly once (Step 1). As in Theorem C,
+Step 4, `Z/Γ` is then met exactly once by every inextensible causal curve of `N`; by Geroch's theorem `N` is
+globally hyperbolic.
+
+*(2) A compact acausal spacelike strip.* Let `H_0 ⊂ N` be the image of `⋃_{A' ∈ 𝓕} g(A')`: finitely many
+disjoint simple closed spacelike geodesics. `H_0` is acausal in `N`: a causal curve of `N` between two points
+of `H_0`, or a closed one through a point of `H_0`, lifts to a causal curve of `Ω` between two distinct points
+of `⋃ g(A') ⊂ Z`, contradicting Step 1. The normal bundle of each component is a rank-2 bundle with fibre
+metric of signature `(1,1)`, time-oriented because `N` is; it therefore has a smooth unit spacelike section
+`n` (the unit spacelike vectors of a time-oriented `(1,1)` plane form two lines exchanged by `−1`, and the
+bundle of such lines over a circle is trivial since `N` is orientable). For small `δ > 0`,
+`H_δ := {exp(s·n(t)) : |s| ≤ δ}` is a smooth compact embedded surface with boundary, spacelike (its tangent
+plane along `H_0` is spanned by the spacelike tangent and the orthogonal spacelike `n`; spacelikeness is an
+open condition). *`H_δ` is acausal for small `δ`:* otherwise there are causally related `x_k ≠ y_k` in
+`H_{1/k}`; passing to a subsequence, `x_k → x`, `y_k → y` in `H_0`, and `y ∈ J^+(x)` because the causal relation
+of a globally hyperbolic spacetime is closed; as `H_0` is acausal, `x = y`. But a spacelike hypersurface is
+acausal inside a small enough neighbourhood `U` of each of its points, and by strong causality causal curves
+between points sufficiently close to `x` stay in `U`; contradiction.
+
+*(3) Extension and lift.* By the cited theorem there is a smooth spacelike Cauchy hypersurface `S ⊃ H_δ ⊃ H_0`
+of `N`. Its preimage `S̃ ⊂ Ω` is smooth, spacelike, `Γ`-invariant (S2), contains the `g(A')`, and is met exactly
+once by every inextensible causal curve of `Ω` (project the curve to `N`). As in the proof of Theorem E:
+two points of `S̃` are not causally related in `E` (causal convexity of `Ω`); for every `z` in the open disc
+the vertical segment `{θ : (z,θ) ∈ Ω}` is a non-empty open interval (it contains the point of `Z`) and an
+inextensible causal curve of `Ω`; so `S̃` is the graph of a function `g` on the open disc with
+`|Δg| < d`; since `|g(z) − c(φ)| < d(z, (π/2, φ))` for every boundary point, `g` extends continuously by `c` on
+`∂D̄`. Hence the closure of `S̃` is a closed disc with boundary `C̃` (S1), and Lemma K gives `N(X,Y) > 2` for
+distinct points (S3). ∎
 
 **Corollary (Theorem H with smooth spacelike homology regions, `∂A = ∅`).** If `A` is a union of whole
 boundary components, the infimum in the definition of `S^ε(A)` is unchanged when slices are in addition
 required to be smooth spacelike surfaces: it is `≥` the unrestricted infimum, and Proposition S applied to a
 minimising class (which has no arcs), with the homology region defined by the parity rule of §6.7, gives a
-candidate with a smooth slice. Given (C1)–(C3). For regions with endpoints the smooth version remains
-**open**: the arcs are not compact and (C3) does not apply.
+candidate with a smooth slice. For regions with endpoints the smooth version remains **open**: the arcs are
+not compact, so the extension theorem does not apply, and near an arc's end the slice would have to be
+controlled up to the conformal boundary.
 
 ### 6.7 Theorem H (the HRT entropy is the minimum over cut classes) **[proved, given Lemma T]**
 
@@ -1134,14 +1154,38 @@ containing intervals the corresponding statement is **not proved** (§5.4).
   components.
 * *Regulator:* horoball (equivalently horocycle, equivalently boundary-point rescaling) cut-offs at the
   endpoints, below the threshold `ε_0` of §3.2.
-* *Gravitational input:* none beyond the definition of the HRT entropy in §6.3 (minimal extremal curve
-  anchored on `∂A`, subject to the spacelike homology condition on a bulk slice satisfying (S1)–(S3)). The
-  null curvature condition, maximin and minimax are not used.
-* *Cited mathematics:* the structure of the spacetimes (Mess; Barbot; Bonsante–Krasnov–Schlenker); measure
-  zero of the limit set; the Crofton formula; existence of triangulations of marked surfaces and spinning
-  (Lemma T); the graph characterisation and closedness of the cone (Bao et al.) for Theorem 3'.
+* *Gravitational input:* the HRT prescription in the following form and nothing else. `S(A)` is `1/4G_N` times
+  the least regulated length of a finite disjoint union `γ` of simple complete geodesics of `M`, closed or
+  anchored at `∂A`, for which there is a Cauchy slice `Σ̄` of the spacetime with its conformal boundary `M̄`
+  (necessarily acausal; not required to be smooth) with boundary through `∂A` and a region `R ⊂ Σ̄` with
+  `∂R = γ ∪ A`. By Theorems C and E this is the definition of §6.3. The null curvature condition, maximin
+  and minimax are not used. **Not covered:** definitions requiring a smooth, uniformly spacelike homology
+  region when regions have endpoints (covered for whole-boundary regions by Proposition S); definitions
+  allowing achronal slices with null pieces (Wall); definitions in which the homology region is not required
+  to lie in a Cauchy slice.
+* *Cited mathematics:* the structure of the spacetimes (Mess; Barbot; Bonsante–Krasnov–Schlenker), namely
+  proper discontinuity on `D̃` and the identification of the asymptotic boundaries; measure zero of the limit
+  set; the Crofton formula; existence of triangulations of a compact surface with prescribed vertices
+  (Lemma T, Step 3); the graph characterisation and closedness of the cone (Bao et al.) for Theorem 3'. The
+  acausality of pleated sets is proved here and is also Proposition 3.8 of Mazzoli–Viaggi, arXiv:2206.06946.
 
-## 7. Status table (§§1–5 after three referee passes; §§6.3–6.9: revision 6)
+**What is and is not new relative to Mazzoli–Viaggi (statements read in full, §3 of arXiv:2206.06946).**
+Their Definition 3.3 / 3.5 and Propositions 3.7, 3.8: for *any* acausal curve `Λ ⊂ ∂H^{2,n}` and *any* maximal
+`Λ`-lamination, the pleated set "is a topological Lipschitz acausal subsurface"; Lemma 3.6(i): two geodesics
+with endpoints on `Λ` have acausal union iff their endpoint pairs are disjoint (non-crossing). No group
+action is needed, and closed leaves with spiralling leaves are included. With `n = 1`, `Λ = C`, and the
+lamination consisting of the edges of `𝒯` and the axes of `𝓕` (closed and maximal by (T3), (T4)), this gives
+directly that `Z` is an acausal Lipschitz surface. **So Lemma 6.4 and Proposition P are not new.** What this
+text adds, and what their paper does not contain:
+1. Lemma T: an *invariant* maximal lamination of that kind *containing a prescribed cut* on a finite-type
+   surface with funnels, with leaves anchored at boundary points outside the limit set;
+2. Theorems C and E: such a surface (and every acausal Cauchy slice) is a Cauchy slice of the spacetime with
+   boundary `M̄` — the invisible domain of the *limit set*, which is larger than the invisible domain of the
+   curve — with prescribed boundary Cauchy slice;
+3. the homology region and the converse direction, i.e. Theorem H;
+4. Lemma A, Lemma B, Theorem 1, Theorem 3 and their consequence for HRT (Theorems 2, 3').
+
+## 7. Status table (§§1–5 after three referee passes; §§6.3–6.9: revision 7)
 
 | Statement | Status |
 |---|---|
@@ -1161,9 +1205,9 @@ containing intervals the corresponding statement is **not proved** (§5.4).
 | §6.3b: Lemma K (signed causal criterion), Lemma L, Theorem C (slices of §6.3 are acausal Cauchy slices of the spacetime with boundary), Theorem E (converse) | written in revision 7; **not yet reviewed by any referee** |
 | Theorem H (HRT entropy of §6.3 = minimum over cut classes) | proved, given Lemma T and the standard fact in Lemma 6.3a, **for the definition of §6.3** (homology region on an acausal, possibly non-smooth and asymptotically lightlike slice; simple components). One independent automated audit of revision 5: no error in the statement, gaps G2–G4 repaired in revision 6. Closed-geodesic case re-audited separately: see OPEN_GAPS.md G6 |
 | Theorem 2 (HRT, contraction-map inequalities, arbitrary regions) | proved for the HRT entropy of §6.3 (acausal slices); with smooth spacelike slices only when no region has endpoints |
-| Theorem 3' (HRT, full cone, whole-boundary parties) | proved for the HRT entropy of §6.3; also with smooth spacelike homology regions, given (C1)–(C3) of Proposition S |
+| Theorem 3' (HRT, full cone, whole-boundary parties) | proved for the HRT entropy of §6.3; also with smooth spacelike homology regions, given Proposition S |
 | Lemma 6.4 / Proposition P: novelty | **not new in substance**: Mazzoli–Viaggi, arXiv:2206.06946 (Lemma 3.6, Theorem A); independent proofs here in a different setting |
-| Proposition S (smooth spacelike slice through a cut made of closed geodesics) | proved given cited (C1)–(C3); (C1), (C2) not re-checked against sources; use of (C3) with empty boundary not verified in its proof |
+| Proposition S (smooth spacelike slice through a cut made of closed geodesics) | proved given Bernal–Sánchez Theorem 1.1, applied to a compact acausal spacelike strip with boundary (hypotheses verified in the text; their proof not re-read) and Geroch's theorem; revision 7, not yet refereed |
 | Variant of the definition with *smooth* spacelike slices, regions with endpoints | **not proved** |
 | Matter; higher dimensions; cusps; conical defects; non-orientable quotients; endpoints not on one slice | not covered |
 
