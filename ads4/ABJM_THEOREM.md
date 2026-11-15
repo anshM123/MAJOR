@@ -1,11 +1,20 @@
 # A rigorous `N^{3/2}` law for the ABJM three-sphere partition function
 
-Status: proof written 15 Nov 2026; numerical consistency checks in `ads4/code/abjm_bounds.py`; **not yet
-refereed**. Novelty: the *result* is accepted physics (Drukker–Mariño–Putrov, arXiv:1007.3837;
-Herzog–Klebanov–Pufu–Tesileanu, arXiv:1011.5487; Mariño–Putrov, arXiv:1110.4066). What is claimed here is
-a complete proof with explicit error bounds. The literature audit found no such proof (it found the
-statement "their derivation remains largely conjectural", arXiv:2602.10196), but the search of the
-mathematical literature was not exhaustive.
+Status: proof written 15 Nov 2026 and checked by one independent automated referee (hostile brief; same
+model family as the author; not a human expert). Verdict: "the proof of (U), (L) and the fixed-k asymptotics
+is correct; no invalid step", with errors found only in the remarks and framing, corrected below. The
+referee recomputed the bounds independently and compared them with exact values and with the Airy formula.
+
+**What is and is not new.** The `N^{3/2}` law and its coefficient are established physics
+(Drukker–Mariño–Putrov, arXiv:1007.3837; Herzog–Klebanov–Pufu–Tesileanu, arXiv:1011.5487; Mariño–Putrov,
+arXiv:1110.4066) and no novelty is claimed for them. What appears to be new, after searches of arXiv and
+INSPIRE by two agents (not exhaustive): (a) a complete proof of the leading asymptotics as a stated theorem;
+(b) explicit inequalities valid at every finite `N`. A competing route exists and should be credited: `ρ` is a
+positive trace-class operator, so `Π_{i≤N} λ_i ≤ Z ≤ inf_z z^{−N} Π(1 + zλ_i)`, and any rigorous Weyl law for its
+eigenvalues gives the leading term; Laptev–Schimmer–Takhtajan (arXiv:1510.00045) prove such laws for
+neighbouring operators, and Kashaev–Mariño–Zakany (arXiv:1505.02243) relate the ABJM operator to them at a
+physics level of rigour, but the conclusion for `Z(N,k)` is not drawn there. The lower-bound technique used
+here is the standard positive-definiteness (Onsager-type) argument of rigorous statistical mechanics.
 
 ## Statement
 
@@ -13,19 +22,29 @@ For integers `N ≥ 1` and real `k > 0` let
 
 `Z(N,k) := (1/N!) (4πk)^{−N} ∫_{R^N} Π_i dx_i/(2cosh(x_i/2)) · Π_{i<j} tanh²((x_i − x_j)/(2k))`.
 
-(This is the localised `S³` partition function of `U(N)_k × U(N)_{−k}` ABJM theory after the Cauchy
-determinant identity; equivalently `Z = (1/N!) Σ_σ (−1)^σ ∫ Π ρ(x_i, x_{σ(i)})` with the Fermi-gas kernel
-`ρ(x,y) = (2πk)^{−1} (2cosh(x/2))^{−1/2} (2cosh((x−y)/(2k)))^{−1} (2cosh(y/2))^{−1/2}`. The localisation
-argument that leads to this integral is **not** part of the theorem.)
+(Relation to the physics. This is the Fermi-gas form of the localised `S³` partition function of
+`U(N)_k × U(N)_{−k}` ABJM theory, Mariño–Putrov eqs. (3.2)–(3.5), after the Cauchy determinant identity
+`det[1/(2cosh((x_i−x_j)/2k))] = 2^{−N} Π_{i<j} tanh²((x_i−x_j)/2k)`. It is positive and equals the standard
+`Z_{S³}`, not merely its modulus (checked directly for `N = 1`, where it is `1/(4k)`). Two steps upstream are
+**physics-level and outside the theorem**: supersymmetric localisation itself, and the passage from the
+Kapustin–Willett–Yaakov integral — a `2N`-dimensional oscillatory integral that is not absolutely
+convergent — to the Fermi-gas form by Fourier transforms and Fresnel integrals. Equivalently `Z = (1/N!) Σ_σ (−1)^σ ∫ Π ρ(x_i, x_{σ(i)})` with the Fermi-gas kernel
+`ρ(x,y) = (2πk)^{−1} (2cosh(x/2))^{−1/2} (2cosh((x−y)/(2k)))^{−1} (2cosh(y/2))^{−1/2}`. The theorem is about the integral displayed above.)
 
 **Theorem.** Let `F(N,k) := −log Z(N,k)` and `f_0 := π√(2k)/3`. For all `N ≥ 1`, `k > 0`:
 
 (U) `F ≤ f_0 N^{3/2} + log N! + N log(8πk) − (N/2) log(2π²kN)`;
 
-(L) for every `θ ∈ (0,1)` and `a > 0` with `c_1 := π²k − 2∫_0^a v > 0`, where `v(u) := −2 log tanh(|u|/(2k))`,
+(L) for every `θ ∈ (0,1)` and `a > 0`, with `c_1 := π²k − 2∫_0^a v = 2∫_a^∞ v > 0` and `v(u) := −2 log tanh(|u|/(2k))`,
 `F ≥ (2/3) √(θ c_1/2) N^{3/2} − N( 7ζ(3)k²θ/(2c_1) + v(a)/2 ) + log N! + N log(πk(1−θ))`.
 
-Consequently `F(N,k) = (π√(2k)/3) N^{3/2} + O_k(N log N)` as `N → ∞` (take `1 − θ = a = N^{−1/2}`).
+Consequently, **for each fixed `k`**, `F(N,k) = (π√(2k)/3) N^{3/2} + O(N log N)` as `N → ∞` (take
+`1 − θ = a = N^{−1/2}`). Explicitly (referee's evaluation):
+`−(√2/(3π√k)) N (log N + 2 log 2k + 2) − (7ζ(3)/(2π²)) kN − O(√k N) ≤ F − f_0N^{3/2} ≤ (N/2) log(kN) + 0.733 N`.
+The bounds (U), (L) themselves hold for all `N ≥ 1` and all real `k > 0`, but the asymptotic statement is
+**not uniform in `k`**: the leading law follows only when `k/N → 0` and `k√N/log N → ∞`. In the 't Hooft
+regime `k = N/λ` the error term in (L) is of the same order as the leading term (relative size `≈ 0.29 λ^{−1/2}`),
+so the theorem neither captures nor contradicts the planar free energy.
 
 With `L²/G_N` related to `N, k` as in the `AdS_4 × S⁷/Z_k` solution, `f_0 N^{3/2} = πL²/(2G_N)`, the
 regularised on-shell action of Einstein gravity on Euclidean `AdS_4`. So the theorem says that the exact
@@ -98,18 +117,26 @@ The right side is maximal at `μ = √(θc_1N/2)`, where `Nμ − 2μ³/(3θc_1)
    `∫v = π²k`. For such a gas the mean-field (local density) energy `min_σ ∫σ|x|/2 + (π²k/2)∫σ²` is exact to
    leading order, and equals `f_0 N^{3/2}`. The Fermi-gas computation of Mariño–Putrov gives the same number
    as the phase-space volume `{|x| + |p| ≤ 2μ}/(4π²k)`; here it appears without any semiclassical expansion.
-2. *What is not proved.* The next terms (`N^{1/2}` with coefficient fixed by `B = k/24 + 1/(3k)`, the
-   `−¼ log N`, the Airy function) — the error term here, `O(N log N)`, is larger than all of them. A sharper
-   quantum upper bound `F ≤ f_0 N^{3/2} + (2 log 2 + √(2k)) N` follows from Araki's log-majorisation
-   `e^{−(U+T)} ≺ e^{−U/2}e^{−T}e^{−U/2}` and a coherent-state trial density matrix; it is sketched in
-   `ads4/TARGET.md` §5 and not written out.
-3. *Consistency checks* (`abjm_bounds.py`): `Z(1,1) = 1/4` and `Z(2,1) = 1/(16π)` by quadrature; (L) and (U)
-   bracket the exact values of `F(N,1)` for `N = 1,…,4` (using the published closed forms
-   `1/4, 1/(16π), (π−3)/(64π), (10−π²)/(1024π²)`, the last two taken from the literature without
-   re-derivation); the ratio of the two bounds to `f_0N^{3/2}` is `(0.80, 1.21)` at `N = 10²`,
-   `(0.976, 1.036)` at `N = 10⁴`, `(0.997, 1.005)` at `N = 10⁶`.
-4. *Scope.* The proof uses only: positivity, monotonicity and convexity of `v` on the half-line, `∫v`, and
-   `U(x) = |x|/2 + O(1)`. It therefore applies verbatim to any matrix integral of this "ideal Fermi gas"
-   form with a convex decreasing pair potential and a linear trap, e.g. with real `k`, and gives
-   `F = (2/3)√(∫v · N³ · s/2)`-type laws for traps of slope `s`. Which other localised partition functions
-   (mass deformations, `N_f` flavours, other quivers) satisfy the hypotheses has not been examined.
+2. *What is not proved.* Localisation; the equivalence of the oscillatory integral with the Fermi-gas form;
+   everything subleading — the `N^{1/2}` term fixed by `B = k/24 + 1/(3k)`, the logarithm (`+¼ log N` in `F`,
+   i.e. `−¼ log N` in `log Z`), the Airy function, instanton corrections. At `N = 10⁴`, `k = 1` the true value of
+   `F − f_0N^{3/2}` is `−80.3`, while the proved band is `[−3.6·10⁴, +5.3·10⁴]`: the theorem is consistent with
+   the conjectured Airy form and far weaker than it. Nothing is proved about the 't Hooft regime, about any
+   observable other than `Z_{S³}`, or about bulk dynamics. The best error the method gives is
+   `+(½ + o(1)) N log N` above (a product trial state cannot do better) and, with `a ∝ N^{−1/2}/log N`,
+   `−N log log N − O(N)` below. A sharper upper bound of order `N` via Araki's log-majorisation and coherent
+   states is **only a sketch** (`ads4/TARGET.md` §5) and is not claimed.
+3. *Consistency checks.* Author (`abjm_bounds.py`): `∫v = π²k`, `m_1 = 7ζ(3)k²/2` for `k = 1,2,3`; `Z(1,1) = 1/4`,
+   `Z(2,1) = 1/(16π)` by quadrature; (L) and (U) bracket the exact `F(N,1)`, `N ≤ 4`; ratios of the bounds to
+   `f_0N^{3/2}`: `(0.80, 1.21)` at `N = 10²`, `(0.976, 1.036)` at `10⁴`, `(0.997, 1.005)` at `10⁶`.
+   Referee (independent scripts): exact `Z` by diagonalising `ρ` — `Z(1,k) = 1/(4k)` to `10^{−15}`; `Z(N,1)`,
+   `N = 2,3,4`, equal to `1/(16π), (π−3)/(64π), (10−π²)/(1024π²)` to `≈10^{−14}`; Airy formula with
+   `A(1) = log 2/4 − ζ(3)/(8π²)` agrees with exact `F` to `≈10^{−12}` for `N = 10–20`; (L) `≤ F ≤` (U) for
+   `k = 1,2,3`, `N ≤ 14`, and against the Airy formula up to `N = 10⁶`; random scan of `(θ,a)` for six values of
+   `k`, `N ≤ 30`: no violation; direct minimisation of `E_*` at `N = 5, 20, 60` respects the certificate bound.
+   For `N ≲ 8` the best form of (L) is the trivial one from `tanh² ≤ 1`.
+4. *Scope.* The proof uses only: `v ≥ 0` even, decreasing and convex on `(0,∞)` with limit `0`; `∫v < ∞`;
+   `∫_0^∞ u v(u) du < ∞`; a singularity at `0` mild enough that `N v(a) = o(N^{3/2})` while `∫_0^a v → 0`; and a
+   trap `U(x) = s|x| + O(1)`. For such an integral the same argument gives `F = (2/3)√(s ∫v) N^{3/2} (1 + o(1))`
+   (ABJM: `s = ½`, `∫v = π²k`). Which other localised partition functions (mass deformations, flavours, other
+   quivers) satisfy these hypotheses has not been examined.
