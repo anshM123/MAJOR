@@ -52,10 +52,53 @@ claimed in arXiv:2506.18086 "up to certain disclaimers" and is not universally a
 
 ## G6. Independent verification
 
-* The proof has been reviewed by one independent automated referee (report summarised in the manuscript once
-  received). It has not been checked by a human expert and is not formalised.
-* Numerical tests cover the conclusion of Theorem 1 in two topologies; Lemma A's construction itself is not
-  exercised in code.
+* Two rounds by one automated referee (same model family as the author; not a human expert; nothing is
+  formalised). Round 1: no fatal error, repairs listed. Round 2: no fatal error; the referee regards as
+  established Lemma A, Facts 3.1–3.2, Lemma B, Theorem 1, Lemma G, Lemma F, Theorem 3 for whole-boundary
+  parties, the length formula and Lemma 6.4; as conditional the two statements about HRT; as not established
+  Theorem 3 for regions with endpoints, H1 and H2.
+* The round-2 repairs were applied afterwards (revision 3) and have **not** been re-read by the referee.
+* Numerical tests: EXPERIMENTS.md. Lemma A is tested directly only on the cylinder (`π_1 = Z`).
+
+## G6a. Referee's list: implications asserted but not proved
+
+Seriousness: F = fatal for the affected statement if false; S = changes scope; C = cosmetic.
+
+| # | Location | Item | Seriousness |
+|---|---|---|---|
+| 1 | §1.1 | convex cocompactness, `dim Λ < 1`, `Λ` null: cited only, citations unchecked | C |
+| 2 | §1.2 | uniqueness of the reduced representative of a class | C |
+| 3 | §1.3(c) | minimality for multiply covered closed geodesics | C |
+| 4 | §1.3(d) | isotopy to geodesic position for ideal arcs | C |
+| 5–8 | Lemma A | each piece's neighbourhood lies in one cell; small horoballs meet the arrangement only in rays; closure of `U'_r` at marked points; parallel-copy step for proper powers | C (all checked true by the referee) |
+| 9–10 | §3 | unfolding Crofton to the quotient; existence of `ε_0` | C |
+| 12 | §4 | intersection numbers preserved by non-smooth homeomorphisms | C |
+| 15 | Lemma G | several terminals per party in the graph-model definition | C |
+| 16 | Lemma F | normal coordinates determine the class (standard, not re-proved) | C |
+| 19 | §5.4 | six missing steps | S (Theorem 3 for intervals) |
+| 20 | §6.1 | proper discontinuity, convexity, structure of the asymptotic boundaries: cited | S if misquoted |
+| 21 | §6.1 | lifted slice is the graph of an increasing homeomorphism; equivariant extension | C |
+| 23 | §6.2(a) | the long invariant geodesic lies in the spacetime and the short one does not | F for H if false; argument now included |
+| 25 | (6.1) | identification of the spacetime cut-off with horocycles | C |
+| 26 | H1 | spacelike-homologous extremal surfaces are embedded cut classes | S |
+| 27 | H2 | every embedded class is admissible | S — **the main open item** |
+| 28 | H3 | the homology condition of arXiv:2407.07165 implies the colouring hypothesis of Lemma 6.4 | C |
+| 31 | §5 | closedness and graph characterisation of the cone: cited | C |
+
+(Items 11, 13, 14, 17, 18, 22, 24, 29, 30 of the referee's list were errors or omissions in revision 2 and are
+repaired in revision 3.)
+
+## G6b. Where a counterexample could conceivably live (referee's list)
+
+* **H2:** an embedded class whose geodesics do not bound a spacelike region. Then the proved functional would
+  be below the HRT entropy for some region and the HRT conclusion could fail. Judged unlikely given Lemma 6.3'.
+* **H1:** an admissible extremal configuration that is not an embedded cut class.
+* **Marking:** a twist mismatch between spacetime classes and the identification of the two surfaces. Theorem 1
+  would still hold for the mis-marked functional, but that functional would not be HRT.
+* **Unbalanced inequalities at finite cut-off:** the constant in Theorem 1(2) can be negative; the statement is
+  only that the difference diverges to `+∞`.
+* **Out of scope by assumption:** cusps, conical defects, non-orientable quotients, endpoints not on one slice,
+  matter.
 
 ## G7. Secondary target (SYK Gaussianity)
 

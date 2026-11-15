@@ -1,8 +1,10 @@
 # Covariant holographic entropy inequalities for vacuum rotating wormholes in 2+1 dimensions
 
 *Draft of 15 November 2026. Written by an AI system (Claude, Anthropic) during an autonomous research
-session; reviewed by an automated referee, not by a human expert, and not formalised. Status of every
-statement is given in §9.*
+session. Reviewed in two rounds by an automated referee of the same model family, not by a human expert;
+not formalised. The last set of repairs was applied after the second round and has not been re-read by the
+referee. Status of every statement is given in §9. Complete proofs are in PROOFS.md; this text gives the
+statements and the ideas.*
 
 ## Abstract
 
@@ -135,15 +137,18 @@ on strings of weight ≤ 1 in the three relevant bits). So the outputs of cut-an
 
 **Lemma G (graph realisation; suggested by the referee).** For a finite positive combination
 `μ = Σ w_k τ_k` of test classes, `A ↦ min_{c ∈ 𝒞(A)} i(μ, c)` is the min-cut function of a finite weighted
-graph: vertices are the crossing points of the `τ_k` (drawn minimally) and their ideal ends, the latter
-labelled by parties; edges are the segments between them.
+graph: vertices are the intersection points of the geodesic representatives of the `τ_k` and their ideal
+ends, the latter labelled by parties; edges are the segments between them, weighted by `w_k`. (A cut with
+region `W` cuts exactly the segments with one end in `W`; conversely a thickened vertex set, together with a
+collar of `A`, is a region whose boundary crosses each outgoing segment once.)
 
 **Theorem 3.** For parties that are unions of whole boundary circles (`P = ∅`), the vector
 `(min_c Σ_j w_j ℓ_{X_j}(c))_A` lies in the holographic entropy cone, i.e. satisfies every inequality valid for
-RT. (For regions with endpoints an argument is given in PROOFS.md §5.4; it is not written at the same level
-of detail and is not claimed here as a theorem.)
+RT. For regions with endpoints the corresponding statement is **not proved**; a sketch and the list of missing
+steps are in PROOFS.md §5.4.
 
-*Proof.* The Liouville measure pushes forward to a countable positive combination `μ` of test classes with
+*Proof.* After discarding geodesics homotopic into the ideal boundary (which meet no cut), the Liouville
+measure pushes forward to a countable positive combination `μ` of test classes, with finite coefficients and
 `i(μ, c) = Σ_j w_j ℓ_{X_j}(c)`. Finite partial sums `μ_n` give graph vectors (Lemma G). A finite filling family
 of arc classes of positive measure bounds the complexity of the minimisers, so they range over a finite set
 and `min_c i(μ_n, c) → min_c i(μ, c)`. The cone is closed. ∎
@@ -156,8 +161,10 @@ region per end of `S`. A boundary Cauchy slice projects homeomorphically to the 
 and `X_R`; together with the marking it determines an identification of marked surfaces, hence of cut
 classes, including boundary twists.
 
-**Proposition (lengths).** (a) `(ρ_L(γ), ρ_R(γ))` translates a spacelike geodesic of `D̃` by
-`½(ℓ_L(γ) + ℓ_R(γ))`. (b) For boundary points `p = ab^T`, `q = cd^T` with `N = ω(a,c)ω(b,d) > 0`,
+**Proposition (lengths).** (a) `(ρ_L(γ), ρ_R(γ))` translates a spacelike geodesic of `D̃`, joining its attracting
+and repelling fixed points on the limit curve, by `½(ℓ_L(γ) + ℓ_R(γ))`. (When `ℓ_L ≠ ℓ_R` there is one other
+invariant spacelike geodesic, of translation length `½|ℓ_L − ℓ_R|`; it is lightlike-related to the limit curve
+and not in `D̃`. It is the inner horizon of BTZ.) (b) For boundary points `p = ab^T`, `q = cd^T` with `N = ω(a,c)ω(b,d) > 0`,
 `x(t) = (e^t p + e^{−t} q)/√N` is the geodesic between them and its regulated length is
 `log N + 2 log(1/ε) = ½(λ_L + λ_R) + 2 log(1/ε)`, `λ` being horocycle distances in `H²`.
 
@@ -169,8 +176,11 @@ Hence the regulated length of the spacetime geodesics of class `c` is `½(ℓ^ε
 > **H.** In these spacetimes the HRT entropy of `A` is `(1/4G_N) min_{c ∈ 𝒞(A)} ½(ℓ^ε_{X_L}(c) + ℓ^ε_{X_R}(c))`.
 
 This is the prescription used in the literature for these spacetimes. It has three parts. (H1) Extremal
-candidates are embedded cuts: reason given, not written as a proof. (H2) Every embedded class is admissible
-(its geodesics are mutually spacelike and bound a spacelike region with `A`): **assumed**. (H3) The
+candidates are embedded cuts: reason given, not written as a proof. (H2) Every embedded class is admissible:
+its geodesics are pairwise spacelike separated — **proved** (PROOFS.md Lemma 6.3': for boundary points
+`p_i = a_i b_i^T` on an acausal circle, `min ½tr(x^{-1}y) = [√(N_13N_24) + √(N_14N_23)]/√(N_12N_34) > 1` for
+unlinked geodesics, by the Plücker relation in each chiral factor and Cauchy–Schwarz) — and bound a spacelike
+region together with `A` — **assumed**. (H3) The
 literature's minimisation over possibly non-embedded collections agrees with the minimisation over embedded
 cuts: proved (PROOFS.md Lemma 6.4). A derivation of H from maximin is sketched in DERIVATIONS.md §5 at the
 level of rigour of Wall's theorems.
@@ -183,19 +193,36 @@ but would not transfer to HRT.
 
 These test conclusions, not proofs. Details and commands: EXPERIMENTS.md.
 
-*(table inserted after the certified runs complete; see EXPERIMENTS.md)*
+| Test | Setting | Result |
+|---|---|---|
+| Conclusion of Theorem 1, cylinder, interval regions, 1–3 metrics with independent boundary data | strong subadditivity, monogamy, 5- and 7-party cyclic | 0 violations in 3,000 trials per case (750 for 7-party); control functional `min_c max_j ℓ_j` violates in 19–31% |
+| Conclusion of Theorem 1, four-boundary wormhole, whole-boundary regions, Schottky groups, exhaustive word enumeration with a length lower bound, homology by exponent parity | monogamy, strong subadditivity | 1 metric: 0 / 40; 2 metrics (`X_L ≠ X_R`, 37 of 40 with a relative Dehn twist): 0 / 40, a non-boundary class in the minimal cut in 22 |
+| Same topology, Fenchel–Nielsen construction, 1–3 metrics | monogamy, strong subadditivity | 0 / 600 per case, non-boundary classes in ≥ 99% of trials |
+| Lemma A itself, cylinder, exact integers: for arbitrary input classes, does an output dominated against all test arcs exist? | four inequalities | yes in 7,800 / 7,800; for a false inequality, no in 1,077 / 2,400 |
+| Lemma G on the disc (referee) | min over classes versus graph max-flow | equal in 5,464 / 5,464 |
+| Lemma 6.3' | closed formula versus direct evaluation | agree in 20,000 configurations |
+
+Limitations: double precision, not interval arithmetic; the second row discards over-long enumerations and
+filters base geometries; Lemma A is tested directly only for `π_1 = Z`; the conclusion for interval regions on
+surfaces with non-abelian fundamental group was tested at scale in arXiv:2407.07165 and is not repeated.
+Three earlier test versions were vacuous or used a non-discrete representation; they are documented in
+EXPERIMENTS.md and not counted.
 
 ## 9. Status of statements
 
 | Statement | Status |
 |---|---|
-| Lemma A, Lemma B, Theorem 1 | proved; reviewed by one automated referee (round 1: no fatal error; repairs incorporated) |
-| Lemma G, Theorem 3 for whole-boundary parties | proved; referee round 2 pending at time of writing |
-| Theorem 3 for regions with endpoints | argument only; not claimed |
-| Length proposition, marking | proved |
-| Hypothesis H (in particular H2) | assumed |
-| Statement about HRT | proved given H |
+| Lemma A, Lemma B, Theorem 1 (contraction-map inequalities, arbitrary regions, any number of metrics) | proved; two referee rounds, no error found |
+| Lemma G, Theorem 3 for whole-boundary parties (full cone) | proved; referee round 2: correct after repairs, which are applied |
+| Theorem 3 for regions with endpoints | **not proved** |
+| Length proposition, marking, Lemma 6.3' (spacelike separation), Lemma 6.4 | proved |
+| Hypothesis H1 | reason given, not proved |
+| Hypothesis H2 (spacelike region) | **assumed** |
+| Statements about HRT | proved **given H** and the HRT formula |
 | Non-vacuum spacetimes, higher dimensions, extremal horizons, conical defects | not covered |
+
+The unconditional result is Theorem 1 (and Theorem 3 for whole-boundary parties): a theorem about pairs, or
+finite families, of hyperbolic surfaces. The statement about gravity is conditional on H.
 
 ## 10. What is new and what is not
 

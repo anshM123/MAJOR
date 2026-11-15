@@ -116,7 +116,9 @@ python3 lemmaA_test.py 0 400
 | reversed monogamy (control) | **1077 / 2400** | 0 / 22326 |
 
 The control shows that (L2) is a discriminating test (it fails 45% of the time for a false inequality) and
-that (L1) is not (a single test class cannot detect the false inequality). Limitation: the cylinder has
+that (L1) has no demonstrated power (a single test class cannot detect the false inequality; the referee's
+variant with random combinations of test classes does detect it, see E6b). (L2) searches for *some* dominating
+tuple among classes and test arcs winding at most twice; it never executes the construction in the proof. Limitation: the cylinder has
 `π_1 = Z`; Lemma A is not tested directly on a surface with non-abelian fundamental group.
 
 ## E5. Lemma 6.3' (spacelike separation), `spacelike_check.py`
@@ -155,7 +157,35 @@ included, is the homology condition enforced.
 python3 -u fourholed_certified.py 3 40
 ```
 
-Results: see the table at the end of this section (filled in when the run completes).
+Results (seed 3, 40 trials per row):
+
+| functional | violations of monogamy / strong subadditivity | incomplete enumerations | trials with a non-boundary class in a minimal cut | metrics with a relative Dehn twist | words visited (median / max) |
+|---|---|---|---|---|---|
+| sum, k=1 | 0 / 40 | 0 | 40 | — | 209 / 1,258 |
+| sum, k=2 (HRT; mean horizon \|l_L − l_R\| = 0.49) | 0 / 40 | 0 | 22 | 37 | 83,544 / 386,934 |
+| sum, k=3 | see `code` log; run not finished when this file was last edited | | | | |
+
+Ping-pong margin ≥ 0.030; endpoint-mapping error ≤ 8·10⁻¹³.
+
+Caveats: this is double precision, not interval arithmetic; trials whose enumeration exceeds 400,000 words are
+discarded and base geometries are filtered for non-vacuity, so the sample is biased; in 18 of the 40 two-metric
+trials the minimal cuts were unions of horizons only (the twist made the common neck too expensive), so those
+trials test less.
+
+Independent re-runs by the referee: `fourholed_certified.py 5 12` gave the same calibration and 0 violations
+for k = 1 and k = 2 (12 trials each); `lemmaA_test.py 1 40` gave 0 failures with the control failing 124/240.
+
+## E6b. Referee's own tests (scripts in the session scratchpad, not in the repository)
+
+* Lemma G on the disc: the class-enumeration value of `F_μ(A)` equals the max-flow min-cut of the
+  chord-arrangement graph in 5,464 / 5,464 cases (3,715 non-zero), including arcs with both ends in one piece,
+  several terminals per party, and parties with none.
+* Random finite `μ` on the cylinder: monogamy and the 5-party cyclic inequality, 0 / 3,000 violations each;
+  reversed-monogamy control violated in 2,477 / 3,000.
+* Pure `AdS_3` with independent left and right point configurations (round 1): monogamy and 5-party cyclic
+  hold to rounding in 3,000 trials each.
+* Lemma B end to end in `H²` with two marked points: deficit converges to `2κ = 0.61370564`.
+* Spacelike-separation formula: 400 random configurations, agreement to 3·10⁻¹⁰.
 
 ## E7. What has not been tested numerically
 

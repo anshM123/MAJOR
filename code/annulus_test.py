@@ -10,7 +10,7 @@ Regulated lengths (horocycles invariant under the deck group; additive constants
    arc i--j homotopic to the boundary segment of coordinate length d :  2*log(2*sinh(d/2))
    core geodesic: ell.
 Multi-metric functional: F(A) = min_c sum_j w_j * length_j(c)  with the SAME class c in all metrics.
-Controls (not of Crofton type, expected to violate): min_c max_j length_j(c),  min_c prod_j ...  ."""
+Control (not of Crofton type, expected to violate): min_c max_j length_j(c)."""
 import numpy as np, itertools, sys
 from functools import lru_cache
 from contraction import catalogue, REV_MMI
@@ -54,12 +54,8 @@ def F(Aarcs, n, metrics, w, mode):
         ls = [lengths(M, sig, core, ell, s) for ell, s in metrics]
         if mode == "sum": v = sum(wi*li for wi, li in zip(w, ls))
         elif mode == "max": v = max(ls)
-        elif mode == "indep": v = None
         best = min(best, v)
     return best
-
-def F_indep(Aarcs, n, metrics, w):   # separate minimisation in each metric (trivially in the cone) - reference only
-    return sum(wi*F(Aarcs, n, [m], [1.0], "sum") for wi, m in zip(w, metrics))
 
 def run(name, ineq, k, trials, rng, mode):
     lhs, rhs, parties = ineq; N = len(parties); worst = np.inf; viol = 0

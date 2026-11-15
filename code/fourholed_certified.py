@@ -1,6 +1,11 @@
-"""Certified falsification test of Theorem 1 on the four-boundary wormhole topology (pi_1 = F_3).
+"""Falsification test of Theorem 1 on the four-boundary wormhole topology (pi_1 = F_3), with structural guarantees.
 
-What is certified in each trial (floating point, with explicit margins printed):
+"Certified" here means: guaranteed by construction plus checks in ordinary double precision with printed margins.
+It is NOT interval arithmetic.  Known biases: base geometries are kept only if a non-boundary class enters a minimal
+cut, and trials whose enumeration exceeds 400000 words are discarded.  The 'max' control computes the sum over
+components of max_j length_j (not max_j of the sum) and is only a sanity control.
+
+What is guaranteed/checked in each trial:
  (1) DISCRETE + FAITHFUL.  The group is a classical Schottky group: six pairwise disjoint closed intervals
      I_1,I_1',I_2,I_2',I_3,I_3' of the real line (in this order) and Moebius maps g_i with
      g_i(exterior of I_i) = interior of I_i'.  By the ping-pong lemma <g_1,g_2,g_3> is free of rank 3 and discrete,
@@ -59,33 +64,6 @@ def side_dist(I):
 def exit_side(x): return 2*x+1 if x < 3 else 2*(x-3)
 def inv_letter(x): return (x+3) % 6
 def length_from_trace(t): return 2*np.arccosh(max(abs(t)/2, 1.0))
-
-def enumerate_words(mats, D, w, theta, order):
-    """mats[j][x] = matrix of letter x in metric j; D[j] = side-distance matrix; order: +1 word x1..xn -> M(x1)...M(xn),
-    -1 reversed.  Returns dict parity -> (best weighted length, word) and the number of words visited."""
-    k = len(mats); cost = np.zeros((6, 6))
-    for x in range(6):
-        for y in range(6):
-            cost[x, y] = sum(w[j]*D[j][exit_side(inv_letter(x)), exit_side(y)] for j in range(k)) if y != inv_letter(x) else np.inf
-    best = {}; visited = [0]; mincost = cost[np.isfinite(cost)].min()
-    def rec(word, prods, partial):
-        first, last = word[0], word[-1]
-        if last != inv_letter(first):
-            total = partial + cost[last, first]
-            if total <= theta:
-                visited[0] += 1
-                val = sum(w[j]*length_from_trace(np.trace(prods[j])) for j in range(k))
-                par = tuple(sum(1 for x in word if x % 3 == i) % 2 for i in range(3))
-                if par not in best or val < best[par][0]: best[par] = (val, tuple(word))
-        for y in range(6):
-            if y == inv_letter(last): continue
-            p2 = partial + cost[last, y]
-            if p2 + mincost > theta: continue           # closing the word costs at least mincost more
-            if order > 0: np2 = [prods[j] @ mats[j][y] for j in range(k)]
-            else:         np2 = [mats[j][y] @ prods[j] for j in range(k)]
-            word.append(y); rec(word, np2, p2); word.pop()
-    for x in range(6): rec([x], [mats[j][x] for j in range(k)], 0.0)
-    return best, visited[0]
 
 def entropies_from_g(g):
     """F(v) = cheapest multiset of classes summing to v (shortest path in the group Z_2^3)"""

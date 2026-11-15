@@ -1,4 +1,4 @@
-# PROOFS (revision 2, after first referee round)
+# PROOFS (revision 3, after two referee rounds)
 
 Status legend: **[proved]** = complete argument written here, relying only on cited standard facts;
 **[standard]** = textbook fact, cited; **[assumed]** = hypothesis, stated explicitly where used.
@@ -27,7 +27,8 @@ of a vacuum solution. This repairs the multiply connected step for vacuum soluti
   included. `Ω = S¹ \ Λ`, and `∂_∞X = Ω/Γ` is a finite union of circles, one per funnel (for trivial `Γ`, the
   whole circle `S¹`). `X̄ = X ∪ ∂_∞X`.
   **[standard]** `Γ` is convex cocompact, the Hausdorff dimension of `Λ` is `< 1`, and in particular `Λ` has
-  Lebesgue measure zero (Beardon, *Amer. J. Math.* 93 (1971); Patterson, *Acta Math.* 136 (1976)).
+  Lebesgue measure zero (Patterson–Sullivan theory; see e.g. Patterson, *Acta Math.* 136 (1976), and Nicholls, *The Ergodic Theory of
+  Discrete Groups*. These citations were not re-checked against the sources.)
 * `P ⊂ ∂_∞X` is a finite set of *marked ideal points*; the components of `∂_∞X \ P` are the *elementary
   pieces*.
 * A *party assignment* maps each elementary piece to one of `1,…,N,O` (`O` = purifier). A *region*
@@ -78,7 +79,8 @@ the minimum over transverse representatives, intersections counted with multipli
 null-homotopic. If `τ^X` is a geodesic representative of `τ` (any ideal endpoints in the prescribed elementary
 pieces) and `c^X` the geodesic representative of `c`, then
 
-`i(τ, c) = #(τ^X ∩ c^X)` (components of `c^X` equal to `τ^X` omitted).   (1.1)
+`i(τ, c) = #(τ^X ∩ c^X)` (if a closed component `κ` of `c^X` equals `τ^X` or a geodesic that `τ^X` covers, replace
+`τ^X` by a parallel copy before counting).   (1.1)
 
 Indeed lifts of components of `c^X` have endpoints in `Λ ∪ Γ·P̃`; moving an ideal endpoint of a lift of `τ^X`
 inside a component of `Ω \ Γ·P̃` changes no linking, and (c) applies. For a closed geodesic `κ` that is simple,
@@ -227,17 +229,20 @@ arc-end (at `p`) `σ_ε` the segment of the terminal ray between `∂B_p(ε_0)` 
 which increases to `∫_0^{π/2} cos φ log(1/cos φ) dφ = 1 − log 2` as `Y → ∞`.
 
 For `E_2`: the other horoballs are based in `[−2Q_p, 2Q_p]` and, being disjoint from `{y > Y_0}`, have Euclidean
-diameter `≤ Y_0` at scale `ε_0`. Let `E_2'(ε) ⊃ E_2` be the set of geodesics meeting the ray `{x = 0, y > Y_0}`
-and some other horoball at scale `ε`. A geodesic through `(0,h)`, `h > Y_0`, has endpoints `a < 0 < b` with
-`|a| b = h²`; if it enters the region `{|x| ≤ 3Q_p, y ≤ Y_0}` below height... it must have an endpoint of
-modulus `≤ 3Q_p + Y_0 =: Q'` (a semicircle whose both endpoints have modulus `> Q'` and which separates them
-passes above every point of `{|x| ≤ 3Q_p, y ≤ Y_0}` it lies over). By symmetry take `|a| ≤ Q'`; then
+diameter `≤ Y_0` at scale `ε_0`; they lie in the box `R = {|x| ≤ 2Q_p + Y_0/2, 0 < y ≤ Y_0}`. Let `E_2'(ε) ⊃ E_2`
+be the set of geodesics meeting the ray `{x = 0, y > Y_0}` and some other horoball at scale `ε`. A geodesic
+through `(0,h)`, `h > Y_0`, has endpoints `a < 0 < b` with `|a| b = h²`. If both endpoints have modulus
+`> Q' := 2Q_p + 3Y_0/2`, the semicircle has radius `> Q'` and its height above every `x` with
+`|x| ≤ 2Q_p + Y_0/2` exceeds `Y_0`, so it misses `R`. Hence a member of `E_2'` has an endpoint of modulus
+`≤ Q'`; by symmetry take `|a| ≤ Q'`; then
 `b > Y_0²/|a|`, and
 
 `m(E_2'(ε_0)) ≤ 2∫_0^{Q'} d|a| ∫_{Y_0²/|a|}^{∞} db/(b + |a|)² = 2∫_0^{Q'} |a| d|a| /(Y_0² + a²) < ∞`.
 
 The sets `E_2'(ε)` decrease as `ε ↓ 0` to a set of geodesics with an endpoint in `Γ·P̃` (Fact 3.2), which is
-null. So `m(E_2) → 0`.
+null. So `m(E_2) → 0`. (All these sets, for every terminal ray `x_0 ∈ [−Q_p, Q_p]`, are contained in the single
+finite-measure set `{a ∈ [−Q', Q'] , |b − a| ≥ 2Y_0}` up to translation by `x_0`, so the convergence is uniform
+in the ray.)
 
 Summing over the `e(c)` ends, `Def_ε → κ e(c)`. ∎
 
@@ -286,99 +291,109 @@ Multiply by `w_j`, sum, and use `F^ε(B_r) ≤ Σ_j w_j ℓ^ε_{X_j}(δ_r)`:
 By (4.1) the left side equals `C + (Σ_j w_j)Δ log(ε_0/ε)`. If `Δ = 0` it is the constant `C`, and (4.2) gives
 `C ≥ −o(1)`, i.e. `C ≥ 0`. If `Δ > 0` statement 2 is (4.1). ∎
 
-**Remarks.** (1) For `k = 1` this is the Ryu–Takayanagi statement on a hyperbolic surface. (2) Only two
+**Remarks.** (0) In the balanced case the proof gives more: `Σ_r β_r ℓ^{ε_0}_{X_j}(δ_r) ≤ Σ_l α_l ℓ^{ε_0}_{X_j}(γ_l)` for
+each `j` separately. (1) For `k = 1` this is the Ryu–Takayanagi statement on a hyperbolic surface. (2) Only two
 properties of length are used: it is the integral of intersection numbers against a positive measure on test
 classes, and its divergence at each end is universal.
 
 ---
 
-## 5. Theorem 3 (membership in the full Ryu–Takayanagi cone) **[proved for `P = ∅`; argument for `P ≠ ∅` in §5.4, less detailed]**
+## 5. Theorem 3 (membership in the full Ryu–Takayanagi cone) **[proved for `P = ∅`; NOT proved for `P ≠ ∅`]**
 
-This section removes the restriction to inequalities with contraction maps. The observation that the
-functional is a graph min-cut for finite families of test curves is due to the first referee of this file.
+This section removes the restriction to inequalities with contraction maps, for parties made of whole
+boundary circles. The observation that the functional is a graph min-cut for finite families of test curves
+is due to the referee, who also verified Lemma G numerically on the disc (5464/5464 cases).
 
 ### 5.1 Lemma G (graph realisation) **[proved]**
 
-Let `μ = Σ_{k=1}^{m} w_k τ_k` be a finite positive combination of non-null-homotopic test classes, and
+Let `μ = Σ_{k=1}^{m} w_k τ_k` be a finite positive combination of test classes, none null-homotopic and none
+homotopic into `∂_∞X`. Without loss of generality the `τ_k` are distinct (merge equal classes, adding
+weights) and primitive (replace `σ^n` by `σ` with weight `n w`; `i(σ^n, c) = n·i(σ, c)`). Put
 `F_μ(A) := min_{c ∈ 𝒞(A)} i(μ, c)`, `i(μ,c) = Σ_k w_k i(τ_k, c)`.
 
-**Lemma G.** There is a finite weighted graph `G` with a labelling of some vertices by parties such that, for
-every region `A`, `F_μ(A)` equals the minimum weight of an edge cut of `G` separating the vertices labelled by
-parties in `A` from those labelled by parties not in `A` (purifier included). Hence `(F_μ(A))_A` is a
-graph-model entropy vector and lies in the holographic entropy cone of Bao et al.
+**Lemma G.** There is a finite weighted graph `G`, with some vertices labelled by parties, such that for every
+region `A`, `F_μ(A)` is the minimum weight of an edge cut of `G` separating the vertices labelled by parties
+in `A` from those labelled by parties not in `A` (purifier included). Hence `(F_μ(A))_A` is a graph-model
+entropy vector in the sense of Bao et al. (several terminals with the same label may be merged through an
+auxiliary vertex joined to them by edges of very large weight; a party with no terminal is an isolated
+terminal), and lies in the holographic entropy cone.
 
-*Proof.* Represent the `τ_k` by geodesics (closed, or with ideal endpoints in the prescribed pieces, chosen
-distinct), perturbed so that they are in general position (only transverse double points) and still realise
-all pairwise and self intersection numbers minimally; let `T` be their union. `G` has as vertices the double
-points of `T`, the ideal ends of the arcs (each labelled by the party of the piece containing it), and one
-extra vertex on each closed `τ_k` without double points; its edges are the segments of `T` between
-consecutive vertices, an edge on `τ_k` having weight `w_k`.
+*Proof.* Represent the `τ_k` by geodesics `τ_k^X` (closed, or with ideal endpoints in the prescribed pieces,
+chosen pairwise distinct), and let `T` be their union. No perturbation is made. The vertices of `G` are: all
+points of `T` through which more than one branch passes (any multiplicity); the ideal ends of the arcs, each
+labelled by the party of the piece containing it; and one extra vertex on each closed `τ_k^X` carrying no
+other vertex. The edges are the segments of `T` between consecutive vertices; an edge on `τ_k^X` has weight
+`w_k`.
 
-(≥) Let `c ∈ 𝒞(A)`; choose a representative transverse to `T`, missing the vertices, with
-`#(c ∩ τ_k) = i(τ_k, c)` for all `k` (geodesic representative of `c`, slightly perturbed), with homology
-region `W`. Let `S` be the set of vertices in `W`; an ideal end belongs to `S` iff its piece lies in `A`. Every
-edge with exactly one endpoint in `S` is crossed by `c`, so the cut `(S, S^c)` has weight `≤ i(μ, c)`.
+(≥) Let `c ∈ 𝒞(A)` with geodesic representative `c^X` and homology region `W`. If a component of `c^X` coincides
+with some closed `τ_k^X`, push it to a parallel copy (its count with `τ_k` becomes `0 = i(τ_k, ·)` for that
+component, counts with the other branches are unchanged). Slide `c^X` off the vertices of `T`, keeping one
+crossing with each branch through the vertex. Then `#(c ∩ τ_k^X) = i(τ_k, c)` for all `k`. Let `S` be the set
+of vertices in `W`; an ideal end lies in `S` iff its piece lies in `A`. An edge with exactly one endpoint in
+`S` is a segment from a point of `W` to a point outside `W`, so it meets `c`. Hence
+`weight(S, S^c) ≤ i(μ, c)`.
 
-(≤) Let `S` be a vertex set containing the ideal ends in pieces of `A` and no other ideal end. Let `W` be the
-union of a small closed regular neighbourhood of the vertices of `S` and of the edges with both endpoints in
-`S`, together with a thin closed collar, in `X̄`, of every elementary piece of `A`, chosen so thin that it
-meets `T` only near ideal ends lying in those pieces (which are in `S`). `W` is the closure of its interior,
-its closure meets `∂_∞X` exactly in `A`, and `∂W` is an embedded multi-curve whose arcs end exactly at the
-points of `∂A`: a cut for `A`. It crosses each edge between `S` and `S^c` once and no other edge, so
-`F_μ(A) ≤ weight(S, S^c)`. ∎
+(≤) Let `S` be a vertex set containing the ideal ends lying in pieces of `A` and no other ideal end. Let `W` be
+the union of a small closed regular neighbourhood of the vertices of `S` and of the edges with both endpoints
+in `S`, and a thin closed collar in `X̄` of the closed set `A ⊂ ∂_∞X`, so thin that it meets `T` only near ideal
+ends lying in `A` (which are in `S`). `W` is the closure of its interior, its closure meets `∂_∞X` exactly in
+`A`, and `∂W` is an embedded multi-curve whose arcs end exactly at the points of `∂A`: a cut for `A`. It crosses
+each edge between `S` and `S^c` once and no other edge, so `F_μ(A) ≤ weight(S, S^c)`. ∎
 
-### 5.2 Filling
+### 5.2 Lemma F (filling) **[proved, using the standard theory of normal coordinates]**
 
-**Lemma F.** There is a finite set `T_0` of test classes of proper arcs, each containing an open set of
-geodesics (hence of positive `m̄`-measure and, for small `ε`, of positive `m̄|_{𝒢_ε}`-measure), such that for
-every `M` the set `{c ∈ ⋃_A 𝒞(A) : Σ_{τ ∈ T_0} i(τ, c) ≤ M}` is finite.
+**Lemma F.** There is a finite set `T_0` of test classes of proper arcs, none homotopic into `∂_∞X`, each
+containing an open set of geodesics, such that for every `M` the set
+`{c ∈ ⋃_A 𝒞(A) : Σ_{τ ∈ T_0} i(τ, c) ≤ M}` is finite.
 
-*Proof.* Choose finitely many pairwise disjoint simple proper geodesic arcs with ideal endpoints in
-`∂_∞X \ P` cutting `X̄` into closed discs, each of which meets `∂_∞X` in a union of intervals (possible since
-every end of `X` is a funnel: take an ideal triangulation of the surface with boundary). Moving the ideal
-endpoints slightly keeps the class, so each class contains an open set of geodesics. A cut in minimal
-position with respect to these arcs meets each disc in arcs joining sides of the disc or marked points on
-its ideal sides, without bigons; its class is determined by the number of arcs of each of the finitely many
-combinatorial types in each disc, and these numbers are bounded in terms of the intersection numbers. ∎
+*Proof.* If `X̄` is a disc, `T_0 = ∅` and the claim is the finiteness of non-crossing pairings of `P`. Otherwise
+choose a system of pairwise disjoint simple essential geodesic arcs with ideal endpoints in `∂_∞X \ P`
+cutting `X̄` into closed discs (one arc for an annulus; `2g + b − 1` in general); every boundary circle then
+carries an arc end. Moving the ideal endpoints slightly keeps the class, so each class contains an open set
+of geodesics. A cut in minimal position with respect to the system meets each disc in arcs joining sides of
+the disc or marked points on its ideal sides, without bigons; by the standard normal-coordinate argument its
+class is determined by the numbers of arcs of each of the finitely many combinatorial types in each disc,
+and these numbers are bounded in terms of the intersection numbers with the system. ∎
 
 ### 5.3 The case `P = ∅` (parties are unions of whole boundary circles) **[proved]**
 
-**Theorem 3 (`P = ∅`).** With the notation of Theorem 1 and `P = ∅`, the vector `(F(A))_A`,
-`F(A) = min_c Σ_j w_j ℓ_{X_j}(c)`, lies in the holographic entropy cone; i.e. it satisfies every linear
-inequality valid for Ryu–Takayanagi entropies (equivalently, for all graph models).
+**Theorem 3.** With the notation of Theorem 1 and `P = ∅`, the vector `(F(A))_A`,
+`F(A) = min_c Σ_j w_j ℓ_{X_j}(c)`, lies in the holographic entropy cone: it satisfies every linear inequality
+valid for Ryu–Takayanagi entropies (equivalently, for all graph models).
 
-*Proof.* By Crofton and (B0), `ℓ_{X_j}(c) = ∫ i(τ(ĝ), c) dm̄_j(ĝ)`. Test classes form a countable set, so the
-push-forward of `Σ_j w_j m̄_j` (transported to `X_1`) under `ĝ ↦ τ(ĝ)` is a countable sum `μ = Σ_τ μ_τ τ` with
-`i(μ, c) = Σ_j w_j ℓ_{X_j}(c) < ∞` for every `c`. Let `μ_n` be finite partial sums increasing to `μ`, containing
-`T_0` from the start. By Lemma G, `(F_{μ_n}(A))_A` lies in the cone. `F_{μ_n}(A)` is non-decreasing in `n` and
-bounded by `F(A)`. A minimiser `c_n` of `F_{μ_n}(A)` satisfies `Σ_{τ∈T_0} μ_τ i(τ,c_n) ≤ F(A)`, so by Lemma F
-the `c_n` range over a finite set `𝒟`; then
-`lim_n F_{μ_n}(A) = lim_n min_{c∈𝒟} i(μ_n,c) = min_{c ∈ 𝒟} i(μ,c) ≥ F(A)`. Hence `F_{μ_n}(A) → F(A)` for every
-`A`, and the cone is closed. ∎
+*Proof.* By Crofton and (B0), `ℓ_{X_j}(c) = ∫ i(τ(ĝ), c) dm̄_j(ĝ)`. Geodesics whose class is homotopic into
+`∂_∞X` (both ends in one boundary circle, cutting off a half-plane) have `i ≡ 0` with every cut; discard them
+(their total measure is infinite). Each remaining test class `τ` has finite `m̄_j`-measure `μ_τ^{(j)}`: an arc
+not homotopic into `∂_∞X` has positive intersection number with some closed geodesic `κ` (the boundary
+geodesic of a funnel it enters, if it joins two different funnels; otherwise an essential closed curve it
+cannot be pushed off), and `μ_τ^{(j)} · i(τ, κ) ≤ ℓ_{X_j}(κ) < ∞` by Crofton. Test classes form a countable set, so the push-forward of `Σ_j w_j m̄_j`
+(transported to `X_1`) is a countable sum `μ = Σ_τ μ_τ τ` with finite coefficients and
+`i(μ, c) = Σ_j w_j ℓ_{X_j}(c) < ∞` for every `c`. Let `μ_n` be finite partial sums by whole classes, increasing
+to `μ`, containing `T_0` from the start. By Lemma G, `(F_{μ_n}(A))_A` lies in the cone. `F_{μ_n}(A)` is
+non-decreasing in `n` and `≤ F(A)`. A minimiser `c_n` of `F_{μ_n}(A)` (it exists: by Lemma F only finitely many
+classes have `i(μ_n, ·) ≤ F(A)`) satisfies `Σ_{τ∈T_0} μ_τ i(τ,c_n) ≤ F(A)`, so the `c_n` range over a finite
+set `𝒟`; then `lim_n F_{μ_n}(A) = lim_n min_{c∈𝒟} i(μ_n,c) = min_{c ∈ 𝒟} i(μ,c) ≥ F(A)`. Hence
+`F_{μ_n}(A) → F(A)` for every `A`. The cone is closed (it is polyhedral, Bao et al.). ∎
 
-### 5.4 The case `P ≠ ∅` **[argument given; the bookkeeping is less detailed than §§2–4]**
+### 5.4 The case `P ≠ ∅` **[NOT proved]**
 
-**Theorem 3 (`P ≠ ∅`).** For every linear inequality `Q(S) = Σ_l α_l S(A_l) − Σ_r β_r S(B_r) ≥ 0` valid on the
-holographic entropy cone: if `Q` is balanced at every marked point then `Q(F^ε) ≥ 0` for all `ε ≤ ε_0`;
-otherwise `Q(F^ε) → +∞`.
+**Expected statement.** For every inequality `Q` valid on the holographic entropy cone: if `Q` is balanced at
+every marked point then `Q(F^ε) ≥ 0` for all `ε ≤ ε_0`; otherwise `Q(F^ε) → +∞`.
 
-*Argument.* Validity on the cone gives `Δ_p ≥ 0` at each `p` (apply `Q` to the graph with one unit edge
-joining the two parties adjacent at `p`, all other parties isolated). By (4.1) it remains to show
-`Q(F^ε) ≥ −o(1)`. Fix `ε`, let `γ_l` be the (`ε`-independent) minimisers, `ν_ε` the push-forward of
-`Σ_j w_j m̄_j|_{𝒢_ε(X_j)}` to test classes, and `μ_n ↑ ν_ε` finite partial sums containing `T_0`. By Lemma G,
-`Σ_r β_r F_{μ_n}(B_r) ≤ Σ_l α_l F_{μ_n}(A_l) ≤ Σ_l α_l i(ν_ε, γ_l)`. Let `δ_r^{n}` be minimisers of
-`F_{μ_n}(B_r)`. Split `ν_ε = ν^{far} + ν^{near}`, `ν^{far}` = the part coming from `𝒢_{ε_0}`. Two uniform facts:
+`Δ_p ≥ 0` for such `Q` is proved (apply `Q` to the graph with one unit edge joining the two parties adjacent
+at `p`). The remainder is a sketch: push `Σ_j w_j m̄_j|_{𝒢_ε}` forward to a countable measure `ν_ε`, apply Lemma
+G to finite partial sums, and control the minimisers by splitting `ν_ε` into the part from `𝒢_{ε_0}` and the
+rest. The second referee judged the skeleton sound and completable, and listed what is missing:
 
-* for every class `c` with an arc-end at `p`, the `ν^{near}`-mass crossing its terminal ray between
-  `∂B_p(ε_0)` and `∂B_p(ε)` is at least `(Σ_j w_j)(log(ε_0/ε) − κ − θ(ε))` with `θ(ε) → 0` independent of `c`
-  (this is `log(ε_0/ε) − m(E_1) − m(E_2)` of Lemma B; the bounds there depend only on `Q_p` and `ε_0`);
-* `i(ν^{near}, c_ref) ≤ (Σ_j w_j)|∂B| log(ε_0/ε) + O(1)` for a fixed reference class `c_ref ∈ 𝒞(B)`.
+1. discard the infinite-mass trivial classes and show each remaining class has finite `ν_ε`-mass;
+2. existence of the minimisers `δ_r^n`;
+3. a two-stage argument: first, for fixed `ε`, the `δ_r^n` lie in a finite set (Lemma F and
+   `i(μ_n, δ_r^n) ≤ i(ν_ε, c_ref)`), and only then is the tail `i(ν_ε − μ_n, δ_r^n)` small for `n ≥ n(ε)`;
+4. uniformity in the class of the end estimate (available from the uniform domination noted in Lemma B);
+5. `T_0` must have positive mass in `𝒢_{ε_0}`: choose `T_0` first, then shrink `ε_0` (Fact 3.2);
+6. the explicit bound replacing "O(1)".
 
-Comparing `δ_r^n` with `c_ref` (both have `|∂B_r|` ends) these give
-`i(μ_n^{far}, δ_r^n) ≤ O(1) + (ν_ε − μ_n)`-tail terms, uniformly in `ε`; for `n` large the tail is `≤ 1`. By
-Lemma F the `δ_r^n` then lie in a finite set independent of `n` and `ε`. Passing to a subsequence with
-constant `δ_r` and letting `n → ∞`, `Σ_r β_r i(ν_ε, δ_r) ≤ Σ_l α_l i(ν_ε, γ_l)`, and Lemma B, now applied to
-finitely many classes, gives `Q(F^ε) ≥ κ(Σ_j w_j)Δ − o(1)` as in Theorem 1. ∎
+Until these are written out, **Theorem 3 is claimed only for `P = ∅`.**
 
 ---
 
@@ -386,7 +401,8 @@ finitely many classes, gives `Q(F^ε) ≥ κ(Σ_j w_j)Δ − o(1)` as in Theorem
 
 ### 6.1 The spacetimes **[standard]**
 
-`AdS_3` = `SL(2,R)` with `ds² = −det(dx)`; `SL(2,R) × SL(2,R)` acts by `x ↦ g_L x g_R^{-1}`.
+`AdS_3` = `PSL(2,R)` with `ds² = −det(dx)` (computations are done with matrix representatives in `SL(2,R)`,
+defined up to sign); `PSL(2,R) × PSL(2,R)` acts by `x ↦ g_L x g_R^{-1}`.
 
 Let `S` be an oriented surface of finite type with non-empty boundary and negative Euler characteristic, or a
 disc or an annulus, and `ρ_L, ρ_R : π_1(S) → SL(2,R)` two representations whose images are groups as in §1.1
@@ -404,13 +420,14 @@ no time-reflection symmetry, and for non-abelian `π_1` it is not stationary.
 no cusps, no conical defects).
 
 The `i`-th asymptotic boundary is `(I^i_L × I^i_R)/⟨h_i⟩`, `I^i_{L,R}` being the components of `Ω_{L,R}`
-stabilised by the peripheral element `h_i`. A *boundary Cauchy slice* is, in each asymptotic boundary, a
-closed acausal curve; its lift to `I^i_L × I^i_R` is the graph of an increasing homeomorphism
+stabilised by the peripheral element `h_i`. A *boundary Cauchy slice* is, in each asymptotic boundary, an
+acausal Cauchy curve of the boundary cylinder; its lift to `I^i_L × I^i_R` is the graph of an increasing homeomorphism
 `ψ_i : I^i_L → I^i_R` commuting with `h_i`.
 
 **Marking.** Let `φ̃ : S¹ → S¹` be the `ρ_R ∘ ρ_L^{-1}`-equivariant homeomorphism equal to the boundary map of
-the marking on `Λ_L` and to the translates of the `ψ_i` on `Ω_L`. It descends to
-`φ : ∂_∞X_L → ∂_∞X_R` and extends to a homeomorphism `X̄_L → X̄_R` in the isotopy class of the marking. A
+the marking on `Λ_L` and to the translates of the `ψ_i` on `Ω_L`. It is a monotone bijection of the circle, hence a homeomorphism; it descends to
+`φ : ∂_∞X_L → ∂_∞X_R` and extends equivariantly to the disc (e.g. by the Douady–Earle extension), giving a
+homeomorphism `X̄_L → X̄_R` in the isotopy class of the marking. A
 finite set of points of the boundary slice gives `P_L` and `P_R = φ(P_L)`; regions of the slice are regions
 (§1.1) for both surfaces; and for boundary points `p, q` of the slice with lifts `(ũ_p, ṽ_p)`, `(ũ_q, ṽ_q)`,
 `ṽ = φ̃(ũ)`, the arc class on `X_L` of the geodesic from `ũ_p` to `ρ_L(γ)ũ_q` corresponds under `φ` to the arc
@@ -423,19 +440,26 @@ Boundary points of `AdS_3` are rank-one matrices up to positive scale, `p = a b^
 `v = [Jb]` with `J = [[0,1],[−1,0]]`, so that `g_L p g_R^{-1}` corresponds to `(g_L u, g_R v)`.
 `ω(a,c) := a^T J c`.
 
-(a) For `γ ≠ 1`, `(ρ_L(γ), ρ_R(γ))` preserves exactly two geodesics of `AdS_3`, both spacelike, with
-translation lengths `½(ℓ_L(γ) + ℓ_R(γ))` and `½|ℓ_L(γ) − ℓ_R(γ)|`. The first joins the pair of attracting
-fixed points to the pair of repelling fixed points, both of which lie on the limit curve of `Γ`, and is the
-one contained in `D̃` (the convex hull of the limit curve lies in `D̃`); it is the outer horizon in BTZ, the
-second the inner horizon.
+(a) For `γ ≠ 1`, `(ρ_L(γ), ρ_R(γ))` preserves a spacelike geodesic of `AdS_3` on which it acts by translation
+of length `½(ℓ_L(γ) + ℓ_R(γ))`. This geodesic joins the attracting fixed point `(u^+, v^+)` to the repelling
+fixed point `(u^−, v^−)`, both on the limit curve of `Γ`, and lies in `D̃` (which contains the convex hull of the
+limit curve). If `ℓ_L(γ) ≠ ℓ_R(γ)` there is exactly one other invariant spacelike geodesic, with translation
+length `½|ℓ_L(γ) − ℓ_R(γ)|` (the inner horizon in BTZ); it joins `(u^+, v^−)` to `(u^−, v^+)` and is **not** in
+`D̃`. (If `ℓ_L(γ) = ℓ_R(γ)` the second geodesic is pointwise fixed and there are further invariant null
+geodesics; none of this is used.)
 
-*Proof.* Conjugate to `ρ_L(γ) = ±diag(e^{a/2}, e^{−a/2})`, `ρ_R(γ) = ±diag(e^{b/2}, e^{−b/2})`, `a = ℓ_L`,
+*Proof.* Conjugate to `ρ_L(γ) = diag(e^{a/2}, e^{−a/2})`, `ρ_R(γ) = diag(e^{b/2}, e^{−b/2})`, `a = ℓ_L`,
 `b = ℓ_R > 0`. Then `x ↦ g_L x g_R^{-1}` multiplies the entries `x_{11}, x_{12}, x_{21}, x_{22}` by
-`e^{(a−b)/2}, e^{(a+b)/2}, e^{−(a+b)/2}, e^{(b−a)/2}` (up to a common sign). The curves
-`s ↦ [[0, e^{s}],[−e^{−s}, 0]]` and `s ↦ [[e^{s}, 0],[0, e^{−s}]]` are unit-speed spacelike geodesics
-(`−det(x') = 1`), translated by `(a+b)/2` and `(a−b)/2`. An invariant geodesic has invariant endpoints on
-the boundary, i.e. rank-one eigen-matrices, which are the four matrix units; the two geodesics above are the
-only ones joining pairs of them inside `AdS_3`. ∎
+`e^{(a−b)/2}, e^{(a+b)/2}, e^{−(a+b)/2}, e^{(b−a)/2}`. The curve `s ↦ [[0, e^{s}],[−e^{−s}, 0]]` is a unit-speed
+spacelike geodesic (`−det(x') = 1`, `x'' = x`), translated by `(a+b)/2`; its endpoints are the matrix units
+`E_{12}, E_{21}`, the most expanded and most contracted directions, i.e. the attracting and repelling fixed
+points. The curve `s ↦ diag(e^{s}, e^{−s})` is a unit-speed spacelike geodesic translated by `(a−b)/2`. A
+geodesic is the intersection of the quadric with a 2-plane through the origin; an invariant geodesic spans
+an invariant 2-plane, and for `a ≠ b` the four eigenvalues are distinct, so the invariant 2-planes are the
+six coordinate planes, of which only `{x_{11} = x_{22} = 0}` and `{x_{12} = x_{21} = 0}` meet `det = 1` in a
+spacelike curve. Finally, for `x = diag(e^{s}, e^{−s})`, `tr(adj(x) E_{12}) = 0`: every point of the second
+geodesic is lightlike-related to the limit point `E_{12}`, hence lies outside the open domain `D̃` of points
+not causally related to the limit curve (argument supplied by the second referee). ∎
 
 (b) Let `p = a b^T`, `q = c d^T` with `N := ω(a,c)·ω(b,d) > 0`. Then `x(t) = (e^{t} p + e^{−t} q)/√N`,
 `t ∈ R`, is the unit-speed geodesic of `AdS_3` from `q` to `p`, and the length of its part where the
@@ -445,9 +469,9 @@ coefficient of `p` and that of `q` are both `≤ 1/ε` is `log N + 2 log(1/ε)`.
 So `det x(t) = 1`, `−det(x'(t)) = 1`, and `x'' = x` (geodesic of the quadric). The truncation is
 `e^{|t|}/√N ≤ 1/ε`, of length `2 log(√N/ε)`. ∎
 
-For `N > 0` the points are spacelike related in the sense needed; for points of a boundary Cauchy slice and
-their `Γ`-translates this holds after fixing the signs of the vectors along the lifted slice (the slice
-together with the limit curve is an achronal circle).
+In `PSL(2,R)` the sign of `N` is a choice of representatives. For two distinct points of the graph of a
+monotone map (points of the lifted boundary slice, or of the limit curve) `ω(a,c) ≠ 0` and `ω(b,d) ≠ 0`, and
+the vectors can be chosen along the graph so that `N > 0` for every pair.
 
 In `H²`, with horocycles at `[a]`, `[c]` determined by the vectors `a, c`, the signed distance between the
 horocycles is `2 log|ω(a,c)|` (Penner, *Comm. Math. Phys.* 113 (1987)); the square root of its exponential is
@@ -460,7 +484,8 @@ of `p = a_p b_p^T` —
 where `L^ε(c)` is the total regulated length of the spacetime geodesics of class `c`: for a closed component in
 the conjugacy class of `γ`, the geodesic of (a) in `D̃`; for an arc from `p` to `q` labelled by `γ`, the
 geodesic of (b) from `(ũ_p,ṽ_p)` to `(ρ_L(γ)ũ_q, ρ_R(γ)ṽ_q)`. By Fact 3.1 horoball removal and horocycle
-distance agree for `ε ≤ ε_0`. Rescaling `p → p/ε` shrinks both horoballs. Equation (6.1) is equations (58),
+distance agree once both chiral horoballs are below `ε_0`; rescaling `p → p/ε` shrinks both. For inequalities
+balanced at every endpoint the conclusion does not depend on the cut-off at all. Equation (6.1) is equations (58),
 (60) of arXiv:2407.07165 in hyperbolic-surface language.
 
 ### 6.3 Hypothesis H **[assumed]**
@@ -479,7 +504,9 @@ What H contains, item by item:
   are pairwise spacelike separated, and bound a spacelike region together with `A`. Existence follows from
   (6.2)(a),(b) and convexity of `D̃`. Pairwise spacelike separation is **proved** in Lemma 6.3' below. The
   existence of a spacelike region bounded by a pairwise-spacelike collection of geodesics and `A` (extension
-  of an acausal set to a Cauchy surface; Bernal–Sánchez for the compact case) is **assumed**.
+  of an acausal set to a Cauchy surface; Bernal–Sánchez for the compact case) is **assumed**. A natural route
+  to a proof, not carried out here, is an equivariant pleated surface over an ideal triangulation containing
+  `c` (Mess).
 
 **Lemma 6.3' (unlinked geodesics are spacelike separated) [proved; computation due to the referee,
 re-derived and checked numerically in `code/spacelike_check.py`].** Let `p_i = a_i b_i^T`, `i = 1,…,4`, be
@@ -524,9 +551,16 @@ is `c ∈ 𝒞(A)` with `i(τ, c) ≤ i(τ, c')` for all test classes `τ`, henc
 every hyperbolic structure `X`; with (3.1), `ℓ^ε_X(c) ≤ ℓ^ε_X(c')` for all `ε ≤ ε_0` when `c'` has the same
 ends.
 
-*Proof.* Put `c'` in geodesic position; let `W` be the closure of the colour-1 set and resolve the crossings
-as in Lemma A (vertices and marked points). The result is a cut for `A` made of pieces of `c'`, so any
-`τ'` realising `i(τ, c')` meets it in at most `#(τ' ∩ c')` points. Integrate as in Theorem 1. ∎
+*Proof.* Replace each component of `c'` by its geodesic representative, deleting null-homotopic components.
+The existence of a 2-colouring with the stated boundary behaviour is equivalent to: every closed curve, and
+every proper arc between two elementary pieces, meets `c'` in a number of points whose parity is prescribed
+by `A` (even for closed curves; for arcs, the parity of the number of its ends lying in `A`). These parities
+are homotopy invariants of `c'`, so the geodesic collection again admits such a colouring; geodesics that
+coincide are reduced mod 2 (an even number of copies is deleted). Let `W` be the closure of the colour-1 set.
+At each crossing all half-edges are colour changes; resolve as in Lemma A. Nothing needs resolving at marked
+points (one end each). The result is a cut `c` for `A` made of pieces of `c'`. For a test class `τ` take a
+geodesic representative, pushed off coincident closed geodesics to a parallel copy; it realises `i(τ, c')`
+and meets `c` in at most that many points. Integrate as in Theorem 1. ∎
 
 ### 6.5 Theorems 2 and 3' (covariant entropy inequalities in vacuum 2+1 gravity) **[proved given H]**
 
@@ -538,27 +572,39 @@ exactly, for every `ε ≤ ε_0`, if it is balanced at every endpoint of the reg
 parties are unions of whole boundary components); and with the difference of the two sides tending to `+∞`
 otherwise.
 
-**Theorem 3'.** The same for every inequality valid on the holographic entropy cone (proved for whole-boundary
-parties, §5.3; argument of §5.4 for intervals). Consequently, given H, the HRT entropy vectors of these
-vacuum spacetimes lie in the Ryu–Takayanagi holographic entropy cone.
+**Theorem 3'.** If all parties are unions of whole boundary components, the vector `(S(A))_A` lies in the
+Ryu–Takayanagi holographic entropy cone (no cut-off is involved). For parties containing intervals the
+corresponding statement is **not proved** (§5.4).
 
 *Proof.* Theorems 1 and 3. ∎
 
 ---
 
-## 7. Status table
+## 7. Status table (after referee round 2)
 
 | Statement | Status |
 |---|---|
-| Lemma A (topological contraction lemma) | proved; mechanism due to Czech–Dong |
-| Lemma B (Crofton with horoballs, `κ = 1 − log 2`) | proved; constant and normalisation re-derived numerically by the referee |
-| Theorem 1 (multi-metric RT, contraction-map inequalities) | proved |
-| Lemma G (graph realisation), Lemma F (filling) | proved (Lemma G suggested by the referee) |
+| Lemma A (topological contraction lemma) | proved; mechanism due to Czech–Dong; two referee rounds, no error found; tested directly on the cylinder |
+| Facts 3.1, 3.2; Lemma B (`κ = 1 − log 2`); (3.1), (4.1) | proved; constant and normalisation re-derived numerically by the referee |
+| Theorem 1 (multi-metric RT, contraction-map inequalities, any regions) | proved |
+| Lemma G (graph realisation) | proved; idea due to the referee; verified numerically on the disc by the referee |
+| Lemma F (filling) | proved modulo the standard normal-coordinate argument |
 | Theorem 3, `P = ∅` (full cone, whole-boundary parties) | proved |
-| Theorem 3, `P ≠ ∅` (full cone, intervals) | argument given, bookkeeping not at the level of §§2–4 |
-| Length formula (6.1) and marking | proved |
-| Lemma 6.4 | proved |
-| Hypothesis H: H1 | reason given, not written as a proof |
-| Hypothesis H: H2 (admissibility of every embedded class) | **assumed** |
-| Theorems 2, 3' (statements about HRT) | proved **given H** |
-| Matter; higher dimensions; cusps; conical defects | not covered |
+| Theorem 3, `P ≠ ∅` (full cone, intervals) | **not proved**; missing steps listed in §5.4 |
+| Length formula 6.2(b), (6.1), marking | proved |
+| 6.2(a): outer geodesic in `D̃`, inner one not | proved (argument for the second part supplied by the referee) |
+| Lemma 6.3' (unlinked geodesics spacelike separated) | proved; checked numerically |
+| Lemma 6.4 (non-embedded collections do not win) | proved |
+| Hypothesis H1 (extremal candidates are embedded cuts) | reason given, **not proved** |
+| Hypothesis H2 (a pairwise-spacelike embedded class bounds a spacelike region with `A`) | **assumed** |
+| Theorem 2 (statement about HRT, contraction-map inequalities) | proved **given H** and the HRT formula |
+| Theorem 3' (statement about HRT, full cone, whole-boundary parties) | proved **given H** and the HRT formula |
+| Matter; higher dimensions; cusps; conical defects; non-orientable quotients; endpoints not on one slice | not covered |
+
+**Standing assumptions** (collected at the referee's request): every `X_j` is orientable with funnel ends
+only; the identifications `φ_j` preserve peripheral structure, marked points and the party assignment;
+weights `w_j > 0` (positivity is essential — the `max` functional violates the inequalities); the same class
+is used in all metrics; regions are unions of elementary pieces on one boundary Cauchy slice; `ε_0` depends
+on the geometry and on the horoball normalisation; coefficients `α_l, β_r > 0`; `ρ_L, ρ_R` are holonomies of
+the same marked oriented surface; H presupposes the HRT formula at leading classical order; graph models are
+allowed several terminals per party; citations in §1.1 and §6.1 were not re-checked against the sources.
