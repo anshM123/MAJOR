@@ -663,25 +663,28 @@ satisfy (S1)–(S3) with boundary `C'`. Then `Σ̄ := (Σ̃ ∪ (C' \ Λ_Γ))/Γ
 
 *Proof.* Identify `Σ̃` with its preimage in `𝔼_Γ` (Lemma L) and let `G` be its closure in `E`, i.e.
 `Σ̃ ∪ C̃'` (S1).
-*Step 1: no two points of `G` are causally related.* For `x ≠ y` in `Σ̃`, `N(X,Y) > 2` in the positive lift
-(Lemma 6.3a, first part). `N(X,Y) > 2` implies `cos Δθ > −1`; `Δθ` is continuous on the connected set of pairs
-of distinct points of the disc `Σ̃` and tends to `0` at the diagonal, so `|Δθ| < π`; Lemma K. Two points of
-`C̃'`: Lemma L(i). For `x ∈ Σ̃`, `b ∈ C̃'`: `b` is a limit of points of `Σ̃`, so `|θ_b − θ_x| ≤ d(z_x, z_b)`. The
-same closure argument shows that `G` contains no two points on a vertical line and is the graph of a
-1-Lipschitz function over its projection. If `|θ_b − θ_x| = d(z_x,z_b)`, the Lipschitz function has slope
-exactly one along the minimising segment from `z_x` to `z_b`, whose points other than `z_b` are interior; two
-of them give points of `Σ̃` with `|Δθ| = d`, contradicting the first case. So `|θ_b − θ_x| < d`.
+*Step 1: pairs of points of `G`.* For `x ≠ y` in `Σ̃`, `N(X,Y) > 2` in the positive lift (Lemma 6.3a, first
+part). `N(X,Y) > 2` implies `cos Δθ > −1`; `Δθ` is continuous on the connected set of pairs of distinct points
+of the disc `Σ̃` and tends to `0` at the diagonal, so `|Δθ| < π`; by Lemma K, `|Δθ| < d(z_x,z_y)`. Two points
+of `C̃'`: `|Δθ| < d` by Lemma L(i). Passing to limits, `|Δθ| ≤ d` for all pairs of points of `G`; in particular
+no two points of `G` lie on one vertical line, and `G` is the graph of a 1-Lipschitz function over its
+projection.
 *Step 2: `G` is the graph of a continuous function `f : D̄ → R`.* The projection `G → D̄` is continuous,
-injective (Step 1: points on a vertical line are causally related), maps the boundary circle `C̃'`
-homeomorphically onto `∂D̄` (Lemma L(i)) and the open disc `Σ̃` into the open disc; by invariance of domain
-the image of `Σ̃` is open, and it is closed in the open disc because `G` is compact; so it is everything.
+injective (Step 1), maps the boundary circle `C̃'` homeomorphically onto `∂D̄` (Lemma L(i)) and the open disc
+`Σ̃` into the open disc; by invariance of domain the image of `Σ̃` is open, and it is closed in the open disc
+because `G` is compact; so it is everything.
+*Step 2': no two points of `G` are causally related.* It remains to see `|θ_b − θ_x| < d(z_x, z_b)` for
+`x ∈ Σ̃`, `b ∈ C̃'`. If equality held, the 1-Lipschitz function `f` would have slope exactly one along the
+minimising great-circle segment from `z_x` to `z_b`. That segment has length `< π`, so apart from `z_b` it
+lies in the open hemisphere, and by Step 2 its points are projections of points of `Σ̃`; two of them give
+points of `Σ̃` with `|Δθ| = d`, contradicting Step 1.
 *Step 3: every inextensible causal curve `κ` of `𝔼_Γ` meets `G`.* Otherwise `κ` lies in `{θ < f}` or in
 `{θ > f}`; by time reversal assume the former, and parametrise `κ` towards the future. `θ` increases along
 `κ` and is bounded by `max f`, and `d(z(s),z(s')) ≤ θ(s') − θ(s)`, so `κ` converges to a point `q ∈ E` with
 `θ_q ≤ f(z_q)`. `q ∉ 𝔼_Γ` because `κ` is inextensible. So `q` is causally related to some `λ ∈ Λ̃`. If
 `q ∈ J^−(λ)`, then `κ ⊂ J^−(q) ⊂ J^−(λ)`, contradicting `κ ⊂ 𝔼_Γ`. If `q ∈ J^+(λ)` and `q ≠ λ`, the point
 `q' = (z_q, f(z_q)) ∈ G` lies in `J^+(q) ⊂ J^+(λ)` and `q' ≠ λ` (else `q ∈ J^+(λ) ∩ J^−(λ) = {λ}`); but `q'` and
-`λ` are both in `G`, contradicting Step 1.
+`λ` are both in `G`, contradicting Step 2'.
 *Step 4.* A point of `κ ∩ G` lies in `𝔼_Γ ∩ G = Σ̃ ∪ (C̃' \ Λ̃)`. By Step 1 there is exactly one. An
 inextensible causal curve of `M̄` lifts to one of `𝔼_Γ`, and its intersections with `Σ̄` correspond to the
 intersections of the lift with `Σ̃ ∪ (C̃' \ Λ̃)`, which is `Γ`-invariant: exactly one. The boundary statement

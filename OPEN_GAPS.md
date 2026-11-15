@@ -18,8 +18,18 @@ two halves of that proof. What the statement still depends on:
 * **One cited topological fact** in Lemma T, Step 3 (a compact surface with prescribed vertices, not one of
   four small exceptions, has a triangulation with those vertices). The spiralling ("spinning") step, which in
   revision 5 was a second citation, is proved in the text since revision 6 (Lemma T, Step 4).
-* **Equivalence with "acausal Cauchy slice of `M ∪ ∂M`"** (PROOFS §6.3, Remark (iv)): not proved in either
-  direction; a sketch for one direction is given there.
+* **Equivalence with "acausal Cauchy slice of the spacetime with boundary"**: proved in revision 7 (PROOFS
+  §6.3b, Theorems C and E), with an explicit conformal model and the signed causal criterion. Awaiting
+  independent review.
+* **Smooth slices**: for whole-boundary regions, Proposition S (given the Bernal–Sánchez extension theorem,
+  applied to a compact strip with boundary). For regions with endpoints: open. The obstruction is precise:
+  the arcs of the cut are not compact in the globally hyperbolic quotient, so the extension theorem does not
+  apply; one needs a smooth spacelike surface containing a geodesic all the way to the conformal boundary,
+  i.e. an extension theorem for spacetimes with timelike boundary, or a hand-made smoothing of the pleated
+  surface near the arcs (where the bending is locally finite) glued to the Bernal–Sánchez surface near the
+  closed geodesics.
+* **Achronal slices with null pieces** (Wall's class): not treated. The lower bound `≥` would need the
+  Jordan-curve argument on an achronal disc, which looks unproblematic, but it is not written.
 * **The cited description of the spacetimes** (§6.1): proper discontinuity on the invisible domain, structure
   of the asymptotic boundaries.
 * **Independent review** of §§6.3–6.9: see G6.
