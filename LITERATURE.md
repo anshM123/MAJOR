@@ -62,3 +62,20 @@ three-qubit counterexamples recorded in September 2026 (QIQCOP Zoo, entry op_87c
 claims above therefore rest on (i) reading the primary sources' own statements of what is open, and (ii)
 full-text searches of the two closest papers, and should still be treated as "no prior proof found", not as
 "no prior proof exists".
+
+## Definitions of the homology slice in the literature (checked 15 Nov 2026, ar5iv renderings)
+
+| Source | Slice | Homology condition | Smooth / uniformly spacelike required? |
+|---|---|---|---|
+| Wall, arXiv:1211.3494, Def. 7–8, footnote 9 | "complete achronal slice", "an AdS-Cauchy surface, using the convention in which a Cauchy surface is permitted to be null" | minimal surface on the slice "homologous to A" | No. Smooth and spacelike are hypotheses of one theorem (Thm. 12) only. |
+| Headrick–Hubeny–Lawrence–Rangamani, arXiv:1408.6300, §2.2, footnotes 4, 10 | Cauchy slices "required … to be acausal" | region "of a bulk Cauchy slice" with boundary `A ∪ E_A`: the "spacelike homology" condition | Not in the text read (§§2.1–3.6; §4.3 was not read verbatim). |
+
+Consequence for this work: the slices of PROOFS §6.3 (embedded, invariant, pairwise spacelike separated) are of
+the acausal kind. The pleated slices constructed there are not smooth and, at rotating closed geodesics, not
+uniformly spacelike; neither source demands that. Not proved: that the slices of §6.3 are exactly the acausal
+Cauchy slices of the spacetime with its boundary (PROOFS §6.3, Remark (iv)).
+
+Pleated surfaces and spiralling laminations: Thurston's notes, ch. 8; Bonahon, *Ann. Fac. Sci. Toulouse* 5
+(1996); Casson–Bleiler, ch. 4–6. In AdS geometry pleated surfaces appear as boundaries of convex cores (Mess);
+no source was found that uses a pleated slice through prescribed geodesics to verify an HRT homology
+condition (search not exhaustive).
