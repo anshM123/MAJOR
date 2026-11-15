@@ -57,7 +57,9 @@ claimed in arXiv:2506.18086 "up to certain disclaimers" and is not universally a
   established Lemma A, Facts 3.1–3.2, Lemma B, Theorem 1, Lemma G, Lemma F, Theorem 3 for whole-boundary
   parties, the length formula and Lemma 6.4; as conditional the two statements about HRT; as not established
   Theorem 3 for regions with endpoints, H1 and H2.
-* The round-2 repairs were applied afterwards (revision 3) and have **not** been re-read by the referee.
+* A third pass checked each round-2 repair (12 items): all made correctly, no new error, status table judged
+  accurate. Its remaining wording points (definition of the domain `D̃`, "limit set", hypotheses of Lemma 6.3',
+  two additions to Lemma 6.4, one justification in Theorem 3) are applied in revision 4 and were not re-read.
 * Numerical tests: EXPERIMENTS.md. Lemma A is tested directly only on the cylinder (`π_1 = Z`).
 
 ## G6a. Referee's list: implications asserted but not proved

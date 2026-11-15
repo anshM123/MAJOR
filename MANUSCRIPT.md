@@ -1,9 +1,9 @@
 # Covariant holographic entropy inequalities for vacuum rotating wormholes in 2+1 dimensions
 
 *Draft of 15 November 2026. Written by an AI system (Claude, Anthropic) during an autonomous research
-session. Reviewed in two rounds by an automated referee of the same model family, not by a human expert;
-not formalised. The last set of repairs was applied after the second round and has not been re-read by the
-referee. Status of every statement is given in §9. Complete proofs are in PROOFS.md; this text gives the
+session. Reviewed in three passes by an automated referee of the same model family, not by a human expert;
+not formalised. The third pass checked the round-2 repairs and judged the status table accurate; its own
+few wording fixes were applied afterwards. Status of every statement is given in §9. Complete proofs are in PROOFS.md; this text gives the
 statements and the ideas.*
 
 ## Abstract
@@ -162,8 +162,8 @@ and `X_R`; together with the marking it determines an identification of marked s
 classes, including boundary twists.
 
 **Proposition (lengths).** (a) `(ρ_L(γ), ρ_R(γ))` translates a spacelike geodesic of `D̃`, joining its attracting
-and repelling fixed points on the limit curve, by `½(ℓ_L(γ) + ℓ_R(γ))`. (When `ℓ_L ≠ ℓ_R` there is one other
-invariant spacelike geodesic, of translation length `½|ℓ_L − ℓ_R|`; it is lightlike-related to the limit curve
+and repelling fixed points on the limit set, by `½(ℓ_L(γ) + ℓ_R(γ))`. (When `ℓ_L ≠ ℓ_R` there is one other
+invariant spacelike geodesic, of translation length `½|ℓ_L − ℓ_R|`; it is lightlike-related to the limit set
 and not in `D̃`. It is the inner horizon of BTZ.) (b) For boundary points `p = ab^T`, `q = cd^T` with `N = ω(a,c)ω(b,d) > 0`,
 `x(t) = (e^t p + e^{−t} q)/√N` is the geodesic between them and its regulated length is
 `log N + 2 log(1/ε) = ½(λ_L + λ_R) + 2 log(1/ε)`, `λ` being horocycle distances in `H²`.

@@ -1,4 +1,4 @@
-# PROOFS (revision 3, after two referee rounds)
+# PROOFS (revision 4, after three referee passes)
 
 Status legend: **[proved]** = complete argument written here, relying only on cited standard facts;
 **[standard]** = textbook fact, cited; **[assumed]** = hypothesis, stated explicitly where used.
@@ -241,8 +241,8 @@ through `(0,h)`, `h > Y_0`, has endpoints `a < 0 < b` with `|a| b = h²`. If bot
 
 The sets `E_2'(ε)` decrease as `ε ↓ 0` to a set of geodesics with an endpoint in `Γ·P̃` (Fact 3.2), which is
 null. So `m(E_2) → 0`. (All these sets, for every terminal ray `x_0 ∈ [−Q_p, Q_p]`, are contained in the single
-finite-measure set `{a ∈ [−Q', Q'] , |b − a| ≥ 2Y_0}` up to translation by `x_0`, so the convergence is uniform
-in the ray.)
+finite-measure set `{a ∈ [−Q', Q'] , |b − a| ≥ 2Y_0}` up to translation by `x_0`; intersected with "meets another horoball at scale `ε`" this is one
+`x_0`-independent family of sets decreasing to a null set, so the convergence is uniform in the ray.)
 
 Summing over the `e(c)` ends, `Def_ε → κ e(c)`. ∎
 
@@ -363,10 +363,11 @@ valid for Ryu–Takayanagi entropies (equivalently, for all graph models).
 
 *Proof.* By Crofton and (B0), `ℓ_{X_j}(c) = ∫ i(τ(ĝ), c) dm̄_j(ĝ)`. Geodesics whose class is homotopic into
 `∂_∞X` (both ends in one boundary circle, cutting off a half-plane) have `i ≡ 0` with every cut; discard them
-(their total measure is infinite). Each remaining test class `τ` has finite `m̄_j`-measure `μ_τ^{(j)}`: an arc
-not homotopic into `∂_∞X` has positive intersection number with some closed geodesic `κ` (the boundary
-geodesic of a funnel it enters, if it joins two different funnels; otherwise an essential closed curve it
-cannot be pushed off), and `μ_τ^{(j)} · i(τ, κ) ≤ ℓ_{X_j}(κ) < ∞` by Crofton. Test classes form a countable set, so the push-forward of `Σ_j w_j m̄_j`
+(their total measure is infinite). Each remaining test class `τ` has finite `m̄_j`-measure `μ_τ^{(j)}`: let `β` be the
+boundary geodesic of a funnel containing an end of `τ`. A lift of an arc not homotopic into `∂_∞X` has its
+endpoints in two different components of `Ω`, so it crosses the axis bounding each of them; hence
+`i(τ, β) ≥ 1`. Every geodesic of class `τ` meets `β` exactly `i(τ, β)` times, so
+`μ_τ^{(j)} · i(τ, β) ≤ ℓ_{X_j}(β) < ∞` by Crofton. Test classes form a countable set, so the push-forward of `Σ_j w_j m̄_j`
 (transported to `X_1`) is a countable sum `μ = Σ_τ μ_τ τ` with finite coefficients and
 `i(μ, c) = Σ_j w_j ℓ_{X_j}(c) < ∞` for every `c`. Let `μ_n` be finite partial sums by whole classes, increasing
 to `μ`, containing `T_0` from the start. By Lemma G, `(F_{μ_n}(A))_A` lies in the cone. `F_{μ_n}(A)` is
@@ -409,7 +410,9 @@ disc or an annulus, and `ρ_L, ρ_R : π_1(S) → SL(2,R)` two representations w
 and which are holonomies of hyperbolic structures `X_L, X_R` on the interior of `S` **in the same component
 of Teichmüller space** (i.e. `X_R` is obtained from `X_L` by an orientation-preserving homeomorphism isotopic
 to the identity relative to the marking; boundary elements go to boundary elements). Then
-`Γ = {(ρ_L(γ), ρ_R(γ))}` acts properly discontinuously on a convex domain `D̃ ⊂ AdS_3`; `M = D̃/Γ` is a
+`Γ = {(ρ_L(γ), ρ_R(γ))}` acts properly discontinuously on the *invisible domain* `D̃ ⊂ AdS_3` of its limit set
+(the open convex set of points not causally related to any point of the limit set `Λ_Γ ⊂ ∂AdS_3`, which is
+the graph of the boundary map over `Λ_L`; a Cantor set for these groups); `M = D̃/Γ` is a
 locally-`AdS_3` spacetime with one asymptotically-AdS region per end of `S` (Mess 1990; Barbot, *Causal
 properties of AdS-isometry groups I, II*; Bonsante–Krasnov–Schlenker, arXiv:math/0610429). Physically:
 rotating BTZ (`π_1 = Z`), rotating multi-boundary wormholes, wormholes with handles
@@ -436,14 +439,14 @@ two surfaces, including boundary twists.
 
 ### 6.2 Proposition (length formula) **[proved]**
 
-Boundary points of `AdS_3` are rank-one matrices up to positive scale, `p = a b^T`; put `u = [a]`,
+Boundary points of `AdS_3` are rank-one matrices up to nonzero scale, `p = a b^T`; put `u = [a]`,
 `v = [Jb]` with `J = [[0,1],[−1,0]]`, so that `g_L p g_R^{-1}` corresponds to `(g_L u, g_R v)`.
 `ω(a,c) := a^T J c`.
 
 (a) For `γ ≠ 1`, `(ρ_L(γ), ρ_R(γ))` preserves a spacelike geodesic of `AdS_3` on which it acts by translation
 of length `½(ℓ_L(γ) + ℓ_R(γ))`. This geodesic joins the attracting fixed point `(u^+, v^+)` to the repelling
-fixed point `(u^−, v^−)`, both on the limit curve of `Γ`, and lies in `D̃` (which contains the convex hull of the
-limit curve). If `ℓ_L(γ) ≠ ℓ_R(γ)` there is exactly one other invariant spacelike geodesic, with translation
+fixed point `(u^−, v^−)`, both on the limit set of `Γ`, and lies in `D̃` (which contains the convex hull of the
+limit set). If `ℓ_L(γ) ≠ ℓ_R(γ)` there is exactly one other invariant spacelike geodesic, with translation
 length `½|ℓ_L(γ) − ℓ_R(γ)|` (the inner horizon in BTZ); it joins `(u^+, v^−)` to `(u^−, v^+)` and is **not** in
 `D̃`. (If `ℓ_L(γ) = ℓ_R(γ)` the second geodesic is pointwise fixed and there are further invariant null
 geodesics; none of this is used.)
@@ -459,7 +462,7 @@ an invariant 2-plane, and for `a ≠ b` the four eigenvalues are distinct, so th
 six coordinate planes, of which only `{x_{11} = x_{22} = 0}` and `{x_{12} = x_{21} = 0}` meet `det = 1` in a
 spacelike curve. Finally, for `x = diag(e^{s}, e^{−s})`, `tr(adj(x) E_{12}) = 0`: every point of the second
 geodesic is lightlike-related to the limit point `E_{12}`, hence lies outside the open domain `D̃` of points
-not causally related to the limit curve (argument supplied by the second referee). ∎
+not causally related to the limit set (argument supplied by the second referee). ∎
 
 (b) Let `p = a b^T`, `q = c d^T` with `N := ω(a,c)·ω(b,d) > 0`. Then `x(t) = (e^{t} p + e^{−t} q)/√N`,
 `t ∈ R`, is the unit-speed geodesic of `AdS_3` from `q` to `p`, and the length of its part where the
@@ -470,7 +473,7 @@ So `det x(t) = 1`, `−det(x'(t)) = 1`, and `x'' = x` (geodesic of the quadric).
 `e^{|t|}/√N ≤ 1/ε`, of length `2 log(√N/ε)`. ∎
 
 In `PSL(2,R)` the sign of `N` is a choice of representatives. For two distinct points of the graph of a
-monotone map (points of the lifted boundary slice, or of the limit curve) `ω(a,c) ≠ 0` and `ω(b,d) ≠ 0`, and
+monotone map (points of the lifted boundary slice, or of the limit set) `ω(a,c) ≠ 0` and `ω(b,d) ≠ 0`, and
 the vectors can be chosen along the graph so that `N > 0` for every pair.
 
 In `H²`, with horocycles at `[a]`, `[c]` determined by the vectors `a, c`, the signed distance between the
@@ -508,17 +511,28 @@ What H contains, item by item:
   to a proof, not carried out here, is an equivariant pleated surface over an ideal triangulation containing
   `c` (Mess).
 
+* **H3 (the literature's prescription).** arXiv:2407.07165 minimises over collections of group elements with
+  a homology condition checked on abelianised words, which allows non-embedded collections. Lemma 6.4 below
+  shows these never beat embedded ones, so the two minima agree.
+
+If H2 failed for some classes, Theorems 2 and 3' would still be true statements about the function
+`min_c L^ε(c)`, but that function could be smaller than the HRT entropy for some regions, and the conclusion
+about HRT would not follow.
+
+### 6.3' Spacelike separation
+
 **Lemma 6.3' (unlinked geodesics are spacelike separated) [proved; computation due to the referee,
 re-derived and checked numerically in `code/spacelike_check.py`].** Let `p_i = a_i b_i^T`, `i = 1,…,4`, be
-boundary points with `N_ij := ω(a_i,a_j)ω(b_i,b_j) > 0` for `i < j`, and with the `[a_i]` and the `[b_i]` in
+boundary points with `N_ij := ω(a_i,a_j)ω(b_i,b_j) > 0` whenever `p_i ≠ p_j`, and with the `[a_i]` and the `[b_i]` in
 the same cyclic order (points of an acausal circle in `∂AdS_3`, e.g. lifts of points of the boundary slice,
-or fixed points on the limit curve). Let `x(t)`, `y(s)` be the geodesics from `p_2` to `p_1` and from `p_4` to
+or fixed points on the limit set). Let `x(t)`, `y(s)` be the geodesics from `p_2` to `p_1` and from `p_4` to
 `p_3`. Then
 
 `min_{t,s} ½ tr(x(t)^{-1} y(s)) = [√(N_13 N_24) + √(N_14 N_23)] / √(N_12 N_34)`,
 
-which is `> 1` if the pairs `{1,2}`, `{3,4}` are unlinked in the cyclic order, including when they share an
-endpoint (then the infimum `1` is not attained), and `≤ 1` if they are linked. Since two points `x, y` of
+which is `> 1` if the pairs `{1,2}`, `{3,4}` are unlinked and have no common endpoint, and `≤ 1` if they are
+linked. If they are unlinked and share an endpoint, `½ tr(x(t)^{-1}y(s)) > 1` for all `t, s` (the infimum `1` is
+not attained). Since two points `x, y` of
 `AdS_3` are joined by a spacelike geodesic iff `½|tr(x^{-1}y)| > 1`, unlinked geodesics are everywhere
 spacelike separated.
 
@@ -528,19 +542,12 @@ minimised independently (in `t+s` and `t−s`) by the arithmetic–geometric mea
 `N_ij = A_ij B_ij`, `A_ij = ω(a_i,a_j)`, `B_ij = ω(b_i,b_j)`. For the cyclic order `1,2,3,4` the Plücker
 relation gives `A_13 A_24 = A_12 A_34 + A_14 A_23` and the same for `B`; by Cauchy–Schwarz
 `√(N_13 N_24) ≥ √(N_12 N_34) + √(N_14 N_23)`, so the minimum is `≥ 1 + 2√(N_14N_23)/√(N_12N_34) > 1`, or `= 1`
-(not attained) if `N_23 = 0`. For linked pairs (`{1,3}`, `{2,4}`) the roles are exchanged:
+(not attained) if `N_23 = 0`; the other shared-endpoint cases follow by symmetry. For linked pairs (`{1,3}`, `{2,4}`) the roles are exchanged:
 `A_12A_34 + A_14A_23 = A_13A_24` gives `√(N_12N_34) + √(N_14N_23) ≤ √(N_13N_24)`, i.e. the corresponding ratio is
 `≤ 1`. ∎
 
 Consequently all lifts of all components of an embedded class are pairwise spacelike separated (distinct
-lifts of components of a cut are unlinked or share an endpoint).
-* **H3 (the literature's prescription).** arXiv:2407.07165 minimises over collections of group elements with
-  a homology condition checked on abelianised words, which allows non-embedded collections. Lemma 6.4 below
-  shows these never beat embedded ones, so the two minima agree.
-
-If H2 failed for some classes, Theorems 2 and 3' would still be true statements about the function
-`min_c L^ε(c)`, but that function could be smaller than the HRT entropy for some regions, and the conclusion
-about HRT would not follow.
+lifts of components of a cut are unlinked).
 
 ### 6.4 Lemma (non-embedded collections do not win) **[proved]**
 
@@ -556,10 +563,12 @@ The existence of a 2-colouring with the stated boundary behaviour is equivalent 
 every proper arc between two elementary pieces, meets `c'` in a number of points whose parity is prescribed
 by `A` (even for closed curves; for arcs, the parity of the number of its ends lying in `A`). These parities
 are homotopy invariants of `c'`, so the geodesic collection again admits such a colouring; geodesics that
-coincide are reduced mod 2 (an even number of copies is deleted). Let `W` be the closure of the colour-1 set.
+coincide are reduced mod 2 (an even number of copies is deleted; a multiply covered closed component counts
+with its multiplicity). Let `W` be the closure of the colour-1 set.
 At each crossing all half-edges are colour changes; resolve as in Lemma A. Nothing needs resolving at marked
 points (one end each). The result is a cut `c` for `A` made of pieces of `c'`. For a test class `τ` take a
-geodesic representative, pushed off coincident closed geodesics to a parallel copy; it realises `i(τ, c')`
+geodesic representative, pushed off coincident closed geodesics to a parallel copy and perturbed off the vertices as in Lemma A; it
+realises `i(τ, c')`
 and meets `c` in at most that many points. Integrate as in Theorem 1. ∎
 
 ### 6.5 Theorems 2 and 3' (covariant entropy inequalities in vacuum 2+1 gravity) **[proved given H]**
@@ -580,11 +589,11 @@ corresponding statement is **not proved** (§5.4).
 
 ---
 
-## 7. Status table (after referee round 2)
+## 7. Status table (after three referee passes)
 
 | Statement | Status |
 |---|---|
-| Lemma A (topological contraction lemma) | proved; mechanism due to Czech–Dong; two referee rounds, no error found; tested directly on the cylinder |
+| Lemma A (topological contraction lemma) | proved; mechanism due to Czech–Dong; three referee passes, no error found; its existence statement (A1) tested on the cylinder (the construction of `δ_r` is not executed in code) |
 | Facts 3.1, 3.2; Lemma B (`κ = 1 − log 2`); (3.1), (4.1) | proved; constant and normalisation re-derived numerically by the referee |
 | Theorem 1 (multi-metric RT, contraction-map inequalities, any regions) | proved |
 | Lemma G (graph realisation) | proved; idea due to the referee; verified numerically on the disc by the referee |
