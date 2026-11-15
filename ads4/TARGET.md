@@ -3,12 +3,64 @@
 Status: research in progress. Nothing in this file is refereed. Sources and the full candidate list:
 `ads4/LITERATURE.md`, `ads4/PROBLEM_CANDIDATES.md` (literature audit of 15 Nov 2026).
 
+## 0. Correction (falsification test against free fields) — read first
+
+**An unrestricted statement is false.** "In every unitary CFT3 the leading double-twist anomalous dimensions
+are negative because of stress-tensor exchange" has a counterexample: the free scalar. Its even-spin
+bilinears have `Δ = ℓ + 1`, twist exactly `1 = 2Δ_φ`, zero anomalous dimension, and the stress tensor is
+present. A summary of this file given earlier in the project used such unrestricted wording; that wording
+is withdrawn. The statement in §2 is conditional on hypothesis (H), and the test below shows what (H)
+excludes.
+
+**The test, done exactly.** Free real scalar, `Δ = 1/2`: `G(z,z̄) = 1 + (z z̄)^{1/2} + (z z̄/((1−z)(1−z̄)))^{1/2}`.
+* Crossed channel: every non-identity operator has twist exactly `1 = 2Δ`, so `x = τ − 2Δ = 0` on the whole
+  support of `μ_z` apart from the identity atom. First moment: exactly `0` for all `z`.
+* Direct channel: with `z̄ = 1 − y`, the coefficient of `z^{1/2}` in `G(z, 1−y)` as `z → 0` is
+  `(1−y)^{1/2} (1 + y^{−1/2})`. It has a **power** singularity in `y`, not `−b_* log y + O(1)`.
+* Reason: there are infinitely many operators of the minimal twist `τ_* = 1` (the higher-spin currents);
+  each contributes a `log y`, and their sum is `y^{−1/2}`. So `b_* = ∞`, (H) fails ("finitely many operators
+  of twist below `τ_* + δ`"), and moreover `τ_* = 2Δ`, so the "exchanged" tower *is* the double-twist tower.
+  The same happens for the external operator `φ²` in the free theory (infinitely many twist-1 currents in
+  `φ² × φ²`).
+
+So the free theory is not a counterexample to the conditional statement, but it shows that (H) — in
+particular *finitely many* operators at the minimal twist and `τ_* + δ < 2Δ` — cannot be dropped. By the
+Maldacena–Zhiboedov theorem a CFT3 with a higher-spin current is free, so for interacting theories the
+finiteness of twist-1 currents is not an extra restriction; the gap `δ > 0` above the minimal twist and the
+strict inequality `2Δ > τ_* + δ` are.
+
+**Three statements that must be kept apart.**
+
+| | Statement | Status |
+|---|---|---|
+| (1) | *Negativity of the total leading double-twist anomalous dimension.* | **False without hypotheses** (free fields: zero). For identical scalars under (H): a derivation (arXiv:1212.3616, 1212.4103), sign fixed by `p ≥ 0`; not a theorem with the first-order coefficient. For non-identical or spinning external operators the sign is not fixed by unitarity alone. |
+| (2) | *Negativity of the isolated stress-tensor contribution.* | Identical external scalars: the coefficient is `−2 p_T Γ(τ_*+2ℓ)/Γ(τ_*/2+ℓ)²` with `p_T ∝ Δ²/c_T > 0` by the Ward identity — an algebraic fact, no dynamics. Spinning external operators: the sign depends on three-point coefficients and is tied to the conformal-collider bounds (Li–Meltzer–Poland, arXiv:1511.08025 — **comparison delegated, not yet verified here**). |
+| (3) | *A rigorous quantitative estimate at finite `c_T`:* the weighted first moment of the twist measure equals the stress-tensor term up to an explicit bound on competing exchanges. | **Open; this is the only candidate for a new theorem.** Needs the second-order remainder estimate of §4. |
+
+**Assumptions any theorem of type (3) would carry** (all must appear in its statement):
+* identical external scalars of dimension `Δ`; unitarity, crossing, discrete spectrum;
+* *spectral gap:* finitely many operators at the minimal twist `τ_*`, none in `(τ_*, τ_* + δ)`, and
+  `τ_* + δ < 2Δ`;
+* *large spin:* the statement is asymptotic, about the measure `μ_z` as `z → 0` (spins `≲ z^{−1/2}`);
+* *no large `c_T`:* none is assumed; `c_T` enters only through `p_T`;
+* *mixing and degeneracy:* none assumed and none resolved — the statement is about a weighted average over
+  all operators with twist near `2Δ`, so it says nothing about individual operators, and in particular does
+  not assert that every operator in the family has negative anomalous dimension;
+* if another operator (e.g. a scalar of dimension `< 1`) has twist below the stress tensor, the leading term
+  is that operator's, and the stress tensor is a subleading effect that the first-moment statement does not
+  isolate.
+
+**Decision.** The primary target is **suspended pending the audit** now running (precise estimates of
+Pal–Qiao–Rychkov and van Rees; Li–Meltzer–Poland; whether a second-order remainder bound is new and has
+physical content beyond Nachtmann's theorem and the Lorentzian inversion formula). It is not to be
+described as "universal attraction in every CFT3".
+
 ## 1. Ranking (five criteria, in the order given by the brief)
 
 | Rank | Candidate | Outcome type | Verdict |
 |---|---|---|---|
 | 1 | P1: HPPS locality for the stress-tensor four-point function in d = 3 | condition for an Einstein dual | most significant; **no realistic route** with the available means |
-| 2 | **P2: universal long-range attraction from stress-tensor exchange, as a theorem** | unproved aspect of emergent gravitational dynamics | **selected as primary target**; the simplest route is blocked (see §4) |
+| 2 | **P2: first-order large-spin correction from the minimal-twist exchange, as a theorem, under hypothesis (H)** | unproved aspect of emergent gravitational dynamics | selected as primary target, **suspended pending the audit of §0**; the simplest route is blocked (see §4) |
 | 3 | P6: `N^{3/2}` law for the ABJM sphere partition function, as a theorem | nonperturbative datum | **fallback**; realistic (see §5) |
 | 4–10 | Penrose inequality in AdS4; HRT cone in pure AdS4 on arbitrary slices; QES-cone conjecture; a positivity lemma; split property; strips in AdS4 (corollary-level); 2+1 with matter | — | lower on significance or tractability; the entropy-cone items are consistency constraints on states that already have a geometric dual, not derivations of gravity |
 
@@ -21,7 +73,8 @@ Setting: a unitary CFT in `d = 3`; `G(z, z̄) = Σ p_{τ,ℓ} g_{τ,ℓ}(z, z̄)
 scalars of dimension `Δ`, `p ≥ 0`, discrete spectrum, crossing
 `((1−z)(1−z̄))^Δ G(z,z̄) = (z z̄)^Δ G(1−z,1−z̄)`, blocks normalised by
 `g_{τ,ℓ}(z,z̄) = z^{τ/2}[k_{τ+2ℓ}(z̄) + O(z)]`, `k_{2h}(x) = x^h ₂F₁(h,h;2h;x)`.
-Hypothesis (H): besides the identity, the operators of twist `< τ_* + δ` are finitely many, all of twist `τ_*`;
+Hypothesis (H): besides the identity, the operators of twist `< τ_* + δ` are finitely many, all of twist `τ_*`,
+and `τ_* + δ < 2Δ` (so the double-twist tower is not among them; free fields are excluded, see §0);
 `b_* := Σ_{τ_O = τ_*} p_O Γ(τ_*+2ℓ_O)/Γ(τ_*/2+ℓ_O)²`. Measure on twists: `μ_z := z^Δ Σ p_{τ,ℓ} k_{τ+2ℓ}(1−z) δ_τ`.
 
 **Target statement (tilted form).** There is a window `y = y(z) → 0` such that, with `x = τ − 2Δ`,
@@ -29,7 +82,7 @@ Hypothesis (H): besides the identity, the operators of twist `< τ_* + δ` are f
 `∫_{|x| < η} x · y^{x/2} dμ_z(τ) = −2 b_* z^{τ_*/2} (1 + o(1))`,   `z → 0`,
 
 and `∫_{|x|<η} x² y^{x/2} dμ_z = o(z^{τ_*/2})`. For stress-tensor exchange `τ_* = 1`, `b_* ∝ Δ²/c_T`.
-Meaning: in every such CFT3 the two-particle states of large spin are bound, on average, by an energy
+Meaning: in every CFT3 **satisfying (H)** the two-particle states of large spin are bound, on average, by an energy
 `∝ −(1/c_T) ℓ^{−1}` — Newtonian attraction in the emergent `AdS_4`, with `G_N ∝ 1/c_T`, derived from
 unitarity and crossing alone, at finite `N`.
 
