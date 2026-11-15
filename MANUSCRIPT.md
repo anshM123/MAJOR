@@ -14,20 +14,23 @@ proofs are in PROOFS.md; this text gives the statements and the ideas.
 For time-symmetric states the Ryu–Takayanagi (RT) entropies obey an infinite family of linear inequalities,
 the holographic entropy cone. Whether the covariant Hubeny–Rangamani–Takayanagi (HRT) entropies obey the same
 inequalities is open; in 2+1 bulk dimensions it was known for simply connected bulks and for `π_1 = Z`, with
-only numerical evidence for multiply connected bulks (arXiv:2407.07165). We settle the question for vacuum
+only numerical evidence for multiply connected bulks (arXiv:2407.07165). We address the question for vacuum
 solutions of arbitrary topology: rotating BTZ, rotating multi-boundary wormholes, wormholes with handles.
 These are labelled by two hyperbolic structures `(X_L, X_R)` on one surface. We prove two things. (i) The HRT
-entropy, defined by the usual prescription — the minimal extremal curve anchored on the endpoints of the
-region and bounding, together with it, an acausal region of a bulk slice — equals the minimum over
-topological cut classes `c` of `½(ℓ_{X_L}(c) + ℓ_{X_R}(c))`, the same class on both sides. The spacelike
-homology region is constructed explicitly as a pleated surface, using a separation lemma for convex hulls of
-arcs of an acausal circle in the boundary of `AdS_3`. (ii) That functional satisfies every holographic entropy
-inequality admitting a contraction map, for arbitrary boundary regions, and lies in the full RT cone when the
-parties are unions of whole boundaries. Consequently the HRT entropies of these spacetimes obey all
-contraction-map inequalities, with no time-symmetry, no energy condition and no admissibility hypothesis. The
-mechanism for (ii) is that of Czech and Dong; the new step is to run it on the quotient surface, where a
-crossing inequality holds for every homotopy class of test curve and can be integrated against the Liouville
-measures of both chiral surfaces.
+entropy, defined with the homology region lying on an acausal bulk slice (the convention of
+Headrick–Hubeny–Lawrence–Rangamani; the slice need not be smooth), equals the minimum over topological cut
+classes `c` of `½(ℓ_{X_L}(c) + ℓ_{X_R}(c))`, the same class on both sides. The homology region is constructed
+explicitly as a pleated surface whose triangles spiral onto the closed geodesics of the cut; that such
+surfaces are acausal embedded discs is, in a neighbouring setting, a theorem of Mazzoli and Viaggi, and we
+give a self-contained proof for the case needed. For regions that are unions of whole boundaries a smooth
+spacelike slice is obtained from the extension theorem of Bernal and Sánchez. (ii) That functional satisfies
+every holographic entropy inequality admitting a contraction map, for arbitrary boundary regions, and lies
+in the full RT cone when the parties are unions of whole boundaries. Consequently the HRT entropies of these
+spacetimes, so defined, obey all contraction-map inequalities, with no time-symmetry and no energy
+condition. Not proved: the same statement for a definition requiring a smooth, uniformly spacelike homology
+region when regions have endpoints. The mechanism for (ii) is that of Czech and Dong; the new step is to run
+it on the quotient surface, where a crossing inequality holds for every homotopy class of test curve and can
+be integrated against the Liouville measures of both chiral surfaces.
 
 ## 1. Introduction
 
@@ -216,6 +219,16 @@ on its normal plane by a boost. If the homology region were required to be smoot
 further argument (replacing the slice near such geodesics by a boost-twisted smooth strip) would be needed;
 it is not given here.
 
+**Smooth slices for whole-boundary regions (Proposition S).** If the cut consists of closed geodesics only,
+they form a compact, spacelike, acausal 1-submanifold of the globally hyperbolic quotient `Ω(C)/Γ` of the
+invisible domain of the boundary slice (acausal by the Separation Lemma; globally hyperbolic with the pleated
+slice as a Cauchy surface). The extension theorem of Bernal–Sánchez then gives a smooth spacelike Cauchy
+surface containing them; its lift is a slice in our sense. So for regions that are unions of whole
+boundaries, Theorem H and Theorem 3′ hold with smooth spacelike homology regions, including at rotating
+horizons. This depends on cited results that we have not re-derived (the structure of Cauchy surfaces of
+`Ω(C)`; the extension theorem applied to a closed curve). For regions with endpoints the smooth version is
+open.
+
 ## 8. Numerical tests
 
 These test conclusions, not proofs. Details and commands: EXPERIMENTS.md.
@@ -236,19 +249,35 @@ vacuous or used a non-discrete representation and are documented, not counted.
 
 ## 9. What is new and what is not
 
-Not new: contraction maps; cut-and-paste in an auxiliary geometry with crossing counts and a positive measure
-(Czech–Dong); the left/right length formula (Maxfield; Grado-White et al.); pleated surfaces in `AdS_3`
-(Mess); the numerical evidence for the conclusion.
+**Not new.**
+* The mechanism of the entropy inequalities (cut and paste in an auxiliary geometry, crossing counts, a
+  positive measure): Czech–Dong, arXiv:1905.03787. The numerical evidence for the conclusion and the
+  statement of the open problem: Grado-White–Grimaldi–Headrick–Hubeny, arXiv:2407.07165.
+* The description of the spacetimes (Mess; Barbot; Bonsante–Krasnov–Schlenker) and the translation length
+  `½(ℓ_L + ℓ_R)` of the closed geodesics (also Mazzoli–Viaggi, arXiv:2212.11106).
+* **The geometry of the pleated slice.** Mazzoli–Viaggi, arXiv:2206.06946, Theorem A: for maximal
+  representations of surface groups, the pleated set of every maximal lamination "is an embedded Lipschitz
+  disk which is also acausal"; their Lemma 3.6 is in substance the two-geodesic case of the Separation Lemma.
+  Our Separation Lemma and Proposition P are independent, self-contained proofs of the same phenomenon in a
+  neighbouring setting (free groups with funnels; boundary curve a Cauchy slice strictly containing the limit
+  set; arcs ending at boundary points). We were not aware of this work when the proofs were written; it was
+  found by an automated referee.
+* The extension theorem used for smooth slices: Bernal–Sánchez, arXiv:gr-qc/0512095.
 
-New, to the best of our knowledge after the search described in LITERATURE.md: the crossing inequality on the
-quotient surface (Lemma A) and the Crofton formula with horoball cut-offs (Lemma B) in this context; the
-multi-metric theorem; the graph realisation and the full-cone statement for whole-boundary parties; the
-Separation Lemma; the construction of the spacelike homology region for every topological cut class; and the
-resulting theorems that the HRT entropy of vacuum multi-black-hole spacetimes is the minimum over cut classes
-and obeys all contraction-map inequalities in every topology.
+**New, to our knowledge** (literature search through 15 November 2026; not exhaustive).
+* Lemma A in the form "one set of output classes works for every test class", and Theorem 1: the
+  contraction-map inequalities for the common-class functional `min_c Σ_j w_j ℓ_{X_j}(c)` on surfaces of
+  arbitrary topology. This is the step that arXiv:2407.07165 found missing for multiply connected bulks.
+* The use of a pleated (or, for closed cuts, smooth) slice as the HRT homology region, giving Theorem H: the
+  HRT entropy defined with acausal slices equals the minimum over topological cut classes. Earlier treatments
+  (Maxfield, arXiv:1412.0687; arXiv:2407.07165) take the equivalence of the spacelike and the topological
+  homology condition as an assumption.
+* Consequently Theorems 2 and 3′.
 
-Scope: vacuum only. Matter, higher dimensions, extremal horizons, conical defects and the black-hole
-information problem are not addressed.
+**What a reader should not conclude.** That the HRT cone equals the RT cone in general; that the result
+holds with matter or in higher dimensions; that Theorem 2 holds for a definition of HRT demanding a smooth,
+uniformly spacelike homology region when regions have endpoints (proved only for whole-boundary regions,
+and there only given the cited theorems of Proposition S).
 
 ## 10. Status of statements
 
@@ -260,7 +289,9 @@ information problem are not addressed.
 | Length formula, marking | proved |
 | Separation Lemma | proved; tested numerically |
 | Invariant spun family of ideal triangles containing a cut (Lemma T) | proved given one cited topological fact (triangulations with prescribed vertices); spiralling step proved |
-| Pleated slice; Theorem H | proved given the above; independent review: see OPEN_GAPS.md |
+| Pleated slice (Proposition P) | proved; not new in substance (Mazzoli–Viaggi) |
+| Theorem H (acausal slices) | proved; one automated audit, no error in the statement, gaps repaired; closed-geodesic case audited separately (OPEN_GAPS.md G6) |
+| Theorem H with smooth spacelike slices | whole-boundary regions: proved given cited theorems; regions with endpoints: **not proved** |
 | Theorems 2 and 3' (HRT) | proved; no admissibility hypothesis; for the definition of §7 with acausal slices |
 | Same statements for smooth, uniformly spacelike homology regions | **not proved** |
 | Non-vacuum spacetimes, higher dimensions | not covered |
@@ -270,7 +301,7 @@ information problem are not addressed.
 Bao, Nezami, Ooguri, Stoica, Sully, Walter, arXiv:1505.07839. Wall, arXiv:1211.3494. Czech, Dong,
 arXiv:1905.03787. Grado-White, Grimaldi, Headrick, Hubeny, arXiv:2407.07165 and arXiv:2502.09894. Zhao,
 arXiv:2602.04888. Grimaldi, Headrick, arXiv:2610.33905. Maxfield, arXiv:1412.0687. Headrick, Takayanagi,
-arXiv:0704.3719. Hubeny, Rangamani, Takayanagi, arXiv:0705.0016. Mess, *Lorentz spacetimes of constant
+arXiv:0704.3719. Hubeny, Rangamani, Takayanagi, arXiv:0705.0016. Mazzoli, Viaggi, arXiv:2206.06946; arXiv:2212.11106. Bernal, Sánchez, arXiv:gr-qc/0512095. Bonsante, Seppi, arXiv:2004.14414. Mess, *Lorentz spacetimes of constant
 curvature* (1990). Barbot, *Causal properties of AdS-isometry groups I, II*. Bonsante, Krasnov, Schlenker,
 arXiv:math/0610429. Bonsante, Seppi, arXiv:2004.14414. Aminneborg, Bengtsson, Holst, *Class. Quantum Grav.* 15
 (1998). Santaló, *Integral Geometry and Geometric Probability*. Penner, *Comm. Math. Phys.* 113 (1987).

@@ -60,14 +60,31 @@ claimed in arXiv:2506.18086 "up to certain disclaimers" and is not universally a
 
 ## G6. Independent verification
 
-* Two rounds by one automated referee (same model family as the author; not a human expert; nothing is
-  formalised). Round 1: no fatal error, repairs listed. Round 2: no fatal error; the referee regards as
-  established Lemma A, Facts 3.1–3.2, Lemma B, Theorem 1, Lemma G, Lemma F, Theorem 3 for whole-boundary
-  parties, the length formula and Lemma 6.4; as conditional the two statements about HRT; as not established
-  Theorem 3 for regions with endpoints, H1 and H2.
-* A third pass checked each round-2 repair (12 items): all made correctly, no new error, status table judged
-  accurate. Its remaining wording points (definition of the domain `D̃`, "limit set", hypotheses of Lemma 6.3',
-  two additions to Lemma 6.4, one justification in Theorem 3) are applied in revision 4 and were not re-read.
+All reviews are by automated referees of the same model family as the author. None is a human expert and
+nothing is formalised.
+
+* §§1–5 (Lemma A, Lemma B, Theorem 1, Lemma G, Lemma F, Theorem 3 for whole-boundary parties): three passes,
+  no error found after repairs.
+* §§6.1–6.9, revision 5 (first audit of the HRT identification). Verdict: no fatal error; Lemma 6.4,
+  Proposition P and Theorem H correct for the entropy defined in §6.3. Gaps found and repaired in revision 6:
+  the unsigned separation criterion was wrong inside `D̃` (explicit rotating-BTZ example) → Lemma 6.3a;
+  candidates must be simple (explicit self-crossing candidate) → definition changed; uniqueness of the
+  invariant geodesic for equal chiral lengths and all causal types → added; `D̃` is not convex → claim
+  removed; citations for "spinning" inadequate → replaced by a proof (Lemma T, Step 4). The repairs
+  themselves have **not** been re-read by that referee.
+* The same audit's findings that are **not** repairable by rewording:
+  - The geometric core (acausal pleated discs over an acausal curve) is prior work of Mazzoli–Viaggi,
+    arXiv:2206.06946. Now cited; novelty claim reduced accordingly.
+  - "No admissibility hypothesis" overstated the result: the theorem is for homology regions on acausal,
+    possibly non-smooth, asymptotically lightlike slices. With smooth spacelike slices it is established only
+    for whole-boundary regions (Proposition S, given cited theorems).
+  - A slice-independent lower bound (homology region not assumed to lie in a complete slice) is not written.
+* Referee's own tests: exact rational test of Lemma 6.4, 20,000 cases, 0 violations; rotating three-boundary
+  wormholes with fans spiralling both ways around an axis, 8 group translates, ≈36,000 pairs, 0 violations;
+  fans to depth 25 at 300 digits, 0 violations (ratio → 1 from above at the axis).
+* Closed-geodesic case of Lemma T / Proposition P, revision 6 (second, targeted audit, prompted by the
+  objection that an axis cannot be an edge of an invariant locally finite triangulation): **outcome recorded
+  below when available.**
 * Numerical tests: EXPERIMENTS.md. Lemma A is tested directly only on the cylinder (`π_1 = Z`).
 
 ## G6a. Referee's list: implications asserted but not proved

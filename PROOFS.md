@@ -651,6 +651,20 @@ of signature `(1,2)`, vectors with `det > 0` in the same component of `{det > 0}
 Cauchy–Schwarz inequality `N(X,Y) ≥ 2√(det X det Y)` with equality iff proportional; `K{p_1,p_2,p_3}` is
 connected and contained in `{det > 0}`. ∎
 
+**Prior work (found by the first referee of revision 5; statements checked against the introduction of the
+paper, Section 3 only through a summary).** Mazzoli–Viaggi, arXiv:2206.06946, prove for maximal
+representations of surface groups into `SO_0(2,n+1)` (Theorem A): "For every maximal lamination `λ`, the pleated
+set `Ŝ_λ ⊂ H^{2,n}` is an embedded Lipschitz disk which is also acausal, that is, every pair of points
+`x, y ∈ Ŝ_λ` is joined by a spacelike geodesic"; their Lemma 3.6 is, in substance, the two-geodesic case of
+Lemma 6.4 (geodesics with unlinked endpoints on an acausal curve have acausal union), and their
+Propositions 3.7–3.8 treat pleated sets over an acausal curve. With `n = 1` this is the same phenomenon as
+Lemma 6.4 and Proposition P, **which are therefore not new in substance**. What differs here: the boundary
+curve is a boundary Cauchy slice strictly larger than the limit set, the group is a free group acting with
+funnels, the family contains arcs ending at boundary points and half-plane fillings, and the proofs (sign
+pattern + arithmetic–geometric mean; piecewise-affine chart) are self-contained. Their theorem also covers
+laminations with closed leaves and leaves spiralling onto them, which is independent support for the
+closed-geodesic case of Lemma T / Proposition P.
+
 Lemma 6.3' of the previous revision (two geodesics with unlinked endpoints) is the special case of Lemma 6.4
 in which `X` and `Y` are combinations of two points each.
 
@@ -865,6 +879,51 @@ surface that is smooth and spacelike along `g(A)` must have a tangent plane that
 the geodesic; such strips exist locally, but fitting one into a global invariant slice is not done here. This
 is the content of the caveat about smooth slices in §6.3.
 
+### 6.6a Proposition S (smooth spacelike slices for cuts made of closed geodesics) **[proved, given cited theorems whose hypotheses are listed]**
+
+The pleated slice is not smooth and not uniformly spacelike at rotating closed geodesics. For cuts without
+arcs — the case of regions that are unions of whole boundaries — a smooth spacelike slice exists. (Route
+suggested by the first referee of revision 5.)
+
+**Proposition S.** Let `c ∈ 𝒞(A)` consist of closed geodesics only, with axes `𝓕`. Then there is a set `S̃`
+satisfying (S1)–(S3) which is a smooth spacelike surface and contains `g(A')` for every axis `A' ∈ 𝓕`.
+
+*Cited inputs.*
+(C1) For an acausal circle `C`, the invisible domain `Ω(C) := {[X] : N(X,p) > 0 for all p ∈ C} ⊂ D̃` is the
+domain of dependence of every properly embedded acausal disc with boundary `C`; in particular it is globally
+hyperbolic and such a disc is a Cauchy surface of it. (C2) Every Cauchy surface of `Ω(C)` is a disc properly
+embedded in `AdS_3` whose closure in `AdS_3 ∪ ∂AdS_3` is a closed disc with boundary `C`. (Mess; Barbot;
+Bonsante–Seppi, arXiv:2004.14414, §4. **Not re-checked against the sources.**)
+(C3) Bernal–Sánchez, arXiv:gr-qc/0512095, Theorem 1.1 (wording checked): "Let `(M,g)` be a globally
+hyperbolic spacetime, and let `H ⊂ M` be a spacelike and acausal compact `m`-submanifold with boundary. Then,
+there exists a spacelike Cauchy hypersurface `S` such that `H ⊂ S`." It is used with `m = 1` and `∂H = ∅`; that
+the empty boundary is allowed is the usual convention and consistent with their Remark 4.14 on
+non-connected `H`, but was **not verified in their proof**.
+
+*Proof.* Let `Z` be the pleated slice of Proposition P for `c`. `Z ⊂ Ω(C)`: for `X = Σλ_i p(u_i)` and `p ∈ C`,
+`N(X,p) > 0`. By (C1) `Z` is a Cauchy surface of `Ω(C)`. `Γ` preserves `C`, hence `Ω(C)`, and acts on it freely
+and properly discontinuously (it does on `D̃`). `N := Ω(C)/Γ` is globally hyperbolic with Cauchy surface `Z/Γ`:
+an inextensible causal curve of `N` lifts to one of `Ω(C)`, which meets `Z` exactly once, so the curve meets
+`Z/Γ` exactly once.
+Let `H ⊂ N` be the image of `⋃_{A' ∈ 𝓕} g(A')`: finitely many disjoint simple closed spacelike geodesics, a
+compact 1-submanifold. `H` is acausal in `N`: a causal curve of `N` between two points of `H` would lift to a
+causal curve of `Ω(C) ⊂ D̃` between two distinct points of `⋃ g(A') ⊂ Z`, contradicting Lemma 6.3a applied to
+`Z`. By (C3) there is a smooth spacelike Cauchy hypersurface `S ⊃ H` of `N`. Its preimage `S̃ ⊂ Ω(C)` is smooth,
+spacelike, `Γ`-invariant (S2), contains the `g(A')`, and is a Cauchy surface of `Ω(C)`: an inextensible causal
+curve of `Ω(C)` projects to an inextensible causal curve of `N`, which meets `S` at exactly one parameter
+value, so the curve meets `S̃` exactly once. By (C2) `S̃ ∪ C` is a closed disc with boundary `C` (S1). (S3): for
+distinct `x, y ∈ S̃` with positive lifts and `τ = tr(X^{-1}Y)`: if `−2 < τ ≤ 2`, the segment `{[sX + tY]}` lies
+in `Ω(C)` (`N(sX+tY, p) > 0`, `det = s² + t² + stτ > 0`) and is a timelike or lightlike geodesic from `x` to
+`y`, contradicting acausality; so `τ ∉ (−2, 2]`; `τ → 2` near the diagonal and the set of pairs of distinct
+points of the disc `S̃` is connected, so `τ > 2` for all pairs. ∎
+
+**Corollary (Theorem H with smooth spacelike homology regions, `∂A = ∅`).** If `A` is a union of whole
+boundary components, the infimum in the definition of `S^ε(A)` is unchanged when slices are in addition
+required to be smooth spacelike surfaces: it is `≥` the unrestricted infimum, and Proposition S applied to a
+minimising class (which has no arcs), with the homology region defined by the parity rule of §6.7, gives a
+candidate with a smooth slice. Given (C1)–(C3). For regions with endpoints the smooth version remains
+**open**: the arcs are not compact and (C3) does not apply.
+
 ### 6.7 Theorem H (the HRT entropy is the minimum over cut classes) **[proved, given Lemma T]**
 
 **Theorem H.** For the spacetimes of §6.1 and every region `A`,
@@ -976,7 +1035,7 @@ containing intervals the corresponding statement is **not proved** (§5.4).
   zero of the limit set; the Crofton formula; existence of triangulations of marked surfaces and spinning
   (Lemma T); the graph characterisation and closedness of the cone (Bao et al.) for Theorem 3'.
 
-## 7. Status table (§§1–5 after three referee passes; §§6.3–6.9 rewritten in revision 5)
+## 7. Status table (§§1–5 after three referee passes; §§6.3–6.9: revision 6)
 
 | Statement | Status |
 |---|---|
@@ -993,10 +1052,12 @@ containing intervals the corresponding statement is **not proved** (§5.4).
 | Lemma 6.4 (Separation Lemma), Lemma 6.4a | proved; tested numerically (160,000 cases, control fails) |
 | Lemma T (invariant spun family of ideal triangles containing a cut; closed geodesics are not edges, triangles spiral onto them) | proved given one cited topological fact (triangulations of a compact surface with prescribed vertices); the spiralling step is proved in the text |
 | Proposition P (pleated slice: embedded, invariant, pairwise spacelike separated, contains the geodesics) | proved, given Lemma T |
-| Theorem H (HRT entropy of §6.3 = minimum over cut classes) | proved, given Lemma T; **not yet refereed** when first written (see OPEN_GAPS.md for the review outcome) |
-| Theorem 2 (HRT, contraction-map inequalities, arbitrary regions) | proved; no hypothesis H |
-| Theorem 3' (HRT, full cone, whole-boundary parties) | proved; no hypothesis H |
-| Variant of the definition with *smooth* spacelike slices | **not proved** (smoothing of the pleated slice not carried out) |
+| Theorem H (HRT entropy of §6.3 = minimum over cut classes) | proved, given Lemma T and the standard fact in Lemma 6.3a, **for the definition of §6.3** (homology region on an acausal, possibly non-smooth and asymptotically lightlike slice; simple components). One independent automated audit of revision 5: no error in the statement, gaps G2–G4 repaired in revision 6. Closed-geodesic case re-audited separately: see OPEN_GAPS.md G6 |
+| Theorem 2 (HRT, contraction-map inequalities, arbitrary regions) | proved for the HRT entropy of §6.3 (acausal slices); with smooth spacelike slices only when no region has endpoints |
+| Theorem 3' (HRT, full cone, whole-boundary parties) | proved for the HRT entropy of §6.3; also with smooth spacelike homology regions, given (C1)–(C3) of Proposition S |
+| Lemma 6.4 / Proposition P: novelty | **not new in substance**: Mazzoli–Viaggi, arXiv:2206.06946 (Lemma 3.6, Theorem A); independent proofs here in a different setting |
+| Proposition S (smooth spacelike slice through a cut made of closed geodesics) | proved given cited (C1)–(C3); (C1), (C2) not re-checked against sources; use of (C3) with empty boundary not verified in its proof |
+| Variant of the definition with *smooth* spacelike slices, regions with endpoints | **not proved** |
 | Matter; higher dimensions; cusps; conical defects; non-orientable quotients; endpoints not on one slice | not covered |
 
 **Standing assumptions** (collected at the referee's request): every `X_j` is orientable with funnel ends
