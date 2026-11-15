@@ -1,10 +1,12 @@
-# PROOFS (revision 4, after three referee passes)
+# PROOFS (revision 5: Hypothesis H removed)
 
 Status legend: **[proved]** = complete argument written here, relying only on cited standard facts;
 **[standard]** = textbook fact, cited; **[assumed]** = hypothesis, stated explicitly where used.
 
-§§1–5 are mathematics about hyperbolic surfaces and contain no physics. Gravity enters only in §6, and the
-link to the HRT formula goes through Hypothesis H (§6.3), which is **assumed**, not proved.
+§§1–5 are mathematics about hyperbolic surfaces and contain no physics. Gravity enters only in §6. Since
+revision 5 the link to the HRT formula is a theorem (Theorem H, §6.7): the HRT entropy is *defined* in §6.3 by
+the usual prescription (minimal extremal curve subject to the spacelike homology condition) and *proved* to
+equal the minimum over topological cut classes.
 
 **Attribution.** The mechanism — perform the cut-and-paste of the contraction-map proof in an auxiliary
 geometry, keep only crossing counts (which are topological), and weight them by a positive measure on
@@ -491,65 +493,261 @@ distance agree once both chiral horoballs are below `ε_0`; rescaling `p → p/�
 balanced at every endpoint the conclusion does not depend on the cut-off at all. Equation (6.1) is equations (58),
 (60) of arXiv:2407.07165 in hyperbolic-surface language.
 
-### 6.3 Hypothesis H **[assumed]**
+### 6.3 Definition of the HRT entropy in these spacetimes
 
-> **H.** In the spacetime `M` of §6.1, for a boundary region `A` made of intervals of a boundary Cauchy slice
-> and of whole boundary components, the HRT entropy is
-> `S^ε(A) = (1/4G_N)·min_{c ∈ 𝒞(A)} L^ε(c)`.
+Up to here nothing has been said about which extremal curves the HRT prescription admits. This subsection
+fixes that as a definition; §§6.4–6.7 then *prove* that the resulting entropy is the minimum over cut classes.
+No hypothesis remains.
 
-What H contains, item by item:
+**Positive lifts.** An *acausal circle* is the graph `C' ⊂ RP¹ × RP¹ = ∂AdS_3` of an orientation-preserving
+homeomorphism. It has a continuous lift `p : C' →` (rank-one matrices), unique up to multiplication by a
+positive function, with `N(p,q) := tr(adj(p) q) > 0` for all distinct `p, q ∈ C'` (take
+`a = (cos θ, sin θ)`, `b = (cos φ(θ), sin φ(θ))`, `θ ∈ [0, π)`, `φ` increasing; then
+`N = sin(θ' − θ) sin(φ' − φ)`). `N` is twice the polarisation of `det`: `det(X + Y) = det X + det Y + N(X,Y)`.
+For a closed set `Δ ⊂ C'` let `K(Δ)` be the set of finite positive combinations `X = Σ λ_i p_i`, `p_i ∈ Δ`,
+`λ_i > 0`, involving at least two distinct points; then `det X = Σ_{i<j} λ_iλ_j N(p_i,p_j) > 0`, and
+`[X] := X/√det X` is a point of `AdS_3`. `hull(Δ) := {[X] : X ∈ K(Δ)}`. For two points `hull` is the geodesic
+between them (§6.2(b)); for three it is the totally geodesic *ideal triangle* they span.
 
-* **H1 (candidates are embedded).** Every extremal surface that is spacelike-homologous to `A` is the
-  geodesic realisation of some `c ∈ 𝒞(A)`. Reason: its homology region is a spacelike surface with boundary,
-  contained in a Cauchy surface homeomorphic to `S`, so the surface is an embedded cut. *Not written out as a
-  proof here.*
-* **H2 (every class is admissible).** For every `c ∈ 𝒞(A)` the spacetime geodesics of class `c` exist in `M`,
-  are pairwise spacelike separated, and bound a spacelike region together with `A`. Existence follows from
-  (6.2)(a),(b) and convexity of `D̃`. Pairwise spacelike separation is **proved** in Lemma 6.3' below. The
-  existence of a spacelike region bounded by a pairwise-spacelike collection of geodesics and `A` (extension
-  of an acausal set to a Cauchy surface; Bernal–Sánchez for the compact case) is **assumed**. A natural route
-  to a proof, not carried out here, is an equivariant pleated surface over an ideal triangulation containing
-  `c` (Mess).
+**Spacelike separation.** `x, y ∈ AdS_3 = PSL(2,R)` are *spacelike separated* if `½|tr(x^{-1}y)| > 1`, i.e. if
+they are joined by a spacelike geodesic. For `X, Y` in cones `K(·)` over the same acausal circle,
+`tr([X]^{-1}[Y]) = N(X,Y)/√(det X det Y) > 0`.
 
-* **H3 (the literature's prescription).** arXiv:2407.07165 minimises over collections of group elements with
-  a homology condition checked on abelianised words, which allows non-embedded collections. Lemma 6.4 below
-  shows these never beat embedded ones, so the two minima agree.
+**The spacetime.** `D̃ := {[X] ∈ AdS_3 : N(X, q) > 0 for all q ∈ Λ_Γ}` (for one of the two lifts `±X`), the
+invisible domain of the limit set; `M = D̃/Γ` (§6.1). For every acausal circle `C' ⊃ Λ_Γ`,
+`hull(C') ⊂ D̃`: `N(Σλ_i p_i, q) = Σ λ_i N(p_i,q) > 0` since at most one `p_i` equals `q`.
 
-If H2 failed for some classes, Theorems 2 and 3' would still be true statements about the function
-`min_c L^ε(c)`, but that function could be smaller than the HRT entropy for some regions, and the conclusion
-about HRT would not follow.
+**Boundary slices through `∂A`.** Fix the boundary Cauchy slice and marked points as in §6.1, giving the
+`Γ`-invariant acausal circle `C` (the lifted slice together with `Λ_Γ`). For a region `A`, a *slice through
+`∂A`* is any `Γ`-invariant acausal circle `C' ⊃ Λ_Γ` containing the lifts of the points of `∂A`; it carries the
+region `A'` lying over the same intervals of the left ideal boundary as `A` (the domain of dependence of `A'`
+in the boundary is that of `A`).
 
-### 6.3' Spacelike separation
+**Admissible bulk slices.** A bulk slice anchored on `C'` is a set `Σ̃ ⊂ D̃` such that
+(S1) `Σ̃ ∪ C'` is a closed topological disc embedded in `AdS_3 ∪ ∂AdS_3`, with interior `Σ̃` and boundary `C'`;
+(S2) `Σ̃` is `Γ`-invariant;
+(S3) any two distinct points of `Σ̃` are spacelike separated.
+`Σ := Σ̃/Γ ⊂ M`.
 
-**Lemma 6.3' (unlinked geodesics are spacelike separated) [proved; computation due to the referee,
-re-derived and checked numerically in `code/spacelike_check.py`].** Let `p_i = a_i b_i^T`, `i = 1,…,4`, be
-boundary points with `N_ij := ω(a_i,a_j)ω(b_i,b_j) > 0` whenever `p_i ≠ p_j`, and with the `[a_i]` and the `[b_i]` in
-the same cyclic order (points of an acausal circle in `∂AdS_3`, e.g. lifts of points of the boundary slice,
-or fixed points on the limit set). Let `x(t)`, `y(s)` be the geodesics from `p_2` to `p_1` and from `p_4` to
-`p_3`. Then
+**HRT candidates.** A *candidate* for `A` is a quadruple `(C', Σ̃, γ, R)`: `C'` a slice through `∂A`; `Σ̃` a bulk
+slice anchored on `C'`; `γ ⊂ Σ` a finite disjoint union of complete geodesics of `M`, each closed or having
+both ends at points of `∂A`, with exactly one end at each point of `∂A`; and `R ⊂ Σ` a closed set, equal to the
+closure of its interior, with frontier `γ`, such that the closure of its preimage in `Σ̃ ∪ C'` meets
+`C' \ Λ_Γ` exactly in the lift of `A'`. (`γ` is an extremal curve anchored on `∂A`, and `R` is a spacelike
+region with `∂R = γ ∪ A'`: the homology condition of Headrick–Takayanagi and of Wall's maximin.)
 
-`min_{t,s} ½ tr(x(t)^{-1} y(s)) = [√(N_13 N_24) + √(N_14 N_23)] / √(N_12 N_34)`,
+**Definition.** `S^ε(A) := (1/4G_N) · inf { L^ε(γ) : (C', Σ̃, γ, R) a candidate for A }`, with `L^ε` the regulated
+length of §6.2.
 
-which is `> 1` if the pairs `{1,2}`, `{3,4}` are unlinked and have no common endpoint, and `≤ 1` if they are
-linked. If they are unlinked and share an endpoint, `½ tr(x(t)^{-1}y(s)) > 1` for all `t, s` (the infimum `1` is
-not attained). Since two points `x, y` of
-`AdS_3` are joined by a spacelike geodesic iff `½|tr(x^{-1}y)| > 1`, unlinked geodesics are everywhere
-spacelike separated.
+*Remarks on the definition.* (i) (S3) is the strongest reasonable reading of "spacelike": it implies
+achronality and acausality in `D̃`. Theorem H below holds verbatim for any class of slices between "(S1), (S2)
+only" and "(S1)–(S3) and piecewise totally geodesic with spacelike faces", because its proof of `≥` uses only
+(S1), (S2) and its proof of `≤` produces slices of the latter kind. (ii) If one insists on *smooth* spacelike
+slices, the slices produced in §6.6 must be smoothed along their bending lines while keeping `γ` fixed. This
+is elementary where the bending is locally finite (the tangent planes of a rounded crease interpolate
+between two spacelike planes through a common spacelike line, with normals in the same time cone) but is
+**not carried out here**, in particular not near closed components of `γ`, where bending lines accumulate.
+(iii) Allowing non-embedded configurations with a mod-2 homology condition, as in arXiv:2407.07165, does not
+change the infimum (Lemma 6.8).
 
-*Proof.* `det(u + v) = det u + det v + tr(adj(u) v)`, so `tr(adj(p_i) p_j) = N_ij` and
-`tr(x^{-1}y) = [e^{t+s}N_13 + e^{t−s}N_14 + e^{−t+s}N_23 + e^{−t−s}N_24]/√(N_12 N_34)`. The two pairs of terms are
-minimised independently (in `t+s` and `t−s`) by the arithmetic–geometric mean inequality. Write
-`N_ij = A_ij B_ij`, `A_ij = ω(a_i,a_j)`, `B_ij = ω(b_i,b_j)`. For the cyclic order `1,2,3,4` the Plücker
-relation gives `A_13 A_24 = A_12 A_34 + A_14 A_23` and the same for `B`; by Cauchy–Schwarz
-`√(N_13 N_24) ≥ √(N_12 N_34) + √(N_14 N_23)`, so the minimum is `≥ 1 + 2√(N_14N_23)/√(N_12N_34) > 1`, or `= 1`
-(not attained) if `N_23 = 0`; the other shared-endpoint cases follow by symmetry. For linked pairs (`{1,3}`, `{2,4}`) the roles are exchanged:
-`A_12A_34 + A_14A_23 = A_13A_24` gives `√(N_12N_34) + √(N_14N_23) ≤ √(N_13N_24)`, i.e. the corresponding ratio is
-`≤ 1`. ∎
+### 6.4 Separation Lemma **[proved]**
 
-Consequently all lifts of all components of an embedded class are pairwise spacelike separated (distinct
-lifts of components of a cut are unlinked).
+**Lemma 6.4.** Let `C'` be an acausal circle, `r ≠ r'` two of its points, and `α, β` the two closed arcs of
+`C'` with endpoints `r, r'`. For all `X ∈ K(α)`, `Y ∈ K(β)`:
 
-### 6.4 Lemma (non-embedded collections do not win) **[proved]**
+`N(X, Y) ≥ 2 √(det X · det Y)`,
+
+with equality if and only if `[X] = [Y]` lies on the geodesic `hull{r, r'}`. Hence every point of `hull(α)` is
+spacelike separated from every point of `hull(β)` other than itself.
+
+*Proof.* Apply an element of `PSL(2,R) × PSL(2,R)` (an isometry, preserving everything in the statement)
+taking `r` to `(∞, ∞)` and `r'` to `(0, 0)`. Then `C'` is the graph of an increasing homeomorphism `φ` of
+`R ∪ {∞}` fixing `0` and `∞`; `α = {u ∈ [0, ∞]}`, `β = {u ∈ [−∞, 0]}`; and a positive lift is
+`p(u) = (u, 1)^T (φ(u), 1) = [[uφ(u), u], [φ(u), 1]]` for finite `u`, `p(∞) = E_{11}`
+(`N(p(u), p(u')) = (u − u')(φ(u) − φ(u')) > 0`, `N(E_{11}, p(u)) = 1`). Therefore
+
+`X = [[x_{11}, x_{12}], [x_{21}, x_{22}]]`, `Y = [[y_{11}, −y_{12}], [−y_{21}, y_{22}]]`, with all `x_{ab}, y_{ab} ≥ 0`,
+
+because on `α` both `u` and `φ(u)` are `≥ 0` and on `β` both are `≤ 0`. Then
+`N(X,Y) = tr(adj(X) Y) = x_{22}y_{11} + x_{11}y_{22} + x_{12}y_{21} + x_{21}y_{12}`, and
+
+`x_{22}y_{11} + x_{11}y_{22} ≥ 2√(x_{11}x_{22} · y_{11}y_{22}) ≥ 2√(det X · det Y)`,
+
+since `x_{11}x_{22} = det X + x_{12}x_{21} ≥ det X` and likewise for `Y`. Equality forces `x_{12}x_{21} = 0`,
+`y_{12}y_{21} = 0`, `x_{12}y_{21} = x_{21}y_{12} = 0` and `x_{22}y_{11} = x_{11}y_{22}`. Now `x_{12} = Σ λ_i u_i`
+vanishes iff every `p_i` occurring in `X` is `p(0)` or `p(∞)`, and the same for `x_{21} = Σλ_i φ(u_i)`; so
+`x_{12}x_{21} = 0` means `X` is a combination of the two cut points only, i.e. `[X] ∈ hull{r,r'}`, and then
+`X = diag(x_{11}, x_{22})`. Likewise `Y = diag(y_{11}, y_{22})`, and `x_{22}y_{11} = x_{11}y_{22}` says
+`X ∝ Y`. ∎
+
+**Lemma 6.4a (one triangle).** For three distinct points `p_1, p_2, p_3` of an acausal circle, `det` restricted
+to their span has signature `(1,2)`, the ideal triangle `hull{p_1,p_2,p_3}` lies in the totally geodesic
+spacelike plane `{det = 1} ∩ span`, and any two distinct points of it are spacelike separated.
+
+*Proof.* The Gram matrix of `N` on `p_1,p_2,p_3` has zero diagonal and positive off-diagonal entries; its
+trace is `0` and its determinant `2N_{12}N_{13}N_{23} > 0`, so its eigenvalues have signs `(+,−,−)`. On a space
+of signature `(1,2)`, vectors with `det > 0` in the same component of `{det > 0}` satisfy the reversed
+Cauchy–Schwarz inequality `N(X,Y) ≥ 2√(det X det Y)` with equality iff proportional; `K{p_1,p_2,p_3}` is
+connected and contained in `{det > 0}`. ∎
+
+Lemma 6.3' of the previous revision (two geodesics with unlinked endpoints) is the special case of Lemma 6.4
+in which `X` and `Y` are combinations of two points each.
+
+### 6.5 Lemma T (invariant ideal triangulations containing a given cut) **[proved modulo two cited standard facts]**
+
+Let `c ∈ 𝒞(A)` with geodesic representative `c^X` on `X_L`; let `𝓕` be the set of lifts of its components to
+`H²` (chords of `S¹`): axes of hyperbolic elements for the closed components, chords between lifted marked
+points for the arcs.
+
+**Lemma T.** There is a `Γ`-invariant set `𝒯` of ideal triangles of `H²`, with pairwise disjoint interiors,
+such that
+(T1) the edges of the triangles are pairwise non-crossing and none crosses a chord of `𝓕`;
+(T2) every arc-chord of `𝓕` is an edge of two triangles; every axis `A ∈ 𝓕` is disjoint from the interiors of
+all triangles;
+(T3) the union of the triangles and of the axes in `𝓕` is `H²`;
+(T4) `𝒯` is locally finite in `H²` minus the axes in `𝓕`, and every sequence of distinct triangles meeting a
+fixed compact set converges, in the Hausdorff sense in the closed disc, to an axis of `𝓕`.
+
+*Proof.* Add auxiliary marked points so that every ideal circle carries at least one, and let `V_Ω ⊂ Ω` be the
+set of lifts of all marked points. On `X̄_L` the geodesics joining consecutive marked points of each ideal
+circle ("boundary chords") cut off regions whose lifts are half-planes `H_e` over the elementary arcs
+`e = [v, v']`; these have trivial stabiliser.
+
+*Half-planes.* For each `Γ`-orbit of elementary arcs choose a homeomorphism `e ≅ [0,1]` and transport it by
+`Γ`; take the triangles with vertices `k2^{-n}, (2k+1)2^{-n-1}, (k+1)2^{-n}`. They have disjoint interiors,
+are locally finite in `H_e`, and their union is `H_e`: a point of `H_e` in no triangle would lie in the regions
+cut off by a nested sequence of chords over dyadic intervals shrinking to a point of `e`, which is impossible.
+
+*The compact part.* Cut `X̄_L` along `c^X` and the boundary chords, and discard the half-plane regions. Each
+remaining piece `Y` is a compact surface whose boundary consists of closed geodesics of `c` ("smooth circles")
+and of circles made of geodesic arcs meeting at ideal vertices. Collapse each smooth circle to a point (a
+*puncture*) to get a compact surface `Y^♯` with marked points on its boundary and punctures. No `Y^♯` is a
+sphere with at most two punctures, or a disc with at most two marked points and no puncture (two distinct
+components of `c^X` or boundary chords are not homotopic, and none is null-homotopic).
+**Standard fact 1** (Hatcher, *Topology Appl.* 40 (1991); Fomin–Shapiro–Thurston, *Acta Math.* 201 (2008),
+§2): such a marked surface has a triangulation whose vertex set is the set of marked points and punctures and
+whose edges are pairwise non-homotopic essential simple arcs, disjoint except at vertices, containing the
+boundary arcs.
+**Standard fact 2** ("spinning"; Thurston; Bonahon, *Ann. Fac. Sci. Toulouse* 5 (1996), §§1–3): choose, for each
+smooth circle and each of its two sides, one of the two directions along it; replacing each edge by the
+geodesic of `X_L` in its homotopy class which, at every end lying at a puncture, spirals towards the
+corresponding closed geodesic in the chosen direction, gives pairwise disjoint simple geodesics whose
+complementary regions in `Y` are the interiors of ideal triangles. In the universal cover: an edge ending at a
+puncture lifts to a chord ending at the endpoint `e(A, side) ∈ {a^−, a^+}` of the relevant axis `A` selected
+by the chosen direction; chords from one axis-side all share that endpoint; the triangles with a vertex at
+the puncture lift to a `⟨h⟩`-orbit `(e(A), v_k, v_{k+1})`, `k ∈ Z`, of ideal triangles filling the region
+between `A` and the chain of chords `(v_k, v_{k+1})`, with `v_k` tending to the other endpoint of `A` as
+`k → −∞` and to `e(A)` as `k → +∞`.
+
+The lifts of all these triangles, together with the half-plane triangles, form `𝒯`. (T1)–(T3) hold by
+construction. (T4): away from the axes the family is the lift of a finite triangulation together with the
+locally finite half-plane families; distinct triangles have disjoint interiors and equal hyperbolic area, so
+a sequence of distinct triangles meeting a compact set cannot converge to a non-degenerate triangle, and its
+Hausdorff limits are chords not crossing any edge, through a point of the compact set, which by (T3) are axes
+of `𝓕`. ∎
+
+### 6.6 Proposition P (pleated slices) **[proved, given Lemma T]**
+
+Let `c`, `𝓕`, `𝒯` be as in Lemma T and `C` the acausal circle of the boundary slice, `p : C →` positive lift,
+`u ↦ p(u)` its parametrisation by the left coordinate. For a triangle `τ = (u_1,u_2,u_3) ∈ 𝒯` put
+`T(τ) = hull{p(u_1),p(u_2),p(u_3)}`, for an axis `A = (a^−,a^+) ∈ 𝓕` put `g(A) = hull{p(a^−),p(a^+)}`, and
+
+`Z := ⋃_{τ ∈ 𝒯} T(τ) ∪ ⋃_{A} g(A) ⊂ AdS_3`.
+
+**Proposition P.** `Z` is a bulk slice anchored on `C` in the sense of §6.3 — (S1), (S2), (S3) hold and
+`Z ⊂ D̃` — it is a union of totally geodesic spacelike ideal triangles, and it contains the spacetime geodesic
+`hull{p(u), p(u')}` of every chord `(u,u') ∈ 𝓕`.
+
+*Proof.* `Z ⊂ hull(C) ⊂ D̃` (§6.3), and `Z` is `Γ`-invariant because `𝒯`, `𝓕` and `p` (up to positive scale) are.
+Every chord of `𝓕` is an edge of a triangle or an axis, so its hull is in `Z`.
+
+(S3). Let `x ≠ y` in `Z`, in pieces `T, T'` (triangles or axes). If `T = T'`, Lemma 6.4a (or §6.2(b) for an
+axis). Otherwise the vertex sets of `T` and `T'` are non-crossing (T1), so all vertices of `T'` lie in one
+closed arc of `C` between two vertices `r, r'` of `T` that are consecutive among the vertices of `T`, and the
+vertices of `T` lie in the complementary closed arc. Lemma 6.4 with cut points `r, r'` gives spacelike
+separation, since `x = y` is excluded by assumption.
+
+(S1). Use the Klein model, in which `H²` is the open unit disc `D`, chords are straight segments, and the
+triangles of `𝒯` are Euclidean triangles inscribed in the unit circle. Choose a linear functional `ℓ` on
+`M_2(R)` positive on `p(C)` (e.g. `ℓ = N(·, p_1 + p_2 + p_3)` for three points of `C`) and normalise the lift
+so that `ℓ ∘ p ≡ 1`; work in the affine chart `{ℓ = 1}` of projective space, in which `AdS_3 ∪ ∂AdS_3` near
+`hull(C)` is a subset of `R³`, geodesics are segments and totally geodesic planes are affine planes. Define
+`Ψ : D̄ → {ℓ = 1}` by `Ψ(u) = p(u)` on the circle, by the affine map with `Ψ(u_i) = p(u_i)` on each triangle
+`(u_1,u_2,u_3) ∈ 𝒯`, and by the affine map onto the segment `[p(a^−), p(a^+)]` on each axis. On a common edge
+of two triangles the two definitions agree (an affine map of a segment is determined by its endpoints). By
+(T3) `Ψ` is defined on all of `D̄`, and `Ψ(D) = Z`.
+
+*Continuity.* At a point of `D` off the axes, by local finiteness (T4). At `z` on an axis `A = (a^−, a^+)`,
+`z = s a^+ + (1−s) a^−`: if `z_n → z` with `z_n` in triangles `τ_n`, then either `τ_n` is eventually constant
+or, by (T4), the vertices of `τ_n` tend to `{a^−, a^+}`; writing `z_n` in Euclidean barycentric coordinates of
+`τ_n`, the total weight on vertices tending to `a^+` tends to `s`, so
+`Ψ(z_n) → s p(a^+) + (1−s) p(a^−) = Ψ(z)` by continuity of `p`. At `u` on the unit circle: if
+`z_n = Σ_i s_i^{(n)} v_i^{(n)} → u`, then since `|z_n|² = 1 − Σ_{i<j} s_i s_j |v_i − v_j|²` and `|u| = 1`,
+`Σ_i s_i^{(n)} |v_i^{(n)} − u|² → 0`, hence `Ψ(z_n) = Σ_i s_i^{(n)} p(v_i^{(n)}) → p(u)` by uniform continuity
+of `p`.
+
+*Injectivity.* `Ψ` is injective on the circle, and on each closed triangle and axis (an affine map between
+non-degenerate simplices). For two distinct pieces, the equality case of Lemma 6.4 shows that their images
+meet only in points of `hull{r,r'}` that are combinations of the cut points `r, r'` *in both pieces*, i.e. in
+a common edge, where `Ψ` is consistently defined. Images of interior points do not lie on `p(C)` (they have
+`det > 0`).
+
+A continuous injective map from the compact disc `D̄` to a Hausdorff space is an embedding. So `Z ∪ C = Ψ(D̄)`
+is an embedded closed disc with boundary `C` and interior `Z`. ∎
+
+### 6.7 Theorem H (the HRT entropy is the minimum over cut classes) **[proved, given Lemma T]**
+
+**Theorem H.** For the spacetimes of §6.1 and every region `A`,
+
+`S^ε(A) = (1/4G_N) · min_{c ∈ 𝒞(A)} ½( ℓ^ε_{X_L}(c) + ℓ^ε_{X_R}(c) )`,
+
+and the infimum in the definition of `S^ε(A)` is attained.
+
+*Proof.* `≥` (every candidate is a cut class). Let `(C', Σ̃, γ, R)` be a candidate. A closed component of `γ` in
+the free homotopy class of `g ∈ π_1(S)` lifts to a spacelike geodesic of `D̃` invariant under
+`(ρ_L(g), ρ_R(g))` and translated non-trivially by it; by §6.2(a) this is `hull{p(a^−), p(a^+)}`, the
+geodesic joining the repelling and attracting fixed points, which lie in `Λ_Γ ⊂ C'`. An arc component lifts
+to the geodesic joining two lifted points of `∂A`, also on `C'`. So the preimage `γ̃ ⊂ Σ̃` of `γ` is a
+`Γ`-invariant, locally finite family of pairwise disjoint arcs, each closed in the closed disc `Σ̃ ∪ C'` with
+its two endpoints on `C'`. By the Jordan curve theorem in the closed disc, each such arc separates it, and
+two disjoint ones have unlinked endpoint pairs. The left coordinate identifies `C'` with `S¹` equivariantly
+and preserves cyclic order, so the chords of `H²` with the corresponding endpoints are pairwise
+non-crossing; they are the lifts of the `X_L`-geodesics of finitely many classes (the same group elements
+and the same lifted endpoints), hence form a `Γ`-invariant locally finite family, whose quotient is an
+embedded geodesic multi-curve `c^X` on `X_L` with one arc-end at each point of `∂A`.
+
+*Homology region.* Fix an elementary piece `e_0 ⊂ C' \ Λ_Γ`. For a point `z` of `Σ̃ \ γ̃` (or of `H²` off the
+chords) let `n(z)` be the number of arcs of `γ̃` (chords) separating `z` from `e_0`; it is finite by local
+finiteness. Since `R̃` is the closure of its interior with frontier `γ̃`, membership in `R̃` changes exactly
+when an arc is crossed, so `z ∈ R̃ ⇔ n(z) + [e_0 ⊂ Ã'] ≡ 1 (mod 2)`. The same parity, computed with the chords
+in `H²`, defines a set `W̃ ⊂ H²`, the closure of its interior, with frontier the chords. Whether an arc
+(chord) separates an elementary piece from `e_0` depends only on the cyclic order of endpoints, so `W̃` and
+`R̃` meet the ideal boundary in corresponding pieces: exactly the lifts of `A`. The parity function is
+`Γ`-invariant: `n(gz) − n(z)` is, mod 2, the number of arcs separating `e_0` from `g e_0`, which is
+`[g e_0 ⊂ Ã'] − [e_0 ⊂ Ã'] = 0`. Hence `W = W̃/Γ` is a homology region and `c := [c^X] ∈ 𝒞(A)`. Distinct
+components of `c^X` are distinct geodesics, and no component is null-homotopic, so `c` is a reduced
+representative. By (6.1), `L^ε(γ) = ½(ℓ^ε_{X_L}(c) + ℓ^ε_{X_R}(c))`.
+
+`≤` (every cut class is a candidate). Let `c ∈ 𝒞(A)`, `𝓕` its chords, `𝒯` as in Lemma T, `Z` as in Proposition
+P; take `C' = C`, `Σ̃ = Z`. Let `γ̃ = ⋃_{(u,u') ∈ 𝓕} hull{p(u),p(u')} ⊂ Z`, and `γ = γ̃/Γ`: a finite disjoint
+union of complete geodesics of `M`, closed for the axes (§6.2(a)) and joining points of `∂A` for the arcs,
+one end at each point of `∂A`; they are pairwise disjoint because `Ψ` is injective and the chords are. Let
+`W̃ ⊂ H²` be the lift of the homology region of `c^X` and `R̃ := Ψ(W̃) ⊂ Z`. Since `Ψ` is a homeomorphism of
+`D̄` onto `Z ∪ C` restricting to `u ↦ p(u)` on the circle and mapping each chord of `𝓕` onto its hull, `R̃` is
+closed in `Z`, is the closure of its interior, has frontier `γ̃`, and its closure meets `C \ Λ_Γ` in the lifts
+of `A`. It is `Γ`-invariant as a set, because `W̃` is a union of triangles of `𝒯` and axes (its frontier
+consists of edges and axes), `𝒯` is `Γ`-invariant, and `Ψ` maps the triangle with vertices `u_i` onto the
+triangle with vertices `p(u_i)` for every triangle. So `(C, Z, γ, R̃/Γ)` is a candidate, of length
+`½(ℓ^ε_{X_L}(c) + ℓ^ε_{X_R}(c))` by (6.1).
+
+The minimum over `𝒞(A)` exists (§4), so the infimum is attained. ∎
+
+**What Theorem H replaces.** In earlier revisions "HRT = minimum over classes" was Hypothesis H, with parts H1
+(candidates are embedded cut classes) and H2 (every embedded class bounds a spacelike region). H1 is the `≥`
+part of the proof; H2 is Proposition P. The remaining inputs are: the definition of §6.3; the description of
+the spacetimes in §6.1 (cited); and the two standard facts in Lemma T (cited).
+
+### 6.8 Lemma (non-embedded collections do not win) **[proved]**
 
 Let `c'` be a finite collection of closed curves and arcs between marked points, transverse, whose union has
 the mod-2 intersection property of a cut for `A` (i.e. `X \ c'` admits a 2-colouring changing across each
@@ -571,25 +769,40 @@ geodesic representative, pushed off coincident closed geodesics to a parallel co
 realises `i(τ, c')`
 and meets `c` in at most that many points. Integrate as in Theorem 1. ∎
 
-### 6.5 Theorems 2 and 3' (covariant entropy inequalities in vacuum 2+1 gravity) **[proved given H]**
 
-Let `M`, the boundary slice and the parties be as in §6.1, and `S^ε` as in H. By (6.1),
-`4G_N S^ε(A) = F^ε(A)` for `k = 2`, `w_L = w_R = ½`.
+### 6.9 Theorems 2 and 3' (covariant entropy inequalities in vacuum 2+1 gravity) **[proved]**
 
-**Theorem 2.** Every inequality `Σ α_l S(A_l) ≥ Σ β_r S(B_r)` admitting a contraction map holds for `S^ε`:
-exactly, for every `ε ≤ ε_0`, if it is balanced at every endpoint of the regions (in particular when all
-parties are unions of whole boundary components); and with the difference of the two sides tending to `+∞`
-otherwise.
+Let `M`, the boundary slice and the parties be as in §6.1, and `S^ε(A)` the HRT entropy of §6.3. By Theorem H
+and (6.1), `4G_N S^ε(A) = F^ε(A)` for `k = 2`, `w_L = w_R = ½`.
 
-**Theorem 3'.** If all parties are unions of whole boundary components, the vector `(S(A))_A` lies in the
-Ryu–Takayanagi holographic entropy cone (no cut-off is involved). For parties containing intervals the
-corresponding statement is **not proved** (§5.4).
+**Theorem 2.** Every inequality `Σ α_l S(A_l) ≥ Σ β_r S(B_r)` admitting a contraction map holds for the HRT
+entropies `S^ε`: exactly, for every `ε ≤ ε_0`, if it is balanced at every endpoint of the regions (in
+particular when all parties are unions of whole boundary components); and with the difference of the two
+sides tending to `+∞` as `ε → 0` otherwise.
 
-*Proof.* Theorems 1 and 3. ∎
+**Theorem 3'.** If all parties are unions of whole boundary components, the vector of HRT entropies
+`(S(A))_A` lies in the Ryu–Takayanagi holographic entropy cone (no cut-off is involved). For parties
+containing intervals the corresponding statement is **not proved** (§5.4).
 
----
+*Proof.* Theorem H, then Theorems 1 and 3. ∎
 
-## 7. Status table (after three referee passes)
+**Hypotheses of Theorems 2 and 3', in full.**
+* *Geometry:* `M = D̃/Γ` with `Γ = (ρ_L, ρ_R)(π_1 S)`, `S` an oriented surface of finite type with non-empty
+  boundary; `ρ_L, ρ_R` convex cocompact Fuchsian of the second kind, holonomies of two hyperbolic structures
+  on the interior of `S` with the same marking (§6.1). No time-symmetry or stationarity is assumed.
+  Not allowed: extremal horizons, cusps, conical defects, non-orientable quotients, matter.
+* *Regions:* finite unions of intervals of one acausal boundary Cauchy slice and of whole boundary
+  components.
+* *Regulator:* horoball (equivalently horocycle, equivalently boundary-point rescaling) cut-offs at the
+  endpoints, below the threshold `ε_0` of §3.2.
+* *Gravitational input:* none beyond the definition of the HRT entropy in §6.3 (minimal extremal curve
+  anchored on `∂A`, subject to the spacelike homology condition on a bulk slice satisfying (S1)–(S3)). The
+  null curvature condition, maximin and minimax are not used.
+* *Cited mathematics:* the structure of the spacetimes (Mess; Barbot; Bonsante–Krasnov–Schlenker); measure
+  zero of the limit set; the Crofton formula; existence of triangulations of marked surfaces and spinning
+  (Lemma T); the graph characterisation and closedness of the cone (Bao et al.) for Theorem 3'.
+
+## 7. Status table (§§1–5 after three referee passes; §§6.3–6.9 rewritten in revision 5)
 
 | Statement | Status |
 |---|---|
@@ -602,12 +815,14 @@ corresponding statement is **not proved** (§5.4).
 | Theorem 3, `P ≠ ∅` (full cone, intervals) | **not proved**; missing steps listed in §5.4 |
 | Length formula 6.2(b), (6.1), marking | proved |
 | 6.2(a): outer geodesic in `D̃`, inner one not | proved (argument for the second part supplied by the referee) |
-| Lemma 6.3' (unlinked geodesics spacelike separated) | proved; checked numerically |
-| Lemma 6.4 (non-embedded collections do not win) | proved |
-| Hypothesis H1 (extremal candidates are embedded cuts) | reason given, **not proved** |
-| Hypothesis H2 (a pairwise-spacelike embedded class bounds a spacelike region with `A`) | **assumed** |
-| Theorem 2 (statement about HRT, contraction-map inequalities) | proved **given H** and the HRT formula |
-| Theorem 3' (statement about HRT, full cone, whole-boundary parties) | proved **given H** and the HRT formula |
+| Lemma 6.8 (non-embedded collections do not win) | proved |
+| Lemma 6.4 (Separation Lemma), Lemma 6.4a | proved; tested numerically (160,000 cases, control fails) |
+| Lemma T (invariant ideal triangulation containing a cut) | proved modulo two cited standard facts (triangulations of marked surfaces; spinning) |
+| Proposition P (pleated slice: embedded, invariant, pairwise spacelike separated, contains the geodesics) | proved, given Lemma T |
+| Theorem H (HRT entropy of §6.3 = minimum over cut classes) | proved, given Lemma T; **not yet refereed** when first written (see OPEN_GAPS.md for the review outcome) |
+| Theorem 2 (HRT, contraction-map inequalities, arbitrary regions) | proved; no hypothesis H |
+| Theorem 3' (HRT, full cone, whole-boundary parties) | proved; no hypothesis H |
+| Variant of the definition with *smooth* spacelike slices | **not proved** (smoothing of the pleated slice not carried out) |
 | Matter; higher dimensions; cusps; conical defects; non-orientable quotients; endpoints not on one slice | not covered |
 
 **Standing assumptions** (collected at the referee's request): every `X_j` is orientable with funnel ends
@@ -615,5 +830,6 @@ only; the identifications `φ_j` preserve peripheral structure, marked points an
 weights `w_j > 0` (positivity is essential — the `max` functional violates the inequalities); the same class
 is used in all metrics; regions are unions of elementary pieces on one boundary Cauchy slice; `ε_0` depends
 on the geometry and on the horoball normalisation; coefficients `α_l, β_r > 0`; `ρ_L, ρ_R` are holonomies of
-the same marked oriented surface; H presupposes the HRT formula at leading classical order; graph models are
+the same marked oriented surface; the HRT entropy is the quantity defined in §6.3 (the leading classical
+term; no quantum corrections; slices satisfying (S1)–(S3)); graph models are
 allowed several terminals per party; citations in §1.1 and §6.1 were not re-checked against the sources.
