@@ -163,7 +163,7 @@ Results (seed 3, 40 trials per row):
 |---|---|---|---|---|---|
 | sum, k=1 | 0 / 40 | 0 | 40 | — | 209 / 1,258 |
 | sum, k=2 (HRT; mean horizon \|l_L − l_R\| = 0.49) | 0 / 40 | 0 | 22 | 37 | 83,544 / 386,934 |
-| sum, k=3 | see `code` log; run not finished when this file was last edited | | | | |
+| sum, k=3 | not completed (numerical error; see E9) | | | | |
 
 Ping-pong margin ≥ 0.030; endpoint-mapping error ≤ 8·10⁻¹³.
 
@@ -186,6 +186,31 @@ for k = 1 and k = 2 (12 trials each); `lemmaA_test.py 1 40` gave 0 failures with
   hold to rounding in 3,000 trials each.
 * Lemma B end to end in `H²` with two marked points: deficit converges to `2κ = 0.61370564`.
 * Spacelike-separation formula: 400 random configurations, agreement to 3·10⁻¹⁰.
+
+## E8. Separation Lemma and pleated slices (`separation_check.py`)
+
+Tests Lemma 6.4 and the acausality part of Proposition P on random acausal circles (6–13 random points with
+independently sorted left and right angles, so the two chiral orders agree but nothing else is special).
+
+```bash
+python3 separation_check.py 0
+```
+
+| test | result |
+|---|---|
+| random positive combinations over two complementary arcs (weights spread over six decades) | 0 / 40,000 with ratio `N(X,Y)/(2√(det X det Y)) < 1`; smallest ratio 1.00005 |
+| points of two ideal triangles with non-crossing vertex sets (disjoint, and sharing an edge) | 0 / 80,000; smallest ratio 1.0000001 |
+| two points of the same ideal triangle | 0 / 40,000 |
+| control: ideal triangles with crossing vertex sets | a timelike-related pair found within 20 random samples in 6,446 / 40,000 configurations |
+
+Not tested here: the embedding statement (S1) of Proposition P, triangles spinning around an axis, and
+group-translates; these were handed to the independent referee as explicit targets.
+
+## E9. Three-metric row of E6: not completed
+
+The `k = 3` run of `fourholed_certified.py` stopped with a numerical error (`numpy.linalg.inv` on an
+ill-conditioned twisted generator) before printing a result. The `k = 1` and `k = 2` rows above are complete.
+The three-metric case is covered only by the Fenchel–Nielsen test E3 (0 / 600).
 
 ## E7. What has not been tested numerically
 

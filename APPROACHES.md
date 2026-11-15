@@ -65,3 +65,53 @@ Wiener chaos. Planned steps: (i) product formula ⇒ `z² − E z² − :z²:` i
 (ii) its `L²` norm is bounded by the fourth cumulant; (iii) Nourdin–Peccati ⇒ total-variation distance to a
 Gaussian `≤ (2/√3)·sqrt(κ₄/σ⁴)`; (iv) rigorous asymptotics of the exact fourth moment (eq. 2.23 of
 arXiv:2103.16754) to show `κ₄/σ⁴ → 0` for `q > 2`.
+
+---
+
+# Removing Hypothesis H (second phase)
+
+Goal: a statement about the physically defined HRT entropy, with no admissibility hypothesis.
+
+## Route A — prove the physical correspondence. **Succeeded for the definition with acausal slices** (PROOFS.md §§6.3–6.7)
+
+* **H1 (candidates are embedded cut classes).** Purely topological once the homology region is required to lie
+  in a bulk slice that is an embedded disc: disjoint geodesics on the slice have unlinked endpoints on its
+  boundary circle (Jordan curve theorem), the left coordinate preserves cyclic order, and the homology region
+  is reconstructed on the hyperbolic surface from the parity of the number of separating chords.
+* **H2 (every cut class bounds a spacelike region).** Constructive. The decisive step is the **Separation
+  Lemma**: for an acausal circle cut at two points into arcs `α, β`, every point of the convex hull of `α` is
+  spacelike separated from every point of the convex hull of `β`. Proof: normalise the cut points to `0, ∞` in
+  both chiral factors; positive combinations over `α` are matrices with non-negative entries, those over `β`
+  have the complementary sign pattern, and the claim is the arithmetic–geometric mean inequality. Given an
+  invariant ideal triangulation containing the cut (spun around its closed geodesics), the union of the
+  totally geodesic ideal triangles on the corresponding boundary points is then pairwise spacelike separated,
+  and an explicit piecewise-affine map from the Klein disc shows it is an embedded disc with the right
+  boundary.
+* **What the construction does not give.** A smooth, uniformly spacelike slice. At a closed geodesic with
+  `ℓ_L ≠ ℓ_R` the pleated slice is forced to be asymptotically lightlike (the group acts on the normal plane by
+  a boost; a totally geodesic face must have a boost-invariant, hence null, normal). Checked numerically
+  (`code/null_tilt_check.py`).
+
+## Route B — bypass H via maximin / minimax. **Not needed; not pursued**
+
+Maximin (Wall) would give the same identification but rests on existence theorems for maximin surfaces whose
+hypotheses would have to be verified in these non-compact quotients. The minimax programme
+(arXiv:2502.09894) needs the "cooperating" property. Route A makes no use of the null curvature condition,
+focusing, or any extension theorem.
+
+## Route C — a restricted unconditional theorem. **Superseded by Route A**
+
+Route A covers all topologies and all boundary regions at once, including the rotating four-boundary
+wormholes with relative Dehn twists used in the numerical tests.
+
+## Approaches to H2 that were considered and dropped
+
+* *Cauchy-surface extension theorems* (Bernal–Sánchez): apply to compact acausal submanifolds; the arcs of an
+  HRT curve run to the boundary. Not used.
+* *Lipschitz (McShane) extension of the achronal graph*: canonical and invariant, but produces the boundary of
+  the causal future of the curves, which is a lightlike surface, not a spacelike one.
+* *Boundary of the convex hull of each gap*: canonical, hence invariant, but needs the convex-hull theory for
+  subsets of the circle; the triangulation route is more elementary.
+* *Equivariant parametrisations* (isometries on each triangle, or barycentric maps with exponents): fail to be
+  continuous at the closed geodesics; the non-equivariant piecewise-affine map in a projective chart avoids
+  the issue because only the image set needs to be invariant.

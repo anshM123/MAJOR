@@ -1,20 +1,25 @@
 # OPEN GAPS
 
-## G1. Hypothesis H (identification of the proved functional with the HRT entropy)
+## G1. The link to the HRT formula (formerly Hypothesis H) — now Theorem H
 
-Theorem 2 is proved for the functional `min_c ½(ℓ_L(c) + ℓ_R(c))` over all topological cut classes. That this
-equals the HRT entropy is taken from the literature. A derivation from Wall's maximin theorems is sketched in
-DERIVATIONS.md §5; it is at the level of rigour of those theorems (existence and extremality of maximin
-surfaces), not a self-contained proof. Specifically unproved here:
+Since revision 5 of PROOFS.md the HRT entropy is defined in §6.3 by the standard prescription (minimal
+extremal curve anchored on `∂A`, subject to the spacelike homology condition on a bulk slice) and Theorem H
+proves that it equals the minimum over topological cut classes. The former assumptions H1 and H2 are now the
+two halves of that proof. What the statement still depends on:
 
-* existence of a maximin surface for every boundary region in these spacetimes;
-* that the null congruence from each geodesic component reaches every Cauchy slice in a curve of the same
-  class (used to show maximin ≤ length of every class).
-
-What *is* proved towards H: geodesics of an embedded class are pairwise spacelike separated (PROOFS.md
-Lemma 6.3'); non-embedded collections never beat embedded ones (Lemma 6.4). What remains assumed (H2): a
-pairwise spacelike-separated collection of geodesics bounding `A` topologically also bounds a *spacelike*
-region with `A` (extension of an acausal set to a Cauchy surface).
+* **The definition of admissible slice.** Slices are required to be embedded discs (S1), invariant (S2), with
+  all pairs of points spacelike separated (S3). The proof shows the answer is the same for every class of
+  slices between "(S1), (S2)" and "piecewise totally geodesic with spacelike faces". It is **not** shown for
+  *smooth* spacelike slices: the slice constructed in Proposition P is bent along geodesics, and near closed
+  components of the HRT curve the bending lines accumulate. Smoothing while keeping the curve fixed is not
+  carried out. Moreover at a closed component carrying angular momentum (`ℓ_L ≠ ℓ_R`) the constructed slice is
+  acausal but asymptotically lightlike (its faces tilt towards the lightlike planes through the geodesic), so
+  under a definition demanding a uniformly spacelike homology region Theorem H is **not** established.
+* **Two cited standard facts** in Lemma T (triangulations of marked surfaces containing given arcs; spinning
+  around closed geodesics). Not re-proved; citations not re-checked against the sources.
+* **The cited description of the spacetimes** (§6.1): proper discontinuity on the invisible domain, structure
+  of the asymptotic boundaries.
+* **Independent review** of §§6.3–6.9: see G6.
 
 ## G2. Matter (non-vacuum 2+1 spacetimes), multiply connected
 

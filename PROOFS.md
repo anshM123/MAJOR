@@ -450,8 +450,9 @@ of length `½(ℓ_L(γ) + ℓ_R(γ))`. This geodesic joins the attracting fixed 
 fixed point `(u^−, v^−)`, both on the limit set of `Γ`, and lies in `D̃` (which contains the convex hull of the
 limit set). If `ℓ_L(γ) ≠ ℓ_R(γ)` there is exactly one other invariant spacelike geodesic, with translation
 length `½|ℓ_L(γ) − ℓ_R(γ)|` (the inner horizon in BTZ); it joins `(u^+, v^−)` to `(u^−, v^+)` and is **not** in
-`D̃`. (If `ℓ_L(γ) = ℓ_R(γ)` the second geodesic is pointwise fixed and there are further invariant null
-geodesics; none of this is used.)
+`D̃`. If `ℓ_L(γ) = ℓ_R(γ)` the second geodesic is pointwise fixed and there are further invariant null
+geodesics. In all cases the first geodesic is the **only** spacelike geodesic of `D̃` that is invariant under
+`(ρ_L(γ), ρ_R(γ))` and translated non-trivially by it; this is what Theorem H uses.
 
 *Proof.* Conjugate to `ρ_L(γ) = diag(e^{a/2}, e^{−a/2})`, `ρ_R(γ) = diag(e^{b/2}, e^{−b/2})`, `a = ℓ_L`,
 `b = ℓ_R > 0`. Then `x ↦ g_L x g_R^{-1}` multiplies the entries `x_{11}, x_{12}, x_{21}, x_{22}` by
@@ -464,7 +465,11 @@ an invariant 2-plane, and for `a ≠ b` the four eigenvalues are distinct, so th
 six coordinate planes, of which only `{x_{11} = x_{22} = 0}` and `{x_{12} = x_{21} = 0}` meet `det = 1` in a
 spacelike curve. Finally, for `x = diag(e^{s}, e^{−s})`, `tr(adj(x) E_{12}) = 0`: every point of the second
 geodesic is lightlike-related to the limit point `E_{12}`, hence lies outside the open domain `D̃` of points
-not causally related to the limit set (argument supplied by the second referee). ∎
+not causally related to the limit set (argument supplied by the second referee). For `a = b`: a geodesic
+translated non-trivially has as endpoints two rank-one eigen-matrices with different eigenvalues; the
+rank-one eigen-matrices are `E_{12}` (eigenvalue `e^{a}`), `E_{21}` (`e^{−a}`) and `E_{11}, E_{22}` (eigenvalue
+`1`), and `N(E_{12}, E_{11}) = N(E_{12}, E_{22}) = N(E_{21}, E_{11}) = N(E_{21}, E_{22}) = 0`, so the only pair
+joined by a spacelike geodesic is `E_{12}, E_{21}`. ∎
 
 (b) Let `p = a b^T`, `q = c d^T` with `N := ω(a,c)·ω(b,d) > 0`. Then `x(t) = (e^{t} p + e^{−t} q)/√N`,
 `t ∈ R`, is the unit-speed geodesic of `AdS_3` from `q` to `p`, and the length of its part where the
@@ -542,11 +547,12 @@ length of §6.2.
 *Remarks on the definition.* (i) (S3) is the strongest reasonable reading of "spacelike": it implies
 achronality and acausality in `D̃`. Theorem H below holds verbatim for any class of slices between "(S1), (S2)
 only" and "(S1)–(S3) and piecewise totally geodesic with spacelike faces", because its proof of `≥` uses only
-(S1), (S2) and its proof of `≤` produces slices of the latter kind. (ii) If one insists on *smooth* spacelike
-slices, the slices produced in §6.6 must be smoothed along their bending lines while keeping `γ` fixed. This
-is elementary where the bending is locally finite (the tangent planes of a rounded crease interpolate
-between two spacelike planes through a common spacelike line, with normals in the same time cone) but is
-**not carried out here**, in particular not near closed components of `γ`, where bending lines accumulate.
+(S1), (S2) and its proof of `≤` produces slices of the latter kind. (ii) The slices produced in §6.6 are acausal and have spacelike faces, but they are bent along geodesics,
+and at a closed component of `γ` with `ℓ_L ≠ ℓ_R` their faces accumulate and become asymptotically lightlike
+(Remark after Proposition P). If the definition required the homology region to be *smooth* and *uniformly*
+spacelike, an additional argument would be needed: rounding a crease is elementary where the bending is
+locally finite, but near such closed components the slice has to be replaced by a boost-twisted smooth
+strip. That is **not carried out here**; Theorem H is proved for the definition as stated, with (S3).
 (iii) Allowing non-embedded configurations with a mod-2 homology condition, as in arXiv:2407.07165, does not
 change the infimum (Lemma 6.8).
 
@@ -694,6 +700,22 @@ a common edge, where `Ψ` is consistently defined. Images of interior points do 
 
 A continuous injective map from the compact disc `D̄` to a Hausdorff space is an embedding. So `Z ∪ C = Ψ(D̄)`
 is an embedded closed disc with boundary `C` and interior `Z`. ∎
+
+**Remark (the pleated slice is asymptotically lightlike at rotating closed geodesics).** Let `A` be an axis of
+`𝓕` with `(ρ_L(h), ρ_R(h)) = (diag(e^{a/2}, e^{−a/2}), diag(e^{b/2}, e^{−b/2}))` in the coordinates of §6.2(a),
+so that `g(A)` joins `E_{21}` and `E_{12}`. The triangles of `Z` adjacent to `g(A)` on one side are
+`hull{E_{12}, ρ(h)^k p(v), ρ(h)^{k+1} p(v)}`, `k → −∞`. Writing `p(v)` in the eigenbasis, modulo `E_{12}` and up
+to scale `ρ(h)^k p(v) = E_{21} + e^{−|k|a} c_{11} E_{11} + e^{−|k|b} c_{22} E_{22}`, so the planes of these
+triangles converge to `span{E_{12}, E_{21}, E_{11}}` if `a < b`, to `span{E_{12}, E_{21}, E_{22}}` if `a > b`,
+and are all equal to one spacelike plane if `a = b`. On `span{E_{12}, E_{21}, E_{ii}}` the form `det` is
+degenerate: these are the two lightlike planes through `g(A)`. Thus, when `ℓ_L(h) ≠ ℓ_R(h)` — a closed geodesic
+carrying angular momentum — `Z` is acausal (S3) and each of its faces is spacelike, but the faces accumulating
+at `g(A)` tilt towards a lightlike plane: `Z` is **not uniformly spacelike** near `g(A)`. This is forced for
+any invariant surface that is totally geodesic on one side of `g(A)`: `h` acts on the normal plane of `g(A)`
+by a boost of rapidity `(a−b)/2`, and the only boost-invariant normal directions are null. An invariant
+surface that is smooth and spacelike along `g(A)` must have a tangent plane that is boosted steadily along
+the geodesic; such strips exist locally, but fitting one into a global invariant slice is not done here. This
+is the content of the caveat about smooth slices in §6.3.
 
 ### 6.7 Theorem H (the HRT entropy is the minimum over cut classes) **[proved, given Lemma T]**
 
