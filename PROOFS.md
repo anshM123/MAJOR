@@ -555,6 +555,23 @@ locally finite, but near such closed components the slice has to be replaced by 
 strip. That is **not carried out here**; Theorem H is proved for the definition as stated, with (S3).
 (iii) Allowing non-embedded configurations with a mod-2 homology condition, as in arXiv:2407.07165, does not
 change the infimum (Lemma 6.8).
+(iv) *Comparison with the definitions in the literature* (wording checked against the sources, 15 Nov 2026).
+Headrick–Hubeny–Lawrence–Rangamani (arXiv:1408.6300, §2.2 and footnotes 4, 10) require the homology region to
+be "a region of a bulk Cauchy slice" of the spacetime with its boundary, and "require all Cauchy slices to be
+acausal"; they call this the "spacelike homology" condition. Wall (arXiv:1211.3494, Definitions 7–8 and
+footnote 9) uses "complete achronal" slices, "a Cauchy surface [being] permitted to be null". Neither demands
+smoothness or a uniformly spacelike region. Conditions (S1)–(S3) are the present paper's formalisation of
+"acausal Cauchy slice of `M ∪ ∂M` anchored on a boundary Cauchy slice through `∂A`". What is **not proved
+here** is the equivalence of the two formulations: (a) that every acausal Cauchy slice of `M ∪ ∂M` lifts to a
+set whose closure is a closed disc as in (S1) (needed for `≥` with the literature's class), and (b) that every
+set satisfying (S1)–(S3) is a Cauchy slice of `M ∪ ∂M` (needed for `≤`). *Sketch for (b), relying on a cited
+structure theorem:* a globally hyperbolic spacetime with timelike boundary is a product `ℝ × Σ̄_0` with a
+Cauchy temporal function `t` and a timelike vector field tangent to the boundary (Aké–Flores–Sánchez,
+arXiv:1808.04412); `(Σ̃ ∪ C' \ Λ_Γ)/Γ` is a compact acausal surface with boundary in `∂M`; projecting it to
+`Σ̄_0` along the vector field is injective (acausality), continuous, and open (invariance of domain, boundary to
+boundary), hence a homeomorphism onto `Σ̄_0`; so the surface is a compact graph over `Σ̄_0`, `t` is bounded on
+it, and every inextensible causal curve, along which `t` takes all real values, crosses it. The hypotheses of
+the cited theorem have not been verified for `M ∪ ∂M` in this text; (a) and (b) are recorded in OPEN_GAPS.md.
 
 ### 6.4 Separation Lemma **[proved]**
 
@@ -599,58 +616,144 @@ connected and contained in `{det > 0}`. ∎
 Lemma 6.3' of the previous revision (two geodesics with unlinked endpoints) is the special case of Lemma 6.4
 in which `X` and `Y` are combinations of two points each.
 
-### 6.5 Lemma T (invariant ideal triangulations containing a given cut) **[proved modulo two cited standard facts]**
+### 6.5 Lemma T (invariant spun families of ideal triangles containing a given cut) **[proved, given one cited topological fact]**
 
-Let `c ∈ 𝒞(A)` with geodesic representative `c^X` on `X_L`; let `𝓕` be the set of lifts of its components to
-`H²` (chords of `S¹`): axes of hyperbolic elements for the closed components, chords between lifted marked
-points for the arcs.
+Let `c ∈ 𝒞(A)` with geodesic representative `c^X` on `X_L` (its components are pairwise distinct simple
+geodesics, none null-homotopic); let `𝓕` be the set of lifts of its components to `H²` (chords of `S¹`): axes
+of hyperbolic elements for the closed components, chords between lifted marked points for the arcs.
+
+**An obstruction, and what the lemma therefore does not claim.** Let `A ∈ 𝓕` be an axis, with stabiliser
+`⟨h⟩ ⊂ Γ`. In *no* `Γ`-invariant family of ideal triangles with pairwise disjoint interiors is `A` an edge of
+a triangle: if `A` were an edge of `τ`, then `hτ` would be a triangle of the family with the edge `A` on the
+same side (`h` preserves the two sides of its axis), so `τ` and `hτ` would overlap near `A` unless `hτ = τ`;
+but `h` fixes only the two endpoints of `A`, so it preserves no ideal triangle. Consequently a cut containing
+a closed geodesic **cannot** be extended to a locally finite invariant ideal triangulation having that
+geodesic as an edge. The family constructed below is of a different kind: an axis of `𝓕` is not an edge and
+is not adjacent to any triangle; infinitely many triangles accumulate on it from each side, and `h` permutes
+them without fixing any. In the quotient the triangles spiral around the closed geodesic.
 
 **Lemma T.** There is a `Γ`-invariant set `𝒯` of ideal triangles of `H²`, with pairwise disjoint interiors,
 such that
 (T1) the edges of the triangles are pairwise non-crossing and none crosses a chord of `𝓕`;
-(T2) every arc-chord of `𝓕` is an edge of two triangles; every axis `A ∈ 𝓕` is disjoint from the interiors of
-all triangles;
-(T3) the union of the triangles and of the axes in `𝓕` is `H²`;
+(T2) every arc-chord of `𝓕` is an edge of two triangles; every axis `A ∈ 𝓕` is disjoint (in `H²`) from all
+closed triangles, and neither endpoint pair of an edge equals the endpoint pair of an axis of `𝓕`;
+(T3) the union of the closed triangles and of the axes in `𝓕` is `H²`;
 (T4) `𝒯` is locally finite in `H²` minus the axes in `𝓕`, and every sequence of distinct triangles meeting a
-fixed compact set converges, in the Hausdorff sense in the closed disc, to an axis of `𝓕`.
+fixed compact set subconverges, in the Hausdorff sense in the closed disc, to an axis of `𝓕`;
+(T5) all vertices of the triangles lie in the left coordinates of points of `C`: they are lifted marked
+points (original or auxiliary) or endpoints of axes of `𝓕`.
 
-*Proof.* Add auxiliary marked points so that every ideal circle carries at least one, and let `V_Ω ⊂ Ω` be the
-set of lifts of all marked points. On `X̄_L` the geodesics joining consecutive marked points of each ideal
-circle ("boundary chords") cut off regions whose lifts are half-planes `H_e` over the elementary arcs
-`e = [v, v']`; these have trivial stabiliser.
+*Proof.* **Step 0 (auxiliary points, boundary chords).** Add auxiliary marked points so that every ideal
+circle carries at least one, and let `V_Ω ⊂ Ω` be the set of lifts of all marked points; stabilisers of points
+of `V_Ω` are trivial. On `X̄_L` the geodesics joining consecutive marked points of each ideal circle
+("boundary chords"; a loop around the funnel if the circle carries one point) cut off regions whose lifts are
+half-planes `H_e` over the elementary arcs `e = [v, v']`, with trivial stabiliser. An arc of `c^X` may coincide
+with a boundary chord.
 
-*Half-planes.* For each `Γ`-orbit of elementary arcs choose a homeomorphism `e ≅ [0,1]` and transport it by
-`Γ`; take the triangles with vertices `k2^{-n}, (2k+1)2^{-n-1}, (k+1)2^{-n}`. They have disjoint interiors,
-are locally finite in `H_e`, and their union is `H_e`: a point of `H_e` in no triangle would lie in the regions
-cut off by a nested sequence of chords over dyadic intervals shrinking to a point of `e`, which is impossible.
+**Step 1 (half-planes).** For each `Γ`-orbit of elementary arcs choose a homeomorphism `e ≅ [0,1]` and
+transport it by `Γ`; take the triangles with vertices `k2^{-n}, (2k+1)2^{-n-1}, (k+1)2^{-n}`. They have
+disjoint interiors, are locally finite in `H_e`, and their union is `H_e`: a point of `H_e` in no triangle would
+lie in the regions cut off by a nested sequence of chords over dyadic intervals shrinking to a point of `e`,
+which is impossible.
 
-*The compact part.* Cut `X̄_L` along `c^X` and the boundary chords, and discard the half-plane regions. Each
-remaining piece `Y` is a compact surface whose boundary consists of closed geodesics of `c` ("smooth circles")
-and of circles made of geodesic arcs meeting at ideal vertices. Collapse each smooth circle to a point (a
-*puncture*) to get a compact surface `Y^♯` with marked points on its boundary and punctures. No `Y^♯` is a
-sphere with at most two punctures, or a disc with at most two marked points and no puncture (two distinct
-components of `c^X` or boundary chords are not homotopic, and none is null-homotopic).
-**Standard fact 1** (Hatcher, *Topology Appl.* 40 (1991); Fomin–Shapiro–Thurston, *Acta Math.* 201 (2008),
-§2): such a marked surface has a triangulation whose vertex set is the set of marked points and punctures and
-whose edges are pairwise non-homotopic essential simple arcs, disjoint except at vertices, containing the
-boundary arcs.
-**Standard fact 2** ("spinning"; Thurston; Bonahon, *Ann. Fac. Sci. Toulouse* 5 (1996), §§1–3): choose, for each
-smooth circle and each of its two sides, one of the two directions along it; replacing each edge by the
-geodesic of `X_L` in its homotopy class which, at every end lying at a puncture, spirals towards the
-corresponding closed geodesic in the chosen direction, gives pairwise disjoint simple geodesics whose
-complementary regions in `Y` are the interiors of ideal triangles. In the universal cover: an edge ending at a
-puncture lifts to a chord ending at the endpoint `e(A, side) ∈ {a^−, a^+}` of the relevant axis `A` selected
-by the chosen direction; chords from one axis-side all share that endpoint; the triangles with a vertex at
-the puncture lift to a `⟨h⟩`-orbit `(e(A), v_k, v_{k+1})`, `k ∈ Z`, of ideal triangles filling the region
-between `A` and the chain of chords `(v_k, v_{k+1})`, with `v_k` tending to the other endpoint of `A` as
-`k → −∞` and to `e(A)` as `k → +∞`.
+**Step 2 (pieces and corners).** The lifts of `c^X` and of the boundary chords form a locally finite
+`Γ`-invariant family of pairwise disjoint chords. Let `Ỹ` be the closure in `H²` of a complementary component
+that is not a half-plane `H_e`, `Γ_Y` its stabiliser, `Y = Ỹ/Γ_Y` (a compact surface once its finitely many
+ideal vertices are added). `Ỹ` is closed and convex; its frontier consists of *axis sides* (axes of `𝓕`) and
+*chord sides* (arc-chords of `𝓕`, boundary chords), and the closure `D_Y` of `Ỹ` in the closed disc is a
+closed disc. A *corner* of `Ỹ` is an endpoint of a chord side (a point of `V_Ω`) or an axis side. Corners
+correspond to pairwise disjoint closed subsets of the circle `∂D_Y` (a point, or the closure of an axis side),
+so they are cyclically ordered. For every axis side `A` of `Ỹ` choose one of its two endpoints,
+`e(A, Ỹ) ∈ {a^−, a^+}`, equivariantly: `e(gA, gỸ) = g·e(A, Ỹ)` for `g ∈ Γ`. This is possible because the
+stabiliser of `(A, Ỹ)` is generated by a hyperbolic element with axis `A`, which fixes both endpoints. (The
+two sides of an axis may receive different choices.) Let `ε` map a corner in `V_Ω` to itself and an axis side
+`A` to `e(A, Ỹ)`. Distinct axes of a discrete group have no common endpoint and `V_Ω ∩ Λ_Γ = ∅`; hence **`ε` is
+injective and preserves the cyclic order**, and the endpoint of `A` other than `e(A,Ỹ)` is not in the image
+of `ε`.
 
-The lifts of all these triangles, together with the half-plane triangles, form `𝒯`. (T1)–(T3) hold by
-construction. (T4): away from the axes the family is the lift of a finite triangulation together with the
-locally finite half-plane families; distinct triangles have disjoint interiors and equal hyperbolic area, so
-a sequence of distinct triangles meeting a compact set cannot converge to a non-degenerate triangle, and its
-Hausdorff limits are chords not crossing any edge, through a point of the compact set, which by (T3) are axes
-of `𝓕`. ∎
+**Step 3 (a topological decomposition; the cited fact).** An *edge* in `Y` is an embedded arc whose ends are
+ideal vertices or points of the closed geodesics in `∂Y` ("smooth circles"), with interior in the interior of
+`Y`. **Standard fact** (existence of triangulations of a compact surface with prescribed vertices in the
+interior and on the boundary: Hatcher, *Topology Appl.* 40 (1991) 189–194; equivalently, a maximal family of
+pairwise disjoint, pairwise non-homotopic essential arcs on the surface `Y^♯` obtained by collapsing each
+smooth circle to a point cuts it into triangles): there is a finite family of pairwise disjoint edges in
+`Y`, containing the chord sides, such that, in the universal cover `Ỹ`,
+(D1) every lifted edge joins two *distinct* corners, and distinct lifted edges join distinct pairs of
+corners;
+(D2) every complementary region of the lifted edges has exactly three corners, pairwise joined by the three
+lifted edges in its frontier (the rest of its frontier consists of segments of axis sides at its corners);
+every lifted edge that is not a chord side is in the frontier of exactly two regions, a chord side of one.
+The hypotheses of the fact are that `Y^♯` has at least one vertex and is not a sphere with one or two
+vertices, nor a disc with one or two vertices all on the boundary; these cases would require a component of
+`c^X` or a boundary chord to be null-homotopic, or two distinct ones to be homotopic, which does not happen
+for distinct geodesics. (D1) is the statement that the arcs are essential and pairwise non-homotopic,
+together with: an element `g ≠ 1` of `Γ_Y` cannot fix or exchange two distinct corners — corners in `V_Ω` have
+trivial stabiliser, two distinct axes have stabilisers meeting trivially, and `Γ` has no torsion.
+Nothing in this step involves the closed geodesics as edges: on `Y^♯` they are vertices.
+
+**Step 4 (straightening; proved here).** For a lifted edge `ẽ` joining corners `κ, κ'` let `σ(ẽ)` be the chord
+of `H²` joining `ε(κ), ε(κ')`; for a region `t̃` with corners `κ_1, κ_2, κ_3` let `σ(t̃)` be the ideal triangle
+with vertices `ε(κ_i)`. Then `σ(gẽ) = gσ(ẽ)`, `σ(g t̃) = gσ(t̃)` for `g ∈ Γ_Y`.
+
+(a) *`σ(ẽ)` is a chord contained in `Ỹ`, is not an axis side, and has trivial stabiliser in `Γ`; `σ` of a chord
+side is that chord side; `σ(t̃)` is a non-degenerate ideal triangle contained in `Ỹ` and disjoint in `H²` from
+the axis sides.* Injectivity of `ε` gives non-degeneracy; convexity of `Ỹ` gives containment. An axis side has
+only one endpoint in the image of `ε`, so no `σ(ẽ)` is an axis side, and a closed ideal triangle inside the
+closed half-plane of `A` meets `A` in `H²` only if `A` is one of its edges. If `g ≠ 1` in `Γ` preserved
+`σ(ẽ)`, then `σ(ẽ)` would be the axis of the hyperbolic element `g` (or `g²`), with both endpoints in `Λ_Γ`;
+both are then of the form `e(A,Ỹ)`, `e(A',Ỹ)` with `A ≠ A'`, and the axis of `g` would share an endpoint with
+the distinct axis `A` — impossible in a discrete group.
+
+(b) *The chords `σ(ẽ)` are pairwise distinct and pairwise non-crossing.* Two distinct lifted edges are
+disjoint arcs in the closed disc `D_Y` with ends on its boundary circle, so their end pairs are unlinked
+there (Jordan curve theorem); as `ε` preserves the cyclic order of corners, the endpoint pairs of the two
+chords are unlinked or share points, i.e. the chords do not cross. They are distinct by (D1).
+
+(c) *Triangles have disjoint interiors.* Let `t̃ ≠ t̃'` be regions. `t̃'` lies in a component of `D_Y` minus
+the closure of `t̃`, which is cut off by one lifted edge `ẽ` of `t̃`; so the corners of `t̃'` lie in the closed
+arc of `∂D_Y` beyond `ẽ`, and the third corner of `t̃` in the complementary one. Applying `ε`, `σ(t̃)` and
+`σ(t̃')` lie in the two opposite closed half-planes of `σ(ẽ)`.
+
+(d) *Local finiteness off the axes.* Let `K ⊂ H²` be compact and disjoint from all axes of `𝓕`; it is then at
+distance `≥ δ > 0` from them (they form a locally finite family). Suppose infinitely many distinct chords
+`g_nσ(ẽ)` of one `Γ_Y`-orbit meet `K`, at points `g_n y_n`, `y_n ∈ σ(ẽ)`. The image of `y_n` in `X_L` lies in the
+image of `K`, which is compact and at distance `≥ δ` from the closed geodesics of `c^X`. But each end of
+`σ(ẽ)` either ends at a point of `V_Ω ⊂ Ω`, in which case it leaves every compact subset of `X_L`, or ends at
+an endpoint of an axis side `A`, in which case it is asymptotic to `A` and its image comes within `δ` of the
+closed geodesic. So the `y_n` stay in a compact segment `J` of `σ(ẽ)`, and `g_n J ∩ K ≠ ∅` for infinitely many
+distinct `g_n` (distinct because the stabiliser of `σ(ẽ)` is trivial), contradicting proper discontinuity.
+There are finitely many orbits, so `K` meets finitely many chords `σ(ẽ)`.
+
+(e) *The triangles cover `Ỹ` minus its axis sides.* Let `z ∈ Ỹ`, not on an axis side, and suppose `z` lies in
+no closed triangle `σ(t̃)`. Fix a region `t̃_0` and an interior point `w_0` of `σ(t̃_0)`. The complement of a
+closed ideal triangle consists of three disjoint open half-planes, one beyond each edge; so `z` lies strictly
+beyond exactly one edge `σ(ẽ_0)` of `σ(t̃_0)`. `ẽ_0` is not a chord side, since nothing of `Ỹ` lies strictly
+beyond a chord side. Let `t̃_1` be the other region with `ẽ_0` in its frontier (D2); by (c) `σ(t̃_1)` lies in
+the closed half-plane beyond `σ(ẽ_0)`. Repeat: `z` lies strictly beyond exactly one edge `σ(ẽ_1)` of
+`σ(t̃_1)`, and `ẽ_1 ≠ ẽ_0` because `z` and `σ(t̃_1)` are on the same side of `σ(ẽ_0)`. Inductively one gets
+edges `ẽ_i` and open half-planes `H_0 ⊋ H_1 ⊋ …` bounded by the chords `σ(ẽ_i)`, with `z ∈ H_i` and
+`w_0 ∉ H_i` for all `i`. Hence the infinitely many distinct chords `σ(ẽ_i)` all meet the segment `[w_0, z]`.
+This segment is compact, lies in `Ỹ`, and meets the frontier of `Ỹ` at most at `z`, which is not on an axis
+side; so it is disjoint from all axes of `𝓕`, contradicting (d).
+
+By (a), (c), (e) the triangles `σ(t̃)` have disjoint interiors and their union is `Ỹ` minus its axis sides.
+(*Description, not used below:* the regions with a corner at an axis side `A` with stabiliser `⟨h⟩` form an
+`h`-periodic sequence along `A`; their images are the triangles `(e(A), v_k, v_{k+1})`, `k ∈ Z`,
+`v_{k+m} = h v_k`, which accumulate on `A` as `k → −∞` and shrink to the ideal point `e(A)` as `k → +∞` when
+`e(A)` is the attracting point of `h`.)
+
+**Step 5 (assembly).** Carry out Steps 2–4 for one piece in each `Γ`-orbit and transport by `Γ`; let `𝒯` be
+the set of all triangles `σ(t̃)` together with the half-plane triangles of Step 1. `𝒯` is `Γ`-invariant.
+Interiors are disjoint (different pieces and half-planes have disjoint interiors). (T1): edges lie in
+closed pieces or half-planes, whose interiors no chord of `𝓕` or boundary chord meets; within a piece, (b).
+(T2): an arc-chord is a chord side of two pieces, or of a piece and a half-plane, and is an edge of one
+triangle in each; axes: (a). (T3): Step 1 and (e). (T5): by construction. (T4): local finiteness off the
+axes holds in each half-plane (Step 1) and each piece (d), and the pieces and half-planes are locally finite.
+If distinct triangles `τ_n` meet a compact set, pass to a subsequence whose vertices converge; the limit is
+not a non-degenerate triangle (two members of the sequence would then both contain a fixed interior point of
+the limit), and it is not a point of the circle; so it is a chord `λ` through a point of the compact set,
+and it is a limit of infinitely many distinct edges. By local finiteness off the axes, `λ` contains no point
+off the axes of `𝓕`, i.e. `λ` is an axis of `𝓕`. ∎
 
 ### 6.6 Proposition P (pleated slices) **[proved, given Lemma T]**
 
@@ -693,10 +796,17 @@ or, by (T4), the vertices of `τ_n` tend to `{a^−, a^+}`; writing `z_n` in Euc
 of `p`.
 
 *Injectivity.* `Ψ` is injective on the circle, and on each closed triangle and axis (an affine map between
-non-degenerate simplices). For two distinct pieces, the equality case of Lemma 6.4 shows that their images
-meet only in points of `hull{r,r'}` that are combinations of the cut points `r, r'` *in both pieces*, i.e. in
-a common edge, where `Ψ` is consistently defined. Images of interior points do not lie on `p(C)` (they have
-`det > 0`).
+non-degenerate simplices: three distinct points `p_1, p_2, p_3` of `p(C)` are linearly independent, because
+`det(λp_1 + μp_2) = λμ N(p_1,p_2)` vanishes on the plane they span only on the two lines `Rp_1`, `Rp_2`, so
+the rank-one matrix `p_3` is not in that plane). For two distinct pieces `T, T'` (triangles or axes) with cut points `r, r'` as in the proof
+of (S3), the equality case of Lemma 6.4 says: if `Ψ(x) = Ψ(y)` with `x ∈ T`, `y ∈ T'`, then, written as positive
+combinations of the vertices of their pieces, both have weight only on vertices in `{r, r'}`. So the two
+images meet only in the image of the common face spanned by the common vertices among `r, r'`: a common
+edge (both common, where the two affine definitions of `Ψ` agree), a common ideal vertex (a point of `p(C)`,
+not in `Z`), or nothing. In particular, for an axis `A = (a^−, a^+)` and a triangle `τ`: by (T2) `τ` does not
+have both `a^−` and `a^+` as vertices, so `T(τ) ∩ g(A) = ∅`; this is the case of the triangles spiralling
+towards `A`, which share with `A` at most the ideal point `e(A)`. Two distinct axes have no common endpoint,
+so their images are disjoint. Images of points of `D` do not lie on `p(C)` (they have `det > 0`).
 
 A continuous injective map from the compact disc `D̄` to a Hausdorff space is an embedding. So `Z ∪ C = Ψ(D̄)`
 is an embedded closed disc with boundary `C` and interior `Z`. ∎
@@ -767,7 +877,9 @@ The minimum over `𝒞(A)` exists (§4), so the infimum is attained. ∎
 **What Theorem H replaces.** In earlier revisions "HRT = minimum over classes" was Hypothesis H, with parts H1
 (candidates are embedded cut classes) and H2 (every embedded class bounds a spacelike region). H1 is the `≥`
 part of the proof; H2 is Proposition P. The remaining inputs are: the definition of §6.3; the description of
-the spacetimes in §6.1 (cited); and the two standard facts in Lemma T (cited).
+the spacetimes in §6.1 (cited); and one topological fact in Lemma T (existence of triangulations of a compact
+surface with prescribed vertices; cited). The spiralling of triangles around closed geodesics is proved in
+Lemma T, Step 4.
 
 ### 6.8 Lemma (non-embedded collections do not win) **[proved]**
 
@@ -839,7 +951,7 @@ containing intervals the corresponding statement is **not proved** (§5.4).
 | 6.2(a): outer geodesic in `D̃`, inner one not | proved (argument for the second part supplied by the referee) |
 | Lemma 6.8 (non-embedded collections do not win) | proved |
 | Lemma 6.4 (Separation Lemma), Lemma 6.4a | proved; tested numerically (160,000 cases, control fails) |
-| Lemma T (invariant ideal triangulation containing a cut) | proved modulo two cited standard facts (triangulations of marked surfaces; spinning) |
+| Lemma T (invariant spun family of ideal triangles containing a cut; closed geodesics are not edges, triangles spiral onto them) | proved given one cited topological fact (triangulations of a compact surface with prescribed vertices); the spiralling step is proved in the text |
 | Proposition P (pleated slice: embedded, invariant, pairwise spacelike separated, contains the geodesics) | proved, given Lemma T |
 | Theorem H (HRT entropy of §6.3 = minimum over cut classes) | proved, given Lemma T; **not yet refereed** when first written (see OPEN_GAPS.md for the review outcome) |
 | Theorem 2 (HRT, contraction-map inequalities, arbitrary regions) | proved; no hypothesis H |

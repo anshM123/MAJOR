@@ -168,13 +168,39 @@ increasing homeomorphism fixing `0` and `∞`; positive combinations of points `
 which says that `X/√det X` and `Y/√det Y` are not timelike or lightlike related; equality forces both onto
 the geodesic `rr'` and equal. ∎
 
-**Pleated slices.** Let `c` be a cut class. Its geodesics on `X_L` extend to an invariant ideal triangulation
-of `H²` (edges spinning around the closed components of `c`; dyadic triangulations of the half-planes over
-the boundary arcs). Replace each ideal triangle by the totally geodesic ideal triangle of `AdS_3` on the
-corresponding points of `C`. By the Separation Lemma any two points of the union `Z` are spacelike separated;
-a piecewise-affine map from the Klein disc in a projective chart shows `Z ∪ C` is an embedded closed disc; `Z`
-is invariant and contains the spacetime geodesics of `c`. So `Z` is a bulk slice and the triangles on one
-side of the geodesics form the homology region.
+**Pleated slices.** Let `c` be a cut class, with lifted geodesics `𝓕` in `H²` (chords for the arcs, axes of
+hyperbolic elements for the closed components).
+
+*An obstruction.* An axis `A` with stabiliser `⟨h⟩` cannot be an edge of a triangle in any invariant family of
+ideal triangles with disjoint interiors: `h` would have to preserve the triangle adjacent to `A` on that
+side, and `h` fixes only the two endpoints of `A`. So a cut containing a closed geodesic does **not** extend
+to a locally finite invariant ideal triangulation, and none is used.
+
+*Lemma T (spun family).* There is an invariant family `𝒯` of ideal triangles with disjoint interiors and
+vertices at lifted boundary points and endpoints of the axes, such that: every arc-chord of `𝓕` is an edge;
+no axis of `𝓕` meets any triangle; the triangles together with the axes fill `H²`; the family is locally
+finite away from the axes, and triangles accumulate only on the axes. *Construction.* Over each elementary
+boundary arc use a dyadic family of triangles. Cut the rest along `𝓕` and the boundary chords into pieces
+`Y`; collapse each closed geodesic in `∂Y` to a point and take a topological triangulation of the collapsed
+surface with vertices at the marked points and the collapsed points (the one cited fact). In the universal
+cover `Ỹ` every lifted edge joins two "corners" (ideal vertices or boundary axes). Choose for every boundary
+axis one of its two endpoints, equivariantly — possible because the stabiliser of an axis fixes both — and
+replace each lifted edge by the chord between the chosen points, each lifted triangle by the ideal triangle
+on them. The choice map preserves cyclic order, so the chords do not cross and the triangles have disjoint
+interiors. An end of a chord at an axis endpoint is asymptotic to the axis, which gives local finiteness away
+from the axes by proper discontinuity; and a point of `Ỹ` off the axes that lay in no triangle would be
+separated from a fixed triangle by infinitely many distinct chords crossing one compact segment disjoint
+from the axes, contradicting that local finiteness. In the quotient, the triangles spiral around each closed
+geodesic of `c` from both sides.
+
+*Proposition P (the slice).* Replace each triangle of `𝒯` by the totally geodesic ideal triangle of `AdS_3` on
+the corresponding points of `C`, and each axis by its spacetime geodesic; let `Z` be the union. Any two
+pieces have vertex sets in complementary closed arcs of `C`, so by the Separation Lemma any two points of `Z`
+are spacelike separated, and two pieces meet only along a common edge. The piecewise-affine map from the
+Klein disc (in a projective chart, affine on each triangle and on each axis) is continuous — at a point of an
+axis because the triangles near it have all their vertices near the two endpoints of the axis — and
+injective, so `Z ∪ C` is an embedded closed disc. `Z` is invariant because `𝒯` is, and it contains the
+spacetime geodesics of `c`. The triangles and axes on one side of the cut form the homology region.
 
 **Proof of Theorem H.** `≥`: on any bulk slice, the lifted components of a candidate are disjoint arcs of a
 closed disc with endpoints on its boundary circle, hence have unlinked endpoints (Jordan curve theorem); the
@@ -233,7 +259,7 @@ information problem are not addressed.
 | Theorem 3 for regions with endpoints | **not proved** |
 | Length formula, marking | proved |
 | Separation Lemma | proved; tested numerically |
-| Invariant ideal triangulation containing a cut | proved modulo two cited standard facts |
+| Invariant spun family of ideal triangles containing a cut (Lemma T) | proved given one cited topological fact (triangulations with prescribed vertices); spiralling step proved |
 | Pleated slice; Theorem H | proved given the above; independent review: see OPEN_GAPS.md |
 | Theorems 2 and 3' (HRT) | proved; no admissibility hypothesis; for the definition of §7 with acausal slices |
 | Same statements for smooth, uniformly spacelike homology regions | **not proved** |

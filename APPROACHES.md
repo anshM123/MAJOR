@@ -83,7 +83,8 @@ Goal: a statement about the physically defined HRT entropy, with no admissibilit
   spacelike separated from every point of the convex hull of `β`. Proof: normalise the cut points to `0, ∞` in
   both chiral factors; positive combinations over `α` are matrices with non-negative entries, those over `β`
   have the complementary sign pattern, and the claim is the arithmetic–geometric mean inequality. Given an
-  invariant ideal triangulation containing the cut (spun around its closed geodesics), the union of the
+  invariant family of ideal triangles containing the arcs of the cut and spiralling onto its closed geodesics
+  (which are not edges: a locally finite invariant triangulation with a closed geodesic as an edge cannot exist), the union of the
   totally geodesic ideal triangles on the corresponding boundary points is then pairwise spacelike separated,
   and an explicit piecewise-affine map from the Klein disc shows it is an embedded disc with the right
   boundary.

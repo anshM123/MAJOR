@@ -15,8 +15,11 @@ two halves of that proof. What the statement still depends on:
   carried out. Moreover at a closed component carrying angular momentum (`ℓ_L ≠ ℓ_R`) the constructed slice is
   acausal but asymptotically lightlike (its faces tilt towards the lightlike planes through the geodesic), so
   under a definition demanding a uniformly spacelike homology region Theorem H is **not** established.
-* **Two cited standard facts** in Lemma T (triangulations of marked surfaces containing given arcs; spinning
-  around closed geodesics). Not re-proved; citations not re-checked against the sources.
+* **One cited topological fact** in Lemma T, Step 3 (a compact surface with prescribed vertices, not one of
+  four small exceptions, has a triangulation with those vertices). The spiralling ("spinning") step, which in
+  revision 5 was a second citation, is proved in the text since revision 6 (Lemma T, Step 4).
+* **Equivalence with "acausal Cauchy slice of `M ∪ ∂M`"** (PROOFS §6.3, Remark (iv)): not proved in either
+  direction; a sketch for one direction is given there.
 * **The cited description of the spacetimes** (§6.1): proper discontinuity on the invisible domain, structure
   of the asymptotic boundaries.
 * **Independent review** of §§6.3–6.9: see G6.

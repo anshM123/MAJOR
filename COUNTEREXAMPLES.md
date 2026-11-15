@@ -37,7 +37,37 @@ kept there are none. Theorem 1 is accordingly stated with a cut-off and an `o(1)
 * Wrong-side Fenchel–Nielsen gluing: non-discrete representation (trace 1.195 element); the single-metric
   control then showed 325/500 spurious violations.
 
-## 5. First-phase results (quantum information; archived in archive_qi/)
+## 5. Failure-mode analysis for the two halves of the HRT identification
+
+The former Hypothesis H had two halves. For each: what could have gone wrong, what was tried, what was found.
+
+**H1 — "every admissible HRT candidate is an embedded cut class."**
+
+| Conceivable failure | Outcome |
+|---|---|
+| Candidate geodesics cross when drawn on the surface | Excluded: they are disjoint curves on an embedded disc, so their endpoints on the boundary circle are unlinked (Jordan curve theorem); the left coordinate preserves cyclic order. |
+| Candidate uses the *inner* closed geodesic (length `½|ℓ_L − ℓ_R|`, shorter than the outer one) | Excluded: it is not in the spacetime (PROOFS §6.2(a)). If it were admitted, the minimum would change and the inequalities would not follow from this proof. |
+| Topological homology satisfied but no spacelike region (the gap between "homologous" and "spacelike-homologous") | This is H2, below. For H1 only the existence of *some* slice is used. |
+| Marking mismatch: spacetime classes identified with surface classes up to a Dehn twist | Excluded by construction of the marking through the equivariant boundary map (§6.1); a mismatch would be visible as violations in the twisted `k = 2` rows of E6 only if it changed the minimum, so this rests on the proof, not on numerics. |
+| Self-intersecting or multiply covered closed geodesics as candidates | Do not lie on an embedded slice; and Lemma 6.8 shows non-embedded collections never beat the minimum. |
+
+**H2 — "every embedded cut class bounds a region on an admissible slice."**
+
+| Conceivable failure | Outcome |
+|---|---|
+| Two geodesics of the class (or two group translates) are timelike or null related | Excluded by the Separation Lemma (points on hulls of complementary arcs of an acausal circle are spacelike related; equality only at shared ideal points). 240,000 random tests + 360,000 on a rotating pleated slice, none. |
+| Pairwise spacelike curves that lie on no common acausal surface | Was the main worry (the user's "pairwise separation is not sufficient"). Resolved constructively: the surface is built (Proposition P) as a union of totally geodesic ideal triangles of an invariant triangulation containing the cut; the lemma applies to *all* pairs of points of the surface, not only to points on the curves. |
+| The surface is not embedded / not a disc / has the wrong boundary | Proved by an explicit homeomorphism from the Klein disc (piecewise projective on triangles). **Not tested numerically.** |
+| Null degeneration | **Occurs, in a limited sense.** At a closed geodesic with `ℓ_L ≠ ℓ_R` the faces of the pleated surface tilt to the null planes through the geodesic (`null_tilt_check.py`). Every pair of points is still strictly spacelike related, so the surface is acausal; it is not uniformly spacelike, and not smooth. |
+| Slice is acausal but not a Cauchy slice of the spacetime-with-boundary | Not proved here. An argument is sketched in PROOFS §6.3 Remark (iv); it relies on the cited product structure of globally hyperbolic spacetimes with timelike boundary. |
+| A closed geodesic of the cut cannot be an edge of a locally finite invariant ideal triangulation (its stabiliser would have to preserve the adjacent triangle) | **True, and raised as an objection.** The construction never uses such a triangulation: on the collapsed surface the closed geodesic is a vertex, and after straightening the triangles spiral onto it; no triangle is adjacent to it. Lemma T, Step 4, proves disjointness, local finiteness off the axes and covering directly. One topological fact (triangulations with prescribed vertices) is cited. |
+
+**Net:** no counterexample to H1 or H2 was found. The one real degeneration (null tilt at rotating closed
+geodesics) limits the theorem to definitions of HRT that use acausal slices, which is the convention of
+Headrick–Hubeny–Lawrence–Rangamani (Cauchy slices "required to be acausal") and is contained in Wall's
+("complete achronal slice", null permitted).
+
+## 6. First-phase results (quantum information; archived in archive_qi/)
 
 * Ordinary-Petz recovery bound for conditional mutual information: violated. Independently rediscovered here
   (ratio `I/(−log F)` down to ≈ 0.69 at second order for qubits, verified with an independent 80-digit

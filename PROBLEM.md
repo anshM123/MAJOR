@@ -49,6 +49,16 @@ bounded by the fourth cumulant. See APPROACHES.md.
 
 ## Self-assessed level (brief's scale)
 
-If Theorem 2 of PROOFS.md survives independent verification: **Level 4** (a new, verified theorem addressing a
-significant special case), together with a method (Lemma A + Crofton) that is new in this literature. It is
-not Level 1–3: the general (non-vacuum, higher-dimensional) problem remains open.
+Stated separately for the two parts, because their verification status differs.
+
+* **Mathematical part** (Theorem 1 of PROOFS.md: contraction-map inequalities for the common-class functional
+  `min_c ½(ℓ_L + ℓ_R)`; Theorem 3 for whole-boundary parties). Three automated referee passes, no error found.
+  This is what the numerical experiments of arXiv:2407.07165 tested and left open as a proof.
+* **Gravitational part** (Theorem H: the HRT entropy, defined with acausal bulk slices, equals that
+  functional; hence Theorem 2). Proved in PROOFS.md §§6.3–6.7 without any admissibility hypothesis; status of
+  the independent audit: see OPEN_GAPS.md G6. Not proved for a definition that demands a smooth, uniformly
+  spacelike slice.
+
+If both parts survive expert verification: **Level 4** (a new theorem settling a significant special case of
+an open problem). Not Level 1–3: matter, higher dimensions, and inequalities without contraction maps for
+interval regions remain open.
