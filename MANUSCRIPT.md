@@ -306,7 +306,7 @@ and there only given the cited theorems of Proposition S).
 | Separation Lemma | proved; tested numerically |
 | Invariant spun family of ideal triangles containing a cut (Lemma T) | proved given one cited topological fact (triangulations with prescribed vertices); spiralling step proved |
 | Pleated slice (Proposition P) | proved; not new in substance (Mazzoli–Viaggi) |
-| Theorem H (acausal slices) | proved; one automated audit, no error in the statement, gaps repaired; closed-geodesic case audited separately (OPEN_GAPS.md G6) |
+| Theorem H (homology region on an acausal Cauchy slice of the spacetime with boundary) | proved; two independent automated audits, no error found in the statement, all gaps they listed filled (fills not re-read); see OPEN_GAPS.md G6 |
 | Theorem H with smooth spacelike slices | whole-boundary regions: proved given cited theorems; regions with endpoints: **not proved** |
 | Theorems 2 and 3' (HRT) | proved; no admissibility hypothesis; for the definition of §7 with acausal slices |
 | Same statements for smooth, uniformly spacelike homology regions | **not proved** |

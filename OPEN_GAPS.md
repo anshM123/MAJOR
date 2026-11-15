@@ -92,9 +92,24 @@ nothing is formalised.
 * Referee's own tests: exact rational test of Lemma 6.4, 20,000 cases, 0 violations; rotating three-boundary
   wormholes with fans spiralling both ways around an axis, 8 group translates, ≈36,000 pairs, 0 violations;
   fans to depth 25 at 300 digits, 0 violations (ratio → 1 from above at the axis).
-* Closed-geodesic case of Lemma T / Proposition P, revision 6 (second, targeted audit, prompted by the
-  objection that an axis cannot be an edge of an invariant locally finite triangulation): **outcome recorded
-  below when available.**
+* Closed-geodesic case and Cauchy-slice assertion (second, targeted audit, prompted by the objection that an
+  axis cannot be an edge of an invariant locally finite triangulation; read revision 6 and the first version
+  of §6.3b). Verdict: **the revised Lemma T resolves the objection; could not be broken.** Lemma T Step 4
+  (a)–(e) checked line by line, including the pieces annulus-with-one-marked-point, pants bounded by three
+  closed geodesics, loop edges. Proposition P: no error (continuity and injectivity at axis points and at the
+  ideal endpoints; different spiralling choices on the two sides). Theorem H `≤`: no error. Lemma K, Lemma L:
+  correct. Theorems C, E and the identification with the Headrick–Hubeny–Lawrence–Rangamani condition
+  (their paper read by the referee, including that their own Lemma 14 uses non-smooth slices): correct
+  modulo gaps, all filled in revision 7 — closure of the lifted slice; order of two steps; proper
+  discontinuity on the boundary (now an explicit cited assumption); scope `Γ` non-trivial. The fills were
+  **not** re-read by a referee. Not reviewed by this referee: the `≥` half of Theorem H (reviewed by the
+  first), Mazzoli–Viaggi.
+* That referee's tests: rotating BTZ with fans on both sides and all four spiralling choices, 55,244,160
+  pairs, 0 violations (control with a crossing triangle: 114 / 20,000); rotating one-holed-torus wormhole with
+  a non-separating closed geodesic plus an arc, group translates, 60 digits, 4 × 456,489 pairs, 0 violations;
+  Lemma K formula against direct evaluation, agreement to `7·10^{-9}`.
+* Still not established, by both audits: smooth or uniformly spacelike slices when the cut has arcs; Wall's
+  achronal class; global `AdS_3` in §6.3b (trivial group; simply connected, covered by earlier work).
 * Numerical tests: EXPERIMENTS.md. Lemma A is tested directly only on the cylinder (`π_1 = Z`).
 
 ## G6a. Referee's list: implications asserted but not proved

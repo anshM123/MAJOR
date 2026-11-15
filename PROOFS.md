@@ -650,19 +650,33 @@ chosen with `|θ_x − θ_{λ_0}| < π`, and then `|θ_x − θ_{λ_0}| < d_0 :=
 then `|θ_λ − θ_{λ_0}| > 2π − d_λ − d_0`, whereas `|θ_λ − θ_{λ_0}| < d(z_λ, z_{λ_0}) ≤ 2π − d_0 − d_λ` (path through
 the antipode of `z_x`). So `m = 0` and `x ∈ 𝔼_Γ`. ∎
 
-**The spacetime with boundary.** `M̄ := 𝔼_Γ/Γ`. Its interior is `M = D̃/Γ`; its boundary `∂M̄ = (𝔼_Γ ∩ ∂E)/Γ`
-consists of the boundary points not causally related to the limit set, i.e. (§6.1) the domains of
-dependence of the components of `C \ Λ_Γ` — one cylinder per asymptotic region, on which the boundary theory
-lives. This is the bulk-with-boundary of arXiv:1408.6300. A *Cauchy slice of `M̄`* is a subset met exactly
-once by every inextensible causal curve of `M̄`; it is then acausal (a causal curve between two of its points
-extends to an inextensible one). Causal curves of `M̄` are the projections of those of `𝔼_Γ`.
+**The spacetime with boundary.** `M̄ := 𝔼_Γ/Γ`. Its interior is `M = D̃/Γ`. Its boundary is
+`∂M̄ = (𝔼_Γ ∩ ∂E)/Γ`; a boundary point `(φ,θ)` is causally unrelated to `Λ̃` iff `|θ − θ_λ| < d(φ, φ_λ)` for all `λ`,
+and since `Λ̃` is the graph of a strictly 1-Lipschitz function over a closed subset of the circle this is the
+union, over the gaps `I` of `C̃ \ Λ̃`, of the open diamonds (boundary domains of dependence) of the `I`: one
+cylinder per asymptotic region, on which the boundary theory lives. This is the bulk-with-boundary of
+arXiv:1408.6300 (their `M̃ = M ∪ B` with the causal structure of the conformal metric).
+**[cited, §6.1]** `Γ` acts freely and properly discontinuously on `𝔼_Γ`, boundary included (Barbot); this is
+used to lift inextensible causal curves of `M̄`. A *Cauchy slice of `M̄`* is a subset met exactly once by every
+inextensible causal curve of `M̄`; it is then acausal (a causal curve between two of its points extends to an
+inextensible one). Causal curves of `M̄` are the projections of those of `𝔼_Γ`.
+*Scope.* Throughout §6.3b `Γ` is non-trivial. For trivial `Γ` (global `AdS_3`) the correct spacetime is the
+universal cover, `D̃ := E°`, `𝔼_Γ := E`, and the statements hold with shorter proofs (along an inextensible
+causal curve of `E`, `θ` is unbounded in both directions); that case is simply connected and covered by
+arXiv:1905.03787, and is not discussed further.
 
 **Theorem C (slices are Cauchy).** Let `C'` be a `Γ`-invariant acausal circle containing `Λ_Γ` and let `Σ̃`
 satisfy (S1)–(S3) with boundary `C'`. Then `Σ̄ := (Σ̃ ∪ (C' \ Λ_Γ))/Γ` is a Cauchy slice of `M̄`, and
 `Σ̄ ∩ ∂M̄ = (C' \ Λ_Γ)/Γ` is a Cauchy slice of `∂M̄`.
 
-*Proof.* Identify `Σ̃` with its preimage in `𝔼_Γ` (Lemma L) and let `G` be its closure in `E`, i.e.
-`Σ̃ ∪ C̃'` (S1).
+*Proof.* Identify `Σ̃` with its preimage in `𝔼_Γ` (Lemma L) and let `G` be its closure in `E`. *`G = Σ̃ ∪ C̃'`:* by
+(S1) the closure of `Σ̃` in `AdS_3 ∪ ∂AdS_3` is `Σ̃ ∪ C'`, so a limit point `q` of the lift lies over a point of
+`C'`, and it lies in the closure of `𝔼_Γ`, i.e. `|θ_q − θ_λ| ≤ d(z_q, z_λ)` for all `λ ∈ Λ̃`. Let `c̃ = (φ_c, θ_c)` be
+the point of `C̃'` over the same point of `C'`; the other preimages are `q_k = (φ_c + kπ, θ_c + kπ)`, `k ≠ 0`.
+Choose `λ ∈ Λ̃`, `λ ≠ c̃` (there are at least two limit points), and put `d_c = d(φ_c, φ_λ)`, so
+`|θ_c − θ_λ| < d_c ≤ π` (Lemma L(i)). For even `k ≠ 0`: `|θ_c + kπ − θ_λ| > 2π − π ≥ d(q_k, λ)`. For odd `k`:
+`d(q_k, λ) = π − d_c` and `|θ_c + kπ − θ_λ| ≥ π − |θ_c − θ_λ| > π − d_c`. So no `q_k` with `k ≠ 0` is in the closure
+of `𝔼_Γ`, and `q = c̃ ∈ C̃'`. Conversely every point of `C̃'` is such a limit.
 *Step 1: pairs of points of `G`.* For `x ≠ y` in `Σ̃`, `N(X,Y) > 2` in the positive lift (Lemma 6.3a, first
 part). `N(X,Y) > 2` implies `cos Δθ > −1`; `Δθ` is continuous on the connected set of pairs of distinct points
 of the disc `Σ̃` and tends to `0` at the diagonal, so `|Δθ| < π`; by Lemma K, `|Δθ| < d(z_x,z_y)`. Two points
@@ -682,7 +696,7 @@ points of `Σ̃` with `|Δθ| = d`, contradicting Step 1.
 `{θ > f}`; by time reversal assume the former, and parametrise `κ` towards the future. `θ` increases along
 `κ` and is bounded by `max f`, and `d(z(s),z(s')) ≤ θ(s') − θ(s)`, so `κ` converges to a point `q ∈ E` with
 `θ_q ≤ f(z_q)`. `q ∉ 𝔼_Γ` because `κ` is inextensible. So `q` is causally related to some `λ ∈ Λ̃`. If
-`q ∈ J^−(λ)`, then `κ ⊂ J^−(q) ⊂ J^−(λ)`, contradicting `κ ⊂ 𝔼_Γ`. If `q ∈ J^+(λ)` and `q ≠ λ`, the point
+`q ∈ J^−(λ)` (this includes `q = λ`), then `κ ⊂ J^−(q) ⊂ J^−(λ)`, contradicting `κ ⊂ 𝔼_Γ`. If `q ∈ J^+(λ)` and `q ≠ λ`, the point
 `q' = (z_q, f(z_q)) ∈ G` lies in `J^+(q) ⊂ J^+(λ)` and `q' ≠ λ` (else `q ∈ J^+(λ) ∩ J^−(λ) = {λ}`); but `q'` and
 `λ` are both in `G`, contradicting Step 2'.
 *Step 4.* A point of `κ ∩ G` lies in `𝔼_Γ ∩ G = Σ̃ ∪ (C̃' \ Λ̃)`. By Step 1 there is exactly one. An
@@ -801,8 +815,8 @@ closed triangles, and neither endpoint pair of an edge equals the endpoint pair 
 (T3) the union of the closed triangles and of the axes in `𝓕` is `H²`;
 (T4) `𝒯` is locally finite in `H²` minus the axes in `𝓕`, and every sequence of distinct triangles meeting a
 fixed compact set subconverges, in the Hausdorff sense in the closed disc, to an axis of `𝓕`;
-(T5) all vertices of the triangles lie in the left coordinates of points of `C`: they are lifted marked
-points (original or auxiliary) or endpoints of axes of `𝓕`.
+(T5) all vertices of the triangles are left coordinates of points of `C`: points of `Ω` (lifted marked
+points, original or auxiliary, and the dyadic points of Step 1) or endpoints of axes of `𝓕`.
 
 *Proof.* **Step 0 (auxiliary points, boundary chords).** Add auxiliary marked points so that every ideal
 circle carries at least one (at least three in all if `Γ` is trivial), and let `V_Ω ⊂ Ω` be the set of lifts of all marked points; stabilisers of points
@@ -883,7 +897,9 @@ image of `K`, which is compact and at distance `≥ δ` from the closed geodesic
 an endpoint of an axis side `A`, in which case it is asymptotic to `A` and its image comes within `δ` of the
 closed geodesic. So the `y_n` stay in a compact segment `J` of `σ(ẽ)`, and `g_n J ∩ K ≠ ∅` for infinitely many
 distinct `g_n` (distinct because the stabiliser of `σ(ẽ)` is trivial), contradicting proper discontinuity.
-There are finitely many orbits, so `K` meets finitely many chords `σ(ẽ)`.
+There are finitely many orbits, so `K` meets finitely many chords `σ(ẽ)`; and, if `K` is connected, finitely
+many triangles `σ(t̃)`: a triangle meeting `K` either contains `K` in its interior (at most one triangle) or
+has an edge meeting `K`, and each chord is an edge of at most two triangles.
 
 (e) *The triangles cover `Ỹ` minus its axis sides.* Let `z ∈ Ỹ`, not on an axis side, and suppose `z` lies in
 no closed triangle `σ(t̃)`. Fix a region `t̃_0` and an interior point `w_0` of `σ(t̃_0)`. The complement of a
@@ -928,7 +944,7 @@ Let `c`, `𝓕`, `𝒯` be as in Lemma T and `C` the acausal circle of the bound
 `Z ⊂ D̃` — it is a union of totally geodesic spacelike ideal triangles, and it contains the spacetime geodesic
 `hull{p(u), p(u')}` of every chord `(u,u') ∈ 𝓕`.
 
-*Proof.* `Z ⊂ hull(C) ⊂ D̃` (§6.3), and `Z` is `Γ`-invariant because `𝒯`, `𝓕` and `p` (up to positive scale) are.
+*Proof.* `Z ⊂ hull(C) ⊂ D̃` (§6.3), and `Z` is `Γ`-invariant because `𝒯`, `𝓕` and `p` (up to positive scale and a global sign) are.
 Every chord of `𝓕` is an edge of a triangle or an axis, so its hull is in `Z`.
 
 (S3). Let `x ≠ y` in `Z`, in pieces `T, T'` (triangles or axes). If `T = T'`, Lemma 6.4a (or §6.2(b) for an
@@ -981,7 +997,14 @@ triangles converge to `span{E_{12}, E_{21}, E_{11}}` if `a < b`, to `span{E_{12}
 and are all equal to one spacelike plane if `a = b`. On `span{E_{12}, E_{21}, E_{ii}}` the form `det` is
 degenerate: these are the two lightlike planes through `g(A)`. Thus, when `ℓ_L(h) ≠ ℓ_R(h)` — a closed geodesic
 carrying angular momentum — `Z` is acausal (S3) and each of its faces is spacelike, but the faces accumulating
-at `g(A)` tilt towards a lightlike plane: `Z` is **not uniformly spacelike** near `g(A)`. This is forced for
+at `g(A)` tilt towards a lightlike plane: `Z` is **not uniformly spacelike** near `g(A)`. (Second referee:
+the same happens on the other side of `g(A)`; if the spiralling choices on the two sides are opposite the
+two limit planes are the two different lightlike planes through `g(A)` and `Z` has a lightlike "roof" along
+`g(A)`, tangent to `∂J^±(g(A))`; if equal, the same lightlike plane. In both cases `Z` is acausal but has no
+spacelike tangent plane along `g(A)`; the bending per period is the rapidity `|a − b|/2`, so the total bending
+at `g(A)` is infinite. Up to sign the endpoints are `E_{12}` and `−E_{21}`. Confirmed numerically by the
+referee: normalised `det` of the face normals falls from `6.8·10^{-2}` to `2.3·10^{-5}` over eight periods for
+`(a,b) = (1,2)` and is constant for `a = b`.) This is forced for
 any invariant surface that is totally geodesic on one side of `g(A)`: `h` acts on the normal plane of `g(A)`
 by a boost of rapidity `(a−b)/2`, and the only boost-invariant normal directions are null. An invariant
 surface that is smooth and spacelike along `g(A)` must have a tangent plane that is boosted steadily along
@@ -1036,7 +1059,8 @@ acausal inside a small enough neighbourhood `U` of each of its points, and by st
 between points sufficiently close to `x` stay in `U`; contradiction.
 
 *(3) Extension and lift.* By the cited theorem there is a smooth spacelike Cauchy hypersurface `S ⊃ H_δ ⊃ H_0`
-of `N`. Its preimage `S̃ ⊂ Ω` is smooth, spacelike, `Γ`-invariant (S2), contains the `g(A')`, and is met exactly
+of `N`; being a spacelike Cauchy hypersurface it is acausal and met exactly once by every inextensible
+*causal* curve (O'Neill, *Semi-Riemannian Geometry*, Lemma 14.42). Its preimage `S̃ ⊂ Ω` is smooth, spacelike, `Γ`-invariant (S2), contains the `g(A')`, and is met exactly
 once by every inextensible causal curve of `Ω` (project the curve to `N`). As in the proof of Theorem E:
 two points of `S̃` are not causally related in `E` (causal convexity of `Ω`); for every `z` in the open disc
 the vertical segment `{θ : (z,θ) ∈ Ω}` is a non-empty open interval (it contains the point of `Z`) and an
@@ -1205,7 +1229,7 @@ text adds, and what their paper does not contain:
 | Lemma 6.4 (Separation Lemma), Lemma 6.4a | proved; tested numerically (160,000 cases, control fails) |
 | Lemma T (invariant spun family of ideal triangles containing a cut; closed geodesics are not edges, triangles spiral onto them) | proved given one cited topological fact (triangulations of a compact surface with prescribed vertices); the spiralling step is proved in the text |
 | Proposition P (pleated slice: embedded, invariant, pairwise spacelike separated, contains the geodesics) | proved, given Lemma T |
-| §6.3b: Lemma K (signed causal criterion), Lemma L, Theorem C (slices of §6.3 are acausal Cauchy slices of the spacetime with boundary), Theorem E (converse) | written in revision 7; **not yet reviewed by any referee** |
+| §6.3b: Lemma K (signed causal criterion), Lemma L, Theorem C (slices of §6.3 are acausal Cauchy slices of the spacetime with boundary), Theorem E (converse) | proved for non-trivial `Γ`, given the cited free and properly discontinuous action on the spacetime with boundary. One automated audit: Lemma K, Lemma L correct; Theorems C, E correct modulo three fillable gaps, filled in this revision (the fills not re-read) |
 | Theorem H (HRT entropy of §6.3 = minimum over cut classes) | proved, given Lemma T and the standard fact in Lemma 6.3a, **for the definition of §6.3** (homology region on an acausal, possibly non-smooth and asymptotically lightlike slice; simple components). One independent automated audit of revision 5: no error in the statement, gaps G2–G4 repaired in revision 6. Closed-geodesic case re-audited separately: see OPEN_GAPS.md G6 |
 | Theorem 2 (HRT, contraction-map inequalities, arbitrary regions) | proved for the HRT entropy of §6.3 (acausal slices); with smooth spacelike slices only when no region has endpoints |
 | Theorem 3' (HRT, full cone, whole-boundary parties) | proved for the HRT entropy of §6.3; also with smooth spacelike homology regions, given Proposition S |
