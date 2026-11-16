@@ -2,7 +2,7 @@ r"""Certificate C3:  K_low^{(4)}(M, tau) > 0  for all (M, tau) in [M1, MK] x [TA
 
 K_low^{(m)}(M,tau) = int_0^1 f(p) [1 + 2 sum_{k=1}^m e^{-2 pi k M p}] sin(p tau) dp   (explicit elementary closed form,
 see common.K_low_iv) is a lower bound for the Mehler kernel K_{f,M}(t) = int_0^1 f(p) coth(pi M p) sin(M p t) dp at
-t = tau/M (Lemma 4 of UNIFORM_POSITIVITY.md).  Adaptive bisection; every box is evaluated with outward-rounded interval
+t = tau/M (Lemma 5 of UNIFORM_POSITIVITY.md).  Adaptive bisection; every box is evaluated with outward-rounded interval
 arithmetic (natural interval extension of the closed form) and is reported as PASS when the lower endpoint is > 0.
 """
 import sys

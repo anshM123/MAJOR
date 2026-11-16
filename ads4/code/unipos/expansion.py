@@ -1,4 +1,4 @@
-r"""Exact curvature expansion of F_M(beta) (Lemma 6 of UNIFORM_POSITIVITY.md).
+r"""Exact curvature expansion of F_M(beta) (Lemma 7 of UNIFORM_POSITIVITY.md).
 
 With a = (beta+t)/2, c = (beta-t)/2:   cosh(beta) - cosh(t) = ((beta^2 - t^2)/2) * E,  E = (sinh a / a)(sinh c / c),
     (sinh a / a)^{-1/2} = sum_k d_k a^{2k},

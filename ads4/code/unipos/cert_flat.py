@@ -3,7 +3,7 @@ r"""Certificates C5a / C5b (one-dimensional, interval arithmetic).
 C5a (flat-space lemma, bounded part):   fhat(b) = int_0^1 f(p) J_0(p b) dp > 0   for 0 <= b <= TAU2 = 10.85.
 C5b (independent second proof of the curved theorem for M >= M0C = 45, region M beta <= TAU2):
         fhat(b) - (2591/1680) sinh^2( b / (2*45) ) > 0     for 0 <= b <= 10.85,
-     which with |F_M(beta) - fhat(M beta)| <= (int f) * sinh^2(beta/2)/4  (Lemma 8) gives F_M(beta) > 0 for
+     which with |F_M(beta) - fhat(M beta)| <= (int f) * sinh^2(beta/2)/4  (Lemma 9) gives F_M(beta) > 0 for
      M >= 45, M beta <= 10.85.
 
 fhat is evaluated from its Taylor series  fhat(b) = sum_k (-1)^k m_{2k} (b/2)^{2k} / (k!)^2   (exact rational
@@ -39,11 +39,19 @@ def fhat_lower(c):
     return mpf_to_fr(lo(v - tail))
 
 
+def exp_padded(x):
+    """Rigorous enclosure of exp on an iv interval.  mpmath.iv.exp is NOT a guaranteed enclosure (an independent
+    referee found misses of up to 4e-40 relative at 120 bits: directed rounding of a non-directed approximation).
+    We therefore widen its output by a relative 2^-60, which exceeds the observed defect by twenty orders of magnitude."""
+    e = iv.exp(x)
+    return e * iv.mpf([1 - iv.mpf(2) ** (-60), 1 + iv.mpf(2) ** (-60)])
+
+
 def sub_upper(u, M0):
     if M0 is None:
         return Fr(0)
     x = frac_iv(u) / (2 * M0)
-    s = (iv.exp(x) - iv.exp(-x)) / 2
+    s = (exp_padded(x) - exp_padded(-x)) / 2
     return mpf_to_fr(hi(frac_iv(NORM_F) / 4 * s * s))
 
 

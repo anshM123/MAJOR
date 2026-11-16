@@ -87,19 +87,27 @@ def S_iv(tau):
             + (12384 / t5 - 33840 / t7) * iv.cos(tau))
 
 
+
+def exp_padded(x):
+    """Rigorous enclosure of exp on an iv interval.  mpmath.iv.exp is NOT a guaranteed enclosure (an independent
+    referee found misses of up to 4e-40 relative at 120 bits: directed rounding of a non-directed approximation).
+    We therefore widen its output by a relative 2^-60, which exceeds the observed defect by twenty orders of magnitude."""
+    e = iv.exp(x)
+    return e * iv.mpf([1 - iv.mpf(2) ** (-60), 1 + iv.mpf(2) ** (-60)])
+
 def K_low_iv(M, tau, mmax):
     r"""Interval enclosure of
         K_low^{(m)}(M,tau) = int_0^1 f(p) [1 + 2 sum_{k=1}^{m} e^{-2 pi k M p}] sin(p tau) dp
                            = S(tau) + 2 sum_{k=1}^m Im sum_j [f^{(j)}(0) - e^{-z_k} f^{(j)}(1)] z_k^{-j-1},
         z_k = 2 pi k M - i tau,
-    for intervals M > 0, tau > 0.  (K_{f,M}(tau/M) >= K_low^{(m)}(M,tau) for every m >= 0, Lemma 4.)"""
+    for intervals M > 0, tau > 0.  (K_{f,M}(tau/M) >= K_low^{(m)}(M,tau) for every m >= 0, Lemma 5.)"""
     tot = S_iv(tau)
     c, s = iv.cos(tau), iv.sin(tau)
     for k in range(1, mmax + 1):
         a = 2 * iv.pi * k * M
         den = a * a + tau * tau
         wr, wi = a / den, tau / den                   # w = 1/z = (a + i tau)/(a^2+tau^2)
-        ea = iv.exp(-a)
+        ea = exp_padded(-a)
         er, ei = ea * c, ea * s                       # e^{-z} = e^{-a} (cos tau + i sin tau)
         pr, pi_ = wr, wi                              # w^1
         ar = iv.mpf(0); ai = iv.mpf(0)                # sum_j f^{(j)}(0) w^{j+1}

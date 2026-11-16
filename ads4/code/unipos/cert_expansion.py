@@ -1,6 +1,6 @@
 r"""Certificate C4:   FF(b, beta) := sum_{n>=0} beta^{2n} G_n(b) > 0   on the region
         R = { 0 <= b <= TAU2 = 10.85,   0 <= beta <= b / MK },     MK = 6,
-where F_M(beta) = FF(M beta, beta) for beta < pi (Lemma 6).  R contains every (b, beta) = (M beta, beta) with
+where F_M(beta) = FF(M beta, beta) for beta < pi (Lemma 7).  R contains every (b, beta) = (M beta, beta) with
 M >= MK and M beta <= TAU2.   The slice beta = 0 is the flat functional fhat(b) = G_0(b).
 
 For a b-cell [bc - h, bc + h] and x = beta^2 in [x0, x1] (x1 <= (TAU2/MK)^2 < pi^2) we use, for all b in the cell,

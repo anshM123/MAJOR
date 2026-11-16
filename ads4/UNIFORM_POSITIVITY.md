@@ -1,5 +1,29 @@
 # Uniform positivity of `F_M(β) = ∫_0^1 f(p) P_{−1/2+iMp}(cosh β) dp` for the weight `f(p) = (1−p)³ p (65 + 155p + 47p²)`
 
+**Review status (16 Nov 2026).** One independent automated referee with a hostile brief (same model family as
+the author; not a human expert). Verdicts, kept separate as requested:
+* *Mathematical correctness:* "Theorems 1, 2 and 1′ ESTABLISHED. No failing step found." Every lemma was
+  re-derived; the closed form of the sine transform, the expansion and its tail bound, the small-`M`
+  argument and the coverage of the three regions (including the interfaces `M = 6`, `Mβ = 10.85` and all limits)
+  were checked.
+* *Computer-assisted parts:* logic, coverage and error budgets sound; no floating point in any decision;
+  **one defect — `mpmath.iv.exp` is not rigorous — fixed here by padding.** The referee re-certified every
+  certified statement independently with a different library (Arb), its own Lipschitz bounds and its own
+  subdivisions (e.g. region (C) with 2478 boxes directly from the hypergeometric definition), and in
+  addition certified `F > 0` on a rectangle straddling both interfaces. Counterexample search: about 85,000
+  points, `M` from `0.01` to `3000`, `β` up to `600`; none.
+* *Physical applicability:* see the last section; in brief, `F_M` is exactly the leading heavy-state action for
+  the **scalar** setting of arXiv:2106.10274 in the Regge corner; for gravitons its relevance is conditional
+  on a formula that is not yet established, and the functional's other components are absent.
+* *Novelty:* no prior proof found (one search plus the project's literature notes; not exhaustive). The source
+  of the weight, arXiv:2201.06602, establishes flat positivity by plots.
+Minor corrections from the report (lemma numbers in docstrings; the order of two remainder terms in a remark;
+grid artefacts in two non-rigorous table entries of §6: on the window the minima of the kernel at `M = 1.15, 3`
+are `1.47, 0.25`, not `0.140, 0.120`) do not affect any proof. Classical representations: (R1) is DLMF 14.12.4;
+(R2) follows from DLMF 14.12.6 and the connection formula; (R3) is DLMF 10.9.12 (equation numbers from the
+referee's memory, formulas verified numerically to `10^{−27}`–`10^{−31}`).
+
+
 Status: written 16 Nov 2026. Computer-assisted proof (interval arithmetic, `ads4/code/unipos/`, driver
 `run_all.sh`, about 10 s for the certificates). **Not yet refereed by anyone other than the author** (an
 automated analyst; no human check). The statement is a theorem about an explicit integral; nothing here depends
@@ -28,8 +52,11 @@ What the proofs rest on, apart from the arguments written out below:
   ((R1), (R2), 30-digit arithmetic) and `3·10^{−7}` ((R3), through its consequence (2.3), limited by a truncated
   tail) — `sanity_numeric.py`, part 1;
 * five interval-arithmetic certificates C1–C5 (`mpmath.iv`, outward rounding, 120-bit precision; exact rational
-  arithmetic for all coefficients). Correctness of `mpmath.iv`'s enclosures of `+ − × ÷ sin cos exp π` is assumed
-  (spot-checked by `iv_selftest.py`, which is a sanity check and not a proof).
+  arithmetic for all coefficients). Correctness of `mpmath.iv`'s enclosures of `+ − × ÷ sin cos π` is assumed.
+  **`mpmath.iv.exp` is not a rigorous enclosure** (found by the referee: 93 of 400,000 enclosures at 120 bits miss
+  the true value, by up to `4·10^{−40}` relative; `iv_selftest.py` was too weak to detect it). The two places
+  where it was used (certificates C3 and C5b) now use `exp_padded`, which widens the result by a relative
+  `2^{−60}`; all certificates pass unchanged. `iv.sin`, `iv.cos` showed no failure in 400,000 point tests.
 
 No statement of Theorems 1, 2, 1′ rests on a floating-point grid. Floating-point scans are reported in §6 and
 are labelled as such.
@@ -360,3 +387,24 @@ Regions: for `M ≥ 6` and `b ≤ 10.85` the minimum of `F_M` is `0.071` (`M = 6
 `ads4/code/unipos/`: `common.py` (exact data, interval helpers, `S`, `K_low`), `expansion.py` (exact coefficients `d_k`,
 `q_n`, `μ_n`, `g_{n,k}`), `cert_S.py` (C1), `cert_smallM.py` (C2), `cert_K.py` (C3), `cert_expansion.py` (C4), `cert_flat.py`
 (C5a, C5b), `iv_selftest.py`, `sanity_numeric.py` (non-rigorous), `run_all.sh` (driver; writes `logs/`).
+
+
+## Physical applicability: exact assumptions (after review)
+
+**What the theorem is about.** The integral `F_M(β) = ∫_0^1 f(p) P_{−1/2+iMp}(cosh β) dp` with
+`f(p) = (1−p)³ p (65 + 155p + 47p²)`, the `B_2^{(1)}` weight in arXiv:2201.06602 (3.3a):
+"`F_{g_3} = ∫_{m_IR}^M dp (1−p)³ ( p(65+155p+47p²) B_2^{(1)} + 2(81−1927p+4601p²) B_3^{(1)} ) − 5 ∂_{p²} B_4^{(1)}|_{p=0}`".
+
+**Where it is exactly the right object.** For scalar correlators, arXiv:2106.10274 gives
+`C_{k,ν}[Δ,J] = 2 P_{(2−d)/2+iν}(η_AdS)/m^{2k} (1 + O(ν²/m², 1/m²))` and the functional as an integral over `dν/M` of `f(ν/M)`;
+so `m⁴ ω_AdS(unimproved) → 2F_M(β)` as `m → ∞` at fixed `β`, with no extra Gamma factors, powers of `p`, or change
+of measure (referee's reading of the paper). The paper's own `d = 3` positivity argument is asymptotic plus
+numerical.
+
+**Limits.** (a) Regge corner `m ≫ M` only: the `O(M²/m²)` corrections at `m ~ M` and the improvement terms are
+outside the theorem. (b) For gravitons the scalar kernel in the diagonal channels is derived piecewise but
+the normalised heavy-block formula is **not established** (`REGGE_MOMENT_TTTT.md`; end-to-end test in
+progress). (c) The `B_3^{(1)}` and `B_4^{(1)}` components of the functional are absent; the `B_3` term has opposite
+sign in the two diagonal channels and is suppressed only by `M²/m²`. (d) The scalar `d = 3` weight of
+arXiv:2106.10274 is a different polynomial and is not treated. **This theorem must not be combined with the
+graviton Regge formula until (b) and (c) are settled.**
