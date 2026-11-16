@@ -189,6 +189,88 @@ The control is `X = P` (= §0 item 4).
 * **What would be needed** is an `m`-dependent spinning bulk-point/Regge interpolation (the spinning analogue of CHMRS's fixed-`J` series). It is
   not available [ND].
 
+## 7. Follow-up 2: scaling of the opposite-helicity non-uniformity, and an inferred graviton projection (`s6_opp_scaling.py`, `cache/out_s6.txt`)
+
+### 7.1 Scaling of the photon data
+
+All fits in this subsection are diagnostic fits [NE]; none of their constants is derived. `d` is the §2 quantity at `c = 0`, i.e. relative to
+scalar skeleton × constant.
+
+**(a) `d·m/x` is not `m`-independent.** At `β = 0.4`, `x = 0.1` (odd kernel, `k = 6`, `Δφ = 2`) it is:
+
+| `m` | 12 | 17 | 22 | 32 | 42 | 72 |
+|---|---|---|---|---|---|---|
+| `d·m/x` | `−2.2` | `−4.7` | `−7.7` | `−15.3` | `−18.7` | `−16.3` |
+
+* It grows at small `m`, where `νβ < 2` and `P′/P` is not yet in its oscillatory regime.
+* It saturates near the envelope `8/sinh β = 19.5`.
+* At `β = 1` it oscillates in sign (`−6 … +0.6`; envelope 6.8).
+
+So `d ∼ c x/m` holds only as an **envelope**, `|d| ≲ c x/(m sinh β)`. The signed `d` is a phase shift, not a smooth function of `x/m`.
+
+**(b) One-parameter helicity-shift fit, `d = c·g`.** Here `g` is the exact linearised shape of `η → η − c/m²` on the preserved part.
+
+| | `x ≤ 0.2` | `x ≤ 0.3` | residual (rms) |
+|---|---|---|---|
+| `β = 0.4`, all variants | `c = 5.7–9.5`, median 7.9 | `c = 5.4–9.6`, median 7.8 | `≤ 0.03` (`m ≤ 22`), `≤ 0.2` (`m ≥ 32`) |
+| `β = 0.4`, `m ≥ 20` | median 8.3 | median 8.3 | |
+| `β = 1`, all variants | median 8.5, range `−2.5 … 15` | median 7.8, range `−0.7 … 18` | `0.04 … 1.0` |
+
+"All variants" means `k = 4, 6`, odd/even kernel, `Δφ = 2, 2.5`.
+
+* At `β = 1` the fit fails at `m = 16` (`c ≈ −1`, residual 0.8–1).
+* So `c ≈ 8 = 2J_z²` is supported at `β = 0.4` and only roughly at `β = 1`.
+
+**(c) Smooth ansätze describe the data poorly.** Fitted over all `m` at fixed `β, k`, kernel, for `x ≤ 0.3`:
+* `d = c₁x/m + c₂x²/m + c₃x²/m²`: rms residual 0.14–0.42 at `β = 0.4`, 0.5–0.8 at `β = 1`. The coefficients are unstable (`c₂ = ±60 … ±117`).
+* `d = c₁x/(m sinh β)`: residual 0.35–0.94.
+* `d = c₁x²` (flat-level): residual 0.15–1.0.
+
+**What matters below.** "Decreases like `1/m` at fixed `x`" is true only at **fixed `β`**, since `m sinh β → ∞`. On states of **fixed `J`**,
+`m sinh β = (2J+1)cosh(β/2)` stays fixed. The envelope is then `≈ c x/(2J+1)`, which does not decrease with `m`. In that case the effect is
+flat-space physics at fixed impact parameter.
+
+### 7.2 Graviton projection — inference only [I]
+
+**Assumptions.**
+* `c_g = 2J_z² = 32` for `+−` (`J_z = 4`). This assumes the photon value 8 scales as `2J_z²`, as the flat helicity term does; it was not checked for `l = 2`.
+* States: `m = Δ_g m_flat`, `J = 4–6`, `m_flat ∈ [1, 1.5]`, `x ∈ (0, 1)`, `k = 2, 3`.
+
+**Quantities.** Both are relative to the bulk-point envelope `E_k`.
+* `d_A = max_x |Z(η − c/m²) − Z(η)|/|Z(η)|·2/E_k(x)`: the whole helicity shift.
+* `d_B`: only its curvature part, `ν c|1/sinh β − 1/β|/m²·2/E_k`, i.e. the part beyond its flat limit.
+
+| `Δ_g` | `d_A` (`k = 2`; J = 4 / 6) | `d_B` | `κ_crit(+−)`, M02, `[Λ, 1.5Λ)`, `Δφ = 3 / 2` |
+|---|---|---|---|
+| 20 | 1.59 / 0.87 | `5·10⁻²` | 0.58 / 0.62 |
+| 50 | 1.59 / 0.88 | `9·10⁻³` | 0.66 / 0.53 |
+| 100 | 1.59 / 0.88 | `2·10⁻³` | 0.44 / 0.41 |
+| 300 | 1.59 / 0.88 | `2.5·10⁻⁴` | 0.32 / 0.32 |
+| 1000 | 1.59 / 0.88 | `2·10⁻⁵` | 0.29 / 0.29 |
+
+* `d_A` is the same at `k = 3` (1.47). It is independent of `Δ_g` and of `m_flat` (checked to `m_flat = 5`), and its maximum is at `x ≈ 0.4`.
+
+**Which reading applies depends on the flat `+−` density in the hybrid.**
+
+* **Reading B.** `UNIFORM_REMAINDER.md`'s hybrid uses the flat `+−` density `d̃^J_{44}` in `F_flat`. If that density correctly contains the flat
+  part of the helicity shift, only `d_B` is new. Then `d_B ≤ 0.05 ≪ κ_crit` for every `Δ_g`. As far as this effect goes, the `+−` channel would stay
+  positive down to `m = Λ` for all `Δ_g = 20 … 1000`. The other uncontrolled nodes behind `κ_crit` are still unbounded, so this is not a positivity claim.
+* **Reading A.** If the flat helicity content of the AdS `+−` moment is *not* what `d̃^J_{44}` gives, the uncovered correction is up to `d_A`. It is
+  `O(1)` and `Δ_g`-independent: it exceeds `κ_crit` for every `Δ_g`, and also the ≈`0.18N` margin of fully controlled states. With
+  `d_A ≈ 0.51, 0.25, 0.12` at `J = 10, 20, 40` (`Δ_g = 100`), the projected correction stays above `κ_crit` up to `J ≈ 10–20` and above the
+  0.18 margin up to `J ≈ 30`. So `+−` positivity would not be supported at **any** `n` for those `J`, not just below `1.5Λ`. This is a projection,
+  not a computation.
+
+**The photon data do not decide between A and B.** In §0 item 4 the flat candidates `d̃^J_{22}·E_k` and `d^J_{22}·E_k` did **not** reproduce the
+opposite-helicity data: they overcorrect by 2–4×. The curved shift with `c = 2J_z²` did, at small `x`. So the flat density for these AdS tensor
+functionals is not established to be the one `F_flat` uses, and the decisive input is open.
+
+**Bottom line [I].**
+* The opposite-helicity effect is **not** suppressed on the binding near-gap states: it is flat-level at fixed `J`, not `1/m`.
+* Whether the `+−` channel of M02 survives below `1.5Λ` (or, under reading A, at all for `J ≲ 30`) hinges on identifying the bulk-point/flat density of the AdS `+−`
+  moment.
+* If `F_flat` is right (B), nothing changes relative to `UNIFORM_REMAINDER.md`. If not (A), the `+−` channel fails for every `Δ_g`.
+
 ## 5. Code (`ads4/code/skeleton/`)
 
 | file | content |
@@ -199,5 +281,6 @@ The control is `X = P` (= §0 item 4).
 | `s0_scalar_precision.py`, `s1_spin_scan.py` | precision tests; per-case ν scans |
 | `s3_compare.py` | single-case comparison and envelope |
 | `s4_summary.py` | all tables (`cache/out_s4_summary.txt`) |
+| `s6_opp_scaling.py` | §7: scaling fits of the opposite-helicity non-uniformity; graviton projection (`cache/out_s6.txt`) |
 | `s5_spinning_skeleton.py` | §6: spinning-kernel candidates for the `β`-dependence (`cache/out_s5.txt`) |
 | `run_all.sh` | everything, at most 2 cores (`OMP_NUM_THREADS=1`) |
