@@ -15,12 +15,17 @@ quoted; **[I]** inferred; **[ND]** not done.
    differential-basis words); exact opposite- and same-helicity lines (momentum-space projection of CHL, calibrated on currents); CHL's
    `T^{E,h}` identified exactly in the conserved basis; the word-wise shadow map sends each helicity line exactly to the same helicity line at
    `(3−Δ,−1−J)` (shadow commutes with helicity for `l = 2`). Two points, `(97/10, 13/3)` and `(53/4, 11/2)`. §3.1–3.2.
-2. **MFT normalisation for stress tensors is Weyl-even [D from Q + exact checks].** The shadow factor of CHL's structures is exactly
-   `κ_h = 2^{3J+3/2}/A_h` — for `l = 1` *and* `l = 2`, both helicities, both points (12+ digits) — where `A_h` are CHL's MFT helicity factors.
-   Hence, with CHL's `l = 2` MFT data [Q], `p^MFT[e_h] = 8^J ×` (scalar factor) `×` (Weyl-even) for the Weyl-covariant helicity families, exactly as
-   proved for `l = 1` by exact Fock data. **The MFT (unitarity) normalisation of the graviton-channel helicity couplings adds no `O(1/m)` term;**
-   with the reflection argument this gives no `O(1/m)` in the leading heavy `⟨TTTT⟩` Regge moments for parity-even exchanges (conditional on
-   CHL's quoted `l = 2` MFT factors and Assumption T; not verified end to end). §3.3.
+2. **MFT normalisation for stress tensors is Weyl-even [D; exact Fock data, no input from CHL's MFT formulas].** (Revised: this used to rest
+   on CHL's quoted `l = 2` MFT factors.) CHL's helicity structures are now built **in position space with exact rational coefficients**
+   (`chl_xspace.py`, term-wise inverse Fourier transform), which works at the double-twist points; the two-particle Fock computation for
+   `[TT]_{N,J}` (`N ≤ 6`, 39 entries) gives exactly **`p^MFT[T^{E,h}] = A_h P_FK(1,1;Δ,J)/2304`** with `A_opp = (−J)_4/(J+1)_4`,
+   `A_same = (Δ−1)_4/(2−Δ)_4` [ID], helicity-diagonal Gram matrices (`n ≥ 1`); for currents the same construction gives `A_h P_FK(1,1)/16`
+   (23 entries), equivalent to the earlier closed forms. The shadow eigenvalue of CHL's structures obeys **`κ_h A_h = 2^{3J+3/2}`**: proved
+   symbolically for `l = 1` (identity of rational functions in `(Δ,J)`, `t10`), exact (rational arithmetic) at four points for `l = 2`
+   (`t8`); hence `p^MFT[e_h] = 8^J × (scalar factor) × (Weyl-even)` for the Weyl-covariant helicity families. **The MFT normalisation of
+   the graviton-channel helicity couplings adds no `O(1/m)` term;** with the reflection argument: no `O(1/m)` in the leading heavy
+   `⟨TTTT⟩` Regge moments for parity-even exchanges (conditional on Assumption T and on the `l = 2` identity off the checked points; not end
+   to end). §3.3, §3.5.
 3. **Currents (goal 4 for `l = 1`) [D, exact Fock data; DV at block level].** Exact two-particle Fock MFT data in our normalisation, helicity-
    diagonal; absolute constant `1/4` per helicity quadruple, `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)`, all factors Weyl-even; leading-twist block
    decomposition of `⟨J_1J_3⟩⟨J_2J_4⟩` reproduced with no free constant (`10⁻⁶`). Physical sign of the opposite-sign term `+(|c_same|²−|c_opp|²)` =
@@ -28,8 +33,9 @@ quoted; **[I]** inferred; **[ND]** not done.
 4. **`⟨TTTT⟩` blocks and end-to-end moments (goals 1, 3): not done — blocked.** The symbolic word pairs at jet order 8 are too large
    (`ACH × ACH`: 73 095 terms; `AACC × AACC`: not finished after 67 min; 196 pairs), and order-8 jets need extended-precision post-processing. A
    different algorithm (numerical Taylor-mode application of the operators, or a direct recursion) is needed. §4.
-5. **Not done:** `l = 2` absolute constant (expected `1/4` per helicity quadruple [I]); a direct `l = 2` Fock computation (would turn CHL's `l = 2`
-   MFT factors from [Q] into [D]); closed forms of the `l = 2` helicity lines in `(Δ,J)`; parity-odd exchanges; `k = 2, 3`.
+5. **Not done:** `l = 2` absolute constant (expected `1/4` per helicity quadruple [I]; needs the heavy vertex of the `l = 2` helicity
+   structures, §3.4); closed forms of the `l = 2` helicity lines in the differential basis (only the position-space form of `chl_xspace`);
+   parity-odd exchanges; `k = 2, 3`.
 
 ## 1. Tools (all new, `tttt/`)
 
@@ -96,14 +102,53 @@ for `l = 2`, as proved for `l = 1` by the exact Fock data. **Consequence: the MF
 couplings introduces no `O(1/m)` term**, and with the reflection argument of `SPINNING_4PT.md` §6.1 (which holds for any `l` once the families
 are Weyl-covariant and helicity-pure — now shown) the leading heavy `⟨TTTT⟩` Regge moments with MFT-normalised helicity couplings have
 corrections `1 + O(1/m²)` for parity-even exchanges.
-Status: [D] given (a) CHL's `l = 2` MFT helicity factors `A_h` [Q] — their `l = 1` analogue is confirmed exactly by our Fock data, the `l = 2` ones
-were not recomputed; (b) Assumption T; (c) exactness of the two-point checks (the identity `κ_h A_h = 2^{3J+3/2}` is checked at two points
-per `l`, to 12+ digits, not proved symbolically). Not verified end to end (no `⟨TTTT⟩` blocks, §4).
+Status (revised, §3.5): (a) the MFT helicity factors `A_h` are now derived from our own exact Fock data for `l = 1` and `l = 2` [ID]; (b)
+the identity `κ_h A_h = 2^{3J+3/2}` is proved symbolically for `l = 1` and holds exactly (rational arithmetic) at four points for `l = 2`
+(`out_t8_kappa_exact.txt`; the symbolic `l = 2` run is reported in §3.5); (c) Assumption T. Not verified end to end (no `⟨TTTT⟩` moments, §4).
 
-**3.4 What is not done for `l = 2`.** The closed forms of the helicity lines as functions of `(Δ,J)` (only exact values at two points); the heavy
-vertex closed forms `V_h` for `l = 2` and hence the absolute two-pair constant (expected `1/4` per helicity quadruple, by the same algebra as for
-`l = 1` [I]); a direct `l = 2` Fock computation of `p^MFT` (the helicity lines at double-twist points need the Fourier transform at integer
-exponents, where it has contact terms; not attempted); parity-odd exchanges.
+**3.4 What is not done for `l = 2`.** The closed forms of the helicity lines in the differential-basis words as functions of `(Δ,J)`
+(position-space closed form only, §3.5); the heavy vertex `V_h` of the `l = 2` helicity structures and hence the absolute two-pair constant
+(expected `1/4` per helicity quadruple by the same algebra as for `l = 1` [I]: with `p[T^{E,h}]` now known exactly, the missing input is the
+heavy limit of `T^{E,h}` itself, since `p V²` is invariant under rescaling the structure); parity-odd exchanges.
+
+**3.5 CHL's structures in position space; direct Fock computation for `[TT]`; the `κ_h A_h` identity (`chl_xspace.py`, `t7_fock_l2.py`,
+`t7b_closed_forms.py`, `t8_kappa_exact.py`, `t10_kappa_symbolic.py`).**
+
+*Construction [D].* CHL's `T^{h_1h_2}(p) ∝ (e_1Π_{−h_1p}e_3)^l (e_2Π_{h_2p}e_3)^l (p·e_3)^{J−2l}|p|^{β−3}` is expanded in `p·e_i`, `|p|`
+(products of two `ε(e_i,p,e_3)` are Gram determinants), and each term is inverse-Fourier transformed with
+`∫d³p/(2π)³ e^{ipx}(e_3·p)^n|p|^{2s} = i^n(2π)^{−3}π^{3/2}2^{2s+3+n}Γ(s+n+3/2)/Γ(−s)(e_3·x)^n|x|^{−2s−3−2n}`, `p·e_i → −i e_i·∂_x`.
+The Gamma functions of all terms are reduced to Pochhammer ratios relative to one common factor; collecting every `(Δ,J)`-dependent
+prefactor (CHL's `pref`, `G_E`, the transform), all `π`'s cancel and
+
+  `T^{E,h} = C_l(Δ,J) X_h`,  `C_l = (−1)^l 2^{3l−1/2} 2^{J/2} ((2−Δ+J)/2)_{2l} ((Δ+J+1−4l)/2)_{2l}`,
+
+with `X_h` a structure with coefficients rational in `(Δ,J)` (powers `(e_3·x)^{J+k}|x|^{…}`). Checks: for `l = 1`, `X_h` is exactly proportional
+to our `ĥ_h` (symbolically: `ĥ_h = X_h·Δ(Δ−1)` resp. `J(J−1)` `×(Δ−J−4)(Δ−J−2)(Δ+J−3)(Δ+J−1)Y/2^{J+2}` in the CHL frame) and reproduces the
+momentum-space `κ_h` of `t6` (all 12 printed digits). At double-twist points individual Pochhammer ratios have zeros (contact terms, dropped
+correctly) or poles; the limit `Δ → 2l+2+N` is taken as the leading term of `X_h` in `Δ − Δ_N` (order `ε^{−1}` for `n < 2l`, compensated by the
+simple zero of `((2−Δ+J)/2)_{2l}` in `C_l`).
+
+*Fock data [D + ID].* The limit structures are polynomial (for `J ≥ 2`; the `l = 2` same-helicity structure is not polynomial for `J = 0, 1`,
+where CHL's formula does not apply) and pass the two-particle range check (conservation) of `fock2.py`. Results (`out_t7_fock_l1.txt`,
+`out_t7_fock_l2.txt`, `out_t7b_closed_forms.txt`), `n = (2l+N−J)/2`:
+* Gram matrix **diagonal in helicity** for every `n ≥ 1` (`l = 2`: 9 points with both helicities, `N ≤ 6`); at `n = 0` the two structures are
+  proportional (one primary), as for currents.
+* **`p^MFT[T^{E,h}] = A_h P_FK(1,1;Δ,J)/K_l`, `K_1 = 16`, `K_2 = 2304 = 48²`** — exact at all 23 (`l = 1`) and 39 (`l = 2`) entries
+  (`n = 0`: twice the formula, the two helicities carrying one primary). In particular `p[T^{E,opp}]/p[T^{E,same}] = A_opp/A_same` exactly:
+  **CHL's `l = 2` MFT helicity factors are confirmed by an independent computation** and are no longer an input. For `l = 1` the closed form is
+  equivalent to `p[ĥ_h] = 8^J P_FK(1,1)/(8Y²Π_h)` of `SPINNING_4PT.md` §4.6 (via the ratio above).
+* (The constants `K_l` refer to CHL's normalisation conventions; only `A_h` and the `(Δ,J)` dependence enter the Weyl-parity argument.)
+
+*The identity `κ_h A_h = 2^{3J+3/2}`.* `κ_h` is the eigenvalue of the word-wise shadow map on CHL's structure, `T T^{E,h}(Δ,J) = κ_h T^{E,h}(3−Δ,−1−J)`.
+With `T^{E,h} = C_l X_h`: decompose `X_h` into the differential-basis words (for `l = 2` modulo the `d = 3` relation, which at infinity is the Gram
+determinant of `(x, a, b, ζ)` times `x⁴/(ζ·x)²`), apply `T`, read off `λ_h` from `T X_h(Δ) = λ_h X_h(Δ̃)` (the residual must vanish
+identically), `κ_h = λ_h C_l(Δ)/C_l(Δ̃)`. Since `C_l(Δ)/C_l(Δ̃) = 2^{J+1/2} ×` (rational) and the words carry `2^{−J}`, the identity reduces to an
+identity between rational functions of `(Δ,J)`.
+* `l = 1` [D, symbolic]: `λ_same/2^{2J+1} = (Δ−3)(Δ−2)(Δ−J)(Δ+J+1)/(Δ(Δ−1)(Δ−J−4)(Δ+J−3))`, `λ_opp/2^{2J+1} = (Δ−J)(J+1)(J+2)(Δ+J+1)/(J(J−1)(Δ−J−4)(Δ+J−3))`,
+  and `κ_h A_h/2^{3J+3/2} = 1` identically (`out_t10_kappa_symbolic_l1.txt`).
+* `l = 2` [NE, exact]: `κ_h A_h/2^{3J+3/2} = 1` exactly (rational arithmetic, algebraic `2^{J}` tracked) for both helicities at `(97/10,13/3)`,
+  `(53/4,11/2)`, `(61/7,29/5)`, `(127/10,47/7)` (`out_t8_kappa_exact.txt`); `T X_h(Δ) ∝ X_h(Δ̃)` holds exactly at each point (shadow commutes
+  with helicity). Symbolic `l = 2`: SYMBOLIC_L2_STATUS.
 
 ## 4. `⟨TTTT⟩` blocks and moments (coordinator goals 1, 3)
 
@@ -138,11 +183,12 @@ tensors is the three-point/shadow/normalisation chain of §3 and the heavy-integ
 | 3 | Two-pair block normalisation `p(−1/8)^J W` (leading twist) | [DV] |
 | 4 | Physical sign `+(|c_same|²−|c_opp|²)` of the opposite-sign term (`l = 1`) | [D] + DVE; functional ↔ flat sum rule [I] |
 | 5 | `⟨TTO⟩`: 2 conserved structures + 1 relation; exact helicity lines; CHL `T^{E,h}` identified; shadow commutes with helicity | [NE, exact] at two points |
-| 6 | `κ_h = 2^{3J+3/2}/A_h` (`l = 1, 2`) | [NE] at two points per `l` (12–36 digits) |
-| 7 | MFT normalisation of `l = 2` helicity couplings Weyl-even ⇒ no `O(1/m)` from it | [D from Q] (CHL `l = 2` MFT factors quoted) |
+| 6 | `κ_h = 2^{3J+3/2}/A_h` (`l = 1, 2`) | `l = 1`: [D] symbolic; `l = 2`: [NE, exact] at four points |
+| 7 | MFT normalisation of `l = 2` helicity couplings Weyl-even ⇒ no `O(1/m)` from it | [D] from our Fock data + row 6 |
+| 7a | `p^MFT[T^{E,h}] = A_h P_FK(1,1)/K_l`, helicity-diagonal (`l = 1, 2`) | [ID], exact Fock data, 23 + 39 entries |
 | 8 | No `O(1/m)` in leading heavy `⟨TTTT⟩` moments (parity-even exchanges, MFT-normalised) | [D] conditional on 7 and Assumption T; not end to end |
 | 9 | `⟨TTTT⟩` exact blocks, end-to-end moments, `±`, `1/m` fits | [ND] — blocked (§4) |
-| 10 | `l = 2` absolute constant; `l = 2` Fock data; parity-odd exchanges; `k = 2, 3` | [ND] |
+| 10 | `l = 2` absolute constant; parity-odd exchanges; `k = 2, 3` | [ND] |
 
 ## 6. Code index (`ads4/code/fourpt/tttt/`)
 
@@ -157,3 +203,6 @@ tensors is the three-point/shadow/normalisation chain of §3 and the heavy-integ
 | `t5_helicity_l2.py` | `⟨TTO⟩` helicity map, Weyl parity of the MFT normalisation | `out_t5_helicity_l2.txt` |
 | `t6_kappa_l1.py` | calibration `κ_h A_h` for currents | `out_t6_kappa_l1.txt` |
 | `feas_l2.py` | feasibility of the `⟨TTTT⟩` word pairs | `cache/feas_l2.log` |
+| `chl_xspace.py` | CHL `T^{E,h}` in position space, exact; double-twist limit | — |
+| `t7_fock_l2.py`, `t7b_closed_forms.py` | Fock data of `[JJ]`, `[TT]` in CHL's helicity basis; closed forms | `out_t7_fock_l1.txt`, `out_t7_fock_l2.txt`, `out_t7b_closed_forms.txt` |
+| `t8_kappa_exact.py`, `t10_kappa_symbolic.py` | `κ_h A_h = 2^{3J+3/2}`: exact at points / symbolic | `out_t8_kappa_exact.txt`, `out_t10_kappa_symbolic_l*.txt` |

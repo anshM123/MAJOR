@@ -10,3 +10,12 @@ python3 t4_sign_l1.py             # physical sign of the opposite-sign term
 python3 t6_kappa_l1.py            # kappa_h A_h for currents
 python3 t5_helicity_l2.py         # <TTO> point A (~40 min)
 python3 t5_helicity_l2.py 53/4 11/2   # <TTO> point B (~40 min)
+python3 t7_fock_l2.py l1          # control: CHL x-space helicity structures, Fock data for currents (~1 min)
+python3 t7_fock_l2.py l2 6        # [TT]_{N,J} exact Fock data in the helicity basis, N <= 6 (~5 min)
+python3 t7b_closed_forms.py       # closed forms p[T^{E,h}] = A_h P_FK(1,1)/K_l
+rm -f out_t8_kappa_exact.txt
+python3 t8_kappa_exact.py 1 97/10 13/3 53/4 11/2                              # exact kappa_h, l = 1
+python3 t8_kappa_exact.py 2 97/10 13/3 53/4 11/2 61/7 29/5 127/10 47/7        # exact kappa_h, l = 2 (~20 min)
+python3 t10_kappa_symbolic.py 1   # symbolic proof of kappa_h A_h = 2^{3J+3/2}, l = 1
+python3 t10_kappa_symbolic.py 2   # symbolic, l = 2 (long)
+python3 t9_taylor_validate.py     # Taylor-mode operator application vs symbolic word pairs

@@ -8,7 +8,8 @@ Unknown AdS 1/m^2 terms are modelled by an envelope C0 cosh(beta)/m^2 x N, with 
    N_cons = int |Psi_h||D_h| + |Phi| u^3   (conservative),   N_comp = |B2| + |B3| + |FW|   (component-wise).
 Criteria reported per (Dg, h, C0):
    (A) F_hyb - C0 cosh(beta)/m^2 N_comp > 0          (model taken at face value)
-   (B) F_flat - |shift| - C0 cosh(beta)/m^2 N_cons > 0 (sign of the curvature shift NOT trusted; conservative norm)
+   (B) F_flat - |shift| - C0 cosh(beta)/m^2 N_cons > 0 (sign of the curvature shift NOT trusted; conservative norm),
+       evaluated only on states with beta <= 0.3 (bulk-point side; at beta ~ 1 the flat action is not the reference).
 Grid: m_fl = m/Lam in [1, 1.3] step 0.01 and 120 log points in [1.3, 60]; J <= 60 all, then ~4% steps up to min(3000, 200 m_fl).
 Floating point; not a certificate.
 """
@@ -71,6 +72,7 @@ for Dg in DGS:
                     a = (Fh - e * ncomp) / ncons
                     b = (Ff - abs(sh) - e * ncons) / ncons
                     if a <= 0: failA[C] += 1
+                    if beta > 0.3: b = np.inf
                     if b <= 0: failB[C] += 1
                     if a < worstA[C][0]: worstA[C] = (a, (round(mfl, 4), int(J), round(beta, 5), float(Ff), float(sh)))
                     if b < worstB[C][0]: worstB[C] = (b, (round(mfl, 4), int(J), round(beta, 5), float(Ff), float(sh)))
@@ -78,5 +80,5 @@ for Dg in DGS:
         print('Dg=%5d Lam=%8.3f %s  states=%d   max |shift|/N_cons = %.2e at (m_fl,J,beta)=%s' % (Dg, Lam, h, nst, *maxshift_rel))
         for C in C0S:
             print('    C0=%5d  (A) fails %5d  min rel %.3e at %s' % (C, failA[C], worstA[C][0], worstA[C][1]))
-            print('             (B) fails %5d  min rel %.3e at %s' % (C, failB[C], worstB[C][0], worstB[C][1]))
+            print('             (B) fails %5d  min rel %.3e at %s' % (failB[C], worstB[C][0], worstB[C][1]))
         sys.stdout.flush()

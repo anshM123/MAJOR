@@ -1,0 +1,65 @@
+# closed form p[T^{E,h}] = A_h P_FK(1,1)/K_l (fourpt/tttt/t7b_closed_forms.py); entries: (l, N, J, h): p_exact / formula
+  l=1 N=0 J=0 n=1 same: p[T^E] = 1/24;  ratio to formula = 1  OK
+  l=1 N=0 J=2 n=0 same: p[T^E] = 1/8;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=1 N=0 J=2 n=0 opp: p[T^E] = 1/288;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=1 N=1 J=1 n=1 same: p[T^E] = 1/120;  ratio to formula = 1  OK
+  l=1 N=1 J=3 n=0 same: p[T^E] = 1/48;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=1 N=1 J=3 n=0 opp: p[T^E] = 3/1600;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=1 N=2 J=0 n=2 same: p[T^E] = 1/1120;  ratio to formula = 1  OK
+  l=1 N=2 J=2 n=1 same: p[T^E] = 3/1568;  ratio to formula = 1  OK
+  l=1 N=2 J=2 n=1 opp: p[T^E] = 1/7840;  ratio to formula = 1  OK
+  l=1 N=2 J=4 n=0 same: p[T^E] = 1/224;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=1 N=2 J=4 n=0 opp: p[T^E] = 1/1400;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=1 N=3 J=1 n=2 same: p[T^E] = 3/11200;  ratio to formula = 1  OK
+  l=1 N=3 J=3 n=1 same: p[T^E] = 1/2160;  ratio to formula = 1  OK
+  l=1 N=3 J=3 n=1 opp: p[T^E] = 1/15120;  ratio to formula = 1  OK
+  l=1 N=3 J=5 n=0 same: p[T^E] = 1/960;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=1 N=3 J=5 n=0 opp: p[T^E] = 5/21168;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=1 N=4 J=0 n=3 same: p[T^E] = 1/27720;  ratio to formula = 1  OK
+  l=1 N=4 J=2 n=2 same: p[T^E] = 1/13860;  ratio to formula = 1  OK
+  l=1 N=4 J=2 n=2 opp: p[T^E] = 1/155232;  ratio to formula = 1  OK
+  l=1 N=4 J=4 n=1 same: p[T^E] = 1/8712;  ratio to formula = 1  OK
+  l=1 N=4 J=4 n=1 opp: p[T^E] = 1/40656;  ratio to formula = 1  OK
+  l=1 N=4 J=6 n=0 same: p[T^E] = 1/3960;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=1 N=4 J=6 n=0 opp: p[T^E] = 5/68992;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=1: 23 entries, all consistent with the closed form: True
+  l=2 N=0 J=2 n=1 same: p[T^E] = 1/2688;  ratio to formula = 1  OK
+  l=2 N=0 J=4 n=0 same: p[T^E] = 1/1152;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=0 J=4 n=0 opp: p[T^E] = 1/5644800;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=1 J=3 n=1 same: p[T^E] = 1/25920;  ratio to formula = 1  OK
+  l=2 N=1 J=5 n=0 same: p[T^E] = 1/11520;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=1 J=5 n=0 opp: p[T^E] = 5/36578304;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=2 J=2 n=2 same: p[T^E] = 1/266112;  ratio to formula = 1  OK
+  l=2 N=2 J=4 n=1 same: p[T^E] = 5/836352;  ratio to formula = 1  OK
+  l=2 N=2 J=4 n=1 opp: p[T^E] = 1/163924992;  ratio to formula = 1  OK
+  l=2 N=2 J=6 n=0 same: p[T^E] = 1/76032;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=2 J=6 n=0 opp: p[T^E] = 1/14902272;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=3 J=3 n=2 same: p[T^E] = 5/6918912;  ratio to formula = 1  OK
+  l=2 N=3 J=5 n=1 same: p[T^E] = 1/908544;  ratio to formula = 1  OK
+  l=2 N=3 J=5 n=1 opp: p[T^E] = 5/1079350272;  ratio to formula = 1  OK
+  l=2 N=3 J=7 n=0 same: p[T^E] = 1/419328;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=3 J=7 n=0 opp: p[T^E] = 7/260941824;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=4 J=2 n=3 same: p[T^E] = 5/48432384;  ratio to formula = 1  OK
+  l=2 N=4 J=4 n=2 same: p[T^E] = 1/6662656;  ratio to formula = 1  OK
+  l=2 N=4 J=4 n=2 opp: p[T^E] = 1/3298014720;  ratio to formula = 1  OK
+  l=2 N=4 J=6 n=1 same: p[T^E] = 1/4492800;  ratio to formula = 1  OK
+  l=2 N=4 J=6 n=1 opp: p[T^E] = 1/444787200;  ratio to formula = 1  OK
+  l=2 N=4 J=8 n=0 same: p[T^E] = 1/2096640;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=4 J=8 n=0 opp: p[T^E] = 7/733898880;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=5 J=3 n=3 same: p[T^E] = 25/1058593536;  ratio to formula = 1  OK
+  l=2 N=5 J=5 n=2 same: p[T^E] = 1/30551040;  ratio to formula = 1  OK
+  l=2 N=5 J=5 n=2 opp: p[T^E] = 1/4368798720;  ratio to formula = 1  OK
+  l=2 N=5 J=7 n=1 same: p[T^E] = 1/20974464;  ratio to formula = 1  OK
+  l=2 N=5 J=7 n=1 opp: p[T^E] = 7/7855436160;  ratio to formula = 1  OK
+  l=2 N=5 J=9 n=0 same: p[T^E] = 1/9870336;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=5 J=9 n=0 opp: p[T^E] = 7/2224851200;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=6 J=2 n=4 same: p[T^E] = 5/1277033472;  ratio to formula = 1  OK
+  l=2 N=6 J=4 n=3 same: p[T^E] = 7/1277033472;  ratio to formula = 1  OK
+  l=2 N=6 J=4 n=3 opp: p[T^E] = 1/60871928832;  ratio to formula = 1  OK
+  l=2 N=6 J=6 n=2 same: p[T^E] = 7/948844800;  ratio to formula = 1  OK
+  l=2 N=6 J=6 n=2 opp: p[T^E] = 1/9045653760;  ratio to formula = 1  OK
+  l=2 N=6 J=8 n=1 same: p[T^E] = 1/94264320;  ratio to formula = 1  OK
+  l=2 N=6 J=8 n=1 opp: p[T^E] = 7/22241666304;  ratio to formula = 1  OK
+  l=2 N=6 J=10 n=0 same: p[T^E] = 1/44651520;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=6 J=10 n=0 opp: p[T^E] = 5/5072660736;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2: 39 entries, all consistent with the closed form: True

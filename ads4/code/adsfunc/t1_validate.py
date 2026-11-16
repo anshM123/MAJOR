@@ -44,9 +44,3 @@ Js, B2, B3, FW, ab = G.parts('+-', 300, 1 / mm ** 2)
 k = np.where(Js == 245)[0][0]
 print('   +- J=245 m=21.79: m^4F = %.4e  (FLAT_GRAVITON_BOUND: 2.67e-5); parts B2=%.5f B3=%.5f FW=%.5f; abs norm %.4f'
       % ((B2 + B3 + FW)[k], B2[k], B3[k], FW[k], ab[k]))
-try:
-    sys.path.insert(0, '../flatbound')
-    from fractions import Fraction as Fr
-    import common as _c   # noqa (name clash avoided below)
-except Exception:
-    pass

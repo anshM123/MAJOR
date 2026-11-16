@@ -1,0 +1,6 @@
+  l=1 same: decomposition at (Delta,J) done (10 s)
+  l=1 same: decomposition at (3-Delta,-1-J) done (13 s)
+  l=1 same: T X_h(Delta) = lambda X_h(Delta~) identically: True;  lambda/2^(2J+1) = (D - 3)*(D - 2)*(D - J)*(D + J + 1)/(D*(D - 1)*(D - J - 4)*(D + J - 3));  kappa_h A_h / 2^(3J+3/2) = 1   (13 s)
+  l=1 opp: decomposition at (Delta,J) done (21 s)
+  l=1 opp: decomposition at (3-Delta,-1-J) done (36 s)
+  l=1 opp: T X_h(Delta) = lambda X_h(Delta~) identically: True;  lambda/2^(2J+1) = (D - J)*(J + 1)*(J + 2)*(D + J + 1)/(J*(J - 1)*(D - J - 4)*(D + J - 3));  kappa_h A_h / 2^(3J+3/2) = 1   (37 s)
