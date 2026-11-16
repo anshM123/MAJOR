@@ -4,7 +4,7 @@ Validation on scalar partial waves (no spinning operators), <phi_1 phi_2 phi_1 p
            R_rad: the radial series alone on every point (N levels, no convergence mask; as e2e/t3_scalar_mixed.py),
            R_lc:  radial series on its converged points + the LC/tail representation (setting A of corner.py) on the others;
                   error budget as for the spinning case (3|A - B| per LC point; power-law extrapolation of the points where the
-                  lightcone sum has not converged, counted entirely), on the e2e grid and on the corner-refined grid (corner.UP_REF);
+                  lightcone sum has not converged), 3 x max(|A-B|, |A-C|) over the three tail settings, on the e2e grid and on the corner-refined grid (corner.UP_REF);
   predicted: the derived scalar heavy formula (SPINNING_E2E.md sect. 4.1; e2e/t3_scalar_mixed.prediction), nothing fitted.
 Cases:  (D1, D2) = (3, 1.75): corner weight u^{2 D2 + k - 3/2} = u^4 (k = 2): the radial series alone is converged (consistency);
         (D1, D2) = (3.75, 0.5): corner weight u^{3/2} (k = 2), u^{5/2} (k = 3), the corner weight of the spinning k = 2, 3 moments.
@@ -16,7 +16,7 @@ import numpy as np, mpmath as mp
 from moments import make_grid, frame_data, series_converged
 from blocks import CBlock
 from lcblock import LCBlock
-from corner import PAR_A, PAR_B, SAFETY, UP_E2E, UP_REF, TensorMomentsLC
+from corner import PAR_A, PAR_B, PAR_C, SAFETY, UP_E2E, UP_REF, TensorMomentsLC
 from t3_scalar_mixed import prediction
 from cases import cases_fixed_beta, info
 mp.mp.dps = 25
@@ -44,8 +44,10 @@ class ScalarLC(TensorMomentsLC):
             SA = lbA.series(fd['rs'][idx], fd['chi'][idx], kmax=0, lmax=0)[:, 0, 0]; tA = lbA.i_tail.copy()
             lbB = LCBlock(Delta, J, b, b, lmax=0, coeffs=lbA.C, **PAR_B)
             SB = lbB.series(fd['rs'][idx], fd['chi'][idx], kmax=0, lmax=0)[:, 0, 0]; tB = lbB.i_tail.copy()
-            good = (tA < itail_max) & (tB < itail_max)
-            Sr[idx[good]] = SA[good]; dS[idx[good]] = np.abs(SA - SB)[good]/np.abs(SA[good])
+            lbC = LCBlock(Delta, J, b, b, lmax=0, coeffs=lbA.C, **PAR_C)
+            SC = lbC.series(fd['rs'][idx], fd['chi'][idx], kmax=0, lmax=0)[:, 0, 0]; tC = lbC.i_tail.copy()
+            good = (tA < itail_max) & (tB < itail_max) & (tC < itail_max)
+            Sr[idx[good]] = SA[good]; dS[idx[good]] = np.maximum(np.abs(SA - SB), np.abs(SA - SC))[good]/np.abs(SA[good])
             conv[idx[good]] = True; lc[idx[good]] = True
             self.nlc = int(good.sum()); self.nleft = int((~good).sum())
         vp = -b
