@@ -5,4 +5,4 @@ ads4/code/kernels/cache/
 ads4/code/unipos/logs/
 *.so
 *.o
-ads4/code/e2e/cache_*.pkl
+ads4/code/e2e/*.pkl
