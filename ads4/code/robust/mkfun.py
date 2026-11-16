@@ -1,4 +1,5 @@
-"""Rationalise LP solutions and store them in cache/functionals.json (exact rational coefficients, scaled by k(F_g3)=27.485...
+"""Rationalise LP solutions and store them in cache/functionals.json (never in the tracked functionals_certified.json, which holds
+the certified M01, M02 and is read first by rcert.py, lowcheck.py, check.py) (exact rational coefficients, scaled by k(F_g3)=27.485...
 so that the numbers are comparable with arXiv:2201.06602 (3.3a); the overall scale is irrelevant).
 Usage: python3 mkfun.py NAME JSONFILE KEY=VALUE...   (selects the first entry of JSONFILE matching all KEY=VALUE)"""
 import sys, json, os

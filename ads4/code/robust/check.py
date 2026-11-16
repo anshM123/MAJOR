@@ -15,8 +15,13 @@ CS = [0.1, 0.3, 1.0, 3.0, 10.0]
 def load(name):
     if name == 'Fg3':
         return paper_fg3().normalised()
-    d = json.load(open(os.path.join(CACHE, 'functionals.json')))[name]
-    return Functional(d['psi2'], d['psi3'], d['a'], name).normalised()
+    cert = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'functionals_certified.json')
+    D = json.load(open(cert))
+    if name not in D:
+        D = json.load(open(os.path.join(CACHE, 'functionals.json')))
+    d = D[name]
+    from fractions import Fraction as Fr
+    return Functional([float(Fr(s)) for s in d['psi2_exact']], [float(Fr(s)) for s in d['psi3_exact']], float(Fr(d['a_exact'])), name).normalised()
 
 def dense(F, BMAX=200.0, JCAP=3000, nu=140, verbose=True, umax=1.0):
     us = np.unique(np.concatenate([np.logspace(-6, 0, nu), np.linspace(0.9, 1, 21), np.linspace(0.5, 1, 101)])) * umax

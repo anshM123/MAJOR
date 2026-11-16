@@ -44,9 +44,28 @@ def pval(a, x):
 def pder(a):
     return [i * a[i] for i in range(1, len(a))] or [Fr(0)]
 
+CERTIFIED = os.path.join(HERE, 'functionals_certified.json')   # tracked; never written by the LP stage
+
+def fingerprint(psi2, psi3, a):
+    import hashlib
+    canon = 'psi2=' + ','.join(str(c) for c in psi2) + ';psi3=' + ','.join(str(c) for c in psi3) + ';a=' + str(a)
+    return hashlib.sha256(canon.encode()).hexdigest()
+
 def load_functional(name):
-    d = json.load(open(os.path.join(HERE, 'cache', 'functionals.json')))[name]
-    return [Fr(s) for s in d['psi2_exact']], [Fr(s) for s in d['psi3_exact']], Fr(d['a_exact'])
+    """Exact coefficients: from functionals_certified.json (tracked) if NAME is there, else from cache/functionals.json.
+    Prints the source and a sha256 fingerprint of the exact coefficients."""
+    src = CERTIFIED
+    D = json.load(open(CERTIFIED))
+    if name not in D:
+        src = os.path.join(HERE, 'cache', 'functionals.json'); D = json.load(open(src))
+    d = D[name]
+    F = ([Fr(s) for s in d['psi2_exact']], [Fr(s) for s in d['psi3_exact']], Fr(d['a_exact']))
+    # consistency of psi2/psi3 with x, y when present
+    if 'x' in d:
+        omp = [Fr(1), Fr(-3), Fr(3), Fr(-1)]
+        assert pmul(omp, [Fr(0)] + [Fr(s) for s in d['x']]) == F[0] and pmul(omp, [Fr(s) for s in d['y']]) == F[1]
+    print('FUNCTIONAL %s from %s ; sha256(exact coefficients) = %s' % (name, os.path.relpath(src, HERE), fingerprint(*F)), flush=True)
+    return F
 
 class Gen:
     def __init__(self, h, W0, W1, aphi, cphi, label):

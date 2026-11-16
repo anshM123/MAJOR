@@ -1,6 +1,7 @@
 # A flat graviton functional for `|ĝ₃|²` with a robust positivity margin, and its AdS4 threshold
 
-Status: written 16 Nov 2026 by a derivation/numerics agent. **Unrefereed.** Code: `ads4/code/robust/` (`bash run_all.sh`; outputs in
+Status: written 16 Nov 2026 by a derivation/numerics agent; **revised after the referee report `ads4/REFEREE_ROBUST_FUNCTIONAL.md`**
+(flat Theorem R judged sound; changes listed in §8). Code: `ads4/code/robust/` (`bash run_all.sh`; outputs in
 `robust/cache/`, git-ignored). It copies the certificate machinery of `ads4/code/flatbound/` (Lemmas P, C, M, S of
 `FLAT_GRAVITON_BOUND.md`) and the AdS machinery of `ads4/code/adsfunc/` (`ADS4_FUNCTIONAL.md` t2/t3), generalised to arbitrary
 polynomial weights. It imports only `flatbound/common.py` (Clebsch–Gordan bound `cg_abs_bound`, `to_fmpz_poly`), unchanged.
@@ -20,7 +21,9 @@ positivity down to `m ≈ Λ`, which is not available (referee M2: the bound wea
 1. **Family and criterion [D].** Weights `ψ₂ = (1−p)³p Σᵢ₌₀⁴ xᵢpⁱ`, `ψ₃ = (1−p)³ Σⱼ₌₀⁴ yⱼpʲ`, forward term
    `−a∂_{p²}B₄^{(1)}|₀ + aB₅^{(1)}|₀`, `a ≥ 0` (`g₄`, `g₅` eliminated). The heavy action per `|c|²` (normal form `𝔉 = m⁴F`, `u = M²/m²`)
    is `𝔉 = B2 + B3 + FW`, with `B2 = ∫ψ₂(2−up²)D_h`, `B3 = σ_hu∫ψ₃D_h`, `FW = a(2𝒥 − c₄ + σ_h)u³`, `c₄ = 1 (++), 41 (+−)`. Robustness
-   reference: the component norm `N = |B2| + |B3| + |FW|` (the `N_comp` used in the AdS envelopes of `ADS4_FUNCTIONAL.md`).
+   reference: the 3-part component norm `N = |B2| + |B3| + |FW|` (`FW = B₄ + B₅` merged, `−up²ψ₂` inside `B2`); it is the norm of
+   Theorem R and of the hybrid criterion (A) (`N_comp` of `ADS4_FUNCTIONAL.md` t3). The leading-Regge envelope scans (§5.1, 5.3, as in
+   `ADS4_FUNCTIONAL.md` statement R) use the 4-part norm `|B₂| + |B₃| + |B₄| + |B₅| ≥ N` (larger by `≈ 2au³`), i.e. a slightly stronger envelope.
    **Uniform margin δ:** `𝔉 ≥ δN` on every heavy state `m ≥ M`, both channels, all allowed `J`.
 2. **Pareto curve [NE] (§2).** Maximal margin vs bound constants (LP over the family, `k = 1`, minimise `A`):
    `δ = 0: A = 26.1`; `0.1: 35.5`; `0.2: 48.5`; `0.3: 67.0`; `0.5: 144`; `0.6: 236` (degree 4; degree 6 lowers `A` by 2–3 %).
@@ -39,18 +42,24 @@ positivity down to `m ≈ Λ`, which is not available (referee M2: the bound wea
    `B = −65.3207`, `B_AdS = B − A log(3/2) = −86.2981`; both light-matter coefficients negative on `0 < m_ℓ ≤ M` (Sturm).
    Hence (flat, hypotheses H1–H5 of `FLAT_GRAVITON_BOUND.md` §4.1, same IR caveats as its Theorem 3(i)):
    `|ĝ₃|²M⁸ ≤ 51.74 log(M/m_IR) − 65.32 + Δ_IR`.
-   A second certified functional `M01` (`𝔉 ≥ (9/100)N`, all regions PASS) has `A = 37.5457`, `B = −46.9286` — **at least as good as
-   `F_{g3}` in both constants** (`37.8387`, `−45.4452`) while having a uniform 9 % margin instead of `≈ 10⁻³`.
-4. **Envelope thresholds.** *Flat, from Theorem R [D]:* `𝔉 − C₁uN ≥ (9/50 − C₁u)N > 0` for `m > (50C₁/9)^{1/2}M`:
-   `M₀ ≤ 2.36M (C₁ = 1)`, `4.08M (3)`, `7.45M (10)`. *Leading AdS Regge action with the envelope `C₀cosh β/m² + C₁Λ²/m²` [NE] (§5):*
+   A second certified functional `M01` (`𝔉 ≥ (9/100)N`, all regions PASS) has `A = 37.5457`, `B = −46.9286`, i.e. **no worse than
+   `F_{g3}` in the `ε → 0` constants** (`37.8387`, `−45.4452`) with a uniform 9 % margin instead of `≈ 10⁻³`. This comparison covers only the
+   `ε → 0` constants: the `Δ_IR`/eikonal analysis of `FLAT_GRAVITON_BOUND.md` Theorem 3(ii) is not redone for M01/M02. Both are well short of
+   the paper's (uncertified, SDPB) optimum (4.4) `24.9 log − 27.6`. **The novelty is the certified uniform margin, not a better bound.**
+   The certified exact coefficients are in the tracked file `ads4/code/robust/functionals_certified.json` (sha256 fingerprints printed by
+   every certificate: M02 `bea64adc…3cef4`, M01 `e4a03972…ff2b6fe`).
+4. **Envelope thresholds.** *Flat, from Theorem R [D from certified]:* `𝔉 − C₁uN ≥ (9/50 − C₁u)N > 0` for `m > (50C₁/9)^{1/2}M`:
+   `M₀ ≤ 2.357M (C₁ = 1)`, `4.08M (3)`, `7.45M (10)` (flat `N`-envelope model; its transfer to AdS is the model assumption of §5). *Leading AdS Regge action with the envelope `C₀cosh β/m² + C₁Λ²/m²` [NE] (§5):*
    `M02` is positive on every physical grid point **without** envelope (min `F_R/N ≈ 0.19`, all `Δ_g = 20…1000`), and with envelope
    the last negative point is `m ≈ 2.16Λ (C₁ = 1)`, `3.92Λ (3)`, `6.70Λ (10)`, **independent of `Δ_g`** (`F_{g3}` on the same grids:
    `8.09Λ / 22.1Λ` at `Δ_g = 100 / 1000` for `C₁ = 1`, `10.1Λ / 24.6Λ` for `C₁ = 10`). Hybrid model [M]: `1.92Λ`, `3.58Λ`, `6.14Λ`.
-5. **Conditional AdS bound [NE threshold, D otherwise] (§5.4).** With the smearing scale lowered to `Λ_s = Λ/n` so that every heavy
-   state lies above the threshold (`n = 2.2` for `C₁ = 1`; the rescaled Regge scan is then positive on every physical point at
-   `Δ_g = 100, 1000`), the light side of `ADS4_LIGHT.md` gives `|ĝ₃|²Λ⁸ ≤ n⁸·16L_AdS(Λ/n)/k`, i.e.
-   `|ĝ₃|²Λ⁸ ≤ 2.84·10⁴ log Λ − 6.97·10⁴ + …` (`= 6.3·10⁴` at `Δ_g = 100`), against `7.1·10⁸` (`Δ_g ≤ 300`) and `8.9·10¹¹`
-   (`Δ_g = 1000`, threshold `22Λ`) for `F_{g3}` with its own `C₁ = 1` threshold, and `113.5` for `F_{g3}` *if* it were positive down to
+5. **Conditional AdS bound (§5.4).** With the smearing scale lowered to `Λ_s = Λ/n` so that every heavy state lies above the
+   threshold, the light side of `ADS4_LIGHT.md` gives `|ĝ₃|²Λ⁸ ≤ n⁸·16L_AdS(Λ/n)/k`. **Headline (threshold from the certified margin,
+   `n = (50/9)^{1/2} = 2.357`, `C₁ = 1`):** `|ĝ₃|²Λ⁸ ≤ 4.93·10⁴ log Λ − 1.25·10⁵ + …` `= 1.06·10⁵` at `Δ_g = 100`, i.e.
+   **`√(t₄² + α_T²) ≤ 8.3·10⁻⁴`** (`Δ_g = 100`) — conditional on the envelope model with `C₁ = 1` and on all inputs of item 6; the
+   threshold itself is certified only in the flat `N`-envelope form. Secondary [NE]: the leading-Regge scan threshold `n = 2.2` (last
+   negative point `2.16Λ`, thin headroom; Regge kernel used at `m ~ 2Λ_s`, outside its validity) gives `6.3·10⁴`, `√ ≤ 6.4·10⁻⁴`. Compare `7.1·10⁸` (`Δ_g ≤ 300`) and `8.9·10¹¹`
+   (`Δ_g = 1000`, threshold `22Λ`) for `F_{g3}` with its own [NE] `C₁ = 1` threshold, and `113.5` for `F_{g3}` *if* it were positive down to
    `m = Λ`. Functionals optimised directly for the envelope (§2.3, [NE] only, not certified) do better: `≈ 525` at `Δ_g = 100`
    (`C₁ = 1`, `n = 1.75`; `|ĝ₃|²Λ⁸ ≤ 227 log Λ − 531`), `≈ 1.8·10³` (`C₁ = 3`, `n = 2.25`), `≈ 7·10⁴` (`C₁ = 10`, `n = 4`); their rescaled
    Regge actions are positive with the respective envelope on all physical grid points at `Δ_g = 100, 1000`, but their uniform margin
@@ -172,11 +181,16 @@ Floating-point dense check (`check.py`; 160 `u` values in `[10⁻⁶, 1]`, `J �
 | functional | min `𝔉/N` `++` (at `m/M, J`) | min `𝔉/N` `+−` | min `2f̂/ρ` (per unit `k`) | flat thresholds `n(C)` = sup{`m/M`: `𝔉 < CuN`}, `C = 1 / 3 / 10` (`++`; `+−`) |
 |---|---|---|---|---|
 | F_g3 | `8.1·10⁻³` (6.9, 30) | `1.2·10⁻³` (21.78, 245) | 0.55 | 7.30 / 8.06 / 9.36 ; 21.78 / 22.89 / 24.06 |
-| M01 | `0.09998` (2.33, 6) | `0.09996` (1, 6) | 0.0996 | 2.84 / 4.44 / 6.95 ; 1.22 / 1.91 / 4.91 |
+| M01 | `0.09939` (2.77, 8)ᵃ | `0.09972` (≈ 22, 168)ᵃ | 0.0996 | 2.84 / 4.44 / 6.95 ; 1.22 / 1.91 / 4.91 |
 | M02 | `0.1996` (2.70, 8) | `0.19998` (1, 4) | 0.1999 | 1.91 / 3.64 / 5.98 ; 1.22 / 1.91 / 4.02 |
 
-The margins are attained at many points simultaneously (the LP optimum is "flat"), mostly at small `J` and `m ≲ 3M` and in the
-scaling region `b̂ ≈ 9`; there is no isolated near-zero. The flat thresholds agree with the AdS Regge-scan thresholds of §5.1 to ≈ 10 %.
+ᵃ Referee's exact values (`₂F₁` sums at the minima); this grid reported `0.09998` (2.33, 6) and `0.09996` (1, 6), i.e. it missed
+oscillatory minima. M01's `+−` minimum lies in the old `F_{g3}` near-zero region (`b̂ ≈ 15`); both values are above the certified `9/100`.
+M02's exact `+−, J = 4, m = M` ratio is `24929829/124659767 = 0.199983` (referee).
+
+For M02 the margins are attained at many points simultaneously (the LP optimum is "flat"), mostly at small `J`, `m ≲ 3M` and in the
+scaling region `b̂ ≈ 9`, with no isolated near-zero; for M01 this is not so (footnote ᵃ). The flat thresholds agree with the AdS
+Regge-scan thresholds of §5.1 to ≈ 10 %.
 
 ## 4. Certification (`rcert.py`, `lowcheck.py`)
 **What is certified.** For a functional `(ψ₂, ψ₃, a)` with rational coefficients and a rational `δ′`, the inequality
@@ -189,7 +203,7 @@ scaling region `b̂ ≈ 9`; there is no isolated near-zero. The flat thresholds 
 |---|---|---|---|
 | P: `J < 400`, all `u ∈ [0,1]` | Lemma P polynomial (degree ≤ `J+1`), exact Descartes + bisection | PASS (2384 polynomials) | PASS (2384) |
 | C: `J ≥ 400`, `u ≥ ¼` | `|D| ≤ 1` resp. `min(binom(J+4,8), (1−p²)⁻⁴)`; interval integrals | PASS | PASS |
-| M: `u ≤ ¼`, `b̂ ≥ 120` | Lemma M (exact `1/b̂`, `1/b̂³` terms, remainder `C_R/b̂⁴` by Taylor jets in Arb), Lemma C for `+−`; quadratic minimisation in `u` | PASS (`b̂⁴𝔉 ≥ 1.2·10⁴` vs `C_R ≤ 1.2·10⁴…2.5·10⁴`) | PASS |
+| M: `u ≤ ¼`, `b̂ ≥ 120` | Lemma M (exact `1/b̂`, `1/b̂³` terms, remainder `C_R/b̂⁴` by Taylor jets in Arb), Lemma C for `+−`; quadratic minimisation in `u` | PASS: at `b̂ = 120`, `u ≤ 1/100`, remainder constants `C_R ≤ 1.18–1.72·10⁴`, net certified lower bounds `b̂⁴𝔉 ≥ 1.34–2.02·10⁴` (`+−`), `≥ 1.5·10⁴` (`++`); `u ∈ [1/100, ¼]` PASS | PASS |
 | S: `J ≥ 400`, `u ≤ ¼`, `b̂ ≤ 120` | exact Taylor coefficients of `G_h(b̂,u)` + Cauchy bound from Lemma S; 604 cells × 4 patterns per channel; `b̂ ≤ 1` absolute series | PASS (`++`, `+−`) | PASS (`++`, `+−`) |
 | low side | exact (`rcert.py low`, `lowcheck.py`) | PASS | PASS |
 
@@ -199,9 +213,14 @@ Region M generalised: with `α = W₁(0)`, `w″(0) = q₀ + q₁u + q₂u²` (`
 `u ∈ [u₁, ¼]` the forward term dominates (same as `cert_M.py`). Positive terms in `α`, `γ₁` are dropped (conservative).
 
 **Theorem R [certified]** (M02): for all `m ≥ M`, allowed `J`, both channels, `𝔉 ≥ (9/50)N`. (M01: `𝔉 ≥ (9/100)N`, certified the same way.)
-Sharpness check (mutation): for M02 region P with `J < 12`, `δ′ = 199/1000` passes and `δ′ = 1/5` fails (6 polynomials), consistent with
+Sharpness check (mutation): for M02 region P with `J < 12`, `δ′ = 199/1000` passes and `δ′ = 1/5` fails (2 polynomials: `++, J = 8,
+(s₂,s₃) = (+,−)` and `+−, J = 4, (+,−), s_F = −1`), consistent with
 the floating-point minimum `0.19998` at `+−, J = 4, m = M`; the certified `9/50` leaves ≈ 10 % slack for regions M, S.
 Relies on FLINT/Arb, Lemmas P, C, M, S and (Q1)–(Q4) of `FLAT_GRAVITON_BOUND.md`, exactly as its Theorem 1.
+**Certified object.** The exact coefficients of M01, M02 are in the tracked file `ads4/code/robust/functionals_certified.json`;
+`rcert.py`, `lowcheck.py` and `check.py` read it first (the LP stage writes only `cache/functionals.json` and cannot overwrite it), check
+`ψ₂, ψ₃` against `x, y`, and print `sha256` of the canonical string of the exact coefficients in every log
+(M02: `bea64adc1bb3b20ff366a68c891a2edda524258fdcf403116c99acda2a83cef4`, M01: `e4a03972183a184d5bac841cf1f0bb5b50eee0c1861d829f840576809ff2b6fe`).
 
 **Not certified:** (R2)/(R3) as separate statements (they are implied at physical points by Theorem R, but the scaling-limit margin
 `2f̂ ≥ 0.2ρ` is only [NE]: min `2f̂/ρ = 0.1999` per unit `k` at `b̂ = 9.04`); the envelope-targeted family §2.3; everything AdS.
@@ -210,7 +229,8 @@ Relies on FLINT/Arb, Lemmas P, C, M, S and (Q1)–(Q4) of `FLAT_GRAVITON_BOUND.m
 
 ### 5.1 Leading Regge action [NE, conditional on the heavy formula as in ADS4_FUNCTIONAL.md]
 `F_R = 2∫ψ₂P_{−½+iΛp}(cosh β) + σ_hu∫ψ₃P + 2aΛ²u²W(β) + aσ_hu³P_{−½}(cosh β)`; envelope `(C₀cosh β/m² + C₁u)·Σ|parts|`; physical points
-`τ ≥ Δ_g`, `β ≤ 8`; grids of `ADS4_FUNCTIONAL.md` t2 refined (`m/Λ` step 0.004 on `[1,12]`). The code reproduces the published `F_{g3}` numbers
+`τ ≥ Δ_g`, `β ≤ 8`; norm: the 4-part `Σ|parts| = |B₂|+|B₃|+|B₄|+|B₅|` of `ADS4_FUNCTIONAL.md` statement R (not the 3-part `N` of
+Theorem R; `≥ N`); grids of `ADS4_FUNCTIONAL.md` t2 refined (`m/Λ` step 0.004 on `[1,12]`). The code reproduces the published `F_{g3}` numbers
 (`7.38Λ`, `8.03Λ` vs `8.05Λ`, `+−: 1.21Λ` at `Δ_g = 100`). Last negative `m/Λ` (`++ / +−`; `0` = positive on all physical points):
 
 | functional | `Δ_g` | min `F_R/N` | none | `C₁ = 1` | `C₁ = 3` | `C₁ = 10` | `C₀ = 1000, C₁ = 1` |
@@ -249,21 +269,22 @@ conditional on all heavy-side inputs of `ADS4_FUNCTIONAL.md` §4), (ii) the ligh
 | case | `n` | `A′` | `B′` | value `Δ_g = 100` | `Δ_g = 1000` |
 |---|---|---|---|---|---|
 | F_g3 if positive down to `m = Λ` (ADS4_LIGHT.md; **not supported**) | 1 | 37.84 | −60.79 | 113.5 | 200.6 |
-| F_g3, its `C₁ = 1` threshold | 8.03 / 22.1 | 6.5·10⁸ / 2.2·10¹² | | 7.1·10⁸ | 4.8·10¹² |
+| F_g3, its [NE] `C₁ = 1` threshold | 8.03 / 22.1 | 6.5·10⁸ / 2.2·10¹² | | 7.1·10⁸ | 4.8·10¹² |
 | F_g3, `C₁ = 10` | 10.05 (`Δ_g = 100`) | 3.9·10⁹ | −1.5·10¹⁰ | 3.6·10⁹ | (threshold 24.6 there) |
-| **M02, `C₁ = 1`** | 2.2 | 2.84·10⁴ | −6.97·10⁴ | **6.3·10⁴** | **1.27·10⁵** |
-| M02, `C₁ = 3` | 4.0 | 3.39·10⁶ | −1.04·10⁷ | 5.6·10⁶ | 1.3·10⁷ |
-| M02, `C₁ = 10` | 6.8 | 2.37·10⁸ | −8.48·10⁸ | 2.9·10⁸ | 7.9·10⁸ |
-| M01, `C₁ = 1` | 3.2 | 4.13·10⁵ | −1.16·10⁶ | 7.7·10⁵ | 1.7·10⁶ |
+| **M02, `C₁ = 1`, certified-margin threshold `(50/9)^{1/2}`** | 2.357 | 4.93·10⁴ | −1.25·10⁵ | **1.06·10⁵** (`√ ≤ 8.3·10⁻⁴`) | **2.16·10⁵** |
+| M02, `C₁ = 3 / 10`, certified-margin thresholds | 4.082 / 7.454 | 3.99·10⁶ / 4.93·10⁸ | −1.23·10⁷ / −1.81·10⁹ | 6.6·10⁶ / 5.6·10⁸ | 1.5·10⁷ / 1.6·10⁹ |
+| M02, `C₁ = 1`, [NE] Regge threshold | 2.2 | 2.84·10⁴ | −6.97·10⁴ | 6.3·10⁴ (`√ ≤ 6.4·10⁻⁴`) | 1.27·10⁵ |
+| M02, `C₁ = 3 / 10`, [NE] Regge thresholds | 4.0 / 6.8 | 3.39·10⁶ / 2.37·10⁸ | −1.04·10⁷ / −8.48·10⁸ | 5.6·10⁶ / 2.9·10⁸ | 1.3·10⁷ / 7.9·10⁸ |
+| M01, `C₁ = 1`, certified-margin threshold `(100/9)^{1/2}` / [NE] | 3.333 / 3.2 | 5.72·10⁵ / 4.13·10⁵ | −1.64·10⁶ / −1.16·10⁶ | 1.05·10⁶ / 7.7·10⁵ | 2.3·10⁶ / 1.7·10⁶ |
 | M01, `C₁ = 3 / 10` (`n` from 5.1, not re-scanned) | 5.2 / 7.9 | 2.0·10⁷ / 5.7·10⁸ | | 2.9·10⁷ / 6.3·10⁸ | 7.3·10⁷ / 1.8·10⁹ |
 | targeted T1, `C₁ = 1` (§2.3, [NE] only) | 1.75 | 227.1 | −531.1 | 525 | 1039 |
 | targeted T3, `C₁ = 3` | 2.25 | 870.7 | −2292 | 1780 | 3728 |
 | targeted T10, `C₁ = 10` | 4 | 5.56·10⁴ | −1.99·10⁵ | 7.3·10⁴ | 1.9·10⁵ |
 
-In CFT terms (`DICTIONARY_T4.md`, `t₄² + α_T² = 57600|ĝ₃|²/L⁸`): with M02 and `C₁ = 1`, `√(t₄² + α_T²) ≤ 240·(6.3·10⁴)^{1/2}/Λ⁴ = 6.4·10⁻⁴`
-at `Δ_g = 100` (`Λ = 98.5`; `F_{g3}` with its own threshold: `0.068`; the unsupported `n = 1` value: `2.7·10⁻⁵`).
-The gain over `F_{g3}` is a factor `1.1·10⁴` (`Δ_g = 100`) to `3.8·10⁷` (`Δ_g = 1000`) in `|ĝ₃|²`, i.e. `≈ 10²` to `6·10³` in
-`√(t₄²+α_T²)`; the price relative to the (unsupported) `n = 1` statement is a factor `≈ 550` (`Δ_g = 100`) in `|ĝ₃|²`.
+In CFT terms (`DICTIONARY_T4.md`, `t₄² + α_T² = 57600|ĝ₃|²/L⁸`, `Λ = 98.5` at `Δ_g = 100`): with M02, `C₁ = 1` and the certified-margin
+threshold, `√(t₄² + α_T²) ≤ 240·(1.06·10⁵)^{1/2}/Λ⁴ = 8.3·10⁻⁴` ([NE] Regge threshold: `6.4·10⁻⁴`; `F_{g3}` with its own [NE] threshold:
+`0.068`; the unsupported `n = 1` value: `2.7·10⁻⁵`). The gain over `F_{g3}` is a factor `≈ 7·10³` (`Δ_g = 100`) to `≈ 2·10⁷` (`Δ_g = 1000`)
+in `|ĝ₃|²`, i.e. `≈ 80` to `5·10³` in `√(t₄²+α_T²)`; the price relative to the unsupported `n = 1` statement is `≈ 930` in `|ĝ₃|²`.
 
 ## 6. Caveats
 * The envelope `C₁Λ²/m²·Σ|parts|` is the model of `ADS4_FUNCTIONAL.md` (statement R); `C₁` is not derived for `⟨TTTT⟩`, and the
@@ -283,7 +304,21 @@ The gain over `F_{g3}` is a factor `1.1·10⁴` (`Δ_g = 100`) to `3.8·10⁷` (
 | `pareto.py`, `pareto2.py`, `mtest.py`, `target.py` | §2.1, §2.2, §2.3 |
 | `mkfun.py` | rationalisation → `cache/functionals.json` |
 | `check.py` | dense floating-point check, flat envelope thresholds |
-| `rcert.py` | certificates P, C, M, S, low side for `𝔉 − δ′N` (generalised copies of `flatbound/cert_*.py`) |
+| `functionals_certified.json` | **tracked** exact coefficients of the certified M01, M02 (read first by `rcert.py`, `lowcheck.py`, `check.py`) |
+| `rcert.py` | certificates P, C, M, S, low side for `𝔉 − δ′N` (generalised copies of `flatbound/cert_*.py`); prints the sha256 fingerprint |
 | `lowcheck.py` | exact low side from the amplitude by residues |
 | `ads.py`, `adsT.py`, `bound.py` | §5 |
 | `run_all.sh` | everything (`bash run_all.sh cert` for the certificates only) |
+
+## 8. Revisions after `ads4/REFEREE_ROBUST_FUNCTIONAL.md`
+1. (major) Headline AdS number now uses the threshold implied by the certified margin, `n = (50/9)^{1/2} = 2.357` (`C₁ = 1`; `4.08`, `7.45` for
+   `C₁ = 3, 10`): `1.06·10⁵`, `√(t₄²+α_T²) ≤ 8.3·10⁻⁴` at `Δ_g = 100`; the `n = 2.2` value (`6.4·10⁻⁴`) is kept as secondary and labelled [NE]
+   (thin headroom, Regge kernel outside its validity) (§0 item 5, §5.4).
+2. (reproducibility) Exact coefficients of M01, M02 moved to the tracked `functionals_certified.json`; all certificates read it first and print
+   a sha256 fingerprint; the LP stage cannot overwrite it. Certificates re-run with the fingerprints (logs in `cache/logs/`).
+3. M01 dense-check row corrected to the referee's exact minima (`0.09939`, `0.09972`); "no isolated near-zero" restricted to M02.
+4. Mutation test: 2 failing polynomials, not 6.
+5. The two norms (3-part `N` of Theorem R and hybrid (A); 4-part `Σ|parts|` of the Regge scans) are stated where used.
+6. Region-M row of the §4 table rewritten with the logged numbers.
+7. Novelty: the comparison with `F_{g3}` covers only the `ε → 0` constants (no `Δ_IR`/eikonal analysis); both functionals are well short of
+   (4.4) `24.9 log − 27.6`; the novelty is the certified margin.

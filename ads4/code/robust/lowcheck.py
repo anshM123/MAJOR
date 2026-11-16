@@ -27,10 +27,11 @@ def minus_B_low(k, f, poles):
     return sp.expand(sp.simplify(sum(sp.residue(e, s, z) for z in poles)/2))
 
 def main(name):
-    d = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cache', 'functionals.json')))[name]
-    psi2 = sum(sp.Rational(c)*p**i for i, c in enumerate(d['psi2_exact']))
-    psi3 = sum(sp.Rational(c)*p**i for i, c in enumerate(d['psi3_exact']))
-    a = sp.Rational(d['a_exact'])
+    from rcert import load_functional            # tracked functionals_certified.json first; prints sha256 fingerprint
+    P2, P3, A_ = load_functional(name)
+    psi2 = sum(sp.Rational(c.numerator, c.denominator)*p**i for i, c in enumerate(P2))
+    psi3 = sum(sp.Rational(c.numerator, c.denominator)*p**i for i, c in enumerate(P3))
+    a = sp.Rational(A_.numerator, A_.denominator)
     low = {k: minus_B_low(k, flow, [0, p**2]) for k in [2, 3, 4, 5]}
     mat = {k: minus_B_low(k, fmatter, [0, p**2, ml**2, p**2 - ml**2]) for k in [2, 3, 4, 5]}
     xx = sp.Symbol('xx', positive=True)
