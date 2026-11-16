@@ -1,7 +1,7 @@
 # block-level test of the <JJJJ> MFT normalisation, leading twist (fourpt/tttt/t3_lightcone_l1.py)
-  point A eps=1e-03: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
-  point A eps=1e-04: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
-  point A eps=1e-05: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
-  point B eps=1e-03: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
-  point B eps=1e-04: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
-  point B eps=1e-05: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
+  point A eps=1e-03: ratio F_MFT/sum = 1.000158674  0.999526220  0.983959213   | ratio-1: 1.6e-04 -4.7e-04 -1.6e-02   | control (+1/8)^J: 12.566 12.576 12.926   | last J term 3e-15
+  point A eps=1e-04: ratio F_MFT/sum = 1.000015864  0.999952650  0.998372684   | ratio-1: 1.6e-05 -4.7e-05 -1.6e-03   | control (+1/8)^J: 12.578 12.579 12.613   | last J term 3e-15
+  point A eps=1e-05: ratio F_MFT/sum = 1.000001586  0.999995265  0.999837032   | ratio-1: 1.6e-06 -4.7e-06 -1.6e-04   | control (+1/8)^J: 12.579 12.579 12.583   | last J term 3e-15
+  point B eps=1e-03: ratio F_MFT/sum = 1.000173849  1.000227100  0.999843458   | ratio-1: 1.7e-04 2.3e-04 -1.6e-04   | control (+1/8)^J: 9.405 9.401 9.412   | last J term 1e-16
+  point B eps=1e-04: ratio F_MFT/sum = 1.000017381  1.000022702  0.999984356   | ratio-1: 1.7e-05 2.3e-05 -1.6e-05   | control (+1/8)^J: 9.413 9.412 9.414   | last J term 1e-16
+  point B eps=1e-05: ratio F_MFT/sum = 1.000001738  1.000002270  0.999998436   | ratio-1: 1.7e-06 2.3e-06 -1.6e-06   | control (+1/8)^J: 9.414 9.414 9.414   | last J term 1e-16

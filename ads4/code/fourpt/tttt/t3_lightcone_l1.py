@@ -3,7 +3,7 @@ Block-level test of the two-pair MFT normalisation (coordinator goal 4): leading
 correlator <J_1 J_3><J_2 J_4> on the real section, decomposed with the exact doubly-spinning partial waves of fourpt/spinblock2
 (imported, not modified) and the exact Fock-space coefficients (t1_mft_l1 closed form, n = 0: hhat_opp = hhat_same):
      F_MFT  =  sum_{J >= 2} p(N = J - 2, J) (-1/8)^J W[hhat, hhat]^{(Delta = J + 2, J)}  x (1 + O(eps)),
-p = 8^J P_FK(1,1; J+2, J)/(8 Y^2 (J-1)J(J+1)(J+2)).  x_12 = T(1, (1-eps) n) nearly null; z_1 = z_2 = n_12 (the null direction of x_12),
+p = 2 x 8^J P_FK(1,1; J+2, J)/(8 Y^2 (J-1)J(J+1)(J+2))  (n = 0: one primary = both helicity closed forms).  x_12 = T(1, (1-eps) n) nearly null; z_1 = z_2 = n_12 (the null direction of x_12),
 which suppresses higher twists (as in SPINNING_MFT.md sect. 5.1); z_3, z_4 various.  Control: (+1/8)^J.
 """
 import os, sys
@@ -12,7 +12,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '..')); sys.path.insert(0, os.path.join(HERE, '..', '..', 'mft'))
 from spinblock2 import SpinBlock4
 from t2_validate_l1 import W_eval          # fourpt validation helper (imported)
-from mft_exact import PFK
 out = []
 def pr(*a):
     s = " ".join(str(x) for x in a); print(s, flush=True); out.append(s)
@@ -25,9 +24,17 @@ def hhat(Delta, J):
     f = -(Delta - 1)*(Delta - 2)*(m2 - 2)       # same; at n = 0 equal to the opp one
     return {w: v1[w] + f*v2[w] for w in v1}
 
+def PFK(D1, D2, Delta, J):
+    """Fitzpatrick-Kaplan MFT coefficient with Pochhammer symbols (well defined at n = 0, where Gamma(0)/Gamma(0) appears in mft_exact.PFK)"""
+    n = sp.Rational(Delta - D1 - D2 - J, 2); h = sp.Rational(3, 2); rf = sp.rf
+    return (rf(D1-h+1, n)*rf(D2-h+1, n)*rf(D1, J+n)*rf(D2, J+n) /
+            (sp.factorial(n)*sp.factorial(J)*rf(J+h, n)*rf(D1+D2+n-2*h+1, n)*rf(D1+D2+2*n+J-1, J)*rf(D1+D2+n+J-h, n)))
+
 def p_mft(J):
     D = J + 2; Y = D*D - 3*D + J*J + J
-    return float(sp.Integer(8)**J*PFK(1, 1, D, J)/(8*Y**2*(J - 1)*J*(J + 1)*(J + 2)))
+    # n = 0: hhat_opp = hhat_same span ONE primary; its Fock coefficient is the sum of the two helicity closed forms (= 2x; checked
+    # against the exact Fock values 1/900, 1/9075, 16/568575, ... of out_t1_mft_l1.txt)
+    return 2*float(sp.Integer(8)**J*PFK(1, 1, D, J)/(8*Y**2*(J - 1)*J*(J + 1)*(J + 2)))
 
 def F_mft(X, Z):
     x13 = X[1] - X[3]; x24 = X[2] - X[4]
