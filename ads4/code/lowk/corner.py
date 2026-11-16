@@ -8,9 +8,9 @@ seed blocks (lcblock.LCBlock), fed into the *same* spinning machinery (spinblock
 (P,Q) jets, generated tensor code) - nothing else is changed.
 
 Error control (per grid point, then per moment):
-  * every LC point is evaluated with two independent settings A = (N, I, Q, M) = (10000, 1500, 8000, 10) and
-    B = (8000, 1200, 6000, 8) (different radial depth, fit window, number of asymptotic terms, lightcone depth);
-    A is used, |A - B| is the error estimate; points with |A - B| > tol_pt * max|A| (relative to the largest mode at that
+  * every LC point is evaluated with two independent settings A = (N, I, Q, M) = (10000, 1500, 8000, 8) and
+    B = (8000, 1200, 6000, 6) (different radial depth, fit window, number of asymptotic terms, lightcone depth);
+    A is used, 3|A - B| is the error estimate (summed over points, i.e. no cancellation assumed); points with |A - B| > tol_pt * max|A| (relative to the largest mode at that
     point) are rejected: these are the deepest corner points, where the conserved spinning combination cancels by many orders
     of magnitude between the seed blocks and double precision is insufficient;
   * rejected points and points where the lightcone sum over i has not converged (tiny t) are replaced by a power-law
@@ -32,8 +32,10 @@ from formulas import Fnu_np
 from lcblock import LCBlock
 CACHE = os.path.join(HERE, 'cache')
 E2E_DATA = os.path.join(E2E, 'data_modes')
-PAR_A = dict(N=10000, I=1500, Q=8000, M=10)
-PAR_B = dict(N=8000, I=1200, Q=6000, M=8)
+PAR_A = dict(N=10000, I=1500, Q=8000, M=8)
+PAR_B = dict(N=8000, I=1200, Q=6000, M=6)
+SAFETY = 3.0     # err_lc = SAFETY * |A - B| (block-level tests: |A - B| tracks the deviation of A from a Q = 14000 reference within ~2x)
+_COEF = {}
 
 def e2e_file(l, Delta, J):
     return os.path.join(E2E_DATA, f"modes_l{l}_D{Delta:.6f}_J{J}.npz")
@@ -41,35 +43,50 @@ def e2e_file(l, Delta, J):
 def lc_file(l, Delta, J):
     return os.path.join(CACHE, f"lcmodes_l{l}_D{Delta:.6f}_J{J}.npz")
 
-class LCSpinBlock(SpinBlock):
-    """SpinBlock whose scalar seeds are LCBlocks (same differential operators, jets and tensor code)."""
-    def __init__(self, l, Delta, J, Dphi, N, I, Q, M=8, Malt=3):
-        super().__init__(l, Delta, J, Dphi, 60)         # small radial N: the CBlocks built here are replaced below
-        self.lcinfo = {}
-        for ab, (blk, vpow) in list(self.blocks.items()):
-            c1, c2 = blk.a, blk.b
-            t0 = time.time()
-            lb = LCBlock(Delta, J, c1, c2, N, I, Q, M=M, Malt=Malt)
-            self.blocks[ab] = (lb, vpow)
-            self.lcinfo[ab] = dict(c=(c1, c2), build=round(time.time() - t0, 1), fitres_i300=float(lb.fitres[:min(I, 300) + 1].max()))
+class _Pre:
+    """stand-in for a scalar seed block: returns precomputed derivative sums S[p, k, l]."""
+    def __init__(self, S, a, b):
+        self.S, self.a, self.b = S, a, b
+    def series(self, r, chi, sig=+1, kmax=4, lmax=4, cut=None):
+        assert len(r) == self.S.shape[0]
+        return self.S
 
-    def i_tail(self):
-        return np.max([blk.i_tail for (blk, vp) in self.blocks.values()], axis=0)
-
-def evaluate_points(l, Delta, J, Dphi, U, S, lcpar):
-    """stripped tensor (log scale, Fourier modes) at grid points (U, S arrays) with LC seeds."""
+def evaluate_points(l, Delta, J, Dphi, U, S, pars=(PAR_A, PAR_B)):
+    """stripped tensor (log scale, Fourier modes) at grid points (U, S arrays) with LC seeds, for each LC setting in pars.
+    Seeds g^{c1,c2} = g^{c2,c1} (the Casimir operator depends on c1 + c2 and c1 c2 only) are computed once; the coefficients
+    C^{(l)}_{i,q} (which depend only on B_{n,j}, n <= I + Q - J + l, not on the truncation N) are computed once for the largest
+    setting and re-used (sub-blocks) for the others.  Returns list of (logscale, modes, i_tail, info)."""
     fd = frame_data(U, S)
     x1, x2, x3, x4 = frame_positions(fd['ru'], fd['xi'])
     z1, z3 = pol_grid(len(U))
     s, z = invariants(x1, x2, x3, x4, z1, z3)
-    sb = LCSpinBlock(l, Delta, J, Dphi, **lcpar)
-    ls, M = sb.eval(s, z, fd['rs'], fd['chi'], fd['A0'], fd['E0'])
-    fm = fourier_modes(M, lmax=l)
-    return ls, fm, sb.i_tail(), sb.lcinfo
+    sb = SpinBlock(l, Delta, J, Dphi, 60)              # small radial N: its CBlocks are replaced below
+    keys = {}
+    for ab, (blk, vpow) in sb.blocks.items():
+        keys[ab] = (tuple(sorted((blk.a, blk.b))), vpow)
+    Ssets = [dict() for _ in pars]; itails = [[] for _ in pars]; info = [dict() for _ in pars]
+    big = max(range(len(pars)), key=lambda j: (pars[j]['I'], pars[j]['Q']))
+    for key in sorted(set(k for k, v in keys.values())):
+        t0 = time.time()
+        lbig = LCBlock(Delta, J, key[0], key[1], **pars[big])
+        for j, par in enumerate(pars):
+            lb = lbig if j == big else LCBlock(Delta, J, key[0], key[1], coeffs=lbig.C, **par)
+            Ssets[j][key] = lb.series(fd['rs'], fd['chi'])
+            itails[j].append(lb.i_tail)
+            info[j][key] = dict(fitres_i300=float(lb.fitres[:min(par['I'], 300) + 1].max()))
+        info[big][key]['time'] = round(time.time() - t0, 1)
+        del lbig
+    out = []
+    for j in range(len(pars)):
+        for ab, (key, vpow) in keys.items():
+            sb.blocks[ab] = (_Pre(Ssets[j][key], *key), vpow)
+        ls, M = sb.eval(s, z, fd['rs'], fd['chi'], fd['A0'], fd['E0'])
+        out.append((ls, fourier_modes(M, lmax=l), np.max(itails[j], axis=0), info[j]))
+    return out
 
 class TensorMomentsLC(TensorMoments):
     @classmethod
-    def build(cls, l, Delta, J, Dphi=1.75, nvalid=300, itail_max=1e-13, tol_pt=1e-3, cache=True, verbose=True, base=None, fn=None):
+    def build(cls, l, Delta, J, Dphi=1.75, nvalid=300, itail_max=1e-13, tol_pt=1e-2, cache=True, verbose=True, base=None, fn=None):
         """base: a TensorMoments object (radial series on a grid); default: the cached e2e data_modes file."""
         fn = lc_file(l, Delta, J) if fn is None else fn
         if cache and os.path.exists(fn):
@@ -82,10 +99,11 @@ class TensorMomentsLC(TensorMoments):
         sel = cand[rng.choice(len(cand), size=min(nvalid, len(cand)), replace=False)] if len(cand) else np.zeros((0, 2), int)
         vmask = np.zeros_like(todo); vmask[tuple(sel.T)] = True
         t0 = time.time()
-        lsA, fmA, itA, infoA = evaluate_points(l, Delta, J, Dphi, g['U'][todo | vmask], g['S'][todo | vmask], PAR_A)
-        tA = time.time() - t0
-        lsB, fmB, itB, infoB = evaluate_points(l, Delta, J, Dphi, g['U'][todo], g['S'][todo], PAR_B)
-        tB = time.time() - t0 - tA
+        pts_all = todo | vmask
+        (lsA, fmA, itA, infoA), (lsB_all, fmB_all, itB_all, infoB) = evaluate_points(l, Delta, J, Dphi, g['U'][pts_all], g['S'][pts_all])
+        tA = time.time() - t0; tB = 0.0
+        tsel_all = todo[pts_all]
+        lsB = lsB_all[tsel_all]; fmB = {k: v[tsel_all] for k, v in fmB_all.items()}; itB = itB_all[tsel_all]
         pts = todo | vmask
         vsel = vmask[pts]; tsel = todo[pts]
         keys = sorted(base.modes.keys())
@@ -102,7 +120,31 @@ class TensorMomentsLC(TensorMoments):
         with np.errstate(invalid='ignore', divide='ignore'):
             ptdev = np.max(np.abs(VA - VB), axis=0)/np.max(np.abs(VA), axis=0)
         ptdev = np.where(np.isfinite(ptdev), ptdev, np.inf)
-        good = (itA[tsel] < itail_max) & (itB < itail_max) & (ptdev < tol_pt)
+        good0 = (itA[tsel] < itail_max) & (itB < itail_max) & (ptdev < tol_pt)
+        # contiguity: in every t-column accept LC points only downwards from the radial-series region, stopping at the first
+        # point that fails the A/B test or whose size jumps relative to its upper neighbour by more than a power u^{+-8}
+        # (isolated points inside a rejected region are where A and B are both corrupted by the cancellation of the seeds)
+        idx = np.argwhere(todo)
+        okpt = np.zeros_like(todo); okpt[tuple(idx[good0].T)] = True
+        mag = np.zeros(g['S'].shape)
+        mag[base.conv] = np.max(np.abs([base.modes[k][base.conv] for k in keys]), axis=0)*np.exp(base.logscale[base.conv] - np.max(base.logscale[base.conv]))
+        magA = np.max(np.abs(VA), axis=0)*np.exp(ref - np.max(base.logscale[base.conv]))
+        tmp = np.zeros(g['S'].shape); tmp[tuple(idx.T)] = magA; mag = np.where(todo, tmp, mag)
+        acc = base.conv.copy()
+        us = g['us']
+        for j in range(g['S'].shape[1]):
+            col_ok = g['ok'][:, j]
+            for i in range(g['S'].shape[0] - 2, -1, -1):
+                if not (todo[i, j] and okpt[i, j]):
+                    continue
+                if not acc[i + 1, j]:
+                    continue
+                if mag[i + 1, j] > 0 and mag[i, j] > 0:
+                    p = np.log(mag[i + 1, j]/mag[i, j])/np.log(us[i + 1]/us[i])
+                    if not (-8.0 < p < 8.0):
+                        continue
+                acc[i, j] = True
+        good = acc[todo] & good0
         self = cls.__new__(cls)
         self.l, self.Delta, self.J, self.Dphi = l, float(Delta), int(J), float(Dphi)
         self.g = g; self.X = base.X
@@ -174,7 +216,7 @@ class TensorMomentsLC(TensorMoments):
         dens, sh = self._density(k, nu, q1, q3)
         derr, _ = self._density(k, nu, q1, q3, modes=self.dmodes)
         val = dens.sum()
-        err_lc = float(np.abs(derr).sum()/abs(val))
+        err_lc = SAFETY*float(np.abs(derr).sum()/abs(val))
         lc_share = float(abs(dens[self.lcpts].sum())/abs(val))
         # extrapolation of the missing points (ok & ~conv): per t column, density/W ~ c u^p from the two smallest accepted u
         g = self.g; W = g['W']; us = g['us']
@@ -196,11 +238,11 @@ class TensorMomentsLC(TensorMoments):
                 # (a = a_x + a_y), scaled from the nearest larger t column without missing points
                 a = 2*self.Dphi + 2*k + 2*self.l
                 ts = g['ts']
-                full = [jj for jj in range(j + 1, len(ts)) if not miss[:, jj].any() and g['ok'][:, jj].any()]
+                full = [jj for jj in range(j + 1, len(ts)) if (self.conv[:, jj] & g['ok'][:, jj]).sum() >= 2]
                 if not full:
                     extra = np.inf; continue
                 j1 = full[0]
-                c1 = np.abs(dens[:, j1]).sum()
+                c1 = np.abs(dens[:, j1]).sum()*np.sum(W[:, j1])/np.sum(W[self.conv[:, j1] & g['ok'][:, j1], j1])
                 extra += c1*(ts[j]/ts[j1])**(a - 1)*(np.sum(W[:, j])/np.sum(W[:, j1]))
         err_drop = float(extra/abs(val))
         return (val, sh), err_lc, err_drop, lc_share

@@ -9,3 +9,5 @@ ads4/code/e2e/*.pkl
 ads4/code/flatbound/logs/
 ads4/code/e2e/data_modes/
 ads4/code/mft/cache/
+ads4/code/lowk/cache/
+ads4/code/fourpt/cache/
