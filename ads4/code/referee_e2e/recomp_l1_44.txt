@@ -1,0 +1,13 @@
+fresh compute time 102.68178582191467 N 10000
+k=4 nu=0.0 (1,-1) fresh/cached-1 = 0.00e+00   fresh/pred = 0.975833
+k=4 nu=0.0 (1,1) fresh/cached-1 = 1.51e-31   fresh/pred = 0.968269
+k=4 nu=0.0 (0,0) fresh/cached-1 = 0.00e+00   fresh/pred = 0.975902
+k=4 nu=3.0 (1,-1) fresh/cached-1 = 0.00e+00   fresh/pred = 1.001667
+k=4 nu=3.0 (1,1) fresh/cached-1 = 0.00e+00   fresh/pred = 0.988370
+k=4 nu=3.0 (0,0) fresh/cached-1 = 0.00e+00   fresh/pred = 0.980661
+k=6 nu=0.0 (1,-1) fresh/cached-1 = 0.00e+00   fresh/pred = 0.947946
+k=6 nu=0.0 (1,1) fresh/cached-1 = 7.49e-32   fresh/pred = 0.929337
+k=6 nu=0.0 (0,0) fresh/cached-1 = 0.00e+00   fresh/pred = 0.948199
+k=6 nu=3.0 (1,-1) fresh/cached-1 = 0.00e+00   fresh/pred = 0.984061
+k=6 nu=3.0 (1,1) fresh/cached-1 = 0.00e+00   fresh/pred = 0.954540
+k=6 nu=3.0 (0,0) fresh/cached-1 = 0.00e+00   fresh/pred = 0.968785
