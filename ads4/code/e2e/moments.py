@@ -67,6 +67,9 @@ def fourier_modes(M, lmax=2):
             out[(q1, q3)] = np.tensordot(M, ph, axes=([1, 2], [0, 1]))/nth**2
     return out
 
+def series_X(rs, chi, J, N):
+    return -N*(np.log(rs) + chi) - J*chi
+
 def series_converged(rs, chi, J, N, cut=25.0, p=10.0):
     """True where the radial series with N levels (and the derivative sums) has converged.  With X = -N log(rho_big) - J chi
     the observed truncation error of the conserved l = 1 tensor is ~ e^{-X} X^5 (3e-9 at X = 37, 1e-4 at X = 26, < 1e-16 at
@@ -119,6 +122,7 @@ class TensorMoments:
         # evaluated): the derivative sums there are garbage, not small; see series_converged and t4b_convergence.py
         conv = series_converged(fd['rs'], fd['chi'], J, N, cut=cut_mask)
         self.conv = np.zeros(g['S'].shape, dtype=bool); self.conv[ok] = conv
+        self.X = np.zeros(g['S'].shape); self.X[ok] = series_X(fd['rs'], fd['chi'], J, N)
         fd = {key: v[conv] for key, v in fd.items()}
         npts = fd['rs'].size
         x1, x2, x3, x4 = frame_positions(fd['ru'], fd['xi'])
@@ -134,7 +138,7 @@ class TensorMoments:
             self.modes[key] = arr
         self.fd = fd
 
-    def moment(self, k, nu, q1, q3, fun=None):
+    def moment(self, k, nu, q1, q3, fun=None, xfac=None):
         """Pihat^{(q1,q3)}_{k,nu} of the stripped tensor: returns (complex mantissa, log scale):  value = mant * exp(logscale).
         fun: optional replacement of the harmonic function (callable of xi array)."""
         g = self.g; U, S = g['U'], g['S']
@@ -150,15 +154,28 @@ class TensorMoments:
         with np.errstate(divide='ignore', invalid='ignore'):
             logw = np.log(2.0) + 3*np.log(S) + np.log(U) + np.log(rho - rhob) + 0.5*(k-4)*np.log(rho*rhob) + self.logscale
         logw[~g['ok']] = -np.inf
+        if xfac is not None:
+            # emulate a truncation N/xfac: drop the points that would not be converged with N/xfac levels
+            Xs = self.X/xfac
+            with np.errstate(divide='ignore', invalid='ignore'):
+                keep = (Xs > 8) & (Xs - 10*np.log(np.maximum(Xs, 1.0)) > 25.0)
+            logw = np.where(keep, logw, -np.inf)
         sh = np.max(logw)
         val = np.sum(np.exp(logw - sh)*F[:, None]*self.modes[(q1, q3)]*g['W'])
         return val, sh
+
+    def tail_estimate(self, k, nu, q1, q3, xfac=1.5):
+        """estimate of the relative contribution of the dropped small-u region: the region added between truncations N/xfac and N,
+        extrapolated with the power law u^{k+1/2} (u_min ~ 1/N):  tail ~ diff / (xfac^{k+1/2} - 1)."""
+        v1, s1 = self.moment(k, nu, q1, q3); v2, s2 = self.moment(k, nu, q1, q3, xfac=xfac)
+        diff = abs(v1 - v2*np.exp(s2 - s1))/abs(v1)
+        return diff/(xfac**(k + 0.5) - 1)
 
     def save(self, fn):
         g = self.g
         keys = sorted(self.modes.keys())
         np.savez_compressed(fn, l=self.l, Delta=self.Delta, J=self.J, Dphi=self.Dphi, us=g['us'], ts=g['ts'], U=g['U'], S=g['S'], W=g['W'],
-                            ok=g['ok'], conv=self.conv, logscale=self.logscale, keys=np.array(keys), modes=np.array([self.modes[k] for k in keys]))
+                            ok=g['ok'], conv=self.conv, X=self.X, logscale=self.logscale, keys=np.array(keys), modes=np.array([self.modes[k] for k in keys]))
 
     @classmethod
     def load(cls, fn):
@@ -166,7 +183,7 @@ class TensorMoments:
         self = cls.__new__(cls)
         self.l, self.Delta, self.J, self.Dphi = int(d['l']), float(d['Delta']), int(d['J']), float(d['Dphi'])
         self.g = dict(us=d['us'], ts=d['ts'], U=d['U'], S=d['S'], W=d['W'], ok=d['ok'])
-        self.conv = d['conv']; self.logscale = d['logscale']
+        self.conv = d['conv']; self.logscale = d['logscale']; self.X = d['X']
         self.modes = {tuple(int(x) for x in k): m for k, m in zip(d['keys'], d['modes'])}
         return self
 

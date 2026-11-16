@@ -125,15 +125,20 @@ void block_eval(const real *Bt, const long *off, const double *Delta2, int J, in
     real Delta = from2(Delta2);
     int jmax = J + N;
     int nk = kmax + 1, nl = lmax + 1;
+    /* binomial coefficients for (x0 + 2i)^k = sum_p binom(k,p) x0^{k-p} (2i)^p */
+    real binom[8][8];
+    for (int k = 0; k < 8; k++) for (int p = 0; p < 8; p++) binom[k][p] = 0;
+    for (int k = 0; k < 8; k++) { binom[k][0] = 1; for (int p = 1; p <= k; p++) binom[k][p] = binom[k-1][p-1] + (p <= k-1 ? binom[k-1][p] : 0); }
     #pragma omp parallel
     {
         real *Pt = (real *)malloc((size_t)(jmax + 2)*nl*sizeof(real));
+        int imx = N/2 + 2;
+        real *U = (real *)malloc((size_t)imx*nk*sizeof(real));        /* U[p][i] = r^{2i} (2i)^p */
         #pragma omp for schedule(dynamic, 4)
         for (int p = 0; p < npts; p++) {
             real r = from2(r2 + 2*p), chi = from2(chi2 + 2*p);
             real lr = LOG(r), emc = EXP(-chi), eta = COSH(chi), r2v = r*r;
             int nmaxp = N;
-            /* terms decay like (r e^{chi})^n = rho_big^n */
             if (lr + chi < 0) {
                 /* levels with (r e^chi)^n e^{J chi} n^pwcut < exp(-cut) are dropped; the observed truncation error of the conserved
                    tensors is e^{-X} X^p, X = n(-log rho_big), p ~ 5 (l = 1), so pwcut = 6..10 with cut = 30 is safe (t4b_convergence.py) */
@@ -150,6 +155,9 @@ void block_eval(const real *Bt, const long *off, const double *Delta2, int J, in
                 for (int l = 1; l < nl; l++)
                     Pt[l*(jmax + 2) + j + 1] = emc*emc*Pt[l*(jmax + 2) + j - 1] + (2*(real)j + 1)*emc*Pt[(l - 1)*(jmax + 2) + j];
             }
+            /* tables shared by all j */
+            int itop = nmaxp/2 + 1;
+            { real w = 1; for (int i = 0; i <= itop; i++) { real t = w, x = (real)(2*i); for (int q = 0; q < nk; q++) { U[q*imx + i] = t; t *= x; } w *= r2v; } }
             real acc[8][8];
             for (int k = 0; k < nk; k++) for (int l = 0; l < nl; l++) acc[k][l] = 0;
             for (int j = 0; j <= jtop; j++) {
@@ -157,20 +165,26 @@ void block_eval(const real *Bt, const long *off, const double *Delta2, int J, in
                 if (n0 > nmaxp) continue;
                 int imax = (nmaxp - n0)/2;
                 const real *B = Bt + off[j];
-                real w = EXP((real)n0*lr + (real)j*chi);
-                if (sig < 0 && (n0 & 1)) w = -w;
-                real s[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-                real x = Delta + (real)n0;
-                for (int i = 0; i <= imax; i++) {
-                    real t = B[i]*w;
-                    real pw = t;
-                    for (int k = 0; k < nk; k++) { s[k] += pw; pw *= x; }
-                    w *= r2v; x += 2;
+                real w0 = EXP((real)n0*lr + (real)j*chi);
+                if (sig < 0 && (n0 & 1)) w0 = -w0;
+                real Dp[8];
+                for (int q = 0; q < nk; q++) {
+                    const real *Uq = U + q*imx;
+                    real d = 0;
+                    #pragma omp simd reduction(+:d)
+                    for (int i = 0; i <= imax; i++) d += B[i]*Uq[i];
+                    Dp[q] = d;
+                }
+                real x0 = Delta + (real)n0, s[8];
+                for (int k = 0; k < nk; k++) {
+                    real v = 0, xp = 1;               /* sum_p binom(k,p) x0^{k-p} Dp[p] */
+                    for (int q = k; q >= 0; q--) { v += binom[k][q]*xp*Dp[q]; xp *= x0; }
+                    s[k] = v*w0;
                 }
                 for (int k = 0; k < nk; k++) for (int l = 0; l < nl; l++) acc[k][l] += s[k]*Pt[l*(jmax + 2) + j];
             }
             for (int k = 0; k < nk; k++) for (int l = 0; l < nl; l++) to2(acc[k][l], out + 2*(((long)p*nk + k)*nl + l));
         }
-        free(Pt);
+        free(Pt); free(U);
     }
 }

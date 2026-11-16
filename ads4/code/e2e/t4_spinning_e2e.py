@@ -18,9 +18,12 @@ DPHI = 1.75
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATADIR = os.path.join(HERE, 'data_modes')
 
-def default_N(l, Delta, c=120):
-    cap = 16000 if l == 1 else 14000
-    return int(min(cap, max(2000, c*Delta)))
+def default_N(l, Delta, c=400):
+    """radial truncation.  The region of small u = sqrt(rhobar/rho) that can be covered is u >~ 34 alpha/(N t) (moments.series_converged);
+    the cost grows like N^3 (more points become usable, each costing N^2), so N is capped.  The neglected region contributes
+    ~ u_min^{k+1/2}; it is estimated for every moment by tightening the mask (TensorMoments.tail_estimate) and by the
+    N-dependence study t4b_convergence.py."""
+    return int(min(10000 if l == 1 else 8000, max(4000, c*Delta)))
 
 def fname(l, Delta, J):
     return os.path.join(DATADIR, f"modes_l{l}_D{Delta:.6f}_J{J}.npz")
@@ -63,7 +66,7 @@ def small_cases(l):
     """small impact parameter: J = 2, 3, 5 (also J = 1 for currents) at m ~ 20, 40, 80;  Delta = m + J... chosen as m_target + 3/2"""
     out = []
     for mt in (20.0, 40.0, 80.0):
-        for J in ((1, 2, 3, 5) if l == 1 else (2, 3, 5)):
+        for J in ((1, 2, 4) if l == 1 else (2, 3, 5)):
             # alpha alphabar = m^2 with alphabar - alpha = 2J+1
             al = (-(2*J + 1) + np.sqrt((2*J + 1)**2 + 4*mt*mt))/2
             out.append((float(al + J + 2), J))

@@ -155,3 +155,75 @@ of unsmeared forward limits `∂B₄|₀` and `B₅|₀` matches the paper's own
   - 2610.19149 (IR-finite 4D positivity);
   - 2304.01259 and 2410.09794 (Hong–Wang–Zhou-type scalar-tensor causality bounds).
 - arXiv API searches combining interval arithmetic or computer-assisted methods with positivity, bootstrap or graviton found nothing relevant.
+
+---
+
+## Round 2 (revised note, commit 4f92504)
+
+### Verdicts
+
+| aspect | verdict |
+|---|---|
+| Mathematical correctness | Theorem 1: unchanged and correct. **Proposition 1′: correct**, re-derived independently. **Lemma IR: algebra correct given E**; one rounding slip and one wrong order-of-magnitude statement (Issues R2.3, R2.4). |
+| Computational soundness | **Sound.** `run_all.sh` re-run: 9/9 PASS, 2 min 04 s. The `Tmax` assertion and the precision restore in `cert_S.py` are correct. `cert_ir.py` and `cert_jhep.py` are rigorous (exact or Arb). |
+| Physical applicability | **Theorem 3(i): honest**, essentially a rewriting. **Theorem 3(ii): MAJOR problem.** Hypothesis E1 is either vacuous (read literally) or unproved (read approximately), and at ε = 1/100 the negative set N_ε contains ordinary, non-eikonal heavy states (Issue R2.1). |
+| Novelty | Unchanged. Proposition 1′ is a genuine finding about the version of record and should be reported to the authors as a misprint. |
+
+### R2 issues
+
+**R2.1 [MAJOR, applicability — Theorem 3(ii) and Lemma IR]: E1 is not an eikonal hypothesis at ε = 1/100.**
+(E1) says that the states of N_ε (those with F^ε < 0) are in the scaling regime, with **exact** equality `F^ε = (2/m⁴)f̂_ε(2J/m)`.
+- **Read literally**, no finite-mass state satisfies the equality. N_ε must then carry zero weight, which is the withdrawn H-IR again, and that is incompatible with G > 0.
+- **Read as an approximation**, Lemma IR is no longer a proof: the finite-m corrections are not bounded.
+- **In content**, E1 excludes states that are certainly not eikonal. My own float scan (Gauss–Legendre, scipy `eval_legendre`/`eval_jacobi`, completed functional) finds:
+  - at ε = 1/100, `++` states with **m ≈ 3.8–6.5 M, J = 14–28, b̂ ≈ 7.4–9.6** have F^ε < 0. Examples: (J=26, m=6.15): m⁴F = +0.00195 but m⁴F^ε = −0.0418; (J=24, m=5.8): −0.0445; (J=14, m=3.8) is negative too.
+  - `+−` states at b̂ ≈ 22.3–22.6, m ≈ 18–27 are negative too, e.g. (J=245, m=21.79): −0.0034.
+  - the `++` states remain negative at ε = 10⁻³ and become positive at ε = 10⁻⁴.
+
+  The cause is the term `162uε` in R_ε, of order uε rather than ε², which dominates the nearly marginal `++` island of the paper's Fig. 3a. So for m_IR near M/100, E(λ,η) forbids spectral weight on ordinary M-scale states at b ~ 8/M: exactly the states a cubic-coupling bound is meant to constrain. Calling this an "eikonal model" misdescribes it.
+
+*Fix.* Use the exact inequality `[F^ε]₋ ≤ [R_ε]₊` (Theorem 1), with `m⁴R_ε = ∫₀^ε Ψ_h D_h dp`. Then either:
+- (a) certify an ε* such that for ε ≤ ε* every state with `m⁴F < m⁴|R_ε|` has b̂ ≥ b₀ and u ≤ u₀ (large b₀, small u₀); this needs a quantitative lower bound on 𝔉, which cert_S and cert_M can supply. Then state E2 only there, with an explicit `O(u/ε)` correction to `[f̂_ε]₋`. Or
+- (b) keep finite-m states in Lemma IR and bound their contribution under a stated measure hypothesis in (m, J), not in the b-marginal ν.
+
+Restrict Theorem 3(ii) and the headline to ε ≤ ε*. For the `++` island this means ε ≲ 4·10⁻⁴ (estimate). Until then, label 3(ii) an estimate, not "[proved]".
+
+**R2.2 [MINOR, applicability] E2 and the IR scale.** E2's density `16πG b log⁺(1/(μb))` with a hard support cutoff at b = 1/μ is a modelling choice: the IR regulator is unavoidable in D = 4 for a positive measure. It is not excluded by H1–H5, and it is consistent with Theorem 2, which constrains only ⟨F^ε⟩, not the N_ε part. So E is non-vacuous once E1 is repaired. The result then depends on λ = μ/m_IR, and the "best" constant −54.6 at λ = 1/2 is obtained by optimising over this model parameter. Say explicitly that μ is a model IR scale and not an observable, and that the comparison with the paper's −45.4 is model-dependent.
+
+**R2.3 [MINOR] Rounding.** `B + Δ_IR = [−40.6008 ± 3·10⁻⁵]` (cert_ir log). The headline "−40.601" is *below* the certified value, so it is slightly stronger than what is proved; write −40.600. The other entry, −54.6 (from −54.63), is rounded in the safe direction.
+
+**R2.4 [MINOR] Theorem 3(i).** It says Δ_IR "only receives contributions from states whose action without cutoff is O(ε²)". From the note's own bound `|R_ε| ≤ (1−ε²)^{−4}(65ε² + 162uε + 17uε⁴)`, the threshold is **O(ε² + uε)**, i.e. O(ε) at u ~ 1. This is exactly what produces the counterexamples in R2.1. Correct the statement.
+
+**R2.5 [MINOR, code] cert_S.** `small_b` asserts the term ratio only for 400 ≤ n < 2000. Beyond that it is obvious, since `λ_{n+1}u/(n+1)² → u ≈ 1.6·10⁻⁶`, but say so. The `_tmax_ok` bound `|T1_n| ≤ ∫ψ₂ + ∫|ψ₃|` is correct, and restoring `set_prec(PREC)` after importing `cert_C` (200 bits) is correct; precision affects only tightness, not validity. In `cert_ir`, `count_roots` on (10⁻⁹, 1/100] leaves (0, 10⁻⁹) unchecked. That gap is trivially fine (`65 − φ = 40p + 223p² − 259p³ + …`, `d₂ ~ 259p³`) but should be stated.
+
+### R2 checks done myself
+
+- **(1) Proposition 1′: independently confirmed.**
+  - **Heavy density.** From v1 (2.16a), Im f(m², u) is proportional to `|c⁺⁻|² d̃₄₄(1+2u/m²)`. At fixed t = −p² we have u = p² − m², so the argument is −x. The B₄^{(2)} kernel `(2s−p²)/[s(s−p²)]³` at s = m², with the same dm²-to-⟨⟩ normalisation as the B^{(1)} rules (I re-checked this against (2.33)), gives per state `(2m²−p²) P^{(0,8)}_{J−4}(−1+2p²/m²)/(m¹²(m²−p²)³)`. This agrees with JHEP (2.34b), since `(−1)^J d̃_{4,−4}(x) = d̃₄₄(−x)`.
+  - **Forward derivative, by hand.** `∂_{p²}[(2m²−p²)/(m²−p²)³]₀ = 5/m⁶`, and `P^{(0,8)}_n(−1+2q) = (−1)^n binom(n+8,8) ₂F₁(−n, n+9; 9; q)`. Together these give `−5∂B₄^{(2)}|₀ = 5(−1)^J binom(J+4,8)(2𝒥−85)/(9m¹⁸)`.
+  - **Exact values, sympy from scratch.**
+
+    | J | `−5∂B₄^{(2)}` term at m = M | `m¹⁰F^JHEP(+−, m = M)` |
+    |---|---|---|
+    | 4 | −25 | −6281/315 |
+    | 5 | +125 | |
+    | 6 | −25 | |
+    | 7 | −2475 | −28385719/13860 |
+    | 9 | −67925 | −11495259817/171171 |
+
+  - **Low side.** `−B₄^{(2)}|low ≡ 0` (EFT through g₆ plus matter). So −5g₅ survives.
+  - **No harmless reading.** Any nonzero rescaling c of B₄^{(2)} adds `c·(−1)^J·O(J¹⁰)` at m = M against an action growing only like J². Both signs of c therefore fail for one parity of J. A Regge-convergent fixed-t rule needs the power (k+2)/2; with (k−2)/2 it diverges, since f(s, p²−s) ~ s. The t-channel cut does not enter at fixed t. So no consistent normalisation of B₄^{(2)} makes the printed term harmless, and the JHEP (3.3a) is a misprint. The note's wording ("indicates that the printed forward terms are not the ones used") is appropriate.
+- **(2) Lemma IR.**
+  - **Proof checked line by line, given E1–E2:**
+    - `[f̂_ε]₋ ≤ [∫₀^εψ₂J₀]₊ ≤ 65ε[J₁(εb)]₊/b + 14ε³`, using `65 − φ = 40p + 223p² − 259p³ + …` and `40/3 + 223ε/4 ≤ 14`;
+    - the substitution x = εb gives 65 I(λ), and `∫₀^{1/μ} b log(1/(μb)) db = 1/(4μ²)` gives 3.5ε/λ²;
+    - the series for I(λ) and its alternating tail bound are right;
+    - `∫₀^{R} b log(R/b) J₀(bp) db = (1−J₀(pR))/p²` is right.
+  - **Numbers reproduced from the log:** Δ_IR(λ=1) = 4.6051, B + Δ = −40.6008, and `A log(1/2) − 28.4028 = −54.63` (needs μ ≤ M/200).
+  - **Non-vacuity and Theorem 2:** see R2.1–R2.2.
+- **(3) Overclaims.** Theorem 3(i) is honest, apart from R2.4. Finding 4 and §5 call E(λ,η) "non-vacuous" and Theorem 3(ii) "[proved]"; both should be qualified per R2.1. Findings 2–3 on the misprint are fine.
+- **(4) Code.** Diff reviewed; run_all PASS (9/9). Nothing commits or alters data outside `logs/`.
+
+### R2 summary
+
+No fatal issue. One major issue: Theorem 3(ii)/E1 is vacuous if read literally, unproved if read approximately, and excludes M-scale `++` states for m_IR ≈ M/100. Everything else is correct, with minor fixes. Proposition 1′ (the JHEP-printed functional is not positive) is confirmed independently.

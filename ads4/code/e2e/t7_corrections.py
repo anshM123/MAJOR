@@ -39,9 +39,14 @@ if __name__ == "__main__":
     l = int(sys.argv[1]); Dphi = DPHI
     ks = (2, 4, 6); nus = (0.0, 1.0, 3.0)
     store = {}
+    tails = {}
     for c in main_cases():
         if os.path.exists(fname(l, *c)):
-            store[c] = moments_of(get_moments(l, *c), ks, nus)
+            mom = get_moments(l, *c)
+            store[c] = moments_of(mom, ks, nus)
+            for k in ks:
+                for nu in nus:
+                    tails[c + (k, nu)] = max(mom.tail_estimate(k, nu, l, -l), mom.tail_estimate(k, nu, l, l))
     out = []
     def pr(*a):
         s = " ".join(str(x) for x in a); print(s, flush=True); out.append(s)
@@ -49,19 +54,21 @@ if __name__ == "__main__":
     betas = sorted(set(round(float(info(*c)[1]), 1) for c in cases))
     pr(f"# l = {l} (O = {'J' if l == 1 else 'T'}), Dphi = {Dphi}.  R_pres, R_flip: measured/predicted for the helicity-preserving / helicity-flip component.")
     pr("# 'other modes': largest deviation of the remaining modes from the two-component form, relative to |A X| + |B Y| (it is O(1/m^2)).")
+    pr("# 'tail': estimated relative contribution of the dropped small-u region to the modes (l,-l), (l,l) (numerical error of the exact side;")
+    pr("#         entries with tail > 1e-3 are not reliable).")
     summary = {}
     for beta in betas:
         for k in ks:
             for nu in nus:
                 pr(f"# beta ~ {beta}, k = {k}, nu = {nu}")
-                pr("#      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes")
+                pr("#      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes | tail")
                 seq = []
                 for c in [c for c in cases if round(float(info(*c)[1]), 1) == beta]:
                     m, b_, eta = info(*c)
                     Rp, Rf, worst, bb = measured_components(l, c[0], c[1], Dphi, k, nu, store[c])
                     Rp, Rf = mp.re(Rp), mp.re(Rf)
                     seq.append((m, Rp, Rf))
-                    pr(f"  {float(m):8.2f}  {float(Rp):11.7f}  {float(m*(Rp-1)):10.4f}  {float(m*m*(Rp-1)):10.3f}  |  {float(Rf):11.7f}  {float(m*(Rf-1)):10.4f}  {float(m*m*(Rf-1)):10.3f}  | {float(worst):.1e}")
+                    pr(f"  {float(m):8.2f}  {float(Rp):11.7f}  {float(m*(Rp-1)):10.4f}  {float(m*m*(Rp-1)):10.3f}  |  {float(Rf):11.7f}  {float(m*(Rf-1)):10.4f}  {float(m*m*(Rf-1)):10.3f}  | {float(worst):.1e}    | {tails[c + (k, nu)]:.0e}")
                 if len(seq) >= 3:
                     # two-point Richardson estimates from the two largest m:  (i) c1/m + c2/m^2  (ii) c2/m^2 + c4/m^4
                     (m1, p1, f1), (m2, p2, f2) = seq[-2], seq[-1]
