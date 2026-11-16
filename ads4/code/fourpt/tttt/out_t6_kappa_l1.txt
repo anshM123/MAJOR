@@ -1,0 +1,12 @@
+  (97/10,13/3) same: N_h on the two nonzero components ['-0.017216211809', '-0.017216211809']; CHL's other helicity there: 0.0e+00
+  (97/10,13/3) opp: N_h on the two nonzero components ['-0.100583731008', '-0.100583731008']; CHL's other helicity there: 0.0e+00
+  (-67/10,-16/3) same: N_h on the two nonzero components ['-1.21542487098e-06', '-1.21542487098e-06']; CHL's other helicity there: 0.0e+00
+  (-67/10,-16/3) opp: N_h on the two nonzero components ['-1.85636158501e-06', '-1.85636158501e-06']; CHL's other helicity there: 0.0e+00
+  (97/10,13/3) opp: kappa_h = 54183.2646292,  kappa_h A_h = 23170.4750059
+  (97/10,13/3) same: kappa_h = 14164.7684033,  kappa_h A_h = 23170.4750059
+  (53/4,11/2) same: N_h on the two nonzero components ['-0.0154610195371', '-0.0154610195371']; CHL's other helicity there: 0.0e+00
+  (53/4,11/2) opp: N_h on the two nonzero components ['-0.101394615499', '-0.101394615499']; CHL's other helicity there: 0.0e+00
+  (-41/4,-13/2) same: N_h on the two nonzero components ['-8.30182904866e-08', '-8.30182904866e-08']; CHL's other helicity there: 0.0e+00
+  (-41/4,-13/2) opp: N_h on the two nonzero components ['-1.96370187113e-07', '-1.96370187113e-07']; CHL's other helicity there: 0.0e+00
+  (53/4,11/2) opp: kappa_h = 516344.242424,  kappa_h A_h = 262144
+  (53/4,11/2) same: kappa_h = 186236.303427,  kappa_h A_h = 262144

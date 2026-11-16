@@ -47,7 +47,8 @@ def divergence(R, l, al, Jv, pt):
 TRIP = [(3, 4, 5), (5, 12, 13), (8, 15, 17), (7, 24, 25), (20, 21, 29), (9, 40, 41), (12, 35, 37), (11, 60, 61)]
 def null_vec(rng):
     a, b, c = rng.choice(TRIP); v = [sp.Integer(a), sp.Integer(rng.choice([1, -1])*b), sp.I*c]; rng.shuffle(v)
-    return [x*sp.Rational(1, rng.randint(1, 3)) for x in v]
+    k = sp.Rational(1, rng.randint(1, 3))          # ONE scale per vector (keeps it null)
+    return [x*k for x in v]
 
 def configs(n, seed=1):
     rng = random.Random(seed)

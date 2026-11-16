@@ -81,3 +81,45 @@ def helicity_components(l, coeffs, Dv, Jv):
             val = acc.subs({AP: d(a, p), BP: d(b, p), WP: d(zeta, p), PP: 1, AB: d(a, b), AW: d(a, zeta), BW: d(b, zeta)})
             out[(ha, hb)] = complex(sp.N(val, 30))
     return out
+
+# ---------------------------------------------------------------- exact version (common Gamma factored out)
+def _gratio(x, n):
+    """Gamma(x + n)/Gamma(x) for integer n, exact"""
+    n = int(n)
+    return sp.rf(x, n) if n >= 0 else 1/sp.rf(x + n, -n)
+
+def helicity_components_exact(l, coeffs, Dv, Jv, R=None):
+    """exact T(h_a, h_b) / [common factor], eps = (1, +-i, 0) (unnormalised), p = (0,0,1), zeta = (1, 0, i).
+    Common factor: K(e0, t0) with e0 = J, t0 = -al (the term (zeta.x)^J |x|^{-2al}) -> pure Pochhammer ratios."""
+    if R is None:
+        R = R_inv(l, coeffs, Dv, Jv)
+    al = sp.nsimplify((4*l + 2 - Dv + Jv)/sp.Integer(2))
+    num, den = sp.fraction(sp.together(R))
+    P = sp.Poly(den, WX, XX); assert len(P.terms()) == 1
+    (dW, dX), dcoef = P.terms()[0]
+    e0, t0 = Jv, -al
+    acc = 0
+    for term in sp.Add.make_args(sp.expand(num)):
+        pw = term.as_powers_dict()
+        i, j = int(pw.get(AX, 0)), int(pw.get(BX, 0))
+        kW, kX = int(pw.get(WX, 0)), int(pw.get(XX, 0))
+        rest = term/(AX**i*BX**j*WX**kW*XX**kX)
+        e = Jv + kW - dW; t = t0 + kX - dX
+        # K(e,t)/K(e0,t0) = (-i)^{e-e0} 2^{2(t-t0)+(e-e0)} Gamma(t+e+3/2)/Gamma(t0+e0+3/2) * Gamma(-t0)/Gamma(-t)
+        de, dt = e - e0, t - t0
+        Kr = (-sp.I)**de*sp.Integer(2)**(2*dt + de)*_gratio(t0 + e0 + sp.Rational(3, 2), de + dt)/_gratio(-t0, -dt)
+        f = Kr*WP**e*PP**(-t - sp.Rational(3, 2) - e)
+        for _ in range(i): f = sp.I*_deriv(f, 'a')
+        for _ in range(j): f = sp.I*_deriv(f, 'b')
+        acc += rest/dcoef*f
+    eps = {1: sp.Matrix([1, sp.I, 0]), -1: sp.Matrix([1, -sp.I, 0])}
+    zeta = sp.Matrix([1, 0, sp.I]); p = sp.Matrix([0, 0, 1])
+    d = lambda u, v: (u.T*v)[0]
+    out = {}
+    for ha in (1, -1):
+        for hb in (1, -1):
+            a = eps[ha]; b = eps[hb]
+            val = acc.subs({AP: d(a, p), BP: d(b, p), PP: 1, AB: d(a, b), AW: d(a, zeta), BW: d(b, zeta)})
+            val = val.subs(WP, d(zeta, p))/(d(zeta, p))**Jv      # (zeta.p)^J common
+            out[(ha, hb)] = sp.nsimplify(sp.expand(sp.expand_complex(sp.simplify(val))))
+    return out

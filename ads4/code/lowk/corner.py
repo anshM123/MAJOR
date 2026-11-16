@@ -60,7 +60,7 @@ def evaluate_points(l, Delta, J, Dphi, U, S, pars=(PAR_A, PAR_B)):
     x1, x2, x3, x4 = frame_positions(fd['ru'], fd['xi'])
     z1, z3 = pol_grid(len(U))
     s, z = invariants(x1, x2, x3, x4, z1, z3)
-    sb = SpinBlock(l, Delta, J, Dphi, 60)              # small radial N: its CBlocks are replaced below
+    sb = SpinBlock(l, Delta, J, Dphi, J + 60)          # small radial N (>= J: cblock.c misbehaves for N < J); CBlocks replaced below
     keys = {}
     for ab, (blk, vpow) in sb.blocks.items():
         keys[ab] = (tuple(sorted((blk.a, blk.b))), vpow)

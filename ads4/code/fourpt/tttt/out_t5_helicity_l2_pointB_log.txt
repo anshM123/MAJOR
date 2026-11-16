@@ -1,0 +1,11 @@
+# <TTO> at (Delta,J) = (53/4,11/2): conservation null space 3, word relations 1  (1426 s)
+  helicity components of the null vectors (exact): [{(1, 1): (1486.1665729396223+0j), (1, -1): (16384.915929934745+0j), (-1, 1): (16384.915929934745+0j), (-1, -1): (1486.1665729396223+0j)}, {(1, 1): (1087.7917166925313+0j), (1, -1): (13481.549464736336+0j), (-1, 1): (13481.549464736336+0j), (-1, -1): (1087.7917166925313+0j)}, {(1, 1): (0.2981025055165379+0j), (1, -1): (-48.55333266839038+0j), (-1, 1): (-48.55333266839038+0j), (-1, -1): (0.2981025055165379+0j)}]
+  opp: solution set {(-29854515*c1/36283939 + 107520*c2/36283939, c1, c2)}
+  opp line representative: helicity components [(-135.02982548690375+0j), 0j, 0j, (-135.02982548690375+0j)]
+  same: solution set {(-11658285105*c1/15927822721 - 3194880*c2/15927822721, c1, c2)}
+  same line representative: helicity components [0j, (1488.6974171814873+0j), (1488.6974171814873+0j), 0j]
+  same: T e_h at reflected labels, helicity components [0j, (-805833.9141469484+0j), (-805833.9141469484+0j), 0j]  (the 'wrong' pair must vanish)
+  same: N_h(Delta) on the two components ['-246452.18501+0j', '-246452.18501+0j'];  kappa_h = 65399.6337315-0j;  kappa_h A_h = 262144+0j
+  opp: T e_h at reflected labels, helicity components [(5325584.907371614+0j), (4.754784434612889e-13+0j), (4.754784434612889e-13+0j), (5325584.907371614+0j)]  (the 'wrong' pair must vanish)
+  opp: N_h(Delta) on the two components ['2717123.64257-0j', '2717123.64257-0j'];  kappa_h = 4765119.72294-0j;  kappa_h A_h = 262144+0j
+  RESULT: kappa_opp A_opp / kappa_same A_same = (0.9999999999999999+0j)   (Weyl-even MFT normalisation requires 1; l = 1 value of kappa A: 23170.475005920...)
