@@ -8,5 +8,6 @@ python3 -u t1_validate.py      | tee cache/t1.log
 python3 -u t4_marginal.py      | tee cache/t4.log
 python3 -u t5_light.py         | tee cache/t5.log
 python3 -u t6_regge_estimate.py | tee cache/t6.log
+OMP_NUM_THREADS=1 python3 -u t7_wigner_full.py | tee cache/t7.log
 python3 -u t2_regge_leading.py | tee cache/t2.log
 python3 -u t3_hybrid_scan.py 20 50 100 300 1000 | tee cache/t3.log

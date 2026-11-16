@@ -50,7 +50,7 @@ same ↔ flat `++`, opposite ↔ flat `+−` (`SPINNING_4PT.md` §4.5–4.6).
    heavy-density normalisation), flat mass `m/Λ = √(αᾱ)/Λ`. Supporting evidence: (i) the scalar theorem [Q]; (ii) overlap consistency with item 2
    [D]; (iii) the measured spin-dependent `1/m²` term `−2l²P′/P` = flat helicity term (`SPINNING_E2E.md` §6.3; `l = 1` confirmed, `l = 2` only as
    `β → 0`) [NE]; (iv) no `O(1/m)` term, so `m_flat = √(αᾱ)/Λ` is fixed to relative `O(1/m²)` [D for currents, conditional for T].
-4. **Kinematic lift of the near-marginal `+−, J = 4` point [D given 3].** Heavy states have `m² ≥ (Δ_g−2)(Δ_g+2J−1)`, so the flat region
+4. **Kinematic lift of the near-marginal `+−, J = 4` point [D given 3]** (for the stripped `F`; with the full `d^J_{44}` of §7 the point is not marginal at all, `𝔉′ = 50.6`). Heavy states have `m² ≥ (Δ_g−2)(Δ_g+2J−1)`, so the flat region
    actually sampled is `u ≤ u_max(J) = (Δ_g−1)/(Δ_g+2J−1)`. For `+−` (`J ≥ 4`): `u ≤ 1 − 8/(Δ_g+7)`, and the flat margin at threshold is
    `𝔉₊₋(4,u_max) = 2591/210 − 41u/18 − 10u³` exactly (linearised: `≈ 0.0603 + 32.28·8/(Δ_g+7)`, which overestimates, e.g. 2.47 vs 2.31):
    **2.31 at `Δ_g = 100`, 0.31 at `Δ_g = 1000`** instead of `19/315` (`t4`). The model's curvature shift there is `≈ −2.32·10³/Λ²`
@@ -74,9 +74,16 @@ same ↔ flat `++`, opposite ↔ flat `+−` (`SPINNING_4PT.md` §4.5–4.6).
 7. **What is proved, precisely (§3).** Nothing new at the level of a theorem. Rigorous ingredients: `UNIFORM_POSITIVITY.md` Theorem 1 (the
    `B₂` term of `𝔉_R` is `> 0` for all `Λ`, `β`); flat Theorem 1 (`F > 0` for `m ≥ M`). Everything combining them with error terms rests on
    unmeasured or unbounded `1/m²`, `β²` coefficients for `⟨TTTT⟩` and on the underived spinning bulk-point formula.
+9. **Stripped vs full Wigner function (§7, added after `SKELETON_TEST.md` §8).** arXiv:2201.06602 strips `⟨23⟩⁴[14]⁴`, whose modulus on the
+   `s`-cut is `m⁸(1−p²/m²)⁴`, exactly the factor relating `d^J_{44}` to `d̃^J_{44}` [D]. If the AdS moments carry the full `d^J_{44}` with the same
+   prefactor as `++` (shown for currents [NE], inferred for gravitons [I]), **no combination of the `C^±_{k,ν}` has flat limit `F_{g3}`**
+   [D given that]: the flat limit of `Ω_{g3}` is `F_{g3}` with `d̃₄₄ → d₄₄ = (1−p²/m²)⁴d̃₄₄` in every `+−` term (`F′`; forward constant `41 → 33`).
+   Floating-point test: `F′` is positive on the scanned grid for `F_{g3}`, M01, M02, and *more* positive than `F` at the near-marginal points
+   (`+−, J = 4, m = M`: `0.060 → 50.6`; near-zero: `2.68·10⁻⁵ → 4.52·10⁻⁵`). Not certified; the light side of `F′` is not `F_{g3}`'s and is not computed.
 8. **Light side [I, §4].** If graviton exchange in `⟨TTTT⟩` gives `−C⁺_{2,ν}|_grav = 16πG/(ν² + 9/4)` (the scalar result of CHMRS with the flat
    `16πG/p²` normalisation; not computed), the AdS curvature cuts off the flat logarithm: `L_AdS(Λ) = ∫ψ₂/(p² + 9/(4Λ²)) = 65 log(2Λ/3) −
-   1171/15 + O(1/Λ)` [D], and the would-be bound is `|ĝ₃|²Λ⁸ ≲ 37.8387 log Λ − 60.79 + O(1/Λ)` — **conditional on every gap of §4**, not a result.
+   1171/15 + O(1/Λ)` [D], and the would-be bound is `|ĝ₃|²Λ⁸ ≲ 37.8387 log Λ − 60.79 + O(1/Λ)` — **conditional on every gap of §4**, not a result; and if the `+−` moments carry the full `d^J_{44}` (§7), the uplift's flat limit is `F′`, whose
+   `k` and graviton term differ, so these constants are not the uplift's prediction.
 
 ## 1. The functional
 
@@ -95,7 +102,9 @@ Flat heavy densities per state (`FLAT_GRAVITON_BOUND.md` §1.2, units `M = 1`): 
 `C₄ = (2m²−p²)D_h/(m⁸(m²−p²))`, `C₅ = σ_hD_h/(m⁸(m²−p²))`; at fixed `b̂` and `u → 0`: `C_k → 2ε_k σ_h^k J₀(b̂p)/m^{2k}` (`ε_k = 1` even, `½` odd).
 AdS: `C^±_{k,ν} → 2(±1 for opp)P/m^{2k}`, and in the overlap `1/Λ ≪ β ≪ 1`, `P_{−1/2+iν}(cosh β) → J₀(νβ)`. With `p = ν/Λ`, `m_flat = m/Λ`,
 `b̂ = 2Λ sinh(β/2)`, the densities coincide iff the flat `B_k^{(1)}` is represented by `ε_kΛ^{2k}C^{(−1)^k}_{k,Λp}`:
-* label: AdS "same" = flat `++` (`D₊₊ = P_J`), "opposite" = `+−` (`D₊₋ = d̃^J_{44}`; `J ≥ 4` both sides) [D + DVE, `SPINNING_4PT.md` §4.5];
+* label: AdS "same" = flat `++` (`D₊₊ = P_J`), "opposite" = `+−` (`J ≥ 4` both sides) [D + DVE, `SPINNING_4PT.md` §4.5]. **Which `+−` function:**
+  the flat `f`-sum rules use the stripped `d̃^J_{44}`; the AdS moments (currents) carry the full `d^J_{2l,2l}` — the two differ by `(1−p²/m²)⁴`,
+  which is invisible at the leading order used here but changes the flat limit at `O(u)`; see §7;
 * sign: the odd kernel weighs `+1` (same), `−1` (opposite) = `σ_h` of the odd-k `B_k^{(1)}` (the `−f(s,…)` of (2.26b)) [D + DVE for currents];
 * power and normalisation: AdS `2/m^{2k}` vs flat `2ε_k/m^{2k}`, so the flat `B_k` is `ε_kΛ^{2k}C_k`, `ε_k = 1` (even), `½` (odd) [D|H*];
 * `k ↔ k`: forced by the power `m^{−2k}`; parity of `k` ↔ parity of the kernel: forced by crossing (even-k `B^{(1)}` are `s ↔ t` symmetric, odd-k
@@ -259,6 +268,7 @@ States with `J > 200 m/Λ` (`b̂ > 400`) are not scanned; there the forward term
 | `t4_marginal.py` | `J = 4` threshold and `J ≈ 244` near-zero vs `Δ_g` | `cache/t4.log` |
 | `t5_light.py` | `L_AdS(Λ)` and the would-be constants | `cache/t5.log` |
 | `t6_regge_estimate.py` | `Q₀`, `Q₁`, `W` and the Regge-regime threshold `Λ_*(β)` | `cache/t6.log` |
+| `t7_wigner_full.py` | flat `F` vs `F′` (full `d^J_{44}`) for `F_{g3}`, M01, M02 | `cache/t7.log` |
 
 ## 6. Revisions after `ads4/REFEREE_ADS4_FUNCTIONAL.md`
 1. (major, issue 1) Statement R restated for the **leading** Regge action; the envelope now has an `O(ν²/m²)` part `C₁Λ²/m²`; thresholds redone
@@ -277,3 +287,50 @@ States with `J > 200 m/Λ` (`b̂ > 400`) are not scanned; there the forward term
    the hybrid is stated to be unjustified at the binding states `m ≈ 1.1–1.24Λ` (`ν ≈ m`).
 6. (novelty) Stated as low: CHMRS's procedure applied to the graviton functional; arXiv:2201.06602 contains only remarks (§1, §5) on the
    AdS₄ lift, no AdS translation section.
+
+## 7. Stripped (`d̃^J_{44}`) versus full (`d^J_{44}`) Wigner function in the `+−` channel (added after `SKELETON_TEST.md` §8)
+
+**7.1 How arXiv:2201.06602 strips [D, re-derived from its LaTeX: (2.1), (2.12), (2.16), App. A].** `M(1⁺2⁻3⁻4⁺) = ⟨23⟩⁴[14]⁴ f(s,u)`,
+`s = −(p₁+p₂)²`, `t = −(p₂+p₃)²`, `u = −(p₁+p₃)²`; `M = 16π Σ(2J+1)a_J d^J_{h₁₂,h₃₄}(cos θ)` with the full Wigner functions,
+`d^J_{44}(x) = ((1+x)/2)⁴ d̃^J_{44}(x)`, `d̃^J_{44}(x) = ₂F₁(4−J, J+5; 1; (1−x)/2)`. On the `s`-cut at fixed `u = −p²`: `s = m²`, `t = p² − m²`,
+`x = 1 − 2p²/m²`, and in the CM spinors of App. A `|⟨23⟩[14]|⁴ = t⁴ = m⁸((1+x)/2)⁴ = m⁸(1 − p²/m²)⁴`. Hence
+`Im f(m², −p²) = Im M/t⁴ = (16π/m⁸)Σ(2J+1)|c⁺⁻|² d̃^J_{44}(x)` — the helicity factor `((1+x)/2)⁴ = (1 − p²/m²)⁴` of the full Wigner function is
+cancelled **exactly** by the prefactor; nothing compensating is left over. On the `t`-cut (`t = m²`) the prefactor is `m⁸`, `p`-independent,
+and `d₀₀ = d̃₀₀ = P_J`. So: `f` has heavy densities `(d̃₀₀, d̃₄₄)/m⁸`; the unstripped `M` has `(d₀₀, d₄₄)` with a common prefactor; the
+relative `+−/++` weight differs by `(1 − p²/m²)⁴ = (1 − x_p²)⁴`, `x_p = p/m`.
+
+**7.2 Consequence for the uplift [D, given "reading B" for gravitons, which is I].** `SKELETON_TEST.md` §8 finds (currents, exact blocks,
+fixed impact parameter) that the AdS opposite-helicity moment tends to the full `d^J_{22}` times the same kernel as the same-helicity one.
+If the graviton analogue holds, the `C^±_{k,ν}` (with `k`-parity locked to the kernel parity: even `k` ↔ `C⁺`, odd `k` ↔ `C⁻`, as `B^{(1)}_k`) give,
+for any combination `Σ_k c_k(ν)C^{(−1)^k}_{k,ν}`, flat densities `++: G(y)P_J`, `+−: G(−y)(1 − p²y)⁴d̃₄₄` with one power series `G(y) = Σc_k y^k`
+(`y = 1/m²`, `M = 1`). `F_{g3}` needs `++: G_f(y)`, `+−: G_f(−y)` on `(d̃₀₀, d̃₄₄)`. Equality would require `G = G_f` and `G(−y)(1 − p²y)⁴ = G_f(−y)`
+simultaneously — impossible unless `(1−p²y)⁴ ≡ 1`. Stripping corresponds to dividing the `+−` cut alone by `(1 − p²/m²)⁴`, which is not a
+reweighting in `p²` (it depends on `p/m`), not a finite recombination of moments, and not even a convergent formal series in moments at
+threshold (`ψ(p)/(1−p²)⁴ ~ (1−p)^{−1}` at `m = M`). **So `Ω_{g3}` as written does not have flat limit `F_{g3}`;** to leading order its flat limit is
+`F′` = `F_{g3}` with `d̃₄₄ → d₄₄` in every `+−` term, including the forward terms (`m¹⁰∂_{p²}C₄|₀`: `41 − 2𝒥 → 33 − 2𝒥`, so `Φ′₊₋ = 10𝒥 − 170`
+completed, `10𝒥 − 165` literal; `B₅|₀` unchanged). The difference is `O(up²)` relative at fixed `b̂` — the order of the `B₃` and flat `O(u)` terms,
+so nothing in §2.1 (leading Regge order) changes — but `O(1)` at `m ~ M`, `p → M`. Caveats: `F′` is defined only up to the common `O(y)` dressing of
+both helicities, which the (underived) spinning bulk-point formula would fix; no polynomial/rational fixed-`u` kernel reproduces `F′` exactly
+(a factor equal to `s⁴` on the `s`-cut and `t⁴` on the `t`-cut does not exist), so its light side is not that of `F_{g3}` and has to come from the
+AdS light-side computation (gap 5), not from the flat `B|_low` of `FLAT_GRAVITON_BOUND.md` §1.3.
+
+**7.3 Positivity of `F′` [NE, floating point, `t7_wigner_full.py`, `cache/t7.log`].** `+−` channel (`++` unchanged), grid `m ∈ [1,120]`
+(step 0.005 / 0.1 / 2), `J = 4 … min(200m, 30000)`:
+| functional | `F` (stripped): min `𝔉` | `F′` (full `d₄₄`): min `𝔉` | `J = 4, m = M`: `F` → `F′` |
+|---|---|---|---|
+| `F_{g3}` completed | `2.675·10⁻⁵` at `(21.7, 244)` | `4.523·10⁻⁵` at `(21.7, 244)` | `0.0603 → 50.60` |
+| `F_{g3}` literal | `2.680·10⁻⁵` | `4.528·10⁻⁵` | `5.06 → 55.60` |
+| M01 | `2.47·10⁻⁴` (grid edge `m = 120`, large-`b̂` decay) | same | `2.19 → 45.66` |
+| M02 | `2.76·10⁻⁴` (grid edge) | same | `5.40 → 48.95` |
+`F′` is positive on every scanned `+−` state, and more positive than `F` where `F` is marginal: the factor `(1 − p²/m²)⁴` suppresses the
+`p → M` region where `|d̃₄₄|` and the `B₃` weight are large, and the forward constant improves by `8a`. The large-`b̂` asymptotics (`w(0)`
+unchanged, `w″(0)` changed at `O(u²)`, forward term larger) are as in flat Lemma M, so no new negativity is expected beyond the grid [I].
+Flat Theorem 1 and Theorem R do **not** formally cover `F′`.
+
+**7.4 Verdict.** (i) The `d̃₄₄` of `FLAT_GRAVITON_BOUND.md` is correct for the stripped `f`; it is not what the AdS moments carry if reading B
+holds for gravitons. (ii) Then `Ω_{g3}` (and the uplifts of M01/M02) are uplifts of `F′`, not of `F`; the identification of §1.2 is correct
+only at leading order in `u`. (iii) For heavy positivity this is harmless or favourable (floating point, uncertified): `F′ > 0` on the grid,
+the `J = 4` near-marginality disappears, the near-zero margin grows by `1.7×`. (iv) What changes is the bound's light side: the
+`|ĝ₃|²` coefficient `k` and the graviton term must be computed for `F′` (i.e. directly in AdS), so `37.84 log Λ − 60.79` (§0 item 8) is not
+the uplift's prediction even conditionally. (v) To settle (i) for gravitons one needs the `⟨TTTT⟩` (or `⟨TφTφ⟩`, `l = 2`) analogue of the
+`SKELETON_TEST.md` §8 reading-A/B test.
