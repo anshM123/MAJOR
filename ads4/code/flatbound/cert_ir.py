@@ -30,10 +30,10 @@ d1 = sp.Poly(sp.cancel(sp.expand(65 - phi)/p), p)                         # 40 +
 d2 = sp.Poly(sp.cancel(sp.expand(40*p + 223*p**2 - (65 - phi))/p**3), p)   # 259 - 14p - 47p^2
 c1 = sp.count_roots(d1, 0, sp.Rational(1, 100)) == 0 and d1.eval(0) > 0
 c2 = sp.count_roots(d2, 0, sp.Rational(1, 100)) == 0 and d2.eval(0) > 0
-print('0 <= 65-phi <= 40p+223p^2 on [0,1/100] (zeros at p=0 divided out):', c1 and c2)
+MSG = ['0 <= 65-phi <= 40p+223p^2 on [0,1/100] (zeros at p=0 divided out): %s' % (c1 and c2)]
 ok &= c1 and c2
 eps0 = Fr(1, 100)
-print('int_0^eps (40p+223p^2) p dp <= 14 eps^3 for eps<=1/100:', Fr(40, 3) + Fr(223, 4) * eps0 <= 14)
+MSG.append('int_0^eps (40p+223p^2) p dp <= 14 eps^3 for eps<=1/100: %s' % (Fr(40, 3) + Fr(223, 4) * eps0 <= 14))
 ok &= Fr(40, 3) + Fr(223, 4) * eps0 <= 14
 
 def J1_positive(X, n=400):
@@ -66,13 +66,15 @@ e = eps0
 ell = 40*e + Fr(223, 2)*e**2 - Fr(259, 3)*e**3 + Fr(7, 2)*e**4 + Fr(47, 5)*e**5
 Bexact = 16 * (ell - Fr(1171, 15)) / khi
 Bconst = fq(Bexact)
-print('B (eps<=1/100) =', Bconst.str(10))
-print('lambda   X=1/lambda   I(lambda)            Delta_IR bound (eta=0)    B_E = B + Delta')
-for lam in [Fr(2, 7), Fr(1, 2), Fr(1), Fr(2), Fr(4)]:
-    X = 1 / lam
-    pos = J1_positive(X)
-    ok &= pos and X < Fr(383, 100)
-    I = I_lambda(lam)
-    D = 16 / fq(klo) * (65 * I + fq(Fr(7, 2)) * fq(eps0) / fq(lam) ** 2)
-    print('%-7s  %-11s  %-20s %-25s %s' % (lam, float(X), I.str(8), D.str(6), (Bconst + D).str(6)))
-print('VERDICT cert_ir: %s' % ('PASS' if ok else 'FAIL'))
+if __name__ == '__main__':
+    for line in MSG: print(line)
+    print('B (eps<=1/100) =', Bconst.str(10))
+    print('lambda   X=1/lambda   I(lambda)            Delta_IR bound (eta=0)    B_E = B + Delta')
+    for lam in [Fr(2, 7), Fr(1, 2), Fr(1), Fr(2), Fr(4)]:
+        X = 1 / lam
+        pos = J1_positive(X)
+        ok &= pos and X < Fr(383, 100)
+        I = I_lambda(lam)
+        D = 16 / fq(klo) * (65 * I + fq(Fr(7, 2)) * fq(eps0) / fq(lam) ** 2)
+        print('%-7s  %-11s  %-20s %-25s %s' % (lam, float(X), I.str(8), D.str(6), (Bconst + D).str(6)))
+    print('VERDICT cert_ir: %s' % ('PASS' if ok else 'FAIL'))

@@ -38,6 +38,7 @@ if __name__ == "__main__":
     import os
     l = int(sys.argv[1]); Dphi = DPHI
     ks = (2, 4, 6); nus = (0.0, 1.0, 3.0)
+    TAILMAX = 1e-4          # points whose estimated numerical error (dropped small-u region) exceeds this are not used in the fits
     store = {}
     tails = {}
     for c in main_cases():
@@ -67,8 +68,10 @@ if __name__ == "__main__":
                     m, b_, eta = info(*c)
                     Rp, Rf, worst, bb = measured_components(l, c[0], c[1], Dphi, k, nu, store[c])
                     Rp, Rf = mp.re(Rp), mp.re(Rf)
-                    seq.append((m, Rp, Rf))
-                    pr(f"  {float(m):8.2f}  {float(Rp):11.7f}  {float(m*(Rp-1)):10.4f}  {float(m*m*(Rp-1)):10.3f}  |  {float(Rf):11.7f}  {float(m*(Rf-1)):10.4f}  {float(m*m*(Rf-1)):10.3f}  | {float(worst):.1e}    | {tails[c + (k, nu)]:.0e}")
+                    if tails[c + (k, nu)] < TAILMAX:
+                        seq.append((m, Rp, Rf))
+                    flag = "" if tails[c + (k, nu)] < TAILMAX else "   (not used in the fits)"
+                    pr(f"  {float(m):8.2f}  {float(Rp):11.7f}  {float(m*(Rp-1)):10.4f}  {float(m*m*(Rp-1)):10.3f}  |  {float(Rf):11.7f}  {float(m*(Rf-1)):10.4f}  {float(m*m*(Rf-1)):10.3f}  | {float(worst):.1e}    | {tails[c + (k, nu)]:.0e}{flag}")
                 if len(seq) >= 3:
                     # two-point Richardson estimates from the two largest m:  (i) c1/m + c2/m^2  (ii) c2/m^2 + c4/m^4
                     (m1, p1, f1), (m2, p2, f2) = seq[-2], seq[-1]

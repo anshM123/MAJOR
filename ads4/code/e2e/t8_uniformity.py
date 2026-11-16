@@ -44,23 +44,33 @@ if __name__ == "__main__":
     def pr(*a):
         s = " ".join(str(x) for x in a); print(s, flush=True); out.append(s)
     allmodes = [(q1, q3) for q1 in range(-l, l+1) for q3 in range(-l, l+1)]
-    pr(f"# l = {l}.  (a) nu = x m at fixed beta:  R_pres, R_flip = measured/leading prediction  (two-mode extraction of t7)")
+    from moments import ScalarMoments
+    from t3_scalar_mixed import prediction as scalar_prediction
+    pr(f"# l = {l}.  (a) nu = x m at fixed beta.  R_pres, R_flip: measured/leading prediction for the two helicity components (two-mode extraction")
+    pr("#     of t7);  R_scal: the same ratio for the scalar skeleton with dimensions (l+1, Dphi) [exact scalar block / scalar leading formula];")
+    pr("#     zeroP = |P_{-1/2+i nu}(cosh beta)| / envelope: the ratios R are ill-conditioned near the zeros of the harmonic function (zeroP << 1);")
+    pr("#     supp = |moment| / sum |integrand|: double precision fails for supp < 1e-6.")
     for beta_t in (0.4, 1.0, 2.0):
         for k in (4, 6):
             pr(f"# beta ~ {beta_t}, k = {k}")
-            pr("#     m       nu     x=nu/m    R_pres       R_flip      supp      (R_pres-1)/x^2   (R_flip-1)/x^2")
+            pr("#     m       nu     x=nu/m    R_pres       R_flip      R_scal     R_pres/R_scal   (R_scal-1)/x^2   zeroP    supp")
             for c in main_cases():
                 if not os.path.exists(fname(l, *c)): continue
                 m, b_, eta = info(*c)
                 if abs(float(b_) - beta_t) > 0.06: continue
                 mom = get_moments(l, *c)
+                sm = ScalarMoments(c[0], c[1], float(l + 1), DPHI, int(min(14000, max(800, 60*c[0]))))
                 for x in (0.05, 0.1, 0.2, 0.3, 0.5, 0.8):
                     nu = round(x*float(m), 3)
                     if nu > 12.5: continue
                     res, supp = moments_with_supp(mom, k, nu, allmodes)
                     Rp, Rf, worst, bb = measured_components(l, c[0], c[1], DPHI, k, nu, res)
+                    sg, lg = sm.moment(k, nu)
+                    Rs = sg*mp.exp(mp.mpf(lg))/scalar_prediction(c[0], c[1], float(l + 1), DPHI, k, nu).real
+                    P0 = Fnu_mp(nu, 0, bb); dP = mp.diff(lambda t: Fnu_mp(nu, 0, t), bb)
+                    zeroP = abs(P0)/mp.sqrt(abs(P0)**2 + abs(dP)**2/(nu*nu + 0.25))
                     flag = "" if supp > 1e-6 else "  (unreliable)"
-                    pr(f"  {float(m):7.2f}  {nu:7.3f}  {x:5.2f}   {float(mp.re(Rp)):10.6f}  {float(mp.re(Rf)):10.6f}   {supp:.1e}   {float((mp.re(Rp)-1)/x**2):10.4f}  {float((mp.re(Rf)-1)/x**2):10.4f}{flag}")
+                    pr(f"  {float(m):7.2f}  {nu:7.3f}  {x:5.2f}   {float(mp.re(Rp)):10.6f}  {float(mp.re(Rf)):10.6f}  {float(Rs):10.6f}   {float(mp.re(Rp)/Rs):10.6f}     {float((Rs-1)/x**2):9.3f}      {float(zeroP):5.2f}   {supp:.0e}{flag}")
     pr("# (b) small impact parameter (J = 1, 2, 3, 5):  exact/leading for the modes (l,-l) and (l,l), and the same with the exact")
     pr("#     normalisation polynomials restored ('impr');  nu*beta is the argument of the flat-space Bessel functions")
     for k in (4, 6):
