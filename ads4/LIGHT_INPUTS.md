@@ -245,3 +245,10 @@ Net effect on `ADS4_LIGHT.md` §4:
 * **m4:** a frame comparison was added, and "bounded by" replaces "equal".
 * **m5:** the tower vs `T`-block route is reconciled (§2.2).
 * **m6:** `J₀(G^E) = 2` is kept as [I].
+
+## 8. Follow-up: `Ω′` (see `ads4/OMEGA_PRIME.md`)
+
+The alternative of §0 is worked out in `OMEGA_PRIME.md`: replace `C⁻₃` by the normalised bare commutator `C̃⁻₃`.
+* Leading heavy action `(2P/m⁶)(|c_s|²−|c_o|²)` [D-sketch]; normalisation `N(ν)` [ND].
+* Flat limit `ψ₃B₃^{(1)}`, so Theorem 1 applies [D given Q].
+* Light side `∝ t₄²+α_T²` only, with `k(0)` unchanged [D given planar `J₀ < 3`].

@@ -17,6 +17,11 @@ def rationalise(v, d2, d3, scale=27.48509823509836, den=1000):
             for j, t in enumerate(q): r[i + j] += s * t
         return r
     psi2 = mul(omp, [Fr(0)] + x); psi3 = mul(omp, y)
+    # scalar-matter coefficient at m_l -> 0 is mu2_2 - mu3_0 (must be < 0); the LP puts it at 0, so rounding can flip its sign:
+    # raise y_0 = psi3(0) in steps of 1/1000 until mu2_2 - mu3_0 <= -1/10000 (changes psi3 by O(1e-3) out of O(10^4)).
+    mom = lambda c, j: sum(cc / (i + j + 1) for i, cc in enumerate(c))
+    while mom(psi2, 2) - mom(psi3, 0) > Fr(-1, 10000):
+        y[0] += Fr(1, 1000); psi3 = mul(omp, y)
     return x, y, a, psi2, psi3
 
 if __name__ == '__main__':
