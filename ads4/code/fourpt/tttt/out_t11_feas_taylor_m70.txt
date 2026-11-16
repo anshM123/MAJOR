@@ -1,0 +1,11 @@
+# Taylor-mode <TTTT> feasibility (fourpt/tttt/t11_feas_taylor.py): beta=1.0, m~70.0: Delta=80.484300, J=36
+  exact helicity word vectors (CHL X_h decomposed): 79 s
+  25 seed blocks g^(a,b), N = 8000
+  point 0: U = 0.0538, S = 0.2075 (r = 0.6418, chi = 0.3988)
+    order-8 jets of 25 seeds (double radial sums, mp composition): 3.5 s
+    float64: 196 word pairs in 27.0 s (slowest ('AACC', 'AACC') 1.84 s); cancellation sum|terms|/|W| per helicity pair: same-same: 2.4e+05, same-opp: 1.2e+07, opp-same: 1.2e+07, opp-opp: 3.8e+06
+    longdouble: 196 word pairs in 34.8 s (slowest ('ABCC', 'BBEE') 0.49 s); cancellation sum|terms|/|W| per helicity pair: same-same: 2.4e+05, same-opp: 1.2e+07, opp-same: 1.2e+07, opp-opp: 3.8e+06
+    W[same,same]: max|W| = 5.281e-06, float64 vs long double rel. deviation 1.4e-07
+    W[same,opp]: max|W| = 4.794e-07, float64 vs long double rel. deviation 1.3e-05
+    W[opp,same]: max|W| = 4.794e-07, float64 vs long double rel. deviation 1.2e-05
+    W[opp,opp]: max|W| = 6.925e-06, float64 vs long double rel. deviation 7.5e-06

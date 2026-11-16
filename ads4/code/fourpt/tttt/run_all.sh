@@ -28,4 +28,4 @@ python3 t15_mft_constant_l2.py            # absolute two-pair MFT constant for l
 python3 tmoments_l2.py 1.0 40 float64     # Taylor-mode <TTTT> waves on the moment grid, beta = 1, m ~ 40 (~4 h on a loaded machine)
 python3 tmoments_l2.py 1.0 70 float64     # second mass (~4 h)
 python3 t13_analysis_l2.py cache/modes_l2_D45.861045_J20_d.npz 8 6 0
-python3 t13_analysis_l2.py cache/modes_l2_D80.484304_J36_d.npz 8 6 0
+python3 t13_analysis_l2.py cache/modes_l2_D80.484300_J36_d.npz 8 6 0

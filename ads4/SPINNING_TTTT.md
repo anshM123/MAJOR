@@ -1,6 +1,6 @@
 # `⟨TTTT⟩`: helicity map, mean-field normalisation and the `O(1/m)` question for stress tensors; status of the doubly-spinning blocks
 
-Status: written 16 Nov 2026 by a derivation/numerics agent; **not refereed**; not committed. Code and outputs: `ads4/code/fourpt/tttt/`
+Status: written 16 Nov 2026 by a derivation/numerics agent (revised the same day: §3.5–3.6, §4.4–4.5); **not refereed**; not committed. Code and outputs: `ads4/code/fourpt/tttt/`
 (caches in `tttt/cache/`, git-ignored with `fourpt/cache/`). Imports, does not modify, `ads4/code/e2e/`, `ads4/code/mft/`, `ads4/code/fourpt/`.
 Builds on `SPINNING_4PT.md` (revised after `REFEREE_SPINNING_4PT.md`), `SPINNING_E2E.md`, `SPINNING_MFT.md`. CHL = Caron-Huot–Li,
 arXiv:2102.08160.
@@ -34,14 +34,18 @@ quoted; **[I]** inferred; **[ND]** not done.
    two-pair coefficient is `T^{hLhR} = 8√(λ_{hL}λ_{hR})/m⁸`. The constant extrapolates to `E = 7.9996` along `β = 0.4`, with
    `m = 22 … 179` and `O(1/m²)` corrections. Combined with the exact Fock data, this gives **`1/4` per helicity quadruple for stress tensors**,
    with the factor `A_h` cancelling. Hence `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)` for `⟨TTTT⟩` [D given `E = 8`]. §3.6.
-5. **`⟨TTTT⟩` end to end [DVE at the 5–10 % level].**
+5. **`⟨TTTT⟩` end to end [DVE at the percent level, `β = 1`, two masses].**
    * The partial waves are computed by **numerical Taylor-mode application of the `D`-words** (`taylor4.py`), validated to `5·10⁻¹⁵`.
    * The exact tensor Regge moments (`k = 6`, `ν = 0`, 625 modes) of `W[X_{hL},X_{hR}]` were computed at `β = 1`, `m = 39.3`
-     (`Δ = 45.86`, `J = 20`) M70_SUMMARY.
-   * Against the factorised prediction, with no free constant: the diagonal waves give 1.083 (same) and 0.957 (opp).
-   * In the mixed wave, `Σ_+` gives 0.973 and the opposite-sign term **`Σ_−` gives `+0.92`**. So its sign, as for currents, is confirmed.
-   * Prediction-free checks: factorisation 0.85; `T^{so} = T^{os}`, i.e. the Weyl-odd `O(1/m)` term of the integrand cancels in the moments.
-   * The modes that are predicted small carry 20–70 % residuals, attributed to the large Weyl-odd `O(1/m)` terms of `l = 2` [I]. §4.4–4.5.
+     (`Δ = 45.86`, `J = 20`) and `m = 70.0` (`Δ = 80.48`, `J = 36`).
+   * Against the factorised prediction, with no free constant, at `m = 40 → 70`:
+     - same–same `1.083 → 1.024`; opp–opp `0.957 → 1.002`; mixed `0.940 → 0.982`;
+     - `Σ_+` `0.973 → 1.011`; the opposite-sign term **`Σ_−` `+0.92 → +0.97`**, so its sign, as for currents, is confirmed;
+     - fit residuals `2–71 % → 0.7–7 %`.
+   * Prediction-free checks: factorisation `0.85 → 0.94`; `T^{oo}/T^{ss}` against `λ_o/λ_s`: `2.80/3.15 → 1.859/1.900`; `T^{so} = T^{os}`
+     exactly, so the Weyl-odd `O(1/m)` term of the integrand cancels in the moments.
+   * The deviations shrink by `3.3–3.5` between the two masses (`m²` ratio `3.17`), consistent with `1 + O(1/m²)` [NE, two masses only].
+     §4.4–4.5.
 6. **Not done:** closed forms of the `l = 2` helicity lines in the differential basis (only the position-space form of `chl_xspace`);
    an exact proof of `E = 8`; parity-odd exchanges; `k = 2, 3`; more masses and the `1/m` fits.
 
@@ -252,7 +256,7 @@ Cost on the shared machine (load average ≈ 17 on 4 cores): `β = 1`, `m ≈ 40
 (about 1.5–2 s per point when not starved). Peak memory was 3.8 GB. A concurrent second run was killed by the out-of-memory handler, so the
 runs were done sequentially.
 
-**4.5 End-to-end `⟨TTTT⟩` check (`t13_analysis_l2.py`, `out_t13_analysis_l2_*.txt`) [DVE at the 5–10 % level, one/two masses].**
+**4.5 End-to-end `⟨TTTT⟩` check (`t13_analysis_l2.py`, `out_t13_analysis_l2_*.txt`) [DVE: 5–8 % at `m = 39`, 0.2–2.6 % at `m = 70`].**
 
 *Setup.*
 * `k = 6`, `ν = 0`, all 625 modes `q = (q_1,q_3,q_2,q_4)`.
@@ -285,7 +289,32 @@ Reading:
   `λ_o/λ_s − 1 ≈ 2`, but at one mass this is [I].
 * Precision: float64 is accurate to `≤ 3·10⁻⁵` pointwise at this mass (`t11`), negligible here.
 
-M70_PLACEHOLDER
+| `β = 1`, `m = 70.0` (`Δ = 80.484`, `J = 36`) | one-scale fit (resid.) | dominant class fit/pred | 8 largest predicted modes, meas/pred |
+|---|---|---|---|
+| `W[X_s,X_s]` | `1.024` (`0.7 %`) | `ss`: `1.024` | `1.024` (all 8) |
+| `W[X_o,X_o]` | `1.002` (`1.5 %`) | `oo`: `1.0015` | `0.999 … 1.002` |
+| `W[X_s,X_o]` = `W[X_o,X_s]` | `0.982` (`7.4 %`) | `pf/fp`: `0.982` | `0.973 … 0.984` |
+| mixed `W[e,e]` | `1.008` (`1.6 %`) | `Σ_+`: `1.011`, **`Σ_−`: `0.974`** | `0.999 … 1.003` |
+
+Prediction-free checks at `m = 70`: factorisation `T^{so}T^{os}/(T^{ss}T^{oo}) = 0.94` (it was `0.85` at `m = 40`); `T^{oo}/T^{ss} = 1.859`, against
+`λ_o/λ_s = 1.900`; `T^{so} = T^{os}`.
+
+Cost and precision at `m = 70`: 3475 points in 7520 s wall (chunks of 100 points; about 2 s per point). In float64 against long double at one
+grid point (`t11`, `out_t11_feas_taylor_m70.txt`), the cancellation is `2.4·10⁵ … 1.2·10⁷` and the deviation is `≤ 1.3·10⁻⁵`.
+
+**Between the two masses:**
+* The deviations from the prediction shrink as follows: same–same `+8.3 % → +2.4 %` (factor 3.5); mixed `−6.0 % → −1.8 %` (factor 3.3);
+  opp–opp `−4.3 % → +0.2 %`; `Σ_−` `−7.8 % → −2.6 %`.
+* The residuals drop from 20–71 % to 0.7–7 %. The `m²` ratio is `3.17`, consistent with `1 + O(1/m²)` and no `O(1/m)` [NE, two masses; no fit].
+
+**Marks.**
+* [DVE] at the percent level (`m = 70`), with no free constant:
+  - the factorised `⟨TTTT⟩` moment formula with the `l = 2` vertices `8√(λλ')/m⁸`;
+  - the helicity dependence `λ_h ∝ 1/A_h`;
+  - the absolute normalisation;
+  - the sign of the opposite-sign term `Σ_−`.
+* [I]: the `1/m²` approach, from two masses only, and the attribution of the `m = 40` residuals to Weyl-odd terms.
+* Not tested: the MFT-normalised `C^±` itself, i.e. MFT sums over operators. This rests on the exact Fock data plus `E = 8` (§3.6).
 
 ## 5. Status
 
@@ -301,7 +330,7 @@ M70_PLACEHOLDER
 | 7a | `p^MFT[T^{E,h}] = A_h P_FK(1,1)/K_l`, helicity-diagonal (`l = 1, 2`) | [ID], exact Fock data, 23 + 39 entries |
 | 8 | No `O(1/m)` in leading heavy `⟨TTTT⟩` moments (parity-even exchanges, MFT-normalised) | [D] conditional on 7 and Assumption T; not end to end |
 | 9 | `⟨TTTT⟩` exact partial waves by Taylor mode (operator application) | [D], validated to `10⁻¹⁵`; feasibility at `m ≈ 40` [NE] |
-| 9a | `⟨TTTT⟩` end-to-end moments vs factorised prediction, both `±` (`k = 6`, `ν = 0`) | [DVE] at 5–10 % (dominant modes), M70_STATUS; `1/m` fits [ND] |
+| 9a | `⟨TTTT⟩` end-to-end moments vs factorised prediction, both `±` (`k = 6`, `ν = 0`) | [DVE] at 5–10 % (dominant modes), two masses `m = 39, 70`: deviations `8 % → 2.4 %`, `O(1/m²)`-like; `1/m` fits [ND] |
 | 9b | `l = 2` heavy vertex `T^{hLhR} = 8√(λλ')/m⁸`; `1/4` per quadruple; `C^±` for `⟨TTTT⟩` | [NE] (`E = 8` extrapolated to `5·10⁻⁵`), exact inputs [D/ID] |
 | 10 | parity-odd exchanges; `k = 2, 3`; proof of `E = 8` | [ND] |
 
