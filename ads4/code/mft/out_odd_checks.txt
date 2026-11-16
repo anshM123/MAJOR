@@ -1,0 +1,11 @@
+(i)  J=3 Delta=73/10 Dphi=7/4:  D~S3 / [-J(Delta-1) eps S3/v5] = 1.0000000000000000000
+(i)  J=5 Delta=121/10 Dphi=5/2:  D~S3 / [-J(Delta-1) eps S3/v5] = 1.0000000000000000000
+(ii) eps: degree 2 in L, leading/eps3(z1,zeta,x) = -1;  v5: degree 2, leading/(zeta.x) = -1/2
+(iii) left vertex m=   10: eps/v5 = -0.0640814 z^t + -0.135446 z^1 + -1.9964370 z^2   (-> -2 z.e_perp)
+(iii) left vertex m=  100: eps/v5 = -0.00603474 z^t + -0.0139398 z^1 + -1.9999605 z^2   (-> -2 z.e_perp)
+(iii) left vertex m= 1000: eps/v5 = -0.000600341 z^t + -0.00139938 z^1 + -1.9999996 z^2   (-> -2 z.e_perp)
+(iii) left vertex m=10000: eps/v5 = -6.00034e-5 z^t + -0.000139994 z^1 + -2.0000000 z^2   (-> -2 z.e_perp)
+(iii) right vertex m=   10: eps/v5 = 0.0574807 z^t + 0.148284 z^1 + -1.9953235 z^2   (-> -2 z.e_perp)
+(iii) right vertex m=  100: eps/v5 = 0.00596676 z^t + 0.0140638 z^1 + -1.9999595 z^2   (-> -2 z.e_perp)
+(iii) right vertex m= 1000: eps/v5 = 0.000599661 z^t + 0.00140062 z^1 + -1.9999996 z^2   (-> -2 z.e_perp)
+(iii) right vertex m=10000: eps/v5 = 5.99966e-5 z^t + 0.000140006 z^1 + -2.0000000 z^2   (-> -2 z.e_perp)

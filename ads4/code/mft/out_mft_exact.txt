@@ -1,0 +1,163 @@
+=== l = 1, Dphi = 7/4, N <= 8   (45 primaries; 0 s)
+  E  N=0 J=1  tau-tau0=0  p_L = 4/121   p_L/closed = 1
+  O  N=1 J=1  tau-tau0=1  p_O = 7/11   p_O/closed = 1
+  E  N=1 J=2  tau-tau0=0  p_L = 56/12825   p_L/closed = 1
+  E  N=2 J=1  tau-tau0=2  p_L = 88/70395   p_L/closed = 1
+  O  N=2 J=2  tau-tau0=1  p_O = 308/345   p_O/closed = 1
+  E  N=2 J=3  tau-tau0=0  p_L = 616/672543   p_L/closed = 1
+  O  N=3 J=1  tau-tau0=3  p_O = 63/323   p_O/closed = 1
+  E  N=3 J=2  tau-tau0=2  p_L = 2200/10764621   p_L/closed = 1
+  O  N=3 J=3  tau-tau0=1  p_O = 1540/1767   p_O/closed = 1
+  E  N=3 J=4  tau-tau0=0  p_L = 176/737955   p_L/closed = 1
+  E  N=4 J=1  tau-tau0=4  p_L = 4/73899   p_L/closed = 1
+  O  N=4 J=2  tau-tau0=3  p_O = 1200/4991   p_O/closed = 1
+  E  N=4 J=3  tau-tau0=2  p_L = 33440/687664971   p_L/closed = 1
+  O  N=4 J=4  tau-tau0=1  p_O = 6688/9269   p_O/closed = 1
+  E  N=4 J=5  tau-tau0=0  p_L = 13376/189492615   p_L/closed = 1
+  O  N=5 J=1  tau-tau0=5  p_O = 22/665   p_O/closed = 1
+  E  N=5 J=2  tau-tau0=4  p_L = 304/31785075   p_L/closed = 1
+  O  N=5 J=3  tau-tau0=3  p_O = 76/351   p_O/closed = 1
+  E  N=5 J=4  tau-tau0=2  p_L = 6992/507653055   p_L/closed = 1
+  O  N=5 J=5  tau-tau0=1  p_O = 384560/709371   p_O/closed = 1
+  E  N=5 J=6  tau-tau0=0  p_L = 615296/27040986063   p_L/closed = 1
+  E  N=6 J=1  tau-tau0=6  p_L = 2288/886526375   p_L/closed = 1
+  O  N=6 J=2  tau-tau0=5  p_O = 440/11687   p_O/closed = 1
+  E  N=6 J=3  tau-tau0=4  p_L = 6992/2902174275   p_L/closed = 1
+  O  N=6 J=4  tau-tau0=3  p_O = 44049600/259813697   p_O/closed = 1
+  E  N=6 J=5  tau-tau0=2  p_L = 5537664/1278873874915   p_L/closed = 1
+  O  N=6 J=6  tau-tau0=1  p_O = 5285952/13845871   p_O/closed = 1
+  E  N=6 J=7  tau-tau0=0  p_L = 251712/32280978275   p_L/closed = 1
+  O  N=7 J=1  tau-tau0=7  p_O = 26/6003   p_O/closed = 1
+  E  N=7 J=2  tau-tau0=6  p_L = 16/33702669   p_L/closed = 1
+  O  N=7 J=3  tau-tau0=5  p_O = 20700/644699   p_O/closed = 1
+  E  N=7 J=4  tau-tau0=4  p_L = 188784/264867492461   p_L/closed = 1
+  O  N=7 J=5  tau-tau0=3  p_O = 6607440/54043561   p_O/closed = 1
+  E  N=7 J=6  tau-tau0=2  p_L = 1734016/1187017686855   p_L/closed = 1
+  O  N=7 J=7  tau-tau0=1  p_O = 2601024/10135315   p_O/closed = 1
+  E  N=7 J=8  tau-tau0=0  p_L = 1734016/619715727423   p_L/closed = 1
+  E  N=8 J=1  tau-tau0=8  p_L = 2380/18266476239   p_L/closed = 1
+  O  N=8 J=2  tau-tau0=7  p_O = 70000/14978007   p_O/closed = 1
+  E  N=8 J=3  tau-tau0=6  p_L = 28000/226683260089   p_L/closed = 1
+  O  N=8 J=4  tau-tau0=5  p_O = 14605920/604533787   p_O/closed = 1
+  E  N=8 J=5  tau-tau0=4  p_L = 382350528/1648729883940425   p_L/closed = 1
+  O  N=8 J=6  tau-tau0=3  p_O = 20808192/249423031   p_O/closed = 1
+  E  N=8 J=7  tau-tau0=2  p_L = 173401600/334273957143217   p_L/closed = 1
+  O  N=8 J=8  tau-tau0=1  p_O = 485524480/2915246581   p_O/closed = 1
+  E  N=8 J=9  tau-tau0=0  p_L = 97104896/93293496835425   p_L/closed = 1
+  even: 25 primaries, all exact matches: True
+  odd:  20 primaries, all exact matches (incl. structure coefficients for l = 2): True
+=== l = 1, Dphi = 5/2, N <= 5   (21 primaries; 0 s)
+  E  N=0 J=1  tau-tau0=0  p_L = 1/49   p_L/closed = 1
+  O  N=1 J=1  tau-tau0=1  p_O = 5/7   p_O/closed = 1
+  E  N=1 J=2  tau-tau0=0  p_L = 10/2673   p_L/closed = 1
+  E  N=2 J=1  tau-tau0=2  p_L = 7/5445   p_L/closed = 1
+  O  N=2 J=2  tau-tau0=1  p_O = 140/117   p_O/closed = 1
+  E  N=2 J=3  tau-tau0=0  p_L = 14/14157   p_L/closed = 1
+  O  N=3 J=1  tau-tau0=3  p_O = 18/55   p_O/closed = 1
+  E  N=3 J=2  tau-tau0=2  p_L = 12/46475   p_L/closed = 1
+  O  N=3 J=3  tau-tau0=1  p_O = 252/187   p_O/closed = 1
+  E  N=3 J=4  tau-tau0=0  p_L = 84/272935   p_L/closed = 1
+  E  N=4 J=1  tau-tau0=4  p_L = 1/11375   p_L/closed = 1
+  O  N=4 J=2  tau-tau0=3  p_O = 720/1547   p_O/closed = 1
+  E  N=4 J=3  tau-tau0=2  p_L = 616/8502975   p_L/closed = 1
+  O  N=4 J=4  tau-tau0=1  p_O = 5280/4199   p_O/closed = 1
+  E  N=4 J=5  tau-tau0=0  p_L = 176/1671525   p_L/closed = 1
+  O  N=5 J=1  tau-tau0=5  p_O = 6/77   p_O/closed = 1
+  E  N=5 J=2  tau-tau0=4  p_L = 44/2421531   p_L/closed = 1
+  O  N=5 J=3  tau-tau0=3  p_O = 440/931   p_O/closed = 1
+  E  N=5 J=4  tau-tau0=2  p_L = 104/4420255   p_L/closed = 1
+  O  N=5 J=5  tau-tau0=1  p_O = 2288/2185   p_O/closed = 1
+  E  N=5 J=6  tau-tau0=0  p_L = 4576/119346885   p_L/closed = 1
+  even: 12 primaries, all exact matches: True
+  odd:  9 primaries, all exact matches (incl. structure coefficients for l = 2): True
+=== l = 1, Dphi = 13/10, N <= 5   (21 primaries; 0 s)
+  E  N=0 J=1  tau-tau0=0  p_L = 25/529   p_L/closed = 1
+  O  N=1 J=1  tau-tau0=1  p_O = 13/23   p_O/closed = 1
+  E  N=1 J=2  tau-tau0=0  p_L = 650/140481   p_L/closed = 1
+  E  N=2 J=1  tau-tau0=2  p_L = 460/427119   p_L/closed = 1
+  O  N=2 J=2  tau-tau0=1  p_O = 1196/1749   p_O/closed = 1
+  E  N=2 J=3  tau-tau0=0  p_L = 14950/18521433   p_L/closed = 1
+  O  N=3 J=1  tau-tau0=3  p_O = 468/4085   p_O/closed = 1
+  E  N=3 J=2  tau-tau0=2  p_L = 50600/337358091   p_L/closed = 1
+  O  N=3 J=3  tau-tau0=1  p_O = 13156/21973   p_O/closed = 1
+  E  N=3 J=4  tau-tau0=0  p_L = 65780/357414351   p_L/closed = 1
+  E  N=4 J=1  tau-tau0=4  p_L = 65/2072406   p_L/closed = 1
+  O  N=4 J=2  tau-tau0=3  p_O = 3432/27083   p_O/closed = 1
+  E  N=4 J=3  tau-tau0=2  p_L = 1087900/34412932701   p_L/closed = 1
+  O  N=4 J=4  tau-tau0=1  p_O = 4525664/9954937   p_O/closed = 1
+  E  N=4 J=5  tau-tau0=0  p_L = 11314160/230357430009   p_L/closed = 1
+  O  N=5 J=1  tau-tau0=5  p_O = 897/61103   p_O/closed = 1
+  E  N=5 J=2  tau-tau0=4  p_L = 27950/5656664223   p_L/closed = 1
+  O  N=5 J=3  tau-tau0=3  p_O = 491920/4700871   p_O/closed = 1
+  E  N=5 J=4  tau-tau0=2  p_L = 20966800/2580246980577   p_L/closed = 1
+  O  N=5 J=5  tau-tau0=1  p_O = 599650480/1886670261   p_O/closed = 1
+  E  N=5 J=6  tau-tau0=0  p_L = 5996504800/412216698655629   p_L/closed = 1
+  even: 12 primaries, all exact matches: True
+  odd:  9 primaries, all exact matches (incl. structure coefficients for l = 2): True
+=== l = 2, Dphi = 7/4, N <= 6   (28 primaries; 0 s)
+  E  N=0 J=2  tau-tau0=0  p_L = 16/731025   p_L/closed = 1
+  O  N=1 J=2  tau-tau0=1  p_O = 56/45  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=1 J=3  tau-tau0=0  p_L = 224/232027335   p_L/closed = 1
+  E  N=2 J=2  tau-tau0=2  p_L = 880/2615802903   p_L/closed = 1
+  O  N=2 J=3  tau-tau0=1  p_O = 1540/589  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=2 J=4  tau-tau0=0  p_L = 704/8069537925   p_L/closed = 1
+  O  N=3 J=2  tau-tau0=3  p_O = 1800/3059  (n=1 coefficient 1, n=0 coefficient -1/3; predicted -1/3)  p_O/closed = 1
+  E  N=3 J=3  tau-tau0=2  p_L = 1408/63952842303   p_L/closed = 1
+  O  N=3 J=4  tau-tau0=1  p_O = 1056/299  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=3 J=5  tau-tau0=0  p_L = 1408/123359692365   p_L/closed = 1
+  E  N=4 J=2  tau-tau0=4  p_L = 608/76760956125   p_L/closed = 1
+  O  N=4 J=3  tau-tau0=3  p_O = 26068/24219  (n=1 coefficient 1, n=0 coefficient -2/7; predicted -2/7)  p_O/closed = 1
+  E  N=4 J=4  tau-tau0=2  p_L = 1216/479732136975   p_L/closed = 1
+  O  N=4 J=5  tau-tau0=1  p_O = 8192800/2128113  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=4 J=6  tau-tau0=0  p_L = 26752/14196517683075   p_L/closed = 1
+  O  N=5 J=2  tau-tau0=5  p_O = 3520/24273  (n=1 coefficient 1, n=0 coefficient -1/2; predicted -1/2)  p_O/closed = 1
+  E  N=5 J=3  tau-tau0=4  p_L = 27968/45839842673625   p_L/closed = 1
+  O  N=5 J=4  tau-tau0=3  p_O = 78310400/59957007  (n=1 coefficient 1, n=0 coefficient -1/4; predicted -1/4)  p_O/closed = 1
+  E  N=5 J=5  tau-tau0=2  p_L = 1230592/3142193110666155   p_L/closed = 1
+  O  N=5 J=6  tau-tau0=1  p_O = 3915520/1065067  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=5 J=7  tau-tau0=0  p_L = 111872/305926831112175   p_L/closed = 1
+  E  N=6 J=2  tau-tau0=6  p_L = 32/134776973331   p_L/closed = 1
+  O  N=6 J=3  tau-tau0=5  p_O = 111780/464783  (n=1 coefficient 1, n=0 coefficient -4/9; predicted -4/9)  p_O/closed = 1
+  E  N=6 J=4  tau-tau0=4  p_L = 27968/353068367450513   p_L/closed = 1
+  O  N=6 J=5  tau-tau0=3  p_O = 50971680/38961637  (n=1 coefficient 1, n=0 coefficient -2/9; predicted -2/9)  p_O/closed = 1
+  E  N=6 J=6  tau-tau0=2  p_L = 55936/765626408021475   p_L/closed = 1
+  O  N=6 J=7  tau-tau0=1  p_O = 755136/235705  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=6 J=8  tau-tau0=0  p_L = 223744/2798016509314845   p_L/closed = 1
+  even: 16 primaries, all exact matches: True
+  odd:  12 primaries, all exact matches (incl. structure coefficients for l = 2): True
+=== l = 2, Dphi = 5/2, N <= 4   (15 primaries; 0 s)
+  E  N=0 J=2  tau-tau0=0  p_L = 1/88209   p_L/closed = 1
+  O  N=1 J=2  tau-tau0=1  p_O = 40/27  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=1 J=3  tau-tau0=0  p_L = 2/2760615   p_L/closed = 1
+  E  N=2 J=2  tau-tau0=2  p_L = 2/6274125   p_L/closed = 1
+  O  N=2 J=3  tau-tau0=1  p_O = 700/187  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=2 J=4  tau-tau0=0  p_L = 28/331616025   p_L/closed = 1
+  O  N=3 J=2  tau-tau0=3  p_O = 1080/1001  (n=1 coefficient 1, n=0 coefficient -1/3; predicted -1/3)  p_O/closed = 1
+  E  N=3 J=3  tau-tau0=2  p_L = 56/2168258625   p_L/closed = 1
+  O  N=3 J=4  tau-tau0=1  p_O = 1440/247  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=3 J=5  tau-tau0=0  p_L = 8/596734425   p_L/closed = 1
+  E  N=4 J=2  tau-tau0=4  p_L = 22/1794354471   p_L/closed = 1
+  O  N=4 J=3  tau-tau0=3  p_O = 88/39  (n=1 coefficient 1, n=0 coefficient -2/7; predicted -2/7)  p_O/closed = 1
+  E  N=4 J=4  tau-tau0=2  p_L = 8/2267590815   p_L/closed = 1
+  O  N=4 J=5  tau-tau0=1  p_O = 2464/345  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=4 J=6  tau-tau0=0  p_L = 88/34013862225   p_L/closed = 1
+  even: 9 primaries, all exact matches: True
+  odd:  6 primaries, all exact matches (incl. structure coefficients for l = 2): True
+=== l = 2, Dphi = 13/10, N <= 4   (15 primaries; 0 s)
+  E  N=0 J=2  tau-tau0=0  p_L = 625/18122049   p_L/closed = 1
+  O  N=1 J=2  tau-tau0=1  p_O = 104/99  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=1 J=3  tau-tau0=0  p_L = 3250/2944907847   p_L/closed = 1
+  E  N=2 J=2  tau-tau0=2  p_L = 57500/191282037597   p_L/closed = 1
+  O  N=2 J=3  tau-tau0=1  p_O = 5980/3139  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=2 J=4  tau-tau0=0  p_L = 149500/1823885433153   p_L/closed = 1
+  O  N=3 J=2  tau-tau0=3  p_O = 5148/15953  (n=1 coefficient 1, n=0 coefficient -1/3; predicted -1/3)  p_O/closed = 1
+  E  N=3 J=3  tau-tau0=2  p_L = 126500/7536432261519   p_L/closed = 1
+  O  N=3 J=4  tau-tau0=1  p_O = 315744/136369  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=3 J=5  tau-tau0=0  p_L = 3289000/353137940203797   p_L/closed = 1
+  E  N=4 J=2  tau-tau0=4  p_L = 349375/74650997750931   p_L/closed = 1
+  O  N=4 J=3  tau-tau0=3  p_O = 688688/1286469  (n=1 coefficient 1, n=0 coefficient -2/7; predicted -2/7)  p_O/closed = 1
+  E  N=4 J=4  tau-tau0=2  p_L = 9890000/5782333483473057   p_L/closed = 1
+  O  N=4 J=5  tau-tau0=1  p_O = 22628320/9741843  (n=1 coefficient 1, n=0 coefficient 0; predicted 0)  p_O/closed = 1
+  E  N=4 J=6  tau-tau0=0  p_L = 141427000/102641957965251621   p_L/closed = 1
+  even: 9 primaries, all exact matches: True
+  odd:  6 primaries, all exact matches (incl. structure coefficients for l = 2): True
