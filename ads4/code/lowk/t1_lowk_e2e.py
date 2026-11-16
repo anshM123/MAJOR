@@ -9,12 +9,12 @@ Error of every quoted R (column 'err'): propagated through the 2x2 component sol
                points still missing, counted entirely) + err_rad (radial-series truncation at the converged points: the e2e mask
                criterion X - 10 log X > 25 bounds it by e^{-25} X^p ~ 1e-9 per point; taken as 1e-9)
                + err_grid (quadrature: from q1_grid.py, see SPINNING_LOWK.md; not included here).
-Usage: python3 t1_lowk_e2e.py l           Output: out_t1_lowk_e2e_l{l}.txt, data_t1_l{l}.pkl (in cache/)
+Usage: python3 t1_lowk_e2e.py l  [build beta]       Output: out_t1_lowk_e2e_l{l}.txt, data_t1_l{l}.pkl (in cache/)
 """
 import os, sys, time, pickle
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.join(HERE, '..', 'e2e'))
 import numpy as np, mpmath as mp
-from corner import TensorMomentsLC, CACHE, e2e_file
+from corner import TensorMomentsLC, CACHE, e2e_file, refined_base
 from moments import TensorMoments
 from predict import components, scalar_prefactor
 from formulas import Fnu_mp
@@ -24,6 +24,15 @@ from cases import info
 mp.mp.dps = 25
 KS = (2, 3, 4, 6); NUS = (0.0, 1.0, 3.0)
 ERR_RAD = 1e-9
+
+def build_ref(l, Delta, J):
+    """corner-completed moments on the corner-refined grid (corner.refined_base): all nodes with u < 0.03 from the LC
+    representation, the e2e radial-series data above (the e2e grid under-resolves the log-oscillating kernel P_{-1/2+i nu}(cosh xi)
+    near u = 0 at k = 2; out_q1_grid.txt, out_v1_scalar.txt)."""
+    fn = os.path.join(CACHE, f"lcmodes_ref_l{l}_D{Delta:.6f}_J{J}.npz")
+    if os.path.exists(fn):
+        return TensorMomentsLC.load(fn)
+    return TensorMomentsLC.build(l, Delta, J, base=refined_base(l, Delta, J), fn=fn)
 
 def components_with_error(l, Delta, J, k, nu, res, e1, e2):
     Rp, Rf, worst, beta = measured_components(l, Delta, J, DPHI, k, nu, res)
@@ -37,6 +46,13 @@ def components_with_error(l, Delta, J, k, nu, res, e1, e2):
 
 if __name__ == "__main__":
     l = int(sys.argv[1])
+    if len(sys.argv) > 3 and sys.argv[2] == 'build':
+        # build the corner-completed caches for one beta only (to run several betas in parallel); no output file
+        beta = float(sys.argv[3])
+        for c in main_cases():
+            if abs(float(info(*c)[1]) - beta) < 0.15 and os.path.exists(e2e_file(l, *c)):
+                build_ref(l, *c)
+        sys.exit(0)
     out = []
     def pr(*a):
         s = " ".join(str(x) for x in a); print(s, flush=True); out.append(s)
@@ -49,7 +65,7 @@ if __name__ == "__main__":
         if not os.path.exists(e2e_file(l, Delta, J)):
             continue
         t0 = time.time()
-        mom = TensorMomentsLC.build(l, Delta, J)
+        mom = build_ref(l, Delta, J)
         old = TensorMoments.load(e2e_file(l, Delta, J))
         m, b_, eta = info(Delta, J)
         res = moments_of(mom, KS, NUS); res_old = moments_of(old, KS, NUS)

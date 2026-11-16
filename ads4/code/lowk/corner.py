@@ -246,3 +246,31 @@ class TensorMomentsLC(TensorMoments):
                 extra += c1*(ts[j]/ts[j1])**(a - 1)*(np.sum(W[:, j])/np.sum(W[:, j1]))
         err_drop = float(extra/abs(val))
         return (val, sh), err_lc, err_drop, lc_share
+
+# ---------------------------------------------------------------------- corner-refined grid (quadrature check)
+UP_E2E = ((0.0, 0.01, 8), (0.01, 0.03, 10), (0.03, 0.1, 14), (0.1, 0.3, 16), (0.3, 1.0, 24))
+UP_REF = ((0.0, 1e-4, 6), (1e-4, 1e-3, 8), (1e-3, 0.004, 8), (0.004, 0.01, 8), (0.01, 0.02, 8), (0.02, 0.03, 8),
+          (0.03, 0.1, 14), (0.1, 0.3, 16), (0.3, 1.0, 24))
+
+UP_REF2 = ((0.0, 1e-4, 10), (1e-4, 1e-3, 14), (1e-3, 0.004, 14), (0.004, 0.01, 14), (0.01, 0.02, 14), (0.02, 0.03, 14),
+           (0.03, 0.1, 14), (0.1, 0.3, 16), (0.3, 1.0, 24))
+
+def refined_base(l, Delta, J, panels=UP_REF):
+    """the e2e grid with the two u-panels below u = 0.03 (18 nodes) replaced by 46 nodes on six panels; the radial-series data for
+    u >= 0.03 are copied from the e2e cache (identical nodes), all points with u < 0.03 are left to the LC evaluation."""
+    from moments import make_grid
+    old = TensorMoments.load(e2e_file(l, Delta, J))
+    g = make_grid(Delta, J, upanels=panels)
+    n_old = 18; n_new = sum(p[2] for p in panels[:6])
+    assert np.allclose(g['us'][n_new:], old.g['us'][n_old:])
+    new = TensorMoments.__new__(TensorMoments)
+    new.l, new.Delta, new.J, new.Dphi = old.l, old.Delta, old.J, old.Dphi
+    new.g = g
+    sh = g['S'].shape
+    new.conv = np.zeros(sh, bool); new.conv[n_new:] = old.conv[n_old:]
+    new.logscale = np.full(sh, -np.inf); new.logscale[n_new:] = old.logscale[n_old:]
+    new.X = np.zeros(sh); new.X[n_new:] = old.X[n_old:]
+    new.modes = {}
+    for k, v in old.modes.items():
+        a = np.zeros(sh, dtype=v.dtype); a[n_new:] = v[n_old:]; new.modes[k] = a
+    return new

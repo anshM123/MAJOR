@@ -1,0 +1,7 @@
+# block-level test of the <JJJJ> MFT normalisation, leading twist (fourpt/tttt/t3_lightcone_l1.py)
+  point A eps=1e-03: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
+  point A eps=1e-04: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
+  point A eps=1e-05: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
+  point B eps=1e-03: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
+  point B eps=1e-04: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan
+  point B eps=1e-05: ratio F_MFT/sum = nan  nan  nan   | ratio-1: nan nan nan   | control (+1/8)^J: nan nan nan   | last J term nan

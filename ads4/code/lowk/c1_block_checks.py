@@ -42,7 +42,7 @@ if __name__ == "__main__":
                 bt = mp.mpf(Delta) + J
                 k = z**(bt/2)*mp.hyp2f1(bt/2 + c1, bt/2 + c2, bt, z)
                 H0 = mp.mpf(4)**(-(mp.mpf(Delta) + J)/2)*x**(-(mp.mpf(Delta) - J)/2)*k
-            Wv = lb.W(np.array([float(x)]))[0, 0, 0]
+            Wv = lb.W(np.array([float(x)]), 0)[0, 0, 0]
             row.append(f"1-x={eps}: {float(Wv/H0 - 1):+.1e}")
         pr(f"  (Delta,J)=({Delta},{J}) (c1,c2)=({c1},{c2}):  " + "  ".join(row))
     pr("# (2) S[k,l] (k+l <= 4) from LC/tail (A) vs radial series with N = 24000 at its converged points: max relative deviation")
@@ -66,7 +66,7 @@ if __name__ == "__main__":
         res = {}
         for name, par in (("A", PAR_A), ("B", PAR_B)):
             lb = LCBlock(Delta, J, c1, c2, **par)
-            E = lb.series(r, chi, return_E=True); S = lb.series(r, chi)
+            E = lb.E(r, chi); S = lb.series(r, chi)
             res[name] = (S, casimir_residual(E, xs, xb, Delta, J, c1, c2))
         pr(f"  (Delta,J)=({Delta},{J}) (c1,c2)=({c1},{c2})")
         for p, (t, u, _, _) in enumerate(pts):

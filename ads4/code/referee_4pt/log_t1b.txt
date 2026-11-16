@@ -1,0 +1,8 @@
+# CHL helicity structures in the (v_1, v_2) basis: exact identification vs closed forms (fourpt/t1b_helicity_l1.py)
+  (Delta,J) = (97/10,4): a, b/a  opp = -500/943389, 4899/5;  same = -200000/2653753257, -30138801/10000;  closed forms exact: True
+  (Delta,J) = (23/2,3): a, b/a  opp = -8/17121, 1077;  same = -64/2756481, -136857/16;  closed forms exact: True
+  (Delta,J) = (37/3,9): a, b/a  opp = -3/29536, 2620;  same = -243/4644536, -238204/81;  closed forms exact: True
+  (Delta,J) = (19/2,2): a, b/a  opp = -8/2981, 717/2;  same = -64/962863, -56865/16;  closed forms exact: True
+  (Delta,J) = (-67/10,-5): a, b/a  opp = 200/943389, 4899/5;  same = 200000/1622314617, -30138801/10000;  closed forms exact: True
+  (Delta,J) = (-28/3,-10): a, b/a  opp = 27/406120, 2620;  same = 243/3204656, -238204/81;  closed forms exact: True
+  (61/4,11): degenerate random kinematics, skipped

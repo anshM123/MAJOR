@@ -150,44 +150,62 @@ class LCBlock:
                 self.fitres[:, l, t] = np.where(np.any(Y != 0, axis=1), np.max(np.abs(fit - Y), axis=1)/scale, 0.0)
 
     # ------------------------------------------------------------------ evaluation
-    def W(self, xb, l):
-        """W[i, t, p] = sum_q q^t C^{(l)}_{i,q} xb_p^q  (all q: exact up to Q, fitted asymptotic tail beyond)."""
-        Q = self.Q
-        q = np.arange(Q + 1, dtype=float)
-        out = np.zeros((self.I + 1, self.lmax + 1 - l, len(xb)))
+    def W(self, xb, l, Ib=None, Qb=None):
+        """W[i, t, p] = sum_q q^t C^{(l)}_{i,q} xb_p^q, i <= Ib (all q: exact up to Q, fitted asymptotic tail beyond).
+        With Qb < Q the sum is cut at q = Qb and no tail is added: used only for points with Qb (1 - xb) >= 50, where the omitted
+        part is < e^{-50} relative."""
+        Ib = self.I if Ib is None else Ib
+        Qb = self.Q if Qb is None else Qb
+        q = np.arange(Qb + 1, dtype=float)
+        out = np.zeros((Ib + 1, self.lmax + 1 - l, len(xb)))
         with np.errstate(under='ignore'):
-            X = np.exp(np.outer(q, np.log(xb)))                       # (Q+1, npts)
+            X = np.exp(np.outer(q, np.log(xb)))                       # (Qb+1, npts)
+        Cl = self.C[l][:Ib + 1, :Qb + 1]
         for t in range(self.lmax + 1 - l):
-            out[:, t, :] = (self.C[l]*q[None, :]**t) @ X
+            out[:, t, :] = (Cl*q[None, :]**t) @ X
+            if Qb < self.Q:
+                continue
             co, kinds = self.fits[(l, t)]
             for m, kd in enumerate(kinds):
                 if kd[0] == 'main':
-                    out[:, t, :] += np.outer(co[:, m], tail_T(kd[1], xb, Q))
+                    out[:, t, :] += np.outer(co[:Ib + 1, m], tail_T(kd[1], xb, self.Q))
                 elif kd[0] == 'alt':
-                    out[:, t, :] += np.outer(co[:, m], tail_T(kd[1], -xb, Q))
+                    out[:, t, :] += np.outer(co[:Ib + 1, m], tail_T(kd[1], -xb, self.Q))
                 # 'altpow'/'altlog' (c1 = c2): tail not summed (alternating, < |last term|, relative <~ Q^{-2(sigma+c)} ~ 1e-8)
         return out
 
+    IBUCKETS = (150, 300, 600, 1000, 1500, 3000)
+    QBUCKETS = (1000, 2000, 4000, 8000, 16000)
+
     def series(self, r, chi, sig=+1, kmax=4, lmax=4, cut=None):
-        """same output as blocks.CBlock.series (sig = +1): S[p, k, l] = sum B (Delta+n)^k r^n P_j^{(l)}(cosh chi), k + l <= 4."""
+        """same output as blocks.CBlock.series (sig = +1): S[p, k, l] = sum B (Delta+n)^k r^n P_j^{(l)}(cosh chi), k + l <= 4.
+        Points are grouped by the lightcone depth they need (i <= I_p with rho_s^{I_p} < e^{-60}, capped at I) and by the q-range
+        (q <= Q_p with Q_p (1 - rho_b) >= 50, else the full Q with the fitted tail)."""
         assert sig == +1
         r = np.atleast_1d(np.asarray(r, float)); chi = np.atleast_1d(np.asarray(chi, float))
         xs, xb = r*np.exp(-chi), r*np.exp(chi)
-        ii = np.arange(self.I + 1, dtype=float)
-        with np.errstate(under='ignore'):
-            XS = np.exp(np.outer(ii, np.log(xs)))                      # (I+1, npts)
         S = np.zeros((len(r), kmax + 1, lmax + 1))
-        for l in range(min(lmax, self.lmax) + 1):
-            Wl = self.W(xb, l)
-            a = self.Delta - self.J + l + ii                           # (Delta + n) = a_i + q
-            pref = DFACT[l]*r**(l - self.J)
-            for k in range(min(kmax, self.lmax - l) + 1):
-                V = np.zeros((self.I + 1, len(r)))
-                for t in range(k + 1):
-                    V += comb(k, t)*(a**(k - t))[:, None]*Wl[:, t, :]
-                S[:, k, l] = pref*np.sum(XS*V, axis=0)
-                if k == 0 and l == 0:
-                    self.i_tail = np.abs(XS[-1]*V[-1])/np.maximum(np.abs(S[:, 0, 0]/pref), 1e-300)
+        self.i_tail = np.zeros(len(r))
+        ineed = 60.0/np.maximum(-np.log(xs), 1e-300)
+        qneed = 50.0/np.maximum(1 - xb, 1e-300)
+        ib = np.array([min([b for b in self.IBUCKETS if b >= v] + [self.I]) for v in ineed]); ib = np.minimum(ib, self.I)
+        qb = np.array([min([b for b in self.QBUCKETS if b >= v] + [self.Q]) for v in qneed]); qb = np.minimum(qb, self.Q)
+        for (Ib, Qb) in sorted(set(zip(ib, qb))):
+            sel = np.where((ib == Ib) & (qb == Qb))[0]
+            ii = np.arange(Ib + 1, dtype=float)
+            with np.errstate(under='ignore'):
+                XS = np.exp(np.outer(ii, np.log(xs[sel])))
+            for l in range(min(lmax, self.lmax) + 1):
+                Wl = self.W(xb[sel], l, Ib, Qb)
+                a = self.Delta - self.J + l + ii
+                pref = DFACT[l]*r[sel]**(l - self.J)
+                for k in range(min(kmax, self.lmax - l) + 1):
+                    V = np.zeros((Ib + 1, len(sel)))
+                    for t in range(k + 1):
+                        V += comb(k, t)*(a**(k - t))[:, None]*Wl[:, t, :]
+                    S[sel, k, l] = pref*np.sum(XS*V, axis=0)
+                    if k == 0 and l == 0:
+                        self.i_tail[sel] = np.abs(XS[-1]*V[-1])/np.maximum(np.abs(S[sel, 0, 0]/pref), 1e-300)
         return S
 
     def E(self, r, chi, nmax=2):
