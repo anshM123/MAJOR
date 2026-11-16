@@ -6,3 +6,4 @@ ads4/code/unipos/logs/
 *.so
 *.o
 ads4/code/e2e/*.pkl
+ads4/code/flatbound/logs/
