@@ -15,7 +15,7 @@ numbers, no derivation), **[inferred]**. Coefficients obtained by fits are label
    terms, also for all η-derivatives via Gegenbauer polynomials), and summing the `q`-tail at fixed `i` from its Darboux asymptotics,
    whose exponents follow from the local exponents of the Casimir equation at `z̄' = 1` and `z̄' = ∞`. Checks: the leading lightcone function
    equals the exact collinear block (₂F₁) to `≤ 8·10⁻⁸` down to `1 − ρ_b = 10⁻⁸`; derivative sums agree with an `N = 24000` radial series to
-   `≤ 4·10⁻¹³` where the latter converges; Casimir residual `≤ 10⁻⁷` (relative to the largest term) for `1 − ρ_b ≥ 10⁻⁴` (§2).
+   `≤ 4·10⁻¹³` where the latter converges; Casimir residual `≤ 10⁻⁸` (relative to the largest term) down to `1 − ρ_b = 2·10⁻⁶` (§2).
 2. **Currents (`l = 1`), k = 2 and 3: converged and error-controlled [numerical evidence for the ratios; the formula itself is the derived
    one of E2E §4.5, nothing fitted].** At the largest masses (`m ≈ 100`; β ≈ 0.4 / 1.0, ν = 0):
    * k = 3: `R_pres = 0.997317(2) / 0.99698(1)`, `R_flip = 0.99478(2) / 0.99483(2)`; `m²(R−1)` converges like `c_2 + c_4/m²`
@@ -98,7 +98,7 @@ different depth, window and number of asymptotic terms; error estimate).
 |---|---|---|
 | leading lightcone function vs mpmath ₂F₁ (independent) | `(Δ,J,c1,c2) = (14.17,2,.625,.625), (105.36,20,.625,−.375), (115.11,52,1.625,1.625), (109.83,82,.375,.375)` | `1−x = 10⁻²: ≤ 10⁻¹⁴`; `10⁻⁴: ≤ 2.5·10⁻⁸`; `10⁻⁶, 10⁻⁸: ≤ 8.3·10⁻⁸` |
 | `S[k,l]`, `k+l ≤ 4`, vs radial series with `N = 24000` where it converges (`1−ρ_b ≥ 4·10⁻³`; tests the extrapolation `q = 8000 → 24000`) | `(14.17,2,.625,−.375), (24.22,10,.625,.625), (24.22,10,1.625,−.375)` | `≤ 4.1·10⁻¹³` |
-| Casimir residual / largest term, deep corner, A and B (with `1 − z = ((1−ρ)/(1+ρ))²`; the first version computed `1 − z` by subtraction and its "`≤ 10⁻⁴`" at `1−ρ_b ≈ 3·10⁻⁶` was the check's own roundoff, referee m1) | `(115.11,52,.625,−.375), (105.36,20,.375,.375), (14.17,2,.625,−.375)` | @@CASROW@@ |
+| Casimir residual / largest term, deep corner, A and B (with `1 − z = ((1−ρ)/(1+ρ))²`; the first version computed `1 − z` by subtraction and its "`≤ 10⁻⁴`" at `1−ρ_b ≈ 3·10⁻⁶` was the check's own roundoff, referee m1) | `(115.11,52,.625,−.375), (105.36,20,.375,.375), (14.17,2,.625,−.375)` | A: `≤ 1.0·10⁻⁸` for `1−ρ_b` down to `2.4·10⁻⁶`, `≤ 2·10⁻¹²` for `1−ρ_b ≥ 2·10⁻³`; B: `≤ 3.3·10⁻⁹` |
 | `|S_A/S_B − 1|`, same points | same | `≤ 9·10⁻⁸` (deepest), `≤ 10⁻¹¹` for `1−ρ_b ≥ 10⁻³` |
 
 The deep-corner A/B difference (`4–9·10⁻⁸`) is of the size of the deviation of A from the exact collinear block (`3–8·10⁻⁸`). It is **not** a

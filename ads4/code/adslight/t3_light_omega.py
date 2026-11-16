@@ -38,7 +38,7 @@ def main():
     for Lv in [3, 10, 100, 1000]:
         av = mp.mpf(1.5) / Lv
         quad = mp.quad(lambda x: sp.lambdify(q, psi2, 'mpmath')(x) / (x * x + av * av), [0, av, 10 * av, 1])
-        print('  Lam=%5d  exact=%s  quad=%s   3-term asympt=%s' % (Lv, mp.nstr(Lf(av), 15), mp.nstr(quad, 15),
+        print('  Lam=%5d  exact=%s  quad=%s   series to O(Lam^-3)=%s' % (Lv, mp.nstr(Lf(av), 15), mp.nstr(quad, 15),
                                                                  mp.nstr(sp.N(serL.subs(Lam, Lv)), 15)))
     A = 16 * 65 / k0
     B = 16 * (65 * sp.log(sp.Rational(2, 3)) - sp.Rational(1171, 15)) / k0
