@@ -1,6 +1,7 @@
 # Flat dispersive sum rules for the unstripped graviton helicity amplitude, and the `|ĝ₃|²` bound they give
 
-Status: written 16 Nov 2026 by an automated analyst; not refereed. Code: `ads4/code/flatunstripped/` (`bash run_all.sh`, ≈ 1 min;
+Status: written 16 Nov 2026 by an automated analyst; **revised after the referee report `ads4/REFEREE_FLAT_UNSTRIPPED.md`**
+(all formulas and numbers reproduced there; changes: M1, M2, m1–m6 — scope of the AdS statements, supersession of `ADS4_FUNCTIONAL.md` items). Code: `ads4/code/flatunstripped/` (`bash run_all.sh`, ≈ 20 s;
 `--scan` adds the floating-point scan; outputs in `cache/`, git-ignored). It imports nothing from other code directories; it reads the
 certified coefficients of M01/M02 from `ads4/code/robust/functionals_certified.json`. Context: `ADS4_FUNCTIONAL.md` §7,
 `SKELETON_TEST.md` §8, `FLAT_GRAVITON_BOUND.md` (Theorem 1, 3), `ROBUST_FUNCTIONAL.md` (M01, M02, Theorem R).
@@ -19,7 +20,7 @@ Marks: **[D]** derived, with exact symbolic verification in `sumrules.py`; **[ce
      converges for every `k ≥ 2`. Tree-level Einstein exchange (`J₀ = 2`) is exactly marginal at `k = 2` and appears as the
      `16πG/q` pole on the low side.
    * **Heavy side:** on both cuts the prefactors cancel (`Im 𝓜 = 16π d` on the `s`-cut, `16π P` on the `t`-cut). Per state,
-     dropping `16(2J+1)/π`, the raw densities are `(2w−q)Z^{(k+2)/2}(|c⁺⁺|²P + |c⁺⁻|²d)` for even `k` and
+     dropping `16(2J+1)` (with the measure `dm²`), the raw densities are `(2w−q)Z^{(k+2)/2}(|c⁺⁺|²P + |c⁺⁻|²d)` for even `k` and
      `Z^{(k+1)/2}(|c⁺⁺|²P − |c⁺⁻|²d)` for odd `k`. These are the full `d₀₀`, `d₄₄` with a common prefactor; the `B₃`-type sign flip
      between channels is the odd-kernel sign. The leading term `2/m^{2k}` matches the AdS `C^±_k` with `k`-parity locked to the
      kernel parity.
@@ -47,35 +48,60 @@ Marks: **[D]** derived, with exact symbolic verification in `sumrules.py`; **[ce
    | M01 | 37.5457 | −46.9286 | certified, `𝔉 ≥ (9/100)N` |
    | M02 | 51.7366 | −65.3207 | certified, `𝔉 ≥ (9/50)N` |
 
-   An LP over unstripped sum rules with polynomial weights is the stripped LP in another basis (item 2), so with matching weight
-   degrees its optimum equals the stripped optimum; no new LP is needed. **The flat bound from unstripped sum rules is the same as
+   An LP over unstripped sum rules with polynomial weights is the stripped LP in another basis (item 2), so **for compatible
+   truncations** its optimum equals the stripped one: a stripped weight of degree `n` on `B_k` maps to unstripped weights of degree up
+   to `n + 10` on `B′_k … B′_{k+5}`, and conversely. A degree- or `k`-truncated unstripped LP that is not closed under this map can
+   only be worse. No new LP was run. **The flat bound from unstripped sum rules is the same as
    the stripped one:** `|ĝ₃|²M⁸ ≤ 37.84 log(M/m_IR) − 45.45` (`F_{g3}`) and `≤ 37.55 log − 46.93` (M01), with the hypotheses and IR caveats
    of `FLAT_GRAVITON_BOUND.md` Theorem 3.
 4. **`F′` (`F_{g3}` with `d̃₄₄ → d₄₄`) is not a combination of fixed-`u` sum rules [D].** Its light side is therefore not defined by any
    sum rule. The heavy density of any (smeared + forward) combination has the form `E(w,q)(P+d) + O(w,q)(P−d)`, with `E`, `O` built
-   from `Z^n` (`Z` is symmetric under `w ↔ q−w`). `F′` would need `E, O ∝ 1/w⁴`, but `1/w⁴` is not a power series in `Z`: its
-   expansion in `√Z` has an odd term `−2q Z^{5/2}`. Equality of heavy actions for all `J` forces pointwise equality of the
-   `p`-densities, by completeness of `{P_J}` on `[1−2/m², 1]`. The floating-point positivity of `F′` (`ADS4_FUNCTIONAL.md` §7.3) is
-   thus not a statement about any sum rule.
-5. **The naive transcription of `Ω_{g3}` is not a valid functional [D + certified].** If the AdS moments tend exactly to the unstripped
-   sum rules, `ε_kΛ^{2k}C^{(−)^k}_{k,Λp} → B′_k` (the natural spinning analogue of the CHMRS bulk-point formula, whose scalar density
-   `(2m²−ν²)P/(m^k(m²−ν²)^{(k+2)/2})` has exactly the `B′_k` form [I]), then `Ω_{g3}` as written in `ADS4_FUNCTIONAL.md` has flat limit
+   from `Z^n` (`Z` is symmetric under `w ↔ q−w`). `F′` would need `E ∝ (2w−q)/w⁴`, `O ∝ 1/w⁴`, but `1/w⁴` is not a power series in
+   `Z`: its expansion in `√Z` has an odd term `−2q Z^{5/2}`. Equality of heavy actions for all `J` forces pointwise equality of the
+   `p`-densities. This uses completeness on `[1−2/m², 1]`: of `{P^{(0,8)}_{J−4}}_{J≥4}` (`+−`, every `m`), or of the even-`J` `{P_J}` (`++`)
+   for `m ≥ √2`, where `1−2/m² ≥ 0`. Either suffices, since the identity is then needed only for large `w`. **Scope:** "sum rules" here means
+   the fixed-`u` dispersion relations of `f` (equivalently of `𝓜`). The fixed-`t` rules `B^{(2,3,4)}` and the `g`, `h` sum rules are not covered.
+   The floating-point positivity of `F′` (`ADS4_FUNCTIONAL.md` §7.3) is thus not a statement about any fixed-`u` sum rule.
+5. **AdS consequences (conditional on a dictionary [I]; the flat facts used are [D]/[certified]).**
+   * **The dictionary [I].** Assume the AdS moments have the unstripped sum rules as their flat (bulk-point) limit,
+     `ε_kΛ^{2k}C^{(−)^k}_{k,Λp} → B′_k` at fixed `b̂` as `Λ → ∞`. Even for scalars CHMRS's formula carries `(1 + O(J²/m²)) = (1 + O(β²))`
+     corrections, so this is a flat-limit statement, not an exact one.
+   * **Evidence for it.** For even `k` the `B′_k` density in `dm²/m²` is literally CHMRS `eq:bulkpointbknu`,
+     `(2m²−ν²)P/(m^k(m²−ν²)^{(k+2)/2})`, with `P` replaced by the full `d`. This matches the finding of `SKELETON_TEST.md` §8 that
+     spinning moments ≈ the exact scalar skeleton × `D/P`, with the full `D`.
+   * **Untested parts.** The odd-`k` prefactor `Z^{(k+1)/2}` and `ε_odd = ½` differ from the even-type form only at `O(q²/w²)`, below the
+     resolution of SKELETON §8 (`x ≤ 0.2`), so they are untested [I].
+   * **Consequence for the `++` channel.** Under this dictionary the `++` density changes too, by `(1−q/w)^{−2}` relative to the stripped
+     one; for `+−` the factor is `(1−q/w)^{+2}`. The `++` change is what makes `F_U` negative below.
+   * **`ADS4_FUNCTIONAL.md` items superseded.** These are superseded (given the dictionary), and on the available evidence the reading
+     `F′` is the less supported one:
+     * §0 item 3 (bulk-point action = stripped `F`);
+     * §0 item 9 and §7.2–7.4 (flat limit `F′`, with `++` unchanged; "harmless or favourable"; `F′` margins; `Φ′₊₋ = 10𝒥 − 170`).
+
+   **The naive transcription of `Ω_{g3}` [flat facts: D + certified; their AdS reading: I].** Under the dictionary, `Ω_{g3}` as written in `ADS4_FUNCTIONAL.md` has flat limit
    `F_U = ∫[ψ₂B′₂ + ψ₃B′₃] − 5∂_qB′₄|₀ + 5B′₅|₀`. This `F_U` fails on both counts:
    * **Low side:** it keeps the contacts, `+ (60526/3465)g₄ − (2746189/360360)g₅ + (729983/90090)g₆ − (358681/180180)g₆′ + …`
-     (`ε → 0`). Since `g₄ ≥ 0` enters with a positive coefficient, `F_U` bounds nothing.
+     (`ε → 0`). It is therefore not a `|ĝ₃|²`-only bound; whether other sum rules could control these contacts is moot, because
+     `F_U` is not heavy-positive.
    * **Heavy side:** it is **not positive**: `m⁴F_U(++, J = 2, m = 213/200) = −3.33384834423(±3·10⁻¹²)` and `(m = 6/5) = −1.12774359442`
      [certified, Arb integration]. In the `+−` channel the scan is positive (min `3.6·10⁻⁵` at `m ≈ 21.7, J = 244`) [NE].
-   * **Correct uplift [D given the dictionary, I as a statement about AdS].** The uplift of `F_{g3}` must carry the identity weights
+   * **Candidate uplift [flat limit D given the dictionary; everything AdS I].** A functional whose flat limit is `F_{g3}` must carry the identity weights
      `φ₂ = ψ₂`, `φ₃ = ψ₃ − 4x²ψ₂`, `φ₄ = 2x⁴ψ₂ − x²ψ₃`, `φ₅ = −3x⁶ψ₂ + 2x⁴ψ₃`, `φ₆ = ½x⁸ψ₂ − ½x⁶ψ₃`, `φ₇ = −½x¹⁰ψ₂ + ½x⁸ψ₃`:
 
      `Ω^U_{g3} = ∫₀¹dx Σ_{j=2}^{7} φ_j(x) ε_j Λ^{2j} C^{(−)^j}_{j,Λx} − 5Λ¹⁰∂_{ν²}C⁺_{4,ν}|₀ + (25/2)Λ¹⁰C⁻_{5,0}`
 
-     (`ε_j = 1` even, `½` odd). Its flat limit is `F_{g3}` exactly, including the light side, so the contacts cancel. `ADS4_FUNCTIONAL.md`
-     §7.2's "no combination of the `C^±` has flat limit `F_{g3}`" holds only for `k`-diagonal combinations at leading order in `1/m²`.
-     With the exact densities and `ν`-dependent coefficients across `k = 2…7` it is false.
+     (`ε_j = 1` even, `½` odd). Given the dictionary, its flat limit is `F_{g3}`, light side included, so the contacts cancel. That is
+     all that is shown. It is **not** shown to be a valid AdS functional. Missing:
+     * its Regge-regime (`β ∼ 1`) heavy action, needed for positivity in AdS;
+     * the odd-`k` `C⁻₃, C⁻₅, C⁻₇` moments with two spinning pairs, never computed (`C⁻₅` was already needed by `Ω_{g3}`), and `C⁺₆`;
+     * the AdS light sides of `C₄ … C₇`.
+
+     **Given the dictionary**, `ADS4_FUNCTIONAL.md` §7.2's "no combination of the `C^±` has flat limit `F_{g3}`" holds only for
+     `k`-diagonal combinations at leading order in `1/m²`; with the exact densities and `ν`-dependent coefficients across `k = 2…7` it
+     fails.
 6. **What is assumed.** The flat statements 1–4 use only the hypotheses of `FLAT_GRAVITON_BOUND.md` §4.1. These include smeared
    `B′_k` for `k ≤ 7` (and `≤ 9` for the forward pieces of `B^{(1)}_4`, `B^{(1)}_5` if those are smeared), and unsmeared forward limits
-   `∂_qB′₄|₀`, `B′₅|₀`. Item 5's AdS part is [I]: it needs both "reading B" for gravitons and the exact spinning bulk-point limit
+   `∂_qB′₄|₀`, `B′₅|₀`. Item 5's AdS part is [I]: it needs both "reading B" for gravitons and the spinning bulk-point (flat) limit
    `C_k → ε_k^{−1}B′_k`.
 
 ## 1. Definitions and heavy densities [D]
@@ -145,8 +171,8 @@ cover them.
 
 ## 5. `F′` and `F_U`
 
-* **`F′`** [D, U6]: `1/w⁴ = Z² − 2qZ^{5/2} + 2q²Z³ + …` in `r = √Z`, while every sum-rule combination has `E, O ∈ span_q{Z^n}`
-  (times `(2w−q)` for `E`). So `F′` is not a sum-rule functional, and its "light side" is undefined.
+* **`F′`** [D, U6]: `1/w⁴ = Z² − 2qZ^{5/2} + 2q²Z³ + …` in `r = √Z`, while every fixed-`u` sum-rule combination has `E, O ∈ span_q{Z^n}`
+  (times `(2w−q)` for `E`). So `F′` is not a fixed-`u` sum-rule functional, and its "light side" is undefined (completeness: §0 item 4).
 * **`F_U`** [D, U5; certified, `cert_FU_negative.py`]:
   * normal-form heavy action, `++`: `∫[ψ₂(2−uq) + uψ₃](1−uq)^{−2}P_J + (10𝒥 − 20)u³`;
   * `+−`: `∫[ψ₂(2−uq) − uψ₃](1−uq)²P^{(0,8)}_{J−4} + (10𝒥 − 190)u³`;
@@ -168,11 +194,14 @@ cover them.
 | stripped ↔ unstripped identities (kernels, densities, low sides) | [D, exact] |
 | `F_{g3}`, M01, M02 as unstripped functionals; contacts cancel; `A, B` | [D, exact] |
 | their heavy positivity | [certified] (existing Theorem 1 / Theorem R + exact identity) |
-| equality of unstripped and stripped LP optima (same span) | [D] |
+| equality of unstripped and stripped LP optima (same span; compatible truncations only) | [D] |
 | `F′` not a sum-rule combination | [D] |
 | `F_U` keeps contacts; `F_U < 0` at `(++, 2, 213/200)`, `(++, 2, 6/5)` | [D]; [certified] |
 | `F_U` scans | [NE] |
-| `C_k → ε_k^{−1}B′_k` exactly; `Ω^U_{g3}` is the correct AdS uplift | [I] |
+| dictionary `C_k → ε_k^{−1}B′_k` (flat limit; odd-`k` prefactor untested) | [I] |
+| `Ω^U_{g3}` has flat limit `F_{g3}` | [D] given the dictionary |
+| `Ω^U_{g3}` is a valid AdS functional (Regge action, odd-`k` two-pair `C⁻`, AdS light sides) | open |
+| `ADS4_FUNCTIONAL.md` §0 items 3, 9 and §7.2–7.4 superseded | given the dictionary |
 
 ## 7. Code (`ads4/code/flatunstripped/`)
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Reproduce FLAT_UNSTRIPPED.md.  Outputs in cache/ (git-ignored).  ~1 min; scan_FU (floating point, [NE]) ~2 min.
+# Reproduce FLAT_UNSTRIPPED.md.  Outputs in cache/ (git-ignored).  ~20 s; scan_FU (floating point, [NE]) ~2 min.
 #   bash run_all.sh            exact/Arb parts
 #   bash run_all.sh --scan     also the floating-point scan of F_U
 set -u
