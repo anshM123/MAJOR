@@ -65,11 +65,12 @@ def canonical(J):
 
 def M_num(parity, K, P, J, Delta, m):
     sv = (mp.mpf(Delta) + J)/2
-    val = sp.N(sp.sympify(P.get(m, 0)).subs(S, sp.Float(str(sv), 30)), 30)
+    val = sp.N(sp.sympify(P.get(m, 0)).subs(S, sp.Rational(str(sv))), 30)
     return kl.G_prefactor(parity, K, sv)*mp.mpc(str(sp.re(val)), str(sp.im(val)))
 
 if __name__ == '__main__':
-    os.makedirs('data', exist_ok=True)
+    DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
+    os.makedirs(DATA, exist_ok=True)
     Js = [int(a) for a in sys.argv[1:]] or [0, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     for J in Js:
         try:
@@ -81,7 +82,7 @@ if __name__ == '__main__':
             dump[name] = dict(parity=par, K=list(K), monomials=[list(m) for m in monos], coefficients=[str(v) for v in vec],
                               P={str(m): str(p) for m, p in P.items() if p != 0})
             errs = []
-            for Delta in (mp.mpf(J) + mp.mpf('1.37'), mp.mpf(J) + mp.mpf('4.9'), mp.mpf(2*J) + mp.mpf('10.23')):
+            for Delta in (mp.mpf(J) + mp.mpf('1.375'), mp.mpf(J) + mp.mpf('4.875'), mp.mpf(2*J) + mp.mpf('10.25')):
                 if J >= 4 and name in ('pm', 'pp', 'odd', 'oddJ'):
                     m0 = 4 if name in ('pm', 'oddJ') else 0
                     closed = {'pm': cf.M4_pm, 'pp': cf.M0_pp, 'odd': cf.M0_odd, 'oddJ': cf.M4_oddJ}[name](Delta, J)
@@ -92,6 +93,15 @@ if __name__ == '__main__':
                     k2 = cf.K2(num, Delta, 0, 0)
                     closed = cf.K0_even_scalar2(Delta) if name == 'pp' else cf.K0_odd_scalar2(Delta)
                     errs.append(abs(k2/closed - 1))
+                    # literature: KKSZ (5.132) at d=3: |K|^2 = 12 q;  CMT (4.10),(4.11): h^2 = 2 |K|^2
+                    if name == 'pp':
+                        errs.append(abs(closed/(12*cf.q_KKSZ(Delta)) - 1)); errs.append(abs(cf.h_even_CMT(Delta)**2/(2*closed) - 1))
+                    else:
+                        errs.append(abs(cf.h_odd_CMT(Delta)**2/(2*closed) - 1))
+                elif J == 2:
+                    num = M_num(par, K, P, J, Delta, 0)
+                    closed = cf.M0_J2_even(Delta) if name == 'pp' else cf.M0_J2_odd(Delta)
+                    errs.append(abs(num/closed - 1))
             if errs:
                 print(f"J={J:2d} {name:4s}: closed form vs pipeline, max rel. deviation = {mp.nstr(max(errs), 3)}")
-        json.dump(dump, open(f'data/structures_J{J}.json', 'w'), indent=1)
+        json.dump(dump, open(os.path.join(DATA, f'structures_J{J}.json'), 'w'), indent=1)

@@ -48,7 +48,7 @@ def M4_oddJ(Delta, J):    # odd J >= 5, the single structure
 
 # ---- squared kernels  |K|^2 = 4 pi^2 |M|^2 / (N_O N_T^+)
 def K2(M, Delta, J, m):
-    return 4*mp.pi**2*abs(M)**2/(norm_O(Delta, J, m)*NT_PLUS)
+    return 4*mp.pi**2*abs(M)**2/(norm_O(Delta, J, m)*mp.pi**2/3)      # N_T^+ = pi^2/3 per unit C_T
 def Kpm2(Delta, J):
     return K2(M4_pm(Delta, J), Delta, J, 4)
 def Kpp2(Delta, J):
@@ -67,3 +67,34 @@ def K0_odd_scalar2(Delta):
     return (mp.mpf(27)/4*mp.pi**4.5*mp.gamma(Delta)*mp.gamma(Delta - mp.mpf(1)/2)
             * mp.rgamma(2 + Delta/mp.mpf(2))**2*mp.rgamma((7 - Delta)/mp.mpf(2))**2*mp.rgamma((1 + Delta)/mp.mpf(2))**2
             * mp.rgamma((3 + Delta)/mp.mpf(2))**2)
+
+# ---- top components (finite at the unitarity bound Delta = J + 1):  M_{J}[S^{+-}], M_{-J}[S^{++}], M_{-J}[S^{odd}]
+def Mtop_pm(Delta, J):
+    s = (Delta + J)/mp.mpf(2)
+    return (-3j*(-1)**(J//2)*mp.exp(1j*mp.pi*s)*mp.pi**3*mp.mpf(2)**(2 - J)*mp.rf(4, J - 4)
+            * mp.rgamma(s)*mp.rgamma(Delta - 1)*mp.rgamma(1 - (Delta - J)/mp.mpf(2)))
+def Mtop_pp(Delta, J):
+    s = (Delta + J)/mp.mpf(2)
+    return (3j*(-1)**(J//2)*mp.exp(1j*mp.pi*s)*mp.pi**3*mp.mpf(2)**(3 - J)*mp.rf(4, J)
+            * mp.rgamma(s)*mp.rgamma(Delta + 3)*mp.rgamma(1 - (Delta - J)/mp.mpf(2)))
+
+# ---- J = 2 (non-conserved spin 2), structures normalised as in data/structures_J2.json
+def M0_J2_even(Delta):
+    s = Delta/mp.mpf(2) + 1
+    return (3j*mp.pi**3*mp.exp(1j*mp.pi*s)*(Delta - 3)*(Delta - 2)*mp.rgamma(Delta + 2)*mp.rgamma(2 + Delta/mp.mpf(2))
+            * mp.rgamma(3 - Delta/mp.mpf(2)))
+def M0_J2_odd(Delta):
+    s = Delta/mp.mpf(2) + 1
+    return (mp.mpf(3)/4*mp.pi**3.5*mp.exp(1j*mp.pi*s)*mp.mpf(2)**(1 - Delta)*(Delta - 3)*(Delta - 2)
+            * mp.rgamma(2 + Delta/mp.mpf(2))*mp.rgamma((Delta + 3)/mp.mpf(2))**2*mp.rgamma((7 - Delta)/mp.mpf(2)))
+
+# ---- literature forms of the scalar kernel in d = 3
+def q_KKSZ(Delta):        # 1904.05905 (5.132) at d = 3
+    return (mp.mpf(2)**(-8)*mp.pi**4.5*4*36*mp.gamma(Delta)*mp.gamma(Delta - mp.mpf(1)/2)
+            * mp.rgamma(3 - Delta/mp.mpf(2))**2*mp.rgamma(2 + Delta/mp.mpf(2))**4*mp.rgamma((3 + Delta)/mp.mpf(2))**2)
+def h_even_CMT(Delta):    # 1710.03199 (4.11)
+    return (12*mp.sqrt(6)*mp.pi**2*mp.sqrt(mp.gamma(2*Delta - 1))*mp.rgamma(2 + Delta/mp.mpf(2))*mp.rgamma(Delta + 3)
+            * mp.rgamma(3 - Delta/mp.mpf(2)))
+def h_odd_CMT(Delta):     # 1710.03199 (4.10)
+    return (12*mp.sqrt(6)*mp.pi**2*mp.sqrt(mp.gamma(2*Delta - 1))*mp.rgamma((Delta + 1)/mp.mpf(2))*mp.rgamma(Delta + 3)
+            * mp.rgamma((7 - Delta)/mp.mpf(2)))

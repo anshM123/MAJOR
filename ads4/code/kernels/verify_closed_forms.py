@@ -1,6 +1,6 @@
 """
-Checks of the closed forms quoted in KERNELS_D3.md against the symbolic pipeline output (J <= 8) and numerically
-(J = 10, 12).  Run after compute_kernels.py J for J = 0,...,8.
+Checks of the closed forms quoted in KERNELS_D3.md against the symbolic pipeline output (J <= 12) and numerically
+(J = 10, 12).  Run after compute_kernels.py J for J = 0,...,12.
   (R0)  P_{-k}/P_0 = C(J,k) (4)_k / (Delta-1-k)_k              for every structure, 0 <= k <= J
   (R4)  P_{4+k}/P_4 = C(J-4,k) (4)_k / (Delta-5-k)_k           for every structure, 0 <= k <= J-4
   (Z)   P_m = 0 for m = 1,2,3;  parity-odd even-J structures and S^{++}: P_m = 0 for m >= 4;
@@ -36,7 +36,7 @@ def check_ratios(J, r):
     return ok
 
 if __name__ == '__main__':
-    for J in range(0, 9):
+    for J in range(0, 13):
         for par in ('even', 'odd'):
             dat = load(J, par)
             if dat is None or not dat[1]:

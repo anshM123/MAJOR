@@ -86,9 +86,9 @@ import sympy as sp
 pp = sp.symbols('p'); psi = sp.expand((1-pp)**3*pp*(65 + 155*pp + 47*pp**2)); print("\n   B_2^(1) weight of F_g3:", psi)
 psi4 = sp.expand((1-pp)**3*pp*(99 + 282*pp + 49*pp**2)); print("   B_2^(1) weight of F_g4:", psi4)
 a1, a2 = 65, -40
-print("   leading curved-regime action a1 Q1/M + a2 Q2/M^2 for (a1,a2) = (65,-40):")
+print("   M^2 x leading curved-regime action, i.e. a1 Q1 + a2 Q2/M, for (a1,a2) = (65,-40); the action itself is (2/m^4)(a1 Q1/M^2 + a2 Q2/M^3):")
 for M in (10, 100, 1000):
     row = []
     for be in map(mp.mpf, ('0.05', '0.2', '0.5', '1.0', '2.0', '3.0')):
-        row.append((mp.nstr(a1*Q1(0, be)/M + a2*Q2(0, be)/M**2, 4), mp.nstr(a1*Q1(4, be)/M + a2*Q2(4, be)/M**2, 4)))
+        row.append((mp.nstr(a1*Q1(0, be) + a2*Q2(0, be)/M, 4), mp.nstr(a1*Q1(4, be) + a2*Q2(4, be)/M, 4)))
     print(f"   M={M}: (scalar kernel, Phi_44 kernel) at beta = 0.05,0.2,0.5,1,2,3:", row)

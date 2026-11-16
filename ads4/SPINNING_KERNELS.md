@@ -180,5 +180,29 @@ scalar kernel is identically zero rather than `1/24`).
    at `ν = ±i(k − ½)`, `k ≤ m` (the zeros of the Pochhammer factor above); restricting to real `ν` is natural only
    for `m_L m_R ≤ 0`.
 
-**What would settle the dictionary:** the heavy-block limit of one spinning block at fixed `β` (currents or
-stress tensors, `d = 3`) in the helicity basis; or the eikonal test.
+**Confirmation from the literature's spinning Regge operators** (`ads4/REGGE_FROM_BLOCKS.md`, agent derivation,
+symbolic and numerical; itself unrefereed). Starting from the differential-operator form of spinning Regge
+theory (Costa–Hansen–Penedones, arXiv:1707.07689, (2.47), (2.54)–(2.55); Kulaxizi–Parnachev–Zhiboedov,
+arXiv:1705.02934, (5.45)) and specialising to `d = 3`:
+* `⟨JJOO⟩`: weight 0 (helicity preserved) gives the scalar harmonic function; weight `±2` (flip) gives
+  `(ν²+¼)(ν²+9/4) P^{−2}_{−1/2+iν}`.
+* `⟨TTOO⟩`: weight 0 gives the scalar harmonic function (two of the operators vanish identically or have no
+  weight-0 part); weight `±4` gives `Π_{k<4}(ν² + (k+½)²) P^{−4}_{−1/2+iν}`. Exact (sympy); the reading of the operators
+  reproduces two printed formulas of the source to 12 digits in `d = 3, 4, 6`.
+* Both pairs spinning: `m` raisings at each end of `P_{−1/2+iν}` give `2^{−m} Π_{k<m}(ν² + (k+½)²) Φ_{m,±m}`; checked for
+  `m ≤ 4` to `10^{−24}`.
+* **The corrected dictionary is confirmed:** the weights are the Regge-pair helicity transfers. In the notation
+  of arXiv:2201.06602: `B^{(1)}` (`++→++`, `+−→+−`; diagonal, positive) has the scalar kernel; `B^{(2)}` (`+−→−+`;
+  `(−1)^J|c^{+−}|²`) has `Φ_{4,−4}` and is a separate component; `B^{(3)}` (`++→+−`; interference) has `P^{−4}`; `B^{(4)}`
+  (`++→−−`; interference `(c^{++})²`) has `Φ_{4,4}`.
+* For the diagonal components there is no `ν`-dependent operator factor in weight 0, so for `m → ∞` at fixed `β`
+  the action of a weight `a_1 p + a_2 p² + …` is `∝ a_1 Q_1/M² + a_2 Q_2/M³` with the **scalar** moments: Lemma Q is the
+  relevant input. The graviton functionals `F_{g3}`, `F_{g4}` of arXiv:2201.06602 use only `B^{(1)}`, with weights
+  `65p − 40p² − …` and `99p − 15p² − …`, identical for `++` and `+−`; the optimal bound there uses all four sum rules.
+* With all components, positivity is the matrix condition `A_{00}^{++} ≥ |A_{44}|`, `A_{00}^{+−} ≥ |A_{4,−4}|`, plus a
+  3×3 determinant with `A_{40}`.
+
+**Still underived (agent's list):** the spinning heavy-block Regge-moment formula itself, on which all of the
+above is conditional; the both-ends structure for `⟨TTTT⟩` (the literature covers currents); flip-channel
+normalisations and phases; `1/m²` corrections; discrete-series components; parity-odd structures and the map
+from the Regge coefficients to `(t_4, α_T)`; the light side.
