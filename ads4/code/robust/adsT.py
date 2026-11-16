@@ -3,7 +3,7 @@
 import sys
 from check import load
 from ads import regge_scan
-CASES = [('M02', 2.2), ('M02', 4.0), ('M02', 6.8), ('M01', 3.2), ('T1n1.5', 1.5), ('T1n1.75', 1.75), ('T3n2', 2.0)]
+CASES = [('M02', 2.2), ('M02', 4.0), ('M02', 6.8), ('M01', 3.2), ('T1', 1.75), ('T3', 2.25), ('T10', 4.0)]
 for name, n in CASES:
     F = load(name)
     for Dg in [100, 1000]:

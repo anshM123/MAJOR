@@ -16,7 +16,8 @@ def LAdS(F, Lams):
 rows = [('Fg3', 1.0, 'F_g3 if positive down to m = Lam (ADS4_LIGHT.md)'), ('Fg3', 8.03, 'F_g3, Regge threshold C1=1, Dg<=300'),
         ('Fg3', 22.1, 'F_g3, Regge threshold C1=1, Dg=1000'), ('Fg3', 10.05, 'F_g3, Regge threshold C1=10, Dg=100'),
         ('M01', 3.2, 'M01, C1=1'), ('M02', 2.2, 'M02, C1=1'), ('M02', 4.0, 'M02, C1=3'), ('M02', 6.8, 'M02, C1=10'),
-        ('T1n1.5', 1.5, 'T1n1.5 (targeted C1=1)'), ('T1n1.75', 1.75, 'T1n1.75 (targeted C1=1)'), ('T3n2', 2.0, 'T3n2 (targeted C1=3)')]
+        ('M01', 5.2, 'M01, C1=3'), ('M01', 7.9, 'M01, C1=10'),
+        ('T1', 1.75, 'T1 (targeted C1=1)'), ('T3', 2.25, 'T3 (targeted C1=3)'), ('T10', 4.0, 'T10 (targeted C1=10)')]
 print('%-45s %6s %10s %10s %12s %12s %12s' % ('case', 'n', "A'", "B'", 'Dg=20', 'Dg=100', 'Dg=1000'))
 for name, n, lab in rows:
     F = load(name); k = F.k(); A, B, BA = F.AB()

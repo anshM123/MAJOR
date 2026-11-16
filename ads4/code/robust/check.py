@@ -3,7 +3,7 @@
 For each channel: min of FF/N over physical states (u = 1/m^2 in [1e-6, 1], J <= min(JCAP, (BMAX/sqrt(u) - 1)/2));
 the envelope thresholds n(C) := sup{ m : FF - C u N < 0 }  (C = C1 of the AdS envelope C1 Lam^2/m^2, flat parts);
 scaling limit 2 f^(bhat) / rho(bhat) on [0, 3000]; Lemma-M asymptotic data.
-Usage: python3 check.py NAME   (NAME in cache/functionals.json, or 'Fg3')
+Usage: python3 check.py NAME[:n] ...   (NAME in cache/functionals.json or Fg3; with :n only states m >= n M are scanned)
 """
 import sys, json, os
 import numpy as np
@@ -16,10 +16,10 @@ def load(name):
     if name == 'Fg3':
         return paper_fg3().normalised()
     d = json.load(open(os.path.join(CACHE, 'functionals.json')))[name]
-    return Functional(d['psi2'], d['psi3'], d['a'], name)
+    return Functional(d['psi2'], d['psi3'], d['a'], name).normalised()
 
-def dense(F, BMAX=200.0, JCAP=3000, nu=140, verbose=True):
-    us = np.unique(np.concatenate([np.logspace(-6, 0, nu), np.linspace(0.9, 1, 21)]))
+def dense(F, BMAX=200.0, JCAP=3000, nu=140, verbose=True, umax=1.0):
+    us = np.unique(np.concatenate([np.logspace(-6, 0, nu), np.linspace(0.9, 1, 21), np.linspace(0.5, 1, 101)])) * umax
     out = {}
     for h in ['++', '+-']:
         worst = (np.inf, None); thr = {C: 0.0 for C in CS}; worstpos = (np.inf, None)
@@ -60,9 +60,11 @@ def scaling(F, verbose=True):
     return dict(min_ratio=float(r[i]), at=float(bh[i]), c3=float(c3))
 
 if __name__ == '__main__':
-    for name in sys.argv[1:] or ['Fg3']:
+    for arg in sys.argv[1:] or ['Fg3']:
+        name, _, nn = arg.partition(':')          # NAME:n  -> only states with m >= n (u <= 1/n^2), for rescaled functionals
         F = load(name)
+        umax = 1 / float(nn) ** 2 if nn else 1.0
         A, B, BA = F.AB()
         print('== %s: k=%.6f A=%.4f B=%.4f B_AdS=%.4f a=%.5f' % (name, F.k(), A, B, BA, F.a), flush=True)
         scaling(F)
-        dense(F)
+        dense(F, umax=umax)

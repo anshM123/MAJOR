@@ -19,9 +19,9 @@ if [[ "$stage" == all ]]; then
   # 2. rationalise the chosen functionals (exact coefficients in cache/functionals.json)
   python3 mkfun.py M01 mtest.json delta=0.1 BA=120.0 Y=2.0
   python3 mkfun.py M02 mtest.json delta=0.2 BA=120.0 Y=2.0
-  python3 mkfun.py T1n1.5 target_d4_4_0.02.json C1=1 n=1.5
-  python3 mkfun.py T1n1.75 target_d4_4_0.02.json C1=1 n=1.75
-  python3 mkfun.py T3n2 target_d4_4_0.02.json C1=3 n=2
+  python3 mkfun.py T1 target_d4_4_0.02.json C1=1 n=1.75
+  python3 mkfun.py T3 target_d4_4_0.02.json C1=3 n=2.25
+  python3 mkfun.py T10 target_d4_4_0.02.json C1=10 n=4
 fi
 # 3. certificates: robust margin delta' = 9/50 (M02), 9/100 (M01); regions P, C, M, S++, S+-; exact low side
 for spec in "M02 9/50" "M01 9/100"; do
@@ -37,11 +37,12 @@ done
 grep -h '^VERDICT' cache/logs/*.log
 if [[ "$stage" == all ]]; then
   # 4. dense floating-point checks and AdS scans
-  python3 -u check.py M02 M01 Fg3 T1n1.5 T1n1.75 T3n2 | tee cache/check.log
+  python3 -u check.py M02 M01 Fg3 | tee cache/check.log
+  python3 -u check.py T1:1.75 T3:2.25 T10:4 | tee cache/checkT.log
   python3 -u ads.py M02 regge 20 100 1000 | tee cache/ads_regge_M02.log
   python3 -u ads.py M01 regge 20 100 1000 | tee cache/ads_regge_M01.log
   python3 -u ads.py Fg3 regge 20 100 1000 | tee cache/ads_regge_Fg3.log
   python3 -u ads.py M02 hybrid 100 1000   | tee cache/ads_hybrid_M02.log
-  python3 -u adsT.py                       | tee cache/adsT.log
+  python3 -u adsT.py                       | tee cache/adsT.log      # includes the targeted T1, T3, T10
   python3 -u bound.py                      | tee cache/bound.log
 fi

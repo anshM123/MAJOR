@@ -108,7 +108,8 @@ def paper_fg3():
 
 # ------------------------------------------------------------------ flat partial waves: running dot products
 def gl01(n):
-    x, w = leggauss(n)
+    from scipy.special import roots_legendre      # O(n); numpy's leggauss is O(n^3)
+    x, w = roots_legendre(n)
     return (x + 1) / 2, w / 2
 
 def flat_integrals(h, u, Jmax, W, p):

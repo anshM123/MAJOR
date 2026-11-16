@@ -9,7 +9,7 @@ degs = [(4, 4), (6, 6), (8, 8)] if len(sys.argv) < 2 else [tuple(int(t) for t in
 for d2, d3 in degs:
     G = Grid(d2, d3, verbose=False)
     for delta in [0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.6]:
-        for LREF in [np.inf, 100.0]:
+        for LREF in [np.inf]:
             st, v, info = solve(G, delta, LREF=LREF)
             if st == 0:
                 row = dict(d2=d2, d3=d3, delta=delta, LREF=str(LREF), A=info['A'], B=info['B'], B_AdS=info['B_AdS'], a=info['a'],

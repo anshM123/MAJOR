@@ -8,10 +8,15 @@ from lp import Grid, solve, CACHE
 d2, d3 = (int(sys.argv[1]), int(sys.argv[2])) if len(sys.argv) > 2 else (4, 4)
 delta0 = float(sys.argv[3]) if len(sys.argv) > 3 else 0.02
 LAM = 100.0
-G = Grid(d2, d3, verbose=False)
+CASES = [(1.0, n) for n in [1.3, 1.5, 1.75, 2.0]] + [(3.0, n) for n in [2.0, 2.25, 2.5, 3.0]] + [(10.0, n) for n in [4.0, 5.0, 6.0]]
+G0 = Grid(d2, d3, verbose=False)
 out = []
-for C1 in [1.0, 3.0, 10.0]:
-    for n in [1.05, 1.1, 1.2, 1.3, 1.4, 1.5, 1.75, 2.0, 2.5, 3.0, 4.0]:
+for C1, n in CASES:
+    if True:
+        # the envelope constraint is largest at the endpoint u0 = 1/n^2: add the endpoint and a dense set below it
+        import copy
+        G = copy.copy(G0)
+        G.add_u(np.unique(np.concatenate([np.linspace(0.7, 1.0, 31), np.linspace(0.97, 1.0, 7)])) / n ** 2)
         st, v, info = solve(G, delta0, C=C1, u0=1 / n ** 2, LAMS=LAM / n)
         if st != 0:
             print('C1=%g n=%.2f: status %d %s' % (C1, n, st, info.get('msg')), flush=True)

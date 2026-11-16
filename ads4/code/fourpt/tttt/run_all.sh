@@ -21,3 +21,11 @@ python3 t10_kappa_symbolic.py 2   # symbolic, l = 2 (long)
 python3 t9_taylor_validate.py     # Taylor-mode operator application vs symbolic word pairs
 gcc -O3 -march=native -fopenmp -shared -fPIC cblock12.c -o libcblock12_d.so -lm
 python3 t11_feas_taylor.py 1.0 40 2   # <TTTT> feasibility at a heavy point (~10 min)
+# l = 2 heavy vertices, absolute constant, end-to-end <TTTT> (third request; long runs: use nohup, logs in cache/)
+python3 t12_vertex_l2.py b0.4 1 2 4 8     # heavy vertices of CHL's X_h along beta = 0.4 (~1.5 h)
+python3 t14_vertex_fit_l2.py              # E = m^8 T^hh/lambda_h -> 8; asymmetry of the mixed waves
+python3 t15_mft_constant_l2.py            # absolute two-pair MFT constant for l = 2
+python3 tmoments_l2.py 1.0 40 float64     # Taylor-mode <TTTT> waves on the moment grid, beta = 1, m ~ 40 (~4 h on a loaded machine)
+python3 tmoments_l2.py 1.0 70 float64     # second mass (~4 h)
+python3 t13_analysis_l2.py cache/modes_l2_D45.861045_J20_d.npz 8 6 0
+python3 t13_analysis_l2.py cache/modes_l2_D80.484304_J36_d.npz 8 6 0

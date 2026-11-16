@@ -8,7 +8,7 @@ End-to-end <TTTT> check (coordinator step 2 of the third request): exact tensor 
 Comparisons (no fitted constant in the prediction):
   * class fits (8 parity classes, 625 modes, predicted weights) -> R_c = T_c(fit)/T_c(pred) for each wave;
   * one-scale fit of all 625 modes per wave;
-  * Sigma_+- for the mixed wave W[e, e], e = X_same + w X_opp (w chosen so that both helicities contribute equally):
+  * Sigma_+- for the mixed wave W[e, e], e = X_same + w X_opp (w chosen so that the predicted T_oo = 2 T_ss):
     Sigma_+ = T_oo + T_ss (multiplies R_L R_R), Sigma_- = T_oo - T_ss (multiplies the opposite-sign term g1^2 S_L S_R);
   * prediction-free factorisation  T^{so} T^{os}/(T^{ss} T^{oo}) = 1 from the fitted class amplitudes.
 Usage: python3 t13_analysis_l2.py cache/modes_l2_....npz c_T [k nu]
@@ -129,7 +129,7 @@ if __name__ == "__main__":
     fits = {}
     waves = {c: c for c in COMBOS}
     lo, ls = float(lam('opp', mp.mpf(D), J)), float(lam('same', mp.mpf(D), J))
-    w_mix = np.sqrt(ls/lo)                      # equal predicted weight of the two helicities in W[e,e] (T^{hh} ~ lambda_h)
+    w_mix = np.sqrt(2*ls/lo)                    # predicted T_oo = 2 T_ss in W[e,e] (T^{hh} ~ lambda_h): Sigma_- = +T_ss != 0
     mix = {('same', 'same'): 1.0, ('same', 'opp'): w_mix, ('opp', 'same'): w_mix, ('opp', 'opp'): w_mix**2}
     waves['mix'] = mix
     for name, cmb in waves.items():
@@ -151,7 +151,7 @@ if __name__ == "__main__":
             Sp = (sol[(1, 1, -1, -1)] + sol[(1, -1, -1, 1)])/(Tp[(1, 1, -1, -1)] + Tp[(1, -1, -1, 1)])
             dm = Tp[(1, 1, -1, -1)] - Tp[(1, -1, -1, 1)]
             Sm = (sol[(1, 1, -1, -1)] - sol[(1, -1, -1, 1)])
-            extra = f";  Sigma_+ fit/pred = {Sp:.4f};  Sigma_- = T_oo - T_ss: fit {Sm:.4e} vs pred {dm:.4e} (relative to Sigma_+ pred: {Sm/(Tp[(1,1,-1,-1)] + Tp[(1,-1,-1,1)]):.2e})"
+            extra = f";  Sigma_+ fit/pred = {Sp:.4f};  Sigma_- fit/pred = {Sm/dm:.4f}"
         offs = max(abs(sol[c]) for c in CLASSES if abs(Tp[c]) <= 1e-6*Tmax) if any(abs(Tp[c]) <= 1e-6*Tmax for c in CLASSES) else 0
         pr(f"  wave {name}: class ratios fit/pred " + ", ".join(f"{n}: {v:.4f}" for n, v in R.items()) +
            f";  |classes predicted 0|/T_pred max: {offs/Tmax:.1e};  LSQ resid {resid:.1e};  one-scale fit {s1.real:.4f}{s1.imag:+.1e}i (resid {r1:.1e})" + extra)

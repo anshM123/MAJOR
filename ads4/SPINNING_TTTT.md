@@ -111,10 +111,8 @@ Status (revised, §3.5): (a) the MFT helicity factors `A_h` are now derived from
 the identity `κ_h A_h = 2^{3J+3/2}` is proved symbolically for `l = 1` and holds exactly (rational arithmetic) at four points for `l = 2`
 (`out_t8_kappa_exact.txt`; a symbolic `l = 2` run did not finish, §3.5); (c) Assumption T. Not verified end to end (no `⟨TTTT⟩` moments, §4).
 
-**3.4 What is not done for `l = 2`.** The closed forms of the helicity lines in the differential-basis words as functions of `(Δ,J)`
-(position-space closed form only, §3.5); the heavy vertex `V_h` of the `l = 2` helicity structures and hence the absolute two-pair constant
-(expected `1/4` per helicity quadruple by the same algebra as for `l = 1` [I]: with `p[T^{E,h}]` now known exactly, the missing input is the
-heavy limit of `T^{E,h}` itself, since `p V²` is invariant under rescaling the structure); parity-odd exchanges.
+**3.4 What is not done for `l = 2`.** Closed forms of the helicity lines in the differential-basis words as functions of `(Δ,J)`; only the
+position-space closed form of §3.5 exists. Also: parity-odd exchanges. (The heavy vertices and the absolute constant are now done: §3.6.)
 
 **3.5 CHL's structures in position space; direct Fock computation for `[TT]`; the `κ_h A_h` identity (`chl_xspace.py`, `t7_fock_l2.py`,
 `t7b_closed_forms.py`, `t8_kappa_exact.py`, `t10_kappa_symbolic.py`).**
@@ -154,6 +152,46 @@ identity between rational functions of `(Δ,J)`.
 * `l = 2` [NE, exact]: `κ_h A_h/2^{3J+3/2} = 1` exactly (rational arithmetic, algebraic `2^{J}` tracked) for both helicities at `(97/10,13/3)`,
   `(53/4,11/2)`, `(61/7,29/5)`, `(127/10,47/7)` (`out_t8_kappa_exact.txt`); `T X_h(Δ) ∝ X_h(Δ̃)` holds exactly at each point (shadow commutes
   with helicity). Symbolic `l = 2`: not completed. The word decomposition over `Q(Δ,J)` (`t10_kappa_symbolic.py 2`) did not finish its first step within the session's limits (about 2 h, or killed for memory). So the `l = 2` identity rests on the four exact points [NE], not on a proof.
+
+**3.6 Heavy vertices of the `l = 2` helicity structures and the absolute MFT constant (`t12_vertex_l2.py`, `t14_vertex_fit_l2.py`,
+`t15_mft_constant_l2.py`; outputs `out_t12_vertex_l2_b0.4.txt`, `out_t14_vertex_fit_l2.txt`, `out_t15_mft_constant_l2.txt`).**
+
+*Method.* This is the same as for `l = 1` (`fourpt/vertex2`, `t3_vertex_l1`).
+* The exact word coefficients of `X_h(Δ,J)` are used on the left vertex. The right vertex uses `T X_h(Δ) = λ_h X_h(Δ̃)` (exact, §3.5).
+* The shadow integrand is evaluated at fixed `(X,Y) = m(x,y)` (`fourpt/t7_vertex_l2.helicity`; 30 digits), on the ray
+  `A_± = s A_±⁰` with `A_+⁰ = 22.79`, `A_-⁰ = 4.5` (`β = 0.40`) and `s = 1, 2, 4, 8` (`m = 22.3 … 178.7`, `J = 4 … 35.5`).
+* One point on a ray with `β = 0.9` (`m = 44.2`) was also computed.
+* Control: the same pipeline for `l = 1` reproduces the closed-form vertices of `predict4` (ratios `1.003`–`1.01` on the diagonal waves at
+  `m = 22, 44`, with the known antisymmetric `O(1/m)` term on the mixed ones).
+
+*Results.*
+* **Helicity purity** [NE]: `X_same` couples only `h_2 = −h_1`, and `X_opp` only `h_2 = h_1`. Wrong-helicity components are `10⁻⁵…10⁻⁹` of the
+  leading ones at `m = 22`.
+* **Factorisation**: `T^{hLhR} = V_{hL}V'_{hR}` holds exactly.
+* **Leading vertex [ID, numerical]**: `T^{hh} = λ_h E/m⁸`, with `E` helicity-independent and `E → 8`:
+  - `m⁸T^{hh}/λ_h = 10.24, 8.495, 8.120, 8.030` (same) and `10.33, 8.514, 8.125, 8.031` (opp) at `m = 22.3, 44.7, 89.4, 178.7`;
+  - `m²(E/8 − 1) = 139.6, 123.4, 119.9, 119.0`, i.e. `O(1/m²)` corrections;
+  - Richardson extrapolation gives `E(∞) = 7.9996`.
+* **Asymmetry of the mixed waves.** `T^{so}/T^{os} = 75.7, 6.60, 2.52, 1.58` along the ray, approaching 1. It tracks `λ_o/λ_s = 141.8, 8.94,
+  2.92, 1.70`. This is the antisymmetric (Weyl-odd) `O(1/m)` term, as for `l = 1`. For stress tensors it is large at small `J`, because
+  `A_opp = (−J)_4/(J+1)_4` is `0.014` at `J = 4`. The geometric mean is symmetric: `m⁸√(T^{so}T^{os}/(λ_sλ_o)) = 10.46 … 8.032`.
+* Hence the leading two-pair coefficient is
+
+  **`T^{hLhR}_h = 8 √(λ_{hL}λ_{hR})/m⁸`** on the helicity classes of `(hL, hR)`, with `λ_h = 2^{2J+1}P(Δ̃)/(A_hP(Δ))` and
+  `P(Δ) = ((2−Δ+J)/2)_4((Δ+J−7)/2)_4`.
+
+  Equivalently, the Weyl-covariant family `e_h ∝ X_h/√λ_h` has the Weyl-even vertex `V_e² = 8/m⁸`, the `l = 2` analogue of
+  `V_ĥ ∝ A_±²m²(A_+²+A_−²)/2`.
+
+*Absolute constant.* With the exact Fock data `p[X_h] = |C_2|²A_hP_FK(1,1)/2304` (§3.5):
+* `p[X_h]8^{−J}T^{hh} = 2^{12}P(Δ)P(Δ̃)P_FK(1,1)E/(2304m⁸)`. **`A_h` cancels**, so the normalisation is helicity-independent and Weyl-even.
+* The algebra of `t2_mft_heavy_l1` with `l = 2` (`a_{3,3}`, `4^6`, `m^{−10}`) gives `Q_h = (E/8)(1 + O(1/m²))`. At `E = 8` the result is
+  `Q_h = 0.98837, 0.99988, 0.9999988` at `m = 102, 10³, 10⁴` (`β = 0.4`), and similarly at `β = 1, 2` (`out_t15`).
+* So **the constant is `1/4` per helicity quadruple for stress tensors too** [NE: the exact Fock data and the exact structures enter;
+  `E = 8` is a numerical limit to `5·10⁻⁵`, not a proof].
+* Consequently **`C^± = (2P_{−½+iν}(cosh β)/m^{2k})(|c_same|² ± |c_opp|²)`** for `⟨TTTT⟩` with MFT-normalised helicity couplings [D given
+  `E = 8`]. The sign of the opposite-sign term follows from the same covariant kernel argument as for currents (`SPINNING_4PT.md` §4.5) [I for
+  `l = 2`; tested end to end in §4.5].
 
 ## 4. `⟨TTTT⟩` blocks and moments (coordinator goals 1, 3)
 
@@ -232,6 +270,8 @@ A prediction-free factorisation test `M[s,s]M[o,o]/M[s,o]² → 1` would need on
 | `taylor4.py`, `cblock12.c` | Taylor-mode application of the `D`-words; any-order `(P,Q)`-jets; block library with order-11 jets | — |
 | `t9_taylor_validate.py` | Taylor mode vs symbolic word pairs; vertex commutation at order 8 | `out_t9_taylor_validate.txt` |
 | `t11_feas_taylor.py` | `⟨TTTT⟩` feasibility at a heavy point: timing, cancellation, float64 vs long double | `out_t11_feas_taylor.txt` |
+| `t12_vertex_l2.py`, `t14_vertex_fit_l2.py`, `t15_mft_constant_l2.py` | `l = 2` heavy vertices of `X_h`; `E → 8`; absolute MFT constant | `out_t12_vertex_l2_b0.4.txt`, `out_t14_vertex_fit_l2.txt`, `out_t15_mft_constant_l2.txt` |
+| `tmoments_l2.py`, `t13_analysis_l2.py` | Taylor-mode `⟨TTTT⟩` waves on the moment grid; end-to-end comparison | `cache/prod_*.log`, `out_t13_analysis_l2_*.txt` |
 | `chl_xspace.py` | CHL `T^{E,h}` in position space, exact; double-twist limit | — |
 | `t7_fock_l2.py`, `t7b_closed_forms.py` | Fock data of `[JJ]`, `[TT]` in CHL's helicity basis; closed forms | `out_t7_fock_l1.txt`, `out_t7_fock_l2.txt`, `out_t7b_closed_forms.txt` |
 | `t8_kappa_exact.py`, `t10_kappa_symbolic.py` | `κ_h A_h = 2^{3J+3/2}`: exact at points / symbolic | `out_t8_kappa_exact.txt`, `out_t10_kappa_symbolic_l*.txt` |

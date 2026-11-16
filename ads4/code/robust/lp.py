@@ -79,6 +79,21 @@ class Grid:
         self.Lfin = np.array([-11 / 6] + [6 * self._fact(i - 1) / self._fact(i + 3) for i in range(1, d2 + 1)]) if r == 3 else None
         self.b2, self.b3 = b2, b3
 
+    def add_u(self, us, bmax=200.0, Jcap=2500):
+        """append physical rows at extra u values (e.g. dense near the endpoint u0 of an envelope-targeted LP)."""
+        b2 = basis2(self.d2, self.r); b3 = basis3(self.d3, self.r)
+        add = {k: [getattr(self, k)] for k in ['B2', 'B3', 'FWc', 'u', 'J', 'h']}
+        for u in us:
+            Jm = jmax_for(u, bmax, Jcap)
+            for h in ['++', '+-']:
+                Js, B2, B3 = flat_parts_basis(h, u, Jm, b2, b3)
+                if h == '++':
+                    sel = Js % 2 == 0; Js, B2, B3 = Js[sel], B2[sel], B3[sel]
+                add['B2'].append(B2); add['B3'].append(B3); add['FWc'].append(phi_coef(h, Js, u))
+                add['u'].append(np.full(len(Js), u)); add['J'].append(Js); add['h'].append(np.full(len(Js), SIGMA[h]))
+        for k, v in add.items():
+            setattr(self, k, np.concatenate(v))
+
     @staticmethod
     def _fact(n):
         from math import factorial
