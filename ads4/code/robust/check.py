@@ -18,7 +18,7 @@ def load(name):
     d = json.load(open(os.path.join(CACHE, 'functionals.json')))[name]
     return Functional(d['psi2'], d['psi3'], d['a'], name)
 
-def dense(F, BMAX=300.0, JCAP=8000, nu=260, verbose=True):
+def dense(F, BMAX=200.0, JCAP=3000, nu=140, verbose=True):
     us = np.unique(np.concatenate([np.logspace(-6, 0, nu), np.linspace(0.9, 1, 21)]))
     out = {}
     for h in ['++', '+-']:

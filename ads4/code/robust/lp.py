@@ -118,8 +118,27 @@ class Grid:
 def _rn(R):
     return R / np.maximum(np.abs(R).max(axis=1), 1e-300)[:, None]
 
-def solve(G, delta, C=0.0, u0=1.0, dsc=None, LREF=np.inf, matter=True, maxit=40, verbose=False, vbound=1e5, warm=None):
-    """Returns (status, v, info)."""
+def LAdS_rows(G, Lams, n=4000):
+    """16 int_0^1 phi(p)/(p^2 + 9/(4 Lams^2)) dp for each psi2 basis function (exact AdS light-side log, ADS4_LIGHT.md)."""
+    from rcommon import gl01
+    # substitution p = a sinh(t)-type clustering is unnecessary: phi ~ p near 0, integrand bounded by 1/(2a); use graded GL panels
+    a = 1.5 / Lams
+    edges = np.unique(np.concatenate([[0.0], a * np.logspace(-3, np.log10(1 / a), 60), [1.0]]))
+    edges = edges[edges <= 1.0]
+    x, w = np.polynomial.legendre.leggauss(40)
+    tot = np.zeros(G.n2)
+    for lo, hi in zip(edges[:-1], edges[1:]):
+        p = lo + (x + 1) * (hi - lo) / 2; ww = w * (hi - lo) / 2
+        for i, c in enumerate(G.b2):
+            tot[i] += np.sum(ww * peval(c, p) / (p * p + a * a))
+    return 16 * tot
+
+def solve(G, delta, C=0.0, u0=1.0, dsc=None, LREF=np.inf, matter=True, maxit=40, verbose=False, vbound=1e5, warm=None, LAMS=None, mreg=None):
+    """Returns (status, v, info).
+    mreg = dict(BA, u1, Y, amin, safety): adds a linear sufficient proxy for the Lemma-M certificate at bhat >= BA (section 4 of the .md):
+      (1-delta) gamma0 BA/(1+ds)^3 >= safety (4/(3pi)) [2(1+delta)(|psi2'''(1)| + ||psi2''''||_1) + u1(1+delta)(|psi3'''(1)| + ||psi3''''||_1
+                                       + |(p^2psi2)'''(1)| + ||(p^2psi2)''''||_1)]/(1-ds)^4 + 1.2 (1+delta)^2 Y^2/(2(1-delta) amin (1-ds)^2),
+      gamma0 = -psi2''(0), |psi3(0)| <= Y, a >= amin  (L1 norms by 64-point Gauss-Legendre, absolute values via auxiliary variables)."""
     if dsc is None:
         dsc = delta
     n2, n3, nv = G.n2, G.n3, G.nv
@@ -128,7 +147,9 @@ def solve(G, delta, C=0.0, u0=1.0, dsc=None, LREF=np.inf, matter=True, maxit=40,
     beq = [1.0]
     # objective
     c = np.zeros(nv)
-    if np.isinf(LREF):
+    if LAMS is not None:
+        c[:n2] = LAdS_rows(G, LAMS)
+    elif np.isinf(LREF):
         c[:n2] = 16 * G.Lfin * 1e-3; c[0] += 16
     else:
         c[:n2] = 16 * G.Lfin; c[0] += 16 * (np.log(LREF) - np.log(1.5))
@@ -164,12 +185,19 @@ def solve(G, delta, C=0.0, u0=1.0, dsc=None, LREF=np.inf, matter=True, maxit=40,
     if warm is not None:
         cuts += warm
     bounds = [(-vbound, vbound)] * (nv - 1) + [(0, vbound)]
+    naux = 0
+    if mreg is not None:
+        Mrows, Mb, naux, bounds = m_proxy(G, delta, mreg, bounds)
+    padc = lambda R: np.hstack([R, np.zeros((R.shape[0], naux))]) if naux else R
+    Afix = padc(Afix); cuts = [padc(x) for x in cuts]; Aeq = padc(Aeq); c = np.concatenate([c, np.zeros(naux)])
+    if mreg is not None:
+        Afix = np.concatenate([Afix, Mrows]); bfix = np.concatenate([bfix, Mb])
     for it in range(maxit):
         Aub = np.concatenate([Afix] + cuts); bub = np.concatenate([bfix, np.zeros(sum(len(x) for x in cuts))])
         res = linprog(c, A_ub=Aub, b_ub=bub, A_eq=Aeq, b_eq=beq, bounds=bounds, method='highs')
         if res.status != 0:
             return res.status, None, {'msg': res.message, 'it': it}
-        v = res.x
+        v = res.x[:nv]
         B2, B3, FW = G.eval_parts(v)
         FF = B2 + B3 + FW
         N = np.abs(B2) + np.abs(B3) + np.abs(FW)
@@ -184,12 +212,47 @@ def solve(G, delta, C=0.0, u0=1.0, dsc=None, LREF=np.inf, matter=True, maxit=40,
         # add the most violated ones (by relative violation), at most 4000 per iteration, plus local neighbours
         rel = g[viol] / np.maximum(N[viol], 1e-300)
         order = viol[np.argsort(rel)][:4000]
-        cuts.append(-G.rows_R1(order, np.sign(B2[order]), np.sign(B3[order]), delta, C) / N[order][:, None])
+        cuts.append(padc(-G.rows_R1(order, np.sign(B2[order]), np.sign(B3[order]), delta, C) / N[order][:, None]))
     else:
         return 9, v, {'msg': 'cutting planes did not converge', 'it': it}
     F = Functional.from_vars(v, G.d2, G.d3, G.r)
     A, B, BA = F.AB()
     return 0, v, {'A': A, 'B': B, 'B_AdS': BA, 'k': F.k(), 'it': it, 'a': v[-1], 'cuts': cuts}
+
+def m_proxy(G, delta, mreg, bounds):
+    from numpy.polynomial import polynomial as Pn
+    BA, u1, Y, amin, saf = mreg['BA'], mreg['u1'], mreg['Y'], mreg['amin'], mreg.get('safety', 1.4)
+    n2, n3, nv = G.n2, G.n3, G.nv
+    x, w = np.polynomial.legendre.leggauss(64); p = (x + 1) / 2; w = w / 2
+    quants = []   # (row over v, weight in the proxy)
+    def der(c, k): return Pn.polyder(np.asarray(c, float), k) if len(c) > k else np.zeros(1)
+    fam = [('psi2', G.b2, 0, 2 * (1 + delta)), ('psi3', G.b3, n2, u1 * (1 + delta)),
+           ('p2psi2', [np.concatenate([[0, 0], c]) for c in G.b2], 0, u1 * (1 + delta))]
+    for nm, basis, off, wt in fam:
+        r = np.zeros(nv)
+        for i, cc in enumerate(basis): r[off + i] = Pn.polyval(1.0, der(cc, 3))
+        quants.append((r, wt))
+        for k in range(len(p)):
+            r = np.zeros(nv)
+            for i, cc in enumerate(basis): r[off + i] = Pn.polyval(p[k], der(cc, 4))
+            quants.append((r, wt * w[k]))
+    naux = len(quants)
+    rows, bb = [], []
+    for j, (r, wt) in enumerate(quants):
+        for sg in (1, -1):
+            R = np.zeros(nv + naux); R[:nv] = sg * r; R[nv + j] = -1; rows.append(R); bb.append(0.0)
+    ds = 8 * np.sqrt(u1) / BA
+    R = np.zeros(nv + naux)
+    g0 = np.zeros(nv); g0[:n2] = [-2 * c[2] for c in G.b2]          # -psi2''(0)
+    R[:nv] = -(1 - delta) * g0 * BA / (1 + ds) ** 3
+    for j, (r, wt) in enumerate(quants): R[nv + j] = saf * (4 / (3 * np.pi)) * wt / (1 - ds) ** 4
+    Ka = 1.2 * (1 + delta) ** 2 * Y ** 2 / (2 * (1 - delta) * amin * (1 - ds) ** 2)
+    rows.append(R); bb.append(-Ka)
+    bounds = list(bounds)
+    bounds[n2] = (-Y, Y)                       # y_0 = psi3(0)
+    bounds[nv - 1] = (amin, bounds[nv - 1][1])
+    bounds += [(0, None)] * naux
+    return np.array(rows), np.array(bb), naux, bounds
 
 def ratios(G, v):
     """min over physical grid rows of FF/N and the per-row 'envelope threshold' FF/(u N)."""
