@@ -117,7 +117,7 @@ void block_get(const real *Bt, long idx, double *out2) { to2(Bt[idx], out2); }
 
 /*
  * out[p][k][l] (as hi,lo pairs) = sum_{n,j} B_{n,j} sig^n (Delta+n)^k r^n P_j^{(l)}(cosh chi),  k <= kmax, l <= lmax,
- * sig = +1 or -1.  r, chi given as (hi, lo) pairs.  cut: terms with r^n < exp(-cut) are dropped.
+ * sig = +1 or -1.  r, chi given as (hi, lo) pairs.  cut: levels n with (r e^chi)^n e^{J chi} n^{kmax+2 lmax+6} < exp(-cut) are dropped.
  */
 void block_eval(const real *Bt, const long *off, const double *Delta2, int J, int N, int npts,
                 const double *r2, const double *chi2, int sig, int kmax, int lmax, double cut, double *out)
@@ -133,7 +133,14 @@ void block_eval(const real *Bt, const long *off, const double *Delta2, int J, in
             real r = from2(r2 + 2*p), chi = from2(chi2 + 2*p);
             real lr = LOG(r), emc = EXP(-chi), eta = COSH(chi), r2v = r*r;
             int nmaxp = N;
-            if (lr < 0) { real q = -(real)cut/lr; if (q < (real)N) nmaxp = (int)q + 1; }
+            /* terms decay like (r e^{chi})^n = rho_big^n */
+            if (lr + chi < 0) {
+                /* (r e^chi)^n e^{J chi} n^pw < exp(-cut),  pw = kmax + 2 lmax + 6 (powers of n from the derivatives and from B) */
+                double pw = (double)(kmax + 2*lmax + 6), lrb = (double)(lr + chi), base = cut + (double)J*(double)chi;
+                double q = -base/lrb;
+                for (int it = 0; it < 4; it++) q = -(base + pw*log(q + 10.0))/lrb;
+                if (q < (double)N) nmaxp = (int)q + 1;
+            }
             int jtop = J + nmaxp; if (jtop > jmax) jtop = jmax;
             /* scaled Legendre derivatives Pt[l][j] = P_j^{(l)}(eta) e^{-j chi} */
             for (int l = 0; l < nl; l++) { Pt[l*(jmax + 2) + 0] = (l == 0) ? 1 : 0; Pt[l*(jmax + 2) + 1] = (l == 0) ? eta*emc : ((l == 1) ? emc : 0); }

@@ -1,0 +1,11 @@
+# scalar seeds: K g  vs  shadow integral  (q = |x| = |y|, xi);  third column: ratio
+  Delta=7.3 J=2 dims=(1.75, 1.75, 1.75, 1.75) q=0.25 xi=0.5:  K g = 3.98138031e-03   shadow = 3.97883582e-03   ratio = 1.000640   signs of v5: [np.float64(1.0)]
+  Delta=7.3 J=2 dims=(3.0, 1.75, 3.0, 1.75) q=0.25 xi=0.5:  K g = 6.13222721e-03   shadow = 6.12778578e-03   ratio = 1.000725   signs of v5: [np.float64(1.0)]
+  Delta=7.3 J=2 dims=(3.0, 1.75, 2.0, 2.75) q=0.25 xi=0.5:  K g = 2.77470413e-04   shadow = 2.77313360e-04   ratio = 1.000566   signs of v5: [np.float64(1.0)]
+  Delta=7.3 J=2 dims=(4.0, 1.75, 2.0, 3.75) q=0.25 xi=0.5:  K g = 1.55000999e-05   shadow = 1.54938707e-05   ratio = 1.000402   signs of v5: [np.float64(1.0)]
+  Delta=7.3 J=2 dims=(2.0, 3.75, 4.0, 1.75) q=0.25 xi=0.5:  K g = 1.55000999e-05   shadow = 1.55076443e-05   ratio = 0.999514   signs of v5: [np.float64(1.0)]
+  Delta=8.6 J=3 dims=(1.75, 1.75, 1.75, 1.75) q=0.25 xi=0.5:  K g = -8.10772542e-03   shadow = -8.10173093e-03   ratio = 1.000740   signs of v5: [np.float64(1.0)]
+  Delta=8.6 J=3 dims=(3.0, 1.75, 3.0, 1.75) q=0.25 xi=0.5:  K g = -1.21478073e-02   shadow = -1.21374896e-02   ratio = 1.000850   signs of v5: [np.float64(1.0)]
+  Delta=8.6 J=3 dims=(3.0, 1.75, 2.0, 2.75) q=0.25 xi=0.5:  K g = -5.69952367e-04   shadow = -5.69576618e-04   ratio = 1.000660   signs of v5: [np.float64(1.0)]
+  Delta=8.6 J=3 dims=(4.0, 1.75, 2.0, 3.75) q=0.25 xi=0.5:  K g = -3.28144033e-05   shadow = -3.27982643e-05   ratio = 1.000492   signs of v5: [np.float64(1.0)]
+  Delta=8.6 J=3 dims=(2.0, 3.75, 4.0, 1.75) q=0.25 xi=0.5:  K g = -3.28144033e-05   shadow = -3.28228598e-05   ratio = 0.999742   signs of v5: [np.float64(1.0)]

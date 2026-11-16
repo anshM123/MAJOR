@@ -1,0 +1,18 @@
+y^0 coefficient: LHS-RHS = 0
+y^1 coefficient: LHS-RHS = 0
+y^2 coefficient: LHS-RHS = 0
+y^3 coefficient: LHS-RHS = 0
+y^4 coefficient: LHS-RHS = 0
+y^5 coefficient: LHS-RHS = 0
+y^6 coefficient: LHS-RHS = 0
+y^7 coefficient: LHS-RHS = 0
+y^8 coefficient: LHS-RHS = 0
+y^9 coefficient: LHS-RHS = 0
+y^10 coefficient: LHS-RHS = 0
+y^11 coefficient: LHS-RHS = 0
+y^12 coefficient: LHS-RHS = 0
+y^13 coefficient: LHS-RHS = 0
+y^14 coefficient: LHS-RHS = 0
+det of the 9x9 system = J**4*(J - 3)*(J - 2)**2*(J - 1)**3*(J + 1)**4*(J + 2)**3*(J + 3)**2*(J + 4)*(2*J - 5)*(2*J - 3)**2*(2*J - 1)**3*(2*J + 1)**4*(2*J + 3)**3*(2*J + 5)**2*(2*J + 7)/4822335000
+sum c_j = 1
+VERDICT cert_cg: PASS
