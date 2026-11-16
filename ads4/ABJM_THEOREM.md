@@ -176,17 +176,100 @@ sharp upper bound by the Brascamp–Lieb inequality (the Gibbs measure is log-co
 its mean-field evaluation gives exactly `4f_0N^{3/2}`), are **sketched only** and need a law of large numbers
 for the one- and two-point densities.
 
-**Physical dictionary (from memory; to be verified against the sources before any use).** The weight
-`e^{λx}` is the deformation by trial R-charges `(Δ_1,Δ_2,Δ_3,Δ_4) = (½+λ, ½−λ, ½, ½)`, equivalently an
-imaginary real mass `m = −2iλ`. Then `φ(λ)` is the formula
-`F = (4π√(2k)/3) √(Δ_1Δ_2Δ_3Δ_4) N^{3/2}` of Jafferis–Klebanov–Pufu–Safdi (arXiv:1103.1181) on this line, which
-is reproduced by four-dimensional `N = 8` gauged supergravity (Freedman–Pufu, arXiv:1302.7310); the exact
-maximality of `F` at `λ = 0` is F-maximisation (Jafferis, arXiv:1012.3210); and with
-`c_T = (64/π²) ∂_m² F|_{m=0}` (Closset–Dumitrescu–Festuccia–Komargodski, arXiv:1205.4142), the Einstein-gravity
-relation `F = (π²/64) c_T` is the statement `φ″_m(0) = φ(0)` for `φ(m) = f_0√(1+m²)`. **What is proved** is the
-form of the limit function on the real-`λ` segment; **what is not** is that `c_T` itself (a second derivative at
-finite `N`) has the corresponding asymptotics, nor any of the dictionary.
+**Physical dictionary (checked against the sources by an independent agent, 16 Nov 2026; physics-level).**
+`Z(N,k;λ)` is Nosaka's Fermi-gas integral (arXiv:1512.02862, (2.11), (2.16), `ξ = 2λ`, `η = 0`): ABJM with trial
+R-charges `Δ(A_1) = ½−λ`, `Δ(B_1) = ½+λ`, `Δ(A_2) = Δ(B_2) = ½`, equivalently real mass `m_+ = 2iλ`, `m_− = 0` of
+Binder–Chester–Pufu (arXiv:1906.07195, (3.1)); for real `m`, `Z(m)/Z(0) = E[e^{imX/2}]`. `φ(λ)` is
+Jafferis–Klebanov–Pufu–Safdi (arXiv:1103.1181, (5.7)) on this line, the leading term of the Airy form with
+`C = 2/(π²k(1+m_+²)(1+m_−²))`, and is reproduced by supergravity (Freedman–Pufu, arXiv:1302.7310).
+`F(λ) ≤ F(0)` is an elementary instance of F-maximisation (arXiv:1205.4142, (4.9)).
+**Stress tensor versus flavour current.** In a theory with only `N = 2` supersymmetry the second mass
+derivative of `F` gives a flavour-current coefficient, `∂_m² Re F = (π²/2) τ_ff` (arXiv:1205.4142, (4.6)), **not**
+`c_T`. ABJM has `N ≥ 6`, and `m_±` couple to currents in the stress-tensor multiplet; there
+`c_T = (64/π²) ∂²_{m_±} F|_0` (Agmon–Chester–Pufu, arXiv:1711.07343, (26), for `N = 8`; Binder–Chester–Pufu (3.12)
+for all `k`), in the normalisation where a free real scalar has `c_T = 1`. That Ward identity is physics-level
+and is an input, not something proved here. Einstein gravity: `F = πL²/(2G_N)`, `c_T = 32L²/(πG_N)`, i.e.
+`F = (π²/64) c_T`. The established large-`N` law on this line is known physics; only proofs and finite-`N`
+inequalities are claimed as new.
 
 Checks (`ads4/code/abjm_tilt.py`): the bounds bracket the exact `F(1,k;λ)` for three `(k,λ)` and `F(2,1;λ)`,
 `λ = 0, 0.3` (quadrature; `Z(2,1;0.3) = 0.0671 > Z(2,1;0) = 0.0199`); ratios of the bounds to
 `f_0√(1−4λ²)N^{3/2}` at `N = 10⁷`: within `0.2%` below and `1%` above for `λ = 0, 0.25, 0.4`.
+
+## Stress-tensor normalisation: an exact formula and the Einstein relation `F/c_T → π²/64` — **not yet refereed**
+
+(The identity and the convexity sandwich below were found by the agent that verified the dictionary; they
+were then re-derived by hand and checked numerically, `ads4/code/abjm_ct.py`.)
+
+**Definition (for the matrix integral).** `c_T(N,k) := (64/π²) ∂_m² F(N,k;m)|_{m=0}`, where
+`Z(N,k;m)` is the integral with one-body weight `e^{imx/2}/(2cosh(x/2))`, `m` real. Equivalently
+`c_T = (16/π²) Var(X)`, `X = Σ x_i`, in the undeformed gas. That this number is the stress-tensor two-point
+coefficient of ABJM theory is the physics input quoted above.
+
+**Proposition (dual form of the mass deformation).** With `E` the expectation in the undeformed gas and
+`w_ij := sech²((x_i − x_j)/(2k))`, for real `m`
+
+`Z(m)/Z(0) = sech^N(πm/2) · E[ Π_{i<j} (1 + sinh²(πm/2) w_ij)^{−1} ]`,
+
+and the same with `sinh²(πm/2) → −sin²(πλ)` for the tilt `m = 2iλ`, `|λ| < ½`.
+
+*Proof.* `Z = Tr_{∧^N}(V^{⊗N} B^{⊗N})` with `V = e^{imx/2}/(2cosh(x/2))`, `B = 1/(2cosh(p/2))`, `[x,p] = 2πik`. In the
+momentum representation `V` has kernel `(2πk)^{−1}/(2cosh((p − p′ − πkm)/(2k)))`, so
+`Z = (1/N!) ∫ Π dp_i B(p_i) (2πk)^{−N} det[1/(2cosh((p_i − p_j − πkm)/(2k)))]`. The matrix is a Cauchy matrix in
+`α_i = q e^{p_i/k}`, `β_j = e^{p_j/k}`, `q = e^{−πm}`, and the Cauchy determinant gives
+`det = (2cosh(πm/2))^{−N} Π_{i<j} 2 sinh² t_ij/(cosh πm + cosh 2t_ij)`, `t_ij = (p_i − p_j)/(2k)`. Dividing by the
+`m = 0` value `Π tanh² t_ij · 2^{−N}`: `(1 + cosh 2t)/(cosh πm + cosh 2t) = (1 + sinh²(πm/2) sech² t)^{−1}`. At `m = 0` the
+momentum-space integrand is the original gas. ∎
+
+**Corollaries, exact for all `N`, `k`.**
+1. `c_T = 16N + 32 E[Σ_{i<j} sech²((x_i − x_j)/(2k))]`; hence `16N ≤ c_T ≤ 16N²`.
+2. `Z(m) > 0` for real `m`, and `F(λ) ≤ F(0) − N log sec(πλ)`.
+3. The real-mass integral is again a gas of the same type: `Z(m) = sech^N(πm/2) × (gas with the same trap and
+   pair potential v_m(u) = log(1 + cosh²(πm/2)/sinh²(u/2k)))`; `v_m` is positive, even, decreasing and convex on
+   `(0,∞)`, and `∫ v_m = π²k(1 + m²)` (from `∫_0^∞ log(1 + cosh²a/sinh²t) dt = a² + π²/4`).
+
+**Theorem G (the general gas).** Let `v` be even, positive, decreasing and convex on `(0,∞)`, `v → 0`,
+`c := ∫v < ∞`, `m_1 := ∫_0^∞ u v < ∞`; let `ℓ(x) = s_+x_+ + s_−x_−`, `S = 1/s_+ + 1/s_−`, and `ℓ ≤ U ≤ ℓ + b_0`. For
+`Z := (1/N!) ζ^{−N} ∫ exp(−Σ U(x_i) − Σ_{i<j} v(x_i − x_j))`, every `θ ∈ (0,1)`, `a > 0`, `c_1 := 2∫_a^∞ v`:
+
+`(2/3)√(2θc_1/S) N^{3/2} − N(2θ max(s_±) m_1/c_1 + v(a)/2) − N log(S/(1−θ)) ≤ −log Z − log N! − N log ζ ≤ (2/3)√(2c/S) N^{3/2} + N b_0 − (N/2) log(cNS/2)`.
+
+*Proof.* Verbatim the proof of Theorem B_λ, which used only these properties of `v` and `U`. ∎
+
+**Theorem B″ (two-sided bounds on `c_T`; Einstein ratio).** Let `H(s) := log E[Π_{i<j}(1 − s w_ij)^{−1}]`, `s < 1`.
+`H` is convex (each `−log(1 − s w)` is convex in `s`; Hölder), `H(0) = 0`, `H′(0) = E[Σ w_ij] = (c_T − 16N)/32`. Hence
+for every `m > 0` and `λ ∈ (0, ½)`:
+
+`[F(m) − F(0) − N log cosh(πm/2)] / sinh²(πm/2) ≤ (c_T − 16N)/32 ≤ [F(0) − F(λ) + N log cos(πλ)] / sin²(πλ)`.
+
+Inserting the bounds of Theorem G for the three gases (undeformed; tilt `λ`; real mass `m`, for which
+`F(m) − N log cosh(πm/2)` is the free energy of the `v_m`-gas) and letting `λ, m → 0` slowly (`λ, m ~ N^{−1/8}`):
+
+`c_T(N,k) = (64√(2k)/(3π)) N^{3/2} (1 + o(1))`, and therefore **`F(N,k)/c_T(N,k) → π²/64`** as `N → ∞` at fixed `k`.
+
+*Proof of the asymptotics.* Upper side: `F(0) − F(λ) ≤ f_0N^{3/2}(1 − √(1−4λ²)) + O(N log N)`, and
+`(1 − √(1−4λ²))/sin²(πλ) → 2/π²`. Lower side: `F_gas(v_m) − F(0) ≥ f_0N^{3/2}(√(1+m²) − 1) − O_m(N log N)`, and
+`(√(1+m²) − 1)/sinh²(πm/2) → 2/π²`. So `(c_T − 16N)/32 = (2f_0/π²) N^{3/2}(1 + o(1))`. ∎
+
+No exchange of the large-`N` limit with a derivative, and no analytic continuation in the mass, is used:
+convexity of `H` converts values of `F` at finite deformation into bounds on the derivative at zero.
+
+**Checks (`ads4/code/abjm_ct.py`).** `N = 2`, `k = 1`: the identity at `m = 0.7` (`0.296081869` both sides);
+`(16/π²)Var(X) = 37.3333331`, `16N + 32E[w] = 37.3333333` (literature value `112/3`). The agent additionally
+reproduced the published values at `(N,k) = (2,2), (3,1)`. `∫v_m = π²k(1+m²)` to 12 digits. Evaluated two-sided
+bounds divided by the leading term: `(0.38, 2.06)` at `N = 10⁴`, `(0.72, 1.31)` at `10⁶`, `(0.91, 1.10)` at `10⁸`,
+`(0.93, 1.05)` at `10^{10}` — convergence is slow (rate `≈ N^{−1/4}`).
+
+**What this is and is not.**
+* It is a theorem about the matrix integral: the quantity `(64/π²)∂_m²F` has the asymptotics that Einstein
+  gravity predicts for `c_T` given `F`, with explicit finite-`N` bounds and the exact inequality
+  `16N ≤ c_T ≤ 16N²`. In bulk language: the Newton constant read from the on-shell action and the one read
+  from the graviton two-point normalisation agree at leading order.
+* The physics was not in doubt (the leading `c_T` and the Airy form are known). New, as far as searched: the
+  proof, and possibly the finite-`N` inequalities; the dual representation of the mass deformation is in the
+  literature (Nosaka; Honda et al.), and the formula `c_T = 16N + 32E[Σw]` may well be implicit there — **no
+  search was made**.
+* It gives **no new constraint on the gravitational coupling**: the error terms exceed every known
+  correction. It says nothing about `⟨TTT⟩`, i.e. about whether the bulk theory is Einstein rather than
+  higher-derivative beyond this one relation, and nothing about locality.
+* Inputs not proved: localisation; the `N ≥ 6` Ward identity relating the mass derivative to `c_T`.
