@@ -52,8 +52,64 @@ def regge_scan(F, Dg, n=1.0, verbose=True):
             print('      last negative m/Lam: ' + '  '.join('%s:%.3f' % (e, last[(h, e)]) for e in ENV), flush=True)
     return last, worst
 
+
+# ------------------------------------------------------------------ hybrid model [M]
+def flatT(c, b):
+    from rcommon import glang, nth
+    th, wt = glang(nth(b))
+    return (2 / np.pi) * np.sum(wt * c(b * np.sin(th)))
+
+def jlist(h, mfl, jcap=1500):
+    jmax = int(min(jcap, 150 * mfl))
+    js = list(range(0, 41)); j = 41
+    while j <= jmax:
+        js.append(j); j = int(j * 1.04) + 1
+    js = sorted(set(x for x in js if x <= jmax))
+    return np.array(sorted(set(x + (x % 2) for x in js)) if h == '++' else [x for x in js if x >= 4])
+
+def hybrid_scan(F, Dg, n=1.0, verbose=True):
+    """criterion (A) of ADS4_FUNCTIONAL.md t3 with envelope (C0 cosh b/m^2 + C1 u) N_comp; returns last negative m/Lam per envelope."""
+    Lam = np.sqrt((Dg - 2.0) * (Dg - 1.0)); Ls = Lam / n
+    RA = ReggeAction(F)
+    MFL = np.unique(np.concatenate([np.arange(1.0, 1.5, 0.02), np.logspace(np.log10(1.5), np.log10(60), 90)])) * n
+    last = {(h, e): 0.0 for h in SIGMA for e in ENV}; worst = {h: (np.inf, None) for h in SIGMA}; nst = 0
+    for mfl in MFL:
+        u = 1 / mfl ** 2; m = mfl * Ls
+        for h, s in SIGMA.items():
+            js = jlist(h, mfl)
+            Js, B2, B3, FW = flat_parts(F, h, u, int(js.max()))
+            idx = {int(J): i for i, J in enumerate(Js)}
+            for J in js:
+                # physical: tau >= Dg  <=>  alpha >= Dg-2 with alpha*(alpha+2J+1) = m^2
+                Bq = 2 * J + 1.0
+                alpha = (-Bq + np.sqrt(Bq * Bq + 4 * m * m)) / 2
+                if alpha < Dg - 2 - 1e-9:
+                    continue
+                abar = alpha + 2 * J + 1
+                beta = np.arccosh((alpha ** 2 + abar ** 2) / (2 * alpha * abar))
+                i = idx[int(J)]
+                I2, I3, W, P0 = RA.transforms(Ls, beta)
+                bh = (2 * J + 1) / mfl
+                f2 = flatT(RA.c2, bh); f3 = flatT(RA.c3, bh)
+                dB2 = 2 * (I2 - f2); dB3 = s * u * (I3 - f3)
+                dFW = u ** 3 * (2 * F.a * m * m * W - 2 * F.a * J * (J + 1) - F.a / 2) + F.a * s * u ** 3 * (P0 - 1)
+                Fh = B2[i] + B3[i] + FW[i] + dB2 + dB3 + dFW
+                Nc = abs(B2[i] + dB2) + abs(B3[i] + dB3) + abs(FW[i] + dFW)
+                nst += 1
+                if Fh / Nc < worst[h][0]:
+                    worst[h] = (Fh / Nc, (round(mfl / n, 3), int(J), round(beta, 4)))
+                for (C0, C1) in ENV:
+                    if Fh - (C0 * np.cosh(beta) / m ** 2 + C1 * u) * Nc <= 0:
+                        last[(h, (C0, C1))] = max(last[(h, (C0, C1))], mfl / n)
+    if verbose:
+        for h in SIGMA:
+            print('  hybrid Dg=%5d n=%.2f %s (%d states): min F_hyb/N = %+.3e at (m/Lam, J, beta) = %s' % (Dg, n, h, nst, *worst[h]))
+            print('      last negative m/Lam: ' + '  '.join('%s:%.3f' % (e, last[(h, e)]) for e in ENV), flush=True)
+    return last, worst
+
 if __name__ == '__main__':
-    name = sys.argv[1]
+    name, mode = sys.argv[1], sys.argv[2]
     F = load(name)
-    for Dg in [int(x) for x in sys.argv[2:]] or [20, 100, 1000]:
-        regge_scan(F, Dg)
+    for Dg in [int(x) for x in sys.argv[3:]] or [20, 100, 1000]:
+        print('== %s %s Dg=%d' % (name, mode, Dg), flush=True)
+        (regge_scan if mode == 'regge' else hybrid_scan)(F, Dg)

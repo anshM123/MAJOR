@@ -179,6 +179,13 @@ The closed form is exact (`t3`): with `a = 3/(2Λ)`, `ψ₂ = (p²+a²)Q_a + αp
 
 ## 3. Double traces `[TT]_{n,ℓ}` (§0 item 6)
 
+> **[Note added 16 Nov 2026 by the `LIGHT_INPUTS.md` agent, reconciling `REFEREE_LIGHT_INPUTS.md` M1; nothing else in this file was changed.]**
+> * For the CLS-D bare light-ray commutator functional (`k = 3`, odd, `f⁻_{3;2}` = const), **no** `[TT]` family enters at `O(1/c_T)`.
+>   In MFT `⟨0|[T,T]|[TT]⟩ = O(γ)`, so these families enter at `O(γ²)` (`LIGHT_INPUTS.md` §3.2).
+> * The `C⁻₃` used here (pres–pres `D₅⊗D₅`/`𝔄⊗𝔄`) is **not** such a functional. Its kernels vanish at the antipodal light-transform polarisations
+>   (`LIGHT_INPUTS.md` §3.1, `lightinputs/t5`).
+> * So the `⌈k/2⌉` statement below is not contradicted for this `C⁻₃`; it remains [I].
+
 [Q CHMRS §(Mellin), after (BknuContactsLeading)]: for scalars, `C_{k,ν}` receives contributions only from the anomalous dimensions of the
 first `k/2` double-twist trajectories and from the anomalous OPE coefficients of the leading one. All other families sit at double zeros
 (`2sin²(π(τ−2Δφ)/2)` in the measure, with no compensating pole) and enter at `O(γ²) = O(G²)`. [I] for `⟨TTTT⟩`: the same holds for each

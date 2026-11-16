@@ -251,10 +251,14 @@ def word_budget(wL, wR):
 # ------------------------------------------------------------------ (P,Q)-jets of the scalar blocks to any order (generalises e2e/spinblock.pq_jets)
 @functools.lru_cache(None)
 def _acosh_derivs(M):
+    """k-th derivative of acosh = P_k(c)/sh^{2k-1}, sh = sqrt(c^2-1) passed separately (no cancellation near c = 1)"""
     import sympy as sp
-    c = sp.Symbol('c')
-    f = sp.acosh(c)
-    return [sp.lambdify(c, sp.simplify(sp.diff(f, c, k)), 'mpmath') for k in range(1, M + 1)]
+    c, t = sp.symbols('c t', positive=True)
+    out = []
+    for k in range(1, M + 1):
+        Pk = sp.expand(sp.simplify(sp.diff(sp.acosh(c), c, k)*(c**2 - 1)**sp.Rational(2*k - 1, 2)))
+        out.append(sp.lambdify((c, t), Pk/t**(2*k - 1), 'mpmath'))
+    return out
 
 def _pmul2(A, B, M):
     out = np.zeros_like(A)
@@ -281,8 +285,8 @@ def pq_jets_M(S, r, A0, E0, M, vpow=0.0, one=1.0):
         if i > 0:
             dE[0, i] = E0/math.factorial(i)
     dc = dA + dE; dx = dE - dA
-    c0 = (r + one/r)/2
-    fk = [f(c0) for f in _acosh_derivs(M)]
+    c0 = (r + one/r)/2; sh0 = (one/r - r)/2
+    fk = [f(c0, sh0) for f in _acosh_derivs(M)]
     if dt == float: fk = [float(v) for v in fk]
     dL = Z(); p = Z(); p[0, 0] = one
     for k in range(1, M + 1):

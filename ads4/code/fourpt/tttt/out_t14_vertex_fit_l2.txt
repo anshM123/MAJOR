@@ -1,4 +1,6 @@
 # ray b0.4
   s=1 Delta=24.29 J=4.0 m=22.34131: m^8 T^ss/lambda_s = (10.237423 - 0.22371563j), m^8 T^oo/lambda_o = (10.328614 + 2.6984814j), m^8 sqrt(T^so T^os/(lambda_s lambda_o)) = (10.455312 - 0.010728472j);  T^so/T^os = (75.6989 - 21.5546j) (lambda_o/lambda_s = 141.754)
+  s=2 Delta=47.08 J=8.5 m=44.68262: m^8 T^ss/lambda_s = (8.494625 - 0.092128116j), m^8 T^oo/lambda_o = (8.5135884 + 1.0942368j), m^8 sqrt(T^so T^os/(lambda_s lambda_o)) = (8.5392576 - 0.0021828518j);  T^so/T^os = (6.6038 - 0.921681j) (lambda_o/lambda_s = 8.9414)
+  s=4 Delta=92.66 J=17.5 m=89.36524: m^8 T^ss/lambda_s = (8.1200943 - 0.043951657j), m^8 T^oo/lambda_o = (8.1246286 + 0.52003834j), m^8 sqrt(T^so T^os/(lambda_s lambda_o)) = (8.1307272 - 0.00051916243j);  T^so/T^os = (2.51601 - 0.174722j) (lambda_o/lambda_s = 2.92029)
 # ray b0.9
   s=1 Delta=50.25 J=20.0 m=44.23022: m^8 T^ss/lambda_s = (8.6776722 - 0.21872576j), m^8 T^oo/lambda_o = (8.6898084 + 1.2204976j), m^8 sqrt(T^so T^os/(lambda_s lambda_o)) = (8.7276359 - 0.00017681242j);  T^so/T^os = (2.38418 - 0.39636j) (lambda_o/lambda_s = 3.04627)

@@ -44,8 +44,16 @@ def series12(blk, r, chi, kmax, lmax, cut=30.0, pwcut=10.0):
 
 @functools.lru_cache(None)
 def _acosh_np(M):
-    c = sp.Symbol('c')
-    return [sp.lambdify(c, sp.simplify(sp.diff(sp.acosh(c), c, k)), 'numpy') for k in range(1, M + 1)]
+    """k-th derivative of acosh at c = P_k(c)/sh^{2k-1}, sh = sqrt(c^2 - 1): returns numpy functions of (c, sh) -- sh is passed
+    separately (computed as (1/r - r)/2), never through c^2 - 1, which cancels catastrophically near c = 1"""
+    c, t = sp.symbols('c t', positive=True)
+    out = []
+    for k in range(1, M + 1):
+        Pk = sp.simplify(sp.diff(sp.acosh(c), c, k)*(c**2 - 1)**sp.Rational(2*k - 1, 2))
+        Pk = sp.expand(sp.simplify(Pk))
+        assert Pk.is_polynomial(c), Pk
+        out.append(sp.lambdify((c, t), Pk/t**(2*k - 1), 'numpy'))
+    return out
 
 def pq_jets_vec(S, r, A0, E0, M, vpow=0.0):
     """vectorised taylor4.pq_jets_M (float64): S[npts, k, l] -> G[npts, i, j]"""
@@ -60,8 +68,8 @@ def pq_jets_vec(S, r, A0, E0, M, vpow=0.0):
         if i > 0:
             dE[:, 0, i] = E0/math.factorial(i)
     dc = dA + dE; dx = dE - dA
-    c0 = (r + 1/r)/2
-    fk = [f(c0)*np.ones(npts) for f in _acosh_np(M)]
+    c0 = (r + 1/r)/2; sh = (1/r - r)/2
+    fk = [f(c0, sh)*np.ones(npts) for f in _acosh_np(M)]
     dL = Z(); p = Z(); p[:, 0, 0] = 1
     for k in range(1, M + 1):
         p = _pmul2(p, dc, M)
