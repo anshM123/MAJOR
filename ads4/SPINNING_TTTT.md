@@ -30,17 +30,20 @@ quoted; **[I]** inferred; **[ND]** not done.
    diagonal; absolute constant `1/4` per helicity quadruple, `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)`, all factors Weyl-even; leading-twist block
    decomposition of `⟨J_1J_3⟩⟨J_2J_4⟩` reproduced with no free constant (`10⁻⁶`). Physical sign of the opposite-sign term `+(|c_same|²−|c_opp|²)` =
    flat `σ_{++} = +1`, `σ_{+−} = −1` (`SPINNING_4PT.md` §4.5–4.6). §2.
-4. **`⟨TTTT⟩` blocks: a working algorithm; end-to-end moments not done in this session.** Symbolic word pairs at jet order 8 are
-   infeasible (`AACC × AACC` > 67 min). A **numerical Taylor-mode application of the `D`-words** (`taylor4.py`) has replaced them. It is validated
-   against the symbolic pairs to `5·10⁻¹⁵` (all 25 `l = 1` pairs, 5 `l = 2` pairs), and on the order-8 pairs by the commutation of the two vertices
-   (`4·10⁻¹⁵`). It costs `0.2–1.9 s` per pair at one point, or `~3 ms` per point vectorised. At a heavy grid point (`β = 1`, `m ≈ 40`) the 196 pairs are
-   contracted with CHL's exact helicity structures. The conserved helicity combinations cancel by `10⁵–10⁷`, so float64 leaves only `10⁻⁵–10⁻⁸`
-   relative accuracy (from a long-double comparison). Estimated production cost: about 3 h (float64) to 10 h (long double) per `(Δ,J)` on one core,
-   before optimising the seed series. In addition, the `l = 2` heavy vertex needed for the factorised prediction does not exist yet. The minimal
-   end-to-end check (a few `(Δ,J)`, `β = 1`, `k = 6`, `ν = 0`, both `±`) is therefore not run here. §4.
-5. **Not done:** `l = 2` absolute constant (expected `1/4` per helicity quadruple [I]; needs the heavy vertex of the `l = 2` helicity
-   structures, §3.4); closed forms of the `l = 2` helicity lines in the differential basis (only the position-space form of `chl_xspace`);
-   parity-odd exchanges; `k = 2, 3`.
+4. **`l = 2` heavy vertices and absolute constant [NE + exact inputs].** CHL's structures are helicity-pure at the heavy vertex. The leading
+   two-pair coefficient is `T^{hLhR} = 8√(λ_{hL}λ_{hR})/m⁸`. The constant extrapolates to `E = 7.9996` along `β = 0.4`, with
+   `m = 22 … 179` and `O(1/m²)` corrections. Combined with the exact Fock data, this gives **`1/4` per helicity quadruple for stress tensors**,
+   with the factor `A_h` cancelling. Hence `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)` for `⟨TTTT⟩` [D given `E = 8`]. §3.6.
+5. **`⟨TTTT⟩` end to end [DVE at the 5–10 % level].**
+   * The partial waves are computed by **numerical Taylor-mode application of the `D`-words** (`taylor4.py`), validated to `5·10⁻¹⁵`.
+   * The exact tensor Regge moments (`k = 6`, `ν = 0`, 625 modes) of `W[X_{hL},X_{hR}]` were computed at `β = 1`, `m = 39.3`
+     (`Δ = 45.86`, `J = 20`) M70_SUMMARY.
+   * Against the factorised prediction, with no free constant: the diagonal waves give 1.083 (same) and 0.957 (opp).
+   * In the mixed wave, `Σ_+` gives 0.973 and the opposite-sign term **`Σ_−` gives `+0.92`**. So its sign, as for currents, is confirmed.
+   * Prediction-free checks: factorisation 0.85; `T^{so} = T^{os}`, i.e. the Weyl-odd `O(1/m)` term of the integrand cancels in the moments.
+   * The modes that are predicted small carry 20–70 % residuals, attributed to the large Weyl-odd `O(1/m)` terms of `l = 2` [I]. §4.4–4.5.
+6. **Not done:** closed forms of the `l = 2` helicity lines in the differential basis (only the position-space form of `chl_xspace`);
+   an exact proof of `E = 8`; parity-odd exchanges; `k = 2, 3`; more masses and the `1/m` fits.
 
 ## 1. Tools (all new, `tttt/`)
 
@@ -232,10 +235,57 @@ moment grid (≤ 4464 points) that is about 3 h (float64) or 10 h (long double) 
 made much cheaper (e.g. series in `log s`). Precision: the conserved helicity combinations cancel by up to `10⁷` already at `m ≈ 40`, so float64
 gives `10⁻⁵`-level accuracy on the mixed-helicity waves. That is marginal for `O(1/m)` fits at `m ~ 100`; long double gives `~10⁻¹²` [I].
 
-**4.4 Status of the end-to-end check [ND].** Still needed for the minimal check (a few `(Δ,J)` at `β = 1`, `k = 6`, `ν = 0`, both `±`):
-(i) the production run, about 10–40 core-hours with long double for 3–4 masses, after vectorising the order-8 jet composition;
-(ii) the factorised prediction for `l = 2`, which needs the heavy vertices `V_h` of the `l = 2` helicity structures (not computed; §3.4).
-A prediction-free factorisation test `M[s,s]M[o,o]/M[s,o]² → 1` would need only (i). Not attempted in this session.
+**4.4 Production code (`tmoments_l2.py`).** The production code adds the following:
+* a vectorised order-8 jet composition (`pq_jets_vec`, agrees with the mp version to `10⁻¹⁵`);
+* the 25 seed blocks from `cblock12` (double radial sums, `N = 8000`);
+* one seed series per seed block, truncated per word pair;
+* the Taylor-mode application of all 196 pairs, contracted on the fly with CHL's exact helicity word vectors;
+* the `5⁴` polarisation grid and the Fourier modes of `fourpt/tmoments4`.
+
+The moments and kernels are those of `fourpt/tmoments4` (`t13_analysis_l2.Modes`).
+
+A bug was found and fixed during this work: the derivatives of `arccosh` had been lambdified in expanded form, `P_k(c)/(c²−1)^{k−½}` with
+`(c²−1)^k` multiplied out. That cancels catastrophically near `c = 1` (small `S`). It is now evaluated as `P_k(c)/sh^{2k−1}` with
+`sh = (1/r−r)/2`, and agrees to `10⁻¹²` at `r = 0.9995`. The `t11` feasibility numbers are unaffected (their points have `r ≤ 0.64`).
+
+Cost on the shared machine (load average ≈ 17 on 4 cores): `β = 1`, `m ≈ 40` (`Δ = 45.861`, `J = 20`, 3336 grid points) took 8150 s wall
+(about 1.5–2 s per point when not starved). Peak memory was 3.8 GB. A concurrent second run was killed by the out-of-memory handler, so the
+runs were done sequentially.
+
+**4.5 End-to-end `⟨TTTT⟩` check (`t13_analysis_l2.py`, `out_t13_analysis_l2_*.txt`) [DVE at the 5–10 % level, one/two masses].**
+
+*Setup.*
+* `k = 6`, `ν = 0`, all 625 modes `q = (q_1,q_3,q_2,q_4)`.
+* Waves `W[X_{hL},X_{hR}]` for the four helicity pairs.
+* A mixed wave `W[e,e]` with `e = X_same + wX_opp`, where `w` is chosen so that the predicted `T_oo = 2T_ss`. This makes the opposite-sign
+  combination `Σ_− = T_oo − T_ss` non-zero and positive, so its sign is tested.
+* Prediction: `Pref Σ_h T_h M M 𝒦` with `T^{hLhR} = 8√(λ_{hL}λ_{hR})/m⁸` (§3.6). It contains no fitted constant.
+* Fits: one-scale fits (uniform weights) and 8-class fits (uniform weights). The doubly flipped classes have tiny design columns and are not
+  determined.
+
+| `β = 1`, `m = 39.3` (`Δ = 45.861`, `J = 20`) | one-scale fit (resid.) | dominant class fit/pred | 8 largest predicted modes, meas/pred |
+|---|---|---|---|
+| `W[X_s,X_s]` | `1.083` (`2.2 %`) | `ss`: `1.082` | `1.080 … 1.085` |
+| `W[X_o,X_o]` | `0.957` (`20 %`) | `oo`: `0.962` | `0.954 … 1.000` |
+| `W[X_s,X_o]` = `W[X_o,X_s]` (identical, as required by the pair exchange) | `0.940` (`71 %`) | `pf/fp`: `0.940` | `0.992 … 1.024` |
+| mixed `W[e,e]` | `0.969` (`18 %`) | `Σ_+`: `0.973`, **`Σ_−`: `0.922`** | `0.954 … 1.000` |
+
+Prediction-free checks:
+* `T^{so}T^{os}/(T^{ss}T^{oo}) = 0.85` (fitted dominant classes).
+* `T^{oo}/T^{ss} = 2.80`, against `λ_o/λ_s = 3.15`. This tests the helicity dependence `A_h` of the MFT/shadow normalisation.
+* `T^{so} = T^{os}` exactly. The integrand is not symmetric at this mass (`T^{so}/T^{os} ≈ 2.4` pointwise, §3.6), so its Weyl-odd
+  `O(1/m)` part cancels in the moments, as the reflection argument requires.
+
+Reading:
+* The diagonal waves and the dominant modes of all waves agree with the factorised prediction to 1–8 %, with no free constant. This
+  includes the absolute normalisation (`E = 8`, i.e. the `l = 2` heavy vertex and, through `p[X_h]`, the `1/4` per quadruple) and the sign
+  of the opposite-sign term (`Σ_−` fit/pred `= +0.92`; a sign error would give `−1`).
+* The 20–70 % residuals come from modes that are predicted small, in particular preserved–preserved components of the mixed-helicity waves,
+  which are predicted zero. They are consistent with the large Weyl-odd `O(1/m)` terms of `l = 2` at `J = 20`, where
+  `λ_o/λ_s − 1 ≈ 2`, but at one mass this is [I].
+* Precision: float64 is accurate to `≤ 3·10⁻⁵` pointwise at this mass (`t11`), negligible here.
+
+M70_PLACEHOLDER
 
 ## 5. Status
 
@@ -251,8 +301,9 @@ A prediction-free factorisation test `M[s,s]M[o,o]/M[s,o]² → 1` would need on
 | 7a | `p^MFT[T^{E,h}] = A_h P_FK(1,1)/K_l`, helicity-diagonal (`l = 1, 2`) | [ID], exact Fock data, 23 + 39 entries |
 | 8 | No `O(1/m)` in leading heavy `⟨TTTT⟩` moments (parity-even exchanges, MFT-normalised) | [D] conditional on 7 and Assumption T; not end to end |
 | 9 | `⟨TTTT⟩` exact partial waves by Taylor mode (operator application) | [D], validated to `10⁻¹⁵`; feasibility at `m ≈ 40` [NE] |
-| 9a | `⟨TTTT⟩` end-to-end moments, `±`, `1/m` fits | [ND] — cost estimate §4.3–4.4 |
-| 10 | `l = 2` absolute constant; parity-odd exchanges; `k = 2, 3` | [ND] |
+| 9a | `⟨TTTT⟩` end-to-end moments vs factorised prediction, both `±` (`k = 6`, `ν = 0`) | [DVE] at 5–10 % (dominant modes), M70_STATUS; `1/m` fits [ND] |
+| 9b | `l = 2` heavy vertex `T^{hLhR} = 8√(λλ')/m⁸`; `1/4` per quadruple; `C^±` for `⟨TTTT⟩` | [NE] (`E = 8` extrapolated to `5·10⁻⁵`), exact inputs [D/ID] |
+| 10 | parity-odd exchanges; `k = 2, 3`; proof of `E = 8` | [ND] |
 
 ## 6. Code index (`ads4/code/fourpt/tttt/`)
 

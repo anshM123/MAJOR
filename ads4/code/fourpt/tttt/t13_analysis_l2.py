@@ -104,7 +104,7 @@ def fit(A, meas, Tp, logref):
     scale = max(abs(v) for v in pred.values())
     rows, rhs = [], []
     for q in QS:
-        w = 1.0/max(abs(pred[q]), 1e-3*scale)
+        w = 1.0                                   # uniform weights (the 1/|pred| weighting is dominated by near-zero modes)
         rows.append([A[q][c]*np.exp(-logref)*w for c in cl]); rhs.append(meas[q]*w)
     M = np.array(rows); y = np.array(rhs)
     Mr = np.vstack([M.real, M.imag]); yr = np.concatenate([y.real, y.imag])
@@ -146,6 +146,9 @@ if __name__ == "__main__":
         Tmax = max(abs(v) for v in Tp.values())
         R = {CNAME[c]: sol[c]/Tp[c] for c in CLASSES if abs(Tp[c]) > 1e-6*Tmax}
         fits[name] = (sol, Tp)
+        pv = {q: sum(A[q][c]*Tp[c] for c in CLASSES)*np.exp(-logref) for q in QS}
+        top = sorted(QS, key=lambda q: -abs(pv[q]))[:8]
+        detail = "  ".join(f"{q}:{(meas[q]/pv[q]).real:.3f}{(meas[q]/pv[q]).imag:+.2f}i" for q in top)
         extra = ""
         if name == 'mix':
             Sp = (sol[(1, 1, -1, -1)] + sol[(1, -1, -1, 1)])/(Tp[(1, 1, -1, -1)] + Tp[(1, -1, -1, 1)])
@@ -155,10 +158,12 @@ if __name__ == "__main__":
         offs = max(abs(sol[c]) for c in CLASSES if abs(Tp[c]) <= 1e-6*Tmax) if any(abs(Tp[c]) <= 1e-6*Tmax for c in CLASSES) else 0
         pr(f"  wave {name}: class ratios fit/pred " + ", ".join(f"{n}: {v:.4f}" for n, v in R.items()) +
            f";  |classes predicted 0|/T_pred max: {offs/Tmax:.1e};  LSQ resid {resid:.1e};  one-scale fit {s1.real:.4f}{s1.imag:+.1e}i (resid {r1:.1e})" + extra)
+        pr(f"      largest predicted modes q=(q1,q3,q2,q4): meas/pred  " + detail)
     # prediction-free factorisation: T^{so} T^{os} / (T^{ss} T^{oo}) from fitted classes (average over the two classes of each wave)
     def amp(name, classes):
         return np.mean([fits[name][0][c] for c in classes])
-    Tss = amp(('same', 'same'), [(1, -1, -1, 1), (1, -1, 1, -1)]); Too = amp(('opp', 'opp'), [(1, 1, -1, -1), (1, 1, 1, 1)])
+    # dominant classes only (the doubly-flipped classes ff_* have tiny design columns and are not determined by the fit)
+    Tss = amp(('same', 'same'), [(1, -1, -1, 1)]); Too = amp(('opp', 'opp'), [(1, 1, -1, -1)])
     Tso = amp(('same', 'opp'), [(1, -1, 1, 1), (1, -1, -1, -1)]); Tos = amp(('opp', 'same'), [(1, 1, 1, -1), (1, 1, -1, 1)])
-    pr(f"  prediction-free factorisation T^so T^os/(T^ss T^oo) = {Tso*Tos/(Tss*Too):.4f};  T^so/T^os = {Tso/Tos:.4f} (leading prediction 1);  T^oo/T^ss = {Too/Tss:.4f} vs lambda_o/lambda_s = {lo/ls:.4f}")
+    pr(f"  prediction-free factorisation T^so T^os/(T^ss T^oo) (fitted ss, oo, pf/fp classes) = {Tso*Tos/(Tss*Too):.4f};  T^so/T^os = {Tso/Tos:.4f} (leading prediction 1);  T^oo/T^ss = {Too/Tss:.4f} vs lambda_o/lambda_s = {lo/ls:.4f}")
     open(os.path.join(HERE, 'out_t13_analysis_l2_%s_k%d_nu%g.txt' % (os.path.basename(fn)[:-4], k, nu)), 'w').write("\n".join(out) + "\n")

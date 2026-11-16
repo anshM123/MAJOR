@@ -89,7 +89,7 @@ def run(Dg):
     def pr(s):
         print(s, flush=True); lines.append(s)
     pr(f"# t3 Dg = {Dg}, Lam = {Lam:.4f}; states: m/Lam in [1, 10], bhat <= 40; NP = {NP} p-nodes")
-    pk = os.path.join(HERE, 'cache', f'skel_t3_{Dg}.pkl')
+    pk = os.path.join(HERE, 'cache', f'skel_t3_{Dg}{RM.TAG}.pkl')
     cache = pickle.load(open(pk, 'rb')) if os.path.exists(pk) else {}
     BANDS = ((1.0, 1.5), (1.5, 3.0), (3.0, 10.01))
     band = {(n, h, b): dict(EN=0.0, UN=0.0, low=np.inf, mod=np.inf, modloc=None, kap=np.inf) for n in FUNS for h in SIGMA for b in BANDS}
@@ -198,8 +198,8 @@ def run(Dg):
             ms = sorted(set(k[2] for k in nearg if k[0] == n and k[1] == h))
             pr(f"  {n} {h}: " + " ".join(f"{mm:.2f}:{nearg[(n, h, mm)][0]:+.3f}" for mm in ms[:16]))
     pr(f"# time {time.time()-t0:.0f} s, {len(cache)} skeleton states")
-    open(os.path.join(HERE, 'cache', f'out_t3_{Dg}.txt'), 'w').write("\n".join(lines) + "\n")
-    pickle.dump(cache, open(os.path.join(HERE, 'cache', f'skel_t3_{Dg}.pkl'), 'wb'))
+    open(os.path.join(HERE, 'cache', f'out_t3_{Dg}{RM.TAG}.txt'), 'w').write("\n".join(lines) + "\n")
+    pickle.dump(cache, open(os.path.join(HERE, 'cache', f'skel_t3_{Dg}{RM.TAG}.pkl'), 'wb'))
 
 if __name__ == '__main__':
     for Dg in [int(a) for a in sys.argv[1:]] or [100]:
