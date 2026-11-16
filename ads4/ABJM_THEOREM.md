@@ -140,3 +140,53 @@ The right side is maximal at `μ = √(θc_1N/2)`, where `Nμ − 2μ³/(3θc_1)
    trap `U(x) = s|x| + O(1)`. For such an integral the same argument gives `F = (2/3)√(s ∫v) N^{3/2} (1 + o(1))`
    (ABJM: `s = ½`, `∫v = π²k`). Which other localised partition functions (mass deformations, flavours, other
    quivers) satisfy these hypotheses has not been examined.
+
+## Extension: a one-parameter deformation (trial R-charges / imaginary mass) — **not yet refereed**
+
+For `|λ| < 1/2` let `Z(N,k;λ)` be the same integral with the one-body weight `e^{λx_i}/(2cosh(x_i/2))`, and
+`F(λ) := −log Z(N,k;λ)`. Put `s_± := ½ ∓ λ`, `S := 1/s_+ + 1/s_− = 4/(1 − 4λ²)`, `ℓ(x) := s_+ x_+ + s_− x_−`.
+
+**Theorem B_λ.** For all `N ≥ 1`, `k > 0`, `|λ| < 1/2`, `θ ∈ (0,1)`, `a > 0`:
+
+(U_λ) `F(λ) ≤ (2/3)√(2π²k/S) N^{3/2} + log N! + N log(8πk) − (N/2) log(π²kNS/2)`;
+(L_λ) `F(λ) ≥ (2/3)√(2θc_1/S) N^{3/2} − N( 7ζ(3)k²θ·max(s_±)/c_1 + v(a)/2 ) + log N! − N log( S/(4πk(1−θ)) )`.
+
+Hence, for fixed `k` and `λ`, `F(N,k;λ) = (π√(2k)/3) √(1 − 4λ²) N^{3/2} + O(N log N)`.
+
+*Proof.* As for `λ = 0`, with `U_λ(x) := log(2cosh(x/2)) − λx`, which satisfies `ℓ ≤ U_λ ≤ ℓ + log 2`. Upper bound:
+trial density `σ = (μ − ℓ)_+/c`, `∫σ = μ²S/(2c) = N`, `∫σℓ = (c/2)∫σ² = μ³S/(6c)`, so `∫Wν ≤ (2/3)μN + N log 2`, and
+`f ≤ μ/(cN)`. Lower bound: certificate `σ = (μ − θℓ)_+/c_1`; since `|ℓ(x−u) − ℓ(x)| ≤ max(s_±)|u|`,
+`(v_1 * ℓ)(x) ≤ c_1 ℓ(x) + 2 max(s_±) m_1`, so `θℓ + v_1*σ ≥ μ − κ` with `κ = 2θ max(s_±) m_1/c_1`;
+`(c_1/2)‖σ‖² = μ³S/(6θc_1)`; the maximum over `μ` is at `μ² = 2θc_1N/S`; and `∫e^{−(1−θ)ℓ} = S/(1−θ)`. ∎
+
+**Exact finite-`N` corollaries** (elementary). With `X := Σ_i x_i` and `E` the expectation in the `λ = 0` gas,
+`Z(λ)/Z(0) = E[e^{λX}]`. Hence `λ ↦ −F(λ)` is convex (a cumulant generating function), `F` is even, and
+`F(λ) ≤ F(0)`: **`F` is maximal at the undeformed point for every `N` and `k`** (Jensen, `E[X] = 0`).
+`Z(1,k;λ) = 1/(4k cos πλ)`.
+
+**Asymptotic corollaries.** (i) `N^{−3/2} F(N,k;λ) → φ(λ) := (π√(2k)/3)√(1 − 4λ²)` pointwise on `(−½, ½)`.
+(ii) By convexity, the derivatives converge: `N^{−3/2} E_λ[X] → −φ′(λ)`. (iii) By the Gärtner–Ellis theorem
+(`−φ` is differentiable and steep at `±½`), `X/N^{3/2}` satisfies a large-deviation principle at speed `N^{3/2}`
+with rate function `I(y) = ½√(4f_0² + y²) − f_0`, `f_0 = π√(2k)/3`; near `y = 0`, `I(y) ≈ y²/(8f_0)`.
+
+**Not proved:** `Var(X) = 4f_0 N^{3/2}(1 + o(1))`, i.e. the exchange of `N → ∞` with the second derivative at
+`λ = 0`. Convexity gives it only on average over windows `|λ| ≲ h` with `h ≫ N^{−1/4}√(log N)`. A sharp lower bound
+on `Var(X)` by the Helffer–Sjöstrand/Cramér–Rao inequality with the displacement field `u(x) = 2μ + |x|`, and a
+sharp upper bound by the Brascamp–Lieb inequality (the Gibbs measure is log-concave on the ordered chamber;
+its mean-field evaluation gives exactly `4f_0N^{3/2}`), are **sketched only** and need a law of large numbers
+for the one- and two-point densities.
+
+**Physical dictionary (from memory; to be verified against the sources before any use).** The weight
+`e^{λx}` is the deformation by trial R-charges `(Δ_1,Δ_2,Δ_3,Δ_4) = (½+λ, ½−λ, ½, ½)`, equivalently an
+imaginary real mass `m = −2iλ`. Then `φ(λ)` is the formula
+`F = (4π√(2k)/3) √(Δ_1Δ_2Δ_3Δ_4) N^{3/2}` of Jafferis–Klebanov–Pufu–Safdi (arXiv:1103.1181) on this line, which
+is reproduced by four-dimensional `N = 8` gauged supergravity (Freedman–Pufu, arXiv:1302.7310); the exact
+maximality of `F` at `λ = 0` is F-maximisation (Jafferis, arXiv:1012.3210); and with
+`c_T = (64/π²) ∂_m² F|_{m=0}` (Closset–Dumitrescu–Festuccia–Komargodski, arXiv:1205.4142), the Einstein-gravity
+relation `F = (π²/64) c_T` is the statement `φ″_m(0) = φ(0)` for `φ(m) = f_0√(1+m²)`. **What is proved** is the
+form of the limit function on the real-`λ` segment; **what is not** is that `c_T` itself (a second derivative at
+finite `N`) has the corresponding asymptotics, nor any of the dictionary.
+
+Checks (`ads4/code/abjm_tilt.py`): the bounds bracket the exact `F(1,k;λ)` for three `(k,λ)` and `F(2,1;λ)`,
+`λ = 0, 0.3` (quadrature; `Z(2,1;0.3) = 0.0671 > Z(2,1;0) = 0.0199`); ratios of the bounds to
+`f_0√(1−4λ²)N^{3/2}` at `N = 10⁷`: within `0.2%` below and `1%` above for `λ = 0, 0.25, 0.4`.
