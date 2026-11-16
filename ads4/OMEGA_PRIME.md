@@ -14,14 +14,14 @@ Marks: **[D]** derived; **[D-sketch]** outlined; **[Q]** quoted (CLS-D = 2311.04
    * `Ψ̃_{3,ν}` is a member of the CLS-D `k = 3`, `J_e = 2` family with constant `f⁻_{3;2}` (the *bare* commutator `⟨T[L[T],L[T]]T⟩`).
    * It has the parity-odd celestial structure at the `(1,3)` pair (`j′ = 1`) and a parity-odd dual structure at the `(2,4)` pair.
    * `N(ν)` is fixed so that the leading heavy action equals that of the project's `C⁻₃`.
-2. **Heavy action, leading order (`ν ≪ m`) [DV at the `(1,3)` pair, §6; I for the `(2,4)` dual structure].**
+2. **Heavy action, leading order (`ν ≪ m`) [DV at the `(1,3)` pair, §6; D for the `(2,4)` choice, §7].**
    * Form: `C̃⁻₃[Δ,J] = (2P_{−½+iν}(cosh β)/m⁶)(|c_same|² − |c_opp|²)(1 + O(1/m²))`. This is the **same** helicity combination and the **same** `ν`-kernel
      (the pres–pres harmonic `P = 𝒦_{0,0}`) as `C⁻₃`.
    * Normalisation [DV]: `N(ν) ∝ (2ν + i)(4ν² + 9)/(4ν² + 201)` at `a = 8` (`l = 2`, `k = 3`). It is **nonzero for every real `ν`** (`|N|` is smallest at `ν = 0`).
      Its zeros sit at `ν = −i/2, ±3i/2`, off the real axis. So `Ω′` is well defined on the whole real `ν` axis.
    * No helicity flip [DV]: at the `(1,3)` pair the bare-commutator flip responses `A(+,+)`, `A(−,−)` vanish identically. Individual frame modes do have odd flip
      responses (`t6b`); they cancel in the antipodal combination. The project's `𝔄` kernel also has zero flip response. So there is no
-     `c_same c̄_opp` piece, provided the `(2,4)` dual structure is `𝔄`-like [I: not shown that `𝔄` is in the span of CLS-D dual structures].
+     `c_same c̄_opp` piece: the `(2,4)` kernel can be *chosen* equal to `𝔄` (§7, [D]), and `𝔄` has zero flip response [DV].
 3. **Flat limit [D given Q].** In `D = 4` the odd-`k` fixed-`u` sum rules are exactly the `B^{(1)}_k` of CLPSD (2.26) (label `defB`) [Q]. CLS-D map every bare-commutator functional
    to a lowest-subtracted odd fixed-`u` flat sum rule [Q]. Hence `ε₃Λ⁶C̃⁻_{3,Λp} → B₃^{(1)}(p)`, with `σ_h = +1` for `++` and `−1` for `+−`, as before.
    * Consequence: `Ω′` has the same flat limit `F_{g3}` as `Ω`. **Theorem 1 of `FLAT_GRAVITON_BOUND.md` applies unchanged** to the flat leading heavy action.
@@ -41,7 +41,7 @@ Marks: **[D]** derived; **[D-sketch]** outlined; **[Q]** quoted (CLS-D = 2311.04
    This removes the `~10⁴` leverage item of `ADS4_LIGHT.md` §2.1. Still load-bearing:
    * the forward terms `∂_{ν²}C⁺₄|₀` and `C⁻₅|₀` (RB₃/RB₄, [I]);
    * (R) for `C⁺₂` ([D-sketch given IP]);
-   * the new normalisation `N(ν)`: computed, nonzero on real `ν` [DV, §6]; the `(2,4)`-side identification is [I].
+   * the new normalisation `N(ν)`: computed, nonzero on real `ν` [DV, §6], and complete, because the `(2,4)` factor is 1 by choice (§7) [D].
 
 ## 1. Definition and existence
 
@@ -49,7 +49,7 @@ Marks: **[D]** derived; **[D-sketch]** outlined; **[Q]** quoted (CLS-D = 2311.04
 * At the `(1,3)` pair, CLS-D's functional applies `L[T](x₀,z₁)` and `L[T](x₀,z₃)`, which in the CHMRS frame means antipodal polarisations (`LIGHT_INPUTS.md` §3.1).
 * The celestial structure `⟨P̃₁P̃₃P_{δ,j′}⟩` with `δ = ½+iν` is `∝ |sin(θ₀−φ)|^{−δ}`, times `sgn sin(θ₀−φ)` for `j′ = 1` [Q, `SPINNING_E2E.md` §3.3].
 * At the `(2,4)` pair the dual structure `(⟨T₄L[O]T₂⟩^{(a)})^{−1}` is free. It ranges over the `⟨TTO_{3/2+iν,3}⟩` structures; CLS-D count 2 odd functionals in
-  general `d` for `j′ = 1`. In `d = 3` the celestial group is trivial, so the count collapses [I: the number of independent `d = 3` members was not determined].
+  general `d` for `j′ = 1`. In `d = 3` the celestial group is trivial, so the count collapses [I: the number of independent `d = 3` members was not determined]. Superseded by §7: any covariant `(2,4)` kernel is admissible, and we choose `𝔄`.
 
 **Choice.** Choose the `(2,4)` structure parity-odd. A parity-even `(2,4)` structure combined with the odd `(1,3)` structure has zero leading action on
 parity-even exchanges (the `h₁`-odd weight sums to zero over parity images; `SPINNING_E2E.md` §4.4: "`S` cancels for parity-even blocks").
@@ -123,7 +123,7 @@ through the `M`-tables, i.e. through the rational functions `R` and `g₁S`.
 | item | status |
 |---|---|
 | `C̃⁻₃` exists, parity-odd `(2,4)` structure, sum rule valid for planar `J₀ < 3` | [Q] CLS-D, KKSDZ; number of `d = 3` members [I] |
-| leading heavy action `= (2P/m⁶)(|c_s|²−|c_o|²)` after normalisation by `N(ν)` | [DV] at the `(1,3)` pair (§6): `N ∝ (2ν+i)(4ν²+9)/(4ν²+201)`, no real zeros, no flip pieces; `(2,4)` dual structure `𝔄`-like [I] |
+| leading heavy action `= (2P/m⁶)(|c_s|²−|c_o|²)` after normalisation by `N(ν)` | [DV] at `(1,3)` (§6): `N ∝ (2ν+i)(4ν²+9)/(4ν²+201)`, no real zeros, no flip; `(2,4)` kernel `= 𝔄` by choice [D, §7], so `N₂₄ = 1` and no flip at `(2,4)` |
 | flat limit `= ψ₃B₃^{(1)}`, Theorem 1 applies | [D given Q] (CLPSD basis, CLS-D map); `c(ν) ≢ 0` [I] |
 | light side: no Einstein/linear/contact/`[TT]` term; top coefficient `−4πG|ĝ₃|²ν⁴` | [D given planar `J₀ < 3`, HM/CDP, (F)] |
 | `f̃₁, f̃₀`; `O(1/m²)` heavy terms | [ND] |
@@ -166,8 +166,30 @@ in closed form, as products of the rational `S` tables and `g₁`.
 * For both the antipodal bare-commutator kernel and the project's `D₅`/`𝔄`, `A(+,+) = A(−,−) = 0` identically in `ν` and `a`.
 * This replaces the earlier "[D given Q + overlap matching]" argument by a direct computation at the `(1,3)` pair.
 
-**What remains [I/ND].**
-* The `(2,4)` pair: CLS-D's dual structure `(⟨T₄L[O]T₂⟩^{(a)})^{−1}`, `O = (3/2+iν, 3, j′)`, was not reduced to frame modes. If it is not `𝔄`-like, `N` acquires a
-  second factor `S̃_R/S_R`, and possibly flip pieces at `(2,4)`.
+**What remains [ND].**
 * The `O(1/m²)` heavy terms.
 * `f̃₁`, `f̃₀`.
+* The two-pair heavy formula for stress tensors is itself conditional (`SPINNING_TTTT.md`).
+
+## 7. The `(2,4)` side: any covariant kernel is allowed, in particular `𝔄` [D]
+
+* **Why the kernel is free.** The bare-commutator sum rule rests on `⟨T(x₄,z₄)[L[T](x₀,z₃), L[T](x₀,z₁)]T(x₂,z₂)⟩ = 0`. This holds **pointwise** in `x₂, x₄, z₂, z₄`
+  whenever the integral converges (KKSDZ; planar `J₀ < 3`). So integrating against *any* kernel at the `(2,4)` pair gives a valid sum rule. CLS-D's dual
+  structure `(⟨T₄L[O]T₂⟩^{(a)})^{−1}` is one convenient covariant choice; it is not forced.
+* **Which kernels are covariant.** Such a kernel (spectral parameter `ν`, i.e. a three-point structure of the `(T₂, T₄, X_ν)` representations with `X` at `x₀`, polarisation `z₀ = ℓ`)
+  is, at leading Regge order, that structure evaluated at `(x₂, x₀, x₄) = (−x̂, 0, x̂)`. (In the CHMRS frame `x₀ = |y|n̂ → 0`.)
+  * The stabiliser of three points on a timelike line in `d = 3` is the `SO(2)` of rotations about `x̂`.
+  * The null polarisation `z₀` (mod scale) is a point `χ` of the celestial circle at `x₀`, on which this `SO(2)` acts transitively.
+  * Hence the three-point structures, both parities, are exactly the `SO(2)`-covariant polynomials of bidegree `(2,2)` in `(z₂, z₄)` written in the frame
+    `(x̂, n_ℓ, n_ℓ^⊥)`, i.e. arbitrary combinations of the 25 frame modes `k_{q₂q₄}`.
+  * This is the familiar count of `(2l₁+1)(2l₂+1) = 25` structures for spins `(2, 2, J ≥ 4)` in `d = 3`. The homogeneity in `z₀` only fixes the factor `(−x̂·ℓ)^{−½+iν}`.
+* **The asymmetry with `(1,3)`.** At `(1,3)` the light transforms force antipodal polarisations, which is why `𝔄` cannot be used there (`LIGHT_INPUTS.md` §3.1).
+  At `(2,4)` the operators are not light-transformed, so no such constraint arises.
+* **Conclusion.** Choose the `(2,4)` kernel to be the structure whose Regge restriction is `𝔄 = D₅D₁`, exactly the project's `C⁻` kernel at that pair. Then:
+  * the `(2,4)` factor of `N` is identically 1, so **`N(ν)` of §6 is complete**;
+  * `𝔄` has zero flip response (`A(±,±) = 0`, §6 [DV]), so **no `c_same c̄_opp` (flip) pieces arise at `(2,4)` either**;
+  * none arise at `(1,3)` (§6).
+
+  So there is nothing sign-indefinite to quantify at leading order.
+* **Effect of a different `(2,4)` kernel.** Any other choice multiplies `N` by `S̃_R/S_R` and may introduce flip terms. This one avoids both.
+* **Not checked.** That the chosen structure is "nice" beyond leading Regge order (its subleading Regge moments enter only the `O(1/m²)` heavy terms, which are [ND] anyway).
