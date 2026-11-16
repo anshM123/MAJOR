@@ -1,11 +1,20 @@
+# spinning partial waves: W_diff (differential operators on exact blocks)  vs  shadow integral of L(z_1) Fs(z_3)
+  l=1 Delta=7.3 J=2 Dphi=1.75 pol=(0.3,1.9):  W_diff = -7.58105438e+00   shadow = -7.59101204e+00   ratio = 0.998688
+  l=1 Delta=7.3 J=2 Dphi=1.75 pol=(2.2,0.4):  W_diff = -4.96605395e+00   shadow = -4.96150590e+00   ratio = 1.000917
+  l=1 Delta=8.6 J=3 Dphi=1.75 pol=(0.3,1.9):  W_diff = 8.10715620e+01   shadow = 8.11307506e+01   ratio = 0.999270
+  l=1 Delta=8.6 J=3 Dphi=1.75 pol=(2.2,0.4):  W_diff = 5.24566788e+01   shadow = 5.24157199e+01   ratio = 1.000781
+  l=2 Delta=10.3 J=2 Dphi=1.75 pol=(0.3,1.9):  W_diff = -1.44348093e+06   shadow = -1.43947395e+06   ratio = 1.002784
+  l=2 Delta=10.3 J=2 Dphi=1.75 pol=(2.2,0.4):  W_diff = -1.63959535e+06   shadow = -1.63841544e+06   ratio = 1.000720
+  l=2 Delta=11.6 J=3 Dphi=1.75 pol=(0.3,1.9):  W_diff = 3.98871137e+07   shadow = 3.97724452e+07   ratio = 1.002883
+  l=2 Delta=11.6 J=3 Dphi=1.75 pol=(2.2,0.4):  W_diff = 4.57086195e+07   shadow = 4.56641792e+07   ratio = 1.000973
 # scalar seeds: K g  vs  shadow integral  (q = |x| = |y|, xi);  third column: ratio
-  Delta=7.3 J=2 dims=(1.75, 1.75, 1.75, 1.75) q=0.25 xi=0.5:  K g = 3.98138031e-03   shadow = 3.97883582e-03   ratio = 1.000640   signs of v5: [np.float64(1.0)]
-  Delta=7.3 J=2 dims=(3.0, 1.75, 3.0, 1.75) q=0.25 xi=0.5:  K g = 6.13222721e-03   shadow = 6.12778578e-03   ratio = 1.000725   signs of v5: [np.float64(1.0)]
-  Delta=7.3 J=2 dims=(3.0, 1.75, 2.0, 2.75) q=0.25 xi=0.5:  K g = 2.77470413e-04   shadow = 2.77313360e-04   ratio = 1.000566   signs of v5: [np.float64(1.0)]
-  Delta=7.3 J=2 dims=(4.0, 1.75, 2.0, 3.75) q=0.25 xi=0.5:  K g = 1.55000999e-05   shadow = 1.54938707e-05   ratio = 1.000402   signs of v5: [np.float64(1.0)]
-  Delta=7.3 J=2 dims=(2.0, 3.75, 4.0, 1.75) q=0.25 xi=0.5:  K g = 1.55000999e-05   shadow = 1.55076443e-05   ratio = 0.999514   signs of v5: [np.float64(1.0)]
-  Delta=8.6 J=3 dims=(1.75, 1.75, 1.75, 1.75) q=0.25 xi=0.5:  K g = -8.10772542e-03   shadow = -8.10173093e-03   ratio = 1.000740   signs of v5: [np.float64(1.0)]
-  Delta=8.6 J=3 dims=(3.0, 1.75, 3.0, 1.75) q=0.25 xi=0.5:  K g = -1.21478073e-02   shadow = -1.21374896e-02   ratio = 1.000850   signs of v5: [np.float64(1.0)]
-  Delta=8.6 J=3 dims=(3.0, 1.75, 2.0, 2.75) q=0.25 xi=0.5:  K g = -5.69952367e-04   shadow = -5.69576618e-04   ratio = 1.000660   signs of v5: [np.float64(1.0)]
-  Delta=8.6 J=3 dims=(4.0, 1.75, 2.0, 3.75) q=0.25 xi=0.5:  K g = -3.28144033e-05   shadow = -3.27982643e-05   ratio = 1.000492   signs of v5: [np.float64(1.0)]
-  Delta=8.6 J=3 dims=(2.0, 3.75, 4.0, 1.75) q=0.25 xi=0.5:  K g = -3.28144033e-05   shadow = -3.28228598e-05   ratio = 0.999742   signs of v5: [np.float64(1.0)]
+  Delta=7.3 J=2 dims=(1.75, 1.75, 1.75, 1.75) q=0.25 xi=0.5:  K g = 3.98138031e-03   shadow = 3.97732322e-03   ratio = 1.001020   signs of v5: [np.float64(1.0)]
+  Delta=7.3 J=2 dims=(3.0, 1.75, 3.0, 1.75) q=0.25 xi=0.5:  K g = 6.13222721e-03   shadow = 6.12236088e-03   ratio = 1.001612   signs of v5: [np.float64(1.0)]
+  Delta=7.3 J=2 dims=(3.0, 1.75, 2.0, 2.75) q=0.25 xi=0.5:  K g = 2.77470413e-04   shadow = 2.77224064e-04   ratio = 1.000889   signs of v5: [np.float64(1.0)]
+  Delta=7.3 J=2 dims=(4.0, 1.75, 2.0, 3.75) q=0.25 xi=0.5:  K g = 1.55000999e-05   shadow = 1.54894706e-05   ratio = 1.000686   signs of v5: [np.float64(1.0)]
+  Delta=7.3 J=2 dims=(2.0, 3.75, 4.0, 1.75) q=0.25 xi=0.5:  K g = 1.55000999e-05   shadow = 1.54506003e-05   ratio = 1.003204   signs of v5: [np.float64(1.0)]
+  Delta=8.6 J=3 dims=(1.75, 1.75, 1.75, 1.75) q=0.25 xi=0.5:  K g = -8.10772542e-03   shadow = -8.09819240e-03   ratio = 1.001177   signs of v5: [np.float64(1.0)]
+  Delta=8.6 J=3 dims=(3.0, 1.75, 3.0, 1.75) q=0.25 xi=0.5:  K g = -1.21478073e-02   shadow = -1.21262111e-02   ratio = 1.001781   signs of v5: [np.float64(1.0)]
+  Delta=8.6 J=3 dims=(3.0, 1.75, 2.0, 2.75) q=0.25 xi=0.5:  K g = -5.69952367e-04   shadow = -5.69363442e-04   ratio = 1.001034   signs of v5: [np.float64(1.0)]
+  Delta=8.6 J=3 dims=(4.0, 1.75, 2.0, 3.75) q=0.25 xi=0.5:  K g = -3.28144033e-05   shadow = -3.27881822e-05   ratio = 1.000800   signs of v5: [np.float64(1.0)]
+  Delta=8.6 J=3 dims=(2.0, 3.75, 4.0, 1.75) q=0.25 xi=0.5:  K g = -3.28144033e-05   shadow = -3.27159808e-05   ratio = 1.003008   signs of v5: [np.float64(1.0)]

@@ -1,9 +1,9 @@
 # Heavy-state positivity of the cubic-coupling functional `F_{g3}` of arXiv:2201.06602, and what it implies for `|ĝ₃|²`
 
-Status: written 16 Nov 2026 by an automated analyst; **revised the same day after the referee report
-`ads4/REFEREE_FLAT_GRAVITON.md`** (positivity and code judged correct; two major points on the IR hypothesis and on the
-published version, now addressed in §1.5 and §4). Computer-assisted proof; code in `ads4/code/flatbound/`, driver
-`bash run_all.sh` (≈ 2.5 min, 3.7 min with `--sanity`; one PASS/FAIL line per certificate and a final verdict; current
+Status: written 16 Nov 2026 by an automated analyst; **revised twice the same day after the referee reports
+in `ads4/REFEREE_FLAT_GRAVITON.md`** (round 1: IR hypothesis and published version, §1.5, §4; round 2: the eikonal
+hypothesis is now imposed only on a certified large-`b̂`, small-`u` region, §4.3). Computer-assisted proof; code in `ads4/code/flatbound/`, driver
+`bash run_all.sh` (≈ 4.5 min, ≈ 5.5 min with `--sanity`; one PASS/FAIL line per certificate and a final verdict; current
 result: all PASS). Units `M = 1` unless `M` is written.
 
 Versions of the paper: arXiv:2201.06602 **v1** (the only arXiv version; LaTeX source `gravity_4d.tex`) and the version of
@@ -50,12 +50,18 @@ precisely `m⁴F^{JHEP}₊₋(J=4) = 2591/210 − 41u/18 − 5u³ − 25u⁷`, n
 constants of the paper's (3.4a)).
  (i) Under H1–H5: `|ĝ₃|²M⁸ ≤ 16L(ε)/k(ε) + Δ_IR ≤ A log(M/m_IR) + B + Δ_IR`, `Δ_IR := ⟨[F^ε]₋⟩/(πG k(ε)) ≥ 0`,
  where `[x]₋ = max(−x,0)`. `Δ_IR` is an explicit heavy-state quantity; by Theorem 1 it only receives contributions from
- states whose (positive) action without cutoff is `O(ε²)`. It is **not zero** if `G > 0` (§4.3).
- (ii) Under H1–H5 and the eikonal hypothesis `E(λ,η)` of §4.3 (on the states where `F^ε < 0` the heavy spectrum is at most
- `(1+η)` times the tree-level graviton-exchange (eikonal) density, with IR support cutoff `b ≤ 1/(λ m_IR)`):
- `Δ_IR ≤ (1+η)(16/k_lo)(65 I(λ) + 3.5ε/λ²)`, `I(λ) = ∫₀^{1/λ} J₁(x) log(1/(λx)) dx`. For `λ = 1, η = 0`:
- **`|ĝ₃|²M⁸ ≤ 37.8387 log(M/m_IR) − 40.601`**. The coefficient `A` of the logarithm is unchanged; the correction is O(1)
- in `B` (table in §4.3). Light matter can only lower the right side.
+ states with `0 < m⁴F < m⁴|R_ε| ≤ (1−ε²)^{−4}(65ε² + 162uε + 17uε⁴)`, i.e. whose action is `O(ε² + uε)` — `O(ε)` for `u ∼ 1`, which
+ at `ε = 1/100` includes ordinary `M`-scale states (referee, round 2). It is **not zero** if `G > 0` (§4.3).
+ (ii) Let `0 < m_IR ≤ M/20000`. Then (certified, Lemma N) every state with `F^ε < 0` lies in the region
+ `Ω_ε = {b̂ ≥ 120, u ≤ min(1/100, u_N(b̂))}`, `u_N(b̂) ≤ 65.4/b̂³ + 64.9ε/b̂² + 5.11ε/b̂` (so `s = m² ≳ 3·10⁴ M²` there).
+ Under H1–H5 and the eikonal hypothesis `E(λ,η)` of §4.3 (on `Ω_ε` the `2/m⁴`-weighted heavy spectrum, as a function of
+ `b̂`, is at most `(1+η)` times the tree-level graviton-exchange density `16πG b log⁺(1/(λ m_IR b))`):
+ `Δ_IR ≤ (1+η)(16/k_lo)(65 I(λ) + 3.5ε/λ² + X(ε,λ))`, `I(λ) = ∫₀^{1/λ} J₁(x) log(1/(λx)) dx`, `X` explicit (finite-mass
+ corrections, `X ≤ 0.118` at `λ = 1`). With `A = 37.8387`, `B = −45.4441` for `m_IR ≤ M/20000` and `λ = 1, η = 0`:
+ **`|ĝ₃|²M⁸ ≤ 37.8387 log(M/m_IR) − 40.790`** (certified `−40.79081`). The coefficient of the logarithm is unchanged; the
+ correction is O(1) in `B` (table in §4.3). Light matter can only lower the right side. For `M/20000 < m_IR ≤ M/100` only (i)
+ is proved; the analogous numbers there (e.g. `−40.60` at `λ = 1`) are **estimates**, because the negative set then contains
+ non-eikonal `M`-scale states.
 For the literal or JHEP functional (i) and (ii) hold with an extra `−5g₅M¹⁰/(πG k)` (`g₅` has either sign); the same
 omission (`−g₅`) is present in the low side of `F_{g4}` (3.3b)/(3.4b).
 
@@ -86,7 +92,8 @@ How positivity was established (Theorem 1), `b̂ := (2J+1)/m`:
    the claimed and plotted positivity.
 4. The IR cutoff destroys positivity at large impact parameter (as the paper says, (3.6)); a finite bound needs a hypothesis
    about that region. The earlier version of this note assumed `⟨[F^ε]₋⟩ = 0`, which is incompatible with `G > 0` (§4.3) and
-   has been withdrawn; Theorem 3 now states the unconditional form (i) and a non-vacuous eikonal model (ii).
+   has been withdrawn. Theorem 3 now states the unconditional form (i) and, for `m_IR ≤ M/20000`, a bound (ii) under an
+   eikonal hypothesis imposed only on a certified large-`b̂`, large-`s` region that contains every negative state.
 
 ## 1. The sum rules (arXiv:2201.06602)
 
@@ -264,36 +271,58 @@ and `⟨F^ε⟩ → ∫f̂_ε(b)dν(b)`, `f̂_ε(b) = ∫_ε¹ψ₂J₀(bp)dp`. 
 if the large-`b` region is "controlled by known low-energy-computable eikonal physics, positivity should not be crucial
 there" (§2.5) and "accept[s] that this causes negativity at large impact parameters" (§3.1).
 
-**Hypothesis `E(λ, η)` (eikonal model of the large-impact-parameter heavy spectrum).** Let `μ := λ m_IR` (`λ > 0`) be the
-physical IR scale and `N_ε` the set of heavy states with `F^ε[m,J,h] < 0`. (E1) The states of `N_ε` are in the eikonal
-(scaling) regime, where `F^ε = (2/m⁴)f̂_ε(2J/m)`. (E2) On `N_ε` the impact-parameter measure satisfies
-`dν ≤ (1+η)·dν_eik`, `dν_eik(b) = 16πG b log⁺(1/(μb)) db`: the tree-level graviton-exchange density, which reproduces
-`−B₂|_low = 16πG/p²` up to `−16πG J₀(p/μ)/p²` (negligible for `p ≫ μ`); it is the transform of the 4D eikonal phase
-`δ_tree = −2Gs log(b/L_IR)`, valid for `b ≤ L_IR = 1/μ` (arXiv:2410.21499, footnote 8, where the graviton pole at large `b` is
-shown to be generated by eikonal scattering; their positive-functional/Tauberian analysis is for `d > 4` and assumes the IR
-part calculable in the EFT). `E` is not excluded by H1–H5 or Theorem 2 — `ν_eik` is precisely the large-`b` spectrum that Theorem 2
-requires — so, unlike the withdrawn H-IR, it is not vacuous; `η` is the tolerance for
-non-eikonal (e.g. stringy) states in `N_ε`.
+**Where is `F^ε` negative? (Lemma N, certified, `cert_eps.py`).** Let `ε* = 1/20000`, `r₀ = 65ε*²(1−ε*²)^{−4}`,
+`r₁ = (162ε* + 17ε*⁴)(1−ε*²)^{−4}`; for `ε ≤ ε*`, `m⁴|R_ε| ≤ r₀ + r₁u` (`ψ₂ ≤ 65p`, `0 < ψ₃ ≤ 162` on `[0, 0.04]`, `|P_J| ≤ 1`,
+`|d̃₄₄| ≤ (1−y)^{−4}`). Since `[F^ε]₋ ≤ [R_ε]₊` (Theorem 1), a state can be in `N_ε := {F^ε < 0}` only if `m⁴F < r₀ + r₁u`.
+*Lemma N.* For every `ε ≤ ε*`, `N_ε ⊂ Ω_ε := {b̂ ≥ 120, u ≤ min(1/100, u_N(b̂))}`, `u_N` the largest root of
+`2.5(1−η)b̂²u² − (162/b̂₋ + r₁)u − r₀`, `u_N(b̂) ≤ 65.4/b̂³ + 64.9ε*/b̂² + 5.11ε*/b̂`.
+*Proof/certificate.* Region by region, `m⁴F − r₀ − r₁u > 0` is certified outside `Ω_ε`: (P) `J < 400`, all `u ∈ [0,1]`: exact
+Descartes on the shifted polynomials (596); (C) `J ≥ 400`, `m ≤ 2`: `m⁴F ≥ 2.1·10⁴`; (S) `J ≥ 400`, `m ≥ 2`, `b̂ ≤ 120`: the
+cert_S cells with `r₀ + r₁u` subtracted (604 per channel) and the small-`b̂` bound; (M) `b̂ ≥ 120`: for `u ≥ 1/100` the `Φ` term
+dominates; for `u ≤ 1/100`, `m⁴F ≥ [80/b̂₊³ − C_R/b̂₋⁴] − 162u/b̂₋ + 2.5(1−η)b̂²u²` (both channels, §3), the bracket is `≥ 0`
+for `b̂ ≥ 120`, so `m⁴F < r₀ + r₁u` forces `u < u_N(b̂)`. ∎ The binding constraint is the `+−` near-zero at `m ≈ 21.8, J = 245`
+(`m⁴F ≈ 2.67·10⁻⁵ > 162uε*`); `ε*` cannot be raised much above `≈ 7·10⁻⁵`. For larger `ε` the negative set contains ordinary
+states (referee's float scan: at `ε = 1/100`, `++` states with `m ≈ 3.8–6.5M`, `J = 14–28`, and `+−` states near `b̂ ≈ 22.5`).
 
-**Lemma IR.** Under H1–H5 and `E(λ,η)` with `1/λ < j₁,₁ ≈ 3.83` and `ε ≤ 1/100`:
-`Δ_IR ≤ (1+η)(16/k_lo)(65 I(λ) + 3.5ε/λ²)`, `I(λ) = ∫₀^{1/λ}J₁(x)log(1/(λx))dx = Σ_k (−1)^k λ^{−2k−2}/(2^{2k+1}k!(k+1)!(2k+2)²)`.
-*Proof.* `Δ_IR ≤ (1+η)(16/k)∫[f̂_ε]₋ b log⁺(1/(μb)) db`. Since `f̂ > 0` (`UNIFORM_POSITIVITY.md`, Theorem 2),
-`[f̂_ε]₋ ≤ [∫₀^εψ₂J₀(bp)dp]₊`; with `ψ₂ = pφ(p)`, `0 ≤ 65 − φ(p) ≤ 40p + 223p²` on `[0,1/100]` (exact check) and `|J₀| ≤ 1`:
-`[f̂_ε]₋ ≤ 65ε[J₁(εb)]₊/b + 14ε³`. Integrate against `b log(1/(μb))` on `(0,1/μ)` with `x = εb`; `J₁ > 0` on `(0,1/λ]` (Arb). ∎
-[proved; constants and `I(λ)` certified in `cert_ir.py`]
+**Hypothesis `E(λ, η)` (eikonal model on `Ω_ε`).** Let `μ := λ m_IR` (`λ > 0`) be a *model* IR scale (not an observable: in
+`D = 4` a positive eikonal measure needs an IR regulator). For every Borel `φ ≥ 0`,
+`⟨(|c⁺⁺|² + |c⁺⁻|²)(2/m⁴) φ(b̂) 1_{Ω_ε}⟩ ≤ (1+η) ∫ φ dν_eik`, `dν_eik(b) = 16πG b log⁺(1/(μb)) db`.
+`ν_eik` is the tree-level graviton-exchange density: `∫J₀(bp)dν_eik = 16πG(1 − J₀(p/μ))/p²`, i.e. the `16πG/p²` pole of `−B₂|_low`
+for `p ≫ μ`; it is the transform of the 4D eikonal phase `δ_tree = −2Gs log(b/L_IR)`, valid for `b ≤ L_IR = 1/μ` (arXiv:2410.21499,
+footnote 8; there the graviton pole at large `b` is generated by eikonal scattering, and the Tauberian analysis is for `d > 4`
+with the IR part assumed calculable in the EFT). `E` constrains only states with `b̂ ≥ 120/M` and `s = m² ≥ 1/u_N ≳ 3·10⁴ M²`;
+it involves no exact scaling-limit equality (finite-mass effects are bounded in Lemma IR), it does not force `N_ε` to be
+empty, and `ν_eik` is what Theorem 2 requires at large `b`, so it is not vacuous. `η` is the tolerance for non-eikonal
+(e.g. stringy) states in `Ω_ε`.
 
-| `λ = μ/m_IR` | `I(λ)` | bound on `Δ_IR` (`η = 0`) | `B + Δ_IR` | in terms of `μ`: `B + A log λ + Δ_IR` |
-|---|---|---|---|---|
-| 2/7 | 1.06070 | 40.385 | −4.821 | −52.22 |
-| 1/2 | 0.441919 | 16.803 | −28.403 | −54.63 |
-| 1 | 0.121165 | 4.605 | **−40.601** | −40.60 |
-| 2 | 0.031007 | 1.178 | −44.028 | −17.80 |
-| 4 | 0.0077973 | 0.296 | −44.910 | +7.55 |
+**Lemma IR.** For `ε ≤ ε*`, `1/λ < j₁,₁ ≈ 3.83`, under H1–H5 and `E(λ,η)`:
+`Δ_IR ≤ (1+η)(16/k_lo)(65 I(λ) + 3.5ε/λ² + X(ε,λ))`, `I(λ) = ∫₀^{1/λ}J₁(x)log(1/(λx))dx = Σ_k (−1)^k λ^{−2k−2}/(2^{2k+1}k!(k+1)!(2k+2)²)`.
+*Proof.* By Lemma N, `⟨[F^ε]₋⟩ = ⟨[F^ε]₋1_{Ω_ε}⟩` and per state `m⁴[F^ε]₋ ≤ [m⁴R_ε]₊`. Split
+`m⁴R_ε = 2∫₀^εψ₂D_h + u∫₀^ε(σψ₃ − p²ψ₂)D_h`; the second part is `≤ r₁u`. For the first, compare `D_h(1−2up²)` with `J₀(b̂p)` at
+`p ≤ ε`: by (Q1) in the form of Lemma S, `P_L(cos θ) = (2/π)∫cos(Nθ sin σ)E^{−1/2}dσ` with `1 ≤ E^{−1/2} ≤ θ/sin θ`, so
+`|P_L(cos θ) − J₀(Nθ)| ≤ θ²/5`; `Nθ = b̂p s(up²)`, `|J₁| ≤ 0.582`, `s(z) − 1 ≤ z/5`, `θ² ≤ 4.1up²`; for `+−` (Lemma C) also
+`|(1−y)^{−8} − 1| ≤ 8.1y` and the shifts `|jθ| ≤ 8.04p√u`. Hence `|D_h − J₀(b̂p)| ≤ 9.1up² + 0.12b̂up³ + 4.8p√u`, and with
+`∫₀^εψ₂J₀(b̂p) ≤ 65εJ₁(εb̂)/b̂ + 14ε³` (`ψ₂ = pφ`, `0 ≤ 65 − φ ≤ 40p + 223p²`):
+`m⁴[F^ε]₋ ≤ 2(65ε[J₁(εb̂)]₊/b̂ + 14ε³) + r₁u + 130(2.3uε⁴ + 0.024b̂uε⁵ + 1.6√u ε³)`, `u ≤ u_N(b̂)`.
+Apply `E` with `φ` equal to half this right side (a function of `b̂` once `u` is replaced by `u_N(b̂)`) and integrate:
+`x = εb` gives `65 I(λ)`, `∫₀^{1/μ} b log(1/(μb))db = 1/(4μ²)` gives `3.5ε/λ²`, and the `u_N` terms give
+`X(ε,λ) ≤ Λ·[ (r₁/2)∫b u_N + 65(2.3ε⁴∫b u_N + 0.024ε⁵∫b²u_N + 1.6ε³∫b√u_N) ]` over `b ∈ [120, 1/μ]`, `Λ = log(1/(120μ))`
+(explicit power integrals; each term is `ε^a Λ` with `a ≥ 1` and `Λ > 1`, hence increasing in `ε`, so `ε = ε*` is the worst
+case). ∎ [proved; `I(λ)`, `u_N`, `X` and the table certified in `cert_eps.py` (Arb)]
 
-So under `E(1,0)`: `|ĝ₃|²M⁸ ≤ 37.8387 log(M/m_IR) − 40.601`; with `η > 0` add `4.605η`. At fixed `λ` the coefficient of the
-logarithm is unchanged and the correction is O(1) in `B`, as the referee estimated. In terms of a fixed physical IR scale `μ`
-(choosing `m_IR = μ/λ`), the best entry of the table gives `|ĝ₃|²M⁸ ≤ 37.84 log(M/μ) − 54.6` (`λ = 1/2`, `μ ≤ M/200`). The
-lemma is crude (it discards `f̂ > 0` near `b ∼ ε^{−2/3}`), so these corrections are upper bounds.
+| `λ = μ/m_IR` | `I(λ)` | `X(ε*,λ)` | bound on `Δ_IR` (`η = 0`) | `B + Δ_IR` (`m_IR ≤ M/20000`) | model-dependent, in terms of `μ`: `B + A log λ + Δ_IR` |
+|---|---|---|---|---|---|
+| 2/7 | 1.06070 | 0.476 | 40.414 | −5.030 | −52.43 |
+| 1/2 | 0.441919 | 0.254 | 16.870 | −28.574 | −54.80 |
+| 1 | 0.121165 | 0.118 | 4.654 | **−40.790** | −40.79 |
+| 2 | 0.031007 | 0.056 | 1.206 | −44.238 | −18.01 |
+| 4 | 0.0077973 | 0.028 | 0.312 | −45.132 | +7.33 |
+
+So under `E(1,0)`, for `m_IR ≤ M/20000`: `|ĝ₃|²M⁸ ≤ 37.8387 log(M/m_IR) − 40.790`; with `η > 0` add `4.654η`. At fixed `λ` the
+coefficient of the logarithm is unchanged and the correction is O(1) in `B`. The last column re-expresses the bound through
+the model scale `μ` (`m_IR = μ/λ`); its best entry, `37.84 log(M/μ) − 54.8` (`λ = 1/2`, `μ ≤ M/40000`), is obtained by optimising
+over a model parameter, so it and any comparison with the paper's `−45.4` are model-dependent. The lemma is crude (it
+discards `F > 0` inside `Ω_ε`), so these corrections are upper bounds.
 
 ## 5. Status of every statement
 
@@ -312,14 +341,16 @@ lemma is crude (it discards `f̂ > 0` near `b ∼ ε^{−2/3}`), so these correc
 | **Theorem 1** | [proved], given the above and correctness of FLINT/Arb |
 | Proposition 1′ | [proved, exact] |
 | Theorem 2, Theorem 3(i) | [proved] given H1–H5 |
-| Lemma IR, Theorem 3(ii) | [proved] given H1–H5 and `E(λ,η)` |
+| Lemma N (`N_ε ⊂ Ω_ε` for `ε ≤ 1/20000`) | [certified, `cert_eps.py`] |
+| Lemma IR, Theorem 3(ii) (`m_IR ≤ M/20000`) | [proved] given H1–H5 and `E(λ,η)` on `Ω_ε` |
+| analogous numbers for `M/20000 < m_IR ≤ M/100` | [estimate only — not proved] |
 | former H-IR (`⟨[F^ε]₋⟩ = 0`) | **withdrawn** (incompatible with `G > 0`) |
 | near-zeros, scans, `b⁴R` sizes | [numerical only — not part of any theorem] |
 | optimal bound (4.4) `24.9 log − 27.6` (SDPB, improved sum rules) | not addressed |
 
 ## 6. Reproduction
 `bash ads4/code/flatbound/run_all.sh [--sanity]`. Files: `common.py`, `cert_P.py`, `cert_C.py`, `cert_M.py`, `cert_S.py`,
-`cert_cg.py`, `cert_low.py`, `cert_ir.py`, `cert_jhep.py` (its PASS means the stated findings, including the negativity of the
+`cert_cg.py`, `cert_low.py`, `cert_ir.py`, `cert_eps.py`, `cert_jhep.py` (its PASS means the stated findings, including the negativity of the
 JHEP-printed functional, were verified), `sanity_numeric.py` (floating point, not part of the proof), `logs/`. Tools:
 python-flint 0.9 (FLINT/Arb ball arithmetic; no `mpmath.iv`), sympy. Parameters `JP = 400`, `B_A = 120`, `u₁ = 1/100`.
 

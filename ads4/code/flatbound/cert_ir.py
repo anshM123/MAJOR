@@ -1,4 +1,6 @@
-"""Infrared term Delta_IR under the eikonal hypothesis E(lambda, eta) of FLAT_GRAVITON_BOUND.md section 4.3.
+"""Ingredients for Lemma IR (I(lambda), the phi bounds).  NB (referee round 2): the Delta_IR table printed here, for
+m_IR <= M/100 with the scaling-limit form of E, is only an ESTIMATE; the proved version (m_IR <= M/20000, E on the
+certified region Omega_eps, finite-mass corrections bounded) is cert_eps.py.
 
 Under E: Delta_IR <= (1+eta) (16/k(eps)) int_0^{1/mu} [fhat_eps(b)]_- b log(1/(mu b)) db,  mu = lambda*eps,
 fhat_eps(b) = int_eps^1 psi2(p) J0(bp) dp.  Using fhat >= 0 (UNIFORM_POSITIVITY.md, Theorem 2),
@@ -23,10 +25,12 @@ ok = True
 # 0 <= 65 - phi <= 40p + 223p^2 on [0, 1/100]
 p = sp.Symbol('p')
 phi = sp.expand((1 - p)**3*(65 + 155*p + 47*p**2))
-d1 = sp.Poly(sp.expand(65 - phi), p); d2 = sp.Poly(sp.expand(40*p + 223*p**2 - (65 - phi)), p)
-c1 = sp.count_roots(d1, sp.Rational(1, 10**9), sp.Rational(1, 100)) == 0 and d1.eval(sp.Rational(1, 200)) > 0
-c2 = sp.count_roots(d2, sp.Rational(1, 10**9), sp.Rational(1, 100)) == 0 and d2.eval(sp.Rational(1, 200)) > 0
-print('0 <= 65-phi <= 40p+223p^2 on (0,1/100]:', c1 and c2)
+# divide out the zeros at p = 0 so that the root counts cover the closed interval [0, 1/100]
+d1 = sp.Poly(sp.cancel(sp.expand(65 - phi)/p), p)                         # 40 + 223p - 259p^2 + ...
+d2 = sp.Poly(sp.cancel(sp.expand(40*p + 223*p**2 - (65 - phi))/p**3), p)   # 259 - 14p - 47p^2
+c1 = sp.count_roots(d1, 0, sp.Rational(1, 100)) == 0 and d1.eval(0) > 0
+c2 = sp.count_roots(d2, 0, sp.Rational(1, 100)) == 0 and d2.eval(0) > 0
+print('0 <= 65-phi <= 40p+223p^2 on [0,1/100] (zeros at p=0 divided out):', c1 and c2)
 ok &= c1 and c2
 eps0 = Fr(1, 100)
 print('int_0^eps (40p+223p^2) p dp <= 14 eps^3 for eps<=1/100:', Fr(40, 3) + Fr(223, 4) * eps0 <= 14)

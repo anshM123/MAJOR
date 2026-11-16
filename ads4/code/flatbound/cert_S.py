@@ -166,7 +166,8 @@ def certify_box(g, gt, gu, tail_fn, t0, t1, u0, u1, depth=0, stats=None):
         return certify_box(g, gt, gu, tail_fn, t0, t1, u0, um, depth + 1, stats) and \
                certify_box(g, gt, gu, tail_fn, t0, t1, um, u1, depth + 1, stats)
 
-def cell(h, ak, bc, hh, JP, kappa=3):
+def cell(h, ak, bc, hh, JP, kappa=3, r0=Fr(0), r1=Fr(0)):
+    """certify FF - r0 - r1*u > 0 on the cell (r0=r1=0: positivity; cert_eps.py: cutoff remainder)."""
     r = min(Fr(2), bc / 2)
     assert hh <= r / 10
     u0 = ((bc + hh) / (2 * JP + 1)) ** 2
@@ -189,6 +190,7 @@ def cell(h, ak, bc, hh, JP, kappa=3):
     c = PHI_CONST[h]
     g[0][2] += fq(Fr(10) * bc * bc / 4); g[1][2] += fq(Fr(10) * 2 * bc / 4); g[2][2] += fq(Fr(10, 4))
     g[0][3] -= fq(Fr(5, 2) + c)
+    g[0][0] -= fq(r0); g[0][1] -= fq(r1)
     q = fq(hh) / rr
     def tail_fn(ub):
         x = fq(ub) / rho
@@ -198,7 +200,7 @@ def cell(h, ak, bc, hh, JP, kappa=3):
     ok = certify_box(g, gt, gu, tail_fn, -hh, hh, Fr(0), u0, 0, stats)
     return ok, stats['boxes'], M, u0
 
-def small_b(h, BS, JP):
+def small_b(h, BS, JP, r0=Fr(0), r1=Fr(0)):
     """bhat <= BS, u <= (BS/(2JP+1))^2: crude absolute-series bound."""
     X = fq(Fr(BS) ** 2 / 4); u = fq((Fr(BS) / (2 * JP + 1)) ** 2)
     G0 = fq(T0(0))  # a lower bound uses T0_0 + T1_0 u >= T0_0 - |T1_0| u
@@ -208,11 +210,12 @@ def small_b(h, BS, JP):
         prod = prod * (X + fq(Fr(1, 4) + e_h(h, n)) * u) / (n * n)
         tail += prod * (fq(abs(T0(n))) + fq(abs(T1(n, h))) * u)
     # remaining n>=400: term ratio (X + lambda_{n+1} u)/(n+1)^2 < 1/2 (asserted) and |T0_n|,|T1_n| <= 100 (asserted)
+    # n >= 2000 needs no check: (X + lambda_{n+1}u)/(n+1)^2 <= X/(n+1)^2 + ((n+5)/(n+1))^2 u < 1/2 trivially
     for n in range(400, 2000):
         assert bool((X + fq(Fr(1, 4) + e_h(h, n + 1)) * u) / (n + 1) ** 2 < A(1) / 2)
     assert TMAX_OK
     tail += 2 * prod * 100
-    low = low - tail - (fq(Fr(5, 2)) + PHI_CONST[h]) * u ** 3
+    low = low - tail - (fq(Fr(5, 2)) + PHI_CONST[h]) * u ** 3 - fq(r0) - fq(r1) * u
     return bool(low > 0), low
 
 def main():

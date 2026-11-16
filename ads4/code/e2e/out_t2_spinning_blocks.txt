@@ -15,5 +15,5 @@
   l=2 Delta=9.75 J=3 Dphi=1.75:  delta = 1e-3, 1e-4, 1e-5: ['(-2.008 + 0.0j)', '(-1.956 + 0.0j)', '(-1.595 + 1.347e-35j)']
   l=2 Delta=8.5 J=4 Dphi=2.5:  delta = 1e-3, 1e-4, 1e-5: ['(0.008941 + 6.339e-35j)', '(0.03244 - 1.044e-35j)', '(-0.8481 + 7.063e-36j)']
 # (c) double vs quad evaluation of the stripped tensor at a point of the dispersive region (frame, r_u = 0.002, eta_u = 1.4)
-  l=1 Delta=30.25 J=6: max |double/quad - 1| over 9 polarisation pairs = 1.45e-11;  sample value -4.68045422467e+14
+  l=1 Delta=30.25 J=6: max |double/quad - 1| over 9 polarisation pairs = 1.13e-12;  sample value -4.68045422467e+14
   l=2 Delta=30.25 J=6: max |double/quad - 1| over 9 polarisation pairs = 1.04e-08;  sample value 5.8978093986e+21

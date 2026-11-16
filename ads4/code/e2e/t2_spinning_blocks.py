@@ -93,7 +93,7 @@ for l, cases in ((1, [(9.75, 3, 1.75), (6.5, 4, 2.5)]), (2, [(9.75, 3, 1.75), (8
             res = divergence(sb, conf['x1'], conf['x2'], conf['x3'], conf['x4'], z3, l)
             pr(f"     control (coefficients c_a <-> c_b swapped): {mp.nstr(res, 3)}")
 
-pr("# (b) OPE limit x_12 = delta*v -> 0:  W_diff (-1/8)^J / <C_L, R>  - 1   (must vanish linearly in delta)")
+pr("# (b) OPE limit x_12 = delta*v -> 0 on the real section:  W_diff / (8^J <C_L, R>)  - 1   (must vanish linearly in delta)")
 def struct_fun(l, D, Jv, Dp):
     rs = rel_structure(l)
     sy, V5 = rs[0][2], rs[0][3]
@@ -121,7 +121,7 @@ def ope_check(l, D, Jv, Dp, delta):
     v = [mp.mpf('1.0'), mp.mpf('0.3'), mp.mpf('-0.2')]
     x1 = [x2[i] + delta*v[i] for i in range(3)]
     x3 = [mp.mpf('1.3'), mp.mpf('0.2'), mp.mpf('0.4')]; x4 = [mp.mpf('2.9'), mp.mpf('-0.3'), mp.mpf('0.5')]
-    x5 = [mp.mpf('1e12'), mp.mpf('3e11'), mp.mpf('-2e11')]
+    x5 = [mp.mpf('1e14'), mp.mpf('3e13'), mp.mpf('-2e13')]
     z1 = [mp.mpf(1), mp.cos(mp.mpf('0.7')), mp.sin(mp.mpf('0.7'))]
     z3 = [mp.mpf(1), mp.cos(mp.mpf('2.1')), mp.sin(mp.mpf('2.1'))]
     M = 2*Jv + 1
@@ -130,16 +130,18 @@ def ope_check(l, D, Jv, Dp, delta):
     x25 = [x2[i] - x5[i] for i in range(3)]
     s25 = -d(x25, x25)
     CL = []; RR = []
-    for ph in phis:
-        n = [mp.mpf(1), mp.cos(ph), mp.sin(ph)]
-        CL.append(s25**mp.mpf(D)*Lf(x1, x2, x5, z1, refl(x25, n)))
-        RR.append(Lf(x3, x4, x2, z3, n))         # O at x_2 with polarisation n
+    with mp.workdps(90):       # the limit x_5 -> infinity of the left structure involves cancellations ~ |x_5|^{-2l}
+        for ph in phis:
+            n = [mp.mpf(1), mp.cos(ph), mp.sin(ph)]
+            CL.append(s25**mp.mpf(D)*Lf(x1, x2, x5, z1, refl(x25, n)))
+            RR.append(Lf(x3, x4, x2, z3, n))         # O at x_2 with polarisation n
+    CL = [+v for v in CL]; RR = [+v for v in RR]
     am = {m: sum(CL[k]*mp.exp(-1j*m*phis[k]) for k in range(M))/M for m in range(-Jv, Jv+1)}
     bm = {m: sum(RR[k]*mp.exp(-1j*m*phis[k]) for k in range(M))/M for m in range(-Jv, Jv+1)}
     pair = sum(am[-m]*bm[m]*2**Jv*(-1)**(Jv-m)/mp.binomial(2*Jv, Jv-m) for m in range(-Jv, Jv+1))
     sb = SpinBlock(l, D, Jv, Dp, 60, prec='q') if l > 0 else None
     W = wfull(sb, x1, x2, x3, x4, [z1], [z3])[0, 0]
-    return W*(-mp.mpf(1)/8)**Jv/pair - 1
+    return W*(mp.mpf(1)/8)**Jv/pair - 1
 for l, cases in ((1, [(9.75, 3, 1.75), (6.5, 4, 2.5)]), (2, [(9.75, 3, 1.75), (8.5, 4, 2.5)])):
     for (D, Jv, Dp) in cases:
         row = [mp.nstr(ope_check(l, D, Jv, Dp, mp.mpf(dl)), 4) for dl in ('1e-3', '1e-4', '1e-5')]
