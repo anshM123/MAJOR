@@ -1,7 +1,7 @@
 """
 Feasibility of the <TTTT> partial waves by numerical Taylor-mode application of the D-words (taylor4) -- coordinator step 2.
 At a heavy case (beta = 1, m ~ 40 by default) and a few points of the moment grid of e2e/moments.py:
-  * order-8 (P,Q)-jets of the 25 seed blocks g^{a,b} (cblock12: copy of e2e/cblock.c with larger jet arrays; double-double radial sums);
+  * order-8 (P,Q)-jets of the 25 seed blocks g^{a,b} (cblock12: copy of e2e/cblock.c with larger jet arrays; double radial sums);
   * all 196 word pairs by Taylor mode, in float64 and in long double (80-bit), contracted with CHL's exact helicity structures
     (word coefficients of X_h from t8_kappa_exact.decompose) on both vertices: W[h_L, h_R] for h in {same, opp};
   * timing per pair and per point; precision: float64 vs long double, and the cancellation factor sum|terms|/|sum|.
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     t = time.time(); hw = helicity_words(Dv, Jv)
     pr(f"  exact helicity word vectors (CHL X_h decomposed): {time.time() - t:.0f} s")
     N = int(min(8000, max(4000, 400*Dv)))
-    key = load_lib12('q')
+    key = load_lib12('d')          # double radial sums (as in the <JJJJ> production runs); the __float128 build is far too slow at N ~ 8000
     ws = words(l)
     blk = {}
     for wL in ws:
@@ -84,9 +84,9 @@ if __name__ == "__main__":
         t = time.time()
         jets = {}
         for ab, (bl, vpow) in blk.items():
-            Sq = bl.series(np.array([fd['rs'][p]]), np.array([fd['chi'][p]]), sig=+1, kmax=8, lmax=8, cut=70.0)[0]
+            Sq = bl.series(np.array([fd['rs'][p]]), np.array([fd['chi'][p]]), sig=+1, kmax=8, lmax=8, cut=30.0)[0]
             jets[ab] = pq_jets_M(Sq, mp.mpf(fd['rs'][p]), mp.mpf(fd['A0'][p]), mp.mpf(fd['E0'][p]), 8, vpow=vpow, one=mp.mpf(1))
-        pr(f"    order-8 jets of {len(blk)} seeds (double-double radial sums, mp composition): {time.time() - t:.1f} s")
+        pr(f"    order-8 jets of {len(blk)} seeds (double radial sums, mp composition): {time.time() - t:.1f} s")
         res = {}
         for dtn, dt in (('float64', np.float64), ('longdouble', np.longdouble)):
             sv = {n: dt(s[n][p]) for n in SN}

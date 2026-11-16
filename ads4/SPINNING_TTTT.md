@@ -30,9 +30,14 @@ quoted; **[I]** inferred; **[ND]** not done.
    diagonal; absolute constant `1/4` per helicity quadruple, `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)`, all factors Weyl-even; leading-twist block
    decomposition of `⟨J_1J_3⟩⟨J_2J_4⟩` reproduced with no free constant (`10⁻⁶`). Physical sign of the opposite-sign term `+(|c_same|²−|c_opp|²)` =
    flat `σ_{++} = +1`, `σ_{+−} = −1` (`SPINNING_4PT.md` §4.5–4.6). §2.
-4. **`⟨TTTT⟩` blocks and end-to-end moments (goals 1, 3): not done — blocked.** The symbolic word pairs at jet order 8 are too large
-   (`ACH × ACH`: 73 095 terms; `AACC × AACC`: not finished after 67 min; 196 pairs), and order-8 jets need extended-precision post-processing. A
-   different algorithm (numerical Taylor-mode application of the operators, or a direct recursion) is needed. §4.
+4. **`⟨TTTT⟩` blocks: a working algorithm; end-to-end moments not done in this session.** Symbolic word pairs at jet order 8 are
+   infeasible (`AACC × AACC` > 67 min). A **numerical Taylor-mode application of the `D`-words** (`taylor4.py`) has replaced them. It is validated
+   against the symbolic pairs to `5·10⁻¹⁵` (all 25 `l = 1` pairs, 5 `l = 2` pairs), and on the order-8 pairs by the commutation of the two vertices
+   (`4·10⁻¹⁵`). It costs `0.2–1.9 s` per pair at one point, or `~3 ms` per point vectorised. At a heavy grid point (`β = 1`, `m ≈ 40`) the 196 pairs are
+   contracted with CHL's exact helicity structures. The conserved helicity combinations cancel by `10⁵–10⁷`, so float64 leaves only `10⁻⁵–10⁻⁸`
+   relative accuracy (from a long-double comparison). Estimated production cost: about 3 h (float64) to 10 h (long double) per `(Δ,J)` on one core,
+   before optimising the seed series. In addition, the `l = 2` heavy vertex needed for the factorised prediction does not exist yet. The minimal
+   end-to-end check (a few `(Δ,J)`, `β = 1`, `k = 6`, `ν = 0`, both `±`) is therefore not run here. §4.
 5. **Not done:** `l = 2` absolute constant (expected `1/4` per helicity quadruple [I]; needs the heavy vertex of the `l = 2` helicity
    structures, §3.4); closed forms of the `l = 2` helicity lines in the differential basis (only the position-space form of `chl_xspace`);
    parity-odd exchanges; `k = 2, 3`.
@@ -152,27 +157,47 @@ identity between rational functions of `(Δ,J)`.
 
 ## 4. `⟨TTTT⟩` blocks and moments (coordinator goals 1, 3)
 
-**Not done — blocked by cost in the present (symbolic differential-operator) framework [ND].** Measured cost of the symbolic word pairs at
-jet order 8 (`feas_l2.py`, `cache/feas_l2.log`; expanded terms of `D^{(12)}_w D^{(34)}_{w′}[K g]`, before code generation):
+**4.1 Symbolic word pairs: infeasible [ND].** Measured cost of the symbolic word pairs at jet order 8 (`feas_l2.py`, `cache/feas_l2.log`):
+`HH × HH` 9 terms (0 s), `AACC × HH` 22 800 (45 s), `ACH × ACH` 73 095 (171 s), `AACC × AACC` not finished after 67 min. The 196 pairs are mostly of
+the last type.
 
-| word pair | terms | time |
+**4.2 Taylor-mode application of the operators [D; validated] (`taylor4.py`, `t9_taylor_validate.py`, `out_t9_taylor_validate.txt`).** The
+operators act on functions of the 24 dot products (`s_ij`, `Z_i·P_j`, `Z_i·Z_j`; treated as independent, as in `embed2`). Every `D` is a first-
+order operator `Σ (∂σ/∂W·V) ∂/∂σ` with polynomial coefficients. The state is represented as a polynomial in the 18 `z`'s (exact exponents) whose
+coefficients are truncated Taylor series in the 6 deviations `δs_ij`. The order needed is the number of `D`'s in the pair (`≤ 8`). Each `D`
+consumes one order, so the series are truncated progressively (the `Z`-derivative terms are truncated with the others, since at most the
+remaining number of `D`'s still act). The seed `K̃ g̃(P,Q)` is built from its `(P,Q)`-jet by series composition (`log`, `exp`, powers). The jets
+of the 25 seed blocks to order 8 come from `cblock12.c`, a copy of `e2e/cblock.c` with the jet arrays enlarged (`kmax, lmax ≤ 11`), and from
+`pq_jets_M`, the any-order version of `e2e/spinblock.pq_jets` (agrees with it to `3·10⁻¹⁵` at order 4).
+Validation with a synthetic seed `g̃ = e^{aP+bQ}(1+cPQ²)` and random values of all 24 symbols:
+* against the symbolic `word4` expressions: all 25 `l = 1` pairs (worst `5.3·10⁻¹⁵`); `l = 2` pairs `HH×HH`, `HH×ACH`, `BEH×HH`, `AACC×HH`,
+  `HH×ABCE` (`≤ 1.0·10⁻¹⁵`);
+* order-8 pairs, which have no symbolic reference: `D^{(12)}D^{(34)} = D^{(34)}D^{(12)}` (the two orderings exercise the truncation
+  differently): `AACC×AACC` `1.1·10⁻¹⁵`, `ABCE×BBEE` `4.1·10⁻¹⁵`, `ACH×AAEE` `5.9·10⁻¹⁶` (4539 `z`-monomials at order 8).
+
+**4.3 Feasibility at a heavy point [NE] (`t11_feas_taylor.py`, `out_t11_feas_taylor.txt`).** Case `β = 1`, `m ≈ 40` (`Δ = 45.861`, `J = 20`), two
+points of the moment grid of `e2e/moments.py`, `N = 8000` radial terms. The 196 pairs are contracted with CHL's **exact** helicity structures on
+both vertices: word coefficients of `X_h` from the exact decomposition of §3.5, 88 s per `(Δ,J)`. They are evaluated on the `5⁴` polarisation grid
+of `moments4.pol_grid4`.
+
+| | point 0 (`U = 0.054`, `S = 0.21`) | point 1 (`U = 0.58`, `S = 0.69`) |
 |---|---|---|
-| `HH × HH` | 9 | 0 s |
-| `AACC × HH` | 22 800 | 45 s |
-| `ACH × ACH` | 73 095 | 171 s |
-| `AACC × AACC` (4 operators at each vertex) | not finished | > 67 min (still expanding; aborted at the 90-min limit) |
+| order-8 jets, 25 seeds (mp composition) | 4.1 s | 3.6 s |
+| 196 pairs, float64, one point | 27 s (slowest `AACC×AACC` 1.9 s) | 22 s |
+| 196 pairs, long double, one point | 31 s | 32 s |
+| cancellation `Σ|terms|/|W|` (same-same, same-opp, opp-opp) | `1.5·10⁵`, `1.3·10⁷`, `2.6·10⁶` | `1.3·10⁵`, `7.7·10⁵`, `3.2·10⁶` |
+| float64 vs long double, `W[s,s]`, `W[s,o]`, `W[o,o]` | `9·10⁻⁸`, `3·10⁻⁵`, `2.5·10⁻⁵` | `1·10⁻¹⁰`, `4·10⁻⁹`, `2·10⁻⁸` |
 
-There are 196 pairs (14 × 14, minus nothing: the 3d relation has to be quotiented after evaluation), most of them of the `AACC × AACC` type.
-For comparison, the 25 pairs of `⟨JJJJ⟩` have ≤ 2100 terms. Beyond the symbolic size, three further obstacles were identified: (i) the jets of
-order 8 in `(P, Q)` need radial derivative sums `Σ(Δ+n)^k P_j^{(l)}` with `k, l ≤ 8` (`e2e/cblock.c` has a binomial table of size 8 and the Python
-jet composition `e2e/spinblock.pq_jets` is hard-wired to order 4) — a straightforward extension; (ii) precision: the conserved combination cancels
-the leading `(1/r)^{2l}`-enhanced terms of each word (`SPINNING_E2E.md` §2.2), so order-8 jets in double precision are not reliable at `Δ ≳ 30`;
-the `__float128` radial sums exist, but the post-processing would have to run in extended precision too; (iii) the number of polarisation
-monomials (multi-degree `(2,2,2,2)` in four null polarisations) is in the thousands, so the monomial-coefficient evaluation of `fourpt/spinblock2`
-grows accordingly. **Assessment:** an end-to-end `⟨TTTT⟩` test needs a different algorithm — e.g. numerical (Taylor-mode) application of the
-`D`-words at each grid point instead of symbolic expansion, or a direct recursion for the conserved doubly-spinning blocks — estimated at days
-of development and CPU, not hours. Consequently **goal 3 (end-to-end `⟨TTTT⟩` moments, `±`, `O(1/m)` fits) is not done**; what exists for stress
-tensors is the three-point/shadow/normalisation chain of §3 and the heavy-integrand checks of `SPINNING_4PT.md` §7.
+Vectorised over 200 points (`AACC×AACC`, order 8): seed series 13 s (float64) / 41 s (long double); operator application 0.6 s / 1.4 s.
+Hence the per-point cost is about 1.7 s for the 25 seeds plus about 0.6 s for the 196 pairs (float64), and about 5 s + 3 s in long double. On the
+moment grid (≤ 4464 points) that is about 3 h (float64) or 10 h (long double) per `(Δ,J)` on one core. The seed composition dominates and could be
+made much cheaper (e.g. series in `log s`). Precision: the conserved helicity combinations cancel by up to `10⁷` already at `m ≈ 40`, so float64
+gives `10⁻⁵`-level accuracy on the mixed-helicity waves. That is marginal for `O(1/m)` fits at `m ~ 100`; long double gives `~10⁻¹²` [I].
+
+**4.4 Status of the end-to-end check [ND].** Still needed for the minimal check (a few `(Δ,J)` at `β = 1`, `k = 6`, `ν = 0`, both `±`):
+(i) the production run, about 10–40 core-hours with long double for 3–4 masses, after vectorising the order-8 jet composition;
+(ii) the factorised prediction for `l = 2`, which needs the heavy vertices `V_h` of the `l = 2` helicity structures (not computed; §3.4).
+A prediction-free factorisation test `M[s,s]M[o,o]/M[s,o]² → 1` would need only (i). Not attempted in this session.
 
 ## 5. Status
 
@@ -187,7 +212,8 @@ tensors is the three-point/shadow/normalisation chain of §3 and the heavy-integ
 | 7 | MFT normalisation of `l = 2` helicity couplings Weyl-even ⇒ no `O(1/m)` from it | [D] from our Fock data + row 6 |
 | 7a | `p^MFT[T^{E,h}] = A_h P_FK(1,1)/K_l`, helicity-diagonal (`l = 1, 2`) | [ID], exact Fock data, 23 + 39 entries |
 | 8 | No `O(1/m)` in leading heavy `⟨TTTT⟩` moments (parity-even exchanges, MFT-normalised) | [D] conditional on 7 and Assumption T; not end to end |
-| 9 | `⟨TTTT⟩` exact blocks, end-to-end moments, `±`, `1/m` fits | [ND] — blocked (§4) |
+| 9 | `⟨TTTT⟩` exact partial waves by Taylor mode (operator application) | [D], validated to `10⁻¹⁵`; feasibility at `m ≈ 40` [NE] |
+| 9a | `⟨TTTT⟩` end-to-end moments, `±`, `1/m` fits | [ND] — cost estimate §4.3–4.4 |
 | 10 | `l = 2` absolute constant; parity-odd exchanges; `k = 2, 3` | [ND] |
 
 ## 6. Code index (`ads4/code/fourpt/tttt/`)
@@ -202,7 +228,10 @@ tensors is the three-point/shadow/normalisation chain of §3 and the heavy-integ
 | `t4_sign_l1.py` | physical sign of the opposite-sign term | `out_t4_sign_l1.txt` |
 | `t5_helicity_l2.py` | `⟨TTO⟩` helicity map, Weyl parity of the MFT normalisation | `out_t5_helicity_l2.txt` |
 | `t6_kappa_l1.py` | calibration `κ_h A_h` for currents | `out_t6_kappa_l1.txt` |
-| `feas_l2.py` | feasibility of the `⟨TTTT⟩` word pairs | `cache/feas_l2.log` |
+| `feas_l2.py` | feasibility of the symbolic `⟨TTTT⟩` word pairs | `cache/feas_l2.log` |
+| `taylor4.py`, `cblock12.c` | Taylor-mode application of the `D`-words; any-order `(P,Q)`-jets; block library with order-11 jets | — |
+| `t9_taylor_validate.py` | Taylor mode vs symbolic word pairs; vertex commutation at order 8 | `out_t9_taylor_validate.txt` |
+| `t11_feas_taylor.py` | `⟨TTTT⟩` feasibility at a heavy point: timing, cancellation, float64 vs long double | `out_t11_feas_taylor.txt` |
 | `chl_xspace.py` | CHL `T^{E,h}` in position space, exact; double-twist limit | — |
 | `t7_fock_l2.py`, `t7b_closed_forms.py` | Fock data of `[JJ]`, `[TT]` in CHL's helicity basis; closed forms | `out_t7_fock_l1.txt`, `out_t7_fock_l2.txt`, `out_t7b_closed_forms.txt` |
 | `t8_kappa_exact.py`, `t10_kappa_symbolic.py` | `κ_h A_h = 2^{3J+3/2}`: exact at points / symbolic | `out_t8_kappa_exact.txt`, `out_t10_kappa_symbolic_l*.txt` |

@@ -1,0 +1,19 @@
+# Taylor-mode <TTTT> feasibility (fourpt/tttt/t11_feas_taylor.py): beta=1.0, m~40.0: Delta=45.861045, J=20
+  exact helicity word vectors (CHL X_h decomposed): 88 s
+  25 seed blocks g^(a,b), N = 8000
+  point 0: U = 0.0538, S = 0.2085 (r = 0.6404, chi = 0.4008)
+    order-8 jets of 25 seeds (double radial sums, mp composition): 4.1 s
+    float64: 196 word pairs in 27.3 s (slowest ('AACC', 'AACC') 1.85 s); cancellation sum|terms|/|W| per helicity pair: same-same: 1.5e+05, same-opp: 1.3e+07, opp-same: 1.3e+07, opp-opp: 2.6e+06
+    longdouble: 196 word pairs in 30.6 s (slowest ('ABCE', 'BBEE') 0.41 s); cancellation sum|terms|/|W| per helicity pair: same-same: 1.5e+05, same-opp: 1.3e+07, opp-same: 1.3e+07, opp-opp: 2.6e+06
+    W[same,same]: max|W| = 5.324e-09, float64 vs long double rel. deviation 9.3e-08
+    W[same,opp]: max|W| = 3.283e-10, float64 vs long double rel. deviation 2.2e-05
+    W[opp,same]: max|W| = 3.283e-10, float64 vs long double rel. deviation 3.0e-05
+    W[opp,opp]: max|W| = 8.376e-09, float64 vs long double rel. deviation 2.5e-05
+  point 1: U = 0.5831, S = 0.6874 (r = 0.0792, chi = 0.8368)
+    order-8 jets of 25 seeds (double radial sums, mp composition): 3.6 s
+    float64: 196 word pairs in 22.3 s (slowest ('AAEE', 'ABCC') 0.35 s); cancellation sum|terms|/|W| per helicity pair: same-same: 1.3e+05, same-opp: 7.7e+05, opp-same: 7.7e+05, opp-opp: 3.2e+06
+    longdouble: 196 word pairs in 32.2 s (slowest ('AAEE', 'BBCE') 0.48 s); cancellation sum|terms|/|W| per helicity pair: same-same: 1.3e+05, same-opp: 7.7e+05, opp-same: 7.7e+05, opp-opp: 3.2e+06
+    W[same,same]: max|W| = 8.456e+05, float64 vs long double rel. deviation 1.2e-10
+    W[same,opp]: max|W| = 7.209e+05, float64 vs long double rel. deviation 1.2e-09
+    W[opp,same]: max|W| = 7.209e+05, float64 vs long double rel. deviation 3.7e-09
+    W[opp,opp]: max|W| = 8.514e+05, float64 vs long double rel. deviation 2.0e-08

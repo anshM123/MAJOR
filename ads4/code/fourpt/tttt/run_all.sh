@@ -19,3 +19,5 @@ python3 t8_kappa_exact.py 2 97/10 13/3 53/4 11/2 61/7 29/5 127/10 47/7        # 
 python3 t10_kappa_symbolic.py 1   # symbolic proof of kappa_h A_h = 2^{3J+3/2}, l = 1
 python3 t10_kappa_symbolic.py 2   # symbolic, l = 2 (long)
 python3 t9_taylor_validate.py     # Taylor-mode operator application vs symbolic word pairs
+gcc -O3 -march=native -fopenmp -shared -fPIC cblock12.c -o libcblock12_d.so -lm
+python3 t11_feas_taylor.py 1.0 40 2   # <TTTT> feasibility at a heavy point (~10 min)
