@@ -1,0 +1,2 @@
+(0) scalar transform (B.2) in d = 3, direct 2D numerical integration, p boosted relative to xhat
+   b=3.5 nu=0.8 xi=0.6:  lhs 6.2742958956   rhs 6.2742958956

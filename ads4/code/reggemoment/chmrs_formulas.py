@@ -63,14 +63,17 @@ def dP(J, eta, d=3):
 def Pnu(nu, eta, d=3):
     return P(mp.mpf(2-d)/2 + 1j*nu, eta, d)
 
-def C_series_first(k, nu, Delta, J, Dphi, d=3):
-    """CHMRS (3.27): (m^{2k}/2) C_{k,nu}[Delta,J] through order 1/m^2.  Returns (leading, leading+first)."""
+def C_series_first(k, nu, Delta, J, Dphi, d=3, printed=False):
+    """CHMRS (3.27): (m^{2k}/2) C_{k,nu}[Delta,J] through order 1/m^2.  Returns (leading, leading+first).
+    printed=True uses the formula exactly as printed, with (Dphi-d-1)_3; the default uses (2 Dphi-d-1)_3, which is
+    what the paper's ancillary file contains (chmrs_series.py) and what the block computation confirms
+    (s0_regge_moment.py): the printed Pochhammer symbol is a misprint."""
     m2, eta = m2_eta(Delta, J, d)
     a = 2*Dphi + k - mp.mpf(d)/2
     j = mp.mpf(2-d)/2 + 1j*nu
     P0 = P(j, eta, d); P1 = dP(j, eta, d)
     t1 = P1*((eta**2-1)*(nu**2 - 3*a**2 + 6*a*(2*Dphi-d) - 2) - (d-4)*(d-2))
-    t2 = eta*P0*((nu**2 - a*(a+d-2))*(mp.mpf(7*d)/2 + 3*a - 1 - 6*Dphi) - 2*mp.rf(Dphi-d-1, 3)
+    t2 = eta*P0*((nu**2 - a*(a+d-2))*(mp.mpf(7*d)/2 + 3*a - 1 - 6*Dphi) - 2*mp.rf((Dphi if printed else 2*Dphi)-d-1, 3)
                  - 2*(a + mp.mpf(d-2)/2)*(1 - a**2 - a*mp.mpf(d-2)/2))
     return P0, P0 + (t1 + t2)/(6*m2)
 

@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 *.npy
 ads4/code/kernels/cache/
+ads4/code/unipos/logs/

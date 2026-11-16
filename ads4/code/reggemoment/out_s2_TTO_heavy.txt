@@ -1,0 +1,19 @@
+# <T T O_l>, parity even; l/Delta = 0.4; 14 monomials
+Delta = 60.0, l = 24.0:  smallest singular values of the conservation system: ['0.641', '0.275', '2.09e-59', '3.21e-60', '1.55e-60']
+     smallest singular values of the monomial evaluation matrix (linear relations): ['0.122', '0.0828', '2.83e-61']
+     dimension of the conserved space modulo the relation: 2
+     structure 0: harmonics (2,2) (0.00130454 + 7.39717e-5j)  (-2,-2) (0.00130454 - 7.39717e-5j)  (2,-2) (-0.696051 + 0.00670462j)  (-2,2) (-0.696051 - 0.00670462j);  all other harmonics / total = 0.1759
+     structure 1: harmonics (2,2) (-0.200593 - 0.0111642j)  (-2,-2) (-0.200593 + 0.0111642j)  (2,-2) (-0.665441 + 0.00640884j)  (-2,2) (-0.665441 - 0.00640884j);  all other harmonics / total = 0.1832
+     det of [(2,2),(2,-2)] x [structures] / norms = (-0.837073 - 0.0385101j)  (non-zero: the two conserved structures span both helicity orbits)
+Delta = 600.0, l = 240.0:  smallest singular values of the conservation system: ['0.631', '0.28', '2.39e-59', '4.85e-60', '1.41e-60']
+     smallest singular values of the monomial evaluation matrix (linear relations): ['0.122', '0.0828', '2.83e-61']
+     dimension of the conserved space modulo the relation: 2
+     structure 0: harmonics (2,2) (0.00161288 + 8.96243e-6j)  (-2,-2) (0.00161288 - 8.96243e-6j)  (2,-2) (-0.706999 + 0.000673917j)  (-2,2) (-0.706999 - 0.000673917j);  all other harmonics / total = 0.01725
+     structure 1: harmonics (2,2) (0.195565 + 0.00108655j)  (-2,-2) (0.195565 - 0.00108655j)  (2,-2) (0.679405 - 0.000647612j)  (-2,2) (0.679405 + 0.000647612j);  all other harmonics / total = 0.01801
+     det of [(2,2),(2,-2)] x [structures] / norms = (0.840107 + 0.00386679j)  (non-zero: the two conserved structures span both helicity orbits)
+Delta = 6000.0, l = 2400.0:  smallest singular values of the conservation system: ['0.63', '0.281', '2.51e-59', '4.31e-60', '1.96e-60']
+     smallest singular values of the monomial evaluation matrix (linear relations): ['0.122', '0.0828', '2.83e-61']
+     dimension of the conserved space modulo the relation: 2
+     structure 0: harmonics (2,2) (0.00223969 + 1.24428e-6j)  (-2,-2) (0.00223969 - 1.24428e-6j)  (2,-2) (-0.707102 + 6.73487e-5j)  (-2,2) (-0.707102 - 6.73487e-5j);  all other harmonics / total = 0.00172
+     structure 1: harmonics (2,2) (0.193592 + 0.000107552j)  (-2,-2) (0.193592 - 0.000107552j)  (2,-2) (0.680089 - 6.47758e-5j)  (-2,2) (0.680089 + 6.47758e-5j);  all other harmonics / total = 0.001795
+     det of [(2,2),(2,-2)] x [structures] / norms = (0.840325 + 0.000386812j)  (non-zero: the two conserved structures span both helicity orbits)
