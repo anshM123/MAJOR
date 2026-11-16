@@ -94,12 +94,6 @@ for mu in range(3):
     for nu in range(3):
         assert gam[mu]*gam[nu] + gam[nu]*gam[mu] == 2*eta[mu, nu]*sp.eye(2)
 slash = lambda v: sum(((eta*v)[mu]*gam[mu] for mu in range(3)), sp.zeros(2))
-def uspinor(k):
-    # real solution of kslash u = 0, normalised u u^T g0 ~ kslash; sign convention continuous in theta/2
-    w = k[0]
-    ang = sp.atan2(k[2], k[1])
-    return sp.sqrt(2*w)*sp.Matrix([sp.sin(ang/2), sp.cos(ang/2)])
-half = sp.Symbol('theta')/2
 u1 = sp.sqrt(E)*sp.Matrix([sp.sin(th/2), sp.cos(th/2)])
 u2 = sp.sqrt(E)*sp.Matrix([sp.sin((th+sp.pi)/2), sp.cos((th+sp.pi)/2)])   # continuous-branch spinor of k2
 assert sp.simplify(slash(k1)*u1) == sp.zeros(2, 1) and sp.simplify(slash(k2)*u2) == sp.zeros(2, 1)

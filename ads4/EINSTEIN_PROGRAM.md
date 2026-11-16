@@ -154,36 +154,48 @@ current. The spin threshold is consistent with `d = 4` (there a second harmonic 
   `K^{(a)}_m(Δ, J)` with `â^O_{m,2} = c_T^{−1/2} Σ_a λ^{(a)}_{TTO} K^{(a)}_m` have not been computed. Until then (★) is a
   structural identity, not an inequality on conformal data.
 
-## 3a. Can the sum rule alone give a bound that decays with the gap? No — and why (proved for the constraint system)
+## 3a. Can the sum rule give a bound that decays with the gap? (corrected after the kernel computation)
 
-Write the data as `(c, x)`, `x = (x^O_m)` the normalised amplitudes `â^O_{m,2}` of the operators `O ≠ T`. For `n ≠ 0`
-every `a_n` is a **homogeneous quadratic form** in `(c, x)`: `a_n = |c|² δ_{n,−4} + Σ_O |x^O_{2+n}|²`. The Einstein part
-of the graviton state contributes only to `a_0 = 1`.
+**Correction.** An earlier version of this section concluded, from a scaling lemma, that the relations of
+Proposition S "cannot" give a gap-dependent bound, and a referee agreed. **That conclusion was a non
+sequitur and is withdrawn.** The lemma itself is true: if `(c, x)` satisfies the relations and positivity, so
+does `(tc, tx)` for `0 ≤ t ≤ 1` (the equalities for `n ≠ 0` are homogeneous quadratic, and the measure mixes with the
+uniform one). But this only says the allowed set is star-shaped. Its *size* is fixed by the one
+inhomogeneous constraint, `a_n ≤ 1`, together with the kernels, which tie each operator's amplitudes in all
+harmonics to one or two numbers and depend on its dimension. The correct statement is: with the amplitudes
+treated as free there is no gap dependence; with the actual kernels there can be.
 
-**Lemma N (scaling).** If `(c, x)` satisfies all the relations of Proposition S — `a_n = a_{−n}`, `a_{±1} = 0`, and
-positivity of the energy–energy correlator `μ` — then so does `(tc, tx)` for every `t ∈ [0,1]`.
+**The kernels** (`ads4/KERNELS_D3.md`; agent computation, exact in `Δ` for all conserved `⟨TTO⟩` structures with
+`J ≤ 12`, validated on free fields; general-`J` formulas are fits confirmed at `J = 9–12`, not proved; unrefereed).
+* Each operator's amplitudes with `m ≤ 0` are fixed by one complex number `a^{++}_O`, and those with `m ≥ 4` by one
+  number `a^{+−}_O` (`J ≥ 4`); `â_{m,2} = 0` for `m = 1, 2, 3`. The `m`-dependence is universal:
+  `|â_{−k}|²/|â_0|² = W⁰_k = C(k+3,3)² (J+1−k)_{2k}/(Δ−1−k)_{2k}`,
+  `|â_{4+k}|²/|â_4|² = W⁴_k = C(k+3,3)² (J−3−k)_k (J+5)_k / ((Δ−5−k)_k (Δ+3)_k)`.
+* Commutativity is the family `(S_k)`, `k ≥ 0`:
+  `δ_{k2}|c|² + Σ_O |a^{++}_O|² W⁰_k = Σ_{J_O ≥ 4+k} |a^{+−}_O|² W⁴_k = a_{2+k}`; `(S_2)` is (★).
+* Scalar exchange: `|â_{0,2}|² = (λ_e² K_e² + λ_o² K_o²)/C_T` with explicit Gamma-function kernels, equal to the
+  general-`d` formulas of Kologlu et al. and Córdova–Maldacena–Turiaci at `d = 3`; zeros at `Δ = 6+2n` (even) and
+  `7+2n` (odd).
+* Every amplitude has a simple zero at the `N = ∞` double-trace dimensions, so each double-trace contributes
+  at first order in `1/c_T` to both sides (uniformity over the towers not shown).
+* Free-field checks through the full pipeline: `c = ±1`; `|â^{J_s}_{±s,2}|² = 1`; the energy–energy correlator is
+  `δ(θ) + δ(θ − π)`.
 
-*Proof.* The equalities for `n ≠ 0` are homogeneous of degree two. The measure with Fourier coefficients
-`a_0 = 1`, `a_n(t) = t² a_n` is `(1 − t²)·(uniform) + t²·μ`, a convex combination of positive measures. ∎
+**What the constraints give.**
+* A single relation is not enough: `|c|² ≤ a_2 · sup_{J ≥ 6} W⁴_2`, and `W⁴_2 → 100 (J/Δ)⁴`, which is not small for
+  operators with `J` comparable to `Δ`. A gap in dimension alone gives nothing from `(S_2)`.
+* The full family does appear to bound `|c|`: for heavy operators `W⁰_k` and `W⁴_k` coincide at leading order in
+  `1/Δ`, so a defect at `k = 2` can only come from their mismatch. A linear programme over spins `≤ 100` finds
+  maxima of `|c|²` equal to `0.475, 0.109, 0.031, 0.0054` at `Δ_gap = 10, 15, 20, 30`, about `5·10³/Δ_gap⁴`.
+  **This is numerical evidence, not a proof.**
+* It cannot do better: there is an exact four-operator solution of all `(S_k)` with positive energy–energy
+  correlator and `|c|² ≃ 2700/Δ_gap⁴`. So this route can at best give `t_4² + α_T² ≲ 4·10⁴/Δ_gap⁴`, weaker than the
+  `Δ_gap^{−8}` expected from the Regge-limit estimates in the literature.
+* Open precise problem (not pursued, by decision): prove `|c|² ≤ C/Δ_gap⁴` from `(S_k)`, `0 ≤ a_n ≤ 1` and the
+  explicit `W⁰_k`, `W⁴_k`, with the gap imposed on single-trace operators of spin `≥ 2` other than `T`.
 
-**Consequences.**
-1. The relations never refer to the dimensions of the operators. Any bound `|c| ≤ g` deduced from them
-   and positivity alone is invariant under the scaling, so it cannot depend on `Δ_gap`: it is either the
-   collider bound `|c| ≤ 1`, or `c = 0`.
-2. A gap-dependent bound can therefore only come from **additional input that is not homogeneous**: an
-   a-priori bound on the heavy amplitudes in units fixed by the Einstein part. The natural source is a sum
-   rule in which the graviton pole does not cancel (Regge spin two; route S-A), where the heavy couplings
-   are bounded by `1/c_T` times a function of `Δ`.
-3. *Dichotomy.* Restricting `x` to what operator-product data can produce
-   (`x^O_m = c_T^{−1/2} Σ_a λ^{(a)}_{TTO} K^{(a)}_m(Δ_O, J_O)`, so each operator contributes a vector in a subspace of
-   dimension at most three), either (I) for heavy operators the spin-`≥ 6` weight in the sixth harmonic can
-   never exceed what the other relations force onto the left side of (★), in which case `c = 0` exactly at
-   `N = ∞` for every finite gap — a rigidity statement, presumably too strong to be true; or (II) there is
-   heavy data balancing some `c ≠ 0`, and then by Lemma N every `|c|` up to the positivity limit is allowed at
-   that gap. Which holds is decided by the kernels (computation in progress).
-
-So the energy-correlator sum rule **cannot** supply the missing quantitative bound by itself. This is a
-statement about the constraint system of Proposition S, not a no-go for other uses of energy correlators.
+All of this is conditional on hypotheses (E) and on the strictly planar reduction, concerns the three-point
+function only, and by the supersymmetry remark above does not diagnose Einstein gravity.
 
 **Corollary (infinite gap; conditional).** Assume (E), and a family of CFT3s with `c_T → ∞` such that (i) `T × T`
 contains no single-trace primary of spin `≥ 6`, and (ii) the total double-trace contribution to `a_4` tends to

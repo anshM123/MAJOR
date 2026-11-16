@@ -140,37 +140,6 @@ def rnd_pt(rng):
 def rnd_null(rng):
     return [Fr(c) for c in rng.choice(st.NULLS)]
 
-def project(corr, monos, J, parity, seed=11, extra=6):
-    """corr(x4,z4,x1,z1,x3,z3) -> rational part R_W with W = R_W (X13 X14 X34)^{-1/2}.
-    Solve R_W = sum_a l_a R_a X13^{J-4} X14^{-J} X34^{-J} (even; s = J + 1/2)  resp. with one more inverse power of
-    each X_ij and a factor (X13 X14 X34)^{1/2} (odd: only possible if R_W is itself odd, i.e. we fit
-    R_W (X13 X14 X34)^{1/2}... see below).  Returns (coeffs, max residual)."""
-    rng = random.Random(seed)
-    rows, rhs = [], []
-    for _ in range(len(monos) + extra):
-        x4, z4, x1, z1, x3, z3 = rnd_pt(rng), rnd_null(rng), rnd_pt(rng), rnd_null(rng), rnd_pt(rng), rnd_null(rng)
-        B = st.blocks([sp.Rational(c.numerator, c.denominator) for c in x1], [sp.Integer(int(c)) for c in z1],
-                      [sp.Rational(c.numerator, c.denominator) for c in x3], [sp.Integer(int(c)) for c in z3],
-                      [sp.Rational(c.numerator, c.denominator) for c in x4], [sp.Integer(int(c)) for c in z4])
-        if parity == 'even':
-            pref = B['X13']**(J - 4)*B['X14']**(-J)*B['X34']**(-J)
-        else:   # s = (Delta+J)/2; odd prefactor exponents e + 1/2: handled by the caller through Delta
-            raise NotImplementedError
-        rows.append([mono_value_(m, B)*pref for m in monos])
-        w = corr(x4, z4, x1, z1, x3, z3)
-        rhs.append(sp.Rational(w.numerator, w.denominator))
-    M = sp.Matrix(rows); b = sp.Matrix(rhs)
-    n = len(monos)
-    sol = M[:n, :].LUsolve(b[:n, :]) if M[:n, :].det() != 0 else None
-    if sol is None:
-        sol, params = M.gauss_jordan_solve(b)
-        assert not params.free_symbols or True
-    res = (M*sol - b)
-    return list(sol), max(abs(r) for r in res)
-
-def mono_value_(m, B):
-    return st.mono_value(m, B)
-
 def project_general(corr, monos, expo, seed=11, extra=6):
     """Generic version: W_rat = sum_a l_a R_a X13^{expo[0]} X14^{expo[1]} X34^{expo[2]} (integer exponents)."""
     rng = random.Random(seed)

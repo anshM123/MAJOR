@@ -247,10 +247,10 @@ normalisations of `φ²`, `ψ̄ψ`, `J_4`, `J_6`.
 |---|---|---|---|---|
 | scalar | `T` | yes (2-dim at `s = 5/2`) | `â_{2,2} = 1`, `â_{−2,2} = c = 1`, `m = 0, ±1`: 0 | same |
 | scalar | `φ²` (`Δ = 1`) | yes | `â_{0,2} = 1` | 1 |
-| scalar | `J_4`, `J_6` | yes | `â_{±4,2} = 1`, `â_{±6,2} = −1`; all `|m| < s`: 0 | `(−1)^{s/2}` |
+| scalar | `J_4`, `J_6` | yes | `â_{±4,2} = 1`, `â_{±6,2} = −1`; all `\|m\| < s`: 0 | `(−1)^{s/2}` |
 | fermion | `T` | yes | `â_{2,2} = 1`, `c = −1` | same |
-| fermion | `ψ̄ψ` (`Δ = 2`, odd structure) | yes | `|â_{0,2}| = 1`, opposite sign for `h = −2` | modulus 1 |
-| fermion | `J_4`, `J_6` | yes | `â_{s,2} = −â_{−s,2}`, modulus 1; `|m| < s`: 0 | same |
+| fermion | `ψ̄ψ` (`Δ = 2`, odd structure) | yes | `\|â_{0,2}\| = 1`, opposite sign for `h = −2` | modulus 1 |
+| fermion | `J_4`, `J_6` | yes | `â_{s,2} = −â_{−s,2}`, modulus 1; `\|m\| < s`: 0 | same |
 
 The scalar Ward identity `â^T_{2,2} = 1` is a genuine check of all normalisations (no free constant); for the
 fermion the single constant is fixed by `C_T` and `â^T_{2,2} = 1` then holds. Explicit free data, e.g.
@@ -299,7 +299,7 @@ complex numbers `â_{m,±2}` (see §5.5).
 
 ### 5.2 Scalar exchange, `J = 0`  **[FF] + [S]**
 
-`⟨TTO⟩ = λ_e S_e + λ_o S_o`, `S_e = (V_1²V_3² + 4(Δ−4)/(Δ+2) V_1V_3H_{13} + (Δ²−6Δ+6)/(Δ(Δ+2)) H_{13}²)/(X_{13}^{5−Δ/2}X_{14}^{Δ/2}X_{34}^{Δ/2})`
+`⟨TTO⟩ = λ_e S_e + λ_o S_o`, `S_e = (V_1²V_3² + 4(Δ−4)/(Δ+2) V_1V_3H_{13} + 2(Δ²−6Δ+6)/(Δ(Δ+2)) H_{13}²)/(X_{13}^{5−Δ/2}X_{14}^{Δ/2}X_{34}^{Δ/2})`
 (coefficient of `V_1²V_3²` equal to one, as in KKSZ (5.110)), `S_o = ε_{13}X_{13}((Δ+1)V_1V_3 + (Δ−3)H_{13})/(X_{13}^{(11−Δ)/2}X_{14}^{(Δ+1)/2}X_{34}^{(Δ+1)/2})`
 (CMT (D.3) with `(β_2−β_1)/4 = −1`). Then `â^O_{0,±2} = C_T^{−1/2}(λ_e K_e ± i λ_o K_o)` up to a common phase, and
 
@@ -321,7 +321,8 @@ Underlying amplitude: `M_0[S_e] = −3π^{7/2} i e^{iπΔ/2} 2^{−Δ} / (Γ(2+�
   fermion give 1 (§4).
 * Zeros: `K_e` at `Δ = 6 + 2n`, `K_o` at `Δ = 7 + 2n` (simple zeros of the amplitude, double zeros of `K²`).
 * Positivity: `K_e², K_o² ≥ 0`; both diverge like `(Δ − 1/2)^{−1}` at the scalar unitarity bound.
-* Large `Δ`: `K_e² ≃ (27/4)·2^{12} π^{5/2} · 4^{Δ} Δ^{−13/2} sin²(πΔ/2)·(1 + O(1/Δ))` [I, Stirling; not used below].
+* Large `Δ`: `K_e² ≃ (27/4)·2^{12} π^{3/2} · 4^{Δ} Δ^{−29/2} sin²(πΔ/2)·(1 + O(1/Δ))` (Stirling; checked numerically at
+  `Δ = 40.5, 400.5, 4000.5`: ratio 1.080, 1.0061, 1.0006; not used below).
 
 **The relation `Â_0 = Â_4` (= `(S_0)`):**
 
@@ -377,7 +378,7 @@ In a parity-invariant theory a parity-even operator of even spin has `(λ_{++}, 
 
 At `Δ = 3`, `J = 2` there are three structures (free boson `B`, free fermion `F`, one parity-odd). The parity-odd
 one has `M_2 = 0` and `M_{−2}` purely imaginary relative to the even ones. With `⟨TTT⟩ = n_B B + n_F F + p S^{odd}_T`
-(`B`, `F` normalised to `C_T`-fraction one each):
+(`B`, `F` the free-boson and free-fermion correlators, normalised to equal `C_T`; `C_T` below is the total):
 
 `â^T_{2,2} = 1`,  `c = â^T_{−2,2} = (n_B − n_F)/(n_B + n_F) + i κ p/C_T`,  `κ = −2π²`
 
@@ -409,9 +410,9 @@ All statements are exact consequences of §5.1 (**[C]**, `J ≤ 12`).
   `|K_{−2}|²` by `Δ^{−4}` relative to `|K_0|²`, with coefficients `100(J−5)(J−4)(J+5)(J+6)` and `100(J−1)J(J+1)(J+2)`.
 * `|K_6|²` against `|K_{−2}|²`, `|K_0|²`: no kernel statement exists. `K_6 ≠ 0` only for `S^{+−}` (and odd `J`);
   `K_{−2}`, `K_0 ≠ 0` only for `S^{++}`, `S^{odd}`. The ratio is `(λ_{+−}/λ_{++})²` times
-  `|K^{+−}_4|²W⁴_2/(|K^{++}_0|²W⁰_2)`, and `|K^{+−}_4|²/|K^{++}_0|² = C(2J,J)(Δ+2)²(Δ+1)²Δ²(Δ−1)/(4 C(2J,J+4)(Δ−5)_4 (Δ+2))`·`(…)`
-  is a ratio of polynomials of equal degree up to the convention-dependent factor `Δ⁸/((Δ−1)_4 (Δ−5)_4)·…`; no
-  parametric hierarchy between the two sectors is implied by the kernels.
+  `|K^{+−}_4|²W⁴_2/(|K^{++}_0|²W⁰_2)`, and in the normalisations of §5.3
+  `|K^{+−}_4|²/|K^{++}_0|² = C(2J,J)(Δ−1)_4/(4 C(2J,J+4)(Δ−5)_4) → C(2J,J)/(4C(2J,J+4))`: a constant. No parametric
+  hierarchy between the two sectors is implied by the kernels; it would have to come from the OPE data.
 * `J = xΔ`, `Δ → ∞`, `0 < x < 1` (fixed `k`): `W⁰_k, W⁴_k → C(k+3,3)² x^{2k}`. No suppression: `W⁴_2 → 100x⁴`, which exceeds
   1 for `x > 0.316`. Near the unitarity bound, `Δ = J + 1 + τ`, `J → ∞`: `W⁴_2 → 100`, while the top component
   dominates, `W⁴_{J−4} ∼ J^{15}/τ`.
@@ -445,7 +446,7 @@ Under hypotheses (E), with `a^{++}_O`, `a^{+−}_O` as in §5 and `c = (t_4 + i�
 
 **(S_k)**, `k = 0, 1, 2, …`:
 
-`a_{2+k} = δ_{k,2}|c|² + Σ_{O ≠ T; J_O even, J_O ≥ max(k,…)} |a^{++}_O|² W⁰_k(Δ_O,J_O) = Σ_{O; J_O ≥ 4+k} |a^{+−}_O|² W⁴_k(Δ_O,J_O)`.
+`a_{2+k} = δ_{k,2}|c|² + Σ_{O ≠ T; J_O even, J_O ≥ k} |a^{++}_O|² W⁰_k(Δ_O,J_O) = Σ_{O; J_O ≥ 4+k} |a^{+−}_O|² W⁴_k(Δ_O,J_O)`.
 
 * Left side: `Â_{−k}`; right side: `Â_{4+k}`; `T` contributes `1` to `Â_2` and `|c|²` to `Â_{−2}`; `Â_1 = Â_3 = 0`.
 * `(S_2)` is (★):
@@ -499,8 +500,10 @@ spin-2 operators are unrestricted. Inputs: `(S_k)` and `𝓔 ≥ 0`. Three state
 
 If the spin-≥ 6 operators have `J ≤ J_max`: `t_4² + α_T² ≤ 1600 (J_max−5)(J_max−4)(J_max+5)(J_max+6)/((Δ_gap−7)(Δ_gap−6)(Δ_gap+3)(Δ_gap+4))`;
 if they satisfy `J ≤ xΔ`: `≤ 1600 x⁴(1 + o(1))`. With a dimension gap only, `sup W⁴_2 ≥ 100` (large spin near the
-unitarity bound), and this argument gives nothing: the kernels have **no hierarchy uniform in `J`**. The
-question (d) of ST1 is answered: the supremum of `|â_6|²/|â_4|²` over `Δ ≥ Δ_gap`, `J ≥ 6` does not tend to zero.
+unitarity bound), and this argument gives nothing: the kernels have **no hierarchy uniform in `J`**. Question
+(d) of ST1 is answered in the negative: for an operator with only a `+−` coupling and `J = xΔ → ∞`,
+`|â_6|²/Σ_m w_m|â_m|² → 100x⁴/Σ_k w_{4+k}C(k+3,3)²x^{2k}`, a positive constant for any fixed weights for which the sum
+converges.
 
 **(ii) Explicit exact solutions with `c ≠ 0` at arbitrary gap (rigorous given §5.1; `family4.py`).** Take
 `+−` operators `O_4` (`J = 4`, weight `q_4`) and `O_6` (`J = 6`, weight `q_6`), both at `Δ = Δ_gap`, and `++` operators: a scalar
@@ -512,7 +515,8 @@ question (d) of ST1 is answered: the supremum of `|â_6|²/|â_4|²` over `Δ �
 (`k ≥ 3`: `0 = 0`), and `𝓔 = 1 + 2a_2cos2θ + 2a_3cos3θ + 2a_4cos4θ` with `a_2 = q_4+q_6`, `a_3 = q_6W⁴_1`, `a_4 = q_6W⁴_2`.
 Example (`Δ_gap = 20`, `q_4 = 0.29`, `q_6 = 0.16`, `Δ′ = 17`): `p_0 = 0.0127`, `p_2 = 0.4373`, `|c|² = 0.0237`, `min 𝓔 = 0.013 > 0`.
 Optimising: `|c|²_max → 5400 a_2/Δ_gap⁴` with `Δ′ = (2/3)^{1/2}Δ_gap`, `a_2 → 1/2`, i.e. `|c|² ≃ 2700/Δ_gap⁴`
-(numerically `|c|²Δ_gap⁴ = 3995, 3925, 3493, 3119, 2885, 2716` at `Δ_gap = 15, 20, 30, 50, 100, 1000`). By the cone
+(numerical optimum, positivity enforced to `10^{−4}`: `|c|²Δ_gap⁴ = 3995, 3925, 3493, 3119, 2885, 2716` at
+`Δ_gap = 15, 20, 30, 50, 100, 1000`). By the cone
 property (rescaling `c` and all heavy amplitudes by `t ≤ 1` preserves `(S_k)` and positivity) every smaller `|c|`
 is realised too. **Hence `(S_k)` and positivity of `𝓔` can never imply a bound stronger than
 `t_4² + α_T² ≲ 4·10⁴/Δ_gap⁴`**; the rate `(log Δ_gap)/Δ_gap⁸` of `EINSTEIN_PROGRAM.md` (P1) is out of reach of route S-B by
@@ -527,8 +531,8 @@ programme: maximise `|c|²` over non-negative weights on a grid of `(Δ, J)` (`+
 | `Δ_gap` | 6 | 7.5 | 10 | 15 | 20 | 30 |
 |---|---|---|---|---|---|---|
 | `J_max` | 24 | 24 | 80 | 80 | 100 | 100 |
-| max `|c|²` | 0.924 | 0.854 | 0.475 | 0.109 | 0.0308 | 0.00536 |
-| `|c|² Δ_gap⁴` | — | — | 4750 | 5540 | 4930 | 4340 |
+| max `\|c\|²` | 0.924 | 0.854 | 0.475 | 0.109 | 0.0308 | 0.00536 |
+| `\|c\|² Δ_gap⁴` | — | — | 4750 | 5540 | 4930 | 4340 |
 
 Stable under `J_max` (10: 0.467/0.473/0.475 at 36/56/80; 15: 0.1084/0.1093 at 40/80; 20: 0.0307/0.0308 at 60/100)
 and under refinement of the `Δ` grid (0.469, 0.110, 0.0320 at `Δ_gap` = 10, 15, 20 with 74 values per spin). The
