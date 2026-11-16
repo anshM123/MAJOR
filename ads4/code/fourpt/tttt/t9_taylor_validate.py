@@ -62,4 +62,20 @@ if __name__ == "__main__":
         M = sum(1 for c in wL + wR if c != 'H')
         err, tt, nm = check(2, wL, wR, Phi, max(M, 1))
         pr(f"  l=2 {wL} x {wR}: {nm} z-monomials, max rel. deviation {err:.1e}; symbolic {ts:.0f} s, Taylor-mode {tt:.2f} s")
+    # order-8 pairs (no symbolic reference possible): the vertex operators commute, D^(12) D^(34) = D^(34) D^(12);
+    # applying the right word first exercises the truncation bookkeeping differently
+    from taylor4 import tables
+    for (wL, wR) in (('AACC', 'AACC'), ('ABCE', 'BBEE'), ('ACH', 'AAEE')):
+        Dx = 3; s1, s2 = shifts(wL); s3, s4 = shifts(wR)
+        d = (Dx + s1, Dx + s2, Dx + s3, Dx + s4); M = sum(1 for c in wL + wR if c != 'H')
+        G = Gjets(M); E = Engine4(M, sv)
+        A0 = seed(M, sv, d, G)
+        r1 = E.apply_words(A0, wL, wR)
+        A = A0
+        for kind in reversed(wR): A = E.op(A, kind, 3, 4)
+        for kind in reversed(wL): A = E.op(A, kind, 1, 2)
+        r2 = {k: v[0] for k, v in A.items() if v.shape[0]}
+        keys = set(r1) | set(r2); scale = max(abs(v) for v in r1.values())
+        err = max(abs(r1.get(k, 0) - r2.get(k, 0)) for k in keys)/scale
+        pr(f"  l=2 {wL} x {wR} (order {M}): {len(r1)} z-monomials; (12)-first vs (34)-first max rel. deviation {err:.1e}")
     open(os.path.join(HERE, 'out_t9_taylor_validate.txt'), 'w').write("\n".join(out) + "\n")

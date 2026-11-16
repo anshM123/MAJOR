@@ -65,11 +65,12 @@ same ↔ flat `++`, opposite ↔ flat `+−` (`SPINNING_4PT.md` §4.5–4.6).
 6. **Scans [NE/M, §3].** (i) Leading Regge action `𝔉_R` on physical points (`t2`, fine grids): positive everywhere for `Δ_g ≤ 20`; for `Δ_g ≥ 50`
    positive for `m ≳ 7.5Λ` (last negative grid point `7.12–7.46Λ`), negative (relative `−1 %`) only in the `++` island `m ≈ 6.3Λ`, `Λβ ≈ 8.7`,
    where the dropped `O(ν²/m²)` terms are larger than the margin. These are statements about the leading action only: with an `O(ν²/m²)`
-   envelope `Λ²/m²` the threshold is `≈ 8.1Λ`, rising to `≈ 22Λ` for `Δ_g ≳ 1000` (`+−` near-zero region). (ii) Hybrid model on ≈ 10⁴–1.8·10⁴ physical states per `(Δ_g, h)` (`t3`): **positive on
+   envelope `Λ²/m²` the threshold is `≈ 8.1Λ`, rising to `≈ 22Λ` for `Δ_g ≳ 1000` (`+−` near-zero region). (ii) Hybrid model (§2.4, revised) on ≈ 1.4·10⁴–2.4·10⁴ physical states per `(Δ_g, h)` (`t3`): **positive on
    every scanned state for `Δ_g = 20, 50, 100, 300, 1000`**; with the `1/m²` envelope `C₀ cosh β/m²`: all pass for `C₀ ≤ 100` (all `Δ_g`),
    `C₀ = 300` from `Δ_g = 50`, `C₀ = 1000` from `Δ_g = 100`; failures sit at `m ≈ 1.1–1.24Λ`, `J = 2–5`. Smallest relative margins:
-   `++` island `5.3·10⁻⁴`, `+−` near-zero `2.7·10⁻⁵` (`Δ_g = 1000`). Sign-agnostic criterion (B, `β ≤ 0.3`): passes for all `C₀ ≤ 1000` only at
-   `Δ_g = 1000` (at `Δ_g = 300` the `+−` near-zero fails by `≤ 2·10⁻⁵` relative, at `Δ_g = 100` by `2·10⁻⁴`).
+   `++` island `5.3·10⁻⁴`, `+−` near-zero `1.3·10⁻⁵` (`Δ_g = 1000`, fine box). Sign-agnostic criterion (B, `β ≤ 0.3`): passes for all `C₀ ≤ 1000`
+   only at `Δ_g = 1000` (at `Δ_g = 300` the `+−` near-zero fails by `≤ 4·10⁻⁵` relative, at `Δ_g = 100` by `2·10⁻⁴`). The binding failures with
+   an envelope (`m ≈ 1.1–1.24Λ`) lie where the hybrid is not justified (§2.4), so they illustrate sizes only.
 7. **What is proved, precisely (§3).** Nothing new at the level of a theorem. Rigorous ingredients: `UNIFORM_POSITIVITY.md` Theorem 1 (the
    `B₂` term of `𝔉_R` is `> 0` for all `Λ`, `β`); flat Theorem 1 (`F > 0` for `m ≥ M`). Everything combining them with error terms rests on
    unmeasured or unbounded `1/m²`, `β²` coefficients for `⟨TTTT⟩` and on the underived spinning bulk-point formula.
@@ -197,17 +198,18 @@ in any proved sense. `β > 8` (requires `m > 55Λ`) is not scanned; all terms de
 and `Λ_*(β) → 0` (`t6`), so nothing new is expected [I].
 
 **Conditional statement B (bulk-point side) [M + NE].** If the spinning bulk-point formula holds with corrections `O(β²) + O(1/m²)` and the hybrid
-model of §2.4 represents the `O(β²)` term, then (`t3`): positive on every scanned physical state (`m ≤ 60Λ`, `J ≤ min(3000, 200m/Λ)`) for
+model of §2.4 represents the `O(β²)` term, then (`t3`, revised): positive on every scanned physical state (`m ≤ 60Λ`, `J ≤ min(3000, 200m/Λ)`, plus
+all `J ∈ [230, 260]` for `m/Λ ∈ [20.5, 23.5]`) for
 `Δ_g ∈ {20, 50, 100, 300, 1000}`; with H_env(C₀) in addition: `Δ_g ≥ 20` (`C₀ ≤ 100`), `Δ_g ≥ 50` (`C₀ = 300`), `Δ_g ≥ 100` (`C₀ = 1000`). The binding
 states are near threshold, `m ≈ 1.1–1.24Λ`, `J = 2–5`, where the forward-term curvature `10m²(W − sinh²(β/2))u³` is large and negative (e.g.
-`Δ_g = 20`, `+−`, `J = 4`, `m = 1.2Λ`: flat `7.41`, shift `−1.56`). If the sign of the `O(β²)` term is not trusted (criterion B, `β ≤ 0.3`),
-the `++` island needs `Δ_g ≳ 100–300` and the `+−` near-zero `Λ ≳ 444` (`t4`; `Δ_g = 300` fails by `2·10⁻⁵` relative, `Δ_g = 1000` passes).
+`Δ_g = 20`, `+−`, `J = 4`, `m = 1.2Λ`: flat `7.41`, shift `−1.57`; the hybrid is not justified there, §2.4). If the sign of the `O(β²)` term is not trusted (criterion B, `β ≤ 0.3`),
+the `++` island needs `Δ_g ≳ 100–300` and the `+−` near-zero `Λ ≳ 444` (`t4`; `Δ_g = 300` fails by `≤ 4·10⁻⁵` relative, `Δ_g = 1000` passes).
 States with `J > 200 m/Λ` (`b̂ > 400`) are not scanned; there the forward term `≈ 2.5b̂²u²` dominates as in flat region (C) [I].
 
 **The two near-marginal flat points**, quantified (§0 items 4–5, `t4`):
 | point | flat margin | AdS effect | needed for AdS corrections not to destroy positivity |
 |---|---|---|---|
-| `+−, J = 4, m = M` | `19/315 = 0.060` (`N_cons = 65`) | kinematic lift `u ≤ 1 − 8/(Δ_g+7)`: margin `≈ 0.06 + 258/(Δ_g+7)` [D given §2.2]; curvature `≈ −2.36·10³/Λ²` [M] | `Δ_g ≳ 10` (curvature), `Δ_g ≳ 0.25 C₀` (conservative envelope); without the lift `Λ ≳ 200` and `Λ ≳ 330(C₀/100)^{1/2}` |
+| `+−, J = 4, m = M` | `19/315 = 0.060` (`N_cons = 65`) | kinematic lift `u ≤ 1 − 8/(Δ_g+7)`: margin exactly `2591/210 − 41u_max/18 − 10u_max³` (2.31 at `Δ_g = 100`; linearised `≈ 0.06 + 258/(Δ_g+7)`, an overestimate) [D given §2.2]; curvature `≈ −2.3·10³/Λ²` [M; not justified at `ν ≈ m`] | `Δ_g ≳ 10` (curvature), `Δ_g ≳ 0.25 C₀` (conservative envelope); without the lift `Λ ≳ 200` and `Λ ≳ 330(C₀/100)^{1/2}` |
 | `+−, m ≈ 21.7M, J ≈ 244` | `2.675·10⁻⁵` (`N_cons = 2.45`) | curvature shift `+5.27/Λ²` [M], i.e. favourable | any `Δ_g ≥ 10` if the sign is right (`C₀ ≲ 10³`); `Λ ≳ 444 (1 + 10⁻³C₀)^{1/2}` sign-agnostic |
 
 ### 3(b) The region `m ~ Λ` (and `ν/m` not small)
@@ -253,7 +255,7 @@ States with `J > 200 m/Λ` (`b̂ > 400`) are not scanned; there the forward term
 | `common.py` | weights; closed-form cosine transforms; `∫w P_{−1/2+iΛp}(cosh β)` via Mehler–Dirichlet; `W`, `P_{−1/2}`; flat partial waves; AdS kinematics; `𝔉_R`; hybrid shift | — |
 | `t1_validate.py` | kernels vs hypergeometric quadrature (`≤ 2·10⁻¹¹`); `W`, `P₀` vs mpmath; `f̂(9.755) = 0.0231575`; flat `19/315`, `3904/315`, near-zero `2.67·10⁻⁵` | `cache/t1.log` |
 | `t2_regge_leading.py` | `𝔉_R` on physical `(m, β)` grids, `Δ_g = 6 … 1000`, envelopes | `cache/t2.log` |
-| `t3_hybrid_scan.py` | hybrid model on physical states, criteria (A), (B) | `cache/t3*.log` |
+| `t3_hybrid_scan.py` | hybrid model on physical states, criteria (A), (B) | `cache/t3.log` (= `t3a`+`t3b`+`t3c`) |
 | `t4_marginal.py` | `J = 4` threshold and `J ≈ 244` near-zero vs `Δ_g` | `cache/t4.log` |
 | `t5_light.py` | `L_AdS(Λ)` and the would-be constants | `cache/t5.log` |
 | `t6_regge_estimate.py` | `Q₀`, `Q₁`, `W` and the Regge-regime threshold `Λ_*(β)` | `cache/t6.log` |
@@ -263,7 +265,8 @@ States with `J > 200 m/Λ` (`b̂ > 400`) are not scanned; there the forward term
    (§3(a) table): `≈ 7.5Λ` (leading), `≈ 8.1Λ` (`C₁ = 1`), `≈ 22Λ` for `Δ_g ≳ 300–1000` (`+−` near-zero region). "Any `C₀`" claim withdrawn.
 2. (issue 2) Hybrid formula corrected (`B₅` piece `5σ_h(P₀−1)u³`; the `B₂` cross term `−u∫p²ψ₂[P − J₀]` removed so that the hybrid is
    *term by term* "flat + [Regge − its flat limit]"); `t3`, `t4` re-run. Changes: `J = 4` threshold shift `−1.640 → −1.657` (`Δ_g = 20`),
-   asymptote `−2.29·10³ → −2.32·10³/Λ²` (`Δ_g = 1000`), `−2.39·10³/Λ²` (`Δ_g = 10⁴`); near-zero shift unchanged (`+5.273/Λ²`); `t3` tables: @@T3CHANGE@@
+   asymptote `−2.29·10³ → −2.32·10³/Λ²` (`Δ_g = 1000`), `−2.39·10³/Λ²` (`Δ_g = 10⁴`); near-zero shift unchanged (`+5.273/Λ²`); `t3` tables: pass/fail counts of (A) unchanged for every `(Δ_g, h, C₀)`; minimal margins change by `≤ 1 %`
+   except where the new fine box finds the true `+−` near-zero (`1.3·10⁻⁵`, `3.5·10⁻⁵` relative at `Δ_g = 1000, 300`, previously `2.7·10⁻⁵`, `5.0·10⁻⁵`).
 3. (issue 3) `t2` grids refined; `7.4Λ` replaced by the grid values `7.12, 7.38, 7.45, 7.46Λ` (`Δ_g = 50, 100, 300, 1000`), i.e. `≈ 7.5Λ`; `t2` now
    also covers `Λβ ≥ 0.01`.
 4. (major, issue 4) Label `[D|H]` → `[D|H*]` with the explicit assumption that the heavy formula (established only at `k = 4, 6`, currents) extends
