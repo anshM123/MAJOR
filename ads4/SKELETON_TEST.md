@@ -63,7 +63,8 @@ Marks: **[D]** derived; **[DV]** derived and checked numerically; **[NE]** numer
      inferred from flat space and **not fitted**. With it, `|m²d(0.1)| ≤ 1.3` (`β = 0.4`, `m ≤ 32`) and `≤ 6.4` up to `m = 70`.
    * **At `x ≥ 0.3` nothing tried describes it.** The residual reaches `|m²d| = 50–600`.
      * Two natural flat densities with the scalar kernel `E_k`, `d̃^J_{22} = P^{(0,4)}_{J−2}` and `d^J_{22}`, overcorrect by 2–4×.
-     * **The bulk-point form of this component is not identified [ND].**
+     * **The bulk-point form of this component is not identified [ND].** (Superseded by §8: the full Wigner function `d^J_{22}`, applied
+       multiplicatively at fixed `b̂`, does fit at `x ≤ 0.1–0.2`.)
    * **The offset.** It is `m²(S₀−1) = −6…−16` (`Δφ = 2`) and `−17…−40` (`Δφ = 2.5`). So the two helicities prefer different skeletons.
 5. **Against `C_s ≤ 40` [NE].** Define `C_s,eff(X) = max_{x≤X}|m²(S₀−1) + m²d(x)|/cosh β` (odd kernel; `cache/out_s4_summary.txt`, TABLE 1).
 
@@ -271,6 +272,76 @@ functionals is not established to be the one `F_flat` uses, and the decisive inp
   moment.
 * If `F_flat` is right (B), nothing changes relative to `UNIFORM_REMAINDER.md`. If not (A), the `+−` channel fails for every `Δ_g`.
 
+## 8. Follow-up 3: Reading A vs B for currents at fixed impact parameter (`s7_readingAB.py`, `cache/out_s7.txt`)
+
+**Set-up.**
+* Fixed `b̂ = (2J+1)/m = 2 sinh(β/2)`, i.e. fixed `β`, with `J` growing with `m`. `β = 0.4` (`b̂ = 0.40`, `J = 2 … 20`) and `β = 1` (`b̂ = 1.04`, `J = 5 … 52`).
+  The suggested `b̂ = 2, 4, 8` (`β = 1.8–4.2`) were not computed: those block tensors are not cached, and at large `β` the reliable-`ν` window is smaller.
+* Fixed `x = 0.05 … 0.2`, `m = 10 … 102`. The opposite-helicity odd kernel is used, whose leading value is exactly `∝ P`.
+* Prediction: `Q·R_spin·K_p ≈ S₀·Nrat·R_skel·K_p·D(J,x)/P_J(1−2x²)`. The candidate flat densities `D` are:
+  * **A**: `D = P_J` (scalar);
+  * **B**: `D = d^J_{22}(θ) = cos⁴(θ/2)·P^{(0,4)}_{J−2}(cos θ)`, with `cos θ = 1 − 2x²` (full photon Wigner function, `J_z = 2`);
+  * **B̃**: `D = d̃^J_{22} = P^{(0,4)}_{J−2}` with the scalar (`++`) prefactor. This is literally the identification of `ADS4_FUNCTIONAL.md` §1.2
+    (`D₊₋ = d̃^J_{44}`).
+  * **C**, for comparison: the curved shift `η → η − 8/m²`.
+* `m²d` is measured as in §2. Points with `P_J(1−2x²)` near a zero are skipped.
+
+**Flat-space check [DV numerically].** At fixed `b = (2J+1)x` and large `J` (`J = 50 … 400`, `λ = 1, 2`):
+* `d^J_{λλ}/P_J − 1 → 2λ²(x²/b)J₁(b)/J₀(b)`, ratio `1.0000 ± 0.0008`. This is exactly the flat helicity term with `c = 2λ²`.
+* `d̃^J_{λλ}` differs from it by the amplitude factor `(1 − x²)^{−λ}`.
+
+**Data** (odd kernel, `k = 6`, `Δφ = 2`; `k = 4` and `Δφ = 2.5` are the same within a few units):
+
+| `β = 0.4`, `x = 0.05`, `m` | 12.4 | 17.4 | 22.4 | 32.3 | 42.2 | 72.0 | 101.8 |
+|---|---|---|---|---|---|---|---|
+| A: `m²d` | −0.6 | −1.9 | −3.9 | −9.9 | −18.9 | −73.8 | −108.3 |
+| A: `m·d` | −0.05 | −0.11 | −0.17 | −0.31 | −0.45 | −1.03 | −1.06 |
+| B: `m²d` | 0.2 | 0.3 | 0.4 | 0.2 | −0.1 | −1.3 | 3.0 |
+| B̃: `m²d` | 0.7 | 1.5 | 2.5 | 5.0 | 8.5 | 24.8 | 22.9 |
+| C: `m²d` | 0.8 | 1.0 | 1.0 | 0.8 | 0.2 | −3.1 | −4.2 |
+
+At `x = 0.1` (`m = 12 … 72`):
+* A: −2.7 … −117.
+* B: 1.0, 1.6, 1.8, 2.1, 3.0, −9.2.
+* B̃: 2.9, 6.3, 10.8, 23.0, 28.5, −54. The predicted `0.02m²` from `(1−x²)^{−2} − 1` is 3.1, 6.0, 10.0, 20.8, 35.6, 104; it matches for `m ≤ 42`.
+
+At `β = 1`, `x = 0.05`:
+* A: −0.3 → −15.9.
+* B: 0.2 … 4.3.
+* C: within ±1.7.
+* At `x ≥ 0.1` this `β` shows `±10–60` for all readings near zeros of `P`.
+
+**Verdict for currents [NE, `β = 0.4, 1`, `x ≤ 0.1–0.2`, `m ≤ 100`; not a proof].**
+1. **Reading A is excluded.**
+   * `m·d → −1.0` at `x = 0.05`, `β = 0.4`. This equals the envelope of the flat helicity term, `2J_z²x/sinh β = 0.97`, so the scalar `P_J` misses a
+     genuine `O(1/m)` term at fixed `b̂`.
+2. **Reading B is supported.**
+   * With the full Wigner function `d^J_{22}`, `m²(R − 1)` stays bounded: `|m²d| ≤ 4.3` at `x = 0.05` up to `m = 100`, and `≤ 9` at `x = 0.1` up to `m = 72`.
+   * The `J_z`-dependent shift is therefore **flat physics, contained in `D₊₋ = d^J_{22}`**.
+   * B and C (flat vs curved form of the helicity term) differ at `O(β²)` and are not resolved by these data.
+3. **The density must be the full Wigner function.**
+   * `D₊₋ = d̃^J_{22}` with the `++` prefactor is **excluded**: it carries an `O(x²)` amplitude factor `(1 − x²)^{−2}` that the exact moments do not
+     have (`m²d ∝ m²`, as predicted).
+   * This explains the "overcorrects 2–4×" of §0 item 4.
+     * Its `flat` variant was B̃.
+     * Its `flat2` variant was B, but implemented additively as `n₀₀(D − P_J)/A`, which mis-normalises at the small `J = 2–5` of those cases. The
+       multiplicative form at fixed `b̂` used here removes that.
+
+**Consequence for gravitons [I].**
+* **Photon result.** The AdS opposite-helicity moment of these covariant kernels tends to the full `d^J_{2l,2l}(θ)` times the **same** bulk-point
+  kernel as `++`.
+* **What `ADS4_FUNCTIONAL.md` assumes.** Its §1.2 identification (and hence `F_flat` in `UNIFORM_REMAINDER.md`) represents the flat `B_k^{(1)}`
+  `+−` density as `d̃^J_{44}` with the `++` prefactor. That identification is labelled [I], "not derived", there.
+* **What carries over if photons are a guide.** Reading B holds for gravitons, so the `J_z`-dependent `O(1/m)` shift is not an extra AdS remainder;
+  this supports §7.2 "reading B" (`d_B ≤ 0.05`).
+* **The open input this exposes.**
+  * The AdS `+−` moment would carry `d^J_{44} = cos⁸(θ/2)·d̃^J_{44} = (1 − x²)⁴ d̃^J_{44}`.
+  * `F_flat`'s `+−` density would then match the AdS moment only if the flat `B_k^{(1)}` `+−` component is the full-`d` one. That is a matter of how
+    the flat amplitude is stripped (arXiv:2201.06602 (2.14)–(2.16)).
+  * If it is the reduced `d̃` with the `++` prefactor, the uplift `C^± ↔ B_k^{(1)}` is off by `(1 − x²)⁴` in the `+−` channel. That is an `O(1)` effect
+    at `x → 1`, not a `1/m` effect.
+  * This was not checked here. It is the next thing to settle before the `+−` near-gap numbers of `UNIFORM_REMAINDER.md` can be trusted.
+
 ## 5. Code (`ads4/code/skeleton/`)
 
 | file | content |
@@ -281,6 +352,7 @@ functionals is not established to be the one `F_flat` uses, and the decisive inp
 | `s0_scalar_precision.py`, `s1_spin_scan.py` | precision tests; per-case ν scans |
 | `s3_compare.py` | single-case comparison and envelope |
 | `s4_summary.py` | all tables (`cache/out_s4_summary.txt`) |
+| `s7_readingAB.py` | §8: Reading A vs B at fixed impact parameter (`cache/out_s7.txt`) |
 | `s6_opp_scaling.py` | §7: scaling fits of the opposite-helicity non-uniformity; graviton projection (`cache/out_s6.txt`) |
 | `s5_spinning_skeleton.py` | §6: spinning-kernel candidates for the `β`-dependence (`cache/out_s5.txt`) |
 | `run_all.sh` | everything, at most 2 cores (`OMP_NUM_THREADS=1`) |

@@ -24,3 +24,4 @@ fi
 python3 s4_summary.py > cache/out_s4_summary.txt
 python3 s5_spinning_skeleton.py > cache/logs/s5.log    # follow-up: spinning-skeleton candidates (SKELETON_TEST.md section 6)
 python3 s6_opp_scaling.py > cache/logs/s6.log    # follow-up 2 (SKELETON_TEST.md section 7)
+python3 s7_readingAB.py > cache/logs/s7.log    # follow-up 3 (SKELETON_TEST.md section 8)
