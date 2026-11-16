@@ -76,7 +76,7 @@ def _pmul(A, B):
                     out[..., i+k, j+m] = out[..., i+k, j+m] + a*B[..., k, m]
     return out
 
-def pq_jets(S, r, A0, E0):
+def pq_jets(S, r, A0, E0, vpow=0.0):
     """S[p,k,l] = sum Bt_{n,j} (Delta+n)^k r^n P_j^{(l)}(cosh chi)  (reflected block g^{-a,b}, positive radial coordinates).
     A0 = 1/sqrt(u), E0 = sqrt(v/u)  (cosh L = A0 + E0, cosh chi = E0 - A0).
     Returns Gj[p, i, j] = d_P^i d_Q^j [gt/(4r)^Delta],  P = (log u + log v)/2, Q = (log v - log u)/2."""
@@ -107,6 +107,13 @@ def pq_jets(S, r, A0, E0):
     for k in range(5):
         for l in range(5-k):
             G = G + e(S[:, k, l]/(fact[k]*fact[l]))*_pmul(powL[k], powX[l])
+    if vpow != 0:
+        # multiply by v^{vpow} = (E0/A0)^{2 vpow} exp(vpow (dP + dQ))      [v = e^{P+Q}]
+        ex = zero.copy()
+        for i in range(5):
+            for j in range(5-i):
+                ex[:, i, j] = (one*vpow)**(i+j)/(fact[i]*fact[j])
+        G = _pmul(G, ex)*e((E0/A0)**(2*vpow))
     for i in range(5):
         for j in range(5-i):
             G[:, i, j] = G[:, i, j]*(fact[i]*fact[j])
@@ -133,7 +140,14 @@ class SpinBlock:
                 b = ((l + 1 + wR.count('a')) - (Dphi + wR.count('b')))/2
                 self.ab[(wL, wR)] = (a, b)
                 if (a, b) not in self.blocks:
-                    self.blocks[(a, b)] = CBlock(Delta, J, -a, b, N, prec=prec)       # reflected block g^{-a,b}
+                    # reflected block g^{c1,c2}, (c1, c2) = (-a, b).  Its radial coefficients are positive for c1 + c2 >= 0;
+                    # for c1 + c2 < 0 they alternate and the sum cancels by many orders of magnitude near the Regge limit, so we
+                    # use  g^{c1,c2}(u',v') = v'^{-c1-c2} g^{-c1,-c2}(u',v')  (Euler transformation), v' = 1/v.
+                    c1, c2 = -a, b
+                    if c1 + c2 >= 0:
+                        self.blocks[(a, b)] = (CBlock(Delta, J, c1, c2, N, prec=prec), 0.0)
+                    else:
+                        self.blocks[(a, b)] = (CBlock(Delta, J, -c1, -c2, N, prec=prec), c1 + c2)
 
     def eval(self, s, z, r, chi, A0, E0, cut=None):
         """s: dict name -> array [npts]; z: dict name -> array [npts, ...pol]; block coordinates r, chi (s-channel radial, moduli),
@@ -145,9 +159,9 @@ class SpinBlock:
         exp = _mpfun(mp.exp) if obj else np.exp
         Jsign = (-1)**self.J
         jets = {}
-        for ab, blk in self.blocks.items():
+        for ab, (blk, vpow) in self.blocks.items():
             S = blk.series(r, chi, sig=+1, kmax=4, lmax=4, cut=cut)
-            jets[ab] = pq_jets(S, r, A0, E0)
+            jets[ab] = pq_jets(S, r, A0, E0, vpow=vpow)
         polshape = z['z12'].shape[1:]
         ex = (slice(None),) + (None,)*len(polshape)
         sargs = [s[n][ex] for n in SNAMES]; zargs = [z[n] for n in ZNAMES]

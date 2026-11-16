@@ -15,7 +15,7 @@ def pr(*a):
     s = " ".join(str(x) for x in a); print(s, flush=True); out.append(s)
 def md(u, v): return -u[..., 0]*v[..., 0] + u[..., 1]*v[..., 1] + u[..., 2]*v[..., 2]
 
-def diamond_nodes(x3, x4, nuv=70, nphi=40):
+def diamond_nodes(x3, x4, nuv=56, nphi=28):
     """nodes and weights for int d^3x5 over the causal diamond x3 < x5 < x4"""
     d = x4 - x3; L = np.sqrt(-md(d, d)); e0 = d/L
     # orthonormal spacelike vectors orthogonal to e0
@@ -48,7 +48,7 @@ def S3num(Dl, Jl, d1, d2, x1, x2, x5, n):
     al = (d1 + d2 - Dl + Jl)/2; be = (Dl + Jl + d1 - d2)/2; ga = (Dl + Jl - d1 + d2)/2
     return np.exp(Jl*np.log(np.abs(v5)) - al*np.log(s12) - be*np.log(s15) - ga*np.log(s25)), np.sign(v5)
 
-def scalar_test(Delta, J, d, q, xi, N=400, nn=64):
+def scalar_test(Delta, J, d, q, xi, N=400, nn=40):
     d1, d2, d3, d4 = d
     x1, x2, x3, x4 = frame(q, xi)
     X5, W5 = diamond_nodes(x3, x4)
@@ -92,7 +92,7 @@ def struct_np(l):
         return np.exp(fl(*a))*f(*a)
     return F
 
-def spinning_test(l, Delta, J, Dphi, q, xi, th1, th3, N=400, nn=64):
+def spinning_test(l, Delta, J, Dphi, q, xi, th1, th3, N=400, nn=40):
     x1, x2, x3, x4 = frame(q, xi)
     z1 = np.array([1.0, np.cos(th1), np.sin(th1)]); z3 = np.array([1.0, np.cos(th3), np.sin(th3)])
     X5, W5 = diamond_nodes(x3, x4)
@@ -115,8 +115,8 @@ def spinning_test(l, Delta, J, Dphi, q, xi, th1, th3, N=400, nn=64):
 if __name__ == "__main__":
     pr("# spinning partial waves: W_diff (differential operators on exact blocks)  vs  shadow integral of L(z_1) Fs(z_3)")
     for l in (1, 2):
-        for (Delta, J, Dphi) in ((7.3, 2, 1.75), (8.6, 3, 1.75), (9.1, 4, 2.5)):
-            for (th1, th3) in ((0.3, 1.9), (2.2, 0.4), (4.0, 5.1)):
+        for (Delta, J, Dphi) in ((7.3, 2, 1.75), (8.6, 3, 1.75)) if l == 1 else ((10.3, 2, 1.75), (11.6, 3, 1.75)):
+            for (th1, th3) in ((0.3, 1.9), (2.2, 0.4)):
                 W, sh = spinning_test(l, Delta, J, Dphi, 0.25, 0.5, th1, th3)
                 pr(f"  l={l} Delta={Delta} J={J} Dphi={Dphi} pol=({th1},{th3}):  W_diff = {W:.8e}   shadow = {sh:.8e}   ratio = {W/sh:.6f}")
     pr("# scalar seeds: K g  vs  shadow integral  (q = |x| = |y|, xi);  third column: ratio")

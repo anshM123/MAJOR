@@ -18,7 +18,7 @@ def gl(a, b, n):
     x, w = np.polynomial.legendre.leggauss(n)
     return 0.5*(b-a)*x + 0.5*(b+a), 0.5*(b-a)*w
 
-def make_grid(Delta, J, upanels=((0.0, 0.02, 10), (0.02, 0.25, 16), (0.25, 1.0, 28)), tpanels=((0.0, 6.0, 20), (6.0, 28.0, 28), (28.0, 85.0, 24))):
+def make_grid(Delta, J, upanels=((0.0, 0.01, 8), (0.01, 0.03, 10), (0.03, 0.1, 14), (0.1, 0.3, 16), (0.3, 1.0, 24)), tpanels=((0.0, 6.0, 18), (6.0, 28.0, 28), (28.0, 85.0, 24))):
     us, uw = zip(*[gl(a, b, n) for (a, b, n) in upanels]); us, uw = np.concatenate(us), np.concatenate(uw)
     ts, tw = zip(*[gl(a, b, n) for (a, b, n) in tpanels]); ts, tw = np.concatenate(ts), np.concatenate(tw)
     al, alb = alpha_pair(Delta, J)
@@ -86,10 +86,12 @@ class ScalarMoments:
         ok = g['ok']
         fd = frame_data(g['U'][ok], g['S'][ok])
         b = (D1 - D2)/2
-        blk = CBlock(Delta, J, b, b, N)           # reflected block g^{-a,b} = g^{b,b}
+        # reflected block g^{-a,b} = g^{b,b}; for b < 0 its radial coefficients alternate: use g^{b,b}(u',v') = v'^{-2b} g^{-b,-b}(u',v'), v' = 1/v
+        blk = CBlock(Delta, J, abs(b), abs(b), N)
         Sr = blk.series(fd['rs'], fd['chi'], sig=+1)[:, 0, 0]
-        # g^{a,b}(u,v) = (-1)^J v^{-b} gt;  u' = 1/A0^2, v' = (E0/A0)^2
-        logG = (Delta*np.log(4*fd['rs']) + np.log(np.abs(Sr)) - 2*b*np.log(fd['E0']/fd['A0']) + (D1 + D2)*np.log(fd['A0']))
+        vp = -b if b >= 0 else b            # total power of v:  v^{-b} (b >= 0)  or  v^{-b} v^{2b} = v^{b} (b < 0)
+        # g^{a,b}(u,v) = (-1)^J v^{vp} gt;  u = 1/A0^2, v = (E0/A0)^2
+        logG = (Delta*np.log(4*fd['rs']) + np.log(np.abs(Sr)) + 2*vp*np.log(fd['E0']/fd['A0']) + (D1 + D2)*np.log(fd['A0']))
         self.logG = np.full(g['S'].shape, -np.inf); self.logG[ok] = logG      # times (-1)^J
         self.sgn = np.ones(g['S'].shape); self.sgn[ok] = np.sign(Sr)
 
@@ -113,31 +115,37 @@ class TensorMoments:
         g = make_grid(Delta, J, **gkw); self.g = g
         ok = g['ok']
         fd = frame_data(g['U'][ok], g['S'][ok])
+        # points where the radial series (and its derivatives) has not converged with N levels are dropped (and not
+        # evaluated): the derivative sums there are garbage, not small; see series_converged and t4b_convergence.py
+        conv = series_converged(fd['rs'], fd['chi'], J, N, cut=cut_mask)
+        self.conv = np.zeros(g['S'].shape, dtype=bool); self.conv[ok] = conv
+        fd = {key: v[conv] for key, v in fd.items()}
         npts = fd['rs'].size
         x1, x2, x3, x4 = frame_positions(fd['ru'], fd['xi'])
         z1, z3 = pol_grid(npts)
         s, z = invariants(x1, x2, x3, x4, z1, z3)
         sb = SpinBlock(l, Delta, J, Dphi, N, prec=prec); self.sb = sb
         ls, M = sb.eval(s, z, fd['rs'], fd['chi'], fd['A0'], fd['E0'])
-        # points where the radial series (and its 4th derivatives) is not converged with N levels are dropped:
-        # the derivative sums there are garbage (not small), cf. the truncation rule in cblock.c
-        conv = series_converged(fd['rs'], fd['chi'], J, N, cut=cut_mask)
-        M = np.where(conv[:, None, None], M, 0.0)
-        self.conv = np.zeros(g['S'].shape, dtype=bool); self.conv[ok] = conv
         self.modes = {}
         fm = fourier_modes(M, lmax=l)
-        self.logscale = np.full(g['S'].shape, -np.inf); self.logscale[ok] = ls
+        self.logscale = np.full(g['S'].shape, -np.inf); self.logscale[self.conv] = ls
         for key, v in fm.items():
-            arr = np.zeros(g['S'].shape, dtype=complex); arr[ok] = v
+            arr = np.zeros(g['S'].shape, dtype=complex); arr[self.conv] = v
             self.modes[key] = arr
-        self.Mraw = M; self.fd = fd
+        self.fd = fd
 
     def moment(self, k, nu, q1, q3, fun=None):
         """Pihat^{(q1,q3)}_{k,nu} of the stripped tensor: returns (complex mantissa, log scale):  value = mant * exp(logscale).
         fun: optional replacement of the harmonic function (callable of xi array)."""
         g = self.g; U, S = g['U'], g['S']
         xi = -np.log(g['us'])
-        F = Fnu_np(nu, [q1 + q3], xi)[q1 + q3] if fun is None else fun(xi)
+        if fun is not None:
+            F = fun(xi)
+        else:
+            if not hasattr(self, '_Fcache'): self._Fcache = {}
+            if nu not in self._Fcache:
+                self._Fcache[nu] = Fnu_np(nu, list(range(0, 2*self.l + 1)), xi)
+            F = self._Fcache[nu][abs(q1 + q3)]
         rho, rhob = S**2, (S*U)**2
         with np.errstate(divide='ignore', invalid='ignore'):
             logw = np.log(2.0) + 3*np.log(S) + np.log(U) + np.log(rho - rhob) + 0.5*(k-4)*np.log(rho*rhob) + self.logscale
@@ -145,6 +153,22 @@ class TensorMoments:
         sh = np.max(logw)
         val = np.sum(np.exp(logw - sh)*F[:, None]*self.modes[(q1, q3)]*g['W'])
         return val, sh
+
+    def save(self, fn):
+        g = self.g
+        keys = sorted(self.modes.keys())
+        np.savez_compressed(fn, l=self.l, Delta=self.Delta, J=self.J, Dphi=self.Dphi, us=g['us'], ts=g['ts'], U=g['U'], S=g['S'], W=g['W'],
+                            ok=g['ok'], conv=self.conv, logscale=self.logscale, keys=np.array(keys), modes=np.array([self.modes[k] for k in keys]))
+
+    @classmethod
+    def load(cls, fn):
+        d = np.load(fn)
+        self = cls.__new__(cls)
+        self.l, self.Delta, self.J, self.Dphi = int(d['l']), float(d['Delta']), int(d['J']), float(d['Dphi'])
+        self.g = dict(us=d['us'], ts=d['ts'], U=d['U'], S=d['S'], W=d['W'], ok=d['ok'])
+        self.conv = d['conv']; self.logscale = d['logscale']
+        self.modes = {tuple(int(x) for x in k): m for k, m in zip(d['keys'], d['modes'])}
+        return self
 
     def coverage(self):
         """smallest u and t at which all grid points are converged (diagnostic for the dropped region)"""
