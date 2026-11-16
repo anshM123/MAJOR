@@ -1,0 +1,11 @@
+# <J phi O_l> x <O^S J phi>:  l/Delta ~ 0.4.  Symmetric part of t_L (x) t_R, components in (pbarhat, n_par, e_perp), normalised to W_nn
+  m =  44.2853  Weyl-covariant frame (alpha, alphabar)  : m*W_pn =   0.00714792  m*W_ne =  -0.00958368  m*W_pe =   0.00776424   m^2*W_pn =   0.316548  m^2*W_ne =  -0.424416
+  m =  44.2853  naive frame (Delta, -l)                 : m*W_pn =     -1.18718  m*W_ne =  -0.00978963  m*W_pe =   0.00801989   m^2*W_pn =   -52.5748  m^2*W_ne =  -0.433537
+  m =  90.1176  Weyl-covariant frame (alpha, alphabar)  : m*W_pn =   0.00362096  m*W_ne =  -0.00470612  m*W_pe =   0.00377722   m^2*W_pn =   0.326312  m^2*W_ne =  -0.424104
+  m =  90.1176  naive frame (Delta, -l)                 : m*W_pn =     -1.19379  m*W_ne =  -0.00475589  m*W_pe =   0.00383942   m^2*W_pn =   -107.582  m^2*W_ne =   -0.42859
+  m =  181.772  Weyl-covariant frame (alpha, alphabar)  : m*W_pn =   0.00182127  m*W_ne =  -0.00233286  m*W_pe =   0.00186367   m^2*W_pn =   0.331056  m^2*W_ne =   -0.42405
+  m =  181.772  naive frame (Delta, -l)                 : m*W_pn =     -1.19702  m*W_ne =   -0.0023451  m*W_pe =   0.00187902   m^2*W_pn =   -217.585  m^2*W_ne =  -0.426275
+  m =  365.077  Weyl-covariant frame (alpha, alphabar)  : m*W_pn =   0.00091322  m*W_ne =  -0.00116153  m*W_pe =  0.000925754   m^2*W_pn =   0.333396  m^2*W_ne =  -0.424047
+  m =  365.077  naive frame (Delta, -l)                 : m*W_pn =     -1.19861  m*W_ne =  -0.00116456  m*W_pe =  0.000929566   m^2*W_pn =   -437.586  m^2*W_ne =  -0.425155
+  m =  731.684  Weyl-covariant frame (alpha, alphabar)  : m*W_pn =  0.000457243  m*W_ne = -0.000579555  m*W_pe =  0.000461375   m^2*W_pn =   0.334558  m^2*W_ne =  -0.424051
+  m =  731.684  naive frame (Delta, -l)                 : m*W_pn =     -1.19941  m*W_ne = -0.000580311  m*W_pe =  0.000462325   m^2*W_pn =   -877.587  m^2*W_ne =  -0.424604

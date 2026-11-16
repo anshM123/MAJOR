@@ -240,6 +240,49 @@ beyond. (ii) That this is the complete normalised diagonal contribution: the `1/
 which has opposite sign in the two diagonal channels, are not included. (iii) Everything about the light
 side.
 
+## 3c. The four-stress-tensor Regge-moment formula: what is derived and what is not (`REGGE_MOMENT_TTTT.md`; agent derivation, **unrefereed**)
+
+**Verified.**
+* *Scalar formula reconstructed with exact blocks.* Exact `d = 3` scalar blocks (Casimir recursion, residual
+  `10^{−15}`–`10^{−18}`) and the Regge moment of a block computed with no large-`Δ` approximation: ratio to the
+  heavy-block formula of arXiv:2106.10274 ((3.20)/(2.59)) is `1.0385, 1.0073, 1.00072` at `m = 17.6, 36.7, 113`; with
+  the paper's `1/m²` and `1/m⁴` terms, `1 + 4·10^{−6}` and `1 − 10^{−8}` at `m = 113`. A misprint was found in the paper's
+  printed (3.27) (`(Δ_φ − d − 1)_3` should be `(2Δ_φ − d − 1)_3`, as in its ancillary file).
+* *Heavy limit of conserved three-point structures* (`⟨JφO⟩`, `⟨TφO⟩`, their shadows, `⟨TTO⟩`) in the symmetric
+  frame: a plane wave times a constant tensor, transverse at the transverse-space point of the Regge pair,
+  with helicity `±ℓ_i` only and corrections `O(1/m)`. This derives the helicity-transfer dictionary.
+* *Tensor Fourier–Laplace lemma:* the transform of a spinning kernel is the scalar one times explicit
+  rational functions of `ν` times the harmonic of the helicity transfer (checked by direct integration to 9
+  digits for currents; stress-tensor rows come from the same code and were not separately integrated).
+
+**Answer to the key question.** In the helicity-preserving components the `β`-dependence is exactly
+`P_{−1/2+iν}(cosh β)`, with no helicity-dependent factor of `β` at leading order. There is a `ν`-dependent factor,
+but it is a property of the functional (the spinning analogue of the factor divided out in the scalar
+case) and is identical for `++` and `+−` for parity-even kernels. Kernels antisymmetric under `1 ↔ 3` at both
+pairs give the combination `|c^{++}|² − |c^{+−}|²`.
+
+**Proposed normalised formula (conditional).**
+`C^±_{k,ν}[Δ,J] = (2 P_{−1/2+iν}(η_AdS)/m^{2k}) (|c^{++}|² ± |c^{+−}|²) (1 + O(ν²/m², 1/m²))`.
+The kernel shape and `ν`-factors are derived and verified piecewise; **the overall normalisation and the
+helicity-diagonal pairing are inferred**, not derived.
+
+**First subleading terms.** The `O(1/m)` terms of the two vertices cancel in the `1 ↔ 3`-symmetric part (verified
+pointwise for currents, not for `⟨TTO⟩`), so corrections start at `1/m²`. Their coefficients for stress tensors
+are **not derived**. The helicity-dependent part is known only in the flat corner,
+`+(1/m²)[2λ² (ν/β) J_1(νβ) + λ ν² J_0(νβ)]` with `λ = 4` for `+−` (verified for flat partial waves); its completion at
+`β ~ 1` is inferred.
+
+**Blocking steps (agent's list).** (1) No end-to-end test on a spinning block (needs scalar blocks with
+unequal external dimensions plus the spinning differential operators, and the spinning shadow
+normalisation). (2) The spinning functionals of arXiv:2311.04271 have not been expanded in Regge moments,
+and their `d = 3` reduction is absent; which functional uplifts the flat `B_2^{(1)}`, `B_3^{(1)}` is inferred.
+(3) Normalisation relative to mean-field theory in the helicity basis. (4) Second-order expansion of the
+conserved `⟨TTO⟩` structures. (5) Uniformity in `β`, the threshold `m ~ M`, swapping, discrete series, the light
+side.
+
+So the formula is **not established as a theorem**. What is established is the shape of the kernel in the
+diagonal channels, on which the positivity statement of `UNIFORM_POSITIVITY.md` (under review) can act.
+
 ## 4. Next steps on the direct route
 
 1. Compute the kernels `K^{(a)}_m(Δ, J)` (three-point structures of `⟨TTO⟩` in `d = 3`, light transform, Fourier

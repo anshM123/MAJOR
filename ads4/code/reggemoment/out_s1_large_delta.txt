@@ -1,0 +1,20 @@
+(a) exact / asymptotic  for rho, rhobar > 0
+   rho=(0.35,0.2) J=0:  Delta=10.3,40.3,160.3,640.3 -> 0.990625  0.997375  0.999323  0.999829
+   rho=(0.35,0.2) J=2:  Delta=10.3,40.3,160.3,640.3 -> 0.990560  0.997390  0.999325  0.999830
+   rho=(0.35,0.2) J=6:  Delta=10.3,40.3,160.3,640.3 -> 0.989181  0.997447  0.999330  0.999830
+   rho=(0.35,0.2) J=0.4*Delta (Regge corner): 0.9902  0.9975  0.9994   (still -> 1: at fixed r < 1 the form holds also for J ~ Delta)
+   rho=(0.6,0.45) J=0:  Delta=10.3,40.3,160.3,640.3 -> 0.960085  0.988273  0.996924  0.999221
+   rho=(0.6,0.45) J=2:  Delta=10.3,40.3,160.3,640.3 -> 0.959039  0.988276  0.996926  0.999221
+   rho=(0.6,0.45) J=6:  Delta=10.3,40.3,160.3,640.3 -> 0.949000  0.988277  0.996936  0.999222
+   rho=(0.6,0.45) J=0.4*Delta (Regge corner): 0.9561  0.9878  0.9969   (still -> 1: at fixed r < 1 the form holds also for J ~ Delta)
+    region 1-|rho| = c/Delta, 1-|rhobar| = cbar/Delta (both negative; (c, cbar) = (6, 3)), J = 0.3 Delta:
+   exact/asymptotic for Delta = 20.3, 40.3, 80.3, 160.3: 0.9142  0.8982  0.8902  0.8862   <- does not tend to 1
+(b) collinear frame: charge content of the conserved vertices, l = 6 fixed
+   <J phi O>  Delta=    20.0:  |t.e_t| / |t_transverse| = 0.382514
+   <J phi O>  Delta=   200.0:  |t.e_t| / |t_transverse| = 0.0353001
+   <J phi O>  Delta=  2000.0:  |t.e_t| / |t_transverse| = 0.00350298
+   <J phi O>  Delta= 20000.0:  |t.e_t| / |t_transverse| = 0.00035003
+   <T phi O>  Delta=    20.0:  |components with a time index (q_1 = 0, +-1)| / |q_1 = +-2 part| = 0.483165
+   <T phi O>  Delta=   200.0:  |components with a time index (q_1 = 0, +-1)| / |q_1 = +-2 part| = 0.040377
+   <T phi O>  Delta=  2000.0:  |components with a time index (q_1 = 0, +-1)| / |q_1 = +-2 part| = 0.00400344
+   <T phi O>  Delta= 20000.0:  |components with a time index (q_1 = 0, +-1)| / |q_1 = +-2 part| = 0.000400034
