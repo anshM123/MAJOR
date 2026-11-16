@@ -1,11 +1,24 @@
 # Spinning Regge-moment formula in d = 3: end-to-end test on exact `⟨JφJφ⟩` and `⟨TφTφ⟩` blocks, with the normalisation derived
 
-Status: written 16 Nov 2026 by a derivation/numerics agent; **not refereed**. Code and recorded outputs: `ads4/code/e2e/`
-(index in §12; `sh run_all.sh` regenerates every number; `sh run_all.sh fast` reuses the cached block tensors in `data_modes/`).
+Status: written 16 Nov 2026 by a derivation/numerics agent; revised the same day after the hostile referee report
+`ads4/REFEREE_SPINNING_E2E.md` (no fatal issues; the revisions are listed in §13). Code and recorded outputs: `ads4/code/e2e/`
+(index in §12; `sh run_all.sh` regenerates every number except those explicitly attributed to the referee's scripts in
+`ads4/code/referee_e2e/`; `sh run_all.sh fast` skips only the convergence study — the block-tensor cache `data_modes/` is git-ignored,
+so on a fresh clone even `fast` recomputes everything, about 2.5 h on 4 cores).
 Sources: LaTeX of arXiv:2106.10274 ("CHMRS"), 2311.04271 ("CLS-D"), 2102.08160 ("CHL"), 2201.06602 ("CLPS") in the session
 scratchpad `…/scratchpad/reggemoment/src/`; equation numbers are those of the arXiv versions (for CLS-D the LaTeX labels, since
 numbers were not compiled). Costa–Penedones–Poland–Rychkov (arXiv:1107.3554, 1109.6321) were used from memory only for the *form*
 of the differential operators; every property used is re-derived or checked here.
+
+Related work (cited, not used as input): Chang–Landau–Simmons-Duffin, arXiv:2311.04271 — spinning dispersive sum rules, **bulk-point
+regime only** (they leave the Regge regime of spinning correlators to future work); Caron-Huot–Li, arXiv:2102.08160 — the `d = 3`
+helicity basis, mean-field OPE data of currents and stress tensors (diagonal in that basis), Lorentzian inversion for currents;
+Costa–Hansen–Penedones, arXiv:1707.07689 — Regge limit of `⟨JJOO⟩` and `⟨TTOO⟩` (the same spinning Regge pair, in impact-parameter form);
+Karateev–Kravchuk–Simmons-Duffin, arXiv:1706.07813 (weight-shifting operators; shadow coefficients in a differential basis) and
+arXiv:1809.05111 (harmonic analysis; light-transform and shadow coefficients with unequal external dimensions, whose standard
+`±Δ_34/2` splitting is what `b^{(Δ_34)}` of §4.1 is — it is not new); Kravchuk–Simmons-Duffin, arXiv:1805.00098 (light transform).
+To our knowledge the spinning, curved-regime (fixed `ν`, any `β`), absolutely normalised heavy Regge moment with an exact-block test
+is not in the literature; the ingredients are standard and the result is a verified building block, not a standalone result.
 
 Marks: **[DVE]** derived and verified end-to-end; **[DVP]** derived, verified piecewise; **[D]** derived, not verified;
 **[I]** inferred; **[ND]** not done; **[Q]** quoted. "Numerical evidence" = a statement read off from the numbers, with no derivation.
@@ -27,18 +40,43 @@ Marks: **[DVE]** derived and verified end-to-end; **[DVP]** derived, verified pi
 4. **Derived leading formula with absolute normalisation [DVE]** (§4.5, no constant fitted anywhere):
    `(−1)^{J+l} Π̂^{(q_1,q_3)}_{k,ν}[s_13^{l+1}s_24^{Δ_φ}W_diff] → (π/4)·4^{l+1+Δ_φ}/b^{(1−Δ_φ)}_{Δ,J} · γ_{a_x}(ν)γ_{a_y}(ν) m^{−a_x−a_y} · |T_l| · [M_pres P_{−½+iν}(cosh β) + M_flip F^ν_{2l}(β)]`,
    and `⟨OφOφ⟩ ⊃ λ²_{OφO}(−½)^J W_diff/L_0²` (§1.4). Measured/predicted at `m ≈ 100`, `k = 6` (§5): `l = 1`: `R_pres = 0.991, 0.988` and
-   `R_flip = 0.985, 0.982` (`β = 0.4, 1`, `ν = 0`); `l = 2`: `R_pres = 0.985, 0.987`, `R_flip = 0.968, 0.975`; with `m²(R−1)` converging, i.e.
-   `R = 1 + c_2/m² + …` for both helicity components, `l = 1, 2`, `k = 4, 6`, `ν = 0, 1, 3`, `β = 0.4, 1, 2`, `m = 10…100`.
+   `R_flip = 0.985, 0.982` (`β = 0.4, 1`, `ν = 0`); `l = 2`: `R_pres = 0.985, 0.987`, `R_flip = 0.968, 0.975`. **[DVE]** range — where
+   `m²(R−1)` visibly converges, i.e. `R = 1 + c_2/m² + …`: both helicity components, `l = 1, 2`, `k = 6`, `ν = 0, 1, 3`, `β ≈ 0.4, 1`, `m = 10…100`
+   (and `k = 4` for `m ≤ 42`, where its numerical error is `≲ 10⁻⁴`). **Consistent but not converged** (ratios approach 1, `m²(R−1)` still
+   drifting or numerically limited): `β ≈ 2` (only `m ≤ 70`; e.g. `l = 2`, `ν = 3`, flip: `m²(R−1) = 3, 176, 375, 454`), `k = 4` at `m ≳ 70`
+   (`**`), and `k = 2` (only `R_pres` at `m ≲ 40` usable). Only `Δ_φ = 1.75` was tested end-to-end.
 5. **`O(1/m)` [D + numerical evidence]**: absent for both `l`, both components, in the Weyl-odd variables `(m, β)` of CHMRS with the exact
-   `1/b` — proved by a reflection argument (§6.1), verified pointwise, and by fits: `|c_1| ≤ 0.008` in 11 of 12 preserved cases (`k = 6`, `β ≤ 1`; all `≤ 0.027`), against `|c_2|/m ≈ 1`.
+   `1/b` — by a reflection argument (§6.1; it uses an exact mode symmetry, proved there as Lemma S, and *assumes* that the pointwise
+   `1/m` expansion may be integrated term by term). Verified pointwise and by fits at `k = 6`, `β ≤ 1`: preserved `|c_1| ≤ 0.008` in 11 of
+   12 cases with ansatz (A) (all `≤ 0.027`; `≤ 0.025` with a `1/m³` term, referee), against `|c_1| ≈ 0.57` for the `b^{(0)}` mutation.
+   Weak spot: the `l = 2` flip component at `β ≈ 0.4` gives `c_1 ≈ −0.27` (all five masses) against `−0.85` for the `b^{(0)}` mutation —
+   inconclusive there. For `⟨TTTT⟩` the absence of `O(1/m)` is only a **conjecture** (§6.1).
 6. **`O(1/m²)` [numerical evidence]**: measured coefficients (`−25 … −740`, §6.2). Spin-dependent part of the preserved one: the
-   exact normalisation polynomials (derived) plus the flat-space helicity term in the curved form `−2l²P′/P`: fitted coefficient
-   `−2.01` (`l = 1`, predicted `−2`) and `−8.00` (`l = 2`, predicted `−8`) (§6.3); flip corrections measured but not understood (§6.4).
-7. **Uniformity [numerical evidence + D]** (§7): fails at fixed `J` by the factor `Π[(J+½)²−(i−½)²]/(J+½)^{2l}` (derived; after restoring it the
-   formula is uniform down to `J = 1`, `β ≈ 0.04`); not uniform in `ν/m` (`O(ν²/m²)`), but the spin dependence is: spinning = scalar
-   skeleton × spin factor to `10⁻³` for `ν/m ≤ 0.2`.
+   exact normalisation polynomials (derived, confirmed) plus the flat-space helicity term in the curved form `−2l²P′/P`. For `l = 1`
+   this is **confirmed at `β = 0.4` and `β = 1` separately** (per-`β` coefficient `−2.01`, `−2.01`; predicted `−2`). For `l = 2` the per-`β`
+   coefficients are `−8.34` (`β = 0.4`) and `−10.79` (`β = 1`): **consistent with `−8` only in the limit `β → 0`** (extrapolated `−8.00`
+   under a fitted `sinh²β` term); the `β`-dependence for `l = 2` is part of the unexplained extra piece (§6.3). Flip corrections measured,
+   not understood (§6.4).
+7. **Uniformity [numerical evidence + D]** (§7): fails at fixed `J` by the factor `Π[(J+½)²−(i−½)²]/(J+½)^{2l}` (the polynomial is identified
+   by derivation; uniformity after restoring it is numerical: `J ≥ l`, `m ≈ 20, 40, 80`, `k = 4, 6`, down to `β ≈ 0.04`); not uniform in
+   `ν/m` (`O(ν²/m²)`), but the spin dependence is, numerically: spinning = scalar skeleton × spin factor to `10⁻³` for `ν/m ≤ 0.2`, `m ≥ 40`
+   (`l = 1`; for `l = 2` up to the `ν`-independent extra piece of §6.3).
 8. **CLS-D** (§9): no discrepancy; their polarisation prescription is helicity preserving only up to `O(ν^{−2l})`.
 9. **`⟨TTTT⟩` not reached** (§8); **MFT normalisation (`2P/m^{2k}` form) not done** (§0.1).
+
+**Physical reach (what this does and does not establish for the AdS₄ graviton bound).** *Established*, for **one** conserved spinning
+Regge pair (`J` or `T`), a parity-even exchange `(Δ, J)` with the unique conserved `⟨OφO⟩` structure, `Δ_φ = 1.75`, `k = 4, 6`, `ν = O(1)`
+(`ν/m ≲ 0.1`), `β ≈ 0.4…1` (consistent at `β ≈ 2`): the leading heavy value of all tensor Regge moments, absolutely normalised per `λ²_{OφO}`
+in the standard-basis structure, for both helicity components at the spinning pair, with corrections `1 + O(1/m²)` in Weyl-odd variables;
+the preserved component carries `P_{−½+iν}(cosh β)` and the flipped one `F^ν_{2l}(β)` — i.e. the one-pair factor `R` of the earlier
+conditional `⟨TTTT⟩` formula. *Not established*: (a) the `⟨TTTT⟩` formula itself and its `±` structure `|c^{++}|² ± |c^{+−}|²`, in particular
+the opposite-sign `g_1²S_{13}S_{24}` term (cannot appear in parity-even `⟨OφOφ⟩`; `S` checked only by `H²` quadrature); (b) the map from
+`λ^{(a)}_{TTO}` to `c^{h_1h_2}` (Lemma V for both vertices); (c) the mean-field (`2P/m^{2k}`) or unitarity/positivity normalisation (the
+standard basis is singular at double twists; reality and positivity of `λ²` in it are not shown); (d) `k = 2, 3`, the moments the
+graviton sum rules use (numerically inaccessible here; term-by-term integration of the `1/m` expansion is untested there); (e)
+uniformity in `ν/m` (needed for functionals supported at `ν ∼ m`; the single-moment formula fails at `ν/m ≈ 0.3`); (f) the `TT → φφ` channel;
+(g) any `Δ_φ ≠ 1.75`; (h) absence of `O(1/m)` for `⟨TTTT⟩` (conjecture, §6.1); (i) the `β`-dependence of the `l = 2` helicity `1/m²` term
+beyond the flat limit.
 
 ### 0.1 Answers to the coordinator's questions (16 Nov, after the restart)
 
@@ -61,19 +99,21 @@ normalisation was fixed as follows, every step derived and separately checked:
   end-to-end; `S`, which produces the `−` sign, only by direct `H²` integration, since parity-even `⟨OφOφ⟩` blocks do not probe it).
   So: **one-pair normalisation [DVE]; `2P/m^{2k}` MFT form [ND]; `±` structure for `⟨TTTT⟩` [D, factors verified piecewise].**
 
-**(2) Approach to 1.** `1 − R ∼ c_2/m²` at fixed `ν`, both components, `k = 4, 6`, `l = 1, 2`: `m²(R−1)` converges (e.g. `l = 2`, `β = 0.4`, `ν = 0`,
-`k = 6`: `−96.3, −130.2, −146.4, −151.2, −152.5` at `m = 12…102`). The `**` flags at `k = 2` (and at `k = 4`, `m ≳ 70`) are numerical, not
+**(2) Approach to 1.** `1 − R ∼ c_2/m²` at fixed `ν`, both components, `l = 1, 2`, in the range stated in §0 item 4 (`k = 6`, `β ≈ 0.4, 1`;
+`k = 4` at `m ≤ 42`): `m²(R−1)` converges (e.g. `l = 2`, `β = 0.4`, `ν = 0`, `k = 6`: `−96.3, −130.2, −146.4, −151.2, −152.5` at `m = 12…102`).
+At `β ≈ 2` and at `k = 4`, `m ≳ 70` the data are consistent with this but not converged. The `**` flags at `k = 2` (and at `k = 4`, `m ≳ 70`) are numerical, not
 physical: the moment integrand behaves like `u^{k−1/2}` at `u = √(ρ̄/ρ) → 0`, where the radial series needs `N ≳ 70/(4su)` levels; the region
 that cannot be reached with `N ≤ 10⁴` is dropped and its contribution is estimated (`tail`); `**` means `tail > 10⁻³`, and for `k = 2` it reaches
 `10⁻¹`. The negative or `> 1` entries at `β = 2`, `ν = 3` (and `β = 1`, `ν = 3`, `m ≈ 10`) are the `1/m²` term exceeding the leading one:
 `c_2 ≈ −730` (preserved, `k = 6`), so `|c_2|/m² > 1` for `m < 27`; in addition `P_{−½+3i}(cosh 2)` is near a zero (`zeroP ≈ 0.35` at `ν ≈ 2.9`).
-The same entries approach 1 at larger `m` (`0.61 → 0.86` at `m = 40 → 70`, `l = 1`), and `m²(R−1)` stabilises (`−645, −707`, `l = 2`).
+The same entries approach 1 at larger `m` (`0.61 → 0.86` at `m = 40 → 70`, `l = 1`), and the preserved `m²(R−1)` is slowly stabilising
+(`−645, −707`, `l = 2`); the `l = 2` flip at `β = 2`, `ν = 3` is not (`m²(R−1) = 3, 176, 375, 454`).
 
 **(3)** `O(1/m)`: cancels (derived + verified, §6.1). `O(1/m²)`: §6.2–6.4. On "opposite-sign helicity terms": in `⟨OφOφ⟩` the term
 `∝ (|c^{++}|² − |c^{+−}|²)` of `REGGE_MOMENT_TTTT.md` (the `g_1²S_{13}S_{24}` / `B_3` term) cannot appear — it needs a parity-odd structure at
 each pair; what can be measured is the helicity-*flip* component (`F^ν_{2l}`, a different harmonic function) and the helicity
 dependence of the `1/m²` term of the preserved one, whose flat-space part `+2λ²(ν/β)J_1(νβ)` (sign and coefficient `2l²`) is confirmed
-in the curved form `−2l²P′/P` (§6.3).
+in the curved form `−2l²P′/P` for `l = 1` at `β = 0.4` and `1`, and for `l = 2` only in the limit `β → 0` (§6.3).
 
 **(4)–(6)**: §7, §9, §10–11.
 
@@ -268,7 +308,8 @@ For scalars this is `Π̂_{k,ν}`. These `(2l+1)²` moments are exactly the lead
 
 The exact identity behind everything that follows (CHMRS (C.4)–(C.6), whose derivation is purely kinematical and holds verbatim for a
 Lorentz-covariant tensor kernel, because the residual gauge group of the frame — Lorentz transformations and the dilatation
-`x → λx, y → y/λ` — acts on the Cartesian components by the global Lorentz matrix only):
+`x → λx, y → y/λ` — acts on the Cartesian components by the global Lorentz matrix only; the latter maps
+`(x_1,x_2,x_3,x_4) → (x_1,x_2,x_3,x_4)/λ`, a global dilatation, which acts trivially on the polarisations):
 
 `∫[dη]∫dr r^{k−2} K^I(x̂,ŷ)𝒢_I = 2 ∫_{x,y>0} d³x d³y (|x||y|)^{k−4} K^I(x̂,ŷ) 𝒯_I(x,y)`,   (★)
 
@@ -327,7 +368,9 @@ Shadow representation [Q for equal dimensions: CHMRS (3.4)–(3.6); extended her
 
 **`b^{(Δ_34)}_{Δ,J} = π Γ(Δ−1) Γ(J+½) Γ((J+Δ+Δ_34)/2) Γ((J+Δ−Δ_34)/2) Γ((Δ−1−J+Δ_34)/2) Γ((Δ−1−J−Δ_34)/2) / [2 Γ(Δ−½) Γ(J+1) Γ(J+Δ) Γ(Δ−1−J)]`**,
 
-i.e. CHMRS (3.6) with the two squared Gamma functions split by `±Δ_34/2`. Evidence for the extension: (i) the consistency with
+i.e. CHMRS (3.6) with the two squared Gamma functions split by `±Δ_34/2` — the standard splitting of light-transform and shadow
+coefficients for unequal external dimensions (Kravchuk–Simmons-Duffin; Karateev–Kravchuk–Simmons-Duffin, arXiv:1809.05111); it is not new.
+Independent checks here: (i) the consistency with
 conservation of §2.3 (exact, fixes the dependence on `Δ_34` up to a function of period 2); (ii) direct quadrature of the
 representation for five sets of dimensions, including seeds with `Δ_12 ≠ Δ_34`, `J = 2, 3`: ratio `1.0004…1.0009` (quadrature error;
 `out_t5_shadow_direct.txt`); (iii) the end-to-end test below, where `b^{(0)}` instead of `b^{(Δ_34)}` leaves an `O(1/m)` error.
@@ -473,8 +516,9 @@ Files: `out_t4_spinning_e2e_l{1,2}.txt` (all modes), `out_t9_tables.txt` (absolu
   (The production runs use `N = max(4000, 400Δ)` capped at `10⁴`/`8000`, so the relative truncation is largest at the largest `m`;
   this is what the per-entry `tail` estimate measures.)
 * *Round-off*: double versus quad evaluation of the tensor at a point of the dispersive region: `10⁻¹²` (`l = 1`), `10⁻⁸` (`l = 2`) (§2.3).
-* *Internal consistency*: the exact moments satisfy `(q_1,q_3) ↔ (q_3,q_1)` and `↔ (−q_1,−q_3)` to the accuracy above, and imaginary
-  parts are `< 10⁻⁵` of the real parts.
+* *Internal consistency*: the exact moments satisfy `(q_1,q_3) ↔ (q_3,q_1)` and `↔ (−q_1,−q_3)` (exact symmetries, Lemma S of §6.1) to the
+  accuracy above. The moments themselves are complex for `ν ≠ 0` whenever `q_1+q_3 ≠ 0` (`F^ν_μ` is complex); the *ratios*
+  measured/predicted are real, with imaginary parts `≲ 10⁻⁵`.
 
 ### 5.2 Measured and predicted values
 
@@ -642,11 +686,44 @@ Notation: `R − 1 = c_1/m + c_2/m² + …` for `R_pres` and `R_flip`, with `m²
 function, evaluated at Weyl-reflected labels and at reflected points. Hence `b𝒯` is invariant (up to the overall sign `(−1)^l`) under
 `(x, y; A_+, A_−; z_1, z_3) → (−x, −y; −A_+, −A_−; z_3, z_1)`, `A_+ = Δ−3/2`, `A_− = J+½`. In the heavy expansion at fixed `X = mx`, `Y = my`, `β`, this
 reflection is `m → −m`. Therefore `b𝒯 = 𝒯_0 [1 + t_1/m + t_2/m² + …]` with `t_n(z_1,z_3) = (−1)^n t_n(z_3,z_1)`: **the `O(1/m)` term is antisymmetric
-under the exchange of the two polarisations**, and it cancels in every kernel symmetric under `1 ↔ 3`. Since the exact moments obey
-`Π̂^{(q_1,q_3)} = Π̂^{(q_3,q_1)}`, it cancels in all of them — *provided* the expansion variables are Weyl-odd (`A_±`, or `m, β` built from
-`α = A_+−A_−`, `ᾱ = A_++A_−`) and `1/b` is kept exact. In terms of `Δ, J` themselves there are `O(1/m)` terms (control table of §5.2). The
-same argument applies verbatim to any number of spinning legs, hence to `⟨TTTT⟩`, for kernels symmetric under the simultaneous
-exchange `1 ↔ 3`, `2 ↔ 4`.
+under the exchange of the two polarisations**, and it cancels in every kernel symmetric under `1 ↔ 3`. (At fixed `(X, Y)` the frame
+`(ŷ, e_∥, e_⊥)` is unchanged by `(x, y, m) → (−x, −y, −m)`, so `z_1` and `z_3` are expanded on the same frame and the swap is a genuine swap of
+mode labels; every factor of `b𝒯` is of the form `(1 + O(1/m))^{(linear in m)}` or `|m|^{power}`, so `b𝒯` is analytic in `1/m` at fixed
+`(X, Y)` and the continuation `m → −m` is legitimate.)
+
+**Lemma S (exact mode symmetries) [D].** For the stripped real-section partial wave of §1.3,
+`𝒢_{q_1q_3}(r,η) = 𝒢_{q_3q_1}(r,η) = 𝒢_{−q_1,−q_3}(r,η)`, hence `Π̂^{(q_1,q_3)} = Π̂^{(q_3,q_1)} = Π̂^{(−q_1,−q_3)}` for all `k, ν`.
+*Proof.* The real-section `W_diff` is a function of the invariants `s_ij`, `Z_a·P_j`, `Z_1·Z_3` only (absolute values of `x_ij²`, no `ε`
+tensor: parity-even structures), so it is invariant under the full `O(2,1)`, including improper and time-reversing elements.
+(i) `R_⊥: e_⊥ → −e_⊥` fixes all four frame points (`x, y ∈ span(ŷ, e_∥)`) and maps
+`z(θ) → z(−θ)`; hence `𝒢_{q_1q_3} = 𝒢_{−q_1,−q_3}`. (ii) `−1: v → −v` maps the frame `(−y, x/x², y, −x/x²)` to `(y, −x/x², −y, x/x²)`, i.e.
+`x_1 ↔ x_3`, `x_2 ↔ x_4`, and `z_a → −z_a` (a factor `(−1)^l` per spinning leg, `(−1)^{2l} = 1` in total). Combined with the `(12) ↔ (34)`
+symmetry of the `s`-channel partial wave of `⟨OφOφ⟩` with the same structure at both vertices (`W_diff = Σ c_wc_{w′}D^{(12)}_wD^{(34)}_{w′}[Kg]` is
+symmetric in `w ↔ w′`, and `K g^{a,b}` is invariant under the pair exchange: `K′/K = v^{−(a+b)}` while `g^{−b,−a} = v^{a+b}g^{b,a} = v^{a+b}g^{a,b}` by
+the Euler identity of §2.1 and the `a ↔ b` symmetry of the Casimir equation and boundary condition), this
+gives `𝒢(z_1, z_3) = 𝒢(z_3, z_1)` at the *same* frame point, since the polarisation circle `z(θ)` is attached to the frame point and not
+to the operator; hence `𝒢_{q_1q_3} = 𝒢_{q_3q_1}`. The stripping factor `s_13^{l+1}s_24^{Δ_φ}` and the kernels `F^ν_{q_1+q_3}` are symmetric. ∎
+(Numerically the symmetries hold to `≲ 10⁻⁵`, the accuracy of the moments.)
+
+**Assumption T (term-by-term integration) [assumed; numerically supported at `k = 4, 6`].** The asymptotic expansion of the moment in
+`1/m` is obtained by integrating the pointwise expansion of `b𝒯` term by term over `(X, Y)`. Each term is a polynomial in `X, Y` times
+`e^{2p̂·X + 2p̄̂·Y}|X|^{a_x−3}|Y|^{a_y−3}`, integrable for `a_x, a_y > 0`, so the terms exist. The expansion is non-uniform near the boundary of
+the integration region, `u = √(ρ̄/ρ) → 0` (`ξ → ∞`), where the exact integrand behaves like `u^{k−1/2}`; the region `u < u_0` contributes
+`O(u_0^{k+1/2})`, and the exchange is safe if this is beyond the order considered for the `u_0 ∼ 1/m` at which the expansion breaks
+down, i.e. for `k + ½ > n` at order `1/m^n` (heuristic; for `n = 2` this requires `k ≥ 2`, marginal for `k = 2`, and untested there).
+
+With Lemma S and Assumption T: the `O(1/m)` term of the mode `(q_1,q_3)` is minus that of `(q_3,q_1)` (antisymmetry of `t_1`; `𝒯_0` is symmetric),
+and equal to it (Lemma S, order by order); so it vanishes in all modes — *provided* the expansion variables are Weyl-odd (`A_±`, or
+`m, β` built from `α = A_+−A_−`, `ᾱ = A_++A_−`) and `1/b` is kept exact. For the flip mode `(l,l)`, which is invariant under the swap, the
+first step alone suffices. In terms of `Δ, J` themselves there are `O(1/m)` terms (control table of §5.2).
+
+**`⟨TTTT⟩`: [conjecture].** The argument used two facts specific to `⟨OφOφ⟩`: (a) the shadow transform maps the *unique* conserved
+structure to the same analytic family at the reflected point with a *scalar* coefficient `1/b` (§4.2), and (b) the same coupling appears on
+both sides. For `⟨TTO⟩` there are two parity-even conserved structures (plus a parity-odd one); the shadow transform acts on them as a
+matrix. Even if it is diagonal (e.g. in the CHL helicity basis), its eigenvalues `κ_h(Δ,J)` differ, and ratios `κ_h/κ_{h′}` that are not
+Weyl-even would produce `O(1/m)` terms weighted by `λ_hλ_{h′}`. *Gap:* prove that, in the differential basis, the shadow matrix of the
+conserved `⟨TTO⟩` structures is `(1/b) ×` (the Weyl reflection of the structures), as it is here for the unique structure. Until then the
+absence of `O(1/m)` for `⟨TTTT⟩` is a conjecture.
 
 *Pointwise test* (`out_vertex.txt`): `m·(exact/leading − 1)` at fixed `(X,Y)`, `J/Δ = 0.4`, for `(z_1,z_3)`, for `(z_3,z_1)`, and for the symmetrised tensor:
 
@@ -667,12 +744,20 @@ ansatz (B): `c_2/m² + c_4/m⁴ + c_6/m⁶`):
 | 2 | 0.4 | 0 / 1 / 3 | −0.027 / −0.0017 / +0.0017 | −0.20 / −0.12 / −0.018 | −153.85 / −143.50 / −50.01 | −327.5 / −327.3 / −277.9 |
 | 2 | 1.0 | 0 / 1 / 3 | −0.0076 / −0.0021 / −0.0038 | −0.074 / −0.039 / −0.009 | −136.87 / −108.60 / −235.23 | −263.1 / −250.9 / −165.5 |
 
-For the helicity-preserving component `|c_1| ≤ 0.008` in 11 of 12 cases (to be compared with `|c_2|/m ≈ 1…2` at `m = 100`, and with
-`c_1 ≈ −0.57`, `+2.1`, `+4.2` for the altered formulas of §5.2); the fitted `c_1` is of the size of the neglected `c_6/m⁵` term and of the
-numerical error (`10⁻⁵ m`). For the flip component of `l = 2` at `β ≈ 0.4` the fit is contaminated by higher orders (the flip
-expansion parameter there is `1/J²`, `J ≤ 20`) and by the larger numerical error of the `(2,2)` mode. At `β ≈ 2` only four values
-`m ≤ 70` exist and `c_2 ≈ −300…−740`, so the fits are not asymptotic (`|c_1| ≲ 1`, inconclusive there).
-**Conclusion: no `O(1/m)` term for stress tensors (nor for currents), in the variables `(m, β)` of CHMRS built from `(α, ᾱ)`.**
+For the helicity-preserving component `|c_1| ≤ 0.008` in 11 of 12 cases with ansatz (A) (to be compared with `|c_2|/m ≈ 1…2` at `m = 100`,
+and with `c_1 ≈ −0.57`, `+2.1`, `+4.2` for the altered formulas of §5.2); the fitted `c_1` is of the size of the neglected `c_6/m⁵` term and
+of the numerical error (`10⁻⁵ m`). **The bound depends on the ansatz**: the referee's four-parameter fits including a `1/m³` term
+(`ads4/code/referee_e2e/mutate.py`, not part of `run_all.sh`) give preserved `|c_1| ≤ 0.020` (`l = 1`), `≤ 0.025` (`l = 2`) and flip values up
+to `0.06` — still small against the mutation values (`b^{(0)}`: `−0.57…−0.65`; the "natural wrong" `b^{(l+1−Δ_φ)}`: `−0.51…−0.58` for `l = 1`,
+`+1.03…+1.13` for `l = 2`; `×(1+1/m)`: `+1.00`). **Weak spot:** for the `l = 2` flip component at `β ≈ 0.4` the fit gives `c_1 = −0.20` (A, three
+largest `m` that pass the error filter; the `m = 102` point has `tail = 10⁻⁴` and is excluded) or `−0.27`/`−0.31` (all five masses, ansatz (A) /
+four-parameter, referee), against `−0.85` for the `b^{(0)}` mutation: the numerics barely separate the correct formula from a wrong
+one there (the flip expansion parameter is `1/J²`, `J ≤ 20`, and the `(2,2)` mode has the largest numerical error). At `β ≈ 2` only four
+values `m ≤ 70` exist and `c_2 ≈ −300…−740`, so the fits are not asymptotic (`|c_1| ≲ 1`, inconclusive there).
+**Conclusion: no `O(1/m)` term for stress tensors and currents, in the variables `(m, β)` of CHMRS built from `(α, ᾱ)`: derived (given
+Assumption T) and verified for both components at `β ≈ 0.4, 1`, except the `l = 2` flip component at `β ≈ 0.4`, where the test is
+inconclusive.** End-to-end tests of this kind cannot see `O(1/m²)` errors in the formula (a `×(1+3/m²)` mutation is not detected), which is
+appropriate for a leading-order claim.
 
 ### 6.2 `O(1/m²)` coefficients [measured; analytic value not derived]
 
@@ -711,25 +796,41 @@ Define `D_pres := c_2^pres − c_2^{skeleton}`. Two contributions can be predict
   (derivative with respect to `η`), which is the first-order effect of `η_AdS → η_AdS − 2l²/m²`, i.e. of `A_±² → A_±² − l²` in the argument of the
   harmonic function.
 
-Test (`out_t7c_spin_dependence.txt`): least-squares fit of the *form* `D_pres − pol = a_0 + a_1 cosh β + a_2 P′/P + a_3 sinh²β P′/P` to the six
-points `β ∈ {0.4, 1}`, `ν ∈ {0, 1, 3}` at `k = 6` (prediction of (hel): `a_2 = −2l²`; nothing is known a priori about `a_0, a_1, a_3`):
+**Direct test: per-`β` fits** (`out_t7c_spin_dependence.txt`, last block): at each `β`, fit `D_pres − pol = c_β + d_β P′/P` over `ν = 0, 1, 3`
+(`k = 6`); the prediction of (hel) is `d_β = −2l²` at every `β`:
+
+| `l` | prediction | `d_β`, `β = 0.4` | `d_β`, `β = 1` | `d_β`, `β = 2` | residuals with `d` fixed to `−2l²` (`β = 0.4` / `1`) |
+|---|---|---|---|---|---|
+| 1 | −2 | **−2.01** | **−2.01** | −4.13 | `≤ 0.02` / `≤ 0.10` |
+| 2 | −8 | −8.34 | −10.79 | −35.8 | `≤ 1.2` / `≤ 6.8` |
+
+(`β = 2`: `c_2` errors of a few units, not conclusive.) **For `l = 1` the term `−2P′/P` is confirmed at `β = 0.4` and at `β = 1` separately.
+For `l = 2` it is not confirmed at fixed `β`**: the coefficient of `P′/P` is `β`-dependent (residuals up to `6.8` at `β = 1` with `d = −8`, against
+an error `≲ 0.3`).
+
+Four-function fit (equivalent, on two values of `β`, to the per-`β` fits with `d_β` extrapolated linearly in `sinh²β` to `β = 0`): fit of the *form*
+`D_pres − pol = a_0 + a_1 cosh β + a_2 P′/P + a_3 sinh²β P′/P` to the six points `β ∈ {0.4, 1}`, `ν ∈ {0, 1, 3}` at `k = 6` (`a_2` is the `β → 0` value of
+the `P′/P` coefficient; prediction `−2l²`):
 
 | `l` | `a_2` predicted | `a_2` measured | `a_0` | `a_1` | `a_3` | residuals | coefficient of `pol` if left free (9 points; prediction 1) |
 |---|---|---|---|---|---|---|---|
 | 1 | −2 | **−2.01** | 0.07 | 0.10 | −0.00 | `≤ 0.09` | 1.04 |
-| 2 | −8 | **−8.00** | 0.15 | −17.26 | −2.02 | `≤ 0.07` | 1.002 |
+| 2 | −8 | −8.00 (`β → 0` extrapolation only) | 0.15 | −17.26 | −2.02 | `≤ 0.07` | 1.002 |
 
 (with all nine points including `β = 2`: `a_2 = −1.90`, `−7.94`, residuals `≤ 1.1`; at `k = 4`, `l = 1`: `a_2 = −2.01`.) So:
 
 **`c_2^pres(l=1) = c_2^{skeleton(2,Δ_φ)} − ¼[1/sinh²(β/2) + 1/cosh²(β/2)] − 2 P′/P + 0.2(1)`**,
-**`c_2^pres(l=2) = c_2^{skeleton(3,Δ_φ)} − (5/2)[1/sinh²(β/2) + 1/cosh²(β/2)] − 8 P′/P − 2.0(1)·sinh²β P′/P − 17.3(3)·cosh β + 0.2(2)`** (`k = 6`).
+**`c_2^pres(l=2) = c_2^{skeleton(3,Δ_φ)} − (5/2)[1/sinh²(β/2) + 1/cosh²(β/2)] − 8 P′/P − 2.0(1)·sinh²β P′/P − 17.3(3)·cosh β + 0.2(2)`** (`k = 6`; an empirical
+interpolation of six points with four fitted parameters, valid for `β ∈ [0.4, 1]`).
 
-* The flat-space helicity term is present with the predicted coefficient `2l²` for both currents and stress tensors, in the
-  curved form `−2l²P′/P` valid for all `β` tested (not only `β → 0`): at `β = 1`, `ν = 3` it contributes `−6.6` (`l = 1`) and `−26.3` (`l = 2`),
-  with the sign of `P′/P` opposite to that at `β = 0.4`.
+* `l = 1`: the flat-space helicity term is present with the predicted coefficient `2l² = 2`, in the curved form `−2P′/P`, at both `β = 0.4` and
+  `β = 1` (at `β = 1`, `ν = 3` it contributes `−6.6`, with the sign of `P′/P` opposite to that at `β = 0.4`).
+* `l = 2`: the coefficient of `P′/P` is consistent with `−8` only in the limit `β → 0` (flat corner), under the fitted `sinh²β P′/P` term; the
+  `β`-dependence of the helicity term for stress tensors is part of the unexplained extra piece below. [the flat-limit value: numerical
+  evidence; the curved form for `l = 2`: not confirmed]
 * The normalisation polynomials are confirmed (coefficient `1.002` for `l = 2`, where `pol = −64.1` at `β = 0.4`).
-* For `l = 2` there is an additional, `ν`-independent-in-form piece `−2 sinh²β P′/P − 17.3 cosh β` relative to the scalar skeleton, absent
-  for `l = 1`. It is regular for `β → 0` (a constant, plus `O(β²)`), so it is an AdS-curvature effect and does not affect the flat-space
+* For `l = 2` there is an additional piece, `−2 sinh²β P′/P − 17.3 cosh β` in the fitted form (it carries the `β`-dependence of the `P′/P`
+  coefficient), relative to the scalar skeleton, absent for `l = 1`. It is regular for `β → 0` (a constant, plus `O(β²)`), so it is an AdS-curvature effect and does not affect the flat-space
   helicity structure. It has the form of a shift `α² → α² + 2`, `ᾱ² → ᾱ² + 2` in `m² = αᾱ` and `η_AdS` (which gives `−2 sinh²β P′/P − c·cosh β`),
   but the coefficient of `cosh β` was not derived and its `k`-dependence could not be measured reliably (`k = 4`: too few points). [I]
 * `a_0 ≈ 0.1…0.2` is compatible with a small constant for both `l` (and with zero within the systematic error of the fits).
@@ -759,10 +860,11 @@ by the kernel; no analytic prediction was derived here. [measured only]
 
 | statement | status |
 |---|---|
-| no `O(1/m)` for `⟨JφJφ⟩`, `⟨TφTφ⟩`, both helicity components, in Weyl-odd variables with exact `1/b` | derived (reflection argument), verified pointwise and by fits (`|c_1| ≤ 0.008`, preserved) |
+| no `O(1/m)` for `⟨JφJφ⟩`, `⟨TφTφ⟩`, both helicity components, in Weyl-odd variables with exact `1/b` | derived (reflection argument + Lemma S; Assumption T), verified pointwise and by fits (`|c_1| ≤ 0.008` (A) / `≤ 0.025` (4-par), preserved; `l = 2` flip at `β ≈ 0.4` inconclusive) |
+| no `O(1/m)` for `⟨TTTT⟩` | conjecture (gap stated in §6.1) |
 | `O(1/m²)` coefficients as functions of `(ν, β, k)`, preserved and flip | measured (§6.2, §6.4); not derived |
-| spin-dependent part of the preserved coefficient: `pol` and the flat-space helicity term `−2l²P′/P` | predicted (`pol`: derived; `hel`: inferred from flat space), confirmed: `a_2 = −2.01`, `−8.00` |
-| extra `l = 2` piece `−2 sinh²β P′/P − 17.3 cosh β` (`k = 6`) | measured, form fitted, not derived |
+| spin-dependent part of the preserved coefficient: `pol` and the flat-space helicity term `−2l²P′/P` | `pol`: derived, confirmed (coefficient 1.002, `l = 2`); `hel` (inferred from flat space): `l = 1` confirmed at `β = 0.4, 1` (`−2.01`, `−2.01`); `l = 2` only as `β → 0` (per-`β`: `−8.34`, `−10.79`) |
+| extra `l = 2` piece `−2 sinh²β P′/P − 17.3 cosh β` (`k = 6`), incl. the `β`-dependence of the `l = 2` helicity term | measured, form fitted, not derived |
 | flip correction | measured, not understood analytically |
 
 
@@ -868,10 +970,12 @@ So: **yes, for parity-even kernels (`S`-free, i.e. symmetric under `q → −q`)
 function `P_{−½+iν}(η_AdS)` and the same kernel factor `R_{13}R_{24}` at leading order**; kernels odd at both pairs see the difference, with the factor
 `g_1²S_{13}S_{24}`. This is the structure of `REGGE_MOMENT_TTTT.md` §5 with `κ_+M_𝔖² ↔ R_{13}R_{24}`, `κ_−|M_𝔄|² ↔ g_1²S_{13}S_{24}`, now with the one-pair
 factors `R` verified end-to-end (`S`: verified by direct integration only, since parity-even `⟨TφTφ⟩` blocks do not probe it).
-The first helicity-dependent correction is `O(1/m²)` (no `O(1/m)`, §6.1); its form was not derived; in the flat corner it must
+The first helicity-dependent correction is *conjecturally* `O(1/m²)` (the absence of `O(1/m)` is proved only for `⟨OφOφ⟩`; for `⟨TTTT⟩`
+it is a conjecture, see the gap stated in §6.1); its form was not derived; in the flat corner it must
 reduce to the helicity-dependent term of the flat partial waves recorded in `REGGE_MOMENT_TTTT.md` §6.2
 (`(1/m²)[2λ²(ν/β)J_1(νβ) + …]`, `λ = h_1 − h_2 ∈ {0, 4}`), and §6.3 shows that a term of exactly this form, `−2l²P′/P` with `λ = l`, is present in
-`⟨OφOφ⟩` for `l = 1` and `l = 2` with the predicted coefficient, for `β` up to 1 at least. The couplings: `c^{h_1h_2}` are the coefficients of the helicity tensors in the heavy limit of the conserved `⟨TTO⟩` structures
+`⟨OφOφ⟩` with the predicted coefficient for `l = 1` at `β = 0.4` and `1`, and for `l = 2` only in the flat limit `β → 0` (at fixed `β` the
+`l = 2` coefficient is `β`-dependent: `−8.34`, `−10.79` at `β = 0.4`, `1`). The couplings: `c^{h_1h_2}` are the coefficients of the helicity tensors in the heavy limit of the conserved `⟨TTO⟩` structures
 (normalised as in §4.3, i.e. relative to the differential-basis structure), linear in `λ^{(a)}_{TTO}`; with `T` canonically normalised
 `|c|² ∝ λ²` and the sum-rule density is `|c|²/C_T²`; the explicit 2×2 matrix and the MFT normalisation ("`2P/m^{2k}`") are **not done**.
 
@@ -926,15 +1030,15 @@ spinning pair, fixed `ν`, any `β`. The overlap is structural.
 | 3 | Spinning partial waves `W_diff` from exact blocks; OPE normalisation `λ²(−½)^J W_diff/L_0²` | [DVP] (OPE limit, conservation) |
 | 4 | Lorentzian shadow coefficient for unequal dimensions `b^{(Δ_34)}` | [DVE] (exact conservation identity, direct quadrature, scalar end-to-end with `R_0` control) |
 | 5 | Spinning shadow coefficient = `1/b^{(1−Δ_φ)}` in the differential basis | [DVP] (exact identity + direct 4-d quadrature, 0.1–0.3 %) |
-| 6 | Exact identity (★) between tensor Regge moments and the shadow integrand | [D] (kinematic, as CHMRS (C.4)–(C.6)); verified through 7 |
-| 7 | Leading heavy formula §4.5 incl. absolute normalisation, both helicity components, `l = 1, 2`, `k = 4, 6` (and `k = 2`, `m ≲ 40`), `ν = 0,1,3`, `β = 0.4,1,2` | **[DVE]**, ratio → 1 as `1 + c_2/m²` |
+| 6 | Exact identity (★) between tensor Regge moments and the shadow integrand | [D] (kinematic, as CHMRS (C.4)–(C.6): the residual gauge group — Lorentz and `x → λx, y → y/λ`, which scales all four frame points by `1/λ`, a global dilatation acting trivially on polarisations — acts on Cartesian components by the global Lorentz matrix only); verified through 7 |
+| 7 | One-spinning-pair leading heavy Regge moment §4.5, absolute per `λ²`, both helicity components, `l = 1, 2`, `Δ_φ = 1.75`, `ν ≪ m` | **[DVE]** for `k = 6`, `β ≈ 0.4, 1`, `ν = 0, 1, 3` (and `k = 4`, `m ≤ 42`): ratio → 1 as `1 + c_2/m²`; consistent but not converged at `β ≈ 2`, `k = 4` (`m ≳ 70`), `k = 2` (`R_pres`, `m ≲ 40`). The `⟨TTTT⟩` formula: **not established** |
 | 8 | Table of `M^{q_1q_3}` (all `(2l+1)²` modes; overdetermination) | [DVE] for the parity-even (`R`) part; `S` part [DVP] (direct `H²` integration) |
-| 9 | No `O(1/m)` correction (Weyl-odd variables, exact `1/b`) | [D] + verified pointwise and end-to-end (`|c_1| ≤ 0.008` in 11/12 preserved cases, all `≤ 0.027`; `≲ 0.2`, flip `l = 2`) |
+| 9 | No `O(1/m)` correction for `⟨OφOφ⟩` (Weyl-odd variables, exact `1/b`) | [D] (reflection + Lemma S, given Assumption T) + verified pointwise and end-to-end at `k = 6`, `β ≈ 0.4, 1`: preserved `|c_1| ≤ 0.008` (A; 11/12 cases, all `≤ 0.027`), `≤ 0.025` with a `1/m³` term; `l = 2` flip at `β ≈ 0.4`: `c_1 ≈ −0.2…−0.3` vs `−0.85` for the `b^{(0)}` mutation — inconclusive; `β ≈ 2` inconclusive. For `⟨TTTT⟩`: conjecture |
 | 10 | `O(1/m²)` coefficients, preserved and flip, vs `(ν, β, k)` | numerical evidence only |
-| 11 | Spin-dependent `1/m²` term, preserved: `pol` + `−2l²P′/P` | `pol` [D, confirmed]; `−2l²P′/P` [I from flat space, confirmed: `−2.01`, `−8.00`] |
+| 11 | Spin-dependent `1/m²` term, preserved: `pol` + `−2l²P′/P` | `pol` [D, confirmed]; `−2l²P′/P` [I from flat space]: `l = 1` confirmed at `β = 0.4` and `1` (per-`β` `−2.01`, `−2.01`); `l = 2` consistent with `−8` only as `β → 0` (per-`β` `−8.34`, `−10.79`; extrapolated `−8.00`); the `l = 2` `β`-dependence is unexplained |
 | 12 | Extra `l = 2` piece `−2 sinh²β P′/P − 17.3 cosh β` (`k = 6`) | [I] (form fitted; not derived) |
 | 13 | Flip `1/m²` correction | measured, not understood |
-| 14 | Uniformity at small `β` after restoring the normalisation polynomials | [D] + numerical evidence (`J ≥ 1`, `β ≥ 0.04`) |
+| 14 | Uniformity at small `β` after restoring the normalisation polynomials | polynomial identified [D]; uniformity numerical only (`J ≥ l`, `m ≈ 20, 40, 80`, `k = 4, 6`, `β ≥ 0.04`) |
 | 15 | Non-uniformity in `ν/m` is that of the scalar skeleton (spin factor uniform to `ν/m ≤ 0.2`) | numerical evidence |
 | 16 | `d = 3` reduction of the CLS-D polarisation prescription; flip admixture `O(ν^{−2l})` | [D] (`clsd_kernel.py`), not compared with a CLS-D number |
 | 17 | MFT-normalised form "`2P/m^{2k}`" for spinning operators | [ND] |
@@ -943,6 +1047,9 @@ spinning pair, fixed `ν`, any `β`. The overlap is structural.
 | 20 | Parity-odd structures; `S`-terms end-to-end; `(|c^{++}|² − |c^{+−}|²)` terms | [ND] (`S` only [DVP]) |
 | 21 | `⟨TTTT⟩` helicity-preserving components | [D] at leading order by factorisation (§8), [ND] end-to-end |
 | 22 | `T` normalisation via Ward identity / `C_T` | [Q], enters only as `λ²/C_T`; not tested |
+| 23 | Exact mode symmetries `(q_1,q_3) → (q_3,q_1), (−q_1,−q_3)` (Lemma S) | [D] (§6.1), numerically `≲ 10⁻⁵` |
+| 24 | Term-by-term integration of the `1/m` expansion (Assumption T) | assumed; supported at `k = 4, 6`; untested at `k = 2, 3` |
+| 25 | Independence of `Δ_φ` (end-to-end at a second `Δ_φ`) | [ND] (`gen_phi_*_2p5.py` exist; only the conservation/OPE checks of §2.3 use `Δ_φ = 2.5`) |
 
 
 ## 11. What remains; exact blocking steps
@@ -969,6 +1076,12 @@ spinning pair, fixed `ν`, any `β`. The overlap is structural.
    the bulk-point saddle of CLS-D applied to one spinning pair.
 9. Positivity statements (signs of `ν`-moments after smearing, the light side, convergence/swapping for spinning functionals) were
    not addressed here.
+10. **`⟨TTTT⟩`, absence of `O(1/m)`**: prove that the shadow matrix of the conserved `⟨TTO⟩` structures is `(1/b) ×` Weyl reflection in the
+    differential basis (§6.1); otherwise compute the `O(1/m)` terms `∝ λ_hλ_{h′}`.
+11. **Assumption T** (term-by-term integration of the `1/m` expansion): a proof, or a test at `k = 2, 3` (needs item 1).
+12. **`l = 2` helicity `1/m²` term at fixed `β`**: derive the `β`-dependence (per-`β` coefficients `−8.34`, `−10.79` at `β = 0.4`, `1` versus the
+    flat value `−8`), i.e. item 2 for `l = 2`.
+13. **A second `Δ_φ`**: repeat one end-to-end case at `Δ_φ = 2.5` (`gen_phi_l*_2p5.py` exist) to exclude `Δ_φ`-dependent compensating errors.
 
 ## 12. Code index (`ads4/code/e2e/`; `sh run_all.sh` regenerates all outputs)
 
@@ -992,4 +1105,21 @@ spinning pair, fixed `ν`, any `β`. The overlap is structural.
 | `clsd_kernel.py` | `d = 3` Regge reduction of the CLS-D polarisation prescription | `out_clsd_kernel.txt` |
 
 Run time on 4 cores: block evaluations (`t4`, all four runs) about 2.5 h (cached in `data_modes/`, git-ignored, as are the `*.pkl` caches);
-`t4b` about 30 min; everything else about 1 h. All caches are regenerated by `run_all.sh` if absent.
+`t4b` about 30 min; everything else about 1 h. All caches are regenerated by `run_all.sh` if absent; on a fresh clone `run_all.sh fast`
+therefore also takes about 3.5 h (`fast` only skips `t4b`). The outputs `out_casimir_terms.txt`, `out_structures.txt`, `out_laplace_table.txt`
+are produced by the first three steps of `run_all.sh` (now also present in the directory). Numbers attributed to "the referee" (§6.1
+four-parameter fits and mutation tests) come from `ads4/code/referee_e2e/` and are not regenerated by `run_all.sh`.
+
+## 13. Revisions after the referee report (`ads4/REFEREE_SPINNING_E2E.md`)
+
+* M1: the `l = 2` "confirmation" of `−2l²P′/P` relabelled — `l = 1` confirmed at `β = 0.4, 1`; `l = 2` only as `β → 0`; per-`β` fits added
+  to `t7c_spin_dependence.py` and §6.3; §0 item 6, §0.1(3), §6.5, §8, §10 row 11 corrected.
+* M2: the extension of the `O(1/m)` argument to `⟨TTTT⟩` withdrawn and stated as a conjecture with the precise gap (§6.1, §8, §11 item 10).
+* M3: §0 "physical reach" paragraph; §10 row 7 restricted to the one-pair moment.
+* m1/m2: ranges of the [DVE] claims restricted (§0 item 4, §0.1(2), §10 rows 7, 9); ansatz dependence of `|c_1|` and the weak `l = 2` flip
+  separation stated (§0 item 5, §6.1).
+* m3/m4: Lemma S (exact mode symmetries) proved; Assumption T stated with the non-uniform region and the heuristic condition on `k` (§6.1).
+* m5: reproducibility notes (§12, header); the three missing listed outputs generated. m6: complexity of the moments (§5.1).
+  m7: not done (§11 item 13). m8: §0 item 7 and §10 row 14 reworded.
+* Citations added (header): CLS-D (bulk-point only), CHL, Costa–Hansen–Penedones, Karateev–Kravchuk–Simmons-Duffin, Kravchuk–Simmons-Duffin;
+  `b^{(Δ_34)}` is presented as the standard `±Δ_34/2` splitting (§4.1).

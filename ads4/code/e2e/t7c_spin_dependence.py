@@ -61,4 +61,24 @@ for l in (1, 2):
         sel = b < 1.5
         c = np.linalg.lstsq(A[sel], rows[sel, 2], rcond=None)[0]
         pr(f"       beta <= 1 only ({sel.sum()} points):  a0 = {c[0]:.2f}, a1 = {c[1]:.2f}, a2 = {c[2]:.2f}, a3 = {c[3]:.2f};   residuals: " + " ".join(f"{x:+.2f}" for x in (A[sel] @ c - rows[sel, 2])))
+# Per-beta fits (the four-function fit above on two beta values is equivalent to a separate fit c_beta + d_beta P'/P at each beta,
+# extrapolated linearly in sinh^2 beta; the per-beta coefficients d_beta are the direct test of -2 l^2 P'/P).
+pr("# per-beta fits at k = 6:  D_pres - pol = c_beta + d_beta P'/P  over nu = 0, 1, 3   (prediction of the flat-space term: d_beta = -2 l^2)")
+for l in (1, 2):
+    if not os.path.exists(f'data_t7_l{l}.pkl'): continue
+    s7 = pickle.load(open(f'data_t7_l{l}.pkl', 'rb'))
+    kap = 0.25 if l == 1 else 2.5
+    for beta in (0.4, 1.0, 2.0):
+        rows = []
+        for nu in (0.0, 1.0, 3.0):
+            v = s7.get((beta, 6, nu))
+            if v is None: continue
+            c2p = v[5] if v[5] == v[5] else v[0]
+            eta = mp.cosh(beta); dl = float(mp.re(mp.diff(lambda x: Pnu(nu, x), eta)/Pnu(nu, eta)))
+            pol = -kap*(1/np.sinh(beta/2)**2 + 1/np.cosh(beta/2)**2)
+            rows.append((nu, c2p - sb[(l, beta, 6, nu)] - pol, dl))
+        r = np.array(rows)
+        A = np.stack([np.ones(len(r)), r[:, 2]], 1); c = np.linalg.lstsq(A, r[:, 1], rcond=None)[0]
+        cc = np.mean(r[:, 1] + 2*l*l*r[:, 2])
+        pr(f"  l = {l}, beta = {beta}:  d_beta = {c[1]:7.2f}  (prediction {-2*l*l}),  c_beta = {c[0]:7.2f};   residuals with d fixed to {-2*l*l}: " + " ".join(f"{x:+.2f}" for x in (cc - 2*l*l*r[:, 2] - r[:, 1])))
 open('out_t7c_spin_dependence.txt', 'w').write("\n".join(out) + "\n")

@@ -1,0 +1,20 @@
+l = 1
+  conserved combination  sum_w c_w W_w,  c_w =
+     a : -(Delta - Dphi - J)*(Delta - Dphi + J + 1)
+     b : Delta**2 - 3*Delta - Dphi**2 + 3*Dphi + J**2 + J
+  standard-basis expansion  W_w = 2^{-J} sum_n e_{w,n} S_n:
+     a : [Delta/2 + Dphi/2 + J/2 - 3/2, -J]
+     b : [Delta/2 - Dphi/2 - J/2 + 1/2, J]
+  conserved structure = 2^{-J} sum_n L_n S_n,  L_n = [-J*(Delta - 1)*(Delta - Dphi - J - 1), 2*J*(Delta - 1)*(Delta - Dphi)]
+  normalised to L_0 = 1: [1, -2*(Delta - Dphi)/(Delta - Dphi - J - 1)]
+l = 2
+  conserved combination  sum_w c_w W_w,  c_w =
+     aa : (Delta - Dphi - J)*(Delta - Dphi - J + 2)*(Delta - Dphi + J + 1)*(Delta - Dphi + J + 3)
+     ab : -2*(Delta - Dphi - J)*(Delta - Dphi + J + 1)*(Delta**2 - 3*Delta - Dphi**2 + 5*Dphi + J**2 + J - 6)
+     bb : Delta**4 - 6*Delta**3 - 2*Delta**2*Dphi**2 + 6*Delta**2*Dphi + 7*Delta**2 + 6*Delta*Dphi**2 - 18*Delta*Dphi + 6*Delta + Dphi**4 - 6*Dphi**3 - 2*Dphi**2*J**2 - 2*Dphi**2*J + 11*Dphi**2 + 6*Dphi*J**2 + 6*Dphi*J - 6*Dphi + J**4 + 2*J**3 - 5*J**2 - 6*J
+  standard-basis expansion  W_w = 2^{-J} sum_n e_{w,n} S_n:
+     aa : [(Delta + Dphi + J - 5)*(Delta + Dphi + J - 3)/4, -J*(Delta + Dphi + J - 5), J*(J - 1)]
+     ab : [(Delta - Dphi - J + 3)*(Delta + Dphi + J - 3)/4, J*(Dphi + J - 4), -J*(J - 1)]
+     bb : [(Delta - Dphi - J + 1)*(Delta - Dphi - J + 3)/4, J*(Delta - Dphi - J + 3), J*(J - 1)]
+  conserved structure = 2^{-J} sum_n L_n S_n,  L_n = [Delta*J*(Delta - 1)*(J - 1)*(Delta - Dphi - J - 3)*(Delta - Dphi - J - 1)/2, -2*Delta*J*(Delta - 1)*(J - 1)*(2*Delta - 2*Dphi + J)*(Delta - Dphi - J - 1), 2*Delta*J*(Delta - 1)*(J - 1)*(2*Delta**2 - 4*Delta*Dphi + 2*Dphi**2 - J**2 - J)]
+  normalised to L_0 = 1: [1, -4*(2*Delta - 2*Dphi + J)/(Delta - Dphi - J - 3), 4*(2*Delta**2 - 4*Delta*Dphi + 2*Dphi**2 - J**2 - J)/((Delta - Dphi - J - 3)*(Delta - Dphi - J - 1))]
