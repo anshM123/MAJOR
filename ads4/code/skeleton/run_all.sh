@@ -22,3 +22,4 @@ if [ "$1" != "fast" ]; then
   wait
 fi
 python3 s4_summary.py > cache/out_s4_summary.txt
+python3 s5_spinning_skeleton.py > cache/logs/s5.log    # follow-up: spinning-skeleton candidates (SKELETON_TEST.md section 6)

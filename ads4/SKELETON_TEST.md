@@ -139,6 +139,56 @@ Marks: **[D]** derived; **[DV]** derived and checked numerically; **[NE]** numer
 * The `+−` bulk-point form is not identified. `k = 2` has no `x > 0.1` data. Gravitons were not computed.
 * Whether the CHMRS-`C` subtraction terms change any of this was not tested.
 
+## 6. Follow-up: a "spinning skeleton" for the opposite-helicity component (`s5_spinning_skeleton.py`, `cache/out_s5.txt`)
+
+**Question.** Is the right curved object for the opposite-helicity component a spinning harmonic-analysis kernel rather than a scalar skeleton?
+The candidates come from `SPINNING_KERNELS.md` Theorem K and the `REGGE_FROM_BLOCKS.md` weight-shifted Legendre functions.
+
+**Construction (no fit).**
+* Exact scalar skeleton (`Δφ = 2` and `2.5`) times the MFT constant `S₀`.
+* The preserved part `n₀₀P_{−½+iν}(cosh β)` of the established leading value is replaced by `n₀₀P_{−½}(cosh β)·X_ν(β)/X_0(β)`. This matches the
+  leading formula at `x → 0`.
+* `m²d_X(x)` is measured exactly as in §2.
+
+The candidates `X`:
+
+| candidate | flat limit |
+|---|---|
+| `Φ^ν_{1,1}` (Chebyshev–Mehler) | `J₀` |
+| `Φ^ν_{2,2}` (index 2 ↔ `J_z = 2`; equals the two-pair kernel `𝒦^ν_{2,−2}` of `fourpt/moments4` in its inversion-referred frame) | `J₀` |
+| `Φ^ν_{2,−2}` (`= 𝒦^ν_{2,2}`) | `J₄` |
+| `(ν²+¼)P^{−1}_{−½+iν}` | — |
+| `(ν²+¼)(ν²+9/4)P^{−2}_{−1/2+iν}` | — |
+
+The control is `X = P` (= §0 item 4).
+
+**Result: nothing works [NE].** Every candidate is worse than `X = P`, for both helicities, both kernels, `k = 4, 6` and both skeletons. Examples
+(odd kernel, `k = 6`, `Δφ = 2`, `m²d_X` at `x = 0.1`):
+
+| case | `X = P` | `Φ_{1,1}` | `Φ_{2,2}` | `Φ_{2,−2}`, `P^{−1}`, `P^{−2}` |
+|---|---|---|---|---|
+| opp, `β = 0.4`, `m = 12 → 72` | `−3 → −117` | `−3 → −328` | `−3 → −1030` | `10³–10⁷` |
+| opp, `β = 1`, `m = 10.6 → 70` | `−1 → −6` | `−4 → +1360` | `−23 → +13100` | — |
+| same (control), `Δφ = 2.5`, `β = 1`, `m = 70` | `−0.8` | `−1380` | — | — |
+
+**Why [D, elementary].**
+* **The diagonal candidates fail at fixed `ν`.** `Φ^ν_{m,m}(β) ≠ P_{−½+iν}(cosh β)` at fixed `β`, and the difference is `m`-independent. Replacing `P`
+  therefore spoils the established leading formula at fixed `ν` by `O(1)`, so `m²d_X ∝ m²`. That is what the data show.
+* **The off-diagonal and weight-shifted candidates have the wrong flat behaviour.** `Φ_{2,−2}` and `P^{−l}` vanish like a power of `β`, or have flat
+  limit `J_{2m}`. They cannot match a component whose leading value is `∝ P` (exact for the odd kernel, `SPINNING_4PT.md` §4.5).
+* **This is the corrected dictionary of `SPINNING_KERNELS.md` Part B.** The `Φ`/`P^{−l}` indices are Regge-pair helicity *transfers*. The
+  opposite-helicity component measured here is helicity-preserving at both pairs, weight `(0,0)` (flat `+− → +−`), so its kernel is `P`.
+  `J_z = 2` is the heavy state's `s`-channel label `h₁ − h₂`, not a Regge-pair weight. The weight-`(2,±2)` structures enter only the flip
+  components; there they are already in the leading prediction (the even-kernel leakage `𝒦_{±2,·}` of §1).
+
+**Conclusion.**
+* **What does not work.** None of the `m`-independent harmonic-analysis structures replaces the scalar `β`-dependence of the opposite-helicity
+  component.
+* **What the data still point to** is a correction of relative size `∝ x·m/m²` with coefficient `≈ 2J_z²`. In the Regge regime this is the curved
+  helicity shift `η → η − 8/m²` of §0 item 4. At `x ≥ 0.3` it is a flat-level `x`-dependence, still unidentified.
+* **What would be needed** is an `m`-dependent spinning bulk-point/Regge interpolation (the spinning analogue of CHMRS's fixed-`J` series). It is
+  not available [ND].
+
 ## 5. Code (`ads4/code/skeleton/`)
 
 | file | content |
@@ -149,4 +199,5 @@ Marks: **[D]** derived; **[DV]** derived and checked numerically; **[NE]** numer
 | `s0_scalar_precision.py`, `s1_spin_scan.py` | precision tests; per-case ν scans |
 | `s3_compare.py` | single-case comparison and envelope |
 | `s4_summary.py` | all tables (`cache/out_s4_summary.txt`) |
+| `s5_spinning_skeleton.py` | §6: spinning-kernel candidates for the `β`-dependence (`cache/out_s5.txt`) |
 | `run_all.sh` | everything, at most 2 cores (`OMP_NUM_THREADS=1`) |
