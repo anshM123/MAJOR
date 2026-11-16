@@ -109,7 +109,7 @@ are Weyl-covariant and helicity-pure — now shown) the leading heavy `⟨TTTT�
 corrections `1 + O(1/m²)` for parity-even exchanges.
 Status (revised, §3.5): (a) the MFT helicity factors `A_h` are now derived from our own exact Fock data for `l = 1` and `l = 2` [ID]; (b)
 the identity `κ_h A_h = 2^{3J+3/2}` is proved symbolically for `l = 1` and holds exactly (rational arithmetic) at four points for `l = 2`
-(`out_t8_kappa_exact.txt`; the symbolic `l = 2` run is reported in §3.5); (c) Assumption T. Not verified end to end (no `⟨TTTT⟩` moments, §4).
+(`out_t8_kappa_exact.txt`; a symbolic `l = 2` run did not finish, §3.5); (c) Assumption T. Not verified end to end (no `⟨TTTT⟩` moments, §4).
 
 **3.4 What is not done for `l = 2`.** The closed forms of the helicity lines in the differential-basis words as functions of `(Δ,J)`
 (position-space closed form only, §3.5); the heavy vertex `V_h` of the `l = 2` helicity structures and hence the absolute two-pair constant
@@ -153,7 +153,7 @@ identity between rational functions of `(Δ,J)`.
   and `κ_h A_h/2^{3J+3/2} = 1` identically (`out_t10_kappa_symbolic_l1.txt`).
 * `l = 2` [NE, exact]: `κ_h A_h/2^{3J+3/2} = 1` exactly (rational arithmetic, algebraic `2^{J}` tracked) for both helicities at `(97/10,13/3)`,
   `(53/4,11/2)`, `(61/7,29/5)`, `(127/10,47/7)` (`out_t8_kappa_exact.txt`); `T X_h(Δ) ∝ X_h(Δ̃)` holds exactly at each point (shadow commutes
-  with helicity). Symbolic `l = 2`: SYMBOLIC_L2_STATUS.
+  with helicity). Symbolic `l = 2`: not completed. The word decomposition over `Q(Δ,J)` (`t10_kappa_symbolic.py 2`) did not finish its first step within the session's limits (about 2 h, or killed for memory). So the `l = 2` identity rests on the four exact points [NE], not on a proof.
 
 ## 4. `⟨TTTT⟩` blocks and moments (coordinator goals 1, 3)
 
