@@ -7,7 +7,7 @@ Usage: python3 q1_grid.py      Output: out_q1_grid.txt
 import os, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.join(HERE, '..', 'e2e'))
 import numpy as np, mpmath as mp
-from corner import TensorMomentsLC, CACHE, refined_base, UP_REF2
+from corner import TensorMomentsLC, CACHE, refined_base, UP_REF2, moments_with_err
 from t4_spinning_e2e import moments_of, main_cases
 from t7_corrections import measured_components
 from cases import info
@@ -26,12 +26,12 @@ if __name__ == "__main__":
         A = TensorMomentsLC.build(l, Delta, J)
         fn = os.path.join(CACHE, f"lcmodes_ref_l{l}_D{Delta:.6f}_J{J}.npz")
         B = TensorMomentsLC.build(l, Delta, J, base=refined_base(l, Delta, J), fn=fn)
-        ra = moments_of(A, (2, 3, 4, 6), (0.0, 1.0, 3.0)); rb = moments_of(B, (2, 3, 4, 6), (0.0, 1.0, 3.0))
+        ra = moments_with_err(A, (2, 3, 4, 6), (0.0, 1.0, 3.0))[0]; rb = moments_with_err(B, (2, 3, 4, 6), (0.0, 1.0, 3.0))[0]
         C = None
         if (l, J) in DOUBLE:
             fn2 = os.path.join(CACHE, f"lcmodes_ref2_l{l}_D{Delta:.6f}_J{J}.npz")
             C = TensorMomentsLC.build(l, Delta, J, base=refined_base(l, Delta, J, UP_REF2), fn=fn2)
-            rc = moments_of(C, (2, 3, 4, 6), (0.0, 1.0, 3.0))
+            rc = moments_with_err(C, (2, 3, 4, 6), (0.0, 1.0, 3.0))[0]
         for k in (2, 3, 4, 6):
             for nu in (0.0, 1.0, 3.0):
                 pa, fa, _, _ = measured_components(l, Delta, J, 1.75, k, nu, ra)

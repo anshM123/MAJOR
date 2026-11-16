@@ -162,7 +162,8 @@ Laplace transforms (end to end, exact moments, `k = 6`):
 | 1.0, 100.7 | 0 / 1 / 3 | +0.96125 / +0.96126;  +0.96759 / +0.96760;  +0.99115 / +0.99123 | −0.96127 / −0.96127;  −0.96765 / −0.96764;  −1.01049 / −1.01059 |
 
 (the same at `m ≈ 70`). So the covariant odd⊗odd kernel acts as `+(|c_same|² − |c_opp|²)` and the even one as `(|c_same|² + |c_opp|²)`, with
-`|K_odd| ≈ K_even` — `K_even ± K_odd ≥ 0` per helicity, as unitarity requires. **Flat-space dictionary [D, modulo the identification of
+`|K_odd| ≈ K_even` at `ν = 0` (no positivity statement is made here: at `ν = 3` the opposite-helicity ratio is `−1.0048`
+(`β ≈ 0.4`) and `−1.0106` (`β ≈ 1`), and at `β ≈ 1` `K_even` itself is negative; referee round 2, R2-1). **Flat-space dictionary [D, modulo the identification of
 functionals].** The labels are physical: "same" (CHL `T^{++}`, `J_z = h_1 − h_2 = 0`, all `J`) is the flat all-incoming `++` state of
 arXiv:2201.06602 (`D_{++} = P_J`), "opposite" (`J ≥ 2l`) is flat `+−` (`D_{+−} = d̃^J_{2l,2l}`). In flat space `ε(ε_in, ε̄_out, n̂)` with helicity preserved
 is proportional to the incoming helicity, with the same proportionality at both pairs (the rule is symmetric under `(1,3) ↔ (2,4)`), so
@@ -191,7 +192,10 @@ reproduces `v_1, v_2` exactly, `tttt/infcons.py`). Results (`out_t1_mft_l1.txt`,
 * `n = (τ−2)/2 ≥ 1`: the 2×2 Gram matrix of `(ĥ_opp, ĥ_same)` is **exactly diagonal** (MFT is helicity-diagonal, confirming CHL and the identification
   of §2.3); `ĥ_opp` is absent for `J = 0, 1`;
 * `n = 0`: `ĥ_opp = ĥ_same` (one primary; helicity undefined, as CHL state);
-* closed forms, exact on all 25 primaries with `n ≥ 1` [NE, exact; no parameter]:
+* closed forms, exact on all 25 primaries with `n ≥ 1` [ID: identified from exact data, no continuous parameter; used at `n ~ 50`
+  in the heavy limit beyond the range where they were identified; independently re-checked by the referee at `(6,2), (8,2), (7,3)`
+  from a hand-written Fitzpatrick–Kaplan formula; the block-level lightcone test of §4.6 covers only `n = 0`, where the two helicities
+  coincide]. Values are for distinguishable currents; for identical currents even `J` carries an extra factor 2:
   **`p^MFT[ĥ_opp] = 8^J P_FK(1,1;Δ,J)/(8Y²(J−1)J(J+1)(J+2))`**, **`p^MFT[ĥ_same] = 8^J P_FK(1,1;Δ,J)/(8Y²Δ(Δ−1)(Δ−2)(Δ−3))`**;
   at `n = 0` the single primary carries the sum of the two (exact on the 7 values).
 `8^J` is the convention factor of the scalar seed (`p[S3] = 8^J P_FK`), which the block normalisation `(−1/8)^J` cancels. With `P_FK(1,1)/b^{(0)} =

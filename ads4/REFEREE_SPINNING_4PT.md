@@ -139,3 +139,86 @@ algebra and no-`O(1/m)` for stress tensors conjectural".
   which already treats `⟨JJJJ⟩`/photons and `⟨TTTT⟩`/gravitons at leading order) specialised to Regge moments; structures, shadow
   coefficients and MFT data are CHL (2102.08160) and KKSD (1809.05111). New: exact end-to-end numerics with both pairs spinning, the
   explicit `(v_1,v_2) ↔` CHL map, and the absence of `O(1/m)` for currents. A search (2023–2026) found no paper doing this.
+
+---
+
+# Round 2 (16 Nov 2026, after commit `5df911a`)
+
+Scope: M2 (new §4.5), M3 (new §4.6), text of M1, M4 and the minor items. Referee scripts: `ads4/code/referee_4pt/ref_sign_frames.py`,
+`ref_sign_moments.py`; copies of `fourpt/tttt/{t1_mft_l1,t2_mft_heavy_l1}.py` run in `referee_4pt/fourpt/tttt/` (fresh caches; nothing tracked was touched).
+
+## M2: sign of the opposite-sign term. Resolved.
+
+1. **Frame bookkeeping, checked with the actual vectors.** I took the positions (`e2e/moments.frame_positions`) and polarisations
+   (`moments4.pol_grid4`) exactly as they are fed to the blocks, at random grid points and angles. I evaluated `D_5 = det[z_in, z_out, n̂]`,
+   `n̂ = (x_in − x_out)/|·|` (past-pointing timelike at both pairs; in = 1, 2 lie in the past), and `D_1 = z_in·z_out + (z_in·n̂)(z_out·n̂)` with
+   no frame conventions. Results: `D_1 = cos(θ_out − θ_in)` at both pairs, `D_5 = −sin(θ_out − θ_in)` at **both** pairs, so
+   `D_5^{13}D_5^{24} = +sin·sin` (ratio `+1.000000`, 6 random points). Any normalisation of `ε` multiplies the product by `c² > 0`, so
+   this is convention-free. The authors' "two orientation flips cancel (`det I = −1`, `I x̂ = −x̂`)" is therefore correct.
+2. **Kernel action, recomputed with my own weights.** I derived the mode weights numerically on a 64-point circle grid instead of copying
+   `w_odd = ∓i/2`, and applied them to the exact cached modes. `K_odd/K_even` = `+0.96122 / −0.96127` (same/opp, β≈0.4, `m=101.8`,
+   ν=0) and `+0.96126 / −0.96127` (β≈1). These agree with `out_t4_sign_l1.txt` to all digits, with `Im/Re < 10⁻¹⁶`. Controls:
+   * `W[v_1,v_1]` gives `+0.0040, +0.0080` at `m = 102, 72`. This is `∝ 1/m²`, as predicted, since `V_1` weighs both helicities equally.
+   * `W[v_2,v_2]` gives `0.958` (β≈0.4) and `0.878` (β≈1), equal to `0.961·(A_+⁴−A_−⁴)/(A_+⁴+A_−⁴)` at both β.
+3. **Labels and crossing.** "same" is CHL `T^{++}+T^{−−}`. Its defining property is `J_z = h_1 − h_2 = 0` for both momenta incoming, and it
+   exists for all `J`. The Fock computation independently confirms that `ĥ_opp` is absent for `J = 0, 1`. This matches the flat channel
+   with `D_{++} = P_J = d^J_{00}` and `σ_{++} = +1` in `FLAT_GRAVITON_BOUND.md` (0.1). The identification goes through `J_z` and the
+   Wigner function, so it does not depend on whether helicities are counted all-incoming or in/out.
+4. **Attempts to break it.**
+   * Using `x_out − x_in`, swapping the arguments of `ε`, or flipping its orientation, each applied at both pairs, leaves the product unchanged.
+   * Only a rule that differs between the two pairs flips the sign, and that is not a covariant kernel. It is precisely the inversion-referred
+     `S_R` of §4.3.
+   * The physically invariant content: under one covariant rule, the odd⊗odd kernel acts with opposite signs on the two helicity channels,
+     `K_odd ≈ +0.96 K_even` on `J_z = 0` and `≈ −0.96 K_even` on `|J_z| = 2`, with `J_z` as in item 3. The overall sign of an AdS odd kernel
+     is fixed when the flat functional is uplifted, so positivity transfers with `σ_h` exactly as in flat space.
+   * Still open, and correctly labelled [I] by the authors: the explicit uplift map (which flat sum rule ↔ which AdS kernel combination, with
+     positive coefficient), and the light side.
+5. **New error (minor, R2-1).** §4.5 states "`K_even ± K_odd ≥ 0` per helicity, as unitarity requires". This is false beyond ν = 0:
+   * on the opposite-helicity wave `K_odd/K_even = −1.00477` (β≈0.4, ν=3) and `−1.01059` (β≈1, ν=3), so `K_even + K_odd < 0`;
+   * at β≈1, ν=3, `K_even` itself is negative (`P_{−½+3i}(cosh 1) < 0`).
+
+   The ν-harmonic kernels are not pointwise positive, and unitarity says nothing here. Delete the clause, or restrict it to the ν→0
+   leading value and drop "as unitarity requires".
+
+## M3: MFT normalisation. Resolved.
+
+* **Fock data reproduced.** `t1_mft_l1` was rerun in the referee copy with fresh caches: the same exact rationals, `G_offdiag = 0` on every
+  `n ≥ 1` primary, and the `n = 0` degeneracy. This reproduces their code; it is not an independent Fock implementation.
+* **Independent check of the closed forms.** I used the Fitzpatrick–Kaplan generalised-free-field formula (written by hand, not from their
+  code), *without* the Bose factor `1+(−1)^J`:
+  * `p[ĥ_opp]` and `p[ĥ_same]` both give `P_FK = 3/245` at `(Δ,J) = (6,2)`;
+  * `p[ĥ_opp]` gives `P_FK = 6.184·10⁻⁴` at `(8,2)` and `3.527·10⁻³` at `(7,3)`;
+  * at `n = 0`, `(4,2)`: `p = 1/900 = p_opp + p_same` (closed forms).
+
+  All agree, so the convention is distinguishable currents. For identical currents the even-`J` data acquire the factor 2; this should be
+  stated.
+* **No circularity.** CHL enters nowhere: the inputs are `mft/fock.py` Gram forms, the conserved basis and `f_h`, which were identified
+  from CHL in round 1 but are now *tested* by the exact diagonality of the Fock Gram matrix, and FK.
+* **Absolute constant.** I checked analytically that `t2_mft_heavy_l1` gives `Q_h → 1`, using `P_FK/b^{(0)} = (8/π²)A_+A_−`,
+  `2J+1 = 2A_−`, `2Δ−3 = 2A_+`, `a_{2,2} = π`. The rerun reproduces `m²(Q−1) = 66.30/7.03` (β=0.4). So `1/4` per helicity quadruple and
+  `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)` follow, with Weyl-even factors.
+* **Remaining caveat (minor, R2-2).** §4.6 is headed [D], but the closed forms are identified from 25 primaries (`N ≤ 6`) and then used at
+  `n ~ 50`, so they are [ID]. The two-pair lightcone block test (`1+O(ε)`, control 12.6) covers only the `n = 0` family, where
+  `ĥ_opp = ĥ_same`. The helicity-*split* absolute normalisation is therefore block-tested only through the shared convention chain. Fix:
+  label the closed forms [ID] (or derive them), and if feasible test one `n = 1` family at block level (next lightcone order).
+
+## M1, M4, minors
+
+* M1 is fixed (§0 item 2, §0 item 6, §8).
+* M4 is fixed in the text (§0 item 5, §6.3).
+* m1–m8 are applied as listed in §11; spot-checked m1, m2 and m6.
+* **R2-3 (minor):** the `STATUS.md` row 6 is stale. It still says "shadow matrix exactly (1/b)×Weyl reflection; no `O(1/m)` for currents;
+  overall two-pair MFT constant not fixed; referee running". It should say: parity-even exchanges only; Hilbert-90 bookkeeping; constant
+  `1/4` fixed by Fock data; refereed (two rounds).
+
+## Round-2 verdicts
+
+No fatal and no major issues remain. Minor: R2-1 (false unitarity clause), R2-2 ([ID] label; `n ≥ 1` block test), R2-3 (`STATUS.md`).
+
+* **Analytic correctness:** sound. The sign is resolved and the normalisation is derived in own conventions. Open, and labelled: the uplift
+  map and the parity-odd sector.
+* **Numerical soundness:** good. Everything checked reproduces, and the sign is confirmed from the raw vectors and modes with independent weights.
+* **Label honesty:** good after R2-1 and R2-2.
+* **Physical applicability:** unchanged from round 1, except that the `±` sign and the absolute MFT constant are now established for
+  parity-even `⟨JJJJ⟩`. Not given: `⟨TTTT⟩`, `k = 2, 3`, `ν ~ m`, parity-odd exchanges, the light side.
+* **Novelty:** incremental, as in round 1.

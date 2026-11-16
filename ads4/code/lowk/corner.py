@@ -209,42 +209,56 @@ class TensorMomentsLC(TensorMoments):
         md = self.modes[(q1, q3)] if modes is None else modes[(q1, q3)]
         return np.where(np.isfinite(logw), np.exp(logw - sh), 0.0)*F[:, None]*md*g['W'], sh
 
+    DROP_REL_ERR = 0.5       # relative error assigned to the extrapolated estimate of the missing points
+
     def moment_err(self, k, nu, q1, q3):
-        """(value, err_lc, err_drop, lc_share): value = Pihat (complex mantissa * e^sh as in TensorMoments.moment, returned as
-        (mant, sh)); err_lc = sum over LC points of |A - B|-contributions; err_drop = |power-law extrapolation of the still
-        missing points| (counted entirely as error); all errors relative to |value|."""
+        """(value, err_lc, err_drop, lc_share).  value = Pihat (complex mantissa, log scale) including the extrapolated estimate of
+        the grid points that are still missing; err_lc = SAFETY * sum over LC points of |A - B|-contributions; err_drop =
+        DROP_REL_ERR * |estimate of the missing points| (+ the full size of any part bounded only by the t^{a-1} law);
+        errors relative to |value|.
+        Missing points are of two kinds: (i) tiny t (lightcone sum not converged, radial series not converged): estimated along
+        their u-row by the power law in t through the two smallest accepted t-nodes of that row; (ii) deepest corner (A/B test
+        failed): estimated along their t-column by the power law in u through the two smallest accepted u-nodes.  Exponents are
+        fitted (clipped to [0, 20]) and the estimate carries the phase of the nearest accepted node."""
         dens, sh = self._density(k, nu, q1, q3)
         derr, _ = self._density(k, nu, q1, q3, modes=self.dmodes)
-        val = dens.sum()
+        g = self.g; W = g['W']; us = g['us']; ts = g['ts']
+        acc = self.conv & g['ok']
+        miss = g['ok'] & ~self.conv
+        est = np.zeros_like(dens); bound = 0.0
+        f = np.where(W != 0, dens/np.where(W != 0, W, 1), 0)
+        def plaw(x1, x2, f1, f2, x):
+            a1, a2 = abs(f1), abs(f2)
+            if a1 <= 0 or a2 <= 0:
+                return f1*0
+            p = min(max(np.log(a2/a1)/np.log(x2/x1), 0.0), 20.0)
+            return f1*(x/x1)**p
+        for (i, j) in np.argwhere(miss):
+            ra = np.where(acc[i, :])[0]; ra = ra[ra > j]
+            ca = np.where(acc[:, j])[0]; ca = ca[ca > i]
+            if len(ra) >= 2 and (len(ca) < 2 or ts[ra[0]] - ts[j] <= 0):
+                est[i, j] = plaw(ts[ra[0]], ts[ra[1]], f[i, ra[0]], f[i, ra[1]], ts[j])*W[i, j]
+            elif len(ra) >= 2 and len(ca) >= 2:
+                # both directions available: tiny-t points (row neighbours at small t) vs deep corner (column neighbours at small u)
+                if ts[j] < 2.0:
+                    est[i, j] = plaw(ts[ra[0]], ts[ra[1]], f[i, ra[0]], f[i, ra[1]], ts[j])*W[i, j]
+                else:
+                    est[i, j] = plaw(us[ca[0]], us[ca[1]], f[ca[0], j], f[ca[1], j], us[i])*W[i, j]
+            elif len(ca) >= 2:
+                est[i, j] = plaw(us[ca[0]], us[ca[1]], f[ca[0], j], f[ca[1], j], us[i])*W[i, j]
+            else:
+                # no usable neighbours: bound by the t^{a-1} law of the leading integrand (a = a_x + a_y) from the nearest column
+                a = 2*self.Dphi + 2*k + 2*self.l
+                full = [jj for jj in range(j + 1, len(ts)) if acc[:, jj].sum() >= 2]
+                if not full:
+                    bound = np.inf; continue
+                j1 = full[0]
+                bound += np.abs(f[:, j1]).max()*(ts[j]/ts[j1])**(a - 1)*W[i, j]
+        val = dens.sum() + est.sum()
         err_lc = SAFETY*float(np.abs(derr).sum()/abs(val))
         lc_share = float(abs(dens[self.lcpts].sum())/abs(val))
-        # extrapolation of the missing points (ok & ~conv): per t column, density/W ~ c u^p from the two smallest accepted u
-        g = self.g; W = g['W']; us = g['us']
-        miss = g['ok'] & ~self.conv
-        extra = 0.0
-        for j in np.where(miss.any(axis=0))[0]:
-            acc = np.where(self.conv[:, j] & g['ok'][:, j])[0]
-            mi = np.where(miss[:, j])[0]
-            if len(acc) >= 2:
-                i1, i2 = acc[0], acc[1]
-                f1, f2 = abs(dens[i1, j])/W[i1, j], abs(dens[i2, j])/W[i2, j]
-                p = np.log(max(f2, 1e-300)/max(f1, 1e-300))/np.log(us[i2]/us[i1]) if f1 > 0 and f2 > 0 else 0.0
-                p = min(max(p, 0.0), 20.0)
-                extra += sum(f1*(us[i]/us[i1])**p*W[i, j] for i in mi if us[i] < us[i1])
-                # missing points above the first accepted one (should not occur): bound by the neighbour value
-                extra += sum(f1*W[i, j] for i in mi if us[i] > us[i1])
-            else:
-                # (tiny t) no usable neighbours in u: bound the whole column by the t^{a-1} law of the leading integrand
-                # (a = a_x + a_y), scaled from the nearest larger t column without missing points
-                a = 2*self.Dphi + 2*k + 2*self.l
-                ts = g['ts']
-                full = [jj for jj in range(j + 1, len(ts)) if (self.conv[:, jj] & g['ok'][:, jj]).sum() >= 2]
-                if not full:
-                    extra = np.inf; continue
-                j1 = full[0]
-                c1 = np.abs(dens[:, j1]).sum()*np.sum(W[:, j1])/np.sum(W[self.conv[:, j1] & g['ok'][:, j1], j1])
-                extra += c1*(ts[j]/ts[j1])**(a - 1)*(np.sum(W[:, j])/np.sum(W[:, j1]))
-        err_drop = float(extra/abs(val))
+        err_drop = float((self.DROP_REL_ERR*np.abs(est).sum() + bound)/abs(val))
+        self.last_est_share = float(abs(est.sum())/abs(val))
         return (val, sh), err_lc, err_drop, lc_share
 
 # ---------------------------------------------------------------------- corner-refined grid (quadrature check)
@@ -274,3 +288,22 @@ def refined_base(l, Delta, J, panels=UP_REF):
     for k, v in old.modes.items():
         a = np.zeros(sh, dtype=v.dtype); a[n_new:] = v[n_old:]; new.modes[k] = a
     return new
+
+def moments_with_err(mom, ks, nus):
+    """res[(k, nu, q1, q3)] = (-1)^J Pihat^{(q1,q3)}_{k,nu} (mpmath) for all modes, as e2e/t4_spinning_e2e.moments_of, but with the two
+    transverse modes (l,-l), (l,l) from TensorMomentsLC.moment_err (missing points estimated); errs[(k, nu, q1, q3)] =
+    (err_lc, err_drop, lc_share, estimated share) for those two."""
+    import mpmath as mp
+    l, J = mom.l, mom.J
+    res, errs = {}, {}
+    for k in ks:
+        for nu in nus:
+            for q1 in range(-l, l + 1):
+                for q3 in range(-l, l + 1):
+                    if (q1, q3) in ((l, -l), (l, l)):
+                        (val, sh), el, ed, share = mom.moment_err(k, nu, q1, q3)
+                        errs[(k, nu, q1, q3)] = (el, ed, share, mom.last_est_share)
+                    else:
+                        val, sh = mom.moment(k, nu, q1, q3)
+                    res[(k, nu, q1, q3)] = (-1)**J*mp.mpc(complex(val))*mp.exp(mp.mpf(sh))
+    return res, errs
