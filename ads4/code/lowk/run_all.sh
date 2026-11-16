@@ -18,3 +18,4 @@ python3 q1_grid.py                      # quadrature-grid check                 
 python3 v2_l2_validation.py             # LC vs radial at all converged points u < 0.25 (l = 1, 2)   -> out_v2_l2_validation.txt
 python3 t2_corrections.py               # m^2(R-1), c1, c2, non-analytic-term fits                 -> out_t2_corrections.txt
 python3 t3_tables.py                    # tables of SPINNING_LOWK.md                                -> out_t3_tables.txt
+python3 fill_tables.py                  # refresh the tables of SPINNING_LOWK.md (sect. 5, 7)
