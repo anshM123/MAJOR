@@ -50,10 +50,12 @@ if __name__ == "__main__":
     pr("#     of t7);  R_scal: the same ratio for the scalar skeleton with dimensions (l+1, Dphi) [exact scalar block / scalar leading formula];")
     pr("#     zeroP = |P_{-1/2+i nu}(cosh beta)| / envelope: the ratios R are ill-conditioned near the zeros of the harmonic function (zeroP << 1);")
     pr("#     supp = |moment| / sum |integrand|: double precision fails for supp < 1e-6.")
+    pr("#     corr = [exact normalisation polynomials / leading] * P(eta_AdS - 2 l^2/m^2)/P(eta_AdS): the spin-dependent improvement of sect. 6.3")
+    pr("#            (for l = 2 the additional measured piece of sect. 6.3 is NOT included)")
     for beta_t in (0.4, 1.0, 2.0):
         for k in (4, 6):
             pr(f"# beta ~ {beta_t}, k = {k}")
-            pr("#     m       nu     x=nu/m    R_pres       R_flip      R_scal     R_pres/R_scal   (R_scal-1)/x^2   zeroP    supp")
+            pr("#     m       nu     x=nu/m    R_pres       R_flip      R_scal     R_pres/R_scal  R_pres/(R_scal*corr)  (R_scal-1)/x^2   zeroP    supp")
             for c in main_cases():
                 if not os.path.exists(fname(l, *c)): continue
                 m, b_, eta = info(*c)
@@ -70,7 +72,15 @@ if __name__ == "__main__":
                     P0 = Fnu_mp(nu, 0, bb); dP = mp.diff(lambda t: Fnu_mp(nu, 0, t), bb)
                     zeroP = abs(P0)/mp.sqrt(abs(P0)**2 + abs(dP)**2/(nu*nu + 0.25))
                     flag = "" if supp > 1e-6 else "  (unreliable)"
-                    pr(f"  {float(m):7.2f}  {nu:7.3f}  {x:5.2f}   {float(mp.re(Rp)):10.6f}  {float(mp.re(Rf)):10.6f}  {float(Rs):10.6f}   {float(mp.re(Rp)/Rs):10.6f}     {float((Rs-1)/x**2):9.3f}      {float(zeroP):5.2f}   {supp:.0e}{flag}")
+                    # spin-dependent improvement of sect. 6.3: exact normalisation polynomials and eta_eff = eta - 2 l^2/m^2
+                    D_, J_ = mp.mpf(c[0]), c[1]
+                    Am, Ap = J_ + mp.mpf(1)/2, D_ - mp.mpf(3)/2
+                    fac = mp.mpf(1)
+                    for i in range(1, l + 1):
+                        fac *= (Am**2 - (i - mp.mpf(1)/2)**2)/Am**2*(Ap**2 - (i - mp.mpf(1)/2)**2)/Ap**2
+                    Pe = Fnu_mp(nu, 0, mp.acosh(eta - 2*l*l/(m*m)))
+                    corr = fac*Pe/P0
+                    pr(f"  {float(m):7.2f}  {nu:7.3f}  {x:5.2f}   {float(mp.re(Rp)):10.6f}  {float(mp.re(Rf)):10.6f}  {float(Rs):10.6f}   {float(mp.re(Rp)/Rs):10.6f}   {float(mp.re(Rp/(Rs*corr))):10.6f}     {float((Rs-1)/x**2):9.3f}      {float(zeroP):5.2f}   {supp:.0e}{flag}")
     pr("# (b) small impact parameter (fixed J, beta ~ (2J+1)/m):  exact/prediction for the modes (l,-l) and (l,l)")
     pr("#     lead : the leading formula (predict.py)")
     pr("#     impr : the same with the exact normalisation polynomials of the conserved structures restored,")

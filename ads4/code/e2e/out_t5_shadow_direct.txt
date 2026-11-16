@@ -7,6 +7,10 @@
   l=2 Delta=10.3 J=2 Dphi=1.75 pol=(2.2,0.4):  W_diff = -1.63959535e+06   shadow = -1.63841544e+06   ratio = 1.000720
   l=2 Delta=11.6 J=3 Dphi=1.75 pol=(0.3,1.9):  W_diff = 3.98871137e+07   shadow = 3.97724452e+07   ratio = 1.002883
   l=2 Delta=11.6 J=3 Dphi=1.75 pol=(2.2,0.4):  W_diff = 4.57086195e+07   shadow = 4.56641792e+07   ratio = 1.000973
+# the same towards the Regge region (l = 1, Delta = 7.3, J = 2; r = q^2)
+  q=0.15 xi=0.5:  W_diff = -6.94375737e+00   shadow = -6.95143773e+00   ratio = 0.998895
+  q=0.1 xi=0.5:  W_diff = -3.35517774e+00   shadow = -3.36088098e+00   ratio = 0.998303
+  q=0.1 xi=1.5:  W_diff = -1.04308926e+00   shadow = -1.04187150e+00   ratio = 1.001169
 # scalar seeds: K g  vs  shadow integral  (q = |x| = |y|, xi);  third column: ratio
   Delta=7.3 J=2 dims=(1.75, 1.75, 1.75, 1.75) q=0.25 xi=0.5:  K g = 3.98138031e-03   shadow = 3.97732322e-03   ratio = 1.001020   signs of v5: [np.float64(1.0)]
   Delta=7.3 J=2 dims=(3.0, 1.75, 3.0, 1.75) q=0.25 xi=0.5:  K g = 6.13222721e-03   shadow = 6.12236088e-03   ratio = 1.001612   signs of v5: [np.float64(1.0)]

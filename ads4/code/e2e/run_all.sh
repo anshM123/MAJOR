@@ -31,4 +31,5 @@ python3 t7c_spin_dependence.py                            # spin-dependent part 
 python3 t8_uniformity.py 1                                # nu = x m, small beta                     -> out_t8_uniformity_l1.txt
 python3 t8_uniformity.py 2                                #                                          -> out_t8_uniformity_l2.txt
 python3 t9_tables.py                                      # tables of SPINNING_E2E.md                -> out_t9_tables.txt
+python3 t9b_summary.py                                    # compact ratio tables (sect. 5)           -> out_t9b_summary.txt
 python3 clsd_kernel.py                                    # d = 3 Regge reduction of the CLS-D kernel -> out_clsd_kernel.txt

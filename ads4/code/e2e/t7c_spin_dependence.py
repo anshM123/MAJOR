@@ -27,5 +27,38 @@ for l in (1, 2):
         P = Pnu(nu, eta); dP = mp.diff(lambda x: Pnu(nu, x), eta)
         pol = -kap*(1/np.sinh(beta/2)**2 + 1/np.cosh(beta/2)**2)
         hel = float(mp.re(-2*l*l*dP/P))
-        pr(f"  {beta:4.1f}   {k}  {nu:4.1f}  {v[0]:9.2f}  {v[1]:9.2f}  {cs:9.2f}  | {v[0]-cs:8.2f}  {pol+hel:8.2f}  ({pol:7.2f}, {hel:7.2f}) | {v[1]-cs:8.2f}")
+        c2p = v[5] if v[5] == v[5] else v[0]; c2f = v[7] if v[7] == v[7] else v[1]     # three-parameter fit (B) where available
+        pr(f"  {beta:4.1f}   {k}  {nu:4.1f}  {c2p:9.2f}  {c2f:9.2f}  {cs:9.2f}  | {c2p-cs:8.2f}  {pol+hel:8.2f}  ({pol:7.2f}, {hel:7.2f}) | {c2f-cs:8.2f}")
+# Empirical functional form of the helicity-preserving spin-dependent correction (a fit of the FORM of the O(1/m^2) correction;
+# no normalisation is involved):   D_pres - pol  =  a0 + a1 cosh(beta) + a2 P'/P + a3 sinh^2(beta) P'/P,   P' = dP/d eta.
+pr("# least-squares fit  D_pres - pol = a0 + a1 cosh(beta) + a2 P'/P + a3 sinh^2(beta) P'/P   (all available (beta, nu) at fixed k);")
+pr("#   c2_pres from the three-parameter fit (B) of t7 where available")
+for l in (1, 2):
+    if not os.path.exists(f'data_t7_l{l}.pkl'): continue
+    s7 = pickle.load(open(f'data_t7_l{l}.pkl', 'rb'))
+    kap = 0.25 if l == 1 else 2.5
+    for k in (6, 4):
+        rows = []
+        for (beta, kk, nu), v in sorted(s7.items()):
+            if kk != k: continue
+            c2p = v[5] if v[5] == v[5] else v[0]
+            eta = mp.cosh(beta)
+            dl = float(mp.re(mp.diff(lambda x: Pnu(nu, x), eta)/Pnu(nu, eta)))
+            pol = -kap*(1/np.sinh(beta/2)**2 + 1/np.cosh(beta/2)**2)
+            rows.append((beta, nu, c2p - sb[(l, beta, k, nu)] - pol, dl))
+        rows = np.array(rows)
+        if len(rows) < 6:
+            pr(f"  l = {l}, k = {k}: only {len(rows)} points, no fit"); continue
+        b = rows[:, 0]
+        A = np.stack([np.ones(len(b)), np.cosh(b), rows[:, 3], np.sinh(b)**2*rows[:, 3]], 1)
+        c = np.linalg.lstsq(A, rows[:, 2], rcond=None)[0]
+        pr(f"  l = {l}, k = {k} ({len(rows)} points):  a0 = {c[0]:.2f}, a1 = {c[1]:.2f}, a2 = {c[2]:.2f}, a3 = {c[3]:.2f};   residuals: " + " ".join(f"{x:+.2f}" for x in (A @ c - rows[:, 2])))
+        # the same with the coefficient of pol left free (prediction: 1) and with beta <= 1
+        polv = -kap*(1/np.sinh(b/2)**2 + 1/np.cosh(b/2)**2)
+        A5 = np.concatenate([polv[:, None], A], 1)
+        c5 = np.linalg.lstsq(A5, rows[:, 2] + polv, rcond=None)[0]
+        pr(f"       with a free coefficient p of pol (prediction p = 1):  p = {c5[0]:.3f}, a0 = {c5[1]:.2f}, a1 = {c5[2]:.2f}, a2 = {c5[3]:.2f}, a3 = {c5[4]:.2f}")
+        sel = b < 1.5
+        c = np.linalg.lstsq(A[sel], rows[sel, 2], rcond=None)[0]
+        pr(f"       beta <= 1 only ({sel.sum()} points):  a0 = {c[0]:.2f}, a1 = {c[1]:.2f}, a2 = {c[2]:.2f}, a3 = {c[3]:.2f};   residuals: " + " ".join(f"{x:+.2f}" for x in (A[sel] @ c - rows[sel, 2])))
 open('out_t7c_spin_dependence.txt', 'w').write("\n".join(out) + "\n")
