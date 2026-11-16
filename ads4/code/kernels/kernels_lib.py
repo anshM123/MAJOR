@@ -56,7 +56,7 @@ def sym_to_poly(c):
 
 def mono_amplitudes(J, parity, monos, source='plus', sig=None, n=(1, 0)):
     """list over monomials of flint polys (in t, d, s, I), and the common K"""
-    tag = f"amp_J{J}_{parity}_{source}_{'sym' if sig is None else str(sig).replace('/', 'o')}_{n[0]}_{n[1]}_{hash(tuple(monos)) & 0xffffff}.pkl"
+    tag = f"amp_J{J}_{parity}_{source}_{'sym' if sig is None else str(sig).replace('/', 'o')}_{str(n[0]).replace('/', 'o')}_{str(n[1]).replace('/', 'o')}_{len(monos)}.pkl"
     fn = os.path.join(CACHE, tag)
     if os.path.exists(fn):
         K, strs = pickle.load(open(fn, 'rb'))

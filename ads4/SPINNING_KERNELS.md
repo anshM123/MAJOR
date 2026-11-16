@@ -1,10 +1,20 @@
 # Harmonic kernels for spinning Regge exchange in CFT3, and why scalar positivity does not carry over
 
-Status: written 16 Nov 2026; mathematics verified numerically (`ads4/code/spinning_kernels.py`,
-`ads4/code/spinning_moments.py`); **not yet refereed**. Part A is a theorem of harmonic analysis on the
-hyperbolic plane. Part B (which CFT quantities these functions govern) is a symmetry argument, **not** a
-derivation from spinning conformal blocks, and the weights with which the kernels enter a dispersive
-functional are **not derived**. Nothing here is a locality bound.
+Status (16 Nov 2026, after hostile review). **Part A (harmonic analysis): established**, and largely
+classical. **Part B as first written was wrong** in its assignment of kernels to physical channels, and
+**the physical conclusions drawn from it (the former Part C items 0–2, "no positive functional in the
+helicity-violating channel") are retracted.** The corrected dictionary below is the referee's and is itself
+not yet derived from spinning blocks. Nothing here is a locality bound, and nothing here is an obstruction
+to one.
+
+Referee's three separate verdicts. *Mathematical correctness:* Theorem K items 1–3 and 5 established; item 4
+after restricting to `|m| ≥ 2`. *Physical applicability:* the kernel family is the right one for spinning
+Regge exchange, but `Φ_{4,4}` does not multiply a diagonal coupling; the obstruction claimed does not exist.
+*Novelty:* items 1, 2, 5 are classical (Jacobi functions; Koornwinder's generalised Mehler–Dirichlet kernel,
+*Ark. Mat.* 13 (1975) and the 1984 survey; orthogonality of continuous and discrete spectrum for
+type-`m` spherical functions: Flensted-Jensen 1977, Shimeno 1994; equivalently Landau levels on `H²`). The
+closed-form Abel moments and `Q_1(0⁺) = 1/24 − m²/2` were not found in the literature: "elementary corollaries,
+apparently new but minor". No AdS4 application was found.
 
 ## Why this is the first step
 
@@ -37,8 +47,9 @@ the boost by geodesic distance `β`. Let `π_ν`, `ν ∈ R`, be the spherical p
    `Q_1^{(m)}(β) := ∫_0^∞ ν Φ^ν_{m,m} dν = (√2/π) [ G_m(0)/β − ∫_0^β (G_m(t) − G_m(0)) t^{−2} dt ]`, `G_m(t) := T_{2m}(u(t))(cosh β − cosh t)^{−1/2}`,
    and `Q_1^{(m)}(0⁺) = 1/24 − m²/2`.
 4. (*Signs.*) For `m = 0` these are the scalar moments: `Q_0 > 0`, `Q_1 > 0`, `Q_2 < 0` for all `β`. For `m ≠ 0`:
-   `Q_0^{(m)}` changes sign exactly at `β_j = 2 arcsinh tan((2j+1)π/(4m))`, `j = 0, …, m−1`; `Q_1^{(m)}` is **negative** at
-   small `β` and changes sign; `Q_2^{(m)}` changes sign.
+   `Q_0^{(m)}` changes sign exactly at `β_j = 2 arcsinh tan((2j+1)π/(4m))`, `j = 0, …, m−1`; `Q_1^{(m)}` is negative at
+   small `β`; for `|m| ≥ 2`, `Q_1^{(m)}` and `Q_2^{(m)}` each change sign `m − 1` times. (For `|m| = 1` they do not:
+   `Q_2^{(1)} = −(1 + 3sinh²(β/2))/(8 sinh³(β/2) cosh²(β/2)) < 0` and `Q_1^{(1)} < 0` throughout — referee's correction.)
 
 *Proof.* (1) By the symmetry `θ → −θ`, `Φ^ν_{m,m} = (1/π) ∫_0^π (cosh β − sinh β cos θ)^{−1/2−iν} cos(mχ) dθ` with
 `χ := θ′ − θ`, `e^{iχ} = z̄/z`, `z := cosh(β/2) − sinh(β/2)e^{iθ}`. Put `e^t := |z|² = cosh β − sinh β cos θ`, `t ∈ [−β, β]`. Then
@@ -70,7 +81,11 @@ For comparison `Q_1^{(0)} ∈ (0, 1/24]` and `Q_2^{(0)} < 0` throughout.
    and the integral does not vanish for `j = m + 1`. Consequently, for any finite signed measure `F` on the
    real `ν`-axis, the function `A(β) := ∫ Φ^ν_{m,m}(β) F(dν)` satisfies the `m` linear constraints
    `∫_0^∞ A(β) cosh^{−2j}(β/2) sinh β dβ = 0`, `j = 1, …, m`. **In particular `A` cannot be non-negative on `(0, ∞)` unless
-   it vanishes identically.** For `m = 0` there is no such constraint (`Φ^ν_{0,0}` is not orthogonal to any
+   it vanishes identically.** (Measure class: finite signed measures, using the uniform bound
+   `|Φ^ν_{m,m}(β)| ≤ P_{−1/2}(cosh β)`, which follows from `|T_{2m}| ≤ 1`. For Abel-regularised or polynomial weights `A` is a
+   distribution with a singular part at `β = 0` and the pointwise statement fails: e.g.
+   `∫_0^∞ Q_1^{(m)} cosh^{−2j}(β/2) sinh β dβ = −1`, the compensating `+1` being a delta function at the origin. Sharper
+   form: `{cosh^{−2j}}` is a Chebyshev system, so `A` has at least `m` sign changes for finite measures. — Referee.) For `m = 0` there is no such constraint (`Φ^ν_{0,0}` is not orthogonal to any
    `cosh^{−2j}`), in agreement with the scalar positivity lemma.
 
 *Proof of 5.* Insert the Chebyshev–Mehler formula and exchange the integrals (absolutely convergent for
@@ -94,62 +109,76 @@ Numerical check (`ads4/code/discrete_series_nogo.py`): the integrals for `m = 1,
 `< 10^{−17}` against absolute integrals of order one; for `m = 4` they vanish for `j = 1, …, 4` (`< 10^{−30}`) and equal
 `0.0044`, `0.0108` for `j = 5, 6`; for `m = 0` the corresponding integral is `0.357`.
 
-**Off-diagonal coefficients.** `Φ^ν_{0,μ}` is proportional (with a `ν`-dependent factor of modulus one times a
-ratio of Gamma functions) to the associated conical function `P^{−μ}_{−1/2+iν}(cosh β)`; a cross-check that
-derivatives of the scalar harmonic function produce these coefficients:
-`−(F″ + F′/sinh β)/(ν² + ¼) = Φ^ν_{1,1}` for `F = P_{−1/2+iν}(cosh β)` (12 digits). Their moments are not treated here.
+6. (*Complex spectral parameter; a sharp threshold.* Added after the review; **not refereed**; presumably also
+   classical.) The orthogonality of item 5 with a given `j ≤ m` holds for all complex `ν` in the strip
+   `|Im ν| < j − ½` (the integral is analytic in `ν` there and vanishes on the real axis). Hence no superposition
+   over `|Im ν| < m − ½` is non-negative. Conversely, for `ν = iκ` with `κ ≥ m − ½`, `Φ^{iκ}_{m,m}(β) > 0` for all `β`
+   (Pfaff's transformation gives `cosh^{2m−2b}(β/2) ₂F₁(κ + ½ − m, b; 1; tanh²(β/2))`, `b = ½ + m + κ`, a series with
+   non-negative terms); at `κ = m − ½` it equals `cosh^{−2m}(β/2)`. Numerically (`strip_threshold.py`): for `m = 4` the
+   kernel changes sign for `κ = 0, …, 3.4` and is positive for `κ = 3.5, 3.6, 4.5, 6`; for `m = 2` the threshold is
+   `1.5`; for `m = 0` every `κ ≥ 0` is positive.
 
-## Part B. What these functions govern (symmetry argument; to be confirmed from blocks)
+**Off-diagonal coefficients and ladder relations (referee).** `Φ^ν_{0,μ} = (−1)^μ (½ − iν)_μ P^{−μ}_{−1/2+iν}(cosh β)` (the
+factor is not of modulus one). With `s = ½ + iν`:
+`dΦ_{m,n}/dβ = ((s+n)/2) Φ_{m,n+1} + ((s−n)/2) Φ_{m,n−1}`, and similarly on the left index. Hence four raisings on each
+side of the scalar harmonic function give `Π_{k=0}^{3} (ν² + (k+½)²) · Φ^ν_{4,4}`; the zeros of this factor are the
+discrete-series points `ν = ±i(k+½)`. A cross-check done here:
+`−(F″ + F′/sinh β)/(ν² + ¼) = Φ^ν_{1,1}` for `F = P_{−1/2+iν}(cosh β)` (12 digits).
 
-In the Regge limit of a CFT3 four-point function the residual symmetry acting on the transverse data is
-`SO(2,1)`, and the dependence on the impact parameter of the exchange of an operator of dimension
-`3/2 + iν` is an eigenfunction of its Casimir with eigenvalue `−(ν² + ¼)`. For external scalars this fixes the
-kernel as `Φ^ν_{0,0}`. For external operators with spin, each pair of external operators carries a weight under
-the rotation group about its transverse position, `m_L, m_R ∈ {0, ±4}` for pairs of stress tensors (the
-difference of the two helicities, in the convention where `h_1 = h_2` is a flip), and covariance fixes the
-kernel in the channel `(m_L, m_R)` as `Φ^ν_{m_L,m_R}(β)` **up to a factor depending on `ν` and on the three-point
-structures**. This is the continuation `J → −½ + iν`, `θ → iβ` of the Wigner functions `d^J_{λμ}(θ)` of flat-space
-helicity partial waves, in the same way that `P_J(cos θ) → P_{−1/2+iν}(cosh β)`. In particular the kernel for
-the helicity-violating diagonal channel (`+− → +−` in the notation of arXiv:2201.06602, partial wave
-`d^J_{4,4}`) is `Φ^ν_{4,4}`, **not** `P_{−1/2+iν}`, although both tend to `J_0`.
+## Part B. What these functions govern (corrected after review; still to be derived from blocks)
 
-**Not derived:** the `ν`-dependent factors; the measure and weights with which each channel enters a given
-functional (the spinning Regge-moment formula); uniform remainders; the threshold region; the light side.
-Until the first two are derived from the spinning blocks, the consequences below are conditional.
+**What is sound.** In the Regge limit of a CFT3 four-point function the residual symmetry acting on the
+transverse data is `SO(2,1)`; components of weight `(m_L, m_R)` are `Φ^ν_{m_L,m_R}(β)` times polynomial or Gamma
+factors in `ν`, regularity at `β = 0` giving uniqueness. This agrees with the differential-operator form of
+spinning Regge theory (arXiv:1707.07689, 1705.02934).
 
-## Part C. Consequences for the locality programme (conditional on Part B)
+**What was wrong.** The transverse group acts on the Regge pairs `(1,3)` and `(2,4)` ("operators 3 and 4 become
+null from 1 and 2"). The weights are therefore the **helicity flips** `m_L = h_1 − h_3`, `m_R = h_2 − h_4`. They are
+*not* the `s`-channel labels `λ = h_1 − h_2`, `μ = h_3 − h_4` of the Wigner functions `d^J_{λμ}`, which belong to the heavy
+state's little group; the "continuation `J → −½ + iν`, `θ → iβ`" used in the first version swaps label and
+argument (`J ~ b`, `θ ~ p`, whereas `ν ~ p`, `β ~ b`) and is not a valid dictionary. Consequently (notation of
+arXiv:2201.06602, (2.14)–(2.16)):
 
-0. **A normalisation-independent obstruction.** Suppose that, in the regime where a heavy operator's
-   contribution is controlled by the Regge moments, the action of a dispersive functional on heavy states of
-   the helicity-violating diagonal channel at impact parameter `β` is of the form
-   `A(β) = ∫ F(ν) Φ^ν_{4,4}(β) dν` for some weight `F` on real `ν` — *whatever* `F` is: the functional's own weight
-   multiplied by any `ν`-dependent factor coming from three-point structures, normalisations or measures.
-   Then by Theorem K(5) `∫_0^∞ A(β) cosh^{−2j}(β/2) sinh β dβ = 0` for `j = 1, 2, 3, 4`, so `A` takes both signs (or vanishes).
-   The positive weight `cosh^{−8}(β/2) sinh β` is concentrated at `β ≈ 0.5` in AdS units, so the sign change
-   happens in the curved regime and cannot be pushed to the flat regime `β ≲ 1/M`.
-   **Hence, within this class, no dispersive functional is positive on all heavy states of that channel,**
-   and no choice of polarisation combination helps: a positive-semidefinite quadratic form in the couplings
-   `(c^{++}, c^{+−})` needs a non-negative coefficient of `|c^{+−}|²`, which is `A`. (A negative off-diagonal entry
-   would not by itself violate positivity; this is a diagonal entry.) The same holds for conserved currents
-   (`m = 2`, two constraints).
-   What would evade it: (a) the kernel of that channel is not `Φ^ν_{4,4}` (Part B is wrong); (b) the relevant
-   contributions are not of Regge-moment form at impact parameters of order the AdS radius; (c) an
-   independent bound on the *magnitude* of the heavy helicity-violating contributions in the curved regime,
-   replacing positivity there; (d) functionals whose weight is not supported on real `ν`.
-   A valid proof of an AdS4 bound with external gravitons must use one of these; the scalar strategy
-   ("positive in flat space, and positive in the curved regime by the sign of the moments") cannot work.
+| Process | Coupling | Regge-pair weights | Kernel |
+|---|---|---|---|
+| `++ → ++` | `|c^{++}|²` (diagonal) | `(0, 0)` | `P_{−1/2+iν}` |
+| `+− → +−` (MHV, helicity-preserving, forward non-vanishing) | `|c^{+−}|²` (diagonal) | `(0, 0)` | `P_{−1/2+iν}` (plus a `(−1)^J Φ_{4,−4}` term from `+− → −+`) |
+| `++ → −−` (all-plus) | `(c^{++})²` (**interference**, phase not fixed by unitarity) | `(4, 4)` | `Φ_{4,4}` |
+| `++ → +−` | `c^{++} c̄^{+−}` (interference) | `(4, 0)` | `Φ_{4,0} ∝ P^{−4}` |
 
-1. **Only the helicity-preserving channel inherits the scalar lemma.** In the `(0,0)` channel the curved-regime
-   positivity is Lemma Q. In the `(4,4)` channel all three moments change sign at impact parameters of order
-   the AdS radius, and the first moment — whose positivity is, in the scalar case, "the crucial distinction
-   between AdS4 and the momentum cutoff" — is negative already at small impact parameter:
-   `Q_1^{(4)}(0⁺) = 1/24 − 8 = −191/24`.
-2. **So positivity of a flat-space graviton functional does not uplift to AdS4 channel by channel.** If a
-   functional acts on the `+−` heavy states with a weight whose small-`p` expansion starts as `a_1 p + a_2 p² + …`
-   with `a_1 > 0 > a_2` (the pattern that works for scalars), its curved-regime action
-   `a_1 Q_1^{(4)}/M² + a_2 Q_2^{(4)}/M³` is positive at `β ≪ 1` (where `Q_2 ≈ −β^{−3}` dominates) but becomes negative
-   once `β ≳ (|a_2|/(8 a_1 M))^{1/3}`, i.e. just outside the flat regime. A proof of an AdS4 bound must
-   therefore either use functionals whose leading weight in the helicity-violating channel vanishes to
-   higher order, or combine channels, or control these states by other means.
-3. This is an **obstruction and a corrected kernel**, not a constraint on CFT data. It becomes a statement
-   about a specific functional only after the spinning Regge-moment formula is derived.
+So `Φ_{4,4}` multiplies an off-diagonal, interference amplitude. Positivity of a quadratic form in the
+couplings requires only `A_{00} ≥ |A_{44}|`, not `A_{44} ≥ 0`. A consistency check that should have stopped the
+first version: the eikonal phase shift of general relativity is helicity-independent and positive, which
+is impossible for any real-`ν` superposition of `Φ_{4,4}` by Theorem K(5); so the helicity-preserving diagonal
+kernel cannot be `Φ_{4,4}`.
+
+**Not derived (unchanged):** the spinning Regge-moment formula itself — arXiv:2311.04271 leaves the Regge
+regime of spinning four-point functions "to future work", and no such formula was found in the literature —
+with its `ν`-dependent factors, measure, remainders, threshold region and light side.
+
+## Part C. Consequences (corrected)
+
+**Retracted.** The first version claimed that no dispersive functional can be positive on heavy states of
+the "helicity-violating diagonal channel", and that `Q_1^{(4)}(0⁺) = −191/24` shows the scalar positivity
+mechanism fails for gravitons. Both claims rested on the wrong channel assignment and are withdrawn. In
+addition: (i) the remark that the sign change "cannot be pushed to the flat regime" was invalid reasoning
+(for weights `f(ν/M)` the region `β ≲ 1/M` contributes to the constraint at the same order); (ii) the value
+`−191/24` is not robust — it sits at relative order `1/ν²`, exactly where the normalisation factors act (e.g.
+`|Γ(9/2+iν)/Γ(1/2+iν)|² = ν⁸(1 + 21/ν² + …)`; and with the Plancherel measure `ν tanh πν` the first moment of the
+scalar kernel is identically zero rather than `1/24`).
+
+**What does follow, conditionally on the corrected dictionary and on a spinning Regge-moment formula.**
+1. For sum rules whose heavy densities are diagonal (`|c^{++}|²`, `|c^{+−}|²`: the helicity-preserving, MHV-type
+   components), the leading curved-regime kernel is the scalar one, so the positivity input is Lemma Q
+   (`POSITIVITY_LEMMA.md`): `Q_1 > 0`, `Q_2 < 0`. The scalar lemma therefore **does** carry over to those
+   components. This agrees with the earlier, independent inference in `EINSTEIN_OBSTRUCTIONS.md` §4.2.
+2. For functionals that also use helicity-changing components, positivity is a matrix condition, e.g.
+   `A_{00}(β) ≥ |A_{44}(β)|` for the `c^{++}` sector, where `A_{44}` is a superposition of `Φ_{4,4}`. Theorem K gives the
+   explicit functions needed to test such a condition; by item 5, `A_{44}` necessarily oscillates in sign,
+   which is harmless.
+3. A generic position-space functional acting on weight-`m` data has components along the discrete series
+   at `ν = ±i(k − ½)`, `k ≤ m` (the zeros of the Pochhammer factor above); restricting to real `ν` is natural only
+   for `m_L m_R ≤ 0`.
+
+**What would settle the dictionary:** the heavy-block limit of one spinning block at fixed `β` (currents or
+stress tensors, `d = 3`) in the helicity basis; or the eikonal test.
