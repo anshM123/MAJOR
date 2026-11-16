@@ -60,7 +60,8 @@ arXiv abstract searches "superconvergence", "higher-spin gap", "energy correlato
   their superconvergence relations as future work.
 * [D] In d = 3 the structure is simple enough to write down (§3.3): with `c := (t_4 + iα_T)/4` the helicity-flip
   amplitude of the energy one-point function, the stress-tensor contribution to ⟨T|[E(θ_1),E(θ_2)]|T⟩ is
-  `2i |c|² sin 4(θ_1−θ_2) σ_3`, i.e. the quadratic form is exactly `t_4² + α_T²`, and the sum rule reads
+  `∓2i |c|² sin 4(θ_1−θ_2)` on the helicities `±2` (zero off-diagonal), i.e. the quadratic form is exactly
+  `t_4² + α_T²`, and the sum rule reads
   `|c|² + Σ_{O≠T} |â^O_{−2}|² = Σ_{spin ≥ 6} |â^O_{6}|²` with every term a square. This is an inequality of the
   requested type ("non-Einstein ⟨TTT⟩ ⇒ single-trace operators of spin ≥ 6 with ⟨TTO⟩ ≠ 0"), conditional on
   the same convergence/no-contact-term assumptions as KKSZ. The kernels are not yet computed.
@@ -100,7 +101,7 @@ shown in (3.13), understood."
 **Costa–Hansen–Penedones**, arXiv:1707.07689 eq. (1.4) [R]: "We would like to prove that
 `C^{(2)}_{TTT} ∼ α_2 ∼ 1/Δ_g²`, `C^{(3)}_{TTT} ∼ α_4 ∼ 1/Δ_g⁴`", with `Δ_g ≡ Δ(J = 4)` on the leading Regge
 trajectory; shown "with mild assumptions on the behaviour of OPE coefficients in the large gap limit".
-For d = 3 their (4.3x): `t_4(0, L) = −48 L⁻⁴ ln(L)⁻¹ r_3(0)/r_1(0) (1 + O(1/ln L))`.
+For d = 3 (their §4.2.2, displayed formula for `t_4(0, L)`): `t_4(0, L) = −48 r_3(0) / (L⁴ ln(L) r_1(0)) × (1 + O(1/ln L))`.
 
 ### 1.2 The d = 3 parameters
 
@@ -141,7 +142,7 @@ null energy operator at `ρ → 1` gives `ñ_s = 4ñ_f` and `ñ_odd = 0` at infi
 `|ñ_s − 4ñ_f| / c_T ≲ ln Δ_gap / Δ_gap⁴`,  `|ñ_odd| / c_T ≲ ln Δ_gap / Δ_gap⁴`,
 
 "Hence, causality constraints translate into `α_4 ∼ ln Δ_gap/Δ_gap⁴`, `α̃_4 ∼ ln Δ_gap/Δ_gap⁴`." Hypotheses (2.25):
-`√c_T ≫ Δ_gap ≫ 1` (as printed), `Δ_gap` the dimension of "the lightest single trace operator with spin ℓ > 2".
+`√c_T ≫ Δ_gap ≫ 1`, `Δ_gap` the dimension of "the lightest single trace operator with spin ℓ > 2".
 Status: **derivation with estimates**; see chain S-C in §2.3. Exponents `(a, b) = (1, 4)`.
 
 **(C2) Sharp dispersive form.** 2201.06602 [R], eq. (4.4): `|ĝ_3|² M⁸ ≤ 24.9 log(M/m_IR) − 27.6`; (4.5):
@@ -190,9 +191,9 @@ transform; `J_0` the Regge intercept. "T-block" = contribution of the stress-ten
 | Step | Exact statement | Source | Status | What a rigorous proof needs |
 |---|---|---|---|---|
 | **L-A0** | Lorentzian axioms (temperedness, Wightman positivity, analyticity domains) for the four-point function of T | Kravchuk–Qiao–Rychkov 2001.08778, 2104.02090 treat scalar four-point functions [A, via `LITERATURE.md`] | **theorem for scalars; missing for spinning operators** | Extension of the KQR theorems to conserved spinning operators (expected, not written) |
-| **L-A1** | Regge boundedness of spinning correlators: `J_0 ≤ 1` nonperturbatively | 1904.05905 §4.2.4, eq. (4.73): "Using Rindler positivity, we have shown that J_0 ≤ 1"; footnote 29: "This argument has a small loophole discussed, e.g., in section 4.2.6" | **derivation** | Close the lightcone-limit loophole (asymptotic lightcone expansion on the second sheet); causal configurations with 3, 4 timelike ("we have not found a way to rigorously bound the behavior of the correlator") |
-| **L-A2** | Dispersive sum rules `Ψ_{k,ν,f}[G] = 0` for stress tensors, labelled by Regge spin `k`, momentum `ν`, transverse spin `j′`: "for the integral of the functional to be convergent, we must have k > J_0 for even j′ and k − 1 > J_0 for odd j′ … So, we should choose k ≥ 2 for even j′ and k ≥ 3 for odd j′." Unsubtracted `k = 2, 3` sum rules for `J_e = 2`, eq. (3.80): `f⁺_{k=2;J_e=2} = −ν⁻²(2m² − ν²)`, `f⁻_{k=3;J_e=2} = 1` at the saddle; "the action on all double-traces will remain zero" | 2311.04271 (2.8), (3.54), §3.5.2 | **derivation** (general d) | d = 3 specialisation: the stabiliser groups `SO(d−3)`, `SO(d−2)` are trivial/degenerate, `j′` reduces to a parity label; parity-odd three- and four-point structures (97 parity-even permutation-invariant four-point structures, 5 functions of one variable on the `z = z̄` line: 1708.05718 §2.2) |
-| **L-A3** | Completeness of the family of sum rules: only the lowest-subtracted flat-space sum rules are obtained (7 of 19 with even `k`, 3 of 10 with odd `k`): "The full set of flat space sum rules for gravitons includes additional sum rules that cannot be expressed in terms of 'shock amplitudes' … We leave the problem of obtaining these additional sum rules using CFT techniques to future work." | 2311.04271 §1, §4.6, §5 | **missing** (for the full ⟨TTTT⟩ statement) | For `(t_4, α_T)` alone the two families `B_2^{(1)}`, `B_3^{(1)}` of 2201.06602 (2.26) suffice (their footnote-10 functional (3.7) proves `|ĝ_3|² ≤ 1598 log(M/m_IR) − 3211`); these are "anti-subtracted" and correspond to (3.80). The identification in D = 4 helicity variables (f, g, h of (2.1)–(2.3)) is **not written**: the dictionary (4.86) is in the generic-dimension basis (4.81), "(D ≥ 8)" |
+| **L-A1** | Regge boundedness of spinning correlators: `J_0 ≤ 1` nonperturbatively | 1904.05905 §4.2.4, eq. (4.73): "Using Rindler positivity, we have shown that J_0 ≤ 1" (in the causal configuration `4 > x`, `x⁺ > 3`, 3 and 4 spacelike) | **derivation** | The other causal configurations (3, 4 timelike): "one cannot use Rindler positivity and we have not found a way to rigorously bound the behavior of the correlator"; the lightcone-limit conditions rest on the asymptotic lightcone expansion or on an argument with "a small loophole discussed, e.g., in section 4.2.6" (footnote 29) |
+| **L-A2** | Dispersive sum rules `Ψ_{k,ν,f}[G] = 0` for stress tensors, labelled by Regge spin `k`, momentum `ν`, transverse spin `j′`: "for the integral of the functional to be convergent, we must have k > J_0 for even j′ and k − 1 > J_0 for odd j′ … So, we should choose k ≥ 2 for even j′ and k ≥ 3 for odd j′." Unsubtracted `k = 2, 3` sum rules for `J_e = 2`, eq. (3.80): `f⁺_{k=2;J_e=2} = −ν⁻²(2m² − ν²)`, `f⁻_{k=3;J_e=2} = 1` at the saddle; "the action on all double-traces will remain zero" | 2311.04271 (2.8), (3.54), §3.5.2 | **derivation** (general d) | d = 3 specialisation: the stabiliser groups `SO(d−3)`, `SO(d−2)` are trivial/degenerate, `j′` reduces to a parity label; parity-odd three- and four-point structures (in d = 3: 97 permutation-invariant parity-even four-point structures, (2.25), and five functional degrees of freedom after conservation, (2.34), of 1708.05718 — the same count as the parity-even 4D helicity amplitudes) |
+| **L-A3** | Completeness of the family of sum rules: only the lowest-subtracted flat-space sum rules are obtained (7 of 19 with even `k`, 3 of 10 with odd `k`): "The full set of flat space sum rules for gravitons includes additional sum rules that cannot be expressed in terms of 'shock amplitudes' … We leave the problem of obtaining these additional sum rules using CFT techniques to future work." | 2311.04271 §1, §4.6, §5 | **missing** (for the full ⟨TTTT⟩ statement) | For `(t_4, α_T)` alone the two families `B_2^{(1)}`, `B_3^{(1)}` of 2201.06602 (2.26) suffice (their footnote-10 functional (3.7) is stated to prove `|ĝ_3|² ≤ 1598 log(M/m_IR) − 3211`; see the caveat in L-A7); these are "anti-subtracted" and correspond to (3.80). The identification in D = 4 helicity variables (f, g, h of (2.1)–(2.3)) is **not written**: the dictionary (4.86) is in the generic-dimension basis (4.81), "(D ≥ 8)" |
 | **L-A4** | Heavy action in the bulk-point regime `Δ, ν ≫ 1`, `ν < m`, `J/Δ ≪ 1`: CFT block action = flat-space partial-wave action, eq. (4.86) with matrices (4.88) | 2311.04271 §3–§4 | **derivation** (saddle point: "scattering crystal") | Error terms uniform in `(Δ, J, ν)`; extension to `ν = O(1)` ("We expect the same to be true in the spinning case"); D = 4 |
 | **L-A5** | Heavy action in the Regge regime `Δ, J → ∞` at fixed AdS impact parameter `β` | scalar case: 2106.10274 (2.59) `C_{k,ν}[Δ,J] = 2 P_{(2−d)/2+iν}(η_AdS)/m^{2k} × (1 + O(ν²/m², 1/m²))` | **missing for spinning operators**: "We leave an exploration of the Regge regime for four-point functions of spinning operators to future work." (2311.04271 §2.2.2) | Spinning Regge-moment formula in d = 3 for the `k = 2, 3` sum rules, as a Hermitian form in the ⟨TTO⟩ structures (2⁺ + 1⁻ for even `J ≥ 4`, 1⁻ for odd `J ≥ 5`: 1708.05718 table in §2.1) |
 | **L-A6** | Heavy action when `Δ, J, ν` are all large, and near threshold `τ ≈ Δ_gap` | scalar: 2106.10274 App. F, (F.3)–(F.8) | **missing for spinning** | as L-A5 |
@@ -213,7 +214,7 @@ derivations with scalar probes are of Regge type (S-C below), not dispersive.
 |---|---|---|---|---|
 | **L-B1** | `[E(n_1), E(n_2)] = 0` for `n_1 ≠ n_2`. Sufficient conditions (4.71)–(4.72): `J_1 + J_2 > max(2 − Δ′_0, 1 + J_0)`, `J_1 + J_2 > 2 − τ′_0 + |Δ_1 − Δ_2|`; for `T`: (4.79) "a product of ANEC operators on the same null plane is well-defined and commutative if 3 > J_0 = J_0^{dDisc}". Planar: (4.80) `J_0^{planar} ≤ 2` from the chaos bound; "commutativity can be lost at higher orders in large-N perturbation theory (and only recovered nonperturbatively)" | 1904.05905 §4 | **derivation** (the abstract says "We prove"). Stated gaps: "our analysis establishes well-definedness and commutativity (when applicable) acting on this dense subspace. However, this subspace does not include important states like momentum eigenstates"; "In principle we have not excluded the possibility of contact terms at z_1 ∝ z_2 … we will work under this assumption" | Commutativity as a statement about matrix elements between `∫ f T|0⟩` states including momentum-space wavepackets; exclusion (or classification) of contact terms at `n_1 = n_2`; the planar statement needs the chaos bound (itself a derivation) |
 | **L-B2** | t-channel expansion (5.2)–(5.3) of ⟨O_4(p)|L[O_1]L[O_2]|O_3(p)⟩ over primaries; each ordered term has a fixed sign: "in a unitary theory, due to the reality properties of OPE coefficients, the contributions of operators have fixed signs" | 1904.05905 §5.1, §5.3 | **derivation**: "it is not obvious that this expansion converges. In this paper we will assume that it does"; "we will assume that no subtractions are necessary if O_1 = O_2 = T" | Convergence of the harmonic-projected expansion; it is automatic "for applications to planar theories with a finite number of single-trace exchanges" (footnote 38) |
-| **L-B3** | T-block of ⟨T|E E|T⟩ = product of one-point transfer matrices; commutator quadratic in the non-Einstein couplings | d = 4: 1904.05892 (4.16), (4.22)–(4.24), `[M_1, M_2] = t_2²[…] + t_4²[…] − t_2 t_4[…] − (1↔2)` ⇒ `t_2 = t_4 = 0`; general d, `j_1 = j_2 = 2` component: 1904.05905 (5.133) ∝ `C_T((4+d)t_2 + 4t_4)²` | **derivation** (d ≥ 4) | d = 3: [D] §3.3, `[M(θ_1), M(θ_2)] = 2i|c|² sin 4θ_12 σ_3` |
+| **L-B3** | T-block of ⟨T|E E|T⟩ = product of one-point transfer matrices; commutator quadratic in the non-Einstein couplings | d = 4: 1904.05892 (4.16), (4.22)–(4.24), `[M_1, M_2] = t_2²[…] + t_4²[…] − t_2 t_4[…] − (1↔2)` ⇒ `t_2 = t_4 = 0`; general d, `j_1 = j_2 = 2` component: 1904.05905 (5.133) ∝ `C_T((4+d)t_2 + 4t_4)²` | **derivation** (d ≥ 4) | d = 3: [D] §3.3, `[M(θ_1), M(θ_2)] = 2i|c|² sin(4θ_12) diag(−1, +1)` |
 | **L-B4** | Planar limit: only single-trace operators contribute: "The factors `Γ(4 − Δ_φ/2)⁻²` in (1.6) ensure that contributions of double-trace operators are suppressed by O(1/N⁴)" (general d: `Γ(d − Δ/2)⁻²` in (5.132)); 1904.05892 §4.2.1: double-trace corrections enter as `γ²_{n,l}/N⁴` | 1904.05905 §1, 1904.05892 | **derivation** | Uniformity over the infinite double-trace towers |
 | **L-B5** | Event-shape blocks for an exchanged primary `(Δ, J)`: scalars, general d: (5.131)–(5.132) with `q(Δ) ≥ 0` | 1904.05905 §5.1–5.3; algorithm for general exchange in §5.1.3–5.1.4 | **derivation**; **missing in d = 3 for stress-tensor sources** — 2512.09986 §6: "A straightforward extension of the present work is the calculation of conformal blocks for external sources with nonzero spin"; 2608.19322 §5: superconvergence with "the external state … created by the stress-energy tensor itself" listed as future work | Light transform + Fourier transform of the d = 3 ⟨TTO⟩ structures, parity-odd included (§5, ST1) |
 | **L-B6** | The sum rule. General d (5.134): `−C_T 2^{−1−3d} π^{3−d/2} ((4+d)t_2+4t_4)² Γ(d+3) / [(d−1)² d (d+1)² (d+4) Γ(3+d/2) Γ(d/2)²] + (1/4) Σ_φ |λ_TTφ|² q(Δ_φ) + non-scalar = 0` and a second equation with relative factor `(d² − 9)` and `(2/(d+2))`; d = 4: (1.6) | 1904.05905 | **derivation**; "non-scalar" terms not computed | d = 3: the general-d decomposition is singular ((5.128) has `1/((d+3)(d−3))`, (E.4) has `1/(d−3)`, `1/(d²−5d+6)`); [D] §3.3 gives the d = 3 structure |
@@ -327,8 +328,8 @@ Equivalently, the T-block of the commutator is `[M(θ_1), M(θ_2)] = 2i|c|² sin
 2. `Â_0 = Â_4`: any ⟨TTφ⟩ coupling to a scalar (and any `m = 0` amplitude) must be balanced by `m = 4`
    amplitudes of operators of spin ≥ 4 — the sum-rule form of (C3).
 3. If the product `E(θ_1)E(θ_2)` is a positive operator-valued measure (commuting positive operators), then
-   `{Â_{2−k}}_k` are the Fourier coefficients of a positive measure, so `0 ≤ Â_m ≤ Â_2 = 1`; with (★) this
-   gives back the collider disc `t_4² + α_T² ≤ 16` and nothing stronger.
+   `{Â_{2−k}}_k` are the Fourier coefficients of a positive measure on the circle, so `0 ≤ Â_m ≤ Â_2 = 1`. In
+   particular `|c|² ≤ Â_{−2} ≤ 1`: this is the collider disc `t_4² + α_T² ≤ 16` again, and nothing stronger.
 
 *Checks.* (i) Free scalar: `T(q)|0⟩` is a back-to-back two-particle state with wavefunction `∝ e^{ihθ}`;
 `⟨h|E(θ_1)E(θ_2)|h⟩ ∝ δ(θ_12) + δ(θ_12 − π)`, so `Â_m = 1` for every even `m` and 0 for odd `m`; `|c| = 1`
@@ -348,8 +349,8 @@ inequality on OPE data.
 Every relation (D), (O) is homogeneous: the Einstein part of the T-block is the identity matrix in helicity
 space, contributes only to `Â_2`, and cancels identically. A linear combination `Σ_k w_k (Â_{2−k} − Â_{2+k}) = 0`
 has the form `w_4|c|² + Σ_heavy (quadratic form in λ_TTO) = 0`. If the heavy form were non-negative for all
-`Δ ≥ Δ_gap` with `w_4 > 0`, it would force `c = 0` exactly at finite gap, which is not expected (finite-gap
-string backgrounds are expected to have non-zero higher-derivative cubic couplings [M]). Hence a decay rate
+`Δ ≥ Δ_gap` with `w_4 > 0`, it would force `c = 0` exactly at finite gap, which is not expected (non-supersymmetric
+string backgrounds at finite gap are expected to have non-zero `R³`-type cubic couplings [M]). Hence a decay rate
 requires an *a priori* bound on the heavy side. Available inputs:
 
 * `Â_m ≤ 1` (item 3 above) — gives only the collider disc, unless the kernels have a hierarchy
@@ -384,7 +385,7 @@ scalars is needed.
 * Gravitons in flat space (2201.06602): heavy densities (2.33), (2.35) involve `d̃^J_{0,0}`, `d̃^J_{4,4}`
   (diagonal, coefficients `|c⁺⁺|²`, `|c⁺⁻|²`), `d̃^J_{4,0}` (coefficient `c⁺⁺c⁺⁻`) and `d̃^J_{4,−4}`; large-J limit
   (A.11): `lim d̃^J_{h,h′}(1 − 2p²/m²) = J_{h−h′}(bp)/(p/m)^{h−h′}`, `b = 2J/m`; scaling limit (3.5):
-  `lim_{m→∞} F[m², bm/2] = (4/m⁴) ∫_0^1 dp ψ(p) (|c⁺⁺|² + |c⁺⁻|²) J_0(pb) + …`, "dominate[d] by the B_2 component",
+  `lim_{m→∞} F[m², bm/2] = (2/m⁴) ∫_0^1 dp ψ(p) × (|c⁺⁺_{J,m²}|² + |c⁺⁻_{J,m²}|²) J_0(pb) + …`, "dominate[d] by the B_2 component",
   "In this limit, F⁺⁺ and F⁺⁻ coincide".
 * Gravitons in AdS: nothing. 2311.04271 give no Regge-regime formula.
 
@@ -451,8 +452,9 @@ are the leading term of an expansion in `1/M`; oscillatory endpoint terms are on
   `â^O_{m,2} = c_T^{−1/2} Σ_a λ^{(a)}_{TTO} K^{(a)}_m(Δ, J)` for unit-normalised `O`, and prove:
   (a) under the hypotheses of L-B1, L-B2, for every integer `m`: `Σ_O |â^O_{m,2}|² = Σ_O |â^O_{4−m,2}|²`, in
   particular (★) `(t_4² + α_T²)/16 + Σ_{O≠T} |â^O_{−2,2}|² = Σ_{J_O≥6} |â^O_{6,2}|²`;
-  (b) `K^{(a)}_m(Δ, J)` has double zeros in the squared amplitude at the double-trace dimensions
-  `Δ = 6 + J′ + 2n` appropriate to `[TT]` (planar reduction to single-trace operators);
+  (b) the squared amplitudes vanish quadratically at the `[TT]` double-twist dimensions (for scalars
+  `Δ = 6 + 2n`, the zeros of `Γ(d − Δ/2)⁻²` in KKSZ (5.132)), which is the planar reduction to single-trace
+  operators;
   (c) for the free scalar and free Majorana fermion, `|â^{J_s}_{±s,2}|² = 1` for all even `s ≥ 4`;
   (d) decide whether `sup_{Δ ≥ Δ_gap, J ≥ 6, λ} |â_{6,2}|² / Σ_{m ∉ {1,2,3}} w_m |â_{m,2}|²` tends to 0 as
   `Δ_gap → ∞` for some fixed positive weights `w_m` (if yes, a gap-dependent bound follows from `Â_m ≤ 1`).
@@ -470,10 +472,12 @@ are the leading term of an expansion in `1/M`; oscillatory endpoint terms are on
 
 * **Statement.** For `f(p) = p(1−p)²(1310 + 1540p − 10318p² − 4697p³ + 15680p⁴)` (2106.10274 (5.55)) and for
   `f(p) = (1−p)³ p (65 + 155p + 47p²)` (2201.06602 (3.3a), weight of `B_2^{(1)}`), define
-  `G_M[f](β) := ∫_0^1 dp f(p) P_{−1/2+iMp}(cosh β)`. Then there is an explicit `M_0` (target: `M_0 ≤ 5`) such
-  that `G_M[f](β) > 0` for all `β > 0` and all `M ≥ M_0`, with
-  `M² G_M[f](β) = a_1 Q_1(β) + a_2 Q_2(β)/M + R_M(β)`, `|R_M(β)| ≤ C M^{−2} (a_1 Q_1(β) + |a_2 Q_2(β)|/M)` for
-  `β ≥ β_0/M`, and `G_M[f](β) ≥ (1 − ε) f̂(Mβ)` for `β ≤ β_0/M`, where `f̂(b) = ∫_0^1 f(p) J_0(bp) dp > 0`.
+  `G_M[f](β) := ∫_0^1 dp f(p) P_{−1/2+iMp}(cosh β)`. **Claim:** there is an explicit `M_0` (target: `M_0 ≤ 5`)
+  such that `G_M[f](β) > 0` for all `β > 0` and all `M ≥ M_0`.
+  Proposed shape of the proof (to be established, constants explicit): for `β ≥ β_0/M`,
+  `M² G_M[f](β) = a_1 Q_1(β) + a_2 Q_2(β)/M + R_M(β)` with `|R_M|` bounded by a fixed fraction of the main term
+  (`a_1 > 0`, `a_2 < 0`, so both main terms are positive by Lemma Q); for `β ≤ β_0/M`, comparison with the flat
+  transform `f̂(Mβ)`, `f̂(b) := ∫_0^1 f(p) J_0(bp) dp > 0`.
 * **Obstruction removed.** L-A8 beyond the two leading moments: it replaces "rigorously positive at large M"
   and "dropping the oscillatory terms" by a statement valid for every `M ≥ M_0`, for the exact leading Regge
   kernel `2G_M/m⁴` of (2.59)/(5.61). It is needed to make the scalar AdS4 bound (5.64) a theorem and, granted
