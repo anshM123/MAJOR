@@ -11,14 +11,15 @@ def casimir_residual(E, rs, rb, Delta, J, a, b, d=3):
     def one(rho, F1, F2):
         w = (1 + rho)/(1 - rho); thw = 2*rho/(1 - rho)**2
         z = 4*rho/(1 + rho)**2
+        omz = ((1 - rho)/(1 + rho))**2              # 1 - z without cancellation (referee m1: 1 - z by subtraction loses eps/(1-z))
         zd = w*F1                                   # z d_z g
         zd2 = w*w*F2 + w*thw*F1                     # (z d_z)^2 g
-        Dz = (1 - z)*(zd2 - zd) - (1 + a + b)*z*zd - a*b*z*F
-        sc = np.maximum.reduce([np.abs((1 - z)*zd2), np.abs((1 - z)*zd), np.abs((1 + a + b)*z*zd)])
-        return Dz, z, zd, sc
-    Ds, zs, zds, scs = one(rs, Fs, Fss)
-    Db, zb, zdb, scb = one(rb, Fb, Fbb)
-    m1 = (d - 2)/(zs - zb)*zb*(1 - zs)*zds; m2 = (d - 2)/(zs - zb)*zs*(1 - zb)*zdb
+        Dz = omz*(zd2 - zd) - (1 + a + b)*z*zd - a*b*z*F
+        sc = np.maximum.reduce([np.abs(omz*zd2), np.abs(omz*zd), np.abs((1 + a + b)*z*zd)])
+        return Dz, z, omz, zd, sc
+    Ds, zs, omzs, zds, scs = one(rs, Fs, Fss)
+    Db, zb, omzb, zdb, scb = one(rb, Fb, Fbb)
+    m1 = (d - 2)/(zs - zb)*zb*omzs*zds; m2 = (d - 2)/(zs - zb)*zs*omzb*zdb
     C = Delta*(Delta - 3) + J*(J + 1)
     scale = np.maximum.reduce([scs, scb, np.abs(m1), np.abs(m2), np.abs(C/2*F)])
     return np.abs(Ds + Db + m1 - m2 - C/2*F)/scale

@@ -12,7 +12,7 @@ With P_j^{(l)} = (2l-1)!! C^{(l+1/2)}_{j-l} and C^lam_m(cos th) = sum_k a^lam_k 
 At fixed i, H^{(l)}_i(x) = sum_q C^{(l)}_{i,q} x^q has on |x| <= 1 only the singularities
    x = 1  (zbar' = 1):  analytic + (1-x)^{-2 sigma - l} * analytic,   sigma = c1 + c2
             (local exponents 0, -sigma of the Casimir equation at zbar = 1; 1 - zbar = ((1-x)/(1+x))^2; each d_eta adds one power),
-   x = -1 (zbar' = oo): (1+x)^{2 c1 - l} * analytic + (1+x)^{2 c2 - l} * analytic   (logarithmic if c1 = c2).
+   x = -1 (zbar' = oo): (1+x)^{2 c1 - l} * analytic + (1+x)^{2 c2 - l} * analytic   (logarithmic if c1 - c2 is an integer).
 Hence for q -> oo (Darboux)
    q^t C^{(l)}_{i,q} = sum_m s_m (2 sigma + l + t - m)_q/q!  +  (-1)^q sum_{c, m} a_{c,m} (l - 2c + t - m)_q/q!     [c1 != c2]
 (main family: Taylor coefficients of (1-x)^{m-t-l-2 sigma}; 2 sigma is a half-integer for Dphi = 1.75, so no logs at x = 1).
@@ -118,11 +118,16 @@ class LCBlock:
             cols.append(poch_over_fact(2*self.sig + l + t - m, q)); kinds.append(('main', 2*self.sig + l + t - m))
         alt = (-1.0)**q
         cs = sorted(set([self.c1, self.c2]))
+        resonant = len(cs) == 2 and abs((cs[1] - cs[0]) - round(cs[1] - cs[0])) < 1e-12
         for c in cs:
             for m in range(self.Malt):
                 if len(cs) == 2:
                     a = -2*c + l + t - m
                     cols.append(alt*poch_over_fact(a, q)); kinds.append(('alt', a))
+                    if resonant and c == cs[1]:
+                        # c1 - c2 a non-zero integer: the two exponents at x = -1 differ by an even integer, the local solution
+                        # carries log(1+x) (referee m2); log column added to the fit, its tail is not summed (alternating, bounded)
+                        cols.append(alt*poch_over_fact(a, q)*np.log(q)); kinds.append(('altlogr', a))
                 else:
                     e = -2*c - 1 + l + t - m
                     cols.append(alt*q**e); kinds.append(('altpow', e))
@@ -222,3 +227,12 @@ class LCBlock:
             for al in range(nmax + 1 - be):
                 E[al, be] = r**(-self.J)*np.sum(((a + ii)**al)[:, None]*XS*V, axis=0)
         return E
+
+
+def casimir_gate(lb, r, chi):
+    """Casimir residual (relative to the largest term; casimir_check.py with 1 - z computed without cancellation) of the LC block
+    lb at the points (r, chi)."""
+    from casimir_check import casimir_residual
+    r = np.atleast_1d(np.asarray(r, float)); chi = np.atleast_1d(np.asarray(chi, float))
+    E = lb.E(r, chi)
+    return casimir_residual(E, r*np.exp(-chi), r*np.exp(chi), lb.Delta, lb.J, lb.c1, lb.c2)

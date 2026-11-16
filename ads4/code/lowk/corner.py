@@ -29,11 +29,13 @@ if E2E not in sys.path:
 from moments import TensorMoments, frame_data, frame_positions, pol_grid, fourier_modes
 from spinblock import SpinBlock, invariants
 from formulas import Fnu_np
-from lcblock import LCBlock
+from lcblock import LCBlock, casimir_gate
 CACHE = os.path.join(HERE, 'cache')
 E2E_DATA = os.path.join(E2E, 'data_modes')
 PAR_A = dict(N=10000, I=1500, Q=8000, M=8)
 PAR_B = dict(N=8000, I=1200, Q=6000, M=6)
+PAR_C = dict(N=10000, I=1500, Q=3000, M=8)     # third setting (referee M1): exact sum only to q = 3000, Darboux tail beyond
+CAS_MAX = 1e-7   # acceptance gate on the Casimir residual of every seed (relative to the largest term; referee M1/m1)
 SAFETY = 3.0     # err_lc = SAFETY * |A - B| (block-level tests: |A - B| tracks the deviation of A from a Q = 14000 reference within ~2x)
 _COEF = {}
 
@@ -51,11 +53,12 @@ class _Pre:
         assert len(r) == self.S.shape[0]
         return self.S
 
-def evaluate_points(l, Delta, J, Dphi, U, S, pars=(PAR_A, PAR_B)):
+def evaluate_points(l, Delta, J, Dphi, U, S, pars=(PAR_A, PAR_B, PAR_C), casimir=True):
     """stripped tensor (log scale, Fourier modes) at grid points (U, S arrays) with LC seeds, for each LC setting in pars.
     Seeds g^{c1,c2} = g^{c2,c1} (the Casimir operator depends on c1 + c2 and c1 c2 only) are computed once; the coefficients
     C^{(l)}_{i,q} (which depend only on B_{n,j}, n <= I + Q - J + l, not on the truncation N) are computed once for the largest
-    setting and re-used (sub-blocks) for the others.  Returns list of (logscale, modes, i_tail, info)."""
+    setting and re-used (sub-blocks) for the others.  Returns list of (logscale, modes, i_tail, info); info of the largest setting
+    carries 'casimir' = max over seeds of the Casimir residual of that setting at every point."""
     fd = frame_data(U, S)
     x1, x2, x3, x4 = frame_positions(fd['ru'], fd['xi'])
     z1, z3 = pol_grid(len(U))
@@ -66,9 +69,12 @@ def evaluate_points(l, Delta, J, Dphi, U, S, pars=(PAR_A, PAR_B)):
         keys[ab] = (tuple(sorted((blk.a, blk.b))), vpow)
     Ssets = [dict() for _ in pars]; itails = [[] for _ in pars]; info = [dict() for _ in pars]
     big = max(range(len(pars)), key=lambda j: (pars[j]['I'], pars[j]['Q']))
+    cas = np.zeros(len(U))
     for key in sorted(set(k for k, v in keys.values())):
         t0 = time.time()
         lbig = LCBlock(Delta, J, key[0], key[1], **pars[big])
+        if casimir:
+            cas = np.maximum(cas, casimir_gate(lbig, fd['rs'], fd['chi']))
         for j, par in enumerate(pars):
             lb = lbig if j == big else LCBlock(Delta, J, key[0], key[1], coeffs=lbig.C, **par)
             Ssets[j][key] = lb.series(fd['rs'], fd['chi'])
@@ -82,6 +88,7 @@ def evaluate_points(l, Delta, J, Dphi, U, S, pars=(PAR_A, PAR_B)):
             sb.blocks[ab] = (_Pre(Ssets[j][key], *key), vpow)
         ls, M = sb.eval(s, z, fd['rs'], fd['chi'], fd['A0'], fd['E0'])
         out.append((ls, fourier_modes(M, lmax=l), np.max(itails[j], axis=0), info[j]))
+    out[big][3]['casimir'] = cas
     return out
 
 class TensorMomentsLC(TensorMoments):
@@ -100,10 +107,13 @@ class TensorMomentsLC(TensorMoments):
         vmask = np.zeros_like(todo); vmask[tuple(sel.T)] = True
         t0 = time.time()
         pts_all = todo | vmask
-        (lsA, fmA, itA, infoA), (lsB_all, fmB_all, itB_all, infoB) = evaluate_points(l, Delta, J, Dphi, g['U'][pts_all], g['S'][pts_all])
+        (lsA, fmA, itA, infoA), (lsB_all, fmB_all, itB_all, infoB), (lsC_all, fmC_all, itC_all, infoC) = \
+            evaluate_points(l, Delta, J, Dphi, g['U'][pts_all], g['S'][pts_all])
         tA = time.time() - t0; tB = 0.0
         tsel_all = todo[pts_all]
+        cas = infoA.pop('casimir')[tsel_all]
         lsB = lsB_all[tsel_all]; fmB = {k: v[tsel_all] for k, v in fmB_all.items()}; itB = itB_all[tsel_all]
+        lsC = lsC_all[tsel_all]; fmC = {k: v[tsel_all] for k, v in fmC_all.items()}; itC = itC_all[tsel_all]
         pts = todo | vmask
         vsel = vmask[pts]; tsel = todo[pts]
         keys = sorted(base.modes.keys())
@@ -117,10 +127,12 @@ class TensorMomentsLC(TensorMoments):
         ref = lsA[tsel]
         VA = np.array([fmA[k][tsel] for k in keys])
         VB = np.array([fmB[k]*np.exp(lsB - ref) for k in keys])
+        VC = np.array([fmC[k]*np.exp(lsC - ref) for k in keys])
+        DV = np.maximum(np.abs(VA - VB), np.abs(VA - VC))          # model scatter over the three tail settings
         with np.errstate(invalid='ignore', divide='ignore'):
-            ptdev = np.max(np.abs(VA - VB), axis=0)/np.max(np.abs(VA), axis=0)
+            ptdev = np.max(DV, axis=0)/np.max(np.abs(VA), axis=0)
         ptdev = np.where(np.isfinite(ptdev), ptdev, np.inf)
-        good0 = (itA[tsel] < itail_max) & (itB < itail_max) & (ptdev < tol_pt)
+        good0 = (itA[tsel] < itail_max) & (itB < itail_max) & (itC < itail_max) & (ptdev < tol_pt) & (cas < CAS_MAX)
         # contiguity: in every t-column accept LC points only downwards from the radial-series region, stopping at the first
         # point that fails the A/B test or whose size jumps relative to its upper neighbour by more than a power u^{+-8}
         # (isolated points inside a rejected region are where A and B are both corrupted by the cancellation of the seeds)
@@ -156,12 +168,12 @@ class TensorMomentsLC(TensorMoments):
         self.dmodes = {k: np.zeros_like(base.modes[k]) for k in keys}        # |A - B| at LC points (same log scale)
         for j, k in enumerate(keys):
             self.modes[k][gi] = VA[j][good]
-            self.dmodes[k][gi] = np.abs(VA[j] - VB[j])[good]
+            self.dmodes[k][gi] = DV[j][good]
         self.logscale = base.logscale.copy(); self.logscale[gi] = ref[good]
         self.valid = dev
         self.info = dict(tA=round(tA), tB=round(tB), npts=int(todo.sum()), nfill=int(good.sum()),
                          n_rejected=int(((ptdev >= tol_pt) & (itA[tsel] < itail_max)).sum()),
-                         n_itail=int((itA[tsel] >= itail_max).sum()), valid=dev,
+                         n_itail=int((itA[tsel] >= itail_max).sum()), n_casimir=int((cas >= CAS_MAX).sum()), valid=dev,
                          seedsA=list(infoA.values()), seedsB=list(infoB.values()))
         if verbose:
             print(f"   [LC l={l} Delta={Delta:.4f} J={J}] {self.info['npts']} corner points (A {tA:.0f} s, B {tB:.0f} s): filled {self.info['nfill']}, "
