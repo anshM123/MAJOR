@@ -27,6 +27,7 @@ if [ "$1" != "fast" ]; then python3 t4b_convergence.py; fi   # truncation / grid
 python3 t7_corrections.py 1                               # components, O(1/m), O(1/m^2)             -> out_t7_corrections_l1.txt
 python3 t7_corrections.py 2                               #                                          -> out_t7_corrections_l2.txt
 python3 t7b_scalar_skeleton.py                            # scalar reference for the corrections     -> out_t7b_scalar_skeleton.txt
+python3 t7c_spin_dependence.py                            # spin-dependent part of the 1/m^2 terms   -> out_t7c_spin_dependence.txt
 python3 t8_uniformity.py 1                                # nu = x m, small beta                     -> out_t8_uniformity_l1.txt
 python3 t8_uniformity.py 2                                #                                          -> out_t8_uniformity_l2.txt
 python3 t9_tables.py                                      # tables of SPINNING_E2E.md                -> out_t9_tables.txt

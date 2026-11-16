@@ -119,6 +119,10 @@ if __name__ == "__main__":
             for (th1, th3) in ((0.3, 1.9), (2.2, 0.4)):
                 W, sh = spinning_test(l, Delta, J, Dphi, 0.25, 0.5, th1, th3)
                 pr(f"  l={l} Delta={Delta} J={J} Dphi={Dphi} pol=({th1},{th3}):  W_diff = {W:.8e}   shadow = {sh:.8e}   ratio = {W/sh:.6f}")
+    pr("# the same towards the Regge region (l = 1, Delta = 7.3, J = 2; r = q^2)")
+    for (q, xi) in ((0.15, 0.5), (0.1, 0.5), (0.1, 1.5)):
+        W, sh = spinning_test(1, 7.3, 2, 1.75, q, xi, 0.3, 1.9)
+        pr(f"  q={q} xi={xi}:  W_diff = {W:.8e}   shadow = {sh:.8e}   ratio = {W/sh:.6f}")
     pr("# scalar seeds: K g  vs  shadow integral  (q = |x| = |y|, xi);  third column: ratio")
     for (Delta, J) in ((7.3, 2), (8.6, 3)):
         for d in ((1.75, 1.75, 1.75, 1.75), (3.0, 1.75, 3.0, 1.75), (3.0, 1.75, 2.0, 2.75), (4.0, 1.75, 2.0, 3.75), (2.0, 3.75, 4.0, 1.75)):

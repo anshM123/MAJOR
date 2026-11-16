@@ -1,0 +1,23 @@
+momentum conservation |sum p|: 9.155133597044475e-16
+max |p_i.p_j|: 1.7434294741063621e-15
+normalisation |e+(p).e-(p)| (expect modulus 1; sign is convention): (0.9999999999999994-5.551115123125783e-17j)
+max |e_i.p_i|, |e_i.e_i|: 7.850570977173473e-15
+(b) |A2(+++)|^2 / |[12][23][31]|^2   (expect 1/8): 0.12499999999999992
+(c) I1/A2^2   (expect 8): (8.00000000000003+4.746185368842409e-15j)
+(c) I2/A2^2   (ECG order, expect 4): (3.9999999999999964+7.910308948070681e-16j)
+(c) I2'/A2^2  (2205.01495 order, expect 4): (4.0000000000000036+5.273539298713788e-15j)
+(c) I1 over the 6 assignments / I1 (expect all 1): [1.+0.j 1.+0.j 1.+0.j 1.+0.j 1.+0.j 1.+0.j]
+(c) I2 over the 6 assignments / I2 (expect all 1): [1.+0.j 1.+0.j 1.+0.j 1.+0.j 1.+0.j 1.+0.j]
+(c) tr(F1F2F3)/A2 (expect +-2): (1.9999999999999998+8.582081000595054e-16j)
+(d) *F_i / F_i for helicity + (expect common +-i): [ 0.-1.j  0.-1.j -0.-1.j]
+(d) max residual |*F - ratio F|: 3.4684476073050936e-15
+(d) [R R R~](+++)/I1 (expect +-i): (3.2959620616961055e-16-1.0000000000000002j)
+(a) |A1(--+)| * sqrt2 / |<12>^3/(<23><31>)|  (expect 1): 1.0000000000000004
+(e) |I1(--+)| (expect 0): 2.156006234688298e-14
+(f) A2 with new reference / A2 (expect 1): (0.999999999999999+6.130057857567896e-17j)
+
+Consequences (exact rationals, from (b),(c)):
+  L=(1/16piG)(-a3/6) I1, 3! assignments, R=(k/2)FxF, k^2=32piG:
+  M(+++) = -(a3/6)(1/16piG) * 6 * (k/2)^3 * 8 A2^2 = -4 a3 sqrt(8piG) A2^2 = -2 a3 sqrt(32piG) A2^2
+  |M(+++)| = 4|a3| sqrt(8piG) |[12][23][31]|^2/8 = (|a3|/2) sqrt(8piG) |[12][13][23]|^2  => |ghat3| = |a3| (CLPS (2.2),(2.11))
+  CEMZ sqrt(32piG)(A1^2 + alpha4 A2^2)  =>  alpha4_CEMZ = -2 a3 ;  2205.01495 (a4/12)C^3 -> +a4 A2^2 consistent (C^3 = 8 A2^2)

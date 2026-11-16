@@ -25,6 +25,7 @@ derivation with numerically checked positivity (arXiv:2201.06602 (4.4)).
 | 9 | Uniform remainder near the gap (`m ~ M`) in AdS4 | not started | — |
 | 10 | Light side in AdS4 (graviton exchange, double-traces, parity-odd) | not started | — |
 | 11 | The AdS4 bound | **does not exist** | — |
+| — | Dictionary ĝ₃ ↔ CFT3 data (`t₄² + α_T² = 57600|ĝ₃|²/L⁸`, `M L = Δ_gap`) and literature comparison (no rigorous Δ_gap bound on `t₄` in CFT3 found; closest: heuristic `|t₄| ≲ ln Δ/Δ⁴`, arXiv:1805.07393 §7) | derived and numerically cross-checked against three published cases; **unrefereed** | `DICTIONARY_T4.md` |
 
 ## Side results (independent, refereed)
 

@@ -9,11 +9,11 @@
   l=2 Delta=9.75 J=3 Dphi=1.75 [generic]: 4.91e-14
   l=2 Delta=8.5 J=4 Dphi=2.5 [frame-like]: 2.25e-14
   l=2 Delta=8.5 J=4 Dphi=2.5 [generic]: 3.82e-14
-# (b) OPE limit x_12 = delta*v -> 0:  W_diff (-1/8)^J / <C_L, R>  - 1   (must vanish linearly in delta)
-  l=1 Delta=9.75 J=3 Dphi=1.75:  delta = 1e-3, 1e-4, 1e-5: ['(-2.141 + 1.867e-34j)', '(-2.014 + 1.029e-33j)', '(-2.001 + 0.0j)']
-  l=1 Delta=6.5 J=4 Dphi=2.5:  delta = 1e-3, 1e-4, 1e-5: ['(0.004082 - 3.817e-36j)', '(0.0004072 - 1.524e-35j)', '(4.071e-5 - 4.662e-36j)']
-  l=2 Delta=9.75 J=3 Dphi=1.75:  delta = 1e-3, 1e-4, 1e-5: ['(-2.008 + 0.0j)', '(-1.956 + 0.0j)', '(-1.595 + 1.347e-35j)']
-  l=2 Delta=8.5 J=4 Dphi=2.5:  delta = 1e-3, 1e-4, 1e-5: ['(0.008941 + 6.339e-35j)', '(0.03244 - 1.044e-35j)', '(-0.8481 + 7.063e-36j)']
+# (b) OPE limit x_12 = delta*v -> 0 on the real section:  W_diff / (8^J <C_L, R>)  - 1   (must vanish linearly in delta)
+  l=1 Delta=9.75 J=3 Dphi=1.75:  delta = 1e-3, 1e-4, 1e-5: ['(0.1407 - 1.4e-33j)', '(0.01398 - 3.957e-34j)', '(0.001397 - 4.472e-34j)']
+  l=1 Delta=6.5 J=4 Dphi=2.5:  delta = 1e-3, 1e-4, 1e-5: ['(0.004082 - 5.323e-36j)', '(0.0004072 - 4.661e-36j)', '(4.071e-5 - 2.342e-37j)']
+  l=2 Delta=9.75 J=3 Dphi=1.75:  delta = 1e-3, 1e-4, 1e-5: ['(0.00723 + 0.0j)', '(0.0007204 + 0.0j)', '(7.202e-5 + 0.0j)']
+  l=2 Delta=8.5 J=4 Dphi=2.5:  delta = 1e-3, 1e-4, 1e-5: ['(0.007402 - 8.847e-35j)', '(0.0007383 - 1.716e-35j)', '(7.381e-5 + 1.747e-34j)']
 # (c) double vs quad evaluation of the stripped tensor at a point of the dispersive region (frame, r_u = 0.002, eta_u = 1.4)
   l=1 Delta=30.25 J=6: max |double/quad - 1| over 9 polarisation pairs = 1.13e-12;  sample value -4.68045422467e+14
   l=2 Delta=30.25 J=6: max |double/quad - 1| over 9 polarisation pairs = 1.04e-08;  sample value 5.8978093986e+21

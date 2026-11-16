@@ -93,10 +93,26 @@ if __name__ == "__main__":
                     pr(f"#   fits from the two largest m:  preserved: [c1/m + c2/m^2] c1 = {float(c1p):.4f}, c2 = {float(c2p):.2f};   [c2/m^2 + c4/m^4] c2 = {float(d2p):.2f}")
                     pr(f"#                                 flip:      [c1/m + c2/m^2] c1 = {float(c1f):.4f}, c2 = {float(c2f):.2f};   [c2/m^2 + c4/m^4] c2 = {float(d2f):.2f}")
                     pr(f"#   misfit at the third largest m (m = {float(m0):.1f}), relative to R-1:  preserved: odd+even ansatz {float(e12p/(p0-1)):+.3f}, even ansatz {float(e24p/(p0-1)):+.3f};  flip: {float(e12f/(f0-1)):+.3f}, {float(e24f/(f0-1)):+.3f}")
-                    summary[(beta, k, nu)] = (float(d2p), float(d2f), float(c1p), float(c1f))
+                    c3 = (float('nan'),)*4
+                    if len(seq) >= 4:
+                        # three-parameter fits with the three largest m, tested on the fourth largest:
+                        #   (A) c1/m + c2/m^2 + c4/m^4      (B) c2/m^2 + c4/m^4 + c6/m^6
+                        ms = np.array([float(t[0]) for t in seq]); m4 = ms[-4]
+                        line = []; c3 = []
+                        for name, idx in (("preserved", 1), ("flip", 2)):
+                            R = np.array([float(t[idx]) - 1 for t in seq])
+                            cA = np.linalg.solve(np.stack([1/ms[-3:], 1/ms[-3:]**2, 1/ms[-3:]**4], 1), R[-3:])
+                            cB = np.linalg.solve(np.stack([1/ms[-3:]**2, 1/ms[-3:]**4, 1/ms[-3:]**6], 1), R[-3:])
+                            eA = cA @ np.array([1/m4, 1/m4**2, 1/m4**4])/R[-4] - 1; eB = cB @ np.array([1/m4**2, 1/m4**4, 1/m4**6])/R[-4] - 1
+                            line.append(f"{name}: (A) c1 = {cA[0]:+.4f}, c2 = {cA[1]:.2f}; (B) c2 = {cB[0]:.2f}; misfit at m = {m4:.1f}: (A) {eA:+.3f}, (B) {eB:+.3f}")
+                            c3 += [float(cA[0]), float(cB[0])]
+                        pr("#   three-parameter fits (three largest m):  " + "   ||   ".join(line))
+                        c3 = tuple(c3)
+                    summary[(beta, k, nu)] = (float(d2p), float(d2f), float(c1p), float(c1f)) + c3
     pr("# ---- summary: O(1/m^2) coefficients c2 (even ansatz, two largest m) and the O(1/m) coefficient of the odd+even ansatz")
-    pr("#  beta   k   nu     c2_pres     c2_flip   |  c1_pres    c1_flip")
+    pr("#       and of the three-parameter fits: c1 of ansatz (A) [1/m, 1/m^2, 1/m^4], c2 of ansatz (B) [1/m^2, 1/m^4, 1/m^6]")
+    pr("#  beta   k   nu     c2_pres     c2_flip   |  c1_pres    c1_flip  ||  3-par: c1_pres   c2_pres    c1_flip   c2_flip")
     for (beta, k, nu), v in sorted(summary.items()):
-        pr(f"  {beta:4.1f}   {k}  {nu:4.1f}  {v[0]:10.2f}  {v[1]:10.2f}   | {v[2]:8.4f}  {v[3]:8.4f}")
+        pr(f"  {beta:4.1f}   {k}  {nu:4.1f}  {v[0]:10.2f}  {v[1]:10.2f}   | {v[2]:8.4f}  {v[3]:8.4f}  ||       {v[4]:+8.4f}  {v[5]:9.2f}   {v[6]:+8.4f}  {v[7]:9.2f}")
     open(f'out_t7_corrections_l{l}.txt', 'w').write("\n".join(out) + "\n")
     pickle.dump(summary, open(f'data_t7_l{l}.pkl', 'wb'))

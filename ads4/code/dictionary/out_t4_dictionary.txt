@@ -1,0 +1,54 @@
+--- check_varpi
+varpi_4(hyper)/varpi_4(closed) at rho=0.2,0.5,0.8 (constant expected): [0.0198943678864869, 0.0198943678864869, 0.0198943678864869]
+varpi_5(hyper)/varpi_5(closed) at rho=0.2,0.5,0.8 (constant expected): [0.0198943678864869, 0.0198943678864869, 0.0198943678864869]
+--- check_limits
+D=4: t4(rho->1)/alpha4  [expect D(D^2-1)(D-2) = 120]: 120
+D=4: t2(rho->1)  [expect (D-1)(D-2)(alpha2-(4D-2)alpha4)]: 6*alpha2 - 84*alpha4
+D=4: lim rho->0 of rho^4 t4(rho) varpi(rho)/alpha4 (finite: helicity-flip term ~ alpha4/b^4): 24
+D=5: t4(rho->1)/alpha4  [expect D(D^2-1)(D-2) = 360]: 360
+D=5: t2(rho->1)  [expect (D-1)(D-2)(alpha2-(4D-2)alpha4)]: 12*alpha2 - 216*alpha4
+D=5: lim rho->0 of 16 rho^4 t4(rho)/alpha4 [flat: (D-4)(D-2)D(D+2) = 105]: 105
+D=6: t4(rho->1)/alpha4  [expect D(D^2-1)(D-2) = 840]: 840
+D=6: t2(rho->1)  [expect (D-1)(D-2)(alpha2-(4D-2)alpha4)]: 20*alpha2 - 440*alpha4
+D=6: lim rho->0 of 16 rho^4 t4(rho)/alpha4 [flat: (D-4)(D-2)D(D+2) = 384]: 384
+D=7: t4(rho->1)/alpha4  [expect D(D^2-1)(D-2) = 1680]: 1680
+D=7: t2(rho->1)  [expect (D-1)(D-2)(alpha2-(4D-2)alpha4)]: 30*alpha2 - 780*alpha4
+D=7: lim rho->0 of 16 rho^4 t4(rho)/alpha4 [flat: (D-4)(D-2)D(D+2) = 945]: 945
+--- check_GB
+GB D=5: CEMZ rho->1 t2 / Buchel et al. t2 (expect 1): 1
+GB D=6: CEMZ rho->1 t2 / Buchel et al. t2 (expect 1): 1
+GB D=7: CEMZ rho->1 t2 / Buchel et al. t2 (expect 1): 1
+GB D=8: CEMZ rho->1 t2 / Buchel et al. t2 (expect 1): 1
+--- check_QTG_ECG
+QTG d=4: t4 from dictionary (MPS 1004.2055: 3780 mu): 3780*mu
+QTG d=4 via Z_5 = I2 + ... (7/4 mu): t4: 3780*mu
+ECG d=3: t4 from dictionary (BCR 1802.00018: -1260 mu): -1260*mu
+d=3 dictionary: t4 = c * alpha3/L^4 with c: -240
+--- check_weyl_identity
+dim=4: I2/I1 for random Weyl tensors (1/2 in dim<=5 expected; generic in 6): [0.5 0.5 0.5]
+dim=5: I2/I1 for random Weyl tensors (1/2 in dim<=5 expected; generic in 6): [0.5 0.5 0.5]
+dim=6: I2/I1 for random Weyl tensors (1/2 in dim<=5 expected; generic in 6): [-1.15620538  0.27527986 -0.61020037]
+--- check_HM_d3
+HM d=3: angular mean of |e_ij n_i n_j|^2/e*e (expect 1/4); min,max: (np.float64(0.25), np.float64(0.0), np.float64(0.5))
+HM d=3: angular mean of |e_ij n_i n_j|^2/e*e (expect 1/4); min,max: (np.float64(0.25), np.float64(0.0), np.float64(0.5))
+HM d=3: angular mean of |e_ij n_i n_j|^2/e*e (expect 1/4); min,max: (np.float64(0.25), np.float64(0.25), np.float64(0.25))
+--- check_CT
+C_T(d=3): 3*L**2/(pi**3*G)
+C_T^{free real scalar}(d=3): 3/(32*pi**2)
+c_T = C_T/C_T^scalar: 32*L**2/(pi*G)
+ABJM c_T (expect 64 sqrt(2k) N^{3/2}/(3 pi)): 64*sqrt(2)*N**(3/2)*sqrt(k)/(3*pi)
+--- check_regulator
+a=0.01: int psi2/(p^2+a^2) - int_a^1 psi2/p^2  (O(a) expected): 0.29597101
+a=0.001: int psi2/(p^2+a^2) - int_a^1 psi2/p^2  (O(a) expected): 0.024017442
+a=0.0001: int psi2/(p^2+a^2) - int_a^1 psi2/p^2  (O(a) expected): 0.0023001715
+--- translation
+(t4^2+alphaT^2) <= 57600 |ghat3|^2 M^8 / Delta^8 ;  57600*A: 2179509.12
+(i) constant term with log(M/m_IR) -> log(2 Delta/3): 57600*(B - A log 1.5): -3487574.7409635303
+(ii) constant term with log(M/m_IR) -> log(2 Delta/3): 57600*(B - A log 1.5): -3233218.90096353
+|c|^2 = (t4^2+alphaT^2)/16 = 3600 |ghat3|^2 M^8/Delta^8; 3600*A: 136219.32
+CLPS (4.4) optimal (uncertified here): 57600*24.9, 57600*(-27.6): (1434240.0, -1589760.0)
+Delta_gap=10: RHS of t4^2+alphaT^2 bound (i), heuristic uplift [OUTSIDE range of Thm 3 (illustration)]; Delta^4*sqrt(RHS): (np.float64(0.015309304687930412), np.float64(1237.3077502355834))
+Delta_gap=30: RHS of t4^2+alphaT^2 bound (i), heuristic uplift [OUTSIDE range of Thm 3 (illustration)]; Delta^4*sqrt(RHS): (np.float64(5.982877566360705e-06), np.float64(1981.2536362841734))
+Delta_gap=150: RHS of t4^2+alphaT^2 bound (i), heuristic uplift [in range of Thm 3(i)]; Delta^4*sqrt(RHS): (np.float64(2.900299570729103e-11), np.float64(2726.3804905979546))
+Delta_gap=1000: RHS of t4^2+alphaT^2 bound (i), heuristic uplift [in range of Thm 3(i)]; Delta^4*sqrt(RHS): (np.float64(1.156794088830618e-17), np.float64(3401.167577216121))
+Delta_gap=30000: RHS of t4^2+alphaT^2 bound (i), heuristic uplift [in range of Thm 3(i)]; Delta^4*sqrt(RHS): (np.float64(2.8929860692819645e-29), np.float64(4356.705360769645))

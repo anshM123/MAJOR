@@ -71,28 +71,48 @@ if __name__ == "__main__":
                     zeroP = abs(P0)/mp.sqrt(abs(P0)**2 + abs(dP)**2/(nu*nu + 0.25))
                     flag = "" if supp > 1e-6 else "  (unreliable)"
                     pr(f"  {float(m):7.2f}  {nu:7.3f}  {x:5.2f}   {float(mp.re(Rp)):10.6f}  {float(mp.re(Rf)):10.6f}  {float(Rs):10.6f}   {float(mp.re(Rp)/Rs):10.6f}     {float((Rs-1)/x**2):9.3f}      {float(zeroP):5.2f}   {supp:.0e}{flag}")
-    pr("# (b) small impact parameter (J = 1, 2, 3, 5):  exact/leading for the modes (l,-l) and (l,l), and the same with the exact")
-    pr("#     normalisation polynomials restored ('impr');  nu*beta is the argument of the flat-space Bessel functions")
+    pr("# (b) small impact parameter (fixed J, beta ~ (2J+1)/m):  exact/prediction for the modes (l,-l) and (l,l)")
+    pr("#     lead : the leading formula (predict.py)")
+    pr("#     impr : the same with the exact normalisation polynomials of the conserved structures restored,")
+    pr("#              (J+1/2)^{2l} -> prod_{i=1..l} [(J+1/2)^2 - (i-1/2)^2],   (Delta-3/2)^{2l} -> prod_{i=1..l} [(Delta-3/2)^2 - (i-1/2)^2]")
+    pr("#     impr2: in addition the helicity-preserving harmonic function evaluated at  eta_eff = eta_AdS - 2 l^2/m^2")
+    pr("#              (i.e. (J+1/2)^2 -> (J+1/2)^2 - l^2 and (Delta-3/2)^2 -> (Delta-3/2)^2 - l^2 inside P; see SPINNING_E2E.md sect. 6.3)")
+    pr("#     impr3: in addition the flip harmonic function F_{2l}(beta) ~ ((J+1/2) nu/m)^{2l}/(2l)! multiplied by prod[(J+1/2)^2-(i-1/2)^2]/(J+1/2)^{2l}")
+    pr("#              (the flat-space ratio d^J_{l,-l}/d^J_{l,l} ~ [(J+l)!/(J-l)!] (theta/2)^{2l}/(2l)!)")
+    pr("#     nu*beta is the argument of the flat-space Bessel functions;  supp as in (a)")
     for k in (4, 6):
         pr(f"# k = {k}")
-        pr("#     m     J    beta     nu   nu*beta |  (l,-l): leading    impr   |  (l,l): leading     impr   |   supp")
-        for c in small_cases(l):
+        pr("#     m     J    beta     nu   nu*beta |  (l,-l):  lead      impr     impr2     impr3  |  (l,l):  lead      impr     impr2     impr3  |  supp")
+        for c in small_cases(l) + [cc for cc in main_cases() if abs(float(info(*cc)[1]) - 0.4) < 0.06]:
             if not os.path.exists(fname(l, *c)): continue
             m, b_, eta = info(*c)
             mom = get_moments(l, *c)
             D, J = mp.mpf(c[0]), c[1]
-            if l == 2:
-                fac = ((J-1)*J*(J+1)*(J+2))/(J + mp.mpf(1)/2)**4*(D*(D-1)*(D-2)*(D-3))/(D - mp.mpf(3)/2)**4
-            else:
-                fac = (J*(J+1))/(J + mp.mpf(1)/2)**2*((D-1)*(D-2))/(D - mp.mpf(3)/2)**2
+            Am, Ap = J + mp.mpf(1)/2, D - mp.mpf(3)/2
+            fac = mp.mpf(1)
+            for i in range(1, l + 1):
+                fac *= (Am**2 - (i - mp.mpf(1)/2)**2)/Am**2*(Ap**2 - (i - mp.mpf(1)/2)**2)/Ap**2
+            facJ = mp.mpf(1)
+            for i in range(1, l + 1):
+                facJ *= (Am**2 - (i - mp.mpf(1)/2)**2)/Am**2
+            eta_eff = eta - 2*l*l/(m*m)
             for nu in (0.0, 1.0, 3.0, 6.0):
                 res, supp = moments_with_supp(mom, k, nu, [(l, -l), (l, l)])
                 row = []
                 for (q1, q3) in ((l, -l), (l, l)):
                     pref, beta = scalar_prefactor(l, c[0], c[1], DPHI, k, nu)
                     A, B = components(l, k, nu, q1, q3)
-                    pd = pref*(A*Fnu_mp(nu, 0, beta) + B*Fnu_mp(nu, 2*l, beta))
+                    P0 = Fnu_mp(nu, 0, beta); F0 = Fnu_mp(nu, 2*l, beta)
+                    pd = pref*(A*P0 + B*F0)
                     r = mp.re(res[(k, nu, q1, q3)]/pd)
-                    row.append(f"{float(r):9.5f}  {float(r/fac):9.5f}")
+                    if eta_eff > 1:
+                        Pe = Fnu_mp(nu, 0, mp.acosh(eta_eff))
+                    else:
+                        Pe = mp.hyp2f1(mp.mpf(1)/2 - 1j*nu, mp.mpf(1)/2 + 1j*nu, 1, (1 - eta_eff)/2)
+                    pd2 = pref*fac*(A*Pe + B*F0)
+                    r2 = mp.re(res[(k, nu, q1, q3)]/pd2)
+                    pd3 = pref*fac*(A*Pe + B*F0*facJ)
+                    r3 = mp.re(res[(k, nu, q1, q3)]/pd3)
+                    row.append(f"{float(r):9.5f} {float(r/fac):9.5f} {float(r2):9.5f} {float(r3):9.5f}")
                 pr(f"  {float(m):6.2f}  {J:2d}  {float(b_):6.4f}  {nu:4.1f}  {float(nu*b_):6.3f}  |  " + "   |  ".join(row) + f"   |  {supp:.0e}")
     open(f'out_t8_uniformity_l{l}.txt', 'w').write("\n".join(out) + "\n")
