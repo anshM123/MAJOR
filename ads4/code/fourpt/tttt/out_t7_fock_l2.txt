@@ -1,0 +1,31 @@
+# [TT]_{N,J}: Fock data in CHL's x-space helicity basis (fourpt/tttt/t7_fock_l2.py); Delta = 6 + N, n = (4 + N - J)/2
+  l=2 N=0 J=4 n=0: orders {'same': -1, 'opp': -1}; G_offdiag = 8/25515, det = 0 (degenerate); p[T_opp]/p[T_same] = 1/4900 eps^0  vs  A_opp/A_same = 1/4900 eps^0  -> MATCH; p[S_h] = {'same': 3572100, 'opp': 729}  (5 s)
+  l=2 N=0 J=2 n=1: orders {'same': -1}; p[S_h] = {'same': 525}  (0 s)
+  l=2 N=0 J=0: CHL same structure not polynomial at this double-twist point (J < 2l) -- skipped
+  l=2 N=1 J=5 n=0: orders {'same': -1, 'opp': -1}; G_offdiag = 16/190575, det = 0 (degenerate); p[T_opp]/p[T_same] = 25/15876 eps^0  vs  A_opp/A_same = 25/15876 eps^0  -> MATCH; p[S_h] = {'same': 9604980, 'opp': 15125}  (2 s)
+  l=2 N=1 J=3 n=1: orders {'same': -1}; p[S_h] = {'same': 8820}  (0 s)
+  l=2 N=1 J=1: CHL same structure not polynomial at this double-twist point (J < 2l) -- skipped
+  l=2 N=2 J=6 n=0: orders {'same': -1, 'opp': -1}; G_offdiag = 16/351351, det = 0 (degenerate); p[T_opp]/p[T_same] = 1/196 eps^0  vs  A_opp/A_same = 1/196 eps^0  -> MATCH; p[S_h] = {'same': 19675656, 'opp': 100386}  (2 s)
+  l=2 N=2 J=4 n=1: orders {'same': -1, 'opp': -1}; G_offdiag = 0, det = nonzero; p[T_opp]/p[T_same] = 1/980 eps^0  vs  A_opp/A_same = 1/980 eps^0  -> MATCH; p[S_h] = {'same': 36750, 'opp': 75/2}  (1 s)
+  l=2 N=2 J=2 n=2: orders {'same': -1}; p[S_h] = {'same': 4725/11}  (1 s)
+  l=2 N=2 J=0: CHL same structure not polynomial at this double-twist point (J < 2l) -- skipped
+  l=2 N=3 J=7 n=0: orders {'same': -1, 'opp': -1}; G_offdiag = 32/868725, det = 0 (degenerate); p[T_opp]/p[T_same] = 49/4356 eps^0  vs  A_opp/A_same = 49/4356 eps^0  -> MATCH; p[S_h] = {'same': 229343400/7, 'opp': 368550}  (3 s)
+  l=2 N=3 J=5 n=1: orders {'same': -1, 'opp': -1}; G_offdiag = 0, det = nonzero; p[T_opp]/p[T_same] = 5/1188 eps^0  vs  A_opp/A_same = 5/1188 eps^0  -> MATCH; p[S_h] = {'same': 91476, 'opp': 385}  (3 s)
+  l=2 N=3 J=3 n=2: orders {'same': -1}; p[S_h] = {'same': 28875/13}  (2 s)
+  l=2 N=3 J=1: CHL same structure not polynomial at this double-twist point (J < 2l) -- skipped
+  l=2 N=4 J=8 n=0: orders {'same': -1, 'opp': -1}; G_offdiag = 8/206635, det = 0 (degenerate); p[T_opp]/p[T_same] = 196/9801 eps^0  vs  A_opp/A_same = 196/9801 eps^0  -> MATCH; p[S_h] = {'same': 327309840/7, 'opp': 8415680/9}  (7 s)
+  l=2 N=4 J=6 n=1: orders {'same': -1, 'opp': -1}; G_offdiag = 0, det = nonzero; p[T_opp]/p[T_same] = 1/99 eps^0  vs  A_opp/A_same = 1/99 eps^0  -> MATCH; p[S_h] = {'same': 169884, 'opp': 1716}  (5 s)
+  l=2 N=4 J=4 n=2: orders {'same': -1, 'opp': -1}; G_offdiag = 0, det = nonzero; p[T_opp]/p[T_same] = 1/495 eps^0  vs  A_opp/A_same = 1/495 eps^0  -> MATCH; p[S_h] = {'same': 6237, 'opp': 63/5}  (11 s)
+  l=2 N=4 J=2 n=3: orders {'same': -1}; p[S_h] = {'same': 37125/26}  (5 s)
+  l=2 N=4 J=0: CHL same structure not polynomial at this double-twist point (J < 2l) -- skipped
+  l=2 N=5 J=9 n=0: orders {'same': -1, 'opp': -1}; G_offdiag = 176/3590145, det = 0 (degenerate); p[T_opp]/p[T_same] = 15876/511225 eps^0  vs  A_opp/A_same = 15876/511225 eps^0  -> MATCH; p[S_h] = {'same': 414861200/7, 'opp': 222699456/121}  (13 s)
+  l=2 N=5 J=7 n=1: orders {'same': -1, 'opp': -1}; G_offdiag = 0, det = nonzero; p[T_opp]/p[T_same] = 147/7865 eps^0  vs  A_opp/A_same = 147/7865 eps^0  -> MATCH; p[S_h] = {'same': 16359200/63, 'opp': 14560/3}  (9 s)
+  l=2 N=5 J=5 n=2: orders {'same': -1, 'opp': -1}; G_offdiag = 0, det = nonzero; p[T_opp]/p[T_same] = 1/143 eps^0  vs  A_opp/A_same = 1/143 eps^0  -> MATCH; p[S_h] = {'same': 212355/17, 'opp': 1485/17}  (23 s)
+  l=2 N=5 J=3 n=3: orders {'same': -1}; p[S_h] = {'same': 75075/17}  (11 s)
+  l=2 N=5 J=1: CHL same structure not polynomial at this double-twist point (J < 2l) -- skipped
+  l=2 N=6 J=10 n=0: orders {'same': -1, 'opp': -1}; G_offdiag = 2288/32049675, det = 0 (degenerate); p[T_opp]/p[T_same] = 900/20449 eps^0  vs  A_opp/A_same = 900/20449 eps^0  -> MATCH; p[S_h] = {'same': 68372640, 'opp': 61535376000/20449}  (24 s)
+  l=2 N=6 J=8 n=1: orders {'same': -1, 'opp': -1}; G_offdiag = 0, det = nonzero; p[T_opp]/p[T_same] = 140/4719 eps^0  vs  A_opp/A_same = 140/4719 eps^0  -> MATCH; p[S_h] = {'same': 344760, 'opp': 1237600/121}  (14 s)
+  l=2 N=6 J=6 n=2: orders {'same': -1, 'opp': -1}; G_offdiag = 0, det = nonzero; p[T_opp]/p[T_same] = 15/1001 eps^0  vs  A_opp/A_same = 15/1001 eps^0  -> MATCH; p[S_h] = {'same': 1145144/57, 'opp': 5720/19}  (39 s)
+  l=2 N=6 J=4 n=3: orders {'same': -1, 'opp': -1}; G_offdiag = 0, det = nonzero; p[T_opp]/p[T_same] = 3/1001 eps^0  vs  A_opp/A_same = 3/1001 eps^0  -> MATCH; p[S_h] = {'same': 6081075/646, 'opp': 18225/646}  (45 s)
+  l=2 N=6 J=2 n=4: orders {'same': 0}; p[S_h] = {'same': 1891890/323}  (18 s)
+  l=2 N=6 J=0: CHL same structure not polynomial at this double-twist point (J < 2l) -- skipped

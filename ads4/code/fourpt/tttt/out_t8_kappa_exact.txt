@@ -1,0 +1,4 @@
+  l=1 (Delta,J)=(97/10,13/3) same: word-relation dims 0,0; lambda_h = 4677933568*2**(2/3)/2793309;  kappa_h = 14164.7684033115;  kappa_h A_h / 2^(3J+3/2) = 1   (6 s)
+  l=1 (Delta,J)=(97/10,13/3) opp: word-relation dims 0,0; lambda_h = 137826304*2**(2/3)/21515;  kappa_h = 54183.2646292302;  kappa_h A_h / 2^(3J+3/2) = 1   (0 s)
+  l=1 (Delta,J)=(53/4,11/2) same: word-relation dims 0,0; lambda_h = 411275264/54537;  kappa_h = 186236.303427031;  kappa_h A_h / 2^(3J+3/2) = 1   (0 s)
+  l=1 (Delta,J)=(53/4,11/2) opp: word-relation dims 0,0; lambda_h = 130404352/6237;  kappa_h = 516344.242424242;  kappa_h A_h / 2^(3J+3/2) = 1   (0 s)
