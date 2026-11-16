@@ -1,0 +1,7 @@
+# <TTTT> end to end (fourpt/tttt/t13_analysis_l2.py): modes_l2_D24.299203_J4_d.npz: Delta=24.299203 J=4 m=22.3507 beta=0.4; k=6 nu=0.0; c_T=9.0
+  wave ('same', 'same'): class ratios fit/pred ff_ss: -0.0060, ss: 0.0426;  |classes predicted 0|/T_pred max: 3.0e+03;  LSQ resid 8.5e-01;  one-scale fit 0.0006+7.2e-20i (resid 9.7e-01)
+  wave ('same', 'opp'): class ratios fit/pred fp_so: -2931.6413, pf_so: -2931.6417;  |classes predicted 0|/T_pred max: 7.8e+05;  LSQ resid 9.8e-01;  one-scale fit 9.2448-1.9e-13i (resid 1.0e+00)
+  wave ('opp', 'same'): class ratios fit/pred fp_os: -415451.5147, pf_os: -415451.5584;  |classes predicted 0|/T_pred max: 1.1e+08;  LSQ resid 9.8e-01;  one-scale fit 1310.1134-2.7e-11i (resid 1.0e+00)
+  wave ('opp', 'opp'): class ratios fit/pred ff_oo: -4771434735.2769, oo: 83509.6821;  |classes predicted 0|/T_pred max: 1.2e+05;  LSQ resid 8.4e-01;  one-scale fit 998.5698+1.2e-13i (resid 9.7e-01)
+  wave mix: class ratios fit/pred ff_oo: 24732327217.2378, fp_os: -3317194.9815, pf_os: -3317196.7820, oo: 32902.3060, fp_so: -12531.9717, ff_ss: -16848.3382, ss: 32901.8294, pf_so: -12531.9816;  |classes predicted 0|/T_pred max: 0.0e+00;  LSQ resid 8.0e-01;  one-scale fit 881.4608+1.0e-13i (resid 9.5e-01);  Sigma_+ fit/pred = 32902.0677;  Sigma_- = T_oo - T_ss: fit 1.6260e-07 vs pred 5.2940e-23 (relative to Sigma_+ pred: 2.38e-01)
+  prediction-free factorisation T^so T^os/(T^ss T^oo) = -27.9109;  T^so/T^os = 1.0000 vs lambda_o/lambda_s = 141.7129
