@@ -122,12 +122,34 @@ For `d ≥ 5` and `0 < n < 2`, positivity follows from (B.15) by one integration
 `Q_n = sin(πn/2)Γ(n)/(β^n sinh β)`, with `Q_2 ≡ 0`. So `d = 3` is the only case in which (B.15) has no definite
 sign term by term, and it is the case treated by Lemma Q.
 
+## Lemma M: the monotonicity stated "by inspection" (all `d > 2`) — proved 16 Nov 2026, **not yet refereed**
+
+In the same AdS4 argument the positivity of the "improvement" terms is completed "by noting, by inspection,
+that the ratio [their (5.35)] is a monotonically increasing function of `β`", where the ratio is, up to a
+positive constant, `r(β) := −[∂φ_ν(β)/∂(ν²)]_{ν=0} / φ_0(β)` with `φ_ν(β) := P_{(2−d)/2+iν}(cosh β)`.
+
+**Lemma M.** For every `d > 2` and `β > 0`,
+
+`r′(β) = (1/w(β)) ∫_0^β w(s) ds > 0`, `w(s) := φ_0(s)² sinh^{d−2} s`.
+
+*Proof.* `φ_ν` is the spherical function of `H^{d−1}`: the solution, regular and equal to `1` at `β = 0`, of
+`Lφ_ν = −(ν² + ((d−2)/2)²) φ_ν`, `L := ∂_β² + (d−2) coth β ∂_β` (for `d = 3` this is Legendre's equation with degree
+`−½ + iν`). It is even and analytic in `ν`; write `φ_ν = φ_0 − ν² ψ + O(ν⁴)`, so `r = ψ/φ_0`. Comparing powers of `ν²`:
+`Lφ_0 = −((d−2)/2)² φ_0` and `Lψ = −((d−2)/2)² ψ + φ_0`. `φ_0 > 0` (it has a representation as an average of
+positive functions over the sphere). Substituting `ψ = rφ_0`:
+`φ_0 [ r″ + (2φ_0′/φ_0 + (d−2) coth β) r′ ] = φ_0`, i.e. `(w r′)′ = w`, since `w′/w = 2φ_0′/φ_0 + (d−2) coth β`.
+`r` is smooth and even at `β = 0` and `w(0) = 0`, so `w r′ = ∫_0^β w`. ∎
+
+Checks (`ads4/code/ratio_monotone.py`): numerical derivative of `r` against the formula, `d = 3, 4, 5`,
+`β = 0.3, 1, 3, 8`: agreement to 10 digits; in `d = 4`, `r = β²/6` (the paper's footnote gives `β²/24` for its
+normalisation of (5.35)).
+
 ## What this does and does not establish
 
 * In (5.63) the functional's limit is `a_1 Q_1/M² + a_2 Q_2/M³` with `a_1 = 1310 > 0`, `a_2 = −1080 < 0`, so
   "`Q_1 > 0` and `Q_2 < 0` for all `β > 0`" is exactly the sign input used there (referee's reading of the paper).
-* **Still unproved in the same AdS4 passage:** monotonicity of the ratio in their (5.35), stated "by
-  inspection" (confirmed numerically for `d = 3`, `β ∈ [0.1, 30]`, by the referee); uniformity in `β` of the
+* Monotonicity of the ratio in their (5.35), stated "by inspection": now Lemma M above (all `d > 2`).
+* **Still unproved in the same AdS4 passage:** uniformity in `β` of the
   subleading and oscillatory terms (their footnote 27 and appendix F.1); positivity of the flat-space
   functional (5.55), which is numerical.
 * A slip in the paper noticed by the referee: at large `β` the correction to the leading term of (5.44) is
