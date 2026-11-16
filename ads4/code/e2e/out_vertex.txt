@@ -7,3 +7,19 @@
   l=2 Dphi=1.75 Delta=500.25 J=200 m=456.674: ['1.0142759', '1.0106279', '1.1044375']
   l=2 Dphi=1.75 Delta=5000.25 J=2000 m=4580.99: ['1.0014182', '1.0010595', '1.0099355']
   l=2 Dphi=1.75 Delta=50000.25 J=20000 m=45824.2: ['1.0001417', '1.0001059', '1.0009887']
+# O(1/m) term of the integrand, pointwise, relative to the leading form in Weyl-odd variables (integrand_leading_weyl), times b-independent
+#   m*(exact/leading - 1)  for (z_1,z_3), for (z_3,z_1), and for the 1<->3 symmetrised tensor.
+#   Claim (Weyl reflection (x,y;alpha,alphabar) -> (-x,-y;-alpha,-alphabar) at fixed X = m x, Y = m y): the O(1/m) term is antisymmetric under
+#   z_1 <-> z_3, so the last column must decrease like 1/m.   [the factor 1/b is common and is tested separately in t3/t7]
+  l=1 pol=(0.3,1.9) m=456.674:  1.2775   -1.24765   symmetrised: 0.0149272   m^2*(sym-1): 6.81688
+  l=1 pol=(0.3,1.9) m=4580.99:  1.29637   -1.29339   symmetrised: 0.00149124   m^2*(sym-1): 6.83136
+  l=1 pol=(0.3,1.9) m=45824.2:  1.29835   -1.29805   symmetrised: 0.000149111   m^2*(sym-1): 6.83288
+  l=1 pol=(4.0,5.1) m=456.674:  -4.85478   4.90466   symmetrised: 0.0249442   m^2*(sym-1): 11.3914
+  l=1 pol=(4.0,5.1) m=4580.99:  -4.85632   4.86127   symmetrised: 0.00247518   m^2*(sym-1): 11.3388
+  l=1 pol=(4.0,5.1) m=45824.2:  -4.85649   4.85699   symmetrised: 0.000247328   m^2*(sym-1): 11.3336
+  l=2 pol=(0.3,1.9) m=456.674:  1.59883   -1.62779   symmetrised: -0.0144799   m^2*(sym-1): -6.6126
+  l=2 pol=(0.3,1.9) m=4580.99:  1.60947   -1.61242   symmetrised: -0.00147576   m^2*(sym-1): -6.76045
+  l=2 pol=(0.3,1.9) m=45824.2:  1.61056   -1.61086   symmetrised: -0.000147855   m^2*(sym-1): -6.77532
+  l=2 pol=(4.0,5.1) m=456.674:  37.9669   -37.6501   symmetrised: 0.158417   m^2*(sym-1): 72.3449
+  l=2 pol=(4.0,5.1) m=4580.99:  36.5651   -36.5347   symmetrised: 0.0151943   m^2*(sym-1): 69.6051
+  l=2 pol=(4.0,5.1) m=45824.2:  36.4307   -36.4277   symmetrised: 0.00151322   m^2*(sym-1): 69.3421

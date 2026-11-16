@@ -117,10 +117,10 @@ void block_get(const real *Bt, long idx, double *out2) { to2(Bt[idx], out2); }
 
 /*
  * out[p][k][l] (as hi,lo pairs) = sum_{n,j} B_{n,j} sig^n (Delta+n)^k r^n P_j^{(l)}(cosh chi),  k <= kmax, l <= lmax,
- * sig = +1 or -1.  r, chi given as (hi, lo) pairs.  cut: levels n with (r e^chi)^n e^{J chi} n^{kmax+2 lmax+6} < exp(-cut) are dropped.
+ * sig = +1 or -1.  r, chi given as (hi, lo) pairs.  cut, pwcut: levels n with (r e^chi)^n e^{J chi} n^pwcut < exp(-cut) are dropped.
  */
 void block_eval(const real *Bt, const long *off, const double *Delta2, int J, int N, int npts,
-                const double *r2, const double *chi2, int sig, int kmax, int lmax, double cut, double *out)
+                const double *r2, const double *chi2, int sig, int kmax, int lmax, double cut, double pwcut, double *out)
 {
     real Delta = from2(Delta2);
     int jmax = J + N;
@@ -135,8 +135,9 @@ void block_eval(const real *Bt, const long *off, const double *Delta2, int J, in
             int nmaxp = N;
             /* terms decay like (r e^{chi})^n = rho_big^n */
             if (lr + chi < 0) {
-                /* (r e^chi)^n e^{J chi} n^pw < exp(-cut),  pw = kmax + 2 lmax + 6 (powers of n from the derivatives and from B) */
-                double pw = (double)(kmax + 2*lmax + 6), lrb = (double)(lr + chi), base = cut + (double)J*(double)chi;
+                /* levels with (r e^chi)^n e^{J chi} n^pwcut < exp(-cut) are dropped; the observed truncation error of the conserved
+                   tensors is e^{-X} X^p, X = n(-log rho_big), p ~ 5 (l = 1), so pwcut = 6..10 with cut = 30 is safe (t4b_convergence.py) */
+                double pw = pwcut, lrb = (double)(lr + chi), base = cut + (double)J*(double)chi;
                 double q = -base/lrb;
                 for (int it = 0; it < 4; it++) q = -(base + pw*log(q + 10.0))/lrb;
                 if (q < (double)N) nmaxp = (int)q + 1;

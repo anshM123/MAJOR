@@ -18,7 +18,7 @@ def gl(a, b, n):
     x, w = np.polynomial.legendre.leggauss(n)
     return 0.5*(b-a)*x + 0.5*(b+a), 0.5*(b-a)*w
 
-def make_grid(Delta, J, upanels=((0.0, 0.01, 8), (0.01, 0.03, 10), (0.03, 0.1, 14), (0.1, 0.3, 16), (0.3, 1.0, 24)), tpanels=((0.0, 6.0, 18), (6.0, 28.0, 28), (28.0, 85.0, 24))):
+def make_grid(Delta, J, upanels=((0.0, 0.01, 8), (0.01, 0.03, 10), (0.03, 0.1, 14), (0.1, 0.3, 16), (0.3, 1.0, 24)), tpanels=((0.0, 6.0, 16), (6.0, 28.0, 26), (28.0, 85.0, 20))):
     us, uw = zip(*[gl(a, b, n) for (a, b, n) in upanels]); us, uw = np.concatenate(us), np.concatenate(uw)
     ts, tw = zip(*[gl(a, b, n) for (a, b, n) in tpanels]); ts, tw = np.concatenate(ts), np.concatenate(tw)
     al, alb = alpha_pair(Delta, J)
@@ -67,13 +67,13 @@ def fourier_modes(M, lmax=2):
             out[(q1, q3)] = np.tensordot(M, ph, axes=([1, 2], [0, 1]))/nth**2
     return out
 
-def series_converged(rs, chi, J, N, cut=25.0):
+def series_converged(rs, chi, J, N, cut=25.0, p=10.0):
     """True where the radial series with N levels (and the derivative sums) has converged.  With X = -N log(rho_big) - J chi
-    the observed truncation error of the conserved tensor is ~ e^{-X} X^5 (t4b_convergence.py: 3e-9 at X = 37, 1e-4 at X = 26,
-    < 1e-16 at X > 50); points with  X - 6 log X < cut  are dropped."""
+    the observed truncation error of the conserved l = 1 tensor is ~ e^{-X} X^5 (3e-9 at X = 37, 1e-4 at X = 26, < 1e-16 at
+    X > 50); points with  X - p log X < cut  are dropped (p = 10 covers the fourth-order derivative sums of l = 2)."""
     X = -N*(np.log(rs) + chi) - J*chi
     with np.errstate(divide='ignore', invalid='ignore'):
-        crit = X - 6*np.log(np.maximum(X, 1.0))
+        crit = X - p*np.log(np.maximum(X, 1.0))
     return (X > 8) & (crit > cut)
 
 class ScalarMoments:

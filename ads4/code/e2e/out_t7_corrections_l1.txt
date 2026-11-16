@@ -4,37 +4,82 @@
 #      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes
      12.42    0.8978239     -1.2687     -15.754  |    0.6561301     -4.2699     -53.019  | 1.3e-02
      22.35    0.9626044     -0.8358     -18.681  |    0.6719649     -7.3318    -163.871  | 2.4e-02
+     42.22    0.9856850     -0.6044     -25.515  |    0.6955739    -12.8523    -542.596  | 2.6e-02
+#   fits from the two largest m:  preserved: [c1/m + c2/m^2] c1 = -0.3440, c2 = -10.99;   [c2/m^2 + c4/m^4] c2 = -28.18
+#                                 flip:      [c1/m + c2/m^2] c1 = -19.0628, c2 = 262.19;   [c2/m^2 + c4/m^4] c2 = -690.08
+#   misfit at the third largest m (m = 12.4), relative to R-1:  preserved: odd+even ansatz -0.031, even ansatz -1.164;  flip: -1.481, -20.141
 # beta ~ 0.4, k = 2, nu = 1.0
 #      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes
      12.42    0.9189066     -1.0069     -12.503  |    0.8059901     -2.4090     -29.913  | 5.3e-03
      22.35    0.9753158     -0.5517     -12.331  |    0.8815698     -2.6470     -59.162  | 5.8e-03
+     42.22    0.9946195     -0.2272      -9.590  |    0.9161868     -3.5384    -149.385  | 6.1e-03
+#   fits from the two largest m:  preserved: [c1/m + c2/m^2] c1 = 0.1380, c2 = -15.41;   [c2/m^2 + c4/m^4] c2 = -8.52
+#                                 flip:      [c1/m + c2/m^2] c1 = -4.5413, c2 = 42.34;   [c2/m^2 + c4/m^4] c2 = -184.52
+#   misfit at the third largest m (m = 12.4), relative to R-1:  preserved: odd+even ansatz +0.096, even ansatz +0.669;  flip: -0.530, -8.409
 # beta ~ 0.4, k = 2, nu = 3.0
 #      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes
      12.42    1.0850446      1.0560      13.112  |    0.9231344     -0.9544     -11.851  | 7.9e-03
      22.35    1.0364466      0.8146      18.207  |    0.9470063     -1.1844     -26.473  | 3.7e-02
+     42.22    1.0162287      0.6851      28.925  |    0.9642615     -1.5088     -63.699  | 3.8e-02
+#   fits from the two largest m:  preserved: [c1/m + c2/m^2] c1 = 0.5395, c2 = 6.15;   [c2/m^2 + c4/m^4] c2 = 33.10
+#                                 flip:      [c1/m + c2/m^2] c1 = -1.8737, c2 = 15.41;   [c2/m^2 + c4/m^4] c2 = -78.20
+#   misfit at the third largest m (m = 12.4), relative to R-1:  preserved: odd+even ansatz -0.020, even ansatz -2.155;  flip: -0.337, -8.542
 # beta ~ 0.4, k = 4, nu = 0.0
 #      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes
      12.42    0.7733298     -2.8146     -34.949  |    0.6398480     -4.4720     -55.529  | 7.3e-03
      22.35    0.9185351     -1.8208     -40.696  |    0.8581447     -3.1706     -70.864  | 1.0e-03
+     42.22    0.9758272     -1.0205     -43.085  |    0.9558421     -1.8643     -78.705  | 5.7e-05
+#   fits from the two largest m:  preserved: [c1/m + c2/m^2] c1 = -0.1202, c2 = -38.01;   [c2/m^2 + c4/m^4] c2 = -44.01
+#                                 flip:      [c1/m + c2/m^2] c1 = -0.3947, c2 = -62.04;   [c2/m^2 + c4/m^4] c2 = -81.76
+#   misfit at the third largest m (m = 12.4), relative to R-1:  preserved: odd+even ansatz +0.130, even ansatz -0.048;  flip: +0.206, -0.163
 # beta ~ 0.4, k = 4, nu = 1.0
 #      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes
      12.42    0.7942246     -2.5551     -31.727  |    0.6519719     -4.3215     -53.660  | 7.4e-03
      22.35    0.9273932     -1.6228     -36.271  |    0.8645996     -3.0263     -67.640  | 1.0e-03
+     42.22    0.9786347     -0.9020     -38.081  |    0.9584397     -1.7546     -74.075  | 1.2e-04
+#   fits from the two largest m:  preserved: [c1/m + c2/m^2] c1 = -0.0911, c2 = -34.24;   [c2/m^2 + c4/m^4] c2 = -38.79
+#                                 flip:      [c1/m + c2/m^2] c1 = -0.3239, c2 = -60.40;   [c2/m^2 + c4/m^4] c2 = -76.58
+#   misfit at the third largest m (m = 12.4), relative to R-1:  preserved: odd+even ansatz +0.115, even ansatz -0.034;  flip: +0.201, -0.113
 # beta ~ 0.4, k = 4, nu = 3.0
 #      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes
      12.42    1.0016370      0.0203       0.252  |    0.7572777     -3.0139     -37.424  | 5.3e-03
      22.35    1.0073734      0.1648       3.683  |    0.9140131     -1.9219     -42.955  | 1.7e-03
+     42.22    1.0028922      0.1221       5.155  |    0.9747506     -1.0660     -45.004  | 1.7e-04
+#   fits from the two largest m:  preserved: [c1/m + c2/m^2] c1 = 0.0741, c2 = 2.03;   [c2/m^2 + c4/m^4] c2 = 5.73
+#                                 flip:      [c1/m + c2/m^2] c1 = -0.1031, c2 = -40.65;   [c2/m^2 + c4/m^4] c2 = -45.80
+#   misfit at the third largest m (m = 12.4), relative to R-1:  preserved: odd+even ansatz +10.678, even ansatz -4.552;  flip: +0.120, -0.023
 # beta ~ 0.4, k = 6, nu = 0.0
 #      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes
      12.42    0.5838037     -5.1679     -64.170  |    0.4290738     -7.0892     -88.027  | 1.3e-02
      22.35    0.8325273     -3.7431     -83.662  |    0.7437099     -5.7283    -128.031  | 2.6e-03
+     42.22    0.9479491     -2.1975     -92.773  |    0.9161981     -3.5379    -149.365  | 2.7e-04
+#   fits from the two largest m:  preserved: [c1/m + c2/m^2] c1 = -0.4586, c2 = -73.41;   [c2/m^2 + c4/m^4] c2 = -96.32
+#                                 flip:      [c1/m + c2/m^2] c1 = -1.0738, c2 = -104.03;   [c2/m^2 + c4/m^4] c2 = -157.67
+#   misfit at the third largest m (m = 12.4), relative to R-1:  preserved: odd+even ansatz +0.233, even ansatz -0.138;  flip: +0.333, -0.300
 # beta ~ 0.4, k = 6, nu = 1.0
 #      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes
      12.42    0.6036379     -4.9216     -61.112  |    0.4389887     -6.9661     -86.499  | 1.4e-02
      22.35    0.8433366     -3.5015     -78.262  |    0.7504854     -5.5768    -124.646  | 2.6e-03
+     42.22    0.9517239     -2.0381     -86.045  |    0.9188071     -3.4278    -144.715  | 2.6e-04
+#   fits from the two largest m:  preserved: [c1/m + c2/m^2] c1 = -0.3918, c2 = -69.51;   [c2/m^2 + c4/m^4] c2 = -89.08
+#                                 flip:      [c1/m + c2/m^2] c1 = -1.0101, c2 = -102.07;   [c2/m^2 + c4/m^4] c2 = -152.53
+#   misfit at the third largest m (m = 12.4), relative to R-1:  preserved: odd+even ansatz +0.217, even ansatz -0.116;  flip: +0.325, -0.281
 # beta ~ 0.4, k = 6, nu = 3.0
 #      m       R_pres        m(R-1)     m^2(R-1)  |   R_flip        m(R-1)     m^2(R-1)  | other modes
      12.42    0.8072708     -2.3931     -29.716  |    0.5282170     -5.8582     -72.741  | 1.4e-02
      22.35    0.9436370     -1.2598     -28.156  |    0.8072828     -4.3074     -96.273  | 1.3e-03
+     42.22    0.9851662     -0.6263     -26.439  |    0.9399476     -2.5353    -107.035  | 1.3e-04
+#   fits from the two largest m:  preserved: [c1/m + c2/m^2] c1 = 0.0864, c2 = -30.09;   [c2/m^2 + c4/m^4] c2 = -25.77
+#                                 flip:      [c1/m + c2/m^2] c1 = -0.5417, c2 = -84.17;   [c2/m^2 + c4/m^4] c2 = -111.23
+#   misfit at the third largest m (m = 12.4), relative to R-1:  preserved: odd+even ansatz -0.024, even ansatz +0.127;  flip: +0.250, -0.137
 # ---- summary: O(1/m^2) coefficients c2 (even ansatz, two largest m) and the O(1/m) coefficient of the odd+even ansatz
 #  beta   k   nu     c2_pres     c2_flip   |  c1_pres    c1_flip
+   0.4   2   0.0      -28.18     -690.08   |  -0.3440  -19.0628
+   0.4   2   1.0       -8.52     -184.52   |   0.1380   -4.5413
+   0.4   2   3.0       33.10      -78.20   |   0.5395   -1.8737
+   0.4   4   0.0      -44.01      -81.76   |  -0.1202   -0.3947
+   0.4   4   1.0      -38.79      -76.58   |  -0.0911   -0.3239
+   0.4   4   3.0        5.73      -45.80   |   0.0741   -0.1031
+   0.4   6   0.0      -96.32     -157.67   |  -0.4586   -1.0738
+   0.4   6   1.0      -89.08     -152.53   |  -0.3918   -1.0101
+   0.4   6   3.0      -25.77     -111.23   |   0.0864   -0.5417

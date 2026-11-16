@@ -25,7 +25,7 @@ def _lib(prec):
         L.block_get.argtypes = [ctypes.c_void_p, ctypes.c_long, ctypes.c_void_p]
         L.block_eval.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int, ctypes.c_int, ctypes.c_int,
                                  ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_double,
-                                 ctypes.c_void_p]
+                                 ctypes.c_double, ctypes.c_void_p]
         _libs[prec] = L
     return _libs[prec]
 
@@ -75,21 +75,21 @@ class CBlock:
         self.L.block_get(self.ptr, int(self.off[j] + (n - abs(j - self.J))//2), o.ctypes.data)
         return mp.mpf(o[0]) + mp.mpf(o[1])
 
-    def series(self, r, chi, sig=+1, kmax=0, lmax=0, cut=None, N=None):
+    def series(self, r, chi, sig=+1, kmax=0, lmax=0, cut=None, N=None, pwcut=10.0):
         """returns array [npts, kmax+1, lmax+1]; float64 for prec 'd' (inputs floats), object(mpf) for 'q'."""
         N = self.N if N is None else min(N, self.N)
         if self.prec == 'd':
             r = np.ascontiguousarray(np.atleast_1d(r), dtype=float); chi = np.ascontiguousarray(np.atleast_1d(chi), dtype=float)
             r2 = np.zeros((r.size, 2)); r2[:, 0] = r
             c2 = np.zeros((r.size, 2)); c2[:, 0] = chi
-            cut = 42.0 if cut is None else cut
+            cut = 30.0 if cut is None else cut
         else:
             r2 = to2(r); c2 = to2(chi)
-            cut = 85.0 if cut is None else cut
+            cut = 70.0 if cut is None else cut
         npts = r2.shape[0]
         out = np.zeros((npts, kmax+1, lmax+1, 2))
         self.L.block_eval(self.ptr, self.off.ctypes.data, self.D2.ctypes.data, self.J, N, npts, r2.ctypes.data, c2.ctypes.data,
-                          int(sig), int(kmax), int(lmax), float(cut), out.ctypes.data)
+                          int(sig), int(kmax), int(lmax), float(cut), float(pwcut), out.ctypes.data)
         if self.prec == 'd':
             return out[..., 0] + out[..., 1]
         res = np.empty((npts, kmax+1, lmax+1), dtype=object)

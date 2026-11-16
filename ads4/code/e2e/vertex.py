@@ -68,6 +68,23 @@ def integrand_leading(l, Delta, J, Dphi, x, y, z1, z3):
     V = lambda z: Delta**2*J**2*m**2/2*(mdot(z, npar)**2 - mdot(z, eperp)**2)
     return logscale, V(z1)*V(z3)
 
+def integrand_leading_weyl(l, Delta, J, Dphi, x, y, z1, z3):
+    """the same leading form written in the Weyl-odd variables A_+ = Delta - 3/2 = (alpha+alphabar)/2, A_- = J + 1/2 = (alphabar-alpha)/2:
+    P = (A_+, A_-, 0), Pbar = (A_+, -A_-, 0), |P| = m, n_par = (-A_-, A_+, 0)/m, prefactors (A_+ A_- m)^l."""
+    Delta = mp.mpf(Delta)
+    Ap, Am = Delta - mp.mpf(3)/2, J + mp.mpf(1)/2
+    m = mp.sqrt(Ap*Ap - Am*Am)
+    p = [Ap, Am, mp.mpf(0)]; pb = [Ap, -Am, mp.mpf(0)]
+    npar = [-Am/m, Ap/m, mp.mpf(0)]; eperp = [mp.mpf(0), mp.mpf(0), mp.mpf(1)]
+    ax = mp.sqrt(-mdot(x, x)); ay = mp.sqrt(-mdot(y, y))
+    logscale = (mp.log(2) + (l + 1 + Dphi)*mp.log(4) + 2*Dphi*mp.log(ax) + 2*(l+1)*mp.log(ay) + 2*mdot(p, x) + 2*mdot(pb, y)
+                - mp.log(4) - log_b(Delta, J, 1 - Dphi))
+    if l == 1:
+        V = lambda z: Ap*Am*m*mdot(z, npar)
+        return logscale, -V(z1)*V(z3)
+    V = lambda z: Ap**2*Am**2*m**2/2*(mdot(z, npar)**2 - mdot(z, eperp)**2)
+    return logscale, V(z1)*V(z3)
+
 if __name__ == "__main__":
     mp.mp.dps = 40
     out = []
@@ -88,4 +105,18 @@ if __name__ == "__main__":
                     ll, vl = integrand_leading(l, D, Jv, Dp, x, y, nullv(t1), nullv(t3))
                     row.append(mp.nstr(mp.exp(le - ll)*ve/vl, 8))
                 pr(f"  l={l} Dphi={Dp} Delta={D} J={Jv} m={mp.nstr(m, 6)}: {row}")
+    pr("# O(1/m) term of the integrand, pointwise, relative to the leading form in Weyl-odd variables (integrand_leading_weyl), times b-independent")
+    pr("#   m*(exact/leading - 1)  for (z_1,z_3), for (z_3,z_1), and for the 1<->3 symmetrised tensor.")
+    pr("#   Claim (Weyl reflection (x,y;alpha,alphabar) -> (-x,-y;-alpha,-alphabar) at fixed X = m x, Y = m y): the O(1/m) term is antisymmetric under")
+    pr("#   z_1 <-> z_3, so the last column must decrease like 1/m.   [the factor 1/b is common and is tested separately in t3/t7]")
+    for l in (1, 2):
+        for (t1, t3) in ((0.3, 1.9), (4.0, 5.1)):
+            for (D, Jv) in ((500.25, 200), (5000.25, 2000), (50000.25, 20000)):
+                m = mp.sqrt((mp.mpf(D) - Jv - 2)*(mp.mpf(D) + Jv - 1))
+                x = [v/m for v in X]; y = [v/m for v in Y]
+                le, ve = integrand_exact(l, D, Jv, 1.75, x, y, nullv(t1), nullv(t3)); ll, vl = integrand_leading_weyl(l, D, Jv, 1.75, x, y, nullv(t1), nullv(t3))
+                le2, ve2 = integrand_exact(l, D, Jv, 1.75, x, y, nullv(t3), nullv(t1)); ll2, vl2 = integrand_leading_weyl(l, D, Jv, 1.75, x, y, nullv(t3), nullv(t1))
+                r1 = mp.exp(le - ll)*ve/vl; r2 = mp.exp(le2 - ll2)*ve2/vl2
+                rs = (mp.exp(le - ll)*ve + mp.exp(le2 - ll2)*ve2)/(vl + vl2)
+                pr(f"  l={l} pol=({t1},{t3}) m={mp.nstr(m, 6)}:  {mp.nstr(m*(r1-1), 6)}   {mp.nstr(m*(r2-1), 6)}   symmetrised: {mp.nstr(m*(rs-1), 6)}   m^2*(sym-1): {mp.nstr(m*m*(rs-1), 6)}")
     open('out_vertex.txt', 'w').write("\n".join(out) + "\n")

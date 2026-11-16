@@ -98,6 +98,17 @@ for nm, cc in [('C0', c0), ('C2', c2), ('C0lit', sp.factor(Fm_lit.coeff(a0))), (
     print('  %s < 0 on (0,1]: roots(num) in [0,1]=%d, den=c*m^j with c>0: %s, sign(1/2)=%s -> %s' % (nm, nroots_num, den_ok, sign_mid, neg))
     okm &= bool(neg)
 
+# ---- F_g4 (3.3b): int (1-p)^3[p(99+282p+49p^2)B2 + (21-474p+1216p^2)B3] - (7 + d_{p^2}) B4|_0
+psi2g4 = (1 - p)**3*p*(99 + 282*p + 49*p**2)
+psi3g4 = (1 - p)**3*(21 - 474*p + 1216*p**2)
+xx4 = sp.Symbol('xx4', positive=True)
+Fg4 = sp.expand(sp.integrate(sp.expand(psi2g4*(low[2] - 16*sp.pi*G/p**2)), (p, 0, 1)) + sp.integrate(sp.expand(psi3g4*low[3]), (p, 0, 1))
+                - 7*sp.expand(low[4]).subs(p, 0) - sp.diff(sp.expand(low[4]).subs(p, sp.sqrt(xx4)), xx4).subs(xx4, 0))
+print('--- F_g4 (v1 (3.3b)) low side, non-pole part:', sp.collect(Fg4, [g3, g4, g5]))
+c_g5_g4 = Fg4.coeff(g5); c_g4 = Fg4.coeff(g4)
+print('  coefficient of g5 = %s (so (3.4b) also needs +B5|_0 or g5>=0); g4 coefficient = %s ; bound g4 <= 8piG(%s log(1/eps) + ...), %s = 14.14 ; |g3|^2 coefficient/(8 pi G*14) = %s' % (
+    c_g5_g4, c_g4, sp.Rational(99, 7), sp.Rational(99, 7), sp.nsimplify(-Fg4.coeff(g3)/(8*sp.pi*G*14))))
+ok &= (c_g5_g4 == -1)
 # constants A, B for eps <= eps0
 eps0 = sp.Rational(1, 100)
 k0 = sp.Rational(330151, 12012)

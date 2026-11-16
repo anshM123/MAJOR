@@ -70,6 +70,7 @@ def tail_bound(h, Xbar):
     """Bound, valid for all k<K and |X|<=Xbar, of |sum_{n>NMAX} (n-term of a_k)| (geometric, ratio <= 1/2 checked)."""
     lamsum = lambda n: sum(Fr(1, 4) + e_h(h, i) for i in range(1, n + 1))
     Tmax = A(100)
+    assert TMAX_OK, '|T0_n|,|T1_n| <= 100 not certified'
     def term(n):
         Ln = fq(lamsum(n))
         return Tmax * (fq(Xbar) + 1) ** (n + 1) * 2 * (Ln + 1) ** K / A(factorial(n)) ** 2
@@ -78,6 +79,15 @@ def tail_bound(h, Xbar):
     ratio = (fq(Xbar) + 1) * ((fq(lamsum(n0 + 1)) + 1) / (fq(lamsum(n0)) + 1)) ** K / A(n0 + 1) ** 2
     assert bool(ratio < A(1) / 2), 'tail ratio'
     return 2 * t
+
+# |T0_n| = 2|mu2_2n| <= 2 int psi2 (psi2 >= 0);  |T1_n| <= int psi2 + int |psi3|  for every n.
+def _tmax_ok():
+    from cert_C import integral_upper
+    from common import mom
+    ip2 = mom(PSI2, 0)
+    ap3 = A(integral_upper(lambda x: A(PSI3_ev(x).abs_upper()), 0, 1, 2000))
+    return bool(2 * fq(ip2) <= 100) and bool(fq(ip2) + ap3 <= 100)
+TMAX_OK = None
 
 # ------------------------------------------------------------------ Cauchy bound
 def s_fun(x):  # arcsin(sqrt x)/sqrt x for real x in [0,1), x ball >= 0
@@ -115,6 +125,8 @@ def _mkev(poly):
         return rr
     return f
 PSI2_ev = _mkev(PSI2); PSI3_ev = _mkev(PSI3)
+TMAX_OK = _tmax_ok()
+set_prec(PREC)   # cert_C sets 200 bits on import; restore
 
 # ------------------------------------------------------------------ box certification
 def eval2(g, t, u, Xc_poly):
@@ -195,7 +207,10 @@ def small_b(h, BS, JP):
     for n in range(1, 400):
         prod = prod * (X + fq(Fr(1, 4) + e_h(h, n)) * u) / (n * n)
         tail += prod * (fq(abs(T0(n))) + fq(abs(T1(n, h))) * u)
-    # remaining n>=400 negligible: prod ratio < 1/2 already
+    # remaining n>=400: term ratio (X + lambda_{n+1} u)/(n+1)^2 < 1/2 (asserted) and |T0_n|,|T1_n| <= 100 (asserted)
+    for n in range(400, 2000):
+        assert bool((X + fq(Fr(1, 4) + e_h(h, n + 1)) * u) / (n + 1) ** 2 < A(1) / 2)
+    assert TMAX_OK
     tail += 2 * prod * 100
     low = low - tail - (fq(Fr(5, 2)) + PHI_CONST[h]) * u ** 3
     return bool(low > 0), low
