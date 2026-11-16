@@ -88,9 +88,17 @@ COS = {k: CosT(v) for k, v in BASIS.items()}
 
 _GL = {}
 def gl(n):
+    """n-point rule on [0, pi/2]: Gauss-Legendre for n <= 512, else composite 256-point Gauss-Legendre on n/256 panels."""
     if n not in _GL:
-        x, w = leggauss(n)
-        _GL[n] = ((x + 1) * np.pi / 4, w * np.pi / 4)      # nodes/weights on [0, pi/2]
+        if n <= 512:
+            x, w = leggauss(n)
+            _GL[n] = ((x + 1) * np.pi / 4, w * np.pi / 4)
+        else:
+            K = (n + 255) // 256
+            x, w = leggauss(256)
+            h = (np.pi / 2) / K
+            a = np.arange(K)[:, None] * h
+            _GL[n] = ((a + (x[None, :] + 1) * h / 2).ravel(), np.tile(w * h / 2, K))
     return _GL[n]
 
 def nth(b):

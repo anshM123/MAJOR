@@ -91,10 +91,15 @@ def evaluate_all(l, Delta, J, Dphi, U, S):
 
 if __name__ == "__main__":
     Delta, J = float(sys.argv[1]), int(sys.argv[2]); l = int(sys.argv[3]) if len(sys.argv) > 3 else 1
+    from t4_spinning_e2e import main_cases
+    Delta = [c[0] for c in main_cases() if c[1] == J and abs(c[0] - Delta) < 1e-5][0]     # exact Delta of the e2e case (grid!)
+    if os.environ.get('ONLY'):
+        SETTINGS[:] = [s_ for s_ in SETTINGS if s_[0] in os.environ['ONLY'].split(',')]
+    print(f"Delta = {Delta!r}", flush=True)
     corner.evaluate_points = lambda l_, D_, J_, Dphi_, U_, S_, pars=None: evaluate_all(l_, D_, J_, Dphi_, U_, S_)
     t0 = time.time()
     base = refined_base(l, Delta, J)
-    fn = os.path.join(HERE, 'cache', f'rebuild_l{l}_D{Delta:.6f}_J{J}.npz')
+    fn = os.path.join(HERE, 'cache', f'rebuild_l{l}_D{Delta:.6f}_J{J}_{os.environ.get("ONLY","all")}.npz')
     if os.path.exists(fn): os.remove(fn)
     mom = TensorMomentsLC.build(l, Delta, J, base=base, fn=fn, cache=True)
     print(f"build done {time.time()-t0:.0f} s; info {mom.info}", flush=True)
@@ -127,5 +132,5 @@ if __name__ == "__main__":
                 Rp, Rf, dRp, dRf, worst = T1.components_with_error(l, Delta, J, k, nu, res, e1, e2)
                 results[(name, k, nu)] = (Rp, Rf, dRp, dRf, lc1, lc2, dr1, dr2)
                 print(f"{name:7s} k={k} nu={nu}: R_pres {Rp:.9f} +- {dRp:.1e}  R_flip {Rf:.9f} +- {dRf:.1e}   errlc {lc1:.1e}/{lc2:.1e} drop {dr1:.1e}/{dr2:.1e}", flush=True)
-    pickle.dump(dict(results=results, info=mom.info, fitres={n: out[n][3] for n in out}), open(os.path.join(HERE, 'cache', f'reftail_l{l}_D{Delta:.6f}.pkl'), 'wb'))
+    pickle.dump(dict(results=results, info=mom.info, fitres={n: out[n][3] for n in out}), open(os.path.join(HERE, 'cache', f'reftail_l{l}_D{Delta:.6f}_{os.environ.get("ONLY","all")}.pkl'), 'wb'))
     print(f"total {time.time()-t0:.0f} s")

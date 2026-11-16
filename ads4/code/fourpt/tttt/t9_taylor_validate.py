@@ -54,7 +54,7 @@ if __name__ == "__main__":
         worst = max(worst, err)
         pr(f"  l=1 {wL} x {wR}: {nm} z-monomials, max rel. deviation {err:.1e}, Taylor-mode time {tt:.2f} s")
     pr(f"  l=1 worst over 25 pairs: {worst:.1e}")
-    for (wL, wR) in (('HH', 'HH'), ('HH', 'ACH'), ('AACC', 'HH'), ('ABCE', 'BEH')):
+    for (wL, wR) in (('HH', 'HH'), ('HH', 'ACH'), ('BEH', 'HH'), ('AACC', 'HH'), ('HH', 'ABCE')):
         t = time.time()
         Phi, S, Gs = word4(wL, wR, 8)
         Phi = Phi.subs({D1: 3, D2: 3, D3: 3, D4: 3})

@@ -58,7 +58,8 @@ def tables(M, nv=6):
         for b, j in idx.items():
             if sum(a) + sum(b) <= M:
                 I.append(i); Jx.append(j); K.append(idx[tuple(x + y for x, y in zip(a, b))])
-    return dict(mons=mons, idx=idx, n=n, dn=dn, dfac=dfac, up=up, I=np.array(I), J=np.array(Jx), K=np.array(K))
+    nb = [sum(1 for a in mons if sum(a) <= b) for b in range(M + 1)]
+    return dict(mons=mons, idx=idx, n=n, dn=dn, dfac=dfac, up=up, I=np.array(I), J=np.array(Jx), K=np.array(K), nb=nb)
 
 class Series:
     """truncated Taylor series in the 6 ds variables; data shape [n] + extra (vectorised points)."""
@@ -76,13 +77,21 @@ def smul(T, a, b):
         out[...] = 0
         prod = a[T['I']]*b[T['J']]
         for k, v in zip(T['K'], prod): out[k] = out[k] + v
+    elif a.dtype == np.float64:
+        if 'Kmat' not in T:
+            import scipy.sparse as sps
+            T['Kmat'] = sps.csr_matrix((np.ones(len(T['K'])), (T['K'], np.arange(len(T['K'])))), shape=(T['n'], len(T['K'])))
+        out = T['Kmat'] @ (a[T['I']]*b[T['J']])
     else:
         np.add.at(out, T['K'], a[T['I']]*b[T['J']])
     return out
 
 def sderiv(T, a, k):
-    g, f = T['dn'][k], T['dfac'][k]
-    out = np.zeros_like(a)
+    """derivative; a has length nb[b] (degree <= b), result length nb[b-1]"""
+    b = T['nb'].index(a.shape[0])
+    n1 = T['nb'][b - 1] if b > 0 else 0
+    g, f = T['dn'][k][:n1], T['dfac'][k][:n1]
+    out = np.zeros((n1,) + a.shape[1:], dtype=a.dtype)
     if a.dtype == object: out[...] = 0
     m = g >= 0
     fe = f[m].reshape((-1,) + (1,)*(a.ndim - 1))
@@ -91,7 +100,7 @@ def sderiv(T, a, k):
 
 def smulvar(T, a, k, s0):
     """(s0 + ds_k) * a"""
-    u = T['up'][k]
+    u = T['up'][k][:a.shape[0]]
     out = a*s0
     m = u >= 0
     out[m] = out[m] + a[u[m]]
@@ -99,8 +108,13 @@ def smulvar(T, a, k, s0):
 
 # ------------------------------------------------------------------ states: dict zexp(tuple of 18) -> series array
 def st_add(A, B, c=1):
-    out = dict(A)
+    """sum of two states; series of different length are truncated to the shorter one (a D-operator has at most one P-derivative,
+    so after it at most (remaining budget) derivatives act: the Z-derivative terms may be truncated like the P-derivative ones)"""
+    la = min((v.shape[0] for v in A.values()), default=None); lb = min((v.shape[0] for v in B.values()), default=None)
+    L = min(x for x in (la, lb) if x is not None) if (la is not None or lb is not None) else None
+    out = {k: v[:L] for k, v in A.items()}
     for k, v in B.items():
+        v = v[:L]
         out[k] = out[k] + c*v if k in out else c*v
     return out
 
@@ -182,7 +196,7 @@ class Engine4:
             A = self.op(A, kind, 1, 2)
         for kind in reversed(wR):
             A = self.op(A, kind, 3, 4)
-        return {k: v[0] for k, v in A.items()}             # value at ds = 0
+        return {k: v[0] for k, v in A.items() if v.shape[0]}             # value at ds = 0
 
 # ------------------------------------------------------------------ initial series
 def log_series(T, k, s0, extra, dtype, one=1.0):
@@ -230,3 +244,65 @@ def seed(M, s0, d, G, dtype=float, one=1.0):
         for j in range(M + 1 - i):
             g = g + smul(T, powP[i], powQ[j])*(G[i][j]/(fact[i]*fact[j]))
     return {(0,)*18: smul(T, Kser, g)}
+
+def word_budget(wL, wR):
+    return sum(1 for c in wL + wR if c != 'H')
+
+# ------------------------------------------------------------------ (P,Q)-jets of the scalar blocks to any order (generalises e2e/spinblock.pq_jets)
+@functools.lru_cache(None)
+def _acosh_derivs(M):
+    import sympy as sp
+    c = sp.Symbol('c')
+    f = sp.acosh(c)
+    return [sp.lambdify(c, sp.simplify(sp.diff(f, c, k)), 'mpmath') for k in range(1, M + 1)]
+
+def _pmul2(A, B, M):
+    out = np.zeros_like(A)
+    if A.dtype == object: out[...] = 0
+    for i in range(M + 1):
+        for j in range(M + 1 - i):
+            a = A[..., i, j]
+            for k in range(M + 1 - i - j):
+                for m in range(M + 1 - i - j - k):
+                    out[..., i + k, j + m] = out[..., i + k, j + m] + a*B[..., k, m]
+    return out
+
+def pq_jets_M(S, r, A0, E0, M, vpow=0.0, one=1.0):
+    """single point.  S[k, l] = sum Bt (Delta+n)^k r^n P_j^{(l)}(cosh chi), k + l <= M.  Returns G[i, j] = d_P^i d_Q^j [gt/(4r)^Delta]
+    (same conventions as e2e/spinblock.pq_jets, any order).  Works with floats or mpmath numbers."""
+    import math
+    dt = object if not isinstance(one, float) else float
+    Z = lambda: (np.zeros((M + 1, M + 1), dtype=dt) if dt == float else np.full((M + 1, M + 1), 0*one, dtype=object))
+    dA = Z(); dE = Z()
+    for i in range(M + 1):
+        for j in range(M + 1 - i):
+            if i + j > 0:
+                dA[i, j] = A0*(-one/2)**i*(one/2)**j/(math.factorial(i)*math.factorial(j))
+        if i > 0:
+            dE[0, i] = E0/math.factorial(i)
+    dc = dA + dE; dx = dE - dA
+    c0 = (r + one/r)/2
+    fk = [f(c0) for f in _acosh_derivs(M)]
+    if dt == float: fk = [float(v) for v in fk]
+    dL = Z(); p = Z(); p[0, 0] = one
+    for k in range(1, M + 1):
+        p = _pmul2(p, dc, M)
+        dL = dL - p*(fk[k - 1]/math.factorial(k))
+    onep = Z(); onep[0, 0] = one
+    powL = [onep]; powX = [onep]
+    for _ in range(M):
+        powL.append(_pmul2(powL[-1], dL, M)); powX.append(_pmul2(powX[-1], dx, M))
+    G = Z()
+    for k in range(M + 1):
+        for l in range(M + 1 - k):
+            G = G + _pmul2(powL[k], powX[l], M)*(S[k, l]/(math.factorial(k)*math.factorial(l)))
+    if vpow != 0:
+        ex = Z()
+        for i in range(M + 1):
+            for j in range(M + 1 - i):
+                ex[i, j] = (one*vpow)**(i + j)/(math.factorial(i)*math.factorial(j))
+        G = _pmul2(G, ex, M)*((E0/A0)**(2*vpow))
+    for i in range(M + 1):
+        for j in range(M + 1 - i):
+            G[i, j] = G[i, j]*(math.factorial(i)*math.factorial(j))
+    return G

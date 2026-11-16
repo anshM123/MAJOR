@@ -13,7 +13,8 @@ Floating point; not a certificate.
 import numpy as np
 from common import curvT_all, SIGMA, lam_of_gap
 
-DGS = [6, 10, 20, 50, 100, 300, 1000]
+import sys
+DGS = [int(a) for a in sys.argv[1:]] or [6, 10, 20, 50, 100, 300, 1000]
 KAP = np.logspace(0, 4, 121)
 C0S = [0, 100, 300, 1000]
 
