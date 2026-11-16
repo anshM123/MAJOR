@@ -1,6 +1,6 @@
 """
 Tasks 3, 4: measured/predicted ratios for the helicity-preserving and helicity-flip components and the first
-corrections to the heavy-block formula, from the data of t4_spinning_e2e.py (data_t4_l{l}.pkl).
+corrections to the heavy-block formula, from the cached mode data of t4_spinning_e2e.py (data_modes/).
 
 Components.  At leading order every mode satisfies  E_{q1q3} = pref * [ A_{q1q3} X + B_{q1q3} Y ],  with X = P_{-1/2+i nu}(cosh beta)
 (helicity preserved at the spinning Regge pair) and Y = F^nu_{2l}(beta) (helicity flipped), A = M_pres, B = M_flip (predict.components).

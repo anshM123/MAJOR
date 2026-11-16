@@ -1,7 +1,7 @@
 #!/bin/sh
 # Regenerates every number quoted in ads4/SPINNING_E2E.md.   Usage:  sh run_all.sh [fast]
-#   fast: skips the block evaluations if data_modes/ is present (the mode files are a cache of the exact block tensors on the
-#         integration grids; delete data_modes/ to recompute them: about 4-6 hours on 4 cores, dominated by l = 2 at m >= 70).
+#   fast: skips the convergence study t4b_convergence.py.  The exact block tensors on the integration grids are cached in data_modes/
+#         (git-ignored) and reused; delete data_modes/ to recompute them (about 2.5 h on 4 cores, dominated by l = 2 at m >= 70).
 # Outputs: out_*.txt in this directory.
 set -e
 cd "$(dirname "$0")"
@@ -23,7 +23,7 @@ python3 t4_spinning_e2e.py 1                              # currents:       exac
 python3 t4_spinning_e2e.py 2                              # stress tensors: exact vs predicted       -> out_t4_spinning_e2e_l2.txt
 python3 t4_spinning_e2e.py 1 small                        # small impact parameter cases             -> out_t4_spinning_e2e_l1_small.txt
 python3 t4_spinning_e2e.py 2 small                        #                                          -> out_t4_spinning_e2e_l2_small.txt
-if [ "$1" != "fast" ]; then python3 t4b_convergence.py; fi   # truncation / grid error controls      -> out_t4b_convergence.txt       (~1 h)
+if [ "$1" != "fast" ]; then python3 t4b_convergence.py; fi   # truncation / grid error controls      -> out_t4b_convergence.txt       (~30 min)
 python3 t7_corrections.py 1                               # components, O(1/m), O(1/m^2)             -> out_t7_corrections_l1.txt
 python3 t7_corrections.py 2                               #                                          -> out_t7_corrections_l2.txt
 python3 t7b_scalar_skeleton.py                            # scalar reference for the corrections     -> out_t7b_scalar_skeleton.txt
