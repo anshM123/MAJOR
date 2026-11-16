@@ -1,2 +1,37 @@
 (0) scalar transform (B.2) in d = 3, direct 2D numerical integration, p boosted relative to xhat
    b=3.5 nu=0.8 xi=0.6:  lhs 6.2742958956   rhs 6.2742958956
+   b=5.0 nu=2.0 xi=1.3:  lhs -1.58399875337   rhs -1.58399875337
+(1) flat-derivative representation of D_s Phi_a vs definition (random numerical point, generic z1, z3)
+   D1: difference = 0
+   D2: difference = 0
+   D3: difference = 0
+   D4: difference = 0
+   D5: difference = 0
+(2) symbolic transforms contracted with helicity vectors at phat:  L[D_s Phi_a] = C_a gamma_a |p|^{-a} M P  resp. M P^(2);  g1 := gamma_{a-1}/gamma_a
+   M[0(+-)]_1 = (8*a**2 - 32*a + 4*nu**2 + 33)/(2*(4*a**2 - 20*a + 4*nu**2 + 25))
+   M[0(+-)]_2 = -(8*a - 4*nu**2 - 17)/(2*(4*a**2 - 20*a + 4*nu**2 + 25))
+   M[0(+-)]_3 = -(a - 1)*(4*nu**2 + 1)/(4*a**2 - 20*a + 4*nu**2 + 25)
+   M[0(+-)]_4 = -(4*nu**2 + 1)*(4*nu**2 + 9)/(16*(4*a**2 - 20*a + 4*nu**2 + 25))
+   M[0(+-)]_5 = -I*g1*(a - 1)/2
+   M[0(-+)]_1 = (8*a**2 - 32*a + 4*nu**2 + 33)/(2*(4*a**2 - 20*a + 4*nu**2 + 25))
+   M[0(-+)]_2 = -(8*a - 4*nu**2 - 17)/(2*(4*a**2 - 20*a + 4*nu**2 + 25))
+   M[0(-+)]_3 = -(a - 1)*(4*nu**2 + 1)/(4*a**2 - 20*a + 4*nu**2 + 25)
+   M[0(-+)]_4 = -(4*nu**2 + 1)*(4*nu**2 + 9)/(16*(4*a**2 - 20*a + 4*nu**2 + 25))
+   M[0(-+)]_5 = I*g1*(a - 1)/2
+   M[2(++)]_1 = 2/(4*a**2 - 20*a + 4*nu**2 + 25)
+   M[2(++)]_2 = -2/(4*a**2 - 20*a + 4*nu**2 + 25)
+   M[2(++)]_3 = 4*(a - 3)/(4*a**2 - 20*a + 4*nu**2 + 25)
+   M[2(++)]_4 = -(8*a**2 - 48*a + 4*nu**2 + 73)/(4*(4*a**2 - 20*a + 4*nu**2 + 25))
+   M[2(++)]_5 = 0
+(3) numerical check of (2) by direct integration of the tensor kernel (a = 4.5, nu = 1.1, xi = 0.9); Gauss-Legendre, float64
+   0(+-) D1:  numeric 16.284603974-0.000000000j   predicted 16.284603974+0.000000000j
+   0(+-) D2:  numeric -4.129476939+0.000000000j   predicted -4.129476939+0.000000000j
+   0(+-) D3:  numeric -11.921823252+0.000000000j   predicted -11.921823253+0.000000000j
+   0(+-) D4:  numeric -2.946353742+0.000001718j   predicted -2.946393461+0.000000000j
+   0(+-) D5:  numeric 0.000000000-15.401553899j   predicted 0.000000000-15.401553899j
+   2(++) D1:  numeric 0.645529461+0.000000000j   predicted 0.645529461+0.000000000j
+   2(++) D2:  numeric -0.645529461-0.000000000j   predicted -0.645529461+0.000000000j
+   2(++) D3:  numeric 1.936588382-0.000000000j   predicted 1.936588382+0.000000000j
+   2(++) D4:  numeric -1.923667848+0.000013713j   predicted -1.923677792+0.000000000j
+   2(++) D5:  numeric 0.000000000   predicted 0.000000000+0.000000000j
+(4) stress-tensor pair, non-derivative structures: (z1,z3) = (eps_+^2, eps_-^2) [weight 0] and (eps_+^2, eps_+^2) [weight 4]
