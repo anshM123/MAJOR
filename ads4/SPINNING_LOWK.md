@@ -40,7 +40,7 @@ numbers, no derivation), **[inferred]**. Coefficients obtained by fits are label
    `m^{−2k−1}` (`u ~ 1/m²`) — for every k for which (★) converges (for `Δ_φ = 1.75`, `l ≤ 2`: all k > −2). The non-uniformity at `u → 0` that motivated
    Assumption T is a property of the `(r, η)` representation only. Numerically: the pointwise `1/m²` coefficient of the shadow integrand
    stays bounded (it saturates) when the hyperbolic distances of `x̂, ŷ` from `p̂, p̄̂` grow to 8 (`d(x̂, ŷ)` up to 12.6), `l = 1, 2` (§6);
-   fits of the completed k = 2 ratios with an added `m^{−5/2}` term give a coefficient consistent with zero (@@CNK2@@ against
+   fits of the completed k = 2 ratios with an added `m^{−5/2}` term give a coefficient consistent with zero (`−0.5 ± 2.6` (first-version budget; to be refreshed) against
    `c_2 ≈ −17.1`, `l = 1`, β ≈ 0.4, ν = 0), but only `|c| ≲ 6` (≈ 0.35|c₂|) is excluded — an O(1) coefficient is allowed by the data;
    `m^{−5}` at k = 2 and `m^{−7/2}` at k = 3 cannot be separated from the analytic truncation at all. So: no failure at `1/m²`
    [numerical evidence]; beyond that the absence of non-analytic terms rests on the sketch; no rigorous remainder estimate is written.
@@ -360,7 +360,7 @@ moduli `|X| = 1/cosh d(X̂,P̂)`, 5×5 polarisation pairs on the circle attached
 | 2 | 6 | 6 | 12.6 | 76.7 |
 
 The coefficient saturates as the distances grow (no exponential growth), as (b)–(c) predict. **Fits of the completed ratios** (§7): an added
-`m^{−k−1/2}` term has a fitted coefficient consistent with zero at k = 2 (@@CNK2@@, `l = 1`, β ≈ 0.4, ν = 0, pres), i.e. limited to
+`m^{−k−1/2}` term has a fitted coefficient consistent with zero at k = 2 (`−0.5 ± 2.6` (first-version budget; to be refreshed), `l = 1`, β ≈ 0.4, ν = 0, pres), i.e. limited to
 `|c| ≲ 6 ≈ 0.35|c_2|` at 2σ — **an `m^{−5/2}` term with an O(1) coefficient is not excluded by the data**. At k = 3 the fit finds `c_{7/2} = 39 ± 0.7`
 (statistical), but the three-parameter fits with and without it are equally good (χ² 0.09 vs 0.3, one degree of freedom), so it cannot be told
 apart from the truncation of the analytic series. `m^{−2k−1} = m^{−5}` at k = 2 is invisible behind `c_4/m⁴ ≈ 300/m⁴` and is excluded only by the
