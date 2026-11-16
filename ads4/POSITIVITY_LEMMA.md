@@ -122,7 +122,7 @@ For `d ≥ 5` and `0 < n < 2`, positivity follows from (B.15) by one integration
 `Q_n = sin(πn/2)Γ(n)/(β^n sinh β)`, with `Q_2 ≡ 0`. So `d = 3` is the only case in which (B.15) has no definite
 sign term by term, and it is the case treated by Lemma Q.
 
-## Lemma M: the monotonicity stated "by inspection" (all `d > 2`) — proved 16 Nov 2026, **not yet refereed**
+## Lemma M: the monotonicity stated "by inspection" (all `d > 2`) — refereed: "the proof is correct line by line; established"
 
 In the same AdS4 argument the positivity of the "improvement" terms is completed "by noting, by inspection,
 that the ratio [their (5.35)] is a monotonically increasing function of `β`", where the ratio is, up to a
@@ -141,8 +141,14 @@ positive functions over the sphere). Substituting `ψ = rφ_0`:
 `r` is smooth and even at `β = 0` and `w(0) = 0`, so `w r′ = ∫_0^β w`. ∎
 
 Checks (`ads4/code/ratio_monotone.py`): numerical derivative of `r` against the formula, `d = 3, 4, 5`,
-`β = 0.3, 1, 3, 8`: agreement to 10 digits; in `d = 4`, `r = β²/6` (the paper's footnote gives `β²/24` for its
-normalisation of (5.35)).
+`β = 0.3, 1, 3, 8`: agreement to 10 digits; in `d = 4`, `r = β²/6`. The paper's (5.35) is `r/2` (derivative with
+respect to `ν²`, their (5.23)), i.e. `β²/12` in `d = 4`; their footnote 26 (`β²/24`) appears to be a factor-two
+slip, immaterial for monotonicity. Referee: independent ODE integration against hypergeometric finite
+differences for `d = 2.5, 3, 4, 5, 6, 7.3`, `β` up to 15, agreement to 9 digits or more.
+
+*Novelty.* None as mathematics: this is the classical Sturm–Liouville Wronskian identity
+`W[φ_0, ∂φ/∂λ] = ∫φ_0² dμ` (equivalently, `r` is the expected hitting time of radius `β` for the
+ground-state-transformed radial diffusion). Its value is that it supplies the proof the paper omits.
 
 ## What this does and does not establish
 

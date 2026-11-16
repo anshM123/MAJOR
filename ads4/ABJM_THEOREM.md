@@ -141,7 +141,7 @@ The right side is maximal at `μ = √(θc_1N/2)`, where `Nμ − 2μ³/(3θc_1)
    (ABJM: `s = ½`, `∫v = π²k`). Which other localised partition functions (mass deformations, flavours, other
    quivers) satisfy these hypotheses has not been examined.
 
-## Extension: a one-parameter deformation (trial R-charges / imaginary mass) — **not yet refereed**
+## Extension: a one-parameter deformation (trial R-charges / imaginary mass) — refereed: "no mathematical error found; established after fixes" (applied)
 
 For `|λ| < 1/2` let `Z(N,k;λ)` be the same integral with the one-body weight `e^{λx_i}/(2cosh(x_i/2))`, and
 `F(λ) := −log Z(N,k;λ)`. Put `s_± := ½ ∓ λ`, `S := 1/s_+ + 1/s_− = 4/(1 − 4λ²)`, `ℓ(x) := s_+ x_+ + s_− x_−`.
@@ -169,12 +169,12 @@ trial density `σ = (μ − ℓ)_+/c`, `∫σ = μ²S/(2c) = N`, `∫σℓ = (c/
 (`−φ` is differentiable and steep at `±½`), `X/N^{3/2}` satisfies a large-deviation principle at speed `N^{3/2}`
 with rate function `I(y) = ½√(4f_0² + y²) − f_0`, `f_0 = π√(2k)/3`; near `y = 0`, `I(y) ≈ y²/(8f_0)`.
 
-**Not proved:** `Var(X) = 4f_0 N^{3/2}(1 + o(1))`, i.e. the exchange of `N → ∞` with the second derivative at
-`λ = 0`. Convexity gives it only on average over windows `|λ| ≲ h` with `h ≫ N^{−1/4}√(log N)`. A sharp lower bound
-on `Var(X)` by the Helffer–Sjöstrand/Cramér–Rao inequality with the displacement field `u(x) = 2μ + |x|`, and a
-sharp upper bound by the Brascamp–Lieb inequality (the Gibbs measure is log-concave on the ordered chamber;
-its mean-field evaluation gives exactly `4f_0N^{3/2}`), are **sketched only** and need a law of large numbers
-for the one- and two-point densities.
+(On (iii): the limit function is `+∞` at `λ = ±½`, so the textbook lower-semicontinuity hypothesis fails there;
+the conclusion holds because the upper bound needs no such hypothesis and every `y` is an exposed point with
+exposing hyperplane in `(−½, ½)`.)
+
+**Variance.** `Var(X) = 4f_0 N^{3/2}(1 + o(1))` is **proved below** (Theorem B″), by a convexity argument in a dual
+variable; it does not follow from the convexity of `λ ↦ −F(λ)` alone.
 
 **Physical dictionary (checked against the sources by an independent agent, 16 Nov 2026; physics-level).**
 `Z(N,k;λ)` is Nosaka's Fermi-gas integral (arXiv:1512.02862, (2.11), (2.16), `ξ = 2λ`, `η = 0`): ABJM with trial
@@ -196,10 +196,15 @@ Checks (`ads4/code/abjm_tilt.py`): the bounds bracket the exact `F(1,k;λ)` for 
 `λ = 0, 0.3` (quadrature; `Z(2,1;0.3) = 0.0671 > Z(2,1;0) = 0.0199`); ratios of the bounds to
 `f_0√(1−4λ²)N^{3/2}` at `N = 10⁷`: within `0.2%` below and `1%` above for `λ = 0, 0.25, 0.4`.
 
-## Stress-tensor normalisation: an exact formula and the Einstein relation `F/c_T → π²/64` — **not yet refereed**
+## Stress-tensor normalisation: the Einstein relation `F/c_T → π²/64` — refereed: "no mathematical error found; established after fixes" (applied; re-attribution was mandatory)
 
-(The identity and the convexity sandwich below were found by the agent that verified the dictionary; they
-were then re-derived by hand and checked numerically, `ads4/code/abjm_ct.py`.)
+**Attribution.** The dual form of the mass deformation (Proposition below) and the resulting formula for
+`c_T` are **known**: Kapustin–Willett–Yaakov (arXiv:1003.5694); Honda–Nosaka–Shimizu–Terashima
+(arXiv:1807.08874, (2.6), App. A, including positivity at a single mass); Chester–Kalloor–Sharon
+(arXiv:2004.13603, (3.4) and (3.13), the latter being exactly `c_T = 16N + 32E[Σ sech²]`). They are re-derived
+here only to keep the text self-contained. **Not found in the literature** (two agents' searches, not
+exhaustive): the inequalities `16N ≤ c_T ≤ 16N²` (immediate from that formula), `F(λ) ≤ F(0) − N log sec πλ`, the
+convexity sandwich of Theorem B″, and any proof of the large-`N` limit of `c_T`.
 
 **Definition (for the matrix integral).** `c_T(N,k) := (64/π²) ∂_m² F(N,k;m)|_{m=0}`, where
 `Z(N,k;m)` is the integral with one-body weight `e^{imx/2}/(2cosh(x/2))`, `m` real. Equivalently
@@ -213,7 +218,9 @@ coefficient of ABJM theory is the physics input quoted above.
 
 and the same with `sinh²(πm/2) → −sin²(πλ)` for the tilt `m = 2iλ`, `|λ| < ½`.
 
-*Proof.* `Z = Tr_{∧^N}(V^{⊗N} B^{⊗N})` with `V = e^{imx/2}/(2cosh(x/2))`, `B = 1/(2cosh(p/2))`, `[x,p] = 2πik`. In the
+*Proof.* Write the Fermi-gas integrand with the kernel of `B = 1/(2cosh(p/2))` as a Fourier integral; the
+resulting `2N`-fold integral over `(x, p)` is absolutely convergent, so by Fubini the `x`-integrals can be done
+first (no trace-class theory is needed). With `V = e^{imx/2}/(2cosh(x/2))`, `[x,p] = 2πik`: in the
 momentum representation `V` has kernel `(2πk)^{−1}/(2cosh((p − p′ − πkm)/(2k)))`, so
 `Z = (1/N!) ∫ Π dp_i B(p_i) (2πk)^{−N} det[1/(2cosh((p_i − p_j − πkm)/(2k)))]`. The matrix is a Cauchy matrix in
 `α_i = q e^{p_i/k}`, `β_j = e^{p_j/k}`, `q = e^{−πm}`, and the Cauchy determinant gives
@@ -245,7 +252,9 @@ for every `m > 0` and `λ ∈ (0, ½)`:
 Inserting the bounds of Theorem G for the three gases (undeformed; tilt `λ`; real mass `m`, for which
 `F(m) − N log cosh(πm/2)` is the free energy of the `v_m`-gas) and letting `λ, m → 0` slowly (`λ, m ~ N^{−1/8}`):
 
-`c_T(N,k) = (64√(2k)/(3π)) N^{3/2} (1 + o(1))`, and therefore **`F(N,k)/c_T(N,k) → π²/64`** as `N → ∞` at fixed `k`.
+`c_T(N,k) = (64√(2k)/(3π)) N^{3/2} (1 + O(N^{−1/4} log N))`, and therefore **`F(N,k)/c_T(N,k) → π²/64`** as `N → ∞` at
+fixed `k`. (Uniformity of the error terms of Theorem G for `|λ| ≤ ¼`, `|m| ≤ 1`: `v_m` is pointwise increasing in
+`cosh²(πm/2)`, so `m_1`, `v_m(a)` and `∫_0^a v_m` are bounded there, and `S`, `max(s_±)` are bounded.)
 
 *Proof of the asymptotics.* Upper side: `F(0) − F(λ) ≤ f_0N^{3/2}(1 − √(1−4λ²)) + O(N log N)`, and
 `(1 − √(1−4λ²))/sin²(πλ) → 2/π²`. Lower side: `F_gas(v_m) − F(0) ≥ f_0N^{3/2}(√(1+m²) − 1) − O_m(N log N)`, and
@@ -260,15 +269,34 @@ reproduced the published values at `(N,k) = (2,2), (3,1)`. `∫v_m = π²k(1+m²
 bounds divided by the leading term: `(0.38, 2.06)` at `N = 10⁴`, `(0.72, 1.31)` at `10⁶`, `(0.91, 1.10)` at `10⁸`,
 `(0.93, 1.05)` at `10^{10}` — convergence is slow (rate `≈ N^{−1/4}`).
 
+Referee's independent evaluation of the two-sided bounds (ratio to the leading term), with the exact value
+from the Airy form: `N = 10⁴`: `(0.453, 1.910)`, exact `1.0000936`; `10⁶`: `(0.765, 1.282)`; `10⁸`: `(0.913, 1.093)`;
+`10^{10}`: `(0.970, 1.031)`. Exact `c_T` from the Fermi-gas spectrum: `16` (`N = 1`), `37.3333` (2,1), `42.6667` (2,2),
+`62.9998` (3,1), agreeing with the Agmon–Chester–Pufu formula.
+
+**How to describe it (referee's sentence).** "Assuming localisation and the standard `N ≥ 6` Ward identity
+`c_T = (64/π²) ∂_m²F`, the ABJM matrix integral at fixed `k` is proved to satisfy
+`c_T = (64√(2k)/(3π)) N^{3/2}(1 + O(N^{−1/4} log N))`, hence `F/c_T → π²/64`, which is a rigorous confirmation of the
+known leading-order Einstein-gravity relation (using the known exact formula `c_T = 16N + 32⟨Σ sech²⟩`), far
+too coarse to detect the known `1/N` corrections or to constrain higher-derivative couplings beyond their
+being subleading."
+
+**Why the ratio is a test of Einstein gravity and what it does not test.** `π²/64 ≈ 0.154` is the universal
+value for two-derivative Einstein duals and is not generic: `F/c_T ≈ 0.064` for a free scalar, `0.109` for a
+free Majorana fermion, `0.087` for the free `N = 8` multiplet, `0.105` for ABJM at `(N,k) = (2,1)`, `0.146` at
+`(24,1)`. Beyond Einstein gravity it shifts: Bobev–Charles–Hristov–Reys (arXiv:2006.09390, (11), (12)) give
+`F − (π²/64)c_T = 32π²c_1`; a Gauss–Bonnet term shifts only `F`, a Weyl² term only `c_T`. In ABJM the Airy form
+gives `F/c_T = (π²/64)(1 − 3/(2kN) + …)`, far inside the `N^{−1/4}` error of the theorem. It does **not** fix the
+graviton three-point couplings.
+
 **What this is and is not.**
 * It is a theorem about the matrix integral: the quantity `(64/π²)∂_m²F` has the asymptotics that Einstein
   gravity predicts for `c_T` given `F`, with explicit finite-`N` bounds and the exact inequality
   `16N ≤ c_T ≤ 16N²`. In bulk language: the Newton constant read from the on-shell action and the one read
   from the graviton two-point normalisation agree at leading order.
-* The physics was not in doubt (the leading `c_T` and the Airy form are known). New, as far as searched: the
-  proof, and possibly the finite-`N` inequalities; the dual representation of the mass deformation is in the
-  literature (Nosaka; Honda et al.), and the formula `c_T = 16N + 32E[Σw]` may well be implicit there — **no
-  search was made**.
+* The physics was not in doubt (the leading `c_T` and the Airy form are known), and the exact formula for
+  `c_T` is in the literature (see Attribution). New, as far as searched: the proof of the limit and the
+  convexity sandwich.
 * It gives **no new constraint on the gravitational coupling**: the error terms exceed every known
   correction. It says nothing about `⟨TTT⟩`, i.e. about whether the bulk theory is Einstein rather than
   higher-derivative beyond this one relation, and nothing about locality.
