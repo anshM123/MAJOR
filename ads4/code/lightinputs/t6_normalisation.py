@@ -14,7 +14,23 @@ sys.path.insert(0, os.path.join(HERE, '..', 'e2e'))
 os.chdir(os.path.join(HERE, '..', 'e2e'))           # laplace's cache lives there (read-only use: tables already cached)
 import sympy as sp, mpmath as mp
 from laplace import M_table, nu, a, g1
-from clsd_kernel import weights
+from clsd_kernel import weights as _weights_float_sign
+
+def weights(l, parity=1):
+    """exact copy of e2e/clsd_kernel.weights (odd case) with sp.Integer(-1)**q3 (the original gives +-1.0 floats for q3 < 0)"""
+    assert parity == 1
+    delta = sp.Rational(1, 2) + sp.I*nu
+    w = {}
+    for q1 in range(-l, l+1):
+        for q3 in range(-l, l+1):
+            if (q1 + q3) % 2 != 1: continue
+            mm = (q1 + q3 - 1)//2; sgn = 1
+            if mm < 0: mm = -mm - 1; sgn = -1
+            w[(q1, q3)] = sp.Integer(-1)**q3*sgn*sp.rf((delta + 1)/2, mm)/sp.rf((3 - delta)/2, mm)
+    # consistency with the imported version
+    wf = _weights_float_sign(l, 1)
+    assert all(sp.simplify(sp.nsimplify(wf[q]) - w[q]) == 0 for q in w)
+    return w
 
 def kernel_modes(l, which):
     """mode weights of the project's odd kernels at one pair, from a DFT on the frame circle (exact for trig polys)"""
@@ -88,12 +104,12 @@ if __name__ == "__main__":
 
     # exact closed forms (coefficients rationalised; checked against the floating expressions above)
     print("=== exact closed forms ===")
-    for l, which, closed in ((1, 'D5', sp.Rational(2, 5)*(2*nu + sp.I)),
+    for l, which, closed in ((1, 'D5', None),
                              (2, 'A', None)):
         aa = 2*l + 4
         wp = kernel_modes(l, which); wc = weights(l, 1)
         rc, _ = response(l, wc, 1, -1); rp, _ = response(l, wp, 1, -1)
-        Nex = sp.factor(sp.nsimplify(sp.simplify((rc/rp).subs(a, aa)), rational=True))
+        Nex = sp.factor(sp.simplify((rc/rp).subs(a, aa)))
         print(f"  l={l}: N(nu) = {Nex}")
         if l == 2:
             target = (2*nu + sp.I)*(4*nu**2 + 9)/(4*nu**2 + 201)
