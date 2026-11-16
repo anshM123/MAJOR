@@ -94,7 +94,8 @@ def gl(n):
     return _GL[n]
 
 def nth(b):
-    return int(min(12000, max(96, 1.2 * b + 96)))
+    n = int(min(12000, max(96, 1.2 * b + 96)))
+    return 128 * ((n + 127) // 128)          # quantised so that the Gauss-Legendre rules are cached
 
 def Einvsqrt(beta, s):
     """E(beta, beta s)^{-1/2}, s in [0,1]."""

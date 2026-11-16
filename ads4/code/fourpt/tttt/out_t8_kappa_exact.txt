@@ -2,3 +2,5 @@
   l=1 (Delta,J)=(97/10,13/3) opp: word-relation dims 0,0; lambda_h = 137826304*2**(2/3)/21515;  kappa_h = 54183.2646292302;  kappa_h A_h / 2^(3J+3/2) = 1   (0 s)
   l=1 (Delta,J)=(53/4,11/2) same: word-relation dims 0,0; lambda_h = 411275264/54537;  kappa_h = 186236.303427031;  kappa_h A_h / 2^(3J+3/2) = 1   (0 s)
   l=1 (Delta,J)=(53/4,11/2) opp: word-relation dims 0,0; lambda_h = 130404352/6237;  kappa_h = 516344.242424242;  kappa_h A_h / 2^(3J+3/2) = 1   (0 s)
+  l=2 (Delta,J)=(97/10,13/3) same: word-relation dims 1,1; lambda_h = 306453197884388183552*2**(2/3)/4050446036717511;  kappa_h = 3031.18576183971;  kappa_h A_h / 2^(3J+3/2) = 1   (127 s)
+  l=2 (Delta,J)=(97/10,13/3) opp: word-relation dims 1,1; lambda_h = 39721479171799040*2**(2/3)/1495225969;  kappa_h = 1064314.12664559;  kappa_h A_h / 2^(3J+3/2) = 1   (159 s)

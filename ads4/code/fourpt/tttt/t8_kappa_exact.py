@@ -28,12 +28,16 @@ def decompose(l, Dv, Jv, kind):
     ws = words(l)
     Rw = {w: sp.together(R_inv(l, {w: 1}, Dv, Jv).xreplace({AX: -AX, BX: -BX, WX: -WX})*sp.Integer(2)**(-Jv)) for w in ws}
     cs = sp.symbols('c0:%d' % len(ws))
-    expr = sp.together(Xn - sum(cs[i]*Rw[w] for i, w in enumerate(ws)))
+    rel = 0
+    if l == 2:     # d = 3: the Gram determinant of (x, a, b, zeta) vanishes; it is the source of the word relation
+        G4 = sp.Matrix([[XX, AX, BX, WX], [AX, 0, AB, AW], [BX, AB, 0, BW], [WX, AW, BW, 0]]).det()
+        mus = sp.symbols('mu0:7'); cs = cs + mus; rel = sum(mus[k]*G4*XX**(k - 3)/WX**2 for k in range(7))   # homogeneity picks XX^2
+    expr = sp.together(Xn - sum(cs[i]*Rw[w] for i, w in enumerate(ws)) - rel)
     num = sp.expand(sp.fraction(expr)[0])
     eqs = sp.Poly(num, *INV).coeffs()
     A, b = sp.linear_eq_to_matrix(eqs, cs)
     sol, params = A.gauss_jordan_solve(b)
-    return ws, sol, params
+    return ws, sol[:len(ws), :], params
 
 def kappa(l, Dv, Jv, kind):
     Dt, Jt = 3 - Dv, -1 - Jv
