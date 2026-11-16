@@ -208,6 +208,38 @@ double-twist operators `[TT]`, which is automatic in every CFT3, is not evidence
 higher-spin states; their contribution is what hypothesis (ii) controls. The corresponding statement in
 `d = 4` (`a = c` at infinite gap) is Belin–Hofman–Mathys.
 
+## 3b. Helicity-preserving channels: the scalar-kernel action of the graviton weight (numerical; not a theorem)
+
+By the corrected dictionary (`SPINNING_KERNELS.md` Part B, `REGGE_FROM_BLOCKS.md`), the diagonal components
+`|c^{++}|²`, `|c^{+−}|²` carry the scalar kernel at leading order. *Granted a spinning Regge-moment formula of the
+scalar form* (not yet derived; in progress), the leading action of a functional with weight `f` on such heavy
+states at impact parameter `β` is proportional to
+
+`G_M[f](β) := ∫_0^1 f(p) P_{−1/2+iMp}(cosh β) dp = (√2/π) ∫_0^β f̃(Mt) (cosh β − cosh t)^{−1/2} dt`, `f̃(τ) := ∫_0^1 f(p) cos(pτ) dp`.
+
+For the `B_2` weight of the cubic-coupling functional of arXiv:2201.06602, `f(p) = (1−p)³ p (65 + 155p + 47p²)`
+(`ads4/code/uniform_positivity2.py`):
+
+| `M` | flat regime (`Mβ ≲ 5`) | curved regime | minimum on the grid |
+|---|---|---|---|
+| 5 | `G` within 5% of the flat functional `f̂(Mβ)` | `G = 0.0308, 0.00300` at `β = 4, 8` against `a_1Q_1/M² + a_2Q_2/M³ = 0.0302, 0.00300` | positive, decreasing to the end of the grid |
+| 20 | within 0.3% | `0.00497, 0.00185, 0.000187` at `β = 2, 4, 8` against `0.00497, 0.00185, 0.000187` | positive |
+| 80 | within 0.02% | `2.924·10^{−4}` at `β = 2` against `2.924·10^{−4}`; flat functional there `9.7·10^{−6}` | positive |
+
+So `G_M[f]` is positive on these grids and interpolates between the flat-space functional and the two-term
+moment formula `a_1 Q_1(β)/M² + a_2 Q_2(β)/M³` (`a_1 = 65`, `a_2 = −40`); in the curved regime the latter exceeds the
+flat functional by orders of magnitude, which is the mechanism described for scalars in arXiv:2106.10274,
+and its sign is Lemma Q.
+
+**What is not proved.** (i) Positivity of `G_M[f](β)` for all `β > 0` and all `M ≥ M_0`. The sufficient pointwise
+condition in the `coth` representation fails: `K_{f,M}(t) := ∫_0^1 f(p) coth(πMp) sin(Mpt) dp` is negative near `Mt ≈ 10`
+for `M ≥ 20` (`uniform_positivity.py`), so a proof has to use the integrated statement — flat-space positivity
+of `f̂` (itself numerical in the source) for `Mβ ≲ B_0`, a uniform expansion of the conical function with
+explicit remainder in the transition region `β ~ M^{−1/3}` where the two contributions cross, and Lemma Q
+beyond. (ii) That this is the complete normalised diagonal contribution: the `1/m` corrections, one of
+which has opposite sign in the two diagonal channels, are not included. (iii) Everything about the light
+side.
+
 ## 4. Next steps on the direct route
 
 1. Compute the kernels `K^{(a)}_m(Δ, J)` (three-point structures of `⟨TTO⟩` in `d = 3`, light transform, Fourier
