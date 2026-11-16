@@ -12,3 +12,4 @@ python3 -u t4_mtable_poles.py      | tee cache/t4.log
 python3 -u t5_mode_map.py          | tee cache/t5.log
 python3 -u t6_normalisation.py     | tee cache/t6.log
 python3 -u t6b_flip_scan.py        | tee cache/t6b.log
+python3 -u t7_shadow_reality.py    | tee cache/t7.log

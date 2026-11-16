@@ -246,9 +246,13 @@ Net effect on `ADS4_LIGHT.md` §4:
 * **m5:** the tower vs `T`-block route is reconciled (§2.2).
 * **m6:** `J₀(G^E) = 2` is kept as [I].
 
-## 8. Follow-up: `Ω′` (see `ads4/OMEGA_PRIME.md`)
+## 8. Follow-up: `Ω′` (see `ads4/OMEGA_PRIME.md`, revised after `REFEREE_OMEGA_PRIME.md`)
 
-The alternative of §0 is worked out in `OMEGA_PRIME.md`: replace `C⁻₃` by the normalised bare commutator `C̃⁻₃`.
-* Leading heavy action `(2P/m⁶)(|c_s|²−|c_o|²)` [D-sketch]; normalisation `N(ν)` [ND].
-* Flat limit `ψ₃B₃^{(1)}`, so Theorem 1 applies [D given Q].
-* Light side `∝ t₄²+α_T²` only, with `k(0)` unchanged [D given planar `J₀ < 3`].
+The alternative of §0 is worked out in `OMEGA_PRIME.md`: replace `C⁻₃` by `C̃⁻₃`. This is a bare light-ray commutator functional with the CLS-D odd celestial
+kernel at `(1,3)` and the lift of `𝔄` at `(2,4)`. It is not shown to be a CLS-D family member; it is valid by the operator statement.
+* **Heavy action [DV given the light-ray mode map, `k_r = 3`, and the two-pair heavy formula].** Its leading heavy action equals that of `C⁻₃`, with the exact
+  `N(ν) = −(32/7)(2ν+i)(4ν²+9)/(4ν²+201)` (`d₀` convention). There is no flip interference at either pair (structural).
+* **Flat limit.** It is inherited, so Theorem 1 applies.
+* **Reality.** `C̃⁻₃` is real and even in `ν` [DV at leading-kernel level, `t7`; D-sketch for the full functional].
+* **Light side.** It is `∝ t₄²+α_T²` only, with `k(0)` unchanged and no `O(Λ⁻¹)` shift.
+* **Open.** The light-ray Jacobian `j(ν)` is not tracked ([I]).
