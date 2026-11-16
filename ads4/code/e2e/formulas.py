@@ -47,15 +47,14 @@ def Fnu_closed(nu, mu, xi):
     return mp.gamma(mp.mpf(1)/2 + 1j*nu)/mp.gamma(mp.mpf(1)/2 + 1j*nu + mu)*mp.legenp(-mp.mpf(1)/2 + 1j*nu, mu, mp.cosh(mp.mpf(xi)), type=3)
 
 def Fnu_np(nu, mus, xi, M=None):
-    """numpy version by the periodic trapezoid rule; xi array; returns dict mu -> complex array."""
+    """numpy version by the periodic trapezoid rule (midpoint nodes); xi array; returns dict mu -> complex array.
+    The integrand is peaked at theta = 0 with width e^{-xi}: the number of nodes is chosen per xi."""
     xi = np.atleast_1d(np.asarray(xi, dtype=float))
-    exi = np.exp(np.max(xi))
-    if M is None:
-        M = int(2**np.ceil(np.log2(600 + 60*exi + 40*abs(nu)*(1 + np.max(xi)))))
-    th = 2*np.pi*(np.arange(M) + 0.5)/M
     out = {mu: np.zeros(xi.size, dtype=complex) for mu in mus}
     ch, sh = np.cosh(xi), np.sinh(xi)
     for i in range(xi.size):
+        Mi = M if M is not None else int(2**np.ceil(np.log2(400 + 60*np.exp(xi[i]) + 40*abs(nu)*(1 + xi[i]))))
+        th = 2*np.pi*(np.arange(Mi) + 0.5)/Mi
         base = np.exp((-0.5 + 1j*nu)*np.log(ch[i] - sh[i]*np.cos(th)))
         for mu in mus:
             out[mu][i] = np.mean(base*np.cos(mu*th))

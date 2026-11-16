@@ -227,3 +227,78 @@ Restrict Theorem 3(ii) and the headline to ε ≤ ε*. For the `++` island this 
 ### R2 summary
 
 No fatal issue. One major issue: Theorem 3(ii)/E1 is vacuous if read literally, unproved if read approximately, and excludes M-scale `++` states for m_IR ≈ M/100. Everything else is correct, with minor fixes. Proposition 1′ (the JHEP-printed functional is not positive) is confirmed independently.
+
+---
+
+## Round 3 (final; commit 6289c66: Lemma N, `cert_eps.py`, E on Ω_ε, Lemma IR with finite-mass bound)
+
+### Verdicts
+
+| aspect | verdict |
+|---|---|
+| Mathematical correctness | **Correct, with one proof gap (R3.1).** As written, the "worst case at ε*" monotonicity is false. It becomes true once the remainder constants are taken ε-dependent. That repair is legitimate, and the certified numbers do not change. |
+| Computational soundness | **Sound.** `run_all.sh` re-run: 10/10 PASS, 3 min 59 s (cert_eps 109 s). Mutation with ε* = 1/1000 FAILs (details below). |
+| Physical applicability | **Acceptable and honestly labelled.** E is now imposed only on Ω_ε (b̂ ≥ 120/M, s ≳ 2.5·10⁴ M²). There it is non-vacuous, consistent with reproducing the graviton pole, and excludes no M-scale state. Theorem 3(ii) is a model-conditional bound valid only for m_IR ≤ M/20000, where the log term alone is ≥ 37.8·log(2·10⁴) ≈ 375. It is weak but true as stated. |
+| Novelty | Unchanged from rounds 1–2. |
+
+No fatal issue. One major write-up issue (R3.1); the rest are minor.
+
+### R3 issues
+
+**R3.1 [MAJOR (proof as written), easy fix]: the monotonicity of X(ε) needs ε-dependent r₀, r₁, u_N.**
+§4.3 defines `r₀ = 65ε*²q`, `r₁ = (162ε* + 17ε*⁴)q` and Ω_ε through u_N built from those constants, with `u_N ≤ 65.4/b̂³ + 64.9ε*/b̂² + 5.11ε*/b̂`. It then claims that every term of X is `ε^aΛ` with a ≥ 1, so that ε = ε* is the worst case. With those definitions this is false. The term `(r₁/2)·5.11ε*·L·Λ`, with `L = 1/(λε)`, grows like `1/ε` as ε → 0. My evaluation of the same majorant at λ = 1:
+
+| ε | X with r(ε*) fixed | X with r(ε) |
+|---|---|---|
+| 5·10⁻⁵ | 0.1175 | 0.1175 |
+| 10⁻⁵ | 0.71 | 0.031 |
+| 10⁻⁶ | 9.4 | 0.0041 |
+| 10⁻⁸ | 1.4·10³ | 6·10⁻⁵ |
+
+The claim holds if Lemma N and Lemma IR are applied at each ε with `r₀(ε) = 65ε²q(ε)`, `r₁(ε) = (162ε + 17ε⁴)q(ε)` and `u_N^{(ε)}`, `Ω_ε` built from them. This is legitimate:
+- the (P), (C) and (S) margins certified against r(ε*) exceed r(ε) for every ε ≤ ε*;
+- the (M) quadratic argument is per-ε.
+
+With these definitions each term is `ε^aΛ^c` with a ≥ 1 and Λ > 1, hence increasing. *Fix:* rewrite the definitions of r₀, r₁, u_N and Ω_ε as functions of ε, and say that the code evaluates them at ε*. The headline `−40.790` (certified `−40.79081`, rounded safely) is unaffected.
+
+**R3.2 [MINOR] "s ≳ 3·10⁴ M²".** At b̂ = 120 the log gives `u_N ≤ 65.33/b̂³ + 64.90ε*/b̂² + 5.103ε*/b̂ = 4.0·10⁻⁵`, so `s ≥ 2.5·10⁴ M²`. Write ≳ 2.5·10⁴.
+
+**R3.3 [MINOR, cosmetic] Imports.** `cert_eps.py` does `import cert_ir`, which executes cert_ir's module-level code. Its ε ≤ 1/100 table is therefore re-printed inside `logs/cert_eps.log`, next to the proved table. Guard cert_ir with `if __name__ == '__main__'`, or label that block.
+
+**R3.4 [MINOR] cert_eps fails only by abort.** `cert_eps.py` aborts on `assert Lam > 1` when Λ ≤ 1 (small ε* or large λ). The driver then reports "FAIL (no verdict)". That is acceptable but uninformative.
+
+### R3 checks done myself
+
+- **Remainder bound `m⁴|R_ε| ≤ r₀ + r₁u`.**
+  - `|Ψ_h| ≤ 2ψ₂ + uψ₃` with ψ₂ ≤ 65p (since `65 − φ ≥ 0`) and 0 < ψ₃ ≤ 162 on [0, 0.04].
+  - `|P_J| ≤ 1`; for `+−`, `|d̃₄₄| ≤ (1−up²)^{−4} ≤ (1−ε²)^{−4}`.
+  - Integration gives `65ε² + 162uε` (the 17uε⁴ term is pure slack).
+  - The bound is monotone in ε, so it is uniform on ε ≤ ε*. It holds in both channels.
+  - Both Φ variants are covered, because `poly_u` uses the pessimistic Φ.
+  - `[F^ε]₋ ≤ [R_ε]₊` follows from Theorem 1.
+- **Coverage of the shifted certificates.**
+  - (P) covers all J < 400 on u ∈ [0,1]. No J < 400 state lies in Ω_ε anyway, since b̂ ≥ 120 forces `u ≥ (120/799)² = 0.0226 > 1/100`.
+  - (C) margin is 2.1·10⁴ against r₀ + r₁.
+  - (S) runs 604 cells per channel plus `small_b`, with `−r₀ − r₁u` added to `g[0][0]` and `g[0][1]`. That is exactly the needed shift: the Cauchy tail bounds G only, and the shift is exact.
+  - (M) uses the common lower bound `80/b̂₊³ − C_R/b̂₋⁴ − 162u/b̂₋ + 2.5(1−η)b̂²u²`. It is valid for `++` as well: the `++` linear term `u(162/b̂ − 21250/b̂³)` is ≥ 0 ≥ `−162u/b̂₋`, and `7.5u³ ≤ η·2.5b̂²u²` with `η = 85/(4b̂²)` for u ≤ 1/4. C_R is the maximum over both channels. The u ∈ [1/100, 1/4] exclusion is checked at u₁ with increasing slope.
+  - The u_N majorant (`c/a + √(r₀/a)`) is correct.
+- **Finite-mass kernel bound `|D_h − J₀(b̂p)| ≤ 9.1up² + 0.12b̂up³ + 4.8p√u` (p ≤ ε).** Re-derived as the sum of:
+  - `(2/π)∫|E^{−1/2} − 1| ≤ θ/sin θ − 1 ≤ θ²/5`, with `θ² ≤ 4.1up²`;
+  - `|J₀(b̂p s) − J₀(b̂p)| ≤ 0.582·b̂p·up²/5`;
+  - for `+−`, `|(1−y)^{−8} − 1| ≤ 8.1up²` and the CG shifts `0.582·4·θ ≤ 4.68p√u`, using `c_j ≥ 0`, `Σc_j = 1` and `|P_{J+j}| ≤ 1`.
+
+  An mpmath spot check (40 digits) at b̂ ∈ {120, 1000}, u ∈ {u_N, u_N/100}, p = 5·10⁻⁵ (J up to 8.8·10⁶) gives actual/bound ≤ 1.3·10⁻⁴, so the bound is very loose but valid. Caution: scipy `eval_legendre`/`eval_jacobi` in double precision are wrong at these J (errors around 10⁻⁵), so do not use them for such checks.
+- **Lemma IR assembly.**
+  - Per-state `m⁴[F^ε]₋/2` is majorised by a function of b̂ alone: u is replaced by u_N, and all extras increase in u.
+  - The power integrals Ib_u, Ib2_u, Ib_su are correct (using `√(x+y+z) ≤ √x + √y + √z`).
+  - `log(L/b) ≤ Λ` on [120, L]; 16/k_lo with k_lo at 1/100 is conservative.
+  - Log values: A = 37.83868593, B = −45.44406760, Δ_IR(λ=1) = 4.65326, giving `B + Δ = −40.79081`.
+- **E on Ω_ε.**
+  - It does not force N_ε = ∅ and contains no exact scaling-limit equality.
+  - Weight outside Ω_ε is unconstrained, which includes the states needed for the `16πG J₀(p/μ)/p²` remainder of the pole and all M-scale states.
+  - So it is consistent with Theorem 2 and non-vacuous. It remains a model hypothesis with a model IR scale μ, and the note says so.
+- **Labels.** Theorem 3(ii) is "[proved] given H1–H5 and E on Ω_ε" for m_IR ≤ M/20000 only. The ε ≤ 1/100 numbers are marked "[estimate only — not proved]", and cert_ir is relabelled. These labels are honest.
+- **Mutation.** In a scratch copy with `EPS = 1/1000`, `cert_eps` FAILs.
+  - 312 failing items, starting with (P) `++` J = 24–30 (the m ≈ 4–6 island) and `+−` J = 4 and J = 212–215.
+  - The script then aborts on `assert Lam > 1`, so the driver would report FAIL.
+  - This matches the note's statement that ε* cannot exceed ~7·10⁻⁵ by much, and my round-2 scan.
