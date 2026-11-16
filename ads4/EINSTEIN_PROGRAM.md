@@ -49,7 +49,32 @@ argued "non-rigorously".
   the three-point tensor structures in `d = 3` including parity-odd ones; (vi) positivity of the flat-space
   functional itself, known only numerically.
 
-## 3. A structural sum rule in `d = 3` (derivation; conditional; **not yet refereed**)
+## 3. A structural sum rule in `d = 3` (derivation; conditional; refereed)
+
+**Referee verdict (hostile brief, automated, same model family):** "I could not break (★). It is correct as a
+conditional derivation, but its novelty and significance are overstated in places" — corrections applied
+below. **How to describe it (referee's sentence):** "In a CFT3, granted commutativity of energy detectors on
+stress-tensor momentum states, the fourth angular harmonic of the energy–energy correlator in a helicity-2
+stress-tensor state is at least `(t_4² + α_T²)/16` and is carried entirely by helicity-6 components of spin `≥ 6`
+operators (single-trace ones in the planar limit); this is a `d = 3` specialisation of known superconvergence
+relations, gives no gap dependence, and does not single out Einstein gravity."
+
+**Two facts that limit its significance.**
+* **`t_4 = α_T = 0` does not diagnose Einstein gravity.** In every CFT3 with at least `N = 1` supersymmetry the
+  supercurrent three-point function has a single structure (arXiv:1503.04961), so `c = 0` — including the free
+  scalar-plus-Majorana multiplet and ABJM theory at any coupling. There (★) reads `0 + 1 = 1`. The vanishing
+  of the non-Einstein parameters of `⟨TTT⟩` is necessary for an Einstein dual and very far from sufficient.
+* **Prior work.** Meçaj–Moult–Walters–Xin, "Energy correlator conformal blocks and positivity"
+  (arXiv:2512.09986, JHEP 09 (2026) 055): scalar source, blocks for spin-`J` exchange including the `d = 3`
+  parity-odd case, coefficients as sums of squares, `0 ≤ F^{(ℓ)} ≤ 1`; spinning sources and superconvergence
+  listed as future work (also its sequel arXiv:2608.19322). Belin–Borak–Henriksson–Piron–Zhiboedov
+  (arXiv:2608.26246, §7.1.1): polarisation-averaged stress-tensor source, general `d`, parity-even,
+  `C_J = Σ_O C_J^O ≥ 0`, and `C_4^T = 2d t_4²/((d+1)²(d+3))`, which is `t_4²/16` at `d = 3`, with a double zero at
+  double-twist dimensions; polarisation-resolved positivity left to future work. **So items 1, 2, 5 of
+  Proposition S and the stress-tensor term in the fourth multipole are not new.** New as far as the referee
+  could find: the helicity-resolved relation `a_n = a_{−n}`, i.e. (★) itself, the spin-`≥ 6` selection, and the
+  inclusion of `α_T` — "a short specialisation of [Kologlu et al.], not a new method". The first audit had
+  missed arXiv:2608.26246.
 
 In three dimensions the little group of a timelike momentum is SO(2), the energy-flux operators are labelled
 by one angle, and the graviton has two helicities. This makes the commutativity sum rules elementary.
@@ -58,10 +83,18 @@ by one angle, and the graviton has two helicities. This makes the commutativity 
 Energy-flux operators `E(θ)`, `θ ∈ S¹`, on the improper states of momentum `q = (E,0,0)`, with:
 (E1) `E(θ) ≥ 0`, `U(R_φ)E(θ)U(R_φ)^{−1} = E(θ+φ)`, `[E(θ), P^μ] = 0`;
 (E2) `∫ E(θ) dθ = H`, `∫ e^{∓iθ} E(θ) dθ = P^x ∓ iP^y`;
-(E3) `[E(θ_1), E(θ_2)] = 0` in matrix elements between stress-tensor states, as distributions on the torus
-including coincident angles;
+(E3) `[E(θ_1), E(θ_2)] = 0` in matrix elements between stress-tensor states for `θ_1 ≠ θ_2`. (Coincident angles
+need no separate hypothesis: by (E1), (E2) and Cauchy–Schwarz for a positive form-valued measure,
+`|⟨φ|E_n|ψ⟩|² ≤ ⟨φ|H|φ⟩⟨ψ|H|ψ⟩`, so `0 ≤ a_n ≤ 1` without commutativity; an antisymmetric contact term would add an
+odd polynomial in `n` to `a_n − a_{−n}`, which is bounded, hence zero. Symmetric contact terms, as in free
+theories, are harmless. — Referee.) In the literature (E3) is derived for `J_0 < 3`, with no restriction
+excluding `d = 3`, but only on a dense set of states that "does not include important states like momentum
+eigenstates"; on stress-tensor momentum eigenstates it is a physics-level hypothesis;
 (E4) products `E(θ_1)E(θ_2)` in such matrix elements are computed by inserting the states `|O, m; q⟩`
-(primaries `O` in `T × T`, SO(2) charge `m ∈ {−J_O, …, J_O}`), the sums converging as distributions;
+(primaries `O` in `T × T`, SO(2) charge `m ∈ {−J_O, …, J_O}`; convention `U(R_φ)|m⟩ = e^{imφ}|m⟩`). This is exact: at
+fixed timelike `q` a spin-`J` primary above the unitarity bound gives each charge once with positive norm,
+descendants are multiples (`P^μ = q^μ`), multi-trace states are multi-trace primaries, conserved spin-`s`
+currents keep only `m = ±s`; convergence of `Σ_O|â|²` is Parseval once `a_n ≤ 1`;
 (E5) the one-point function in graviton states is `⟨T,h′|E(θ)|T,h⟩ ∝ M_{h′h}(θ)`, `M = [[1, c̄ e^{4iθ}],[c e^{−4iθ}, 1]]`
 in the helicity basis `h = ±2`, with `c = (t_4 + iα_T)/4` (the `d = 3` conformal-collider result, arXiv:1707.03007;
 phase convention-dependent).
@@ -80,13 +113,17 @@ graviton state, and `a_n := ‖E_n|+⟩‖² / ‖E_0|+⟩‖²`.
 5. `(a_n)` are the Fourier coefficients of a positive measure of mass one on the circle (the
    energy–energy correlator in the helicity state), so `0 ≤ a_n ≤ 1`.
 
-**Consequences.** (a) `t_4² + α_T² ≤ 16 Σ_{J_O≥6} |â^O_{6,2}|² ≤ 16`: the collider disc, and, more sharply, **a
-non-Einstein stress-tensor three-point function requires primaries of spin at least six in `T × T`, carrying
-at least the weight `(t_4² + α_T²)/16` in the sixth angular harmonic.** Operators of spin four, and scalars
+**Consequences.** (a) `t_4² + α_T² ≤ 16 Σ_{J_O≥6} |â^O_{6,2}|² ≤ 16`: the collider disc, and, more sharply, **the
+helicity-6 components of operators of spin at least six in `T × T` carry at least the weight
+`(t_4² + α_T²)/16`** (fourth harmonic of the detector pair). The mere existence of such operators is automatic
+at finite `c_T` (double-twist `[TT]` operators of all spins always exist); only the weight statement has
+content. Operators of spin four, and scalars
 (which have only `m = 0`), cannot compensate: they enter (★) on the left, with the same sign as the
-non-Einstein term, or not at all. (b) No assumption about light scalars is needed. (c) In a large-`N` theory
-in which the double-trace contributions to the right side are `O(1/c_T)` (not shown here), `t_4² + α_T²` is
-bounded by the single-trace spin-`≥ 6` weight.
+non-Einstein term, or not at all. (b) No assumption about light scalars is needed. (c) *Planar statement.* The squared
+amplitude has a double zero at double-twist dimensions, so `[TT]_{n,ℓ}` drop out of both sides at leading
+order: `|c|² + Σ_{ST ≠ T} |â_{−2,2}|² = Σ_{ST, J≥6} |â_{6,2}|²` over single-trace operators. This is meaningful only in
+the strictly planar limit: light-ray integrals do not commute with the `1/N` expansion (the planar Regge
+intercept is `≤ 2` but the one-loop one is `3`), so no order-by-order statement in `1/c_T` is made.
 
 *Proof.* (1) By (E1) `E_n` maps charge `2` to charge `2+n` and preserves `q`; insert (E4); a spin-`J` primary has
 charges `|m| ≤ J`. (2) (E2): `E_0 = H`, and `E_{±1} = P^x ∓ iP^y` annihilate states with `q = (E,0,0)`. (3)
@@ -97,16 +134,20 @@ contributes its helicity `−2` state, with amplitude `c` by (E5); charge `6` re
 
 **Checks.** Free scalar and free Majorana fermion: `T(q)|0⟩` is a back-to-back two-particle state, the
 energy–energy correlator is `δ(θ_12) + δ(θ_12 − π)`, so `a_n = 1` for even `n`; `|c| = 1` (`t_4 = ±4`); the only
-primaries are the conserved currents `J_s` with helicities `±s`; (★) reads `1 + 0 = |â^{J_6}_{6,2}|² = 1`.
-Einstein gravity (`c = 0`) is the unique point at which the graviton state needs no fourth harmonic from
-its own helicity flip.
+primaries are the conserved currents `J_s` with helicities `±s` (and `φ²`, resp. `ψ̄ψ`, with `m = 0`, which do not
+enter (★)); (★) reads `1 + 0 = |â^{J_6}_{6,2}|² = 1`. Referee's further checks: explicit two-particle
+wavefunctions give `c = +1` (scalar), `c = −1` (Majorana), and for mixtures `c = (n_s − n_f)/(n_s + n_f)` with the
+`m = −2` weight splitting as `|c|²` plus `1 − |c|²` on other spin-2 currents; the one-point structure (E5) and
+the disc agree in detail with arXiv:1707.03007, including `α_T`; for the 3d Ising model the published
+bootstrap window gives `|c|² ≈ 0.93–0.96`, so at least 93% of the fourth harmonic sits in helicity-6 states;
+large-`N` Chern–Simons-matter theories have `|c| = 1` at leading order, consistent with a conserved spin-6
+current. The spin threshold is consistent with `d = 4` (there a second harmonic exists and starts at spin 4;
+`d = 3` has only the fourth).
 
 **What this is and is not.**
-* It is the `d = 3` form of the "superconvergence" relations of Kologlu–Kravchuk–Simmons-Duffin–Zhiboedov and
-  Belin–Hofman–Mathys. According to the audit, the `d = 3` case is not written in the literature and the
-  spin-six threshold with the parity-odd structure included is not stated; this has **not** been checked by
-  a referee, and the statement is conditional on (E), which are physics-level assumptions with known
-  loopholes.
+* It is the `d = 3`, helicity-resolved form of the "superconvergence" relations of
+  Kologlu–Kravchuk–Simmons-Duffin–Zhiboedov and Belin–Hofman–Mathys; see "Prior work" above for what is
+  and is not new. It is conditional on (E), which are physics-level assumptions with known loopholes.
 * It is homogeneous: the Einstein part cancels, so (★) gives **no rate** in `Δ_gap`. A rate needs the
   spin-two Regge sum rule in which the graviton pole does not cancel, i.e. route S-A.
 * The amplitudes `â^O_{m,2}` are not yet expressed through OPE coefficients: the kernels
@@ -146,8 +187,10 @@ statement about the constraint system of Proposition S, not a no-go for other us
 
 **Corollary (infinite gap; conditional).** Assume (E), and a family of CFT3s with `c_T → ∞` such that (i) `T × T`
 contains no single-trace primary of spin `≥ 6`, and (ii) the total double-trace contribution to `a_4` tends to
-zero. Then `t_4² + α_T² → 0`: the stress-tensor three-point function is that of Einstein gravity at leading
-order. Hypothesis (ii) is the standard planar statement (the amplitudes vanish at the double-twist
+zero. Then `t_4² + α_T² → 0`. **This conclusion is already in the literature** (arXiv:1805.07393, (7.5)–(7.6),
+from the Regge limit; the `d = 3` analogue of Belin–Hofman–Mathys); what the present route adds is only that
+light scalars and single-trace operators of spin `≤ 5` need not be excluded. And by the remark above it
+does not say the dual is Einstein gravity. Hypothesis (ii) is the standard planar statement (the amplitudes vanish at the double-twist
 dimensions) and is **not proved here**. Note what this does *not* use: the mere existence of high-spin
 double-twist operators `[TT]`, which is automatic in every CFT3, is not evidence of single-trace
 higher-spin states; their contribution is what hypothesis (ii) controls. The corresponding statement in
