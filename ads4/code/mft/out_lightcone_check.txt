@@ -1,0 +1,18 @@
+Component z_1 = null direction of x_12 (where the tau_0 family dominates; see SPINNING_MFT.md sect. 5.1);
+z_3 = that direction, (1, cos 2.6, sin 2.6), (1, -1, 0).  Ratios F_MFT / sum_J p (-1/2)^J W  [and control with (+1/2)^J].
+== l = 1, Dphi = 1.75, tau_0 family J = 1..34, p from the Fock-space closed form (exact for N <= 8/6)
+  point A eps=1e-03 u=6.40e-04 zbar=-1.325 (last J term 2e-19):  ratio = 1.000166145 0.998019423 0.956128602   ratio-1 = 1.7e-04 -2.0e-03 -4.4e-02   control = -6.190 -6.192 -6.271
+  point A eps=1e-04 u=6.40e-05 zbar=-1.326 (last J term 2e-19):  ratio = 1.000016613 0.999801742 0.995433210   ratio-1 = 1.7e-05 -2.0e-04 -4.6e-03   control = -6.194 -6.194 -6.202
+  point A eps=1e-05 u=6.40e-06 zbar=-1.326 (last J term 2e-19):  ratio = 1.000001661 0.999980172 0.999541443   ratio-1 = 1.7e-06 -2.0e-05 -4.6e-04   control = -6.194 -6.194 -6.195
+  point A eps=1e-06 u=6.40e-07 zbar=-1.326 (last J term 2e-19):  ratio = 1.000000166 0.999998017 0.999954125   ratio-1 = 1.7e-07 -2.0e-06 -4.6e-05   control = -6.194 -6.194 -6.194
+  point B eps=1e-03 u=5.77e-04 zbar=-1.111 (last J term 4e-21):  ratio = 1.000177426 1.000019788 0.999692154   ratio-1 = 1.8e-04 2.0e-05 -3.1e-04   control = -5.047 -5.048 -5.048
+  point B eps=1e-04 u=5.77e-05 zbar=-1.111 (last J term 4e-21):  ratio = 1.000017741 1.000001989 0.999969235   ratio-1 = 1.8e-05 2.0e-06 -3.1e-05   control = -5.050 -5.050 -5.050
+  point B eps=1e-05 u=5.77e-06 zbar=-1.111 (last J term 4e-21):  ratio = 1.000001774 1.000000199 0.999996924   ratio-1 = 1.8e-06 2.0e-07 -3.1e-06   control = -5.050 -5.050 -5.050
+  point B eps=1e-06 u=5.77e-07 zbar=-1.111 (last J term 4e-21):  ratio = 1.000000177 1.000000020 0.999999692   ratio-1 = 1.8e-07 2.0e-08 -3.1e-07   control = -5.050 -5.050 -5.050
+== l = 2, Dphi = 1.75, tau_0 family J = 2..30, p from the Fock-space closed form (exact for N <= 8/6)
+  point A eps=1e-03 u=6.40e-04 zbar=-1.325 (last J term 4e-15):  ratio = 1.000172169 0.993746552 0.878778931   ratio-1 = 1.7e-04 -6.3e-03 -1.2e-01   control = 7.589 7.592 7.716
+  point A eps=1e-04 u=6.40e-05 zbar=-1.326 (last J term 4e-15):  ratio = 1.000017216 0.999371960 0.986573368   ratio-1 = 1.7e-05 -6.3e-04 -1.3e-02   control = 7.595 7.595 7.606
+  point A eps=1e-05 u=6.40e-06 zbar=-1.326 (last J term 4e-15):  ratio = 1.000001722 0.999937169 0.998642819   ratio-1 = 1.7e-06 -6.3e-05 -1.4e-03   control = 7.595 7.595 7.596
+  point B eps=1e-03 u=5.77e-04 zbar=-1.111 (last J term 2e-16):  ratio = 1.000183163 0.999731507 0.998774031   ratio-1 = 1.8e-04 -2.7e-04 -1.2e-03   control = 6.111 6.112 6.112
+  point B eps=1e-04 u=5.77e-05 zbar=-1.111 (last J term 2e-16):  ratio = 1.000018315 0.999973172 0.999877364   ratio-1 = 1.8e-05 -2.7e-05 -1.2e-04   control = 6.115 6.115 6.115
+  point B eps=1e-05 u=5.77e-06 zbar=-1.111 (last J term 2e-16):  ratio = 1.000001831 0.999997317 0.999987736   ratio-1 = 1.8e-06 -2.7e-06 -1.2e-05   control = 6.115 6.115 6.115

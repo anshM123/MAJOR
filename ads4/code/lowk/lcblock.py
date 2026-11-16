@@ -26,7 +26,7 @@ near chi -> 0 (u -> 1) it is not, and there the ordinary radial series (blocks.C
 """
 import os, sys, ctypes
 import numpy as np, mpmath as mp, sympy as sp
-from scipy.special import gammaln, gammasgn
+from scipy.special import gammaln, gammasgn, betainc
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 E2E = os.path.join(HERE, '..', 'e2e')
@@ -58,18 +58,41 @@ def poch_over_fact(a, q):
     q = np.asarray(q, dtype=float)
     return gammasgn(q + a)*gammasgn(a)*np.exp(gammaln(q + a) - gammaln(q + 1) - gammaln(a))
 
-_Tcache = {}
-def tail_T(a, x, Q, dps=30):
-    """sum_{q > Q} (a)_q/q! x^q  (array x), exact (mpmath 2F1)."""
-    out = np.empty(len(x))
-    with mp.workdps(dps):
-        g = mp.rf(mp.mpf(a), Q + 1)/mp.factorial(Q + 1)
-        for p, xv in enumerate(x):
-            key = (a, Q, float(xv))
-            if key not in _Tcache:
-                X = mp.mpf(float(xv))
-                _Tcache[key] = float(g*X**(Q + 1)*mp.hyp2f1(1, Q + 1 + a, Q + 2, X))
-            out[p] = _Tcache[key]
+def tail_T(a, x, Q):
+    """sum_{q > Q} (a)_q/q! x^q for an array x in (-1, 1) (a non-integer).
+    x > 0, a > 0:  (1-x)^{-a} I_x(Q+1, a)   (regularised incomplete beta; Taylor coefficients of (1-x)^{-a} are the negative-binomial
+                   weights, so the partial sum is (1-x)^{-a} I_{1-x}(a, Q+1));
+    x > 0, a < 0:  upward recursion T_{b-1} = (1-x) T_b - (b)_Q/Q! x^{Q+1} from the smallest b = a + n > 0
+                   (checked against mpmath 2F1: relative error <= 1e-9 for 1-x <= 1e-3; for 1-x >~ 3e-2 the tail is < e^{-200});
+    x < 0:         (a)_{Q+1}/(Q+1)! x^{Q+1} 2F1(1, Q+1+a; Q+2; x),  2F1 by the Pfaff transformation
+                   (1-x)^{-1} 2F1(1, 1-a; Q+2; x/(x-1)), |x/(x-1)| <= 1/2 (60 terms)."""
+    x = np.asarray(x, dtype=float)
+    out = np.zeros_like(x)
+    pos = x > 0
+    if pos.any():
+        xp = x[pos]
+        with np.errstate(under='ignore', over='ignore', divide='ignore', invalid='ignore'):
+            if a > 0:
+                T = (1 - xp)**(-a)*betainc(Q + 1, a, xp)
+            else:
+                n = int(np.floor(-a)) + 1
+                b = a + n
+                T = (1 - xp)**(-b)*betainc(Q + 1, b, xp)
+                for j in range(n):
+                    bb = b - j
+                    T = (1 - xp)*T - poch_over_fact(bb, Q)*np.exp((Q + 1)*np.log(xp))
+            T = np.where(np.isfinite(T), T, 0.0)
+        out[pos] = T
+    neg = ~pos
+    if neg.any():
+        xn = x[neg]
+        z = xn/(xn - 1)
+        term = np.ones_like(z); ssum = np.ones_like(z)
+        for p in range(60):
+            term = term*(1 - a + p)/(Q + 2 + p)*z
+            ssum += term
+        with np.errstate(under='ignore'):
+            out[neg] = poch_over_fact(a, Q + 1)*np.sign(xn)**(Q + 1)*np.exp((Q + 1)*np.log(np.abs(xn)))/(1 - xn)*ssum
     return out
 
 def _deta_coeffs(lmax=4):
