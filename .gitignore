@@ -7,3 +7,4 @@ ads4/code/unipos/logs/
 *.o
 ads4/code/e2e/*.pkl
 ads4/code/flatbound/logs/
+ads4/code/e2e/data_modes/
