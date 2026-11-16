@@ -113,6 +113,46 @@ its own helicity flip.
   `K^{(a)}_m(Δ, J)` with `â^O_{m,2} = c_T^{−1/2} Σ_a λ^{(a)}_{TTO} K^{(a)}_m` have not been computed. Until then (★) is a
   structural identity, not an inequality on conformal data.
 
+## 3a. Can the sum rule alone give a bound that decays with the gap? No — and why (proved for the constraint system)
+
+Write the data as `(c, x)`, `x = (x^O_m)` the normalised amplitudes `â^O_{m,2}` of the operators `O ≠ T`. For `n ≠ 0`
+every `a_n` is a **homogeneous quadratic form** in `(c, x)`: `a_n = |c|² δ_{n,−4} + Σ_O |x^O_{2+n}|²`. The Einstein part
+of the graviton state contributes only to `a_0 = 1`.
+
+**Lemma N (scaling).** If `(c, x)` satisfies all the relations of Proposition S — `a_n = a_{−n}`, `a_{±1} = 0`, and
+positivity of the energy–energy correlator `μ` — then so does `(tc, tx)` for every `t ∈ [0,1]`.
+
+*Proof.* The equalities for `n ≠ 0` are homogeneous of degree two. The measure with Fourier coefficients
+`a_0 = 1`, `a_n(t) = t² a_n` is `(1 − t²)·(uniform) + t²·μ`, a convex combination of positive measures. ∎
+
+**Consequences.**
+1. The relations never refer to the dimensions of the operators. Any bound `|c| ≤ g` deduced from them
+   and positivity alone is invariant under the scaling, so it cannot depend on `Δ_gap`: it is either the
+   collider bound `|c| ≤ 1`, or `c = 0`.
+2. A gap-dependent bound can therefore only come from **additional input that is not homogeneous**: an
+   a-priori bound on the heavy amplitudes in units fixed by the Einstein part. The natural source is a sum
+   rule in which the graviton pole does not cancel (Regge spin two; route S-A), where the heavy couplings
+   are bounded by `1/c_T` times a function of `Δ`.
+3. *Dichotomy.* Restricting `x` to what operator-product data can produce
+   (`x^O_m = c_T^{−1/2} Σ_a λ^{(a)}_{TTO} K^{(a)}_m(Δ_O, J_O)`, so each operator contributes a vector in a subspace of
+   dimension at most three), either (I) for heavy operators the spin-`≥ 6` weight in the sixth harmonic can
+   never exceed what the other relations force onto the left side of (★), in which case `c = 0` exactly at
+   `N = ∞` for every finite gap — a rigidity statement, presumably too strong to be true; or (II) there is
+   heavy data balancing some `c ≠ 0`, and then by Lemma N every `|c|` up to the positivity limit is allowed at
+   that gap. Which holds is decided by the kernels (computation in progress).
+
+So the energy-correlator sum rule **cannot** supply the missing quantitative bound by itself. This is a
+statement about the constraint system of Proposition S, not a no-go for other uses of energy correlators.
+
+**Corollary (infinite gap; conditional).** Assume (E), and a family of CFT3s with `c_T → ∞` such that (i) `T × T`
+contains no single-trace primary of spin `≥ 6`, and (ii) the total double-trace contribution to `a_4` tends to
+zero. Then `t_4² + α_T² → 0`: the stress-tensor three-point function is that of Einstein gravity at leading
+order. Hypothesis (ii) is the standard planar statement (the amplitudes vanish at the double-twist
+dimensions) and is **not proved here**. Note what this does *not* use: the mere existence of high-spin
+double-twist operators `[TT]`, which is automatic in every CFT3, is not evidence of single-trace
+higher-spin states; their contribution is what hypothesis (ii) controls. The corresponding statement in
+`d = 4` (`a = c` at infinite gap) is Belin–Hofman–Mathys.
+
 ## 4. Next steps on the direct route
 
 1. Compute the kernels `K^{(a)}_m(Δ, J)` (three-point structures of `⟨TTO⟩` in `d = 3`, light transform, Fourier
