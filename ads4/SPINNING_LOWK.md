@@ -40,9 +40,10 @@ numbers, no derivation), **[inferred]**. Coefficients obtained by fits are label
    `m^{−2k−1}` (`u ~ 1/m²`) — for every k for which (★) converges (for `Δ_φ = 1.75`, `l ≤ 2`: all k > −2). The non-uniformity at `u → 0` that motivated
    Assumption T is a property of the `(r, η)` representation only. Numerically: the pointwise `1/m²` coefficient of the shadow integrand
    stays bounded (it saturates) when the hyperbolic distances of `x̂, ŷ` from `p̂, p̄̂` grow to 8 (`d(x̂, ŷ)` up to 12.6), `l = 1, 2` (§6);
-   fits of the completed k = 2 ratios with an added `m^{−5/2}` term give a coefficient consistent with zero (`−0.5 ± 2.6` against
-   `c_2 = −17.1`, `l = 1`, β ≈ 0.4, ν = 0). So the term-by-term expansion does **not** fail at k = 2 at order `1/m²` or `1/m³`; the only
-   evidence for that is the (sketch) derivation plus the absence of any detectable drift — a rigorous remainder estimate is not written.
+   fits of the completed k = 2 ratios with an added `m^{−5/2}` term give a coefficient consistent with zero (@@CNK2@@ against
+   `c_2 ≈ −17.1`, `l = 1`, β ≈ 0.4, ν = 0), but only `|c| ≲ 6` (≈ 0.35|c₂|) is excluded — an O(1) coefficient is allowed by the data;
+   `m^{−5}` at k = 2 and `m^{−7/2}` at k = 3 cannot be separated from the analytic truncation at all. So: no failure at `1/m²`
+   [numerical evidence]; beyond that the absence of non-analytic terms rests on the sketch; no rigorous remainder estimate is written.
 6. **Fitted `O(1/m²)` coefficients** (`l = 1`, k = 2 / 3, β ≈ 0.4, ν = 0; fitted, ansatz spread as error): `c_2^pres = −17.08(2) / −27.88(2)`,
    `c_2^flip = −35.1(4) / −54.35(10)`. Table §7.
 7. **What is not done:** see §8 (most importantly: the `l = 2` deepest corner at k = 2, 3 is limited by double precision; scalar-test caveat).
@@ -78,7 +79,7 @@ reproduced to `2·10⁻¹⁴` at a generic point; the leading lightcone function
 At fixed `i`, `H^{(l)}_i(x) = Σ_q C^{(l)}_{i,q} x^q` has on `|x| ≤ 1` only the singular points `x = 1` (`z̄' = 1`) and `x = −1` (`z̄' = ∞`).
 The Casimir operator (Dolan–Osborn form) has local exponents `{0, −σ}`, `σ = c1 + c2`, at `z̄ = 1` and `{−c1, −c2}` at `z̄ = ∞` (the `(d−2)` term
 is of lower order in both indicial equations). With `1 − z̄ = ((1−x)/(1+x))²` and one extra power per η-derivative:
-`H^{(l)}_i(x) = A(x) + (1−x)^{−2σ−l}B(x)` near 1, `(1+x)^{2c_{1,2}−l}`-type at −1 (logarithmic if `c1 = c2`); [inferred: that the Frobenius
+`H^{(l)}_i(x) = A(x) + (1−x)^{−2σ−l}B(x)` near 1, `(1+x)^{2c_{1,2}−l}`-type at −1 (logarithmic if `c1 − c2` is an integer — `c1 = c2`, and also the seed `(−0.375, 0.625)` with `c1 − c2 = 1`, which the first version missed (referee m2; effect ≤ `5.5·10⁻⁶` on a flip component); log columns are now in the fit, their alternating tails are not summed); [inferred: that the Frobenius
 structure survives the expansion in `ρ_s` term by term — tested by §2.3]. For `Δ_φ = 1.75` every `2σ` is a half-integer: no logarithms at 1.
 Darboux: `(1−x)^{γ} = Σ (−γ)_q/q! x^q`, hence for `t = 0…4−l`
 
@@ -97,11 +98,14 @@ different depth, window and number of asymptotic terms; error estimate).
 |---|---|---|
 | leading lightcone function vs mpmath ₂F₁ (independent) | `(Δ,J,c1,c2) = (14.17,2,.625,.625), (105.36,20,.625,−.375), (115.11,52,1.625,1.625), (109.83,82,.375,.375)` | `1−x = 10⁻²: ≤ 10⁻¹⁴`; `10⁻⁴: ≤ 2.5·10⁻⁸`; `10⁻⁶, 10⁻⁸: ≤ 8.3·10⁻⁸` |
 | `S[k,l]`, `k+l ≤ 4`, vs radial series with `N = 24000` where it converges (`1−ρ_b ≥ 4·10⁻³`; tests the extrapolation `q = 8000 → 24000`) | `(14.17,2,.625,−.375), (24.22,10,.625,.625), (24.22,10,1.625,−.375)` | `≤ 4.1·10⁻¹³` |
-| Casimir residual / largest term, deep corner, A and B | `(115.11,52,.625,−.375), (105.36,20,.375,.375), (14.17,2,.625,−.375)` | `1−ρ_b ≈ 3·10⁻⁶ (t = 1): ≤ 10⁻⁴`; `1−ρ_b ≥ 10⁻⁴: ≤ 7·10⁻⁸`; `≥ 10⁻³: ≤ 7·10⁻¹⁰` |
+| Casimir residual / largest term, deep corner, A and B (with `1 − z = ((1−ρ)/(1+ρ))²`; the first version computed `1 − z` by subtraction and its "`≤ 10⁻⁴`" at `1−ρ_b ≈ 3·10⁻⁶` was the check's own roundoff, referee m1) | `(115.11,52,.625,−.375), (105.36,20,.375,.375), (14.17,2,.625,−.375)` | @@CASROW@@ |
 | `|S_A/S_B − 1|`, same points | same | `≤ 9·10⁻⁸` (deepest), `≤ 10⁻¹¹` for `1−ρ_b ≥ 10⁻³` |
 
-The deep-corner A/B difference (`4–9·10⁻⁸`) is of the size of the deviation of A from the exact collinear block (`3–8·10⁻⁸`), which supports
-`|A − B|` as error proxy; a safety factor 3 is used (§3). [The radial reference with `N = 24000` costs `2.3 GB`; the LC representation of one
+The deep-corner A/B difference (`4–9·10⁻⁸`) is of the size of the deviation of A from the exact collinear block (`3–8·10⁻⁸`). It is **not** a
+bound: A and B share the Darboux exponents, so a wrong exponent would leave `|A − B|` (and the fit residual) unchanged — the referee's mutation
+`2σ+l+t−m → +0.25` moves k = 2 by O(1) with `|A − B|` unchanged (m5: the fit-residual diagnostic is not a validation and is not cited as one).
+What protects the exponents are the independent checks of this table (₂F₁, `N = 24000`, Casimir) and the referee's η-derivative check of the
+`l ≥ 1` tails (finite differences in χ of `S[k,l]` vs `S[k,l+1]`, `1−ρ_b` down to `10⁻⁷`: ≤ `3·10⁻⁷`). [The radial reference with `N = 24000` costs `2.3 GB`; the LC representation of one
 seed with setting A takes ~40 s.]
 
 ## 3. Corner completion of the moment grids (`corner.py`) and error budget
@@ -113,13 +117,24 @@ tensors are kept. All corner nodes, and the e2e points that were dropped, are ev
 (`spinblock.SpinBlock.eval`: differential operators, `(P,Q)` jets, generated tensor code, Fourier modes); 300 random converged e2e points with
 `u < 0.25` are re-evaluated with A as a check.
 
-**Per point.** With `δ = max_modes|A−B| / max_modes|A|`: the point is accepted if `δ < 10⁻²` **and** it is connected, within its t-column, to the
+**Settings.** Three tail settings: A (used), B, and C = `(N, I, Q, M) = (10⁴, 1500, 3000, 8)` (exact sum only to `q = 3000`; added after the
+referee found that this setting, as good as A by the corrected Casimir residual, moves k = 2 by 1.3–1.8× and the k = 3 flip by 3× the first
+version's errors). The per-point error is `3·max(|A−B|, |A−C|)`. **These errors are model-scatter estimates, not bounds**: they measure the
+dependence on the tail setting among settings that pass the independent checks; settings that fail the Casimir check (e.g. `M = 12` or a
+window `[6000, 8000]`) move results by up to 200× more and are excluded by the gate below.
+
+**Per point.** With `δ = max_modes max(|A−B|, |A−C|) / max_modes|A|`: the point is accepted if `δ < 10⁻²`, the Casimir residual of every seed
+(setting A, corrected formula) is `< 10⁻⁷`, **and** it is connected, within its t-column, to the
 radial-series region through accepted points whose size changes by less than `u^{±8}` between neighbours (isolated points inside a rejected
-region are where A and B are both corrupted). Its error is `3|A − B|` (summed in absolute value). Rejected points (deepest corner: the conserved
+region are where A and B are both corrupted). Its error is `3·max(|A−B|, |A−C|)` (summed in absolute value). Rejected points (deepest corner: the conserved
 spinning combination cancels between the seeds by up to ~`(1−ρ_b)^{−(2σ+4)}`, beyond double precision) and points where the lightcone sum has not
 converged (tiny `t`, where also the radial series fails) are **estimated** by a power law through the two nearest accepted nodes of their u-row
 (tiny t) or t-column (deep corner); the estimate is added to the moment and **50 % of it** is counted as error. [The 50 % is a choice, not derived;
-the estimated share is listed for every entry (`est` in `out_t1_lowk_e2e_l*.txt`).] Radial-series points: e2e criterion, `≤ 10⁻⁹`.
+the referee's leave-out test gives estimate/true = 1.00–1.19 for one-node and 0.44–1.49 for two-node extrapolation, so it is adequate for the
+former and marginal for the latter. The estimated share is listed for every entry (`est` in `out_t1_lowk_e2e_l*.txt`).]
+**Not in the budget** (referee m4): the quadrature error of the grid (§4.3: `≤ 2·10⁻⁵` at k = 2, `≤ 3·10⁻⁸` at k = 3 for the refined grid at m ≈ 70–100;
+it can exceed the quoted error for m ≲ 40) and, for `l = 2`, the LC-vs-radial deviations of the validation below (comparable to the quoted
+error for the k = 3 flip at m ≈ 42, β ≈ 0.4). Radial-series points: e2e criterion, `≤ 10⁻⁹`.
 
 **Per ratio.** The relative errors of the modes `(l,−l)`, `(l,l)` are propagated through the 2×2 helicity solve (E2E §5.2) to `R_pres`, `R_flip`.
 Validation of the re-evaluated converged points: `max dev ≤ 5·10⁻⁹` for `l = 1` (all cases); for `l = 2` it ranges from `2·10⁻⁶` (β ≈ 1, 2, m ≥ 40) up to `0.2–0.3` (m ≈ 10–20) and `1.5·10²` at the single worst point (m ≈ 12, β ≈ 0.4) — the
@@ -345,16 +360,22 @@ moduli `|X| = 1/cosh d(X̂,P̂)`, 5×5 polarisation pairs on the circle attached
 | 2 | 6 | 6 | 12.6 | 76.7 |
 
 The coefficient saturates as the distances grow (no exponential growth), as (b)–(c) predict. **Fits of the completed ratios** (§7): an added
-`m^{−k−1/2}` term has a fitted coefficient consistent with zero at k = 2 (`−0.5 ± 2.6`, `l = 1`, β ≈ 0.4, ν = 0, pres; `|c_N| ≲ 0.3|c_2|`); at k = 3 the
-three-parameter fits with and without it are equally good (χ² 0.09 vs 0.3, one degree of freedom) — the data cannot separate `m^{−7/2}` from
-the truncation of the analytic series, i.e. there is no evidence for it either way beyond the derivation. **Answer to the task question:** the
-term-by-term expansion does not fail at k = 2 at order `1/m²` [numerical evidence: `m²(R−1)` converges], nor at `1/m³` [derived (sketch); the
-`m^{−5/2}` coefficient is bounded only to `≲ 5` by the data]; no non-analytic term was found or is expected.
+`m^{−k−1/2}` term has a fitted coefficient consistent with zero at k = 2 (@@CNK2@@, `l = 1`, β ≈ 0.4, ν = 0, pres), i.e. limited to
+`|c| ≲ 6 ≈ 0.35|c_2|` at 2σ — **an `m^{−5/2}` term with an O(1) coefficient is not excluded by the data**. At k = 3 the fit finds `c_{7/2} = 39 ± 0.7`
+(statistical), but the three-parameter fits with and without it are equally good (χ² 0.09 vs 0.3, one degree of freedom), so it cannot be told
+apart from the truncation of the analytic series. `m^{−2k−1} = m^{−5}` at k = 2 is invisible behind `c_4/m⁴ ≈ 300/m⁴` and is excluded only by the
+sketch. The even-power ansätze (B2, B3) rest on E2E's parity argument: the pointwise `1/m^n` terms of `b𝒯` are odd under `1 ↔ 3` for odd `n`
+(reflection `m → −m`), so they cancel in the moments by Lemma S; with the uniformity above this holds order by order.
+**Answer to the task question:** the term-by-term expansion does not fail at k = 2 at order `1/m²` [numerical evidence: `m²(R−1)` converges];
+at `1/m³`, `m^{−5/2}` and `m^{−5}` the absence of non-analytic terms rests on the derivation sketch [derived (sketch)], with the data limiting
+an `m^{−5/2}` coefficient only to `|c| ≲ 6`.
 
 ## 7. Corrections at k = 2, 3 (`t2_corrections.py`, `out_t2_corrections.txt`) [fitted]
 
 Weighted fits on `m ≥ 20` (four masses at β ≈ 0.4, 1; three at β ≈ 2, then exact). `c_2` from `c_2/m² + c_4/m⁴` (B2) and with a `c_6/m⁶` term (B3);
-`c_1` from `c_1/m + c_2/m² + c_4/m⁴` (A). Statistical errors only; the B2/B3 spread is the better uncertainty.
+`c_1` from `c_1/m + c_2/m² + c_4/m⁴` (A), and `c_2` with an added `m^{−k−½}` (N). Adopted `c_2`: mid-range of the fits with χ²/dof < 4, ± half the
+range (the first version quoted the B2/B3 spread although B2 is rejected at k = 3, χ² ≈ 3·10³ — referee M2). Statistical errors are given only
+for `c_1` and `c_N`; they ignore the truncation of the ansatz.
 
 | l | β | k | ν | comp | c_2 (B2) | c_2 (B3) | c_1 (A) | c_{k+½} (N) |
 |---|---|---|---|---|---|---|---|---|

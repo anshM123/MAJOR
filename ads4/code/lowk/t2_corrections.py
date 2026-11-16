@@ -62,12 +62,22 @@ if __name__ == "__main__":
                                            for n, pw in (("B2", (2, 4)), ("B3", (2, 4, 6)), ("A", (1, 2, 4)), ("N", (2, k + 0.5, 4)))
                                            for (c, s, x2) in [res[n]])
                         pr(f"#   {comp}: " + line)
-                        summary.append((l, beta, k, nu, comp, res['B2'][0][0], res['B2'][1][0], res['B3'][0][0], res['B3'][1][0],
-                                        res['A'][0][0], res['A'][1][0], res['N'][0][1], res['N'][1][1], res['N'][0][0], res['B3'][2], res['N'][2]))
+                        # adopted c2: mid-range of the c2 values of the fits that are acceptable (chi2/dof < 4), error = half the range
+                        # (statistical errors are not meaningful where chi2 >> 1; referee M2)
+                        fits = {n: res[n] for n in res}
+                        dof = {n: len(ms) - len(pw) for n, pw in (("B2", (2, 4)), ("B3", (2, 4, 6)), ("A", (1, 2, 4)), ("N", (2, k + 0.5, 4)))}
+                        c2s = {"B2": fits["B2"][0][0], "B3": fits["B3"][0][0], "A": fits["A"][0][1], "N": fits["N"][0][0]}
+                        okf = [n for n in c2s if (dof[n] == 0 or fits[n][2]/max(dof[n], 1) < 4)]
+                        vals = [c2s[n] for n in okf] or list(c2s.values())
+                        c2_mid, c2_err = 0.5*(max(vals) + min(vals)), 0.5*(max(vals) - min(vals))
+                        summary.append((l, beta, k, nu, comp, c2s, {n: fits[n][2] for n in fits}, okf, c2_mid, c2_err,
+                                        res['A'][0][0], res['A'][1][0], res['N'][0][1], res['N'][1][1]))
     pr("")
-    pr("# ---- summary (fits on m >= 20): c2 of (B2) and (B3); c1 of (A); coefficient of m^{-k-1/2} in (N) and c2 of (N); chi2 of (B3), (N)")
-    pr("#  l  beta  k  nu  comp     c2(B2)              c2(B3)             c1(A)                cN(N)                 c2(N)      chi2 B3 / N")
-    for s in summary:
-        pr(f"  {s[0]}  {s[1]:3.1f}  {s[2]}  {s[3]:3.1f}  {s[4]:4s}  {s[5]:9.3f}±{s[6]:.1e}  {s[7]:9.3f}±{s[8]:.1e}  {s[9]:+8.4f}±{s[10]:.1e}  "
-           f"{s[11]:+10.3f}±{s[12]:.1e}  {s[13]:9.3f}   {s[14]:.1g} / {s[15]:.1g}")
+    pr("# ---- summary (fits on m >= 20): c2 of each ansatz with chi2 in brackets; adopted c2 = mid-range of the acceptable fits (chi2/dof < 4)")
+    pr("#      +- half the range; c1 of (A) and the coefficient cN of m^{-k-1/2} in (N) with their statistical errors")
+    pr("#  l  beta  k  nu  comp   c2 B2 [chi2]      c2 B3 [chi2]      c2 A [chi2]       c2 N [chi2]      adopted c2        c1(A)              cN(N)")
+    for s_ in summary:
+        (l, beta, k, nu, comp, c2s, chis, okf, mid, err, c1, c1e, cN, cNe) = s_
+        cols = "  ".join(f"{c2s[n]:9.3f} [{chis[n]:.0e}]" for n in ("B2", "B3", "A", "N"))
+        pr(f"  {l}  {beta:3.1f}  {k}  {nu:3.1f}  {comp:4s}  {cols}  {mid:9.3f}±{err:.2g}  {c1:+8.4f}±{c1e:.1e}  {cN:+10.3f}±{cNe:.1e}")
     open(os.path.join(HERE, 'out_t2_corrections.txt'), 'w').write("\n".join(out) + "\n")

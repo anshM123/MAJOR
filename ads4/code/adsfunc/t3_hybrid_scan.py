@@ -10,7 +10,8 @@ Criteria reported per (Dg, h, C0):
    (A) F_hyb - C0 cosh(beta)/m^2 N_comp > 0          (model taken at face value)
    (B) F_flat - |shift| - C0 cosh(beta)/m^2 N_cons > 0 (sign of the curvature shift NOT trusted; conservative norm),
        evaluated only on states with beta <= 0.3 (bulk-point side; at beta ~ 1 the flat action is not the reference).
-Grid: m_fl = m/Lam in [1, 1.3] step 0.01 and 120 log points in [1.3, 60]; J <= 60 all, then ~4% steps up to min(3000, 200 m_fl).
+Grid: m_fl = m/Lam in [1, 1.3] step 0.01, 120 log points in [1.3, 60], and [20.5, 23.5] step 0.1; J <= 60 all, then ~4% steps up to
+min(3000, 200 m_fl), plus all J in [230, 260] for 20.5 <= m_fl <= 23.5 (the flat +- near-zero).
 Floating point; not a certificate.
 """
 import sys, json
@@ -19,7 +20,8 @@ from common import FlatGrid, kin, tau_of_m, lam_of_gap, hybrid_shift, SIGMA
 
 DGS = [int(a) for a in sys.argv[1:]] or [20, 50, 100, 300, 1000]
 C0S = [0, 100, 300, 1000]
-MFL = np.concatenate([np.arange(1.0, 1.3, 0.01), np.logspace(np.log10(1.3), np.log10(60), 120)])
+MFL = np.unique(np.concatenate([np.arange(1.0, 1.3, 0.01), np.logspace(np.log10(1.3), np.log10(60), 120),
+                               np.arange(20.5, 23.5, 0.1)]))   # + fine box around the flat +- near-zero
 
 def jlist(h, mfl):
     jmax = int(min(3000, 200 * mfl))
@@ -28,7 +30,9 @@ def jlist(h, mfl):
     while j <= jmax:
         js.append(j)
         j = int(j * 1.04) + 1
-    js = [x for x in js if x <= jmax]
+    if 20.4 < mfl < 23.6:
+        js += list(range(230, 261))                                   # all J near the flat +- near-zero (J ~ 244)
+    js = sorted(set(x for x in js if x <= jmax))
     if h == '++':
         js = sorted(set(x + (x % 2) for x in js))
     else:

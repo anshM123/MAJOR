@@ -214,9 +214,12 @@ def regge_parts(h, Lam, m, beta):
     return B2, B3, B4, B5, c
 
 def hybrid_shift(h, Lam, m, beta, J):
-    """Curvature shift of the hybrid model (flat + [Regge - its flat limit]) relative to the flat action, normal form.
-    kernel K = D_h(1-2up^2) + P_{-1/2+i Lam p}(cosh beta) - J_0(bhat p);
-    forward: Phi^hyb = Phi - 10 JJ - 5/2 + 10 m^2 W(beta) + 5(1 - sigma)(1 - P0(beta))."""
+    """Curvature shift of the hybrid model relative to the flat action, normal form, defined STRICTLY term by term as
+    [leading Regge term - its flat limit at fixed bhat] (so F_hyb -> F_R as u -> 0 at fixed beta, term by term):
+      dB2 = 2 int psi2 [P_{-1/2+i Lam p}(cosh beta) - J_0(bhat p)],   dB3 = sigma u int psi3 [P - J_0(bhat p)],
+      dFW = u^3 [10 m^2 W(beta) - 10 J(J+1) - 5/2] + 5 sigma u^3 (P0(beta) - 1).
+    (Revised after REFEREE_ADS4_FUNCTIONAL.md issue 2: the B5 term was 5(1-sigma)(1-P0) and dB2 contained an extra
+    -u int p^2 psi2 [P - J_0] cross term; both removed.)"""
     c = curvT_all(Lam, beta)
     mfl = m / Lam
     u = 1 / mfl ** 2
@@ -224,7 +227,7 @@ def hybrid_shift(h, Lam, m, beta, J):
     f = flatT_all(bh)
     s = SIGMA[h]
     d = {k: c[k] - f[k] for k in BASIS}
-    dB2 = 2 * d['psi2'] - u * d['p2psi2']
+    dB2 = 2 * d['psi2']
     dB3 = s * u * d['psi3']
-    dFW = u ** 3 * (-2.5 + 10 * m * m * c['W'] - 10 * J * (J + 1) + 5 * (1 - s) * (1 - c['P0']))
+    dFW = u ** 3 * (-2.5 + 10 * m * m * c['W'] - 10 * J * (J + 1)) + 5 * s * u ** 3 * (c['P0'] - 1)
     return dB2, dB3, dFW
