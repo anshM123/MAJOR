@@ -63,6 +63,37 @@ Numerical values for `m = 4` (`spinning_moments.py`):
 Zeros: `Q_0^{(4)}` at `β = 0.395, 1.253, 2.386, 4.636`; `Q_1^{(4)}` at `1.000, 2.043, 3.819`; `Q_2^{(4)}` at `0.718, 1.718, 3.196`.
 For comparison `Q_1^{(0)} ∈ (0, 1/24]` and `Q_2^{(0)} < 0` throughout.
 
+5. (*Orthogonality; no positive weight.*) For every integer `m ≥ 1`, every `j = 1, …, m` and every real `ν`,
+
+   `∫_0^∞ Φ^ν_{m,m}(β) cosh^{−2j}(β/2) sinh β dβ = 0`,
+
+   and the integral does not vanish for `j = m + 1`. Consequently, for any finite signed measure `F` on the
+   real `ν`-axis, the function `A(β) := ∫ Φ^ν_{m,m}(β) F(dν)` satisfies the `m` linear constraints
+   `∫_0^∞ A(β) cosh^{−2j}(β/2) sinh β dβ = 0`, `j = 1, …, m`. **In particular `A` cannot be non-negative on `(0, ∞)` unless
+   it vanishes identically.** For `m = 0` there is no such constraint (`Φ^ν_{0,0}` is not orthogonal to any
+   `cosh^{−2j}`), in agreement with the scalar positivity lemma.
+
+*Proof of 5.* Insert the Chebyshev–Mehler formula and exchange the integrals (absolutely convergent for
+`j ≥ 1`): the integral equals `(√2/π) ∫_0^∞ dt cos(νt) I_j(t)`, with
+`I_j(t) = ∫_t^∞ T_{2m}(cosh(t/2)/cosh(β/2)) cosh^{−2j}(β/2) (cosh β − cosh t)^{−1/2} sinh β dβ`. Substituting
+`x = cosh(t/2)/cosh(β/2) ∈ (0, 1]`: `cosh β − cosh t = 2cosh²(t/2)(x^{−2} − 1)` and `sinh β dβ = −4cosh²(t/2) x^{−3} dx`, so
+
+`I_j(t) = 2√2 cosh^{1−2j}(t/2) ∫_0^1 T_{2m}(x) x^{2j−2} (1 − x²)^{−1/2} dx`.
+
+The last integral is half of `∫_{−1}^{1} T_{2m}(x) x^{2(j−1)} (1−x²)^{−1/2} dx`, which vanishes for `2(j−1) < 2m` by the
+orthogonality of Chebyshev polynomials to polynomials of lower degree, and is non-zero for `j = m+1`. ∎
+
+*Interpretation.* The functions `cosh^{−2j}(β/2)`, `j ≤ m`, span the weight-`(m,m)` matrix coefficients of the discrete
+series of `SL(2,R)` of lowest weights `1, …, m` (those containing the `K`-type `m`); they are square-integrable
+eigenfunctions of the Casimir with eigenvalues different from those of the principal series, hence
+orthogonal to it. A superposition over real `ν` has no component along them. The weight-zero channel has no
+discrete series. In flat-space language: the partial waves of the helicity-violating channel start at spin
+four; the "missing" low spins reappear in AdS as these constraints.
+
+Numerical check (`ads4/code/discrete_series_nogo.py`): the integrals for `m = 1, 2, 4` and `ν = 0, 0.4, 1.3, 3.7` are
+`< 10^{−17}` against absolute integrals of order one; for `m = 4` they vanish for `j = 1, …, 4` (`< 10^{−30}`) and equal
+`0.0044`, `0.0108` for `j = 5, 6`; for `m = 0` the corresponding integral is `0.357`.
+
 **Off-diagonal coefficients.** `Φ^ν_{0,μ}` is proportional (with a `ν`-dependent factor of modulus one times a
 ratio of Gamma functions) to the associated conical function `P^{−μ}_{−1/2+iν}(cosh β)`; a cross-check that
 derivatives of the scalar harmonic function produce these coefficients:
@@ -87,6 +118,26 @@ functional (the spinning Regge-moment formula); uniform remainders; the threshol
 Until the first two are derived from the spinning blocks, the consequences below are conditional.
 
 ## Part C. Consequences for the locality programme (conditional on Part B)
+
+0. **A normalisation-independent obstruction.** Suppose that, in the regime where a heavy operator's
+   contribution is controlled by the Regge moments, the action of a dispersive functional on heavy states of
+   the helicity-violating diagonal channel at impact parameter `β` is of the form
+   `A(β) = ∫ F(ν) Φ^ν_{4,4}(β) dν` for some weight `F` on real `ν` — *whatever* `F` is: the functional's own weight
+   multiplied by any `ν`-dependent factor coming from three-point structures, normalisations or measures.
+   Then by Theorem K(5) `∫_0^∞ A(β) cosh^{−2j}(β/2) sinh β dβ = 0` for `j = 1, 2, 3, 4`, so `A` takes both signs (or vanishes).
+   The positive weight `cosh^{−8}(β/2) sinh β` is concentrated at `β ≈ 0.5` in AdS units, so the sign change
+   happens in the curved regime and cannot be pushed to the flat regime `β ≲ 1/M`.
+   **Hence, within this class, no dispersive functional is positive on all heavy states of that channel,**
+   and no choice of polarisation combination helps: a positive-semidefinite quadratic form in the couplings
+   `(c^{++}, c^{+−})` needs a non-negative coefficient of `|c^{+−}|²`, which is `A`. (A negative off-diagonal entry
+   would not by itself violate positivity; this is a diagonal entry.) The same holds for conserved currents
+   (`m = 2`, two constraints).
+   What would evade it: (a) the kernel of that channel is not `Φ^ν_{4,4}` (Part B is wrong); (b) the relevant
+   contributions are not of Regge-moment form at impact parameters of order the AdS radius; (c) an
+   independent bound on the *magnitude* of the heavy helicity-violating contributions in the curved regime,
+   replacing positivity there; (d) functionals whose weight is not supported on real `ν`.
+   A valid proof of an AdS4 bound with external gravitons must use one of these; the scalar strategy
+   ("positive in flat space, and positive in the curved regime by the sign of the moments") cannot work.
 
 1. **Only the helicity-preserving channel inherits the scalar lemma.** In the `(0,0)` channel the curved-regime
    positivity is Lemma Q. In the `(4,4)` channel all three moments change sign at impact parameters of order

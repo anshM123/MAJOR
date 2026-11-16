@@ -10,7 +10,10 @@ metric (-,+,+).  Building blocks (Costa-Penedones-Poland-Rychkov):
 A monomial is  mono = (m1, m3, m4, n13, n14, n34, eps)  with eps in ('', '13', '14', '34'):
   parity even:  S = V1^m1 V3^m3 V4^m4 H13^n13 H14^n14 H34^n34 / (X13^{e13} X14^{e14} X34^{e34}),
                 e13 = 5 - s, e14 = e34 = s,  s := (Delta + J)/2
-  parity odd :  S = eps_ij * (same) / (X13^{e13+1/2} X14^{e14+1/2} X34^{e34+1/2})
+  parity odd :  S = eps_ij X_ij * (same, with the Z-degrees at i and j lowered by one)
+                    / (X13^{e13+1/2} X14^{e14+1/2} X34^{e34+1/2})
+                (V_i and H_ij have X-degree one at i (and j), eps_ij has X-degree one at all three points, so the
+                 homogeneity at the third point is restored by (X_ij/(X_ik X_jk))^{1/2}.)
 Two-point normalisation: <O(x,z)O(0,z')> = (z.I(x).z')^J/(x^2)^Delta  (unit), <TT> = C_T (z.I.z')^2/x^6.
 """
 import itertools, random
@@ -47,7 +50,7 @@ def mono_value(mono, B):
     m1, m3, m4, n13, n14, n34, eps = mono
     r = B['V1']**m1*B['V3']**m3*B['V4']**m4*B['H13']**n13*B['H14']**n14*B['H34']**n34
     if eps:
-        r = r*B['eps'+eps]
+        r = r*B['eps'+eps]*B['X'+eps]
     return r
 
 def monomials(J, parity):
