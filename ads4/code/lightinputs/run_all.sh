@@ -10,3 +10,5 @@ python3 -u t2_shock_commutator.py  | tee cache/t2.log
 python3 -u t3_clsd_counting.py     | tee cache/t3.log
 python3 -u t4_mtable_poles.py      | tee cache/t4.log
 python3 -u t5_mode_map.py          | tee cache/t5.log
+python3 -u t6_normalisation.py     | tee cache/t6.log
+python3 -u t6b_flip_scan.py        | tee cache/t6b.log

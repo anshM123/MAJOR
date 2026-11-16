@@ -1,11 +1,12 @@
 # `Ω′`: replacing `C⁻₃` by the `k = 3` bare light-ray commutator
 
-Status: written 16 Nov 2026 by the `LIGHT_INPUTS.md` agent. Mostly analytic; no new numerics, because the machine was overloaded.
+Status: written 16 Nov 2026 by the `LIGHT_INPUTS.md` agent. Mostly analytic. **Updated the same day with the computed normalisation `N(ν)` and the
+flip check (§6; code `ads4/code/lightinputs/t6_normalisation.py`, `t6b_flip_scan.py`).**
 **Not refereed.** It builds on `LIGHT_INPUTS.md` §3 (bare commutator; (I1) false for the project's `C⁻₃`), `ADS4_FUNCTIONAL.md` §1,
 `SPINNING_4PT.md` §4.3–4.6 and `FLAT_GRAVITON_BOUND.md` §1.
 
 Marks: **[D]** derived; **[D-sketch]** outlined; **[Q]** quoted (CLS-D = 2311.04271; CLPSD = 2201.06602, LaTeX read; KKSDZ = 1904.05905);
-**[I]** inferred; **[ND]** not done.
+**[DV]** derived and checked by exact (sympy) evaluation of the `laplace.py` tables; **[I]** inferred; **[ND]** not done.
 
 ## 0. Results
 
@@ -13,10 +14,14 @@ Marks: **[D]** derived; **[D-sketch]** outlined; **[Q]** quoted (CLS-D = 2311.04
    * `Ψ̃_{3,ν}` is a member of the CLS-D `k = 3`, `J_e = 2` family with constant `f⁻_{3;2}` (the *bare* commutator `⟨T[L[T],L[T]]T⟩`).
    * It has the parity-odd celestial structure at the `(1,3)` pair (`j′ = 1`) and a parity-odd dual structure at the `(2,4)` pair.
    * `N(ν)` is fixed so that the leading heavy action equals that of the project's `C⁻₃`.
-2. **Heavy action, leading order (`ν ≪ m`) [D-sketch].**
-   * Form: `C̃⁻₃[Δ,J] = (2P_{−½+iν}(cosh β)/m⁶)(|c_same|² − |c_opp|²)(1 + O(1/m²))`. This is the **same** helicity combination and the **same** `ν`-kernel (the
-     pres–pres harmonic `P = 𝒦_{0,0}`) as `C⁻₃`. The two functionals differ only in the normalisation factor `N(ν)` and in their `O(1/m²)` terms.
-   * Status: the `±` structure and the kernel are [D-sketch]. The absence of flip pieces at leading order is [D given Q + overlap matching]. `N(ν)` itself is **[ND]**.
+2. **Heavy action, leading order (`ν ≪ m`) [DV at the `(1,3)` pair, §6; I for the `(2,4)` dual structure].**
+   * Form: `C̃⁻₃[Δ,J] = (2P_{−½+iν}(cosh β)/m⁶)(|c_same|² − |c_opp|²)(1 + O(1/m²))`. This is the **same** helicity combination and the **same** `ν`-kernel
+     (the pres–pres harmonic `P = 𝒦_{0,0}`) as `C⁻₃`.
+   * Normalisation [DV]: `N(ν) ∝ (2ν + i)(4ν² + 9)/(4ν² + 201)` at `a = 8` (`l = 2`, `k = 3`). It is **nonzero for every real `ν`** (`|N|` is smallest at `ν = 0`).
+     Its zeros sit at `ν = −i/2, ±3i/2`, off the real axis. So `Ω′` is well defined on the whole real `ν` axis.
+   * No helicity flip [DV]: at the `(1,3)` pair the bare-commutator flip responses `A(+,+)`, `A(−,−)` vanish identically. Individual frame modes do have odd flip
+     responses (`t6b`); they cancel in the antipodal combination. The project's `𝔄` kernel also has zero flip response. So there is no
+     `c_same c̄_opp` piece, provided the `(2,4)` dual structure is `𝔄`-like [I: not shown that `𝔄` is in the span of CLS-D dual structures].
 3. **Flat limit [D given Q].** In `D = 4` the odd-`k` fixed-`u` sum rules are exactly the `B^{(1)}_k` of CLPSD (2.26) (label `defB`) [Q]. CLS-D map every bare-commutator functional
    to a lowest-subtracted odd fixed-`u` flat sum rule [Q]. Hence `ε₃Λ⁶C̃⁻_{3,Λp} → B₃^{(1)}(p)`, with `σ_h = +1` for `++` and `−1` for `+−`, as before.
    * Consequence: `Ω′` has the same flat limit `F_{g3}` as `Ω`. **Theorem 1 of `FLAT_GRAVITON_BOUND.md` applies unchanged** to the flat leading heavy action.
@@ -36,7 +41,7 @@ Marks: **[D]** derived; **[D-sketch]** outlined; **[Q]** quoted (CLS-D = 2311.04
    This removes the `~10⁴` leverage item of `ADS4_LIGHT.md` §2.1. Still load-bearing:
    * the forward terms `∂_{ν²}C⁺₄|₀` and `C⁻₅|₀` (RB₃/RB₄, [I]);
    * (R) for `C⁺₂` ([D-sketch given IP]);
-   * the new normalisation `N(ν)` ([ND]).
+   * the new normalisation `N(ν)`: computed, nonzero on real `ν` [DV, §6]; the `(2,4)`-side identification is [I].
 
 ## 1. Definition and existence
 
@@ -65,8 +70,8 @@ through the `M`-tables, i.e. through the rational functions `R` and `g₁S`.
   * The product therefore weighs `h₁h₂`. As in `SPINNING_4PT.md` §4.3/4.5, this gives `+` for same and `−` for opposite, with the physical sign fixed by the covariant
     convention of §4.5 [D-sketch].
   * Hence `Ψ̃₃|_{pres–pres} = 𝒩′ g₁²S̃_LS̃_R P_{−½+iν}(cosh β)(|c_same|² − |c_opp|²)`. This has the same form as `C⁻₃`, whose normalisation is `g₁²S_LS_R/4`.
-  * So `N(ν) = 𝒩′S̃_LS̃_R/(S_LS_R/4)`, up to the common constant. The odd-mode `S̃` tables (`l = 2`, odd `q₁+q₃`, antipodal weights `(−1)^{q₃}c_M`) were
-    not computed: **[ND]**. Also [ND]: whether `N` has zeros on real `ν`.
+  * So `N(ν) = 𝒩′S̃_LS̃_R/(S_LS_R/4)`, up to the common constant. The odd-mode `S̃` tables (`l = 2`, odd `q₁+q₃`, antipodal weights `(−1)^{q₃}c_M`) are
+    **computed in §6 [DV]**; `N` has no real zeros.
   * The MFT normalisation (`|c|²` per helicity class, `SPINNING_4PT.md` §4.6) is untouched, because it is a property of the states, not the kernel.
 * **Flip pieces.**
   * Could the bare commutator also pick up states with a helicity flip at one or both pairs? These give `c_same c̄_opp`-type interference times `𝒦_{0,±4}`, `𝒦_{±4,±4}`,
@@ -118,10 +123,51 @@ through the `M`-tables, i.e. through the rational functions `R` and `g₁S`.
 | item | status |
 |---|---|
 | `C̃⁻₃` exists, parity-odd `(2,4)` structure, sum rule valid for planar `J₀ < 3` | [Q] CLS-D, KKSDZ; number of `d = 3` members [I] |
-| leading heavy action `= (2P/m⁶)(|c_s|²−|c_o|²)` after normalisation by `N(ν)` | [D-sketch]; no flip pieces [D given Q + overlap]; **`N(ν)` and its zeros [ND]** |
+| leading heavy action `= (2P/m⁶)(|c_s|²−|c_o|²)` after normalisation by `N(ν)` | [DV] at the `(1,3)` pair (§6): `N ∝ (2ν+i)(4ν²+9)/(4ν²+201)`, no real zeros, no flip pieces; `(2,4)` dual structure `𝔄`-like [I] |
 | flat limit `= ψ₃B₃^{(1)}`, Theorem 1 applies | [D given Q] (CLPSD basis, CLS-D map); `c(ν) ≢ 0` [I] |
 | light side: no Einstein/linear/contact/`[TT]` term; top coefficient `−4πG|ĝ₃|²ν⁴` | [D given planar `J₀ < 3`, HM/CDP, (F)] |
 | `f̃₁, f̃₀`; `O(1/m²)` heavy terms | [ND] |
 
 Next computation, single-core and light: the odd-mode `M`-tables `S̃` for `l = 2` at antipodal weights. These use the `laplace.py` machinery of `ads4/code/e2e/` and give `N(ν)`
 in closed form, as products of the rational `S` tables and `g₁`.
+
+## 6. Computation of `N(ν)` and the flip check (`lightinputs/t6_normalisation.py`, `t6b_flip_scan.py`; logs `cache/t6*.log`)
+
+**Method [DV].** This uses the exact `M`-tables of `ads4/code/e2e/laplace.py` (imported; they were cached before). They give the Fourier–Laplace response
+`M^{q₁q₃}_{h₁h₃} = R + g₁S`, `g₁ = γ_{a−1}/γ_a`, of each frame mode to a heavy transverse-helicity plane wave.
+* The bare commutator's `(1,3)` kernel is the antipodal combination `w_q = (−1)^{q₃}d_{(q₁+q₃−1)/2}(δ)/d₀`, with `q₁+q₃` odd and `δ = ½+iν`.
+  These are the Fourier coefficients of `sgn(sin ψ)|sin ψ|^{−δ}`, re-checked numerically in `e2e/clsd_kernel.py`.
+* The project's odd kernels are `D₅` (`l = 1`) and `𝔄 = D₅D₁` (`l = 2`), with mode content `(±1,∓1)` and `(±2,∓2)`.
+* Response per helicity flow: `A(h₁,h₃) = Σ_q w_q M^q_{h₁h₃}`, at `a = 2l+k+1` with `k = 3`.
+
+**Results (exact):**
+
+| | `l = 1` (`a = 6`) | `l = 2` (`a = 8`) |
+|---|---|---|
+| project `A(±,∓)` | `±(5i/8)g₁` (∝ the tabulated `∓i(a−1)g₁/2`) | `±(7i/64)g₁(4ν²+201)/(4ν²+81)` (∝ tabulated `𝔄` entry) |
+| bare commutator `A(±,∓)` | `±g₁(iν/2 − ¼)` | `±g₁(1/648)(−32iν³+16ν²−72iν+36)/(ν²/20.25+1)` |
+| pres even part / flip responses | 0 / 0 for both kernels | 0 / 0 for both kernels |
+| `N(ν) = A_CLSD/A_proj` | `(2/5)(2ν + i)` | `−(32/7)(2ν+i)(4ν²+9)/(4ν²+201)` |
+
+* **Structure.** Both kernels are purely odd (`A(+,−) = −A(−,+)`), so the two-pair product weighs `h₁h₂`. That gives the `σ_h` structure `|c_s|² − |c_o|²`
+  of `C⁻₃`, with the same harmonic `P_{−½+iν}(cosh β)`. The heavy actions are therefore proportional, with proportionality factor `N(ν)` [DV, given the
+  two-pair heavy formula of `SPINNING_4PT.md` §4.2 and the `(2,4)` choice].
+* **The `l = 1` row is a consistency check.** `N` is linear and the project entry is the known `D₅` row.
+* **Zeros of `N`.** `|N(ν)|² ∝ (4ν²+1)(4ν²+9)²/(4ν²+201)²` is strictly positive on real `ν`. At `ν = 0` it is `(32/7)·9/201·1 ≈ 0.205` in these units; it grows
+  like `(64/7)ν` at large `ν`. **`Ω′` does not fail anywhere on the real axis** [DV].
+* **Phase.** `N` is complex, `arg N = arctan(1/2ν) + const`. The normalised `C̃⁻₃ = Ψ̃₃/N` has a real leading heavy action. Its light side is `λ²Ψ̃₃[G_T]/N`, which is
+  analytic on real `ν`.
+* **Remark.** `N` vanishes at `ν² = −9/4`, the `T`-exchange pole location. So `1/N` has a pole there. On the real axis this has no effect; whether it
+  cancels against a zero of `Ψ̃₃[G_T]` was not examined.
+
+**Flip check [DV].**
+* `t6b` lists, for every frame mode, the parity-odd parts of its preserved and flip responses. For `l = 2`, 20 of 25 modes have a nonzero odd flip response.
+  So flip-freedom is a property of the specific kernels, not of the tables.
+* For both the antipodal bare-commutator kernel and the project's `D₅`/`𝔄`, `A(+,+) = A(−,−) = 0` identically in `ν` and `a`.
+* This replaces the earlier "[D given Q + overlap matching]" argument by a direct computation at the `(1,3)` pair.
+
+**What remains [I/ND].**
+* The `(2,4)` pair: CLS-D's dual structure `(⟨T₄L[O]T₂⟩^{(a)})^{−1}`, `O = (3/2+iν, 3, j′)`, was not reduced to frame modes. If it is not `𝔄`-like, `N` acquires a
+  second factor `S̃_R/S_R`, and possibly flip pieces at `(2,4)`.
+* The `O(1/m²)` heavy terms.
+* `f̃₁`, `f̃₀`.
