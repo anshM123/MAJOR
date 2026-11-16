@@ -20,20 +20,14 @@ def hyp(a, phi):  # unit future timelike vector, rapidity a, azimuth phi
 def mdot(u, v): return -u[0]*v[0] + u[1]*v[1] + u[2]*v[2]
 def nullv(th): return [mp.mpf(1), mp.cos(th), mp.sin(th)]
 def boost_frame(yh):
-    """null polarisations attached to yhat: z(th) = yhat + cos th e1 + sin th e2 with e1, e2 orthonormal spacelike, orthogonal to yhat."""
-    # e1: in the plane of yhat and the time axis
-    t = [mp.mpf(1), mp.mpf(0), mp.mpf(0)]
-    c = -mdot(t, yh)
-    e1 = [t[i] - c*yh[i] for i in range(3)]; n1 = mp.sqrt(mdot(e1, e1)) if mdot(e1, e1) > 0 else None
-    if n1 is None or n1 < mp.mpf('1e-30'):
-        e1 = [mp.mpf(0), mp.mpf(1), mp.mpf(0)]; e2 = [mp.mpf(0), mp.mpf(0), mp.mpf(1)]
-    else:
-        e1 = [v/n1 for v in e1]
-        # e2 = yhat x e1 (Lorentzian cross product, up to sign)
-        a, b = yh, e1
-        e2 = [-(a[1]*b[2] - a[2]*b[1]), -(a[2]*b[0] - a[0]*b[2]), (a[0]*b[1] - a[1]*b[0])]
-        e2 = [e2[0], e2[1], e2[2]]
-        n2 = mp.sqrt(abs(mdot(e2, e2))); e2 = [v/n2 for v in e2]
+    """null polarisations attached to yhat: z(th) = yhat + cos th e1 + sin th e2, (yhat, e1, e2) Lorentz-orthonormal (Gram-Schmidt)."""
+    def gs(v, basis):
+        for b, nb in basis:                       # nb = b.b = -1 (timelike) or +1
+            c = mdot(v, b)/nb
+            v = [v[i] - c*b[i] for i in range(3)]
+        return v
+    e1 = gs([mp.mpf(0), mp.mpf(1), mp.mpf('0.3')], [(yh, -1)]); e1 = [v/mp.sqrt(mdot(e1, e1)) for v in e1]
+    e2 = gs([mp.mpf(0), mp.mpf('-0.2'), mp.mpf(1)], [(yh, -1), (e1, 1)]); e2 = [v/mp.sqrt(mdot(e2, e2)) for v in e2]
     return lambda th: [yh[i] + mp.cos(th)*e1[i] + mp.sin(th)*e2[i] for i in range(3)]
 if __name__ == "__main__":
     pr("# m^2 max_pol|T_sym - T_lead|/max_pol|T_lead| (5x5 polarisation pairs on the circle attached to yhat) at fixed X = m x, Y = m y, |X| = 1/cosh d(xhat,phat), |Y| = 1/cosh d(yhat,pbarhat); Delta/J fixed;")
