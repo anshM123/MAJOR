@@ -1,6 +1,6 @@
 # `⟨TTTT⟩`: helicity map, mean-field normalisation and the `O(1/m)` question for stress tensors; status of the doubly-spinning blocks
 
-Status: written 16 Nov 2026 by a derivation/numerics agent (revised the same day: §3.5–3.6, §4.4–4.5); **not refereed**; not committed. Code and outputs: `ads4/code/fourpt/tttt/`
+Status: written 16 Nov 2026 by a derivation/numerics agent (revised the same day: §3.5–3.6, §4.4–4.5; revised 17 Nov after `REFEREE_SPINNING_TTTT.md`, §7); refereed; the earlier versions are committed (e.g. `70664cf`), this revision is not. Code and outputs: `ads4/code/fourpt/tttt/`
 (caches in `tttt/cache/`, git-ignored with `fourpt/cache/`). Imports, does not modify, `ads4/code/e2e/`, `ads4/code/mft/`, `ads4/code/fourpt/`.
 Builds on `SPINNING_4PT.md` (revised after `REFEREE_SPINNING_4PT.md`), `SPINNING_E2E.md`, `SPINNING_MFT.md`. CHL = Caron-Huot–Li,
 arXiv:2102.08160.
@@ -30,11 +30,13 @@ quoted; **[I]** inferred; **[ND]** not done.
    diagonal; absolute constant `1/4` per helicity quadruple, `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)`, all factors Weyl-even; leading-twist block
    decomposition of `⟨J_1J_3⟩⟨J_2J_4⟩` reproduced with no free constant (`10⁻⁶`). Physical sign of the opposite-sign term `+(|c_same|²−|c_opp|²)` =
    flat `σ_{++} = +1`, `σ_{+−} = −1` (`SPINNING_4PT.md` §4.5–4.6). §2.
-4. **`l = 2` heavy vertices and absolute constant [NE + exact inputs].** CHL's structures are helicity-pure at the heavy vertex. The leading
+4. **`l = 2` heavy vertices and absolute constant [NE/ID, single-sourced].** CHL's structures are helicity-pure at the heavy vertex. The leading
    two-pair coefficient is `T^{hLhR} = 8√(λ_{hL}λ_{hR})/m⁸`. The constant extrapolates to `E = 7.9996` along `β = 0.4`, with
-   `m = 22 … 179` and `O(1/m²)` corrections. Combined with the exact Fock data, this gives **`1/4` per helicity quadruple for stress tensors**,
-   with the factor `A_h` cancelling. Hence `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)` for `⟨TTTT⟩` [D given `E = 8`]. §3.6.
-5. **`⟨TTTT⟩` end to end [DVE at the percent level, `β = 1`, two masses].**
+   `m = 22 … 179` and `O(1/m²)` corrections. Combined with the Fock closed form `p[X_h] = |C_2|²A_hP_FK/2304`, this gives **`1/4` per helicity quadruple for stress
+   tensors**, with the factor `A_h` cancelling. Hence `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)` for `⟨TTTT⟩` [NE/ID]. This rests on a single
+   source: `E = 8` is extrapolated along one ray, and the closed form was identified on `N ≤ 6` (`Δ ≤ 12`) and is used at heavy `Δ`. The
+   end-to-end run (item 5) does not test `p[X_h]`. §3.6.
+5. **`⟨TTTT⟩` end to end [DVE at the percent level, `β = 1`, two masses; sub-percent not resolved; sign of `g_1` untested].**
    * The partial waves are computed by **numerical Taylor-mode application of the `D`-words** (`taylor4.py`), validated to `5·10⁻¹⁵`.
    * The exact tensor Regge moments (`k = 6`, `ν = 0`, 625 modes) of `W[X_{hL},X_{hR}]` were computed at `β = 1`, `m = 39.3`
      (`Δ = 45.86`, `J = 20`) and `m = 70.0` (`Δ = 80.48`, `J = 36`).
@@ -42,10 +44,14 @@ quoted; **[I]** inferred; **[ND]** not done.
      - same–same `1.083 → 1.024`; opp–opp `0.957 → 1.002`; mixed `0.940 → 0.982`;
      - `Σ_+` `0.973 → 1.011`; the opposite-sign term **`Σ_−` `+0.92 → +0.97`**, so its sign, as for currents, is confirmed;
      - fit residuals `2–71 % → 0.7–7 %`.
-   * Prediction-free checks: factorisation `0.85 → 0.94`; `T^{oo}/T^{ss}` against `λ_o/λ_s`: `2.80/3.15 → 1.859/1.900`; `T^{so} = T^{os}`
-     exactly, so the Weyl-odd `O(1/m)` term of the integrand cancels in the moments.
-   * The deviations shrink by `3.3–3.5` between the two masses (`m²` ratio `3.17`), consistent with `1 + O(1/m²)` [NE, two masses only].
-     §4.4–4.5.
+   * Prediction-free check: factorisation `0.85 → 0.94`. Not prediction-free, but helicity resolving: `T^{oo}/T^{ss}` against
+     `λ_o/λ_s`: `2.80/3.15 → 1.859/1.900`. (`W[X_s,X_o] = W[X_o,X_s]` is a symmetry of the waves, not a check.)
+   * At `m = 40` the mixed-helicity waves are not helicity-pure in the moments: classes predicted zero carry 14 % of the norm each, and the
+     mixed wave's `pf/fp` classes fit at `0.64`. At `m = 70` this drops to 1.3 %.
+   * **Approach to the limit [I]:** same–same, mixed-helicity and `Σ_−` behave like `c/m²` between the two masses (`m²(ratio−1)` ≈ constant).
+     Opp–opp, `Σ_+` and the mixed wave change sign, so `1/m²` is not established, and neither is the absence of `O(1/m)` in the moments.
+   * Precision: float64 is unreliable at `r ≳ 0.87`. These points carry little weight; the effect is `≲ 0.5 %` at `m = 70`. Percent-level
+     statements stand; the sub-percent numbers (opp–opp `1.0015`, `Σ_+` `1.011`) are not resolved. §4.4–4.5.
 6. **Not done:** closed forms of the `l = 2` helicity lines in the differential basis (only the position-space form of `chl_xspace`);
    an exact proof of `E = 8`; parity-odd exchanges; `k = 2, 3`; more masses and the `1/m` fits.
 
@@ -178,7 +184,9 @@ identity between rational functions of `(Δ,J)`.
 * **Leading vertex [ID, numerical]**: `T^{hh} = λ_h E/m⁸`, with `E` helicity-independent and `E → 8`:
   - `m⁸T^{hh}/λ_h = 10.24, 8.495, 8.120, 8.030` (same) and `10.33, 8.514, 8.125, 8.031` (opp) at `m = 22.3, 44.7, 89.4, 178.7`;
   - `m²(E/8 − 1) = 139.6, 123.4, 119.9, 119.0`, i.e. `O(1/m²)` corrections;
-  - Richardson extrapolation gives `E(∞) = 7.9996`.
+  - Richardson extrapolation gives `E(∞) = 7.9996`;
+  - the computed `m⁸T^{hh}/λ_h` also has an imaginary part of `O(1/m)` (`Im E_opp·m ≈ 46`, roughly constant; `Im E_same` is smaller). It
+    is odd under `h → −h` and cancels in the parity-class sums used in the moments. It is not part of the leading vertex.
 * **Asymmetry of the mixed waves.** `T^{so}/T^{os} = 75.7, 6.60, 2.52, 1.58` along the ray, approaching 1. It tracks `λ_o/λ_s = 141.8, 8.94,
   2.92, 1.70`. This is the antisymmetric (Weyl-odd) `O(1/m)` term, as for `l = 1`. For stress tensors it is large at small `J`, because
   `A_opp = (−J)_4/(J+1)_4` is `0.014` at `J = 4`. The geometric mean is symmetric: `m⁸√(T^{so}T^{os}/(λ_sλ_o)) = 10.46 … 8.032`.
@@ -194,10 +202,14 @@ identity between rational functions of `(Δ,J)`.
 * `p[X_h]8^{−J}T^{hh} = 2^{12}P(Δ)P(Δ̃)P_FK(1,1)E/(2304m⁸)`. **`A_h` cancels**, so the normalisation is helicity-independent and Weyl-even.
 * The algebra of `t2_mft_heavy_l1` with `l = 2` (`a_{3,3}`, `4^6`, `m^{−10}`) gives `Q_h = (E/8)(1 + O(1/m²))`. At `E = 8` the result is
   `Q_h = 0.98837, 0.99988, 0.9999988` at `m = 102, 10³, 10⁴` (`β = 0.4`), and similarly at `β = 1, 2` (`out_t15`).
-* So **the constant is `1/4` per helicity quadruple for stress tensors too** [NE: the exact Fock data and the exact structures enter;
-  `E = 8` is a numerical limit to `5·10⁻⁵`, not a proof].
-* Consequently **`C^± = (2P_{−½+iν}(cosh β)/m^{2k})(|c_same|² ± |c_opp|²)`** for `⟨TTTT⟩` with MFT-normalised helicity couplings [D given
-  `E = 8`]. The sign of the opposite-sign term follows from the same covariant kernel argument as for currents (`SPINNING_4PT.md` §4.5) [I for
+* So **the constant is `1/4` per helicity quadruple for stress tensors too** [NE/ID, single-sourced]. The inputs are:
+  - `E = 8`, a Richardson limit (to `5·10⁻⁵`) along one ray, `β = 0.4`; the one `β = 0.9` point (`E = 8.68` at `m = 44`) is consistent
+    but does not extrapolate;
+  - the closed form `p[X_h] = |C_2|²A_hP_FK/2304`, [ID] on 39 Fock entries with `N ≤ 6` (`Δ ≤ 12`) and used at heavy `Δ`.
+
+  No proof exists, and the end-to-end check of §4.5 does not test `p[X_h]`; it tests `E` only.
+* Consequently **`C^± = (2P_{−½+iν}(cosh β)/m^{2k})(|c_same|² ± |c_opp|²)`** for `⟨TTTT⟩` with MFT-normalised helicity couplings [NE/ID,
+  as above]. The sign of the opposite-sign term follows from the same covariant kernel argument as for currents (`SPINNING_4PT.md` §4.5) [I for
   `l = 2`; tested end to end in §4.5].
 
 ## 4. `⟨TTTT⟩` blocks and moments (coordinator goals 1, 3)
@@ -232,6 +244,8 @@ of `moments4.pol_grid4`.
 | 196 pairs, long double, one point | 31 s | 32 s |
 | cancellation `Σ|terms|/|W|` (same-same, same-opp, opp-opp) | `1.5·10⁵`, `1.3·10⁷`, `2.6·10⁶` | `1.3·10⁵`, `7.7·10⁵`, `3.2·10⁶` |
 | float64 vs long double, `W[s,s]`, `W[s,o]`, `W[o,o]` | `9·10⁻⁸`, `3·10⁻⁵`, `2.5·10⁻⁵` | `1·10⁻¹⁰`, `4·10⁻⁹`, `2·10⁻⁸` |
+
+(Both points have `r ≤ 0.64`. The grid reaches `r = 0.991`, where float64 fails: see §4.5.)
 
 Vectorised over 200 points (`AACC×AACC`, order 8): seed series 13 s (float64) / 41 s (long double); operator application 0.6 s / 1.4 s.
 Hence the per-point cost is about 1.7 s for the 25 seeds plus about 0.6 s for the 196 pairs (float64), and about 5 s + 3 s in long double. On the
@@ -277,17 +291,31 @@ runs were done sequentially.
 Prediction-free checks:
 * `T^{so}T^{os}/(T^{ss}T^{oo}) = 0.85` (fitted dominant classes).
 * `T^{oo}/T^{ss} = 2.80`, against `λ_o/λ_s = 3.15`. This tests the helicity dependence `A_h` of the MFT/shadow normalisation.
-* `T^{so} = T^{os}` exactly. The integrand is not symmetric at this mass (`T^{so}/T^{os} ≈ 2.4` pointwise, §3.6), so its Weyl-odd
-  `O(1/m)` part cancels in the moments, as the reflection argument requires.
+* (`W[X_s,X_o]` and `W[X_o,X_s]` are identical by the pair-exchange symmetry. Their equality is therefore not a check. Agreement with the
+  symmetric leading prediction, despite the asymmetric integrand (`T^{so}/T^{os} ≈ 2.4` pointwise, §3.6), is what the class ratios test.)
+* **Helicity purity in the moments fails at this mass.** In the mixed-helicity waves, the fitted `ss`/`oo` classes, which are predicted
+  zero, carry 14 % of the norm each. The mixed wave's `pf/fp` classes fit at `0.643`, against `0.940` for the pure mixed-helicity waves.
 
 Reading:
 * The diagonal waves and the dominant modes of all waves agree with the factorised prediction to 1–8 %, with no free constant. This
-  includes the absolute normalisation (`E = 8`, i.e. the `l = 2` heavy vertex and, through `p[X_h]`, the `1/4` per quadruple) and the sign
+  includes the absolute normalisation of the heavy vertex (`E = 8`; the waves use unit-normalised `X_h`, so `p[X_h]` and the `1/4` per quadruple are **not** tested) and the sign
   of the opposite-sign term (`Σ_−` fit/pred `= +0.92`; a sign error would give `−1`).
 * The 20–70 % residuals come from modes that are predicted small, in particular preserved–preserved components of the mixed-helicity waves,
   which are predicted zero. They are consistent with the large Weyl-odd `O(1/m)` terms of `l = 2` at `J = 20`, where
   `λ_o/λ_s − 1 ≈ 2`, but at one mass this is [I].
-* Precision: float64 is accurate to `≤ 3·10⁻⁵` pointwise at this mass (`t11`), negligible here.
+* Precision (corrected after the referee). The `t11` check covered only `r ≤ 0.64`, but the grid reaches `r = 0.991`. The referee recomputed
+  grid points in float64 and long double, with errors relative to the largest mode at each point:
+
+  | `r` | float64 vs long double |
+  |---|---|
+  | 0.86–0.88 | `10⁻⁴` (ss) to `0.65` (os) |
+  | 0.92 | `1`–`18` |
+  | 0.95 | `2·10²`–`1.6·10³` |
+  | 0.99 | `O(1)` |
+
+  The same holds at both masses. Long double itself is unverified there. These points have small weight: dropping `r > 0.9` changes the
+  ratios by `≤ 2·10⁻⁴`. The band `0.85–0.9` carries about 1.5 % of the moments at `m = 70`, with float64 errors up to about 0.2. So the
+  contamination is `≲ 0.3–0.5 %` on the opp–opp and mixed waves.
 
 | `β = 1`, `m = 70.0` (`Δ = 80.484`, `J = 36`) | one-scale fit (resid.) | dominant class fit/pred | 8 largest predicted modes, meas/pred |
 |---|---|---|---|
@@ -296,24 +324,38 @@ Reading:
 | `W[X_s,X_o]` = `W[X_o,X_s]` | `0.982` (`7.4 %`) | `pf/fp`: `0.982` | `0.973 … 0.984` |
 | mixed `W[e,e]` | `1.008` (`1.6 %`) | `Σ_+`: `1.011`, **`Σ_−`: `0.974`** | `0.999 … 1.003` |
 
-Prediction-free checks at `m = 70`: factorisation `T^{so}T^{os}/(T^{ss}T^{oo}) = 0.94` (it was `0.85` at `m = 40`); `T^{oo}/T^{ss} = 1.859`, against
-`λ_o/λ_s = 1.900`; `T^{so} = T^{os}`.
+Checks at `m = 70`: factorisation `T^{so}T^{os}/(T^{ss}T^{oo}) = 0.94` (it was `0.85` at `m = 40`); `T^{oo}/T^{ss} = 1.859`, against
+`λ_o/λ_s = 1.900`. The classes predicted zero in the mixed-helicity waves carry 1.3 % of the norm each (14 % at `m = 40`).
 
 Cost and precision at `m = 70`: 3475 points in 7520 s wall (chunks of 100 points; about 2 s per point). In float64 against long double at one
-grid point (`t11`, `out_t11_feas_taylor_m70.txt`), the cancellation is `2.4·10⁵ … 1.2·10⁷` and the deviation is `≤ 1.3·10⁻⁵`.
+grid point (`t11`, `out_t11_feas_taylor_m70.txt`; `r = 0.64`), the cancellation is `2.4·10⁵ … 1.2·10⁷` and the deviation is `≤ 1.3·10⁻⁵`. At large `r` the errors are much larger (see the precision note above); the sub-percent figures below (opp–opp `1.0015`, mixed `0.998`, `Σ_+` `1.011`) are not resolved.
 
-**Between the two masses:**
-* The deviations from the prediction shrink as follows: same–same `+8.3 % → +2.4 %` (factor 3.5); mixed `−6.0 % → −1.8 %` (factor 3.3);
-  opp–opp `−4.3 % → +0.2 %`; `Σ_−` `−7.8 % → −2.6 %`.
-* The residuals drop from 20–71 % to 0.7–7 %. The `m²` ratio is `3.17`, consistent with `1 + O(1/m²)` and no `O(1/m)` [NE, two masses; no fit].
+**Between the two masses (`m²(ratio − 1)` at `m = 40 → 70`, from the referee's recomputation):**
+
+| quantity | `m = 40` | `m = 70` | consistent with `c/m²`? |
+|---|---|---|---|
+| same–same | `128` | `117` | yes; also matches the vertex value `119–124` of `t14` |
+| mixed-helicity | `−92` | `−88` | yes |
+| `Σ_−` | `−121` | `−130` | yes |
+| opp–opp | `−66` | `+9` | no: sign change |
+| mixed wave | `−48` | `+40` | no: sign change |
+| `Σ_+` | `−42` | `+54` | no: sign change |
+
+The opp–opp vertex correction `E_opp − 8` is positive (§3.6), yet the opp–opp moment deviation at `m = 40` is −4.3 %. This leaves an
+unexplained effect of about −12 %, presumably the helicity-impure contamination noted above. **The `1/m²` approach, and the absence of an
+`O(1/m)` term in the moments, are therefore [I], not established:** two masses at one `β`, with three of six quantities changing sign.
 
 **Marks.**
-* [DVE] at the percent level (`m = 70`), with no free constant:
+* [DVE] at the percent level (`m = 70`; sub-percent figures not resolved), with no free constant:
   - the factorised `⟨TTTT⟩` moment formula with the `l = 2` vertices `8√(λλ')/m⁸`;
-  - the helicity dependence `λ_h ∝ 1/A_h`;
-  - the absolute normalisation;
-  - the sign of the opposite-sign term `Σ_−`.
-* [I]: the `1/m²` approach, from two masses only, and the attribution of the `m = 40` residuals to Weyl-odd terms.
+  - the helicity dependence `λ_h ∝ 1/A_h`. The referee's mutation swapping `λ_s ↔ λ_o` breaks agreement: same–same `0.54`, `Σ_−` `−1.15`;
+  - the vertex normalisation `E = 8`;
+  - the sign of the opposite-sign term `Σ_−`. The referee's mutation flipping the sign of `g_1²S_LS_R` gives `Σ_−` `−0.97` and diagonal
+    fits `0.13`.
+* Not tested:
+  - the sign of `g_1` itself, because the `R S` cross terms drop out at `ν = 0`;
+  - `p[X_h]` and the `1/4` constant.
+* [I]: the `1/m²` approach and the absence of `O(1/m)` (see the table above), and the attribution of the `m = 40` residuals.
 * Not tested: the MFT-normalised `C^±` itself, i.e. MFT sums over operators. This rests on the exact Fock data plus `E = 8` (§3.6).
 
 ## 5. Status
@@ -326,12 +368,12 @@ grid point (`t11`, `out_t11_feas_taylor_m70.txt`), the cancellation is `2.4·10�
 | 4 | Physical sign `+(|c_same|²−|c_opp|²)` of the opposite-sign term (`l = 1`) | [D] + DVE; functional ↔ flat sum rule [I] |
 | 5 | `⟨TTO⟩`: 2 conserved structures + 1 relation; exact helicity lines; CHL `T^{E,h}` identified; shadow commutes with helicity | [NE, exact] at two points |
 | 6 | `κ_h = 2^{3J+3/2}/A_h` (`l = 1, 2`) | `l = 1`: [D] symbolic; `l = 2`: [NE, exact] at four points |
-| 7 | MFT normalisation of `l = 2` helicity couplings Weyl-even ⇒ no `O(1/m)` from it | [D] from our Fock data + row 6 |
+| 7 | MFT normalisation of `l = 2` helicity couplings Weyl-even ⇒ no `O(1/m)` from it | [NE/ID]: Fock closed form [ID] + row 6 ([NE] for `l = 2`) |
 | 7a | `p^MFT[T^{E,h}] = A_h P_FK(1,1)/K_l`, helicity-diagonal (`l = 1, 2`) | [ID], exact Fock data, 23 + 39 entries |
 | 8 | No `O(1/m)` in leading heavy `⟨TTTT⟩` moments (parity-even exchanges, MFT-normalised) | [D] conditional on 7 and Assumption T; not end to end |
 | 9 | `⟨TTTT⟩` exact partial waves by Taylor mode (operator application) | [D], validated to `10⁻¹⁵`; feasibility at `m ≈ 40` [NE] |
-| 9a | `⟨TTTT⟩` end-to-end moments vs factorised prediction, both `±` (`k = 6`, `ν = 0`) | [DVE] at 5–10 % (dominant modes), two masses `m = 39, 70`: deviations `8 % → 2.4 %`, `O(1/m²)`-like; `1/m` fits [ND] |
-| 9b | `l = 2` heavy vertex `T^{hLhR} = 8√(λλ')/m⁸`; `1/4` per quadruple; `C^±` for `⟨TTTT⟩` | [NE] (`E = 8` extrapolated to `5·10⁻⁵`), exact inputs [D/ID] |
+| 9a | `⟨TTTT⟩` end-to-end moments vs factorised prediction, both `±` (`k = 6`, `ν = 0`) | [DVE] at the percent level at `m = 70` (5–8 % at `m = 39`; helicity-impure 14 % there); sub-percent not resolved (float64); `1/m²` and no `O(1/m)` [I]; sign of `g_1` untested |
+| 9b | `l = 2` heavy vertex `T^{hLhR} = 8√(λλ')/m⁸`; `1/4` per quadruple; `C^±` for `⟨TTTT⟩` | vertex [NE] (one ray) + end-to-end [DVE] for `E`; `1/4` and `C^±` [NE/ID], single-sourced, `p[X_h]` not tested end to end |
 | 10 | parity-odd exchanges; `k = 2, 3`; proof of `E = 8` | [ND] |
 
 ## 6. Code index (`ads4/code/fourpt/tttt/`)
@@ -355,3 +397,35 @@ grid point (`t11`, `out_t11_feas_taylor_m70.txt`), the cancellation is `2.4·10�
 | `chl_xspace.py` | CHL `T^{E,h}` in position space, exact; double-twist limit | — |
 | `t7_fock_l2.py`, `t7b_closed_forms.py` | Fock data of `[JJ]`, `[TT]` in CHL's helicity basis; closed forms | `out_t7_fock_l1.txt`, `out_t7_fock_l2.txt`, `out_t7b_closed_forms.txt` |
 | `t8_kappa_exact.py`, `t10_kappa_symbolic.py` | `κ_h A_h = 2^{3J+3/2}`: exact at points / symbolic | `out_t8_kappa_exact.txt`, `out_t10_kappa_symbolic_l*.txt` |
+
+## 7. Revisions after `REFEREE_SPINNING_TTTT.md` (17 Nov 2026); relation to the literature
+
+**Revisions.** No computation was rerun. The referee's diagnostics (`ads4/code/referee_tttt/`) are quoted where stated.
+1. **Float64 precision** (§4.3, §4.5). The earlier "`≤ 3·10⁻⁵` pointwise" claim held only for `r ≤ 0.64`. Float64 fails at `r ≳ 0.87`, but those
+   points have small weight, so the contamination is `≲ 0.5 %` at `m = 70`. The percent-level results stand; the sub-percent figures are
+   not resolved.
+2. **`1/m²`** (§0, §4.5). Three of the six quantities change sign between `m = 40` and `70`. The `1/m²` approach and the absence of
+   `O(1/m)` in the moments are now marked [I].
+3. **Helicity purity at `m = 40`** (§0, §4.5). Classes predicted zero carry 14 % of the norm each, and the mixed wave's `pf/fp` classes fit at
+   `0.64`. Both are now reported.
+4. **The `1/4` constant** (§0, §3.6, rows 7, 9b). It is now labelled single-sourced [NE/ID]. The end-to-end run tests `E` but not `p[X_h]`.
+5. **Minor revisions:**
+   * `W[X_s,X_o] = W[X_o,X_s]` is now called a symmetry, not a check.
+   * The `O(1/m)` imaginary part of `E` is reported (§3.6).
+   * The sign of `g_1` is stated as untested.
+   * The header is corrected.
+
+**Relation to the literature.**
+* **CHL (2102.08160)** is the source of the helicity structures `T^{E,h}` and of the MFT factors `A_h`. Here the `A_h` are recomputed
+  independently from two-particle Fock data, and the shadow identity `κ_hA_h = 2^{3J+3/2}` is new: symbolic for `l = 1`, four exact points
+  for `l = 2`.
+* **KKSD (Karateev–Kravchuk–Simmons-Duffin, 1809.05111)** is harmonic analysis on the Euclidean conformal group. It gives shadow
+  coefficients with `Δ_34` splittings, used for `b^{(Δ34)}` and the word-wise shadow map, and Plancherel/MFT data obtained by Euclidean
+  inversion of `⟨OO⟩⟨OO⟩`. In principle the spinning MFT data of §3.5 (`p[T^{E,h}] = A_hP_FK(1,1)/K_l`) and the eigenvalues `κ_h` follow from
+  their bubble and shadow formulas for spinning external operators. We have not done this comparison numerically. No conflict is known:
+  the conventions agree for scalar seeds (`SPINNING_E2E.md`).
+* **CLS-D (Chang–Landau–Simmons-Duffin, 2311.04271)** constructs dispersive CFT functionals for spinning (stress-tensor) correlators and
+  their dictionary to flat-space graviton sum rules, in the **bulk-point** regime. They explicitly leave the Regge regime of spinning
+  four-point functions to future work. The present document addresses that complementary regime: tensor Regge moments at fixed `β`. It
+  gives an end-to-end check of the factorised leading formula (`k = 6`, `ν = 0`, parity-even, `m ≤ 70`). It does not establish the
+  `O(1/m)`-level statements that a graviton bound would need. There is no overlap in the regime of validity, and so no conflict.
