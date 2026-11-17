@@ -1,6 +1,6 @@
 # `Ω^{SC}`: superconvergent replacements for the moments `C_k`, `k = 3…7`, of `Ω^U`
 
-Status: written 17 Nov 2026 by the `LIGHT_INPUTS`/`OMEGA_PRIME` agent. **Not refereed.** Goal: replace input I10 of `OMEGA_U.md` §3. I10 assumes that
+Status: written 17 Nov 2026 by the `LIGHT_INPUTS`/`OMEGA_PRIME` agent. **Refereed once (`REFEREE_SUPERCONVERGENT.md`); revised, list in §3.** Goal: replace input I10 of `OMEGA_U.md` §3. I10 assumes that
 "each project `C_k` is the leading moment of a spin-`k` dispersive functional". The replacement is an explicit construction. This document generalises
 `OMEGA_PRIME.md` (`k = 3`) to all `k`. Code: `ads4/code/superconv/` (`bash run_all.sh`, single core, ≈ 10 min; logs in `superconv/cache/`, git-ignored). It imports
 `ads4/code/e2e/laplace.py` read-only.
@@ -21,37 +21,53 @@ Premises P1–P3 of `OMEGA_PRIME.md` apply to every [DV] about heavy actions:
 1. **Construction [D-sketch].** `Ψ_{k,ν} := ∫ A_k · K^{(13)}_{j′,ν} ⊗ K^{(24)} · ⟨T(x₄,z₄)[L[T](x₀,z₃), L[T](x₀,z₁)]T(x₂,z₂)⟩`, with:
    * `K^{(13)}_{j′,ν}` the covariant celestial structure, with `j′ ≡ k (mod 2)`;
    * `K^{(24)}` a free covariant `(2,4)` kernel (`OMEGA_PRIME.md` §7), taken to be `𝔄 = D₅D₁` for odd `k` and the flip-free `𝔖_ff = D₁² + D₁D₂` for even `k`;
-   * a conformally invariant weight `A_k = r^{k−3}` (odd `k`, symmetric under `1↔3`) or `A_k = sgn(v′−u′) r^{k−3}` (even `k`, antisymmetric). Here `r` is the CHMRS
-     `u`-channel radial cross-ratio.
+   * a conformally invariant weight. Here `r` is the CHMRS `u`-channel radial cross-ratio.
+     * Odd `k`: the **meromorphic** `A₃ = 1`, `A₅ = (u′+v′)/(32u′v′) = r²(1 + O(r²))`, `A₇ = 1/(256u′v′) = r⁴(1 + O(r²))`. These are symmetric under `1↔3`, and `A₇` is CLS-D's own `f⁻_{7;2}`.
+       Only the leading power `r^{k−3}` enters the leading heavy action; the `O(r²)` corrections shift only higher moments. (The bare `r^{k−3}` is algebraic, not meromorphic,
+       in `(u′,v′)` [referee M1]. The meromorphic forms are therefore preferred.)
+     * Even `k`: `A_k = sgn(v′−u′) r^{k−3}`, which is antisymmetric. It is **necessarily non-meromorphic** for a pure harmonic: any antisymmetric meromorphic factor is odd in `η`.
+     * **Sign on the domain [D, `s3`].** In the frame, `v′−u′ = η(1+r²)/(2r)` exactly. On the whole domain of the moments (`x, y` future timelike) `η ≥ 1`, so `sgn(v′−u′) = +1`,
+       and it is independent of the polarisations (it is a cross-ratio). The `1↔3` image (`y → −y`) has `η ≤ −1`, i.e. it lies on the other ordering. So the antisymmetrised
+       kernel is `2r^{k−3}` on the domain. This is what `s1`/`s2` use (checked on `2·10⁴` random configurations, residual `3·10⁻¹⁴`).
 
    Properties:
    * **Valid sum rule.** The commutator of two operators on a common null plane vanishes pointwise. So `Ψ_k[G] = 0` for every planar correlator for which the integral
      converges, whatever the kernel.
-   * **Convergence.** Near the Regge limit the kernel is `O(r^{k−2})`, so the integral converges iff `J₀ < k` (`LIGHT_INPUTS.md` §2.3). Elsewhere `A_k` is bounded (`r ≤ 1` on the
-     domain, [I]), so convergence there is that of the bare commutator.
+   * **Convergence (restricted after referee M2).** Near the Regge limit the kernel is `O(r^{k−2})`, so that region converges iff `J₀ < k`. Elsewhere `A_k` is bounded
+     (`r ≤ 1` on the domain, [I]), so convergence there is **only that of the bare commutator**, i.e. `J₀ < 3`. In particular the single-ray endpoints (one operator to the end of
+     its null line) are not shown to be improved by `A_k`.
+     * **Proven reach: `J₀ < 3`.** This is enough for the Einstein correlator (`J₀ = 2`).
+     * **Not shown: `3 ≤ J₀ < k`**, e.g. the `|ĝ₃|²` part (`J₀ ≤ 4`) in `k = 5, 6, 7`.
    * **Leading Regge kernel.** It is `r^{k−2} × (antipodal weights w^{(j′)}_q(ν)) × F^ν_M × K^{(24)}`, a **pure `ν`-harmonic**.
    * **Why not CLS-D's own factors.** CLS-D's meromorphic subtraction factors `f^±_{k;2}` give leading kernels `∝ η^{j}`, with `j = 1, 0, 3, 2, 1, 0` for `k = 2…7`.
      Only `k = 3, 7` are pure. The factor `η^j` mixes `ν` with `ν ± i, …`, so the heavy action is not `∝ P_{−½+iν}(cosh β)`.
      * Any `1↔3`-antisymmetric meromorphic factor is odd in `η` [D]: `η = √v′ − √u′`, and symmetric functions are functions of `(r, η²)`.
-     * Pure harmonics for even `k` therefore need the non-meromorphic `sgn(v′−u′)`; for odd `k` one may use `(u′+v′)^b/(u′v′)^c`, e.g. `(u′+v′)/(u′v′) ≈ 32r²` at `k = 5` [D].
-     * Non-analytic weights are harmless for the Einstein statement (item 4). They may change which `[TT]` families enter, which affects (P), not (E).
-2. **Odd `k = 3, 5, 7` (`C⁻₃, C⁻₅, C⁻₇`; forward `C⁻₅|₀`) — complete [DV given P1–P3].**
+     * Pure harmonics for even `k` therefore need the non-meromorphic `sgn(v′−u′)`. For odd `k`, the meromorphic `(u′+v′)^b/(u′v′)^c` above work [D].
+     * Non-analytic weights are harmless for the Einstein statement (item 4). They do affect the double-trace/contact structure (P), which is unanalysed for even `k` (item 4).
+2. **Odd `k = 3, 5, 7` (`C⁻₃, C⁻₅, C⁻₇`; forward `C⁻₅|₀`) — heavy side complete [DV given P1(j′=1)–P3].**
    * The leading heavy action is `N_k(ν) × (2P_{−½+iν}(cosh β)/m^{2k})(|c_same|² − |c_opp|²)`, exactly the project form, with
      * `N₃ = −(32/7)(2ν+i)(4ν²+9)/(4ν²+201)`;
      * `N₅ = −(32/9)(2ν+i)(4ν²+41)/(4ν²+393)`;
      * `N₇ = −(32/11)(2ν+i)(4ν²+89)/(4ν²+649)`.
+   * General form (referee): `N_k = −(32/(a−1))(2ν+i)(4ν²+2k²−9)/(4ν²+8(a−3)²+1)`, with `a = k+5`.
    * **No real zeros**: `|N_k| ≥ 0.20, 0.37, 0.40` on ℝ. `N₅(0) ≠ 0`, so the forward piece `C⁻_{5,0}` is defined.
    * **No flip interference.** This is structural, for all `ν`, `a`, `l`: the antipodal odd weights at `(1,3)` and `𝔄`'s `z₂↔z₄` antisymmetry at `(2,4)` both kill it (referee
      argument, `REFEREE_OMEGA_PRIME.md`).
    * **Real and even in `ν`.** The shadow factor is `δ/(1−δ)`, which `N_k` shares, and `N_k(−ν) = −N̄_k(ν)` (`OMEGA_PRIME.md` §8; `k`-independent).
    * So the flat limit and the heavy analysis of `OMEGA_U.md` carry over **unchanged** for the odd terms.
-3. **Even `k = 4, 6` (`C⁺₄, C⁺₆`; forward `∂_{ν²}C⁺₄|₀`) — preserved part matched, flip interference not removable [DV].**
+3. **Even `k = 4, 6` (`C⁺₄, C⁺₆`; forward `∂_{ν²}C⁺₄|₀`) — preserved part matched, flip interference not removable [DV given P1(j′=0)–P3 and the sign property `s3`].**
    * **Preserved–preserved part.** It is `N_k(ν)(2P/m^{2k})(|c_s|² + |c_o|²)`, with
      * `N₄ = 16(4ν²+81)(4ν²+393)(16ν⁴+216ν²+263)/((4ν²+137)²(4ν²+561)²)`;
      * `N₆ = 16(4ν²+169)(4ν²+649)(16ν⁴+536ν²+2023)/(16ν⁴+4712ν²+251161)²`.
 
-     Both are real, even and **positive on ℝ** (minima `0.023`, `0.056` at `ν = 0`). They are defined relative to `D₁²⊗D₁²`; with `𝔖_ff` normalisation they differ by a positive
-     factor.
+     Both are real, even and **positive on ℝ** (minima `0.023`, `0.056` at `ν = 0`). They are defined relative to `D₁²⊗D₁²`.
+   * **Normalisation used in `Ω^{SC}` (m2).** The project's even kernel is now `𝔖_ff⊗𝔖_ff` (item 6), so `Ω^{SC}` uses
+     `N₄^{ff} = 4(16ν⁴+216ν²+263)/((4ν²+81)(4ν²+393))` and `N₆^{ff} = 4(16ν⁴+536ν²+2023)/((4ν²+169)(4ν²+649))`. Each is the ratio of the `(1,3)` responses `j′=0 : 𝔖_ff`, since
+     `(2,4)` is `𝔖_ff` on both sides.
+     * They are positive on ℝ, with `N^{ff}(0) = 0.033, 0.074` and `N^{ff}(∞) = 4`.
+     * So the small-`ν` region of `Ψ_k` is suppressed relative to large `ν` by `≈ 1/120` (`k = 4`). Normalising by `N` amplifies anything not exactly zero there by the same factor;
+       see item 4 for the forward term.
+     * The light-ray Jacobian `j(ν)` (`OMEGA_PRIME.md` item 5) is untracked and **may now depend on `k`** through `A_k` (m3) [I].
    * **Flip interference.** The covariant `j′ = 0` celestial structure at `(1,3)` has a nonzero helicity-flip response. Its ratio to the preserved response is fixed by
      covariance (F-normalised harmonics):
 
@@ -68,19 +84,32 @@ Premises P1–P3 of `OMEGA_PRIME.md` apply to every [DV] about heavy actions:
    * **Its size in `Ω^{SC}` is negligible [NE, `c2`].** Leading Regge model, M02, near-gap states `m/Λ ∈ [1.2, 2]`, `J ≤ 8`, both channels:
      * smeared `k = 4, 6` terms: `≤ 1.1·10⁻⁷ N_s` at `Δ_g = 100` and `≤ 10⁻¹¹ N_s` at `Δ_g = 1000`. Small `ν = Λp` is suppressed both by `ρ_k ~ ν⁻⁴` at large `ν` and by
        `φ₄ ∝ p²`, `φ₆ ∝ p⁶` at small `p`;
-     * forward `∂_{ν²}C^{SC}_4|₀`: `≤ 6·10⁻⁴ N_s` at `Δ_g = 100` and `≤ 6·10⁻⁶ N_s` at `Δ_g = 1000`. It scales like `(2J+1)⁴/m²`, because `F^ν_4(β) = O(β⁴)`.
+     * forward `∂_{ν²}C^{SC}_4|₀`: `≤ 6.5·10⁻⁴ N_s` at `Δ_g = 100` (the one-sided difference underestimates by ≈ 9 %, referee `r3`) and `≤ 7·10⁻⁶ N_s` at `Δ_g = 1000`. It scales like `(2J+1)⁴/m²`, because `F^ν_4(β) = O(β⁴)`.
 
      These numbers are far below the `OMEGA_U` margins (the binding state's spare margin is `0.044 N_s`).
    * **Removing it exactly [ND].** The `(1,3)` structure is fixed by covariance (`j′ = 0` is unique), and `j′ = 1` would give the `σ_h` sign (`C⁻`).
      * The remaining route is polarisation-derivative (transverse-component) null-integrated operators at `(1,3)`. They are still pointwise superconvergent.
      * Each transverse index costs one unit of Regge convergence, which `r^{k−3}` repays: at most 1 index for `k = 4`, 3 for `k = 6`.
      * Their covariant celestial weights were not derived. Given the sizes above, this is not needed.
-4. **Light side [D given RB₂, G^E microcausal, swappability].**
-   * For every `k ≥ 3`, `Ψ_k[G^E] = 0`, because the tree Einstein correlator is microcausal [I] and has `J₀(G^E) = 2 < k` (RB₂, [I]/KKSDZ [Q]). So the Einstein part of
-     `Ψ_k|_light` vanishes exactly, **with no assumption about the completion of the project's `C_k`**. I10 reduces to RB₂ (plus I14 swappability).
-   * By the same rule, `|ĝ₃|²` terms vanish in `k = 5, 6, 7` if `J₀(G^{|ĝ₃|²}) ≤ 4` [I].
-   * `k = 3` is stronger. The bare commutator's light side is the single `T` block, which is Einstein-free pointwise (`OMEGA_PRIME.md`), so not even RB₂ is needed.
-   * For `k ≥ 4` the `T`-block argument fails, because `A_k` sits inside the null integrals (weighted null integrals are not `E(n)`).
+4. **Light side — what is reduced and what is not (revised after referee M1, M2).**
+   * **Einstein term [D given RB₂, `G^E` microcausal, I14 swappability].** For every `k ≥ 3`, `Ψ_k[G^E] = 0`: the tree Einstein correlator is microcausal [I], and
+     `J₀(G^E) = 2 < 3`, within the proven reach of the functional (item 1). So the Einstein part of `Ψ_k|_light` vanishes exactly, with no assumption about completing the
+     project's `C_k`.
+     * Dividing by `N_k` does not create anything from zero, so the forward pieces are covered too.
+     * **This, and only this, part of I10 reduces to RB₂.**
+   * **`k = 3` is stronger.** Its light side is the single `T` block, which is Einstein-free pointwise (`OMEGA_PRIME.md`), so not even RB₂ is needed. For `k ≥ 4` the
+     `T`-block argument fails, because `A_k` sits inside the null integrals (weighted null integrals are not `E(n)`).
+   * **`|ĝ₃|²` in `k = 5, 6, 7`: not reduced.** It would need the functional to converge for `J₀ ≤ 4`. That is shown only in the Regge region, not at the single-ray endpoints
+     (item 1, M2). The claim of the first version is withdrawn to **[I]**.
+   * **Double traces and contacts (P): not analysed.**
+     * Odd `k`: the meromorphic weights `A₅`, `A₇` (item 1) keep the CLS-D-type dispersive structure: finitely many `[TT]` families at `O(1/c_T)`, contacts as polynomials
+       [D-sketch, by analogy with CLS-D/CHMRS; not computed].
+     * Even `k`: the weight is necessarily non-meromorphic. The `dDisc` rewriting, and with it the double-zero pattern, is then not available.
+       * The `[TT]` and contact content of `Ψ₄`, `Ψ₆`, and in particular of the forward piece `∂_{ν²}(Ψ₄/N₄)|₀`, is **unknown**. That piece carries I10's `10¹³` leverage, and
+         is amplified by `1/N₄^{ff}(0) ≈ 30` relative to the normalisation.
+       * Any non-zero, non-polynomial residue there is as dangerous as before.
+   * **Net.** `Ω^{SC}` removes the "completion" assumption of I10 for the Einstein term (all `k`). It does **not** remove (P) for the even and forward pieces, which remains
+     **[I]** and load-bearing.
 5. **`C⁺₂` stays** (graviton pole; the convergence `J₀ < 2` is marginal). Reference only: a `j′ = 0` replacement would have `N₂` with a real zero at `ν ≈ 0.84`.
 6. **Side finding about `OMEGA_U` (important) [DV + NE].** The project's even kernel `D₁⊗D₁` (`D₁²` per pair for `T`) has a helicity-flip response whose ratio to the
    preserved one tends to **1** as `ν → ∞` (F-normalised): `0.34`, `0.70`, `0.94` at `ν = 10, 20, 50` for `k = 4`.
@@ -99,32 +128,49 @@ Premises P1–P3 of `OMEGA_PRIME.md` apply to every [DV] about heavy actions:
    * At the conservative binding state (`1.40Λ`, `++`, `J = 2`) the bound is `0.030 N_s`, against a spare margin of `0.044 N_s`. Elsewhere it reaches `0.2–0.4 N_s`,
      comparable to the margins `0.18–0.35 N_s`.
    * Interference between the same- and opposite-helicity couplings of one state turns positivity into a `2×2` condition `X² ≤ F₊₊F₊₋`. So **the `OMEGA_U` heavy
-     scan is not valid for `D₁⊗D₁` kernels**, and neither is the flat dictionary I1. The flat limit of `D₁⊗D₁` contains `O(1)` non-MHV interference.
+     scan is not shown valid for `D₁⊗D₁` kernels** (the bound above has unfixed `O(1)` factors), and neither is the flat dictionary I1. The flat limit of `D₁⊗D₁` contains
+     `O(1)` non-MHV interference.
    * **Remedy [D].** Use the flip-free even kernel `𝔖_ff = D₁² + D₁D₂ = D₁(z₁·z₃)` at both pairs, for every even moment, including `C⁺₂`, which is not replaced.
      * Its flip responses cancel identically (Lemma L: `+1 − 1`). So all single- and double-flip terms vanish.
      * Its preserved response, `(N₁−N₂)/(64𝖽𝖽)` (`= (4ν²+201)/(2(4ν²+81))` at `a = 7`; positive for all `a = 7, 9, 11`), is nonzero on ℝ. After normalisation the preserved
        action `(2P/m^{2k})(|c_s|²+|c_o|²)` is **unchanged**, so the flat limit (B′ dictionary) and the `OMEGA_U` heavy scan apply as computed, and are now consistent.
      * The choice is within the project's stated freedom ("any combination of `D₁², D₁D₂, D₂²`", `REGGE_MOMENT_TTTT.md` §4).
-   * **End-to-end tests [D].** `SPINNING_4PT.md` (`⟨JJJJ⟩`, 81 modes, `ν = 0, 1, 3`) and `SPINNING_TTTT.md` (`⟨TTTT⟩`, 625 modes, `ν = 0`) test the heavy formula **mode by
-     mode**, flip classes included. Every kernel is a fixed linear combination of modes, so the tests remain valid for `𝔖_ff`. Their `ν` coverage is small, but the
-     `ν`-dependence of the pair responses is given by the exact `M`-tables (directly checked by `H²` quadrature in `REGGE_MOMENT_TTTT.md`). The open question is the validity of
-     the Regge formula at `ν ~ m`, not the kernel choice.
+   * **End-to-end tests (retracted claim, M4).**
+     * `⟨JJJJ⟩` is `l = 1`, so it cannot test the `l = 2` kernel `𝔖_ff`.
+     * The `⟨TTTT⟩` test (625 modes, `k = 6`, `ν = 0`, `β = 1`, percent level) is mode-by-mode, so formally it covers `𝔖_ff`. But at `ν = 0` the `D₁²` flip/pres ratio is
+       `4·10⁻⁴`, so there the kernel choice is immaterial.
+     * **Where the choice matters (`ν ≳ 5`), the heavy formula with flips is untested end to end.** Only the exact `M`-tables (checked by `H²` quadrature) support it there.
+   * **`C⁺₂` with `𝔖_ff`: light side [D given IP, (F)].**
+     * The graviton pole (I9) comes from the Einstein Regge density, which is helicity-preserving and helicity-independent (`LIGHT_INPUTS.md` §4.2). It has no flip
+       component, so it sees only the preserved pair responses, and those are divided out by the normalisation. Hence the normalised residue `16πG/(ν²+9/4)` is the same for
+       `𝔖_ff` and `D₁²` [D given IP].
+     * The `t₄`- and `α_T`-dependent light terms of `C⁺₂` sit in flip (off-diagonal) structures, so they are kernel-dependent:
+       * the linear `c₁t₄` is unknown in either case;
+       * the `|ĝ₃|²` coefficient is fixed by the flat limit (F), and only for the flip-free kernel is that flat limit the MHV `B′₂`. So `k(0)`, and hence `A`, `B_AdS`, `C₁`
+         (which come from I9 and `k(0)`), are as stated **for `𝔖_ff`** [D given IP, (F)]. For `D₁⊗D₁` they would not be.
+     * Not re-derived: the AdS corrections `b_i` (unknown anyway).
 
 **`Ω^{SC}`** = `Ω^U` with:
 * `C⁻_{3,5,7} → Re(Ψ_k/N_k)` (= `Ψ_k/N_k`);
-* `C⁺_{4,6} → Ψ_k/N_k` (residual one-pair flip `≤ 10⁻⁷ N_s` smeared, `≤ 6·10⁻⁴ N_s` forward at `Δ_g = 100`, item 3);
-* the forward pieces `∂_{ν²}C⁺_{4}|₀ → ∂_{ν²}(Ψ₄/N₄)|₀` and `C⁻_{5,0} → (Ψ₅/N₅)|₀`;
+* `C⁺_{4,6} → Ψ_k/N_k^{ff}` (residual one-pair flip `≤ 10⁻⁷ N_s` smeared, `≤ 6.5·10⁻⁴ N_s` forward at `Δ_g = 100`, item 3);
+* the forward pieces `∂_{ν²}C⁺_{4}|₀ → ∂_{ν²}(Ψ₄/N₄^{ff})|₀` and `C⁻_{5,0} → (Ψ₅/N₅)|₀`;
 * `C⁺₂` keeps its moment, but with the flip-free kernel `𝔖_ff⊗𝔖_ff` (item 6).
 
-Status of its light side: no Einstein term in `k = 3…7` [D given RB₂ (k ≥ 4); [D] for `k = 3`]. Its heavy side equals `Ω^U`'s (with the flip-free `C⁺₂`) for odd `k` [DV given P1–P3]. For even `k` it agrees
-up to the residual `ρ_k` interference, which is `≤ 6·10⁻⁴ N_s` [NE, model].
+Status:
+* **Light side.** No Einstein term in `k = 3…7` [D given RB₂ (`k ≥ 4`); [D] for `k = 3`]. `|ĝ₃|²` and contacts (P) are **not** reduced: [I], and unanalysed for even `k`
+  and the forward `C⁺₄` piece (item 4).
+* **Heavy side.** It equals `Ω^U`'s (with the flip-free `C⁺₂`):
+  * for odd `k` [DV given P1(j′=1)–P3];
+  * for even `k`, up to the residual `ρ_k` interference, `≤ 6.5·10⁻⁴ N_s` [NE, model; DV given P1(j′=0) and `s3`].
 
-## 1. Method (`s0_check_D1sq.py`, `s1_responses.py`, `s2_even.py`, `c1_flip_contamination.py`, `c2_sc_flip.py`)
+## 1. Method (`s0_check_D1sq.py`, `s1_responses.py`, `s2_even.py`, `c1_flip_contamination.py`, `c2_sc_flip.py`, `s3_sign.py`)
 
+* **Sign (`s3_sign.py`).** `v′−u′ = η(1+r²)/(2r)` checked on random frame configurations; positive throughout the domain.
 * **Pair responses.** For a pair, `A(h₁,h₃) = Σ_q w_q M^q_{h₁h₃}(ν; a)`, with `a = 2l+k+1 = k+5` and exact `M = R + g₁S` from `laplace.py`. Preserved means `h₃ = −h₁` (harmonic `P`);
   flip means `h₃ = h₁` (harmonic `F^ν_4`).
 * **Antipodal weights** (P1):
-  * `j′ = 0`: `w_q = (−1)^{q₃}(δ/2)_n/(1−δ/2)_n`, with `n = |q₁+q₃|/2`;
+  * `j′ = 0`: `w_q = (−1)^{q₃}(δ/2)_n/(1−δ/2)_n`, with `n = |q₁+q₃|/2`. These are the Fourier coefficients of `|sin ψ|^{−δ}`, re-derived analytically by the referee. The light-ray mode map
+    P1 itself was stated and refereed for `j′ = 1`; for `j′ = 0` the same light-transform kinematics apply [D-sketch], so the even-`k` labels carry the premise P1(`j′=0`);
   * `j′ = 1`: as in `OMEGA_PRIME.md` §6.
 * **Project kernels in contraction weights.**
   * `D₁² ≅ 4[(2,−2)+(−2,2)] + (2/9)(0,0)`. `s0` checks it against the Lemma L table: the preserved response is exactly `N₁/(64𝖽𝖽)`; the flip agrees up to the `P^{(4)}` vs `F₄`
@@ -146,9 +192,28 @@ up to the residual `ρ_k` interference, which is `≤ 6·10⁻⁴ N_s` [NE, mode
 
 | item | status |
 |---|---|
-| `Ψ_k` valid spin-`k` sum rules (`A_k` weights; domain `r ≤ 1`) | [D-sketch]; domain [I] |
-| odd `k`: heavy action `= N_k·`project, flip-free, real/even, `N_k ≠ 0` on ℝ | [DV given P1–P3] |
-| even `k`: preserved part `= N_k·`project, `N_k > 0` on ℝ; residual one-pair flip `ρ_k` | [DV]; in `Ω^{SC}` `≤ 10⁻⁷ N_s` smeared, `≤ 6·10⁻⁴ N_s` forward (`Δ_g = 100`) [NE, `c2`]; exact removal [ND] |
-| Einstein-free light side, `k = 3…7` | [D given RB₂, microcausality of `G^E`, swappability] |
-| project `D₁⊗D₁` kernels carry `O(1)` flip interference at large `ν`: up to `0.4 N_s` on near-gap states (`0.03 N_s` at the binding state) | [DV] (`s2`) + [NE, model] (`c1`); removed exactly by `𝔖_ff` at both pairs [D] |
-| `j(ν)`; `O(1/m²)` heavy terms; contact `(P)` for non-meromorphic `A_k` | [I] / [ND] |
+| `Ψ_k` valid sum rules; reach `J₀ < 3` everywhere, `J₀ < k` only in the Regge region | [D-sketch]; domain `r ≤ 1` [I]; endpoints for `3 ≤ J₀ < k` not controlled |
+| odd `k`: heavy action `= N_k·`project, flip-free, real/even, `N_k ≠ 0` on ℝ; meromorphic weights `A₅, A₇` | [DV given P1(j′=1)–P3] |
+| even `k`: preserved part `= N_k^{ff}·`project, `N^{ff} > 0` on ℝ; residual one-pair flip `ρ_k` | [DV given P1(j′=0), `s3`]; `≤ 10⁻⁷ N_s` smeared, `≤ 6.5·10⁻⁴ N_s` forward (`Δ_g = 100`) [NE, `c2`]; exact removal [ND] |
+| `sgn(v′−u′) = +1` on the moment domain, polarisation-independent | [D] + checked (`s3`) |
+| Einstein-free light side, `k = 3…7` (only part of I10 reduced) | [D given RB₂, microcausality of `G^E`, I14] |
+| `|ĝ₃|²` absent in `k = 5, 6, 7` | [I] (needs `J₀ ≤ 4` reach; withdrawn from [D]) |
+| `[TT]`/contacts (P) for the replacements, esp. even `k` and forward `C⁺₄` | **not analysed; [I], load-bearing** |
+| project `D₁⊗D₁` kernels carry `O(1)` flip interference at large `ν`: bound up to `0.4 N_s` on near-gap states (`0.03 N_s` at the binding state) | [DV] (`s2`) + [NE, model] (`c1`); `Ω^U` scan "not shown valid"; removed exactly by `𝔖_ff` [D] |
+| `C⁺₂` with `𝔖_ff`: I9 residue and `k(0)`, `A`, `B_AdS`, `C₁` unchanged | [D given IP, (F)] |
+| heavy formula with flips at `ν ≳ 5` end to end | untested ([I]); `M`-tables only |
+| `j_k(ν)` (possibly `k`-dependent); `O(1/m²)` heavy terms | [I] / [ND] |
+
+## 3. Revisions after `REFEREE_SUPERCONVERGENT.md`
+
+* **M1.** "I10 reduces to RB₂" is restricted to the Einstein term. (P) is stated as unanalysed and load-bearing for the even and forward pieces, including the `1/N^{ff}(0)`
+  amplification. The odd `k` now use meromorphic weights `A₅ = (u′+v′)/(32u′v′)`, `A₇ = 1/(256u′v′)`.
+* **M2.** The proven reach is restricted to `J₀ < 3` (bare-commutator endpoints). The `|ĝ₃|²` claim for `k = 5–7` is withdrawn to [I].
+* **M3.** `sgn(v′−u′)` is derived to be `+1` on the domain and polarisation-independent (`s3`). The even-`k` labels are conditional on P1(`j′=0`).
+* **M4.**
+  * The end-to-end claim is retracted.
+  * "Not valid" becomes "not shown valid".
+  * The I9 residue and the light constants for `C⁺₂` with `𝔖_ff` are re-derived given IP and (F): unchanged. `D₁⊗D₁` would *not* reproduce `k(0)`.
+* **m1.** `6.5·10⁻⁴`.
+* **m2.** `Ω^{SC}` uses `N^{ff}`.
+* **m3.** `j_k(ν)` is possibly `k`-dependent; noted.
