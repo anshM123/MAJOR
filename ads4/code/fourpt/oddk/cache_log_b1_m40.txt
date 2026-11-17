@@ -1,0 +1,1 @@
+# modes4_l1_D45.861045_J20.npz: 4020 grid points, 3414 converged at N <= 10^4, 277 more at N2 = 30000, 329 still dropped
