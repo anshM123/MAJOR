@@ -19,10 +19,17 @@ def density(mom, k, nu, G):
         logw = np.log(2.0) + 3*np.log(S) + np.log(U) + np.log(rho - rhob) + 0.5*(k - 4)*np.log(rho*rhob) + mom.logscale
     return logw, G
 
+_KC = {}
+def _kernel(nu, mu, us):
+    key = (float(nu), mu, us.tobytes())
+    if key not in _KC:
+        _KC[key] = kernel_np(nu, [mu], -np.log(us))[mu]
+    return _KC[key]
+
 def moment_and_corner(mom, k, nu, ab, q, cL=None):
     g = mom.g
     q1, q3, q2, q4 = q
-    F = kernel_np(nu, [(q1 + q3, q2 + q4)], -np.log(g['us']))[(q1 + q3, q2 + q4)]
+    F = _kernel(nu, (q1 + q3, q2 + q4), g['us'])
     G = mom.modes[ab][q] if cL is None else sum(w*mom.modes[k_][q] for k_, w in cL.items())
     logw, _ = density(mom, k, nu, G)
     logw = np.where(mom.conv, logw, -np.inf)
