@@ -16,6 +16,7 @@ Output: cache/u5.log
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import numpy as np, sympy as sp, json
+from scipy.integrate import quad
 from fractions import Fraction as Fr
 
 out = []
@@ -72,6 +73,7 @@ for name, (ps2, ps3, a) in FUN.items():
 pr("(c) AdS residues from lower-degree coefficients of the moment light sides (leading 1/Lam^2 unknowns), normalised functionals (k(0) = 1):")
 pr("    lev_{k,c} = (top flat coeff of -B'_k in coupling c) x int phi_k p^{2d-2} / k(0);  forward: -a d/dq of the 1/Lam^2 term is 0 for d <= 1")
 LEV = {}
+DEG = {}
 for name, C in CONST.items():
     PH, a, k0 = C['PH'], C['a'], C['k0']
     rows = []
@@ -83,7 +85,9 @@ for name, C in CONST.items():
                 continue
             d = poly.degree(); top = poly.coeff_monomial(q**d)
             if d >= 1:
-                levs[k] = float(top*mu(PH[k], 2*d - 2)/k0)
+                # k(0) is defined per pi G: the |ghat3|^2 coefficients carry an explicit pi that must be removed (REFEREE_OMEGA_U m1)
+                levs[k] = float(top*mu(PH[k], 2*d - 2)/k0/(sp.pi if c == g3 else 1))
+                DEG[(name, str(c), k)] = d
         # forward pieces: -a d_{nu^2}(-C4) at 0 picks the coefficient of nu^2 of the AdS polynomial: for top degree d4 >= 2 the 1/Lam^2
         # unknown multiplies nu^{2(d4-1)} -> contributes at q-degree d4-1 >= 1 -> derivative at 0 only if d4 - 1 == 1
         p4 = sp.Poly(sp.expand(LOW[4].coeff(c).subs(G, 1)), q) if LOW[4].coeff(c) != 0 else None
@@ -97,6 +101,21 @@ for name, C in CONST.items():
     pr(f"  {name}:"); [pr(r) for r in rows]
 pr("    size of the induced shift of the bound on |ghat3|^2 Lam^8 (normalised k = 1): delta ~ sum_k lev a/(pi Lam^2) x (g_f/G_f);")
 pr("    illustrative |a| = 36 (scalar: -C_2[c3 STU] = nu^2 - (2Df+1/2)(2Df-1/2), Df = 3), g_f/G_f = log Lam (flat two-sided bound size):")
+pr("    [revised after REFEREE_OMEGA_U m2] at smearing Lam/n the relative residues grow by n^2; the next-to-top coefficient of a degree-d")
+pr("    polynomial is taken as d x 36; g_f/G_f = c_g log(Lam/n) with c_g = 1 and 30 (flat two-sided bounds carry O(10-100) constants):")
+for name in ('M02',):
+    for Dg in (50, 100, 300, 1000):
+        Lam = np.sqrt((Dg - 2.0)*(Dg - 1.0))
+        for n in (1.3, 1.4, 1.6):
+            Ls = Lam/n
+            tot = sum(abs(v)*DEG.get((name, c, k), 1) for c in ('g4', 'g5', 'g6', 'g6p') for k, v in LEV[(name, c)].items())
+            dk = sum(abs(v)*DEG.get((name, 'g3', k), 1) for k, v in LEV[(name, 'g3')].items())*36/Ls**2
+            X = 16*quad(lambda t: sp.lambdify(p, CONST[name]['ps2'])(t)/(t*t + 2.25/Ls**2), 0, 1, limit=400)[0]/float(CONST[name]['k0'])
+            for cg in (1, 30):
+                sh = tot*36*cg*np.log(Ls)/(np.pi*Ls**2)
+                pr(f"    {name} Dg={Dg} n={n} c_g={cg}: contact shift of |ghat3|^2 (Lam/n)^8 <~ {sh:.3g} vs 16L_AdS/k = {X:.3g} ({sh/X:.1%});"
+                   f" k_AdS - k(0) relative ~ {dk:.2g}")
+pr("    [original n = 1 table, |a| = 36 per polynomial, c_g = 1; k_AdS row corrected for the factor pi]:")
 for name in ('M02', 'F_g3'):
     for Dg in (20, 100, 1000):
         Lam = np.sqrt((Dg - 2.0)*(Dg - 1.0))
