@@ -15,6 +15,7 @@ import functools
 import flint
 
 CTX = flint.fmpq_mpoly_ctx.get(('s', 't'), 'lex')
+CHUNK = 600
 S, T = CTX.gens()
 
 
@@ -62,9 +63,19 @@ def mack_P_mat(Delta, J):
         l2 = flint.fmpq((hm - J).numerator, 2*(hm - J).denominator) - T/2
         pr = _poch(l1, r)*_poch(l2, r)
         K = J - 2*r; L = J - r
-        pairs = [(k13, k24) for k13 in range(K + 1) for k24 in range(K + 1 - k13)]
-        Arows, Brows = [], []
+        # pairs (k13, k24) with k13 <= k24 only: A and B are symmetric under k13 <-> k24 (with k14 <-> k23), so off-diagonal pairs
+        # are counted twice.  Rows are accumulated in chunks (memory: H13 follow-up; J = 150 needed ~6 GB unchunked).
+        pairs = [(k13, k24) for k13 in range(K + 1) for k24 in range(k13, K + 1 - k13)]
+        C = None
         pbb = {}
+        Arows, Brows = [], []
+
+        def flush():
+            nonlocal C, Arows, Brows
+            if Arows:
+                Cc = flint.fmpz_mat(Arows).transpose()*flint.fmpz_mat(Brows)
+                C = Cc if C is None else C + Cc
+            Arows, Brows = [], []
         for k13, k24 in pairs:
             rest = K - k13 - k24
             combp = flint.fmpz_poly([])
@@ -80,15 +91,19 @@ def mack_P_mat(Delta, J):
                 combp += pbb[key]*c
             if (k13 + k24) % 2:
                 combp = -combp
+            if k13 < k24:
+                combp = combp*2
             if combp.is_zero():
                 continue
             ap = Apol[k13]*Apol[k24]*(2**rest)
             Arows.append([int(v) for v in ap.coeffs()] + [0]*(K + 1 - (ap.degree() + 1)))
             Brows.append([int(v) for v in combp.coeffs()] + [0]*(K + 1 - (combp.degree() + 1)))
-        if not Arows:
+            if len(Arows) >= CHUNK:
+                flush()
+        flush()
+        pbb = None
+        if C is None:
             continue
-        Am = flint.fmpz_mat(Arows); Bm = flint.fmpz_mat(Brows)
-        C = Am.transpose()*Bm                       # C[i, j]: coefficient of s^i sig^j  (times K! 128^{2J} 2^K)
         scale = Fr(1, fact[K]*128**(2*J)*2**K)
         inner = CTX.constant(0)
         for j in range(K, -1, -1):

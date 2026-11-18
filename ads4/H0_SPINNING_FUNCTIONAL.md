@@ -1,6 +1,6 @@
 # H0: the spinning (`⟨TTTT⟩`) functional — route decision and first milestone
 
-Status: 18 Nov 2026, derivation/numerics agent. **Unrefereed. Not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
+Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); **M2/M3 (update box, §9–§11) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
 H9b) and finding F1 of `REFEREE_FOUNDATION.md`. Code: `ads4/code/spinfunc/` (`run_all.sh`, single core, ≈ 10 min; outputs in
 `spinfunc/cache/`, git-ignored). It imports `omegau/`, `exactskel/` (e1/e7 caches) and `objid/` **read-only**. Nothing else was modified.
 
@@ -10,7 +10,37 @@ downloaded to the session scratchpad. Equation labels below are CLS-D's LaTeX la
 Marks: **[Q]** quoted; **[D]** derived; **[DV]** derived and checked (exact algebra, sympy); **[D-sketch]**; **[NE]** numerical evidence;
 **[M]** model; **[I]** assumed/inferred.
 
-## 0. Summary
+> **Update (M2 and M3, §9–§11; same day, unrefereed, not committed). Several M1 statements below are superseded.**
+>
+> 1. **In `d = 3` the bulk-point images of CLS-D-class functionals are the STRIPPED flat sum rules `B^{(1)}_k` (reading B̃, `d̃^J_{44}`), not
+>    the unstripped `B′_k` (reading B) that `RESULT_D.md`'s near-gap model and M1 used.** Three independent arguments (§9):
+>    * an explicit `D = 4` crystal computation with CLS-D's polarisation-sum prescription: every flip-free kernel has channel ratio
+>      `(1−x²)^{−4}` [DV];
+>    * CLS-D's unsubtracted `k = 2, 3` graviton sum rules have truncating EFT series, which fits the contact-free stripped `B^{(1)}_{2,3}`
+>      and excludes the contact-carrying `B′_{2,3}` [D from Q + `FLAT_UNSTRIPPED.md`];
+>    * `f^±_{k;2}|crystal` is exactly the stripped kernel [DV].
+> 2. **Route A′ is therefore redefined (§10): `Ω^{A′} := ∫ψ₂Ĉ₂ + ∫ψ₃Ĉ₃`**, with only CLS-D's two unsubtracted functionals and the NF02
+>    weights `ψ₂, ψ₃`.
+>    * Its flat limit is NF02 itself, in the stripped basis, so the certificate applies [Q + D].
+>    * `k = 4…7`, odd-`k` modelling (H3), H9b and H15 are not needed.
+>    * Only `k = 2` needs an `η`-inversion (`j = 1`).
+> 3. **The B′-uplift (`Ω^{NF,SC}`, `k = 2…7`) is not positive at leading order once its objects are CLS-D-class (stripped) [NE].**
+>    * The flat action has min `F/N_s = −0.72` at `+−`, `m/M = 1.1`, `J = 8` (AdS-reachable at `Δ_g = 100`) and `−3478` at `m = M`, both
+>      with the project's `Ψ_k` (`R_k`) and with CLS-D weights (`f7`).
+>    * This supersedes §4.1 and the `PsiG` columns of §4.2. The `R_k` of §3 stand, but relative to the stripped `B^{(1)}_k`.
+>    * The `A′` (`R = 1`, B′) rows of §4.2–4.4 model a functional that does not exist. The tolerance numbers of §4.3 remain valid as
+>      sensitivity statements of the near-gap model.
+> 4. **Near gap, route A′** (`f6`, same exact-skeleton model, stripped densities) [NE + M]:
+>    * `n = 1` at `Δ_g = 100 / 300 / 1000`;
+>    * min `F/N_s = 0.2256 / 0.2054 / 0.2021`, and `0.2231 / 0.2052 / 0.2021` including the `η`-inversion estimate.
+> 5. **M3** [D-sketch + NE]:
+>    * The graviton-pole light term is unchanged by an exact (Mehler–Fock) `η`-inversion.
+>    * `k(0)` shifts by `−1.5·10⁻³ / −1.6·10⁻⁴ / −1.5·10⁻⁵`.
+>    * So `A`, `B_AdS` scale by `1.0015 / 1.00016 / 1.00002`, and the bounds by `≤ 1.0008`.
+>    * **The headline numbers (`A = 3022.3`, `B_AdS = −6552.5`, `2.21·10⁻⁴ / 3.13·10⁻⁶ / 2.89·10⁻⁸`) are unchanged at the quoted precision for
+>      route A′**, in the same model and under the same hypotheses minus those listed in §11.
+
+## 0. Summary (M1; see the update box above for what is superseded)
 
 1. **Route decision: A, in a concrete form ("A′").** The spinning C-type functional the project has been calling "not constructed" is,
    up to one step, already in the literature:
@@ -299,4 +329,178 @@ Min flat `F/N_s` over `J ≤ 80` (NF02 weights; object `A` = NF02 itself, B′ i
 | `f3_ads.py` | near-gap model at `Δ_g = 100/300/1000`; worst-sign tolerances; shares in `x` | `f3_ads_<Δ_g>.txt`, `f3_<Δ_g>_recs.pkl` |
 | `f4_etainv.py` | `η`-inversion cost (large-`ν` symbol) | `f4_etainv.txt` |
 | `f5_coherent.py` | coherent deviation tolerances | `f5_coherent.txt` |
+| `g1_crystal4d.py` | M2: explicit `D = 4` crystal; helicity content of CLS-D kernels; flip-free subspace; channel ratio | `g1_crystal4d.txt` |
+| `f6_routeA2.py` | M2/M3: near-gap model of `Ω^{A′} = ∫ψ₂Ĉ₂ + ∫ψ₃Ĉ₃` (stripped), `η`-inversion shift, `δk(0)` | `f6_routeA2_<Δ_g>.txt` (logs `f6_*.log`) |
+| `f7_flat_stripped.py` | M2: flat limits under the stripped dictionary (route A′, B′-uplift with CLS-D or project weights) | `f7_flat_stripped.txt` |
 | `run_all.sh` | runs all of the above | — |
+
+## 9. Milestone M2: CLS-D in `d = 3` / 4D graviton helicities (`g1_crystal4d.py`, `f7_flat_stripped.py`)
+
+### 9.1 The functionals in `d = 3`
+
+* **Transverse structures.** `SO(d−2) = SO(1)`, so the transverse spin takes only `j′ ∈ {0, 1}`. These are the `1↔3`-even/odd celestial
+  structures on `S¹`, which the project already uses (`SUPERCONVERGENT_UPLIFT.md`). `j′ ≥ 2` structures do not exist.
+* **Saddle and weight rule.** The crystal locus is `S^{d−3} = S⁰` (two points). The CLS-D Hessian is non-degenerate at `d = 3` for
+  `0 < x < 1`. The weight-ratio rule of §3 contains no `d`. **So the `R_k` of §3 hold in `d = 3`** [D given Q].
+* **The two functionals route A′ needs:**
+  * `Ĉ₂`: `j′ = 0`, `f⁺_{2;2} = v′−u′`; unsubtracted; Regge convergence `J₀ < 2`; marginal for Einstein, which gives the graviton pole.
+  * `Ĉ₃`: `j′ = 1`, `f⁻_{3;2} = −1`; unsubtracted; convergence `J₀ < 2`.
+
+  Both are CLS-D's "unsubtracted sum rules for gravitons", whose "action on all double-traces will remain zero" and whose EFT series
+  truncates [Q, CLS-D §3.5.2].
+* **The `(2,4)` dual structures.** The `j′ = 0` structures are `H₂₀^{2−n}H₄₀^{2−n}H₂₄ⁿ`, `n = 0, 1, 2` (CLS-D §4.3). At the crystal they
+  map to `{P², PH, H²}`, with `P ≅ 𝒱₂𝒱₄` (`H₂₀H₄₀`, eq. `H20H40_kernel_toflat`) and `H ≅ 𝒱₂𝒱₄ + 𝒲₂𝒲₄` (`H₂₄` at `D = 4`, eq.
+  `H24_kernel_toflat`).
+
+### 9.2 Explicit `D = 4` crystal [DV, `g1`]
+
+* **Kinematics.** The CLS-D shock frame at `D = 4` has real CM kinematics, with `cos θ₁₃ = 1 − 2x²` to `10⁻¹²`.
+* **Shock polarisations.** The polarisation `s̄` of particles 1 and 3 is a pure helicity state (self-dual field strength), with
+  coefficient `√2 x`. It is the same for every helicity of 2 and 4, so it is a common factor.
+* **`H₂₄` is pure flip.** At the crystal, `H ≅ 𝒱𝒱 + 𝒲𝒲` vanishes on every physically helicity-preserving `(2,4)` configuration. This
+  agrees with `tr(F₂F₄) = 0` for opposite all-incoming labels and independently checks the helicity bookkeeping.
+* **Flip-free subspaces.**
+  * Photons: one-dimensional, `𝒱𝒱 − 𝒲𝒲` (∝ CLS-D's `𝒦^{(1)}_{j′=0}` at `D = 4`).
+  * Gravitons: two-dimensional, `aP² + bPH + cH²` with `a/4 + b/2 + c = 0`. This mirrors the Regge-frame flip-free family
+    `(D₁+D₂)(αD₁+βD₂)` ∋ `K*`, `𝔖_ff`, under `H ↔ D₁+D₂ = z′_in·z′_out` [D-sketch] and `P ↔ D₂` [I].
+* **Channel ratio.** CLS-D polarisation-sum the probe polarisations (`sumrule_bulk_polarizationmapall`), so the block sees the
+  conjugate of the vector the kernel sees. With that pairing, every flip-free kernel has
+
+  **(opposite-helicity channel)/(same-helicity channel) `= (1−x²)^{−2}` (photons), `(1−x²)^{−4}` (gravitons)**,
+
+  to machine precision at `x = 0.1 … 0.9`.
+* **Reading.** The bulk-point density is `|c_s|²P_J + |c_o|²d̃^J_{44}`, with `d̃ = d/(1−x²)⁴`, times a common factor. That is the stripped
+  `B^{(1)}_k` (`FLAT_GRAVITON_BOUND.md` (2.33)/(2.35a); reading B̃). It is not `|c_s|²P + |c_o|²d` (B′, reading B), and not
+  `P + (1−x²)⁴d`, which is what the unconjugated pairing would give.
+
+### 9.3 Two further, convention-independent arguments
+
+1. **Truncation [D from Q].**
+   * CLS-D: the unsubtracted `k = 2, 3` graviton sum rules vanish on all double traces, and their flat EFT series truncate.
+   * In the flat basis, the stripped `B^{(1)}_2`, `B^{(1)}_3` are contact-free: `−B₂ = 16πG/q + 2πG|ĝ₃|²q³`, `−B₃ = −2πG|ĝ₃|²q²`.
+   * `B′₂`, `B′₃` see `g₄, g₅, g₆, g₆′` (`FLAT_UNSTRIPPED.md` §3, [D]).
+   * So the images of `Ĉ₂`, `Ĉ₃` are the stripped rules.
+2. **Kernel form [DV, `f1`].** `f⁺_{k;2}|crystal ∝ (2−y)/(1−y)^{(k−2)/2}` and `f⁻_{k;2}|crystal ∝ 1/(1−y)^{(k−3)/2}`. These are exactly the
+   `B^{(1)}_k` kernels `(2s−q)/[s(s−q)]^{(k−2)/2}` and `[s(s−q)]^{−(k−3)/2}`. CLS-D's flat sum rules are written for structure-coefficient
+   functions, i.e. they are stripped-type by construction (eq. `photon_flatspace_sumrules`, `graviton_flatspace_sumrules_evenk`).
+
+### 9.4 What this does to the existing chain
+
+* **The B′ (reading-B) dictionary is not the dictionary of any sum-rule object here.**
+  * It was assumed for the project's moments (`FLAT_UNSTRIPPED.md` item 5, "[I]").
+  * Its numerical support (`SKELETON_TEST.md` §8; `SPINNING_TTTT_EXT.md` §3, B over B̃ at `x = 0.1`, 4 % discrimination) concerns
+    position-space **Regge moments `Π̂^K`**, which are not sum rules.
+  * At `O(x²)` Regge moments and CLS-D functionals are different objects: the same leading Regge kernel, but `(1,3)` polarisations
+    summed with kernel weights in `Π̂`, versus fixed to the shock direction in CLS-D. The data do not contradict §9.2–9.3. Neither do
+    they test it.
+* **The current `Ω^{NF,SC}` is not positive at leading order** (`f7`). Its objects (`C⁺₂` and the `Ψ_k`) are CLS-D-class
+  light-ray-commutator sum rules, so their images are stripped (`R_k`-modified for `k = 4, 5, 6`). The B′-uplift weights `φ_k` on
+  stripped images give:
+
+  | flat `F/N_s` (`+−`, min over `J ≤ 80`) | `m/M = 1.0` | 1.01 | 1.05 | 1.1 | 1.2 | 1.3 |
+  |---|---|---|---|---|---|---|
+  | route A′ (`ψ₂B₂ + ψ₃B₃` = NF02) | +0.200 | +0.202 | +0.226 | +0.296 | +0.377 | +0.447 |
+  | B′-uplift, CLS-D weights (`R = 1`) | −3479 (`J = 80`) | −17.0 | −0.91 | −0.72 (`J = 8`) | +0.011 | +0.317 |
+  | B′-uplift, project `Ψ_k` (`R_k`) | −72286 | −53.9 | −1.04 | −0.68 (`J = 8`) | +0.014 | +0.316 |
+
+  `++` stays positive (min `+0.31`). The `J = 8`, `m = 1.1Λ` state is above `m_min(8) = 1.078Λ` at `Δ_g = 100`, so the failure is
+  AdS-reachable. **So "n = 1 for D-safe" in `RESULT_D.md` holds only for the B′ model, not for the functional as defined.** The repair is
+  route A′, which is not a B′-uplift.
+
+## 10. Route A′ redefined: `Ω^{A′} = ∫ψ₂Ĉ₂ + ∫ψ₃Ĉ₃` (`f6_routeA2.py`)
+
+**Definition.** `Ω^{A′} := ∫₀¹dp [ψ₂(p) Λ⁴ Ĉ_{2,Λp} + ψ₃(p) ½Λ⁶ Ĉ_{3,Λp}]`, with the NF02 weights and the two unsubtracted CLS-D
+functionals of §9.1. `Ĉ₂` carries the `η`-inversion with `j = 1`; `Ĉ₃` has `j = 0` and needs none.
+
+**Properties:**
+* **Flat limit = NF02** (stripped basis), so the certificate of `NOFORWARD_FUNCTIONAL.md` applies [Q + D, given §9].
+* **No forward terms.**
+* **Light side.**
+  * Unsubtracted, so zero on all double traces.
+  * Flat image contact-free, so (P)/H9b is not needed.
+  * No `k ≥ 4` objects, so H15 (`|ĝ₃|²` in `Ψ_{5,6,7}`) and H3 (odd-`k` modelling beyond `k = 3`) drop out.
+  * Graviton pole in `Ĉ₂` only, with weight `ψ₂`, the same as the project's `C⁺₂`. Hence `A`, `B_AdS` are the same numbers
+    [D-sketch; flat light side by CLS-D's matching expectation].
+* **Still open:** endpoint convergence of the two unsubtracted functionals at `J₀ ≤ 2` (I14-type), the exact `η`-inversion, and H4.
+
+**Near-gap model [M].** Per state and node, on the e1/e7 states:
+* **Flat part:** stripped `B₂ + B₃` (= NF02, identical to e7's flat part).
+* **Curvature:** `ψ₂·2(P_{−½+iν}(cosh β) − J₀) + ψ₃·uσ(P − J₀)`.
+* **Remainder:** the exact scalar `ρ₂` and the continued `ρ₃`, with the stripped envelope (`e_k(1−y)^{±2}`; variant: the B′ envelope).
+* **Normalisation:** `N_s = |B₂+curv₂| + |B₃+curv₃|`.
+
+| `Δ_g` | `n` (`δ = 0`, `0.03`) | min `F/N_s` (stripped env.) [state] | B′ env. | with `η`-inversion (symbol) | max `|rem|/N_s` | old `Ω^{NF,SC}` B′ model |
+|---|---|---|---|---|---|---|
+| 100 | 1, 1 | 0.2256 [`+−`, 1.05Λ, `J = 5`] | 0.2266 | 0.2231 | 0.0077 | 0.2267 |
+| 300 | 1, 1 | 0.2054 [`+−`, 1.02Λ, `J = 5`] | 0.2056 | 0.2052 | 0.0051 | 0.2057 |
+| 1000 | 1, 1 | 0.2021 [`+−`, 1.01Λ, `J = 5`] | 0.2021 | 0.2021 | 0.0030 | 0.2022 |
+
+* **Why the numbers barely move.** The near-gap action is ≈ 98 % the NF02 flat action, which is identical in both. The curvature and
+  remainder terms differ, but they are small. So **`n = 1` and the margins carry over to route A′, as a model statement**. They now refer
+  to a functional that is defined and whose flat limit is certified.
+* **What the model still assumes.** H4 (graviton remainder = scalar remainder × stripped envelope), H1 for `k = 2, 3` under
+  CLS-D's `(2,4)` structure, H12′ (the binding state is still `+−`, `J = 5`, parity-odd), and H13′ off the scanned set.
+
+## 11. Milestone M3: `η`-inversion and the headline numbers (`f6_routeA2.py`) [D-sketch + NE]
+
+* **The graviton-pole light term is unchanged exactly** [D-sketch].
+  * Do the inversion in `η`-space: `φ̃ = MF[K_φ(η)/η]` (Mehler–Fock; it exists because `η ≥ 1`).
+  * Then `∫φ̃(ν) ηP_ν(η) dν = K_φ(η)` exactly, with no contour shift and no analyticity of `φ` needed. The difference equation of §2 needs
+    analyticity, which `ψ₂ ∝ p(1−p)^r·poly` lacks at `ν = 0`, so it is not used.
+  * The graviton term is a leading-Regge `η`-density (I9). So `∫φ̃ Ĉ^{CLS}_2|_grav = ∫ψ₂ C_2|_grav`, and the integral `L_A` that gives `A`
+    and `B_AdS` is unchanged.
+* **Shift of `k(0)`.** With the large-`ν` symbol in the interior (reliable there: the `p⁶` weight suppresses small `ν`),
+  `δk(0) = −2∫δψ₂p⁶ = −1.50·10⁻³ / −1.64·10⁻⁴ / −1.46·10⁻⁵` (`Δ_g = 100 / 300 / 1000`). NF02 is normalised to `k(0) = 1`, and the check
+  reproduces it to `2·10⁻¹¹`.
+* **Effect on `A`, `B_AdS` and the bounds.** `A`, `B_AdS` scale as `1/k(0)`: × `1.0015 / 1.00016 / 1.00002`. The bounds scale as
+  `k(0)^{−1/2}`: × `1.00075 / 1.00008 / 1.00001`. So **`A = 3022.3` (→ 3026.8 at `Δ_g = 100` if the inversion is included), `B_AdS = −6552.5`
+  (→ −6562.4), and `√(t₄²+α_T²) ≤ 2.21·10⁻⁴ / 3.13·10⁻⁶ / 2.89·10⁻⁸` are unchanged at the quoted precision.**
+* **Near-gap shift.** Symbol estimate `≤ 0.086 / 0.013 / 0.003 N_s`, dominated by small `ν`, where the symbol is least reliable; `n = 1`
+  unchanged. An exact Mehler–Fock evaluation is still to do (M3b; it needs conical functions at `ν ≤ Λ`; est. 2–3 days).
+* **Alternative (no inversion).** Use `ψ₂` directly on `Ĉ^{CLS}_2`. Then the flat limit is NF02 exactly with no `δk(0)`. But the Regge
+  side becomes `η`-weighted: the curvature term becomes a combination of `P_{−½+i(ν±i)}(cosh β)`, an `O(β)` change, and the graviton
+  pole moves to `ν = ±i/2` (so `A` unchanged, `B_AdS` changed at `O(1)`). Not computed; the inverted version is preferred.
+
+### 11.1 Regraded table (supersedes §6 where they differ)
+
+| statement | grade |
+|---|---|
+| `d = 3`: `j′ ∈ {0,1}`; crystal non-degenerate; `R_k` hold (now relative to stripped `B^{(1)}_k`) | [D given Q] |
+| `D = 4` crystal: `s̄` pure helicity; `H₂₄` pure flip; flip-free subspace (photon 1-dim, graviton 2-dim) | [DV] |
+| channel ratio `(1−x²)^{−4}` ⇒ CLS-D-class images are the **stripped** `B^{(1)}_k` (reading B̃) | [DV] (given CLS-D's polarisation-sum pairing) + [D from Q] (truncation; kernel form) |
+| project kernels `K*`, `𝔖_ff` ↔ crystal flip-free family (`H ↔ D₁+D₂`, `P ↔ D₂`) | [D-sketch] / [I] |
+| the B′ dictionary of `RESULT_D` describes no sum-rule object; its support (B over B̃ at `x = 0.1`) is for `Π̂^K` | [D] (scope) |
+| current `Ω^{NF,SC}` (B′-uplift of CLS-D-class objects) flat limit negative near the gap (`−0.72 N_s` at `1.1Λ`, `J = 8`), AdS-reachable | [NE] given the above |
+| route A′ `= ∫ψ₂Ĉ₂ + ∫ψ₃Ĉ₃`: flat limit = NF02 (certified); contact-free; no `k ≥ 4` | [Q + D] (given §9) |
+| route A′ near-gap `n = 1` at `Δ_g = 100/300/1000`, margins `0.226/0.205/0.202` | [NE + M] |
+| graviton-pole light term unchanged by Mehler–Fock inversion; `A`, `B_AdS` same numbers | [D-sketch] |
+| `δk(0) = −1.5·10⁻³ … −1.5·10⁻⁵`; bounds × `≤ 1.0008` | [D-sketch + NE] (large-`ν` symbol) |
+
+**Hypotheses (proposed; `RESULT_D.md` not edited):**
+* **H0:**
+  * The object is now specified: two CLS-D functionals, `Ĉ₂` (`j′ = 0`, `f = v′−u′`, `η`-inverted) and `Ĉ₃` (`j′ = 1`, `f = −1`).
+  * Its flat limit is the certified NF02 [Q + D].
+  * Remaining [I]:
+    * the exact `(2,4)` structure in `d = 3`, i.e. which flip-free combination (CLS-D large-`ν` dual-structure algorithm, their App. D);
+    * endpoint convergence at `J₀ ≤ 2`;
+    * the exact Mehler–Fock inversion;
+    * the light-side matching (CLS-D expectation, [Q-expectation]).
+  * Proposed grade: [D-sketch].
+* **H14 / F1:** resolved for route A′; for the B′-uplift `Ω^{NF,SC}`, F1 is **fatal** (flat limit not positive near the gap).
+* **H2:**
+  * For route A′: the leading density is the stripped `B^{(1)}_{2,3}` [DV + Q], given CLS-D.
+  * The project's B′/reading-B assumption is retired for sum-rule objects.
+* **H3, H9b, H15:** not needed for route A′.
+* **H4:** unchanged [I]; the transfer model is now with the stripped envelope. Variant spread `≤ 0.001 N_s` in the margin.
+* **H17:** gains the `δk(0)` term above (`≤ 1.5·10⁻³`).
+
+### 11.2 Plan update (replaces §7 where they differ)
+
+| # | milestone | estimate |
+|---|---|---|
+| M2b | CLS-D App. D large-`ν` dual structures in `d = 3` for `⟨TT L[O]⟩`: fix the `(2,4)` combination of `Ĉ₂`, `Ĉ₃` that is flip-free at the crystal for all `x` and reduces to `K*`/`𝔄` at leading Regge order; prove the `H ↔ D₁+D₂`, `P ↔ D₂` map; reproduce the M-table responses | 3–5 days |
+| M3b | exact Mehler–Fock inversion for `ψ₂` (conical functions, `ν ≤ Λ`); exact `δk(0)`, near-gap shift; tail of `φ̃` beyond `p = 1` | 2–3 days |
+| M4′ | endpoint convergence of the unsubtracted `Ĉ₂`, `Ĉ₃` (`J₀ ≤ 2` only; H15 gone) | ≈ 1 week |
+| M5′ | light side of `Ĉ₂`, `Ĉ₃` (graviton pole, `|ĝ₃|²`); double traces vanish by construction | 1–2 weeks |
+| M6 | `1/m` correction at the crystal for `Ĉ₂`, `Ĉ₃` (H4), on `x ∈ [0.3, 0.7]` | 2–4 weeks |
+| — | update `RESULT_D.md` (coordinator): D-safe := `Ω^{A′}`; B′-uplift statements to be withdrawn | — |

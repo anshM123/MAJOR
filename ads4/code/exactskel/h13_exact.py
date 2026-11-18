@@ -8,7 +8,9 @@ normalised response ratio = 1, evenkernel.py / e10).
 Usage: python3 h13_exact.py Dg LIST   LIST = "mfl:J,mfl:J,..."   -> cache/h13_ex_<Dg>.pkl (incremental, resumable; key (mfl_target, J))
 n-sum error estimate: several (N0, nq, L) configurations; 'n-sum err' = max |S - S_alt|.  NCONF history (stored per record):
 2 configs (200,320,1),(320,320,.5) for the first records; then (120,320,1),(200,320,1),(320,320,.5); final (480,480,.5),(320,480,.25),
-(320,320,.5) -- small N0 fails at large J and Dg = 1000 (spreads up to 1e14 N_s), so the final set keeps N0 >= 320.  Env H13_REDO=1 recomputes.
+(320,320,.5); follow-up (H13 v2): (200,960,1),(320,1280,.35),(320,960,.5) -- the Dg = 1000 large-J failures were the tail Gauss
+order nq (nq = 320 unresolved at nu -> Lam; nq >= 800 converged to 1e-11), while N0 >~ 600 hurts near the twist gap (Dg = 300).
+Env H13_REDO=1 recomputes.
 The Euler-Maclaurin tail is reliable only while J << tau = Delta - J (it fails near the twist gap at Dg = 100, J >~ 45): records
 with n-sum err/N_s > 1e-3 are flagged as unreliable in h13_summary.py.
 Env: H13_DFS (default "3,2"), H13_PREC (bits, default 400; raised automatically if the Arb radius is > 1e-25 relative).
@@ -53,7 +55,7 @@ h13_laplace.mack = mack
 from h13_laplace import Laplace3H as Laplace3
 # n-sum configurations (N0, nq, L-factor): the result is taken from the last one, the spread between them is the n-sum error estimate
 # (t_h13_nsum: at J >~ 40 the Euler-Maclaurin tail error grows with N0 beyond ~400 and is large for small N0, so two moderate N0).
-NCONF = ((480, 480, 0.5), (320, 480, 0.25), (320, 320, 0.5))
+NCONF = ((200, 960, 1.0), (320, 1280, 0.35), (320, 960, 0.5))
 from nf_common import envk
 import remk
 

@@ -6,6 +6,26 @@ weights, `N^{K*}`, `A`, `B_AdS`, all six bounds, the 240 dictionary factor, pari
 and found that **the previous headline ("D-safe positive down to the gap, n = 1") was overclaimed**: it holds in a scalar-skeleton
 model for a functional whose graviton version is not yet defined. This revision states what is shown at which level.
 
+> **Update (H0 milestones M2/M3, `H0_SPINNING_FUNCTIONAL.md` §9–§11; not yet refereed).** Specialising Chang–Landau–Simmons-Duffin
+> (arXiv:2311.04271) to d = 3 shows that light-ray-commutator sum rules for `⟨TTTT⟩` map at the scattering crystal to the **stripped** flat
+> sum rules `B⁽¹⁾_k` (`d̃^J_44`), not to the B′ rules (full `d^J_44`) used below [D from Q + DV: unsubtracted k = 2, 3 rules vanish on
+> double traces, as stripped `B₂, B₃` do and B′ do not; `f^±_{k;2}` at the crystal equals the stripped kernel for k = 2…7; explicit 4D
+> crystal check]. Consequences:
+> * **The D-safe functional as defined below (`Ω^{NF,SC}`, k = 2…7, B′ uplift) is not positive at leading order** for gravitons: flat action
+>   −0.72 `N_s` at `+−`, m = 1.1Λ, J = 8 (reachable at Δ_g = 100) [NE given the identification]. Its "n = 1" holds only in the B′ model and is
+>   **withdrawn** for the functional as defined. The reading-B support (`Π̂` data at x = 0.1) concerns position-space moments, not sum rules.
+> * **Repair, route A′:** D-safe := `∫ψ₂Ĉ₂ + ∫ψ₃Ĉ₃`, the two unsubtracted CLS-D functionals (j′ = 0, f = v′−u′; j′ = 1, f = −1) with the NF02
+>   weights. Flat limit = NF02 in the stripped basis, so its certificate applies [Q + D]. No k ≥ 4 objects and no forward terms: H3, H9b,
+>   H15 are not needed. Near-gap model (exact scalar skeleton, stripped envelopes): **n = 1** at Δ_g = 100/300/1000, min F/N_s
+>   0.2256/0.2054/0.2021 (0.2231 at 100 with an η-inversion estimate) [NE + M].
+> * η-inversion (only Ĉ₂): leaves the graviton-pole light term unchanged under I9; δk(0) = −1.5·10⁻³/−1.6·10⁻⁴/−1.5·10⁻⁵, so A, B_AdS and
+>   the bounds are unchanged at quoted precision (A ×1.0015 at most) [D-sketch + NE].
+> * Still open for route A′: exact (2,4) dual structure in d = 3 (M2b), exact Mehler–Fock inversion (M3b), endpoint convergence (M4′),
+>   light side (M5′), H4 on x ∈ [0.3, 0.7] (M6). H12′/H13′ results below were computed for the B′-uplift functional; the H12′ shape result
+>   is functional-independent, the H13′ scans must be redone for route A′.
+>
+> The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
+
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
 `NOFORWARD_FUNCTIONAL.md`, `ADS4_LIGHT.md`, `SPINNING_4PT.md`, `SPINNING_TTTT.md`, `SPINNING_TTTT_EXT.md`, `EXACT_SKELETON_NEARGAP.md`,
 `CERTIFIED_NEARGAP.md`, `DIRECT_GRAVITON_NEARGAP.md`, `PARITY_ODD_HEAVY.md`, `OBJECT_IDENTITY.md`, `FUNCTIONAL_REDEFINITION.md`,
