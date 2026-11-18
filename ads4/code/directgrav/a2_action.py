@@ -38,7 +38,7 @@ def weights(fun, k, u):
     return u**(k - 2)*ph*pw, envk(k, x)
 
 
-def analyse(a1, fun, h, Df, e1, e7):
+def analyse(a1, fun, h, Df, e1, e7, keven=None):
     Dg, mfl, J = a1['Dg'], a1['mfl'], a1['J']
     u = 1/mfl**2; s = SIGMA[h]; Lam = a1['Lam']; m = a1['m']
     r0 = e1[(round(mfl, 6), J)]
@@ -49,7 +49,7 @@ def analyse(a1, fun, h, Df, e1, e7):
     dF = 0.0; Fpart = 0.0; cov_num = cov_den = 0.0; ratios = []; rows = []
     for k in KS:
         wk, env = weights(fun, k, u)
-        cov_den += np.sum(np.abs(wk*env)); kern = 'O' if k % 2 else ('FF' if fun == 'NF02' else 'E')
+        cov_den += np.sum(np.abs(wk*env)); kern = 'O' if k % 2 else (keven or ('FF' if fun == 'NF02' else 'E'))
         for j, i in enumerate(inodes):
             nu = nus[j]; x = nu/m; y = x*x
             Rg = rel(*a1['grav'][(k, nu)][(wave, kern)]).real
@@ -86,10 +86,12 @@ if __name__ == "__main__":
                         recs = [dict(r, Df=float(r['Df'])) for r in e7]
                     else:
                         recs = [dict(r, Df=Df, h=h) for r in e3.get(Df, {}).get(('M02', h), [])]
-                    res = analyse(a1, fun, h, Df, e1, recs)
+                for keven in ((None, 'KS') if fun == 'NF02' else (None,)):
+                    res = analyse(a1, fun, h, Df, e1, recs, keven)
                     ref = res['e7']
+                    lab = fun + ('[K*]' if keven else '')
                     mar = f"F/Ns(skel) = {ref['Fex']/ref['Ns']:+.4f}, Ns = {ref['Ns']:.4g}" if ref else "(margin: see e3)"
                     Ns = ref['Ns'] if ref else np.nan
-                    pr(f"  Df={Df:g} {fun} {h}: dF = {res['dF']:+.3e} ({res['dF']/Ns:+.2e} Ns)  c* = {res['c']:.5f}  dF_shape = {res['dF_shape']:+.3e} ({res['dF_shape']/Ns:+.2e} Ns)"
+                    pr(f"  Df={Df:g} {lab} {h}: dF = {res['dF']:+.3e} ({res['dF']/Ns:+.2e} Ns)  c* = {res['c']:.5f}  dF_shape = {res['dF_shape']:+.3e} ({res['dF_shape']/Ns:+.2e} Ns)"
                        f"  coverage {res['cov']:.3f};  {mar}")
     open(os.path.join(HERE, 'cache', 'a2_summary.txt'), 'a').write("\n".join(out) + "\n")

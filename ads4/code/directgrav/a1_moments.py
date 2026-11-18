@@ -18,7 +18,32 @@ for p in (TT, os.path.join(TT, '..'), os.path.join(TT, '..', 'oddk'), os.path.jo
     sys.path.insert(0, p)
 import numpy as np, mpmath as mp
 from t13_analysis_l2 import Modes, design, Tpred
-from t16_kernels_ext import kernel_moment, KER, rel
+from t16_kernels_ext import rel
+
+# Circle-mode weights of the TENSOR kernels (corrected normalisation n_|q| = (1/36, 1/16, 1), fourpt/tttt/t18_kstar.py and
+# SPINNING_TTTT_EXT.md sect. 6.2; the naive weights of t16_kernels_ext.KER over-weight the isotropic mode and are NOT used here).
+KER = {
+    'E': {(0, 0): 1/72, (2, -2): 0.25, (-2, 2): 0.25},                                            # D1^2 (Omega^U even kernel)
+    'FF': {(0, 0): 1/72, (2, -2): 0.25, (-2, 2): 0.25, (1, -1): -1/32, (-1, 1): -1/32},           # S_ff = D1^2 + D1 D2 (flip-free)
+    'KS': {(2, -2): 0.25, (-2, 2): 0.25, (1, -1): -1/64, (-1, 1): -1/64},                         # K* = (D1 + D2)(D1 - D2/2)
+    'O': {(2, -2): 1/(4j), (-2, 2): -1/(4j)},                                                     # A = D5 D1 (odd kernel)
+}
+
+
+def kernel_moment(mo, k, nu, wave, kern, A, Tp):
+    """as t16_kernels_ext.kernel_moment (raw measured and predicted two-pair kernel moments), with the corrected KER above"""
+    from t13_analysis_l2 import CLASSES
+    K = KER[kern]
+    terms = []; pred = 0j
+    for (q1, q3), w13 in K.items():
+        for (q2, q4), w24 in K.items():
+            q = (q1, q3, q2, q4)
+            v, sh = mo.moment(k, nu, wave, q)
+            terms.append((w13*w24, v, sh))
+            pred += w13*w24*sum(A[q][c]*Tp[c] for c in CLASSES)
+    shm = max(t[2] for t in terms)
+    meas = sum(w*v*np.exp(sh - shm) for w, v, sh in terms)*(-1)**mo.J
+    return complex(meas), complex(pred), shm
 from moments import ScalarMoments
 from t3_scalar_mixed import prediction as sprediction
 from skelexact import ExactState
@@ -84,15 +109,15 @@ def Rg(k, nu, wave, kern):
     meas, pred, shm = G[(k, nu)][(wave, kern)]
     return rel(meas, pred, shm)
 
-print("#  k   nu      x     | ss: FF       E        O       | oo: FF       E        O       | so: |FF|/sqrt  | skel Df3: R_ex   R_pos-R_ex")
+print("#  k   nu      x     | ss: FF       E        K*       O      | oo: FF       E        K*       O      | so: |FF|/sqrt  | skel Df3: R_ex   R_pos-R_ex")
 for k in KS:
     for nu in sorted(NUS):
         cells = []
         for wave in WAVES[:2]:
             if (wave, 'FF') in G[(k, nu)]:
-                cells.append(" ".join(f"{Rg(k, nu, wave, kn).real:+.4f}" for kn in ('FF', 'E', 'O')))
+                cells.append(" ".join(f"{Rg(k, nu, wave, kn).real:+.4f}" for kn in ('FF', 'E', 'KS', 'O')))
             else:
-                cells.append(" " * 23 + "-")
+                cells.append(" " * 31 + "-")
         so = ''
         if (WAVES[2], 'FF') in G[(k, nu)]:
             ms, ps, s1 = G[(k, nu)][(WAVES[0], 'FF')]; mo_, po, s2 = G[(k, nu)][(WAVES[1], 'FF')]; mx, px, s3 = G[(k, nu)][(WAVES[2], 'FF')]
