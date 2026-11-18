@@ -45,3 +45,8 @@ python3 cert_t1.py > cache/cert_t1.txt
 python3 cert_action.py 100 3 > cache/cert_100_Df3.log 2>&1 &
 python3 cert_action.py 100 2 1.01,1.02,1.03,1.04,1.05,1.06,1.07,1.08,1.09,1.1,1.12,1.15,1.2,1.25,1.3,1.4,1.5,1.75,2.0 > cache/cert_100_Df2.log 2>&1; wait
 python3 cert_summary.py 100
+# --- second pass: certified Gauss error (exact p-integral) and high-J points (CERTIFIED_NEARGAP.md section 7)
+python3 cert_action.py 100 3 1.12,1.15,1.2,1.3 11,12,13,14,16 >> cache/cert_100_Df3.log 2>&1
+python3 cert_quad.py 100 3 > cache/certq_100_Df3.log 2>&1 &
+python3 cert_quad.py 100 2 > cache/certq_100_Df2.log 2>&1; wait
+python3 cert_summary.py 100; python3 cert_qsummary.py 100

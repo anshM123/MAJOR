@@ -33,6 +33,16 @@ for `++` and `J ∈ {4, …, 10}` for `+−`, and `τ ≥ Δ_g`. For each such s
 | the D-safe action of the model as defined above | [certified] |
 | positivity of the actual graviton (⟨TTTT⟩) moments | **not** addressed: skeleton → graviton transfer (H4), reading B (H2), odd-`k` two-pair moments (H3) stay [I] |
 
+**Theorem C′ (computer-assisted, second pass: the exact `p`-integral).** Let `F_h(m, J) = Σ_k u^{k−2} ∫_0^1 φ_k(p) Mod_k^h(p) dp` be the
+**exact** `p`-integral, with the same model as above. Then `F_h(m, J) > 0` for:
+* every state of Theorem C except `++, J = 0, m = 1.01Λ`: 204 / 205 cases for `Δφ = 3` and 178 / 179 for `Δφ = 2`;
+* the high-`J` states `J ∈ {11, 12, 13, 14, 16}`, `m/Λ ∈ {1.12, 1.15, 1.2, 1.3}` (`Δφ = 3`; §7.3).
+
+The certified Gauss-error bound is ≤ 3·10⁻⁷ `N_s` for `m ≥ 1.03Λ`, and ≤ 0.43 `N_s` at `1.02Λ` (`J = 0`, where `F/N_s ≈ 1`). §7.1 has the
+method; `cache/certq_100_summary.txt` has the numbers.
+
+**Not achieved: positivity on continuous `m`-intervals.** It stays [NE]; §7.2 explains why and what it would cost.
+
 ## 1. The certified object
 
 **State variables.** For a state with `Δ` (the double used by the scan; `α = Δ − J − 2`, `ᾱ = Δ + J − 1`, `m² = αᾱ`, `cosh β = (α²+ᾱ²)/(2m²)`):
@@ -131,14 +141,14 @@ The lowest certified values (+0.07 to +0.10 `N_s`, `Δφ = 2`, `++, J = 6`) are 
 
 ## 4. What is not certified
 
-1. **The `p`-integral.** `F^{(64)}` uses the Gauss rule as its definition. The exact integral differs by the quadrature error:
-   64 / 96 / 128 nodes agree to ≤ 1e−5 `N_s` (`e4_quad.py`) [NE]. A rigorous Gauss error bound needs a sup bound on a Bernstein ellipse,
-   with complex `ν` inside the moments; this was not done.
+1. **The `p`-integral: now certified** (Theorem C′, §7.1), except at `++, J = 0, m = 1.01Λ`. There the ellipse is too thin, because the
+   singularity sits at `p = m/Λ = 1.01`.
 2. **Continuity in `m` between grid points [NE].** Adjacent grid points (spacing 0.01Λ near the gap) differ by ≤ ~0.05 `N_s`, against
    margins ≥ 0.07–0.2 `N_s`. There is no certified Lipschitz bound.
 3. **Outside the grid region.**
    * `m < 1.01Λ`: the `++, J = 0` state at `m = Λ` has `F/N_s ≈ +0.997` [NE].
-   * `J > 10` near the gap: the `e7` high-`J` sample is positive [NE].
+   * `J > 10` near the gap: certified only on the sample of §7.3. `J = 18, 20` at `1.2Λ` give balls too wide to certify (midpoints
+  ≈ +1.0 `N_s`); all others are [NE] (`e7` sample).
    * `m > 3Λ` (`Δφ = 3`) or `m > 2Λ` (`Δφ = 2`): OMEGA_NF / OMEGA_U [M].
    * `Δ_g = 300` and `1000`: [NE] in `EXACT_SKELETON_NEARGAP.md`. The direct `N ∝ Δ²` makes these runs about 10× and 100× slower.
 4. **Analytic inputs.** The Mellin representation, the Mack-polynomial formula and its convention mapping are [D]/[DV], not formalised.
@@ -147,11 +157,10 @@ The lowest certified values (+0.07 to +0.10 `N_s`, `Δφ = 2`, `++, J = 6`) are 
 
 ## 5. Grades for `RESULT_D`
 
-H13′ is upgraded, for `Δ_g = 100` and the finite state set of §3, from [NE] to **[certified]**, for the quantity `F^{(64)}` of the
-scalar-skeleton model.
+H13′ is upgraded, for `Δ_g = 100` and the finite state set of §3 plus the high-`J` sample, from [NE] to **[certified]**. This now covers
+the **exact `p`-integral** of the scalar-skeleton model (Theorem C′), except for one state.
 
 It remains [NE] for:
-* the exact `p`-integral;
 * `m` between grid points;
 * `J > 10`;
 * `m` beyond the grid;
@@ -179,3 +188,80 @@ It remains [I] for the graviton dictionary H2–H4.
 **`Δ_g = 300` attempt.** A spot check (`cert_300_Df3.log`, `m = 1.05Λ`, `J = 4`) gave useless balls (`±10⁶ N_s`). At `ν ≈ 300` the `n`- and
 `m`-tail bounds are too loose with the default `N` and `M`. Tightening them (larger `N`, an `n`-tail bound that uses the decay of
 `h^{(j)}_m` in `m`) is the next step. It is not done.
+
+## 7. Second pass: exact `p`-integral, continuity, high `J`
+
+### 7.1 Certified Gauss error (`cert_quad.py`) [certified]
+
+**The bound.** Trefethen, ATAP Thm 19.3, mapped to `[0, 1]`: if `f` is analytic in the Bernstein ellipse `E_ρ` and `|f| ≤ M` there, then
+`|∫₀¹ f − Σ_{i=1}^{64} w_i f(p_i)| ≤ ½·(64/15)·M ρ^{−128}/(ρ²−1)`.
+
+**Analyticity of the integrand.** `f(p) = Σ_k u^{k−2} φ_k(p) Mod_k(p)`.
+* The ex-moments are entire in `ν`: they are absolutely convergent series of polynomials in `ν²`.
+* `P_{−½+iν}` and `J₀` are entire in `ν`.
+* The only singularities are at `p = ±m/Λ` (`y = 1`) and on the branch cut `|p| ≥ m/Λ` of the half-integer powers.
+* So `E_ρ` is chosen with its right vertex at `1 + f·(m/Λ − 1)`, `f ∈ {0.4, 0.6, 0.8, 0.9}` (`f = 0.3` for `m ≥ 1.3Λ`), and the best `ρ` is kept.
+
+**Bound on `M`.** By the maximum-modulus principle it is taken on the boundary of `E_ρ`, covered by 720 complex balls:
+* `|ex_k(ν)| ≤ |pre|·[Σ_j Σ_m ĥ^{(j)}_m(|ν|_max)(|S_{j,m}| + U_{j,m}) + window + far]`. Here `ĥ` is the majorant from
+  `|(A/2+i)² + ν²/4| ≤ (A/2+i)² + |ν|²/4`, and `M₂` is re-certified for the larger `|ν|`.
+* Odd `k`: `|ex_k| ≤ Σ_l |L_l| |ex_l| E_k^{up}/E_l^{lo}`.
+* `E_k` and `(1−y)^{−(k+1)/2}`: bounded through real lower and upper bounds of `|1−y|` and `|2−y|`. This step is essential: Arb's complex
+  power and inverse give enclosures containing 0 for such balls.
+* `|P_{−½+iν}(cosh β)| ≤ cosh(|Im ν|β) P_{−½}(cosh β)` (Mehler–Dirichlet), and `|J₀(z)| ≤ cosh|Im z|`.
+* `φ_k` by Horner in `acb`; `P_J` and `d^J_{44}` by `acb` recurrences.
+
+**Results** (`cache/certq_100_summary.txt`). The certified quadrature error per `N_s`:
+
+| `m/Λ` | error bound / `N_s` |
+|---|---|
+| 1.01, `J = 0` | ∞ (no ellipse works) |
+| 1.02 | 0.43 (`J = 0`, `F/N_s ≈ 1`) |
+| 1.03 – 1.1 | ≤ 3·10⁻⁷ |
+| 1.1 – 1.2 | ≤ 3·10⁻⁹ |
+| ≥ 1.2 | ≤ 10⁻¹⁸ |
+
+The lowest certified exact-integral values, `F/N_s ≥`:
+* `Δφ = 3`: +0.2266 (`+−, J = 5, 1.05Λ`);
+* `Δφ = 2`: +0.0719 (`++, J = 6, 1.06Λ`; a wide ball, midpoint ≈ +0.3).
+
+### 7.2 Continuity in `m`: not achieved [NE] — the obstruction and what it would take
+
+**The obstruction.** A certificate on `m ∈ [m_a, m_b]` needs either `F` on Δ-intervals or a bound on `|∂_Δ F|`.
+
+**Approaches tried or costed.**
+1. **Interval-valued `Δ` in the moment series.** The per-`n` contributions `X_n(Δ)` have `|∂_Δ log X_n| = O(1–5)`, because the `n`-profile
+   shifts with `Δ`, while the sum varies slowly. Ball arithmetic loses this cancellation, so the relative width is about `5δ` for a cell
+   of half-width `δ`. A useful enclosure needs `δ ≲ 2·10⁻³` in `Δ`, i.e. about 10⁵ cells for `m ∈ [1.01, 3]Λ` and `J ≤ 10`.
+   * A mean-value form of the combined log-weights `log(pre·W_n)`, with digamma enclosures, removes the large `Γ`-ratio
+     dependency, but not the `O(1)` per-`n` drift.
+   * The Mack coefficients would also have to be built as exact polynomials in `Δ` (not done).
+2. **Cauchy / convexity bound.** Use `F ≥ min(F_a, F_b) − (h²/8) sup|F''|`, with `|F''| ≤ 2M_r/r²` and a bound `M_r` on `|F|` over complex
+   `Δ` in a stadium of radius `r`. This needs moduli bounds of the moments at complex `Δ`.
+   * With `r ≈ 1` and `M_r ≈ 10²|F|`, which is plausible since the per-`n` phases drift like `e^{iO(1)Im Δ}`, it requires `h ≲ 0.1` in `Δ`.
+   * That is about 10× the present grid density, roughly 1.3·10³ cells for `Δφ = 3`.
+   * Each cell costs one complex-`Δ` evaluation of the `N×M` sums, about 1–2 min. That is about 30 h on 2 cores, plus the
+     `Δ`-polynomial Mack construction.
+3. **Taylor models** (jets in `Δ`, order `K`, with a Cauchy remainder). These trade cell count for a cost of order `K²` per cell. With
+   `K = 10`, `ε/r ≈ 0.025` and `r ≈ 5`, cells of width 0.25 in `Δ` would suffice, at an estimated 50 min per cell.
+
+None of these fits the session budget.
+
+**Numerical continuity evidence [NE].** Adjacent-grid variation relative to the certified margins is ≤ 0.85 (§6). So linear
+interpolation stays positive, but this is not a proof.
+
+### 7.3 High `J` near the gap (`Δφ = 3`) [certified at the listed points]
+
+**Certified points.** `J ∈ {11, 12, 13, 14, 16}` at `m/Λ ∈ {1.12, 1.15, 1.2, 1.3}`, restricted to physical states:
+* `F^{(64)} > 0`, with lower bounds `F/N_s ≥ +0.49` (`J = 16`, `1.2Λ`);
+* the exact-integral certificate follows via §7.1.
+
+**Not certified.** `J = 18` and `J = 20` (at `1.2Λ`) give balls `[−0.11, 2.1]` and `[−1.4, 3.4]` `N_s`. The `n`-tail factor `Q̄_j` and the
+far-tail factor `(4(M₂+J))^J` grow with `J`, so these need a larger direct `N`. The `J = 20` build already takes 17 min.
+
+### 7.4 `m ∈ [Λ, 1.01Λ]` and `Δ_g ≥ 300`
+
+**`m ∈ [Λ, 1.01Λ]`.** Not done: the Gauss-error bound fails as `m → Λ`, and positivity on the interval would need §7.2 anyway.
+
+**`Δ_g ≥ 300`.** Not attempted in this pass. A cheap tightening of the tail bounds does not exist: the `n`-tail factor at `ν ≈ 300` comes from
+`h^{(j)}_m(ν)` growing like `e^{ν²/(2τ)}`.

@@ -63,7 +63,7 @@ if __name__ == "__main__":
     pr("# Parity-odd exchange end to end (fourpt/tttt/t21_oddanalysis.py); beta = 1, half grid; R = moment/prediction(opp, opp)")
     data = {}
     for J in Js:
-        EE, OO, EO = load(J, 'EE'), load(J, 'OO'), load(J, 'EO', 'half_n100')
+        EE, OO, EO = load(J, 'EE'), load(J, 'OO'), load(J, 'EO_n100', 'half')
         if EE is None or OO is None:
             pr(f"  J={J}: waves missing"); continue
         m = float(weyl(EE.Delta, EE.J)[2])

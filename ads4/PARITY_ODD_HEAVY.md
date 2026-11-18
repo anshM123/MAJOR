@@ -18,7 +18,7 @@ Marks:
 | item | grade |
 |---|---|
 | Flat side: every flat functional used (`F_{g3}`, M01, M02, NF02) is built only from the MHV amplitude `f`. Its heavy side is `Σ_X [|c^{+−}_X|² F_{+−} + |c^{++}_X|² F_{++}]`, whatever the parity of `X`, in parity-violating theories too. There are no cross terms, so the certificates already cover parity-odd and indefinite-parity heavy states. | **[D]** (with the paper's (2.13)–(2.16) [Q]) |
-| AdS side, interference: every AdS functional is parity-invariant (kernels `𝔖_ff`, `K*`, `𝔄⊗𝔄`, `j′`-matched superconvergent kernels). So the moment is **exactly even in the parity-odd OPE coefficient**: no `λ_E λ_O` term at any order in `1/m` or `ν/m`. With flip-free kernels the only phase-sensitive terms (single flips `c_s c_o*`, double flips `(c^{++})²`) vanish identically. | **[D]** (given Lemma L flip responses [DV]) |
+| AdS side, interference: every AdS functional is parity-invariant (kernels `𝔖_ff`, `K*`, `𝔄⊗𝔄`, `j′`-matched superconvergent kernels). So the moment is **exactly even in the parity-odd OPE coefficient**: no `λ_E λ_O` term at any order in `1/m` or `ν/m`. The phase-sensitive flip terms (single flips `c_s c_o*`, double flips `(c^{++})²`) vanish identically for `𝔖_ff`, `K*`, `𝔄⊗𝔄`. They do **not** vanish for the superconvergent `Ψ₄`, `Ψ₆` (the `(1,3)` `j′ = 0` structure has a flip response). There the parity-odd part of the interference, `∝ λ_Eλ_O`, is removed by parity invariance; what remains is the parity-even residual `ρ_k` already bounded in `SUPERCONVERGENT_UPLIFT.md` item 3 (corrected 18 Nov, referee). | **[D]** (given Lemma L flip responses [DV]) |
 | AdS side, leading heavy formula: a parity-odd (or mixed) exchange enters as `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)`, with `c_same` the full complex helicity coupling (`∝ r_Eλ_E + i r_Oλ_O`). At even `J` the parity-odd structure feeds only `c_same`. | **[D given REGGE_MOMENT_TTTT (H1)]**; not tested end to end on a parity-odd structure **[ND]** |
 | AdS side, no `O(1/m)`: mixed waves `W[E,O]` drop out exactly (above). For `W[O,O]` the reflection argument of `SPINNING_4PT.md` §6.1 goes through: two `ε`-tensors give a squared sign. The step to physical couplings needs the parity-odd MFT normalisation to be Weyl-even. | **[D given Assumption T, Lemma S]** for the structures; **[I]** for the normalisation |
 | Margin if an `O(1/m)` term did exist (`e11`): thresholds unchanged for `\|c₁\| ≤ 8.4` (D-strong, `++`, `Δ_g = 100`, `δ = 0.03`), `≤ 19` (D-safe). The mutation scale is `\|c₁\| ≈ 4–10`. | **[NE]** |
@@ -125,8 +125,14 @@ exactly: at every `m`, `ν`, `β`, not only at leading order. Mixed waves cannot
   * one pair flipped: `∝ c_s c_o*`;
   * both pairs flipped: `∝ λ^{++}λ^{++} = (c^{++})² ∝ λ_E² − λ_O² + 2iλ_Eλ_O`, where a parity-odd exchange enters with the opposite sign.
 
-  They are multiplied by the pair flip responses, which vanish identically for `𝔖_ff`, `K*` (`exactskel/cache/evenkernel.txt`) and `𝔄`
-  (`superconv/cache/s1.log`: flip even = flip odd = 0). So they are absent [D].
+  They are multiplied by the pair flip responses. These vanish identically for `𝔖_ff`, `K*` (`exactskel/cache/evenkernel.txt`) and `𝔄`
+  (`superconv/cache/s1.log`: flip even = flip odd = 0), so there the flip terms are absent [D].
+  * **Correction (referee, 18 Nov).** The earlier sentence "flip responses vanish" is false for the superconvergent replacements `Ψ₄`,
+    `Ψ₆`, which use the `(1,3)` `j′ = 0` celestial structure: its flip response is nonzero (`s1.log`). The conclusion still holds, for a
+    different reason. The surviving single flip `(1,3) × preserved (2,4)` is `∝ c_s c_o*`. At even `J` only the parity-even structure
+    feeds `c_o`, so `c_s c_o* = (r_Eλ_E + i r_Oλ_O) r′_Eλ_E`. Its `λ_Eλ_O` part is excluded by the parity invariance of the functional
+    (§2.2). What is left, `∝ λ_E²`, is the parity-even residual `ρ_k` bounded in `SUPERCONVERGENT_UPLIFT.md` item 3
+    (`≤ 6.5·10⁻⁴ N_s`).
   * With the old `D₁⊗D₁` kernel they would not be: the double-flip interference flips sign for parity-odd exchanges. That is a second
     reason, besides `SUPERCONVERGENT_UPLIFT.md` item 6, to keep flip-free kernels.
 * **Not tested end to end [ND].** The two-pair checks (`⟨JJJJ⟩`, `⟨TTTT⟩`, all orders `k = 2–7`) were run on parity-even exchanged
@@ -179,7 +185,8 @@ Table: largest `|c₁|` that leaves `n` unchanged (`δ = 0` / `δ = 0.03`):
    certified positivity of `F_{g3}`, M01, M02 and NF02 covers them. No new assumption is needed, and no cross terms arise.
 2. **AdS, structure [D].** The D-safe and D-strong functionals are parity-invariant and flip-free. So:
    * a parity-odd exchange contributes `λ_O²` times its own diagonal moment, and never `λ_Eλ_O`, at any order;
-   * the phase-sensitive flip terms vanish identically.
+   * the phase-sensitive flip terms vanish identically for `𝔖_ff`, `K*`, `𝔄`. For `Ψ₄`, `Ψ₆` only their parity-even part survives,
+     which is the bounded `ρ_k` (correction of §2.3).
 3. **AdS, leading action [D given H1].** It equals that of a same-helicity parity-even state with the same `|c^{++}|²`. The near-gap scans
    (per `|c^h|²`) already cover it. Margin effect: none.
 4. **Remaining assumption: H12′.** This is the two-pair heavy formula (H1 of `REGGE_MOMENT_TTTT.md`) for the parity-odd `⟨TTO⟩`

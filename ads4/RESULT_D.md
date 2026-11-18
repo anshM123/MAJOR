@@ -65,7 +65,7 @@ explicit constants; the explicit conditional bound and the printed 240 dictionar
 | ingredient | status | file |
 |---|---|---|
 | Exact scalar-skeleton moments `C_{k,ν}` near the gap (Mellin/Mack + Arb Barnes lemma) | **[D]**; independently reproduced by the referee to ≤ 7·10⁻⁶ (Δ_g=100), 5·10⁻⁸ (300), 5·10⁻⁷ (1000) | `EXACT_SKELETON_NEARGAP.md` |
-| D-safe action positive on the Δ_g = 100 grid (m/Λ ∈ [1.01, 3], J ≤ 10, both channels; Δφ = 3 and 2), 64-node `p`-rule | **[certified]** for that model (384/384 cases; min F/N_s +0.227 for Δφ=3, +0.072 for Δφ=2) | `CERTIFIED_NEARGAP.md` |
+| D-safe action positive on the Δ_g = 100 grid (m/Λ ∈ [1.01, 3], J ≤ 10, both channels; Δφ = 3 and 2), 64-node `p`-rule | **[certified]** for that model (384/384 cases for the 64-node rule; min F/N_s +0.227 for Δφ=3, +0.072 for Δφ=2). **Exact `p`-integral certified** (Bernstein-ellipse Gauss–Legendre error bound) on 400/402 cases incl. J = 11–16 at m/Λ ∈ [1.12, 1.3]; fails only at ++, J=0, m = 1.01Λ (no admissible ellipse; float value +0.997 N_s). Continuity in `m` between grid points [NE] (~30 core-h to certify) | `CERTIFIED_NEARGAP.md` |
 | Even-`k` objects `C_{k,ν}` meet: same leading action and B′ density, Einstein-free for `k ≥ 4`, no forward terms, Mellin-exact | **[D]** for external scalars | `FUNCTIONAL_REDEFINITION.md` |
 
 ### 3c. Spinning checks (scope-restricted)
@@ -95,7 +95,7 @@ Conditional items previously listed here (graviton pole in `C⁺₂`; Einstein t
 | H10 | EFT power counting of contacts | [A] | — |
 | H11 | No other light single traces; `c_T ≫ Δ_g²`; double zeros of spinning kernels at double twists | [A]/[I]; excludes known holographic CFT₃s | — |
 | H12′ | Heavy formula (and no `O(1/m)`) for parity-odd exchanges, incl. every odd-`J` `+−` state | **[I], load-bearing: the D-safe minimum at all three `Δ_g` is the `+−`, `J = 5` (parity-odd) state** (0.227 / 0.206 / 0.202) | one end-to-end parity-odd `⟨TTO⟩` point. Tolerance: D-safe threshold unchanged for `|c₁| ≲ 19`; D-strong (all channels) only `|c₁| ≲ 2.2` |
-| H13′ | Heavy positivity off the scanned/certified set | certified grid at Δ_g = 100 (§3b); [NE] for the exact `p`-integral, between grid points, `b̂ ≤ 38–44`, Δ_g = 300 (m ≤ 2Λ), 1000 (m ≤ 1.5Λ); **[I] for D-safe at `b̂ > 20` beyond the scan** (the `OMEGA_U` κ-envelope applies to M02 only) | exact NF02 scans at `m ∈ [1.5, 10]Λ`, `b̂ ∈ [20, 200]`; large-`b̂` envelope |
+| H13′ | Heavy positivity off the scanned/certified set | certified grid at Δ_g = 100 incl. the exact `p`-integral (§3b; except m = 1.01Λ, J=0) and J ≤ 16 near the gap; [NE] between grid points, for m ∈ [Λ, 1.01Λ], J ≥ 18, `b̂ ≤ 38–44`, Δ_g = 300 (m ≤ 2Λ), 1000 (m ≤ 1.5Λ); **[I] for D-safe at `b̂ > 20` beyond the scan** (the `OMEGA_U` κ-envelope applies to M02 only) | exact NF02 scans at `m ∈ [1.5, 10]Λ`, `b̂ ∈ [20, 200]`; large-`b̂` envelope |
 | H14 | Object identity (`C` vs `Π̂` vs `Ψ_k/N_k`) | for D-safe even `k`: by definition (redefinition) at scalar level, else part of H0; for odd `k` and D-strong: [I], bounded in a bulk-point model [M] | `OBJECT_IDENTITY.md` |
 | **H15** | `|ĝ₃|²` absent from the light side of `Ψ₅, Ψ₆, Ψ₇` | [I] | — |
 | **H16** | I14 convergence/swappability of the light-ray sum rules; P1(`j′ = 0`); the untracked Jacobian `j_k(ν)`; Einstein term absent from `Ψ_k` (derived given H8, RB₂, microcausality, I14) | [I] | — |
@@ -115,7 +115,7 @@ Conditional items previously listed here (graviton pole in `C⁺₂`; Einstein t
    and recompute `k(0)`, `A`, `B_AdS` and contacts.
 2. **H12′.** One end-to-end parity-odd `+−`, odd-`J` `⟨TTO⟩` point.
 3. **H13′ for NF02.** Exact-skeleton scans at Δ_g = 300, 1000, `m ∈ [1.5, 10]Λ`, `b̂ ∈ [20, 200]`, plus a large-`b̂` envelope; extend the
-   certificate (continuity in `m`, quadrature error) — in progress.
+   certificate (continuity in `m`; quadrature error now certified at Δ_g = 100).
 4. **H9b.** (P) for the even replacements (becomes analysable with step 1).
 5. **H2/H4 at `x ~ 1`.** The real near-gap content for gravitons.
 
