@@ -4,8 +4,8 @@ identical external scalars Df, for nu in [0, Lam] -- the Laplace/Barnes form of 
 
   I(nu) = sum_j sum_m h^(j)_m(nu) S_{j,m},  S_{j,m} = sum_{n>=0} q_{n,j} V_{n,m}   (notation of skelexact3.py; h^(j) = D^j g),
   * direct n < N (integers, no Euler-Maclaurin), all quantities in Arb (exact Mack polynomials, Gamma functions);
-  * n-tail (n >= N), m < M:  |S^tail_{j,m}| <= U_{j,m} = |W_N| Qbar_j(x_N) beta(x_N, m+1) (1 + (m+1)/x_N) Ct (1 + x_N/(s-1)),
-      s = P - d_j + m + 1, using |W_n| <= |W_N| (x_N/x_n)^P for x_n = tau/2 + n >= x_N  [certified: the polynomial
+  * n-tail (n >= N), m < M:  |S^tail_{j,m}| <= U_{j,m}  from the Laplace kernels without partial fractions (see values in __init__),
+      (exponent s = P - d_j + m + kappa), using |W_n| <= |W_N| (x_N/x_n)^P for x_n = tau/2 + n >= x_N  [certified: the polynomial
       (x+b1)(x+b2)x^P - (x+a1)(x+a2)(x+1)^P has non-negative Taylor coefficients at x = x_N, exact rationals],
       |q_{n,j}| <= Qbar_j(x) <= Qbar_j(x_N)(x/x_N)^{d_j}, beta(x+i, m+1) <= beta(x_N, m+1)(x_N/x)^{m+1}, H <= (m+1)/x;
   * m-tail (m >= M), all n:  |S_{j,m}| <= K_j beta(x_0, m+1)(1 + (m+1)/x_0)  (x_0 = tau/2), summed explicitly against |h^(j)_m(nu)| for

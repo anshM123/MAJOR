@@ -1,7 +1,7 @@
 # Certified near-gap positivity of the D-safe heavy action (scalar-skeleton model), Δ_g = 100
 
 Status: 18 Nov 2026, derivation/numerics agent. **Unrefereed.** Code: `ads4/code/exactskel/cert_moments.py`, `cert_action.py`,
-`cert_summary.py` (tests `cert_t1.py`). Caches and logs: `exactskel/cache/cert_100_Df*.{pkl,log}` and `cache/cert_100_summary.txt`.
+`cert_summary.py` (test: `cert_t1.py`). Caches and logs: `exactskel/cache/cert_100_Df*.{pkl,log}` and `cache/cert_100_summary.txt`.
 The other files of `exactskel/` are used read-only; `omegau/` is used read-only.
 
 Grades:
@@ -110,7 +110,24 @@ Together these give
 
 ## 3. Results
 
-(Filled in from `cache/cert_100_summary.txt`; see §6.)
+**Every case of the grid is certified: 384 of 384 (state, channel) cases, `F_h^{(64)} > 0`** (`cache/cert_100_summary.txt`).
+
+**Grid.** `m/Λ ∈ {1.01, 1.02, …, 1.10, 1.12, 1.15, 1.2, 1.25, 1.3, 1.4, 1.5, 1.75, 2.0}`, plus `{2.5, 3.0}` for `Δφ = 3` only.
+`J ∈ {0, 2, 4, …, 10}` (`++`) and `{4, …, 10}` (`+−`), restricted to physical states (`τ ≥ Δ_g`).
+
+| skeleton | states / cases | `m/Λ ∈ [1.01,1.05)` | `[1.05,1.1)` | `[1.1,1.2)` | `[1.2,1.5)` | `[1.5,2]` | `[2.5,3]` |
+|---|---|---|---|---|---|---|---|
+| `Δφ = 3` | 145 / 205 | ≥ +0.241 (`+−` J=4, 1.04) | ≥ +0.227 (`+−` J=5, 1.05) | ≥ +0.296 | ≥ +0.307 | ≥ +0.494 | ≥ +0.792 |
+| `Δφ = 2` | 127 / 179 | ≥ +0.241 | ≥ +0.072 (`++` J=6, 1.06) | ≥ +0.100 | ≥ +0.301 | ≥ +0.489 | — |
+
+Entries are the certified lower bounds of `F/N_s`. `N_s` is the floating-point component norm, used for normalisation only; the certified
+statement is `F > 0`.
+
+**Ball radii.**
+* `Δφ = 3`: ≤ 4·10⁻² `N_s`; typically 10⁻³.
+* `Δφ = 2`: up to 0.25 `N_s` at `1.05–1.2Λ`. Those states were run with a halved direct `n`-range; the bound is wider but still certified.
+
+The lowest certified values (+0.07 to +0.10 `N_s`, `Δφ = 2`, `++, J = 6`) are wide balls around midpoints of about +0.3 `N_s`.
 
 ## 4. What is not certified
 
@@ -144,4 +161,21 @@ It remains [I] for the graviton dictionary H2–H4.
 
 ## 6. Run record
 
-(Filled in at the end.)
+**Runs.**
+* `cert_action.py 100 3` (all of `G`) and `cert_action.py 100 2 <G ∩ [1.01, 2]>`, run in parallel on 2 cores.
+* About 25–120 s per state; about 2.5 h of wall time in total.
+* Restarts:
+  * after improving the `m`-far-tail choice (adaptive `M₂`);
+  * after introducing the root-based `Q̄_j` (`Δφ = 2`).
+* Cases certified earlier with the looser bounds stay valid, since those bounds were rigorous too.
+* Uncertified cases were recomputed with the final code. All cases in the final pickles are certified.
+
+**Continuity diagnostic [NE].**
+* The largest change of `F/N_s` between adjacent grid points, relative to the smaller certified lower bound of the pair, is 0.76
+  (`Δφ = 3`) and 0.85 (`Δφ = 2`), in both cases `+−, J = 5`, `1.15 → 1.2Λ`.
+* The largest absolute jump is 0.24 `N_s` (`+−, J = 8`, `1.08 → 1.09Λ`), where the margins are ≥ 0.6.
+* So linear interpolation between grid points stays positive everywhere. That is not a proof.
+
+**`Δ_g = 300` attempt.** A spot check (`cert_300_Df3.log`, `m = 1.05Λ`, `J = 4`) gave useless balls (`±10⁶ N_s`). At `ν ≈ 300` the `n`- and
+`m`-tail bounds are too loose with the default `N` and `M`. Tightening them (larger `N`, an `n`-tail bound that uses the decay of
+`h^{(j)}_m` in `m`) is the next step. It is not done.

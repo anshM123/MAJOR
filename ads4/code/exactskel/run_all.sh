@@ -40,3 +40,8 @@ for D in 100 300 1000; do E_KERNEL=Kstar python3 e10_kernel.py $D > /dev/null; d
 E_KERNEL=Kstar python3 e6_bound.py 100 1.08; E_KERNEL=Kstar python3 e6_bound.py 300 1.05; E_KERNEL=Kstar python3 e6_bound.py 1000 1.01
 for D in 100 300 1000; do E_KERNEL=Kstar python3 e9_bound_nf.py $D 1.0; done
 python3 e11_parity.py > /dev/null      # PARITY_ODD_HEAVY.md: O(1/m) tolerance
+# --- certified D-safe action at Delta_g = 100 (CERTIFIED_NEARGAP.md)
+python3 cert_t1.py > cache/cert_t1.txt
+python3 cert_action.py 100 3 > cache/cert_100_Df3.log 2>&1 &
+python3 cert_action.py 100 2 1.01,1.02,1.03,1.04,1.05,1.06,1.07,1.08,1.09,1.1,1.12,1.15,1.2,1.25,1.3,1.4,1.5,1.75,2.0 > cache/cert_100_Df2.log 2>&1; wait
+python3 cert_summary.py 100
