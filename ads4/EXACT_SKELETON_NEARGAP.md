@@ -162,3 +162,53 @@ mpmath is estimated at about 1 h per state, and installing python-flint was not 
 * For the scanned states, `n_exact = 1` for NF02.
 * The open region of H13 (`b̂ > 20`, `J` up to hundreds) is not covered, apart from the high-J sample (`b̂ ≤ 37` at `m ≈ 1.5Λ`) once it is in.
 * **So H13 is reduced but not closed.** The obstruction is the Mack-polynomial construction at large `J`.
+
+## 7. Third pass (in progress at hand-back): Arb Laplace/Barnes method, `Δ_g = 300/1000`
+
+### New method (`skelexact3.py`) [D + DV]
+
+* **Barnes' first lemma** gives `∫dT/(4πi) Γ(T/2)²γ_{a−T}(ν)e^{Tu}/γ_a² = ₂F₁(c, c̄; A; 1−e^{−2u})/Γ(A)`, with `c = (A+iν)/2`.
+  So the `e^{−πν}` cancels analytically (checked with mpmath to 30 digits).
+* **Laplace forms.** These are used for:
+  * the Pochhammer and bracket factors of `B̂` (finite partial fractions for even `k`);
+  * `T^j → ∂_u^j` acting in the `w = 1−e^{−2u}` basis.
+* **Resulting series.** `m^{2k}C_{k,ν}` becomes one real `m`-series, `Σ_j Σ_m (D^j g)_m S_{j,m}`. `S_{j,m}` is independent of `ν` and is built
+  once per state with `arb_mat`. There is **no contour and no cancellation**: the Arb error radius is ≤ 1e−96 at 300 bits.
+* **Speed.** About 4–10 s per state with 64 nodes, for `k = 2, 4, 6, 8, 10`, at `Δ_g` = 100 to 1000.
+
+**Validation.**
+* Against the double-precision contour results at `Δ_g = 100`: 1e−10 – 1e−12, rising to 2e−6 at `x → 1`. There the contour values are the
+  less accurate ones; the Arb values at two precisions and two `n`-quadratures agree to 1e−11.
+* Against the CHMRS series at small `ν`: 3e−13 (`Δ_g = 300`) and 1.7e−12 (`Δ_g = 1000`).
+
+**Odd `k` [M].**
+* Odd `k` is obtained by quartic interpolation in `k` of `m^{2k}C_k/E_k` from `k = 2…10`.
+* Calibrated at `Δ_g = 100` against the exact odd-`k` continuation (`t_kinterp.py`), the error is:
+  * ≤ 2e−3 `E_k` at `m ≲ 1.1Λ`;
+  * ≤ 3e−4 `E_k` at `1.2Λ`;
+  * ≤ 3e−5 `E_k` at `m ≥ 1.3Λ`.
+* For a near-gap state this means up to about 0.01 `N_s` near the threshold.
+
+**Forward terms.** `R₄` and `R₅` are taken from the CHMRS series (controlled at `ν = 0`).
+
+### Runs and results
+
+**`Δ_g = 300`, `Δφ = 3`: running.** The partial result covers `m ≤ 1.03Λ` only.
+* M02 is negative at the gap: `++, J = 0`: `−0.78 N_s`; `+−, J = 4` at `1.02Λ`: `−0.77 N_s`.
+* `n(300)` is not yet known.
+
+**Queued** (`cache/queueC.sh`):
+* `Δ_g = 1000`, `Δφ = 3`, `m ≤ 1.5Λ`;
+* `Δφ = 2` at `Δ_g = 300` and `1000`.
+
+**Still running** (`queueB` / `queueD`):
+* the `Δ_g = 100` high-J sample (double contour; `J = 11…28`);
+* then `Δφ = 2.5`.
+
+**Not yet run:** the `e2b_arbcheck.py` check of all `Δ_g = 100` states and the `e4` p-quadrature check.
+
+**Rerun after the queues finish:**
+* `e3_action.py 300 3 2`
+* `e3_action.py 1000 3 2`
+* `e6_bound.py <Dg> <n>`
+* `e7_nf.py 100`
