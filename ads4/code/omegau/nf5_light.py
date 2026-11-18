@@ -59,7 +59,7 @@ def LAdS(Ls):
     f = sp.lambdify(p, PH[2]); return quad(lambda t: f(t)/(t*t + 2.25/Ls**2), 0, 1, limit=400, points=[1.5/Ls])[0]
 for Dg in (50, 100, 300, 1000):
     Lam = np.sqrt((Dg - 2.0)*(Dg - 1.0))
-    for n in (1.0, 1.3, 1.5):
+    for n in (1.0, 1.5, 2.1, 2.9):
         Ls = Lam/n; X = 16*LAdS(Ls)
         tot = sum(abs(v)*DEG.get((c, k), 1) for c in ('g4', 'g5', 'g6', 'g6p') for k, v in LEV[c].items())
         dk = sum(abs(v)*DEG.get(('g3', k), 1) for k, v in LEV['g3'].items())*36/Ls**2
@@ -92,6 +92,8 @@ for Dg in (20, 100, 1000):
     f4 = FM.a*Lam**10*abs((g4(hh) - g4(0.0))/hh)/(Lam**2*LM); f5 = 2.5*FM.a*Lam**10*(2.25)**(-5)/Nk(5, 0.0)/(Lam**2*LM)
     pr(f"    Dg={Dg}: NF02 k=3..7: " + " ".join(f"{v:.2g}" for v in levs) + "  (no forward)  |  Omega^U(M02) k=3..7: " + " ".join(f"{v:.2g}" for v in levm)
        + f", forward C4: {f4:.2g}, C5: {f5:.2g}")
+    pr(f"      L_AdS(NF02)/L_AdS(M02) = {L/LM:.3g}  (the per-own-bound normalisation: a ratio R of leverages = (L_NF/L_M02) x (shape factor R L_M02/L_NF);"
+       f" shape factors k=3..7: " + " ".join(f"{vm/v/(L/LM):.2g}" for v, vm in zip(levs, levm)) + ")")
 
 # ---------------------------------------------------------------- (d) residual flip of the even replacements, NF02 weights
 from c1_flip_contamination import K
