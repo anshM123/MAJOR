@@ -1,6 +1,6 @@
 # Status of the Einstein-gravity programme (living summary; updated as results arrive)
 
-Last update: 16 Nov 2026. **Result D — a theorem on the emergence of local Einstein gravity in AdS4 from
+Last update: 18 Nov 2026. **Consolidated conditional statement: `RESULT_D.md`.** **Result D — a theorem on the emergence of local Einstein gravity in AdS4 from
 CFT3 data — is not established.** This file lists every link of the chain with its status.
 
 ## Target
