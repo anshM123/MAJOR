@@ -130,7 +130,26 @@ are in `spinfunc/h1_etainv_exact.py`, read through `h1_100.pkl`.
 
 ## 4. `Δ_g = 300`, `1000`
 
-**Not certified.** A spot check at `Δ_g = 300` (`m = 1.3Λ`, `J = 4`; `cache/certA_300_Df3.log`) __S300__.
+**Incomplete. The run was stopped when this slot was reassigned.**
+
+**Done.** One spot check at `Δ_g = 300`: `m = 1.3Λ`, `J = 4`, `Δφ = 3` is **certified** in both channels, exact integral (`++` `F/N_s ≥ +0.891`,
+`+−` `≥ +0.447`, quadrature error `≤ 2·10⁻¹³ N_s`, 11 min). So the method does work at `Δ_g = 300` away from the gap.
+
+**Interrupted.** Two near-gap spot checks were stopped before they finished (both resumable):
+* `m = 1.02Λ`, `J = 5`, `Δφ = 3`;
+* `m = 1.05Λ`, `J = 5`, `Δφ = 2`.
+
+They decide whether the near-gap tail bounds hold at `ν ≈ 300`; the old attempt for the withdrawn functional failed there.
+
+**Resume (2 cores; resumable caches `cache/certA_300_Df{3,2}.pkl`; about 10–20 min per state):**
+```
+cd ads4/code/exactskel
+python3 cert_actionA.py 300 3 1.02,1.05,1.1,1.2,1.5,2.0 0,2,4,5,6,8,10 >> cache/certA_300_Df3.log
+python3 cert_actionA.py 300 2 1.02,1.05,1.1,1.2,1.5,2.0 0,2,4,5,6,8,10 >> cache/certA_300_Df2.log
+```
+Then compute the inversion shift with `certA_inv.py 300`, which needs `spinfunc/cache/h1_300.pkl` (present).
+
+`Δ_g = 1000` has not been attempted: `N ∝ Δ²` makes it about 10× slower than 300.
 
 **Why.** As in `CERTIFIED_NEARGAP.md` §6 and §7.4, the certified `n`- and `m`-tail bounds of `cert_moments.py` grow like
 `e^{ν²/(2τ)}` at `ν ≈ Λ`. Tightening them, or switching to the Arb tail quadrature of `h13_laplace.py` with a proven Euler–Maclaurin

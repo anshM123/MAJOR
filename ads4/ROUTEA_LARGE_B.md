@@ -274,6 +274,10 @@ where:
 * For smaller `s₁` the oscillatory constant `C_oscΛ² ≈ 7·10³ (40/s₁)³` dominates. It is large because `ψ^{(m)}(1)` reaches about `4·10⁷`.
 * An integration by parts in `θ` would use the phase `e^{ib̂ sin θ}` and gain about `1/s₁` per step. That is the next tightening; it is not done.
 * `b̂₀ ≈ 50` is not reached.
+* **Status: incomplete; stopped when this slot was reassigned.** The result above (`b̂₀ = 91.2`) is final for the bounds as implemented.
+* **To resume the lowering:**
+  1. Add the `θ`-integration by parts for the `p = 1` terms in `constants()` of `h13a_cert_curv.py` (the `Cosc2` block).
+  2. Run `H13A_SIGNED=1 python3 h13a_cert_curv.py` (about 40 min on 1 core) → `cache/h13a_cert_curv_signed.txt`.
 
 ### 4.3 Coverage map for route A′ (`m ≥ 1.5Λ`)
 
