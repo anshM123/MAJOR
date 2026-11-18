@@ -122,17 +122,27 @@ class TaylorWaves:
                 self.pairs.setdefault((a, b), []).append((wL, wR, d))
                 if (a, b) not in self.blk:
                     c1, c2 = -a, b
-                    self.blk[(a, b)] = (CBlock(Delta, J, c1, c2, N, prec='d'), 0.0) if c1 + c2 >= 0 else (CBlock(Delta, J, -c1, -c2, N, prec='d'), c1 + c2)
+                    # block parameters only; the blocks are built one at a time in precompute() (memory: ~0.15 GB each at N = 8000)
+                    self.blk[(a, b)] = ((c1, c2), 0.0) if c1 + c2 >= 0 else ((-c1, -c2), c1 + c2)
+        self.S = {}
 
-    def chunk(self, s, rs, chi, A0, E0):
+    def precompute(self, rs, chi):
+        """radial-series derivative sums S[k,l] of every seed block at all points, one block in memory at a time"""
+        for ab, ((c1, c2), vpow) in self.blk.items():
+            Mmax = max(word_budget(wL, wR) for wL, wR, d in self.pairs[ab])
+            bl = CBlock(self.Delta, self.J, c1, c2, self.N, prec='d')
+            self.S[ab] = series12(bl, rs, chi, Mmax, Mmax)
+            del bl
+
+    def chunk(self, s, rs, chi, A0, E0, sl=None):
         """returns dict combo -> dict monomial -> array[npts] of C (sign (-1)^J included)"""
         dt = self.dt
         acc = {c: {} for c in COMBOS}
         sv = {n: s[n].astype(dt) for n in SN}
         for ab, plist in self.pairs.items():
-            bl, vpow = self.blk[ab]
+            _, vpow = self.blk[ab]
             Mmax = max(word_budget(wL, wR) for wL, wR, d in plist)
-            S = series12(bl, rs, chi, Mmax, Mmax)
+            S = self.S[ab][sl] if sl is not None else series12(CBlock(self.Delta, self.J, *self.blk[ab][0], self.N, prec='d'), rs, chi, Mmax, Mmax)
             G = pq_jets_vec(S, rs, A0, E0, Mmax, vpow)
             d0 = plist[0][2]
             assert all(d == d0 for (_, _, d) in plist)
@@ -182,6 +192,7 @@ def compute(beta, mm, dt=np.float64, chunk=200, N=None, maxpts=None):
     print(f"# <TTTT> Taylor-mode waves: beta={beta} m~{mm}: Delta={Dv:.6f} J={Jv} N={N} dtype={np.dtype(dt).name}; {npts} grid points", flush=True)
     t0 = time.time()
     TW = TaylorWaves(Dv, Jv, N, dt)
+    TW.precompute(fd['rs'][:npts], fd['chi'][:npts])
     print(f"  setup (helicity words, 25 seed blocks): {time.time() - t0:.0f} s", flush=True)
     modes = {c: {} for c in COMBOS}
     logscale = np.zeros(npts)
@@ -191,7 +202,7 @@ def compute(beta, mm, dt=np.float64, chunk=200, N=None, maxpts=None):
         x1, x2, x3, x4 = frame_positions(fd['ru'][sl], fd['xi'][sl])
         z1, z3, z2, z4 = pol_grid4(fd['xi'][sl], L)
         s, z = invariants4({1: x1, 2: x2, 3: x3, 4: x4}, {1: z1, 2: z2, 3: z3, 4: z4})
-        Cs = TW.chunk(s, fd['rs'][sl], fd['chi'][sl], fd['A0'][sl], fd['E0'][sl])
+        Cs = TW.chunk(s, fd['rs'][sl], fd['chi'][sl], fd['A0'][sl], fd['E0'][sl], sl=sl)
         logscale[sl] = Dv*np.log(4*fd['rs'][sl]) + DX*(np.log(s['s13']) + np.log(s['s24']))
         for c in COMBOS:
             Mv = contract(Cs[c], z, n).reshape(n, -1).reshape((n,) + (5,)*4)
