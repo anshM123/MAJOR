@@ -1,0 +1,24 @@
+#!/bin/bash
+# Exact scalar-skeleton heavy moments on the near-gap states (EXACT_SKELETON_NEARGAP.md).  <= 2 cores.
+# Needs (read-only): ../omegau (common.py, adsaction.py, remk.py, u4_scan.py, cache/rcoef_Df*.pkl), ../robust, ../uniform (skel.py, caches).
+# Usage: bash run_all.sh [Dg]        (default Dg = 100; about 50 min per skeleton on one core)
+set -e
+cd "$(dirname "$0")"
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+DG=${1:-100}
+mkdir -p cache
+# validation: Mack polynomials; Mellin moments vs the CHMRS order-1/m^8 series at small nu/m; contour/parameter independence at large nu/m
+python3 mack.py              > cache/v0_mack.txt
+python3 t_conv.py 120.3 0 3  > cache/v1_conv.txt
+python3 t_check2.py          > cache/v2_series.txt
+python3 t_largenu.py         > cache/v3_largenu.txt
+# exact moments on the states (two skeletons in parallel), then Df = 2.5
+python3 e1_states.py $DG 3 > cache/e1_${DG}_Df3.log 2>&1 &
+python3 e1_states.py $DG 2 > cache/e1_${DG}_Df2.log 2>&1
+wait
+python3 e1_states.py $DG 2.5 > cache/e1_${DG}_Df2.5.log 2>&1 &
+python3 e2_errcheck.py $DG 3 > /dev/null
+python3 e4_quad.py $DG 3 > /dev/null
+wait
+python3 e3_action.py $DG 3 2 2.5 > /dev/null
+python3 e5_compare.py $DG > /dev/null
