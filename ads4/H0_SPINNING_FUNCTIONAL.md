@@ -1189,6 +1189,31 @@ H4 for route A′ therefore remains **[I]** (§19.5), now with a validated metho
    the scalar analogue (`Ĉ₂` vs `Π̂₂`) has to be quantified first with the scalar engine.
 6. **Step 3.** Feed the 2×2 matrix (minimum eigenvalue per state) into `h2_neargap_exact`, and get `n` at `Δ_g = 100/300/1000` vs §19.3.
 
+### 20.9 Round 3 of step 2: not started (agent context exhausted); hand-over recipe for the parity-even 2×2 path
+
+Priority order (coordinator): even 2×2 action end to end through step 3 first; the odd sector afterwards.
+1. **Shadow matrix `β_{ab}` (even).** Extend `l3_shadow_laplace.build`:
+   * Replace `(a·W)^J` by `f_b(x₅, z₅ → a; x₃, z₃, x₄, z₄)`, with `a = I(x₅₆)·z₆`. This is `l4.structures` for `⟨𝒪̃(x₅) T₃ T₄⟩` at
+     dimension `3 − Δ`, using the conserved combination `conserved_even(3−Δ, J)`.
+   * Why the substitution is exact: contracting a traceless spin-`J` tensor with `(a·z₅)^J` for null `a` is evaluation at `z₅ = a`.
+   * Expand in `x₅` around `e`, at fixed numerical `(z₃, z₄, z₆)`.
+   * Fit `LHS_b(z₃, z₄, z₆) = Σ_a β_{ba} R_a(z₃, z₄, z₆)` over about 10 random polarisation triples. Here `R_a` is `l4.structures` for
+     `⟨𝒪†(x₆) T₃T₄⟩` at dimension `Δ`, conserved basis.
+   * Validation: residual `∝ Δ⁻³`; `β` independent of the crystal point and of the polarisations.
+2. **Externals.**
+   * `T₁, T₃`: light-ray polarisations `z₁ = x₀₁`, `z₃ = x₃₀` (null by the δ-functions), times the celestial `j′ = 0` (`Ĉ₂`) or
+     `j′ = 1` (`Ĉ₃`) structure. Take its transverse polarisation from CLS-D §4.2.
+   * `T₂, T₄`: contracted with the dual structure `q²` (`Ĉ₂`) or `O·q` (`Ĉ₃`), using `g5_covariant_Q.py`'s covariant forms. The
+     polarisation sum is the CLS-D §4.3 dual-basis sum: sum over a null basis of `z₂, z₄` with the dual metric.
+3. **Assemble `build()`.**
+   * `G`: the scalar parts (`l1_crystal`) with the `T` dimensions and spins in the denominators.
+   * Prefactor `q_{ab}`: `⟨T₁T₂𝒪⟩_a(z₅ → ·) β⁻¹ ⟨𝒪̃T₃T₄⟩_b`, evaluated on the TPS.
+   * Run `expand_pref` per `(a, b)` to get the 2×2 action matrix `M_{ab}(ν; Δ, J)` to `O(1/Δ²)`.
+   * Leading-order check: `M` maps onto the stripped flat helicity densities of §9/§17 (channel ratio `(1−x²)^{−4}`).
+4. **`x → 0` comparison** with the Regge-moment `c₂` (`SPINNING_TTTT_EXT.md`), after quantifying `Ĉ₂` vs `Π̂₂` on the scalar engine.
+5. **Step 3.** Per state, the minimum eigenvalue of the `ψ`-weighted 2×2 action, through `h2_neargap_exact`; `n` at `Δ_g = 100/300/1000`
+   vs §19.3.
+
 ### 20.6 Regraded table (supersedes §19.5 where they differ)
 
 | statement | grade |
