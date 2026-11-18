@@ -76,7 +76,10 @@ if __name__ == "__main__":
     else:
         pr("# [TT]_{N,J}: Fock data in CHL's x-space helicity basis (fourpt/tttt/t7_fock_l2.py); Delta = 6 + N, n = (4 + N - J)/2")
         Nmax = int(sys.argv[2]) if len(sys.argv) > 2 else 4
-        for N in range(0, Nmax + 1):
+        Nmin = int(sys.argv[3]) if len(sys.argv) > 3 else 0      # extension runs: N = Nmin..Nmax only (output to a separate file)
+        if Nmin > 0:
+            which = 'l2ext'
+        for N in range(Nmin, Nmax + 1):
             for Jv in range(N + 4, -1, -2):
                 allres[(2, N, Jv)] = run(2, N, Jv)
                 pickle.dump(allres, open(os.path.join(CACHE, 'fock_%s.pkl' % which), 'wb'))

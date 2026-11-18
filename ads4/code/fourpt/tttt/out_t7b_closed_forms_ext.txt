@@ -1,0 +1,22 @@
+# closed form p[T^{E,h}] = A_h P_FK(1,1)/K_l (fourpt/tttt/t7b_closed_forms.py); entries: (l, N, J, h): p_exact / formula
+  l=2 N=7 J=3 n=4 same: p[T^E] = 245/252852627456;  ratio to formula = 1  OK
+  l=2 N=7 J=5 n=3 same: p[T^E] = 7/5427392256;  ratio to formula = 1  OK
+  l=2 N=7 J=5 n=3 opp: p[T^E] = 5/404094023424;  ratio to formula = 1  OK
+  l=2 N=7 J=7 n=2 same: p[T^E] = 1/587580928;  ratio to formula = 1  OK
+  l=2 N=7 J=7 n=2 opp: p[T^E] = 1/22915656192;  ratio to formula = 1  OK
+  l=2 N=7 J=9 n=1 same: p[T^E] = 5/2062900224;  ratio to formula = 1  OK
+  l=2 N=7 J=9 n=1 opp: p[T^E] = 1/9684170496;  ratio to formula = 1  OK
+  l=2 N=7 J=11 n=0 same: p[T^E] = 1/196466688;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=7 J=11 n=0 opp: p[T^E] = 11/36975923712;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=8 J=2 n=5 same: p[T^E] = 7/40386183552;  ratio to formula = 1  OK
+  l=2 N=8 J=4 n=4 same: p[T^E] = 245/1029847680576;  ratio to formula = 1  OK
+  l=2 N=8 J=4 n=4 opp: p[T^E] = 1/1081860189696;  ratio to formula = 1  OK
+  l=2 N=8 J=6 n=3 same: p[T^E] = 7/22805484768;  ratio to formula = 1  OK
+  l=2 N=8 J=6 n=3 opp: p[T^E] = 1/167700938496;  ratio to formula = 1  OK
+  l=2 N=8 J=8 n=2 same: p[T^E] = 5/12520658304;  ratio to formula = 1  OK
+  l=2 N=8 J=8 n=2 opp: p[T^E] = 5/325537115904;  ratio to formula = 1  OK
+  l=2 N=8 J=10 n=1 same: p[T^E] = 1/1771549056;  ratio to formula = 1  OK
+  l=2 N=8 J=10 n=1 opp: p[T^E] = 5/155240187648;  ratio to formula = 1  OK
+  l=2 N=8 J=12 n=0 same: p[T^E] = 1/847262592;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2 N=8 J=12 n=0 opp: p[T^E] = 11/125992036352;  ratio to formula = 2 (n = 0: sum of both helicities) OK
+  l=2: 20 entries, all consistent with the closed form: True

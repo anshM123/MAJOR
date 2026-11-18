@@ -5,3 +5,4 @@
   s=8 Delta=183.82 J=35.5 m=178.7305: m^8 T^ss/lambda_s = (8.0298076 - 0.021721438j), m^8 T^oo/lambda_o = (8.0309287 + 0.2567645j), m^8 sqrt(T^so T^os/(lambda_s lambda_o)) = (8.0324342 - 0.00012819449j);  T^so/T^os = (1.58282 - 0.0548922j) (lambda_o/lambda_s = 1.70421)
 # ray b0.9
   s=1 Delta=50.25 J=20.0 m=44.23022: m^8 T^ss/lambda_s = (8.6776722 - 0.21872576j), m^8 T^oo/lambda_o = (8.6898084 + 1.2204976j), m^8 sqrt(T^so T^os/(lambda_s lambda_o)) = (8.7276359 - 0.00017681242j);  T^so/T^os = (2.38418 - 0.39636j) (lambda_o/lambda_s = 3.04627)
+  s=2 Delta=99.0 J=40.5 m=88.46044: m^8 T^ss/lambda_s = (8.1623138 - 0.10269571j), m^8 T^oo/lambda_o = (8.1651821 + 0.57063507j), m^8 sqrt(T^so T^os/(lambda_s lambda_o)) = (8.1740213 - 3.8705276e-5j);  T^so/T^os = (1.54655 - 0.127653j) (lambda_o/lambda_s = 1.74193)

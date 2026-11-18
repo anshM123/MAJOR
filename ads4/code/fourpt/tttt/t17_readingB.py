@@ -9,6 +9,7 @@ and the readings predict r = D(J,x)/P_J(1 - 2x^2) with
    A : D = P_J (scalar);  B : D = d^J_{44}(theta) = cos^8(theta/2) P^{(0,8)}_{J-4}(cos theta), cos theta = 1 - 2x^2 (full graviton Wigner function,
    J_z = 4);  B~ : D = d~^J_{44} = P^{(0,8)}_{J-4} (reduced function, F_flat's D_{+-} literally).
 Printed: m^2 d_X with d_X = r - D_X/P_J  (multiplicative at fixed b-hat), and m d_A; points with P_J(1-2x^2) near a zero are skipped.
+Control: the same-helicity wave (J_z = 0), for which all readings predict r = 1.
 Usage: python3 t17_readingB.py   Output: out_t17_readingB.txt
 """
 import os, sys, glob
@@ -41,14 +42,14 @@ def PJ_cond(J, x):
     amp = np.sqrt(P*P + ((1 - z*z)*dP*dP)/(J + 0.5)**2)
     return abs(P)/amp
 
-def R_opp(mo, k, nu, kern='O'):
+def R_opp(mo, k, nu, kern='O', h='opp'):
     D, J = mo.Delta, mo.J
-    A = design(D, J, k, nu); Tp = Tpred('opp', 'opp', D, J, 8.0)
+    A = design(D, J, k, nu); Tp = Tpred(h, h, D, J, 8.0)
     K = KER[kern]; terms = []; pred = 0j
     for (q1, q3), w13 in K.items():
         for (q2, q4), w24 in K.items():
             q = (q1, q3, q2, q4)
-            v, sh = mo.moment(k, nu, ('opp', 'opp'), q)
+            v, sh = mo.moment(k, nu, (h, h), q)
             terms.append((w13*w24, v, sh)); pred += w13*w24*sum(A[q][c]*Tp[c] for c in CLASSES)
     shm = max(t[2] for t in terms)
     meas = sum(w*v*np.exp(sh - shm) for w, v, sh in terms)*(-1)**J
@@ -77,6 +78,19 @@ if __name__ == "__main__":
                 star = '' if c >= 0.3 else ' *near zero*'
                 cells.append(f"x={x}: nu={nu:.3f} R={R:.4f} r={r:.4f} A {m*m*dA:+.1f} B {m*m*dB:+.1f} Bt {m*m*dBt:+.1f} (m dA {m*dA:+.3f}) [{c:.2f}]{star}")
             pr(f"  {beta:.2f} {m:6.1f} {mo.J:4d} {Df:.0f} | " + " | ".join(cells))
+            # control: same helicity (J_z = 0; every reading predicts D = P_J): m^2 (r_same - 1)
+            Rs0 = R_opp(mo, K_, 0.0, h='same')
+            ctl = []; dbl = []
+            for x in XS:
+                nu = round(x*m, 6)
+                rs = R_opp(mo, K_, nu, h='same')/(Rs0*sk.R(Df, K_, nu)/s0)
+                ctl.append(f"x={x}: m^2(r_same - 1) = {m*m*(rs - 1):+.1f}")
+                # double ratio: helicity-independent corrections (skeleton mismatch, quadrature, scalar O(nu^2/m^2)) cancel
+                R = R_opp(mo, K_, nu); r = R/(R0*sk.R(Df, K_, nu)/s0); rho = r/rs
+                P = D_of('A', mo.J, x); tB = D_of('B', mo.J, x)/P - 1
+                dbl.append(f"x={x}: rho-1 = {rho - 1:+.5f}; B-term {tB:+.5f}; fraction of the B term {(rho - 1)/tB:.2f}; m^2 d_A {m*m*(rho - 1):+.1f}, m^2 d_B {m*m*(rho - 1 - tB):+.1f}, m^2 d_Bt {m*m*(rho - D_of('Bt', mo.J, x)/P):+.1f}")
+            pr(f"        control (same helicity, Df={Df:.0f}): " + " | ".join(ctl))
+            pr(f"        DOUBLE RATIO rho = r_opp/r_same (Df={Df:.0f}): " + " | ".join(dbl))
             sk.save()
     pr("# predicted flat helicity term at fixed b: d^J_44/P_J - 1 -> 2*16 (x^2/b) J1(b)/J0(b) (lambda = 4), i.e. O(1/m) at fixed b-hat for reading A")
     open(os.path.join(HERE, 'out_t17_readingB.txt'), 'w').write("\n".join(out) + "\n")

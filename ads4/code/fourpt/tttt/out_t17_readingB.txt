@@ -1,0 +1,21 @@
+# H2 for gravitons: reading A / B / B~ at fixed b-hat (fourpt/tttt/t17_readingB.py); opp helicity, odd kernel A x A, k = 6
+#  beta    m    J  Df | x: nu, R(nu), r, m^2 d_A, m^2 d_B, m^2 d_Bt, (m d_A), [P_J condition]
+  1.00  100.7   52 3 | x=0.05: nu=5.037 R=1.0771 r=1.0391 A +397.2 B -182.2 Bt -290.2 (m dA +3.943) [0.26] *near zero* | x=0.1: nu=10.075 R=1.0591 r=1.0005 A +5.3 B -99.9 Bt -520.5 (m dA +0.053) [0.94]
+        control (same helicity, Df=3): x=0.05: m^2(r_same - 1) = -44.3 | x=0.1: m^2(r_same - 1) = -91.8
+        DOUBLE RATIO rho = r_opp/r_same (Df=3): x=0.05: rho-1 = +0.04369; B-term +0.05709; fraction of the B term 0.77; m^2 d_A +443.5, m^2 d_B -136.0, m^2 d_Bt -244.0 | x=0.1: rho-1 = +0.00966; B-term +0.01036; fraction of the B term 0.93; m^2 d_A +98.0, m^2 d_B -7.2, m^2 d_Bt -427.9
+  1.00  100.7   52 2 | x=0.05: nu=5.037 R=1.0771 r=1.0345 A +350.1 B -229.4 Bt -337.3 (m dA +3.475) [0.26] *near zero* | x=0.1: nu=10.075 R=1.0591 r=1.0011 A +10.9 B -94.3 Bt -514.9 (m dA +0.109) [0.94]
+        control (same helicity, Df=2): x=0.05: m^2(r_same - 1) = -89.4 | x=0.1: m^2(r_same - 1) = -86.3
+        DOUBLE RATIO rho = r_opp/r_same (Df=2): x=0.05: rho-1 = +0.04369; B-term +0.05709; fraction of the B term 0.77; m^2 d_A +443.5, m^2 d_B -136.0, m^2 d_Bt -244.0 | x=0.1: rho-1 = +0.00966; B-term +0.01036; fraction of the B term 0.93; m^2 d_A +98.0, m^2 d_B -7.2, m^2 d_Bt -427.9
+  1.00   39.3   20 3 | x=0.05: nu=1.967 R=1.2026 r=1.1041 A +161.2 B -19.1 Bt -36.5 (m dA +4.097) [0.32] | x=0.1: nu=3.934 R=1.0657 r=1.0040 A +6.1 B -22.8 Bt -87.5 (m dA +0.156) [0.97]
+        control (same helicity, Df=3): x=0.05: m^2(r_same - 1) = -13.6 | x=0.1: m^2(r_same - 1) = -11.9
+        DOUBLE RATIO rho = r_opp/r_same (Df=3): x=0.05: rho-1 = +0.11392; B-term +0.11647; fraction of the B term 0.98; m^2 d_A +176.3, m^2 d_B -3.9, m^2 d_Bt -21.3 | x=0.1: rho-1 = +0.01172; B-term +0.01872; fraction of the B term 0.63; m^2 d_A +18.1, m^2 d_B -10.8, m^2 d_Bt -75.5
+  1.00   39.3   20 2 | x=0.05: nu=1.967 R=1.2026 r=1.0905 A +140.0 B -40.2 Bt -57.6 (m dA +3.559) [0.32] | x=0.1: nu=3.934 R=1.0657 r=1.0038 A +5.9 B -23.1 Bt -87.8 (m dA +0.150) [0.97]
+        control (same helicity, Df=2): x=0.05: m^2(r_same - 1) = -32.6 | x=0.1: m^2(r_same - 1) = -12.1
+        DOUBLE RATIO rho = r_opp/r_same (Df=2): x=0.05: rho-1 = +0.11392; B-term +0.11647; fraction of the B term 0.98; m^2 d_A +176.3, m^2 d_B -3.9, m^2 d_Bt -21.3 | x=0.1: rho-1 = +0.01172; B-term +0.01872; fraction of the B term 0.63; m^2 d_A +18.1, m^2 d_B -10.8, m^2 d_Bt -75.5
+  1.00   70.0   36 3 | x=0.05: nu=3.502 R=0.9967 r=0.9905 A -46.4 B -25.0 Bt -74.2 (m dA -0.663) [0.98] | x=0.1: nu=7.004 R=1.0597 r=1.0023 A +11.1 B -49.3 Bt -253.1 (m dA +0.158) [0.96]
+        control (same helicity, Df=3): x=0.05: m^2(r_same - 1) = -5.7 | x=0.1: m^2(r_same - 1) = -32.3
+        DOUBLE RATIO rho = r_opp/r_same (Df=3): x=0.05: rho-1 = -0.00830; B-term -0.00436; fraction of the B term 1.91; m^2 d_A -40.7, m^2 d_B -19.4, m^2 d_Bt -68.5 | x=0.1: rho-1 = +0.00891; B-term +0.01231; fraction of the B term 0.72; m^2 d_A +43.7, m^2 d_B -16.7, m^2 d_Bt -220.4
+  1.00   70.0   36 2 | x=0.05: nu=3.502 R=0.9967 r=0.9918 A -40.0 B -18.7 Bt -67.8 (m dA -0.572) [0.98] | x=0.1: nu=7.004 R=1.0597 r=1.0026 A +12.8 B -47.6 Bt -251.3 (m dA +0.183) [0.96]
+        control (same helicity, Df=2): x=0.05: m^2(r_same - 1) = +0.7 | x=0.1: m^2(r_same - 1) = -30.6
+        DOUBLE RATIO rho = r_opp/r_same (Df=2): x=0.05: rho-1 = -0.00830; B-term -0.00436; fraction of the B term 1.91; m^2 d_A -40.7, m^2 d_B -19.4, m^2 d_Bt -68.5 | x=0.1: rho-1 = +0.00891; B-term +0.01231; fraction of the B term 0.72; m^2 d_A +43.7, m^2 d_B -16.7, m^2 d_Bt -220.4
+# predicted flat helicity term at fixed b: d^J_44/P_J - 1 -> 2*16 (x^2/b) J1(b)/J0(b) (lambda = 4), i.e. O(1/m) at fixed b-hat for reading A
