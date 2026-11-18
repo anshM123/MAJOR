@@ -13,8 +13,15 @@ python3 u2_coeffs.py > /dev/null          # remainder coefficients k = 2..7, Df 
 OMEGAU_DF=3 python3 u3_flatlimit.py > /dev/null   # AdS skeleton action -> flat action as Dg -> infinity             -> cache/u3_Df3.log
 python3 u5_light.py  > /dev/null          # light side, leverages, bound vs n                                            -> cache/u5.log
 python3 u6_regge.py  > /dev/null          # leading Regge action, Omega^U vs Omega                                       -> cache/u6.log
-[ "${1:-}" = "fast" ] && exit 0
+[ "${1:-}" = "fast" ] && exit 0   # (fast mode skips the scans and OMEGA_NF)
 OMEGAU_DF=3 python3 u4_scan.py 100 20 50 300 1000 > cache/u4_run_Df3.log &
 OMEGAU_DF=2 python3 u4_scan.py 100 20 50 300 1000 > cache/u4_run_Df2.log
 wait
 python3 u7_summary.py > /dev/null          # compact tables -> cache/u7_summary.txt
+# ---- OMEGA_NF.md (Omega^{NF,SC}, NF02 uplift): needs the u4 skeleton caches above; single core, ~3 min
+python3 nf1_flat.py > /dev/null                                        # -> cache/nf1.log
+OMEGAU_DF=3 python3 nf4_scan.py 100 20 50 300 1000 > cache/nf4_run.log
+OMEGAU_DF=2 python3 nf4_scan.py 100 20 50 300 1000 >> cache/nf4_run.log
+python3 nf7_summary.py > /dev/null                                     # -> cache/nf7_summary.txt
+python3 nf6_regge.py > /dev/null                                       # -> cache/nf6.log
+python3 nf5_light.py > /dev/null                                       # -> cache/nf5.log
