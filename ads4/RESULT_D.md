@@ -1,92 +1,122 @@
-# Result D — conditional statement (consolidated, 18 Nov 2026; revised after exact near-gap moments and ⟨TTTT⟩ extension)
+# Result D — conditional statement (consolidated; revised 18 Nov 2026 after the batched foundation review)
 
-**Status: a conditional statement, not a theorem.** This file consolidates the AdS4 chain into one precisely stated
-claim with every hypothesis listed and graded. Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`,
-`SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`, `ADS4_LIGHT.md`, `SPINNING_4PT.md`,
-`SPINNING_TTTT.md`, `SPINNING_TTTT_EXT.md`, `EXACT_SKELETON_NEARGAP.md`, and their referee reports. Nothing here is new
-computation. **The two newest inputs (`EXACT_SKELETON_NEARGAP.md`, `SPINNING_TTTT_EXT.md`) are unrefereed**; they will be
-reviewed in the batched foundation review.
+**Status: a conditional statement, not a theorem.** Revised after `REFEREE_FOUNDATION.md` (hostile review of this file and all
+inputs added on 18 Nov). The referee independently reproduced every load-bearing number (exact skeleton moments, even-kernel
+weights, `N^{K*}`, `A`, `B_AdS`, all six bounds, the 240 dictionary factor, parity-odd interference freedom, bulk-point density ratios),
+and found that **the previous headline ("D-safe positive down to the gap, n = 1") was overclaimed**: it holds in a scalar-skeleton
+model for a functional whose graviton version is not yet defined. This revision states what is shown at which level.
+
+Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
+`NOFORWARD_FUNCTIONAL.md`, `ADS4_LIGHT.md`, `SPINNING_4PT.md`, `SPINNING_TTTT.md`, `SPINNING_TTTT_EXT.md`, `EXACT_SKELETON_NEARGAP.md`,
+`CERTIFIED_NEARGAP.md`, `DIRECT_GRAVITON_NEARGAP.md`, `PARITY_ODD_HEAVY.md`, `OBJECT_IDENTITY.md`, `FUNCTIONAL_REDEFINITION.md`,
+`SPINNING_MELLIN.md`, `DICTIONARY_T4.md`, and their referee reports. Nothing here is new computation.
 
 Labels: **[certified]** computer-assisted proof (Arb/exact); **[D]** derived; **[DVE]** derived and checked end to end on exact
-blocks; **[NE]** numerical evidence; **[M]** a modelling convention; **[I]** inferred/assumed.
+blocks; **[NE]** numerical evidence; **[M]** a modelling convention; **[I]** inferred/assumed; **[A]** standard assumption; **[Q]** quoted.
 
 ## 1. Setting
 
-A unitary, parity-even-or-odd CFT₃ with stress tensor `T`, central charge `c_T`, and a gap `Δ_g` to all single-trace operators of
-spin `J > 2` (and no other light single traces). Large `c_T` with `c_T ≫ Δ_g²` (tree level). Write
-`⟨TTT⟩` in the basis `(c_T, t₄, α_T)` (Einstein + parity-even `t₄` + parity-odd `α_T`); in the bulk,
-`t₄² + α_T² = 57600 |ĝ₃|²/L⁸` (`DICTIONARY_T4.md`, unrefereed; three published cross-checks). `Λ = √((Δ_g−2)(Δ_g−1))`.
+A unitary CFT₃ (parity-even or parity-violating) with stress tensor `T`, central charge `c_T`, and a **twist gap**: every single-trace
+operator of spin `J > 2` has twist `Δ − J ≥ Δ_g − 2` (a dimension gap is not enough: it allows states below `Λ` at large `J`). No other
+light single traces (H11; note this excludes all known holographic CFT₃s, ABJM included, which have light Kaluza–Klein towers). Large `c_T`
+with `c_T ≫ Δ_g²` (tree level). Write `⟨TTT⟩` in the basis `(c_T, t₄, α_T)`; in the bulk `t₄² + α_T² = 57600 |ĝ₃|²/L⁸`
+(`DICTIONARY_T4.md`; reproduced by the foundation referee, including the ECG and quasi-topological cross-checks). `Λ = √((Δ_g−2)(Δ_g−1))`.
 
 ## 2. Claim D (conditional)
 
-Under hypotheses H1–H14 below, with a heavy-positivity threshold `n` (§4),
+Under hypotheses H0–H17 below, with a heavy-positivity threshold `n`,
 
-`|ĝ₃|² (Λ/n)⁸ ≤ A log(Λ/n) + B_AdS + O(n²/Λ²)`,
+`|ĝ₃|² (Λ/n)⁸ ≤ A log(Λ/n) + B_AdS + O(n/Λ)`,
 
-i.e. `√(t₄² + α_T²) ≤ 240 √(A log(Λ/n) + B_AdS) · (n/Λ)⁴`, with two versions:
+i.e. `√(t₄² + α_T²) ≤ 240 √(A log(Λ/n) + B_AdS) · (n/Λ)⁴` (the tables use the exact `p`-integral, not the log form).
 
-| version | functional | `A`, `B_AdS` | `n` (exact skeleton moments, scanned states) | `√(t₄²+α_T²)` at `Δ_g` = 100 / 300 / 1000 | hypotheses |
+| version | functional | `A`, `B_AdS` | `n` | `√(t₄²+α_T²)` at `Δ_g` = 100 / 300 / 1000 | hypotheses |
 |---|---|---|---|---|---|
-| **D-safe (headline)** | `Ω^{NF,SC}` built on NF02 (no forward terms; superconvergent replacements) | 3022.3, −6552.7 | **1** at all three `Δ_g` (min margin `F/N_s ≈ +0.20`) | **2.2·10⁻⁴ / 3.1·10⁻⁶ / 2.9·10⁻⁸** | H1–H4, H6–H8, H10–H12, H13′ |
-| **D-strong** | `Ω^U` built on M02 (flip-free even kernel) | 51.74, −86.30 | 1.08 / 1.05 / 1.01 (1.09 / 1.06 / 1.01 with `δ = 0.03`) | 4.2·10⁻⁵ / 5.3·10⁻⁷ / 4.1·10⁻⁹ | as D-safe, plus H9 (forward terms) |
+| **D-safe** | NF02-based, no forward terms; even `k` := `C`-type dispersive functionals (`FUNCTIONAL_REDEFINITION.md`), odd `k` := `Ψ_k/N_k` | 3022.3, −6552.5 | **1 in the scalar-skeleton model** (certified on a grid at Δ_g = 100; scanned at 300, 1000) | 2.21·10⁻⁴ / 3.13·10⁻⁶ / 2.89·10⁻⁸ | H0–H4, H6–H8, H9b, H10–H17 |
+| **D-strong** | `Ω^U` on M02 | 51.74, −86.30 | 1.08 / 1.05 / 1.01 in the same model (object-sensitivity range 1.00–1.10 at Δ_g = 100) | 4.2·10⁻⁵ / 5.3·10⁻⁷ / 4.1·10⁻⁹ (up to ×1.4 object/parity sensitivity) | as D-safe, plus H9a |
 
-Previous values (truncated `1/m` series, tolerance convention): D-strong `n = 1.28` central / 1.40 conservative, 8·10⁻⁵ at
-`Δ_g = 100`; D-safe `n = 2.0–2.9`, 3.1·10⁻³ – 1.1·10⁻² at `Δ_g = 100`. D-safe is now chosen as the headline because it avoids the
-forward-term hypothesis H9 (leverage up to 10¹³) at a cost of a factor ≈ 5–7 in the bound.
+**What `n = 1` means.** It is the threshold of the near-gap heavy action computed with (i) the flat B′ bulk-point density, which carries
+≈ 98 % of the action near the gap, plus (ii) the exact scalar-skeleton remainder (≤ 0.02 `N_s`). Item (ii) is exact; item (i) for gravitons
+at `x = ν/m ~ 1` is hypothesis H2/H4. So `n = 1` is **not** shown for gravitons.
 
-Meaningful only for `Δ_g ≳ 100` (at `Δ_g = 50` contact residues can shift the bound by up to 17 %). Parametrically
-`|t₄|, |α_T| ≲ √(log Δ_g)/Δ_g⁴`, the scaling anticipated heuristically in arXiv:1805.07393 §7 and arXiv:2201.06602 (§1, §5),
-here with explicit constants and an explicit hypothesis list.
+Meaningful only for `Δ_g ≳ 100`. Parametrically `|t₄|, |α_T| ≲ √(log Δ_g)/Δ_g⁴`. **Novelty:** the scaling and the AdS₄/CFT₃ translation
+with `log(M R_AdS)` are in arXiv:2201.06602 §5 (CLPS), whose footnote functional is of the same forward-free `B₂ + B₃` class as NF02;
+D-safe's `A` is ≈ 121× CLPS's optimum (≈ 11× weaker bound). arXiv:2311.04271 lists Regge positivity and the light-side dictionary as
+open steps; this chain assumes rather than closes them. The referee found no paper deriving an explicit gap bound on ⟨TTT⟩ in CFT₃ with
+explicit constants; the explicit conditional bound and the printed 240 dictionary coefficient appear to be new.
 
-## 3. What is actually established (unconditional, certified, or end-to-end checked)
+## 3. What is established
+
+### 3a. Flat space and kinematics (unconditional or certified)
 
 | ingredient | status | file |
 |---|---|---|
 | Flat `F_{g3}` positive on all heavy states; flat bound `37.84 log(M/m_IR) − 45.21 + Δ_IR` | **[certified]**, 3 referee rounds | `FLAT_GRAVITON_BOUND.md` |
-| JHEP-printed `F_{g3}` not positive (`−6281/315`); v1 (3.3a) misses `5B₅|₀` | **[D]**, re-derived by referee | same |
+| JHEP-printed `F_{g3}` not positive (`−6281/315`); v1 (3.3a) misses `5B₅|₀` | **[D]** | same |
 | Robust flat functionals M01, M02 (margin 9/100, 9/50) | **[certified]** | `ROBUST_FUNCTIONAL.md` |
-| Unstripped and stripped fixed-`u` sum rules span the same space; flat bounds identical | **[D]** | `FLAT_UNSTRIPPED.md` |
-| No forward-free functional uses smeared `B_{k≥4}`; NF02 from `B₂, B₃` | **[D]**; NF02 **[certified]** except one `+−` corner (float) | `NOFORWARD_FUNCTIONAL.md` |
-| Heavy Regge formula `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)(1+O(1/m²))` | **[DVE]** `⟨JJJJ⟩` (`k = 4, 6`; odd `k = 5, 7`); **`⟨TTTT⟩`: [DVE] at β = 1, `k = 4–7`, `ν = 0, 1, 3`, both helicities, under the odd kernel `𝔄⊗𝔄` and leading modes (m = 39, 70, 101; `|c₁| ≤ 0.04`); same helicity also `k = 2, 3` and even kernels** | `SPINNING_4PT.md`, `SPINNING_ODDK.md`, `SPINNING_TTTT.md`, `SPINNING_TTTT_EXT.md` |
-| Graviton pole in `C⁺₂`: `16πG/(ν²+9/4)` | scalar **[DV]**; spinning [D given F, R] | `ADS4_LIGHT.md` |
-| Einstein term absent from superconvergent `Ψ_k`, `k = 3…7` | **[D]** given `J₀(G^E) ≤ 2` (`k = 3`: no assumption) | `SUPERCONVERGENT_UPLIFT.md` |
+| Unstripped and stripped fixed-`u` sum rules span the same space | **[D]** | `FLAT_UNSTRIPPED.md` |
+| No forward-free functional uses smeared `B_{k≥4}`; NF02 from `B₂, B₃` | **[D]**; NF02 **[certified]** as a flat functional except one `+−` corner (float) | `NOFORWARD_FUNCTIONAL.md` |
 | Uniform positivity of the scalar-kernel `B₂` part (all `M, β`) | **[certified]** | `UNIFORM_POSITIVITY.md` |
-| Exact scalar-skeleton moments near the gap (Mellin/Mack + Arb Barnes lemma), no `1/m` truncation | **[D]** method; Arb vs double `|ΔF| ≤ 2·10⁻⁷`; quadrature stable to `10⁻⁵N_s` | `EXACT_SKELETON_NEARGAP.md` |
+| Even-kernel circle-mode weights `(1/36, 1/16, 1)`; `K*`, `𝔖_ff` flip-free; `N₄^{K*}`, `N₆^{K*}` | **[D]**, reproduced by referee | `SPINNING_TTTT_EXT.md` §6, `EXACT_SKELETON_NEARGAP.md` §9 |
+| Parity-odd heavy exchanges: no `λ_Eλ_O` interference (parity invariance of all kernels) | **[D]**, reproduced by referee | `PARITY_ODD_HEAVY.md` |
 
-## 4. Hypotheses (graded)
+### 3b. Scalar-skeleton model (exact or certified, but scalar)
+
+| ingredient | status | file |
+|---|---|---|
+| Exact scalar-skeleton moments `C_{k,ν}` near the gap (Mellin/Mack + Arb Barnes lemma) | **[D]**; independently reproduced by the referee to ≤ 7·10⁻⁶ (Δ_g=100), 5·10⁻⁸ (300), 5·10⁻⁷ (1000) | `EXACT_SKELETON_NEARGAP.md` |
+| D-safe action positive on the Δ_g = 100 grid (m/Λ ∈ [1.01, 3], J ≤ 10, both channels; Δφ = 3 and 2), 64-node `p`-rule | **[certified]** for that model (384/384 cases; min F/N_s +0.227 for Δφ=3, +0.072 for Δφ=2) | `CERTIFIED_NEARGAP.md` |
+| Even-`k` objects `C_{k,ν}` meet: same leading action and B′ density, Einstein-free for `k ≥ 4`, no forward terms, Mellin-exact | **[D]** for external scalars | `FUNCTIONAL_REDEFINITION.md` |
+
+### 3c. Spinning checks (scope-restricted)
+
+| ingredient | status | file |
+|---|---|---|
+| Heavy formula `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)(1+O(1/m²))`, `⟨JJJJ⟩` | **[DVE]** `k = 4–7` | `SPINNING_4PT.md`, `SPINNING_ODDK.md` |
+| Heavy formula, `⟨TTTT⟩` | **[DVE] only for β = 1, ν ≤ 3, even J, parity-even exchanges, k ≥ 4, kernels `K*`/`𝔄`**; `k = 2` [NE + I cleaning]; `𝔖_ff` unresolved at low J for k ≤ 4; ¼ not tested end to end | `SPINNING_TTTT.md`, `SPINNING_TTTT_EXT.md`, `DIRECT_GRAVITON_NEARGAP.md` |
+
+Conditional items previously listed here (graviton pole in `C⁺₂`; Einstein term absent from `Ψ_k`) are moved to the hypotheses (H6, H8, H16).
+
+## 4. Hypotheses (graded; referee grades adopted)
 
 | # | hypothesis | grade | evidence / what would settle it |
 |---|---|---|---|
-| H1 | Two-pair heavy formula for `⟨TTTT⟩` at all needed `k = 2…7`, `ν ≲ m`; MFT constant ¼ | **[DVE] at β = 1, `k = 4–7`, `ν = 0, 1, 3`, both helicities, under `𝔄⊗𝔄`, `𝔖_ff⊗𝔖_ff` (`|c₁| ≤ 0.13`; corrected circle-mode weights) and the flip-free `K* = (D₁+D₂)(D₁−½D₂)` (`|c₁| ≤ 0.05`); `k = 2` (`Ĉ₂`) both helicities under `K*` and `𝔄` [NE]: R = 1.134/1.040/1.021 (same), 1.114/1.030/1.014 (opp) at m = 39/70/101, `m²(R−1)` flat to ~10 %, after cleaning numerical defects of the cached waves (truncation mask, tiny-`t` noise) — cleaning is [I] until a production rerun** | open: `𝔖_ff` at `k = 2` opposite helicity (isotropic-mode noise; hence use `K*` for `Ĉ₂`); β ≠ 1 convergence (β = 0.4 single mass, 𝔄: 1.02–1.06); `ν ~ m` (= H2); ¼ end to end. **Consequence for Claim D: switching the even kernel to `K*` reproduces every threshold and bound exactly, and scaling every even heavy moment by `1 + c₂/m²` with the measured `c₂ ≤ 268` moves no threshold (tightest: D-strong `+−`, J=4, Δ_g=300, m=1.05Λ, margin 0.0408 → 0.0393 N_s > δ)** (`SPINNING_TTTT_EXT.md` §6–7, `EXACT_SKELETON_NEARGAP.md` §9) |
-| H2 | B′ dictionary: AdS moments → unstripped sum rules (full `d^J_{44}`, "reading B") for gravitons | **[NE]** | currents (`SKELETON_TEST.md` §8); gravitons: opposite/same double ratio carries 63–98 % of the reading-B term with bounded `m²d_B` (`SPINNING_TTTT_EXT.md`); one point non-discriminating (near a sign change), one unusable (`P_J` near zero); other `b̂` untested |
-| H3 | Odd-`k` two-pair moments | [DVE] for `⟨JJJJ⟩` `k = 5, 7`, `⟨TTTT⟩` `k = 5, 7` under `𝔄⊗𝔄`; skeleton odd `k` at `Δ_g ≥ 300` by interpolation in `k` [M] (≤ 2·10⁻³E_k) | `k = 3` at `m ≈ 100` open |
-| H4 | Scalar-skeleton remainder transfers to gravitons | [I] — **the main near-gap gap**. Direct test (`DIRECT_GRAVITON_NEARGAP.md` §7, exact ⟨TTTT⟩ waves at Δ_g = 100, states m/Λ = 1.04 J=4 and 1.30 J=6, cleaned extraction): **++ [NE] at x = ν/m ≲ 0.03–0.09, k = 3…7**: graviton = skeleton × common factor c* (m²(c*−1) ≈ 135, a vertex normalisation; cannot change a sign) to ≤ 4·10⁻³; action shift ≤ 6·10⁻⁴ N_s vs margins 0.27–0.32; but these nodes carry ≤ 0.4 % of the remainder norm. **+− [NE] only at k = 7 (and k = 5, ν ≲ 2)**, where it agrees with the heavy formula and with reading B (not A). The earlier 10²–10¹⁰ +− excess was a numerical artefact: at low J the +− moments for k ≤ 4 sit 10²–10⁵ below the float64 noise floor | position space reaches only x ≲ 0.15; to close: a spinning Mellin/Barnes route for x ~ 1, or extended-precision production for low-J +−. Thresholds use skeletons `Δφ = 2, 3` only |
-| H5 | Near-gap tolerance `κ_req`, allowance `δ` | **no longer needed for the skeleton part** (exact moments) | `δ = 0.03` moves D-strong `n` by ≤ 0.01 |
-| H6 | (F) flat limit of spinning light side; (P) polynomial contacts | [I] | [Q] for scalars (CHMRS) |
-| H7 | (R) graviton-pole residue exact | [D-sketch] | given impact-parameter form |
-| H8 | `J₀(G^E) ≤ 2` (tree Einstein Regge intercept) | [Q] | KKSDZ; standard |
-| H9 | Double-trace/contact content of the even and forward replacements | [I], load-bearing in D-strong only (leverage up to 10¹³) | absent in D-safe |
-| H10 | EFT power counting of contacts `g_f ≲ c_g G_f log Λ`, `c_g = O(1–30)` | [A] | standard |
-| H11 | No other light single traces; `c_T ≫ Δ_g²`; double zeros of spinning kernels at double twists | [A]/[I] | — |
-| H12 | Parity-odd / indefinite-parity heavy exchanges harmless | **[D] flat side** (f's cuts are diagonal `|c^{+−}|²`, `|c^{++}|²`; all functionals use only f) **and AdS interference-free** (all kernels parity-even, flip responses vanish for `K*`, `𝔖_ff`, `𝔄` ⇒ no `λ_Eλ_O`, no `(c^{++})²` terms); leading formula unchanged [D given H1]; reduced to **H12′** [I]: H1 (and no `O(1/m)`) for the parity-odd `⟨TTO⟩` structure | not tested end to end (needs the ε-structure in the Taylor-mode code, ~2.5 h/mass); tolerance: thresholds unchanged for `|c₁| ≲ 8` (D-strong) / `≲ 19` (D-safe) vs measured parity-even `|c₁| ≤ 0.05` (`PARITY_ODD_HEAVY.md`) |
-| H13′ | Heavy positivity outside the scanned set | **[certified] for F^{(64)} (64-node Gauss p-rule) on the Δ_g = 100 grid**: all 384/384 (state, channel) cases, Δφ = 3 (m/Λ ∈ [1.01, 3], 205 cases, min F/N_s +0.227) and Δφ = 2 (to 2Λ, 179 cases, min +0.072), J ≤ 10, both channels, scalar skeleton, odd k by k-interpolation [M] (`CERTIFIED_NEARGAP.md`); [NE] for the exact p-integral (≤ 10⁻⁵N_s), between grid points (worst adjacent change/margin 0.85), Δ_g = 300/1000 (tail bounds too loose), high-`J` samples (`b̂ ≤ 40–60`); [M] beyond | continuity in m (Lipschitz bound), certified p-quadrature error, J > 10, m < 1.01Λ, large b̂, larger Δ_g |
-| H14 | **Object identity near the gap**: the exact near-gap remainders are computed for CHMRS's dispersive `C_{k,ν}` (scalar skeleton), but `Ω^{NF,SC}` applies `Ψ_k/N_k` for `k ≥ 3` (defined only through its leading Regge kernel; `j_k(ν)` untracked), and the position-space references compute `Π̂_{k,ν}`; they agree only at leading heavy order | [I], **bounded in a bulk-point model [M]** (`OBJECT_IDENTITY.md`): densities differ at O(x⁴) and O(1) at x → 1; multiplying each node by the density ratio (C, Π̂, Ψ, the actual mix, and a family `(1−r*²)^α`, α ∈ [−6, 12]) leaves **D-safe at n = 1 with min margin 0.20–0.24 and bound 2.21·10⁻⁴ unchanged** (NF02 weights vanish like (1−p)⁵ where the objects differ); **D-strong n moves within 1.00–1.10** (bound 3.2–4.5·10⁻⁵ at Δ_g = 100) | exact value not computable (non-meromorphic even-k weight, no odd-k scalar analogue); light-side effect of an object change (contacts, `k(0)`) not computed [D-sketch: power-suppressed under H10]. **Redefinition (`FUNCTIONAL_REDEFINITION.md`): with Ĉ_k := CHMRS C_{k,ν} for even k (meets same leading action and B′ density, Einstein-free for k ≥ 4, no forward terms, Mellin-exact, analysable contacts) the scalar-skeleton action is exact by definition: n = 1, min F/N_s 0.20–0.23, bounds 2.21·10⁻⁴ / 3.13·10⁻⁶ / 2.89·10⁻⁸ unchanged; H14 removed at scalar level for k = 2, 4, 6. Remains: odd k (H3, readings differ ≤ 0.002 N_s) and H14′ — existence of a spinning C-type functional for gravitons (sketched: meromorphic-weight light-ray commutators + CHMRS η-inversion; not built)** |
+| **H0** | **Existence of the spinning (⟨TTTT⟩) functional as defined**: a `C`-type dispersive `Ĉ_k` for even `k` (incl. `Ĉ₂`, which carries the graviton pole and the whole light side) with the properties of `FUNCTIONAL_REDEFINITION.md` (merges the former H14′) | **[I], load-bearing** | sketched (meromorphic-weight light-ray commutators + CHMRS η-inversion), not built. Alternative: keep `Ψ_k` and recompute its flat limit, certify it, recompute its light side |
+| H1 | Two-pair heavy formula for `⟨TTTT⟩` at all needed `k`, `ν ≲ m`, β, `J`; MFT constant ¼ | **[NE]** as used; [DVE] in the restricted scope of §3c | needs `ν ~ m` (= H2), β ≠ 1, odd `J` (= H12′), a clean `k = 2` production rerun, ¼ end to end. Finite-`m` sensitivity: scaling even moments by `1 + c₂/m²` (`c₂ ≤ 268`) moves no threshold [NE] |
+| H2 | B′ dictionary for gravitons (reading B, full `d^J_{44}`) | [NE] at `x ≤ 0.1`, one `b̂`, even `J`; **[I] at `x ~ 1`, where it is load-bearing** (≈ 98 % of the near-gap action) | spinning moments at `x ~ 1` (`SPINNING_MELLIN.md`: position space cannot reach; Mellin route needs H0-type objects) |
+| H3 | Odd-`k` moments | **[M]** (continuation/interpolation in `k`); `⟨TTTT⟩` k = 5, 7 under `𝔄⊗𝔄` [DVE] in the §3c scope | — |
+| H4 | Scalar-skeleton remainder transfers to gravitons | [I]; `++` evidence at `x ≲ 0.1` covers ≤ 0.4 % of the norm | as H2 |
+| H5 | Near-gap tolerance convention | not needed for the skeleton part | — |
+| H6 | (F) flat limit of spinning light side; (P) polynomial contacts; graviton pole `16πG/(ν²+9/4)` in `Ĉ₂` | [I] (scalar: [DV]/[Q]) | — |
+| H7 | (R) graviton-pole residue exact | [D-sketch] | — |
+| H8 | `J₀(G^E) ≤ 2` | [Q] | KKSDZ |
+| H9a | Forward-term double-trace/contact content (D-strong only) | [I], leverage up to 10¹³ | — |
+| **H9b** | (P) for the smeared even replacements in D-safe | **[I]**, leverage up to 200 (Δ_g = 100) → 1.1·10⁴ (Δ_g = 1000) | analysable once even `k` are meromorphic-weight `C`-type objects (H0) |
+| H10 | EFT power counting of contacts | [A] | — |
+| H11 | No other light single traces; `c_T ≫ Δ_g²`; double zeros of spinning kernels at double twists | [A]/[I]; excludes known holographic CFT₃s | — |
+| H12′ | Heavy formula (and no `O(1/m)`) for parity-odd exchanges, incl. every odd-`J` `+−` state | **[I], load-bearing: the D-safe minimum at all three `Δ_g` is the `+−`, `J = 5` (parity-odd) state** (0.227 / 0.206 / 0.202) | one end-to-end parity-odd `⟨TTO⟩` point. Tolerance: D-safe threshold unchanged for `|c₁| ≲ 19`; D-strong (all channels) only `|c₁| ≲ 2.2` |
+| H13′ | Heavy positivity off the scanned/certified set | certified grid at Δ_g = 100 (§3b); [NE] for the exact `p`-integral, between grid points, `b̂ ≤ 38–44`, Δ_g = 300 (m ≤ 2Λ), 1000 (m ≤ 1.5Λ); **[I] for D-safe at `b̂ > 20` beyond the scan** (the `OMEGA_U` κ-envelope applies to M02 only) | exact NF02 scans at `m ∈ [1.5, 10]Λ`, `b̂ ∈ [20, 200]`; large-`b̂` envelope |
+| H14 | Object identity (`C` vs `Π̂` vs `Ψ_k/N_k`) | for D-safe even `k`: by definition (redefinition) at scalar level, else part of H0; for odd `k` and D-strong: [I], bounded in a bulk-point model [M] | `OBJECT_IDENTITY.md` |
+| **H15** | `|ĝ₃|²` absent from the light side of `Ψ₅, Ψ₆, Ψ₇` | [I] | — |
+| **H16** | I14 convergence/swappability of the light-ray sum rules; P1(`j′ = 0`); the untracked Jacobian `j_k(ν)`; Einstein term absent from `Ψ_k` (derived given H8, RB₂, microcausality, I14) | [I] | — |
+| **H17** | `k_AdS − k(0)` correction to the `|ĝ₃|²` coefficient | [D-sketch]; ≈ 4 % at Δ_g = 100 | — |
 
-## 5. Where it can fail
+## 5. Where it can fail (in order of weight)
 
-* **H1 beyond `ν ≲ 3` and β = 1.** The heavy formula is checked end to end for `k = 2–7`, both helicities, at `ν ≤ 3`, β = 1 (`k = 2`
-  after cleaning cached-wave defects); the functionals need `ν ~ Λ` (the H2 question) and other β.
-* **H4, H14.** Near-gap positivity is computed on scalar skeletons, not on graviton moments, and on CHMRS's `C_{k,ν}`, not on the `Ψ_k/N_k`
-  the functional actually uses; the two agree only at leading heavy order (H14, newly identified).
-* **Coverage.** Positivity is on sampled states; the region `b̂ > 60`, `J` in the hundreds, is not covered by exact moments.
-* D-strong additionally rests on forward terms whose light-side errors are amplified ~10¹³ (H9).
+1. **H0.** The graviton functional the claim uses is not constructed; its flat limit, light side and contact content are inferred.
+2. **H2/H4 at `x ~ 1`.** Near the gap almost all of the action is the flat dictionary at `x → 1`; gravitons are tested only at `x ≲ 0.1`.
+3. **H12′.** The binding D-safe state is a parity-odd exchange never tested end to end.
+4. **H13′ coverage** for D-safe at large `b̂` and larger `Δ_g`.
+5. **H9b** (D-safe) and **H9a** (D-strong) contact content.
 
-## 6. Shortest route to an unconditional statement
+## 6. Shortest route (from `REFEREE_FOUNDATION.md` §5, adopted)
 
-1. H1: a clean production rerun for `k = 2` (removes the [I] cleaning); `ν ~ m` and β ≠ 1. The even kernel is now `K*` (no effect on any number).
-2. H4: a spinning Mellin/Barnes route for exact graviton moments at x ~ 1 (position space stops at x ≈ 0.15; low-J +− at k ≤ 4 is below float64 noise).
-3. H13′: Arb-certify near-gap positivity on intervals in `(m, J)`, plus a large-`b̂` envelope.
-4. H12′: one end-to-end parity-odd `⟨TTO⟩` point.
-5. One batched hostile review of the foundation (this file and its sources).
+1. **Fix the object (H0).** Construct the spinning `C`-type `Ĉ_k` (even `k`, `K*`), or keep `Ψ_k` and recompute its flat limit, certify it,
+   and recompute `k(0)`, `A`, `B_AdS` and contacts.
+2. **H12′.** One end-to-end parity-odd `+−`, odd-`J` `⟨TTO⟩` point.
+3. **H13′ for NF02.** Exact-skeleton scans at Δ_g = 300, 1000, `m ∈ [1.5, 10]Λ`, `b̂ ∈ [20, 200]`, plus a large-`b̂` envelope; extend the
+   certificate (continuity in `m`, quadrature error) — in progress.
+4. **H9b.** (P) for the even replacements (becomes analysable with step 1).
+5. **H2/H4 at `x ~ 1`.** The real near-gap content for gravitons.
 
 No unified manuscript is written: Claim D is not yet a theorem.

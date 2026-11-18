@@ -60,49 +60,64 @@ def In(n, kap, Fcache):
 from scipy.special import gammaln, roots_genlaguerre
 import numpy.polynomial.chebyshev as C
 YL, WL = roots_genlaguerre(80, 0.0)
+GX, GW = np.polynomial.legendre.leggauss(24)
 
 def Fgrid(k, nu, zmax=0.995, npts=400):
-    """log of 2F1(c,cbar;A;z)/Gamma(A) on Chebyshev nodes in z, from mpmath, for barycentric interpolation"""
+    """log of 2F1(c,cbar;A;z)/Gamma(A) on Chebyshev nodes in z.  Default: mpmath hyp2f1; if RF3_SERIES=1 (needed at Dg=1000, where
+    mpmath does not converge), the positive-term series sum_m |(c)_m|^2/((A)_m m!) z^m summed in log space (all terms > 0)."""
     a = 2*Df + k - 1; A = a - mp.mpf(0.5)
     c = (A + 1j*mp.mpf(nu))/2
     j = np.arange(npts); zc = 0.5*zmax*(1 - np.cos(np.pi*(j + 0.5)/npts))
-    lv = np.array([float(mp.log(mp.re(mp.hyp2f1(c, mp.conj(c), A, mp.mpf(z))))) for z in zc]) - float(mp.loggamma(A))
+    if os.environ.get('RF3_SERIES') == '1':
+        Af = float(A); nf = float(nu)
+        Mmax = int(40*(nf/(2*np.sqrt(1/zmax - 1)) + 50) + 2000)
+        mm = np.arange(Mmax, dtype=float)
+        lr = np.log(((Af/2 + mm)**2 + nf*nf/4)/((Af + mm)*(mm + 1)))
+        lg = np.concatenate([[0.0], np.cumsum(lr)[:-1]])
+        lv = []
+        for z in zc:
+            lt = lg + mm*np.log(z) if z > 0 else np.where(mm == 0, 0.0, -np.inf)
+            mx = lt.max(); lv.append(mx + np.log(np.sum(np.exp(lt - mx))))
+        lv = np.array(lv) - float(mp.loggamma(A))
+    else:
+        lv = np.array([float(mp.log(mp.re(mp.hyp2f1(c, mp.conj(c), A, mp.mpf(z), maxterms=10**7)))) for z in zc]) - float(mp.loggamma(A))
     cf = C.chebfit(2*zc/zmax - 1, lv, npts - 1)
     return lambda z: C.chebval(2*np.asarray(z)/zmax - 1, cf), zmax
 
-def Ck(k, nu, N=6000):
+def Ck(k, nu, n0=1500, nq=240):
+    """n-sum: direct for n < n0, then the smooth remainder as an integral (midpoint Euler-Maclaurin) on a mapped Gauss-Legendre grid"""
     kap = k//2
     lF, zmax = Fgrid(k, nu)
     tf = float(tau); Dff = float(Df); bb = float(b); Dl = float(Delta)
-    n = np.arange(N, dtype=float)
+    xg, wg = np.polynomial.legendre.leggauss(nq); ug = 0.5*(xg + 1); wu = 0.5*wg
+    npk = max(50.0, ((bb*bb) - (Dl - 0.5))/max(Dl + 0.5 - 2*bb, 0.5))   # location of the term maximum (ratio test)
+    Lsc = 3*npk + 200
+    nint = n0 - 0.5 + Lsc*ug/(1 - ug); wint = wu*Lsc/(1 - ug)**2
+    n = np.concatenate([np.arange(n0, dtype=float), nint]); w = np.concatenate([np.ones(n0), wint])
     lQ = 2*(gammaln(bb + n) - gammaln(bb)) - gammaln(n + 1) - (gammaln(Dl - 0.5 + n) - gammaln(Dl - 0.5))
-    # (-1)^kap/(Df - tau/2 - n)_kap : product of (Df - tau/2 - n + i), all negative for n large; sign handled explicitly
-    P = np.ones(N)
+    P = np.ones(len(n))
     for i in range(kap):
         P = P*(Dff - tf/2 - n + i)
     pre = (-1)**kap/P
     sn = tf/2 + n
     cn = 1/(2*Dff - tf - 2*n)
-    I = np.zeros(N)
-    for jn in range(N):
+    I = np.zeros(len(n))
+    for jn in range(len(n)):
         y = YL/sn[jn]
         t = np.exp(-y); z = 1 - t
         ok = z < zmax
-        Gk = y.copy()
-        for jj in range(1, kap):
-            Gk += float(mp.binomial(kap - 1, jj))*(-1)**jj*(1 - t**jj)/jj
-        phi = (cn[jn]*(1 - t)**(kap - 1) - Gk/2)/float(mp.gamma(kap))
+        # G_kap = int_0^y (1 - e^{-v})^{kap-1} dv, evaluated without cancellation (expm1 + 24-point Gauss); 1 - t = -expm1(-y)
+        Gk = 0.5*y*np.sum(GW[:, None]*(-np.expm1(-0.5*y*(GX[:, None] + 1)))**(kap - 1), axis=0)
+        omt = -np.expm1(-y)
+        phi = (cn[jn]*omt**(kap - 1) - Gk/2)/float(mp.gamma(kap))
         val = np.where(ok, phi*np.exp(np.where(ok, lF(np.minimum(z, zmax)), 0.0)), 0.0)
         I[jn] = np.sum(WL*val)/sn[jn]
     lt = lQ + np.log(np.abs(pre*I)); sg = np.sign(pre*I)
     mx = lt.max()
-    terms = sg*np.exp(lt - mx)
-    tot = terms.sum()
-    ns = np.arange(N//2, N)
-    p = -np.polyfit(np.log(ns), np.log(np.abs(terms[N//2:])), 1)[0]
-    tail = terms[-1]*(N - 1)**p/(p - 1)/(N - 0.5)**(p - 1)
+    terms = sg*np.exp(lt - mx)*w
+    tot = terms.sum(); tail = terms[n0:].sum()
     lscale = mx + (1 - 2*k)*np.log(2) + k*np.log(float(m2))
-    return mp.e**lscale*mp.mpf(tot), mp.e**lscale*mp.mpf(tail), p, tot
+    return mp.e**lscale*mp.mpf(tot - tail), mp.e**lscale*mp.mpf(tail), npk, tot
 
 t0 = time.time()
 res = {}
@@ -110,7 +125,7 @@ for k in (2, 4, 6):
     for i in idx:
         v, tail, p, _ = Ck(k, nus[i])
         res[(k, i)] = (v + tail, tail)
-        pr(f"  k={k} node {i:2d} nu={nus[i]:8.4f}: raw={mp.nstr(v+tail, 15)}  tail/total={float(tail/(v+tail)):.2e} (decay p={p:.2f})  [{time.time()-t0:.0f} s]")
+        pr(f"  k={k} node {i:2d} nu={nus[i]:8.4f}: raw={mp.nstr(v+tail, 15)}  tail/total={float(tail/(v+tail)):.2e} (term peak n~{p:.0f})  [{time.time()-t0:.0f} s]")
 norm = res[(2, idx[0])][0]/ex[2][idx[0]]
 pr("## comparison with exactskel cache after ONE global normalisation (k=2, first node)")
 for k in (2, 4, 6):
@@ -118,4 +133,4 @@ for k in (2, 4, 6):
         mine = res[(k, i)][0]/norm
         pr(f"  k={k} nu={nus[i]:8.4f} x={rec['x'][i]:.4f}: referee {float(mine):+.12e}  cache {ex[k][i]:+.12e}  rel.diff {float(mine/ex[k][i]-1):+.2e}"
            f"   (bulk-point E_k = {float((2-rec['x'][i]**2)/(1-rec['x'][i]**2)**(1+k/2)):.4e})")
-open(os.path.join(HERE, 'cache', 'rf3_%d_%g.txt' % (Dg, mfl)), 'w').write("\n".join(out) + "\n")
+open(os.path.join(HERE, 'cache', 'rf3_%d_%g%s.txt' % (Dg, mfl, '_series' if os.environ.get('RF3_SERIES') == '1' else '')), 'w').write("\n".join(out) + "\n")
