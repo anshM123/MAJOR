@@ -141,3 +141,107 @@ if __name__ == '__main__':
     for J in (2, 3, 4, 6):
         g = Qpoly_ycoeffs(D, J, [0, 5, 50.5])
         print("J", J, "parity check (odd coeffs for even J should vanish):", np.abs(g[:, (J + 1) % 2::2]).max(), " leading", g[:, J])
+
+
+@functools.lru_cache(None)
+def mack_P_fast(Delta, J):
+    """same polynomial as mack_P, organised to need O(J^2) polynomial products per r (delta13 = delta24, delta14 = delta23)."""
+    D = Fr(Delta)
+    h = Fr(3, 2)
+    hp = D; hm = 2*h - D
+    s1 = {(1, 0): Fr(-1, 2)}                       # delta13 = delta24
+    s2 = {(1, 0): Fr(1, 2), (0, 1): Fr(1, 2)}      # delta14 = delta23
+    a = 1 - (hp + J)/2; b = 1 - (hm + J)/2
+    den = _rf(hp - 1, J)*_rf(hm - 1, J)
+    pa = [_poch_poly(s1, k) for k in range(J + 1)]
+    pb = [_poch_poly(s2, k) for k in range(J + 1)]
+    fact = [factorial(i) for i in range(J + 1)]
+    ra = [_rf(a, i) for i in range(J + 1)]; rb = [_rf(b, i) for i in range(J + 1)]
+    pbb = {}
+    paa = {}
+    P = {}
+    for r in range(J//2 + 1):
+        aJr = Fr((-1)**r*factorial(J), 2**(2*r)*factorial(r)*factorial(J - 2*r))/_rf(h + J - 1 - r, r)
+        pre = aJr*Fr(2)**(J + 2*r)*factorial(J - 2*r)/den
+        l1 = {(0, 0): (hp - J)/2, (0, 1): Fr(-1, 2)}
+        l2 = {(0, 0): (hm - J)/2, (0, 1): Fr(-1, 2)}
+        pr = _mul(_poch_poly(l1, r), _poch_poly(l2, r))
+        K = J - 2*r; L = J - r
+        inner = {}
+        for k13 in range(K + 1):
+            for k24 in range(K + 1 - k13):
+                rest = K - k13 - k24
+                comb = {}
+                for k14 in range(rest + 1):
+                    k23 = rest - k14
+                    c = Fr((-1)**(k13 + k24), fact[k13]*fact[k14]*fact[k23]*fact[k24])
+                    c *= ra[L - (k13 + k14)]*ra[L - (k23 + k24)]*rb[L - (k13 + k23)]*rb[L - (k14 + k24)]
+                    if c == 0:
+                        continue
+                    key = (min(k14, k23), max(k14, k23))
+                    if key not in pbb:
+                        pbb[key] = _mul(pb[k14], pb[k23])
+                    comb = _add(comb, pbb[key], c)
+                if comb:
+                    key = (min(k13, k24), max(k13, k24))
+                    if key not in paa:
+                        paa[key] = _mul(pa[k13], pa[k24])
+                    inner = _add(inner, _mul(paa[key], comb))
+        P = _add(P, _mul(pr, inner), pre)
+    return P
+
+
+def _pow2cheb(g):
+    """mp list of monomial coefficients (variable z) -> Chebyshev coefficients (mp)."""
+    J = len(g) - 1
+    c = [mp.mpf(0)]*(J + 1)
+    zl = [mp.mpf(1)] + [mp.mpf(0)]*J
+    for l in range(J + 1):
+        if l > 0:
+            new = [mp.mpf(0)]*(J + 1)
+            for i, a in enumerate(zl[:l]):
+                if a == 0:
+                    continue
+                if i == 0:
+                    new[1] += a
+                else:
+                    new[i + 1] += a/2; new[i - 1] += a/2
+            zl = new
+        for i in range(l + 1):
+            c[i] += g[l]*zl[i]
+    return c
+
+
+def Qpoly_cheb(Delta, J, ns, dps=60, fast=True, Ttest=None):
+    """Stable representation for larger J: per n-node a scale R_n and Chebyshev coefficients c_i(n) with
+    Qpoly^n = sum_i c_i T_i(y/R_n),  y = T - tau/2 - n.  R_n is chosen among f (tau/2 + n), f in (0.25, 0.5, 1, 1.5), or 1,
+    minimising the condition number sum|c_i T_i| / |sum c_i T_i| on test points Ttest (complex T)."""
+    P = (mack_P_fast if fast else mack_P)(float(Delta), int(J))
+    tau = float(Delta) - J
+    if Ttest is None:
+        Ttest = np.array([tau - 1, tau - 1 + 60j, tau - 1 + 150j, 6.5 + 100j, 6.5 + 40j + 80, tau/2 + 20j])
+    Rs = np.zeros(len(ns)); C = np.zeros((len(ns), J + 1))
+    with mp.workdps(dps):
+        Pm = {k: mp.mpf(v.numerator)/v.denominator for k, v in P.items()}
+        for a, n in enumerate(ns):
+            nm = mp.mpf(n)
+            t = tau + 2*nm
+            c0 = mp.mpf(tau)/2 + nm
+            g = [mp.mpf(0)]*(J + 1)
+            for (i, j), pij in Pm.items():
+                base = pij*(-1)**i*t**j
+                for l in range(i + 1):
+                    g[l] += base*mp.binomial(i, l)*c0**(i - l)
+            g = [(-1)**J*x for x in g]
+            best = None
+            for R in [max(1.0, f*(tau/2 + float(n))) for f in (0.25, 0.5, 1.0, 1.5)] + [1.0]:
+                cz = _pow2cheb([g[l]*mp.mpf(R)**l for l in range(J + 1)])
+                cf = np.array([float(x) for x in cz])
+                z = (Ttest - tau/2 - float(n))/R
+                V = np.polynomial.chebyshev.chebvander(z, J)
+                vals = V @ cf
+                cond = np.max(np.abs(V) @ np.abs(cf)/np.maximum(np.abs(vals), 1e-300))
+                if best is None or cond < best[0]:
+                    best = (cond, R, cf)
+            Rs[a] = best[1]; C[a] = best[2]
+    return Rs, C

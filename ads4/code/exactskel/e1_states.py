@@ -9,6 +9,8 @@ Per state and k = 2..7 (odd k: analytic continuation in k):
    also the truncated-series rho, its error estimate and control flag (remk.py, same skeleton), for comparison.
 Forward:  R4 = -m^2 d_{nu^2}(m^8 C_4)|_0 - (2 m^2 W - 11/2),  R5 = m^10 C_{5,0} - 2 P_{-1/2}(cosh beta)  exact (nu -> 1e-4, h-step as remk).
 Usage: python3 e1_states.py Dg Df [MFLMAX] [JMAX]   -> cache/e1_<Dg>_Df<Df>.pkl (incremental)
+Optional env: E1_JLIST (comma list of J, overrides JMAX), E1_MMIN (lowest m/Lam), E1_MSET (comma list of m/Lam, overrides the grid),
+              E1_PKL (alternative cache file tag).
 """
 import os, sys, time, pickle
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
@@ -34,13 +36,20 @@ def Ek(k, x):
 
 def run():
     Lam = np.sqrt((Dg - 2.0)*(Dg - 1.0))
-    pk = os.path.join(HERE, 'cache', 'e1_%d_Df%g.pkl' % (Dg, DF))
+    tag = os.environ.get('E1_PKL', '')
+    pk = os.path.join(HERE, 'cache', 'e1_%d_Df%g%s.pkl' % (Dg, DF, tag))
     db = pickle.load(open(pk, 'rb')) if os.path.exists(pk) else {}
     W0 = Transforms({k: np.array([1.0]) for k in KS})
     Js = sorted(set(range(0, JMAX + 1, 2)) | set(range(4, JMAX + 1)))
+    if os.environ.get('E1_JLIST'):
+        Js = [int(a) for a in os.environ['E1_JLIST'].split(',')]
+    MMIN = float(os.environ.get('E1_MMIN', '0'))
+    grid = mfl_grid()
+    if os.environ.get('E1_MSET'):
+        grid = [float(a) for a in os.environ['E1_MSET'].split(',')]
     t0 = time.time()
-    for mfl in mfl_grid():
-        if mfl > MFLMAX + 1e-9:
+    for mfl in grid:
+        if mfl > MFLMAX + 1e-9 or mfl < MMIN - 1e-9:
             continue
         for J in Js:
             key = (round(float(mfl), 6), J)

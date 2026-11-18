@@ -42,7 +42,7 @@ def log_aDf(Df):
 class BlockMellin:
     """Bhat_{k,T} of one block (Delta, J) for identical scalars Df: n-nodes, Mack coefficients, log-weights."""
 
-    def __init__(self, Delta, J, Df, N0=400, nq=240, L=None):
+    def __init__(self, Delta, J, Df, N0=400, nq=240, L=None, cheb=None):
         self.Delta, self.J, self.Df = float(Delta), int(J), float(Df)
         tau = self.Delta - J
         self.tau = tau
@@ -59,7 +59,11 @@ class BlockMellin:
         wst = np.array([1.0, -8.0, 8.0, -1.0])/12.0/24.0      # + f'(N0-1/2)/24 (midpoint Euler-Maclaurin)
         self.ns = np.concatenate([nd, nint, st])
         self.wn = np.concatenate([np.ones(N0), wint, wst])
-        self.G = mack.Qpoly_ycoeffs(self.Delta, J, self.ns)          # [nn, J+1]
+        self.cheb = (J > 10) if cheb is None else cheb
+        if self.cheb:
+            self.R, self.C = mack.Qpoly_cheb(self.Delta, J, self.ns)   # stable Chebyshev form (J > 10)
+        else:
+            self.G = mack.Qpoly_ycoeffs(self.Delta, J, self.ns)          # [nn, J+1]
         D = self.Delta
         n = self.ns
         # log K_n without the Gamma(tau/2+n-Df+1)^2 (combined with the k-dependent ratio below)
@@ -67,6 +71,19 @@ class BlockMellin:
                       - gammaln(n + 1) - (gammaln(D - 0.5 + n) - gammaln(D - 0.5)) - 4*gammaln((D + J)/2))
         self.g1 = gammaln(tau/2 + n - Df + 1)
         self.c2 = 1.0/(2*Df - tau - 2*n)
+
+    def Qeval(self, y):
+        """Qpoly^n at y (array [nT, nn]): Horner (monomial, J <= 10) or Clenshaw (Chebyshev, scale R_n)."""
+        if not self.cheb:
+            Q = np.zeros(y.shape, dtype=complex) + self.G[None, :, -1]
+            for i in range(self.J - 1, -1, -1):
+                Q = Q*y + self.G[None, :, i]
+            return Q
+        z = y/self.R[None, :]
+        b1 = np.zeros(y.shape, dtype=complex); b2 = np.zeros(y.shape, dtype=complex)
+        for i in range(self.J, 0, -1):
+            b1, b2 = self.C[None, :, i] + 2*z*b1 - b2, b1
+        return self.C[None, :, 0] + z*b1 - b2
 
     def logw(self, k):
         """log of  K_n * Gamma(tau/2+n-Df+1-k/2)/Gamma(tau/2+n-Df+1)  (the (-1)^{k/2}/(..)_{k/2} factor), times 1/2 (heavy density)."""
@@ -85,9 +102,7 @@ class BlockMellin:
             Tc = T.flat[i0:i0 + chunk][:, None]
             y = Tc - tau/2 - self.ns[None, :]
             # Horner for Qpoly in y
-            Q = np.zeros(y.shape, dtype=complex) + self.G[None, :, -1]
-            for i in range(self.J - 1, -1, -1):
-                Q = Q*y + self.G[None, :, i]
+            Q = self.Qeval(y)
             z = (tau - Tc)/2 + self.ns[None, :]
             if k % 2 == 0:
                 poch = np.ones(z.shape, dtype=complex)
@@ -114,9 +129,7 @@ class BlockMellin:
         for i0 in range(0, T.size, chunk):
             Tc = T[i0:i0 + chunk][:, None]
             y = Tc - tau/2 - self.ns[None, :]
-            Q = np.zeros(y.shape, dtype=complex) + self.G[None, :, -1]
-            for i in range(self.J - 1, -1, -1):
-                Q = Q*y + self.G[None, :, i]
+            Q = self.Qeval(y)
             z = (tau - Tc)/2 + self.ns[None, :]
             br = self.c2[None, :] + 1.0/(Tc - tau - 2*self.ns[None, :])
             base = Q*br
