@@ -1721,3 +1721,48 @@ legitimate given (a)–(c), but it is part of the definition of `Ω^{A′}` and 
   * A decision needs a non-perturbative evaluation at those few states: direct numerical integration of the 7-dimensional CLS-D integrand
     on the steepest-descent contour, or exact spinning Mellin data. Alternatively, the honest scope of Result D at `Δ_g = 100` is the
     `J ≤ 4` sector.
+
+**Combined `Ĉ₂ + Ĉ₃` per-state `2×2`** (`o_H`, `K₂`, de-shifted, rows `Δ = 100 / 400 / 1600` for both functionals;
+`cache/l9_neargap_C23H_K2_100_300_1000.txt`). With both corrected, the per-state normalisation is a congruence (§23.2).
+
+| `Δ_g` | `n` | min `λ/N_s` (binding) | `t*` | `J = 10` max `|ΔF_hh|/N_s`, `|ΔF_+−|/√(NN)` |
+|---|---|---|---|---|
+| 1000 | **1** | 0.2021 (`+−`, `J = 5`, uncovered) | (−37.0, +38.9) | 0.006, 0.020 |
+| 300 | **1** | 0.2054 (`+−`, `J = 5`, uncovered) | (−5.1, +5.0) | 0.041, 0.184 |
+| 100 | 1 (not controlled) | 0.1855 (`J = 4`, `m/Λ = 1.04`) | (−0.6, +1.6) | 1.18, 0.64 |
+
+### 23.6 Regraded table (supersedes §22.5 where they differ)
+
+| statement | grade |
+|---|---|
+| `K₃` engine (Hermite-exact Gaussian moments, `ε⁶`) | [DV] (self-tests to `10⁻¹⁶`) |
+| scalar crystal Laplace series at `m ≈ 100`, `J ≤ 10`, `x ∈ [0.3, 0.7]`: converges in linear form (`K₃` error ≤ 61 c₂ units); log form does not | [NE] (exact skeleton, 161 points) |
+| doc-22 `Δ = 100` blow-ups and the `−2.70` at `J = 10` | artefacts (log form; `x → 0` extrapolation through zeros of `P_J`); **withdrawn** |
+| crystal = CLS-D `Ψ_ν`; base model and light side = CHMRS `C_ν`; they differ by the magic-block shift, up to `1.8 / 0.27 / 0.03 N_s` at `J = 10` | [NE] (scalar: de-shift validated at `m ≥ 800`); **§R must fix which functional `Ω^{A′}` is** |
+| graviton uses the scalar `g(ν)` in the de-shift | [I] |
+| `Ĉ₃` integrand (`o_H`, `o_V`); LO: diagonal in the `Ĉ₂` helicity basis, `σ_h` pattern, relative `u m²`, common per-state constants | [NE] |
+| `o_H` vs `o_V` at `O(1/m²)` | [ND] (design freedom; `o_H` adopted) |
+| `Re` prescription | [D] given (a) real OPE basis, (b) ν-only `N̂` with a fixed phase convention, (c) the light side in the same convention and the same (CLS-D or CHMRS) functional (§23.5) |
+| `n = 1` at `Δ_g = 1000` / `300`, `Ĉ₂ + Ĉ₃` corrected (even `J ≤ 10`), `t* ≈ ±37` / `±5` | [NE + M] (`K₂`, CHMRS-type functional) |
+| `n` at `Δ_g = 100` | **open**: graviton series at `J = 10`, `m ≈ 98` moves by `≈ 250–720` c₂ units from `K₂` to `K₃`; normalisation and `x < 0.3` (`ν ≲ 30`) are outside the expansion. No computed number breaks `n = 1`. `J ≤ 4` fine (§22.4) |
+| odd `J` / parity-odd sector (binding `+−`, `J = 5`) | [ND]; handed to a separate agent |
+| **H4 for route A′** | **[I]**. Evidence at `Δ_g ≥ 300` strengthened (`Ĉ₂ + Ĉ₃`). `Δ_g = 100` undecided by the crystal method |
+
+### 23.7 Hand-over
+
+1. **Running at hand-over** (2 cores, nohup, resumable):
+   * `l9_run.py C2 10 8 6` at `K₃`, `Δ = 100` (`J = 8` refs, then `J = 6`; log `cache/l9_run_C2_a.log`);
+   * `l9_run.py C3H` at `K₂`, rows `Δ = 200, 800, 3200` (log `cache/l9_run_c3k2.log`).
+   * When done, run K₂-vs-K₃ comparisons via `l9_analysis.grid(J, 3, kinds, Ds=[100.0])`, and `l9_neargap.py C23H_K2` (and `C2_K3`).
+2. **Deciding `Δ_g = 100` needs a non-perturbative evaluation at a few states** (`J = 6, 8, 10`, `m/Λ = 1.0–1.3`; the series is not
+   controlled there).
+   * Recommended: direct numerical integration of the 7-variable CLS-D integrand on the real `ξ`-contour `z = z* + Lξ` (`l1_crystal`'s
+     `L`). Use `l6`/`l9_points.build_spin` evaluated pointwise rather than as TPS, with the steepest-descent Gaussian as importance
+     weight (QMC, about `10⁵–10⁶` points per `(state, ν)`).
+   * Validate it first on the scalar against e1 at the same `(m, J)`, including `x < 0.3`.
+   * Both `Ĉ₂` and `Ĉ₃` are needed (so that the normalisation is a congruence), and the CHMRS de-shift at the same `ν`.
+3. **Fix the functional (§R).** Decide CLS-D vs CHMRS-type (§23.2) and state the `Re` convention (§23.5). If CLS-D is kept, the base model
+   (exact skeleton `ρ_k`) and the light side (§15) must be re-derived through the shift relation.
+4. `o_V` vs `o_H` at `O(1/m²)` (kind `C3V` in `l9_points`).
+5. Files: `l1_tps.py` (env `L1_DEG`, default unchanged), `l9_tps.py`, `l9_scalar_k3.py`, `l9_points.py` (kinds `C2`/`C3H`/`C3V`, `K₂`/`K₃`),
+   `l9_run.py`, `l9_analysis.py` (`L9_DESHIFT`, `L9_NUFIT`), `l9_neargap.py`. Caches: `cache/l9_*`. Added to `run_all.sh`.

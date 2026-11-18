@@ -90,6 +90,16 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   certified spot check; 1000 not attempted. Certified large-b̂ window now b̂ ∈ [91.2, 2Λ] at all three Δ_g. Continuity in m, m < 1.01Λ
 >   not certified.
 >
+> * **Update (M6 round 5, §23):** with Ĉ₂ and Ĉ₃ (o_H structure) both corrected, even J ≤ 10, both helicities, per-state 2×2: **n = 1 at
+>   Δ_g = 300 and 1000** (min λ/N_s 0.2054 / 0.2021; correction may be scaled by ±5 / ±37) [NE + M]. **Δ_g = 100 undecided**: the §22
+>   negative J = 10 value and blow-ups were artefacts of the log form (withdrawn); in linear form K₃ converges for the scalar, but the
+>   graviton series is not converged at m ≈ 100 (K₂→K₃ shifts ≈ 250–720 c₂ units vs tolerance 630), and x < 0.3 is outside the expansion.
+>   No computed number breaks n = 1; deciding it needs a non-perturbative evaluation (J = 6, 8, 10; m/Λ = 1.0–1.3). **Definitional issue:**
+>   the crystal computes the CLS-D functional Ψ_ν, while the base model and light side use CHMRS's C_ν (related by
+>   Ψ ∝ g(ν)C(ν+i) + g(−ν)C(ν−i)); their ψ-integrated gap at J = 10 is up to 1.8 / 0.27 / 0.033 N_s at Δ_g = 100/300/1000 — §R must fix
+>   which one Ω^{A′} is. Re-prescription judged legitimate [D] under three conditions (real OPE data in that basis — for the parity-odd
+>   sector "Re" may become "Im" in mixed entries; ν-only N̂ with fixed phase; same phase and functional on the light side).
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
