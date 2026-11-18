@@ -74,6 +74,15 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   helicity mixing whose second-order effect is pointwise 5–691 in c₂ units on x ∈ [0.3, 0.7] — comparable to the Δ_g = 100 tolerance 630;
 >   its integrated effect per state is not computed. H4 stays **[I]**.
 >
+> * **Update (M6 round 4, §22):** fit instability fixed (cumulant form; ν-only factors removed exactly by a heavy reference state, which is
+>   §R.3's N̂₂). Remaining O(1/m) term, incl. the whole §21 helicity mixing, is imaginary; **prescription Ĉ₂ := Re[Ĉ^{CLS}₂/N̂₂]** (real and
+>   imaginary parts are separately valid sum rules for real OPE data; mechanism [I]) — **load-bearing, flagged for review**: treating the
+>   imaginary mixing as real breaks n = 1 at Δ_g = 300 and 100. Graviton-specific asymptotic corrections on x ∈ [0.3, 0.7] ≤ 470 (J ≤ 8),
+>   ≤ 660 (J = 10). Per-state min eigenvalue of the ψ-integrated 2×2 (Ĉ₂ only, even J ≤ 10) [NE + M]: **n = 1 at Δ_g = 1000 and 300**
+>   (min λ/N_s unchanged 0.2021 / 0.2054; correction may be scaled by (−14.6, +335) / ≈(−2.7, +4.6) before failing). **Δ_g = 100 undecided:**
+>   n = 1 for J ≤ 4 (min 0.2256/0.2200), 0.103 for J ≤ 8, but J = 10 at m = 1.1Λ gives −2.7 (n = 1.5) — from extrapolating a Δ ≥ 400 fit to
+>   m ≈ 105, a risk signal, not a computed failure. Not done: Ĉ₃, parity-odd sector (binding state +−, J = 5), J > 10. H4 stays [I].
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,

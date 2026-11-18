@@ -1406,3 +1406,176 @@ minimum eigenvalue of the `ψ`-integrated `2×2` `F`, not per helicity.
    `f = −1`. LO check as in §21.6. Then the `k`-pattern difference `δc₂^{(3)} − δc₂^{(2)}`, where the ν-only factor does **not** cancel
    automatically (dual normalisations differ).
 4. Odd `J` / parity-odd `⟨TT𝒪⟩` (binding state). An ε-structure null space in `l4`, compared with `fourpt/tttt/odd3.py` at matched points.
+
+## 22. M6 round 4: the `Ĉ₂` normalisation and phase fixed, the `O(1/m)` mixing explained, and the `2×2` near-gap test (`l8_*.py`) — `Δ_g ≥ 300` done for `Ĉ₂`; `Δ_g = 100` open
+
+*Written 18 Nov 2026 by the numerics agent continuing M6 after §21.9. Unrefereed, not committed. Updated incrementally; §22.6 is the hand-over.*
+
+### 22.1 Diagnosis: why the §21.4 fits were unstable [NE, `l8_analysis.py`, `l8_points.py`]
+
+* **The ν-only factor sits inside the Laplace terms, not in the prefactor.** In the real saddle helicity basis (below), the
+  graviton diagonal elements have `m·K₁ ≈ 20 + 22i/x` for both helicities and every `Δ` (`J = 4`: `m·Im K₁ = 217i` at `x = 0.1` for
+  `Δ = 100…3200`), and `m²K₂ ≈ −(22/x)²/2`, i.e. the Laplace series is expanding an exponential `exp(22i/ν + 82/ν² + …)`.
+  * `l7` summed `S0 + S2 + S4` and then took the log. At `ν = 30` the dropped `(22/ν)³/6` is `≈ 6 %`, i.e. `≈ 600` in `c₂` units at
+    `m = 100` and different at every `(x, m)`. This, and the normalisation at `x_ref = 0.05` (`ν = 5`), produced the `10³`-level fit
+    instability and the "`O(70 %)`" `K₂`.
+  * **Fix 1 (cumulant form):** `log E[p e^A] = log p₀ + (p₂+p₄)/p₀ − ½(p₂/p₀)² + O(ε⁶)`, applied to each helicity-projected element.
+    `l8_points` stores the orders separately.
+* **Fix 2: exact removal of every ν-only factor.** `D_h(ν; Δ) := L_h(ν; Δ) − L_h(ν; Δ_ref)`, with `L_h = log(M̃_hh/(Y_scal W_h))`
+  (graviton helicity element ÷ validated scalar crystal action ÷ the §21.3 LO shape) and a heavy reference state `Δ_ref = 2·10⁴` at
+  the **same `ν`**.
+  * This is literally §R.3's definition of `N̂₂(ν)` (the `m → ∞` limit at fixed `ν`), including the Laplace-truncation of the ν-only
+    factor, which cancels. No analytic dual normalisation is needed: any `J = 3` vs `J = −1` dual/celestial Γ-factor is ν-only and
+    drops out identically.
+  * For the record: the scalar-type ratio `[Γ((Δ+J)/2)²/Γ(Δ+J−2)]_{J=3}/[…]_{J=−1}` at `Δ = 3/2+iν` gives `exp(−6i/ν + …)`, not the
+    fitted `exp(22i/ν + 82/ν²)`. So the spin-3 dual normalisation is not the scalar formula at `J = 3`; CLS-D give the spinning dual
+    coefficients `α^{(a)}_{(b)}(ν)` only at large `ν` (their app. on dual structures). Not needed here.
+  * Checks: (i) reference independence: `Δ_ref = 2·10⁴` vs `4·10⁴` differ by a per-state constant to `≤ 3·10⁻⁶` (`J = 4`, all `x`);
+    (ii) the ν-only factor is **helicity-independent**: `L₊₋ − L₊₊` at the reference is constant in `ν = 20…2200` to `3·10⁻⁸`, with
+    relative phase `0` to `2·10⁻⁶π`. So `C₊₊C₊₋ > 0`: no relative sign or phase between the helicity channels.
+* **Reality of the ingredients [NE].** The shadow matrix `β` is real (`1.5·10⁻⁶ / 2.9·10⁻⁸` at `Δ = 400 / 1600`). The saddle helicity
+  vectors (order-0 rank-1 decomposition, §21.3) are real up to `7·10⁻⁶ / 1.3·10⁻⁸` at `Δ = 400 / 3200` (`∝ Δ⁻²`). So the basis
+  `T₀(Δ)` used below is real, and it is common to `Ĉ₂` and `Ĉ₃` (same saddle, same `⟨TT𝒪⟩` structures; only the dual and `f` differ).
+
+### 22.2 The imaginary `1/m` term and the `O(1/m)` mixing: a genuine imaginary part of `Ψ_ν[q²]`, removed by `Re` [D for the prescription; NE for the numbers; I for the mechanism]
+
+* **What survives Fix 1–2.** After the exact ν-only removal, the action is real up to a clean `i e₁ⁱ(x)/m`:
+  * diagonal: `m·Im D₊₊ ∈ [−2.3, 0]`, `m·Im D₊₋ ∈ [0, +2.3]` on `x = 0.05…0.8` (`J = 4, 6`), identical for `Δ = 400…6400`;
+  * **off-diagonal: the whole `O(1/m)` helicity mixing of §21.4 is imaginary** relative to the (real) diagonal. In pipeline units
+    (`(2−y)·offp/m`, see §22.3), `m·Im` is `−0.3, −0.9, −2.1, −4.2, −7.2, −11.5, −17.1` at `x = 0.2…0.8` (`J = 4`), identical for
+    `Δ = 400…6400`; the real part falls like `1/m²` (`m·Re = −0.7, −0.3, −0.2, −0.1` at `x = 0.8`, `Δ = 400…3200`; but `+4.7` at `Δ = 100`). Same for
+    `J = 6…10`; the real part at `Δ = 100` is up to `m·|Re| ≈ 50` (`J = 6`), see §22.3. The §21.4 "`c₂`-equivalent up to 691" is `m²|κ|²` of this imaginary element (e.g. `J = 4`, `x = 0.7`: `18.8² = 353`, as there).
+* **Prescription [D].** OPE coefficients are real in the real structure basis, so `Σλ_aλ_b M_ab(ν) + (light) = 0` holds for the real and
+  imaginary parts separately: both are valid sum rules. Define `Ĉ₂ := Re[Ĉ^{CLS}_2/N̂₂(ν)]` (amendment to §R.3). Unchanged by this:
+  the crystal image and flat limit (the leading action is real), the light side (`−Ĉ₂|_E = 16πG/(ν²+9/4)` is real), the double zeros
+  on `[TT]`, convergence. Under `Re` the imaginary diagonal term enters as `−(e₁ⁱ)²/2 ≥ −3` (`c₂` units) and the imaginary mixing drops
+  out entirely.
+* **Mechanism [I].** `q²` is a fixed (ν-independent) combination of continuous-spin structures. Complex conjugation maps `Ψ_ν` to the
+  functional at `−ν`, and the shadow relation brings it back only if the structure is a shadow eigenvector. For a single scalar dual
+  (`J = −1`) it is; for `q²` it need not be, and the mismatch is an `O(1/ν)` admixture of another (also valid) functional. This
+  explains an `i·O(1/m)` term that vanishes at the crystal. Not derived.
+* **Consequence for §21.4/§21.8.** The "`O(1/m)` helicity mixing of tolerance size" is withdrawn as a positivity risk: it is the
+  imaginary part. The real off-diagonal is `O(1/m²)`, its second-order effect `O(1/m⁴)`.
+
+### 22.3 `δc₂^{spin}(x, J, h)` extracted (`l8_refscan.py`, `l8_dc2.py`; `cache/l8_dc2_J*.txt`, `cache/l8_summary.txt`) [NE]
+
+**Grid.** `J = 0, 2, …, 12`; `Δ = 100, 200, 400, 800, 1600, 3200, 6400`; `x = 0.05, 0.1, 0.2, …, 0.8`; reference `Δ_ref = 2·10⁴` at
+every `ν = x·m(Δ)`. About 10 s per point, one core.
+
+**Definitions** (all relative to the Regge point `x → 0` of the same state; that per-state constant is a convention for `Ĉ₂` alone, and
+fixed only jointly with `Ĉ₃`, i.e. it is the "`k`" pattern of §19.3):
+* `++`: `δc₂^{spin,++}(x) = m²[Re D₊₊(x) − Re D₊₊(0)]` (graviton ÷ scalar, so the exact scalar remainder that the pipeline already
+  contains is divided out).
+* `+−`: the pipeline models the `+−` remainder by transplanting the absolute scalar remainder `ρ₂` onto `d^J₄₄` (§19, `h2`: `fac`).
+  The graviton's own `+−` relative correction is `E₋(x) = m²[Re D₊₋(x) − Re D₊₋(0)] + s(x)`, with `s` the scalar crystal's relative
+  correction (`= m²ρ₂/P_J`, poles at zeros of `P_J`, which cancel in `E₋`). So `δc₂^{spin,+−} = E₋ − m²[ρ₂/d^J₄₄ − ρ₂(0)]`.
+* `x → 0` constants: from the absolute form `w·v = c·w + b x² + d x⁴` on `x = 0.05, 0.1, 0.2` (`w` = LO shape), which is regular
+  through zeros of `P_J`, `d^J₄₄`.
+
+**Stability (the §21.9 item-1 criterion).** At fixed `x`, `m²·Re D` is now `Δ`-independent up to a `1/m` drift on `Δ = 400…6400`,
+e.g. `J = 4`, `+−`, `x = 0.3`: `1946, 1937, 1932, 1930` at `Δ = 400, 800, 1600, 3200` (§21.4 had `±2·10³` jumps). `Δ = 6400` is noisier
+(`≈ 10⁻⁵` relative in the basis/shadow fit, amplified by `m²`) and is not used in fits. The scalar crystal `s(x)` converges the same
+way (`J = 4`, `x = 0.5`: `−213, −204, −198, −195, −194, −194`).
+
+**Numbers: asymptotic absolute corrections** (`a₀ + a₁/m` fitted on `Δ = 400…3200`; `A₊ = P_J δc₂^{++}`, `A₋ = d^J₄₄ E₋`, i.e. `c₂` units
+times the LO shape normalised to 1 at `x = 0`; max over `x ∈ [0.3, 0.7]`). The absolute forms are the exact (not linearised) differences
+`A₊ = P_J(m²+s)(e^{δc₂^{++}/m²}−1)` and `A₋ = d^J₄₄[(m²+s)e^{m²ΔD₊₋/m²}−m²]`, which stay regular through zeros. Grid points with
+`|P_J| < 0.05` (or `|d^J₄₄| < 0.02` for `+−`) are excluded, because the log form loses the sign of the scalar remainder exactly at a zero
+(`J = 10`, `x = 0.4`: `P₁₀ = 0.002`):
+
+| `J` | `A₊` asympt. | `A₊` at `m ≈ 100` (direct) | `A₋` asympt. | `A₋` at `m ≈ 100` | real mixing `m·|Re|` (pipeline units): `Δ = 100 / 400 / 3200` | imaginary mixing `m·|Im|` |
+|---|---|---|---|---|---|---|
+| 0 | 275 | 256 | — | — | — | — |
+| 2 | 131 | 184 | — | — | — | — |
+| 4 | 86 | 321 | 3 | 70 | 4.7 / 0.7 / 0.1 | 17.1 |
+| 6 | 85 | 783 | 375 | 191 | 49.7 / 4.8 / 0.6 | 7.7 |
+| 8 | 112 | 1752 | 467 | 2.2·10⁴ | 7.8 / 2.8 / 0.4 | 6.5 |
+| 10 | 47 | 5.0·10³ | 660 | 2.6·10³ | 15.5 / 4.2 / 0.9 | 9.4 |
+| 12 | unusable | | | | | |
+
+* Relative values `δc₂ = A/shape` are larger near zeros of `P_J` and `d^J₄₄` (e.g. `J = 4`, `++`: `+777` at `x = 0.6`, `−3130` at `x = 0.8`);
+  there the absolute correction is what enters `F`.
+* The `J = 10` asymptotic fit (`Δ = 400…3200`) has residuals `≈ 1.2·10³`: `Δ = 400` is not yet asymptotic at `J = 10`.
+* **`m ≈ 100` is outside the controlled regime for `J ≥ 6`.** The direct crystal values at `Δ = 100` differ from the asymptotic form by
+  up to `1.5·10³`, and their `x → 0` constant uses `ν ≤ 20`. `J = 12` is not usable below `Δ ≈ 400` (`J²/m ≳ 1`, the per-state
+  constant jumps by `10⁴–10⁵`). This is a limit of the Laplace expansion at `J²/m = O(1)`, not a normalisation problem.
+* For `+−` the graviton's own correction `E₋` is small for `J = 4` (`≤ 20` asymptotically): the transplanted scalar remainder of the
+  pipeline is the larger effect, and `δc₂^{spin,+−}` mostly removes it.
+* `J = 0, 2` (`1×1`): `δc₂^{++}` grows towards large `x` (`J = 0`: `6, 16, 33, 64, 125, 274, 792` at `x = 0.2…0.8`), with the same sign
+  for `Ĉ₂` at all `x`.
+
+### 22.4 Step 3: the `ψ`-integrated `2×2` per state and `n` (`l8_neargap.py`; `cache/l8_neargap_{100,300,1000}*.txt`) [NE + M]
+
+**What is computed.** Per state (`m/Λ`, `J`, `Δ_f`) of the exact-skeleton set (`load_states`):
+* `F = diag(base₊₊, base₊₋) + ΔF`, where `base` is the `m2`/`h2` per-helicity action without inversion (the inversion shifts it by
+  `≤ 3·10⁻³ N_s`, §13).
+* `ΔF_hh = Σ_nodes ψ₂w (2−y)·[A₊ or A₋/(1−y)⁴ − (transplanted model remainder)]/m²`, and
+  `ΔF₊₋ = Σ ψ₂w (2−y)·Re(off)/m`.
+* `λ_min` of `N^{−1/2}FN^{−1/2}`, `N = diag(N_s)`. `n` as in `h2`.
+* `t*` is the scale factor on the whole computed correction `ΔF` at which `n = 1` first fails, for each sign.
+* Two models for the `m`-dependence: `asym` (`a₀ + a₁/m`, fitted on `Δ = 400…3200`) and `direct` (the crystal values interpolated in
+  `1/m` through `Δ = 100…3200`). `absmix` is `asym` with `|Re + i Im|` of the off-diagonal, i.e. what §21.4 implied.
+* Coverage: even `J ≤ 10` (both helicities; `1×1` for `J = 0, 2`). Odd `J` (the parity-odd sector, incl. the binding `+−`, `J = 5`) and
+  `J > 10` are left unchanged. `Ĉ₃` is not corrected. `x > 0.8` carries `2.4·10⁻³` of the `ψ₂` weight and is held at `x = 0.8`.
+
+| `Δ_g` | coverage | `n` (`asym` / `direct`) | min `λ/N_s` (`asym` / `direct`); uncorrected | `t*` (`asym`) | `t*` (`direct`) | `absmix`: `n`, `t*` |
+|---|---|---|---|---|---|---|
+| 1000 | `J ≤ 10` even | **1 / 1** | 0.2021 / 0.2021 (binding: `+−`, `J = 5`, uncovered); 0.2021 | (−14.6, +335) | (−13.7, +290) | 1, (−1.3, +1.5) |
+| 300 | `J ≤ 10` even | **1 / 1** | 0.2054 / 0.2054 (`J = 5`); 0.2054 | (−2.7, +4.6) | (−4.4, +6.7) | 1.27 (fails) |
+| 100 | `J ≤ 4` | **1 / 1** | 0.2256 / 0.2200 (`J = 4`, `m/Λ = 1.04`); 0.2256 | (−12.7, +16.7) | (−12.6, +8.1) | 1, (−5.6, +6.2) |
+| 100 | `J ≤ 8` | 1 / — | 0.103 (`J = 8`, `m/Λ = 1.08`) / overflow | (−0.5, +1.2) | — | 1.21 (fails) |
+| 100 | `J ≤ 10` | **1.5** / — | −2.70 (`J = 10`, `m/Λ = 1.1`) / overflow | (−0.5, +0.2) | — | 1.6 (fails) |
+
+**Reading.**
+* **`Δ_g = 1000, 300`: `n = 1` survives the computed `Ĉ₂` correction (even `J ≤ 10`), with margin factors `t* ≳ 14` and `≳ 3`.**
+  The binding state stays `+−`, `J = 5`. Both `m`-models agree.
+  * The margin at 300 is set by `J = 10`, whose fits are the least asymptotic (§22.3). Treat `t* ≈ 3` as a lower bound on the
+    robustness, not a precise number.
+* **`Δ_g = 100`: not decided.**
+  * For `J ≤ 4`, where the expansion is controlled at `m ≈ 100`, `n = 1` with `t* ≥ 8`.
+  * For `J = 6…10` at `m/Λ ≈ 1.05–1.1` (`m ≈ 105`, `J²/m ≈ 0.3–0.95`), the crystal expansion is not controlled. The `direct` values
+    overflow (`(m²+s)e^{δ/m²}` with `δ ~ 10⁶` at `J = 6`). The `asym` extrapolation from `Δ ≥ 400` breaks `n = 1` at `J = 10`
+    (`λ_min/N_s = −2.7`) and leaves no margin at `J = 8`.
+  * This is a real risk signal, but it is not a computed failure: the `asym` form is used far outside its fit range. A controlled
+    statement at `m ≈ 100`, `J ≥ 6` needs either `K₃` (`l1_tps.DEG = 8`) or exact spinning data.
+* **The imaginary mixing would have mattered.** Treating it as real (`absmix`) breaks `n = 1` at `Δ_g = 300` and `100`. The `Re`
+  prescription of §22.2 is therefore load-bearing. It is [D] as a statement about valid sum rules, but it changes the definition of
+  `Ω^{A′}` (§R.3), which the referee should check.
+* **In `c₂` language.** The asymptotic graviton-specific absolute corrections on `x ∈ [0.3, 0.7]` are `≤ 470` (`J ≤ 8`) and `≤ 660`
+  (`J = 10`, `+−`), against the §19.3 tolerance `630 / 3.4·10³ / 2.7·10⁴`. They are comparable to the tolerance at `Δ_g = 100` and far
+  inside it at `300` and `1000`, consistent with the `t*` above. The uniform-`c` tolerance is not the right comparison pointwise;
+  the `2×2` `n`-test is.
+
+### 22.5 Regraded table (supersedes §21.8 where they differ)
+
+| statement | grade |
+|---|---|
+| ν-only normalisation `N̂₂(ν)` removed exactly by a heavy reference state at the same `ν` (`= §R.3` definition); reference-independent to `3·10⁻⁶`; helicity-independent to `3·10⁻⁸` | [D] (definition) + [NE] |
+| §21.4 instability caused by truncating an exponentiated ν-only factor `e^{22i/ν+82/ν²}` (cumulant form fixes it) | [NE] |
+| `β`, saddle helicity vectors real; `C₊₊C₊₋ > 0` | [NE] |
+| residual imaginary part `i e₁ⁱ(x)/m` (diagonal `|e₁ⁱ| ≤ 2.3`; off-diagonal = the whole `O(1/m)` mixing of §21.4); real off-diagonal `O(1/m²)` | [NE] (`Δ = 400…6400`, `J = 4…10`) |
+| `Ĉ₂ := Re[Ĉ^{CLS}₂/N̂₂]` is a valid sum rule with the same image, flat limit and light side | [D] (amends §R.3) |
+| mechanism of the imaginary part (`q²` not a shadow eigenstructure) | [I] |
+| `δc₂^{spin}(x, J, h)`, `J = 0…10`, stable `1/m²` extraction on `Δ = 400…3200`; asymptotic absolute size `≤ 470` (`J ≤ 8`), `≤ 660` (`J = 10`) on `x ∈ [0.3, 0.7]` | [NE] |
+| same at `m ≈ 100` for `J ≥ 6`; `J = 12` below `Δ ≈ 400` | not controlled (Laplace series at `J²/m = O(1)`) |
+| `n = 1` with the `Ĉ₂` correction (`2×2`, `Re` mixing) at `Δ_g = 1000` (`t* ≳ 14`) and `300` (`t* ≳ 3`), even `J ≤ 10` | [NE + M] |
+| `n = 1` at `Δ_g = 100` | **open**: holds for `J ≤ 4` (`t* ≥ 8`); `J = 6–10` outside the controlled regime, and the extrapolation fails at `J = 10` |
+| `Ĉ₃` correction, parity-odd sector (binding `+−`, `J = 5`), `J > 10`, the `k`-relative per-state constant | [ND] |
+| **H4 for route A′** | **[I]**. Upgraded evidence at `Δ_g ≥ 300` (`Ĉ₂`, even `J ≤ 10`). New concrete risk at `Δ_g = 100`, `J ≥ 6`, `m ≈ Λ`. |
+
+### 22.6 Hand-over (next steps, in order)
+
+1. **`Δ_g = 100`, `J = 6…10`, `m ≈ 100–130`.** Either:
+   * add `K₃`: `l1_tps.DEG = 8` (memory `N = 3432`), and `expand_pref` to `ε⁶`; then redo `l8_points` at `Δ = 100…400` only (the
+     cumulant gains `p₆/p₀ − p₂p₄/p₀² + p₂³/(3p₀³)`); or
+   * test the series at `Δ = 100` against an independent evaluation (exact spinning data are not available).
+   Until then, `Δ_g = 100` is open.
+2. **`Ĉ₃`** (§21.9 item 3). Copy `l6.build_spin` with `q² → o·q` (`g6`) and `f = −1`, and rerun `l8_refscan`/`l8_dc2` with the same
+   machinery. Its reference subtraction fixes `N̂₃` the same way. Check whether `Ĉ₃` also needs `Re`. Then add its diagonal and
+   off-diagonal to `l8_neargap` (the per-state `x → 0` constant becomes meaningful only for the `Ĉ₂`/`Ĉ₃` pair).
+3. **Parity-odd `⟨TT𝒪⟩`** (odd `J`, binding `+−`, `J = 5`) and `J ≥ 12` (needs `Δ ≥ 800`).
+4. Referee point: the `Re` amendment of §R.3, and whether `Ω^{A′}`'s light-side residue formula (§15) was derived for the complex or
+   the real functional. It is real on the `T` block, so the bounds are unaffected, but state it.
+5. Files: `l8_points.py` (cached points, orders separate), `l8_refscan.py` (+ `cache/l8_refscan_run.sh`), `l8_analysis.py` (basis,
+   cumulant, `D_h`, mixing), `l8_dc2.py` (+ `summary()`), `l8_neargap.py`; caches `cache/l8_pts_J*.pkl`, `l8_dc2.pkl`, `l8_dc2_J*.txt`,
+   `l8_summary.txt`, `l8_neargap_*.txt`. Added to `run_all.sh`.

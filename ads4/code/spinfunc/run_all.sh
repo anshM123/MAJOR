@@ -31,3 +31,11 @@ python3 l7_dc2_scan.py 4 6 8 10 12 0 2   # items 2-3/5 data: graviton C^_2 vs sc
 python3 l7_dc2_analysis.py 0.05     # LO check (2D span, helicity shapes) + per-helicity dc2 fits (UNSTABLE, see doc 21.4)
 python3 l7_hel_relative.py 0.05     # helicity-relative correction and mixing (UNSTABLE fits, see doc 21.4)
 python3 g6_odd_structure.py > cache/g6_odd_structure.txt   # C^_3 ingredient: covariant odd (2,4) structure, crystal image check (seconds)
+# --- M6 round 4 (doc 22): normalisation/phase fixed by heavy-reference subtraction + cumulant form; Re prescription; 2x2 near-gap test
+for J in 4 6 8 10 12 2 0; do   # reference states at the same nu (Delta_ref = 2e4) + new Delta = 6400 rows; ~10-15 min per J, resumable
+  OMP_NUM_THREADS=1 L8_DSTATE=100,200,400,800,1600,3200 L8_NEWD=6400 L8_XS=0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8 L8_DREF=20000 python3 l8_refscan.py $J
+done
+OMP_NUM_THREADS=1 L8_DSTATE=400,800,1600,3200 L8_XS=0.2,0.3,0.5,0.7 L8_DREF=40000 python3 l8_refscan.py 4   # reference-independence check
+python3 l8_dc2.py 0 2 4 6 8 10 12      # dc2 per helicity (rel. x -> 0), scalar crystal s(x), off-diagonal Re/Im  -> cache/l8_dc2.pkl
+python3 -c "import l8_dc2 as M; M.summary()" > cache/l8_summary.txt
+python3 l8_neargap.py 100 300 1000     # 2x2 near-gap positivity, n, t* (~30 min)
