@@ -233,6 +233,22 @@ weights the 8-class residual is `0.9…1.6·10⁻³`, and a **one-scale fit** (t
 `1.9·10⁻³` with scale `0.9932` (`W[v_2,v_2]`, β ≈ 0.4, `m = 101.8`, ν = 0; referee's `ref_analysis.py`). Raw modes (no class fit) give the same ratios.
 
 **Numerical accuracy.** Tail estimates (dropped small-`u` region) at the largest `m`: `k = 6`: `10⁻⁶ … 1.4·10⁻⁵`; `k = 4`: `2·10⁻⁵ … 3·10⁻³` (β ≈ 1).
+
+> **Correction (18 Nov 2026; from `SPINNING_ODDK.md` §2 and `REFEREE_SPINNING_ODDK.md` M2).**
+> * The tail estimate above probes only an `X`-cut on the accepted grid points. It is blind to the grid points dropped by the radial
+>   convergence mask (tiny `t`, `r → 1`; 9–25 % of the points). These points are not in the moments.
+> * Their estimated contribution shifts the published `k = 4` class-fit ratios (8-class fit with `1/|pred|` weights) at `m ≳ 70` by:
+>   * `+0.4 %` (`β ≈ 0.4`, `m = 72`);
+>   * `+1.0 %` (`β ≈ 0.4`, `m = 101.8`);
+>   * `+0.7 %` (`β ≈ 1`, `m = 70`);
+>   * `+2.1 %` (`β ≈ 1`, `m = 100.7`).
+>
+>   This is an estimate. The estimator overshot a direct recomputation by about 40 % at `k = 3`, `m = 39`.
+> * With a robust extraction (the leading mode), `k = 4` moves by `≤ 1.5·10⁻³`. Its ratios are `0.997` and `0.996` at `m ≈ 100`, with a smooth
+>   `m²(R−1) ≈ −26` (`β ≈ 0.4`) and `−38` (`β ≈ 1`).
+> * **`k = 6`, the headline of §5–§6, is unaffected:** `≤ 7·10⁻⁴` in the weighted fit and `0` in the leading mode. The one exception is the
+>   `β ≈ 1`, `ν = 0` weighted-fit `c₁`, which moves from `−0.15` to `+0.13`, still far below the mutations (`≈ 4–6`).
+> * Weak spot (iii) of §6.2 should therefore read "`k = 4` large-`m` class ratios carry a dropped-region systematic of up to `~1–2 %`".
 Exact symmetries hold to `10⁻¹⁰` (§3).
 
 **Results at the largest mass (`k = 6`; complete tables for `k = 4, 6`, all `m`, in `out_t5_analysis_l1.txt`):**

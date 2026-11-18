@@ -43,6 +43,14 @@ def measure(mom, cL, cR, k, nu, logref):
         hi[q] = complex(v + ph*max(bd, abs(e)))*f
     return raw, cor, hi
 
+def ufit(A, meas, Tp, logref):
+    """uniform-weight 8-class fit (robust: the 1/|pred| weighting of t5 amplifies the dropped tiny-t region 20-50x; referee M1)"""
+    cl = list(T5.CLASSES)
+    M = np.array([[A[q][c]*np.exp(-logref) for c in cl] for q in T5.QS]); y = np.array([meas[q] for q in T5.QS])
+    Mr = np.vstack([M.real, M.imag]); yr = np.concatenate([y.real, y.imag])
+    sol = np.linalg.lstsq(Mr, yr, rcond=None)[0]
+    return dict(zip(cl, sol))
+
 def run_case(mom):
     D, J = mom.Delta, mom.J
     cmb = T5.combos(D, J)
@@ -57,13 +65,20 @@ def run_case(mom):
                 logref = np.log(big)
                 raw, cor, hi = measure(mom, cL, cR, k, nu, logref)
                 entry = {}
+                pred = {q: sum(A[q][c]*Tp[c] for c in T5.CLASSES) for q in T5.QS}
+                qlead = max(T5.QS, key=lambda q: abs(pred[q]))
                 for lab, meas in (('raw', raw), ('cor', cor), ('hi', hi)):
                     R, sol, resid = T5.fit_components(A, meas, Tp, logref)
+                    usol = ufit(A, meas, Tp, logref)
                     oo, ss = (1, 1, -1, -1), (1, -1, -1, 1)
                     pp, pm = Tp[oo] + Tp[ss], Tp[oo] - Tp[ss]
-                    sc = max(abs(pp), abs(pm))
+                    sc = max(abs(pp), abs(pm)); tmax = max(abs(v) for v in Tp.values())
                     entry[lab] = dict(R=R, resid=resid, Sp=((sol[oo] + sol[ss])/pp if abs(pp) > 1e-6*sc else None),
-                                      Sm=((sol[oo] - sol[ss])/pm if abs(pm) > 1e-6*sc else None))
+                                      Sm=((sol[oo] - sol[ss])/pm if abs(pm) > 1e-6*sc else None),
+                                      uR={c: (usol[c]/Tp[c] if abs(Tp[c]) > 1e-6*tmax else None) for c in T5.CLASSES},
+                                      uSp=((usol[oo] + usol[ss])/pp if abs(pp) > 1e-6*sc else None),
+                                      uSm=((usol[oo] - usol[ss])/pm if abs(pm) > 1e-6*sc else None),
+                                      lead=(meas[qlead]/(pred[qlead]*np.exp(-logref))).real, qlead=qlead)
                 res[(k, nu, name)] = entry
     return res
 
@@ -98,7 +113,30 @@ if __name__ == "__main__":
                         summary.setdefault((bkey, k, nu, nm), []).append((m, v[0], v[1]))
                     pr(f"  m={m:6.2f} (Delta,J)=({mom.Delta:.3f},{mom.J}): " + "  ".join(f"{fmt(a, e)} [{fmt(r)}]" for a, e, r in vals)
                        + f" | {res[(k, nu, 'v2v2')]['cor']['resid']:.1e} | {'N2' if mom.completed else '-'}")
-    pr("\n# convergence in m: fits of R - 1 over the three largest masses (corrected values): A = (c1/m + c2/m^2 + c4/m^4) -> c1;"
+    pr("\n# ROBUST extraction (adopted, referee M1): leading mode (largest predicted |mode|) and uniform-weight class fit, corner-corrected;"
+       " in brackets the raw value (no corner estimate)")
+    rob = {}
+    for bkey in sorted(data):
+        rows = sorted(data[bkey], key=lambda r: r[0])
+        for k in KS:
+            for nu in NUS:
+                pr(f"# beta~{bkey} k={k} nu={nu}:  ss: lead [raw] ufit | oo: lead [raw] ufit | v2v2 ufit Sigma_+ Sigma_- | completed")
+                for (m, mom, res) in rows:
+                    es, eo, ev = res[(k, nu, 'ss')], res[(k, nu, 'oo')], res[(k, nu, 'v2v2')]
+                    cs, co = (1, -1, -1, 1), (1, 1, -1, -1)
+                    for nm, val in (('ss', es['cor']['lead']), ('oo', eo['cor']['lead']), ('Sp', ev['cor']['uSp']), ('Sm', ev['cor']['uSm'])):
+                        rob.setdefault((bkey, k, nu, nm), []).append((m, val))
+                    pr(f"  m={m:6.2f}: ss {es['cor']['lead']:.4f} [{es['raw']['lead']:.4f}] {fmt(es['cor']['uR'][cs])} | oo {eo['cor']['lead']:.4f} [{eo['raw']['lead']:.4f}] {fmt(eo['cor']['uR'][co])}"
+                       f" | {fmt(ev['cor']['uSp'])} {fmt(ev['cor']['uSm'])} | {'N2' if mom.completed else '-'}")
+    pr("\n# ROBUST convergence (leading mode for ss/oo, uniform fit for Sigma_+-): m^2(R-1) at the three largest masses; c1 of fit A")
+    for key, lst in sorted(rob.items()):
+        lst = sorted(lst); ms = [x[0] for x in lst]; Rs = [x[1] for x in lst]
+        if any(r is None for r in Rs): continue
+        f = T5.fits(ms, Rs)
+        bkey, k, nu, nm = key
+        pr(f"  beta~{bkey} k={k} nu={nu} {nm:3s}: R = " + " ".join(f"{r:.4f}" for r in Rs) +
+           (f" | c1(A) = {f['A'][0]:+.3f}" if 'A' in f else "") + " | m^2(R-1) = " + ", ".join(f"{mm**2*(r-1):+.1f}" for mm, r in zip(ms[-3:], Rs[-3:])))
+    pr("\n# (weighted-fit) convergence in m: fits of R - 1 over the three largest masses (corrected values): A = (c1/m + c2/m^2 + c4/m^4) -> c1;"
        " B = (c2, c4, c6) -> c2;  and m^2 (R - 1) at the largest two masses")
     for key, lst in sorted(summary.items()):
         lst = sorted(lst)
