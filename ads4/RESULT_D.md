@@ -32,6 +32,14 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   double twists, so the tree-level light side is exactly Ĉ₂[G_T] + Ĉ₃[G_T] (contacts drop out) [D-sketch] — H9b, H10, H15 not needed
 >   at tree level; H6, H7, H16 reduce to evaluating that single block (M5′).
 >
+> * **Update (M5′/M2c, `H0_SPINNING_FUNCTIONAL.md` §15–§16):** parity-even [TT] double traces drop out (double zero of CLS-D's
+>   2 sin²(π(τ−10)/2), kept by polynomial weights) [D given Q]; parity-odd odd-twist [TT] zeros [D-sketch] (ties to H12′). By the CHMRS
+>   Regge-residue formula (spinning carry-over [D-sketch]): −Ĉ₂|_E = 16πG/(ν² + 9/4) **exactly**, Ĉ₃|_E = 0, conditional on H7 — I9 upgraded
+>   from a leading-Regge approximation to an exact residue. **A = 3022.3, B_AdS = −6552.5 and the bounds survive**; only k(0) is approximate
+>   (H17 for Ĉ₂, Ĉ₃ to redo, M5′b). I14 swappability still [I]. M2c open: CLS-D's printed photon kernel and printed crystal images
+>   disagree by (1−x²) on the 𝒱𝒱 term; if the images are right, route A′'s (2,4) structure has O(x²) helicity-flip leakage at the bulk
+>   point (the stripped-dictionary conclusion is unaffected).
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,

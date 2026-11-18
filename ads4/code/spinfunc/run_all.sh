@@ -15,3 +15,4 @@ python3 f6_routeA2.py 100 300 1000 # M2/M3: near-gap model of the route-A' funct
 python3 g2_structures.py           # M2b: CLS-D (2,4) structures at the D = 4 crystal: flip-free family, Q^2, O*Q (seconds)
 python3 h1_etainv_exact.py 100 300 1000   # M3b: exact eta-inversion of psi_2, checks V1-V3, dk0 (~40 min at 1000)
 python3 h2_neargap_exact.py 100 300 1000  # M3b: exact near-gap shift of route A' (needs h1 pickles)
+python3 g3_homogeneity.py          # M2c: building-block normalisation check at the crystal (seconds)

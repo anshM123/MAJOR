@@ -1,6 +1,6 @@
 # H0: the spinning (`⟨TTTT⟩`) functional — route decision and first milestone
 
-Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); **§R and M2b/M3b/M4′ (§12–§14) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
+Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R, M2b/M3b/M4′ (§12–§14) committed (78eca6a); **M5′/M2c (§15–§16) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
 H9b) and finding F1 of `REFEREE_FOUNDATION.md`. Code: `ads4/code/spinfunc/` (`run_all.sh`, single core, ≈ 1–2 h with M3b; outputs in
 `spinfunc/cache/`, git-ignored). It imports `omegau/`, `exactskel/` (e1/e7 caches) and `objid/` **read-only**. Nothing else was modified.
 
@@ -99,7 +99,7 @@ where `ψ̃₂ = 𝔍[ψ₂]` is the **exact `η`-inversion**:
 * Densities: `(2−y)(|c⁺⁺|²P_J + |c⁺⁻|²d̃^J_{44})` and `u σ(|c⁺⁺|²P_J − |c⁺⁻|²d̃^J_{44})`, with `y = p²/(m/Λ)²` and `d̃ = d/(1−y)⁴`.
 * This is NF02, with flat min `F/N_s = 0.200`, certified (`NOFORWARD_FUNCTIONAL.md`; one `+−` corner float).
 
-**8. Light side (tree level, `1/c_T`) [D-sketch, §14].**
+**8. Light side (tree level, `1/c_T`) [D given Q / H7, §14–§15].**
 * Both functionals are unsubtracted, so they have double zeros at every `[TT]` twist (even integers `≥ 2`). The light side is therefore
   the identity (0) plus the single `T` block.
 * `Ĉ₂` gives the graviton pole `16πG/(ν² + 9/4)` (marginal `J₀ = 2`) and the `|ĝ₃|²` term. `Ĉ₃` is Einstein-free (`A₃ = f⁻_{3;2}`,
@@ -414,6 +414,7 @@ Min flat `F/N_s` over `J ≤ 80` (NF02 weights; object `A` = NF02 itself, B′ i
 | `g2_structures.py` | M2b: `(2,4)` structures at the `D = 4` crystal; flip-free family; `Q²`, `O·Q` | `g2_structures.txt` |
 | `h1_etainv_exact.py` | M3b: exact `η`-inversion (Abel/ODE), checks V1–V3, `δk(0)`, tails | `h1_etainv_exact_*.txt`, `h1_<Δ_g>.pkl`, logs `h1_*.log` |
 | `h2_neargap_exact.py` | M3b: exact near-gap shift of route A′ | `h2_neargap_exact_*.txt`, logs `h2_*.log` |
+| `g3_homogeneity.py` | M2c: crystal value of `(2V_{0,42})²X₂₄/(X₂₀X₄₀)`; consistency of CLS-D's printed photon images vs kernel | `g3_homogeneity.txt` |
 | `run_all.sh` | runs all of the above | — |
 
 ## 9. Milestone M2: CLS-D in `d = 3` / 4D graviton helicities (`g1_crystal4d.py`, `f7_flat_stripped.py`)
@@ -711,3 +712,124 @@ It assumes the graviton term is a leading-Regge `η`-density (I9).
 | M2c | explicit graviton dual structures (CLS-D App. D) | 2–3 days |
 | M2d | Lemma-L transform of `(a₊)`, `(a₋)` (imports H1) | 3–5 days |
 | M6 | H4 | 2–4 weeks |
+
+## 15. Milestone M5′: the light side of `Ω^{A′}` and the headline constants [Q + D-sketch]
+
+**Sources.** CHMRS (arXiv:2106.10274) LaTeX: `sec_light.tex` (eqs. `eftformula`, `MGravityRegge`, `BknuGravity`,
+`BknuFlatSpaceLimit`, `gravitonpropagator`), `app_omega_light.tex`. CLS-D eqs. `Blockvspartialwave`, `heavyaction_definition_generalrep`
+(the spinning double-commutator factor).
+
+### 15.1 What the light side is (tree level, `O(1/c_T)`)
+
+1. **Double traces drop out.**
+   * CLS-D: for a symmetric-traceless exchange the double commutator gives `2 sin(π(τ − Δ₁−J₁−Δ₂−J₂)/2)·sin(π(τ − Δ₃−J₃−Δ₄−J₄)/2)` [Q]. For
+     external `T` (`Δ+J = 5`) this is `2 sin²(π(τ−10)/2)`: a double zero at every even `τ`, and `≠ 0` at `τ = 1` (`T` itself).
+   * The `[TT]` families `T∂^ℓ□ⁿT` have `τ ∈ {2, 4, 6, …} + O(1/c_T)` (spin components lower `τ = 6 + 2n` by `0…4`).
+   * The weights `f₂ = v′−u′` and `f₃ = −1` are **polynomials** in `(u′, v′)`. Multiplying by `u′` shifts the effective `s`-channel twist by `+2`,
+     so the even-twist zeros are kept. (A subtraction factor with `1/(u′v′)` poles would cancel zeros on the first trajectories; that is
+     the CHMRS `C_{k,ν}` situation.)
+   * So each `[TT]` contributes `∝ γ² = O(1/c_T²)` [D given Q].
+   * **Caveat: parity-odd double traces.** In `d = 3`, `[TT]` also contains parity-odd double traces (`ε`-contractions, e.g.
+     `ε T∂T`), with **odd** `τ`. Their double zeros need the parity-odd `⟨TT𝒪⟩` structures, which carry an odd power of `|x₁₂|`, to
+     shift the commutator phase by `π/2`, giving `sin(π(τ±1−10)/2)`. This is expected but not shown: CLS-D derive the factor only for the
+     parity-even structures (their footnote: "interesting to determine `τ̃_ρ` for general `ρ`") [D-sketch]. It is tied to H12′.
+2. **Identity drops out.** `L[T]|0⟩ = 0`, so `⟨T₄T₂⟩⟨[L[T₃], L[T₁]]⟩ = 0`, and the cross terms vanish the same way [D]. (Equivalently, MFT is a
+   physical correlator and Ψ annihilates it.)
+3. **Hence, at tree level, `−Ω^{A′}|_light = Ĉ₂[p_T G^s_T] + Ĉ₃[p_T G^s_T]`.** This is the single stress-tensor block, quadratic in `⟨TTT⟩ =
+   (c_T, t₄, α_T)`.
+   * Contact interactions change only double-trace data, so they drop out. **H9b, H10 (contact power counting) and H15 are not needed.**
+   * Loop-level (`1/c_T²`) double-trace effects are outside the tree-level statement, as everywhere in `RESULT_D`.
+
+### 15.2 Evaluating it: CHMRS's residue formula
+
+* **The formula [Q].** If a functional is a pure spin-`k` Regge moment up to moments of Regge spin `> n`, with `n` the Regge spin of the
+  tree-level EFT correlator `𝒢^EFT`, then `−ω|_light = (2πi/4)·[𝒢^EFT_+(r,η)]_{r^{1−k}}` exactly: the `r^{1−k}` Laurent coefficient at the
+  `u`-channel Regge limit. The proof (App. `omega_light`) uses only contour deformation and crossing antisymmetry of `ω`.
+* **The scalar example [Q].** For `C_{2,ν}` on graviton exchange the result is exactly `−C_{2,ν}|_grav = 8πG/(ν² + (d/2)²)`, checked
+  numerically by CHMRS against the Mellin form.
+* **Applicability to `Ĉ₂`, `Ĉ₃` [D-sketch].**
+  * After the exact inversion, `Ĉ₂`'s leading kernel is the pure `Π_{2,η}` with weight `K_φ(η)`.
+  * The next terms are `O(r²)`: `f₂ = (η/2)r^{−1}(1 + r²)`, and the light-ray kernel expands in even steps. So `Ĉ₂ = Π̂₂ + O(Π̂₄)`, and likewise
+    `Ĉ₃ = Π̂₃ + O(Π̂₅)` (`f₃ = −1`).
+  * The CHMRS proof carries over to the kernel-contracted spinning correlator, assuming its Laurent expansion near `r = 0` is single-valued
+    with integer powers (tree level) [I-minor].
+* **Einstein part (`n = 2`).** The formula applies (`k + 1 = 3 > 2`):
+  * `−Ĉ₂|_E = (2πi/4)[𝒢^E]_{r^{−1}}`, i.e. the leading Regge density of Einstein exchange, which is the transverse graviton propagator
+    `h_{d−1}`.
+  * The Einstein shock is helicity-preserving and helicity-independent [Q, KKSDZ/CEMZ]. So under the normalised flip-free kernel `Q⊗Q` it
+    gives, with CHMRS eq. `gravitonpropagator` (MF transform of `h_{d−1}` ↔ `1/(ν² + (d/2)²)`),
+    **`−Ĉ₂|_E = 16πG/(ν² + 9/4)` exactly.** The normalisation `16πG` is fixed by the flat limit, `−B₂ ∋ 16πG/p²`.
+  * `−Ĉ₃|_E = [𝒢^E]_{r^{−2}} = 0`: the spin-2 Regge term is `s↔t` symmetric at leading order. This agrees with `OMEGA_PRIME.md`'s
+    pointwise statement for `A₃ = f⁻_{3;2}`.
+  * **So I9 is upgraded.** It is no longer "light side ≈ its leading-Regge term" but "light side = a Regge residue, exactly", conditional
+    only on the helicity-independent Einstein Regge density (H7) and on applicability above.
+* **Non-Einstein part (`t₄`, `α_T`; `|ĝ₃|²`).**
+  * The flat MHV term `2πG|ĝ₃|²su/t` makes `𝓜` grow like `s⁴`, so `n = 4 > k + 1`. The residue formula then also receives the `Π̂₄`
+    (`Π̂₅`) admixtures of `Ĉ₂` (`Ĉ₃`).
+  * At large `ν` the result is the flat one (CHMRS eq. `BknuFlatSpaceLimit`: `Res_{s=0}[kernel × 𝓜_flat](1 + O(1/ν²))`):
+    `−Ĉ₂|_{ĝ₃} → 2πG|ĝ₃|²(ν/Λ)⁶·Λ^{−2}…`, `−Ĉ₃|_{ĝ₃} → −2πG|ĝ₃|²(…)⁴`, which is `k(0)`.
+  * The `O(1/ν²)` AdS corrections are H17 (`k_AdS − k(0)`). They now need to be recomputed for `Ĉ₂`, `Ĉ₃`: the `Π̂₄` coefficient of `Ĉ₂` and
+    the `r^{−3}` Laurent coefficient of the `R³`-type `T`-exchange (M5′b).
+  * A term linear in `t₄` is absent from the flat MHV `f`. At `O(1/Λ²)` it is not excluded [I], as in `RESULT_D`.
+
+### 15.3 The headline constants
+
+* **`A`.** `A = 16x₀/k(0)`: the coefficient of `log Λ`, i.e. the large-`ν` tail `16πG/ν²` (flat) times `ψ₂′(0)`, divided by `k(0)`.
+  **Exact** given §15.2's Einstein statement, up to `k(0)`.
+* **`B_AdS`.** `B_AdS = 16L_fin/k(0)`: the finite part of `∫ψ₂(t)dt/(t² + 9/(4L²))`, which uses the exact `ν = O(1)` shape `1/(ν² + 9/4)`.
+  **Exact** given §15.2, up to `k(0)`.
+  * Sensitivity: a different shape `1/(ν² + c²)` would shift `B_AdS` by `−A log(c/(3/2))`, e.g. `≈ 300` for `δ log c = 0.1`.
+  * This is why the CHMRS-type exactness matters. The shape is now [D given H7], not an approximation.
+* **`k(0)`.** The flat value plus `O(1/Λ²)` (H17, previously `≈ 4 %` at `Δ_g = 100` for the B′ objects, not yet redone for `Ĉ₂`, `Ĉ₃`), plus the
+  `η`-inversion `δk(0)` of §13.
+* **Verdict.** **`A = 3022.3`, `B_AdS = −6552.5` and the bounds survive under route A′.**
+  * Their graviton-pole content is exact given (a) the CHMRS residue formula for `Ĉ₂`, `Ĉ₃` [Q + D-sketch] and (b) the helicity-independent
+    Einstein Regge density (H7) [Q + D-sketch].
+  * Their `|ĝ₃|²` normalisation carries the same `O(1/Λ²)` (H17) caveat as before.
+
+### 15.4 I14 (swappability)
+
+Both the sum rule and the residue formula need the heavy sum `Σ p_{Δ,J}Ĉ[G_{Δ,J}]` to converge and to commute with the functional
+integral. This is the I14 premise, as in CHMRS. For route A′ it is needed only for two functionals that converge for `J₀ < 2` (§14).
+**It is not proved here [I].** CHMRS make the same assumption for the scalar `C₂`.
+
+## 16. Milestone M2c: graviton `(2,4)` structures — status [D-sketch], with an open consistency check (`g3_homogeneity.py`)
+
+**The argument.**
+* Products of structures evaluate to products at the crystal, so the graviton `j′ = 0` basis
+  `(−2V_{0,42})^{J_F−4+2n}H₂₀^{2−n}H₄₀^{2−n}H₂₄ⁿ` maps to `(common)·(c_P P)^{2−n}(c_H H)ⁿ`.
+* `Q² = (H − 2P)²` is therefore the image of a **fixed** covariant combination iff `c_H/c_P` is `x`-independent.
+* CLS-D's printed photon kernel `𝒦^{(1)}_{j′=0} ∝ 𝒱𝒱 + 𝒲𝒲 − (D−2)𝒱𝒱` (constant coefficients, all `x`) implies exactly that, because it is a fixed
+  dual combination of the photon structures. Taking that formula as given, **`Q²` (and by the same argument `O·Q`) is the image of a fixed
+  covariant graviton structure [D given Q]**.
+
+**Independent check (`g3`).**
+* At the crystal, `(2V_{0,42})²X₂₄/(X₂₀X₄₀) = 1` exactly for all `x` [DV]. That is consistent with CLS-D's fast factor
+  (`bulkpoint_integrand_factor`).
+* But combining it with CLS-D's separately printed images `H₂₀H₄₀/(X₂₀X₄₀) = 𝒱𝒱/(4ν²(m²−ν²))` and
+  `H₂₄/X₂₄ = −(𝒱𝒱+𝒲𝒲)/(ν²(m²−ν²)²)` (`D = 4`), and their printed dual coefficients `16(d−1)/(d−2)`, `4/(d−2)`, gives
+  `𝒦^{(1)} ∝ (d−1)(m²−ν²)𝒱𝒱 − (𝒱𝒱 + 𝒲𝒲)`.
+* This differs from their printed `𝒦^{(1)}` by a factor `(1−x²)` on `𝒱𝒱`. Both readings agree at `x → 0` (Regge).
+* If the printed images (rather than the printed kernel) were right, no fixed photon structure would be flip-free for all `x`. The
+  flip-free direction would rotate with `x`, and route A′'s `(2,4)` structure would carry `O(x²)` helicity-flip interference at the bulk
+  point.
+
+**Status.** M2c is **not closed**. It needs an independent large-`ν` computation of the photon dual structures (App. D:
+continuous-spin basis, light-transform replacement rule `V → −(V + H/V_{0,42})`, the pairing at the standard configuration), which
+settles which printed formula holds. Estimate 2–3 days. Until then: `Q²`, `O·Q` realisable at all `x` [D given CLS-D eq.
+`JJO_kernels_flatspace`]; possible `O(x²)` flip leakage [I]; the stripped-dictionary conclusion of §9 is unaffected (it holds for any
+flip-free kernel, and the truncation argument of §9.3 is independent).
+
+### 16.1 Regraded table (M5′, M2c; supersedes §14.1 where they differ)
+
+| statement | grade |
+|---|---|
+| `Ĉ₂`, `Ĉ₃` vanish on all parity-even `[TT]` (double zeros at even `τ`; polynomial `f` keeps them); identity drops out | [D given Q] (CLS-D commutator factor) |
+| same for parity-odd `[TT]` (odd `τ`; needs the `π/2` phase of odd structures) | [D-sketch] |
+| tree-level light side = `Ĉ₂[p_T G_T] + Ĉ₃[p_T G_T]`; H9b, H10, H15 not needed | [D given Q] |
+| CHMRS residue formula applies to `Ĉ₂` (`Π̂₂ + O(Π̂₄)`), `Ĉ₃` (`Π̂₃ + O(Π̂₅)`) | [Q] (formula) + [D-sketch] (spinning applicability) |
+| `−Ĉ₂|_E = 16πG/(ν² + 9/4)` exactly; `Ĉ₃|_E = 0` | [D given H7 + the above] (was I9, a leading-Regge assumption) |
+| `A`, `B_AdS` graviton-pole content exact; `A = 3022.3`, `B_AdS = −6552.5` survive | [D given H7, I14, residue-formula applicability] |
+| `|ĝ₃|²` coefficient = flat `k(0)` + `O(1/Λ²)` (H17, to be redone for `Ĉ₂`, `Ĉ₃`) + `δk(0)` | [Q-analogue + D-sketch] |
+| graviton `Q²`, `O·Q` realised by fixed covariant structures | [D given CLS-D's printed `𝒦`]; open check (§16) |
+| I14 swappability | [I] |
