@@ -10,6 +10,7 @@ Exact computation (sympy residues for the low sides, FLINT rational linear algeb
     the functional sum_k int_0^1 psi_k(-B_k|_contact) dp vanishes for the monomials of degree <= N iff the rational matrix
     R[(a,b), (k,i)] = c_k(a,b) / (i + 2(n-k+4) + 1) annihilates the coefficient vector.  rank = number of unknowns => only psi = 0.
   * Truncated EFT (only g4, g5, g6, g6' = degrees n <= 2, as in (2.7a)): null-space dimension printed for contrast.
+  * Structure check of the proof's induction (top-order data enter the pair (B_{2l+4}, B_{2l+5}) with opposite-sign ratios).
 Usage: python3 nf_contacts.py [K] [D] [N]
 """
 import sys
@@ -73,6 +74,21 @@ def main():
         cf_ok &= len(ratios) == 1 and list(ratios)[0] != 0
         print('  k=%d: residue / closed form = %s (same for all monomials of degree <= 6)' % (k, ratios))
     print('closed form (z-expansion coefficient) agrees with the residues up to a nonzero constant per k (n <= 6):', cf_ok)
+    # (i') structure used in the proof (NOFORWARD_FUNCTIONAL.md section 1.2): the order-l data, isolated by P = w^l t^L (s = 0 family)
+    #      and P = t^l w^L (s = q family), L = 8, enter only B_k with k >= 2l+4, and in the pair (B_{2l+4}, B_{2l+5}) with ratios
+    #      B_{2l+5}/B_{2l+4} of opposite sign (-1/q vs +1/q up to a common factor): nonsingular 2x2 system.
+    st_ok = True
+    Lh = 8
+    for l in range(0, 3):
+        rat = []
+        for (a, b) in [(Lh, l), (l, Lh)]:
+            vals = {k: closed_form(k, a, b) for k in range(4, 2*l + 6)}
+            st_ok &= all(vals[k] == 0 for k in range(4, 2*l + 4))
+            rat.append(sp.simplify(vals[2*l + 5] / vals[2*l + 4]) if vals[2*l + 4] != 0 else None)
+        st_ok &= rat[0] is not None and rat[1] is not None and sp.simplify(rat[0] + rat[1]) == 0
+        print('  order l=%d: zero in B_4..B_%d; ratio B_%d/B_%d = %s (s=0 family), %s (s=q family)' % (l, 2*l + 3, 2*l + 5, 2*l + 4, rat[0], rat[1]))
+    print('proof structure (top-order data, opposite-sign pair) verified for l <= 2:', st_ok)
+    ok &= st_ok
     # (ii) contact data c_k(a,b): coefficient of p^{2(n-k+4)}
     rows = []; labels = []
     for n in range(0, N + 1):

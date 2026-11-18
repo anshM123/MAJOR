@@ -11,6 +11,7 @@ if [[ "${1:-all}" == all ]]; then
   python3 -u nf_lp.py 5 12 0.0 0.1 0.2 | tee -a cache/nf/lp.log
   python3 -u nf_lp.py 11 10 0.0 0.1 0.2 | tee -a cache/nf/lp.log
   python3 -u nf_lp.py 5 8 proxy=120 0.0 0.1 0.15 0.2 | tee -a cache/nf/lp.log
+  for rd in "11 10" "12 10" "12 12"; do python3 -u nf_lp.py $rd proxy=120 0.0 0.15 0.2; done | tee -a cache/nf/lp.log   # section 4.1 cost
   python3 nf_mkfun.py NF02 5 8 0.2 _proxy120     # regenerates cache/nf/functionals_nf.json only; the tracked file is not touched
   python3 -u nf_check.py NF02 3000 | tee cache/nf/check.log
 fi

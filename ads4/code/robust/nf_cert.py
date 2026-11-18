@@ -7,8 +7,11 @@ rcert.py (gens with a = 0, so no forward term).  Regions (FLAT_GRAVITON_BOUND.md
                                               (psi3(0) = 0, so the 1/bhat term is absent; no forward term), u split into sub-intervals
   Cpp ++, J >= JP, 1/4 <= u <= 1             the same Lemma M (Legendre kernel, m in [M, 2M]; bhat >= (2JP+1)/2)
   S   J >= JP, u <= 1/4, bhat <= BA          rcert.region_S (Taylor/Cauchy cells), forward part = 0
-NOT covered: +-, J >= JP, 1/4 < u <= 1 (m in [M, 2M]): Lemma C introduces (1 - u p^2)^{-8}, singular at u = 1 unless the weights vanish
-to order 11 at p = 1; the forward term that dominated there for F_g3/M02 is absent.  This region is checked in floating point only.
+  Cpm +-, J >= JP, u in [1/4, u_max]         Lemma M + Lemma C ((1 - u p^2)^{-8}), u in slices given on the command line; for NF02 it
+                                              passes up to u_max = 3/8 (m >= 1.633 M)
+NOT covered: +-, J >= JP, 3/8 < u <= 1 (M <= m < 1.633 M): with (1-p)^5 weights, w = Psi(1-up^2)^{-8} is not uniformly C^4 (not even
+bounded) as u -> 1, so C_R(u) -> infinity; uniform bounds need (1-p)^12 weights (NOFORWARD_FUNCTIONAL.md section 4.1).  The forward term
+that dominated there for F_g3/M02 is absent.  This region is checked in floating point only.
 Numerics: the weights have large monomial coefficients (cancellation), so every interval evaluation of a polynomial over a p-cell is
 done in CENTERED form (exact rational Taylor shift to the cell midpoint, then Horner in the small offset): rcert.ev / rcert.poly_jet are
 patched accordingly.
