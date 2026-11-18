@@ -321,5 +321,88 @@ hundreds, `m` up to `10Λ`).
 | `e7_nf.py` | NF02 action |
 | `e6_bound.py`, `e9_bound_nf.py` | bounds |
 | `e2b_arbcheck.py`, `e4_quad.py`, `e5_compare.py`, `t_*.py` | checks |
+| `evenkernel.py`, `e10_kernel.py` | §9: even kernel `𝔖_ff` / `K*` normalisations; thresholds with the kernel option and finite-`m` sensitivity (`E_KERNEL` also in `e6`, `e9`) |
 
 Caches and logs are in `cache/` (git-ignored).
+
+## 9. Even-kernel choice `𝔖_ff` vs `K*` in the thresholds and bounds (`evenkernel.py`, `e10_kernel.py`; `E_KERNEL` in `e6`, `e9`)
+
+Added 18 Nov 2026 by the `⟨TTTT⟩` agent (not refereed; not committed). Background: `SPINNING_TTTT_EXT.md` §6–§7.
+* **`K* = D₁² + ½D₁D₂ − ½D₂² = (D₁+D₂)(D₁−½D₂)`** is flip-free and has no isotropic circle mode.
+* It is the even kernel whose heavy formula is verified end to end for both helicities at `k = 2, 4, 6`.
+* `𝔖_ff`'s `k = 2` opposite-helicity moment cannot be tested on the existing waves.
+
+### Normalisations [D, exact; `evenkernel.py`, `cache/evenkernel.txt`]
+
+Exact one-pair responses from the `M`-tables (project weights: `D₁² = 4[(2,−2)+(−2,2)] + (2/9)(0,0)`, `D₁D₂ = −½[(1,−1)+(−1,1)]`,
+`D₂² = (4/9)(0,0)`; Lemma-L flips `1 : −1 : 1` reproduced). The flip response is 0 for both kernels.
+
+| `k` (`a`) | preserved `M_{𝔖_ff}` | preserved `M_{K*}` | `N_k^{𝔖_ff}` | `N_k^{K*}` |
+|---|---|---|---|---|
+| 2 (7) | `(4ν²+201)/(2(4ν²+81))` | `(4ν²+441)/(4(4ν²+81))` | (`C⁺₂` not replaced) | (`C⁺₂` not replaced) |
+| 4 (9) | `(4ν²+393)/(2(4ν²+169))` | `(4ν²+841)/(4(4ν²+169))` | `4(16ν⁴+216ν²+263)/((4ν²+81)(4ν²+393))` | `8(16ν⁴+216ν²+263)/((4ν²+81)(4ν²+841))` |
+| 6 (11) | `(4ν²+649)/(2(4ν²+289))` | `(4ν²+1369)/(4(4ν²+289))` | `4(16ν⁴+536ν²+2023)/((4ν²+169)(4ν²+649))` | `8(16ν⁴+536ν²+2023)/((4ν²+169)(4ν²+1369))` |
+
+* In general `M_{K*}(ν;a) = (4ν²+(4a−7)²)/(4(4ν²+(2a−5)²))`. All entries are positive on ℝ. `N^{K*}(0) = 0.0309, 0.0700` against
+  `0.0330, 0.0738`, so the `1/N(0)` leverage of the even forward pieces is `7 %` larger.
+* For reference only, the `j′=0` `N₂^{K*} = 8(16ν⁴+24ν²−25)/((4ν²+25)(4ν²+441))` has the same real zero as `N₂^{𝔖_ff}`. So `C⁺₂` keeps its
+  moment for either kernel.
+* **`Ĉ₂` graviton pole (I9).** `Ĉ₂` is normalised by `M_K(ν;7)²` (`REGGE_MOMENT_TTTT.md`, normalised form).
+  * A flip-free kernel sees only the preserved pair responses of the Regge density, so the normalised residue `16πG/(ν²+9/4)` is the same for
+    `K*` and `𝔖_ff`. This holds without IP for the flip part: the flip responses vanish identically. The helicity-independence of the
+    preserved Einstein density remains [D given IP].
+  * `k(0)`, `A`, `B_AdS` are the MHV flat-limit values for any flip-free kernel (`SUPERCONVERGENT_UPLIFT.md` item 6) [D given IP, (F)].
+  * The unnormalised ratio `(M_{K*}/M_{𝔖_ff})² = 1.20, 1.01, 0.49 → ¼` at `ν = 0, 3, 10, ∞` would matter only if `Ĉ₂` were not normalised
+    per `ν`.
+
+### Thresholds and bounds with `K*` [NE + I] (`e10_kernel.py`, `cache/e10_<Dg>_<kernel>.txt`; `E_KERNEL=Kstar` in `e6_bound.py`, `e9_bound_nf.py`)
+
+**Leading order.**
+* The normalised heavy moments of a flip-free kernel are the kernel-independent preserved densities, and the normalised `Ĉ₂` residue is
+  unchanged.
+* `e10` applies the normalised response ratio (1 on every node, asserted) and recomputes both actions on all exact-skeleton states (`Δφ =
+  3, 2`, high-`J` samples included).
+* The thresholds reproduce `e3` / `e7` exactly.
+
+| `Δ_g` | D-strong `n` (M02, `δ = 0` / `0.03`) | D-strong bound `√(t₄²+α_T²)` | D-safe `n` (NF02) | D-safe bound |
+|---|---|---|---|---|
+| 100 | 1.08 / 1.08 (`𝔖_ff`: same) | `4.24·10⁻⁵` (same) | 1.0 (same) | `2.21·10⁻⁴` (same) |
+| 300 | 1.05 / 1.05 | `5.28·10⁻⁷` | 1.0 | `3.13·10⁻⁶` |
+| 1000 | 1.01 / 1.01 | `4.13·10⁻⁹` | 1.0 | `2.89·10⁻⁸` |
+
+**Finite-`m` `⟨TTTT⟩` corrections (sensitivity).**
+* Each even-`k` heavy moment of helicity `h` is multiplied by `1 + c₂(k,h)/m²`. The `c₂` are the largest `|m²(R−1)|` measured for `K*` at
+  `β = 1`, `ν ≤ 3`, `m = 39–101`:
+  * `k = 2`: `+268` (same helicity), `+177` (opposite);
+  * `k = 4`: `+194`, `+122`;
+  * `k = 6`: `+144`, `−223`.
+* The shift is applied signed, and as an absolute bound `Σ_k |c₂|/m² |P_k|` over the per-`k` even parts (B′ flat + curvature + skeleton
+  remainder, plus the forward `C₄` piece). This ignores the strong cross-`k` cancellations, so it is conservative.
+* **No threshold moves**, at any `Δ_g`, for either functional, signed or absolute, at `δ = 0` or `0.03`.
+* The tightest case is D-strong at `Δ_g = 300`, the `+−`, `J = 4` state at `1.05Λ`: `F/N_s = +0.0408`, and `+0.0393` after the absolute
+  bound. It stays above `δ = 0.03`.
+* Largest absolute shift / `N_s` for `m ≥ n`:
+
+  | | D-strong | D-safe |
+  |---|---|---|
+  | `Δ_g = 100` | `0.16` in `[1.05, 1.10)`, `0.10` in `[1.10, 1.20)` | `≤ 0.029` |
+  | `Δ_g = 300` | `0.021` | `≤ 3.2·10⁻³` |
+  | `Δ_g = 1000` | `1.9·10⁻³` | `≤ 2.9·10⁻⁴` |
+
+  The large values sit only in the near-gap band where the per-`k` B′ parts are individually large and cancel. At `Δ_g = 100`, M02's
+  minimum margin above `n` (`+0.27` at `1.10–1.20`) absorbs them: `+0.263` after the bound.
+* Running with `E_KERNEL=Sff` (the same `c₂`, except `k = 2` same helicity `+252` and `k = 6` opposite `−225`) gives the same thresholds.
+  Note that `𝔖_ff`'s `k = 2` opposite-helicity value is not measured; `K*`'s is used.
+
+**Kernel difference.** Where both are resolved, the normalised heavy moments of `K*` and `𝔖_ff` agree to `≤ 3·10⁻³`
+(`SPINNING_TTTT_EXT.md` §6.4). A bound `3·10⁻³ Σ|P_k|` on `F^{K*} − F^{𝔖_ff}` moves no threshold.
+
+**Verdict.**
+* Switching the even kernel to `K*` leaves `n`, and therefore every bound, unchanged at `Δ_g = 100, 300, 1000` for both D-safe and
+  D-strong [D at leading order given the normalised convention and IP, (F); NE for the finite-`m` sensitivity].
+* What `K*` buys is evidential, not numerical: H1 for `Ĉ₂` (and for `C⁺_{4,6}` at `β = 0.4`) is verified end to end only for `K*`.
+* What it costs is `+7 %` on the `1/N(0)` leverage of the (unanalysed, [I]) even forward pieces (P).
+* **Caveats:**
+  * `c₂` is measured at `ν ≤ 3`, but the functionals sample `ν ~ Λ`. There `x = ν/m` is the relevant variable (H2).
+  * The `c₂` table is per `k`, maximised over `ν`.
+  * The exact skeleton is scalar (H4 unchanged).

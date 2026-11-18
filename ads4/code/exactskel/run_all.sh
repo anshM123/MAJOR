@@ -34,3 +34,8 @@ python3 e2b_arbcheck.py 100 3 1.5 > /dev/null & python3 e2b_arbcheck.py 100 2 1.
 for D in 100 300 1000; do python3 e3_action.py $D 3 2 > /dev/null; python3 e7_nf.py $D > /dev/null; done
 python3 e6_bound.py 100 1.08 1.09; python3 e6_bound.py 300 1.05 1.06; python3 e6_bound.py 1000 1.01
 for D in 100 300 1000; do python3 e9_bound_nf.py $D 1.0; done
+# --- section 9: even kernel S_ff vs K* (normalisations, thresholds with finite-m <TTTT> corrections, bounds)
+python3 evenkernel.py > /dev/null
+for D in 100 300 1000; do E_KERNEL=Kstar python3 e10_kernel.py $D > /dev/null; done; E_KERNEL=Sff python3 e10_kernel.py 100 > /dev/null
+E_KERNEL=Kstar python3 e6_bound.py 100 1.08; E_KERNEL=Kstar python3 e6_bound.py 300 1.05; E_KERNEL=Kstar python3 e6_bound.py 1000 1.01
+for D in 100 300 1000; do E_KERNEL=Kstar python3 e9_bound_nf.py $D 1.0; done

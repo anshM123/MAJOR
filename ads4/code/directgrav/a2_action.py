@@ -61,9 +61,11 @@ def analyse(a1, fun, h, Df, e1, e7, keven=None):
             cov_num += abs(wk[i]*env[i]); ratios.append(Rg/Rs)
             rows.append((k, nu, Rg, Rs, (G - M)/env[i]))
     c = float(np.median(ratios))
+    # uniform pointwise remainder |delta rho| <= d on ALL 64 nodes that would just cancel the skeleton margin: d_crit = F_ex / sum |w env|
+    full_norm = sum(np.sum(np.abs(weights(fun, k, u)[0]*weights(fun, k, u)[1])) for k in KS)
     dF_shape = dF - (c - 1)*Fpart
     rec = [r for r in e7 if r['h'] == h and abs(r['mfl'] - mfl) < 1e-6 and r['J'] == J and float(r['Df']) == Df] if e7 is not None else []
-    return dict(dF=dF, dF_shape=dF_shape, c=c, Fpart=Fpart, cov=cov_num/cov_den, rows=rows, e7=rec[0] if rec else None)
+    return dict(full_norm=full_norm, dF=dF, dF_shape=dF_shape, c=c, Fpart=Fpart, cov=cov_num/cov_den, rows=rows, e7=rec[0] if rec else None)
 
 
 if __name__ == "__main__":
@@ -86,12 +88,17 @@ if __name__ == "__main__":
                         recs = [dict(r, Df=float(r['Df'])) for r in e7]
                     else:
                         recs = [dict(r, Df=Df, h=h) for r in e3.get(Df, {}).get(('M02', h), [])]
-                for keven in ((None, 'KS') if fun == 'NF02' else (None,)):
-                    res = analyse(a1, fun, h, Df, e1, recs, keven)
-                    ref = res['e7']
-                    lab = fun + ('[K*]' if keven else '')
-                    mar = f"F/Ns(skel) = {ref['Fex']/ref['Ns']:+.4f}, Ns = {ref['Ns']:.4g}" if ref else "(margin: see e3)"
-                    Ns = ref['Ns'] if ref else np.nan
-                    pr(f"  Df={Df:g} {lab} {h}: dF = {res['dF']:+.3e} ({res['dF']/Ns:+.2e} Ns)  c* = {res['c']:.5f}  dF_shape = {res['dF_shape']:+.3e} ({res['dF_shape']/Ns:+.2e} Ns)"
-                       f"  coverage {res['cov']:.3f};  {mar}")
+                    for keven in ((None, 'KS') if fun == 'NF02' else (None,)):
+                        res = analyse(a1, fun, h, Df, e1, recs, keven)
+                        ref = res['e7']
+                        lab = fun + ('[K*]' if keven else '')
+                        mar = f"F/Ns(skel) = {ref['Fex']/ref['Ns']:+.4f}, Ns = {ref['Ns']:.4g}" if ref else "(margin: see e3)"
+                        Ns = ref['Ns'] if ref else np.nan
+                        pr(f"  Df={Df:g} {lab} {h}: dF = {res['dF']:+.3e} ({res['dF']/Ns:+.2e} Ns)  c* = {res['c']:.5f}  dF_shape = {res['dF_shape']:+.3e} ({res['dF_shape']/Ns:+.2e} Ns)"
+                           f"  coverage {res['cov']:.3f};  {mar}" + (f";  d_crit = {ref['Fex']/res['full_norm']:.2e}" if ref else ""))
+                        dr = {}
+                        for (k, nu, Rg, Rs, d) in res['rows']:
+                            dr.setdefault(k, []).append((nu, d))
+                        pr("      delta rho_k (graviton - model, per node; nu: value): " + " | ".join(
+                            f"k{k}: " + " ".join(f"{d:+.1e}" for nu, d in sorted(v)[::3]) + f" [max|.| {max(abs(d) for nu, d in v):.1e}]" for k, v in sorted(dr.items())))
     open(os.path.join(HERE, 'cache', 'a2_summary.txt'), 'a').write("\n".join(out) + "\n")

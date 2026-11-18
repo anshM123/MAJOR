@@ -57,7 +57,7 @@ here with explicit constants and an explicit hypothesis list.
 
 | # | hypothesis | grade | evidence / what would settle it |
 |---|---|---|---|
-| H1 | Two-pair heavy formula for `⟨TTTT⟩` at all needed `k = 2…7`, `ν ≲ m`; MFT constant ¼ | **[DVE] at β = 1, `k = 4–7`, `ν = 0, 1, 3`, both helicities, under `𝔄⊗𝔄` and (with corrected circle-mode weights) `𝔖_ff⊗𝔖_ff` (`|c₁| ≤ 0.13`) and the new flip-free kernel `K* = (D₁+D₂)(D₁−½D₂)` (`|c₁| ≤ 0.05`)**; exceptions: `𝔖_ff`, `k = 4`, `ν = 3` opposite helicity drifts; at β = 0.4 `𝔖_ff` `k = 4` opposite helicity fails while `K*` passes (0.986–1.096) | **open: `k = 2` (`Ĉ₂`, carries the graviton pole) opposite helicity and `ν = 3` under every kernel (tiny-`t` region)**; `ν ~ m`; ¼ end to end; β convergence. Margin effect of the measured `|c₂| ≤ 310` (no `1/m`): 3.1 % / 0.34 % / 0.03 % of a heavy state at `m = Λ` for Δ_g = 100/300/1000 — comparable to D-strong's spare margin at Δ_g = 100, negligible for D-safe (`SPINNING_TTTT_EXT.md` §6). Earlier "not established for even kernels" was an extraction error (wrong weights in `t16`) |
+| H1 | Two-pair heavy formula for `⟨TTTT⟩` at all needed `k = 2…7`, `ν ≲ m`; MFT constant ¼ | **[DVE] at β = 1, `k = 4–7`, `ν = 0, 1, 3`, both helicities, under `𝔄⊗𝔄`, `𝔖_ff⊗𝔖_ff` (`|c₁| ≤ 0.13`; corrected circle-mode weights) and the flip-free `K* = (D₁+D₂)(D₁−½D₂)` (`|c₁| ≤ 0.05`); `k = 2` (`Ĉ₂`) both helicities under `K*` and `𝔄` [NE]: R = 1.134/1.040/1.021 (same), 1.114/1.030/1.014 (opp) at m = 39/70/101, `m²(R−1)` flat to ~10 %, after cleaning numerical defects of the cached waves (truncation mask, tiny-`t` noise) — cleaning is [I] until a production rerun** | open: `𝔖_ff` at `k = 2` opposite helicity (isotropic-mode noise; hence use `K*` for `Ĉ₂`); β ≠ 1 convergence (β = 0.4 single mass, 𝔄: 1.02–1.06); `ν ~ m` (= H2); ¼ end to end. **Consequence for Claim D: switching the even kernel to `K*` reproduces every threshold and bound exactly, and scaling every even heavy moment by `1 + c₂/m²` with the measured `c₂ ≤ 268` moves no threshold (tightest: D-strong `+−`, J=4, Δ_g=300, m=1.05Λ, margin 0.0408 → 0.0393 N_s > δ)** (`SPINNING_TTTT_EXT.md` §6–7, `EXACT_SKELETON_NEARGAP.md` §9) |
 | H2 | B′ dictionary: AdS moments → unstripped sum rules (full `d^J_{44}`, "reading B") for gravitons | **[NE]** | currents (`SKELETON_TEST.md` §8); gravitons: opposite/same double ratio carries 63–98 % of the reading-B term with bounded `m²d_B` (`SPINNING_TTTT_EXT.md`); one point non-discriminating (near a sign change), one unusable (`P_J` near zero); other `b̂` untested |
 | H3 | Odd-`k` two-pair moments | [DVE] for `⟨JJJJ⟩` `k = 5, 7`, `⟨TTTT⟩` `k = 5, 7` under `𝔄⊗𝔄`; skeleton odd `k` at `Δ_g ≥ 300` by interpolation in `k` [M] (≤ 2·10⁻³E_k) | `k = 3` at `m ≈ 100` open |
 | H4 | Scalar-skeleton remainder transfers to gravitons | [I] — **now the main near-gap gap** | holds for same helicity of currents (`Δφ ≈ 2.5`); opposite-helicity shift is flat physics (reading B). Thresholds use skeletons `Δφ = 2, 3` only |
@@ -73,16 +73,15 @@ here with explicit constants and an explicit hypothesis list.
 
 ## 5. Where it can fail
 
-* **H1 at `k = 2`.** The heavy formula is now checked end to end for both helicities at `k = 4–7` (corrected even-kernel weights), but
-  not for `Ĉ₂` at opposite helicity or `ν = 3`. Recommendation from `SPINNING_TTTT_EXT.md` §6: switch the even kernel to `K*`
-  (no isotropic mode; replace `N^{ff}` by `N^{K*}`, raising `1/N(0)` leverage by 7 %).
+* **H1 beyond `ν ≲ 3` and β = 1.** The heavy formula is checked end to end for `k = 2–7`, both helicities, at `ν ≤ 3`, β = 1 (`k = 2`
+  after cleaning cached-wave defects); the functionals need `ν ~ Λ` (the H2 question) and other β.
 * **H4.** Near-gap positivity is computed on scalar skeletons, not on graviton moments.
 * **Coverage.** Positivity is on sampled states; the region `b̂ > 60`, `J` in the hundreds, is not covered by exact moments.
 * D-strong additionally rests on forward terms whose light-side errors are amplified ~10¹³ (H9).
 
 ## 6. Shortest route to an unconditional statement
 
-1. H1: `k = 2` opposite helicity (tiny-`t` region); decide on `K*` vs `𝔖_ff` and re-run the functional thresholds with `N^{K*}`.
+1. H1: a clean production rerun for `k = 2` (removes the [I] cleaning); `ν ~ m` and β ≠ 1. The even kernel is now `K*` (no effect on any number).
 2. H4: near-gap positivity on graviton moments directly (production code exists), at least at the binding states.
 3. H13′: Arb-certify near-gap positivity on intervals in `(m, J)`, plus a large-`b̂` envelope.
 4. H12: parity-odd heavy exchanges.

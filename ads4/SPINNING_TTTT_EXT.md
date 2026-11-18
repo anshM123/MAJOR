@@ -1,8 +1,9 @@
 # `⟨TTTT⟩` beyond one point: H1 (heavy formula at more `k, ν, β, m`) and H2 (reading B for gravitons)
 
-Status: written 18 Nov 2026 by a derivation/numerics agent; §0–§5 committed (c177cfc); **§6 added afterwards, not refereed, not committed.
-§6 corrects the even-kernel statements of §0–§4: the `t16` even kernels used mis-normalised circle weights.** Code: `ads4/code/fourpt/tttt/`
-(`tmoments_l2.py` production, `t16_kernels_ext.py`, `t17_readingB.py`, `t18_kstar.py`; logs and caches in `tttt/cache/`, git-ignored). Builds on
+Status: written 18 Nov 2026 by a derivation/numerics agent; §0–§5 committed (c177cfc); §6 committed (bfdf768); **§7 added afterwards, not
+refereed, not committed.** §6 corrects the even-kernel statements of §0–§4: the `t16` even kernels used mis-normalised circle weights. Code:
+`ads4/code/fourpt/tttt/` (`tmoments_l2.py` production, `t16_kernels_ext.py`, `t17_readingB.py`, `t18_kstar.py`, `t19_k2.py`; logs and caches
+in `tttt/cache/`, git-ignored). Builds on
 `SPINNING_TTTT.md` (Taylor-mode waves, `l = 2` vertices `T^{hLhR} = 8√(λ_{hL}λ_{hR})/m⁸`, Fock data), `SPINNING_ODDK.md` (robust extraction)
 and `SKELETON_TEST.md` §8 (reading A/B for currents). Targets hypotheses H1 and H2 of `RESULT_D.md`.
 
@@ -30,7 +31,8 @@ from exact data; **[I]** inferred; **[ND]** not done.
      * The new flip-free kernel without an isotropic mode, `K* = (D₁+D₂)(D₁−½D₂)`, passes everywhere at `k ≥ 4` (`|c₁| ≤ 0.05`).
      * The opposite-helicity failure was the isotropic mode, contaminated by the dropped tiny-`t` region (an artefact).
      * The leading heavy formula holds with `c₂/m²` corrections, `|c₂| ≤ 310` at `ν ≤ 3`.
-     * `k = 2` (`C⁺₂`) remains open.
+     * `k = 2` (`C⁺₂`): resolved in §7 under `K*` and `𝔄` (both helicities), after a cleaned extraction that removes two defects of the
+       cached waves at the `k = 2`-weighted edges. `c₂ ≈ 140–270`. `𝔖_ff`'s opposite-helicity `k = 2` remains untestable.
    * **`β = 0.4`, `m = 72`** (single mass, `J = 14`):
      - same helicity `1.013–1.030` (all kernels, `k = 4–7`);
      - opposite helicity, odd kernel `0.93–1.05` (`0.986–1.007` at `ν ≤ 1`, `k ≥ 5`);
@@ -200,7 +202,8 @@ helicity-independent systematics of the same size as the A/B discrimination.
 * **Open:**
   - ~~opposite helicity under the even kernels; `𝔖_ff` at `ν = 3` with `c₂ ≈ 1700`~~: artefacts of the naive kernel weights, resolved in
     §6;
-  - `k = 2` (`C⁺₂`), opposite helicity and `ν = 3`, under every kernel (dropped tiny-`t` region; §6.4);
+  - `k = 2` (`C⁺₂`): resolved in §7 for `K*` and `𝔄` [NE]. Still open: `𝔖_ff` opposite helicity (isotropic-mode noise in the caches),
+    `ν = 3` at `m = 39`, and `β = 0.4` opposite helicity under `K*`;
   - `β = 0.4` convergence (the `m ≈ 42` run was lost twice);
   - `ν ≳ 3` in general, and the `ν ~ m` range the functionals need;
   - the `1/4` constant end to end (blocks use unit-normalised structures);
@@ -218,6 +221,7 @@ helicity-independent systematics of the same size as the A/B discrimination.
 |---|---|---|
 | `tmoments_l2.py` | Taylor-mode `⟨TTTT⟩` waves (blocks one at a time, precomputed radial sums) | `cache/modes_l2_*.npz`, `cache/prod_*.log` |
 | `t16_kernels_ext.py` | kernel moments `E⊗E`, `FF⊗FF` (**naive weights, superseded by `t18`**), `O⊗O` and leading modes vs prediction, `k = 2…7`, `ν = 0, 1, 3`; convergence in `m` | `out_t16_kernels_ext.txt` |
+| `t19_k2.py` | §7: `k = 2` diagnosis (noise floor, cut scan) and cleaned extraction (strict mask, row tails, light-cone wedge), variants and envelope; `k = 4, 6` validation; `β = 0.4` | `out_t19_k2.txt`, `cache/t19b.log` |
 | `t18_kstar.py` | §6: flip identity, tensor weights vs Lemma L, per-mode diagnosis, `𝔖_ff` / `K*` / `D₁²` / naive kernels both helicities, `k = 2`, mixed wave, `β = 0.4` | `out_t18_kstar.txt`, `cache/t18.log` |
 | `t17_readingB.py` | reading A / B / B̃ at fixed `b̂`, single and double (opp/same) ratios | `out_t17_readingB.txt` |
 | `t7_fock_l2.py l2 8 7`, `t7b` (ext) | Fock data for `[TT]` at `N = 7, 8` and the closed-form check | `out_t7_fock_l2ext.txt`, `out_t7b_closed_forms_ext.txt` |
@@ -404,3 +408,115 @@ There is no convergence statement at `β = 0.4`, because the `m ≈ 42` point is
     these three points.
   * `β ≠ 1` has one mass only.
   * `k = 2` is open (§6.4).
+
+## 7. `k = 2` (`Ĉ₂`, the graviton-pole moment): diagnosis and a cleaned extraction (`t19_k2.py`, `out_t19_k2.txt`)
+
+Added 18 Nov 2026 (not refereed; not committed). Existing caches only. Kernel weights as in §6.2.
+
+### 7.1 Result
+
+**H1 at `k = 2` is now resolved under `K*⊗K*` and `𝔄⊗𝔄` for both helicities [NE, β = 1, `m = 39–101`].**
+* Cleaned ratios: same helicity `m²(R−1) ≈ 196–268`; opposite helicity `≈ 140–210` (`ν ≤ 1`).
+* `|c₁| ≤ 1.3` at `ν ≤ 1`, and `≈ 2` at `ν = 3`, same helicity.
+* At `ν = 3`, opposite helicity, `R = 1.009 ± 0.010` and `1.002 ± 0.006` (`K*`) at `m = 70, 101`. The `m = 39` point is not resolved.
+
+**Under `𝔖_ff⊗𝔖_ff` the opposite-helicity `k = 2` moment is still not resolved.** Its isotropic `(0,0,0,0)` mode carries noise in the
+cached waves that the cleaning cannot remove (§7.2). This is a second, independent reason to use `K*` for `Ĉ₂`.
+
+**Diagnosis, answering the three alternatives.** The failure was mostly numerical defects of the cached waves, not physics:
+* The radial series is truncated next to the edge of the region where it converges.
+* There is float-level noise at tiny `t`.
+* Both are amplified by the `k = 2` weight and were then extrapolated by the old corner estimator.
+
+The three alternatives:
+* **The dropped region (radial series not converged) is real but small [NE].** It is a light-cone wedge `ū ≲ 0.01–0.04` (small `ρ̄`) plus
+  the corner `t ≲ 1`. Its contribution, extrapolated, is `+0.6 %` to `+6 %` (`K*`, opposite helicity, `m = 101 → 39`).
+* **There is no light-cone singularity [NE].** At fixed `t` the `k = 2` density vanishes towards the light cone like `u^{≈1.7}` (the
+  `F`-stripped density `∝ u^{1.16}` at `m = 101`). The `k = 2` moment of a single heavy block converges there.
+* **There is no slower approach [NE].** Once cleaned, `m²(R−1)` is flat to `≈ 10 %` over `m = 39–101`. That is the same `1/m²` approach
+  as `k ≥ 4`, with `c₂ ≈ 200`.
+
+### 7.2 What goes wrong in the raw `k = 2` moment
+
+The moment weight is `(ρρ̄)^{(k−4)/2} = S^{2k−8}u^{k−4}`. Relative to `k = 4`, `k = 2` enhances:
+* the tiny-`t` corner (`S → 0`) by `S^{−4}`;
+* the light-cone wedge (`u → 0`) by `u^{−2}`.
+
+Two defects of the cached waves sit exactly there. Both are invisible at `k ≥ 4`, where the cleaning changes nothing (§7.3).
+
+* **(D1) Truncation next to the edge of convergence.** The production mask keeps nodes with `X − 10 log X > 25`. That cut was calibrated
+  on the `l = 1` truncation error (`e2e/moments.py`). For the `l = 2` opposite-helicity modes, the first accepted nodes next to the edge are
+  wrong by up to `10⁴×` the smooth density.
+  * Example: `m = 39`, `t = 9.3`, `u = 0.013`: density `1.5·10⁵` against `≈ 5` a few nodes further in.
+  * The error is real-valued and does not appear in the imaginary parts.
+  * **Fix:** raise the cut to `40`. This drops `2.6–3.7 %` of the nodes (`3336/3475/3272 → 3250/3354/3150`). The results agree with cut `50`
+    to `≤ 2·10⁻³` at `m ≥ 70`.
+* **(D2) Noise at tiny `t`.** The modes used are real by symmetry, so their imaginary parts are pure noise.
+  * The median `|Im G_q|` over the 624 complex modes gives a pointwise noise floor σ. At `t ≲ 3`, σ is `3·10⁻⁷–4·10⁻⁵` in mode units,
+    comparable to the leading-mode signal there.
+  * The opposite-helicity isotropic mode `(0,0,0,0)` is real by construction, so it has no such proxy. It shows sign-alternating values of
+    `0.4–40` at `t ≲ 5`, `10⁵×` the leading mode at the same nodes.
+  * This noise is what the earlier "tiny-`t` contamination" was.
+  * **Fix:** per `u`-row, start where three consecutive nodes exceed `10σ` (propagated through the kernel) and follow a smooth power law in
+    `t`. Before that start, use a power law fitted to the next three nodes. The true density there rises like `t^{4–10}`, so the replaced
+    region holds `≲ 0.5 %`.
+* **Light-cone wedge.** In each `t`-column (`t ≥ 3`), the dropped nodes `u < u_first` are filled with `H(u) = d/F`, extrapolated as a power
+  law in `u` from the first three clean nodes and multiplied by the exact kernel `F(ξ(u))`. This keeps the `u^{±iν}` oscillation of `F`.
+
+The old corner estimator extrapolated from the first accepted nodes, which carry the (D1) and (D2) errors. That is why it made `k = 2`
+worse; at `k ≥ 4` the weight suppresses those nodes.
+
+**Variants and envelope.**
+* The model spread is the largest deviation over: fit nodes shifted by one, two-node fits, noise thresholds `3σ` and `30σ`, wedge from
+  `t ≥ 5`, and cut `50`.
+* The envelope adds constant (slope-free) tails and the original production cut `32`.
+
+### 7.3 Results (`β = 1`; `R` at `m = 39.3 / 70.0 / 100.7` [model spread at `m = 101`]; `m²(R−1)`; `c₁`)
+
+| `k = 2`, `ν` | helicity | `K*⊗K*` | `𝔄⊗𝔄` | `𝔖_ff⊗𝔖_ff` |
+|---|---|---|---|---|
+| 0 | same | 1.1338 / 1.0399 / 1.0208 [0.004]; 207, 196, 211; +0.8 | 1.1336 / 1.0401 / 1.0216; 207, 197, 219; +1.0 | 1.1343 / 1.0400 / 1.0204; 208, 196, 207; +0.6 |
+| 0 | opp | 1.1141 / 1.0295 / 1.0141 [0.001]; 177, 145, 143; +0.3 | 1.1357 / 1.0279 / 1.0148; 210, 137, 151; +1.3 | 1.09 / 0.92 / 2.03: **not resolved** |
+| 1 | same | 1.1343 / 1.0400 / 1.0197 [0.003]; 208, 196, 200; +0.3 | 1.1339 / 1.0397 / 1.0185; 207, 195, 188; −0.2 | 1.1347 / 1.0402 / 1.0195; 208, 197, 198; +0.1 |
+| 1 | opp | 1.1109 / 1.0322 / 1.0157 [0.001]; 172, 158, 160; +0.2 | 1.1126 / 1.0331 / 1.0156; 174, 162, 159; −0.1 | 1.09 / 0.88 / 2.42: **not resolved** |
+| 3 | same | 1.1515 / 1.0453 / 1.0264 [0.036]; 234, 222, 268; +2.1 | 1.1490 / 1.0444 / 1.0263; 231, 218, 267; +2.2 | 1.1531 / 1.0436 / 1.0249; 237, 214, 252; +1.9 |
+| 3 | opp | 0.958 [0.47] / 1.0088 [0.010] / 1.0024 [0.006] | 0.882 [0.12] / 1.0019 / 1.0039 | not resolved |
+
+Envelopes (min..max including constant tails and cut `32`), `K*`:
+* same, `ν = 0`: `1.134..1.135 / 1.040..1.047 / 1.020..1.057`;
+* opposite, `ν = 0`: `1.100..1.510 / 1.027..1.036 / 1.014..1.036`;
+* opposite, `ν = 3`: `0.17..1.00 / 0.999..1.014 / 1.000..1.008`.
+
+The constant-tail variant is a deliberately crude upper envelope: it ignores the measured slope `u^{1.7}`.
+
+* **Validation at `k = 4, 6` [NE].** The same cleaning reproduces the `K*`, `𝔄` and leading-mode values of §6.4 to `≤ 10⁻³` (model spread
+  `≤ 3·10⁻⁴` at `m ≥ 70`).
+  * `𝔖_ff` with cleaning degrades at `k = 4`, `m = 101` (`1.127` vs raw `1.008`), because the isotropic-mode noise defeats the noise
+    criterion.
+  * For `𝔖_ff`, use the raw §6.4 values at `k ≥ 4`.
+* **`k = 2` against the earlier §2 numbers.**
+  * The leading-mode / `𝔄` same-helicity values `1.099 / 1.030 / 1.012` used the old corner estimator, biased by (D1). Cleaned:
+    `1.134 / 1.040 / 1.021`.
+  * The opposite-helicity entry "not resolved (tiny-`t`)" is now resolved for `𝔄` and `K*` at `ν ≤ 1` (all three masses) and at `ν = 3`
+    (`m ≥ 70`).
+* **`β = 0.4`, `m = 72`** (one mass; the raw values are `10²–10⁴` off):
+  * same helicity: `1.028` for `K*`, `𝔄` and the leading mode, at `ν = 0, 1, 3`;
+  * opposite helicity: `𝔄` `1.018 / 1.020 / 1.059` (spread `≤ 0.007`); `K*` `1.022` at `ν = 1` (spread `0.01`), but not resolved at `ν = 0`
+    and `ν = 3` (spread `1.05`, `0.46`);
+  * `𝔖_ff`: not resolved.
+
+### 7.4 Status
+
+* **H1 for `Ĉ₂` [NE].** Holds under `K*` (both helicities, `ν ≤ 1`, `m = 39–101`; `ν = 3` at `m ≥ 70`, to 1 %) and under `𝔄`. The
+  approach is `1 + c₂/m²` with `c₂ ≈ 140–270`. Not established: `𝔖_ff` at opposite helicity (cache defect), `β ≠ 1` convergence, and
+  `ν ~ m`.
+* **The cleaning is not a proof [I].** Its envelope rests on two things:
+  * smoothness: power-law behaviour beyond the clean region in `t` (towards 0) and in `u` (towards the light cone);
+  * the noise proxy: `Im G` as the noise of the real parts.
+
+  A cleaner route is a production rerun with a stricter mask and long-double sums near the edge. The radial-series edge would then need a
+  larger `N`, more than 1 h per mass, so it was not done.
+* **Implication for the functionals.** `Ĉ₂` should use `K*` (or the odd-kernel cross-check). `𝔖_ff`'s `k = 2` opposite-helicity moment
+  cannot currently be tested end to end.
+  * Under the normalised convention, the switch leaves the functionals unchanged at leading order (`EXACT_SKELETON_NEARGAP.md` §9).
+  * The measured `c₂` values feed the finite-`m` sensitivity there.
