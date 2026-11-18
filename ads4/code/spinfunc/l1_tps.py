@@ -5,10 +5,12 @@ expectations of products of TPS (for the Laplace expansion of M6 step 1/2).
 A TPS is a complex numpy array of length N over the monomials MONS (graded by degree).  Exact arithmetic up to DEG
 (no finite differences), so Taylor coefficients of compositions of +,*,/,log,pow are exact to round-off.
 """
-import itertools, math
+import itertools, math, os
 import numpy as np
 
 NV, DEG = 7, 6
+if NV == 7:                                # doc 23: K3 needs DEG = 8 (env L1_DEG); default unchanged
+    DEG = int(os.environ.get('L1_DEG', DEG))
 MONS = []
 for d_ in range(DEG + 1):
     for c in itertools.combinations_with_replacement(range(NV), d_):

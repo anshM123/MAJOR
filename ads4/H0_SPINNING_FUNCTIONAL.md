@@ -1579,3 +1579,108 @@ times the LO shape normalised to 1 at `x = 0`; max over `x ∈ [0.3, 0.7]`). The
 5. Files: `l8_points.py` (cached points, orders separate), `l8_refscan.py` (+ `cache/l8_refscan_run.sh`), `l8_analysis.py` (basis,
    cumulant, `D_h`, mixing), `l8_dc2.py` (+ `summary()`), `l8_neargap.py`; caches `cache/l8_pts_J*.pkl`, `l8_dc2.pkl`, `l8_dc2_J*.txt`,
    `l8_summary.txt`, `l8_neargap_*.txt`. Added to `run_all.sh`.
+
+## 23. M6 round 5: `K₃`, a linear-form chain, a CLS-D vs CHMRS shift term, and `Ĉ₃` (`l9_*.py`) — `Δ_g ≥ 300` confirmed; `Δ_g = 100` still open, for a sharper reason; hand-over in §23.7
+
+*Written 18 Nov 2026 by the numerics agent continuing M6 after §22.6. Unrefereed, not committed. Updated incrementally.*
+
+### 23.1 The next Laplace order `K₃` and its accuracy at `J²/m = O(1)` (`l9_tps.py`, `l9_scalar_k3.py`) [DV + NE]
+
+* **Engine.** `l1_tps.DEG` is now read from `L1_DEG` (default 6, unchanged). With `L1_DEG=8`, `l9_tps.expand_pref6` gives the
+  `ε⁶` term of `E[q e^A]` from the complete Bell polynomials `E₁…E₆`. Expectations of products up to degree 18 are exact: they are paired in
+  a degree-9 product space by the Hermite inner product `E[ab] = Σ_α α! â_α b̂_α`. Self-tests (`python3 l9_tps.py`): `S₀…S₄` equal
+  `l1_tps.expand_pref` to `3·10⁻¹⁶`; `E[e^{tξ}]` and `E[e^{cξ³}]` orders exact to `10⁻¹⁶`. Cost `≈ 5 s` per scalar point, `≈ 80–120 s` per
+  graviton point (`J = 6–10`). The shadow matrix is also computed at `K₃` (fit residual `5·10⁻⁷` at `Δ = 100`, `J = 6`).
+* **Accuracy check on the exact scalar skeleton** at the states that matter (`Δ_g = 100`, `m/Λ = 1.0–1.2`, i.e. `m ≈ 98–125`, `J ≤ 10`,
+  `x ∈ [0.3, 0.7]`, 161 points; same fit as l2: `a_ν + b_J`; `cache/l9_scalar_k3_100.txt`). Residual `|Δc₂|` (c₂ units), rms / max:
+
+| form | order | `J = 0` | `J = 4` | `J = 6` | `J = 8` | `J = 10` |
+|---|---|---|---|---|---|---|
+| linear (prefactor) | `K₁` | 22 / 79 | 52 / 123 | 40 / 80 | 63 / 130 | 160 / 609 |
+| linear | `K₂` | 9 / 36 | 14 / 30 | 9 / 19 | 20 / 47 | 68 / 225 |
+| linear | `K₃` | 1.6 / 6.7 | 3.4 / 8.9 | 2.7 / 5.2 | 5.4 / 10 | **19 / 61** |
+| cumulant (log) | `K₃` | 27 / 109 | 1224 / 6587 | 59 / 261 | 158 / 596 | 136 / 468 |
+
+* **Reading.** On `x ∈ [0.3, 0.7]` the Laplace series **in linear (prefactor) form converges at `m ≈ 100` up to `J = 10`**, by a factor `≈ 3`
+  per order; after `K₃` the error is `≤ 61` in c₂ units (tolerance scale `630`). The **cumulant (log) form**, which doc 22 used for the
+  graviton helicity elements, **does not converge** there (it is singular near zeros of `P_J` and degrades with order). So the doc-22
+  `Δ = 100` blow-ups (`2·10⁴`, overflow at `J = 6`) were artefacts of the log form and of the `x → 0` extrapolation through points next to
+  zeros of `P_J` (`J = 6`: `x = 0.2`; `J = 10`: `x = 0.1`), not of the expansion itself.
+
+### 23.2 Linear-form chain; and a shift term between the CLS-D and CHMRS functionals (`l9_analysis.py`) [NE + D-sketch]
+
+* **Chain.** Per element, the state series is multiplied order by order by `exp(−κ^{ref})` (the cumulant series of the heavy reference at the
+  same `ν`), and truncated at `K`. This removes the ν-only factor exactly to the computed order, in linear form, and is regular through
+  zeros of `D_++ = P_J`, `D_+− = d^J₄₄`. Per-state helicity constants `a_h` come from `Ĉ₂`; they are common to `Ĉ₃` (§23.3). Output:
+  absolute corrections `Γ_{k,h}(x; m)` in c₂ units × LO shape, and the off-diagonal.
+* **Check at `Δ_g = 300, 1000`.** With the same base as doc 22 the chain reproduces doc 22's verdict: `n = 1`, binding `+−`, `J = 5`.
+* **New finding: the crystal computes the CLS-D functional, the base model and the light side use the CHMRS one.** In the linear chain the
+  scalar crystal itself has `|Γ_s| ≈ 900` at `x ≈ 0.1–0.2` for `J = 10` (and `≈ 450` for `J = 6`), `m`-independent in c₂ units. The exact
+  CHMRS remainder at the same `(m, J, x)` is `|m²ρ₂| ≤ 85`. The difference is CHMRS's magic-block relation (§20.2),
+  `Ψ^{CLS}_ν ∝ g(ν)C₂(ν+i) + g(−ν)C₂(ν−i)`. Its `(g(ν) − g(−ν))/(g + g̃) ∝ i/ν` term gives `≈ −(α/x)∂_x(LO) ≈ 2αJ(J+1)` near `x → 0`.
+  * Subtracting this shift from the LO density (exact complex shift `x → x ± i/m`, scalar `g` of `l2`) brings the scalar crystal to
+    `|Γ_s| ≲ 100` at `m ≥ 800` [NE]. At `m ≤ 400` it does not work below `x ≈ 0.3` (residual `∝ 1/m²` in c₂ units, `±1.5·10³` at
+    `m = 98`). Reason: the truncated crystal does not reproduce the non-perturbative `1/ν` structure of `g(ν)` at `ν ≲ 30`.
+  * **ψ-integrated size.** The shift changes the per-state action by up to `1.8 / 0.27 / 0.033 N_s` (`J = 10`; `Δ_g = 100 / 300 / 1000`).
+    This is the difference between `∫ψ₂ Ψ^{CLS}_ν` and `∫ψ₂ C^{CHMRS}_ν`: two different valid functionals (a contour shift of `ν` turns one
+    into the other with reweighted `ψ` plus a pole term from `g`'s `1/ν`).
+  * **Consequence.** §R defines `Ω^{A′}` with `Ĉ^{CLS}`, but the near-gap base (exact skeleton `ρ_k`), the light side (§15, CHMRS residue
+    formula) and doc 22 (graviton ÷ scalar crystal × exact CHMRS scalar) all use, implicitly, the CHMRS-type functional `∫ψ C_ν`. That is a
+    consistent choice for the scalar parts. For the graviton it requires the spinning `Ĉ^{CLS} ↔ C`-type relation, which is not
+    derived: the scalar `g` is assumed [I]; the graviton's ν-only factor differs from the scalar's, §22.1. **§R must state which functional
+    `Ω^{A′}` is.** The CHMRS-type choice (`∫ψ C`, de-shifted crystal) is the one used below.
+
+### 23.3 `Ĉ₃` integrand built; leading-order check passed for both odd structures (`l9_points.py`, kinds `C3H`, `C3V`) [NE]
+
+* **Integrand.** As `Ĉ₂` (§21.3), with:
+  * dual `q²/V⁴ → o·q/V⁴`, `f = −1`;
+  * celestial `j′ = 1` = the `j′ = 0` one times a locally constant sign. Both `S⁰` points give the same value, since `o` and the sign are
+    both odd.
+  * `ε(·)` is the 5×5 embedding determinant by cofactors on TPS (checked against `numpy.det` to `4·10⁻¹⁶`).
+* **The two crystal-equivalent completions:**
+  * `o_H = ε(Z₂,X₂,X₄,X₀,Z₀)H₄₀/√(X₂₄X₂₀X₄₀³) + ε(Z₄,X₄,X₂,X₀,Z₀)H₂₀/√(X₂₄X₄₀X₂₀³)` (§21.6);
+  * `o_V = V₀,₄₂[ε(Z₂,…)V₄,₀₂/√(X₂₄X₂₀X₄₀³) − V₂,₀₄ ε(Z₄,X₄,X₂,X₀,Z₀)/√(X₂₄X₄₀X₂₀³)]`. Its homogeneity was re-derived; it has the same
+    degrees as `q`.
+* **LO check** (`J = 4`, `Δ = 800` and `1600` at equal `ν`, order 0, helicity basis of `Ĉ₂`):
+  * `Ĉ₃` is diagonal in the `Ĉ₂` helicity basis: off/diag `≤ 9·10⁻⁵`.
+  * `r_{+−}/r_{++} = −1.000` (to `≤ 2·10⁻³`, both structures), i.e. the `σ_h` pattern.
+  * `(2−y)·r_{++} = −2i x²` to `0.3 %`, with `r_h := Ĉ₃/Ĉ₂`. The `x²` at fixed `ν` scales as `m⁻²` between `Δ = 800` and `1600`
+    (ratio `4.000`). So the per-state constants are common to `Ĉ₂` and `Ĉ₃`, and `Ĉ₃` carries the relative `u m²` of §R.6.
+  * `o_H` and `o_V` agree at LO; their `O(1/m)` imaginary parts differ by a factor `2` (`r_{+−}/r_{++}` phase `0.8 %` vs `1.6 %` at `x = 0.3`).
+* **Which structure defines the functional.** Both are valid `j′ = 1`, `f = −1` light-ray functionals with the same crystal image and flat
+  limit, so the choice is a design freedom. **`o_H` is adopted** (the first, §21.6 form). Its `O(1/m²)` difference from `o_V` was
+  not computed (see §23.7).
+
+### 23.5 Independent assessment of the `Re` prescription (§22.2; amends §R.3) [D, with three conditions]
+
+**Verdict.** `Ĉ₂ := Re[Ĉ^{CLS}₂/N̂₂(ν)]` is a legitimate sum rule with the same flat limit and the same Regge convergence, provided
+conditions (a)–(c) hold. (a) and (b) hold for the parity-even sector computed so far. (c) is [D-sketch] at the same level as §15.
+
+**Why it is a valid sum rule.** For each `ν`, `Σ_O Σ_{ab} λ_a λ_b Ĉ_ν[G_{O,ab}] + (light) = 0` is a complex identity. Dividing by any
+state-independent `N̂(ν)` and taking the real part gives a real identity, provided `λ_aλ_b` are real. `Re[Ĉ_ν/N̂]` equals
+`½[Ĉ_ν/N̂ + (Ĉ_ν/N̂)*]`. On real `G`, `(Ĉ_ν)*` is the light-ray functional with conjugated kernel, i.e. the `−ν` celestial weight with the
+(real-coefficient) structure `q²`. That is again a CLS-D functional, with the same `J₀ < 2` convergence. `ψ` is real, so `Re` commutes with
+`∫ψ`. The flat limit is unchanged: the leading crystal action is real after `N̂` (§22.2), and the imaginary part is `O(1/m)`.
+
+**Conditions.**
+* **(a) Real OPE-coefficient basis.** `λ_aλ_b` must be real in the structure basis in which `Re` is taken. This holds for the parity-even
+  2×2: real conserved basis, real `β`, real saddle helicity vectors (§22.1).
+  * For the parity-odd structure the natural `ε`-form may carry a factor `i` in Lorentzian signature. Then the real-coefficient basis is
+    `i·ε`, and in the even–odd mixed entries "Re" becomes "Im" of the naive entries. **This must be fixed before the odd sector
+    (binding `+−`, `J = 5`) is computed.** (`Ĉ₃`'s own `−i` relative to `Ĉ₂`, §23.3, is ν-only and absorbed in `N̂₃`.)
+* **(b) `N̂` state-independent.** `N̂₂(ν)` is defined as the `m → ∞` limit at fixed `ν` (§R.3), so it is ν-only by construction.
+  * Numerically it is a single reference `Δ_ref = 2·10⁴` (reference-independent to `3·10⁻⁶`; helicity-independent, relative phase
+    `≤ 2·10⁻⁶π`).
+  * The per-state helicity constants `c_h(Δ)` are real (ratios of real structure normalisations), hence a congruence. They do not mix `Re`
+    and `Im`.
+  * Subtlety: the **phase** of `N̂` is a convention ("heavy limit real positive"). `Re[e^{iθ(ν)}Ĉ/N̂]` is a *different* valid functional.
+    Heavy and light sides must use the same `θ`.
+* **(c) Light side with the same phase.** The bound uses `−Ĉ₂|_E = 16πG/(ν²+9/4)`, real, from the CHMRS residue formula in the
+  heavy-Regge normalisation, so `θ = 0` on both sides [D-sketch, as §15].
+  * If the `T`-block action carried a residual ν-dependent phase `φ(ν)` relative to the heavy limit, `Re` would multiply the graviton pole
+    by `cos φ(ν)`. That changes `L_A` and the constants `A`, `B_AdS`, **not positivity**.
+  * §23.2 adds a sharper version of this point: heavy side, light side and `N̂` must refer to the **same** functional, CLS-D (`Ψ_ν`) or CHMRS
+    (`C_ν`). They differ by the shift relation, whose `g(ν)` is complex. `Re` of one is not `Re` of the other.
+
+**Is it load-bearing?** Yes. Treating the imaginary mixing as real breaks `n = 1` at `Δ_g = 300` (§22.4 `absmix`). The prescription is
+legitimate given (a)–(c), but it is part of the definition of `Ω^{A′}` and must be stated in §R together with the CLS/CHMRS choice.
