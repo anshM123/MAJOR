@@ -32,6 +32,20 @@ out = []
 def pr(s=""):
     print(s, flush=True); out.append(s)
 
+def dodd_E(PH, h, J, rho_ex, mfl):
+    """odd-k reading 'E' (I3 alternative): odd moments = eps_k x (exact k-continued scalar) instead of the B' odd envelope:
+    shift = sum_{k odd} u^{k-2} int phi_k sigma (eps_k E_k - (1-y)^{-(k+1)/2}) (D_h + rho_k)."""
+    from common import Dh_one, EPS
+    s = SIGMA[h]; u = 1/mfl**2; x = pn*np.sqrt(u); y = x*x
+    D = Dh_one(h, J, y)
+    tot = 0.0
+    for k in KS:
+        if k % 2 == 0:
+            continue
+        Ek = (2 - y)/(1 - y)**(1 + k/2)
+        tot += u**(k - 2)*np.sum(pw*peval(PH[k], pn)*s*(EPS[k]*Ek - 1/(1 - y)**((k + 1)/2))*(D + rho_ex[k]))
+    return tot
+
 def unc_exact(PH, h, st, sk_ser, rho_ex, mfl):
     """signed exact remainder on the series-uncontrolled nodes (per k summed), normal form."""
     s = SIGMA[h]; u = 1/mfl**2; x = pn*np.sqrt(u)
@@ -73,8 +87,9 @@ for DF in DFS:
                     re = action(*args, ske, *flat)
                     rs = action(*args, sks, *flat)
                     ue = unc_exact(PH, h, st, sks, r0['rho'], mfl)
+                    dE = dodd_E(PH, h, J, r0['rho'], mfl)
                     recs[(n, h)].append(dict(mfl=mfl, J=J, Ns=re['Ns'], Fh=re['Fh'], Sex=re['S'], Fex=re['Fh'] + re['S'],
-                                             E=rs['E'], U=rs['U'], Sser=rs['S'], Sall=rs['Sall'], Uex=ue, NU=re['NU']))
+                                             E=rs['E'], U=rs['U'], Sser=rs['S'], Sall=rs['Sall'], Uex=ue, NU=re['NU'], FexE=re['Fh'] + re['S'] + dE))
     allrecs[DF] = recs
 
 pickle.dump(allrecs, open(os.path.join(HERE, 'cache', 'e3_%d_recs.pkl' % Dg), 'wb'))
@@ -108,7 +123,8 @@ for DF, recs in allrecs.items():
             w = min(vb, key=lambda r: r['Fex']/r['Ns'])
             kap = [(r['Fh'] - r['E'])/r['U'] for r in vb if r['U'] > 0]
             ke = [r['Uex']/r['U'] for r in vb if r['U'] > 0]
-            pr(f"   [{lo:.2f},{hi:.2f}) {h}: {w['Fex']/w['Ns']:+.4f} [m/Lam={w['mfl']:.2f}, J={w['J']}] | {min(r['Fh']/r['Ns'] for r in vb):+.4f} | "
+            wE = min(vb, key=lambda r: r['FexE']/r['Ns'])
+            pr(f"   [{lo:.2f},{hi:.2f}) {h}: {w['Fex']/w['Ns']:+.4f} [m/Lam={w['mfl']:.2f}, J={w['J']}] (reading E: {wE['FexE']/wE['Ns']:+.4f} [{wE['mfl']:.2f}, {wE['J']}]) | {min(r['Fh']/r['Ns'] for r in vb):+.4f} | "
                f"{min(kap) if kap else float('inf'):.3g} | {min(ke) if ke else float('nan'):+.3g} (max |.| {max(map(abs, ke)) if ke else float('nan'):.3g})")
 
 pr("\n## thresholds over the scanned states (worst over both helicities and the skeletons listed)")
@@ -119,6 +135,9 @@ for n in FUNS:
         bad = [r for r in st if r['Fex'] - delta*r['Ns'] <= 0]
         pr(f"  {n}: n_exact(delta={delta}) = {ne}   ({len(bad)} non-positive states" +
            (f"; highest at m/Lam={max(r['mfl'] for r in bad):.2f})" if bad else ")"))
+        neE = n_thr(st, lambda r: r['FexE'] - delta*r['Ns'] > 0)
+        neB = n_thr(st, lambda r: min(r['FexE'], r['Fex']) - delta*r['Ns'] > 0)
+        pr(f"        odd-k reading E (eps_k x continued scalar): n = {neE};  worst of both readings: n = {neB}")
     for kr in (0.1, 0.3, 1.0):
         for delta in (0.0, 0.03):
             st = [r for DF in allrecs for h in SIGMA for r in allrecs[DF][(n, h)]]
