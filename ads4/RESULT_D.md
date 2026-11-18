@@ -19,7 +19,7 @@ spin `J > 2` (and no other light single traces). Large `c_T` with `c_T ≫ Δ_g�
 
 ## 2. Claim D (conditional)
 
-Under hypotheses H1–H12 below, with a heavy-positivity threshold `n` (§4),
+Under hypotheses H1–H14 below, with a heavy-positivity threshold `n` (§4),
 
 `|ĝ₃|² (Λ/n)⁸ ≤ A log(Λ/n) + B_AdS + O(n²/Λ²)`,
 
@@ -70,12 +70,14 @@ here with explicit constants and an explicit hypothesis list.
 | H11 | No other light single traces; `c_T ≫ Δ_g²`; double zeros of spinning kernels at double twists | [A]/[I] | — |
 | H12 | Parity-odd / indefinite-parity heavy exchanges harmless | **[D] flat side** (f's cuts are diagonal `|c^{+−}|²`, `|c^{++}|²`; all functionals use only f) **and AdS interference-free** (all kernels parity-even, flip responses vanish for `K*`, `𝔖_ff`, `𝔄` ⇒ no `λ_Eλ_O`, no `(c^{++})²` terms); leading formula unchanged [D given H1]; reduced to **H12′** [I]: H1 (and no `O(1/m)`) for the parity-odd `⟨TTO⟩` structure | not tested end to end (needs the ε-structure in the Taylor-mode code, ~2.5 h/mass); tolerance: thresholds unchanged for `|c₁| ≲ 8` (D-strong) / `≲ 19` (D-safe) vs measured parity-even `|c₁| ≤ 0.05` (`PARITY_ODD_HEAVY.md`) |
 | H13′ | Heavy positivity outside the scanned set | [NE] inside it, [M] outside | scanned: `J ≤ 10` to `m = 3Λ / 2Λ / 1.5Λ` (Δ_g = 100/300/1000) plus high-`J` samples (`J ≤ 28`, `b̂ ≤ 40–60`), all positive; beyond, `OMEGA_U`'s `κ ≥ 1.3–2.6` [M]. Not certified (sampled states, not intervals) |
+| H14 | **Object identity near the gap**: the exact near-gap remainders are computed for CHMRS's dispersive `C_{k,ν}` (scalar skeleton), but `Ω^{NF,SC}` applies `Ψ_k/N_k` (superconvergent light-ray sum rules) for `k ≥ 3`, and the position-space H1/H4 references compute Regge moments `Π̂_{k,ν}`; the three agree only at leading heavy order | [I] — raised in `SPINNING_MELLIN.md` §5; `C − Π̂` is `O(1/m²)` at small x (consistent with the 5–8·10⁻⁴ offset seen in `directgrav`) but estimated `~(ν/m)⁴/16`, i.e. O(1) differences at x ~ 1 | decide on paper how `Ψ_k/N_k` relates to `C_{k,ν}` beyond leading order for a scalar-type heavy block at x ~ 1; if they differ at O(1) the skeleton model of the near-gap remainder must be redone on the right object |
 
 ## 5. Where it can fail
 
 * **H1 beyond `ν ≲ 3` and β = 1.** The heavy formula is checked end to end for `k = 2–7`, both helicities, at `ν ≤ 3`, β = 1 (`k = 2`
   after cleaning cached-wave defects); the functionals need `ν ~ Λ` (the H2 question) and other β.
-* **H4.** Near-gap positivity is computed on scalar skeletons, not on graviton moments.
+* **H4, H14.** Near-gap positivity is computed on scalar skeletons, not on graviton moments, and on CHMRS's `C_{k,ν}`, not on the `Ψ_k/N_k`
+  the functional actually uses; the two agree only at leading heavy order (H14, newly identified).
 * **Coverage.** Positivity is on sampled states; the region `b̂ > 60`, `J` in the hundreds, is not covered by exact moments.
 * D-strong additionally rests on forward terms whose light-side errors are amplified ~10¹³ (H9).
 

@@ -8,6 +8,11 @@ validation targets, and the cost.
 Marks: **[D]** derived; **[DV]** derived and checked symbolically or numerically; **[NE]** numerical evidence; **[I]** estimate or
 assumption.
 
+> **Update (§5): the plan of §2–4 hits a structural blocker at M1.** The exact CHMRS Mellin machinery computes the dispersive functional
+> `C_{k,ν}`. The CPPR frame reduction is finite for the Regge moments `Π̂_{k,ν}`, which the position-space references compute. These are different
+> objects, and an exact Mellin formula for `Π̂` reintroduces the `e^{−πν}` cancellation. The functional itself uses a third object, `Ψ_k/N_k`.
+> See §5 for the revised options.
+
 ## 0. Summary
 
 * **Why position space stops at `x ≈ 0.12–0.17` [NE].**
@@ -172,3 +177,86 @@ symbolic (`gen4_l1.py`), and it has the exact references needed for validation.
 * Then do M4 for `l = 2` by unit-jet sampling.
 * Until then, the near-gap graviton moments at `x ≳ 0.1` have no exact source in this programme. Position-space extended precision is not a
   realistic fallback (§1.1).
+
+## 5. Stage M1: a structural blocker (18 Nov 2026, after the go-ahead)
+
+**Result: M1 as planned in §2.3 does not lead to the spinning moments.** It was stopped before coding the generalisation. The reasons are
+below and change the plan. Code: `ads4/code/spinmellin/` (only `m1_laplace_check.py`; output in `cache/m1_laplace_check.txt`).
+Source used: the CHMRS LaTeX source (arXiv:2106.10274, `sec_sumrules.tex` eqs. `magicmoment`, `Bkv r eta`; `sec_heavy.tex` eqs.
+`BMellinDefinition`, `Bkt action`, `CfromBMellin`; `app_heavy.tex` eqs. `definitionofomegatilde`, `CExpansionInPiHat`).
+
+### 5.1 Three different objects
+
+1. **`Π̂_{k,ν}`, the Regge moment** [D, CHMRS `reggemomentdefinition`, `inversetransforms`]:
+   * `Π̂ = ∫[dη]P_{−½+iν}(η)∫₀^{r_max(η)}dr r^{k−2} dDisc G`.
+   * This is what `e2e/moments.py`, `fourpt/`, `tttt/` and `directgrav/` compute in position space, and what the heavy formula (H1) is
+     stated and checked for.
+2. **`C_{k,ν}`, the dispersive functional** (CHMRS `magicmoment`):
+   * a double transform of the `B_{k,v}` sum rules, i.e. `C = ∫∫Ω̃_{k,ν}(r,η) dDisc G`;
+   * its kernel is **not** `r^{k−2}P_ν`. It is `r^{k−2}(1−r⁴)/((1+r²)²−4η²r²)^{(k+1)/2} × [P_ν + Σ_{n≥1}(…)(−4r²/(…))ⁿ I_n(η)]`;
+   * so `(γ²/a)C_{k,ν} = Π̂_{k,ν} + Σ c·Π̂_{k+2,ν}, Π̂_{k+2,ν±2i} + O(Π̂_{k+4})` (`CExpansionInPiHat`);
+   * **exactskel computes this object** (`m^{2k}C_{k,ν}`, the Mellin formula `CfromBMellin`). The functionals' skeleton model uses it.
+3. **`Ψ_k/N_k`, the superconvergent light-ray sum rules** that `Ω^{NF,SC}` actually uses for gravitons (`SUPERCONVERGENT_UPLIFT.md`). Only
+   their leading heavy action equals that of 1 and 2.
+
+**Consequence for earlier comparisons [NE + I].** The `≈ 5–8·10⁻⁴` offset `R_pos − R_ex` in `directgrav/c1` (flat in `ν`) is consistent in
+size with the `O(1/m²)` difference between `Π̂` and `C`. In `directgrav` it sits inside the common factor `c*`.
+* At `x ≲ 0.1` this is harmless.
+* At `x ~ 1` the Regge-moment expansion of `C` in `Π̂` is not small [I]:
+  * the shifted terms scale like `γ_{a+2}(ν)²/(γ_a(ν)²m⁴) ~ (ν/m)⁴/16`;
+  * CHMRS also note that the expansion only converges within a radius.
+  * So at `x ~ 1`, `Π̂` and `C` are different numbers. **The near-gap action depends on which object the functional uses.**
+
+### 5.2 Why the CHMRS Mellin formula does not extend to the CPPR frame representation [DV]
+
+* **The spinning frame factors carry explicit powers of `r` and polynomials in `η`.** From §2.2: `x₁₃² = −4r`, and the `z·x` products
+  contain `r^{±1/2}`, `r^{−3/2}` and `ρ, ρ̄` polynomials. The CHMRS frame cross-ratios are exactly `u = ww̄ = (1−2ηr+r²)²/(16r²)` and
+  `v = (1−w)(1−w̄) = (1+2ηr+r²)²/(16r²)`, so `r` and `η` are algebraic, not monomial, in `(u, v)`.
+* **For `Π̂` these factors are harmless.** `r^c` shifts `k → k+c`, and `η^j` shifts `ν` by multiples of `i` (Legendre recursion).
+* **For `C` they are not.** The `B_{k,v}` kernel is not a pure power of `r` (factors `(1−r⁴)`, `((1+r²)²−4vr²)^{(k−3)/2}`), so `C[r^c f] ≠ C_{k+c}[f]`.
+  The Mellin derivation of `C` uses that `B_{k,v}` acts on Mellin monomials `u^{S/2−Δφ}v^{T/2−Δφ}`; `r^c × monomial` is not one.
+* **So the spinning object for which the CPPR reduction is finite is `Π̂^K`, and the object for which an exact Mellin formula exists is
+  `C`. They are not the same.**
+
+### 5.3 An exact Mellin formula for `Π̂` reintroduces the `e^{−πν}` cancellation [D + NE]
+
+* **Monomial moment, exactly.** For a Mellin monomial, with `r = e^{−ξ}t` and `q = e^{−2ξ}`:
+
+  `Π_{k,η}[u^αv^β] = 16^{−α−β} q^{(k−1)/2−α−β} ∫₀¹dt t^{k−2−2α−2β}(1−t)^{2α}(1+t)^{2β}(1−qt)^{2α}(1+qt)^{2β}`.
+
+  The `r`-integral ends exactly at the zero of `1−2ηr+r²`. Expanding in `q` reduces `Π̂` to `Σ_n e_n B_n L(k−1−2α−2β+2n)`, where:
+  * `B_n` are Beta-times-₂F₁(−1) integrals;
+  * `L(s) = ∫[dη]P_{−½+iν}e^{−sξ}` is a ₃F₂(1) (non-Saalschützian; no Gamma-ratio closed form; the guessed one is excluded numerically).
+* **`L(s)` is power-law in `ν`, not exponentially small** (`m1_laplace_check.py`, quadrature): `L(4) = 3.0·10⁻², 6.4·10⁻³, 9.4·10⁻⁴,
+  1.2·10⁻⁴` at `ν = 5, 10, 20, 40`, against `e^{−πν} = 10⁻⁷ … 10⁻⁵⁵`.
+* **So the cancellation moves rather than disappears.** The block's `Π̂ ∝ γ_a(ν)² ~ e^{−πν}` would arise only by cancellation inside the
+  `(S, T)` Mellin integral of `Π̂[monomial]`. That is the same `e^{−πν}` loss as in position space, moved to Mellin variables.
+* **For `C`, CHMRS's kernel maps `v^{T/2}` to `γ_{a−T}(ν)`.** That is exactly the structure that Barnes' first lemma resums
+  (`skelexact3.py`). No analogous resummation for `Π̂` is known to us.
+
+### 5.4 Revised assessment and plan
+
+**The `l = 1` milestone as specified** (CPPR + CHMRS Mellin, validated against the position-space `Π̂` caches) **is blocked.** It needs one
+of the following:
+* **(a) An exact, cancellation-free representation of `Π̂_{k,ν}` of a block.** A Barnes-type resummation of `Σ_n e_nB_nL(…)` against the
+  Mack sum would be new mathematics.
+  * The `C`-to-`Π̂` inversion is not an option: it is a Regge-moment series that does not converge usefully at `x ~ 1` (§5.1).
+  * Feasibility is uncertain. This is the only route that keeps the existing position-space references.
+* **(b) A spinning dispersive functional with a Mellin representation**, i.e. spinning `B_{k,v}`/`C_{k,ν}` built on a covariant
+  tensor-structure basis with spinning Mellin amplitudes, so that the frame factors are absorbed into the structures. It would be validated
+  in the Regge-moment limit only (leading `Π̂` term), since no position-space reference exists for `C` itself.
+* **(c) The object the functional really uses, `Ψ_k/N_k`**: light-ray commutator sum rules. Their exact heavy action needs either the
+  light-ray transform of spinning blocks or a Mellin form of the superconvergence sum rules. Both are research-level.
+
+**What should be decided before more work.**
+* For H4 at `x ~ 1`, the relevant comparison is spinning versus scalar **for the same functional the bound uses**: `Ψ_k/N_k` against the
+  scalar `C_{k,ν}` of exactskel.
+* Neither (a) nor the `Π̂`-based references address `Ψ_k` at `x ~ 1`.
+* **Recommended:**
+  1. Settle (on paper) the exact relation between `Ψ_k/N_k` and `C_{k,ν}` for a scalar-type heavy block beyond leading order. If
+     `Ψ_k/N_k` and `C_{k,ν}` already differ at `O(1)` at `x ~ 1` for scalars, the skeleton model needs revisiting independently of spin.
+  2. Only then choose between (b) and (c).
+
+**What `sinh(nξ)`-type terms would do.** For `Π̂` they give `P¹`-type harmonic functions (associated Legendre), not finite sums of
+`P_{ν±im}`. Whether they cancel under the `M = 0` circle average was **not settled**: settling it needs the `l = 1` structure coefficients,
+which is M4, and M4 was not started because of the blocker.
