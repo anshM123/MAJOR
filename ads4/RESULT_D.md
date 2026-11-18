@@ -67,6 +67,13 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   remainder ≈ 10 in c₂ units at Δ_g = 100 vs tolerance 630. Uses CLS-D ≡ J = −1 inversion functional up to a ν-only factor [I].
 >   Spinning shadow-coefficient route to O(1/Δ²) checked on the scalar. Graviton slow factors (step 2) not yet done: H4 still [I].
 >
+> * **Update (M6 step 2, `H0_SPINNING_FUNCTIONAL.md` §21):** graviton crystal machinery for Ĉ₂ built and validated at leading order
+>   [NE]: shadow matrix β (residual ∝ Δ⁻³, crystal- and polarisation-independent), and the 2×2 action reproduces the stripped flat helicity
+>   densities exactly (ρ₊₊/ρ_scalar = (1−x²)², ρ₊₋/ρ₊₊ ∝ d^J₄₄/((1−x²)⁴P_J)). Ĉ₃ (2,4) structure o found (same crystal normalisation as q).
+>   **The O(1/m²) graviton correction δc₂ is not yet extracted** (the 1/m fits are unstable at the 10³ level). **New risk:** an O(1/m)
+>   helicity mixing whose second-order effect is pointwise 5–691 in c₂ units on x ∈ [0.3, 0.7] — comparable to the Δ_g = 100 tolerance 630;
+>   its integrated effect per state is not computed. H4 stays **[I]**.
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,

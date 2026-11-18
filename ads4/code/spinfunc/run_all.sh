@@ -25,3 +25,9 @@ python3 l2_scalar_validate.py 100 300 1000   # M6 step 1: Laplace expansion of t
 python3 -c "import l2_scalar_validate as V; V.summary(print)" > cache/l2_richardson.txt   # M6 step 1: Richardson over the gaps
 python3 l3_shadow_laplace.py         # M6 step 2 (piece): shadow coefficient from the x5 saddle to O(1/Delta^2), scalar check (~2 min)
 python3 l4_tto_even.py              # M6 step 2 (piece): conserved parity-even <TTO> structures, d = 3 (~20 min)
+python3 l5_spin.py                  # M6 step 2 round 3: contraction / structure machinery self-tests (seconds)
+python3 l5_shadow_matrix.py         # item 1: shadow MATRIX beta_cb (parity even), Delta^-3 validation (~10 min)
+python3 l7_dc2_scan.py 4 6 8 10 12 0 2   # items 2-3/5 data: graviton C^_2 vs scalar k = 2 crystal actions on (x, Delta) grids (~2 h; resumable)
+python3 l7_dc2_analysis.py 0.05     # LO check (2D span, helicity shapes) + per-helicity dc2 fits (UNSTABLE, see doc 21.4)
+python3 l7_hel_relative.py 0.05     # helicity-relative correction and mixing (UNSTABLE fits, see doc 21.4)
+python3 g6_odd_structure.py > cache/g6_odd_structure.txt   # C^_3 ingredient: covariant odd (2,4) structure, crystal image check (seconds)

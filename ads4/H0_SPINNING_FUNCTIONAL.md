@@ -1,6 +1,6 @@
 # H0: the spinning (`⟨TTTT⟩`) functional — route decision and first milestone
 
-Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R–§14 committed (78eca6a), §15–§16 (29e98d1), §17–§18 (1c7a156), §19 (a2618ed); §20.1–§20.7 (ce8480a); **§20.8 (step 2, round 2) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
+Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R–§14 committed (78eca6a), §15–§16 (29e98d1), §17–§18 (1c7a156), §19 (a2618ed); §20.1–§20.7 (ce8480a); **§20.8 (step 2, round 2) and §21 (round 3, partial) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
 H9b) and finding F1 of `REFEREE_FOUNDATION.md`. Code: `ads4/code/spinfunc/` (`run_all.sh`, single core, ≈ 1–2 h with M3b; outputs in
 `spinfunc/cache/`, git-ignored). It imports `omegau/`, `exactskel/` (e1/e7 caches) and `objid/` **read-only**. Nothing else was modified.
 
@@ -1120,6 +1120,17 @@ The graviton slow factors still to be built are listed below.
 H4 for route A′ therefore remains **[I]** (§19.5), now with a validated method and an `O(1/m³)` error budget `≈ 10` (c₂ units) at
 `Δ_g = 100`.
 
+### 20.6 Regraded table (supersedes §19.5 where they differ; rows for §20.7–§20.8 included; superseded by §21.8 where they differ)
+
+| statement | grade |
+|---|---|
+| Laplace expansion of the CLS-D crystal integral to `O(1/m²)` reproduces the exact scalar `c₂(x, J)` (`k = 2`) to `|Δc₂| ≤ 0.21` (median `0.05 %`), and `c₁` (mod `ν`-only) | [DV backbone + NE] (three gaps, 443 points) |
+| `O(1/m³)` truncation of that expansion | `≈ 10³/m` in `c₂` units [NE] |
+| shadow coefficient from the `x₅` saddle (CLS-D route) to `O(1/Δ²)` | [NE] (scalar: `Δ⁻³` residual, `J`-only constant) |
+| parity-even conserved `⟨TT𝒪_{Δ,J}⟩` (`d = 3`), exact `Δ`-dependent coefficients at general complex position | [NE] (counts `1, 1, 2, 2` for `J = 0, 2, 4, 6`; matches `SPINNING_TTTT.md`) |
+| graviton `δc₂^{spin}(x, J, h)` | not computed; remaining list in §20.8 |
+| H4 for route A′ | **[I]** (unchanged; §19.3 targets) |
+
 ### 20.7 Step 2, first ingredient: the shadow coefficient from the `x₅` saddle to `O(1/Δ²)` (`l3_shadow_laplace.py`) [NE, validated]
 
 * **Purpose.** For `⟨TTTT⟩` the shadow coefficient is a matrix over `⟨TT𝒪⟩` structures with no closed form.
@@ -1189,7 +1200,7 @@ H4 for route A′ therefore remains **[I]** (§19.5), now with a validated metho
    the scalar analogue (`Ĉ₂` vs `Π̂₂`) has to be quantified first with the scalar engine.
 6. **Step 3.** Feed the 2×2 matrix (minimum eigenvalue per state) into `h2_neargap_exact`, and get `n` at `Δ_g = 100/300/1000` vs §19.3.
 
-### 20.9 Round 3 of step 2: not started (agent context exhausted); hand-over recipe for the parity-even 2×2 path
+### 20.9 Round 3 of step 2: hand-over recipe for the parity-even 2×2 path (executed in §21)
 
 Priority order (coordinator): even 2×2 action end to end through step 3 first; the odd sector afterwards.
 1. **Shadow matrix `β_{ab}` (even).** Extend `l3_shadow_laplace.build`:
@@ -1214,13 +1225,184 @@ Priority order (coordinator): even 2×2 action end to end through step 3 first; 
 5. **Step 3.** Per state, the minimum eigenvalue of the `ψ`-weighted 2×2 action, through `h2_neargap_exact`; `n` at `Δ_g = 100/300/1000`
    vs §19.3.
 
-### 20.6 Regraded table (supersedes §19.5 where they differ)
+## 21. M6 step 2, round 3 (§20.9 recipe executed): the graviton `Ĉ₂` crystal action, parity-even `2×2`, to `O(1/m²)` (`l5_*.py`, `l6_spin_action.py`, `l7_*.py`, `g6_odd_structure.py`) — partial; hand-over in §21.9
+
+*Written 18 Nov 2026 by the numerics agent that took over M6; unrefereed, not committed. Done: items 1 and 2–3 (LO). Not done: the `δc₂` extraction (unstable, §21.4), items 4–5, and the odd sector.*
+
+### 21.1 Machinery (`l5_spin.py`; self-tests in `cache/l5_spin_tests.txt`) [DV, round-off]
+
+* **Index contractions in `d = 3`.** Spin-`l` traceless tensors are contracted from their values on the null circle
+  `w(φ) = (1, cos φ, sin φ)`, using `⟨T,S⟩ = Σ_{n=−l}^{l} T_n S_{−n}/κ_n`.
+  * `T_n` are the Fourier coefficients of `T(w(φ))`, from `2l+1` samples.
+  * `κ_n = (−1)^{l+n} 2^{−l} C(2l, l+n)`. Derivation: `T = Σc_k w_k^{⊗l}` and `(w·w′)^l = (cos(φ−φ′) − 1)^l` [D].
+  * Checks: `⟨(a·z)^l, (b·z)^l⟩ = (a·b)^l` at random complex null `a, b` to `10⁻¹⁶–10⁻⁷` (`l ≤ 20`), `10⁻⁴` at `l = 28`.
+  * On the crystal TPS, the contraction reproduces the scalar `Q_J` of `l1_crystal` (the scalar spin-`J` exchange), coefficient by
+    coefficient, up to a `J`-only constant. The error is `7·10⁻¹⁶ / 10⁻¹³ / 2·10⁻¹¹ / 10⁻¹⁰` at `J = 4 / 12 / 20 / 28`, so the crystal
+    configuration is benign at high `J`.
+* **Building blocks.** `V`, `H`, `X` are batched over TPS and agree with `l4_tto_even` to `10⁻¹⁶`.
+  * They are linear in each polarisation, so sampled polarisations cost three basis evaluations.
+  * The conserved `⟨TT𝒪⟩` numerators agree with `l4` to `4·10⁻¹⁵`.
+* **Conserved coefficients `conserved(Δ, J)`.**
+  * `l4.conserved_even` runs on a reduced TPS (6 variables, degree 3, which is all the Todorov operator needs), with point-wise normalised
+    denominators so that it works at `|Δ| ~ 10³`.
+  * The null-space basis is rotated to a real one. The null space is real, which is checked: rank 2 of `[Re, Im]`.
+
+### 21.2 Item 1: shadow matrix `β_{cb}(Δ, J)`, parity-even (`l5_shadow_matrix.py`, `cache/l5_shadow_matrix.txt`) [NE, validated]
+
+* **Definition.** `∫d³x₅ ⟨𝒪(x₆,z₆)𝒪(x₅,·)⟩·⟨T₃T₄𝒪̃(x₅,·)⟩_c = Σ_b β_{cb}⟨T₃T₄𝒪(x₆,z₆)⟩_b`, with `x₆ = (−e)⁺` and `x₃, x₄` at the
+  crystal.
+  * The `x₅` integral is Laplace-expanded around `e` to relative `O(1/Δ²)` (the l3 route).
+  * The `𝒪`-contraction is evaluation at `z₅ = I(x₅₆)z₆` (exact).
+  * `𝒪̃` side: conserved structures at `3 − Δ`. Right side: conserved structures at `Δ`, in the same basis as the functional uses for
+    `⟨T₁T₂𝒪⟩`.
+  * `β` is fitted over 6 random complex null polarisation triples `(z₃, z₄, z₆)`.
+* **Validation (recipe criteria), all three ∝ `Δ⁻³`:**
+
+| `J` | fit residual, order 2, at `Δ = 100 / 300 / 1000` | `|β(ν/Δ=0.4) − β(0.6)|/|β|` | `|β(pol. set 1) − β(set 2)|/|β|` |
+|---|---|---|---|
+| 0 | `2.9·10⁻⁴ / 1.1·10⁻⁵ / 2.9·10⁻⁷` | `≤ 2·10⁻¹³` | `4.3·10⁻⁵ / 1.3·10⁻⁶ / 3.2·10⁻⁸` |
+| 2 | `3.3·10⁻⁴ / 1.3·10⁻⁵ / 3.5·10⁻⁷` | `9.8·10⁻⁵ / 4.0·10⁻⁶ / 1.1·10⁻⁷` | `3.9·10⁻⁴ / 1.4·10⁻⁵ / 3.8·10⁻⁷` |
+| 4 | `6.1·10⁻⁵ / 2.4·10⁻⁶ / 6.7·10⁻⁸` | `4.1·10⁻⁴ / 1.7·10⁻⁵ / 5.1·10⁻⁷` | `9.4·10⁻⁴ / 2.3·10⁻⁵ / 7.1·10⁻⁷` |
+| 6 | `4.5·10⁻⁶ / 1.7·10⁻⁷ / 4.6·10⁻⁹` | `5.1·10⁻⁴ / 2.0·10⁻⁵ / 7.6·10⁻⁷` | `8.8·10⁻⁴ / 3.0·10⁻⁵ / 9.2·10⁻⁷` |
+
+  At order 0 / 1 the residuals scale as `Δ⁻¹ / Δ⁻²` (e.g. `J = 4`: `1.6·10⁻² / 8.1·10⁻⁴` at `Δ = 100`). So the polarisation dependence of
+  the shadow integral is exactly that of a combination of the conserved structures, up to the expected truncation.
+* **Use.** A `β` error of `4·10⁻⁴` at `Δ = 100` would be `≈ 4` in `c₂` units. In §21.4 it is removed with the other `1/m³` terms by
+  the multi-`Δ` fit.
+
+### 21.3 Items 2–3: the integrand, and the leading-order check (`l6_spin_action.py`) [NE, validated at LO]
+
+**Integrand** (`Ψ⁺` of CLS-D eq. `spinningfunctional_definition`, same gauge and δ-function solution as `l1_crystal`):
+* **Unchanged from the scalar** (validated, §20): the measure, `(−x²)^{−2d}`, the FP determinant, the scalar part of the dual
+  (`Δ̃_{2,4} = 0`, `J = −1`; `Δ_T = Δ_φ = 3`), and the celestial `j′ = 0` structure with `δ_i = 2`.
+  * The light-transform weight `(−α)^{−Δ−J}` and the polarisation scaling `z₁ = −αx₁₀` combine to `(−α)^{−Δ}`. So the celestial factor
+    is the scalar one [D].
+* **Subtraction factor:** `f⁺_{2;2} = v′ − u′` (instead of the scalar `(v′−u′)/(u′v′)`).
+* **`(2,4)` structure:** `q(z₂,z₄)²/V_{0,42}⁴` times the scalar dual.
+  * `q = (2H₂₀H₄₀ + V_{0,42}²H₂₄)/(X₂₀X₄₀)` (§17).
+  * `V⁻⁴` turns the `J = −1` homogeneity into that of the `J = 3` light-ray operator: it changes the `X₀` degree by `−4`, the `Z₀`
+    degree by 0 and the `X₂`, `X₄` degrees by 0. This equals CLS-D's `S_n = (−2V)^{J_F−4+2n}…` with `q² = 4S₀ + S₁ + S₂/16` [D].
+* **Polarisations:** `T₁, T₃` take `z₁ = x₁₀`, `z₃ = x₃₀`; `T₂, T₄` and `𝒪` are contracted via §21.1.
+* **Block `G_{(a′b′)}`:** `⟨T₁T₂𝒪(e)⟩_{a′} · β⁻¹ · ⟨𝒪̃(e)T₃T₄⟩_c`.
+  * The Δ-parts of the 3-pt denominators equal CLS-D's fast exponent `(Δ/2)log B` exactly. The remainders are slow.
+  * All polarisation dependence is one prefactor `P_{a′c}`, expanded with `expand_pref`.
+  * `M_{a′b′} = Σ_c P_{a′c}(β⁻¹)_{b′c}`, a `2×2` matrix for even `J ≥ 4` and `1×1` for `J = 0, 2`.
+
+**Leading-order check** (`cache/t_lo.pkl`; `J = 4, 6`; `Δ = 1000, 4000`; `x = 0.2 … 0.8`):
+1. The order-0 `M(x)` lie in a 2D span: the third singular value of the `(x × 3)` stack is `2.2·10⁻⁷ → 1.5·10⁻⁸` (`J = 4`) and
+   `1.2·10⁻⁵ → 7·10⁻⁷` (`J = 6`), i.e. `∝ Δ⁻²`. The span has two rank-1 directions `aaᵀ`, `bbᵀ`, which are x-independent.
+2. In that basis:
+   * one density ÷ the scalar `k = 2` action is `(1−x²)²` exactly (`J`-independent; e.g. `1.6384, 1.3688, 1, 0.5929, 0.2304` at
+     `x = 0.2…0.8`, vs `(1−x²)²` normalised: `1.6384, 1.3689, 1, 0.5929, 0.2304`);
+   * the other ÷ the first is `d^J₄₄(θ)/((1−x²)⁴P_J(cos θ))` times an x-independent constant (`J = 4`: `1.1110 ± 0.0005`, all `x`).
+3. So **`M` at leading order is `ρ₊₊ aaᵀ + ρ₊₋ bbᵀ`, with the stripped flat helicity densities of §9/§17 (channel ratio `(1−x²)^{−4}`)**.
+   This is the recipe's item-3 criterion.
+   * It also reproduces, as an output, the graviton/scalar envelope ratios `(1−y)^{±2}` that `h2_neargap_exact`/`f6` assume.
+   * Helicity labels are assigned by these shapes, with no external input.
+   * `M` is symmetric to `10⁻⁵`.
+
+### 21.4 Item 5 input: the `O(1/m²)` graviton-specific correction — NOT extracted reliably (`l7_*.py`, `cache/l7_*`) [NE: negative / diagnostic]
+
+**Data.** `cache/l7_J{4,6}.pkl` (`l7_dc2_scan.py`; `J = 8, 10, 12, 0, 2` were still running at hand-over, resumable).
+* Grid: physical `x = ν/m` at `0.05, 0.1, 0.2, …, 0.8`; `Δ = 100, 200, 400, 800, 1600, 3200`.
+* Per point: the `2×2` graviton `Ĉ₂` action at orders 0/1/2, and the scalar `k = 2` action (`l1_crystal.laplace_pref`) at the same `(ν, Δ, J)`.
+
+**What is robust [NE]:**
+1. The leading-order structure of §21.3 holds on the whole grid.
+   * The order-0 third singular value is `∝ Δ⁻²`, e.g. `J = 4`: `3.3·10⁻⁷ … 3.1·10⁻¹⁰` for `Δ = 100 … 3200` (unnormalised rows).
+   * The helicity shapes approach the stripped densities as `1/Δ`.
+2. **A ν-only factor.** The graviton/scalar ratio contains `N(ν) ≈ exp[(−0.6 + 21.5i)/ν + (115…123 + 32…46i)/ν² + …]`.
+   * It is the same for `J = 4, 6` and both helicities, to the fit accuracy. This is what a ν-only normalisation difference does: the
+     dual/celestial Γ-factors of the `J = 3` versus `J = −1` duals were dropped.
+   * It is the analogue of the scalar `N(ν)` that §20.2 fitted away. It is irrelevant for H4 only after it is absorbed into `N̂₂(ν)`.
+   * It is non-perturbative at small `ν` (`|21.5/ν| ≈ 4` at `x = 0.05`, `m = 100`). So a normalisation at small `x_ref` contaminates every `x`.
+3. **Helicity mixing at `O(1/m)` (new).**
+   * In the `x`-independent helicity basis (order-0 rank-1 vectors, at each `Δ`), the order-2 matrices have an off-diagonal element
+     `M̃₊,₋ = μ(x, J)/m × O(diag)`. The order-1/2 stacks leave the 2D span at `O(1/m)`.
+   * The profile `m·|M̃₊,₋|/max|diag|` is identical at `Δ = 800` and `3200`, so this is a clean `1/m` law: `J = 4`: `0.2 … 12.8` on
+     `x = 0.2 … 0.8`; `J = 6`: up to `24` at `x = 0.4`.
+   * Mechanism (my reading [I]): `q` is flip-free only at the crystal (§17). Its gradient times the cubic fluctuation term gives a helicity
+     flip at `O(1/m)`.
+   * It enters positivity at second order. Its `c₂`-equivalent `m²|M̃₊,₋|²/|M̃₊₊M̃₊₋|` (relative to the smaller density) is `5 … 484`
+     (`J = 4`, `x = 0.3 … 0.7`, the maximum at `x = 0.6`) and `≤ 691` (`J = 6`, at `x = 0.4`). It is up to `2.7·10³` at `x = 0.8`.
+     These numbers are **comparable to the §19.3 tolerance `630` (`Δ_g = 100`)**. They are pointwise in `x`. The `ψ`-integrated `2×2`
+     `F` per state has not been formed.
+
+**What is not robust [negative].** The per-helicity `δc₂^{spin}(x)` and the helicity-relative `δc₂^{+−} − δc₂^{++}` are unstable.
+* The fit `log R = Σ_{k≤K} e_k(x)/m^k` over `m ≈ 97 … 3200` moves `δc₂` by `1–2·10³` between `K = 3, 4, 5` and between `Δ`-subsets
+  (`cache/l7_hel_relative.txt`).
+* The helicity ratio, which is free of ν-only factors and of the scalar, still has an imaginary, `J`-independent, `x`-growing `e₁(x)`
+  (`≈ +0.9i … +5.5i` on `x = 0.1 … 0.8` at `K = 4`).
+* So the data are not yet described by a short `1/m` series with real coefficients. **No `δc₂^{spin}` number is quoted.**
+* Hypothesis tested and refuted: summing the two `S⁰` points. The `n₀ = −1` integrand equals the `n₀ = +1` one to round-off (checked at
+  `J = 4`, `Δ = 400, 1600`, `x = 0.3, 0.6`, all orders).
+* Untested candidates:
+  * a relative phase convention between the `T₁T₂` and `T₃T₄` sides (`β` fitted with complex polarisations);
+  * the `Δ`-dependence of the real null-space basis rotation, which is arbitrary per `Δ` but only enters through `β`;
+  * a non-analytic ν-only piece in the per-helicity ratio not cancelled by the normalisation at `x_ref`;
+  * genuinely large `1/m³–1/m⁴` coefficients. `m²(log order 2 − log order 1)` is `≈ −7·10³` at `Δ = 100`, so the `K₂` term alone is
+    `O(70 %)` at `m = 100`. The Laplace series of the spinning integrand converges much more slowly than the scalar one. That alone
+    could explain the fit instability.
+
+### 21.5 Item 4 (`x → 0` vs the `⟨TTTT⟩` Regge-moment `c₂`): not done [ND]
+
+* The Regge-moment `c₂` (`SPINNING_TTTT_EXT.md`, `|c₂| ≤ 310` at `ν ≤ 3`) is an absolute correction to the leading heavy formula for `Π̂_k`.
+* Here only ratios are computed: graviton/scalar at fixed `(ν, Δ, J)`, normalised per state. The small-`x` region is dominated by the
+  non-perturbative ν-only factor of §21.4.
+* The prerequisite `Ĉ₂` vs `Π̂₂` comparison on the scalar engine would need a Regge-moment integrand, which the crystal engine does not
+  provide. Not attempted.
+
+### 21.6 `Ĉ₃` ingredient: the covariant parity-odd `(2,4)` structure (`g6_odd_structure.py`, `cache/g6_odd_structure.txt`) [DV at the crystal image]
+
+* **The `d = 3` celestial `j′ = 1` structure.** It is the `j′ = 0` one times the 1D sign function `ε(z₁,z₃,z₀)/|…|^{1/2}`, which is
+  locally constant (`±1`). So it carries no fluctuation corrections; at fixed `n₀` it is a constant [D].
+* **The covariant odd photon structure.**
+  * The candidates are the ε-dualised `j′ = 1` monomials of CLS-D eq. `3pt_convention_spinning` (`U_{0,24}`-type).
+  * **`o := ε(Z₂,X₂,X₄,X₀,Z₀)H₄₀/√(X₂₄X₂₀X₄₀³) + ε(Z₄,X₄,X₂,X₀,Z₀)H₂₀/√(X₂₄X₄₀X₂₀³)`** has crystal image exactly
+    `2i·O/(4ν²(m²−ν²)²)`, with `O = 𝒲₂𝒱₄ − 𝒱₂𝒲₄`, on all four entries (spread `≤ 5·10⁻¹⁵`) at `x = 0.1 … 0.9`.
+  * The `x`-dependence is the same as that of `q ↦ −Q/(4ν²(m²−ν²)²)`. So `o·q` has the B₃ flat limit with no extra `x`-factor.
+  * It is odd under the `S⁰` reflection, as required for the `j′ = 1` sum.
+  * The `V`-type completion `V₀₄₂[ε(Z₂,…)V₄ − V₂ε(Z₄,…)]` has the same image. The two differ beyond the crystal, so `Ĉ₃`'s `O(1/m²)`
+    correction depends on this choice (a functional-design freedom).
+  * Note: the naive integer-power normalisation `/(X₂₄X₄₀)` gives a wrong `x`-dependence. The `√` powers are required by the
+    homogeneity.
+* **Not done:** the `Ĉ₃` integrand. It is `l6` with `q² → o·q`, `f = −1`, and the same celestial. Also not done: its scan, and its
+  leading-order check (same helicity vectors as `Ĉ₂`; ratio to `Ĉ₂` `= σ_h · y/(2−y)` × const).
+
+### 21.7 Item 5 (step 3, `n` at `Δ_g = 100/300/1000`): not done
+
+There is no reliable `δc₂^{spin}` (§21.4), so nothing was fed into `h2_neargap_exact`. **No `n` and no `δc₂`-vs-tolerance statement is
+made.** The mixing of §21.4 (item 3 there) is a new, positivity-relevant `O(1/m²)` effect of tolerance size. It has to be included as the
+minimum eigenvalue of the `ψ`-integrated `2×2` `F`, not per helicity.
+
+### 21.8 Regraded table (supersedes §20.6 where they differ)
 
 | statement | grade |
 |---|---|
-| Laplace expansion of the CLS-D crystal integral to `O(1/m²)` reproduces the exact scalar `c₂(x, J)` (`k = 2`) to `|Δc₂| ≤ 0.21` (median `0.05 %`), and `c₁` (mod `ν`-only) | [DV backbone + NE] (three gaps, 443 points) |
-| `O(1/m³)` truncation of that expansion | `≈ 10³/m` in `c₂` units [NE] |
-| shadow coefficient from the `x₅` saddle (CLS-D route) to `O(1/Δ²)` | [NE] (scalar: `Δ⁻³` residual, `J`-only constant) |
-| parity-even conserved `⟨TT𝒪_{Δ,J}⟩` (`d = 3`), exact `Δ`-dependent coefficients at general complex position | [NE] (counts `1, 1, 2, 2` for `J = 0, 2, 4, 6`; matches `SPINNING_TTTT.md`) |
-| graviton `δc₂^{spin}(x, J, h)` | not computed; remaining list in §20.8 |
-| H4 for route A′ | **[I]** (unchanged; §19.3 targets) |
+| `d = 3` spin-`l` contraction by null-circle Fourier coefficients; reproduces the scalar `Q_J` on the crystal TPS (`J ≤ 28`) | [D] + [DV] |
+| conserved parity-even `⟨TT𝒪⟩` coefficients at `|Δ| ≤ 3200`, real basis | [NE] |
+| spinning shadow matrix `β_{cb}(Δ,J)` (even) to `O(1/Δ²)`: residual, crystal-point and polarisation dependence all `∝ Δ⁻³` (`J = 0…6`) | [NE], validated |
+| covariant `Ĉ₂` integrand (`q²/V⁴` dual, `f⁺_{2;2}`, conserved `⟨TT𝒪⟩·β⁻¹·⟨𝒪̃TT⟩`) | [D] (homogeneity, structure) |
+| LO: `Ĉ₂` on even blocks `= ρ₊₊aaᵀ + ρ₊₋bbᵀ`, `ρ₊₋/ρ₊₊ ∝ d^J₄₄/((1−x²)⁴P_J)`, `ρ₊₊/scalar = (1−x²)²` (`J = 4, 6`; `Δ ≤ 3200`) | [NE], validated (recipe item 3) |
+| ν-only factor `N(ν)` in graviton/scalar, `J`- and helicity-independent | [NE] |
+| `O(1/m)` helicity mixing of the `Ĉ₂` heavy action; second-order `c₂`-equivalent up to `~5·10²` on `x ∈ [0.3,0.7]` (`J = 4, 6`) | [NE] (clean `1/m` scaling); mechanism [I] |
+| graviton-specific `δc₂^{spin}(x, J, h)` | **not extracted** (fits unstable at `±2·10³`; §21.4) |
+| `Ĉ₃` odd `(2,4)` structure `o` (image `∝ O`, B₃-compatible normalisation) | [DV] at the crystal image; integrand not built |
+| `x → 0` comparison with the Regge-moment `c₂` | [ND] |
+| parity-odd `⟨TT𝒪⟩` sector (incl. the binding state `+−`, `J = 5`) | [ND] |
+| H4 for route A′ | **[I]** (unchanged). New risk: the `O(1/m)` mixing is of tolerance size pointwise. |
+
+### 21.9 Hand-over (agent context exhausted; next steps in order)
+
+1. **Stabilise the `1/m` extraction.**
+   * Fit on `Δ ≥ 400` only, with `Δ` up to `10⁴`. Cost: `conserved()` and the shadow fit are `≈ 1 min` per `(Δ, J)`; one point is
+     `5–15 s`.
+   * First check whether the helicity ratio's imaginary `e₁(x)` survives with real (not complex) random polarisations in the `β` fit, and
+     with the `S0/S2/S4` orders separately. `ord2 − ord1` is `O(70 %)` at `Δ = 100`, so the spinning Laplace series may need `K₃`.
+     `l1_tps.DEG = 6` supports only `K₂`. `K₃` needs `DEG = 8` (memory: `N = 3432`, `_I ≈ 1.2·10⁵`).
+2. **Mixing.** Form `F = ∫ψ₂M(Λp)` per state, as a `2×2`, on the h2 nodes: interpolate `μ(x, J)/m` in `x`, using `cache/l7_J*.pkl`.
+   Then report `λ_min(F̃)/N_s` against the diagonal. This is decisive for H4 independently of item 1.
+3. **`Ĉ₃`.** Copy `l6.build_spin` with `D = q² → o·q`. `o` comes from `g6` (ε by cofactors with TPS; `x₀`-dependent rows), with
+   `f = −1`. LO check as in §21.6. Then the `k`-pattern difference `δc₂^{(3)} − δc₂^{(2)}`, where the ν-only factor does **not** cancel
+   automatically (dual normalisations differ).
+4. Odd `J` / parity-odd `⟨TT𝒪⟩` (binding state). An ε-structure null space in `l4`, compared with `fourpt/tttt/odd3.py` at matched points.
