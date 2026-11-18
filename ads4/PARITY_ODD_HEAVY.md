@@ -1,6 +1,7 @@
 # H12: parity-odd and indefinite-parity heavy exchanges
 
-Status: written 18 Nov 2026 by the `⟨TTTT⟩` derivation/numerics agent; **not refereed; not committed.**
+Status: written 18 Nov 2026 by the `⟨TTTT⟩` derivation/numerics agent; §0–§3 committed. **§4 (end-to-end test of H12′) and the
+flip-response correction in §2.3 were added after `REFEREE_FOUNDATION.md`; not refereed, not committed.**
 * Code: `ads4/code/exactskel/e11_parity.py` (output `exactskel/cache/e11.txt`). It reads the per-`k` heavy parts saved by `e10_kernel.py`.
 * Paper text: arXiv:2201.06602 v1 (PDF fetched 18 Nov 2026; the equation numbers below are v1).
 * Builds on `FLAT_GRAVITON_BOUND.md`, `ROBUST_FUNCTIONAL.md`, `NOFORWARD_FUNCTIONAL.md`, `KERNELS_D3.md` (helicity map),
@@ -21,7 +22,11 @@ Marks:
 | AdS side, interference: every AdS functional is parity-invariant (kernels `𝔖_ff`, `K*`, `𝔄⊗𝔄`, `j′`-matched superconvergent kernels). So the moment is **exactly even in the parity-odd OPE coefficient**: no `λ_E λ_O` term at any order in `1/m` or `ν/m`. The phase-sensitive flip terms (single flips `c_s c_o*`, double flips `(c^{++})²`) vanish identically for `𝔖_ff`, `K*`, `𝔄⊗𝔄`. They do **not** vanish for the superconvergent `Ψ₄`, `Ψ₆` (the `(1,3)` `j′ = 0` structure has a flip response). There the parity-odd part of the interference, `∝ λ_Eλ_O`, is removed by parity invariance; what remains is the parity-even residual `ρ_k` already bounded in `SUPERCONVERGENT_UPLIFT.md` item 3 (corrected 18 Nov, referee). | **[D]** (given Lemma L flip responses [DV]) |
 | AdS side, leading heavy formula: a parity-odd (or mixed) exchange enters as `C^± = (2P/m^{2k})(|c_same|² ± |c_opp|²)`, with `c_same` the full complex helicity coupling (`∝ r_Eλ_E + i r_Oλ_O`). At even `J` the parity-odd structure feeds only `c_same`. | **[D given REGGE_MOMENT_TTTT (H1)]**; not tested end to end on a parity-odd structure **[ND]** |
 | AdS side, no `O(1/m)`: mixed waves `W[E,O]` drop out exactly (above). For `W[O,O]` the reflection argument of `SPINNING_4PT.md` §6.1 goes through: two `ε`-tensors give a squared sign. The step to physical couplings needs the parity-odd MFT normalisation to be Weyl-even. | **[D given Assumption T, Lemma S]** for the structures; **[I]** for the normalisation |
+| **End-to-end test (§4, added after the foundation review):** mixed waves `W[E,O]` are parity-odd pointwise to `2·10⁻¹²` ⇒ identically zero under `K*`, `𝔖_ff`, `𝔄⊗𝔄`. `W[O,O]` for the odd-`J` identical-`T` structure is proportional to the opposite-helicity heavy formula uniformly in `k = 2–7`, `ν ≤ 3`, kernel (to `≤ 10⁻⁴`, two masses), with an unexplained overall normalisation `N = 3.77 / 3.30` | **[DVE]** shape; **[I]** normalisation |
 | Margin if an `O(1/m)` term did exist (`e11`): thresholds unchanged for `\|c₁\| ≤ 8.4` (D-strong, `++`, `Δ_g = 100`, `δ = 0.03`), `≤ 19` (D-safe). The mutation scale is `\|c₁\| ≈ 4–10`. | **[NE]** |
+
+**Update (§4).** H12′ is now tested end to end on its shape, which is [DVE]. Only the overall normalisation of the odd coupling
+remains [I], and it is not threshold-relevant.
 
 **H12 is settled except for one reduced item.** Positivity of D-safe and D-strong extends to parity-odd and indefinite-parity heavy states,
 with no interference terms and no change in any number. What remains is **H12′ = H1 for parity-odd `⟨TTO⟩` structures**: the two-pair
@@ -200,3 +205,119 @@ Table: largest `|c₁|` that leaves `n` unchanged (`δ = 0` / `δ = 0.03`):
    * What it should show: `W[E,O]` vanishes identically under `K*⊗K*` and `𝔄⊗𝔄`, which is a sharp check of §2.2. `W[O,O]` gives the
      same-helicity formula with `|c₁| ≪ 1`.
    * Cost estimate: a few hours of development, plus production runs of about 2.5 h per mass on one core (as for the parity-even waves).
+
+## 4. End-to-end test of H12′ on ⟨TTTT⟩ blocks with a parity-odd exchanged structure
+
+Added 18 Nov 2026, after `REFEREE_FOUNDATION.md`. Not refereed; not committed. Code is in `ads4/code/fourpt/tttt/`:
+* `odd3.py`: parity-odd three-point words, CHL odd structures, decomposition;
+* `taylor4odd.py`: Taylor-mode engine with an ε-algebra;
+* `t20_oddvalidate.py`: engine against brute force;
+* `tmoments_odd.py`: production;
+* `t21_oddanalysis.py`: analysis.
+
+Outputs: `out_t20_oddvalidate.txt`, `out_t21_oddanalysis.txt`, `cache/modes_odd_*`.
+
+### 4.1 Why the D-safe minimum needs this
+
+* For identical `T` and odd `J` the only conserved `⟨TTO⟩` structure is parity-odd. It is CHL's `X^O_opp = i[T^{+−} − T^{−+}]` (one `ε`),
+  and it feeds only `c_opp`.
+* So every odd-`J` `+−` state is a parity-odd exchange. This includes `+−, J = 5`, the D-safe minimum (`F/N_s = 0.227 / 0.206 / 0.202`).
+* The test point is `β = 1` with odd `J`. On the `β = 1` line `J = round(m sinh(β/2) − ½)`, so the exchanged spin is tied to `m`. An odd-`J`
+  point near `m ≈ 70` is `J = 35` (`Δ = 78.3203`, `m = 68.13`). The second mass is `J = 19` (`Δ = 43.6971`, `m = 37.42`).
+* `J = 5` itself would sit at `m ≈ 5` on this line, where the Regge expansion is meaningless. Its role here is played by the same structure
+  at large `m`.
+
+### 4.2 Construction [D + DV]
+
+**Odd operators (embedding space).** The parity-odd analogues of the CPPR operators are:
+* first order: `ε(Z_i, Z_j, P_i, P_j, ∂_{P_i})`, `ε(…, ∂_{P_j})`, `ε(Z_i, P_i, P_j, Z_j, ∂_{Z_j})`, `ε(Z_j, P_j, P_i, Z_i, ∂_{Z_i})`;
+* second order: `ε(Z_s, P_i, P_j, ∂_{P_i}, ∂_{P_j})`.
+
+The `∂_P`-type operators are applied first, to the `Z`-independent seed, which keeps the result gauge invariant. The 42 odd words they
+generate for `l = 2` span a **12-dimensional** space. That is the full parity-odd `(2,2,J)` space: `(2l+1)² − 13` even = 12. The first-order
+operators alone reach only 8 dimensions.
+
+**Target structure.** CHL's parity-odd helicity structures were built in position space as the odd part of their momentum-space
+definition. The same FT machinery and dropped constant are used as for the even structures (`chl_xspace`). One `ε(e_k, p, e₃)` is handled
+as `−iε(e_k, ∂_x, e₃)`.
+* The structure is conserved: `|div|/|T| ≈ 10⁻¹³` at 30 digits, against 10⁻⁶⁴ for the even control.
+* It is exactly `i ×` (a real-coefficient structure).
+* It decomposes exactly into a 12-word basis (`HO, HQ, ACO, ACQ, AEO, AEQ, BCO, BCQ, AACS, AAES, ABCS, BBCS`): fit residual `10⁻⁵⁹`,
+  `10⁻⁵⁶` on fresh configurations.
+* The even pipeline, with the same conventions, reproduces the cached production coefficients to `4·10⁻¹⁵`.
+
+**Engine.** `taylor4odd` carries ε-factors and contraction tags through the Taylor-mode word application. Products of two ε's are
+evaluated as `k!·det(Gram)/det η_E`.
+* It agrees with a brute-force sympy application of the same operators (explicit Levi-Civita on 5-component vectors) for
+  `O×O`, `Q×O`, `HO×HQ`, `AC×HO`, `S×O`, `R×Q`.
+* The agreement is to 12 digits, with the expected constant `det η_L/det η_E = −1`.
+* `AS×O` (an even operator acting on an `S`-generated ε) was too slow for brute force. It is covered only by the end-to-end results.
+
+**Production.**
+* Waves `W[E,E]`, `W[O,O]` (and `W[E,O]` on 100 points), with `E = X^E_opp`, `O` = the real structure `S` with `X^O_opp = iS`.
+* Half moment grid: 868 / 833 points (`2.0/0.5` h for `W[O,O]` per mass on two cores). Validated: `W[E,E]` at `J = 35` on the half grid
+  reproduces the full-grid `J = 36` values after `1/m²` rescaling to `≤ 10⁻⁴`. For example `K*`, `k = 4`, `ν = 0`: `1.0175` against the
+  predicted `1 + 81/m² = 1.0175`.
+
+### 4.3 Results
+
+**(a) Mixed waves vanish identically [DVE].**
+* The frame reflection maps `q → −q` on all four circles. `W[E,O]` satisfies `W_{−q} = −W_q` pointwise to `2·10⁻¹²` (100 points,
+  `J = 35`). The control `W[O,O]` is even to `8·10⁻¹¹`.
+* So every `q → −q`-symmetric kernel gives exactly zero on `W[E,O]` at every `k` and `ν`. This covers `K*`, `𝔖_ff`, `𝔄⊗𝔄`, and the
+  `j′`-matched superconvergent kernels, which are parity-even.
+* No `λ_Eλ_O` term reaches any functional (§2.2, now end to end).
+
+**(b) `W[O,O]` has exactly the opposite-helicity heavy-formula dependence [DVE, β = 1, two masses].**
+* `W[O,O]/W[E,E]` (raw for `k ≥ 3`; `t19`-cleaned for `k = 2`) is independent of `k`, `ν` and the kernel:
+
+| `J` (`m`) | `W_OO/W_EE`, `k = 5, 6, 7`, `ν = 0, 1, 3`, `K*`, `𝔖_ff`, `𝔄` | `k = 3, 4` | `k = 2` (cleaned, `K*`) |
+|---|---|---|---|
+| 35 (68.13) | 3.30023 (spread `≤ 2·10⁻⁵`; `𝔖_ff` `ν = 3`: 3.3002) | 3.2988–3.3055 | 3.2972–3.2998 |
+| 19 (37.42) | 3.76609 (spread `≤ 2·10⁻⁴`) | 3.66–4.03 (numerical noise in the odd waves at small `m`) | 3.764–3.786 |
+
+* `W[E,E]` at the same odd `J` follows the even heavy formula with the established `c₂`:
+  * `m²(R−1)` for `K*`, `k = 4`, `ν = 0` is `+88 / +81` at `m = 37 / 68`, against `+88 / +81` from the even-`J` data of
+    `SPINNING_TTTT_EXT.md` §6;
+  * for `𝔄`, `k = 7`, `ν = 3` it is `−303 / −305`.
+* Hence `R_OO(k, ν) = N(Δ,J)·R_EE(k, ν)`: the parity-odd exchange has the same `k`-, `ν`- and kernel-dependence, the same `1/m²`
+  corrections, and no additional `O(1/m)` in its shape, at `k = 2…7`, `ν = 0, 1, 3`.
+* Even dominant individual modes are proportional pointwise with the same `N` (`(2,−2,2,−2)`: `3.3002` at most grid points). `N` is a
+  normalisation of the whole block, not Regge dynamics.
+
+**(c) The normalisation `N(Δ,J)` is not understood [I].**
+* For CHL-normalised structures the helicity components of `X^O_opp` and `X^E_opp` have equal moduli. The expected relation is then
+  `|W[X^O,X^O]| = |W[X^E,X^E]|`, i.e. `N = 1` up to a convention sign.
+* The measured `N` is `3.766` and `3.300`, positive, and varies by 14 % between the two masses.
+* The construction was checked piece by piece:
+  * the three-point decomposition is exact;
+  * the even pipeline reproduces production;
+  * the 4-pt engine matches brute force.
+* What is left is the relative normalisation of seeds with odd versus even total shift (three-point frame phases, and the seed-to-3-pt
+  normalisation for half-integer `a`, `b`). This was not resolved in the time available.
+* Consequence: the physical statement "`C^± = (2P/m^{2k})(|c_s|² ± |c_o|²)` with `|c_o|² = ρ/ρ_MFT`" for the odd exchange holds iff
+  `ρ^E_MFT/ρ^O_MFT = N(Δ,J)(1 + O(1/m²))`. That needs the parity-odd MFT (Fock) data, which were not computed.
+
+### 4.4 Status of H12′
+
+* **[DVE]** (end to end, exact blocks, no fitted constant beyond one overall normalisation per mass):
+  * the parity-odd exchange that governs odd-`J` `+−` states produces, under every kernel of D-safe and D-strong (`K*`, `𝔖_ff`, `𝔄⊗𝔄`),
+    moments proportional to the opposite-helicity heavy formula;
+  * the proportionality is uniform in `k = 2…7` and `ν = 0, 1, 3` to `≤ 10⁻⁴` at `m = 68` (`≤ 2·10⁻⁴` for `k ≥ 5` at `m = 37`), with the
+    same `1/m²` corrections as parity-even exchanges;
+  * mixed even–odd waves vanish identically under these kernels.
+  * Scope: `β = 1`, `J = 19, 35`, the identical-`T` odd-`J` structure. The even-`J` parity-odd structure (`++`) was not run (its
+    decomposition is available).
+* **Not [DVE]:** the overall normalisation `N(Δ,J)` relative to the MFT normalisation of the odd coupling. Hence it is not established
+  that there is no `O(1/m)` term in the normalised (per `|c_o|²`) formula.
+* **Margin effect if `N` hid an `O(1/m)` mismatch [NE].**
+  * Read as `N∞(1 + a/m)`, the 14 % change gives `|a| ≈ 14`.
+  * Restricted to the states it can affect (odd-`J` `+−`), the thresholds tolerate `|c₁| ≤ 56` (D-safe) and `≤ 182` (D-strong) at
+    `Δ_g = 100`, and more at 300 and 1000 (`exactskel/e10` records).
+  * `n(c₁ = 16)` is unchanged everywhere.
+  * **So no threshold or bound would move even in that case.** H12′ is load-bearing for positivity only through the sign and shape of the
+    odd-`J` `+−` action, which are now [DVE]. A positive overall normalisation of `|c_o|²` cannot change any sign.
+* **Proposed grade for H12 / H12′ in `RESULT_D.md`:**
+  * "[D] flat and interference-free";
+  * "H12′: shape [DVE] (`β = 1`, `J = 19, 35`, `k = 2–7`, `ν ≤ 3`, mixed waves vanish identically)";
+  * "normalisation `N(Δ,J)` vs odd MFT data [I], not threshold-relevant (tolerance `|c₁| ≤ 56` vs the implied `≈ 14`)".

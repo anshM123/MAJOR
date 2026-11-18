@@ -1,7 +1,7 @@
 """
 Parity-odd conserved <T T O_{Delta,J}> structures (d = 3) for the Taylor-mode <TTTT> waves (PARITY_ODD_HEAVY.md sect. 4).
 
-Odd operator (embedding space, applied FIRST to the scalar seed, i.e. rightmost in a word):
+Odd operators (embedding space; 'O', 'Q', 'R', 'S' applied FIRST to the scalar seed, i.e. rightmost in a word; 'U', 'V' last; see odd_words):
    'O' = eps(Z_i, Z_j, P_i, P_j, d/dP_i)   [seed shift (0, 1): P_j-degree +1]
    'Q' = eps(Z_i, Z_j, P_i, P_j, d/dP_j)   [seed shift (1, 0)]
 (eps contracted with the inverse metric: eps(..., d/dP) sigma(P.X) = eps(..., X)).  Acting on the Z-independent seed the result is

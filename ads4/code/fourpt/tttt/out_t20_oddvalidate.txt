@@ -1,0 +1,7 @@
+      O x O    : brute force -1.0558183326e+02+0.0000000000e+00j, engine 1.0558183326e+02, ratio -1.000000000000-0.000000000000j  (eps factors 2; expected ratio -1)
+      Q x O    : brute force 3.8730963948e+02+0.0000000000e+00j, engine -3.8730963948e+02, ratio -1.000000000000+0.000000000000j  (eps factors 2; expected ratio -1)
+     HO x HQ   : brute force 2.0511780801e+06+0.0000000000e+00j, engine -2.0511780801e+06, ratio -1.000000000000+0.000000000000j  (eps factors 2; expected ratio -1)
+     AC x HO   : brute force 6.7626697206e+03+0.0000000000e+00j, engine 6.7626697206e+03, ratio 1.000000000000+0.000000000000j  (eps factors 1; expected ratio 1)
+      S x O    : brute force -1.0133072562e+01+0.0000000000e+00j, engine 1.0133072562e+01, ratio -1.000000000000-0.000000000000j  (eps factors 2; expected ratio -1)
+      R x Q    : brute force -2.2350269507e-01+0.0000000000e+00j, engine 2.2350269507e-01, ratio -1.000000000000-0.000000000000j  (eps factors 2; expected ratio -1)
+  AS x O, S x S, U x O: brute-force side too slow (killed after 50 min); covered only by the end-to-end W[O,O] results (PARITY_ODD_HEAVY.md sect. 4.2)
