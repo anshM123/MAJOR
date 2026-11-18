@@ -61,6 +61,12 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   [274.1, 1997]** (Δ_g = 100/300/1000; flat part float-only in the NF02 corner +−, J ≥ 400, m < 1.633Λ at Δ_g = 1000). Still [NE]/[I]:
 >   b̂ ∈ [20, b̂₀), b̂ > 2Λ, |S| < F off the sample, η-inversion not included.
 >
+> * **Update (M6 step 1, `H0_SPINNING_FUNCTIONAL.md` §20):** scalar Laplace expansion of CLS-D's Ψ₂ around the scattering crystal to
+>   O(1/m²) validated against the exact CHMRS skeleton [DV backbone + NE]: c₂ reproduced to ≤ 0.21 absolute (median 0.05 %) on 443 points
+>   of x ∈ [0.3, 0.7], c₁ = 0 reproduced, residuals scale as the truncation predicts (rms 11.6 / 4.2 / 1.27 at Δ_g = 100/300/1000); 1/m³
+>   remainder ≈ 10 in c₂ units at Δ_g = 100 vs tolerance 630. Uses CLS-D ≡ J = −1 inversion functional up to a ν-only factor [I].
+>   Spinning shadow-coefficient route to O(1/Δ²) checked on the scalar. Graviton slow factors (step 2) not yet done: H4 still [I].
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,

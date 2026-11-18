@@ -1,5 +1,11 @@
 # Certified near-gap positivity of the D-safe heavy action (scalar-skeleton model), Δ_g = 100
 
+> **Withdrawn functional (18 Nov 2026, later).** Theorems C and C′ below certify the **B′-uplift D-safe functional `Ω^{NF,SC}`
+> (k = 2…7)**. That functional is withdrawn (`H0_SPINNING_FUNCTIONAL.md` §9–§11).
+> * The route-A′ certificate is in **`CERTIFIED_NEARGAP_A.md`**. Route A′ is `∫ψ₂Ĉ₂ + ∫ψ₃Ĉ₃`, with the stripped density and the
+>   `η`-inversion.
+> * Everything here about the certified moments (`cert_moments.py`) and the quadrature method (`cert_quad.py`) is reused there unchanged.
+
 Status: 18 Nov 2026, derivation/numerics agent. **Unrefereed.** Code: `ads4/code/exactskel/cert_moments.py`, `cert_action.py`,
 `cert_summary.py` (test: `cert_t1.py`). Caches and logs: `exactskel/cache/cert_100_Df*.{pkl,log}` and `cache/cert_100_summary.txt`.
 The other files of `exactskel/` are used read-only; `omegau/` is used read-only.

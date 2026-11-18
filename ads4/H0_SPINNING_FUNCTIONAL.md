@@ -1,6 +1,6 @@
 # H0: the spinning (`⟨TTTT⟩`) functional — route decision and first milestone
 
-Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R–§14 committed (78eca6a), §15–§16 (29e98d1), §17–§18 (1c7a156); **§19 (M6 partial) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
+Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R–§14 committed (78eca6a), §15–§16 (29e98d1), §17–§18 (1c7a156), §19 (a2618ed); **§20 (M6 step 1: scalar Laplace engine, validated) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
 H9b) and finding F1 of `REFEREE_FOUNDATION.md`. Code: `ads4/code/spinfunc/` (`run_all.sh`, single core, ≈ 1–2 h with M3b; outputs in
 `spinfunc/cache/`, git-ignored). It imports `omegau/`, `exactskel/` (e1/e7 caches) and `objid/` **read-only**. Nothing else was modified.
 
@@ -422,6 +422,10 @@ Min flat `F/N_s` over `J ≤ 80` (NF02 weights; object `A` = NF02 itself, B′ i
 | `h3_H17_model.py` | M5′b: H17 (`k_AdS − k(0)`) for route A′ in the `nf5` heuristic model; bound factors | `h3_H17_model.txt` |
 | `m1_scalar_scaling.py` | M6: `1/m` scaling of the exact scalar remainder at fixed `x` across `Δ_g` (calibration) | `m1_scalar_scaling.txt` |
 | `m2_tolerance_c2.py` | M6: H4 tolerance for route A′ in units of `c₂/m²` (sign patterns, windows) | `m2_tolerance_c2_*.txt` |
+| `l1_tps.py` | M6: truncated multivariate power series (7 vars, degree 6) and exact Gaussian moments (Laplace engine) | — |
+| `l1_crystal.py` | M6 step 1: exact gauge-fixed CLS-D scalar integrand around the crystal; Laplace expansion to `O(1/Δ²)` | — |
+| `l2_scalar_validate.py` | M6 step 1: Laplace vs exact scalar skeleton (e1), three gaps, Richardson | `l2_*.pkl`, `l2_scalar_validate_*.txt`, `l2_richardson.txt` |
+| `l3_shadow_laplace.py` | M6 step 2 (piece): shadow coefficient from the `x₅` saddle to `O(1/Δ²)`, scalar check | `l3_shadow_laplace.txt` |
 | `run_all.sh` | runs all of the above | — |
 
 ## 9. Milestone M2: CLS-D in `d = 3` / 4D graviton helicities (`g1_crystal4d.py`, `f7_flat_stripped.py`)
@@ -996,3 +1000,147 @@ The table gives the interval of `c` keeping `n = 1` (route-A′ functional, f6 m
 | graviton correction structure `1 + (c₂^{scal} + δc₂^{spin})/m²`, odd terms absent | [D-sketch]; odd-term absence [NE] (Regge-moment `c₁`) + [I] |
 | H4 target for route A′: `|δc₂^{spin}| ≲ 630 / 3·10³ / 3·10⁴` on `x > 0.3` (`Δ_g = 100/300/1000`, worst pattern) | [NE + M] |
 | H4 (`δc₂^{spin}` within target on `x ∈ [0.3, 0.7]`) | **[I]**, plausible: evidence `|δc₂| ≲ 30` (non-common) and `≤ 310` (total) at `x ≲ 0.1` |
+
+
+## 20. M6 step 1: Laplace expansion of the CLS-D crystal integral to `O(1/m²)` — scalar, **validated** (`l1_tps.py`, `l1_crystal.py`, `l2_scalar_validate.py`) [DV + NE]
+
+**Result.** The exact CLS-D integral expanded around the scattering crystal to relative `O(1/Δ²)` reproduces the exact scalar skeleton
+(e1, Mellin) on `x ∈ [0.3, 0.7]`, `J = 0, 2, 4, 6`, `m/Λ = 1…1.5`, at `Δ_g = 100, 300, 1000`.
+* The mismatch of the `1/m²` coefficient is `|Δc₂| ≤ 0.21` (rms `0.05`) in the units of §19.1, where `|c₂|` is up to `200`. The median
+  relative mismatch is `0.05 %`.
+* No `1/m` mismatch (`c₁`), modulo a `ν`-only factor (see "What is fitted").
+* So the step-1 criterion of §19.4 (`c₁ = 0`, `c₂` to `≲ 1 %`) is met, apart from the qualifications below.
+
+### 20.1 What is computed
+
+**The integral.**
+* CLS-D `Ψ⁺_{2,ν}[f G^s_{Δ,J}]` with `f = (v′−u′)/(u′v′)`, in `d = 3`, `Δ_φ = 3` (eq. `scalarfunctional_plus_gaugefixed_nozintegral`).
+* The delta functions are solved (`t̃₀ = 0`; `|y₀|` from CLS-D's formula, with the Jacobian re-derived:
+  `(u_yv_y)^{1/2}(u_yv_y−y⊥²)^{−1/2}(u_yv_y(1−x̃₀²)−y⊥²)^{−1/2}`). In `d = 3`, `S^{d−3} = {n₀ = ±1}`; both give the same value.
+* So it is an exact 7-dimensional integral over `(x̃₀, u_x, v_x, u_y, v_y, x⊥, y⊥)`.
+
+**The split.**
+* Exponent `λF = (iν/2) log A + (Δ/2) log B`: CLS-D's fast factor with `m → Δ`, exact.
+* `G`: the log of all other `z`-dependent factors, exact:
+  * the measure, `(−x²)^{−2d}` and the Faddeev–Popov determinant;
+  * the remainders of the dual structure (`Δ = 3/2 + iν`, `J = −1`) and of the celestial structure (`δ = 1/2 + iν`, `δ_i = 2`);
+  * the subtraction factor;
+  * the scalar parts of both 3-pt structures, and their spin-`J` contraction `Q_J = (Z²W²)^{J/2} P_J(Ẑ·Ŵ)`.
+* `1/β_{Δ,J}` is exact (CLS-D eq. `shadow_coeff_scalar`; the gauge `x₅ = e` leaves no `x₅` integral).
+
+**Backbone checks against CLS-D [DV, to round-off].**
+* `∇F = 0` at the crystal.
+* `det(−∂²λF)` equals CLS-D's `Det M_{ν,m,y₀}` exactly, with `m = Δ`.
+* `λF` equals CLS-D's closed form `f_{ν,m}` at off-saddle points.
+* `f|crystal` equals CLS-D eq. `subtraction_scalar_atsaddle`, and `|y₀| = a`.
+* `e^{λF}|crystal` equals CLS-D's `e^{−πν}2^{iν}` up to the `ν`-only branch factor `e^{−πν}`.
+
+**The Laplace expansion (`l1_tps.py`).**
+* Exact truncated multivariate power series in 7 variables to total degree 6 (1716 monomials). There are no finite differences.
+* Change of variables `z = z* + Lξ` with `Lᵀ(−∂²λF)L = 1` (complex-symmetric Cholesky of `−H`, refined twice).
+* The relative correction is `1 + K₁ + K₂`, with
+  * `K₁ = E[A₂ + A₁²/2]`,
+  * `K₂ = E[A₄ + A₂²/2 + A₁A₃ + A₁²A₂/2 + A₁⁴/24]`,
+  * `A₁ = (λF)₃ + G₁`, `A₂ = (λF)₄ + G₂`, `A₃ = (λF)₅ + G₃`, `A₄ = (λF)₆ + G₄` (subscript = homogeneous degree in `ξ`), and Gaussian
+    moments taken exactly (up to degree 12).
+* `K₁Δ` and `K₂Δ²` are real and `Δ`-independent at fixed `ν/Δ` (checked).
+* The neglected term is `K₃ ∝ 1/Δ³`.
+
+### 20.2 The exact comparison object
+
+**From CLS-D to CHMRS.**
+* CLS-D `Ψ_{2,ν}` (`f = (v′−u′)/(u′v′)`) is the `J = −1` light-ray/inversion functional `Φ_{−1,ν}[(v′−u′)G/(u′v′)]` (Kologlu et al.; CHMRS
+  app. on superconvergence), up to a `ν`-only factor `N(ν)`.
+* CHMRS's magic block identity then gives `X(ν) = g(ν) C₂(ν+i) + g(−ν) C₂(ν−i)`, with
+  `g(ν) = ((2−d)/2+iν)/(iν) · (γ₇(ν+i)/γ₇(ν))²` and `C₂` = CHMRS `C_{2,ν}`.
+* `C₂(ν ± i)` at fixed `m` is `x → x ± i/m`. It is built from the exact e1 value at the node plus the shift terms of the leading
+  `E₂(x)P_J(1−2x²)/m⁴`, up to third order; the error is `O(m⁻⁴)`.
+
+**Normalisation.** e1 is the heavy density `C₂[G]/(q_{Δ,J}·2 sin²)` (CHMRS eq. `definitionofheavydensity`). So the comparison is
+`Y/(q_{Δ,J} X)`, with `Y = e^{logY₀}(1 + K₁ + K₂)`; this removed a `4^Δ Δ^{−17/2}` mismatch. After that normalisation, `Y₀/q` agrees
+with CLS-D's leading heavy action to `O(1/Δ)` [NE].
+
+**What is fitted.** Each gap has about 470 (state, node) points.
+* One `N(ν)` per node `ν`.
+* One `n(J)`: a `J`-only structure normalisation. The fitted `n(J)` are identical at all three gaps (`0.0937, 0.0171, 0.0035` for
+  `J = 2, 4, 6`).
+* The phase of `Y/(qX)` is state-independent to `3·10⁻¹¹` rad.
+* A `ν`-only factor is a reweighting `ψ(p) → ψ(p)N(Λp)` of the functional, which is irrelevant for H4. The light side is computed
+  exactly anyway. What H4 needs, and what is validated, is the dependence on the state `(m, J)` at fixed `ν`.
+
+### 20.3 Numbers (`cache/l2_scalar_validate_*.txt`, `cache/l2_richardson.txt`)
+
+Residuals, weighted fit, in `c₂` units (`Δc₂ = m² ε · ex/E₂`), rms over all points:
+
+| `Δ_g` | `Y₀` only | `Y₀(1+K₁)` | `Y₀(1+K₁+K₂)` |
+|---|---|---|---|
+| 100 | 296 | 42.4 | 11.6 |
+| 300 | 1.05·10³ | 40.8 | 4.2 |
+| 1000 | 3.56·10³ | 40.3 | 1.27 |
+
+* **Reading of the table.** Each column scales exactly as its truncation predicts:
+  * `Y₀` only: `∝ m`, a missing `1/m` term.
+  * `+K₁`: `m`-independent, a missing `1/m²` term of size `≈ 40` (c₂ units).
+  * `+K₂`: `∝ 1/m` (`11.6 : 4.2 : 1.27`). This is the `K₃/Δ³` truncation, not a `c₂` error. Fitting `Δc₂ = d₀ + d₁/m + d₂/m²` per matched point over the three gaps gives:
+  * **`d₀` (the mismatch of the `1/m²` coefficient itself):** rms `0.054`, max `0.21`, median `0.05 %` of `|c₂|`. This is on 443 points
+    with `|P_J(1−2x²)| > 0.05`. The worst ratio is `2.9 %`, at a point with `|c₂| ≈ 5`.
+  * **The truncation term** is `|d₁| ~ 10³` (so `K₃/m³`); at `Δ_g = 100` it is about `10/m²`.
+* **Without the near-zero cut.** The 23 points closest to zeros of `P_J(1−2x²)` (where `log Q_J` is singular at the saddle, so the
+  expansion is non-uniform) reach `|d₀| ≤ 7`.
+  * Fix if needed: treat `Q_J` as a polynomial prefactor, not in the exponent.
+* **The `1/m` term.** `Y₀` alone misses a `1/m` term (residual `∝ m`). `K₁` supplies it (residual becomes `m`-independent). So the CLS-D crystal reproduces
+  `c₁ = 0` of the exact data, modulo `N(ν)`.
+
+### 20.4 Consequences and grades
+
+* **[DV + NE] The `1/m` expansion around the CLS-D crystal is quantitatively correct through `O(1/m²)` for the scalar `k = 2` functional,
+  state by state.**
+  * The engine (`l1_tps`, `l1_crystal.laplace`) is generic: any spinning slow factor enters only through `G`.
+  * So step 2 is a change of `build()`'s slow factors plus the structure normalisations; the expansion machinery is validated.
+* **[NE] Usable accuracy for step 3.**
+  * At `Δ_g = 100` the `O(1/m²)` truncation is exact to `|Δc₂| ≲ 0.2`; the `O(1/m³)` remainder is `≈ 10` in `c₂` units.
+  * Both are far below the §19.3 tolerance `630`.
+* **Caveat [I]:** the proportionality `Ψ^{CLS-D}_{2,ν} ∝_ν Φ_{−1,ν}[(v′−u′)·/(u′v′)]` is used, not derived. It is confirmed a posteriori: a
+  state-dependent discrepancy would have shown up.
+
+### 20.5 Step 2 status: one ingredient done (§20.7); graviton structures not started
+
+The graviton slow factors still to be built are listed below.
+* **On the `(2,4)` side:** the dual structure with the covariant flip-free `q²` (`Ĉ₂`) and `O·q` (`Ĉ₃`) of §17, with `T₂, T₄`
+  polarisations, and the polarisation sums.
+* **On the `(1,3)` side:** the celestial `j′ = 0, 1` structures with light-ray polarisations `z₁ = x_{01}`, `z₃ = x_{30}`.
+* **The heavy `⟨TT𝒪_{Δ,J}⟩` conserved structures:** two parity-even and one parity-odd in `d = 3`, with their exact
+  `Δ`-dependent coefficients.
+* **The spinning shadow coefficient (matrix).** In the gauge `x₅ = e` it is needed exactly. Alternatively, CLS-D's `x₆` / `r`-tensor
+  route, expanded to `O(1/Δ²)` by the same engine (3 variables). **This route is now validated on the scalar `β_{Δ,J}` (§20.7).**
+* **The 2×2 (`J` even) heavy OPE-coefficient matrix.** This makes "`δc₂` per helicity" basis-dependent at `O(1/Δ)`. The
+  basis-independent statement is matrix positivity, so step 3 must use the 2×2 action.
+
+H4 for route A′ therefore remains **[I]** (§19.5), now with a validated method and an `O(1/m³)` error budget `≈ 10` (c₂ units) at
+`Δ_g = 100`.
+
+### 20.7 Step 2, first ingredient: the shadow coefficient from the `x₅` saddle to `O(1/Δ²)` (`l3_shadow_laplace.py`) [NE, validated]
+
+* **Purpose.** For `⟨TTTT⟩` the shadow coefficient is a matrix over `⟨TT𝒪⟩` structures with no closed form.
+  * CLS-D get it at leading order from the saddle of the shadow integral at `x₅ = e`, with `x₃, x₄` at the crystal and `x₆ = (−e)^+`.
+  * Here that integral is expanded to relative `O(1/Δ²)` with the l1 engine: 3 live variables, plus 4 inert Gaussian dummies.
+  * It is tested on the scalar, where `β_{Δ,J}` is known.
+* **Result.**
+  * `x₅ = e` is a saddle (`|∇| ~ 10⁻¹³`), with `K₁Δ = 13/8` and `K₂Δ² = 2.195 + J(J+1)/2`.
+  * `|β_Laplace|/|β_exact| = 2^{1−2J}`, a `J`-only constant from the index-contraction conventions.
+  * After `K₂` the residual is `2.8·10⁻⁶ / 1.0·10⁻⁷ / 2.7·10⁻⁹` at `Δ = 100/300/1000` (`J = 0`). It scales as `Δ⁻³`, so it is the
+    `K₃` truncation.
+  * The result is identical for crystal points `ν/Δ = 0.4` and `0.6`.
+  * One error was found and fixed on the way: a missing `x₃₄^{−Δ}` power of `⟨Õφ₃φ₄⟩`.
+* **Consequence.** For step 2 the spinning shadow matrix can be obtained to `O(1/Δ²)` by projecting this saddle expansion onto the
+  `⟨𝒪†(x₆) T₃T₄⟩` structure basis. No exact weight-shifting computation is needed.
+
+### 20.6 Regraded table (supersedes §19.5 where they differ)
+
+| statement | grade |
+|---|---|
+| Laplace expansion of the CLS-D crystal integral to `O(1/m²)` reproduces the exact scalar `c₂(x, J)` (`k = 2`) to `|Δc₂| ≤ 0.21` (median `0.05 %`), and `c₁` (mod `ν`-only) | [DV backbone + NE] (three gaps, 443 points) |
+| `O(1/m³)` truncation of that expansion | `≈ 10³/m` in `c₂` units [NE] |
+| shadow coefficient from the `x₅` saddle (CLS-D route) to `O(1/Δ²)` | [NE] (scalar: `Δ⁻³` residual, `J`-only constant) |
+| graviton `δc₂^{spin}(x, J, h)` | not computed; method validated; inputs listed in §20.5 |
+| H4 for route A′ | **[I]** (unchanged; §19.3 targets) |
