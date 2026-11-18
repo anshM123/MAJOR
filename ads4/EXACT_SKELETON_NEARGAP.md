@@ -1,6 +1,6 @@
 # Exact scalar-skeleton heavy moments on the near-gap states (Δ_g = 100): Ω^U threshold without the tolerance convention
 
-Status: 18 Nov 2026, derivation/numerics agent. **Unrefereed. Partial run** (handed back before the scan finished; see §5).
+Status: 18 Nov 2026, derivation/numerics agent. **Unrefereed.** Second pass: §6 (coverage to `m/Λ = 2.8`, the bound, `Δ_g = 300`, NF02). Some runs are still in progress; see §6.
 Code: `ads4/code/exactskel/` (`run_all.sh`; caches in `exactskel/cache/`, git-ignored). It imports, read-only, `omegau/`
 (common, adsaction, remk, u4_scan), `robust/` and `uniform/skel.py`. Nothing outside `exactskel/` was modified, except one line in `.gitignore`.
 
@@ -103,3 +103,62 @@ This is still conditional on H1–H4 and H6–H12. **The skeleton part no longer
 * **`Δ_g = 300`** needs the contour to cross the `B̂` poles. The cancellation is about 1e26 at `c₁ < τ`. Not done.
 * **NF02 / H13** (large `b̂`, `J` up to about 100). Not done.
 * **Still [I]:** H4 (skeleton to graviton transfer, and the `+−` transfer), H3 (odd-`k` two-pair moments), and H1/H2.
+
+## 6. Second pass (coverage, bound, `Δ_g = 300`, NF02)
+
+### Coverage at `Δ_g = 100` [NE + I]
+
+**Scan.** `J ≤ 10`, `m/Λ ∈ [1, 2.8]`, `Δφ = 3` and `2`: about 700 helicity-states per skeleton.
+* Unchanged: M02 is non-positive only at `m ≤ 1.07Λ`.
+* `n_exact` = 1.08 (`δ = 0`); 1.09 at the worst of `δ = 0.03` and odd-`k` reading E.
+* On `m ∈ [1.75, 2.8]` the minimum `F/N_s` is `+0.21` (`++, J = 4`).
+
+**High-J support (`mack.py`).**
+* `mack_P_fast` reorganises the exact rational construction. Its cost is still roughly `J⁶`: J = 20 takes 10 s, J = 24 takes 30 s.
+* `Qpoly_cheb` evaluates `Q^n` in a scaled Chebyshev basis. This removes a 1e7 loss of precision in the monomial basis at large `n`.
+* J = 20 and 24 agree with the CHMRS series to 1e−10 – 1e−12.
+* J = 60 is out of reach by this construction.
+
+**Running when this was written:**
+* the high-J sample (`J = 11…28`, 15 values of `m/Λ` in `[1.11, 3]`, `Δφ = 3`; `cache/e1_100_Df3_hiJ.pkl`);
+* `Δφ = 2.5` to `m/Λ = 3`;
+* the `e2`/`e4` checks.
+
+`e3_action.py` merges the high-J file automatically. Until it is in, `J > 10` rests on OMEGA_U's `κ ≥ 3.5` [M].
+
+### Bound (`e6_bound.py`, same formula as `omegau/u7`) [D given all inputs]
+
+| `n` | `\|ĝ₃\|²Λ⁸ ≤` | `√(t₄²+α_T²) ≤` |
+|---|---|---|
+| 1.08 | 276 | 4.2·10⁻⁵ |
+| 1.09 | 296 | 4.4·10⁻⁵ |
+
+* The same code reproduces OMEGA_U's values: `5.4·10⁻⁵` (1.15), `8.1·10⁻⁵` (1.28) and `1.14·10⁻⁴` (1.40).
+* So the new bound is about 2× below OMEGA_U's central value.
+* It is conditional on H1–H4 and H6–H12. **H5 is no longer needed for the skeleton.**
+
+### `Δ_g = 300` and `1000`: not achieved
+
+**Box contour (`skelexact2.py`).** Crossing the real `B̂` poles is done by circle residues; the contour avoids the Γ-pole rows. It is
+validated against the `Δ_g = 100` results to ≤ 1e−6 (`t_cross`, `t_box`). At `Δ_g = 300` the small-`ν` values match the series to 1e−12.
+
+**Why the large-`x` nodes fail.** At `x ≳ 0.6` there is an irreducible cancellation:
+* the complex-residue sums behave like `Σ (iν/4)^j/j!`, a cancellation of about `e^{ν/4}`;
+* the box's horizontal segment near the pole rows is about 1e19 larger than the result;
+* a vertical line at `c ≈ ν` leaves about `10^{0.15ν}`, i.e. 1e43 at `ν = 297`.
+
+**What would be needed.** A true steepest-descent contour with the `1/sin` expansion of the Γ-pole rows, or 50–60-digit arithmetic.
+mpmath is estimated at about 1 h per state, and installing python-flint was not permitted. **So `n(Δ_g)` beyond 100 is not determined.**
+
+### NF02 / Ω^{NF,SC} (H13) (`e7_nf.py`, `cache/e7_100.txt`) [NE + I]
+
+**On every scanned state the exact-skeleton NF02 action is positive, down to `m = Λ`.**
+* States: `J ≤ 10`, `m ≤ 2.8Λ`, both skeletons, `b̂` up to about 21.
+* Margins: `F/N_s ≥ +0.22`.
+* `F_exact ≈ F_hyb`: the exact remainder is ≤ 0.02 `N_s`.
+* The truncated series had given `κ < 0` there; that was an artefact of the series.
+
+**What this covers, and what it does not.**
+* For the scanned states, `n_exact = 1` for NF02.
+* The open region of H13 (`b̂ > 20`, `J` up to hundreds) is not covered, apart from the high-J sample (`b̂ ≤ 37` at `m ≈ 1.5Λ`) once it is in.
+* **So H13 is reduced but not closed.** The obstruction is the Mack-polynomial construction at large `J`.

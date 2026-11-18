@@ -22,6 +22,7 @@ from common import load, FUNS, SIGMA, KS, Transforms, flat_unstripped_parts, fla
 from adsaction import action, envk
 
 Dg = int(sys.argv[1]); DFS = [float(a) for a in sys.argv[2:]] or [3.0, 2.0]
+JCUT = int(os.environ.get('E3_JCUT', '1000'))
 NP, NPF = 64, 400
 pn, pw = gl01(NP)
 pf, wf = gl01(NPF)
@@ -59,12 +60,16 @@ def unc_exact(PH, h, st, sk_ser, rho_ex, mfl):
 allrecs = {}
 for DF in DFS:
     db = pickle.load(open(os.path.join(HERE, 'cache', 'e1_%d_Df%g.pkl' % (Dg, DF)), 'rb'))
+    fh = os.path.join(HERE, 'cache', 'e1_%d_Df%g_hiJ.pkl' % (Dg, DF))
+    if os.path.exists(fh):                     # high-J sample (J = 11..28 on a coarser m grid)
+        db.update(pickle.load(open(fh, 'rb')))
     recs = {(n, h): [] for n in FUNS for h in SIGMA}
     mfls = sorted(set(k[0] for k in db))
     for mfl in mfls:
         u = 1/mfl**2
         for h in SIGMA:
             Js = sorted(J for (mm, J) in db if mm == mfl and ((J % 2 == 0) if h == '++' else J >= 4))
+            Js = [J for J in Js if J <= JCUT]
             if not Js:
                 continue
             fl = {}
