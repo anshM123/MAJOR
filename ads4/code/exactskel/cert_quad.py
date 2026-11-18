@@ -35,7 +35,10 @@ F = NF()
 def cpow(z, s):
     """z^s (principal branch) as exp(s log z): much tighter balls than acb.__pow__ for non-integer s."""
     if float(s) == int(float(s)):
-        return z**int(float(s))
+        n = int(float(s)); r = acb(1); b = z if n >= 0 else 1/z
+        for _ in range(abs(n)):
+            r = r*b
+        return r
     return (af(s)*z.log()).exp()
 
 
@@ -118,7 +121,13 @@ def run():
         r0 = src[key]
         mfl, J = key
         t0 = time.time()
-        cm = CertMoments(r0['Delta'], J, DF, Lamf, ks=KE)
+        cm = None
+        for Ntry in ([None] if mfl < 1.1 else [2000, int(0.06*r0['Delta']**2), int(0.15*r0['Delta']**2), None]):
+            try:
+                cm = CertMoments(r0['Delta'], J, DF, Lamf, ks=KE, N=Ntry)   # crude M suffices away from the gap
+                break
+            except AssertionError:
+                continue
         D = cm.D
         al, alb = D - J - 2, D + J - 1
         m2 = al*alb
@@ -130,7 +139,7 @@ def run():
         pmax = 1/u.sqrt()                                   # singularity at p = m/Lam
         best = None
         exc = {}
-        for frac in (0.4, 0.7):
+        for frac in ((0.4, 0.6, 0.8, 0.9) if mfl < 1.3 else (0.3,)):
             R = 1 + frac*(pmax - 1)                          # right vertex of the ellipse
             s = 4*R - 2                                       # rho + 1/rho
             rho = (s + (s*s - 4).sqrt())/2
@@ -156,25 +165,31 @@ def run():
                 Pc_b = (arb(imnu)*beta).cosh()*P0 + (abs(((2*J + 1)*x).imag).upper()*arb(1)).cosh()
                 PJ = jacobi_acb(J, 0, 0, 1 - 2*y)[J]
                 d44 = (1 - y)**4*jacobi_acb(J - 4, 0, 8, 1 - 2*y)[J - 4] if J >= 4 else acb(0)
-                Ek = {k: (2 - y)/cpow(1 - y, Fr(2 + k, 2)) for k in range(2, 11)}
+                z1 = abs(1 - y); z2 = abs(2 - y)
+                zlo, zhi = arb(z1.lower()), arb(z1.upper()); wlo, whi = arb(z2.lower()), arb(z2.upper())
+                if not (zlo > 0):
+                    zlo = arb(1e-300)
+                Eup = {k: whi/zlo**(arb(2 + k)/2) for k in range(2, 11)}     # real-modulus bounds (robust for wide balls)
+                Elo = {k: wlo/zhi**(arb(2 + k)/2) for k in range(2, 11)}
                 for h in SIGMA:
                     if (h == '++' and J % 2) or (h == '+-' and J < 4):
                         continue
                     Dh = PJ if h == '++' else d44
-                    tot = arb(0)
+                    tot = arb(0); dbg = {}
                     for k in KS:
                         if k % 2 == 0:
-                            Mod = exb[k] + abs(Ek[k])*abs(Dh - PJ)
+                            Mod = exb[k] + Eup[k]*abs(Dh - PJ)
                         else:
                             Lc = {l: abs(arb(float(np.prod([(k - lb)/(l - lb) for lb in KE if lb != l])))) for l in KE}
-                            exk = abs(Ek[k])*sum((Lc[l]*exb[l]/abs(Ek[l]) for l in KE), arb(0))
-                            wk = abs(cpow(1 - y, Fr(-(k + 1), 2)))
-                            Mod = wk*abs(Dh - PJ) + Pc_b + wk*(exk + 2*Pc_b)/abs(Ek[k])
+                            exk = Eup[k]*sum((Lc[l]*exb[l]/Elo[l] for l in KE), arb(0))
+                            wk = zlo**(-arb(k + 1)/2)
+                            Mod = wk*abs(Dh - PJ) + Pc_b + wk*(exk + 2*Pc_b)/Elo[k]
+                        dbg[k] = (Mod, abs(phi_acb(k, P)))
                         tot += u**(k - 2)*abs(phi_acb(k, P))*Mod
                     v = float(tot.upper())
                     if not np.isfinite(v):
                         if os.environ.get('CQDBG'):
-                            print('nonfinite', h, c, P, {k: exb[k] for k in KE}, Pc_b, flush=True)
+                            print('nonfinite', h, c, P, dbg, flush=True)
                         v = float('inf')
                     Mb[h] = max(Mb.get(h, 0.0), v)
             errs = {h: (arb(0.5)*arb(64)/15*arb(Mb[h])*rho**(-2*NQ)/(rho*rho - 1) if np.isfinite(Mb[h]) else arb('inf')) for h in Mb}
