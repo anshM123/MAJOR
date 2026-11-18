@@ -1,6 +1,6 @@
 # Exact scalar-skeleton heavy moments on the near-gap states (Δ_g = 100): Ω^U threshold without the tolerance convention
 
-Status: 18 Nov 2026, derivation/numerics agent. **Unrefereed.** Second pass: §6 (coverage to `m/Λ = 2.8`, the bound, `Δ_g = 300`, NF02). Some runs are still in progress; see §6.
+Status: 18 Nov 2026, derivation/numerics agent. **Unrefereed. Final results are in §8**, which supersedes the in-progress notes of §5–7.
 Code: `ads4/code/exactskel/` (`run_all.sh`; caches in `exactskel/cache/`, git-ignored). It imports, read-only, `omegau/`
 (common, adsaction, remk, u4_scan), `robust/` and `uniform/skel.py`. Nothing outside `exactskel/` was modified, except one line in `.gitignore`.
 
@@ -233,3 +233,93 @@ mpmath is estimated at about 1 h per state, and installing python-flint was not 
 This compares with OMEGA_U's `1.1·10⁻⁶` (central) and `1.6·10⁻⁶` (conservative).
 
 **Caveat.** For `Δφ = 2` and `Δ_g = 1000` the runs were still queued when this was written.
+
+## 8. Final results (all runs finished)
+
+### Methods
+
+* **`Δ_g = 100`:** double-precision contour method (`skelexact.py`). It has exact odd `k` through the continuation in `k`.
+* **`Δ_g = 300` and `1000`:** Arb Laplace/Barnes method (`skelexact3.py`), with odd `k` interpolated in `k` [M].
+* **Forward terms:** exact at `Δ_g = 100`; from the CHMRS series elsewhere (controlled at `ν = 0`).
+
+### Checks
+
+* **`e2b` (Arb against double precision, every `Δ_g = 100` state with `m ≤ 1.5Λ`, even `k`):**
+
+  | skeleton | max `\|Δρ\|` | max `\|ΔF\|` (normal form) |
+  |---|---|---|
+  | `Δφ = 3` | 1.1e−5 | 1.3e−8 |
+  | `Δφ = 2` | 5.9e−4 | 2.3e−7 |
+
+* **`e4` (p-quadrature, 64 / 96 / 128 nodes):** the change is ≤ 1e−5 `N_s` (largest at `m = Λ, J = 0`), and ≤ 1e−6 elsewhere.
+* **Odd-`k` interpolation (`Δ_g ≥ 300`):** ≤ 2e−3 `E_k` near the gap, as calibrated at `Δ_g = 100`.
+
+### Scope
+
+| `Δ_g` | `J ≤ 10` | high-`J` sample | skeletons `Δφ` |
+|---|---|---|---|
+| 100 | `m ≤ 3Λ` | `J = 11…28` at `m/Λ ∈ [1.11, 3]` | 3, 2 |
+| 300 | `m ≤ 2Λ` | `J = 11…20` at `m/Λ ∈ [1.01, 1.3]` | 3, 2 |
+| 1000 | `m ≤ 1.5Λ` | `J = 11…20` at `m/Λ ∈ [1.01, 1.3]` | 3, 2 |
+
+* High-`J` states run with `Δφ = 3` only. They are positive with large margins: min `F/N_s` = `+0.61` (100), `+0.97` (300), `+0.90` (1000).
+* **Not done:**
+  * `Δφ = 2.5`: only 16 states.
+  * `J > 28` at `Δ_g = 100`, and `J > 20` at `Δ_g ≥ 300`: covered only by OMEGA_U's `κ ≥ 1.3`.
+  * `m > 3Λ` (100), `m > 2Λ` (300) and `m > 1.5Λ` (1000): covered by OMEGA_U's `κ ≥ 2.6`.
+
+### Thresholds and bounds [NE + I]
+
+The thresholds are worst-case over both helicities and both skeletons; the bounds use OMEGA_U's formula. "Old" is OMEGA_U's series
+criterion recomputed on the same states.
+
+| `Δ_g` | `n_exact` (M02, `δ = 0`) | with `δ = 0.03` / odd-`k` reading E | old `n` (`κ_req = 0.3`, `δ = 0.03` / `κ_req = 1`) | `√(t₄²+α_T²)` at `n_exact` | old central / conservative |
+|---|---|---|---|---|---|
+| 100 | **1.08** | 1.09 | 1.28 / 1.40 | **4.2·10⁻⁵** (4.4·10⁻⁵ at 1.09) | 8.1·10⁻⁵ / 1.1·10⁻⁴ |
+| 300 | **1.05** | 1.06 | 1.28 / 1.40 | **5.3·10⁻⁷** (5.5·10⁻⁷) | 1.1·10⁻⁶ / 1.6·10⁻⁶ |
+| 1000 | **1.01** | 1.01 | 1.24 / 1.35 | **4.1·10⁻⁹** | 9.2·10⁻⁹ / 1.3·10⁻⁸ |
+
+**Where M02 fails.** The only non-positive M02 states are:
+* `+−, J = 4` in a pocket that moves towards the gap as `Δ_g` grows: `1.04–1.07Λ` (100), `1.02–1.04Λ` (300), absent (1000);
+* `++, J = 0` at `m = Λ` exactly: `−0.10` (100), `−0.78` (300), `−1.35` (1000) `N_s`.
+
+At `m = Λ` the B′ envelopes of `k = 6, 7` diverge and the exact moment stays finite. The odd-`k` reading E makes this state positive.
+
+### D-safe: NF02 / Ω^{NF,SC} (H13) [NE + I] (`e7_nf.py`, `e9_bound_nf.py`)
+
+**On every scanned state, NF02 with the exact skeleton is positive down to `m = Λ`.**
+* This holds for `Δ_g = 100, 300, 1000` and both skeletons, including `b̂` up to about 40–60 from the high-`J` samples.
+* The minimum is `F/N_s ≈ +0.20`, which is the flat minimum. The exact remainder is ≤ 0.02 `N_s`.
+* So for these states `n = 1`. The truncated series' negative `κ` on `b̂ > 10` was an artefact of the series.
+
+| `Δ_g` | D-safe bound at `n = 1` |
+|---|---|
+| 100 | **2.2·10⁻⁴** |
+| 300 | 3.1·10⁻⁶ |
+| 1000 | 2.9·10⁻⁸ |
+
+At `Δ_g = 100` the earlier D-safe values were `3.1·10⁻³` (`n = 2.0`) to `1.1·10⁻²` (`n = 2.9`).
+
+**H13 is reduced, not closed.** `b̂ > 20` is now checked exactly on the sample (`J ≤ 28`, `m ≤ 3Λ`) but not on the full region (`J` up to
+hundreds, `m` up to `10Λ`).
+
+### What remains [I]
+
+* H1–H4: the graviton dictionary, the transfer of the scalar skeleton (including `+−` and reading B), and the odd-`k` two-pair moments.
+* H6–H12 as before; H9 for D-strong only.
+* The tolerance convention H5 is no longer used for the skeleton part.
+
+### Code (`ads4/code/exactskel/`)
+
+| file | role |
+|---|---|
+| `skelexact.py` | double-precision contour method |
+| `skelexact3.py` | Arb Laplace/Barnes method |
+| `mack.py` | exact Mack polynomials, with Chebyshev evaluation |
+| `e1_states.py`, `e8_states_arb.py` | state scans |
+| `e3_action.py` | Ω^U action |
+| `e7_nf.py` | NF02 action |
+| `e6_bound.py`, `e9_bound_nf.py` | bounds |
+| `e2b_arbcheck.py`, `e4_quad.py`, `e5_compare.py`, `t_*.py` | checks |
+
+Caches and logs are in `cache/` (git-ignored).
