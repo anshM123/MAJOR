@@ -39,3 +39,4 @@ python3 evenkernel.py > /dev/null
 for D in 100 300 1000; do E_KERNEL=Kstar python3 e10_kernel.py $D > /dev/null; done; E_KERNEL=Sff python3 e10_kernel.py 100 > /dev/null
 E_KERNEL=Kstar python3 e6_bound.py 100 1.08; E_KERNEL=Kstar python3 e6_bound.py 300 1.05; E_KERNEL=Kstar python3 e6_bound.py 1000 1.01
 for D in 100 300 1000; do E_KERNEL=Kstar python3 e9_bound_nf.py $D 1.0; done
+python3 e11_parity.py > /dev/null      # PARITY_ODD_HEAVY.md: O(1/m) tolerance

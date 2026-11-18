@@ -68,7 +68,7 @@ here with explicit constants and an explicit hypothesis list.
 | H9 | Double-trace/contact content of the even and forward replacements | [I], load-bearing in D-strong only (leverage up to 10¹³) | absent in D-safe |
 | H10 | EFT power counting of contacts `g_f ≲ c_g G_f log Λ`, `c_g = O(1–30)` | [A] | standard |
 | H11 | No other light single traces; `c_T ≫ Δ_g²`; double zeros of spinning kernels at double twists | [A]/[I] | — |
-| H12 | Parity-odd heavy exchanges harmless | not treated | — |
+| H12 | Parity-odd / indefinite-parity heavy exchanges harmless | **[D] flat side** (f's cuts are diagonal `|c^{+−}|²`, `|c^{++}|²`; all functionals use only f) **and AdS interference-free** (all kernels parity-even, flip responses vanish for `K*`, `𝔖_ff`, `𝔄` ⇒ no `λ_Eλ_O`, no `(c^{++})²` terms); leading formula unchanged [D given H1]; reduced to **H12′** [I]: H1 (and no `O(1/m)`) for the parity-odd `⟨TTO⟩` structure | not tested end to end (needs the ε-structure in the Taylor-mode code, ~2.5 h/mass); tolerance: thresholds unchanged for `|c₁| ≲ 8` (D-strong) / `≲ 19` (D-safe) vs measured parity-even `|c₁| ≤ 0.05` (`PARITY_ODD_HEAVY.md`) |
 | H13′ | Heavy positivity outside the scanned set | [NE] inside it, [M] outside | scanned: `J ≤ 10` to `m = 3Λ / 2Λ / 1.5Λ` (Δ_g = 100/300/1000) plus high-`J` samples (`J ≤ 28`, `b̂ ≤ 40–60`), all positive; beyond, `OMEGA_U`'s `κ ≥ 1.3–2.6` [M]. Not certified (sampled states, not intervals) |
 
 ## 5. Where it can fail
@@ -84,7 +84,7 @@ here with explicit constants and an explicit hypothesis list.
 1. H1: a clean production rerun for `k = 2` (removes the [I] cleaning); `ν ~ m` and β ≠ 1. The even kernel is now `K*` (no effect on any number).
 2. H4: near-gap positivity on graviton moments directly (production code exists), at least at the binding states.
 3. H13′: Arb-certify near-gap positivity on intervals in `(m, J)`, plus a large-`b̂` envelope.
-4. H12: parity-odd heavy exchanges.
+4. H12′: one end-to-end parity-odd `⟨TTO⟩` point.
 5. One batched hostile review of the foundation (this file and its sources).
 
 No unified manuscript is written: Claim D is not yet a theorem.
