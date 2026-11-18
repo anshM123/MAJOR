@@ -1,7 +1,7 @@
 # H0: the spinning (`⟨TTTT⟩`) functional — route decision and first milestone
 
-Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); **M2/M3 (update box, §9–§11) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
-H9b) and finding F1 of `REFEREE_FOUNDATION.md`. Code: `ads4/code/spinfunc/` (`run_all.sh`, single core, ≈ 10 min; outputs in
+Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); **§R and M2b/M3b/M4′ (§12–§14) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
+H9b) and finding F1 of `REFEREE_FOUNDATION.md`. Code: `ads4/code/spinfunc/` (`run_all.sh`, single core, ≈ 1–2 h with M3b; outputs in
 `spinfunc/cache/`, git-ignored). It imports `omegau/`, `exactskel/` (e1/e7 caches) and `objid/` **read-only**. Nothing else was modified.
 
 Source read for this round: Chang–Landau–Simmons-Duffin, arXiv:2311.04271 (**CLS-D**), LaTeX source (`draft.tex`, §2–§4.6, App. B),
@@ -39,6 +39,85 @@ Marks: **[Q]** quoted; **[D]** derived; **[DV]** derived and checked (exact alge
 >    * So `A`, `B_AdS` scale by `1.0015 / 1.00016 / 1.00002`, and the bounds by `≤ 1.0008`.
 >    * **The headline numbers (`A = 3022.3`, `B_AdS = −6552.5`, `2.21·10⁻⁴ / 3.13·10⁻⁶ / 2.89·10⁻⁸`) are unchanged at the quoted precision for
 >      route A′**, in the same model and under the same hypotheses minus those listed in §11.
+
+## R. The route-A′ functional `Ω^{A′}`: self-contained statement (for review; M2b/M3b/M4′ details in §12–§14)
+
+**Setting.**
+* Unitary CFT₃ with stress tensor `T` (`Δ = 3`, `J = 2`), large `c_T`, twist gap `Δ_g`; `Λ := √((Δ_g−2)(Δ_g−1))`.
+* Correlator `⟨TTTT⟩`, cross-ratios `u′ = x₁₂²x₃₄²/(x₁₃²x₂₄²)`, `v′ = x₁₄²x₂₃²/(x₁₃²x₂₄²)`.
+* Heavy states `(Δ, J)` with `m² = α(α+2J+1)`, `α = Δ − J − 2` (`omegau/common.state`), `u := Λ²/m²`, `η = cosh β` as there.
+
+**1. Building block** [Q, CLS-D arXiv:2311.04271 eq. `spinningfunctional_definition` and §3.5.2].
+`Ψ^{(a),(c)}_{k,ν,j′}[f G]` integrates `f(u′,v′)·⟨T(x₄)[L[T](x₀,z₃), L[T](x₀,z₁)]T(x₂)⟩` against:
+* the inverse ("dual") structure `(a)` of `⟨T L[𝒪] T⟩`, where `𝒪` has dimension `3/2 + iν`, spin `J₁+J₃−1 = 3` and transverse spin `j′`;
+* the celestial structure `(c)` (unique for each `j′`; in `d = 3`, `j′ ∈ {0, 1}`).
+
+It vanishes on every physical correlator for which the integral converges: the two light-ray operators are on a common null plane, so
+their commutator vanishes. Regge convergence: `J₀ < 2` for both functionals below.
+
+**2. The two functionals.**
+
+| | `Ĉ^{CLS}_{2,ν}` | `Ĉ^{CLS}_{3,ν}` |
+|---|---|---|
+| transverse spin | `j′ = 0` | `j′ = 1` |
+| subtraction factor | `f = v′ − u′` (`f⁺_{2;2}`, unsubtracted) | `f = −1` (`f⁻_{3;2}`, unsubtracted) |
+| `(2,4)` structure | `(a₊)`: the `j′ = 0` dual-structure combination whose bulk-point image is `Q⊗Q` | `(a₋)`: image `O⊗Q` |
+| leading Regge kernel (`r^{k−2}` × weight × harmonic) | `½ η r⁰ P_{−½+iν}(η)` | `−r¹ P_{−½+iν}(η)` |
+
+Here `Q := (𝒲₂·e₂)(𝒲₄·e₄) − (𝒱₂·e₂)(𝒱₄·e₄)` (∝ CLS-D's photon `𝒦^{(1)}_{j′=0}` at `D = 4`), `O := (𝒲₂·e₂)(𝒱₄·e₄) − (𝒱₂·e₂)(𝒲₄·e₄)`, and
+`𝒱`, `𝒲` are CLS-D eq. `kernel_VWvec_definition`. Both images are flip-free at the crystal for all `x` (§12) [DV].
+
+**3. Normalisation.** `Ĉ_k := Ĉ^{CLS}_k/N̂_k(ν)`, with `N̂_k` fixed by the leading Regge heavy action. On a heavy block, in the per-state
+normalisation of `omegau/common.py` (positive state factors divided out), `ε_k m^{2k}Ĉ_{k,ν} → 2P_{−½+iν}(cosh β)` at leading Regge order.
+Here `ε₂ = 1`, `ε₃ = ½`, and the `k = 3` term carries `σ = +1 (++)`, `−1 (+−)`.
+
+**4. Weights.**
+* `ψ₂(p) = (1−p)⁵ p X(p)/k₀` and `ψ₃(p) = (1−p)⁵ p Y(p)/k₀`, `p ∈ [0, 1]`.
+* `X`, `Y` are degree-8 polynomials with 9 exact rational coefficients each (`ads4/code/robust/functionals_noforward.json`, key `NF02`).
+* `k₀ = 27.48509817…`, chosen so that `k(0) := −2∫₀¹ψ₂p⁶dp + 2∫₀¹ψ₃p⁴dp = 1` (`omegau/nf_common.NF`).
+
+**5. The functional.**
+
+`Ω^{A′} := ∫₀^∞ dp ψ̃₂(p) Λ⁴ Ĉ_{2,Λp} + ∫₀¹ dp ψ₃(p) ½Λ⁶ Ĉ_{3,Λp}`,
+
+where `ψ̃₂ = 𝔍[ψ₂]` is the **exact `η`-inversion**:
+
+`Φ(t) = ∫₀^Λ ψ₂(ν/Λ) cos(νt) dν`,
+`Φ̃(t) = Φ(t)/cosh t − ½ tanh t · sech^{½}t ∫₀^t Φ(s) sech^{½}(s) ds`,
+`ψ̃₂(ν/Λ) = (2/π)∫₀^∞ Φ̃(t) cos(νt) dt`.
+
+* **What the inversion guarantees [D].** `∫ψ̃₂ Ĉ^{CLS}_2` has exactly the leading-Regge `η`-kernel `∫ψ₂ P_{−½+iΛp}(η)dp` of the pure-harmonic
+  object, for every `η ≥ 1`.
+* **Size and support.** `ψ̃₂ − ψ₂` is `O(Λ⁻²)` in the interior. `ψ̃₂` has a tail at `p > 1` of relative mass `2·10⁻⁹` (`Δ_g = 100`).
+* **`k = 3` needs no inversion** (`j = 0`).
+
+**6. Per-state heavy action** (used in all scans): `F(m, J, h) = Σ_{k=2,3} ∫dp ψ_k(p) u^{k−2} ε_k m^{2k}Ĉ_{k,Λp}[state]`, with `ψ₂ → ψ̃₂`.
+
+**7. Flat limit [Q + DV, §9, §12].**
+* As `Λ → ∞` at fixed `m/Λ`, `J`, `F → ∫ψ₂B^{(1)}_2 + ∫ψ₃B^{(1)}_3`. These are CLPS's (arXiv:2201.06602, (2.26a,b)) stripped sum rules for the
+  MHV `f(s,u)`.
+* Densities: `(2−y)(|c⁺⁺|²P_J + |c⁺⁻|²d̃^J_{44})` and `u σ(|c⁺⁺|²P_J − |c⁺⁻|²d̃^J_{44})`, with `y = p²/(m/Λ)²` and `d̃ = d/(1−y)⁴`.
+* This is NF02, with flat min `F/N_s = 0.200`, certified (`NOFORWARD_FUNCTIONAL.md`; one `+−` corner float).
+
+**8. Light side (tree level, `1/c_T`) [D-sketch, §14].**
+* Both functionals are unsubtracted, so they have double zeros at every `[TT]` twist (even integers `≥ 2`). The light side is therefore
+  the identity (0) plus the single `T` block.
+* `Ĉ₂` gives the graviton pole `16πG/(ν² + 9/4)` (marginal `J₀ = 2`) and the `|ĝ₃|²` term. `Ĉ₃` is Einstein-free (`A₃ = f⁻_{3;2}`,
+  `OMEGA_PRIME.md`) and gives `|ĝ₃|²`.
+* Flat images: `−B₂ = 16πG/p² + 2πG|ĝ₃|²p⁶`, `−B₃ = −2πG|ĝ₃|²p⁴`. There are no contact terms.
+
+**9. Bound.**
+* `k(0)_{A′} |ĝ₃|² Λ⁸ ≤ 16 n⁸ L_A`, with `L_A = ∫₀¹ ψ₂(t) dt/(t² + 9/(4L²))` and `L = Λ/n`.
+* `L_A` uses `ψ₂`, not `ψ̃₂`: the inversion leaves the graviton-pole term exactly invariant (§13, checked to `5·10⁻¹⁴`).
+* `√(t₄²+α_T²) ≤ 240 √(|ĝ₃|²Λ⁸)/Λ⁴`.
+* `k(0)_{A′} = 1 + δk(0)`, with exact `δk(0) = −1.507·10⁻³ / −1.638·10⁻⁴ / −1.463·10⁻⁵` at `Δ_g = 100 / 300 / 1000`.
+* `A = 3022.3/k(0)_{A′}`, `B_AdS = −6552.5/k(0)_{A′}`.
+
+**10. What it rests on.**
+* CLS-D's bulk-point factorisation and its `d = 3` specialisation (§9, §12).
+* The graviton-level covariant realisation of `Q⊗Q`, `O⊗Q` ([D-sketch], §12).
+* Convergence and swappability (§14).
+* H4 (finite-`m` remainder transfer), H12′ (binding state `+−`, `J = 5`, parity-odd), H13′ (off the scanned set), H11, and tree level.
 
 ## 0. Summary (M1; see the update box above for what is superseded)
 
@@ -332,6 +411,9 @@ Min flat `F/N_s` over `J ≤ 80` (NF02 weights; object `A` = NF02 itself, B′ i
 | `g1_crystal4d.py` | M2: explicit `D = 4` crystal; helicity content of CLS-D kernels; flip-free subspace; channel ratio | `g1_crystal4d.txt` |
 | `f6_routeA2.py` | M2/M3: near-gap model of `Ω^{A′} = ∫ψ₂Ĉ₂ + ∫ψ₃Ĉ₃` (stripped), `η`-inversion shift, `δk(0)` | `f6_routeA2_<Δ_g>.txt` (logs `f6_*.log`) |
 | `f7_flat_stripped.py` | M2: flat limits under the stripped dictionary (route A′, B′-uplift with CLS-D or project weights) | `f7_flat_stripped.txt` |
+| `g2_structures.py` | M2b: `(2,4)` structures at the `D = 4` crystal; flip-free family; `Q²`, `O·Q` | `g2_structures.txt` |
+| `h1_etainv_exact.py` | M3b: exact `η`-inversion (Abel/ODE), checks V1–V3, `δk(0)`, tails | `h1_etainv_exact_*.txt`, `h1_<Δ_g>.pkl`, logs `h1_*.log` |
+| `h2_neargap_exact.py` | M3b: exact near-gap shift of route A′ | `h2_neargap_exact_*.txt`, logs `h2_*.log` |
 | `run_all.sh` | runs all of the above | — |
 
 ## 9. Milestone M2: CLS-D in `d = 3` / 4D graviton helicities (`g1_crystal4d.py`, `f7_flat_stripped.py`)
@@ -504,3 +586,128 @@ functionals of §9.1. `Ĉ₂` carries the `η`-inversion with `j = 1`; `Ĉ₃` h
 | M5′ | light side of `Ĉ₂`, `Ĉ₃` (graviton pole, `|ĝ₃|²`); double traces vanish by construction | 1–2 weeks |
 | M6 | `1/m` correction at the crystal for `Ĉ₂`, `Ĉ₃` (H4), on `x ∈ [0.3, 0.7]` | 2–4 weeks |
 | — | update `RESULT_D.md` (coordinator): D-safe := `Ω^{A′}`; B′-uplift statements to be withdrawn | — |
+
+## 12. Milestone M2b: the `(2,4)` structures of `Ĉ₂`, `Ĉ₃` (`g2_structures.py`)
+
+**Exact facts at the `D = 4` crystal [DV, `x = 0.05 … 0.95`, machine precision; CLS-D polarisation-sum pairing].** The photon-level images
+are `P := 𝒱₂𝒱₄` (`H₂₀H₄₀`) and `H := 𝒱₂𝒱₄ + 𝒲₂𝒲₄` (`H₂₄`).
+1. `H` vanishes on preserved helicities, `H_flip = 2P_flip`, and `P_flip² = P_same P_opp`.
+2. Hence, in the graviton `j′ = 0` span `aP² + bPH + cH²`, the flip-free condition is **`a + 2b + 4c = 0`, independent of `x`**. This gives
+   a 2-dimensional family, like the Regge-frame flip-free family `(D₁+D₂)(αD₁+βD₂) ∋ K*, 𝔖_ff`.
+3. Every member of the family has preserved weight `a·P²_pres`. **So the bulk-point density is `a ×` (stripped `B^{(1)}_2` density) for
+   any flip-free choice**; the choice only fixes the normalisation `a`. Members with `a = 0` are null at the bulk point.
+4. Even sector: `Q := H − 2P = 𝒲𝒲 − 𝒱𝒱` is exactly flip-free (photon), and so is `Q²` (graviton; `a = 4`, `b = −4`, `c = 1`). Channel ratio
+   (opposite/same) `= (1−x²)^{−4}` exactly.
+5. Odd sector: `O := 𝒲₂𝒱₄ − 𝒱₂𝒲₄` is flip-free, with channel ratio `−(1−x²)^{−2}` (photon). The graviton `O·Q` is flip-free with
+   `−(1−x²)^{−4}`, the `B^{(1)}_3` sign structure. The symmetric `𝒲𝒱 + 𝒱𝒲` is pure flip. CLS-D's single `𝒲₂𝒱₄` has helicity-odd
+   flips that cancel in the `2↔4`-antisymmetric combination.
+
+**Covariant realisation.**
+* **Photons [Q + DV].** CLS-D's photon dual structure `(1)` at `j′ = 0` maps at the crystal to `(K_ν/2)[(𝒱𝒱+𝒲𝒲) − (D−2)𝒱𝒱]`
+  (eq. `JJO_kernels_flatspace`), which is `(K_ν/2)Q` at `D = 4`, **for every `x`**, with `x`-independent coefficients. So the photon
+  flip-free kernel is a fixed covariant CFT structure.
+* **Gravitons [D-sketch].** The graviton `j′ = 0` structures `H₂₀^{2−n}H₄₀^{2−n}H₂₄ⁿ` carry the same `V`-power bookkeeping per factor.
+  Hence `Q²` and `O·Q` are images of fixed covariant combinations. CLS-D do not print the graviton kernels; an explicit large-`ν` dual
+  computation (their App. D algorithm) would make this [D] (est. 2–3 days).
+* **This is now the definition of `(a₊)`, `(a₋)` in §R.**
+
+**Relation to the project's `K*`, `𝔖_ff`, `𝔄` [D-sketch / I].**
+* **What matches.** Both families are 2-dimensional. The natural identification `D₁+D₂ = z′_in·z′_out ↔ Q` pairs the two exactly
+  flip-free photon structures in their regimes: Lemma L flip of `D₁+D₂` is `0` for all `ν`; `Q`'s flip is `0` for all `x`. They agree in the
+  overlap (`x → 0` ↔ `ν → ∞`), where both are pure-preserved and helicity-symmetric. Under it, the Regge family maps into the crystal family
+  for any image of `D₂`.
+* **What is not shown.** A proof needs the Lemma-L transform of the covariant `(a₊)`; it was not done.
+* **Why this does not block route A′.** It is not needed to define `Ω^{A′}`. It is needed only to carry over the existing `K*`/`𝔄`
+  heavy-formula evidence (H1) at finite `β`.
+
+## 13. Milestone M3b: exact `η`-inversion (`h1_etainv_exact.py`, `h2_neargap_exact.py`)
+
+**Method [D].**
+* Mehler–Dirichlet: `P_{−½+iν}(cosh ξ) = (√2/π)∫₀^ξ cos(νt) dt/√(cosh ξ − cosh t)`. So the Regge `η`-kernel is an Abel transform of
+  `Φ(t) = ∫φ(ν)cos(νt)dν`.
+* Integrating by parts, `cosh ξ · A[Φ̃] = A[cosh t Φ̃ + ½ sinh t H̃]` with `H̃′ = Φ̃`. So `ηK̃ = K` is a first-order linear ODE with the
+  explicit solution of §R item 5.
+* No analyticity of `φ` in `ν` is needed. The `ν`-difference equation of §2 would need it, and `ψ₂ ∝ p` lacks it at `ν = 0`.
+
+**Numerics.** `Φ` in closed form (terminating integration by parts, `ψ₂` polynomial; Gauss–Legendre for `Λt < 400`); the ODE integral by
+integration by parts plus cumulative Simpson; `Δt = π/(16Λ)`, `t ≤ 60`.
+
+**Checks:**
+
+| check | `Δ_g = 100` | 300 | 1000 |
+|---|---|---|---|
+| V1: interior `δφ/φ` vs large-`ν` symbol (`p = 0.2…0.8`) | agree to 0.3–1.2 % of `δφ` | `≤ 0.15 %` | `≤ 10⁻⁴` |
+| V2: Abel identity `cosh ξ K̃ = K` | `4.7·10⁻¹⁰` (`ξ = 0.05`) … `5·10⁻⁴` (`ξ = 5`, check-quadrature-limited) | `7.7·10⁻¹⁰` … | `7·10⁻⁹` … |
+| **V3: graviton-pole identity** `∫ψ̃₂ g̃ = ∫ψ₂ g` (all `ν`, incl. `ν → 0`) | **`5.3·10⁻¹⁴`** (without inversion: `1.5·10⁻²`) | **`2.6·10⁻¹⁴`** (`8.5·10⁻³`) | **`1.9·10⁻¹⁴`** (`5.7·10⁻³`) |
+| max `|ψ̃₂ − ψ₂|/max ψ₂` on `[0,1]` (attained at small `ν`) | `7.6·10⁻³` | `2.5·10⁻³` | `7.3·10⁻⁴` |
+| tail mass `∫_{p>1}|ψ̃₂|/∫|ψ₂|` | `2.0·10⁻⁹` | `4.7·10⁻¹²` | `2.4·10⁻¹⁴` |
+
+V3 is the end-to-end statement that **the graviton-pole light term, and hence `L_A`, `A`, `B_AdS`, are exactly unchanged** by the inversion.
+It assumes the graviton term is a leading-Regge `η`-density (I9).
+
+**Results:**
+
+| `Δ_g` | `δk(0)` exact (symbol) | `A`, `B_AdS` factor `1/k(0)` | bound factor `k(0)^{−½}` | near-gap `n`; min `F/N_s` without / with exact inversion | max `|δF|/N_s` (median) |
+|---|---|---|---|---|---|
+| 100 | `−1.5074·10⁻³` (`−1.5036·10⁻³`) | 1.00151 | 1.00075 | 1; 0.2256 / **0.2231** [`+−`, 1.05Λ, `J = 5`] | `0.089` (`2.5·10⁻³`) |
+| 300 | `−1.6377·10⁻⁴` (`−1.6372·10⁻⁴`) | 1.00016 | 1.00008 | 1; 0.2054 / **0.2052** | `0.013` (`4·10⁻⁴`) |
+| 1000 | `−1.4632·10⁻⁵` (`−1.4632·10⁻⁵`) | 1.00001 | 1.00001 | 1; 0.2021 / **0.2021** | `0.003` (`6·10⁻⁵`) |
+
+* **Headline numbers, route A′ (in the exact-skeleton model, same hypotheses):**
+  * `A = 3022.3 → 3026.9` and `B_AdS = −6552.5 → −6562.4` at `Δ_g = 100`; both unchanged to `2·10⁻⁴` at `Δ_g ≥ 300`.
+  * Bounds `√(t₄²+α_T²) ≤ 2.21·10⁻⁴ / 3.13·10⁻⁶ / 2.89·10⁻⁸`, unchanged at the quoted precision (factor `≤ 1.00075`).
+* **Grades.** [D] for the inversion. [DV] for its numerics. [NE + M] for the near-gap numbers. The tails at `p > 1` (`≤ 2·10⁻⁹`) are not
+  in the near-gap sum [I].
+
+## 14. Milestone M4′: convergence and the light side of `Ĉ₂`, `Ĉ₃` (as far as clean) [Q + D-sketch]
+
+1. **Regge corner [Q].** CLS-D §3.5.2: `f⁺` changes the effective Regge spin by `k − 2J_e + 1`, `f⁻` by `k − 2J_e`. So `Ĉ₂`
+   (`f = v′−u′`) and `Ĉ₃` (`f = −1`) converge for `J₀ < 2`. The full non-perturbative correlator has `J₀ ≤ 1`, so both are valid sum rules
+   there. Einstein exchange (`J₀ = 2`) is marginal: the graviton pole in `Ĉ₂` (as for CHMRS `C₂`).
+2. **Elsewhere (light-cone and single-ray endpoints) [D-sketch].** Both weights are polynomials in `(u′, v′)`, with no poles. So away from
+   the Regge corner they cannot worsen the convergence of the bare commutator `⟨T[L[T],L[T]]T⟩`; that convergence is quoted from KKSDZ /
+   CLS-D and not re-derived [I-minor]. The objection of `SUPERCONVERGENT_UPLIFT.md` M2 (endpoints for `3 ≤ J₀ < k`) concerned
+   `k = 5, 6, 7` and **does not arise**: route A′ has no `k ≥ 4`.
+3. **Light side at tree level [D-sketch].**
+   * The `[TT]` double twists `T∂^ℓ□ⁿT` have `τ = Δ − J ∈ {2, 4, 6, …}`. The unsubtracted functionals carry the double-commutator factor
+     `∝ sin²(π(τ − 2)/2)` (CLS-D: "action on all double-traces will remain zero").
+   * MFT (identity + double traces) is a physical correlator, so the identity contributes `0` as well.
+   * So **the tree-level light side of `Ω^{A′}` is exactly `Ĉ₂[G_T] + Ĉ₃[G_T]`**: the single stress-tensor block, with its full
+     `⟨TTT⟩ = (c_T, t₄, α_T)` dependence.
+   * Contact interactions only shift double-trace data and drop out. So H9b, H10 (contact power counting) and H15 are not needed at tree
+     level.
+4. **What remains:**
+   * the marginal (`J = 2`) evaluation of `Ĉ₂[G_T]` (graviton pole, `|ĝ₃|²` coefficient `k_AdS`) and `Ĉ₃[G_T]`: one explicit
+     spinning-block evaluation, which is M5′;
+   * the swappability of the heavy sum with the functional (I14, as in CHMRS) [I].
+
+### 14.1 Regraded table (M2b/M3b/M4′; supersedes §11.1 where they differ)
+
+| statement | grade |
+|---|---|
+| crystal: `a + 2b + 4c = 0` flip-free family (`x`-independent); universal preserved weight; `Q²`, `O·Q` flip-free with exact stripped ratios `±(1−x²)^{−4}` | [DV] |
+| photon `Q` = CLS-D dual structure `(1)` at `D = 4` for all `x` | [Q + DV] |
+| graviton `Q²`, `O·Q` realised by fixed covariant `j′ = 0, 1` structures | [D-sketch] |
+| identification with the project's `K*`/`𝔖_ff`/`𝔄` at finite `β` (needed only to import H1 evidence) | [D-sketch] / [I] |
+| exact `η`-inversion formula | [D] |
+| graviton-pole term (`A`, `B_AdS`) invariant under the inversion | [D-sketch] (I9) + [DV] (V3, `≤ 5·10⁻¹⁴`) |
+| `δk(0)` exact `−1.507·10⁻³ / −1.638·10⁻⁴ / −1.463·10⁻⁵`; bounds × `≤ 1.00075` | [DV] (flat-limit light side) |
+| route A′ near-gap `n = 1`, min `F/N_s 0.2231 / 0.2052 / 0.2021` with exact inversion | [NE + M] |
+| `Ĉ₂`, `Ĉ₃` converge for `J₀ < 2`; polynomial weights add no endpoint divergence | [Q] / [D-sketch] |
+| tree-level light side = the `T` block only (double traces, contacts, identity drop out) | [D-sketch] |
+
+**Hypotheses (proposed):**
+* **H0:**
+  * The object is fully specified (§R). Its flat limit is certified NF02, and its inversion is exact.
+  * Remaining: the graviton covariant structure ([D-sketch]), I14, and the `T`-block light side (M5′).
+* **H9b, H10, H15:** not needed at tree level under route A′.
+* **H6, H7, H16:** reduce to `Ĉ₂[G_T]`, `Ĉ₃[G_T]`.
+* **H17:** gains `δk(0)` (exact).
+
+**Next:**
+| step | content | estimate |
+|---|---|---|
+| M5′ | `Ĉ₂[G_T]`, `Ĉ₃[G_T]`, i.e. `k_AdS`, the pole residue, and the `t₄`/`α_T` linear terms, via the CLS-D crystal plus the Regge-side `T`-exchange density | 1–2 weeks |
+| M2c | explicit graviton dual structures (CLS-D App. D) | 2–3 days |
+| M2d | Lemma-L transform of `(a₊)`, `(a₋)` (imports H1) | 3–5 days |
+| M6 | H4 | 2–4 weeks |

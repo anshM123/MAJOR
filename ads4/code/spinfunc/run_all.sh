@@ -12,3 +12,6 @@ python3 f5_coherent.py 100 300 1000  # coherent deviation tolerances            
 python3 g1_crystal4d.py            # M2: D = 4 crystal, helicity content of the CLS-D kernels (seconds)
 python3 f7_flat_stripped.py        # M2: flat limits under the stripped dictionary (~1 min)
 python3 f6_routeA2.py 100 300 1000 # M2/M3: near-gap model of the route-A' functional psi2 C2 + psi3 C3 (~15 min)
+python3 g2_structures.py           # M2b: CLS-D (2,4) structures at the D = 4 crystal: flip-free family, Q^2, O*Q (seconds)
+python3 h1_etainv_exact.py 100 300 1000   # M3b: exact eta-inversion of psi_2, checks V1-V3, dk0 (~40 min at 1000)
+python3 h2_neargap_exact.py 100 300 1000  # M3b: exact near-gap shift of route A' (needs h1 pickles)

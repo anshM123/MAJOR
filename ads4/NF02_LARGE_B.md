@@ -1,5 +1,17 @@
 # H13′ for D-safe (NF02 / `Ω^{NF,SC}`) at large impact parameter: exact-skeleton scans and a large-`b̂` envelope
 
+> **Superseded functional (18 Nov 2026, later).** This note was written for the **B′-uplift D-safe functional `Ω^{NF,SC}` (k = 2…7)**.
+> That functional is **withdrawn** (`H0_SPINNING_FUNCTIONAL.md` §9–§11; box at the top of `RESULT_D.md`). D-safe is now route A′,
+> `∫ψ₂Ĉ₂ + ∫ψ₃Ĉ₃`. H13′ for route A′ is in **`ROUTEA_LARGE_B.md`**.
+>
+> Still valid here, because it does not depend on the functional:
+> * the exact scalar-skeleton moments `ρ_k` (route A′ reuses them);
+> * the method fixes of §3.1, plus those of §7 below;
+> * the certified positivity of `M₁(β)` (§7);
+> * the derived identities of §4.1 for `M₁` and `M₂`.
+>
+> The positivity statements, the tables of `F/N_s` and the H13′ grade below refer to the withdrawn functional only.
+
 Status: 18 Nov 2026, H13′ agent. **Unrefereed. Not committed.** This answers the H13′ row of `RESULT_D.md` §4 and step 3 of §6 for the
 D-safe functional (NF02 weights, no forward terms, even kernel `K*`). Only new files were written: those under `ads4/code/exactskel/`
 and this note.
@@ -395,3 +407,23 @@ The previous `[I]` (no evidence at all for `b̂ > 44`) becomes a calibrated `[I]
 The runs used ≤ 2 cores. The chains are in `cache/h13_{hybchain,exA,exB,exC}.sh`; everything is resumable from the `.pkl` caches.
 Superseded records, computed with double-precision tail weights, are kept as `cache/h13_ex_*_OLD_doubleweights.pkl` and are not used.
 
+
+## 7. Follow-up (18 Nov 2026, later): items that do not depend on the functional
+
+* **`M₁(β) > 0` for all `β > 0` [certified].** `h13_cert_m1.py`, `cache/h13_cert_m1.txt`. The proof has three parts:
+  * **(a) `β ≤ 4.7`.** Here `c(t) > 0` on `(0, 4.7]`: by a series bound on `(0, 2]`, and by Arb on 2700 subintervals of `[2, 4.7]`.
+    So the integrand is positive.
+  * **(b) `β ∈ [4.7, 12]`.** Arb lower Riemann sums of `I(β) = ∫₀¹ g(v)dv`, with `t = β(1−v²)`, on 565 `β`-boxes. All are positive;
+    the smallest lower bound is `2.25·10⁻⁴`.
+  * **(c) `β ≥ 12`, analytic [D].** It uses the exact identity `∫₀^β c = 1/β − 1/(2 sinh(β/2))` and the bound
+    `I/K(0) ≥ 1/β − 1/(2 sinh(β/2)) − √2(e^{−β/2}/4.7 + 4/β²) − 2√(2 ln 2)/(β − ln 2)²`, which is positive for `β ≥ 12`.
+* **Two more exact identities [D; checked to 15 digits].**
+  * `cosh β − 1 = b̂²/(2Λ²)` exactly. Hence `M₂/Λ³ = −1/b̂³`: the two-term envelope's `A₂M₂/(2Λ³)` *is* the flat tail `−A₂/(2b̂³)`.
+  * `(2/π)∫₀^{π/2}[1/s² − w(s)/τ(s)²]_{s=b̂ sin θ}dθ = M₁(β)/Λ²`, with `τ = 2Λ asinh(s/2Λ)` and `w = (1+s²/4Λ²)^{−½}`.
+* **Methods.**
+  * `mack_mat.py` now uses only the pairs with `k₁₃ ≤ k₂₄` and accumulates the matrix product in chunks. It is bit-identical (24
+    self-tests), 2× faster, and uses 0.13 GB at `J = 80` (previously about 6 GB at `J = 150`).
+  * The `Δ_g = 1000` large-`J` failures of §3.1 were caused by the tail Gauss order: `n_q = 320` does not resolve the tail at `ν → Λ`,
+    while `n_q ≥ 800` converges to `10⁻¹¹`. The new configurations are `(200, 960, 1)`, `(320, 1280, 0.35)`, `(320, 960, 0.5)`. With
+    them `m = 1.5Λ`, `J = 112` at `Δ_g = 1000` (`b̂ = 150`) is reliable.
+  * Near the twist gap (`Δ_g = 100`, `J = 60`; `Δ_g = 300`, `J = 112`, both at `1.5Λ`) the Euler–Maclaurin tail still fails.

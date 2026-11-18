@@ -24,6 +24,14 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   light side (M5′), H4 on x ∈ [0.3, 0.7] (M6). H12′/H13′ results below were computed for the B′-uplift functional; the H12′ shape result
 >   is functional-independent, the H13′ scans must be redone for route A′.
 >
+> * **Update (M2b/M3b/M4′, `H0_SPINNING_FUNCTIONAL.md` §R, §12–§14):** self-contained definition of Ω^{A′} in §R. Exact η-inversion
+>   (Abel form, no analyticity in ν) [D, DV]: graviton-pole identity holds to 5·10⁻¹⁴, so A, B_AdS unchanged given I9; exact δk(0) =
+>   −1.507·10⁻³/−1.638·10⁻⁴/−1.463·10⁻⁵; n = 1, min F/N_s 0.2231/0.2052/0.2021; bounds unchanged (factor ≤ 1.00075) [NE + M].
+>   Flip-free (2,4) structures: stripped density holds for every flip-free choice [DV at the D = 4 crystal]; graviton covariant form
+>   [D-sketch] (M2c). Ĉ₂, Ĉ₃ converge for J₀ < 2 [Q]; weights polynomial, no endpoint problem [D-sketch]; they vanish on all [TT]
+>   double twists, so the tree-level light side is exactly Ĉ₂[G_T] + Ĉ₃[G_T] (contacts drop out) [D-sketch] — H9b, H10, H15 not needed
+>   at tree level; H6, H7, H16 reduce to evaluating that single block (M5′).
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
