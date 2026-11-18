@@ -53,6 +53,14 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   ⟨TTTT⟩ total c₂ ≤ 310, spin-specific residual ≲ 30. Closing M6: scalar Laplace expansion to O(1/m²) calibrated on the exact skeleton,
 >   then graviton slow factors (~1–1.5 weeks).
 >
+> * **Update (H13′ for route A′, `ROUTEA_LARGE_B.md`):** hybrid action (flat NF02 + leading AdS curvature) positive on every state,
+>   m ∈ [1.5, 10]Λ (+ 20/50/100Λ), b̂ ∈ [20, 200] at Δ_g = 300/1000, [40, 200] at 100, b̂ ≤ 1000 at 5 masses; min F_hyb/N_s 0.931
+>   [NE]. Exact remainder on 62 states × 2 skeletons (J ≤ 150; b̂ reliably to 70/150/200 at Δ_g = 100/300/1000): min F/N_s 0.949,
+>   |S|/F_hyb ≤ 122/m² [NE]. Large b̂: F_hyb ≃ A₁M₁(β)/Λ² − A₂/(2b̂³) with A₁ ≥ 355 (AdS term dominates for b̂ ≳ 4Λ^{2/3}); M₁ > 0 for
+>   all β **[certified]**; explicit Arb-certified remainder bound gives **F_hyb > 0 [certified] on b̂ ∈ [115.5, 197] / [162.6, 597] /
+>   [274.1, 1997]** (Δ_g = 100/300/1000; flat part float-only in the NF02 corner +−, J ≥ 400, m < 1.633Λ at Δ_g = 1000). Still [NE]/[I]:
+>   b̂ ∈ [20, b̂₀), b̂ > 2Λ, |S| < F off the sample, η-inversion not included.
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,

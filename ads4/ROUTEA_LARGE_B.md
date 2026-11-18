@@ -38,7 +38,7 @@ Grades:
 | item | result | grade |
 |---|---|---|
 | **Hybrid scan**: every `J`, `m ∈ [1.5, 10]Λ` (+ `20, 50, 100Λ`), `b̂ ∈ [20, 200]` (`Δ_g` = 300, 1000) or `[40, 200]` (100); spot checks `b̂ ∈ [200, 1000]` at 5 masses; both channels | no non-positive state. Min `F_hyb/N_s` = **0.9313** (300) and **0.9311** (1000), both at `+−`, `1.5Λ`, `J = 15`, `b̂ = 20.7` (the corner of the region); **0.9411** (100: `+−`, `1.71Λ`, `J = 95`, `b̂ = 112`). On `b̂ ≤ 1000`: ≥ 0.899. The AdS curvature is **positive on every record** | [NE] (exact ingredients) |
-| **Exact skeleton remainder**: 59 states × 2 skeletons (`J ≤ 150`, `m = 1.5–10Λ`) | no non-positive reliable record. Min `F/N_s` = **0.9489** (300), **0.9492** (1000), **0.9669** (100). `|S|/F_hyb ≤ 6.1·10⁻⁴ / 5.4·10⁻⁵ / 3.8·10⁻³`, and `|S|/F_hyb ≤ 122/m²` everywhere. Reliable records reach `b̂` = 150 (1000), 100.5 (300), 70.5 (100) | [NE + M] |
+| **Exact skeleton remainder**: 62 states × 2 skeletons (`J ≤ 150`, `m = 1.5–10Λ`) | no non-positive reliable record. Min `F/N_s` = **0.9489** (300), **0.9492** (1000), **0.9669** (100). `|S|/F_hyb ≤ 6.1·10⁻⁴ / 5.4·10⁻⁵ / 3.8·10⁻³`, and `|S|/F_hyb ≤ 122/m²` everywhere (`≤ 24/m²` at `b̂ ≥ 150`). Reliable records reach `b̂` = **200.7** (1000), 150.5 (300), 70.5 (100) | [NE + M] |
 | **Large-`b̂` form** | `F_hyb ≃ A₁M₁(β)/Λ² − A₂/(2b̂³)`, with `A₁ = 377.79 + 50.64σu ≥ 355.3` and `A₂ = −2047.09`. The **AdS-only** term `A₁M₁/Λ²` dominates the flat tail once `b̂ ≳ 4Λ^{2/3}` (85 / 178 / 398). Matches `F_hyb` to `[0.9998, 1.003]` for `b̂ ≥ 100` and `[0.9975, 1.012]` for `b̂ ≥ 50` on every record | form, coefficients, identities [D]; match [NE] |
 | **`M₁(β) > 0` for all `β > 0`** | Arb plus an analytic large-`β` bound (`h13_cert_m1`) | **[certified]** |
 | **Curvature envelope**: `|curv − A₁M₁(β)/Λ²| ≤ R(b̂)`, explicit (§4.2), every `m ≥ 1.5Λ`, both channels | `curv ≥ A₁M₁/Λ² − R > 0` on **`b̂ ∈ [115.5, 197]` (Δ_g = 100), `[162.6, 597]` (300), `[274.1, 1997]` (1000)** | **[certified]**, given the derived bound |
@@ -46,7 +46,7 @@ Grades:
 
 **Proposed H13′ entry for route A′:**
 * [NE] for the hybrid action on the whole region (every `J`);
-* [NE] for the exact action on the sample (`b̂ ≤ 150`, at most 70 at `Δ_g = 100`);
+* [NE] for the exact action on the sample (`b̂ ≤ 200.7` at `Δ_g = 1000`, `≤ 150.5` at 300, `≤ 70.5` at 100);
 * **[certified] positivity of the hybrid action** on `b̂ ∈ [115, 197] / [163, 597] / [274, 1997]`;
 * [I] for `|S| < F` off the sample. It is calibrated by `|S|/F_hyb ≤ 122/m²`, a margin of at least 150.
 
@@ -93,14 +93,102 @@ Grades:
 * The route-A′ `S` is recomputed from them, for both envelopes.
 * **Reliability:** the spread of `S` across the `n`-sum configurations must be ≤ `10⁻³ N_s` (route A′ and old functional).
 
-__REMTABLE__
+**Minima over reliable records** (`cache/h13a_rem.txt`). No reliable record is non-positive.
+
+| `Δ_g` | states (reliable helicity records) | min `F/N_s` (where) | max `|S|/F_hyb` (strip / B′ env.) | max `|S|m²/F_hyb` | `b̂` reached |
+|---|---|---|---|---|---|
+| 100 | 9 (32/36) | **0.9669** (`+−`, `1.5Λ`, `J = 46`, `b̂ = 62`) | `3.8·10⁻³` / `2.6·10⁻³` | 100 | 70.5 |
+| 300 | 26 (100/104) | **0.9489** (`+−`, `1.5Λ`, `J = 16`, `b̂ = 22`) | `6.1·10⁻⁴` / `3.7·10⁻⁴` | 122 | 150.5 |
+| 1000 | 27 (108/108) | **0.9492** (same state) | `5.4·10⁻⁵` / `3.3·10⁻⁵` | 122 | **200.7** |
+
+* On the states with `b̂ ≥ 150` (`2Λ`, `J = 150` at 300 and 1000; `1.5Λ`, `J = 150` at 1000), `|S|m²/F_hyb ≤ 24`. The calibrated
+  `122/m²` therefore does not grow with `b̂`.
+* Per-state table: entries are the worst over the reliable skeletons; "—" means no reliable value.
+
+**Δ_g = 100**
+
+| `m/Λ` | `J` | `b̂` | `++` `F/N_s` | `+−` `F/N_s` | max `|S|/F_hyb` (strip) | max `|S|/F_hyb` (B′ env) | status |
+|---|---|---|---|---|---|---|---|
+| 1.50 | 30 | 40.7 | +1.0007 | +0.9814 | 3.8e-03 | 2.6e-03 | ok (Δφ=3,2) |
+| 2.00 | 40 | 40.5 | +1.0008 | +0.9881 | 2.6e-03 | 1.8e-03 | ok (Δφ=3,2) |
+| 1.50 | 46 | 62.0 | +1.0003 | +0.9669 | 1.1e-03 | 9.8e-04 | ok (Δφ=3,2) |
+| 1.50 | 60 | 80.7 | — | — | — | — | **unreliable** (n-sum) |
+| 3.00 | 60 | 40.3 | +1.0000 | +0.9946 | 3.0e-04 | 1.8e-04 | ok (Δφ=3,2) |
+| 2.00 | 70 | 70.5 | +0.9995 | +0.9752 | 1.2e-03 | 9.4e-04 | ok (Δφ=3,2) |
+| 5.00 | 100 | 40.2 | +0.9999 | +0.9980 | 1.3e-04 | 1.3e-04 | ok (Δφ=3,2) |
+| 3.00 | 104 | 69.7 | +1.0001 | +0.9898 | 1.9e-04 | 1.9e-04 | ok (Δφ=3,2) |
+| 4.00 | 120 | 60.2 | +1.0000 | +0.9955 | 6.9e-05 | 5.1e-05 | ok (Δφ=3,2) |
+
+**Δ_g = 300**
+
+| `m/Λ` | `J` | `b̂` | `++` `F/N_s` | `+−` `F/N_s` | max `|S|/F_hyb` (strip) | max `|S|/F_hyb` (B′ env) | status |
+|---|---|---|---|---|---|---|---|
+| 1.50 | 16 | 22.0 | +1.0002 | +0.9489 | 2.7e-04 | 1.7e-04 | ok (Δφ=3,2) |
+| 2.00 | 20 | 20.5 | +0.9938 | +0.9886 | 3.4e-04 | 3.7e-04 | ok (Δφ=3,2) |
+| 1.50 | 22 | 30.0 | +0.9999 | +0.9880 | 6.1e-04 | 3.4e-04 | ok (Δφ=3,2) |
+| 2.00 | 30 | 30.5 | +0.9999 | +0.9880 | 3.2e-04 | 2.2e-04 | ok (Δφ=3,2) |
+| 3.00 | 30 | 20.3 | +0.9936 | +1.0001 | 1.3e-04 | 1.3e-04 | ok (Δφ=3,2) |
+| 1.50 | 34 | 46.0 | +1.0000 | +0.9885 | 3.1e-04 | 1.2e-04 | ok (Δφ=3,2) |
+| 4.00 | 40 | 20.2 | +0.9951 | +1.0001 | 6.6e-05 | 6.3e-05 | ok (Δφ=3,2) |
+| 2.00 | 44 | 44.5 | +0.9998 | +0.9949 | 3.4e-04 | 2.8e-04 | ok (Δφ=3,2) |
+| 3.00 | 44 | 29.7 | +1.0001 | +0.9902 | 6.2e-05 | 6.0e-05 | ok (Δφ=3,2) |
+| 5.00 | 50 | 20.2 | +0.9963 | +1.0000 | 3.9e-05 | 3.7e-05 | ok (Δφ=3,2) |
+| 1.50 | 52 | 70.0 | +1.0000 | +0.9919 | 2.2e-04 | 1.2e-04 | ok (Δφ=3,2) |
+| 4.00 | 60 | 30.2 | +1.0000 | +0.9951 | 8.9e-06 | 4.3e-06 | ok (Δφ=3,2) |
+| 3.00 | 68 | 45.7 | +0.9999 | +0.9978 | 1.2e-04 | 1.2e-04 | ok (Δφ=3,2) |
+| 2.00 | 70 | 70.5 | +0.9999 | +0.9952 | 2.1e-04 | 1.7e-04 | ok (Δφ=3,2) |
+| 7.00 | 70 | 20.1 | +0.9978 | +1.0000 | 1.8e-05 | 1.8e-05 | ok (Δφ=3,2) |
+| 1.50 | 74 | 99.3 | +1.0000 | +0.9832 | 1.8e-04 | 1.1e-04 | ok (Δφ=3,2) |
+| 5.00 | 74 | 29.8 | +1.0000 | +0.9965 | 2.3e-05 | 2.3e-05 | ok (Δφ=3,2) |
+| 4.00 | 80 | 40.3 | +1.0000 | +0.9982 | 5.3e-06 | 2.7e-06 | ok (Δφ=3,2) |
+| 2.00 | 100 | 100.5 | +1.0000 | +0.9900 | 8.0e-05 | 5.5e-05 | ok (Δφ=3,2) |
+| 10.00 | 100 | 20.1 | +0.9988 | +1.0000 | 8.2e-06 | 8.1e-06 | ok (Δφ=3,2) |
+| 3.00 | 104 | 69.7 | +1.0000 | +0.9980 | 7.4e-05 | 6.1e-05 | ok (Δφ=3,2) |
+| 7.00 | 104 | 29.9 | +1.0000 | +0.9982 | 1.1e-05 | 1.1e-05 | ok (Δφ=3,2) |
+| 1.50 | 112 | 150.0 | — | — | — | — | **unreliable** (n-sum) |
+| 5.00 | 112 | 45.0 | +1.0000 | +0.9992 | 5.3e-05 | 5.1e-05 | ok (Δφ=3,2) |
+| 4.00 | 120 | 60.3 | +1.0000 | +0.9990 | 4.0e-05 | 3.6e-05 | ok (Δφ=3,2) |
+| 2.00 | 150 | 150.5 | +1.0000 | +0.9759 | 6.6e-05 | 5.2e-05 | ok (Δφ=3,2) |
+
+**Δ_g = 1000**
+
+| `m/Λ` | `J` | `b̂` | `++` `F/N_s` | `+−` `F/N_s` | max `|S|/F_hyb` (strip) | max `|S|/F_hyb` (B′ env) | status |
+|---|---|---|---|---|---|---|---|
+| 1.50 | 16 | 22.0 | +1.0000 | +0.9491 | 2.4e-05 | 1.5e-05 | ok (Δφ=3,2) |
+| 2.00 | 20 | 20.5 | +0.9936 | +0.9882 | 3.1e-05 | 3.3e-05 | ok (Δφ=3,2) |
+| 1.50 | 22 | 30.0 | +1.0000 | +0.9891 | 5.4e-05 | 3.1e-05 | ok (Δφ=3,2) |
+| 2.00 | 30 | 30.5 | +1.0000 | +0.9886 | 2.9e-05 | 2.0e-05 | ok (Δφ=3,2) |
+| 3.00 | 30 | 20.3 | +0.9936 | +1.0000 | 1.2e-05 | 1.1e-05 | ok (Δφ=3,2) |
+| 1.50 | 34 | 46.0 | +1.0000 | +0.9898 | 2.9e-05 | 1.1e-05 | ok (Δφ=3,2) |
+| 4.00 | 40 | 20.3 | +0.9950 | +1.0000 | 5.9e-06 | 5.6e-06 | ok (Δφ=3,2) |
+| 2.00 | 44 | 44.5 | +1.0000 | +0.9961 | 3.1e-05 | 2.5e-05 | ok (Δφ=3,2) |
+| 3.00 | 44 | 29.7 | +1.0000 | +0.9903 | 5.5e-06 | 5.3e-06 | ok (Δφ=3,2) |
+| 5.00 | 50 | 20.2 | +0.9963 | +1.0000 | 3.5e-06 | 3.4e-06 | ok (Δφ=3,2) |
+| 1.50 | 52 | 70.0 | +1.0000 | +0.9980 | 2.0e-05 | 1.1e-05 | ok (Δφ=3,2) |
+| 4.00 | 60 | 30.3 | +1.0000 | +0.9952 | 8.4e-07 | 4.3e-07 | ok (Δφ=3,2) |
+| 3.00 | 68 | 45.7 | +1.0000 | +0.9983 | 1.1e-05 | 1.1e-05 | ok (Δφ=3,2) |
+| 2.00 | 70 | 70.5 | +1.0000 | +0.9988 | 1.8e-05 | 1.5e-05 | ok (Δφ=3,2) |
+| 7.00 | 70 | 20.1 | +0.9978 | +1.0000 | 1.6e-06 | 1.6e-06 | ok (Δφ=3,2) |
+| 1.50 | 74 | 99.3 | +1.0000 | +0.9982 | 1.5e-05 | 1.0e-05 | ok (Δφ=3,2) |
+| 5.00 | 74 | 29.8 | +1.0000 | +0.9965 | 2.1e-06 | 2.0e-06 | ok (Δφ=3,2) |
+| 4.00 | 80 | 40.2 | +1.0000 | +0.9983 | 5.6e-07 | 2.6e-07 | ok (Δφ=3,2) |
+| 2.00 | 100 | 100.5 | +1.0000 | +0.9989 | 1.0e-05 | 7.0e-06 | ok (Δφ=3,2) |
+| 10.00 | 100 | 20.1 | +0.9988 | +1.0000 | 7.4e-07 | 7.3e-07 | ok (Δφ=3,2) |
+| 3.00 | 104 | 69.7 | +1.0000 | +0.9996 | 7.7e-06 | 6.5e-06 | ok (Δφ=3,2) |
+| 7.00 | 104 | 29.9 | +1.0000 | +0.9982 | 1.0e-06 | 1.0e-06 | ok (Δφ=3,2) |
+| 1.50 | 112 | 150.0 | +1.0000 | +0.9942 | 1.3e-05 | 8.3e-06 | ok (Δφ=3,2) |
+| 5.00 | 112 | 45.0 | +1.0000 | +0.9994 | 4.8e-06 | 4.6e-06 | ok (Δφ=3,2) |
+| 4.00 | 120 | 60.3 | +1.0000 | +0.9995 | 4.0e-06 | 3.6e-06 | ok (Δφ=3,2) |
+| 1.50 | 150 | 200.7 | +1.0000 | +0.9870 | 8.7e-06 | 5.7e-06 | ok (Δφ=3,2) |
+| 2.00 | 150 | 150.5 | +1.0000 | +0.9967 | 6.0e-06 | 4.9e-06 | ok (Δφ=3,2) |
+
 
 **Envelope variant.** The B′-envelope variant of `S` is smaller (`|S|/F_hyb ≤ 2.6·10⁻³` at `Δ_g = 100`). The headline uses the stripped
 envelope.
 
 **Odd-`k` interpolation sensitivity:** `≤ 2·10⁻⁵ N_s`.
 
-**Pointwise vs integrated remainder.** As for the old functional, the pointwise remainder is up to `3·10² N_s`, but its integral is
+**Pointwise vs integrated remainder.** As for the old functional, the pointwise remainder is up to `1.7·10³ N_s` (at `b̂ ≈ 200`), but its integral is
 `≤ 4·10⁻³ N_s`. The remainder integrates with the same forward-free cancellation as the leading action.
 
 ## 4. Large-`b̂` form and certificate
@@ -171,7 +259,7 @@ where:
 | `b̂` | `Δ_g = 100` | `Δ_g = 300` | `Δ_g = 1000` |
 |---|---|---|---|
 | `< 20` (`< 40` at 100) | near-gap scans and certificate (`f6`, `CERTIFIED_NEARGAP` model) | same | same |
-| `[20, b̂₀)` | hybrid [NE], every `J`; exact `S` [NE] to `b̂ = 70` | hybrid [NE]; exact `S` to 100.5 | hybrid [NE]; exact `S` to 150 |
+| `[20, b̂₀)` | hybrid [NE], every `J`; exact `S` [NE] to `b̂ = 70` | hybrid [NE]; exact `S` to 150.5 | hybrid [NE]; exact `S` to 200.7 |
 | `[b̂₀, 2Λ]` | **hybrid [certified]** (`b̂₀ = 115.5`) | **[certified]** (162.6) | **[certified]** (274.1; flat corner [NE]) |
 | `> 2Λ` | hybrid [NE] (scan to 1000), asymptotic form [D + NE] | same | same |
 | exact `S` beyond the sample | [I], `|S|/F ≤ 122/m²` calibrated | same | same |
@@ -185,7 +273,7 @@ where:
 * **Exact remainder coverage.**
   * The Euler–Maclaurin `n`-sum fails near the twist gap: `Δ_g = 100`, `J = 60`, and `Δ_g = 300`, `J = 112`, both at `1.5Λ`.
   * `J = 200` was not run: `mack_mat` takes about 50 min there.
-  * The `J = 150` states at `Δ_g = 300, 100` are __J150__.
+  * The other planned states were not run: `J = 150` at `Δ_g = 100` (`3Λ`; expected to fail, `J/τ ≈ 0.8`) and the `J = 200` states (`2–3Λ`).
 * **The certificate is for the hybrid action.** Positivity of the exact action on the window still needs `|S| < F` there [I].
 
 ## 6. Files
