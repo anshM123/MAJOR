@@ -9,6 +9,16 @@ Marks: **[D]** derived; **[DVE]** derived and checked end to end on exact blocks
 
 ## 0. Summary
 
+> **Update (§7, same day): the `+−` excess of §3 was a numerical artefact of the cached waves, not physics.** The t19 cleaning of
+> `SPINNING_TTTT_EXT.md` §7 removes it: mask cut 40, noise floor, row tails and wedge. After cleaning:
+> * `+−` under `𝔄⊗𝔄` agrees with the heavy formula wherever it is resolved (`k = 5` at small `ν`, `k = 7` to `ν ≈ 6`).
+> * At `k = 7` the exact `+−` moment matches the reading-B-transferred skeleton to `≤ 1.6·10⁻³`. Reading A is off by `3–4 %`.
+> * `+−` under `K*` and all `+−` moments at `k ≤ 4` (`k ≤ 6` under `K*`) remain **noise-limited** in float64 (§7.3). That is undetermined,
+>   not contradicted.
+> * The `++` conclusions are unchanged and slightly strengthened.
+>
+> §3 below is kept as the record of the raw extraction; read it together with §7 (at the end).
+
 **Verdict.**
 * **H4 is not settled.** The test reaches only `x = ν/m ≲ 0.05`. Those nodes carry **0.2–0.4 %** of the remainder norm of either
   functional. The near-gap action and both D-strong failures live at `x ≳ 0.5`, which is out of reach.
@@ -233,3 +243,121 @@ on the `+−` moments, on which this test is silent.
 | `a3_restricted.py` | resolved-node shift, clean H4 metric, `c*`, `d_crit` | `a3_summary.txt`, `a3_summary_nu3.5.txt` |
 | `d1_tprofile.py` | `t`-profile of kernel moments (small-`t` contamination) | `d1_A.txt` |
 | `d2_ldcheck.py` | float64 vs long-double Taylor stage at selected points (control failed: inconclusive) | `d2_A.txt` |
+| `r1_clean.py` | §7: cleaned re-extraction with `t19_k2` (cut 40, noise floor, tails, wedge; spread and envelope) | `r1_gw_*.pkl`, `r1_A.log`, `r1_C.log` |
+| `a4_h4_both.py` | §7: H4/H1/H2 metrics for both helicities from the cleaned values | `a4_summary.txt`, `a4_summary_sp1e-2.txt` |
+| `d3_snr.py` | §7.3: signal-to-noise of the kernel densities | `d3_A.txt`, `d3_C.txt` |
+
+## 7. Cleaned re-extraction (t19 method) and the `+−` states (`r1_clean.py`, `a4_h4_both.py`, `d3_snr.py`)
+
+Added after `SPINNING_TTTT_EXT.md` §7 found two defects of the cached `l = 2` waves:
+* the production truncation mask (`X − 10 log X > 25`) was calibrated for `l = 1`. Next to the edge, opposite-helicity nodes are wrong by up
+  to `10⁴×`;
+* at tiny `t` the waves are noise-dominated. The imaginary parts of the real-by-symmetry modes give the noise floor.
+
+**Method.**
+* The waves of states A and C were **re-extracted, with no new production**, using `t19_k2.cleaned`/`analyse` (imported read-only;
+  `design` memoised):
+  * mask cut 40 (production 25);
+  * per-row start where three consecutive nodes exceed `10σ`, with power-law tails before it;
+  * light-cone wedge extrapolation for `t ≥ 3`.
+* The **model spread** is the maximum deviation over the variants: shifted fit nodes, two-node fits, `κ = 3, 30`, wedge from `t ≥ 5`, cut 50.
+  The **envelope** adds constant tails and cut 32.
+* Grid: `k = 2…7`; the functional's Gauss nodes with `ν ≤ 10.7` (14), plus `ν = 0, 1, 3`; waves `ss` and `oo`; kernels `K*`, `𝔄`, `𝔖_ff`
+  (info) and the leading mode.
+* Nodes kept at cut 25/32/40/50: `3165/3098/3020/2930` (A) and `3024/2948/2862/2772` (C).
+* **Cost:** about 11 min per state on one core.
+
+### 7.1 `++` after cleaning [NE]
+
+* The table of §2 is reproduced and extended, with the cleaning changing `k ≥ 4` by `≲ 10⁻³`.
+* `R_grav` (`K*` even, `𝔄` odd) has model spread `≤ 10⁻⁴` (`k ≥ 4`, `ν ≤ 4.4`) and `≤ 10⁻⁷` at `k = 7`.
+* `𝔖_ff` is now also clean at `k ≥ 4`, but not at `k = 2, 3`.
+
+**H4 metrics** (`a4_h4_both.py`, `cache/a4_summary.txt`). A node counts as resolved if its spread is `≤ 3·10⁻³` and its envelope is
+`≤ 3·10⁻²` wide.
+
+| state | `c*` (`m²(c*−1)`) | resolved nodes, `k = 2 / 3 / 4 / 5 / 6 / 7` | `max\|R/(c*R_skel) − 1\|` per `k` (3…7) | clean H4 shift `ΔF/N_s` | margin |
+|---|---|---|---|---|---|
+| A, Df 3 | 1.0127 (134) | 1 / 10 / 9 / 13 / 13 / 14 (`ν` up to 1.3 / 5.5 / 4.4 / 9.2 / 9.2 / 10.6) | 3.5e−3, 2.2e−3, 4.2e−3, 2.8e−3, 4.3e−3 | `−6.9·10⁻⁵` | +0.266 |
+| C, Df 3 | 1.0082 (135) | 0 / 9 / 10 / 12 / 14 / 14 | 1.2e−3, 7.4e−4, 2.8e−3, 2.3e−2 (`ν ≤ 10.6`), 3.9e−3 | `−1.6·10⁻⁵` | +0.316 |
+
+* Df = 2 gives the same to `±4·10⁻⁴`, with `c* = 1.015 / 1.010`.
+* The C `k = 6` entry of `2.3·10⁻²` comes from the largest nodes, `ν ≈ 9–10.6`. At `ν ≤ 6.6` it is `≤ 3·10⁻³`. The position-space calibration
+  (§1) makes `ν ≳ 9` marginal there.
+* `m²(c*−1) ≈ 135` at both masses, so the common factor scales like `1/m²`, as a vertex-normalisation correction should.
+* With the looser criterion (spread `≤ 10⁻²`; `cache/a4_summary_sp1e-2.txt`) `k = 2` enters at A (`ν ≤ 2.6`, deviation `8.8·10⁻³`), and
+  `ΔF/N_s = −5.9·10⁻⁴`.
+
+### 7.2 `+−` after cleaning [NE]
+
+**`R_grav` (cleaned) [model spread] at `ν ≈ 0.03 / 1.3 / 3.5`:**
+
+| `k` | A, `𝔄` (odd `k`) | A, `K*` (even `k`) | C, `𝔄` (odd `k`) | C, `K*` (even `k`) |
+|---|---|---|---|---|
+| 2 | — | `3·10³ [10⁴]`: noise | — | `12 [10]`: noise |
+| 3 | 2.40 [2] / 0.91 [0.1] / 0.31 [1]: noise | — | 1.05 [0.5] / 1.009 [0.04] / 1.11 [0.3] | — |
+| 4 | — | 62 [40] / −5.7 [4] / 107 [60]: noise | — | 4.7 [3] / 0.88 [0.5] / 1.85 [1]: noise |
+| 5 | **0.988 [0.08] / 1.005 [0.005] / 1.032 [0.02]** | — | **1.002 [0.1] / 1.002 [0.007] / 1.017 [0.03]** | — |
+| 6 | — | 1.49 [0.2] / 1.02 [0.04] / 1.37 [0.3] | — | 1.20 [0.2] / 0.997 [0.02] / 0.96 [0.05] |
+| 7 | **0.9916 [10⁻³] / 0.9965 [6·10⁻⁵] / 1.0175 [2·10⁻⁴]** | — | **0.9955 [2·10⁻³] / 0.9977 [10⁻⁴] / 1.0111 [3·10⁻⁴]** | — |
+
+* At `ν = 1.0` (not a Gauss node) the even-`k` `𝔄` contractions are also clean, e.g. `k = 4`: `1.007 [3·10⁻³]` (A) and `1.006 [3·10⁻³]` (C).
+  Their `ν = 0` and `3` neighbours are not.
+* **Where the moments are resolved, they agree with the heavy formula.** At `k = 5, 7` under `𝔄` the agreement is `0.99–1.03`, with
+  `R − 1` of order `10⁻²`, like `++`.
+* So the raw `10²–10¹⁰` excess of §3 was the mask and noise defects. The leading-mode `+−` ratios are noisy as well (`|lead|` up to
+  `10⁶` at C, `k = 2`), which is the noise signature.
+
+**H4 and H2 at the `+−` binding states** (resolved nodes only; `cache/a4_summary.txt`):
+
+| state | resolved | reading B (exactskel model): `c*`, max dev | reading A (`D = P_J`): `c*`, max dev | `ΔF/N_s` | margin |
+|---|---|---|---|---|---|
+| A, `+−` J=4 | `k = 7`, 10 nodes (`ν ≤ 5.5`) | 1.0008, **1.6·10⁻³** | 1.0050, 4.4·10⁻² | `−2·10⁻¹⁷` | +0.241 (D-safe) |
+| C, `+−` J=6 | `k = 7`, 10 nodes; `k = 5`, 2 nodes (`ν ≤ 0.8`) | 1.0006, **8·10⁻⁴** (`k = 5`: 2.8e−3) | 1.0035, 2.8·10⁻² | `−4·10⁻¹⁵` | +1.002 |
+
+* With spread `≤ 10⁻²`, `k = 5` adds 4 nodes (`ν ≤ 1.9`). Reading B then gives deviation `7.7·10⁻³` (A) and `2.5·10⁻³` (C).
+* **H2 (reading B) at these near-gap low-`J` states [NE].** At `k = 7` the exact `+−` moment follows the reading-B-transferred skeleton to
+  `≤ 1.6·10⁻³`, against `3–4 %` for reading A.
+* **H4 for `+−`.** It is verified only at `k = 7` (and two `k = 5` nodes). These carry essentially none of the NF02 weight (`p^{10}`), so the
+  action shift is `~10⁻¹⁵ N_s`. **No statement on the `+−` action is possible.**
+
+### 7.3 Numerical vs physical: the unresolved `+−` moments are noise-limited (`d3_snr.py`, `cache/d3_*.txt`) [NE]
+
+`|M|/Σσ|W|` compares the integrated moment with the noise floor integrated over the grid. It is a conservative ratio: the noise floor
+summed coherently. For incoherent noise the ratio is about 50× larger.
+
+| `k` | `++` (`K*`, `𝔄`) | `+−`, A: `K*` / `𝔄` | `+−`, C: `K*` / `𝔄` |
+|---|---|---|---|
+| 2 | 15–80 | 2·10⁻³ / 2·10⁻³ | 3·10⁻⁵ / 10⁻⁶ |
+| 4 | 4·10⁴ | 6·10⁻³ / 4·10⁻⁴ | 9·10⁻⁵ / 2·10⁻⁵ |
+| 5 | 5·10⁵ | 6·10⁻² / 10⁻² | 10⁻³ / 10⁻³ |
+| 6 | 3·10⁶ | 1.4 / 1.4 | 0.12 / 0.13 |
+| 7 | 10⁷ | 140 / 150 | 17 / 19 |
+
+* **The opposite-helicity kernel moments at low `J` are a cancellation.** Most nodes are individually above `10σ`, but the integrated
+  moment is `10²–10⁵` below the integrated noise floor for `k ≤ 4`, and `≲ 1` at `k = 5, 6`.
+* At those `k` the float64 waves cannot determine the `+−` moment. The values in the raw and cleaned tables there are numerical, not
+  physical.
+* Where `|M|/Σσ ≳ 1` (`k = 6, 7`, and `k = 5` at A with the cleaning), the moments agree with the heavy formula.
+* **So the evidence is that the `+−` excess was numerical [NE].** No sign of a physical deviation from H1 was found at these states.
+* **Not done:** the requested mpmath end-to-end check at one node. A correct extended-precision path needs the quad-precision seed radial
+  sums plus the Taylor-mode word application (196 word pairs) in mpmath. That is beyond the 1 h limit. The signal-to-noise analysis is
+  used instead; it settles "noise-limited", not the true value.
+
+### 7.4 Revised grades
+
+**H4:**
+* `++`: unchanged, [NE] at `x ≲ 0.03–0.09`. Graviton moments equal skeleton moments up to `c* = 1 + 135/m²`, to `≤ 4·10⁻³` for
+  `k = 3…7`. The action shift is `≤ 6·10⁻⁴ N_s`, but coverage is `≤ 0.4 %` of the remainder norm.
+* `+−`: [NE] only at `k = 7` (and `k = 5`, `ν ≲ 2`), with reading B. The action is not covered.
+* **Still [I] where the action is decided** (`x ≳ 0.1`).
+
+**H1 at the binding states:**
+* `++`: holds, `R − 1 = 0.4–2 %`, both `K*` and `𝔄`, `k = 3…7`.
+* `+−`: holds where resolved (`𝔄`, `k = 5, 7`).
+* `+−` under `K*` at `k ≤ 6`, and all `+−` at `k ≤ 4`: noise-limited in float64, undetermined.
+
+**H2 [NE] at near-gap low `J`:** reading B over reading A, at `k = 7`.
+
+**What would close `+−`:** an extended-precision production (quad seed sums plus long-double or mpmath Taylor stage) at one or two states,
+or a formulation that avoids the cancellation, e.g. extracting the opposite-helicity moments from a better-conditioned mode combination.

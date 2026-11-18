@@ -18,3 +18,11 @@ python3 a3_restricted.py cache/a1_gw_100_1.040_4.pkl cache/a1_gw_100_1.300_6.pkl
 python3 a3_restricted.py cache/a1_gw_100_1.040_4.pkl cache/a1_gw_100_1.300_6.pkl        # resolved-node H4 shift (DIRECT_GRAVITON_NEARGAP.md sect. 2)
 python3 d1_tprofile.py cache/gw_100_1.040_4.npz > cache/d1_A.txt                         # small-t profile of the kernel moments
 python3 d2_ldcheck.py 100 1.04 4 > cache/d2_A.txt                                         # float64 vs long double (control failed; inconclusive)
+# sect. 7: cleaned re-extraction (t19 method, read-only import), H4/H1/H2 metrics for both helicities, signal-to-noise (~12 min per state)
+python3 r1_clean.py cache/a1_gw_100_1.040_4.pkl cache/gw_100_1.040_4.npz > cache/r1_A.log 2>&1 &
+python3 r1_clean.py cache/a1_gw_100_1.300_6.pkl cache/gw_100_1.300_6.npz > cache/r1_C.log 2>&1
+wait
+python3 a4_h4_both.py 1e-2 > /dev/null && cp cache/a4_summary.txt cache/a4_summary_sp1e-2.txt
+python3 a4_h4_both.py 3e-3
+python3 d3_snr.py cache/gw_100_1.040_4.npz > cache/d3_A.txt
+python3 d3_snr.py cache/gw_100_1.300_6.npz > cache/d3_C.txt
