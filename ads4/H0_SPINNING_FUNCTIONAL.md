@@ -1766,3 +1766,141 @@ legitimate given (a)–(c), but it is part of the definition of `Ω^{A′}` and 
 4. `o_V` vs `o_H` at `O(1/m²)` (kind `C3V` in `l9_points`).
 5. Files: `l1_tps.py` (env `L1_DEG`, default unchanged), `l9_tps.py`, `l9_scalar_k3.py`, `l9_points.py` (kinds `C2`/`C3H`/`C3V`, `K₂`/`K₃`),
    `l9_run.py`, `l9_analysis.py` (`L9_DESHIFT`, `L9_NUFIT`), `l9_neargap.py`. Caches: `cache/l9_*`. Added to `run_all.sh`.
+
+## 24. M6 round 6: the definition of `Ω^{A′}` fixed (CHMRS-type), and a non-perturbative evaluation of the crystal integral (`n1_*.py`) — `x ≥ 0.25` decided, `Δ_g = 100` still open through `x < 0.25`; hand-over in §24.7
+
+*Written 18 Nov 2026 by the numerics agent continuing after §23.7. Unrefereed, not committed. Updated incrementally.*
+
+### 24.1 Definition: why the literal CLS-D functional cannot be `Ω^{A′}`, and what replaces it (`n1_definition.py`, `cache/n1_definition.txt`) [D given Q + NE]
+
+* **The CHMRS magic-block coefficient has a real zero.** With `g(ν) = ((2−d)/2+iν)/(iν)·(γ₇(ν+i)/γ₇(ν))²` (l2, CHMRS), `g(−ν) = g(ν)*` for
+  real `ν`, and `g + g̃ = 2 Re g` changes sign at **`ν₀ = 5.9791`** (`+2.18` at `ν = 2`, `+0.43` at 5, `−0.36` at 7, `→ −2`).
+  `ν·Im g/(g+g̃) → 23/4` at large `ν` (validated at `ν ≥ 30` by §20: it is the `O(1/m²)` state dependence l2 reproduces to `0.2` c₂).
+* **Consequence for the literal CLS-D functional [D given the identity].** At fixed `ν`, `m → ∞`, `C(ν ± i) → C_heavy`, so the heavy-limit
+  normalisation of `Ψ^{CLS}_{2,ν} = N(ν)[g C(ν+i) + g̃ C(ν−i)]` is `N(ν)(g+g̃)C_heavy`. `N` cannot have a pole at `ν₀` (else `Ψ^{CLS}` itself,
+  a convergent integral, would be infinite on every block with `C(ν₀+i) ≠ C(ν₀−i)`). So **the heavy limit of `Ψ^{CLS}` vanishes at `ν₀`**, and
+  `Ψ^{CLS}/N̂(ν)` of §R.3 has a pole at `p₀ = ν₀/Λ = 0.0607 / 0.0200 / 0.0060` (`Δ_g = 100 / 300 / 1000`). With any regular normalisation
+  instead, the heavy action of the k = 2 part changes sign at `p₀` (positive Regge-limit action lost for `p < p₀`). Either way the literal
+  CLS-D `∫ψ₂Ĉ^{CLS}₂` is not an admissible `Ω^{A′}` at finite `Δ_g`. (Caveat: rests on the exact form of `g`, quoted from CHMRS and validated only
+  through its large-`ν` asymptotics.)
+* **Why §R.5's `η`-inversion does not repair it.** The identity implies the CLS-D Regge kernel `[gP_{l−1} + g̃P_{l+1}]/(g+g̃)`, `l = −½+iν`, i.e.
+  `ηP_l + i(σ − 1/(4ν))(P_{l−1} − P_{l+1})` with `σ = Im g/(g+g̃) ≈ 23/(4ν)`; §R.5 inverted only the `ηP_l` part. The remainder,
+  `≈ −(23/(2ν))∂_ν`, is exactly the CLS→CHMRS "shift term" of §23.2 (up to `1.8 N_s` at `J = 10`, `Δ_g = 100`).
+* **Definition adopted (amends §R.1–§R.5).** `Ω^{A′} := ∫₀¹dp ψ₂(p) Λ⁴ Re Ĉ_{2,Λp} + ∫₀¹dp ψ₃(p) ½Λ⁶ Re Ĉ_{3,Λp}`, with **`Ĉ_{2,ν}` the CHMRS-type
+  functional**: the linear combination of CLS-D functionals `Ψ_{2,ν′}` (`ν′` on the shifted lines `Im ν′ = ±1` plus the pole term of `g` at
+  `ν = 0`) that inverts the magic-block identity, i.e. **the same combination for every correlator**; on scalar correlators it equals CHMRS's
+  `C_{2,ν}` (heavy limit exactly `2P_{−½+iν}(cosh β)/m⁴`), on `⟨TTTT⟩` it is that combination of the spinning `Ψ_{2,ν′}[q²]`. Equivalently:
+  §R.5's `η`-inversion with the exact kernel `gP_{l−1} + g̃P_{l+1}` in place of `½ηP_l`. `Ĉ₃` likewise (CHMRS-type `C₃`, as in the base
+  model; its own shift relation is not derived — the `k = 3` analogue of the statement below is [I]).
+  * **What this buys.** The base model (exact CHMRS skeleton `ρ_k`), Theorem A (`CERTIFIED_NEARGAP_A.md`) and the light side (§15, CHMRS residue
+    formula for `C_{2,ν}`) are all statements about this functional — no re-derivation needed.
+  * **The graviton heavy action is then the scalar-`g` de-shift of the crystal, by definition** (it is the same combination of `Ψ_ν′`). The
+    previous [I] ("graviton uses the scalar `g`", §23.6) is **removed from the heavy side** and moves to the light side: that the graviton-
+    pole residue of this combination on `⟨TTTT⟩` is `16πG/(ν²+9/4)` (it is if the spinning `Ψ_ν` has the same Regge kernel `gP_{l−1}+g̃P_{l+1}`
+    up to a ν-only factor; [I], same level as §15's spinning carry-over). That affects `A`, `B_AdS` only, **not `n`**.
+  * **Residual heavy-side issue.** The de-shift used in l9/l8 (`shift()`, applied to the LO density) is the local form of the inverse; it is
+    ill-conditioned where `g + g̃ → 0`, i.e. for `x ≲ 0.1` at `m ≈ 100` (`ν ≈ ν₀`). There the crystal does not determine `Ĉ₂` without the
+    exact (non-local in `ν`) inverse.
+* **Effect on the near-gap numbers.** Unchanged for the base model, Theorem A and §23's `C23H` "de-shifted" rows (they already use this
+  object). The literal-CLS-D numbers of §23.4 ("without the de-shift: `|ΔF|/N_s` up to `1.8 / 0.27 / 0.033`") describe a functional that is
+  not admissible; they are withdrawn as an option.
+
+### 24.2 Non-perturbative evaluation of the crystal integral: method (`n1_pw.py`, `n1_direct.py`) [NE]
+
+* **Point-wise backend.** `n1_pw` re-executes `l1_crystal`, `l5_spin`, `l6_spin_action`, `l9_points` with the TPS engine replaced by point
+  arrays, so the **exact 7-variable integrand** (scalar `build(pref=True)`; graviton `build_spin`, kinds `C2`, `C3H`) is evaluated at
+  arbitrary complex points. Logs and fractional powers are continued from the saddle along the ray (two-step path continuation,
+  levels `ξ/2, ξ`); per-point winding is recorded.
+* **Contour.** `u_x, v_x, u_y, v_y → c_i e^{w_i}` (log coordinates: the linear contour reaches `u = 0` at `4σ`), `x̃₀ = tanh w₀`
+  (`x̃₀ ∈ (−1,1)`), others linear; the centre `w_c` is the saddle of `Φ = λF + G + (J/2)log(Z²W²) + log Jacobian` (the `J`-growing part of
+  the integrand; `P_J` and all graviton structures stay as bounded prefactors), `L` from `−∂²Φ`. Real `ξ`, `w = w_c + Lξ`.
+* **Masks.** Points with `Re(Φ − Φ_c) > 2` (past a branch wall: there the integrand jumps to `e^{+45…+105}`) or winding `> 3` are dropped;
+  inside `|ξ| ≲ 6` the integrand is `≤ e^{−8}` of its peak in the worst direction, so the walls cost `≲ 10⁻⁴` (dropped fraction of the
+  sampling measure `≤ 10⁻³`, mostly at `x ≤ 0.25`).
+* **Integration.** Randomised QMC (scrambled Sobol, `2^{13–14}` points × 8 scramblings, antithetic), Gaussian proposal of scale `1.2`;
+  error = replica spread. (Tensor and Smolyak Gauss–Hermite rules fail: corner nodes cross the walls; Smolyak converges only at
+  `10⁻³`.) Cost ≈ 8 s (scalar) / 55 s (graviton 2×2 + scalar on the same samples) per point.
+* **Structural finding: five of the seven directions are `ν`-soft.** In log coordinates the Hessian of `λF` has two eigenvalues `∝ Δ`
+  (`x⊥`, `y⊥`) and five `∝ ν` (`u_x, v_x, u_y, v_y, x̃₀`; e.g. `ν = 10`, `Δ = 400`: `±4.98i`, `0.50 ± 4.96i`, `−51 + 13i`). The crystal
+  expansion at fixed `x` is therefore an expansion in `1/ν = 1/(xm)` in those directions, and the slow factors' gradients (`O(1)`, `J`-
+  enhanced) shift the saddle by `O(J/ν)`. This is why the Laplace series fails for `x ≲ 0.3` at `m ≈ 100` for every `J` (§23.4) and why the
+  "ν-only factor" `exp(22i/ν + 82/ν²)` is non-perturbative.
+* **Range of the method.** Converges for `ν ≳ 20–25` (relative error `10⁻³–10⁻²` per element at `2^{14}·16` points). **Fails for
+  `ν ≲ 15`** at every `Δ` tested (100, 400, 2·10⁴): the real-`ξ` contour through the `ν`-soft directions crosses walls within `2–3σ` (masked
+  fraction → 100 %), and adaptive Gaussian proposals do not help. A non-perturbative value at `ν ≲ 15` needs a curved (steepest-descent)
+  contour in the five soft directions; not done.
+
+### 24.3 Scalar validation against the exact skeleton (`n1_scalar_validate.py`, `cache/n1_scalar_validate.txt`) [NE]
+
+Same points and fit as l9_scalar_k3 (`Δ_g = 100`, `m/Λ = 1.0–1.2`, `J = 0…10`, exact e1 Mellin data, `X = gC(ν+i) + g̃C(ν−i)`, fit
+`a_ν + b_J`), plus `x ∈ [0.2, 0.3) ∪ (0.7, 0.85]` with `ν ≥ 20`. **Status: see the numbers block at the end of this subsection (filled when
+the run finished; if absent, the run did not finish — resumable, `cache/n1_chain3.sh`).** Note the comparison object `X` itself is built
+from the LO density with third-order shifts (`O(m⁻⁴)`, §20.2), so it is a test of the direct integral to `≈ 10` c₂ units, not better.
+
+### 24.4 Graviton `Ĉ₂`, `Ĉ₃` (o_H): direct vs Laplace on the load-bearing window (`n1_run.py`, `n1_ratio_check.py`, `n1_analysis.py`) [NE]
+
+* **Points.** l9's `Δ = 100` row (`m = 97.9–98.4`, the row that carries ≥ 80 % of the `1/m` interpolation weight for the `m/Λ ≈ 1.04–1.3`
+  states), `x = 0.25, 0.3, 0.4, …, 0.8`, `J = 4, 6, 8, 10`, both kinds, plus the heavy references `Δ_ref = 2·10⁴` at the same `ν`
+  (`2^{14}·16` resp. `2^{12}·16` RQMC points; `cache/n1_pts_*.pkl`). The graviton 2×2 and the scalar are integrated on the same samples.
+* **Normalisation-free check** (state/reference ratio of the helicity-diagonal elements, `m²(v_K/v_direct − 1)`, c₂ units relative to the
+  local value; `cache/n1_ratio_check.txt`). `K₂` misses the direct value by `≈ 50–900` (up to `1.5·10³` at `x = 0.8`, `J = 6`), `K₃` (C2,
+  `J = 8, 10`) by `≈ 20–700`; RQMC errors `5–60` (`≤ 275` next to zeros of `P_J`). **So neither Laplace order is accurate pointwise at
+  `m ≈ 98` for `J ≥ 6`, as §23.4 suspected, but the error is relative to small local values:**
+* **In the units that enter `F`** (absolute `Γ`, i.e. c₂ × LO shape, l9 normalisation): `max |Γ_direct − Γ_K₂|` on `x ≥ 0.25` is
+  `40 / 88 / 117 / 77` (`J = 4 / 6 / 8 / 10`, `C2 ++`), `≤ 103` for `C3H`, `≤ 47` for `+−`, `≤ 1` off-diagonal — against `|Γ|` up to
+  `1.5–2.1·10³` there and `2–3.9·10³` at `x < 0.25`, and the §19.3 tolerance scale `630`. The `P_J`-oscillation makes the LO shapes small on
+  `x ≥ 0.25` for `J ≥ 8`; the weight sits at `x < 0.25`.
+
+### 24.5 `n` at `Δ_g = 100` with the direct values (`cache/n1_analysis.txt`) [NE + M]
+
+`C23H_K2` (both functionals corrected, de-shifted = the §24.1 definition, `Re`), rows `Δ = 100 / 400 / 1600` (+200 for `J = 10`), even
+`J ≤ 10` covered, odd `J` and `J > 10` unchanged (parity-odd sector: separate agent):
+
+| rows | `n` | min `λ/N_s` (binding) | `J = 4 / 6 / 8 / 10` min `λ/N_s` | `t*` |
+|---|---|---|---|---|
+| l9 (Laplace `K₂`) | 1 | 0.1855 (`J = 4`, `m/Λ = 1.04`) | 0.1855 / 0.2146 / 0.2304 / 0.4886 | (−0.7, +1.6) |
+| **direct on `x ≥ 0.25` (`Δ = 100` row), `K₂` below** | **1** | **0.1770** (`J = 4`, `m/Λ = 1.04`) | 0.1770 / 0.2046 / 0.2249 / 0.4886 | (−0.7, +1.6) |
+
+* Replacing the Laplace values by non-perturbative ones on `x ≥ 0.25` moves `λ_min/N_s` by `≤ 0.010` (`J = 6`). RQMC error on these
+  numbers: `≲ 0.003 N_s` (from the replica spreads, `|ΔΓ| ≲ 30` c₂ on the relevant shapes).
+* **What is still not controlled: `x < 0.25` (`ν ≲ 25` at `m ≈ 100`).** There the corrections enter with 35–50 % of `Σ|ψ density|` for
+  `J ≥ 6`, the Laplace chain gives `|ΔF_hh|/N_s` up to `1.0` (`J = 10`), and §24.2's direct method does not reach `ν ≲ 15`. `t* = (−0.7, +1.6)`
+  says that a 70 % error of opposite sign in the total correction would break `n = 1` (at `J = 4`, `m/Λ = 1.04`).
+* **Verdict: `n = 1` at `Δ_g = 100` is supported, not decided [NE + M + I]:** it holds with every computed number, and the controlled
+  part (`x ≥ 0.25`) is now non-perturbative; the uncontrolled part is the `ν`-soft region `x < 0.25`, where the margin is `t* ≈ −0.7`.
+  `Δ_g = 300, 1000`: unchanged (§23.4, `n = 1`, `t* ≈ ±5 / ±37`).
+
+### 24.6 Regraded table (supersedes §23.6 where they differ)
+
+| statement | grade |
+|---|---|
+| `g + g̃` (CHMRS magic block, `a = 7`, `d = 3`) vanishes at `ν₀ = 5.979`; `ν Im g/(g+g̃) → 23/4` | [DV] (closed form, numerics) |
+| heavy-limit normalisation of the literal CLS-D `Ψ_{2,ν}` vanishes at `ν₀`; `Ψ/N̂` (§R.3) has a pole at `p₀ = 0.061 / 0.020 / 0.006` | [D] given the CHMRS identity (only its large-`ν` form is validated, §20) |
+| `Ω^{A′}` := CHMRS-type `Ĉ₂` (inverse magic-block combination of CLS-D functionals, the same for every correlator), `Ĉ₃` CHMRS-type | **definition (amends §R.3–§R.5)**; base model, Theorem A, §15 light side refer to it |
+| graviton heavy action of that functional = scalar-`g` de-shift of the crystal | [D] (by definition; was [I] in §23.6). Local de-shift ill-conditioned at `x ≲ 0.1` (`ν ≈ ν₀`) |
+| graviton light side of that functional `= 16πG/(ν²+9/4)` | [I] (needs the spinning `Ψ` to share the scalar Regge kernel `gP_{l−1}+g̃P_{l+1}`); affects `A`, `B_AdS`, not `n` |
+| `Ĉ₃` shift relation | [I] (not derived) |
+| crystal Hessian: 2 directions `∝ Δ`, 5 `∝ ν` (log coordinates) — the expansion parameter at small `x` is `1/ν` | [NE] |
+| direct RQMC crystal integral (re-centred log contour, path-continued logs, wall masks) | [NE]: agrees with Laplace at `Δ = 1000` to `6·10⁻⁵`; converges for `ν ≳ 20–25`; **fails for `ν ≲ 15`** |
+| scalar validation of the direct integral vs exact skeleton | see §24.3 block |
+| `K₂`/`K₃` vs direct at `m ≈ 98`, `x ∈ [0.25, 0.8]`, `J = 4–10`: absolute `|ΔΓ| ≤ 117` c₂ (`K₂`) | [NE] |
+| `n = 1` at `Δ_g = 100` with direct values on `x ≥ 0.25`: min `λ/N_s = 0.177`, `t* = (−0.7, +1.6)` | [NE + M]; **`x < 0.25` uncontrolled → `n` at `Δ_g = 100` remains [I]** |
+| `n = 1` at `Δ_g = 300 / 1000` | [NE + M] unchanged (§23) |
+| **H4 for route A′** | **[I]**; at `Δ_g = 100` reduced to the `ν`-soft region `x < 0.25` |
+
+### 24.7 Hand-over
+
+1. **The remaining obstacle is `ν ≲ 20` (`x < 0.25` at `m ≈ 100`), and it is a contour problem, not a truncation problem.** Five of seven
+   directions are `ν`-soft. Next step: a curved steepest-descent contour in the soft block (`u_x, v_x, u_y, v_y, x̃₀`) — e.g. integrate the
+   two `Δ`-stiff directions by Gauss–Hermite at each soft point and treat the 5-dim soft integral with a Picard–Lefschetz flow (gradient
+   flow of `Re(νf)` from the real `w`-plane for a fixed time), which removes the walls. Validate on the scalar at `ν = 5–20` against exact
+   Mellin data (the e1 nodes exist down to `ν ≈ 0.03`).
+2. **Alternatively decide `n` without small-`x` crystal values**: since both `k` are corrected, the per-state constant is a congruence; what
+   matters at `x < 0.25` is the graviton-specific `x`-dependence. A graviton/scalar ratio at fixed `(ν, Δ, J)` on common samples has much
+   smaller errors (the soft structure is shared) — worth testing at `ν = 15–25` first (`n1_run` stores the scalar on the same samples, `Es`).
+3. **Definition**: amend §R.3–§R.5 as in §24.1 (CHMRS-type `Ĉ₂`; `η`-inversion with the exact kernel `gP_{l−1}+g̃P_{l+1}`). The spinning
+   light-side statement (16πG/(ν²+9/4) for the inverse combination) is the new [I]; `k = 3` shift relation open.
+4. Files: `n1_pw.py` (point-wise backend), `n1_direct.py` (contour, masks, RQMC/Smolyak/GH rules), `n1_run.py` (graviton points),
+   `n1_scalar_validate.py`, `n1_ratio_check.py`, `n1_analysis.py` (direct rows into l9's chain and l9_neargap), `n1_definition.py`;
+   caches `cache/n1_*` (pickles `n1_pts_<kind>_J<J>.pkl`, `n1_scal_100.pkl`). Added to `run_all.sh`. Points stored before the
+   log-Jacobian constant fix lack the key `ljc` and are corrected in `n1_analysis.Hrep`.

@@ -23,6 +23,18 @@ import l5_spin as S
 import l5_shadow_matrix as SM
 import p1_tto_odd as P
 
+ANTI = os.environ.get('P3_ANTI', '0') == '1'      # p5 (N question): at odd J add the 1<->2 ANTISYMMETRIC parity-even structures
+
+
+def even_set(D, J):
+    """(mons, sol) of the parity-even conserved structures used alongside the odd one, or None."""
+    if J % 2 == 0:
+        return S.conserved(D, J)[:2]
+    if ANTI:
+        import p5_N as P5
+        return P5.conserved_even_anti(D, J)
+    return None
+
 
 def _odd_num_tps(xa, za, xb, zb, x5, z5, J, mons, sol):
     """odd numerator (incl. eps.X_ij factor, no denominators) at TPS x5, z5 (3-lists of TPS); xa, xb TPS consts; za, zb numeric."""
@@ -47,13 +59,14 @@ def lhs_series(Delta, J, xi, trips, with_even=True):
     msq = lambda p, q: -dot(sub(p, q), sub(p, q))
     extra = T.powr(T.mul(T.mul(msq(X3, X4), msq(X3, x5)), msq(X4, x5)), -0.5)       # (m34 m35 m45)^{-1/2}
     monsO, solO, _ = P.conserved_odd(3.0 - Delta, J)
-    if with_even and J % 2 == 0:
-        monsE, solE, _ = S.conserved(3.0 - Delta, J)
+    evs = even_set(3.0 - Delta, J) if with_even else None
+    if evs is not None:
+        monsE, solE = evs
     out = []
     for (z3, z4, z6) in trips:
         a = SM._avec(x56, z6)
         prefs = []
-        if with_even and J % 2 == 0:
+        if evs is not None:
             pe = SM._tto_at_tps_pol(X3, z3, X4, z4, x5, a, J, monsE, solE)
             prefs += [pe[c] for c in range(pe.shape[0])]
         if solO is not None:
@@ -75,12 +88,13 @@ def rhs(Delta, J, xi, trips, with_even=True):
     den = -((10 - Delta - J)/2)*np.log(m34 + 0j) - ((Delta + J)/2)*(np.log(m36 + 0j) + np.log(m46 + 0j))
     extra = np.exp(-0.5*(np.log(m34 + 0j) + np.log(m36 + 0j) + np.log(m46 + 0j)))
     monsO, solO, _ = P.conserved_odd(Delta, J)
-    if with_even and J % 2 == 0:
-        monsE, solE, _ = S.conserved(Delta, J)
+    evs = even_set(Delta, J) if with_even else None
+    if evs is not None:
+        monsE, solE = evs
     r = []
     for (z3, z4, z6) in trips:
         row = []
-        if with_even and J % 2 == 0:
+        if evs is not None:
             row += list(S.tto_samples(S.tv(x3), S.tv(z3), S.tv(x4), z4[None, :], S.tv(x6), z6[None, :], J, monsE, solE)[:, 0, 0, 0])
         if solO is not None:
             v = np.array(P.structures_odd(L4, x3, z3, x4, z4, x6, z6, 0.0, J, list(monsO), numerators=True))
@@ -110,7 +124,7 @@ _DB = os.path.join(HERE, 'cache', 'p2_shadow.pkl')
 def shadow_odd(Delta, J):
     """cached: (b_full (c x b over [even..., odd]), logK, resid) at xi = 0.5, 8 triples, seed 7."""
     db = pickle.load(open(_DB, 'rb')) if os.path.exists(_DB) else {}
-    key = (float(Delta), int(J), T.DEG)
+    key = (float(Delta), int(J), T.DEG) + (('anti',) if ANTI and J % 2 else ())
     if key not in db:
         r = shadow_all(float(Delta), int(J))
         db = pickle.load(open(_DB, 'rb')) if os.path.exists(_DB) else {}

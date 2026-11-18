@@ -49,3 +49,13 @@ L1_DEG=6 OMP_NUM_THREADS=1 L9_DS=400,1600,200,800,3200 L9_XS=0.05,0.1,0.2,0.3,0.
 python3 l9_analysis.py 0 2 4 6 8 10                          # Gamma grids, K2 vs K3  -> cache/l9_grid.pkl
 python3 l9_neargap.py C2_K2 100 300 1000                     # C^_2 only (de-shifted; L9_DESHIFT=0: literal CLS-D)
 python3 l9_neargap.py C23H_K2 100 300 1000                   # C^_2 + C^_3 combined 2x2
+# --- M6 round 6 (doc 24): definition (CHMRS-type), non-perturbative crystal integration (direct RQMC on a re-centred log contour)
+python3 n1_definition.py                                     # zero of g + g~ (nu_0 = 5.979), Regge-kernel coefficient (seconds)
+python3 n1_direct.py                                         # quick self-test vs Laplace at Delta = 1000 (seconds)
+OMP_NUM_THREADS=1 python3 n1_run.py C2 10 8 6 4               # direct graviton points, Delta = 100 row x >= 0.25 + references (~55 s/pt)
+OMP_NUM_THREADS=1 python3 n1_run.py C3H 10 8 6 4
+OMP_NUM_THREADS=1 N1_XS=0.2,0.15 N1_M=15 N1_MREF=13 python3 n1_run.py C2 10 8 6 4      # low-x attempt (nu ~ 15-20)
+OMP_NUM_THREADS=1 N1_XS=0.2,0.15 N1_M=15 N1_MREF=13 python3 n1_run.py C3H 10 8 6 4
+OMP_NUM_THREADS=1 python3 n1_scalar_validate.py run 10 6 0 8 4 2 && python3 n1_scalar_validate.py analyse   # scalar vs exact e1
+python3 n1_ratio_check.py 10 8 6 4                           # state/ref ratio: K2, K3 vs direct  -> cache/n1_ratio_check.txt
+python3 n1_analysis.py C23H_K2                               # Gamma direct vs K2/K3; near-gap 2x2 with direct rows -> cache/n1_analysis.txt

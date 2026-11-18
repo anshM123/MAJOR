@@ -20,12 +20,18 @@ os.environ.setdefault('L1_DEG', '6')
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import numpy as np
 import l1_tps as T
-assert T.DEG == 6
+assert T.DEG in (6, 8)
 import l1_crystal as Cr
 import l5_spin as S
 import l6_spin_action as A6
 import p1_tto_odd as P1
 import p2_shadow_odd as P2
+if T.DEG >= 8:                                     # K3 (doc 23.1 engine, imported read-only); shadow at K3 as in l9_points
+    import l9_tps as K9
+    EXP = K9.expand_pref6
+    T.expand_pref = lambda lamF, G, q=None: (lambda s_: (s_[0], s_[1], s_[2] + s_[3]))(K9.expand_pref6(lamF, G, q))
+else:
+    EXP = T.expand_pref
 
 
 # ------------------------------------------------------------------ epsilon by cofactors (copy of l9_points.eps_cof, l9 not imported)
@@ -128,7 +134,7 @@ def struct_sets(Delta, J):
     """(even (mons, sol) or None, odd (mons, sol) or None) at Delta and 3 - Delta."""
     out = {}
     for D in (Delta, 3.0 - Delta):
-        ev = S.conserved(D, J)[:2] if J % 2 == 0 else None
+        ev = P2.even_set(D, J)
         mo, so, _ = P1.conserved_odd(D, J)
         od = (mo, so) if so is not None else None
         out[D] = (ev, od)
@@ -202,12 +208,16 @@ def action(nu, Delta, J, kind='C2', n0=1.0):
         L = L @ np.linalg.inv(T.csym_cholesky(-H2)).T
     lamF2, G2, pref, diag = build(T.linsub(zs, L), nu, Delta, J, kind, n0)
     na, nc = pref.shape[:2]
-    Ser = np.zeros((na, nc, 3), complex)
+    no = 4 if T.DEG >= 8 else 3
+    Ser = np.zeros((na, nc, no), complex)
     for i in range(na):
         for c in range(nc):
-            Ser[i, c] = T.expand_pref(lamF2, G2, pref[i, c])
+            Ser[i, c] = EXP(lamF2, G2, pref[i, c])
     b, logK, resid = P2.shadow_odd(Delta, J)
     M = np.einsum('aco,bc->abo', Ser, np.linalg.inv(b))
+    if no == 4:
+        logC = lamF[0] + G2[0] + np.log(np.linalg.det(L))
+        return dict(M0=M[:, :, 0], M2=M[:, :, 1], M4=M[:, :, 2], M6=M[:, :, 3], logC=logC, logK=logK, shadow_resid=resid)
     logC = lamF[0] + G2[0] + np.log(np.linalg.det(L))
     br = diag['logB'] - (diag['logm'][0] + diag['logm'][1] + diag['logm'][2] - diag['logm'][3] - diag['logm'][4] - diag['logm'][5])
     return dict(M0=M[:, :, 0], M2=M[:, :, 1], M4=M[:, :, 2], logC=logC, logK=logK, shadow_resid=resid, branch=br)
@@ -219,7 +229,8 @@ def mphys(Delta, J):
 
 
 def _fn(kind, J):
-    return os.path.join(HERE, 'cache', 'p3_pts_%s_J%d.pkl' % (kind, J))
+    return os.path.join(HERE, 'cache', 'p3_pts_%s_J%d%s%s.pkl' % (kind, J, '_anti' if (P2.ANTI and J % 2) else '',
+                                                            '_k3' if T.DEG >= 8 else ''))
 
 
 def load(kind, J):
@@ -235,8 +246,11 @@ def get(kind, J, Delta, nus, n0=1.0, verbose=True):
         if key not in res:
             t = time.time()
             r = action(float(nu), float(Delta), J, kind, n0)
-            s = Cr.laplace_pref(float(nu), float(Delta), J, n0=n0)
-            r.update(slog=s['logY0'] - 3.5*np.log(2*np.pi), sS=np.array(s['S'][:3]), m=mphys(Delta, J))
+            if T.DEG >= 8:
+                r.update(m=mphys(Delta, J))
+            else:
+                s = Cr.laplace_pref(float(nu), float(Delta), J, n0=n0)
+                r.update(slog=s['logY0'] - 3.5*np.log(2*np.pi), sS=np.array(s['S'][:3]), m=mphys(Delta, J))
             res = load(kind, J); res[key] = r
             tmp = _fn(kind, J) + '.tmp%d' % os.getpid()
             pickle.dump(res, open(tmp, 'wb')); os.replace(tmp, _fn(kind, J))
