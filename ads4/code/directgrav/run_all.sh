@@ -14,3 +14,7 @@ python3 a1_moments.py cache/gw_100_1.300_6.npz 100 1.3 16  > cache/a1_C.log 2>&1
 wait
 rm -f cache/a2_summary.txt
 python3 a2_action.py cache/a1_gw_100_1.040_4.pkl cache/a1_gw_100_1.300_6.pkl
+python3 a3_restricted.py cache/a1_gw_100_1.040_4.pkl cache/a1_gw_100_1.300_6.pkl 3.5 && cp cache/a3_summary.txt cache/a3_summary_nu3.5.txt
+python3 a3_restricted.py cache/a1_gw_100_1.040_4.pkl cache/a1_gw_100_1.300_6.pkl        # resolved-node H4 shift (DIRECT_GRAVITON_NEARGAP.md sect. 2)
+python3 d1_tprofile.py cache/gw_100_1.040_4.npz > cache/d1_A.txt                         # small-t profile of the kernel moments
+python3 d2_ldcheck.py 100 1.04 4 > cache/d2_A.txt                                         # float64 vs long double (control failed; inconclusive)
