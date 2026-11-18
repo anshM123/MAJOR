@@ -1,7 +1,8 @@
 # `⟨TTTT⟩` beyond one point: H1 (heavy formula at more `k, ν, β, m`) and H2 (reading B for gravitons)
 
-Status: written 18 Nov 2026 by a derivation/numerics agent; **not refereed; not committed**. Code: `ads4/code/fourpt/tttt/`
-(`tmoments_l2.py` production, `t16_kernels_ext.py`, `t17_readingB.py`; logs and caches in `tttt/cache/`, git-ignored). Builds on
+Status: written 18 Nov 2026 by a derivation/numerics agent; §0–§5 committed (c177cfc); **§6 added afterwards, not refereed, not committed.
+§6 corrects the even-kernel statements of §0–§4: the `t16` even kernels used mis-normalised circle weights.** Code: `ads4/code/fourpt/tttt/`
+(`tmoments_l2.py` production, `t16_kernels_ext.py`, `t17_readingB.py`, `t18_kstar.py`; logs and caches in `tttt/cache/`, git-ignored). Builds on
 `SPINNING_TTTT.md` (Taylor-mode waves, `l = 2` vertices `T^{hLhR} = 8√(λ_{hL}λ_{hR})/m⁸`, Fock data), `SPINNING_ODDK.md` (robust extraction)
 and `SKELETON_TEST.md` §8 (reading A/B for currents). Targets hypotheses H1 and H2 of `RESULT_D.md`.
 
@@ -22,18 +23,18 @@ from exact data; **[I]** inferred; **[ND]** not done.
    * **[DVE] `k = 3`** for same helicity at all `ν`, with `m²(R−1) ≈ 175–250` flat. Opposite helicity under `𝔄⊗𝔄` is within `1–1.5 %` at
      `m ≥ 70` for `ν ≤ 1`. **`k = 2` is resolved only for same helicity.** Opposite helicity is dominated by the dropped tiny-`t` region
      (ratios `O(1)` off).
-   * **Even kernels.** Same helicity behaves like `𝔄⊗𝔄` under `D₁²⊗D₁²` (`k = 4–7`, `ν ≤ 1`). Under `𝔖_ff⊗𝔖_ff` it converges like
-     `1/m²` but with a large coefficient at `ν = 3`: `m²(R−1) ≈ 1500–1800`, so still `+15 %` at `m = 101`. The flip-free kernel's preserved
-     response is a strong cancellation (`SUPERCONVERGENT_UPLIFT.md`: `(4ν²+201)/(2(4ν²+81))`).
-   * **Opposite helicity under either even kernel is not resolved** at `m ≤ 101`, except `k = 7`, `ν ≤ 1`, which is within `1–2 %`. The
-     isotropic `(0,0)` and `(±1,∓1)` modes, which the even kernels include and `𝔄` does not, carry finite-`m` contributions that the leading
-     formula does not describe. They are erratic in `m`.
-   * The flip-free kernel does not uniformly suppress the mixed wave `W[X_s,X_o]`: it is 6× smaller than under `D₁²` at `m = 39`, but larger at
-     `m = 101`. **H1 for the even (`C⁺`) kernels at `ν ≳ 3` and for opposite helicity is therefore not established.**
+   * **Even kernels: superseded by §6.** The even-kernel numbers originally given here, in §2 and in §4 used the naive pointwise circle
+     weights of `t16`. Those over-weight the isotropic mode `36×` per pair, and that version of "FF" is not flip-free.
+     * **With the project's tensor weights, `𝔖_ff⊗𝔖_ff` passes H1 for both helicities [DVE]** (`k = 4–7`, `ν ≤ 3`, `β = 1`, `|c₁| ≤ 0.13`),
+       except `k = 4`, `ν = 3`, opposite helicity (`c₁ = 1.9`).
+     * The new flip-free kernel without an isotropic mode, `K* = (D₁+D₂)(D₁−½D₂)`, passes everywhere at `k ≥ 4` (`|c₁| ≤ 0.05`).
+     * The opposite-helicity failure was the isotropic mode, contaminated by the dropped tiny-`t` region (an artefact).
+     * The leading heavy formula holds with `c₂/m²` corrections, `|c₂| ≤ 310` at `ν ≤ 3`.
+     * `k = 2` (`C⁺₂`) remains open.
    * **`β = 0.4`, `m = 72`** (single mass, `J = 14`):
      - same helicity `1.013–1.030` (all kernels, `k = 4–7`);
      - opposite helicity, odd kernel `0.93–1.05` (`0.986–1.007` at `ν ≤ 1`, `k ≥ 5`);
-     - opposite helicity, even kernels not resolved (Weyl-odd terms large, `λ_o/λ_s = 2.9`).
+     - opposite helicity, even kernels (§6.4): `K*` `0.986–1.096`; `𝔖_ff` the same at `k ≥ 5`, but fails at `k = 4`.
 
      The `m = 42` point was not obtained (two container restarts), so no `β = 0.4` convergence is shown.
 2. **The `1/4` constant** is still not tested by blocks, since the waves use unit-normalised `X_h`. Its two inputs are strengthened:
@@ -81,7 +82,10 @@ with the same contraction of the predicted modes. On the polarisation circles (`
 | FF | `𝔖_ff = D_1² + D_1D_2 = D_1(z_in·z_out)` (flip-free, `SUPERCONVERGENT_UPLIFT.md`) | E plus `(±1,∓1)`: −½ |
 | O | `𝔄 = D_5D_1` | `(2,−2)`: `1/(4i)`; `(−2,2)`: `−1/(4i)` |
 
-These are used as `E⊗E`, `FF⊗FF` and `O⊗O`, together with the leading single mode of each wave. The prediction is that of
+These are used as `E⊗E`, `FF⊗FF` and `O⊗O`, together with the leading single mode of each wave. **Correction (§6.2):** the E and FF
+weights in this table are the pointwise Fourier coefficients. The project's tensor kernels need an extra factor `(1/36, 1/16, 1)` for
+`|q| = 0, 1, 2`, so they are `D₁²`: `(0,0)` `1/72`, `(±2,∓2)` `¼`; `𝔖_ff`: additionally `(±1,∓1)` `−1/32`. `O` is unaffected, since it has
+only `|q| = 2`. The prediction is that of
 `SPINNING_TTTT.md` §4.5, with `a = k + 5` and nothing fitted.
 
 The tiny-`t` (dropped) region is estimated only for the leading mode. The `oddk` estimator fails for modes that are small in the bulk: it
@@ -109,7 +113,8 @@ exceeds the `(0,0,0,0)` mode of `W[o,o]` thirtyfold. Kernel ratios are therefore
 | 7, 1 | 1.066 / 1.019 / 1.009 | 103, 94, 92; +0.002 | 0.993 / 0.996 / 0.998 | −12, −19, −21; −0.004 |
 | 7, 3 | 0.995 / 0.998 / 0.999 | −7, −11, −12; +0.000 | 0.804 / 0.938 / 0.970 | −304, −305, −306; −0.002 |
 
-**Even kernels, `β = 1`** (`R` at `m = 39 / 70 / 101`):
+**Even kernels, `β = 1`, naive weights. SUPERSEDED by §6.4** (`R` at `m = 39 / 70 / 101`). Kept for the record. The `𝔖_ff` columns
+here are the naive "FF", not the project's `𝔖_ff`.
 
 | `k`, `ν` | same, `D₁²` | same, `𝔖_ff` | opp, `D₁²` | opp, `𝔖_ff` |
 |---|---|---|---|---|
@@ -130,9 +135,10 @@ exceeds the `(0,0,0,0)` mode of `W[o,o]` thirtyfold. Kernel ratios are therefore
 
 **`β = 0.4`, `m = 72.0`, `J = 14`** (one mass):
 * same helicity, all kernels at `ν ≤ 1`: `1.013–1.026` (`k = 4–7`);
-* `ν = 3`: `1.024–1.030`, except `𝔖_ff`, which is `1.27–1.40`;
+* `ν = 3`: `1.024–1.030`, except naive FF, which is `1.27–1.40` (the correct `𝔖_ff` gives `1.025–1.031`, §6.4);
 * opposite helicity, `𝔄⊗𝔄`: `0.935–1.048` (`0.986–1.007` at `ν ≤ 1`, `k ≥ 5`);
-* opposite helicity, even kernels: not resolved.
+* opposite helicity, even kernels: not resolved with naive weights; resolved for `K*` (and `𝔖_ff` at `k ≥ 5`) with the correct weights
+  (§6.4).
 
 Without the `m ≈ 42` point there is no `β = 0.4` convergence statement.
 
@@ -182,24 +188,28 @@ helicity-independent systematics of the same size as the A/B discrimination.
   - the factorised `⟨TTTT⟩` formula with the `l = 2` vertices for `β = 1`, `k = 4–7`, `ν = 0, 1, 3`, both helicities, under the odd kernel
     `𝔄⊗𝔄` and the leading modes;
   - the approach `1 + c₂/m²` with `|c₁| ≤ 0.04` over three masses (`m = 39–101`);
-  - same helicity also at `k = 2, 3` and under both even kernels (`D₁²`, and `𝔖_ff` at `ν ≤ 1`).
+  - same helicity also at `k = 2, 3` (odd kernel);
+  - **(§6) both helicities under the correctly normalised even kernels `𝔖_ff⊗𝔖_ff` and `K*⊗K*`, `k = 4–7`, `ν = 0, 1, 3`, with the same `c₂`
+    as `𝔄⊗𝔄`** (`𝔖_ff` at `k = 4`, `ν = 3`, opposite helicity drifts, `c₁ = 1.9`);
+  - the flip part of the formula through the mixed wave under `D₁²` (§6.2).
 * **[NE]**
-  - `β = 0.4`, `m = 72`, one mass (same helicity, opposite helicity under `𝔄⊗𝔄`);
+  - `β = 0.4`, `m = 72`, one mass (same helicity; opposite helicity under `𝔄⊗𝔄` and `K*`);
   - `E = 8` on a second ray;
   - the Fock closed form to `N = 8` [ID];
   - H2: reading B in the double ratio.
 * **Open:**
-  - opposite helicity under the even kernels (`D₁²`, `𝔖_ff`) at `m ≤ 101`, except `k = 7`, `ν ≤ 1`;
-  - `𝔖_ff` at `ν = 3`, where `c₂ ≈ 1700` makes the leading formula `15 %` off at `m = 101`;
-  - `k = 2`, opposite helicity (dropped tiny-`t` region);
+  - ~~opposite helicity under the even kernels; `𝔖_ff` at `ν = 3` with `c₂ ≈ 1700`~~: artefacts of the naive kernel weights, resolved in
+    §6;
+  - `k = 2` (`C⁺₂`), opposite helicity and `ν = 3`, under every kernel (dropped tiny-`t` region; §6.4);
   - `β = 0.4` convergence (the `m ≈ 42` run was lost twice);
   - `ν ≳ 3` in general, and the `ν ~ m` range the functionals need;
   - the `1/4` constant end to end (blocks use unit-normalised structures);
   - H2 at other `b̂`;
   - parity-odd exchanges.
 * **Consequence for `RESULT_D.md`.**
-  - H1 is now [DVE] for the odd-kernel (`C⁻`) and same-helicity parts at `ν ≤ 3`, `m = 39–101`, `β = 1`, but not for the
-    opposite-helicity even-kernel (`C⁺`, `𝔖_ff`) moments the functionals use, nor at `ν ~ m`.
+  - H1 is now [DVE] for the odd (`C⁻`) and even (`C⁺`, `𝔖_ff` or `K*`) moments, both helicities, at `k = 4–7`, `ν ≤ 3`, `m = 39–101`,
+    `β = 1` (§6). It is not established at `k = 2` or at `ν ~ m`.
+  - Corrections are `c₂/m²` with `|c₂| ≤ 310`. This is `3 %` at `m = Λ = 100` and `≤ 0.3 %` for `Δ_g ≥ 300` (§6.6).
   - H2 is supported for gravitons at one `b̂` [NE].
 
 ## 5. Code
@@ -207,7 +217,190 @@ helicity-independent systematics of the same size as the A/B discrimination.
 | file | content | output |
 |---|---|---|
 | `tmoments_l2.py` | Taylor-mode `⟨TTTT⟩` waves (blocks one at a time, precomputed radial sums) | `cache/modes_l2_*.npz`, `cache/prod_*.log` |
-| `t16_kernels_ext.py` | kernel moments `E⊗E`, `FF⊗FF`, `O⊗O` and leading modes vs prediction, `k = 2…7`, `ν = 0, 1, 3`; convergence in `m` | `out_t16_kernels_ext.txt` |
+| `t16_kernels_ext.py` | kernel moments `E⊗E`, `FF⊗FF` (**naive weights, superseded by `t18`**), `O⊗O` and leading modes vs prediction, `k = 2…7`, `ν = 0, 1, 3`; convergence in `m` | `out_t16_kernels_ext.txt` |
+| `t18_kstar.py` | §6: flip identity, tensor weights vs Lemma L, per-mode diagnosis, `𝔖_ff` / `K*` / `D₁²` / naive kernels both helicities, `k = 2`, mixed wave, `β = 0.4` | `out_t18_kstar.txt`, `cache/t18.log` |
 | `t17_readingB.py` | reading A / B / B̃ at fixed `b̂`, single and double (opp/same) ratios | `out_t17_readingB.txt` |
 | `t7_fock_l2.py l2 8 7`, `t7b` (ext) | Fock data for `[TT]` at `N = 7, 8` and the closed-form check | `out_t7_fock_l2ext.txt`, `out_t7b_closed_forms_ext.txt` |
 | `t12_vertex_l2.py b0.9 1 2`, `t14_vertex_fit_l2.py` | `E` on a second ray | `out_t14_vertex_fit_l2.txt` |
+
+## 6. Opposite helicity under even kernels: diagnosis, kernel normalisation, and `K*` (`t18_kstar.py`, `out_t18_kstar.txt`)
+
+Added 18 Nov 2026 (same agent; not refereed; not committed). Existing caches only (`β = 1`, `m = 39.3/70.0/100.7`; `β = 0.4`, `m = 72.0`).
+
+### 6.1 Result in one paragraph
+
+**The even-kernel failures of §0–§2 were an error in my kernel weights, not physics.** `t16_kernels_ext.py` contracted the circle modes
+with the *pointwise* Fourier coefficients of `D₁²` and `𝔖_ff` on the polarisation circles. The tensor kernels of the project instead carry
+an extra factor `n_|q| = (1/36, 1/16, 1)` for `|q| = 0, 1, 2` per pair (§6.2). The naive weights over-weighted the isotropic `(0,0)` mode
+by `36` per pair (`1296` for `(0,0,0,0)`), and that mode is contaminated by the dropped tiny-`t` region (§6.3). They also made "FF" not
+flip-free (§6.2).
+* **With the correct weights, `𝔖_ff⊗𝔖_ff` passes H1 for both helicities [DVE]** at `k = 4–7`, `ν = 0, 1, 3`, `β = 1`. The approach is
+  `1 + c₂/m²` with the same `c₂` as `𝔄⊗𝔄` (§6.4).
+* The one exception is `k = 4`, `ν = 3`, opposite helicity, which drifts (`c₁ = 1.9`). At `β = 0.4`, `m = 72` it fails at `k = 4`
+  (`0.20–0.89`).
+* A second flip-free even kernel, **`K* = D₁² + ½D₁D₂ − ½D₂² = (D₁+D₂)(D₁−½D₂)`**, has no isotropic mode. It is clean everywhere tested at
+  `k ≥ 4`: `|c₁| ≤ 0.05`, and `β = 0.4` opposite helicity is `1.002–1.096`.
+* **Its preserved response factorises with no real zero [D]:** `∝ (4ν²+(2a−9)²)(4ν²+(4a−7)²)`.
+* Its graviton-pole residue and the absence of an Einstein term are the same as for `𝔖_ff`, by the same argument (§6.5).
+* **Recommendation.** Keep `𝔖_ff` where it is clean (`k ≥ 5`, or `ν ≤ 1`). Switching to `K*` is the more robust choice. It changes only
+  `N^{ff} → N^{K*}` (closed forms below).
+* **`k = 2` (`C⁺₂`) is still not resolved** under any even kernel. The obstruction is the tiny-`t` region, not the kernel.
+
+### 6.2 Kernel normalisation and the flip identity
+
+* **[D, checked to `7·10⁻¹⁵`] Flip identity.** The one-pair flip responses of `laplace.M_table(2)` per circle mode `(q,−q)` are in the
+  ratio `(0,0) : (±1,∓1) : (±2,∓2) = 36 : 16 : 1`, for every `ν` and `a` (grid `ν = 0…10`, `a = 6…12`). These numbers are
+  `C(4,2+q)²`.
+* **[ID → DVE] Tensor weights.** Write a pointwise kernel on the circles as `K(θ) = Σ_q w̃_q e^{iq(θ_out−θ_in)}`. The tensor kernel acting
+  on the modes has weights `w_q = n_|q| w̃_q`, with `n = 1/C(4,2+q)² = (1/36, 1/16, 1)`.
+  * The two ratios of `n` were fixed by the two Lemma-L flip ratios (`D₁² : D₁D₂ : D₂² = 1 : −1 : 1`, `REGGE_MOMENT_TTTT.md` §4.2).
+  * They then reproduce all 18 Lemma-L preserved ratios to `10⁻⁶` (`ν = 0, 1.1, 3`; `a = 7, 9, 11`), for example
+    `D₁D₂/D₁² = −0.270947` and `D₂²/D₁² = +0.129489` at `ν = 0`, `a = 7`.
+  * The resulting weights per pair are:
+
+  | kernel | `(0,0)` | `(±1,∓1)` | `(±2,∓2)` | flip |
+  |---|---|---|---|---|
+  | `D₁²` | `1/72` | – | `1/4` | `≠ 0` |
+  | `D₁D₂` | – | `−1/32` | – | `= −D₁²` |
+  | `D₂²` | `1/36` | – | – | `= D₁²` |
+  | `𝔖_ff = D₁² + D₁D₂` | `1/72` | `−1/32` | `1/4` | `0` |
+  | `K* = D₁² + ½D₁D₂ − ½D₂²` | `0` | `−1/64` | `1/4` | `0` |
+  | t16 "E" (naive) | `1/2` | – | `1/4` | `≠ 0` |
+  | t16 "FF" (naive) | `1/2` | `−1/2` | `1/4` | `≠ 0` (`|flip|/pres` up to `0.3`) |
+
+  This is the representation caveat noted earlier (the circle representation did not reproduce Lemma L). It is now resolved.
+* **[D] Flip-free criterion.** With these weights, flip-free means `36w₀ + 16(w₁+w₋₁) + (w₂+w₋₂) = 0`, which is `Σ_q w̃_q = K(θ_out = θ_in) =
+  0`. **A kernel is flip-free if and only if its circle restriction vanishes at aligned polarisations.**
+  * `𝔖_ff = cos θ(cos θ − 1)` and `K* = (cos θ − 1)(cos θ + ½)` both vanish there.
+  * `K*` additionally has zero circle mean, so no isotropic mode. It is the unique such combination of `D₁², D₁D₂, D₂²` up to
+    normalisation: the two conditions are linear, and the space is 3-dimensional.
+* **Mixed wave (check of the flip prediction).** For flip-free kernels the predicted `W[X_s,X_o]` moment is zero, to `10⁻¹⁸–10⁻²¹`
+  (roundoff).
+  * Measured relative size: `K*` `1.6·10⁻⁵ → 1.3·10⁻⁷` (`k = 4`, `ν = 0`, `m = 39 → 101`), decreasing with `m`; `𝔖_ff` `10⁻⁵–10⁻¹⁰`,
+    erratic (the isotropic mode).
+  * For `D₁²`, which is not flip-free, the measured mixed wave converges to the predicted flip: `1.9·10⁻²/1.8·10⁻²` at `k = 6`, `ν = 3`, at
+    all three masses. This tests the flip part of the `l = 2` formula end to end.
+
+### 6.3 Diagnosis (route 1)
+
+* **Per mode [NE, `t18` (a)].** Every mode with a non-negligible prediction converges as `1/m²`, with flat `m²(R−1)`.
+  * Same helicity: all four main modes at `ν ≤ 1` have `m²(R−1) ≈ 70–200`.
+  * Opposite helicity: the leading `(2,−2,2,−2)` mode equals the `𝔄⊗𝔄` values of §2.
+* **The isotropic `(0,0,0,0)` mode of `W[X_o,X_o]` is not under control.** Its prediction is tiny (a cancellation inside the opposite-helicity
+  vertex). Its measured value is dominated by the dropped tiny-`t` region (radial-series mask, `N = 8000`):
+  * the boundary share is `2.6×`, `11 %` and `0.9 %` of the mode at `m = 39, 70, 101` (`k = 6`, `ν = 0`);
+  * internal cancellation is `22×` at `m = 39`;
+  * `m²(R−1)` is erratic and changes sign: `−2416, +582, +271` (`k = 6`, `ν = 0`) and up to `10⁷` at `ν = 3`.
+
+  `(1,−1,1,−1)` and `(0,0,2,−2)` are partly affected at `k = 4`. **This is an extraction (completeness) artefact, not a physical
+  subleading term [NE].**
+* **Why the naive kernels failed.**
+  * Weight `1/2` instead of `1/72` on `(0,0)` gives a `1296×` over-weighting of `(0,0,0,0)` in the opposite-helicity wave.
+  * For naive FF, the prediction is also a `37–100×` cancellation, which amplifies the ordinary per-mode `c₂ ≈ 300` (`ν = 3`) to the
+    `m²(R−1) ≈ 1500–1800` reported in §0/§2 for **same** helicity at `ν = 3`. With the correct weights, `𝔖_ff`'s prediction cancels only
+    `1.2–2×`, and same helicity at `ν = 3` gives `m²(R−1) = 73/69/68` (`k = 6`) and `−6/−8/−9` (`k = 7`).
+* **Conclusion of route 1.** The leading heavy formula is correct in every mode that the data resolve. There is no `O(1/m)` term: `|c₁| ≤ 0.05`
+  for `𝔄`, `K*`, and `𝔖_ff` except `k = 4`, `ν = 3`, opposite helicity.
+  * The ansatz `1 + c₁/m + c₂/m² + c₄/m⁴` fits with `c₁ ≈ 0`.
+  * A `log m/m²` term of `≲ 10 %` of `c₂` cannot be excluded with three masses. It is equivalent to the `5–10 %` drift of `m²(R−1)` seen in
+    some entries.
+
+### 6.4 End-to-end tables (`β = 1`, `R` at `m = 39.3 / 70.0 / 100.7`; `m²(R−1)`; `c₁`)
+
+Opposite helicity:
+
+| `k`, `ν` | `𝔖_ff⊗𝔖_ff` | `K*⊗K*` |
+|---|---|---|
+| 4, 0 | 1.0567 / 1.0163 / 1.0080; 88, 80, 81; +0.12 | 1.0569 / 1.0166 / 1.0078; 88, 81, 79; −0.01 |
+| 4, 1 | 1.0787 / 1.0231 / 1.0113; 122, 114, 115; +0.13 | 1.0787 / 1.0235 / 1.0113; 122, 116, 114; +0.01 |
+| 4, 3 | 0.9390 / 0.9837 / 0.9968; −94, −80, −32; **+1.88** | 0.9408 / 0.9835 / 0.9921; −92, −81, −80; −0.05 |
+| 5, 0 | 1.0312 / 1.0085 / 1.0041; 48, 42, 41; +0.04 | 1.0313 / 1.0085 / 1.0040; 48, 42, 40; −0.00 |
+| 5, 1 | 1.0557 / 1.0163 / 1.0079; 86, 80, 80; +0.04 | 1.0559 / 1.0164 / 1.0078; 86, 80, 79; +0.00 |
+| 5, 3 | 0.9006 / 0.9707 / 0.9862; −154, −144, −140; +0.07 | 0.9017 / 0.9710 / 0.9862; −152, −142, −140; −0.01 |
+| 6, 0 | 1.0002 / 0.9985 / 0.9991; 0, −7, −9; +0.00 | 1.0003 / 0.9985 / 0.9991; 1, −7, −9; −0.00 |
+| 6, 1 | 1.0269 / 1.0073 / 1.0034; 42, 36, 34; +0.00 | 1.0271 / 1.0073 / 1.0034; 42, 36, 34; +0.00 |
+| 6, 3 | 0.8547 / 0.9554 / 0.9787; −225, −219, −217; +0.02 | 0.8556 / 0.9558 / 0.9788; −223, −217, −216; −0.00 |
+| 7, 0 | 0.9634 / 0.9862 / 0.9930; −57, −68, −71; −0.01 | 0.9635 / 0.9862 / 0.9930; −56, −68, −71; −0.01 |
+| 7, 1 | 0.9921 / 0.9960 / 0.9979; −12, −20, −22; −0.00 | 0.9923 / 0.9960 / 0.9979; −12, −19, −21; −0.00 |
+| 7, 3 | 0.8019 / 0.9372 / 0.9696; −307, −308, −308; +0.00 | 0.8028 / 0.9375 / 0.9697; −305, −307, −307; −0.00 |
+
+Same helicity:
+* `𝔖_ff` and `K*` agree with each other and with `𝔄⊗𝔄` (§2) to `≤ 3·10⁻³`, at all `k = 4–7` and `ν = 0, 1, 3`. For example `k = 6`, `ν = 3`:
+  `1.0469 / 1.0140 / 1.0067` (`𝔖_ff`) and `1.0462 / 1.0137 / 1.0065` (`K*`).
+* `|c₁| ≤ 0.02`.
+* The opposite-helicity `K*` values also agree with the `𝔄⊗𝔄` column of §2 to `≤ 2·10⁻³` (`𝔖_ff` too, except `k = 4`, `ν = 3` at
+  `m = 101`). The helicity-preserving content is kernel-independent, as the factorised formula requires.
+
+**`β = 0.4`, `m = 72.0`** (one mass; `R`):
+
+| `k` | same (all three, `ν = 0, 1, 3`) | opp `𝔖_ff`, `ν = 0 / 1 / 3` | opp `K*`, `ν = 0 / 1 / 3` |
+|---|---|---|---|
+| 4 | 1.026–1.031 | 0.885 / 0.858 / **0.196** | 1.010 / 1.022 / 1.096 |
+| 5 | 1.023–1.031 | 1.007 / 1.012 / 1.042 | 1.002 / 1.007 / 1.048 |
+| 6 | 1.019–1.029 | 0.995 / 1.000 / 1.043 | 0.995 / 0.999 / 1.042 |
+| 7 | 1.013–1.025 | 0.986 / 0.991 / 1.035 | 0.986 / 0.991 / 1.035 |
+
+There is no convergence statement at `β = 0.4`, because the `m ≈ 42` point is missing. `K*` removes the `k = 4` failure of `𝔖_ff`.
+
+**`k = 2` (`C⁺₂`, `a = 7`).**
+* Same helicity: `1.02–1.12 / 1.05–1.09 / 1.02–1.03` at `ν ≤ 1` for all three kernels, but `c₁ ≈ −6` to `−12`. `m²(R−1)` is not flat.
+* `ν = 3` and opposite helicity: not resolved (`R` is `O(1)` off, or worse, for every kernel). `K*` is the least bad (`1.94 / 1.13` at
+  `m = 70 / 101`, `ν = 0`).
+* The same holds for the odd kernel at `k = 2` (§2). This is the tiny-`t` region, which at low `k` holds a large share of every mode.
+* **H1 at `k = 2` with opposite helicity remains open [ND].** It needs a larger `N` or a tiny-`t` completion, not a different kernel.
+
+### 6.5 `K*` as a functional kernel (route 2)
+
+* **Flip-free [D]:** Lemma-L flips `1 − ½ − ½ = 0`.
+* **Preserved response [D, from Lemma L]:** `∝ (4ν²+(2a−9)²)(4ν²+(4a−7)²)`. Compare `𝔖_ff`, which is `∝ 2(4ν²+(2a−9)²)(4ν²+8(a−2)²+1)`. It
+  is positive on ℝ for all `a` used (`a = 7, 9, 11`; no real zero for `a ≠ 9/2, 7/4`).
+  * `K*/𝔖_ff` preserved = `1.097, 1.006, 0.70, → ½` at `ν = 0, 3, 10, ∞` (`a = 7`).
+  * The `t18` table check gives `0.0851/0.0775 = 1.098` at `ν = 0`, `a = 7`, which cross-checks the weights.
+* **Normalisations [D given Lemma L and `N^{ff}`].** These replace `N^{ff}` (the `(1,3)` ratio `j′=0 : kernel`):
+  * `N₄^{K*} = 8(16ν⁴+216ν²+263)/((4ν²+81)(4ν²+841))`;
+  * `N₆^{K*} = 8(16ν⁴+536ν²+2023)/((4ν²+169)(4ν²+1369))`.
+
+  Both are positive on ℝ. `N^{K*}(0) = 0.031, 0.070` against `N^{ff}(0) = 0.033, 0.074`, so the `1/N(0)` leverage on the forward piece rises
+  by `7 %`. `N^{K*}(∞) = 8`.
+* **Graviton pole (I9) [D given IP, (F)], same status as for `𝔖_ff`.** The Einstein exchange enters the even moment only through its
+  helicity-preserving density. For a flip-free kernel the flip parts are zero identically. The preserved part is the kernel's preserved
+  response times the kernel-independent density, and dividing by `N_k` removes the kernel's response. So the normalised residue
+  `16πG/(ν²+9/4)` is unchanged.
+  * This needs a preserved response that is nonzero at the pole. That holds, by the factorisation above.
+  * The end-to-end statement that the helicity-preserving content is kernel-independent (§6.4: `K*`, `𝔖_ff`, `𝔄` agree to `≤ 3·10⁻³`) is
+    the heavy-state analogue [NE].
+* **Einstein absence, `Ψ_k[G^E] = 0` for `k ≥ 3` [D given RB₂].** `SUPERCONVERGENT_UPLIFT.md` item 4 uses only microcausality of `G^E`,
+  `J₀(G^E) = 2 < 3`, and the functional's convergence reach. `K*` has the same polynomial degree in `D₁, D₂` per pair as `𝔖_ff`, so the same
+  Regge growth and the same reach [D-sketch]. Dividing by `N_k^{K*} > 0` creates nothing from zero.
+* **Not changed by a switch:**
+  * (P), the double traces and contacts of the even and forward pieces, stays [I] and load-bearing;
+  * the `C⁺₂` convergence margin `J₀ < 2`.
+
+### 6.6 Consequence for the functionals (route 3)
+
+* **The leading heavy formula is correct for the even (`𝔖_ff`, `K*`) and odd moments, both helicities [DVE: `k = 4–7`, `ν ≤ 3`, `β = 1`,
+  `m = 39–101`].**
+  * Corrections are `c₂/m²` with no `1/m` term.
+  * Over the tested range, `|c₂| ≤ 310`. The extremes are `−307` (`k = 7`, `ν = 3`, opposite helicity) and up to `+194` for same helicity.
+  * The sign is negative for opposite helicity at `ν = 3`, so it lowers the heavy contribution.
+* **Relative effect on a heavy state's contribution at `m ≥ Λ` [NE, extrapolated in `m`; `ν ≤ 3`]:**
+
+  | `Δ_g` | `310/m²` at `m = Λ = Δ_g` | at `m = 1.4Λ` (the `OMEGA_U` binding state) |
+  |---|---|---|
+  | 100 | `3.1·10⁻²` | `1.6·10⁻²` |
+  | 300 | `3.4·10⁻³` | `1.8·10⁻³` |
+  | 1000 | `3.1·10⁻⁴` | `1.6·10⁻⁴` |
+
+  These take `m ≈ Λ` in units of `Δ_g`, as in `OMEGA_U`. At the data points `m/Δ = 0.86–0.87`, so the effect in units of `Δ` is about 1.3×
+  larger.
+* **Size against the margins.**
+  * At `Δ_g = 100` the correction is of the same order as the spare margin at the binding state, quoted as `0.044 N_s`
+    (`SUPERCONVERGENT_UPLIFT.md` item 6), if that state's heavy action is `O(N_s)`. It should be kept explicitly, or `Δ_g ≥ 300` used.
+  * At `Δ_g ≥ 300` it is `≤ 0.4 %` and negligible against margins `≥ 4 %`.
+* **Caveats.**
+  * This bounds only fixed `ν ≤ 3`. The functionals sample `ν ~ Λ` (`ν/m = O(1)`). There the expansion parameter is `x = ν/m`, not `1/m`,
+    and the relevant check is H2 (§3, reading B at fixed `b̂`).
+  * `c₂(ν)` is not monotone over `ν = 0, 1, 3`: `−56, −12, −305` (`k = 7`, opposite helicity), so `c₂` cannot be extrapolated in `ν` from
+    these three points.
+  * `β ≠ 1` has one mass only.
+  * `k = 2` is open (§6.4).
