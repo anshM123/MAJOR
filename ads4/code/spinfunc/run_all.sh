@@ -19,3 +19,5 @@ python3 g3_homogeneity.py          # M2c: building-block normalisation check at 
 python3 g4_images.py               # M2c: independent crystal images of the CLS-D building blocks (seconds)
 python3 g5_covariant_Q.py          # M2c: covariant flip-free structure q, dual-coefficient consistency (seconds)
 python3 h3_H17_model.py            # M5'b: H17 model estimate for route A' (~1 min)
+python3 m1_scalar_scaling.py       # M6: scaling of the exact scalar remainder with m at fixed x (seconds)
+python3 m2_tolerance_c2.py 100 300 1000   # M6: H4 tolerance for route A' in c2/m^2 units (~20 min)

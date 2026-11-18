@@ -1,6 +1,6 @@
 # H0: the spinning (`⟨TTTT⟩`) functional — route decision and first milestone
 
-Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R–§14 committed (78eca6a), §15–§16 (29e98d1); **§17–§18 (M2c resolved, M5′b) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
+Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R–§14 committed (78eca6a), §15–§16 (29e98d1), §17–§18 (1c7a156); **§19 (M6 partial) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
 H9b) and finding F1 of `REFEREE_FOUNDATION.md`. Code: `ads4/code/spinfunc/` (`run_all.sh`, single core, ≈ 1–2 h with M3b; outputs in
 `spinfunc/cache/`, git-ignored). It imports `omegau/`, `exactskel/` (e1/e7 caches) and `objid/` **read-only**. Nothing else was modified.
 
@@ -420,6 +420,8 @@ Min flat `F/N_s` over `J ≤ 80` (NF02 weights; object `A` = NF02 itself, B′ i
 | `g4_images.py` | M2c: independent crystal images of `H₂₀H₄₀/(X₂₀X₄₀)`, `H₂₄/X₂₄` vs CLS-D's printed ones | `g4_images.txt` |
 | `g5_covariant_Q.py` | M2c: `q = (2H₂₀H₄₀ + V²H₂₄)/(X₂₀X₄₀)` ↦ `−Q` exactly; CLS-D dual coefficients + corrected image reproduce printed `𝒦^{(1)}` | `g5_covariant_Q.txt` |
 | `h3_H17_model.py` | M5′b: H17 (`k_AdS − k(0)`) for route A′ in the `nf5` heuristic model; bound factors | `h3_H17_model.txt` |
+| `m1_scalar_scaling.py` | M6: `1/m` scaling of the exact scalar remainder at fixed `x` across `Δ_g` (calibration) | `m1_scalar_scaling.txt` |
+| `m2_tolerance_c2.py` | M6: H4 tolerance for route A′ in units of `c₂/m²` (sign patterns, windows) | `m2_tolerance_c2_*.txt` |
 | `run_all.sh` | runs all of the above | — |
 
 ## 9. Milestone M2: CLS-D in `d = 3` / 4D graviton helicities (`g1_crystal4d.py`, `f7_flat_stripped.py`)
@@ -907,3 +909,90 @@ scattering-crystal points; the polarisation maps `polarvec_125/346_CFTtoflat`. R
 | `−Ĉ₂|_E = 16πG/(ν² + 9/4)`, `Ĉ₃|_E = 0` exactly; `A = 3022.3`, `B_AdS = −6552.5` survive (graviton-pole content) | [D given H7, I14, residue-formula applicability] |
 | `|ĝ₃|²` coefficient: `k(0)`; AdS correction H17 `≈ 4.4 % / 0.48 % / 0.043 %` (bounds `±2 / 0.2 / 0.02 %`) | [D-sketch + M] |
 | I14 | [I] |
+
+## 19. Milestone M6 (H4 for route A′): scalar calibration, graviton structure, explicit targets, plan
+
+**Scope of this round.** The full graviton fluctuation expansion around the CLS-D crystal was **not** done. It needs, in about 10 integration
+variables around a complex saddle:
+* the spin-2 dual structure `q²` and the celestial structures;
+* the heavy `⟨TT𝒪_{Δ,J}⟩` conserved structures beyond leading large-`Δ` order;
+* the polarisation sums and the shadow-coefficient saddle.
+
+Delivered below: the scalar calibration (from the exact skeleton), the structure of the graviton correction, the H4 targets in calibrated
+units, and a plan.
+
+### 19.1 Scalar calibration from the exact skeleton (`m1_scalar_scaling.py`) [NE, exact data]
+
+* **Method.** The 64 `p`-nodes are shared by `Δ_g = 100, 300, 1000`, so the exact remainder `ρ_k(x; m, J)` (Mellin/Barnes, `Δ_φ = 3`) can be
+  compared at identical `x` and `(m/Λ, J)` for `m ≈ 100, 300, 1000`.
+* **Result: on the load-bearing window `x ∈ [0.3, 0.7]`, `ρ_k = c₂(x, J, k)/m² + c₄/m⁴ + …` with no odd terms.**
+  * The local exponent is `1.97–1.98` (`100 → 300`) and `2.00` (`300 → 1000`) for every state checked (`m/Λ = 1…1.3`, `J = 0…6`, `k = 2, 3, 4`).
+  * `m²ρ` converges, e.g. `−41.2, −42.2, −42.3` (`k = 2`, `J = 0`, `x = 0.51`); the drift `∝ 1/m²` points to a `c₄/m⁴` term.
+  * Sizes: `|c₂| ≈ 20–160`, depending on `k`, `J`, `x`; e.g. `k = 2`: `−42` (`J = 0`), `+22` (`J = 2`), `−19` (`J = 4`).
+* **What this calibrates.** Any fluctuation expansion of the crystal integral must give **zero at `O(1/m)`** and these `c₂(x, J, k)` at
+  `O(1/m²)`. This fixes the target table for the scalar Laplace computation (plan step 1).
+* **Interpretation.** The bulk-point corrections are AdS-curvature effects, `O(1/(mR)²)`. This agrees with CLS-D's "`1 + O(J²/m²)`", and with
+  the project's `⟨TTTT⟩` Regge-moment fits, where `|c₁| ≤ 0.04` (`SPINNING_TTTT_EXT.md`).
+
+### 19.2 Structure of the graviton correction [D-sketch]
+
+* **Factorised integrand.** In CLS-D's representation, `Ψ⁺[G^s] = ∫ e^{f_{ν,m}} g_scal · S`, where:
+  * the fast factor `f_{ν,m}` is spin-independent (CLS-D);
+  * `S` is the ratio of slow factors: (the `q²`/`O·q` dual structure) × (celestial `j′` structure) × (heavy `⟨TT𝒪⟩` structures with
+    polarisations `x₁₀`, `x₃₀` for 1, 3) × (the polarisation sum for 2, 4), divided by the scalar analogues.
+* **Laplace expansion.** It gives, per helicity channel `h`, the stripped density × `S*` × `[1 + (c₂^{scal} + δc₂^{spin}(x, J, h))/m² + O(m⁻⁴)]`.
+* **The spin-specific coefficient.** `δc₂^{spin}` is built from:
+  * `½A^{ab}∂_a∂_b log S`, `A^{ab}∂_a log g_scal ∂_b log S`, and the cubic/quartic terms of `f` contracted with `∂ log S`, where `A` is the
+    inverse Hessian, `O(1/m)` per entry;
+  * the `O(1/Δ²)` corrections of the heavy conserved-structure basis (CLS-D §4.1 gives the leading order only);
+  * the helicity-dependent normalisation of the shadow coefficient at `O(1/Δ²)`.
+* **Odd terms.** These are expected to cancel as for the scalar (curvature expansion). For Regge-moment objects this is supported:
+  `|c₁| ≤ 0.04` [NE].
+* **Common factors.** A helicity- and `k`-independent part of `δc₂` is a positive overall rescale, like `directgrav`'s `c*`. It cannot change
+  a sign. Only the `k`- and helicity-dependent part matters.
+
+### 19.3 H4 targets for route A′ in calibrated units (`m2_tolerance_c2.py`) [NE + M]
+
+The model replaces the graviton density by density × `(1 + c w(x)/m²)` on `x > x₀`, with sign patterns:
+* `all`: same `c` for `k = 2, 3` and both helicities;
+* `hel`: `c₊₊ = −c₊₋`;
+* `k`: `c₂ = −c₃`.
+
+The table gives the interval of `c` keeping `n = 1` (route-A′ functional, f6 model; all states, both skeletons):
+
+| `Δ_g` | `x > 0.3`: `all` / `hel` / `k` | `x > 0.5`: `all` / `k` | all `x`: `k` |
+|---|---|---|---|
+| 100 | (−1110, +962) / (−1110, +962) / **(−686, +629)** | (−4360, +2820) / (−970, +921) | (−2530, +2410) |
+| 300 | (−4980, +7730) / same / (−3350, +5390) | (−15500, +10100) / (−3920, +3380) | (−2.0·10⁴, +1.9·10⁴) |
+| 1000 | (−5.5·10⁴, +7.9·10⁴) / same / (−3.5·10⁴, +5.0·10⁴) | — / (−3.2·10⁴, +2.7·10⁴) | (−2.1·10⁵, +2.1·10⁵) |
+
+**H4 for route A′ therefore holds at `Δ_g = 100` if `|δc₂^{spin}(x)| ≲ 630` on `x > 0.3`** (worst pattern, any `x`-dependence of fixed sign);
+`≲ 3·10³` at `Δ_g = 300`; `≲ 3·10⁴` at `Δ_g = 1000`.
+
+**Available evidence on `δc₂^{spin}`** (Regge-moment objects, `x ≲ 0.1` only) [NE]:
+* `⟨TTTT⟩` total `c₂ ≤ 310` (`k = 2…7`, both helicities, `ν ≤ 3`; `SPINNING_TTTT_EXT.md`), which includes the common factor;
+* the non-common shape residual is `≤ 3·10⁻³` at `m ≈ 102`, i.e. `|δc₂| ≲ 30` (`DIRECT_GRAVITON_NEARGAP.md`, `++`);
+* scalar `|c₂| ≤ 160` on the window.
+
+**Margins against the target.**
+* At `Δ_g = 100`: a factor `≳ 2` against the full `⟨TTTT⟩` `c₂`, and `≳ 20` against the measured spin-specific residual, **if** `δc₂` does not
+  grow by more than these factors between `x ≈ 0.1` and `x ≈ 0.7`.
+* At `Δ_g ≥ 300`: a factor `≳ 10–100`.
+* Growth `∝ (1−x²)^{−n}` (saddle degeneration) gives at most `×4` for `n = 2` at `x = 0.7`. So H4 is **plausible with margin, not shown** [I].
+
+### 19.4 Plan to close M6
+
+| step | content | validation | estimate |
+|---|---|---|---|
+| 1 | scalar Laplace expansion of the CLS-D crystal integral to `O(1/m²)`: `f_{ν,m}` (explicit in CLS-D) to 4th order, inverse Hessian, scalar slow factors (subtraction factor, dual/celestial structures, shadow coefficient and heavy-block normalisation to `O(1/Δ²)`) | must give `c₁ = 0` and reproduce §19.1's `c₂(x, J, k)` to `≲ 1 %` on `x ∈ [0.3, 0.7]` | 2–3 days |
+| 2 | graviton slow factors: `q²`, `O·q` (§17), celestial `j′ = 0, 1`, heavy `⟨TT𝒪⟩` conserved structures to `O(1/Δ²)`, polarisation sums; `δc₂^{spin}(x, J, h)` | `c₁ = 0`; `x → 0` limit vs the Regge-moment `c₂` data (modulo the `Π̂` vs `Ĉ` difference) | 4–6 days |
+| 3 | feed `δc₂^{spin}` into the `h2_neargap_exact` pipeline; `n` at `Δ_g = 100/300/1000` | `|δc₂|` vs §19.3 targets | 1 day |
+
+### 19.5 Regraded table (supersedes §18.1 where they differ)
+
+| statement | grade |
+|---|---|
+| exact scalar remainder on `x ∈ [0.3, 0.7]` is `c₂(x,J,k)/m² + O(m⁻⁴)`, no `1/m`; `|c₂| ≈ 20–160` | [NE] (exact data, three gaps) |
+| graviton correction structure `1 + (c₂^{scal} + δc₂^{spin})/m²`, odd terms absent | [D-sketch]; odd-term absence [NE] (Regge-moment `c₁`) + [I] |
+| H4 target for route A′: `|δc₂^{spin}| ≲ 630 / 3·10³ / 3·10⁴` on `x > 0.3` (`Δ_g = 100/300/1000`, worst pattern) | [NE + M] |
+| H4 (`δc₂^{spin}` within target on `x ∈ [0.3, 0.7]`) | **[I]**, plausible: evidence `|δc₂| ≲ 30` (non-common) and `≤ 310` (total) at `x ≲ 0.1` |

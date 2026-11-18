@@ -46,6 +46,13 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   covariantly]. H17 for Ĉ₂, Ĉ₃: exact coefficients need the spinning R³ exchange in AdS₄ to subleading Regge order (not computed); model
 >   estimate |δk| = 4.4 % / 0.48 % / 0.043 %, i.e. bounds ±2 % / ±0.2 % / ±0.02 % (same budget as before) [D-sketch + M].
 >
+> * **Update (M6 partial, §19):** H4 stays **[I]** for route A′, now with explicit targets. Scalar calibration [NE]: on x ∈ [0.3, 0.7]
+>   the exact remainder is c₂/m² + c₄/m⁴ with no 1/m term (local exponent 1.97–2.00), |c₂| ≈ 20–160. Tolerance [NE + M]: n = 1 survives
+>   a graviton-specific density correction (1 + c/m²) on x > 0.3 for |c| ≲ 630 (worst, k-antisymmetric pattern) at Δ_g = 100, ≈ 3.4·10³
+>   at 300, ≈ 2.7·10⁴ at 1000; a helicity- and k-common part is a positive rescale and cannot flip a sign. Evidence at x ≲ 0.1 only:
+>   ⟨TTTT⟩ total c₂ ≤ 310, spin-specific residual ≲ 30. Closing M6: scalar Laplace expansion to O(1/m²) calibrated on the exact skeleton,
+>   then graviton slow factors (~1–1.5 weeks).
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
