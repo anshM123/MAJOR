@@ -1,0 +1,24 @@
+# Parity-odd exchange end to end (fourpt/tttt/t21_oddanalysis.py); beta = 1, half grid; R = moment/prediction(opp, opp)
+
+## J = 35, Delta = 78.320346, m = 68.13
+  k=2 nu=0.0: K*: EE 1.0306  -OO -3.4006  (-OO)/EE -3.29965 | Sff: EE 1.1551  -OO -3.3978  (-OO)/EE -2.94158
+  k=2 nu=1.0: K*: EE 1.0346  -OO -3.4140  (-OO)/EE -3.29980 | Sff: EE 1.0647  -OO -3.4149  (-OO)/EE -3.20749
+  k=2 nu=3.0: K*: EE 1.0028  -OO -3.3063  (-OO)/EE -3.29721 | Sff: EE 1.2067  -OO -3.3011  (-OO)/EE -2.73577
+  k=3 nu=0.0: A: EE 1.0239  -OO -3.3791  (-OO)/EE -3.30024
+  k=3 nu=1.0: A: EE 1.0309  -OO -3.4023  (-OO)/EE -3.30021
+  k=3 nu=3.0: A: EE 0.9937  -OO -3.2795  (-OO)/EE -3.30046
+  k=4 nu=0.0: K*: EE 1.0175  -OO -3.3578  (-OO)/EE -3.30003 | Sff: EE 1.0174  -OO -3.3579  (-OO)/EE -3.30040
+  k=4 nu=1.0: K*: EE 1.0249  -OO -3.3826  (-OO)/EE -3.30031 | Sff: EE 1.0248  -OO -3.3824  (-OO)/EE -3.30048
+  k=4 nu=3.0: K*: EE 0.9825  -OO -3.2412  (-OO)/EE -3.29883 | Sff: EE 0.9803  -OO -3.2404  (-OO)/EE -3.30555
+  k=5 nu=0.0: A: EE 1.0091  -OO -3.3302  (-OO)/EE -3.30023
+  k=5 nu=1.0: A: EE 1.0174  -OO -3.3578  (-OO)/EE -3.30023
+  k=5 nu=3.0: A: EE 0.9698  -OO -3.2004  (-OO)/EE -3.30023
+  k=6 nu=0.0: K*: EE 0.9985  -OO -3.2952  (-OO)/EE -3.30023 | Sff: EE 0.9984  -OO -3.2951  (-OO)/EE -3.30023
+  k=6 nu=1.0: K*: EE 1.0078  -OO -3.3258  (-OO)/EE -3.30023 | Sff: EE 1.0077  -OO -3.3257  (-OO)/EE -3.30023
+  k=6 nu=3.0: K*: EE 0.9532  -OO -3.1457  (-OO)/EE -3.30023 | Sff: EE 0.9529  -OO -3.1447  (-OO)/EE -3.30021
+  k=7 nu=0.0: A: EE 0.9855  -OO -3.2524  (-OO)/EE -3.30023
+  k=7 nu=1.0: A: EE 0.9959  -OO -3.2867  (-OO)/EE -3.30023
+  k=7 nu=3.0: A: EE 0.9343  -OO -3.0833  (-OO)/EE -3.30023
+  parity test on W[E,O] (first 100 points): see below
+   max_q |W_q + W_-q| / max_q |W_q| = 2.05e-12  (parity-odd wave: 0)
+   control W[O,O]: max_q |W_q - W_-q| / max_q |W_q| = 7.77e-11  (parity-even wave: 0)

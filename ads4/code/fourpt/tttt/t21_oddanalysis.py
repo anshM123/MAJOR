@@ -33,10 +33,15 @@ def load(J, combo, grid='half'):
     mo = Modes(fn); mo.fn = fn
     return mo
 
+import functools
+@functools.lru_cache(None)
+def design_c(D, J, k, nu):
+    return design(D, J, k, nu)
+
 def ratio(mo, k, nu, K, sign=1.0):
     """raw kernel ratio, wave stored under combo ('same','same') (ci = 0)"""
     wave = ('same', 'same')
-    A = design(mo.Delta, mo.J, k, nu); Tp = Tpred('opp', 'opp', mo.Delta, mo.J, 8.0)
+    A = design_c(mo.Delta, mo.J, k, nu); Tp = Tpred('opp', 'opp', mo.Delta, mo.J, 8.0)
     terms = []; pred = 0j
     for (q1, q3), w13 in K.items():
         for (q2, q4), w24 in K.items():
