@@ -83,6 +83,13 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   n = 1 for J ≤ 4 (min 0.2256/0.2200), 0.103 for J ≤ 8, but J = 10 at m = 1.1Λ gives −2.7 (n = 1.5) — from extrapolating a Δ ≥ 400 fit to
 >   m ≈ 105, a risk signal, not a computed failure. Not done: Ĉ₃, parity-odd sector (binding state +−, J = 5), J > 10. H4 stays [I].
 >
+> * **Update (certification for route A′, `CERTIFIED_NEARGAP_A.md`):** **Theorem A [certified]** — at Δ_g = 100 the route-A′ near-gap
+>   action of the scalar-skeleton model (without η-inversion) has exact `p`-integral > 0 on the full grid (m/Λ ∈ [1.01, 3], J ≤ 10, both
+>   channels; J = 11–16 sample) except ++, J = 0, m = 1.01Λ in each skeleton (229/230 for Δφ = 3, 178/179 for Δφ = 2); min certified
+>   F/N_s +0.2251 / +0.2240 (+−, J = 5, 1.05Λ). With the exact η-inversion shift [DV, not certified]: min +0.2226 / +0.2214. Δ_g = 300: one
+>   certified spot check; 1000 not attempted. Certified large-b̂ window now b̂ ∈ [91.2, 2Λ] at all three Δ_g. Continuity in m, m < 1.01Λ
+>   not certified.
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
