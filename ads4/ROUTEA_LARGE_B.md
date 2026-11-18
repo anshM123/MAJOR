@@ -47,7 +47,8 @@ Grades:
 **Proposed H13′ entry for route A′:**
 * [NE] for the hybrid action on the whole region (every `J`);
 * [NE] for the exact action on the sample (`b̂ ≤ 200.7` at `Δ_g = 1000`, `≤ 150.5` at 300, `≤ 70.5` at 100);
-* **[certified] positivity of the hybrid action** on `b̂ ∈ [115, 197] / [163, 597] / [274, 1997]`;
+* **[certified] positivity of the hybrid action** on `b̂ ∈ [91.2, 2Λ]` at all three `Δ_g` (§4.4; the first pass gave
+  `[115, 197] / [163, 597] / [274, 1997]`);
 * [I] for `|S| < F` off the sample. It is calibrated by `|S|/F_hyb ≤ 122/m²`, a margin of at least 150.
 
 **Not covered rigorously:**
@@ -254,13 +255,33 @@ where:
   `b̂₀` sits well above where the numerics show the asymptotic form is already accurate (`b̂ ≈ 50`). Pushing `b̂₀` down to the scan would
   need a sharper bound in region I.
 
+### 4.4 Tighter constants: the window moves to `b̂₀ = 91.2` (`h13a_cert_curv.py`, `H13A_SIGNED=1`) [certified]
+
+**Two changes, both [D]:**
+1. **Region I uses the signed integral.** With `(1 − s²/b̂²)^{−½} = 1 + r`, `0 ≤ r ≤ (s²/2b̂²)(1 − s₁²/b̂²)^{−3/2}`:
+   * `|(2/π)∫_I G dθ| ≤ (2/(πb̂))[|∫₀^{s₁}G ds| + (1/2b̂²)(1 − s₁²/b̂²)^{−3/2}∫₀^{s₁}|G|s² ds]`;
+   * `∫G` is enclosed by the midpoint rule per cell, with error `h³ sup|G″|/24`.
+2. **Oscillatory terms use the near-cancellation of `w Osc(τ)` and `Osc(s)`.**
+   * `|w Osc(τ) − Osc(s)| ≤ (s²/8Λ²)Ω(τ) + (s³/24Λ²)Ω₁(τ)`, where `Ω₁` bounds `|Osc′|`.
+   * This makes `C_osc` scale like `Λ⁻²`.
+
+**Result: certified `curv > 0`, and hence `F_hyb > 0`, on `b̂ ∈ [91.2, 2Λ]` at `Δ_g = 100`, `300` and `1000`.**
+* The previous windows started at 115.5 / 162.6 / 274.1.
+* At `s₁ = 80`: `(C_IΛ² + C_sm + C_oscΛ²) ≤ 682` (`Δ_g = 100`) and `≤ 683` (`Δ_g = 300`). The window starts at the same box edge for all
+  three `Δ_g`, because after the changes the constants are almost `Λ`-independent.
+
+**What limits further progress.**
+* For smaller `s₁` the oscillatory constant `C_oscΛ² ≈ 7·10³ (40/s₁)³` dominates. It is large because `ψ^{(m)}(1)` reaches about `4·10⁷`.
+* An integration by parts in `θ` would use the phase `e^{ib̂ sin θ}` and gain about `1/s₁` per step. That is the next tightening; it is not done.
+* `b̂₀ ≈ 50` is not reached.
+
 ### 4.3 Coverage map for route A′ (`m ≥ 1.5Λ`)
 
 | `b̂` | `Δ_g = 100` | `Δ_g = 300` | `Δ_g = 1000` |
 |---|---|---|---|
 | `< 20` (`< 40` at 100) | near-gap scans and certificate (`f6`, `CERTIFIED_NEARGAP` model) | same | same |
 | `[20, b̂₀)` | hybrid [NE], every `J`; exact `S` [NE] to `b̂ = 70` | hybrid [NE]; exact `S` to 150.5 | hybrid [NE]; exact `S` to 200.7 |
-| `[b̂₀, 2Λ]` | **hybrid [certified]** (`b̂₀ = 115.5`) | **[certified]** (162.6) | **[certified]** (274.1; flat corner [NE]) |
+| `[b̂₀, 2Λ]` | **hybrid [certified]** (`b̂₀ = 91.2`, §4.4) | **[certified]** (91.2) | **[certified]** (91.2; flat corner [NE]) |
 | `> 2Λ` | hybrid [NE] (scan to 1000), asymptotic form [D + NE] | same | same |
 | exact `S` beyond the sample | [I], `|S|/F ≤ 122/m²` calibrated | same | same |
 

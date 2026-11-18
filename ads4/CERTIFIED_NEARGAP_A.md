@@ -53,8 +53,8 @@ certified, because no Bernstein ellipse fits below the singularity at `p = m/Λ`
   * So **route A′ with the exact inversion is certified up to a floating-point inversion shift**: [certified] for `F₀` plus [DV] for `δF`.
 * **`Δ_g = 300`, `1000`:** not certified. See §4.
 * **Large-`b̂` window, secondary task.** With a signed region-I bound and a sharper oscillatory bound (`h13a_cert_curv.py`,
-  `H13A_SIGNED=1`), the certified window of `ROUTEA_LARGE_B.md` §4.2 moves from `b̂₀ = 115.5` to **`91.2`** at `Δ_g = 100`, and from
-  `162.6` to **__B300__** at `Δ_g = 300` (`1000`: __B1000__).
+  `H13A_SIGNED=1`), the certified window of `ROUTEA_LARGE_B.md` §4.2 moves to **`b̂₀ = 91.2` at all three `Δ_g`** (from 115.5 / 162.6 / 274.1). The binding choice is `s₁ = 80`, which with the bounds as they
+  stand also caps the window at `b̂ > 81`. `cache/h13a_cert_curv_signed.txt`; details in `ROUTEA_LARGE_B.md` §4.4.
 
 ## 1. The certified object
 
