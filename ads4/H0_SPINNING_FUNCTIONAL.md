@@ -1684,3 +1684,40 @@ state-independent `N̂(ν)` and taking the real part gives a real identity, prov
 
 **Is it load-bearing?** Yes. Treating the imaginary mixing as real breaks `n = 1` at `Δ_g = 300` (§22.4 `absmix`). The prescription is
 legitimate given (a)–(c), but it is part of the definition of `Ω^{A′}` and must be stated in §R together with the CLS/CHMRS choice.
+
+### 23.4 `Δ_g = 100`: the graviton series at `J = 10`, `m ≈ 98` is not converged at `K₃`; `n` stays open (`l9_run.py`, `l9_neargap.py`) [NE]
+
+* **`K₃` graviton points** (`Ĉ₂`, `Δ = 100`, `x = 0.05…0.8` plus `0.15`, `0.25`, each with its `Δ_ref = 2·10⁴` reference at `K₃`).
+  * `J = 10`: done.
+  * `J = 8`, `6`: running at hand-over (`cache/l9_run_C2_a.log`; resumable: `L1_DEG=8 L9_DS=100 python3 l9_run.py C2 10 8 6`).
+* **Convergence, normalisation-free** (change `K₂ → K₃` of `m² Re log M̃_hh`, relative to `x = 0.5`; `J = 10`, `m = 98`, points away from zeros
+  of `P₁₀`):
+  * `++`: `+689 / +250 / +478 / +607` at `x = 0.3 / 0.6 / 0.7 / 0.8`;
+  * `+−`: `+716 / +406 / −332 / +359`;
+  * `x ≤ 0.25`: `10³–10⁴`.
+  For comparison, on the scalar at the same `(m, J)` the `K₂ → K₃` change is `≈ 70` rms (§23.1). **The spinning series moves by roughly the
+  §19.3 tolerance (`≈ 630`) at the last computed order, so `K₃` does not control `J = 10` at `m ≈ 100`.**
+* **The per-state normalisation at `m ≈ 100` cannot be taken from small `x`.** The fitted Regge constant `a_h` (from `ν ≥ 15`, `x ≤ 0.25`)
+  changes sign between `K₂` and `K₃` (`J = 10`). At `ν ≲ 30` the truncated crystal misses the non-perturbative `1/ν` structure of `g(ν)`
+  (§23.2).
+  * With `Ĉ₂` alone this constant is load-bearing: it fixes the k-relative normalisation against the uncorrected `Ĉ₃` base.
+  * With `Ĉ₂ + Ĉ₃` both corrected it is a congruence and drops out of `n`, but the `x < 0.3` values still enter through their `ψ` weight.
+* **`n` with what is controlled** (`Ĉ₂`, linear chain, de-shifted, `K₂` rows `Δ = 100…3200`, direct interpolation in `1/m`;
+  `cache/l9_neargap_C2_K2_deshift.txt`):
+
+| `Δ_g` | `n` | min `λ/N_s` (binding) | `t*` | `J = 10` max `|ΔF_hh|/N_s` | status |
+|---|---|---|---|---|---|
+| 1000 | 1 | 0.2021 (`+−`, `J = 5`, uncovered) | (−30.6, +38.8) | 0.008 | consistent with §22.4 (`t* ≥ 14`) |
+| 300 | 1 | 0.2054 (`+−`, `J = 5`, uncovered) | (−10.7, +8.4) | 0.036 | consistent with §22.4 (`t* ≥ 3`) |
+| 100 | 1 | 0.1552 (`J = 4`, `m/Λ = 1.04`) | (−0.8, +1.6) | 0.88 | **not controlled** (`J ≥ 6` at `m ≈ Λ`: series and normalisation, above) |
+
+  For the record, without the de-shift (literal CLS-D functional, §23.2): `J = 10` `|ΔF|/N_s` up to `1.8 / 0.27 / 0.033`, `t*` at
+  `Δ_g = 100` `(−0.3, +11.5)`, `n = 1` at all three gaps.
+* **Verdict for `Δ_g = 100`: open.** It is not decided either way.
+  * The crystal (Laplace) expansion of the spinning functional does not converge fast enough at `J²/m ≈ 1` for `J ≥ 8–10`.
+  * Its small-`x` region (`ν ≲ 30`) is outside the expansion at `m ≈ 100` for every `J`.
+  * No computed number breaks `n = 1`. The doc-22 `−2.70` at `J = 10` came from the log form and the `x → 0` extrapolation, and is
+    superseded.
+  * A decision needs a non-perturbative evaluation at those few states: direct numerical integration of the 7-dimensional CLS-D integrand
+    on the steepest-descent contour, or exact spinning Mellin data. Alternatively, the honest scope of Result D at `Δ_g = 100` is the
+    `J ≤ 4` sector.

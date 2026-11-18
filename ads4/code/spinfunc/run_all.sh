@@ -39,3 +39,13 @@ OMP_NUM_THREADS=1 L8_DSTATE=400,800,1600,3200 L8_XS=0.2,0.3,0.5,0.7 L8_DREF=4000
 python3 l8_dc2.py 0 2 4 6 8 10 12      # dc2 per helicity (rel. x -> 0), scalar crystal s(x), off-diagonal Re/Im  -> cache/l8_dc2.pkl
 python3 -c "import l8_dc2 as M; M.summary()" > cache/l8_summary.txt
 python3 l8_neargap.py 100 300 1000     # 2x2 near-gap positivity, n, t* (~30 min)
+# --- M6 round 5 (doc 23): K3 engine, scalar K3 accuracy at J^2/m ~ 1, linear-form chain with CLS->CHMRS de-shift, C^_3 (o_H), near-gap
+L1_DEG=8 python3 l9_tps.py                                   # K3 engine self-tests (seconds)
+L1_DEG=8 OMP_NUM_THREADS=1 python3 l9_scalar_k3.py 100 2     # scalar crystal vs exact skeleton, J <= 10, m ~ 100-125, K1/K2/K3 (~15 min)
+L1_DEG=8 OMP_NUM_THREADS=1 L9_DS=100 python3 l9_run.py C2 10 8 6      # graviton C^_2 at K3, Delta = 100 + references (~80-120 s/pt; ~2 h)
+L1_DEG=6 OMP_NUM_THREADS=1 L9_DS=100,200,400,800,1600,3200 python3 l9_run.py C2 4 6 8 10 0 2       # K2 extras (x = 0.15, 0.25)
+L1_DEG=6 OMP_NUM_THREADS=1 L9_DS=100 python3 l9_run.py C3H 10 8 6 4 2 0                           # C^_3 (o_H) at K2
+L1_DEG=6 OMP_NUM_THREADS=1 L9_DS=400,1600,200,800,3200 L9_XS=0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8 python3 l9_run.py C3H 10 8 6 4 2 0
+python3 l9_analysis.py 0 2 4 6 8 10                          # Gamma grids, K2 vs K3  -> cache/l9_grid.pkl
+python3 l9_neargap.py C2_K2 100 300 1000                     # C^_2 only (de-shifted; L9_DESHIFT=0: literal CLS-D)
+python3 l9_neargap.py C23H_K2 100 300 1000                   # C^_2 + C^_3 combined 2x2
