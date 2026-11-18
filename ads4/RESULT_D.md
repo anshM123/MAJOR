@@ -40,6 +40,12 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   disagree by (1−x²) on the 𝒱𝒱 term; if the images are right, route A′'s (2,4) structure has O(x²) helicity-flip leakage at the bulk
 >   point (the stripped-dictionary conclusion is unaffected).
 >
+> * **Update (M2c/M5′b, §17–§18):** M2c resolved [DV]: the (1−x²) discrepancy is a missing factor 1/(m²−ν²) in CLS-D's printed
+>   H₂₀H₄₀ crystal image; their printed photon kernel is correct, no helicity-flip leakage. Explicit covariant structure: Ĉ₂ uses q² with
+>   q = (2H₂₀H₄₀ + V₀,₄₂²H₂₄)/(X₂₀X₄₀) (= 4S₀ + S₁ + S₂/16 in CLS-D's basis), flip-free with stripped ratio (1−x²)⁻⁴ [DV at crystal, D
+>   covariantly]. H17 for Ĉ₂, Ĉ₃: exact coefficients need the spinning R³ exchange in AdS₄ to subleading Regge order (not computed); model
+>   estimate |δk| = 4.4 % / 0.48 % / 0.043 %, i.e. bounds ±2 % / ±0.2 % / ±0.02 % (same budget as before) [D-sketch + M].
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,

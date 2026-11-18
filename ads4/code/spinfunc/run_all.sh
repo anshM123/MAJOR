@@ -16,3 +16,6 @@ python3 g2_structures.py           # M2b: CLS-D (2,4) structures at the D = 4 cr
 python3 h1_etainv_exact.py 100 300 1000   # M3b: exact eta-inversion of psi_2, checks V1-V3, dk0 (~40 min at 1000)
 python3 h2_neargap_exact.py 100 300 1000  # M3b: exact near-gap shift of route A' (needs h1 pickles)
 python3 g3_homogeneity.py          # M2c: building-block normalisation check at the crystal (seconds)
+python3 g4_images.py               # M2c: independent crystal images of the CLS-D building blocks (seconds)
+python3 g5_covariant_Q.py          # M2c: covariant flip-free structure q, dual-coefficient consistency (seconds)
+python3 h3_H17_model.py            # M5'b: H17 model estimate for route A' (~1 min)

@@ -1,6 +1,6 @@
 # H0: the spinning (`⟨TTTT⟩`) functional — route decision and first milestone
 
-Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R, M2b/M3b/M4′ (§12–§14) committed (78eca6a); **M5′/M2c (§15–§16) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
+Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R–§14 committed (78eca6a), §15–§16 (29e98d1); **§17–§18 (M2c resolved, M5′b) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
 H9b) and finding F1 of `REFEREE_FOUNDATION.md`. Code: `ads4/code/spinfunc/` (`run_all.sh`, single core, ≈ 1–2 h with M3b; outputs in
 `spinfunc/cache/`, git-ignored). It imports `omegau/`, `exactskel/` (e1/e7 caches) and `objid/` **read-only**. Nothing else was modified.
 
@@ -64,7 +64,9 @@ their commutator vanishes. Regge convergence: `J₀ < 2` for both functionals be
 | `(2,4)` structure | `(a₊)`: the `j′ = 0` dual-structure combination whose bulk-point image is `Q⊗Q` | `(a₋)`: image `O⊗Q` |
 | leading Regge kernel (`r^{k−2}` × weight × harmonic) | `½ η r⁰ P_{−½+iν}(η)` | `−r¹ P_{−½+iν}(η)` |
 
-Here `Q := (𝒲₂·e₂)(𝒲₄·e₄) − (𝒱₂·e₂)(𝒱₄·e₄)` (∝ CLS-D's photon `𝒦^{(1)}_{j′=0}` at `D = 4`), `O := (𝒲₂·e₂)(𝒱₄·e₄) − (𝒱₂·e₂)(𝒲₄·e₄)`, and
+Covariantly, `(a₊) = q²` with **`q := (2H₂₀H₄₀ + V_{0,42}² H₂₄)/(X₂₀X₄₀)`** (photon-level, CLS-D's `H`, `V`, `X` of eq. `CFT_building_blocks_VH`;
+§17, [DV]). Its crystal image is `−Q/(4ν²(m²−ν²)²)` for all `x`, where
+`Q := (𝒲₂·e₂)(𝒲₄·e₄) − (𝒱₂·e₂)(𝒱₄·e₄)` (∝ CLS-D's photon `𝒦^{(1)}_{j′=0}` at `D = 4`), `O := (𝒲₂·e₂)(𝒱₄·e₄) − (𝒱₂·e₂)(𝒲₄·e₄)`, and
 `𝒱`, `𝒲` are CLS-D eq. `kernel_VWvec_definition`. Both images are flip-free at the crystal for all `x` (§12) [DV].
 
 **3. Normalisation.** `Ĉ_k := Ĉ^{CLS}_k/N̂_k(ν)`, with `N̂_k` fixed by the leading Regge heavy action. On a heavy block, in the per-state
@@ -415,6 +417,9 @@ Min flat `F/N_s` over `J ≤ 80` (NF02 weights; object `A` = NF02 itself, B′ i
 | `h1_etainv_exact.py` | M3b: exact `η`-inversion (Abel/ODE), checks V1–V3, `δk(0)`, tails | `h1_etainv_exact_*.txt`, `h1_<Δ_g>.pkl`, logs `h1_*.log` |
 | `h2_neargap_exact.py` | M3b: exact near-gap shift of route A′ | `h2_neargap_exact_*.txt`, logs `h2_*.log` |
 | `g3_homogeneity.py` | M2c: crystal value of `(2V_{0,42})²X₂₄/(X₂₀X₄₀)`; consistency of CLS-D's printed photon images vs kernel | `g3_homogeneity.txt` |
+| `g4_images.py` | M2c: independent crystal images of `H₂₀H₄₀/(X₂₀X₄₀)`, `H₂₄/X₂₄` vs CLS-D's printed ones | `g4_images.txt` |
+| `g5_covariant_Q.py` | M2c: `q = (2H₂₀H₄₀ + V²H₂₄)/(X₂₀X₄₀)` ↦ `−Q` exactly; CLS-D dual coefficients + corrected image reproduce printed `𝒦^{(1)}` | `g5_covariant_Q.txt` |
+| `h3_H17_model.py` | M5′b: H17 (`k_AdS − k(0)`) for route A′ in the `nf5` heuristic model; bound factors | `h3_H17_model.txt` |
 | `run_all.sh` | runs all of the above | — |
 
 ## 9. Milestone M2: CLS-D in `d = 3` / 4D graviton helicities (`g1_crystal4d.py`, `f7_flat_stripped.py`)
@@ -795,6 +800,8 @@ integral. This is the I14 premise, as in CHMRS. For route A′ it is needed only
 
 ## 16. Milestone M2c: graviton `(2,4)` structures — status [D-sketch], with an open consistency check (`g3_homogeneity.py`)
 
+> **Resolved in §17:** the discrepancy is a typo in CLS-D's printed `H₂₀H₄₀` crystal image. Their kernel is right, and there is no flip leakage.
+
 **The argument.**
 * Products of structures evaluate to products at the crystal, so the graviton `j′ = 0` basis
   `(−2V_{0,42})^{J_F−4+2n}H₂₀^{2−n}H₄₀^{2−n}H₂₄ⁿ` maps to `(common)·(c_P P)^{2−n}(c_H H)ⁿ`.
@@ -833,3 +840,70 @@ flip-free kernel, and the truncation argument of §9.3 is independent).
 | `|ĝ₃|²` coefficient = flat `k(0)` + `O(1/Λ²)` (H17, to be redone for `Ĉ₂`, `Ĉ₃`) + `δk(0)` | [Q-analogue + D-sketch] |
 | graviton `Q²`, `O·Q` realised by fixed covariant structures | [D given CLS-D's printed `𝒦`]; open check (§16) |
 | I14 swappability | [I] |
+
+## 17. Milestone M2c resolved: CLS-D's printed `H₂₀H₄₀` image has a typo; the kernel is right; no flip leakage (`g4_images.py`, `g5_covariant_Q.py`) [DV]
+
+**Independent evaluation at the `D = 4` crystal.** Built from CLS-D's own definitions: embedding `X`, `Z`, `H_{ij}`, `V_{i,jk}`, `X_{ij}`; the
+scattering-crystal points; the polarisation maps `polarvec_125/346_CFTtoflat`. Results for all `x = 0.1…0.97` and both `S⁰` points:
+* `H₂₄/X₂₄` = CLS-D's printed image `−(𝒱𝒱+𝒲𝒲)/(ν²(m²−ν²)²)` **exactly**.
+* `H₂₀H₄₀/(X₂₀X₄₀) = 𝒱𝒱/(4ν²(m²−ν²)²)`. CLS-D print `𝒱𝒱/(4ν²(m²−ν²))`, **a typo (missing `1/(m²−ν²)`)**: the ratio of the two is
+  `1/(1−x²)` at every `x`.
+* `(2V_{0,42})²X₂₄/(X₂₀X₄₀) = 1` exactly.
+* With the corrected image, CLS-D's printed dual coefficients `16(d−1)/(d−2)`, `4/(d−2)` (eq. `JJO_kernel_dual`) reproduce their printed
+  kernel `𝒦^{(1)}_{j′=0} ∝ 𝒱𝒱 + 𝒲𝒲 − (D−2)𝒱𝒱` with `x`-independent normalisation. **So the printed kernel is right.** The
+  `(1−x²)` discrepancy of §16 came entirely from the image typo.
+
+**Explicit covariant flip-free structure.**
+* `q := (2H₂₀H₄₀ + V_{0,42}²H₂₄)/(X₂₀X₄₀)` maps to `−Q/(4ν²(m²−ν²)²)` (`Q = 𝒲𝒲 − 𝒱𝒱`) **exactly** (`≤ 10⁻¹⁵`, all four entries) at the
+  `S⁰` point of the `g1` shock frame. The other point is its `x₃`-reflection, which also flips the shock helicity of 1 and 3, so kernel and
+  channel labels flip together.
+* So the photon flip-free structure is a fixed covariant structure, flip-free at the bulk point for all `x`.
+* The graviton `(2,4)` structure of `Ĉ₂` is **`q²`**, i.e. `4S₀ + S₁ + S₂/16` in CLS-D's basis
+  `S_n = (−2V_{0,42})^{J_F−4+2n}H₂₀^{2−n}H₄₀^{2−n}H₂₄ⁿ`. Products of structures evaluate to products, so `q² ↦ Q²/(…)`, which is flip-free
+  with the exact stripped channel ratio `(1−x²)^{−4}` (§12) [DV].
+* Odd sector: `O·Q` with `O` the `2↔4`-antisymmetrised CLS-D `𝒦_{j′=1}`. This is a single-structure kernel, so there is no
+  relative-normalisation issue [D given Q].
+
+**Consequences.**
+* The leakage scenario of §16 (`O(x²)` helicity-flip interference) **does not occur**, so no near-gap quantification is needed.
+* The (2,4) part of H0 is now explicit and checked: [DV] (photon), [D] (graviton even), [D given Q] (odd).
+* The relation to the project's Regge-frame `K*`/`𝔖_ff` (§12) is still only needed to import the H1 evidence: [D-sketch]/[I].
+
+## 18. Milestone M5′b: H17 (`k_AdS − k(0)`) for `Ĉ₂`, `Ĉ₃` — structure and model estimate [D-sketch + M]
+
+**What the correction is.**
+* The `|ĝ₃|²` light side has Regge spin `n = 4`, so by CHMRS's residue formula (§15.2):
+  * `−Ĉ₂|_{ĝ₃} = (2πi/4)([𝒢^{R³}]_{r^{−1}} + c₄^{(2)} ⊛ [𝒢^{R³}]_{r^{−3}})`;
+  * `−Ĉ₃|_{ĝ₃} = (…)([…]_{r^{−2}} + c₅^{(3)} ⊛ […]_{r^{−4}})`.
+* Here `c₄^{(2)}`, `c₅^{(3)}` are the `Π̂₄` / `Π̂₅` admixtures of `Ĉ₂`, `Ĉ₃`. They come from the subleading terms of the subtraction factor
+  (`f₂ = (η/2)r^{−1}(1 + r²)`: relative `+r²`) and of the spin-3 light-ray kernel (not derived for spinning externals).
+* At large `ν` the sum is the flat `Res_{s=0}` (`−B₂ ∋ 2πG|ĝ₃|²p⁶`, `−B₃ ∋ −2πG|ĝ₃|²p⁴`). The AdS terms are `O(1/ν²)` relative:
+  `−Ĉ₂|_{ĝ₃} ∝ ν⁶ + a₄ν⁴ + a₂ν² + a₀`, by analogy with CHMRS's exact scalar results such as `−C₂|_{g₃} = ν² − (2Δ_φ − (d−4)/2)(2Δ_φ + (d−4)/2)`.
+* The exact `a_j` need the subleading Regge Laurent coefficients of the spinning `R³` (`t₄`, `α_T`) `T`-exchange in AdS₄, plus `c₄`, `c₅`.
+  **Not computed** (estimate 1–2 weeks: spinning exchange Witten diagram in the Regge limit to `O(r²)`, or its Mellin/impact-parameter form).
+
+**Model estimate (`h3`; the same heuristic as `omegau/nf5_light.py`, `|a| = D × 36` per power lowered) [M]:**
+
+| `Δ_g` | route A′ `|δk|` | (old B′-uplift, same model) | `A`, `B_AdS` factor | bound factor |
+|---|---|---|---|---|
+| 100 | 0.044 | (0.042) | [0.958, 1.046] | [0.979, 1.023] |
+| 300 | 0.0048 | (0.0046) | [0.995, 1.005] | [0.998, 1.002] |
+| 1000 | 0.00043 | (0.00041) | [0.9996, 1.0004] | [0.9998, 1.0002] |
+
+* Route A′ is the same size as the old functional in this model. `|ĝ₃|²` enters only through `ψ₂p⁶` and `ψ₃p⁴`, rather than through `B′₂…B′₄`.
+* With the exact inversion `δk(0)` (§13) added, the headline bounds `2.21·10⁻⁴ / 3.13·10⁻⁶ / 2.89·10⁻⁸` carry an H17 uncertainty of
+  `≈ ±2 % / ±0.2 % / ±0.02 %` [M]. That is unchanged from `RESULT_D`'s budget; the sign is unknown.
+* **H17 stays [D-sketch + M].** It becomes [D] once the `a_j` are computed.
+
+### 18.1 Regraded table (supersedes §16.1 where they differ)
+
+| statement | grade |
+|---|---|
+| CLS-D printed `H₂₀H₄₀` crystal image off by `1/(m²−ν²)`; printed `H₂₄` image, dual coefficients and `𝒦^{(1)}` consistent once corrected | [DV] |
+| photon flip-free `(2,4)` structure = fixed covariant `q = (2H₂₀H₄₀ + V²H₂₄)/(X₂₀X₄₀)`, image `−Q` exactly, all `x` | [DV] |
+| graviton `(2,4)` structure of `Ĉ₂` = `q²` (flip-free, stripped ratio `(1−x²)^{−4}`); no flip leakage | [DV] (crystal) / [D] (covariance) |
+| odd `(2,4)` structure of `Ĉ₃` = `O·q`-type | [D given Q] |
+| `Ĉ₂`, `Ĉ₃` vanish on parity-even `[TT]`; parity-odd `[TT]` | [D given Q]; [D-sketch] |
+| `−Ĉ₂|_E = 16πG/(ν² + 9/4)`, `Ĉ₃|_E = 0` exactly; `A = 3022.3`, `B_AdS = −6552.5` survive (graviton-pole content) | [D given H7, I14, residue-formula applicability] |
+| `|ĝ₃|²` coefficient: `k(0)`; AdS correction H17 `≈ 4.4 % / 0.48 % / 0.043 %` (bounds `±2 / 0.2 / 0.02 %`) | [D-sketch + M] |
+| I14 | [I] |
