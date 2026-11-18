@@ -212,3 +212,24 @@ mpmath is estimated at about 1 h per state, and installing python-flint was not 
 * `e3_action.py 1000 3 2`
 * `e6_bound.py <Dg> <n>`
 * `e7_nf.py 100`
+
+### `Δ_g = 300`, `Δφ = 3` (`e8` → `e3`, `cache/e3_300.txt`) [NE + I]
+
+**Scope.** 385 states, `m/Λ ∈ [1, 2]`, `J ≤ 10`.
+
+**M02 results:**
+* **Non-positive states.** There are 4, all at `m ≤ 1.04Λ`: `++, J = 0` at `m = Λ` (`−0.78 N_s`) and `+−, J = 4` (`−0.77 N_s` at `1.02Λ`).
+* **Thresholds.** `n_exact` = 1.05 (`δ = 0` and `δ = 0.03`); 1.06 when the odd-`k` reading E is included.
+* **Comparison.** OMEGA_U's series criterion on the same states gives 1.28 (`κ_req = 0.3`, `δ = 0.03`) and 1.40 (`κ_req = 1`).
+
+**Bound (`e6`).**
+
+| `n` | `√(t₄²+α_T²) ≤` |
+|---|---|
+| 1.05 | 5.3·10⁻⁷ |
+| 1.06 | about 5.5·10⁻⁷ |
+| 1 (reference) | 4.4·10⁻⁷ |
+
+This compares with OMEGA_U's `1.1·10⁻⁶` (central) and `1.6·10⁻⁶` (conservative).
+
+**Caveat.** For `Δφ = 2` and `Δ_g = 1000` the runs were still queued when this was written.
