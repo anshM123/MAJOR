@@ -1,6 +1,6 @@
 # H0: the spinning (`⟨TTTT⟩`) functional — route decision and first milestone
 
-Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R–§14 committed (78eca6a), §15–§16 (29e98d1), §17–§18 (1c7a156), §19 (a2618ed); **§20 (M6 step 1: scalar Laplace engine, validated) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
+Status: 18 Nov 2026, derivation/numerics agent. M1 (§0–§8) committed (ce46a54); M2/M3 (§9–§11) committed (7211186); §R–§14 committed (78eca6a), §15–§16 (29e98d1), §17–§18 (1c7a156), §19 (a2618ed); §20.1–§20.7 (ce8480a); **§20.8 (step 2, round 2) unrefereed, not committed.** Targets hypothesis H0 of `RESULT_D.md` (with H2, H4, H14,
 H9b) and finding F1 of `REFEREE_FOUNDATION.md`. Code: `ads4/code/spinfunc/` (`run_all.sh`, single core, ≈ 1–2 h with M3b; outputs in
 `spinfunc/cache/`, git-ignored). It imports `omegau/`, `exactskel/` (e1/e7 caches) and `objid/` **read-only**. Nothing else was modified.
 
@@ -426,6 +426,7 @@ Min flat `F/N_s` over `J ≤ 80` (NF02 weights; object `A` = NF02 itself, B′ i
 | `l1_crystal.py` | M6 step 1: exact gauge-fixed CLS-D scalar integrand around the crystal; Laplace expansion to `O(1/Δ²)` | — |
 | `l2_scalar_validate.py` | M6 step 1: Laplace vs exact scalar skeleton (e1), three gaps, Richardson | `l2_*.pkl`, `l2_scalar_validate_*.txt`, `l2_richardson.txt` |
 | `l3_shadow_laplace.py` | M6 step 2 (piece): shadow coefficient from the `x₅` saddle to `O(1/Δ²)`, scalar check | `l3_shadow_laplace.txt` |
+| `l4_tto_even.py` | M6 step 2 (piece): parity-even conserved `⟨TT𝒪⟩` structures in `d = 3`, TPS-evaluable, numerical null space | `l4_tto_even.txt` |
 | `run_all.sh` | runs all of the above | — |
 
 ## 9. Milestone M2: CLS-D in `d = 3` / 4D graviton helicities (`g1_crystal4d.py`, `f7_flat_stripped.py`)
@@ -1135,6 +1136,59 @@ H4 for route A′ therefore remains **[I]** (§19.5), now with a validated metho
 * **Consequence.** For step 2 the spinning shadow matrix can be obtained to `O(1/Δ²)` by projecting this saddle expansion onto the
   `⟨𝒪†(x₆) T₃T₄⟩` structure basis. No exact weight-shifting computation is needed.
 
+### 20.8 Round 2 of step 2 (unrefereed, not committed): prefactor fix, conserved `⟨TT𝒪⟩` structures
+
+**(a) `P_J`-zero prefactor fix (`l1_tps.expand_pref`, `l1_crystal.laplace_pref`, `l2_scalar_validate.py` with `L2_PREF/L2_USEPREF/L2_LINEAR`) [NE].**
+* What changed: `Q_J` is now kept as a polynomial prefactor, with `E[q e^A]` taken to `ε⁴`; the exponent no longer contains `log Q_J`.
+* Agreement with the log form: identical to `10⁻¹³` away from zeros. Both are the same `O(1/Δ²)` truncation.
+* Effect on the outliers: the Richardson numbers are unchanged, including with sign-carrying linear residuals. So the 23 points near
+  zeros of `P_J(1−2x²)` (`|d₀| ≤ 7.8`) were **not** caused by `log Q_J` (my §20.3 diagnosis was wrong).
+* Their `Δc₂` is non-monotone across the gaps, e.g. `3.0 / 15.4 / 1.5` at `J = 4`, `x = 0.575`. I suspect, but have not shown, that
+  the exact e1 values near the zeros of the leading term are less accurate there [I].
+* Size: `≤ 8` in `c₂` units, against the tolerance `630`. Away from the zeros, §20.3 stands.
+* The prefactor engine is what step 2 needs: the summed polarisation/structure contractions enter as a prefactor `q`, which can vanish.
+
+**(b) Parity-even conserved `⟨T T 𝒪_{Δ,J}⟩` in `d = 3`, general complex Lorentzian position, TPS-evaluable (`l4_tto_even.py`) [NE].**
+* Basis: CPPR monomials `V₁^{a₁}V₂^{a₂}V₅^{a₅}H₁₂^{b₁₂}H₁₅^{b₁₅}H₂₅^{b₂₅}/X…` with the CLS-D `V`, `H` conventions.
+* Conditions imposed:
+  * conservation of `T₁` and `T₂`, using the `d = 3` Todorov operator `C[f] = (3/2)∂_x·∂_z f − ½(z·∂_x)□_z f`, applied by exact TPS
+    differentiation;
+  * `1↔2` symmetry;
+  * the `d = 3` linear relations are quotiented out numerically.
+* Counts (null-space gap `10⁻¹⁵` vs `10⁻¹`, at `Δ = 7.3, 23.7, 101.1`):
+
+| `J` | basis | independent in `d = 3` | conserved and `1↔2` symmetric |
+|---|---|---|---|
+| 0 | 3 | 3 | 1 |
+| 2 | 11 | 10 | 1 |
+| 4, 6 | 14 | 13 | 2 |
+
+* The `14 → 13`, 2-conserved count agrees with `SPINNING_TTTT.md` §1 and arXiv:1708.05718.
+* Self-test that caught a bug: the operator first failed on `⟨JJ⟩` and `⟨TT⟩` two-point functions. Cause: scalar + TPS was added by
+  numpy broadcast. Fixed by converting all inputs to TPS constants.
+* `conserved_even(Δ, J)` returns the exact (numerical) `Δ`-dependent coefficient vectors, and `structures()` evaluates them on TPS
+  points. They are therefore ready for the crystal integrand.
+
+**Step 2 remaining list (concrete).**
+1. **Parity-odd conserved structure.**
+   * Either import `fourpt/tttt/odd3.py`'s words or construct `ε`-structures here. In `d = 3`, `ε(Z₁, Z₂, X₁, X₂, X₅)`-type pseudo-scalars
+     times even monomials, then the same null-space step.
+   * odd3 works in a frame at infinity with sympy, so a covariant re-expression is needed. A same-point comparison with odd3 would be
+     the validation.
+2. **Light-transformed externals.**
+   * After the δ-function rewrite, `T₁, T₃` have polarisation `z₁ ∝ x_{01}`, `z₃ ∝ x_{30}`. Their celestial `j′ = 0, 1` structure is
+     contracted with the transverse polarisation; the scalar celestial factor is in `l1_crystal`.
+   * `T₂, T₄` are contracted with the `(2,4)` dual structure. That means `q²` (`Ĉ₂`) or `O·q` (`Ĉ₃`) of §17 (`g5_covariant_Q.py`), with
+     the polarisation sum over the dual basis (CLS-D §4).
+3. **Shadow coefficient matrix `β_{ab}(Δ,J)`.** Use the `l3` route projected onto the 2 (+1) conserved `⟨𝒪†(x₆) T₃T₄⟩` structures. In the
+   `x₅ = e` gauge the integrand needs `β⁻¹`.
+4. **The integrand.** `build()` gets `G` (scalar parts) plus the prefactor
+   `q = Σ_{a,b} λ_a λ_b × [⟨T₁T₂𝒪⟩_a · β⁻¹ · ⟨𝒪̃T₃T₄⟩_b contracted]`. Each `(a,b)` gives one entry of the 2×2 (3×3 with odd) action
+   matrix.
+5. **Validation at `x → 0`** against the `⟨TTTT⟩` Regge-moment `c₂` (`SPINNING_TTTT_EXT.md`). This is modulo the `Π̂` vs `Ĉ` difference;
+   the scalar analogue (`Ĉ₂` vs `Π̂₂`) has to be quantified first with the scalar engine.
+6. **Step 3.** Feed the 2×2 matrix (minimum eigenvalue per state) into `h2_neargap_exact`, and get `n` at `Δ_g = 100/300/1000` vs §19.3.
+
 ### 20.6 Regraded table (supersedes §19.5 where they differ)
 
 | statement | grade |
@@ -1142,5 +1196,6 @@ H4 for route A′ therefore remains **[I]** (§19.5), now with a validated metho
 | Laplace expansion of the CLS-D crystal integral to `O(1/m²)` reproduces the exact scalar `c₂(x, J)` (`k = 2`) to `|Δc₂| ≤ 0.21` (median `0.05 %`), and `c₁` (mod `ν`-only) | [DV backbone + NE] (three gaps, 443 points) |
 | `O(1/m³)` truncation of that expansion | `≈ 10³/m` in `c₂` units [NE] |
 | shadow coefficient from the `x₅` saddle (CLS-D route) to `O(1/Δ²)` | [NE] (scalar: `Δ⁻³` residual, `J`-only constant) |
-| graviton `δc₂^{spin}(x, J, h)` | not computed; method validated; inputs listed in §20.5 |
+| parity-even conserved `⟨TT𝒪_{Δ,J}⟩` (`d = 3`), exact `Δ`-dependent coefficients at general complex position | [NE] (counts `1, 1, 2, 2` for `J = 0, 2, 4, 6`; matches `SPINNING_TTTT.md`) |
+| graviton `δc₂^{spin}(x, J, h)` | not computed; remaining list in §20.8 |
 | H4 for route A′ | **[I]** (unchanged; §19.3 targets) |

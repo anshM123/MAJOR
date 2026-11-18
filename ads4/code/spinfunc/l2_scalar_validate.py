@@ -25,6 +25,9 @@ from exactmom import log_q                      # read-only import: CHMRS q_{Del
 EC = os.path.join(HERE, '..', 'exactskel', 'cache')
 OUT = os.path.join(HERE, 'cache')
 XW = (0.3, 0.7)
+LINEAR = os.environ.get('L2_LINEAR', '0') == '1'
+USE_PREF = os.environ.get('L2_USEPREF', '0') == '1'
+PREF = os.environ.get('L2_PREF', '0') == '1'      # also compute the prefactor form (Q_J not in the exponent)
 JS = (0, 2, 4, 6)
 MFL = (1.0, 1.05, 1.1, 1.2, 1.3, 1.5)
 
@@ -73,7 +76,15 @@ def run(Dg):
             continue
         r = db[key]
         for i, (x, nu) in enumerate(zip(r['x'], r['nus'])):
-            if not (XW[0] <= x <= XW[1]) or (key, i) in res:
+            if not (XW[0] <= x <= XW[1]):
+                continue
+            if (key, i) in res:
+                if PREF and 'S' not in res[(key, i)]:
+                    Lp = C.laplace_pref(nu, r['Delta'], J)
+                    res[(key, i)]['S'] = Lp['S']; res[(key, i)]['logY0p'] = Lp['logY0']
+                    n += 1
+                    if n % 20 == 0:
+                        pickle.dump(res, open(pk + '.tmp', 'wb')); os.replace(pk + '.tmp', pk)
                 continue
             L = C.laplace(nu, r['Delta'], J)
             X, Xlead = Xexact(nu, r['m'], J, r['ex'][2][i])
@@ -150,7 +161,10 @@ def residual_table(Dg, res, pr, JJ=(0,)):
     rows = []
     for k in keys:
         q = res[k]
-        lr = q['logY0'].real - q['logq'] + np.log(abs(1 + q['K1'] + q['K2'])) - np.log(abs(q['X']))
+        if USE_PREF and 'S' in q:
+            lr = q['logY0p'].real - q['logq'] + np.log(abs(sum(q['S']))) - np.log(abs(q['X']))
+        else:
+            lr = q['logY0'].real - q['logq'] + np.log(abs(1 + q['K1'] + q['K2'])) - np.log(abs(q['X']))
         rows.append((round(q['nu'], 9), q['J'], lr, q))
     A = np.zeros((len(rows), len(nus) + len(Jl))); b = np.array([r[2] for r in rows])
     for r_, (v, J, lr, q) in enumerate(rows):
@@ -159,6 +173,18 @@ def residual_table(Dg, res, pr, JJ=(0,)):
             A[r_, len(nus) + Jl.index(J)] = 1
     wts = np.array([r[3]['m']**2*abs(r[3]['ex2'])/E2(r[3]['x']) for r in rows])
     sol, *_ = np.linalg.lstsq(A*wts[:, None], b*wts, rcond=None); eps = b - A @ sol
+    if LINEAR:
+        # sign-carrying residual eps = Re(Rc e^{-i p0}) - 1 with Rc = (Y/(q X))/exp(fit), p0 = median phase of Rc at that nu
+        # (state-independent to 1e-11 away from zeros of P_J); near a zero, a shifted zero crossing then shows as eps ~ -2.
+        fit = A @ sol
+        Rc = []
+        for r_, (v, J, lr, q) in enumerate(rows):
+            Y = (q['logY0p'] if (USE_PREF and 'S' in q) else q['logY0']) - q['logq']
+            fac = sum(q['S']) if (USE_PREF and 'S' in q) else (1 + q['K1'] + q['K2'])
+            Rc.append(np.exp(lr - fit[r_])*np.exp(1j*np.angle(np.exp(1j*Y.imag)*fac/q['X'])))
+        Rc = np.array(Rc); vv = np.array([r[0] for r in rows])
+        p0 = {v: np.median(np.angle(Rc[vv == v])) for v in set(vv)}
+        eps = np.array([(Rc[i]*np.exp(-1j*p0[vv[i]])).real - 1 for i in range(len(rows))])
     return rows, eps
 
 
@@ -204,6 +230,9 @@ def summary(pr):
     from scipy.special import eval_legendre
     out = richardson(pr)
     pj = np.array([abs(eval_legendre(o[0][1], 1 - 2*o[0][2]**2)) for o in out])
+    if USE_PREF:
+        pr(f"   [prefactor form] ALL points (incl. near-zeros of P_J): max |d0| = {np.abs(np.array([o[1][0] for o in out])).max():.3f}, "
+           f"rms {np.sqrt(np.mean(np.array([o[1][0] for o in out])**2)):.3f}")
     d0 = np.array([o[1][0] for o in out]); c2 = np.array([o[2] for o in out])
     for cut in (0.05,):
         s = pj > cut

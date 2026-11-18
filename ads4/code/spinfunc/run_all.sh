@@ -24,3 +24,4 @@ python3 m2_tolerance_c2.py 100 300 1000   # M6: H4 tolerance for route A' in c2/
 python3 l2_scalar_validate.py 100 300 1000   # M6 step 1: Laplace expansion of the CLS-D crystal vs exact scalar skeleton (~10 min)
 python3 -c "import l2_scalar_validate as V; V.summary(print)" > cache/l2_richardson.txt   # M6 step 1: Richardson over the gaps
 python3 l3_shadow_laplace.py         # M6 step 2 (piece): shadow coefficient from the x5 saddle to O(1/Delta^2), scalar check (~2 min)
+python3 l4_tto_even.py              # M6 step 2 (piece): conserved parity-even <TTO> structures, d = 3 (~20 min)

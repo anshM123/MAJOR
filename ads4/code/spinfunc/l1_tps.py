@@ -147,3 +147,25 @@ def csym_cholesky(S):
         for i in range(j + 1, n):
             L[i, j] = (S[i, j] - np.sum(L[i, :j]*L[j, :j]))/L[j, j]
     return L
+
+
+def expand_pref(lamF, G, q=None):
+    """Laplace series with a prefactor:  E[q(xi) exp(A(xi))] in orders eps^0, eps^2, eps^4 (xi-variables with lamF_2 = -|xi|^2/2).
+    A_j = (lamF)_{j+2} + G_j;  q_j = homogeneous parts of q (q = 1 if None).  Returns (S0, S2, S4); value = e^{lamF0+G0} (S0+S2+S4).
+    The constant terms of lamF and G are ignored here (G's constant should be removed by the caller if q carries normalisation)."""
+    h = [homog(lamF, k) for k in range(DEG + 1)]; g = [homog(G, k) for k in range(DEG + 1)]
+    A1 = h[3] + g[1]; A2 = h[4] + g[2]; A3 = h[5] + g[3]; A4 = h[6] + g[4]
+    A1s = mul(A1, A1)
+    if q is None:
+        q = const(1.0)
+    qq = [homog(q, k) for k in range(DEG + 1)]
+    q0 = qq[0][0]
+    S0 = q0
+    S2 = q0*(expect(A2) + 0.5*expect(A1s)) + expect2(qq[1], A1) + expect(qq[2])
+    e4 = expect(A4) + 0.5*expect2(A2, A2) + expect2(A1, A3) + 0.5*expect2(A1s, A2) + expect2(A1s, A1s)/24.0
+    q1A1 = mul(qq[1], A1)
+    S4 = (q0*e4
+          + expect2(qq[1], A3) + expect2(q1A1, A2) + expect2(q1A1, A1s)/6.0       # q1 [A3 + A1 A2 + A1^3/6]
+          + expect2(qq[2], A2) + 0.5*expect2(qq[2], A1s)                          # q2 [A2 + A1^2/2]
+          + expect2(qq[3], A1) + expect(qq[4]))
+    return S0, S2, S4

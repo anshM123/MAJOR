@@ -48,7 +48,7 @@ def legendre_poly_coeffs(J):
     return [(p, c[p]) for p in range(J + 1) if abs(c[p]) > 0]
 
 
-def build(zv, nu, Delta, J, n0=1.0, parts=False):
+def build(zv, nu, Delta, J, n0=1.0, parts=False, pref=False):
     """zv: list of 7 TPS. Returns (lamF, G) TPS (and dict of pieces if parts)."""
     xt0, ux, vx, uy, vy, xp, yp = zv
     x = [ux, vx, xp]; y = [uy, vy, yp]
@@ -104,8 +104,11 @@ def build(zv, nu, Delta, J, n0=1.0, parts=False):
             for _ in range((J - p)//2):
                 term = T.mul(term, ZZWW)
             Q = Q + term
-        g['QJ'] = T.log(Q)
+        if not pref:
+            g['QJ'] = T.log(Q)
     G = sum(g.values())
+    if pref:                                  # Q_J as polynomial prefactor (uniform near zeros of P_J(1-2x^2))
+        return lamF, G, (Q if J > 0 else T.const(1.0))
     if parts:
         return lamF, G, dict(g=g, lA=lA, lB=lB, fsub=fsub, y0=y0, Q=(Q if J > 0 else None))
     return lamF, G
@@ -147,3 +150,21 @@ def laplace(nu, Delta, J, n0=1.0, check=False):
                quad_check=np.max(np.abs(T.homog(lamF2, 2)[T.DEGS == 2] - np.where(
                    np.array([max(e) == 2 for e in T.EXP[T.DEGS == 2]]), -0.5, 0.0))))
     return out
+
+
+def laplace_pref(nu, Delta, J, n0=1.0):
+    """As laplace(), with the spin contraction Q_J kept as a prefactor (l1_tps.expand_pref).  Returns logY0 (without Q),
+    and S = (S0, S2, S4): Y = exp(logY0) (S0 + S2 + S4)."""
+    zs, a = saddle(nu, Delta)
+    zv = [T.var(i, zs[i]) for i in range(T.NV)]
+    lamF, G, Q = build(zv, nu, Delta, J, n0, pref=True)
+    _, HF = T.grad_hess(lamF)
+    L = np.linalg.inv(T.csym_cholesky(-HF)).T
+    for _ in range(2):
+        lamF2, G2, Q2 = build(T.linsub(zs, L), nu, Delta, J, n0, pref=True)
+        _, H2 = T.grad_hess(lamF2)
+        L = L @ np.linalg.inv(T.csym_cholesky(-H2)).T
+    lamF2, G2, Q2 = build(T.linsub(zs, L), nu, Delta, J, n0, pref=True)
+    S = T.expand_pref(lamF2, G2, Q2)
+    logY0 = lamF[0] + G[0] + 3.5*np.log(2*np.pi) + np.log(np.linalg.det(L)) - log_beta(Delta, J)
+    return dict(logY0=logY0, S=S)
