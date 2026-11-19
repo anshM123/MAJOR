@@ -17,6 +17,7 @@ import l9_analysis as A
 
 _orig = N.dload
 USE_N3 = os.environ.get('N3_USE', '1') == '1'
+USE_N4 = os.environ.get('N4_USE', '0') == '1'      # NEARGAP100_SMALLNU.md: also the n4 thimble points at x = 0.05 (default off: old behaviour)
 CV = os.environ.get('N3_CV', '0') == '1'
 
 
@@ -25,6 +26,10 @@ def dload(kind, J):
     f = os.path.join(HERE, 'cache', 'n3_pts_%s_J%d.pkl' % (kind, J))
     if USE_N3 and os.path.exists(f):
         for k, v in pickle.load(open(f, 'rb')).items():
+            d[k] = v
+    f4 = os.path.join(HERE, 'cache', 'n4_pts_%s_J%d.pkl' % (kind, J))
+    if USE_N4 and os.path.exists(f4):
+        for k, v in pickle.load(open(f4, 'rb')).items():
             d[k] = v
     return d
 
@@ -117,4 +122,4 @@ if __name__ == '__main__':
         print(s, flush=True); lines.append(s)
     tnodes(pr)
     neargap(pr)
-    open(os.path.join(HERE, 'cache', 'n3_analysis%s.txt' % ('_spin' if SPIN else '')), 'w').write("\n".join(lines) + "\n")
+    open(os.path.join(HERE, 'cache', 'n3_analysis%s%s.txt' % ('_spin' if SPIN else '', '_n4' if USE_N4 else '')), 'w').write("\n".join(lines) + "\n")

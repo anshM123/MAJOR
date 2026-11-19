@@ -259,6 +259,137 @@ def thimble(rec, Delta, J, kinds=(), rho1=0.8, m=10, R=8, seed0=4242, prop=None,
     return out
 
 
+# ------------------------------------------------------------------ adaptive (winding-controlled) flow and graviton replay
+WLIM = float(os.environ.get('N4_WLIM', '0.4'))      # max per-step |d arg| of any log; larger -> step rejected and halved
+NHALF = int(os.environ.get('N4_NHALF', '12'))
+import n3_thimble as TH
+
+
+def _flow_rho_adaptive(ev, xi, n, rho1, rho_t, refs, Phic, keep_path):
+    """n3_hybrid._flow_rho with step rejection: a step is accepted only if every RK stage and the new point stay within WLIM (rad) of
+    the current log references (then logs are continued reliably); otherwise h is halved (up to NHALF times, then the line is cut).
+    Same field, same Jacobian propagation as n3_hybrid (columns along the flow direction drop out of det[-conj g, V])."""
+    Nn = xi.shape[0]
+    E = F.frames(n)
+    xi = xi.copy(); V = rho1*E[:, :, 1:].astype(complex)
+    rho = np.full(Nn, rho1, float)
+    act = np.ones(Nn, bool); bad = np.zeros(Nn, bool); nst = np.zeros(Nn, int); hfac = np.ones(Nn)
+    out = dict(imdrift=0.0, sdrift=0.0, wind=0.0, maxsteps=0, nrej=0)
+    path = [] if keep_path else None
+    STEN, NS = TH.STEN, TH.NS
+    Phi0 = [None]
+
+    def field(xs, Vs, rr, idx, upd):
+        pts = (xs[:, None, :] + STEN[None, :, :]).reshape(-1, 7)
+        (Phi, _, _), new, wind = ev.run(ev.phi, pts, [r[..., idx] for r in refs], rep=NS)
+        Phi = Phi.reshape(-1, NS); g, H = TH.grad_hess(Phi)
+        if upd:
+            cen = np.arange(0, pts.shape[0], NS)
+            for a, b in zip(refs, new):
+                a[..., idx] = b[..., cen]
+        g2 = np.sum(np.abs(g)**2, axis=1); fac = rr/g2
+        return (-np.conj(g)*fac[:, None], -np.conj(np.einsum('nij,njk->nik', H, Vs))*fac[:, None, None], Phi[:, 0],
+                wind.reshape(-1, NS).max(axis=1), g, H)
+
+    k1 = None
+    while act.any():
+        idx = np.where(act)[0]
+        k1x, k1v, Phi, w1, g, H = field(xi[idx], V[idx], rho[idx], idx, True)
+        if Phi0[0] is None:
+            Phi0[0] = Phi.copy()
+        bad[idx] |= ~np.isfinite(k1x).all(axis=1)
+        out['imdrift'] = max(out['imdrift'], float(np.abs((Phi - Phi0[0][idx]).imag).max()))
+        out['sdrift'] = max(out['sdrift'], float(np.abs((Phi0[0][idx] - Phi).real - 0.5*(rho[idx]**2 - rho1**2)).max()))
+        gn = np.linalg.norm(g, axis=1); hn = np.linalg.norm(H.reshape(H.shape[0], -1), axis=1)
+        sp = np.linalg.norm(k1x, axis=1)
+        h0 = np.minimum.reduce([np.full(idx.size, TH.HMAX), TH.GSTEP/np.maximum(sp, 1e-12),
+                                TH.HSTEP/np.maximum(hn*rho[idx]/np.maximum(gn**2, 1e-30), 1e-12)])
+        h0 = np.minimum(h0*np.minimum(2*hfac[idx], 1.0), rho_t[idx] - rho[idx])
+        h = np.where(np.isfinite(h0) & (h0 > 0), h0, 0.0)
+        pend = ~bad[idx]
+        x0, v0, r0_ = xi[idx], V[idx], rho[idx]
+        newx = x0.copy(); newv = v0.copy(); newr = r0_.copy()
+        for kh in range(NHALF + 1):
+            if not pend.any():
+                break
+            p = np.where(pend)[0]; ii = idx[p]
+            hh = h[p][:, None]; hv = h[p][:, None, None]
+            r2 = field(x0[p] + 0.5*hh*k1x[p], v0[p] + 0.5*hv*k1v[p], r0_[p] + 0.5*h[p], ii, False)
+            r3 = field(x0[p] + 0.5*hh*r2[0], v0[p] + 0.5*hv*r2[1], r0_[p] + 0.5*h[p], ii, False)
+            r4 = field(x0[p] + hh*r3[0], v0[p] + hv*r3[1], r0_[p] + h[p], ii, False)
+            xn = x0[p] + hh/6*(k1x[p] + 2*r2[0] + 2*r3[0] + r4[0])
+            (_, _, _), _, wc_ = ev.run(ev.phi, xn, [r[..., ii] for r in refs], rep=1)
+            wst = np.maximum.reduce([r2[3], r3[3], r4[3], wc_])
+            okk = (wst <= WLIM) & np.isfinite(xn).all(axis=1)
+            if kh == NHALF:
+                okk = okk | (wst <= TH.WCUT)
+            q = p[okk]
+            newx[q] = xn[okk]; newv[q] = v0[q] + h[q][:, None, None]/6*(k1v[q] + 2*r2[1][okk] + 2*r3[1][okk] + r4[1][okk])
+            newr[q] = r0_[q] + h[q]
+            out['wind'] = max(out['wind'], float(wst[okk].max()) if okk.any() else 0.0)
+            pend[q] = False
+            out['nrej'] += int((~okk).sum())
+            h[p[~okk]] *= 0.5
+            hfac[ii[~okk]] *= 0.5
+        bad[idx[pend]] = True
+        xi[idx] = newx; V[idx] = newv; rho[idx] = newr; nst[idx] += 1
+        hfac[idx[~pend]] = np.minimum(1.0, hfac[idx[~pend]]*1.5)
+        if keep_path:
+            path.append((idx.copy(), xi[idx].copy()))
+        done = (rho[idx] >= rho_t[idx] - 1e-12) | bad[idx] | (nst[idx] >= 4*TH.MAXSTEPS)
+        act[idx[done]] = False
+    idx = np.arange(Nn)
+    _, _, Phi, w1, g, H = field(xi, V, rho, idx, True)
+    bad |= ((nst >= 4*TH.MAXSTEPS) & (rho < rho_t - 1e-12))
+    g2 = np.sum(np.abs(g)**2, axis=1)
+    Mf = np.concatenate([(-np.conj(g)*(rho_t/g2)[:, None])[:, :, None], V/rho_t[:, None, None]], axis=2)
+    Jm = np.einsum('nij,nkj->nik', Mf, E)
+    detJ = np.linalg.det(Mf)
+    out.update(xi=xi, detJ=detJ, Jm=Jm, bad=bad, refs=refs, path=path, maxsteps=int(nst.max()))
+    return out
+
+
+def grav_on_paths_sub(ev, ct, Nn, nsub=8):
+    """graviton integrand at the contour points, logs replayed along the stored paths; a path segment whose winding exceeds WLIM is
+    re-done in nsub linear sub-steps (and cut only if a sub-step still exceeds n3's WCUT)."""
+    (Pg0, pref0), ref0, _ = ev.run(ev.grav, np.zeros((1, 7), complex), None)
+    Pgc = Pg0[0]
+    refs = [np.repeat(r, Nn, axis=-1) for r in ref0]
+    wmax = np.zeros(Nn); last = np.zeros((Nn, 7), complex)
+    segs = list(ct['path']) + [(np.arange(Nn), ct['xi'])]
+    for (idx, xs) in segs:
+        r_old = [r[..., idx] for r in refs]
+        (_, _), new, wind = ev.run(ev.grav, xs, r_old, rep=1)
+        hi = wind > WLIM
+        if hi.any():
+            j = np.where(hi)[0]
+            rr = [r[..., j] for r in r_old]; x0 = last[idx[j]]; wj = np.zeros(j.size)
+            for s in range(1, nsub + 1):
+                (_, _), rr, w_ = ev.run(ev.grav, x0 + (xs[j] - x0)*s/nsub, rr, rep=1)
+                wj = np.maximum(wj, w_)
+            for a, b in zip(new, rr):
+                a[..., j] = b
+            wind = wind.copy(); wind[j] = wj
+        for a, b in zip(refs, new):
+            a[..., idx] = b
+        wmax[idx] = np.maximum(wmax[idx], wind)
+        last[idx] = xs
+    (Pg, pref), _, wind = ev.run(ev.grav, ct['xi'], refs, rep=1)
+    wmax = np.maximum(wmax, wind)
+    Fg = ct['detJ']*np.exp(Pg - Pgc)*pref
+    ok = ct['ok'] & (wmax < TH.WCUT) & np.all(np.isfinite(Fg.reshape(-1, Nn)), axis=0)
+    return np.where(ok, Fg, 0.0), Pgc, pref0[..., 0], ok
+
+
+_orig_flow = Hy._flow_rho
+_orig_grav = Hy.grav_on_paths
+ADAPTIVE = os.environ.get('N4_ADAPTIVE', '0') == '1'     # winding-controlled flow: 40x slower, same mean to 7 digits (cut lines carry
+if ADAPTIVE:                                               # negligible weight) -> off by default
+    Hy._flow_rho = _flow_rho_adaptive
+if os.environ.get('N4_GSUB', '1') == '1':
+    Hy.grav_on_paths = grav_on_paths_sub
+
+
 def save_tracks(key, recs):
     db = pickle.load(open(SPK, 'rb')) if os.path.exists(SPK) else {}
     db[key] = recs
