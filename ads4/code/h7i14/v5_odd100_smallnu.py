@@ -38,6 +38,26 @@ import remk
 from v4_odd_impact import make_shift, _orig_shift
 
 USE_N3 = [True]
+N4_ACCEPT = float(os.environ.get('N4_ACCEPT', '0.05'))   # CRN relative error up to which an n4 x = 0.05 point is accepted
+
+
+def crn_err(v, d4, k):
+    """n4 points: state and reference are on common random numbers; p8's acceptance (rel. err <= 5 %, else Gamma err <= 60) uses the
+    records' own errors as if independent.  Replace them by the CRN error of the state/reference ratio (jackknife over the common
+    replicas), assigned to the state record (reference err = 0); a point with CRN error > N4_ACCEPT is marked unusable (err = 10 |E|)."""
+    if k[0] == 20000.0:
+        v['err'] = 0*np.abs(v['E']); return v
+        
+    rk = (20000.0, k[1])
+    if rk not in d4:
+        return v
+    xs, xr = v['reps'][:, 0, 0], d4[rk]['reps'][:, 0, 0]
+    n = len(xs); R = xs.mean()/xr.mean()
+    jk = np.array([np.delete(xs, i).mean()/np.delete(xr, i).mean() for i in range(n)])
+    e = np.sqrt((n - 1)/n*np.sum(np.abs(np.log(jk/R) - np.log(jk/R).mean())**2))
+    v['err'] = np.abs(v['E'])*(e if e <= N4_ACCEPT else 10.0)
+    v['crn_rel'] = e
+    return v
 USE_N4 = os.environ.get('N4_USE', '1') == '1'
 _dload = P8.dload
 
@@ -50,7 +70,11 @@ def dload_merged(kind, J):
             fns.append(os.path.join(SF, 'cache', 'n4_odd_pts_%s_J%d.pkl' % (kind, J)))
         for fn in fns:
             if os.path.exists(fn):
-                for k, v in pickle.load(open(fn, 'rb')).items():
+                isn4 = 'n4_odd' in fn
+                d4 = pickle.load(open(fn, 'rb'))
+                for k, v in d4.items():
+                    if isn4:
+                        v = crn_err(dict(v), d4, k)
                     db[(float(k[0]), float(k[1]))] = v
     return db
 
