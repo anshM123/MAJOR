@@ -636,3 +636,288 @@ By §12 (E), in the CLS-D building-block form this is `η × [η-inverted superp
    That would make I14(b) [P given KKSDZ incl. loophole].
 4. `Ĉ₃` `Π₂` moment: a derivation of the spinning `r¹` kernel would upgrade §15 from [D + NE] to [P].
 5. Unchanged from §11: R4 (integer Laurent expansion for spinning tree diagrams); the `B_AdS = −6552.5 → −6552.7` transcription.
+
+---
+
+# Round 3 (19 Nov 2026, third derivation agent): the spinning Regge kernel computed; (HN) decided; `Ĉ₂′`
+
+*Appended by a third agent. §0–§17 are unchanged; where they differ, §18–§22 supersede them. Not refereed, not committed.*
+*New code: `ads4/code/h7i14/v3_regge_kernel.py` (kernel, heavy image, validations), `v3_hn_analysis.py` (tables, (HN) tests),
+`v3_heavy_impact.py` (near-gap chains with the spinning de-shift; read-only imports of `spinfunc/l9_*`, `n1_analysis`). Output in
+`ads4/code/h7i14/cache/v3_*.txt` (about 2 min for `v3_hn_analysis.py`, 1 core).*
+
+**Summary.**
+* The leading-Regge kernel of `Ψ_{2,ν}[q²]` is computed in closed form (split representation through the celestial point `z₀`, §18.1).
+  Its heavy image is **exactly `h₋(ν)P_{l−1} + h₊(ν)P_{l+1}`: `h₀ ≡ 0`, and `++` and `+−` are identical** (§18.3).
+* So the only possible (HN) defect is the **ratio `h₋/h₊`**, the spinning analogue of the CHMRS magic-block coefficients `g/g̃`. It differs
+  from the scalar one: `O(1)` for `ν ≲ 8`, `≈ −180/ν³` in the local shift coefficient for `ν ≳ 20` (§18.4).
+* **(HN) verdict (§19):** not exact for the current `Ĉ₂` (scalar-`g` de-shift). The defect is `O(1)` and, in the implemented forward
+  normalisation, singular at `ν₀ = 5.98` for `ν ≲ 8`, and `≤ 0.5 %` of the graviton-pole term for `ν ≥ 15`.
+* **Fix (§20):** `Ĉ₂′ := 𝒜_h⁻¹[Ψ_{2,ν}[q²]]`, the de-shift with the computed spinning coefficients. (HN) holds by construction, so H7 is
+  exact and **`A = 3022.34`, `B_AdS = −6552.66`, `k₀`, NF02 and the bounds `2.21·10⁻⁴ / 3.13·10⁻⁶ / 2.89·10⁻⁸` are unchanged**. The heavy
+  side changes only through the local shift coefficient (§20.3).
+
+## 18. The leading-Regge kernel of `Ψ_{2,ν}[q²]` and its heavy image
+
+### 18.1 Derivation: split representation through the celestial point [D]
+
+Frame (3.23): `x₁ = −y`, `x₃ = y`, `x₂ = x/x²`, `x₄ = −x/x²` (as `l6_spin_action.geom`). Regge limit `x, y → 0`, `r = |x||y|`.
+
+* **Light-ray side (operators 1, 3).** The two δ-functions of `Ψ⁺` put `x₀` on the circle `x₀ = |y|n̂_θ`, `n̂·y = 0`, `n̂² = 1`, with uniform
+  measure `dθ` (rest frame of `y`). The light-ray polarisations are `z₁ = x_{1⁺0} = −|y|(ŷ + n̂)` and `z₃ = x₃₀ = |y|(ŷ − n̂)`: antipodal null
+  directions. The celestial `j′ = 0` structure (`δ₁ = δ₃ = 2`, `δ = ½ + iν`) is `[(−z₀·(ŷ+n̂))(−z₀·(ŷ−n̂))]^{−δ/2}` up to a constant
+  (`(ŷ+n̂)·(ŷ−n̂) = −2`) and a ν-only phase (all bases have a fixed sign on the region). With `m̂` the direction of `z₀` at `ŷ`:
+  `B(ŷ, z₀)[τ₁₃] = (−z₀·ŷ)^{−δ} ∫₀^{2π}dθ |sin(θ − φ_m)|^{−δ} τ₁₃(ŷ + n̂_θ, ŷ − n̂_θ)`.
+  The θ-moments are Beta functions; `n̂n̂`-products reduce to `m̂` and `η + ŷŷ` (exact, `v3_regge_kernel.B_monomials`).
+* **Dual side (operators 2, 4).** `x₀ = O(|y|)` against `|x₂| = 1/|x|`, so at leading Regge order the dual structure is evaluated at
+  `x₀ = 0` (corrections `O(r)`, i.e. `Π₃`, invisible at leading Regge order). With the polarisations of 2, 4 referred to the origin by the
+  inversion (`Z₂ ≃ Inv·Z(x, z₂′)`, as in Lemma V), exactly at `x₀ = 0`, `|x| = 1`:
+  `V_{0,42} = (z₀·x̂)/2`, `H₂₀ = z₂′·z₀`, `H₄₀ = z₄′·z₀`, `X₂₀ = X₄₀ = 1`, so
+  **`q = 2(z₂′·z₀)(z₄′·z₀) − (z₀·x̂)²(z₂′·I(x̂)·z₄′)`**, `I(x̂) = η + 2x̂x̂`, and
+  `A(x̂, z₀)[τ₂₄] = (−z₀·x̂)^{−(1−δ)} · 16q²/(z₀·x̂)⁴` (scalar dual with `Δ̃₂ = Δ̃₄ = 0` times `q²/V⁴`, as in `l6`).
+* **Kernel.** `𝒦₀(x̂, ŷ) = ∫Dz₀ A(x̂, z₀)B(ŷ, z₀)` (`z₀` on the celestial circle; total `z₀`-degree `−1`). The full leading kernel is
+  `(|x||y|)^{a−3} η 𝒦₀` with `f = v′ − u′ = η(1+r²)/(2r)` exactly in this frame.
+* **Radial powers.** Relative to the scalar `Δφ = 3` functional, `⟨TTTT⟩` adds `|x|⁴` (`q²/V⁴`, `V ∝ 1/|x|`), `|y|⁴` (`τ₁₃(x₁₀, x₃₀)`,
+  degree 4) and `r⁻⁴` (`f` without `1/(u′v′)`). These cancel pair by pair, so **`a = 7` for both pairs**, as assumed in §12. Independent
+  confirmation below: the large-ν shift coefficient (§18.4) and the crystal ν-only factor (§18.2, check X).
+* **Scalar control.** `q²/V⁴ → 1`, `τ₁₃ → 1` give `B ∝ (−z₀·ŷ)^{−δ}`, `A ∝ (−z₀·x̂)^{−(1−δ)}`, so `𝒦₀ ∝ P_{−½+iν}(η)` (split representation),
+  i.e. CHMRS's `½ηP_l`.
+
+**What is assumed (why [D], not [P]).** The leading Regge kernel is read off `Ψ⁺` (the `−(1↔3)` term is the same shape acting on the other
+ordering, as for scalars); ν-only constants and phases are dropped (they cancel in every statement below); `Lemma V`'s inversion-referenced
+polarisations for 2, 4. Each is the same input as in the scalar case, where the result is exact (check V1).
+
+### 18.2 Heavy image: method and validation [DV]
+
+* Plane-wave pair `e^{p·x + p̄·y}`, constant preserving tensors `τ₂₄ = ε_{h₂}²⊗ε_{−h₂}²` at `p̂`, `τ₁₃ = ε_{h₁}²⊗ε_{−h₁}²` at `p̄̂` (parallel frame
+  of Lemma V). Then `L = −η^{μν}∂_{p^μ}∂_{p̄^ν}∫Dz₀ Â₆(p, z₀)B̂₆(p̄, z₀)` (the η-trick of §12 (E), `b = a − 1`).
+* Every term of `A`, `B` is `|x|^c(−z₀·x)^{−λ}(ε·x)^i(ε′·x)^j`, whose transform is `(ε·∂_p)^i(ε′·∂_p)^j F_{c,λ}`,
+  `F_{c,λ} = K(c,λ)(−z₀·p)^{−λ}(−p²)^{(2λ−c−3)/2}`, `K = 2^{μ−1}√πΓ(1+c/2)Γ((c+3)/2−λ)`, `μ = c+3−λ`. Derivatives by an exact
+  truncated Taylor engine. The `z₀` integral is smooth and periodic (trapezoid, converged at 64 nodes to `10⁻¹⁵`).
+* `L(β)` at 12–16 values of `β` is fitted to `{P_{l−1}, P_l, P_{l+1}}(cosh β)` (and the f-stripped image to `P_l`); the residual tests
+  the structure.
+
+| check | content | result |
+|---|---|---|
+| V0 | `K(c,λ)` vs `2π∫₁^∞P_{λ−1}t^{−μ}` (mpmath); full transform vs direct `H₂` quadrature | `≤ 3·10⁻¹⁶`; `8·10⁻¹¹` (`10⁻⁴` in a slowly convergent case, quadrature-limited) |
+| V1 | scalar functional through the same pipeline: f-stripped image `= c₀P_l`; η-image vs CHMRS `½c₀[gP_{l−1} + g̃P_{l+1}]` | residual `≤ 1.4·10⁻¹⁵`; `h₀/h₋ ≤ 5·10⁻¹⁴`; `h₋/(c₀g/2) − 1 ≤ 4·10⁻¹⁴` (`ν = 0.3, 1, 2.5, 6`) |
+| X | forward (`β = 0`) graviton/scalar ratio `(h₋ᵀ+h₊ᵀ)/(h₋ˢᶜ+h₊ˢᶜ)` at `ν = 40…1000`, fit `log R = p log ν + c + a₁/ν + a₂/ν² + a₃/ν³` | `p = 0.0000`, **`a₁ = 22.06i`**, `a₂ = 92 − 6i`. The crystal (H0 §22.1, independent code, bulk-point regime) found the graviton/scalar ν-only factor **`exp(22i/ν + 82/ν² + …)`** |
+
+Check X is an end-to-end test of the spinning ingredients (`q` at `x₀ = 0`, the light-ray polarisations, `a = 7`) against `l6`'s exact
+integrand in a different regime. The `a₂` difference (92 vs 82) is within the truncation of both fits (H0 §22.1 extracted it from `K₂`).
+
+### 18.3 Structure of the spinning heavy image [P given §18.1] + [DV]
+
+1. **The f-stripped kernel is `l`-isotypic.** Its preserving heavy image is `c₀ᵀ(ν)P_l` (fit residual `≤ 3·10⁻¹⁵`, all ν).
+2. **`h₀ ≡ 0`.** Fit: `|h₀|/(|h₋|+|h₊|) ≤ 10⁻¹³` at every ν in `0.05…300`, both classes.
+   * **Proof (given §18.1).** Write `η = −x̂·ŷ = −x̂^μŷ_μ`. Then `L = −∫Dz₀ V^μ(p̂, z₀)W_μ(p̄̂, z₀)`, with `V^μ` the transform of `x̂^μA` contracted
+     with `τ₂₄`. A preserving `τ₂₄` has weight 0 at `p̂`, so it is fixed by the stabiliser `SO(2)_{p̂}` and `p̂ ↦ τ₂₄(p̂)` is
+     `SO(2,1)`-equivariant. Hence `V^μ` is an equivariant vector function of `(p̂, z₀)`: `V = (−z₀·p̂)^{−λ}[c₁p̂ + c₂z₀/(−z₀·p̂)]`, and the
+     same for `W` at `p̄̂` with `λ′ = 1 − λ`. The `z₀` integral of each of the four products is a split-representation integral with exponents
+     `(λ, λ′)`, `(λ−1, λ′+1)` or `(λ+1, λ′−1)`. The first comes with `p̂·p̄̂ = −η_β` and gives `ηP_l ∈ span{P_{l±1}}`; the others give
+     `P_{l∓1}`. No term gives `P_l`. ∎
+   * The argument uses only the scalar celestial point (the celestial "sphere" is `S¹` in `d = 3`) and the weight-0 tensors. Accordingly,
+     `h₀ = 0` was also found numerically for `(H₂₀H₄₀)²`, `(V²H₂₄)²`, the `2↔4`-asymmetric `H₂₀²V₄²` and `H₂₀²H₄₀V₄`, and for a light-ray side
+     with the `1↔3` symmetry deliberately broken.
+   * **So the §13 worry (a helicity-even `P_l` component not removed by `Re`) does not arise.**
+3. **Helicity blindness.** `(h₁,h₂) = (+,−)` [`++`] and `(+,+)` [`+−`] (and their reflections) give identical images, to `3·10⁻¹⁶`.
+   * Reason [P given §18.1]: `θ → θ+π` swaps `z₁ ↔ z₃` and leaves the weight invariant (the `1↔3` symmetry of `j′ = 0`). This maps `h₁ → −h₁`;
+     combined with parity `(h₁,h₂) → (−h₁,−h₂)`, `++ ≡ +−`. It holds for any `(2,4)` structure.
+   * Consistent with H0 §22.1 (helicity-independent ν-only factor to `3·10⁻⁸`).
+
+### 18.4 The spinning magic-block coefficients `h_∓(ν)` [DV]
+
+Normalisation-free statements use ratios at the same ν. Two parametrisations (`cache/v3_hn_analysis.txt`, full table there):
+* `a_∓ := 2h_∓ᵀ/(c₀ˢᶜ·(g, g̃))`, i.e. `Ψᵀ` heavy `= ½c₀ˢᶜ[g a₋P_{l−1} + g̃ a₊P_{l+1}]` in the normalisation of the scalar `Ψ` (same dual and
+  celestial prefactors as `l6`). The scalar has `a₋ = a₊ = 1`.
+* `u_T := (h₋ − h₊)/(h₋ + h₊)` (forward-normalised local shift coefficient); scalar `u_sc = (g − g̃)/(g + g̃) = i Im g/Re g`. Under `Re` only
+  `σ := Im u` matters (§19.2).
+
+| `ν` | `a₋` | `a₊` | `|h₋/h₊|` | `Re u_T` | `σ_T` | `σ_sc` | `ν³Δσ` |
+|---|---|---|---|---|---|---|---|
+| 0.05 | −0.76+0.17i | −0.77−0.08i | 1.010 | 0.065 | +3.49 | +8.45 | 0.00 |
+| 0.5 | +0.24+1.96i | −0.68−1.16i | 1.467 | 0.351 | −0.89 | +0.69 | −0.2 |
+| 1 | +4.53+1.01i | +0.95−2.15i | 1.977 | 0.598 | +0.81 | +0.10 | +0.7 |
+| 2 | −1.9−12.2i | +2.7+3.0i | 3.079 | 1.825 | +0.42 | −0.49 | +7.3 |
+| 3 | −22.9−6.7i | −3.0+10.8i | 2.133 | 0.362 | −0.04 | −1.10 | +28.8 |
+| 4 | −33.0+11.5i | −9.4+17.7i | 1.739 | 0.481 | −0.83 | −2.14 | +84 |
+| 5 | −32.1+27.8i | −12.9+23.9i | 1.559 | 1.242 | −1.85 | −5.07 | +402 |
+| 6 | −26.1+38.5i | −13.3+29.1i | 1.452 | 4.582 | −1.93 | **+265.9** (pole at `ν₀ = 5.98`) | — |
+| 7 | −18.8+44.3i | −11.5+33.0i | 1.377 | 3.739 | +3.03 | +5.91 | −989 |
+| 8 | −11.9+46.9i | −8.5+35.6i | 1.322 | 1.347 | +2.66 | +3.19 | −270 |
+| 10 | −0.6+47.0i | −1.5+37.7i | 1.245 | 0.413 | +1.632 | +1.766 | −134 |
+| 15 | +15.1+39.2i | +12.0+34.8i | 1.142 | 0.116 | +0.8685 | +0.9062 | −127 |
+| 20 | +21.9+31.8i | +19.4+29.6i | 1.092 | 0.060 | +0.6119 | +0.6294 | −140 |
+| 30 | +27.3+22.4i | +25.9+21.7i | 1.047 | 0.026 | +0.3928 | +0.3986 | −157 |
+| 50 | +30.3+13.9i | +29.7+13.7i | 1.018 | 0.0095 | +0.23185 | +0.23321 | −171 |
+| 100 | +31.6+7.0i | +31.4+7.0i | 1.005 | 0.0024 | +0.11522 | +0.11540 | −177 |
+| 300 | +31.95+2.35i | +31.93+2.34i | 1.0005 | 0.0003 | +0.03834 | +0.03835 | −180 |
+
+Large-ν fits (`ν = 40…300`):
+* `νσ_T = 11.5025 − 0.75/ν + 264/ν²` and `νσ_sc = 11.5010 − 0.31/ν + 415/ν²`: the same `23/2`, as CHMRS's `23/4` for `Im g/(g+g̃)`
+  (H0 §24.1). This confirms `a = 7` for the spinning kernel.
+* `ν³Δσ = −180.3 + 104/ν + …`, with `Δσ := σ_T − σ_sc`.
+* `ν²Re u_T = 24.0 − 8.4/ν`. This part is conjugation-odd and removed by `Re` (§19.2).
+* `a_∓ → ≈ 32 e^{22i/ν}`: the spinning `Ψ` is, at large ν, `≈ 32×` the scalar one times the crystal's ν-only factor (check X).
+
+## 19. (HN) for the current `Ĉ₂` (scalar inversion kernel `gP_{l−1} + g̃P_{l+1}`): verdict
+
+### 19.1 What (HN) now reduces to [P given §18]
+
+* By §18.3, `Ψᵀ_ν := Ψ_{2,ν}[q²]` has preserving leading-Regge heavy action `h₋(ν)P_{l−1} + h₊(ν)P_{l+1}` on every heavy `⟨TTTT⟩` state
+  (times the positive state factors `ρ⁺⁺ + ρ⁺⁻`). There is no `P_l` term and no helicity dependence.
+* The current `Ĉ₂` (H0 §24.1) is the scalar-`g` de-shift `𝒜_g⁻¹[Ψᵀ_ν/N_T(ν)]`, with `𝒜_g: Y ↦ gY(ν+i) + g̃Y(ν−i)`. It satisfies (HN)
+  iff there is a real-analytic `c(ν)` with `h₋/N_T = g c(ν+i)` and `h₊/N_T = g̃ c(ν−i)`. Then the heavy action is `c(ν)P_l` and `N̂₂ = c`.
+* **This depends on the ν-normalisation `N_T` of `Ψᵀ`, which the current definition does not fix.** H0 §24.1 says "the same combination
+  for every correlator", but CLS-D's spinning `Ψ` has no canonical prefactor. Any `N_T(ν)` rescaling changes `𝒜_g⁻¹[Ψᵀ/N_T]`, because
+  `𝒜_g` does not commute with ν-dependent rescaling.
+* For one specific `N_T*` (solve `c(ν+i)/c(ν−i) = (h₋/h₊)(g̃/g)` for `c`, then `N_T* = h₋/(g c(ν+i))`), (HN) holds exactly. That
+  functional is `Ĉ₂′` of §20. The question is therefore whether the normalisations actually used are `N_T*`.
+
+### 19.2 The two normalisations in use, and the size of the defect [DV]
+
+**(i) Same prefactors as the scalar `Ψ` (the `l6` integrand: scalar dual `× q²/V⁴`, scalar celestial).**
+* Exact criterion: `a₋(μ − i) = a₊(μ + i)` for real μ (then `c(μ) = a₋(μ−i)`). Evaluated by analytic continuation of the closed forms
+  (fit residuals `≤ 10⁻¹⁴`).
+* `|a₋(μ−i)/a₊(μ+i) − 1| = 0.35, 0.90, 0.15, 0.036, 0.009` at `μ = 0.7, 2, 4, 9, 20`.
+* **Fails**, by `O(1)` at `μ ≲ 4` and roughly as `μ^{−1.8}` beyond. In addition `a_∓` themselves range over a factor `≈ 40` and carry the
+  phase `e^{22i/ν}` (§18.4), so (i) is not even a sensible normalisation of the flat limit.
+
+**(ii) Forward / heavy-limit normalisation, as implemented** (H0 §22.1 Fix 2 and §23.5(b): `N̂ = ` the `m → ∞` limit at fixed ν and small
+`J`, i.e. `β = 0`; then `shift()` of `l9_analysis` with the scalar `g`; then `Re`).
+* Per ν: `Re[Ψᵀ/N̂] = ½[(1 + iσ_T)P_{l−1} + (1 − iσ_T)P_{l+1}]`. `Re` removes `Re u_T`, because `P_{l−1} − P_{l+1} = 2i Im P_{l−1}` is
+  purely imaginary for real ν.
+* The scalar-`g` de-shift inverts `½[(1 + iσ_sc)P_{l−1} + c.c.]`. So the heavy kernel is `𝔥 = P_l − 𝒜̂_g⁻¹[Δσ·Im P_{l−1}]`,
+  `Δσ = σ_T − σ_sc`; locally, `𝔥 ≈ P_l − Δσ·Im P_{l−1}`.
+* By §12, the coherent light side is
+  `−Ĉ₂|_E = 16πG(1 + ε(ν))/(ν² + 9/4)`, with `ε(ν) = Δσ·2ν(ν² + 9/4)/((ν² + 5/4)² + 4ν²)` (first order).
+
+| `ν` | 1 | 3 | 5 | 6 | 7 | 8 | 10 | 15 | 20 | 30 | 50 | 100 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `ε(ν)` | +0.51 | +0.51 | +1.1 | **−80** (pole of `σ_sc` at `ν₀ = 5.98`) | −0.76 | −0.12 | −0.026 | −4.9·10⁻³ | −1.7·10⁻³ | −3.9·10⁻⁴ | −5.4·10⁻⁵ | −3.5·10⁻⁶ |
+
+* Large ν: `Δσ ≈ −180/ν³`, `ε ≈ −360/ν⁴`.
+* For `ν ≲ 8` the defect is `O(1)`, and it is singular at `ν₀`: there `g + g̃ = 0`, while the graviton forward normalisation `h₋ + h₊`
+  has no zero.
+* This is H0 §24.1's ill-conditioning of the local de-shift, now shown to be a genuine (HN) failure for the graviton, not only a numerical
+  problem.
+
+**Verdict on (HN) for the current `Ĉ₂`.**
+* `h₀`-type failure (helicity-even `P_l`): **none**, exactly [P given §18.1; DV].
+* Helicity dependence: **none**, exactly [P given §18.1; DV].
+* Magic-block ratio: **(HN) fails** for both normalisations in use. In the implemented one (ii) the per-ν defect of the graviton-pole term
+  is `|ε| ≥ 0.1` at `ν ≲ 8` (singular at `5.98`), `≤ 2.6 %` at `ν ≥ 10`, `≤ 0.5 %` at `ν ≥ 15` and `∝ ν⁻⁴` beyond. **[DV]**, given the
+  §18.1 kernel [D].
+* Only the special normalisation `N_T*` makes the scalar-`g` de-shift exact, and it is equivalent to §20's `Ĉ₂′`.
+
+**Correction to §13's failure model.** The model there (`g → gρ`, `ρ = [M_𝔖(ν+i)/M_𝔖(ν)]²`) is of the form `𝒜_g[M_𝔖²P_l]`, so with the
+scalar normalisation it satisfies (HN) exactly, with `N̂₂ ∝ M_𝔖²`. It fails only in the forward normalisation (ii). The actual kernel is not
+of that form (criterion (i) fails), but its size estimate was the right order: `O(1)` at `ν ∼ 1–8`, `ν⁻³` decay of the shift coefficient.
+
+## 20. The corrected functional `Ĉ₂′` and its impact
+
+### 20.1 Definition [definition; properties P given §18 + D]
+
+**`Ĉ′_{2,ν} := 𝒜_h⁻¹[Ψ_{2,ν}[q²]]`**, with `𝒜_h: Y ↦ h₋(ν)Y(ν+i) + h₊(ν)Y(ν−i)` and `h_∓` the spinning coefficients of §18.4.
+* There is no `h₀` term (§18.3), so the three-term difference operator of §13/§17 reduces to two terms.
+* `Ω^{A′}` keeps `Re`, `ψ₂`, `ψ₃` and `Ĉ₃` unchanged.
+
+Smeared form: `∫ψ₂(ν)Ĉ′_{2,ν}dν = ∫χ(ν)Ψᵀ_ν dν`, with `χ(ν−i)h₋(ν−i) + χ(ν+i)h₊(ν+i) = ψ₂(ν)`. This is the same type of equation as the
+scalar `ψ̃`, with `(g, g̃) → (h₋, h₊)`. Pole terms arise if `h_∓` have poles or zeros in `|Im ν| ≤ 1`. The scalar `g` has the `1/ν` pole at
+`ν = 0`; `h_∓` inherit it (the two terms degenerate at `l = −½`). The analytic structure of `h_∓` in the strip was not mapped [I].
+
+Properties:
+* **Normalisation-free [P]:** `𝒜_{φh}[Y] = φ𝒜_h[Y]`, so any ν-only rescaling of `Ψᵀ` drops out. This removes the ambiguity of §19.1.
+  Equivalently, `Ĉ₂′ = 𝒜_g⁻¹[Ψᵀ/N_T*]/c` with the special normalisation `N_T*` of §19.1.
+* **(HN) exact by construction** [P given §18]: the heavy leading-Regge action is `P_{−½+iν}(cosh β)·(ρ⁺⁺ + ρ⁺⁻)` with `N̂₂ ≡ 1`, for both
+  helicity classes (§18.3). `Re` is then inert at leading Regge order; it still removes the subleading imaginary terms of H0 §22.2.
+* **H7 exact:** by §12, `−Ĉ′₂|_E = 8πG Σ_h T̂_ν[P_l] = 16πG/(ν² + 9/4)`, **[P given Lemma R, Q3, Q4, D2 and the §18.1 kernel (D)]**.
+  * At the smeared level the pole term is invariant, `∫χ Re[h₋D₊ + h₊D₋] = ∫ψ₂/(ν²+9/4)` with `D_± = 1/((ν±i)² + 9/4)`, by the same
+    contour shift as for the scalar `ψ̃` (H0 §R.9). This holds given the analyticity of `χh_∓` in the strip, the [I] above.
+* **Flat limit unchanged:** the de-shift is an `O(1/m²)` effect at fixed `x`, and `Ĉ₂′` and the current `Ĉ₂` differ only in its coefficient,
+  by `Δσ = O(ν⁻³)`. The crystal / bulk-point action, NF02 and `k₀ = 27.48509817` are untouched [D].
+  * `δk(0)` (the `ψ̃ − ψ₂` mass, `−1.5·10⁻³` at `Δ_g = 100`) changes by relative `Δσ/σ ≈ 1.5·10⁻³` at `ν ∼ Λ`, i.e. by `≈ 2·10⁻⁶`
+    absolute [M estimate].
+* **No shadow coefficient is used** anywhere in §18–§20, so the `PARITY_ODD_ROUTEA.md` §12 branch artefact does not arise.
+
+### 20.2 Light side: `A`, `B_AdS` and the bounds [P given §20.1]
+
+With `Ĉ₂′` the graviton-pole term is exactly `16πG/(ν²+9/4)`, helicity-blind, so `L_A` and every light-side constant are unchanged:
+* **`A = 3022.34`, `B_AdS = −6552.66`** (v1 check (g)), divided by `k(0)_{A′}` as before;
+* **bounds `√(t₄²+α_T²) ≤ 2.21·10⁻⁴ / 3.13·10⁻⁶ / 2.89·10⁻⁸` at `Δ_g = 100 / 300 / 1000`, unchanged** (`n` as before, §20.3).
+
+For the record, the current forward-normalised `Ĉ₂` (§19.2 (ii)) with its coherent light side:
+* above `ν = 10 / 15 / 20` the defect `ε(ν)` shifts `B_AdS` by `A∫ε ν dν/(ν² + 9/4) = −19 / −4.0 / −1.4` (`0.3 % / 0.06 % / 0.02 %` of
+  `B_AdS`, not `A`);
+* below `ν ≈ 8` it is `O(1)` and singular at `ν₀`, so that functional has **no well-defined light side**. The §13 model's "`~10–20 %` of
+  `B_AdS`" was the right order for this region.
+* `Ĉ₂′` removes the issue, rather than this being a correction to be applied to `B_AdS`.
+
+### 20.3 Heavy side [NE + M] (`v3_heavy_impact.py`, `v3_heavy_split.py`; `cache/v3_heavy_*.txt`)
+
+Method: the existing l9/n1 chains (Laplace rows; and at `Δ_g = 100` the direct rows on `x ≥ 0.2`, as H0 §24.5). The only change is the
+`k = 2` local de-shift coefficient `σ_sc → σ_T`. `Ĉ₃` keeps the scalar `g` (its shift relation is a separate open item).
+* The baseline reproduces H0 §24.5 exactly: direct rows `0.1814 / 0.2037 / 0.2742 / 0.4885` for `J = 4/6/8/10`.
+* At `Δ_g = 300` the baseline gives `t* = (−10.5, +8.0)`, not the older `(−5.1, +5.0)`, because of the `J = 10`, `Δ = 200` row added
+  since. `n` and `λ_min` are as before.
+
+| run | `Δ_g = 100` (Laplace rows) | `Δ_g = 100` (direct rows, `x ≥ 0.2`) | `Δ_g = 300` | `Δ_g = 1000` |
+|---|---|---|---|---|
+| baseline (scalar `g`) | `n = 1`, min `λ/N_s = 0.1855` (`J = 4`, `1.04Λ`) | `n = 1`, `0.1814` | `n = 1`, `0.2054` (`+−`, `J = 5`, unaffected) | `n = 1`, `0.2021` (unaffected) |
+| `Ĉ₂′` at all nodes | **`n = 1.09`**: `J = 8`, `1.08Λ` gives `−0.006`; `J = 10`: `0.069` | `n = 1`, min **`0.055`** (`J = 8`, `1.08Λ`) | `n = 1`, `0.2054`; `J = 8`: `0.4304 → 0.4332` | `n = 1`, `0.2021`; changes `≤ 10⁻⁴` |
+| `Ĉ₂′` only at `ν ≥ 15` | `n = 1`, `0.1868` | `n = 1`, `0.1827` | — | — |
+| `Ĉ₂′` only at `ν ≥ 20` | `n = 1`, `0.1861` | `n = 1`, `0.1820` | — | — |
+
+Reading:
+1. **On the controlled window (`ν ≥ 15–20`, where the crystal is computed non-perturbatively) the change is `≤ 0.002 N_s`.** This is the
+   `ν⁻³` decay of `Δσ`. At `Δ_g = 300 / 1000` every node has `ν ≳ 15 / 50`, and nothing moves beyond `3·10⁻³ / 10⁻⁴`. **`n = 1` at
+   `Δ_g = 300, 1000` stands** (same grade as before, [NE + M]).
+2. **At `Δ_g = 100` the whole effect comes from the two nodes `x = 0.05, 0.1` (`ν ≈ 4.9, 9.8`).**
+   * There `σ_sc = −4.52` (next to the pole at `5.98`) against `σ_T = −1.72`; at `9.8`, `1.84` against `1.69`.
+   * The local (first-order) de-shift is not valid at these ν for either functional (H0 §24.1), so neither row is a computation of
+     `Ĉ₂′` there.
+   * What is established is that **the `x < 0.2` graviton correction at `Δ_g = 100` is sensitive at `O(1)` to the de-shift coefficient**:
+     `J = 8` moves from `0.23` to `−0.006`. It must be redone with the exact non-local `𝒜_h⁻¹` and non-perturbative small-ν crystal data
+     (the n3 contour).
+   * This sharpens H0 §24.8, but does not change its status: `n` at `Δ_g = 100` remains **[I]**.
+3. Theorem A (`CERTIFIED_NEARGAP_A.md`) is a statement about the scalar-skeleton model, whose leading Regge action is `2P_l` exactly. It
+   does not involve the graviton de-shift and is unchanged. Its relevance to `⟨TTTT⟩` now rests on (HN), which `Ĉ₂′` provides exactly.
+
+## 21. Regraded table (supersedes §16 where they differ)
+
+| item | §16 | now | remaining |
+|---|---|---|---|
+| leading-Regge kernel of `Ψ_{2,ν}[q²]` | not computed | **closed form** (split representation, §18.1) **[D]**; validated by the scalar CHMRS `g` (`10⁻¹⁴`) and the crystal ν-only factor `exp(22i/ν)` (`a₁ = 22.06i`) **[DV]** | the `Ψ⁺` vs `−(1↔3)` reading and Lemma V's polarisation referral, both as in the scalar case |
+| `h₀` (helicity-even `P_l`) | feared | **`≡ 0`** **[P given §18.1]**, [DV] `≤ 10⁻¹³` | — |
+| helicity dependence of the Regge kernel | open | **none** **[P given §18.1]**, [DV] `3·10⁻¹⁶` | — |
+| `h_∓(ν)` | — | tabulated `ν = 0.05…300` [DV]; `Δσ = −180/ν³`, `ν²Re u_T → 24` | analytic form; zeros and poles in `|Im ν| ≤ 1` [I] |
+| (HN) for the current `Ĉ₂` (scalar `g`) | [I] at `ν ≲ 15` | **fails**: not well-posed without `N_T`; in both normalisations in use the defect is `O(1)` at `ν ≲ 8` (singular at `5.98`), `≤ 0.5 %` at `ν ≥ 15`, `∝ ν⁻⁴` in `ε` **[DV given the kernel]** | — |
+| (HN) for `Ĉ₂′` | — | **exact by construction** [P given §18.1] | non-local `χ` (as for the scalar `ψ̃`) not computed |
+| H7, `Ĉ₂′` | [P given (HN), …] | **[P given Lemma R, Q3, Q4, D2, §18.1 (D)]**: `16πG/(ν²+9/4)` exactly; **`A`, `B_AdS`, bounds unchanged** | R4; D2; the §18.1 [D] |
+| `n = 1` at `Δ_g = 300, 1000` under `Ĉ₂′` | [NE + M] | unchanged (`Δλ ≤ 3·10⁻³`) [NE + M] | as before |
+| `n` at `Δ_g = 100` | [I] (`x < 0.2`) | **[I], sharper**: with the spinning local coefficient on `x < 0.2`, `J = 8` reaches `−0.006` (Laplace rows) / `+0.055` (direct rows); on `ν ≥ 15` the change is `≤ 0.002` | exact `𝒜_h⁻¹` + n3 small-ν crystal |
+
+## 22. Hand-over (supersedes §17)
+
+1. **Adopt `Ĉ₂′` in H0 §R / §24.1** (not edited here; read-only for this agent).
+   * The current text ("the same combination for every correlator") does not define `Ĉ₂` on `⟨TTTT⟩`: it depends on an unstated
+     ν-normalisation of `Ψᵀ` (§19.1), and the implemented one violates (HN) at `ν ≲ 8`.
+   * Proposed wording: "`Ĉ_{2,ν} := 𝒜_h⁻¹[Ψ_{2,ν}[q²]]` with the spinning magic-block coefficients `h_∓` of `H7_I14_LIGHTSIDE.md` §18.4; on scalars
+     `h_∓ ∝ (g, g̃)` and this is CHMRS's `C_{2,ν}`."
+   * With it, RESULT_D's H7 row can read [P given Lemma R, Q3, Q4, D2, H7 §18.1], and (HN) is no longer a premise.
+2. **Heavy side at `Δ_g = 100`, `x < 0.2`.**
+   * Replace `gfac` by `(1 ± u_T)/2` (`cache/v3_uT_table.pkl`, or `v3_heavy_impact.sigma_T`) in any future de-shift.
+   * Better: do the de-shift non-locally, i.e. solve for `χ` on the small-ν crystal data of the n3 contour.
+   * The `J = 8`, `m = 1.08Λ` state is the one to watch.
+3. **Analytic `h_∓`.** The structure of §18.3 (proof of `h₀ = 0`) gives `h_∓` as finite sums of Γ-ratios times polynomials in ν. A closed
+   form would make the strip analysis (zeros and poles of `h_∓`, pole terms of `χ`) [P]. Worth doing before computing `χ`.
+4. **`Ĉ₃`**: the same split-representation computation with `o_H·q`, `f = −1` and the `j′ = 1` celestial sign would give its own shift
+   relation (H0 §24.1's [I]). `v3_regge_kernel` needs only a new `A_monomials` (the `ε`-structure) and the sign.
+5. Unchanged from §17: K1′ uniformity; R4; the `B_AdS = −6552.5 → −6552.7` transcription.
+
+**Files (this round).**
+* `ads4/code/h7i14/v3_regge_kernel.py`: kernel, closed-form transforms, fits, checks V0 and V1 → `cache/v3_regge_kernel.txt`.
+* `ads4/code/h7i14/v3_hn_analysis.py`: helicity and `h₀` tests, `h_∓` table, asymptotics, exact (HN) test, crystal cross-check X →
+  `cache/v3_hn_analysis.txt`, `cache/v3_uT_table.pkl`.
+* `ads4/code/h7i14/v3_heavy_impact.py`, `v3_heavy_split.py`: near-gap chains with the spinning de-shift → `cache/v3_heavy_impact.txt`,
+  `cache/v3_heavy_split.txt` (and `cache/v3_heavy_tmp/`, `cache/v3_sigmaT_memo.pkl`).

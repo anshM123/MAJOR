@@ -2018,19 +2018,117 @@ Same points and fit as l9_scalar_k3 (`Δ_g = 100`, `m/Λ = 1.0–1.2`, `J = 0…
   for time `T`, `N3_TFLOW`, implemented) cuts the variance but costs ≈ 10× and loses ≈ 15 % of the points to winding cuts at `T = 0.5`;
   not used in production.
 
-### 25.9 Hand-over (written while the production runs were going; superseded by §25.4–§25.8 where those exist)
+### 25.4 Scalar validation at small `ν` against the exact Mellin nodes (`n3_scalar_validate.py`, `n3_exact.py`, `cache/n3_scalar_validate.txt`) [NE]
 
-* **Running / resumable** (`nohup`, single core each, caches survive restarts):
-  `n3_run.py` (graviton `C2`+`C3H`+scalar on common samples; `cache/n3_pts_<kind>_J<J>.pkl`, n1 format, key `(Δ, round(ν, 9))`;
-  log `cache/n3_run_B.log`; queue: `x = 0.15` (`m = 10`), then `x = 0.1` and `x = 0.05` (`m = 12`), `J = 4, 6, 8, 10`, `Δ = 100, 2·10⁴`)
-  and `n3_scalar_validate.py run` (`cache/n3_scal_100.pkl`, log `cache/n3_scal.log`; 198 (state, node) points, `ν ∈ [6.6, 19.2]`).
-  Restart: `cd ads4/code/spinfunc; OMP_NUM_THREADS=1 nohup python3 n3_scalar_validate.py run >> cache/n3_scal.log &` and
-  `N3_M=12 N3_XS=0.1 nohup python3 n3_run.py 4 6 8 10 >> cache/n3_run_B.log &` (then `N3_XS=0.05`).
-* **Analysis:** `python3 n3_scalar_validate.py analyse` → `cache/n3_scalar_validate.txt`; `N1_RELMAX=0.5 python3 n3_analysis.py` →
-  `cache/n3_analysis.txt` (Γ direct vs `K₂`, `t(x)` per node, `n` at `Δ_g = 100` with direct values on `x ≥ 0.1`, tolerance windows).
-  `N1_RELMAX` must be raised: n1's 5 % cut is on max|err|/max|E| and rejects points next to zeros of `P_J` whose absolute (Γ-unit)
-  errors are small; `grid_direct` propagates the replica errors into Γ.
-* **Files:** `n3_flow.py` (evaluator with branch replay, saddle continuation incl. complex `ν_f`, `set_branch`/`W_REF`), `n3_hybrid.py`
-  (contour `C(ρ₁, ν_f)`, adaptive RQMC, graviton replay, optional `ν`-flow), `n3_saddles.py` (fold / `A±`), `n3_thimble.py` (pure-thimble
-  + sparse-grid attempt; not used), `n3_exact.py` (exact shifted scalar comparison object), `n3_scalar_validate.py`, `n3_run.py`,
-  `n3_analysis.py`.
+* **Comparison object.** `X(ν) = g(ν)C(ν+i) + g(−ν)C(ν−i)` evaluated exactly: every term of `m⁴C₂` except the remainder `ρ₂` in closed form
+  at complex `ν` (`E₂P_J`, `P_{−½+iν}(cosh β)`, `J₀`), `ρ₂` (exact on the 64 e1 nodes) continued to `ν ± i` by local barycentric
+  interpolation in `p²` on the 10 nearest nodes (continuation error ≤ 10⁻³ c₂ units; a 24-node window is ill-conditioned and gave
+  garbage at `ν ≈ 10–16` — caught by the validation itself and fixed). At these `ν` the l2 local-shift object differs from it by ≲ 2 c₂.
+* **Points.** `Δ_g = 100`, e1 states `m/Λ ∈ {1.0, 1.05, 1.1, 1.2, 1.3}` × `J ∈ {0, 2, …, 10}`, nodes `ν = 9.20 … 19.15` (`x = 0.07–0.19`), same
+  contour rule as the graviton runs, `2¹⁰·2·8` RQMC points per point. Fit `log|Y/(qX)| = a_ν + b_J` as in §24.3.
+
+| nodes `ν` | points | residual `|Δc₂|` rms / max (c₂ units) | RQMC error median (c₂) |
+|---|---|---|---|
+| 9.20 | 22 | 48.6 / 82.3 | 219 |
+| 10.64 / 12.17 / 13.80 | 66 | 5.8 / 2.4 / 9.4 (max 42) | 80 / 47 / 32 |
+| 15.50 / 17.29 / 19.15 | 64 | 4.8 / 4.6 / 6.5 (max 27) | 26 / 21 / 17 |
+| **all, `ν ∈ [9.2, 19.2]`** | **152** | **19.3 / 82.3** | 33 |
+
+* **The contour method reproduces the exact skeleton's state dependence at `ν = 9–19` to `|Δc₂| ≤ 82` (rms 19) c₂ units**, ≥ 8× below the
+  §19.3 tolerance scale 630. In `N_s` units: a state-dependent error of this size moves `λ_min/N_s` by ≲ 0.01 (calibration: §24.5,
+  where `|ΔΓ| ≤ 117` moved it by ≤ 0.010). The residuals are below the replica errors (χ²/dof 0.05) because all states share the Sobol
+  seeds (common random numbers): the per-`ν` constant absorbs the common error, the residual is the state-dependent error, which is
+  what the near-gap test and the state/reference ratio of the graviton chain need.
+* **Not validated below `ν ≈ 9`:** at `ν = 7.85` the RQMC errors are 6–12 % (residual rms 277, max 577 c₂, consistent with the
+  errors but useless as a test); at `ν = 6.60` 400 %; at `ν ≈ 4.9` (the `x = 0.05` graviton node) 50–100 %. The contour is valid there
+  (it is the same cycle), but the integrand on any real-`ν_f ≥ 13` contour is too broad and oscillatory for RQMC.
+
+### 25.5 Graviton `Ĉ₂`, `Ĉ₃` (o_H) at `x = 0.1, 0.15` (`n3_run.py`, `cache/n3_pts_*`; `n3_analysis.py`, `cache/n3_analysis_tnodes.txt`) [NE]
+
+Δ = 100 row (`m ≈ 98`) and references `Δ = 2·10⁴` at the same `ν` (`ν ≈ 9.8`, `14.7`), `J = 4, 6, 8, 10`, both kinds and the scalar on common
+samples; `x = 0.15`: `2¹⁰·2·8` points (rel. errors 0.6–1.2 %), `x = 0.1`: `2¹²·2·8` (0.7–1.1 %); points lost to winding cuts ≤ 0.3 %.
+Γ (c₂ × LO shape, l9 normalisation, de-shifted, `Re`) direct / `K₂` re-normalised to the direct `a_h` (`a_h` is a per-state
+congruence fitted on the three smallest-`x` nodes, so it moves by ≤ 1.8 % when they become direct; `n` does not depend on it):
+
+| `J` | elem. | `x = 0.10`: direct ± err (t) | `x = 0.15`: direct ± err (t) | `t = (Γ_dir − c₂s)/(Γ_K₂ − c₂s)` at 0.10 / 0.15 |
+|---|---|---|---|---|
+| 4 | C2 ++ | −1515 ± 71 (t 0.85) | −1079 ± 35 (t 0.90) | 0.85 / 0.90 |
+| 4 | C3H ++ | −2020 ± 42 (t 0.97) | −1436 ± 34 (t 0.98) | 0.97 / 0.98 |
+| 6 | C2 ++ / +− | −2568 ± 44 (t 0.87); +− t 0.85 | −1084 ± 18 (t 0.91); +− t 0.91 | 0.87 / 0.91 |
+| 6 | C3H ++ / +− | −3312 ± 24 (t 0.98); +− t 0.97 | −1521 ± 12 (t 0.99); +− t 0.98 | 0.98 / 0.99 |
+| 8 | C2 ++ / +− | −3057 ± 23 (t 0.89); +− t 0.87 | 11 ± 9 (zero of `P₈`); +− t 0.86 | 0.89 / — |
+| 8 | C3H ++ / +− | −3828 ± 11 (t 0.98); +− t 0.98 | −324 ± 15 (t 1.04); +− t 1.00 | 0.98 / 1.04 |
+| 10 | C2 ++ / +− | −2644 ± 9 (t 0.90); +− t 0.88 | 1763 ± 6 (t 0.99); +− t 1.04 | 0.90 / 0.99 |
+| 10 | C3H ++ / +− | −3249 ± 5 (t 0.98); +− t 0.98 | 1623 ± 8 (t 0.99); +− t 0.99 | 0.98 / 0.99 |
+
+(`J = 4` +− elements are |Γ| ≤ 50 with errors 50–95: no meaningful ratio; off-diagonals ≤ 1.) **`t(x) ∈ [0.85, 1.04]` at every
+resolved node, i.e. the true small-`x` correction is 85–104 % of the `K₂` value** — inside the §24.8 window `[−0.20, 1.25]` with margin.
+
+### 25.6 `n` at `Δ_g = 100` with the direct values (`n3_analysis.py`; `cache/n3_analysis_neargap.txt`) [NE + M]
+
+`C23H_K2` chain (both functionals, CHMRS-type de-shift, `Re`), direct values at the `Δ = 100` row on `x = 0.1, 0.15` (n3) and
+`x ≥ 0.2` (n1), `K₂` at `x = 0.05` and on the other rows (`Δ = 200/400/1600`, `ν = x m ≥ 10`/`20`/`80`), odd `J` unchanged:
+
+| quantity | value |
+|---|---|
+| **`n`** | **1** |
+| min `λ/N_s` (binding) | **0.2067** (`J = 4`, `m/Λ = 1.04`); per `J = 4/6/8/10`: 0.207 / 0.270 / 0.474 / 0.488 |
+| previous (§24.5, direct on `x ≥ 0.2` only) | 0.1814 (`J = 4`, 1.04Λ) |
+| whole-correction margin `t*` | (−0.8, +3.4) (was (−0.8, +1.8)) |
+| tolerance, correction on ALL `x < 0.2` scaled by `t` (direct where available) | `n = 1` iff `t ∈ [−0.21, +1.39]` |
+| tolerance on the region `x < 0.1` (the unresolved `x = 0.05` node and half of the `x = 0.1` interval) | `t ∈ [−21.5, +1.64]` |
+| tolerance on `x < 0.075` (`x = 0.05` node region) | `t ∈ [−30, +2.77]` |
+
+* Errors: replacing the `x = 0.1, 0.15` values by direct ± 1σ (Γ errors 5–95 c₂) moves `λ_min/N_s` by ≲ 0.01 (same calibration as §24.5);
+  the state-dependent systematic of the method (scalar validation, ≤ 82 c₂) likewise ≲ 0.01. So **`λ_min/N_s = 0.207 ± 0.015`** at the
+  resolved level, **with the `x = 0.05` node (`ν ≈ 4.9`) still from the `K₂` chain**.
+* **What is left at `x < 0.1`.** The `x = 0.05` node (`ν ≈ 4.9 < ν₀ = 5.98`, below the fold) is not resolved. `n = 1` survives any
+  multiple `t ∈ [−21, +1.64]` of its `K₂` correction (region `x < 0.1`). Evidence on `t` there: at the two resolved nodes `t = 0.85–1.04`
+  (never above 1.04): `C3H` 0.97–0.99 at both nodes, `C2` 0.85–0.91 (its deviation from `K₂` grows mildly, 9–10 % → 10–15 %, from
+  `x = 0.15` to 0.1, in the direction of a SMALLER correction, i.e. towards the safe side of the window).
+  A failure needs the `x = 0.05` correction to exceed `K₂` by 64 % in the destabilising direction. Also note the definitional caveat of
+  §24.1: at `ν < ν₀` the LOCAL de-shift used by the chain (same for direct and `K₂`) is ill-conditioned; the exact non-local inverse was
+  not implemented, so even an exact crystal value at `x = 0.05` would carry this [I].
+
+### 25.8 Regraded table (supersedes §24.6 where they differ)
+
+| statement | grade |
+|---|---|
+| the real-plane contour (n1) is not a valid cycle once it meets the branch locus `A = 0`; part of its `ν ≈ 15` failure was the two-step continuation | [D] + [NE] |
+| crystal saddle folds at `ν* ≈ 11.3` (`Δ = 100`, `J = 4`; ≈ 11.5–12 at `Δ = 2·10⁴`): Airy-type transition in the soft block | [NE] |
+| hybrid flow contour `C(ρ₁, ν_f)` (linear disk + downward-flow continuation): valid cycle, single-valued integrand; `ρ₁`, `ν_f` independence | [D] (construction) + [NE] (tests §25.3) |
+| scalar validation vs exact Mellin data, `ν ∈ [9.2, 19.2]`, `J ≤ 10`, `m/Λ ∈ [1, 1.3]`: `|Δc₂| ≤ 82`, rms 19 c₂ | [NE] |
+| scalar at `ν < 9`: not validated (RQMC errors 6 % at 7.85 … 100 % at 4.9) | — |
+| graviton `C2`/`C3H` at `x = 0.1, 0.15` (`J = 4–10`): `t = 0.85–1.04` vs `K₂` | [NE] (method validated on the scalar at these `ν`; the graviton integrand on the same cycle has no extra checks beyond `x = 0.25` vs n1, §25.3) |
+| `n = 1` at `Δ_g = 100` with direct values on `x ≥ 0.1`; `λ_min/N_s = 0.207 ± 0.015` | [NE + M] (even sector; base model, de-shift, `Re` as before) |
+| `x < 0.1` (`x = 0.05` node, `ν ≈ 4.9`) | **[I]**: `K₂` value; `n = 1` for `t ∈ [−21, 1.64]` there; plus the §24.1 non-local de-shift caveat at `ν < ν₀` |
+| **`n` at `Δ_g = 100`** | **[NE + M + I]**: controlled down to `x = 0.1`; the remaining [I] is the `x = 0.05` node with a wide margin (needs > 64 % excess over `K₂`) |
+| H4 for route A′ | [I]; at `Δ_g = 100` reduced to `x < 0.1` |
+
+### 25.7 Parity-odd (`+−`, `J = 5, 7, 9`) integrands on the same contour (`n3_run_odd.py`, `cache/n3_odd_pts_<kind>_J<J>.pkl`) [NE, data only]
+
+At the coordinator's request: p8's integrand (`p8_odd_pw.P8.build`, kinds `C2`, `C3H`, `n0 = +1`; imported read-only) evaluated on
+`C(ρ₁, ν_f)` with the n3_run rule and a proposal adapted to the odd integrands, at the `Δ = 100` row `x = 0.15, 0.1` and references
+`Δ = 2·10⁴`, `2¹²·2·8` points. Stored in p8's format (`E` 1×1, `err`, `reps`, `logN` = the integral's own normalisation, scalar on common
+samples). Check vs p8 at `x = 0.25`, `J = 5`, `C2`: `1.226−0.258i` vs `1.245−0.228i` (×10⁻¹⁵; n3 at `2⁶` points, 1.4 % error) — consistent.
+No chain analysis was done here (odd chain = p8_analysis; the β phase `e^{iπ(Δ+J)}` of PARITY_ODD_ROUTEA.md §12 must be stripped there as
+usual — these points do not change the shadow coefficient). Status of the runs: see `cache/n3_odd_A.log` (J = 5, 7), `n3_odd_B.log` (J = 9).
+
+### 25.9 Hand-over
+
+* **Done:** contour method (§25.1–25.3), scalar validation `ν ∈ [9.2, 19.2]` (§25.4), graviton even `x = 0.1, 0.15` (§25.5), `n` (§25.6).
+  Caches: `n3_pts_{C2,C3H}_J{4,6,8,10}.pkl` (keys `(100, ν)`, `(2e4, ν)`), `n3_scal_100.pkl`, `n3_analysis_tnodes.txt`,
+  `n3_analysis_neargap.txt` (= log of the tolerance bisections), `n3_scalar_validate.txt`.
+* **Re-running the analysis:** `N1_RELMAX=0.5 python3 n3_analysis.py` (≈ 1.5 h single core: the bisections). `N1_RELMAX` must be raised:
+  n1's 5 % cut on max|err|/max|E| rejects points next to zeros of `P_J` whose Γ-unit errors are small; `grid_direct` propagates the
+  replica errors into Γ. x = 0.05 points were computed and deleted (errors 50–100 %).
+* **Open, in order:** (1) `x = 0.05` (`ν ≈ 4.9`): needs a better cycle representative than any real-`ν_f ≥ 13` contour — candidates: the
+  generalised-thimble step `N3_TFLOW` (implemented in `n3_hybrid._gflow`; at `T = 0.5` it lost 15 % of points to winding cuts — smaller
+  steps / `WCUT` study needed), or explicit thimbles of the `A±` pair with a smaller disk `ρ₁ ≲ 1`. Validate at the e1 nodes 4.41, 5.45.
+  (2) The exact (non-local) inverse of the magic-block relation at `ν < ν₀` (§24.1) — definitional, independent of (1). (3) Rows
+  `Δ = 200` (`x = 0.05`, `ν ≈ 10`) are inside the validated range and could be made direct with `n3_run.py` (`N3_DS=200,20000`, with
+  `DROW` logic: currently `ν = x m(100, J)`; add a row option). (4) Odd sector: feed `n3_odd_pts_*` to p8_analysis.
+* **Files:** `n3_flow.py` (evaluator with branch replay; saddle continuation incl. complex `ν_f`; `set_branch`/`W_REF`), `n3_hybrid.py`
+  (contour, adaptive RQMC, graviton replay, optional `ν`-flow), `n3_saddles.py` (fold, `A±`), `n3_thimble.py` (pure thimble + sparse grid;
+  not competitive, kept for the record), `n3_exact.py` (exact shifted comparison object), `n3_scalar_validate.py`, `n3_run.py`,
+  `n3_run_odd.py`, `n3_analysis.py`. No n1/n2/p files were edited.
