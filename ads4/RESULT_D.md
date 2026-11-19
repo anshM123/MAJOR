@@ -109,6 +109,14 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   min λ/N_s 0.181** (J = 4, m = 1.04Λ; QMC error ≈ 0.005–0.02) [NE + M on x ≥ 0.2]; x < 0.2 (ν ≲ 20, 25–35 % of the weight for J ≥ 6)
 >   covered only by the K₂ chain → **[I] overall**. No computed number breaks n = 1 at Δ_g = 100.
 >
+> * **Update (parity-odd sector, `PARITY_ODD_ROUTEA.md`):** covariant conserved odd ⟨TT𝒪⟩ built and matched to CHL's X^O at 9 states [DV];
+>   no symmetric odd structure at J = 1, 3 (odd-J +− states start at J = 5). Real OPE coefficient; even–odd interference cancels
+>   identically in the S⁰ sum at every Laplace order [DV], so Re acts on EE ⊕ OO. Leading order: odd exchanges give the stripped +− density
+>   with a positive, state-independent normalisation N = 2.31756 (closed form and the earlier Regge-moment 3.30/3.77 unexplained [I];
+>   irrelevant for positivity) [NE]. **Odd-sector n = 1 at Δ_g = 1000 and 300** with J = 5, 7, 9 corrected (binding +−, J = 5: min
+>   F/N_s 0.2023 / 0.2072; correction may be scaled by ≳ −210 / −57) [NE + M]. Δ_g = 100: n = 1 with K₂ (0.2217) but **not controlled**
+>   (same small-ν non-convergence as the even sector). H12′ for route A′: shape and sign [NE].
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,

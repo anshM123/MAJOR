@@ -124,8 +124,12 @@ factors, scalar reference, `N̂`) cancels. (Integer `Δ` is avoided: CHL's x-spa
   and of the functional**, and `N_same = 1/N_opp` exactly. So `N` is a relative normalisation of CHL's position-space odd vs even helicity
   structures (the `opp`/`same` pair is rescaled by `√N∞ = 1.5224` and its inverse) — not dynamics, not `O(1/m)`. I have not identified
   `2.31756` in closed form (it is not one of the obvious `π`, `√2`, `√3`, `log 2` combinations; `mpmath.identify` finds nothing).
-* The Regge-moment values `3.77 / 3.30` (`PARITY_ODD_HEAVY.md` §4) are at `J/m ≈ 0.51` (the `β = 1` line), far from the fixed-`J` heavy
-  limit; the crystal at their `J = 19` state is not converged (above) and the `J = 19` trend in `Δ` is being computed (`cache/p5_J19.log`).
+* `J = 19` trend (`Ĉ₂`, `x = 0.2, 0.4`): `N = 2.3001 / 2.3162 / 2.31742 / 2.31755` at `Δ = 100.37 / 200.37 / 400.37 / 800.37`; the deviation
+  from `2.31756` falls like `Δ^{−3.5}` and its `x`- and order-dependence like the Laplace truncation, i.e. it is the crystal's truncation
+  error at `J²/m = O(1)`, not a `Δ`-dependence of `N`. At `Δ = 43.7` (`J²/m ≈ 10`) the crystal fails (3.1–3.25, order-dependent). So the
+  crystal finds **no `Δ`-dependence of `N` anywhere it converges**, while the Regge-moment values are `3.77 / 3.30` (`PARITY_ODD_HEAVY.md` §4,
+  `J/m ≈ 0.51`). Together with the exact constancy in `k`, `ν`, kernel found there, the most economical reading is that the Regge
+  pipeline's `W[O,O]` carries an extra seed-normalisation factor (its own suspicion, §4.3(c)) on top of `N∞`; not verified [I].
   What is established: **`N > 0`** (the odd exchange enters with the same sign as an even `+−` exchange of the same `(Δ, J)`), and `N` is a
   state-*independent* constant in the heavy limit. The expectation "`N = 1`" assumed that CHL's x-space odd and even structures have equal
   helicity moduli; the computed blocks say their moduli differ by `√N∞`. Note that §1's validation fixes the *shape* of `X^O` exactly but
@@ -210,7 +214,10 @@ moves to `±4.5·10³` (the small-`ν` problem of H0 §23.4, now also for the od
 
 **`Δ_g = 100`, `a`-independent check** (`p7_crystal_sign.py`): `a₊₋ > 0` is a common positive factor of `Ĉ₂` and `Ĉ₃`, so the sign of the
 crystal's own `ψ`-integrated action at the `Δ = 100` row (`m ≈ 98 ≈ Λ`) does not depend on the unconverged normalisation. `K₂`:
-`F_cr/(aN) = +0.191` (`J = 5`; LO alone `+0.200`), `+0.159` (`J = 7`; LO `+0.180`). `K₃`: see §8.
+`F_cr/(aN) = +0.191` (`J = 5`; LO alone `+0.200`), `+0.159` (`J = 7`; LO `+0.180`). `K₃` (`J = 5`): `F_cr/(aN) = +0.322` with
+`a_{K₃} = 0.533 a_{K₂}`, i.e. the normalisation-free crystal action itself is `F_cr = 1.76·10⁻¹⁰ N` (`K₂`) vs `1.58·10⁻¹⁰ N` (`K₃`): **positive at
+both orders and changed by 10 %**, although `a` and the individual `Γ` are not converged. So at the `Δ_g = 100` binding region the sign of
+the odd-`J = 5` action is stable under the next Laplace order; its size relative to the model base is not controlled.
 
 ## 7. Graded summary
 
@@ -228,15 +235,14 @@ crystal's own `ψ`-integrated action at the `Δ = 100` row (`m ≈ 98 ≈ Λ`) d
 | identification of `2.31756`; reconciliation with the Regge-moment `3.77 / 3.30` | **[I]** / open (likely a CHL x-space normalisation slip, §4; Regge values at `J/m ≈ 0.5`) |
 | odd-sector `O(1/m²)` corrections (linear chain, reference subtraction, CHMRS de-shift), `J = 5, 7, 9`, `Δ ≥ 200` | [NE] |
 | **odd sector `n = 1` at `Δ_g = 1000` and `300`** with `Ĉ₂ + Ĉ₃` corrections; binding `+−`, `J = 5` unchanged (0.2023 / 0.2072); `t* ≥ 57` / `≥ 6` (CLS-D) | **[NE + M]** |
-| odd sector at `Δ_g = 100` | `n = 1` with the `K₂` numbers, **not controlled** (`Δ = 100` row unconverged at `K₃`); `a`-independent crystal sign positive at `K₂` |
+| odd sector at `Δ_g = 100` | `n = 1` with the `K₂` numbers, **not controlled** (`Δ = 100` row unconverged at `K₃`); the `a`-independent crystal action at `m ≈ Λ` is positive at `K₂` and `K₃` (`J = 5`, 10 % change) [NE] |
 | odd `J ≥ 11` | [ND] (unchanged base) |
 | H12′ for route A′ (parity-odd binding state) | shape and sign [NE]; normalisation constant irrelevant (positive, state-independent) |
 
 ## 8. Hand-over (state at the end of this round)
 
-* **Running / to finish** (resumable, `p3_run.py`): `K₃` (`L1_DEG=8`) `Δ = 100` rows for `J = 5` (`Ĉ₃` running) and `J = 7` (`p_queueC.sh`);
-  `N` at `J = 19`, `Δ = 100…800` (`cache/p5_J19.log`). When done: `L1_DEG=6 python3 p7_crystal_sign.py 5 7` (K₂ vs K₃ crystal sign) and
-  `P4_K=3 P4_KINDS=C2,C3H python3 p4_odd_analysis.py 5 7`.
+* **Running / to finish** (resumable, `p3_run.py`): `K₃` (`L1_DEG=8`) `Δ = 100` row for `J = 7` (`p_queueC.sh`, `cache/p3_run_k3_*.log`).
+  `J = 5` `K₃` and the `J = 19` `N` trend are done. When `J = 7` `K₃` is done (`cache/p3_pts_*_J7_k3.pkl`): `python3 p7_crystal_sign.py 7`.
 * **Files.** `p1_tto_odd.py` (structures), `p1b_validate_odd3.py`, `p2_shadow_odd.py` (`P3_ANTI=1`: antisymmetric even set at odd `J`),
   `p3_odd_action.py` (+ `p3_run.py`; `L1_DEG=8` → `K₃` caches `*_k3.pkl`), `p4_odd_analysis.py` (LO check, `Γ` grid; `P4_DESHIFT`, `P4_K`,
   `P4_KINDS`), `p5_N.py` (+ `p5_run.sh`), `p6_odd_neargap.py` (`P6_KINDS`, `P6_K3`), `p7_crystal_sign.py`. Caches `cache/p*`.
