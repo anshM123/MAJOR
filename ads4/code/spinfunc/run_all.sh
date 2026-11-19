@@ -59,3 +59,5 @@ OMP_NUM_THREADS=1 N1_XS=0.2,0.15 N1_M=15 N1_MREF=13 python3 n1_run.py C3H 10 8 6
 OMP_NUM_THREADS=1 python3 n1_scalar_validate.py run 10 6 0 8 4 2 && python3 n1_scalar_validate.py analyse   # scalar vs exact e1
 python3 n1_ratio_check.py 10 8 6 4                           # state/ref ratio: K2, K3 vs direct  -> cache/n1_ratio_check.txt
 python3 n1_analysis.py C23H_K2                               # Gamma direct vs K2/K3; near-gap 2x2 with direct rows -> cache/n1_analysis.txt
+# --- doc 24.8: tolerance of n = 1 to the uncontrolled x < 0.2 region (n2_neargap_split.py is generated from l9_neargap.py by sed; see file)
+python3 n2_lowx_tolerance.py                                 # ~25 min -> cache/n2_lowx_tolerance.txt

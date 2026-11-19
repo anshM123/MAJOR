@@ -7,7 +7,8 @@ graviton-specific corrections of Ĉ_2 and Ĉ_3 (p4 grids), in exactly the conven
   (1x1: no helicity mixing for odd J -- the odd structure feeds +- only, and EO interference cancels in the S^0 sum, p3).
 Direct values on the computed Delta rows, linear in 1/m between rows, held beyond; x beyond the last computed x held.
 t*: scale factor on the whole correction at which the odd sector first fails n = 1 (lambda < 0 for some state with m/Lam >= grid min).
-Usage: python3 p6_odd_neargap.py Dg [Dg ...]   (P4_DESHIFT=0: literal CLS-D, no de-shift)
+Usage: python3 p6_odd_neargap.py Dg [Dg ...]   (P4_DESHIFT=0: literal CLS-D, no de-shift; P6_DIRECT=1: p8_analysis direct grid,
+       P6_DIRECT=k2x: the same extra rows with Laplace K2 only -- PARITY_ODD_ROUTEA.md sect. 11)
 """
 import os, sys, pickle
 sys.dont_write_bytecode = True
@@ -25,10 +26,19 @@ import p4_odd_analysis as A
 DMAX = float(os.environ.get('P6_DMAX', '3200'))
 KINDS = tuple(os.environ.get('P6_KINDS', 'C2,C3H').split(','))
 K3ROW = os.environ.get('P6_K3', '0') == '1'      # use the K3 grid for the Delta = 100 row where computed
+DIRECT = os.environ.get('P6_DIRECT', '0')        # '1': p8_analysis grid (direct RQMC values on x >= 0.2 of the Delta_g = 100 rows, K2
+                                                 # elsewhere; extra rows m = 1.05-1.3 Lam(100)); 'k2x': the same rows, Laplace K2 only
+GRID_OVERRIDE = {}                               # {J: grid} (p8 noise propagation); takes precedence over the pickles
 
 
 def model(J):
-    g = pickle.load(open(os.path.join(HERE, 'cache', 'p4_grid%s.pkl' % ('' if A.DESHIFT else '_noshift')), 'rb'))[J]
+    if J in GRID_OVERRIDE:
+        g = GRID_OVERRIDE[J]
+    elif DIRECT in ('1', 'k2x'):
+        g = pickle.load(open(os.path.join(HERE, 'cache', 'p4_grid_%s%s.pkl' % ('direct' if DIRECT == '1' else 'k2x',
+                                                                              '' if A.DESHIFT else '_noshift')), 'rb'))[J]
+    else:
+        g = pickle.load(open(os.path.join(HERE, 'cache', 'p4_grid%s.pkl' % ('' if A.DESHIFT else '_noshift')), 'rb'))[J]
     if K3ROW:
         g3 = pickle.load(open(os.path.join(HERE, 'cache', 'p4_grid_k3%s.pkl' % ('' if A.DESHIFT else '_noshift')), 'rb')).get(J, {})
         g = dict(g); g.update(g3)
@@ -48,8 +58,9 @@ def model(J):
     return f, Ds
 
 
-def main(Dgs, Js=(5, 7, 9)):
+def main(Dgs, Js=(5, 7, 9), write=True, quiet=False):
     mods = {}
+    result = {}
     for J in Js:
         try:
             mods[J] = model(J)
@@ -57,8 +68,10 @@ def main(Dgs, Js=(5, 7, 9)):
             print(f"J={J}: no grid ({ex})")
     lines = []
     def pr(s=""):
-        print(s, flush=True); lines.append(s)
-    pr(f"# p6 [kinds {KINDS}, K3 row at Delta=100: {K3ROW}]: odd-J (+-, parity-odd) states, corrections, K2 linear chain, de-shift {A.DESHIFT}; covered J = "
+        if not quiet:
+            print(s, flush=True)
+        lines.append(s)
+    pr(f"# p6 [kinds {KINDS}, K3 row at Delta=100: {K3ROW}, direct grid: {DIRECT}]: odd-J (+-, parity-odd) states, corrections, K2 linear chain, de-shift {A.DESHIFT}; covered J = "
        + ", ".join(f"{J} (rows {','.join(f'{D:.0f}' for D in mods[J][1])})" for J in sorted(mods)))
     for Dg in Dgs:
         NG = NearGap(Dg); F = NG.F; pn, pw, Lm = NG.pn, NG.pw, NG.Lam
@@ -106,6 +119,9 @@ def main(Dgs, Js=(5, 7, 9)):
                 lo, hi = (mid, hi) if ok(sgn*mid) else (lo, mid)
             tst.append(sgn*lo)
         gm = min(allmin)
+        result[Dg] = dict(ok=ok(1.0), min=lam(w1, 1.0), wmin=(w1['mfl'], w1['J'], w1['DF']), tstar=(tst[1], tst[0]),
+                          perJ={J: min(lam(r, 1.0) for r in recs if r['J'] == J) for J in set(r['J'] for r in recs)},
+                          perJ_arg={J: min((r for r in recs if r['J'] == J), key=lambda r: lam(r, 1.0))['mfl'] for J in set(r['J'] for r in recs)})
         pr(f"  Delta_g = {Dg}: odd-J states {len(recs)} (covered {sum(r['cov'] for r in recs)}); odd sector positive with correction: {ok(1.0)}; "
            f"min F/N_s = {lam(w1, 1.0):+.4f} [m/Lam={w1['mfl']} J={w1['J']} Df={w1['DF']}] (uncorrected {lam(w0, 0.0):+.4f} "
            f"[m/Lam={w0['mfl']} J={w0['J']}]); t* = ({tst[1]:+.1f}, {tst[0]:+.1f}); all-state uncorrected min {gm[0]:+.4f} {gm[1:]}")
@@ -115,9 +131,12 @@ def main(Dgs, Js=(5, 7, 9)):
             pr(f"      J={J:2d}{'' if J in mods else ' (uncovered)'}: min F/N_s {lam(wj, 1.0):+.4f} (uncorr. {min(lam(r, 0.0) for r in rj):+.4f}) "
                f"at m/Lam={wj['mfl']} Df={wj['DF']}; max |dF|/N_s {max(abs(r['dF'])/r['Ns'] for r in rj):.4f}; "
                f"binding-state dF/N_s {wj['dF']/wj['Ns']:+.4f}")
-    open(os.path.join(HERE, 'cache', 'p6_odd_neargap%s_%s%s_%s.txt' % ('' if A.DESHIFT else '_noshift', '_'.join(KINDS), '_k3' if K3ROW else '',
-                                                                    '_'.join(map(str, Dgs)))), 'w').write(
-        "\n".join(lines) + "\n")
+    if write:
+        open(os.path.join(HERE, 'cache', 'p6_odd_neargap%s_%s%s%s_%s.txt' % ('' if A.DESHIFT else '_noshift', '_'.join(KINDS), '_k3' if K3ROW else '',
+                                                                          {'1': '_direct', 'k2x': '_k2x'}.get(DIRECT, ''),
+                                                                          '_'.join(map(str, Dgs)))), 'w').write(
+            "\n".join(lines) + "\n")
+    return result
 
 
 if __name__ == '__main__':

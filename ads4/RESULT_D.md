@@ -120,6 +120,11 @@ model for a functional whose graviton version is not yet defined. This revision 
 > * **Combined even + odd (`PARITY_ODD_ROUTEA.md` §9):** sectors are block-diagonal; **n = 1 at Δ_g = 300 and 1000**, binding state +−, J = 5
 >   (min 0.2072 / 0.2023), whole computed correction may be scaled by (−5.1, +5.0) / (−37, +39) [NE + M]; even J ≥ 12, odd J ≥ 11 uncorrected.
 >
+> * **Update (Δ_g = 100, x < 0.2; §24.8):** graviton/scalar ratio route fails at ν ≈ 15 (outliers don't cancel). Tolerance [NE + M]: with
+>   direct values on x ≥ 0.2, **n = 1 at Δ_g = 100 iff the graviton correction on x < 0.2 is t × the K₂ value with t ∈ [−0.20, +1.25]**
+>   (common scale factor; t = 0 → min 0.226, t = 1 → 0.181). Evidence consistent with t ≈ 1 ± 0.25, not shown. The x < 0.2 correction is
+>   load-bearing; remaining route: a Picard–Lefschetz curved contour at ν = 5–20, validated on the scalar vs exact Mellin nodes.
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
