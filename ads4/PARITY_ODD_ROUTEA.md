@@ -283,3 +283,163 @@ was started. Recipe (do not edit `n1_*`; copy into `p8_*.py`):
    to `P6_K3`). Cost estimate: per point ≈ the even `n1` cost (1×1 instead of 2×2 prefactor), ×2 kinds.
 4. **Still running at hand-over:** `p_queueC.sh` (`K₃`, `Δ = 100`, `J = 7`, `Ĉ₂` then `Ĉ₃`; resumable). Afterwards
    `python3 p7_crystal_sign.py 7` gives the `a`-independent `K₂`/`K₃` sign check for `J = 7` (as done for `J = 5`, §6).
+
+## 11. Odd sector at `Δ_g = 100` with the direct QMC integrator (`p8_*.py`): `x ≥ 0.2` now non-perturbative and equal to `K₂`; `n = 1` in the §6/H0-§24.5 protocol, but **not robust** to the treatment of `x < 0.2` (`J = 9`, also `J = 7` at `m ≈ Λ`) — odd sector at 100 undecided
+
+*Written 19 Nov 2026 by the `Δ_g = 100` odd-sector agent, following the §10 recipe. Unrefereed, not committed. Even-sector files (`n1_*`)
+imported only, not edited.*
+
+### 11.1 Point-wise odd integrand and driver (`p8_odd_pw.py`) [NE]
+
+* **Loader.** `p3_odd_action.py`'s source is exec'd with the `n1_pw` swaps `{l1_tps → PW, l1_crystal → PW.Cr, l5_spin → PW.S,
+  l6_spin_action → PW.A6}` and three asserted textual edits (the `assert T.DEG in (6, 8)`, the `T.DEG ≥ 8` K3 import branch and the
+  `L1_DEG` default removed; `EXP` is never used). `p1_tto_odd`, `p2_shadow_odd` are imported first, so they stay the *real* (TPS) modules:
+  structure coefficients from `P1.conserved_odd`, shadow `β_OO` from `P2.shadow_odd` (DEG-6 cache). So `P8.build` is p3's integrand,
+  line for line, evaluated point-wise. (Done programmatically rather than as a hand copy, so p3 stays the single source.)
+* **Driver** = `n1_run.point` with `gfun = P8.build(…, kind, n₀ = +1)[:3]`, structure axis [odd] (1×1), the scalar `Q_J` on the same
+  samples (`n1_run._both`), `n1_direct`'s re-centred log contour, wall/winding masks, antithetic scrambled Sobol, `R = 8` replicas.
+  Normalisation: full integral `= exp(logN) E` in p3's units (`exp(logC)(M₀ + M₂ + M₄)·β`). State points `2¹⁴·16` (`2¹³·16` on the extra
+  rows at `x ≥ 0.3`), references `Δ_ref = 2·10⁴` at the same `ν` with `2¹²·16`. Cost 40–55 s (state) / 10–20 s (reference) per point.
+
+### 11.2 Validation against the `K₂`/`K₃` crystal chain at large `Δ` (`p8_odd_pw.py validate`, `cache/p8_validate.txt`) [NE]
+
+Direct value vs p3's Laplace partial sums for the 1×1 odd element (`2¹³·16` points):
+
+| point (`J`, `Δ`, `x`, kind) | rel. RQMC error | `|dir/K₀−1|` | `|dir/K₁−1|` | `|dir/K₂−1|` | `|M₄/M₀|` (size of the last `K₂` term) |
+|---|---|---|---|---|---|
+| 5, 1600, 0.5, `Ĉ₂` | `9.4·10⁻⁵` | `3.0·10⁻²` | `3.8·10⁻⁴` | **`8.2·10⁻⁵`** | `3.6·10⁻⁴` |
+| 5, 1600, 0.5, `Ĉ₃` | `9.4·10⁻⁵` | `2.9·10⁻²` | `3.8·10⁻⁴` | **`8.0·10⁻⁵`** | `4.2·10⁻⁴` |
+| 9, 1600, 0.6, `Ĉ₃` | `9.7·10⁻⁵` | `1.2·10⁻²` | `5.2·10⁻⁴` | **`6.7·10⁻⁵`** | `5.9·10⁻⁴` |
+| 5, 400, 0.7, `Ĉ₂` | `9.9·10⁻⁵` | `7.3·10⁻²` | `3.0·10⁻³` | **`9.1·10⁻⁵`** | `3.1·10⁻³` |
+| 5, 400, 0.3, `Ĉ₂` (next to the zero of `d⁵₄₄` at `x = 0.316`) | `2.6·10⁻⁴` | `9.1·10⁻²` | `4.5·10⁻²` | `4.7·10⁻³` | `4.2·10⁻²` |
+| 7, 400, 0.4, `Ĉ₂` | `1.7·10⁻⁴` | `2.3·10⁻²` | `2.0·10⁻²` | `1.6·10⁻³` | `2.0·10⁻²` |
+| 9, 400, 0.4, `Ĉ₃` | `1.1·10⁻⁴` | `1.4·10⁻¹` | `8.8·10⁻³` | `1.0·10⁻³` | `8.4·10⁻³` |
+
+* At `Δ = 1600` (and `Δ = 400`, `x = 0.7`) direct = `K₂` within the RQMC error (`≤ 10⁻⁴`), with the series converging monotonically onto
+  it; at the three `Δ = 400` points where `K₂`'s last term is `≥ 10⁻²` the gap is 5–10× smaller than that term, i.e. inside `K₂`'s truncation
+  error. **`K₃` at these three points** (`cache/p8_k3check_*`, L1_DEG=8; shadow difference DEG 8/6 `≤ 2·10⁻⁵`) closes the gap by 10×:
+  `|dir/K₃−1| = 4.5·10⁻⁴ / 1.6·10⁻⁴ / 7.9·10⁻⁵` vs `|M₆/M₀| = 4.5·10⁻³ / 1.6·10⁻³ / 1.1·10⁻³`. **So the point-wise odd integrand, its normalisation, branch continuation and the
+  shadow factor are those of the validated crystal chain** [NE].
+
+### 11.3 Direct values at the `Δ = 100` row (`m = 98.0–98.4 ≈ Λ(100) = 98.50`), `x ≥ 0.2` (`p8_analysis.py`, `cache/p8_analysis_direct_100.txt`) [NE]
+
+`Γ_{k,+−}(x)` (c₂ units × LO shape, CHMRS de-shift, `a₊₋` and `c₀` of the row as in p4; the `K₂` column uses the same `a`):
+
+| `J` | max `|Γ₂^dir − Γ₂^{K₂}|` on `x ≥ 0.2` | max `|Γ₃^dir − Γ₃^{K₂}|` | RQMC error (Γ units) at `x = 0.2` / `x ≥ 0.25` | `|Γ|` there |
+|---|---|---|---|---|
+| 5 | 25 | 94 (at `x = 0.2`: 785 ± 87 vs 691) | 34, 87 / ≤ 5 | ≤ 10³ |
+| 7 | 39 | 42 | 18, 33 / ≤ 12 | ≤ 1.3·10³ |
+| 9 | 51 | 64 | 24, 32 / ≤ 5 | ≤ 2·10³ |
+
+* **The `K₂` chain is accurate on `x ≥ 0.2` at `m ≈ Λ` for the odd states**: the gap is `≤ 51` (`Ĉ₂`) / `≤ 94` (`Ĉ₃`, at the RQMC-noisiest
+  node, 1.1σ) c₂ units, 7–25× below the §19.3 tolerance scale 630, and of the same size as the even-sector `+−` gap of H0 §24.4 (`≤ 47`).
+* Acceptance rule (differs from n1 in one point): a direct node is used if its relative RQMC error is `≤ 5 %` **or** its absolute error is
+  `≤ 60` c₂ units. The extra clause admits `J = 7`, `x = 0.2`, `Ĉ₂` (relative error 16 % because the LO shape `d⁷₄₄` nearly vanishes there,
+  `D = −0.076`; absolute error 18). All 48 direct nodes of the row are used.
+
+### 11.4 Near-gap odd-sector test at `Δ_g = 100`, main protocol (`P6_DIRECT=direct_100`; `cache/p8_neargap_13.txt`, `p8_neargap_2.txt`) [NE + M]
+
+Main protocol = H0 §24.5's even-sector protocol: the §6 rows (`Δ = 100, 200, …, 3200`, linear in `1/m` between rows), direct values on
+`x ≥ 0.2` of the `Δ = 100` row, `K₂` elsewhere; `Ĉ₂ + Ĉ₃` (CHMRS de-shift, `o_H`), `a₊₋` per row as in §6. `p6_odd_neargap.py` gained the switch
+`P6_DIRECT` (`1` / any `p8_analysis` grid tag) and a `GRID_OVERRIDE` hook; the default path reproduces §6 exactly (0.2217, `t* = (−29.3, +5.6)`).
+
+| rows | odd `n` | min `F/N_s` (binding) | `J = 5 / 7 / 9` min `F/N_s` (at `m/Λ`) | `t*` |
+|---|---|---|---|---|
+| §6 (Laplace `K₂`) | 1 | 0.2217 (`J = 5`, 1.05Λ) | 0.2217 (1.05) / 0.5863 (1.09) / 0.9026 (1.35) | (−29.3, +5.64) |
+| **direct on `x ≥ 0.2` (`Δ = 100` row), `K₂` below** | **1** | **0.2262 ± 0.0008** (`J = 5`, 1.05Λ) | 0.2262 ± 0.0008 / 0.5890 ± 0.0029 / 0.8974 ± 0.0048 | (−153 ± 110, **+5.84 ± 0.17**) |
+
+* Errors: 30 draws of independent Gaussian perturbations of every direct node (σ = replica error), whole p6 chain rerun. The lower `t*`
+  is ill-determined (no state is close to failing for negative `t`); the upper one (`J = 7`, `m ≈ 1.09Λ`, `ΔF/N_s = −0.12`) is stable.
+* Replacing `K₂` by the direct integral on `x ≥ 0.2` moves the odd numbers by `≤ 0.005 N_s` and leaves the binding state (`+−`, `J = 5`,
+  1.05Λ) and `n = 1` unchanged. **Everything rests on `x < 0.2` (`ν ≲ 20`), where only Laplace values exist (11.6).**
+
+### 11.5 Extra rows `m = 1.05/1.1/1.2/1.3 Λ` and a normalisation phase at non-even-integer `Δ` (`p8_k2rows.py`, `p8_analysis.py`) [NE]
+
+Direct (`x ≥ 0.2`) and `K₂` (`x = 0.05…0.8`) points were also computed on rows at the state masses (`Δ = 105.07 … 129.90`, `J`-dependent;
+`J = 5` at 1.05, all `J` at 1.1/1.2/1.3), K2 into separate caches (`cache/p8_k2_*`), so that the §6 caches/numbers are untouched.
+* **Phase finding [NE].** On these rows the state/reference ratio carries an extra **overall phase `e^{−iπ(Δ−100)}`** (x-independent; e.g.
+  `arg/π` shifts by `+0.92 / −0.11 / +0.17 / +0.33` at `Δ = 105.07 / 110.11 / 119.83 / 129.67`, = `−(Δ−100)` mod 2 to `≤ 0.02`). It is `≡ 1`
+  on the even-integer rows used so far (100, 200, …, 2·10⁴), which is why p4/l9/n1 never saw it; with only `c₀ = Re(...)` removed, `Re`
+  projects a rotated quantity (`J = 5` at 1.05Λ came out with `a₊₋ < 0`). `p8_analysis` removes it (`P8_PHASE=1`, factor `e^{iπΔ}`, identity on
+  the old rows); afterwards `a₊₋` is smooth across rows (`J = 5`: `9.2, 9.9, 11.8, 16.3, 21.9 ·10⁻¹⁰` at 1.0…1.3Λ). Its origin (a `Δ`-dependent
+  branch convention of the normalisation) was not traced. **Any future use of non-even-integer `Δ` rows (even sector included) needs it.**
+* Direct vs `K₂` on `x ≥ 0.2` of these rows, normalisation-free (`m² max|ΔG/env| / max|G_{K₂}/env|`): `≤ 51` (`J = 5`), `≤ 69` (`J = 7`),
+  `≤ 171` (`J = 9`), `Ĉ₂`/`Ĉ₃` alike — the same picture as at `Δ = 100`: **`K₂` is accurate on `x ≥ 0.2` throughout `m = Λ … 1.3Λ`**.
+
+### 11.6 Robustness of `n` to the treatment of `x < 0.2` — it is not robust (`cache/p8_neargap_13.txt`) [NE + M]
+
+| variant (all with direct values on `x ≥ 0.2`) | odd `n` | min `F/N_s` | `J = 5 / 7 / 9` |
+|---|---|---|---|
+| main (11.4): `K₂` on `x < 0.2`, rows 100, 200, … | 1 | 0.2262 | 0.2262 / 0.5890 / 0.8974 |
+| `K₃` on `x < 0.2` of the `Δ = 100` row (`a₊₋` kept from `K₂`; the `K₃` fit gives `a < 0` for `J = 7`) | **0** | −1.74 (`J = 9`, 1.11Λ) | 0.1974 / 0.1881 / **−1.735** |
+| `K₂` on `x < 0.2`, plus the extra rows 1.05–1.3Λ (phase-corrected) | **0** | −0.53 (`J = 9`, 1.3Λ) | 0.2505 / 0.7230 / **−0.532** |
+| same without direct values (all `K₂`) | 0 | −0.48 (`J = 9`, 1.3Λ) | 0.2462 / 0.7222 / −0.476 |
+
+`a`-free check (no per-state constant, no de-shift): the reference-normalised crystal action `S = (Σψ₂G₂ + Σψ₃G₃)/(|Σψ₂G₂| + |Σψ₃G₃|)` at
+each row's own mass (`K₂` | direct on `x ≥ 0.2` + `K₂` | direct + `K₃` below where computed):
+
+| `m/Λ` | `J = 5` | `J = 7` | `J = 9` |
+|---|---|---|---|
+| ≈ 1.00 (`Δ = 100`) | +0.226 / +0.229 / +0.199 | +0.421 / +0.434 / **+0.002** | **−0.064 / −0.098 / −0.061** |
+| 1.05 | +0.264 / +0.267 / +0.222 | — | — |
+| 1.10 | +0.377 / +0.379 / (no K3) | +0.729 / +0.724 / +0.634 | +1.000 / +1.000 / **−0.647** |
+| 1.20, 1.30 | +1.000 (all) | +1.000 (all) | +1.000 (all; no K3) |
+
+* **Where the sensitivity sits.** On every row the `x < 0.2` nodes differ between `K₂` and `K₃` by `O(10³–10⁴)` c₂ units (e.g. `J = 9`,
+  1.1Λ, `x = 0.05`: `Γ₂ = +7737` (`K₂`) vs `−3470` (`K₃`)), and between neighbouring rows by as much (`J = 7`, `x = 0.05`: −951 at 1.0Λ,
+  +4368 at 1.1Λ, `K₂`). These nodes have `ν = 5–16`, i.e. they straddle `ν₀ = 5.98` where the CHMRS de-shift is singular (H0 §24.1) and
+  lie where neither Laplace order nor the direct method (H0 §24.2) is valid. The `K₂` main result is therefore an interpolation through
+  meaningless nodes that happens to be benign on the coarse row set; a finer row set or the next Laplace order breaks `J = 9`.
+* **Robust:** the binding state `+−`, `J = 5` (min `F/N_s` 0.197–0.251 in every variant; `S > 0` at every row and order), and everything
+  on `x ≥ 0.2`. **Not robust:** `J = 9` (sign flips with the `x < 0.2` treatment), `J = 7` at `m ≈ Λ` (`S → 0` at `K₃`; no `J = 7` state
+  lies below 1.07Λ, where `S = +0.63` even with `K₃`).
+
+### 11.7 `p_queueC.sh` result: `K₃`, `J = 7`, `Δ = 100` row (`python3 p7_crystal_sign.py 7`, `cache/p7_crystal_sign_J7_J5.txt`) [NE]
+
+The job finished normally (19 Nov 01:08). `F_cr/(aN)`: `J = 7`: `K₂` +0.1587 (LO only +0.1804), `K₃` +0.0525 but with `a_{K₃} = −9.1·10⁻¹¹`
+(vs `a_{K₂} = +1.28·10⁻⁹`), i.e. the normalisation-free crystal action is `F_cr = +2.0·10⁻¹⁰ N` (`K₂`) → `−4.8·10⁻¹² N` (`K₃`): **for `J = 7`
+the sign of the crystal's own action at `m ≈ Λ` is not stable under the next Laplace order** (unlike `J = 5`: `+1.76 → +1.58·10⁻¹⁰ N`,
+re-confirmed). Split by `x` (absolute units; same p4/p8 grids, scratch computation): the `K₂ → K₃` change is `−8.8` (`Ĉ₂`, `x < 0.2`) `+0.4` (`Ĉ₃`,
+`x < 0.2`) `+1.6` (`x ≥ 0.2`) in units of `10⁻¹⁰` against `N_LO = 41`, almost all from the `x = 0.05` node (`ν = 4.9`); the direct values on
+`x ≥ 0.2` agree with `K₂` there (shift +0.05). The job is no longer needed; its `K₃` row is used in 11.6.
+
+### 11.8 Combined even + odd at `Δ_g = 100` [NE + M + I]
+
+Even sector: H0 §24.5 (direct on `x ≥ 0.2`, `K₂` below): `n = 1`, min `λ/N_s = 0.1814` (`J = 4`, 1.04Λ), `t* = (−0.8, +1.8)`. Odd sector: 11.4.
+Block-diagonal (§3), so:
+
+| protocol | combined `n` | combined min (binding) | combined `t*` |
+|---|---|---|---|
+| direct on `x ≥ 0.2` at the `Δ = 100` row, `K₂` below, rows 100, 200, … (both sectors) | **1** | **0.1814** (even `J = 4`, 1.04Λ); odd binding 0.2262 (`+−`, `J = 5`, 1.05Λ) | **(−0.8, +1.8)** (set by the even sector; odd `(−153, +5.8)`) |
+
+**Caveat (`x < 0.2`).** In both sectors the `x < 0.2` (`ν ≲ 20`) part is Laplace-only and uncontrolled (H0 §24.5: 25–35 % of `Σ|ψ density|`
+for `J ≥ 6`). For the odd sector 11.6 shows explicitly that two equally defensible treatments of that region (`K₃` nodes; finer rows in
+`m`) give `n = 0` through `J = 9`. The even sector was not subjected to the same two tests (only `K₃` for `Ĉ₂`, `J = 8, 10`, existed), so its
+`n = 1` is at least as exposed. **`n` at `Δ_g = 100` remains [I]; no computed number supports upgrading it, and the odd sector now provides
+concrete counter-indications from the uncontrolled region.** `Δ_g = 300, 1000`: unchanged (§9).
+
+### 11.9 Graded summary of this round
+
+| statement | grade |
+|---|---|
+| point-wise odd integrand (`p8`) = p3's; direct = `K₂` within RQMC error at `Δ = 1600` (`≤ 10⁻⁴`); at `Δ = 400` inside `K₂`'s truncation, `K₃` closes the gap 10× | [NE] |
+| direct vs `K₂` on `x ≥ 0.2` at `m = Λ … 1.3Λ`, `J = 5, 7, 9`, both kinds: `≤ 51 / 94` c₂ at `Δ = 100`; `≤ 171` normalisation-free on the extra rows | [NE] |
+| odd `n = 1` at `Δ_g = 100` in the H0-§24.5 protocol: min `F/N_s = 0.2262 ± 0.0008` (`+−`, `J = 5`, 1.05Λ), `t* = (−153 ± 110, +5.84 ± 0.17)` | [NE + M] |
+| that `n = 1` is robust to the treatment of `x < 0.2` | **refuted as computed**: `K₃` nodes or finer `m`-rows give `n = 0` via `J = 9` (−1.74 / −0.53) |
+| binding odd state `+−`, `J = 5`, positive in every variant (0.197–0.251; `a`-free `S > 0` at all rows and orders) | [NE + M] |
+| `J = 7` normalisation-free crystal action at `m ≈ Λ`: `K₂` +, `K₃` ≈ 0 (sign unstable); at 1.1Λ positive in all variants | [NE] |
+| overall phase `e^{−iπ(Δ−100)}` of the state/reference normalisation at non-even-integer `Δ` (removed by `e^{iπΔ}`) | [NE]; origin not traced |
+| combined even + odd `n = 1` at `Δ_g = 100`, min 0.1814 (even `J = 4`), `t* = (−0.8, +1.8)`, protocol of 11.8 | [NE + M] |
+| **`n` at `Δ_g = 100`** | **[I]** (unchanged); odd sector undecided, with `J = 9` counter-indications from `ν ≲ 15` |
+
+### 11.10 Hand-over
+
+* **Nothing is running** (all queues finished 19 Nov ≈ 03:45). Scripts: `p8_odd_pw.py` (loader, driver, `validate`), `p8_k2rows.py`
+  (Laplace on the extra rows; `L1_DEG=8` → `p8_k3_*`), `p8_analysis.py` (grids; env `P8_DIRECT`, `P8_XROWS`, `P8_LOWK`, `P8_AFIX`, `P8_PHASE`,
+  `P8_RELMAX`, `P8_GERRMAX`), `p8_neargap.py NMC PARTS` (variants, RQMC propagation, `a`-free table), `p6_odd_neargap.py` (`P6_DIRECT`),
+  queues `p_queueD.sh`, `p_queueE.sh`, `p_queueG_C2.sh`, `p_queueG_C3H.sh`. Caches `cache/p8_pts_<kind>_J<J>.pkl` (direct; key `(Δ, ν)`),
+  `cache/p8_k2_*`, `cache/p8_k3_*`, `cache/p8_k3check_*`, `cache/p3_pts_*_J9_k3.pkl` (`x ≤ 0.25`/`0.15`), grids `cache/p4_grid_{direct,
+  direct_100, k2x, direct_100_k3low_afix}.pkl`, outputs `cache/p8_validate.txt`, `p8_analysis_*.txt`, `p8_neargap_{13,2}.txt`.
+* **Next step (both sectors):** the region `ν ≲ 20` decides `n` at `Δ_g = 100`; it needs the curved-contour (Picard–Lefschetz) evaluation of
+  H0 §24.7(1), or the graviton/scalar-ratio route of §24.7(2), now for the odd `J = 7, 9` states as well. Before that, the even sector should
+  be put through the two robustness tests of 11.6 (extra `m`-rows with the `e^{iπΔ}` phase fix; `K₃` on `x < 0.2` for both kinds).

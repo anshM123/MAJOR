@@ -125,6 +125,8 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   (common scale factor; t = 0 → min 0.226, t = 1 → 0.181). Evidence consistent with t ≈ 1 ± 0.25, not shown. The x < 0.2 correction is
 >   load-bearing; remaining route: a Picard–Lefschetz curved contour at ν = 5–20, validated on the scalar vs exact Mellin nodes.
 >
+> * **Update (odd sector at Δ_g = 100, direct QMC; PARITY_ODD_ROUTEA.md §11):** On x ≥ 0.2 the direct pointwise evaluation (`p8_odd_pw.py`) matches the K₂ Laplace chain (to ≤10⁻⁴ at Δ = 1600; within K₂ truncation at Δ = 400) [NE]. In the §24.5 protocol the odd sector gives n = 1 at Δ_g = 100, binding state +−, J = 5, 1.05Λ, min F/N_s = 0.2262 ± 0.0008; combined even+odd n = 1, min 0.1814 (even J = 4) [NE + M]. **This n = 1 is not robust:** replacing K₂ by K₃ on x < 0.2, or adding rows m = 1.05–1.3Λ, gives n = 0 through J = 9 (−1.74 and −0.48). The driver is x = 0.05–0.15 (ν ≈ 5–16, near the de-shift singularity ν₀ ≈ 6), where Laplace orders disagree by 10³–10⁴ c₂. The binding J = 5 state is positive in every variant (0.197–0.251). The J = 7 crystal sign at m ≈ Λ is also unstable under K₂ → K₃. **n at Δ_g = 100 stays [I]** in both sectors; Δ_g = 300, 1000 unchanged. New [NE] finding: non-even-integer Δ rows carry an untraced overall phase e^{−iπ(Δ−100)} in the state/reference normalisation, removed in `p8_analysis` (`P8_PHASE=1`); all earlier rows were even integers, so earlier results are unaffected.
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,

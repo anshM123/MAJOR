@@ -20,13 +20,34 @@ import p2_shadow_odd as P2
 
 DIRECT = os.environ.get('P8_DIRECT', '1') == '1'
 RELMAX = float(os.environ.get('P8_RELMAX', '0.05'))
+GERRMAX = float(os.environ.get('P8_GERRMAX', '60'))   # ... or, next to a zero of the LO shape (where the relative error is meaningless),
+                                                      # absolute RQMC error <= GERRMAX in Gamma (c2) units (tolerance scale: 630)
 H = '+-'
+PHASE = os.environ.get('P8_PHASE', '1') == '1'        # remove the overall e^{-i pi Delta} of the state/ref normalisation (sect. 11.5): it is 1
+                                                      # on the even-integer rows of p3/p4 (100, 200, ...) but not on the extra rows
+XROWFIT = os.environ.get('P8_XROWFIT', '0') == '1'  # (test only) a_{+-} on the extra rows from the 3 smallest x, as on the
+                                                      # Delta = 100 row (the generic rule gives an exactly-determined, unstable fit there)
+LOWK = int(os.environ.get('P8_LOWK', '2'))            # 3: x < 0.2 nodes from the K3 chain (L1_DEG=8 records) where computed
+AFIX = os.environ.get('P8_AFIX', '0') == '1'           # with LOWK=3: keep the per-row a_{+-} of the K2-low grid (a is a positive
+                                                      # normalisation; the K3 fit at nu < 15 is not converged and can even flip sign)
+
+
+def k3load(kind, J):
+    R = A.load(kind, J, k3=True)
+    fn = os.path.join(HERE, 'cache', 'p8_k3_%s_J%d.pkl' % (kind, J))
+    if os.path.exists(fn):
+        R.update({(k[0], k[1]): v for k, v in pickle.load(open(fn, 'rb')).items() if k[2] == 1.0})
+    return R
+
+
+XROWS = os.environ.get('P8_XROWS', '1') == '1'      # 0: only the sect. 6 rows (100, 200, ..., 3200) -- direct values on the Delta = 100
+                                                      # row only (the protocol of H0 doc 24.5); output tag '_100'
 
 
 def k2load(kind, J):
     R = A.load(kind, J)
     fn = os.path.join(HERE, 'cache', 'p8_k2_%s_J%d.pkl' % (kind, J))
-    if os.path.exists(fn):
+    if XROWS and os.path.exists(fn):
         R.update({(k[0], k[1]): v for k, v in pickle.load(open(fn, 'rb')).items() if k[2] == 1.0})
     return R
 
@@ -51,8 +72,12 @@ def drep(r, D, J):
     return r['logN'] - logK, r['E'][0, 0]*bi, np.array([rep[0, 0]*bi for rep in r['reps']])
 
 
-def grid(J, K=2, kinds=('C2', 'C3H'), Ds=None, direct=None, dmax=3200.0):
+def grid(J, K=2, kinds=('C2', 'C3H'), Ds=None, direct=None, dmax=3200.0, lowk=None, afix=None):
     direct = DIRECT if direct is None else direct
+    lowk = LOWK if lowk is None else lowk
+    afix = AFIX if afix is None else afix
+    aK2 = {D: r['a'] for D, r in grid(J, K, kinds, Ds, direct, dmax, lowk=2, afix=False).items()} if (lowk == 3 and afix) else None
+    R3 = {kd: k3load(kd, J) for kd in kinds} if lowk == 3 else None
     RC = {kd: k2load(kd, J) for kd in kinds}
     DB = {kd: dload(kd, J) for kd in kinds}
     Ds = Ds or sorted(set(k[0] for k in RC['C2'] if k[0] < A.DREF and k[0] <= dmax))
@@ -73,15 +98,23 @@ def grid(J, K=2, kinds=('C2', 'C3H'), Ds=None, direct=None, dmax=3200.0):
                 dl = st['logC'] - st['logK'] - rf['logC'] + rf['logK']
                 if c0 is None:
                     c0 = dl.real
-                dl = dl - c0
+                dl = dl - c0 + (1j*np.pi*D if PHASE else 0.0)
                 fk = (m*m/(mr*mr)) if k == 3 else 1.0
                 sc = (A.SIG[H] if k == 3 else 1.0)*A.env(H, xr, k)*A.Dc(H, J, xr)
                 vK = np.exp(dl)*A.pred([st[o][-1, -1] for o in ('M0', 'M2', 'M4')], [rf[o][-1, -1] for o in ('M0', 'M2', 'M4')], K)*fk
-                ds, dr = (dget(DB[kd], D, nu), dget(DB[kd], A.DREF, nu)) if direct else (None, None)
+                if lowk == 3 and x < 0.2 - 1e-9:
+                    s3, r3 = A.getrec(R3[kd], D, nu), A.getrec(R3[kd], A.DREF, nu)
+                    if s3 is not None and r3 is not None:
+                        d3 = s3['logC'] - s3['logK'] - r3['logC'] + r3['logK'] - c0 + (1j*np.pi*D if PHASE else 0.0)
+                        o4 = ('M0', 'M2', 'M4', 'M6')
+                        vK = np.exp(d3)*A.pred([s3[o][-1, -1] for o in o4], [r3[o][-1, -1] for o in o4], 3)*fk
+                        used[(kd, 'k3', round(x, 6))] = True
+                ds, dr = (dget(DB[kd], D, nu, 1.0), dget(DB[kd], A.DREF, nu, 1.0)) if direct else (None, None)
                 if ds is not None and dr is not None:
-                    ndir += 1; used[(kd, round(x, 6))] = True
+                    relok = all(np.max(np.abs(r_['err']))/np.max(np.abs(r_['E'])) <= RELMAX for r_ in (ds, dr))
+                    used[(kd, round(x, 6))] = relok
                     ls, vs, rs = drep(ds, D, J); lr, vr_, rr = drep(dr, A.DREF, J)
-                    edl = np.exp(ls - lr - c0)
+                    edl = np.exp(ls - lr - c0 + (1j*np.pi*D if PHASE else 0.0))
                     v = edl*vs/vr_*fk
                     n = min(len(rs), len(rr))
                     s1 = (edl*rs[:n]/vr_*fk).real; s2 = (edl*vs/rr[:n]*fk).real
@@ -89,20 +122,43 @@ def grid(J, K=2, kinds=('C2', 'C3H'), Ds=None, direct=None, dmax=3200.0):
                 else:
                     v = vK; sd = np.nan
                 G.append(sc*v); Ge.append(abs(sc)*sd); GK.append(sc*vK)
-            rows[kd] = (k, np.array(G), np.array(Ge), np.array(GK))
+            rows[kd] = [k, np.array(G), np.array(Ge), np.array(GK)]
         sel = (xs <= A.XFIT + 1e-9) & (xs*m >= A.NUFIT)
+        if XROWFIT and D < 150.0 and abs(D - 100.0) > 1e-9:
+            sel = np.zeros(len(xs), bool)      # extra rows: the Delta = 100 row's rule (3 smallest x), see sect. 11.4
         if sel.sum() < 3:
             sel = np.argsort(xs)[:3]
         def fit(g):
             Am = np.array([A.Dc(H, J, xs[sel]), xs[sel]**2, xs[sel]**4]).T
             return np.linalg.lstsq(Am, (g/A.env(H, xs, 2))[sel], rcond=None)[0][0]
-        a = fit(rows['C2'][1].real); a_raw = a
+        sh = {k: A.shift(J, H, k, xs, m) for k in (2, 3)}
+        def afit(rows):
+            a = fit(rows['C2'][1].real); a_raw = a
+            if A.DESHIFT:
+                for _ in range(3):
+                    a = fit(rows['C2'][1].real - a*sh[2])
+            return a, a_raw
+        # node acceptance: relative RQMC error <= RELMAX, or absolute error <= GERRMAX in Gamma units (provisional a from accepted nodes)
+        for it in range(2):
+            G_use = {kd: np.array([rw[1][i] if used.get((kd, round(x, 6))) else rw[3][i] for i, x in enumerate(xs)]) for kd, rw in rows.items()}
+            a, a_raw = afit({kd: (rw[0], G_use[kd]) for kd, rw in rows.items()})
+            for kd, rw in rows.items():
+                gerr = m*m*rw[2]/abs(a*A.env(H, xs, rw[0]))
+                for i, x in enumerate(xs):
+                    key = (kd, round(x, 6))
+                    if key in used and not used[key] and gerr[i] <= GERRMAX:
+                        used[key] = True
+        ndir = sum(bool(v) for k_, v in used.items() if k_[1] != 'k3')
+        nk3 = sum(1 for k_ in used if k_[1] == 'k3')
+        for kd, rw in rows.items():
+            sl = np.array([bool(used.get((kd, round(x, 6)))) for x in xs])
+            rw[1] = np.where(sl, rw[1], rw[3]); rw[2] = np.where(sl, rw[2], np.nan)
+        a, a_raw = afit({kd: (rw[0], rw[1]) for kd, rw in rows.items()})
+        if aK2 is not None:
+            a = aK2[D]
         if A.DESHIFT:
-            sh = {k: A.shift(J, H, k, xs, m) for k in (2, 3)}
-            for _ in range(3):
-                a = fit(rows['C2'][1].real - a*sh[2])
             rows = {kd: (k, G - a*sh[k], Ge, GK - a*sh[k]) for kd, (k, G, Ge, GK) in rows.items()}
-        rec = dict(m=m, xs=xs, a=a, a_raw=a_raw, c0=c0, ndirect=ndir, fitx=xs[sel])
+        rec = dict(m=m, xs=xs, a=a, a_raw=a_raw, c0=c0, ndirect=ndir, nk3=nk3, fitx=xs[sel])
         for kd, (k, G, Ge, GK) in rows.items():
             sg = A.SIG[H] if k == 3 else 1.0
             rec[kd] = m*m*(G.real/(a*A.env(H, xs, k)) - sg*A.Dc(H, J, xs))
@@ -134,6 +190,6 @@ if __name__ == '__main__':
                 pr(f"    {kd:3s} Gamma : " + " ".join(f"{v:+8.0f}" for v in r[kd]) )
                 pr(f"    {kd:3s} +-err : " + " ".join(f"{v:8.0f}" if np.isfinite(v) else "       -" for v in r[(kd, 'err')]))
                 pr(f"    {kd:3s} K2    : " + " ".join(f"{v:+8.0f}" for v in r[(kd, 'K2same_a')]))
-    tag = 'direct' if DIRECT else 'k2x'
+    tag = ('direct' if DIRECT else 'k2x') + ('' if XROWS else '_100') + ('_k3low' if LOWK == 3 else '') + ('_afix' if (LOWK == 3 and AFIX) else '')
     pickle.dump(store, open(os.path.join(HERE, 'cache', 'p4_grid_%s%s.pkl' % (tag, '' if A.DESHIFT else '_noshift')), 'wb'))
     open(os.path.join(HERE, 'cache', 'p8_analysis_%s%s.txt' % (tag, '' if A.DESHIFT else '_noshift')), 'w').write("\n".join(lines) + "\n")

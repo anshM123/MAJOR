@@ -1,5 +1,6 @@
 #!/bin/bash
 # PARITY_ODD_ROUTEA.md sect. 11: K3 (L1_DEG=8) Laplace values at the p8 validation points with the largest direct-K2 gaps (Delta = 400),
+# SUPERSEDED (sect. 11): its K3 check was run at the end of p_queueG_C2.sh; results in cache/p8_k3check_*.
 # separate cache cache/p8_k3check_<kind>_J<J>.pkl; runs after p_queueD.sh.
 cd /home/user/MAJOR/ads4/code/spinfunc
 export OMP_NUM_THREADS=1 L1_DEG=8

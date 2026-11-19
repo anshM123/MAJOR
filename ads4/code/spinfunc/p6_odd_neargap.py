@@ -34,8 +34,8 @@ GRID_OVERRIDE = {}                               # {J: grid} (p8 noise propagati
 def model(J):
     if J in GRID_OVERRIDE:
         g = GRID_OVERRIDE[J]
-    elif DIRECT in ('1', 'k2x'):
-        g = pickle.load(open(os.path.join(HERE, 'cache', 'p4_grid_%s%s.pkl' % ('direct' if DIRECT == '1' else 'k2x',
+    elif DIRECT not in ('', '0'):                 # '1' -> p4_grid_direct; any other value names a p8_analysis grid (k2x, direct_k3low_afix, ...)
+        g = pickle.load(open(os.path.join(HERE, 'cache', 'p4_grid_%s%s.pkl' % ('direct' if DIRECT == '1' else DIRECT,
                                                                               '' if A.DESHIFT else '_noshift')), 'rb'))[J]
     else:
         g = pickle.load(open(os.path.join(HERE, 'cache', 'p4_grid%s.pkl' % ('' if A.DESHIFT else '_noshift')), 'rb'))[J]
@@ -133,7 +133,7 @@ def main(Dgs, Js=(5, 7, 9), write=True, quiet=False):
                f"binding-state dF/N_s {wj['dF']/wj['Ns']:+.4f}")
     if write:
         open(os.path.join(HERE, 'cache', 'p6_odd_neargap%s_%s%s%s_%s.txt' % ('' if A.DESHIFT else '_noshift', '_'.join(KINDS), '_k3' if K3ROW else '',
-                                                                          {'1': '_direct', 'k2x': '_k2x'}.get(DIRECT, ''),
+                                                                          ('' if DIRECT in ('', '0') else '_' + {'1': 'direct'}.get(DIRECT, DIRECT)),
                                                                           '_'.join(map(str, Dgs)))), 'w').write(
             "\n".join(lines) + "\n")
     return result
