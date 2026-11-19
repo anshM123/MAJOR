@@ -286,6 +286,8 @@ evaluated as `k!·det(Gram)/det η_E`.
   normalisation of the whole block, not Regge dynamics.
 
 **(c) The normalisation `N(Δ,J)` is not understood [I].**
+
+> **Resolved (PARITY_ODD_ROUTEA.md §12):** `N(Δ,J) = tan²(π(Δ−J)/2)` [NE] (3.76610 and 3.300231 at the two masses here), the ratio sin²/cos² of the even/odd CLS-D double-commutator factors, so `N_full = 1` as CHL's equal moduli require. No seed-normalisation slip.
 * For CHL-normalised structures the helicity components of `X^O_opp` and `X^E_opp` have equal moduli. The expected relation is then
   `|W[X^O,X^O]| = |W[X^E,X^E]|`, i.e. `N = 1` up to a convention sign.
 * The measured `N` is `3.766` and `3.300`, positive, and varies by 14 % between the two masses.

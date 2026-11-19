@@ -120,6 +120,7 @@ factors, scalar reference, `N̂`) cancels. (Integer `Δ` is avoided: CHL's x-spa
 **Reading.**
 * The CHL-normalised odd and even `+−` blocks are **exactly proportional under both functionals, with a real positive constant**, uniformly in
   `x` and at every Laplace order — the crystal counterpart of `PARITY_ODD_HEAVY.md` §4.3(b) ("`N` is a normalisation of the whole block").
+* **[Superseded by §12: `N(Δ,J) = tan²(π(Δ−J)/2)`; every row here has `Δ ≡ 0.37 mod 1`, which made it look constant.]**
 * The constant is **`N∞ = 2.31756…`, independent of `J` (5, 7, 19), of `Δ` (400 / 1600 / 3200: 6–10 digits), of `x`
   and of the functional**, and `N_same = 1/N_opp` exactly. So `N` is a relative normalisation of CHL's position-space odd vs even helicity
   structures (the `opp`/`same` pair is rescaled by `√N∞ = 1.5224` and its inverse) — not dynamics, not `O(1/m)`. I have not identified
@@ -443,3 +444,158 @@ concrete counter-indications from the uncontrolled region.** `Δ_g = 300, 1000`:
 * **Next step (both sectors):** the region `ν ≲ 20` decides `n` at `Δ_g = 100`; it needs the curved-contour (Picard–Lefschetz) evaluation of
   H0 §24.7(1), or the graviton/scalar-ratio route of §24.7(2), now for the odd `J = 7, 9` states as well. Before that, the even sector should
   be put through the two robustness tests of 11.6 (extra `m`-rows with the `e^{iπΔ}` phase fix; `K₃` on `x < 0.2` for both kinds).
+
+## 12. The `e^{−iπ(Δ−100)}` phase traced (a branch artefact of the shadow coefficient, both sectors); double-trace zeros of the odd sector; `N = tan²(πτ/2)`
+
+*Written 19 Nov 2026 by the phase/double-trace agent. Unrefereed, not committed. Grades in this section: **[P]** proved (exact algebra,
+including algebra of the code), **[NE]** numerical-exact, **[M]** model, **[I]** open; [Q] = quoted from the literature (CLS-D). New code:
+`p9_phase_check.py` (`caches` / `even J kind x` / `N`; output `cache/p9_phase_check.txt`); `p8_analysis.py`: the phase term is now
+`iπ(Δ − Δ_ref)` instead of `iπΔ` (numerically identical for `Δ_ref = 2·10⁴`; comment updated). `n1_*`, `n3_*`, H0 untouched.*
+
+### 12.1 Where the phase enters [P + NE]
+
+The state/reference normalisation is `exp[(logC − logK)_s − (logC − logK)_r]` (p4, p8, n1, l9 alike). Its two pieces:
+
+* **`logC` (crystal Laplace normalisation `lamF + G + log det L` at the saddle) has a `ν`-only phase.** At the crystal
+  (`x₃ = −x₁ = (ia, −ia, 0)`, `x₄ = −x₂ = (−i/a, i/a, 0)`, `e = (1,1,0)`, `c := a + 1/a`): `m₁₂ = m₃₄ = c²`, `m₁₅ = m₃₅ = 1 + a²`,
+  `m₂₅ = m₄₅ = 1 + a⁻²`, so `B₀ = m₃₅m₄₅m₁₂/(m₁₅m₂₅m₃₄) = 1` **exactly for every `a`** and the `Δ`-term `(Δ/2) log B` of the fast exponent
+  vanishes at the saddle [P]. `A₀ = 4` (`log A₀ = log 4` to round-off at `ν = 35.46`, `Δ = 100 … 2·10⁴`) and `Im G₀ = π` [NE], so
+  `Im lamF₀ = ν log 2`. Check over all cached Laplace records (`p3_pts_*`, `p8_k2_*`, `J = 4…9`, both kinds): `Im(logC_s − logC_r) = 0 mod 2π`
+  at equal `ν` to `3.9·10⁻¹²` (616 pairs) [NE].
+* **`logK` (shadow coefficient, `l3_shadow_laplace.rhs_log` → `l5_shadow_matrix.rhs` → `p2_shadow_odd.rhs`) carries exactly
+  `e^{iπ(Δ+J)}`.** `logK = logI₀ − den`. The LHS (`x₅` saddle at `e`) uses `d₅₆ = −x₅₆² = 4`, `m₃₅ = 1 + a²`, `m₄₅ = 1 + a⁻²`, `m₃₄ = c²`:
+  all positive, `logI₀` real. The RHS evaluates `⟨T₃T₄𝒪(x₆)⟩`, `x₆ = (−e)⁺`, with `m₃₆ := x₃₆² = −(1 + a²) < 0` and
+  `m₄₆ := x₄₆² = −(1 + a⁻²) < 0` and `den ⊃ −((Δ+J)/2)(log(m₃₆ + 0j) + log(m₄₆ + 0j))`: each principal log contributes `+iπ`, so
+  `Im den = −π(Δ+J)` and **`Im logK = π(Δ + J)`** [P]. Verified on every cached shadow entry: `|Im logK − π(Δ+J)| = 0` exactly
+  (70 entries of `p2_shadow.pkl`, 29 of `l9_shadow_k2.pkl`) [NE]; `b` (the fitted matrix) is real to the fit residual.
+* **Hence the normalisation phase is exactly `e^{−iπ(Δ_s − Δ_r)}`** (the `J`-parts cancel at equal `J`): `≡ 1` when `Δ_s − Δ_ref` is an even
+  integer (all rows before §11.5), and the `e^{−iπ(Δ−100)}` of §11.5 on the extra rows. Everything else that is complex (the Laplace series
+  `M`, the direct integral `E`) has phases smooth in `Δ` (12.2).
+
+**Why it is an artefact, not physics.** l3's own definition (docstring: CLS-D's shadow relation between *moduli* `|⟨…⟩|`, and "`+`-shifted
+separations enter as `+|.|`") is applied on the LHS (`d₅₆ = |x₅₆²|`) but not on the RHS: the product `m₃₆m₄₆ = (1+a²)(1+a⁻²)` is positive,
+but it is split into two principal logs of negative numbers. Equivalently, the RHS three-point function is put on a different sheet
+from the LHS two-point function `⟨𝒪(x₆)𝒪(x₅)⟩`, both of which carry the `x₆`-dependence. So `β_code = e^{iπ(Δ+J)} β` with `β` real. It went
+unseen because (i) l3 validated `|β_Laplace|/|β_exact|` only (the scalar `log_beta` is `.real`), (ii) every row had `Δ ∈ 2ℤ`; at odd `J` the
+`J`-part is the "`(−1)^J` sign of `β_OO` relative to the even `β`" of §2 — **that sign is the same artefact**, not a property of the odd
+structure (harmless: it cancels at fixed `J` and in `N`, where `logK` is common to all structures of the state).
+
+### 12.2 The even sector has the same phase (`p9_phase_check.py even 4 C2 0.5`; read-only `n1_run.point`, `2¹²·8` points) [NE]
+
+`J = 4`, `Ĉ₂`, `ν = 49.20` (`x = 0.5` of the `Δ = 100` row), states `Δ = 100, 100.5, 101, 104, 105`, reference `2·10⁴` at the same `ν`.
+`Im logK/π = Δ + J` to `10⁻⁹` at every `Δ`; `max|Im b|/|b| ≤ 8·10⁻⁵` (fit residual). Structure-basis elements are compared in a canonical
+real basis (`M′ = CᵀMC`, `C = pinv(sol(Δ))·sol(100)`: the 2-dim real null space of `l5_spin.conserved` is otherwise rotated arbitrarily at
+each `Δ`; the `𝒪̃`-side basis cancels in `M = E b⁻ᵀ`, [P]). `arg/π` of the state/reference ratio (elements 11, 12, 21, 22; per-row real
+constant dropped):
+
+| `Δ` | as computed | with `logK → logK − iπ(Δ+J)` |
+|---|---|---|
+| 100 | +0.035, +0.993, +0.993, −0.527 | same |
+| 100.5 | **−0.465, +0.494, +0.494, +0.909** | +0.035, +0.994, +0.994, −0.591 |
+| 101 | **−0.966, −0.006, −0.006, +0.352** | +0.034, +0.994, +0.994, −0.648 |
+| 104 | +0.033, +0.995, +0.995, −0.839 | same |
+| 105 | **−0.968, −0.005, −0.005, +0.133** | +0.032, +0.995, +0.995, −0.867 |
+
+(11, 12, 21 are the large elements; 22 is a near-cancelling small element, `|M′₂₂/M′₂₂,ref| ≈ 10⁻¹¹` vs `10⁻¹⁰–10⁻⁹`, whose phase drifts by
+`≈ −0.06π` per unit `Δ` in the corrected column, not monotone-linear at the RQMC level; it is not used anywhere.) **The even sector carries the identical `e^{−iπ(Δ−Δ_ref)}`; after the correction all elements are smooth in
+`Δ`** (11: `+0.0349 → +0.0318` over `Δ = 100 … 105`). It is invisible in `n1`/`l9` only because their rows are even integers.
+
+### 12.3 Verdict on the `Re` prescription and the rule for non-even-integer rows
+
+* **(a), not (b).** The phase is a branch convention of `β` (12.1), a *state-dependent* overall phase of the normalisation. Stripping it
+  is not a choice of `θ(ν)`: it replaces `β_code` by the real shadow coefficient, after which (H0 §23.5) **(a)** the structure basis and `β`
+  are real (`b` real, `p1` Lorentzian-real, §1), **(b)** the only normalisation phase left is `ν`-only (`Im logC`), removed by the reference
+  at the same `ν` with the fixed convention "heavy limit real positive" — exactly §R.3's `N̂(ν)`, and **(c)** the light side is untouched
+  (`θ = 0` on both sides). Without the strip, `Re` would be taken of `e^{−iπ(Δ−Δ_ref)}×(correct)`, i.e. a state-dependent mixing of `Re` and
+  `Im` — not a valid sum rule. Nothing indicates that `Re` is taken in the wrong basis: after the strip the residual phases are the smooth
+  `O(1/m)` ones of H0 §22.2 [P for the mechanism; NE for smoothness].
+* **Prescription (all future rows, both sectors, state and reference):** use `logK_phys := logK − iπ(Δ + J)` (= `Re logK` for the current
+  code; assert `|Im logK − π(Δ+J)| < 10⁻⁸`). For a state/reference ratio this equals multiplying by `e^{+iπ(Δ_s − Δ_ref)}`; `p8_analysis`
+  (`P8_PHASE=1`) now does exactly this. `n1_analysis.py`/`l9_analysis.py` lack it and need it before any non-even-integer row is added.
+  **Graviton/scalar ratios** (H0 §24.7(2) route): the scalar `log_beta` is real, so a graviton/scalar ratio needs the correction at every
+  `Δ`, and at odd `J` even for `Δ ∈ 2ℤ` (sign `(−1)^J`). Do not "fix" l3/l5/p2 at the source (`log|m₃₆| + log|m₄₆|`) without clearing the
+  shadow caches: old and new `logK` must not be mixed.
+* **Earlier results: unchanged.** All rows of §5–§11.4, H0 §21–§24 and `n1` have `Δ ∈ 2ℤ`; §11.5–§11.6 already used the strip; `N` (§4) is a
+  same-state ratio. Only interpretations change: §2's `(−1)^J` sign of `β_OO`, and H0 §22.1's "`β` real" (true on `Δ ∈ 2ℤ`; in general
+  `β_code = e^{iπ(Δ+J)}×real`).
+
+### 12.4 `N = tan²(πτ/2)`, `τ = Δ − J` — not a constant (`p9_phase_check.py N`, `cache/p9_N_1600.13_J{4,5}.txt`) [NE + P]
+
+| `(Δ, J)` | measured `N` | `tan²(π(Δ−J)/2)` |
+|---|---|---|
+| (1600.37, 5), (3200.37, 5) (`Ĉ₂`, `Ĉ₃`); (400.37, 5); (1600.37 / 3200.37, 7); (1600.37 / 800.37, 19) | 2.3175632436 (… 2.31755) | 2.3175632447 |
+| (400.37 / 1600.37 / 3200.37, 4) | 0.43149 | 0.4314876853 |
+| **(1600.13, 5)** (new, out of sample) | **23.31748** (`x = 0.3, 0.5`, orders 0 and ≤ 2) | **23.317477** |
+| **(1600.13, 4)** (new) | **0.04289** | **0.0428863** |
+| (43.697092, 19) — `PARITY_ODD_HEAVY.md` §4 Regge moments | 3.76609 | 3.7661017 (`3·10⁻⁶`) |
+| (78.320346, 35) — same | 3.30023 | 3.3002310 (`3·10⁻⁷`) |
+
+* **`N(Δ, J) = tan²(π(Δ − J)/2)`** at 14 states, 6 values of `Δ − J mod 2`, both pipelines [NE]. The "state-independent constant 2.31756"
+  of §4 was an artefact of the test rows, which all had `Δ ≡ 0.37 (mod 1)`; `N_same = 1/N_opp` is `tan²` at `τ` shifted by an odd integer.
+  **The `3.77 / 3.30` of the Regge-moment pipeline (`PARITY_ODD_HEAVY.md` §4.3(c), "[I]") is the same function**: no seed-normalisation
+  slip; crystal and Regge pipelines agree. (The crystal's 3.25 at `(43.7, 19)` is its non-convergence at `J²/m ≈ 10`, as §4 said.)
+* **Origin [P for the factor; NE that the rest is 1].** `odd3.xspace_odd` and `chl_xspace` share the common factor of the reference term;
+  the odd structure's inverse-Fourier constants are `Γ(z + c)/Γ(z)` with `z = s₀ + J + 3/2 = (10 − Δ + J)/2 → −∞` and **half-integer** `c`
+  (odd number of `B/|p|`), integer `c` for the even one. Reflection, `Γ(z+c)/Γ(z) = [sin πz / sin π(z+c)]·Γ(1−z)/Γ(1−z−c)`, gives `±tan πz`
+  for half-integer `c` and `±1` for integer `c`; `|tan πz| = |tan(πτ/2)|`. The remaining power-law factors combine to exactly 1 (numerics).
+* **Reading.** `tan²(πτ/2) = sin²(πτ/2)/cos²(πτ/2)` is precisely the ratio of the CLS-D double-commutator factors of an even and an odd
+  structure derived in 12.5 (`2sin²(πτ/2)` vs `2cos²(πτ/2)`, both dropped from the crystal as state constants). So with those factors
+  restored, **CHL-normalised odd and even `+−` blocks enter the full functional with equal weight, `N_full = 1`** — CHL's equal-modulus
+  expectation (§4, `PARITY_ODD_HEAVY.md` §4.3(c)) holds [NE for `tan²`; P-given-Q for the factors; the identification is an exact
+  numerical coincidence at 14 points, not separately derived].
+* **For route A′: no number changes.** `N > 0` still, and it is a positive per-state factor absorbed in `a₊₋`; but the statements "`N` is a
+  state-independent constant" (§4, §7 table, RESULT_D summary box) should read "`N = tan²(πτ/2) > 0`, a per-state structure-normalisation
+  factor; `N_full = 1`".
+
+### 12.5 Parity-odd double traces: the odd-sector functional has double zeros at odd `τ` [P given Q; tree-level decoupling P given Q + one assumption]
+
+* **Mechanism [Q].** CLS-D's double-commutator factor for an exchange in the `(12)(34)` channel is, per pair of three-point structures,
+  `cos π(p − q) − cos π(p + q) = 2 sin πp · sin πq`, where `p`, `q` are the exponents of `x₁₂²`, `x₃₄²` in the two structures (the only
+  multivalued pieces under the Wightman reorderings); for parity-even `⟨TT𝒪⟩`, `p = q = (τ − 10)/2` mod integers: `2sin²(π(τ−10)/2)`.
+* **Odd structure [P].** `p1`'s structure is `ε(…)X_ij ×` (even monomials) `/` (even denominator `× (X₁₂X₁₅X₂₅)^{1/2}`), with `ε` a
+  determinant of embedding *components* (a polynomial in the positions, single-valued under any path) and `V`, `H` rational. So
+  `p_odd = (τ − 11)/2` mod integers. The `OO` block uses the same structure on both sides (`p = q` exactly, so the integer parts cannot
+  produce a sign `(−1)^{p−q}`), hence the factor is **`2 sin²(π(τ−11)/2) = 2cos²(πτ/2)`: a double zero at every odd `τ`**, `= 2` at even `τ`.
+  The EO cross terms (where an even factor would multiply an odd structure) cancel identically in the `S⁰` sum (§3) [P].
+* **Which `τ` the odd double traces have [P-sketch].** Near `x₁₂ → 0` the MFT correlator `⟨T₁T₃⟩⟨T₂T₄⟩ + ⟨T₁T₄⟩⟨T₂T₃⟩` is analytic in
+  `x₁₂^μ`; an odd-structure block behaves as `(x₁₂²)^{(τ−11)/2} ×` (analytic), an even one as `(x₁₂²)^{(τ−10)/2} ×` (analytic). So at
+  `O(c_T⁰)` parity-odd `[TT]_{n,J}` have **odd** `τ` and parity-even ones even `τ` (the standard GFF statement `Δ ∈ 6 + ℤ` with the parity
+  of `τ` tied to the structure), i.e. both families sit exactly on the double zeros of their own factor.
+* **Tree level [P given Q, assuming the stripped heavy action is finite at those `τ`, as for the even sector].** With
+  `τ = τ₀ + γ/c_T`, `2cos²(πτ/2) = 2sin²(πγ/2c_T) = O(1/c_T²)`; a parity-violating `O(1/c_T)` even coupling of an odd-`τ` operator enters
+  as `λ_E² = O(1/c_T²)` (no `λ_Eλ_O` term, §3). The weights `f₂ = v′ − u′`, `f₃ = −1` are polynomial (a `u′` shifts `τ` by 2, keeping its
+  parity); the half-integer powers of `o_H` (`Ĉ₃`) sit in the fixed kernel, not in the commutator. **So `Ĉ₂`, `Ĉ₃` on odd states are not
+  contaminated by `[TT]` double traces at tree level.** This upgrades H0 §15.1's caveat and the "[D-sketch]" of H0 §15/§16 tables for
+  parity-odd `[TT]`.
+* **Basis caveat.** The zero refers to a structure basis regular at the double traces, in which the MFT OPE coefficients are finite —
+  `p1` (used by p3/p8). CHL's x-space `X^O` is `tan(πτ/2) ×` regular (12.4): it has a pole at odd `τ` that eats the zero, which is why
+  `N_full = 1` there. Physics is basis-independent; the statement "double zero" is about the regular basis.
+* **Independent consistency check [NE].** 12.4's `N = tan²(πτ/2)` is exactly `factor_E/factor_O` with the factors above, i.e. the odd
+  factor `cos²(πτ/2)` (hence its zeros) is what makes CHL's equal-modulus normalisation hold. It does not test the overall sign of the odd
+  factor (it enters squared there); that sign is fixed by `p = q` above.
+* Not done: a direct low-`τ` evaluation (the crystal is invalid at `τ ≈ 7–20`). Open aside [I]: the same factor vanishes at `τ = 1`, so a
+  parity-odd `⟨TTT⟩` structure (not among `(t₄, α_T)`) would need the residue treatment of the light side, not this factor.
+
+### 12.6 Graded summary
+
+| statement | grade |
+|---|---|
+| normalisation phase `= e^{−iπ(Δ_s−Δ_ref)}` exactly; from `Im logK = π(Δ+J)` (principal logs of `m₃₆, m₄₆ < 0` in the shadow RHS); `logC` phase `ν`-only (`B₀ = 1`) | [P] (code algebra) + [NE] (99 shadow entries exact, 616 pairs to `4·10⁻¹²`) |
+| it is a branch artefact (`β` real); strip = replace `β_code` by `β`; `Re` taken in the right basis; H0 §23.5 (a)–(c) hold after the strip | [P] for the mechanism, [NE] smoothness |
+| even sector has the same phase (`J = 4`, `Δ = 100…105`, direct); smooth after the strip | [NE] |
+| prescription `logK → logK − iπ(Δ+J)` for all rows / sectors / graviton–scalar ratios; earlier results unchanged | [P] |
+| `N(Δ,J) = tan²(π(Δ−J)/2)` (14 states incl. 2 out-of-sample and the 2 Regge points); "constant 2.31756" and "3.77/3.30 unexplained" retired | [NE]; `tan` factor from Γ reflection [P] |
+| `N_full = 1` (CHL equal moduli) once the double-commutator factors are restored | [NE + P given Q] |
+| odd-structure double-commutator factor `2cos²(πτ/2)`: double zeros at odd `τ`; odd `[TT]` have odd `τ`; tree-level decoupling | [P given Q] (+ finiteness of the stripped action at `τ₀`, as in the even sector; GFF `τ`-parity [P-sketch]) |
+
+### 12.7 Hand-over
+
+* **Nothing is running.** New: `p9_phase_check.py` (`caches`, `even J kind x`, `N`) → `cache/p9_phase_check.txt`; `cache/p9_N_1600.13_J{4,5}.txt`
+  (out-of-sample `N`; the run added `Δ = 1600.13` keys to `cache/p2_shadow.pkl` and `cache/p3_pts_C2_J{4,5}_anti.pkl`).
+  `p8_analysis.py`: phase term `iπ(Δ − Δ_ref)` (identical output for `Δ_ref = 2·10⁴`).
+* **For the coordinator / RESULT_D:** (1) the `Re` prescription stands; the `e^{iπΔ}` strip is mandatory and justified (12.3), also for the
+  even sector (`n1_analysis`/`l9_analysis` need it before non-even-integer rows, e.g. 11.10's suggested extra `m`-rows); (2) replace "`N` =
+  2.31756, state-independent, closed form unexplained" by "`N = tan²(πτ/2)`; `N_full = 1`" (RESULT_D box, §4, §7, `PARITY_ODD_HEAVY.md`
+  §4.3(c)); (3) parity-odd `[TT]` zeros: [P given Q] (12.5), replacing [D-sketch].
+* **Possible next steps:** derive the remaining power-law factor of 12.4 (= 1) analytically from `odd3`/`chl_xspace`; state the CLS-D
+  factor for general structures (`τ̃_ρ`) in H0 §15.1 with 12.5's `p, q` rule.

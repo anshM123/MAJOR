@@ -23,8 +23,9 @@ RELMAX = float(os.environ.get('P8_RELMAX', '0.05'))
 GERRMAX = float(os.environ.get('P8_GERRMAX', '60'))   # ... or, next to a zero of the LO shape (where the relative error is meaningless),
                                                       # absolute RQMC error <= GERRMAX in Gamma (c2) units (tolerance scale: 630)
 H = '+-'
-PHASE = os.environ.get('P8_PHASE', '1') == '1'        # remove the overall e^{-i pi Delta} of the state/ref normalisation (sect. 11.5): it is 1
-                                                      # on the even-integer rows of p3/p4 (100, 200, ...) but not on the extra rows
+PHASE = os.environ.get('P8_PHASE', '1') == '1'        # remove the overall e^{-i pi (Delta - Delta_ref)} of the state/ref normalisation (sect. 11.5):
+                                                      # it is the e^{i pi (Delta + J)} of the shadow logK (p2/l5 rhs: principal logs of the
+                                                      # negative m36, m46 at the crystal), a branch artefact (sect. 12.1); 1 on even-integer rows
 XROWFIT = os.environ.get('P8_XROWFIT', '0') == '1'  # (test only) a_{+-} on the extra rows from the 3 smallest x, as on the
                                                       # Delta = 100 row (the generic rule gives an exactly-determined, unstable fit there)
 LOWK = int(os.environ.get('P8_LOWK', '2'))            # 3: x < 0.2 nodes from the K3 chain (L1_DEG=8 records) where computed
@@ -98,14 +99,14 @@ def grid(J, K=2, kinds=('C2', 'C3H'), Ds=None, direct=None, dmax=3200.0, lowk=No
                 dl = st['logC'] - st['logK'] - rf['logC'] + rf['logK']
                 if c0 is None:
                     c0 = dl.real
-                dl = dl - c0 + (1j*np.pi*D if PHASE else 0.0)
+                dl = dl - c0 + (1j*np.pi*(D - A.DREF) if PHASE else 0.0)
                 fk = (m*m/(mr*mr)) if k == 3 else 1.0
                 sc = (A.SIG[H] if k == 3 else 1.0)*A.env(H, xr, k)*A.Dc(H, J, xr)
                 vK = np.exp(dl)*A.pred([st[o][-1, -1] for o in ('M0', 'M2', 'M4')], [rf[o][-1, -1] for o in ('M0', 'M2', 'M4')], K)*fk
                 if lowk == 3 and x < 0.2 - 1e-9:
                     s3, r3 = A.getrec(R3[kd], D, nu), A.getrec(R3[kd], A.DREF, nu)
                     if s3 is not None and r3 is not None:
-                        d3 = s3['logC'] - s3['logK'] - r3['logC'] + r3['logK'] - c0 + (1j*np.pi*D if PHASE else 0.0)
+                        d3 = s3['logC'] - s3['logK'] - r3['logC'] + r3['logK'] - c0 + (1j*np.pi*(D - A.DREF) if PHASE else 0.0)
                         o4 = ('M0', 'M2', 'M4', 'M6')
                         vK = np.exp(d3)*A.pred([s3[o][-1, -1] for o in o4], [r3[o][-1, -1] for o in o4], 3)*fk
                         used[(kd, 'k3', round(x, 6))] = True
@@ -114,7 +115,7 @@ def grid(J, K=2, kinds=('C2', 'C3H'), Ds=None, direct=None, dmax=3200.0, lowk=No
                     relok = all(np.max(np.abs(r_['err']))/np.max(np.abs(r_['E'])) <= RELMAX for r_ in (ds, dr))
                     used[(kd, round(x, 6))] = relok
                     ls, vs, rs = drep(ds, D, J); lr, vr_, rr = drep(dr, A.DREF, J)
-                    edl = np.exp(ls - lr - c0 + (1j*np.pi*D if PHASE else 0.0))
+                    edl = np.exp(ls - lr - c0 + (1j*np.pi*(D - A.DREF) if PHASE else 0.0))
                     v = edl*vs/vr_*fk
                     n = min(len(rs), len(rr))
                     s1 = (edl*rs[:n]/vr_*fk).real; s2 = (edl*vs/rr[:n]*fk).real
