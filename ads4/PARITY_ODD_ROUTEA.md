@@ -249,3 +249,37 @@ the odd-`J = 5` action is stable under the next Laplace order; its size relative
 * **Open.** (1) `Δ_g = 100`: needs a non-perturbative evaluation at `m ≈ Λ` (as for the even sector, H0 §23.4). (2) Closed form of
   `N∞ = 2.31756`, and whether `odd3.xspace_odd` vs `chl_xspace` differ by it. (3) Odd `J ≥ 11`. (4) Combined even + odd `n` at 300/1000
   is `n = 1` given H0 §23.4 (even) and §6 here (odd); a single combined run of `l9_neargap` + `p6` was not made.
+
+## 9. Combined even + odd `n` at `Δ_g = 300 / 1000` (CHMRS-type, `Ĉ₂ + Ĉ₃` corrections, `K₂`) [NE + M]
+
+Even sector: `cache/l9_neargap_C23H_K2_100_300_1000.txt` (H0 §23.4; even `J ≤ 10`, 2×2). Odd sector: §6 here (`J = 5, 7, 9`, 1×1).
+The two sectors are block-diagonal (EO cancels exactly, §3), so the combined `n` is the joint condition and the combined `t*` (same scale
+factor on all computed corrections) is the intersection of the two intervals.
+
+| `Δ_g` | even sector: min `λ/N_s` (state) | odd sector: min `F/N_s` (state) | **combined `n`** | combined min (binding) | combined `t*` |
+|---|---|---|---|---|---|
+| 300 | 0.2205 (`J = 4`, `1.02Λ`) | 0.2072 (`+−`, `J = 5`, `1.02Λ`) | **1** | 0.2072 (`+−`, `J = 5`) | (−5.1, +5.0) (set by even `J = 10`) |
+| 1000 | 0.2103 (`J = 4`, `1.01Λ`) | 0.2023 (`+−`, `J = 5`, `1.01Λ`) | **1** | 0.2023 (`+−`, `J = 5`) | (−37, +39) (set by the even sector) |
+
+Uncovered: even `J ≥ 12`, odd `J ≥ 11` (unchanged base, all with margin ≥ 0.4 in the base model).
+
+## 10. Hand-over for the next step: odd sector at `Δ_g = 100` with the direct QMC integrator (H0 §24, `n1_*`) — not started
+
+The coordinator asked for the odd `J = 5, 7, 9` `+−` states at `Δ_g = 100` from the direct randomised-QMC evaluation of the exact crystal
+integrand (validated by the `Δ_g = 100` agent; works for `ν ≳ 20`, i.e. `x ≥ 0.2`), with `K₂` below `x = 0.2`. Context ran out before this
+was started. Recipe (do not edit `n1_*`; copy into `p8_*.py`):
+1. **Point-wise loader.** `n1_pw._load(name, swaps)` re-executes a module with `l1_tps` → `n1_pw`. Load `p3_odd_action` with swaps
+   `{'l1_tps': PW, 'l1_crystal': PW.Cr, 'l5_spin': PW.S, 'l6_spin_action': PW.A6}`. Needed edits in the copy (`p8_odd_pw.py`):
+   remove `assert T.DEG in (6, 8)` and the `T.DEG >= 8` branches (PW has no DEG); `p2_shadow_odd` must stay the *real* module (shadow
+   from cache `cache/p2_shadow.pkl`; precompute `P2.shadow_odd(Δ, J)` for the needed `Δ` with the real engine first); `struct_sets` uses
+   `P2.even_set` (real) and `P1.conserved_odd` (real, reduced TPS) — fine. `eps_cof`, `vec5X/Z`, `tto_odd_samples` only use
+   `T.mul/T.const` and `S.lin_samples/S.bm/S.Vfun/S.Hfun/S.Xfun`, which PW provides (`S.bm` is the point-wise product).
+2. **Driver.** Copy `n1_run.point` with `gfun = lambda zl: P8.build(zl, nu, Δ, J, kind)[:3]` (kinds `C2`, `C3H`; `n₀ = +1`) and the
+   structure axis = [odd] only at odd `J` (1×1); keep the scalar row (`_both`). Rows: the `Δ` whose `m(Δ, J) = (m/Λ)·Λ(100)` for
+   `m/Λ ∈ {1.0x, 1.05, 1.1, 1.2, 1.3}`, `x ∈ {0.2, 0.25, 0.3, 0.4, …, 0.8}`, plus the references `Δ_ref = 2·10⁴` at the same `ν` (or reuse
+   the `K₂` references, which are exact enough at `Δ_ref`: check one).
+3. **Analysis.** As `n1_analysis.py` (direct values on `x ≥ 0.2`, `K₂` below), but for the 1×1 `+−` element with `a₊₋` from `Ĉ₂` and the
+   CHMRS de-shift (`p4_odd_analysis.grid` conventions); then `p6_odd_neargap.py` with the direct grid (add a `P6_DIRECT` switch analogous
+   to `P6_K3`). Cost estimate: per point ≈ the even `n1` cost (1×1 instead of 2×2 prefactor), ×2 kinds.
+4. **Still running at hand-over:** `p_queueC.sh` (`K₃`, `Δ = 100`, `J = 7`, `Ĉ₂` then `Ĉ₃`; resumable). Afterwards
+   `python3 p7_crystal_sign.py 7` gives the `a`-independent `K₂`/`K₃` sign check for `J = 7` (as done for `J = 5`, §6).

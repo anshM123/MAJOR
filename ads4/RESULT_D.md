@@ -117,6 +117,9 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   F/N_s 0.2023 / 0.2072; correction may be scaled by ≳ −210 / −57) [NE + M]. Δ_g = 100: n = 1 with K₂ (0.2217) but **not controlled**
 >   (same small-ν non-convergence as the even sector). H12′ for route A′: shape and sign [NE].
 >
+> * **Combined even + odd (`PARITY_ODD_ROUTEA.md` §9):** sectors are block-diagonal; **n = 1 at Δ_g = 300 and 1000**, binding state +−, J = 5
+>   (min 0.2072 / 0.2023), whole computed correction may be scaled by (−5.1, +5.0) / (−37, +39) [NE + M]; even J ≥ 12, odd J ≥ 11 uncorrected.
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
