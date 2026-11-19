@@ -11,8 +11,9 @@ C, S the cosine/sine transforms on nu in [0, oo).  No analyticity of X, psi_2 or
 For u = i/(2 nu) (eta P_l, the old §R.5 kernel) this is h1's ODE; for u = i c/nu it is solved by H = S[X/nu], H' + c tanh(t) H = Phi/cosh t.
 Numerics.  Midpoint nu-grid (step dnu, N points) and the DCT-II/DST-II-paired t-grid (dt = pi/(N dnu)); the collocated equation
    A[X] := C[X] - i tanh(t) S[u X] = Phi/cosh t        (Phi by the same DCT, so u = 0 returns X = psi_2 exactly)
-is solved by GMRES, right-preconditioned with the exact ODE solution for the reference u_ref = i c/nu (c = 23/2, the large-nu coefficient of
-u_T; for the eta-kernel test c = 1/2 and the preconditioner is the h1 solution).
+is solved by LSQR (exact adjoint; minimum-norm correction X - psi_2, which fixes the gauge of the 3-dim null space, §23.2).  For the
+eta-kernel check also GMRES right-preconditioned with the exact ODE solution (u_ref = i/(2nu), = h1).  (GMRES with u_ref = 23i/(2nu)
+stagnates on u_T because of the null space.)
 Checks: (V0) eta-kernel: reproduce h1's psit (cache spinfunc/h1_<Dg>.pkl) and dk0; (V2) residual |A[X] - Phi/cosh|/|Phi/cosh| on the
 t-grid (= the eta-identity, by injectivity of the Abel transform); (V3) graviton-pole identity int X 1/2[(1+u) D(nu+i) + (1-u) D(nu-i)] =
 int psi_2 D, D = 1/(nu^2 + 9/4) (complex LHS: Re and Im tested); (U) uniqueness probe: GMRES on the homogeneous system from random starts;
@@ -258,8 +259,10 @@ if __name__ == '__main__':
         pr("     interior p = 0.2/0.4/0.6/0.8: (X - psi)/psi = " + " ".join(
             f"{((Xs[j] - ph[j])/ph[j]).real:+.3e}{((Xs[j] - ph[j])/ph[j]).imag:+.1e}i" for j in [int(q*Lam/dnu) for q in (0.2, 0.4, 0.6, 0.8)])
            + " ; symbol = " + " ".join(f"{(sym[j]/ph[j]).real:+.3e}{(sym[j]/ph[j]).imag:+.1e}i" for j in [int(q*Lam/dnu) for q in (0.2, 0.4, 0.6, 0.8)]))
-        pi1 = np.sum((0.5*d2 - (dst_*ph + st*dph))*p**6)*dnu/Lam*(-2)
-        pr(f"     dk0 from the symbol: {pi1.real:+.5e}")
+        msk = (Ss.nu >= 10) & (Ss.nu <= Lam)
+        pi1 = np.sum(((0.5*d2 - (dst_*ph + st*dph))*p**6)[msk])*dnu/Lam*(-2)
+        pi0 = np.sum(((Xs - ph)*p**6)[msk])*dnu/Lam*(-2)
+        pr(f"     dk0 restricted to nu >= 10: exact {pi0.real:+.5e}, first-order symbol {pi1.real:+.5e}")
         prof = [0.1, 0.37, 0.73, 1, 1.5, 2, 4.4, 6.35, 10, 20, 0.25*Lam, 0.5*Lam, 0.75*Lam, 0.95*Lam]
         pr("     profile nu: X/max psi (Re, Im) | psi/max psi | X_eta/max psi")
         for v in prof:

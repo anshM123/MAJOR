@@ -138,24 +138,16 @@ def build():
 
 
 def load():
+    """sympy expressions R_-^T, R_+^T, R_-^sc, R_+^sc (keys RmT, RpT, RmS, RpS) of nu."""
     if not os.path.exists(OUTP):
         build()
     D = pickle.load(open(OUTP, 'rb'))
-    return {k: sp.sympify(eval(v, sp.__dict__.copy())) if False else sp.parse_expr(v) if False else eval(v, {**sp.__dict__})
-            for k, v in D.items()}
+    return {k: eval(v, {**sp.__dict__}) for k, v in D.items()}
 
 
 def numfuncs():
-    """numpy callables: R_-^T, R_+^T, R_-^sc, R_+^sc, a_-, a_+, rho = h_+/h_-, u_T, H_-, H_+ (CHMRS normalisation)."""
-    E = load()
-    f = {k: sp.lambdify(nu_s, v, 'numpy') for k, v in E.items()}
-    import l2g
-    return f
-
-
-def gnum(nu):
-    """CHMRS g(nu), g~(nu) for complex nu (numpy; v3_regge_kernel.gfac is real-nu-safe and analytic: same formula)."""
-    return V.gfac(nu)
+    """numpy callables of nu (complex ok) for RmT, RpT, RmS, RpS."""
+    return {k: sp.lambdify(nu_s, v, 'numpy') for k, v in load().items()}
 
 
 if __name__ == '__main__':
@@ -180,4 +172,26 @@ if __name__ == '__main__':
     # symmetry nu -> -nu
     pr(f"rho(nu) rho(-nu) = {sp.simplify(rho*rho.subs(nu_s, -nu_s))}")
     pr(f"a_-(-nu)/a_+(nu) = {sp.simplify(am.subs(nu_s, -nu_s)/ap)}")
+    # ---- zeros and poles (CHMRS normalisation H_-+ = N_com R_-+^T, N_com = g/R_-^sc = g~/R_+^sc: even, no zeros/poles for |Im nu| < 11/2)
+    Ncom = sp.simplify(sp.gammasimp(g_sym(+1)/RmS))
+    pr(f"N_com := g/R_-^sc = {Ncom}   (numerical check max|g~/(R_+^sc N_com) - 1| on nu = 0.3, 2.7+0.4i, 9-0.8i: {max(abs(complex((g_sym(-1)/RpS/Ncom).subs(nu_s, v).evalf()) - 1) for v in (0.3, 2.7 + 0.4j, 9 - 0.8j)):.1e})")
+    def zp(expr, lab):
+        num, den = sp.fraction(sp.factor(sp.together(expr)))
+        rz = np.roots([complex(c) for c in sp.Poly(sp.expand(num), nu_s).all_coeffs()]) if sp.degree(num, nu_s) > 0 else np.array([])
+        rp = np.roots([complex(c) for c in sp.Poly(sp.expand(den), nu_s).all_coeffs()]) if sp.degree(den, nu_s) > 0 else np.array([])
+        fm = lambda r: ", ".join(f"{z.real:+.5f}{z.imag:+.5f}i" for z in sorted(r, key=lambda z: (round(z.imag, 6), z.real)))
+        ins = lambda r: [z for z in r if abs(z.imag) <= 1 + 1e-12]
+        pr(f"{lab}:\n    zeros {fm(rz)}\n    poles {fm(rp)}\n    in |Im nu| <= 1: zeros [{fm(ins(rz))}], poles [{fm(ins(rp))}]")
+    zp(RmT, "h_- (= N_com R_-^T)")
+    zp(RpT, "h_+ (= N_com R_+^T)")
+    zp(RmT + RpT, "h_- + h_+ (forward normalisation)")
+    zp(rho, "rho = h_+/h_-")
+    zp(RmS, "g (scalar, / N_com)"); zp(RpS, "g~ (scalar, / N_com)"); zp(RmS + RpS, "g + g~ (scalar)")
+    s0 = sp.nsimplify(sp.limit(-I*nu_s*(RmT - RpT)/(RmT + RpT), nu_s, 0)); s0s = sp.limit(-I*nu_s*(RmS - RpS)/(RmS + RpS), nu_s, 0)
+    pr(f"small nu: u = i s0/nu + O(1): s0 = {s0} = {float(s0):.5f} (spinning), {s0s} (scalar g), 1/2 (eta P_l); large nu: s -> 23/2")
+    f = {k: sp.lambdify(nu_s, v, 'numpy') for k, v in (('m', RmT), ('p', RpT))}
+    nv = np.linspace(1e-3, 300, 3000001); a, b = f['m'](nv), f['p'](nv); r = np.abs(a + b)/(np.abs(a) + np.abs(b))
+    pr(f"real axis nu in (0, 300]: min |h_-| nu = {np.min(np.abs(a)*nv):.3f}, min |h_+| nu = {np.min(np.abs(b)*nv):.3f} (no zeros); "
+       f"|h_- + h_+|/(|h_-| + |h_+|) local minima: " + ", ".join(f"{r[(nv > lo) & (nv < hi)].min():.4f} at {nv[(nv > lo) & (nv < hi)][np.argmin(r[(nv > lo) & (nv < hi)])]:.3f}"
+                                                                 for lo, hi in ((0.5, 1.0), (1.5, 2.5), (5, 8))) + f"; max |u_T| on [0.2, 300] = {np.max(np.abs((a - b)/(a + b))[nv > 0.2]):.3f}")
     open(os.path.join(HERE, 'cache', 'v4_hclosed.txt'), 'w').write(buf.getvalue())

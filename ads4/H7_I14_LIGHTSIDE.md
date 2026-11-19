@@ -921,3 +921,302 @@ Reading:
   `cache/v3_hn_analysis.txt`, `cache/v3_uT_table.pkl`.
 * `ads4/code/h7i14/v3_heavy_impact.py`, `v3_heavy_split.py`: near-gap chains with the spinning de-shift → `cache/v3_heavy_impact.txt`,
   `cache/v3_heavy_split.txt` (and `cache/v3_heavy_tmp/`, `cache/v3_sigmaT_memo.pkl`).
+
+## 23. Consolidating `Ĉ₂′` (v4): exact `h_∓`, strip structure, the non-local weight `χ`, parity-odd sector
+
+*Written 19 Nov 2026 by the `Ĉ₂′`-consolidation agent. Unrefereed. New code `ads4/code/h7i14/v4_*.py`, caches `ads4/code/h7i14/cache/v4_*`.
+Nothing in `spinfunc/` (n3_*, p*, l9_*, …) was edited; it was only imported.*
+
+### 23.1 Exact `h_∓(ν)` and their analytic structure (`v4_hclosed.py` → `cache/v4_hclosed.txt`, `.pkl`) [P given §18.1] + [DV]
+
+**Method (computer algebra, no fits).** §18.3's equivariance argument is turned into a closed-form computation.
+* The gradient of each side's plane-wave transform is `V_μ = (−z₀·p)^{−λ}[c₁p_μ + c₂z₀_μ/(−z₀·p)]`, with `λ = 1−δ` on the (2,4) side and
+  `λ′ = δ` on the (1,3) side. Its component outside `span(p, z₀)` vanishes identically (sympy). Numerically it is `≤ 3·10⁻¹⁶`, and the
+  coefficients do not depend on the celestial point.
+* Then `∫dφ(−z₀·p)^{−a}(−z₀·p̄)^{a−1} = 2πP_{−a}(cosh β)` (checked to `10⁻¹⁶`). This gives
+  `h₊ = 2π[c₁c₁′(l+1)/(2l+1) + c₁c₂′]` and `h₋ = 2π[c₁c₁′ l/(2l+1) + c₂c₁′]`.
+* `c₁, c₂` come from a single celestial point, `p = (1,0,0)`, `z₀ = (1,0,1)`. Within one side, all monomial constants `K(c,λ)` differ by
+  integer shifts of both Γ-arguments, so the ratios reduce to rising factorials.
+* Hence **`h_∓ = 2πK_A^{ref}(δ)K_B^{ref}(δ)·R_∓(ν)` with `R_∓` rational, exactly.**
+* Checks:
+  * the scalar functional through the same code gives `R₋^{sc}/R₊^{sc} = g/g̃` identically (CHMRS's `g`) [P];
+  * spinning vs the v3 fits: `a_∓`, `u_T` agree to `2·10⁻¹¹` at all 53 table nodes [DV];
+  * the assembled `h_∓` agree with the v3 β-fits to `10⁻¹³`, including at complex ν (`1 − i`, `3 + 0.5i`) [DV].
+
+**Closed forms** (`l = −½ + iν`). In the **CHMRS normalisation** (`Ψᵀ` with the scalar's prefactors, divided by the scalar's ν-only factor,
+so that the scalar has kernel exactly `(g, g̃)`), `H_∓ = N_com(ν)·R^T_∓(ν)` with:
+* `N_com = Γ(11/4 − iν/2)²Γ(11/4 + iν/2)²/(2Γ(13/4 − iν/2)²Γ(13/4 + iν/2)²)`: even in ν, positive on ℝ, and **free of zeros and poles for
+  `|Im ν| < 11/2`**. The scalar is `(g, g̃) = N_com·(R₋^{sc}, R₊^{sc})`, with `R₋^{sc} = −(2ν+i)(2ν+11i)²/(16ν)` and `R₊^{sc}(ν) = R₋^{sc}(−ν)`.
+* `R^T₋ = −2(2ν−i)(2ν+i)(2ν+3i)(2ν+5i)·Q₅(ν) / [ν(2ν−7i)²(2ν−3i)²(2ν+7i)²]`
+* `R^T₊ = −2(2ν−5i)(2ν−3i)(2ν−i)²(2ν+i)·Q₄(ν) / [ν(2ν−7i)²(2ν+3i)²(2ν+7i)²]`
+* `Q₅ = 32ν⁵ + 848iν⁴ − 6160ν³ − 14536iν² + 18042ν + 4185i`, `Q₄ = 16ν⁴ + 288iν³ − 824ν² + 408iν + 4185`.
+* So `ρ := h₊/h₋` and `a_∓ = h_∓ᵀ/h_∓^{sc}` are rational, and `a_∓ → 32` at large ν (§18.4).
+* `ρ(ν)ρ(−ν) ≠ 1`. Unlike the scalar, `Ψᵀ_{−ν}` is **not** proportional to `Ψᵀ_ν` [P given §18.1]. Only `ν ≥ 0` is used, so nothing depends
+  on this, but the evenness of `Ĉ₂′` in ν is a convention, not inherited from `Ψ`.
+
+**Zeros and poles in `|Im ν| ≤ 1`** (all exact roots of the polynomials above; CHMRS normalisation):
+
+| function | poles | zeros |
+|---|---|---|
+| `h₋` | `ν = 0` (simple) | `±i/2`, `−0.29280i` |
+| `h₊` | `ν = 0` (simple) | `+i/2` (double), `−i/2`, `±1.77877 + 0.64888i` |
+| `h₋ + h₊` (forward normalisation) | none (the residues at 0 cancel) | `±i/2`, **`±0.72846 − 0.08264i`**, **`±1.90917 − 0.26418i`**, **`±6.34580 − 0.79227i`** |
+| `ρ = h₊/h₋` | `−0.29280i` | `+i/2`, `±1.77877 + 0.64888i` |
+| scalar `g` / `g̃` / `g + g̃` | `0` / `0` / none | `−i/2` / `+i/2` / **`±5.97913` (real)** |
+
+Just outside the strip: `h₋` has a double pole at `+3i/2` and zeros at `±1.42630 − 1.30525i`, `−3i/2`; `h₊` has a double pole at `−3i/2`.
+
+**Real axis, `ν ∈ (0, 300]`** [P + numerical scan at `10⁻⁴` spacing]:
+* `h₋`, `h₊` have no zeros (`|h_∓|ν ≥ 5.81`). Their only singularity is the simple pole at `ν = 0` that `g` also has, with opposite residues;
+  the kernel `h₋P_{l−1} + h₊P_{l+1}` is finite at `ν = 0`.
+* `h₋ + h₊` has **no real zero**. The relative forward normalisation `|h₋+h₊|/(|h₋|+|h₊|)` has local minima 0.257 (`ν = 0.730`), 0.514
+  (1.930) and **0.173 (6.439)**.
+* `u_T = (h₋−h₊)/(h₋+h₊)` is bounded on `(0, ∞)` except for `u_T = i s₀/ν + O(1)` at `ν → 0`, with **`s₀ = 465/2606 = 0.1784`**. For
+  comparison, `s₀ = 11/26` for the scalar `g` and `½` for `ηP_l`. At large ν, `s → 23/2`. Further, `max|u_T| = 5.77` on `[0.2, 300]`, at
+  `ν = 6.44`.
+
+**The old de-shift singularity at `ν₀`.** For the scalar, `g + g̃ ∝ R₋^{sc} + R₊^{sc} = −(4ν² − 143)/4`. So `ν₀ = √143/2 = 5.97913`
+**exactly**, and this is the only zero for `|Im ν| < 11/2` [P].
+* For `Ĉ₂′` this zero **moves off the real axis to `ν* = 6.34580 − 0.79227i`**. It stays inside the strip, 0.79 below the contour, and
+  leaves a shallow minimum (0.173) of the forward normalisation at `ν = 6.44`.
+* Two further complex zeros appear closer to the axis, at `0.72846 − 0.08264i` and `1.90917 − 0.26418i`.
+
+**What this means for `Ĉ₂′` [D].**
+1. *The functional itself.* `Ĉ₂′ = 𝒜_h⁻¹[Ψᵀ]` never divides by `h₋ + h₊`; it is normalisation-free (§20.1).
+   * The forward-normalised objects the chains use, the local de-shift coefficients `(1 ± u_T)/2`, are finite everywhere on `ν > 0`.
+   * **Nothing is singular on the real contour**, in contrast to the scalar-`g` de-shift (pole at `5.979`).
+   * The near-zeros make the *local* de-shift large, though not singular, at `ν ≈ 0.6–0.9` and `5–7.5` (`|u_T| ≤ 5.8`). That is relevant only
+     for the `x = 0.05` node at `Δ_g = 100` (`ν ≈ 4.9`).
+2. *Contour-shift (difference-equation) form of the smeared functional*, `χ(ν−i)h₋(ν−i) + χ(ν+i)h₊(ν+i) = ψ₂`, which §20.1 used.
+   * The strip contains the pole of `h_∓` at `ν = 0` (on the contour, as for `g`: CHMRS's pole term) and the zeros above. In particular
+     `ρ` has a pole at `−0.29280i`, where the scalar has one at `−i/2`.
+   * In that form, residue terms or a contour deformation are needed: **yes, the ν-space form needs them**.
+   * The Abel form of §23.2 needs **no analyticity at all** and only the real-axis values of `u_T`. It is the form adopted below.
+3. *Index.* The winding number of `ρ` along `(0, ∞)` (`ρ(0⁺) = −1 → ρ(∞) = +1`) is `Δarg ρ/π = 7` for `Ĉ₂′`, against 3 for the scalar `g`
+   and 1 for `ηP_l`.
+   * This sets the dimension of the null space of the Abel inversion: `(7 − 1)/2 = 3` (§23.2).
+
+### 23.2 The non-local weight `χ` for `Ĉ₂′` (`v4_chi.py` → `cache/v4_chi_100_300_1000.txt`, `v4_chi_<Δ_g>.pkl`, `v4_chi_null.pkl`)
+
+**Definition (generalising H0 §R.5 / §13).**
+* Write `Ω^{A′}_{k=2} = Re∫₀^∞ψ₂Ĉ′₂ dν = Re∫₀^∞X(ν)Ψ̂_ν dν`, with `Ψ̂ := Ψᵀ/(h₋+h₊)` (the forward-normalised spinning functional, kernel
+  `𝒦_ν = ½[(1+u_T)P_{l−1} + (1−u_T)P_{l+1}]`) and `X := χ(h₋+h₊)` (normalisation-free). `X` is the analogue of h1's `ψ̃₂`.
+* Defining identity: `∫X𝒦_ν(η)dν = ∫ψ₂P_l(η)dν` for all `η ≥ 1`.
+* Mehler–Dirichlet holds for complex index: `P_{−½+i(ν±i)}(cosh ξ) = (√2/π)∫₀^ξcos((ν±i)t)dt/√(cosh ξ − cosh t)`. The Abel transform is
+  injective. So the identity is **equivalent** to
+  **`E[X](t) := cosh t·C[X](t) − i sinh t·S[u_T X](t) = Φ(t) := C[ψ₂](t)` for all `t ≥ 0`** [D],
+  where `C`, `S` are the cosine and sine transforms on `[0, ∞)`.
+* No analyticity of `X`, `ψ₂` or `u_T` enters.
+* For `u = i/(2ν)` (`ηP_l`) this is exactly h1's ODE. For `u = ic/ν` it is `H′ + c tanh t·H = Φ/cosh t` with `H = S[X/ν]`.
+* Equivalently, with `f(ν) = χh₋(ν)` for `ν > 0` and `f(−ν) = ρ(ν)f(ν)`, it reads `E(t) = ½[e^t f̂(t) + e^{−t}f̂(−t)]` (a Riemann–Hilbert
+  type problem on the half line; hence the index of §23.1).
+
+**Numerics [NE].**
+* Grids: midpoint ν-grid with the DCT-II/DST-II-paired t-grid; collocation of `E[X]/cosh t = Φ/cosh t`.
+* Solver: LSQR (exact adjoint) for the minimum-norm correction `X − ψ₂`. GMRES with the exact ODE preconditioner is used for the
+  `ηP` check.
+* Grid sizes: `dν = 0.01 / 0.02 / 0.04`, `ν_max = 164 / 328 / 1311` at `Δ_g = 100 / 300 / 1000`.
+* Refinement: halving `dν` changes `X` by `≤ 7·10⁻⁹` (relative to `max ψ₂`) on `ν ≥ 20`; doubling `ν_max` changes it by `≤ 4·10⁻¹¹`.
+
+**Validation on the old kernel (`ηP_l`)** [DV]:
+* h1's `ψ̃₂` is reproduced to `5.5·10⁻⁶ / 2.1·10⁻⁶ / 7.3·10⁻⁷` (rel. `max ψ₂`).
+* `δk(0) = −1.507423·10⁻³ / −1.637649·10⁻⁴ / −1.463195·10⁻⁵`, identical to h1 in all printed digits.
+* V3 holds to `≤ 3·10⁻¹³`. GMRES converges in 2–3 iterations; LSQR agrees to `10⁻¹²`.
+
+**Uniqueness: a 3-dimensional null space [NE + D-sketch].**
+* A dense SVD of the collocated operator (it depends on `u_T` only, not on `Λ` or `ψ₂`) has exactly three singular values that go to 0
+  under refinement. At `dν = 0.05 → 0.025` they are `8·10⁻⁶ → 1.6·10⁻⁷`, `7·10⁻¹¹ → 6·10⁻¹⁴` and `6·10⁻¹⁶ → 1·10⁻¹⁶`; all others are
+  `≥ 0.65`.
+* The count is the same in the `χ`-normalisation (`n = |h₋|+|h₊|`), and is invariant under `ν → ν/λ`, `λ = 0.5…6` (it drops to 2 at
+  `λ = 15` only because one vector then leaves the `ν`-box).
+* Rule `(Δarg ρ/π − 1)/2`, checked on three kernels: `ηP_l` → 0, scalar `g` → **1**, `Ĉ₂′` → 3.
+* The RHS is consistent: its overlap with the left null vectors goes to 0 with the singular values, so solutions exist.
+* The null vectors `X_h` are converged in shape. They peak at `ν = 4.36`, `1.49` and `0.36`, and **all three are supported on `ν ≲ 18`**
+  (`|X_h| < 10⁻³ max` beyond; `≤ 2·10⁻⁴` at `ν = 20`; `10⁻¹⁵` at `ν = 50`).
+* What they are:
+  * By construction, `∫X_h𝒦_ν(η)dν = 0`. So they are **invisible to every term with an η-density**: the leading-Regge heavy action of
+    every state and the graviton-pole light term [P].
+  * They are **gauge for the full functional** (`∫X_hΨ̂ ≡ 0`) if, on every state, `Ĉ′_ν` has a Mehler–Fock density decaying faster than
+    `η^{−3/2}` (equivalently, `Ĉ′_ν` analytic in `|Im ν| ≤ 1` with mild growth). Then `∫X_hΨ̂ = ∫dη ρ ∫X_h𝒦 = 0` [D-sketch]. Whether this
+    holds for the `O(1/m²)` heavy remainder at `ν ≲ 18` is **[I]**.
+* **Consequence:** the leading-Regge identity fixes `χ` only up to `span{X_h}`. The ambiguity lives at `ν ≲ 18`:
+  * `x ≲ 0.18` at `Δ_g = 100`, i.e. the region of the other agent;
+  * `x ≲ 0.06 / 0.018` at `Δ_g = 300 / 1000`.
+* Gauge used below: `X − ψ₂ ⊥ span{X_h}` in `l²(dν)`.
+* **The scalar-`g` (§24.1) definition has the same issue (a 1-dimensional null space) [NE], which H0 §24.1 does not mention.**
+
+**Results** (`Ĉ₂′`, min-norm gauge; `δk(0) := −2∫(X − ψ₂)p⁶dp` in h1's convention):
+
+| `Δ_g` | V2: residual | **V3: `∫X𝒦[D]` vs `∫ψ₂D`** (without inversion) | `δk(0)` (`ηP`, h1) | `Λ²δk(0)` | `max|X−ψ₂|/max ψ₂`, `ν ≥ 20` (all `ν`, at) | tail `ν > Λ` |
+|---|---|---|---|---|---|---|
+| 100 | `2.5·10⁻¹¹` | **`2.3·10⁻¹⁵`** (`0.38`) | **`−7.2007·10⁻³`** `+2.3·10⁻⁴i` (`−1.5074·10⁻³`) | 69.9 | `2.7·10⁻²` (0.38 at `ν = 6.1`) | `3·10⁻⁹` |
+| 300 | `1.5·10⁻¹⁰` | **`7.9·10⁻¹²`** (`0.29`) | **`−7.661·10⁻⁴`** (`−1.638·10⁻⁴`) | 68.3 | `6.1·10⁻³` (0.14 at 6.1) | `6·10⁻¹²` |
+| 1000 | `2.3·10⁻¹⁴` | **`1.5·10⁻¹⁵`** (`0.22`) | **`−6.830·10⁻⁵`** (`−1.463·10⁻⁵`) | 68.1 | `1.4·10⁻³` (0.045 at 6.1) | `10⁻¹⁴` |
+
+* **Exact η-inversion identity: holds** [D + NE].
+  * The leading-Regge identity holds to the residuals above.
+  * The graviton-pole identity V3, `∫X·½[(1+u_T)D(ν+i) + (1−u_T)D(ν−i)] = ∫ψ₂/(ν²+9/4)` (complex LHS; `Im ≤ 2·10⁻¹¹`), holds to
+    `≤ 8·10⁻¹²`, against an `O(30 %)` violation without the inversion.
+  * V3 is gauge-independent: a null vector normalised to `max ψ₂` moves it only by its own interpolation residual.
+  * So **`L_A`, `A = 3022.3`, `B_AdS = −6552.7` are unchanged given I9** (the graviton term is an η-density, `Q₁(η)`).
+  * The **pole term needs no contour deformation** in the Abel form.
+* **Interior.** `X − ψ₂` agrees with the first-order symbol `½ψ₂″ − (σ̃ψ₂)′`, `σ̃ = −iu_T ≈ 23/(2ν)`, to 0.1–4 % at `p = 0.2…0.8`, e.g.
+  `+1.311·10⁻²` vs `+1.286·10⁻²` at `p = 0.4`, `Δ_g = 100`. It is ≈ 23× the `ηP` symbol's `ψ/ν²`-part. This is why `δk(0)` is 4.7× h1's.
+* **Flat limit unchanged** [D + NE].
+  * `ψ₂`, `ψ₃`, NF02 and `k₀ = 27.48509817` are not touched (the de-shift acts on `Ĉ₂`, not on the weights).
+  * `X → ψ₂` as `Λ⁻²`: `Λ²δk(0) = 69.9 / 68.3 / 68.1`, and the interior deviation scales the same way.
+  * The bulk-point limit of `Ĉ₂′` is the stripped `B₂` (§20.1).
+* **Size of `δk(0)` and what it does.** In h1's convention (`ψ̃` multiplies the forward-normalised `Ψ` whose `|ĝ₃|²` image is taken
+  flat), the factors are:
+  * `A, B_AdS × 1/(1+δk) = 1.0073 / 1.00077 / 1.00007`;
+  * bounds `× (1+δk)^{−½} = 1.0036 / 1.0004 / 1.00003`.
+  * With `Ĉ₂′` as the primary object (`Ω = ∫ψ₂ Re Ĉ′`), `k(0) = 1` exactly if `Ĉ′`'s `|ĝ₃|²` image is flat. This shift is then part of
+    H17 (`k_AdS − k(0)`; model budget 4.4 % / 0.48 % / 0.043 %), which covers it.
+  * At the quoted precision the bounds are unchanged at `Δ_g = 300, 1000`. At 100, `2.21·10⁻⁴` becomes `2.22·10⁻⁴` in h1's convention,
+    inside the H17 budget [NE + M].
+  * **RESULT_D's `δk(0) = −1.507·10⁻³ …` refers to the `ηP` kernel. For `Ĉ₂′` (and for the scalar-`g` §24.1 functional, which has the same
+    `23/(2ν)`) the analogue is `−7.20·10⁻³ / −7.66·10⁻⁴ / −6.83·10⁻⁵`.**
+* **Small ν.**
+  * `X − ψ₂` is `O(1)` relative at `ν ≲ 10`: the de-shift is genuinely non-perturbative there, and `|u_T|` is large near the
+    forward-normalisation minima.
+  * `X` dips to `0.11 max ψ₂` at `ν = 6.36`, against `ψ₂ = 0.48`. This mirrors the minimum of `|h₋+h₊|` (`X = χ(h₋+h₊)`, while `χΨᵀ` stays
+    smooth).
+  * Part of this region is gauge-dependent (null space).
+  * Feeding `χ` into the `x < 0.2` heavy side at `Δ_g = 100` was **not** done (the other agent's region).
+
+### 23.3 Parity-odd sector at `Δ_g = 300, 1000` with `Ĉ₂′`, and combined `n` (`v4_odd_impact.py` → `cache/v4_odd_impact.txt`) [NE + M]
+
+Protocol: PARITY_ODD_ROUTEA.md §6 exactly (p4 grid: `K₂` linear chain, `Δ_ref = 2·10⁴`, `a₊₋` from `Ĉ₂`; p6 near gap: `J = 5, 7, 9`
+corrected, odd `J ≥ 11` base). The **only change** is in the `k = 2` local de-shift: `g/(g+g̃) → (1+u_T)/2`, with the **exact rational**
+`u_T` of §23.1, as v3_heavy_impact does for the even sector. `Ĉ₃` keeps the scalar `g`. No shadow coefficient is touched: the p3
+caches are on even-integer rows, and the §12 strip is the identity for state/reference ratios at equal `J`.
+* The baseline reproduces `cache/p4_grid.pkl` exactly (`max|ΔΓ| = 0`), and min `F/N_s` `0.2072 / 0.2023`.
+* `Γ₂₊₋` changes (max over `x`): `≤ 19 / 67 / 130` c₂ on the `Δ = 200` row (`J = 5/7/9`), `≤ 4 / 10 / 18` on `Δ = 400`, falling as `ν⁻³`.
+  On the `Δ = 100` row (only relevant at `Δ_g = 100`) the change is `0.4–1.2·10³`.
+
+| `Δ_g` | run | odd `n = 1`? | min `F/N_s` (state) | odd `t*` | per `J = 5 / 7 / 9` |
+|---|---|---|---|---|---|
+| 300 | baseline (scalar `g`) | yes | 0.2072 (`+−`, `J = 5`, `1.02Λ`) | (−56.9, `> 10⁴`) | 0.2072 / 0.7100 / 0.4572 |
+| 300 | **`Ĉ₂′`** | **yes** | **0.2072** (`J = 5`, `1.02Λ`) | (−54.2, `> 10⁴`) | 0.2072 / 0.7103 / 0.4592 |
+| 1000 | baseline | yes | 0.2023 (`J = 5`, `1.01Λ`) | (−210.5, `> 10⁴`) | 0.2023 / 0.3125 / 0.4554 |
+| 1000 | **`Ĉ₂′`** | **yes** | **0.2023** (`J = 5`, `1.01Λ`) | (−210.2, `> 10⁴`) | unchanged to `10⁻⁴` |
+
+(`Ĉ₂′` only at `ν ≥ 15`: identical to the above to `≤ 10⁻³`.)
+
+**Combined even + odd** (even sector from `v3_heavy_impact`, recomputed here with the exact `u_T` → identical: `J = 4` `0.2205 / 0.2103`,
+`t* = (−10.2, +8.3) / (−36.8, +39.1)`). The sectors are block-diagonal (PARITY_ODD_ROUTEA §3).
+* **`n = 1` at `Δ_g = 300` and `1000`.**
+* Binding state `+−`, `J = 5` (parity-odd): **min `F/N_s` 0.2072 / 0.2023**, as before.
+* Combined `t*` `(−10.2, +8.3) / (−36.8, +39.1)` (set by the even sector).
+* Grade unchanged **[NE + M]**; even `J ≥ 12` and odd `J ≥ 11` are uncorrected (base model).
+
+*Addendum to §23.2.* The `δk(0)` integral restricted to `ν ∈ [10, Λ]` equals the full one: `−7.2008·10⁻³ / −7.6611·10⁻⁴ / −6.8297·10⁻⁵`. So
+`δk(0)` is gauge-independent and insensitive to `ν < 10`. The first-order symbol gives `−7.063·10⁻³ / −7.645·10⁻⁴ / −6.828·10⁻⁵`
+(agreement 2 % / 0.2 % / 0.02 %).
+
+### 23.4 Parity-odd sector at `Δ_g = 100` with `Ĉ₂′`, contour points at `x = 0.1, 0.15`, and combined `n` (`v4_odd100.py` → `cache/v4_odd100.txt`, `v4_odd100_xrows.txt`) [NE + M + I]
+
+(Coordinator's addition, after H0 §25.)
+
+**Protocol.**
+* p8_analysis's chain (PARITY_ODD_ROUTEA §11.4 main protocol: the §6 rows, `P8_XROWS = 0`, direct values on the `Δ = 100` row) with:
+  * direct p8 values on `x ≥ 0.2`;
+  * **the n3 Picard–Lefschetz points** (`spinfunc/cache/n3_odd_pts_{C2,C3H}_J{5,7,9}.pkl`, H0 §25.7) at `x = 0.1, 0.15` (state `Δ = 100` and
+    reference `2·10⁴`), merged into p8's direct database and accepted by p8's rule (relative RQMC error ≤ 5 %; all were accepted);
+  * `K₂` only at `x = 0.05` (and on the rows `Δ = 200 … 3200`).
+* β phase: stripped as usual (`logK → logK − iπ(Δ+J)` on state and reference, which is p8's `P8_PHASE = 1`). Asserted on the entries used:
+  `|Im logK − π(Δ+J)| = 0` exactly.
+* De-shift: `k = 2` with the exact `u_T` (§23.1); `Ĉ₃` keeps the scalar `g`.
+* Near gap: p6 conventions, all odd-`J` states (`J ≥ 11` base).
+* `t*`: scale on the whole correction. "x < 0.075 window": the correction on Gauss–Legendre nodes `x < 0.075` scaled by `t` (as n3_analysis
+  does for the even sector). Both are exact intervals, since the action is linear in `t`.
+* The baseline reproduces §11.4 exactly (`0.2262`, `+−`, `J = 5`, `1.05Λ`).
+
+**Direct vs `K₂` at the new nodes** (`Ĉ₂′`, `Δ = 100` row; `Γ` in c₂ units, `±` RQMC):
+
+| `J` | `Ĉ₂`, `x = 0.10` / `0.15`: direct, `K₂`, ratio | `Ĉ₃`, `x = 0.10` / `0.15`: ratio |
+|---|---|---|
+| 5 | `−314 ± 83` / `−251 ± 13`; `K₂` `−477 / −319`; 0.66 / 0.79 | 0.94 / 0.94 |
+| 7 | `−1061 ± 57` / `−468 ± 7`; `K₂` `−1437 / −575`; 0.74 / 0.81 | 0.98 / 1.00 |
+| 9 | `−1491 ± 35` / `+93 ± 7`; `K₂` `−1942 / +49`; 0.77 / (near a zero of the LO shape) | 0.99 / 1.09 |
+
+The pattern is the same as in the even sector (§25.6b): `Ĉ₃` is at 94–100 % of `K₂`, and `Ĉ₂` at 66–81 %, i.e. `K₂` overstates the small-`x`
+`Ĉ₂` correction. With the scalar `g` the `Ĉ₂` ratios are 0.83–0.92.
+
+**Results (odd sector, `Δ_g = 100`):**
+
+| run | odd `n = 1`? | min `F/N_s` (state) | per `J = 5 / 7 / 9` | `t*` (whole) | `x < 0.075` window |
+|---|---|---|---|---|---|
+| scalar `g`, `K₂` below 0.2 (= §11.4) | yes | 0.2262 (`J = 5`, 1.05Λ) | 0.226 / 0.589 / 0.897 | (−153, +5.8) | (−∞, +3.45] |
+| scalar `g` + n3 points | yes | 0.2304 (`J = 5`, 1.05Λ) | 0.230 / 0.628 / 0.933 | (−4.8, +9.1) | (−∞, +4.47] |
+| `Ĉ₂′`, `K₂` below 0.2 | yes | 0.2349 (`J = 5`, 1.05Λ) | 0.235 / 0.646 / 0.816 | (−23.6, +5.5) | (−∞, +3.20] |
+| **`Ĉ₂′` + n3 points (MAIN)** | **yes** | **0.2392** (`+−`, `J = 5`, 1.05Λ) | 0.239 / 0.693 / 0.947 | **(−6.9, +29.1)** | **(−∞, +4.94]** (edge: `J = 9`, 1.09Λ) |
+
+* MAIN with the `x < 0.075` correction scaled by `t_low = −1 / 0 / 2 / 3`: min `0.2405 / 0.2399 / 0.2386 / 0.2379`, always `J = 5`.
+
+**Combined even + odd at `Δ_g = 100`** (even sector, `Ĉ₂′`: coordinator's / H0 §25.6b number from `n3_analysis.py` with `N3_SPIN = 1`:
+`n = 1`, min 0.2206 at `J = 4`, 1.04Λ; `x < 0.075` window `[−32.6, +3.62]`; `t* = (−1.1, +3.0)`). The sectors are block-diagonal.
+* **Combined `n = 1`. The binding state is even, `J = 4` at 1.04Λ, 0.2206**; the best odd state is `+−`, `J = 5` at 1.05Λ, 0.2392.
+* Combined `x < 0.075` window: **`[−32.6, +3.62]`**, set by the even sector (the odd sector alone allows `t ≤ 4.94`).
+* Combined whole-correction `t*`: `(−1.1, +3.0)`, also even-set.
+* Grade **[NE + M + I]**: controlled down to `x = 0.1`; `x = 0.05` from `K₂` with the local de-shift (now `Ĉ₂′`'s `u_T`, `|u_T| ≈ 2.05` at
+  `ν = 4.9`).
+
+**Robustness: the extra `m`-rows (`P8_XROWS = 1`, `m = 1.05/1.1/1.2/1.3Λ`; `cache/v4_odd100_xrows.txt`). Not robust.**
+* With these rows, which have `K₂` on all of `x < 0.2` (n3 points exist only on the `Δ = 100` row), the odd sector gives **`n = 0`** in
+  every variant:
+  * scalar `g`: `J = 9` at 1.3Λ, `−0.532` (§11.6 found `−0.48`);
+  * `Ĉ₂′`: `J = 9` at 1.2Λ, `−0.550`.
+* The whole failure comes from the `x < 0.075` nodes: with that part set to 0 the minimum is `+0.2450`.
+* On those rows the `x = 0.05` node sits at `ν = x·m ≈ 5.4–6.4`. That is the scalar's `ν₀ = 5.98` and the spinning near-zero
+  `6.35 − 0.79i` of §23.1 (`|u_T|` up to 5.8), where both the `K₂` series and the local de-shift are unreliable.
+* Its contribution to `J = 9` oscillates in `m`: `+0.85 / −1.36 / +0.29 N_s` at 1.1 / 1.2 / 1.3Λ.
+* With these rows the `x < 0.075` window is `[−0.93, +0.60]` (`Ĉ₂′`), which excludes `t = 1`.
+* So the odd `n = 1` at `Δ_g = 100` holds in the main protocol with a wide window. Like §11.6, it **depends on the unresolved `x = 0.05`
+  node at `m = 1.1–1.3Λ`**, which the main protocol only reaches by interpolation in `1/m` between the `Δ = 100` and `Δ = 200` rows.
+* Deciding this needs direct (contour) values at `x = 0.05`, `ν ≈ 5–6.5`, below the region where H0 §25.4 validated the method (`ν ≥ 9`),
+  together with the exact non-local `χ` instead of the local de-shift there (§23.2). It is **[I]**.
+
+### 23.5 Regraded table (supersedes §21 where they differ)
+
+| item | §21 | now |
+|---|---|---|
+| `h_∓(ν)` | tabulated [DV]; strip structure [I] | **exact rational × common Γ-factor** (`h_∓ = N_com R_∓`) **[P given §18.1]**, agreeing with the fits to `2·10⁻¹¹` [DV] |
+| zeros and poles in `|Im ν| ≤ 1` | [I] | **mapped [P given §18.1]** (§23.1 table); real axis `(0, 300]`: no zeros of `h₋`, `h₊`, `h₋+h₊`; one simple pole at 0, as for `g` |
+| old `ν₀` | singular at 5.98 | scalar: `ν₀ = √143/2` exactly [P]; `Ĉ₂′`: the zero moves to `6.34580 − 0.79227i`, plus `0.72846 − 0.08264i`, `1.90917 − 0.26418i`; **no singularity on the contour** [P given §18.1]; local de-shift large (`|u_T| ≤ 5.8`) near them |
+| non-local `χ` for `Ĉ₂′` | not computed | **Abel form [D]**; computed [NE]; graviton-pole identity to `≤ 8·10⁻¹²` (gauge-independent) → `A`, `B_AdS` unchanged given I9 |
+| uniqueness of `χ` | — | **3-dim null space** at `ν ≲ 18` [NE; index rule (w−1)/2 checked on 3 kernels]; invisible to every η-density [P]; gauge for the full functional iff `Ĉ′_ν` is Mehler–Fock-representable in `|Im ν| ≤ 1` **[I]**. Scalar-`g` (§24.1) has a 1-dim one [NE] |
+| `δk(0)` (h1 convention) | `−1.507·10⁻³ / −1.638·10⁻⁴ / −1.463·10⁻⁵` (`ηP`) | **`−7.20·10⁻³ / −7.66·10⁻⁴ / −6.83·10⁻⁵`** for `Ĉ₂′` (and `≈` scalar `g`); `→ 0` as `68/Λ²`; within the H17 budget [NE + M] |
+| flat limit, NF02, `k₀` | unchanged [D] | unchanged [D]; `X → ψ₂` as `Λ⁻²` [NE] |
+| odd `n` at `Δ_g = 300 / 1000` with `Ĉ₂′` | (not done) | **`n = 1`, min 0.2072 / 0.2023** (`+−`, `J = 5`), odd `t* ≥ −54 / −210` [NE + M] |
+| combined even + odd at 300 / 1000 | `n = 1` | **`n = 1`**, binding `+−`, `J = 5` 0.2072 / 0.2023; `t*` (−10.2, +8.3) / (−36.8, +39.1) [NE + M] |
+| odd `n` at `Δ_g = 100` with `Ĉ₂′` | [I] | main protocol + n3 points: **`n = 1`, min 0.2392** (`J = 5`, 1.05Λ), `x < 0.075` window `(−∞, 4.94]`; with the extra `m`-rows `n = 0` (`J = 9`, 1.2Λ, `−0.55`, entirely from the `K₂` `x = 0.05` node at `ν ≈ 5.9`) → **[I]** |
+| combined at `Δ_g = 100` | [I] | main protocol: **`n = 1`, min 0.2206** (even `J = 4`), window `[−32.6, +3.62]` [NE + M + I]; not robust to the extra odd `m`-rows (above) |
+
+### 23.6 Hand-over (supersedes §22 where they differ)
+
+1. **For H0 §R / §24.1 (not edited here).** Adopt `Ĉ₂′` and replace "η-inversion with the exact kernel `gP_{l−1} + g̃P_{l+1}`" by the
+   Abel-form equation of §23.2 with `u_T`. Add two notes:
+   * The leading-Regge identity determines `χ` only modulo a 3-dimensional space (1-dimensional for scalar `g`) supported at `ν ≲ 18`. The
+     weight is unique given the analyticity of `Ĉ′_ν` in `|Im ν| ≤ 1` [I].
+   * RESULT_D's `δk(0)` values belong to the `ηP` kernel; for `Ĉ₂′` they are 4.7× larger (§23.2). The headline bounds are unaffected at
+     `Δ_g ≥ 300`; at 100, `2.21 → 2.22·10⁻⁴` in h1's convention, inside H17.
+2. **`Δ_g = 100`, odd sector.** The open item is the `x = 0.05` node at `m = 1.05–1.3Λ` (`ν ≈ 5–6.5`).
+   * It needs contour values there, which is below H0 §25.4's validated range.
+   * It also needs the non-local `χ` instead of the local de-shift. `cache/v4_chi_100.pkl` holds `X(ν)` in the min-norm gauge. Use
+     `X/ψ₂ − 1` as the ν-dependent correction to the weight only after the gauge question (null space) is settled for the heavy remainder.
+   * Watch state: `J = 9`, `m = 1.2Λ`.
+3. **Gauge question (new, definitional).** Show, or refute, that `Ĉ′_ν` on a heavy state is analytic in `|Im ν| ≤ 1`. Then the null
+   directions annihilate the full functional.
+   * A test: evaluate `∫X_hΨ̂_ν[state]dν` with crystal data at `ν ≲ 18`. Doing that requires the small-ν crystal, so it is the other
+     agent's region.
+4. Unchanged from §22: `Ĉ₃`'s own shift relation (`v3_regge_kernel` + `o_H`); K1′; R4.
+
+**Files (this round).**
+* `ads4/code/h7i14/v4_hclosed.py`: exact `h_∓` (sympy), strip zeros and poles, `N_com`, `s₀` → `cache/v4_hclosed.txt`, `cache/v4_hclosed.pkl`
+  (`load()`, `numfuncs()`).
+* `ads4/code/h7i14/v4_chi.py`: Abel-form `χ` (LSQR; GMRES + ODE preconditioner), null space, winding, checks V0, V2, V3, R →
+  `cache/v4_chi_100_300_1000.txt`, `cache/v4_chi_<Δ_g>.pkl`, `cache/v4_chi_null.pkl`, `cache/v4_chi.log`.
+* `ads4/code/h7i14/v4_odd_impact.py`: odd sector at 300/1000 with `Ĉ₂′`, plus even re-run with the exact `u_T` → `cache/v4_odd_impact.txt`.
+* `ads4/code/h7i14/v4_odd100.py`: odd sector at 100 with n3 contour points and `Ĉ₂′`, windows → `cache/v4_odd100.txt` (`P8_XROWS=1`:
+  `cache/v4_odd100_xrows.txt`), `.pkl`.
