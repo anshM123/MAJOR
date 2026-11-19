@@ -31,6 +31,12 @@ def dload(kind, J):
 
 N.dload = dload
 
+SPIN = os.environ.get('N3_SPIN', '0') == '1'
+if SPIN:                     # C^_2' (H7_I14_LIGHTSIDE.md sect. 18-22): spinning de-shift for k = 2 (read-only import of h7i14/v3_heavy_impact)
+    sys.path.insert(0, os.path.join(HERE, '..', 'h7i14'))
+    import v3_heavy_impact as HV
+    A.shift = HV.shift_spin
+
 
 def tnodes(pr, Js=(4, 6, 8, 10), kinds=('C2', 'C3H')):
     import n3_exact as NX
@@ -111,4 +117,4 @@ if __name__ == '__main__':
         print(s, flush=True); lines.append(s)
     tnodes(pr)
     neargap(pr)
-    open(os.path.join(HERE, 'cache', 'n3_analysis.txt'), 'w').write("\n".join(lines) + "\n")
+    open(os.path.join(HERE, 'cache', 'n3_analysis%s.txt' % ('_spin' if SPIN else '')), 'w').write("\n".join(lines) + "\n")
