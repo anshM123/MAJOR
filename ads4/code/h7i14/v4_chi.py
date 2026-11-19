@@ -163,7 +163,22 @@ def load_weights(Dg):
     return np.array([float(v) for v in NG.F.s2]), NG.Lam
 
 
-SETTINGS = {100: (0.005, 2**16), 300: (0.01, 2**16), 1000: (0.02, 2**17)}     # (dnu, N): nu_max = 328 / 655 / 2621
+SETTINGS = {100: (0.01, 2**14), 300: (0.02, 2**14), 1000: (0.04, 2**15)}     # (dnu, N): nu_max = 164 / 328 / 1311
+
+
+def null_space(dnu=0.025, N=4096, ufun=None, k=6):
+    """dense SVD of the collocated operator A (depends on u only, not on Lam/psi): smallest singular values and right vectors."""
+    S = Solver(np.zeros(10), 1.0, dnu, N, ufun or u_spin, 11.5)
+    I = np.eye(N)
+    M = np.array([S.A(I[:, j]) for j in range(N)]).T
+    U, s, Vh = np.linalg.svd(M)
+    return S.nu, s, Vh[-k:].conj()[::-1], s[:2]
+
+
+def winding(rho_fun):
+    nus = np.concatenate([np.linspace(1e-7, 1, 40001), np.linspace(1, 1e5, 400001)[1:]])
+    a = np.unwrap(np.angle(rho_fun(nus)))
+    return (a[-1] - a[0])/np.pi
 
 
 if __name__ == '__main__':
@@ -172,59 +187,104 @@ if __name__ == '__main__':
         s = " ".join(str(x) for x in a); print(s, flush=True); buf.write(s + "\n")
     Dgs = [int(a) for a in sys.argv[1:]] or [100, 300, 1000]
     t00 = time.time()
-    pr("# v4_chi: Abel-form (eta-inversion) weight X = chi (h_- + h_+) of C^_2' (forward-normalised), GMRES + ODE preconditioner")
+    pr("# v4_chi: Abel-form (eta-inversion) weight X = chi (h_- + h_+) of C^_2' (forward-normalised); min-norm LSQR solution")
+    # ---------------- null space of the Abel operator (u only) and the winding of rho = h_+/h_-
+    D = pickle.load(open(os.path.join(HERE, 'cache', 'v4_hclosed.pkl'), 'rb'))
+    E = {k: eval(v, {**sp.__dict__}) for k, v in D.items()}; n_ = sp.Symbol('nu')
+    F = {k: sp.lambdify(n_, v, 'numpy') for k, v in E.items()}
+    w_eta = winding(lambda v: (2*v - 1j)/(2*v + 1j)); w_sc = winding(lambda v: F['RpS'](v)/F['RmS'](v))
+    w_T = winding(lambda v: F['RpT'](v)/F['RmT'](v))
+    pr(f"(N0) winding Delta arg(rho)/pi on (0, oo), rho = h_+/h_- (rho(0+) = -1, rho(oo) = +1): eta-kernel {w_eta:+.4f}, scalar g {w_sc:+.4f}, "
+       f"spinning h {w_T:+.4f}  -> predicted null dimension (w - 1)/2 = {round((w_eta-1)/2)}, {round((w_sc-1)/2)}, {round((w_T-1)/2)}")
+    nul = {}
+    for lab, (dn, NN) in (("coarse", (0.05, 2048)), ("fine", (0.025, 4096))):
+        t0 = time.time()
+        nu0, s0, V0, smax = null_space(dn, NN)
+        nul[lab] = (nu0, s0, V0)
+        pr(f"(N1) dense SVD of the u_T operator, dnu = {dn}, N = {NN}: smallest sv " + " ".join(f"{v:.1e}" for v in s0[::-1][:6]) +
+           f"; largest {smax[0]:.2f}  [{time.time() - t0:.0f}s]")
+    nu0, s0, V0 = nul["fine"]
+    for kk in range(3):
+        a = np.abs(V0[kk]); j = np.argmax(a)
+        supp = nu0[a > 1e-3*a.max()]
+        pr(f"     null vector {kk + 1} (sv {s0[::-1][kk]:.1e}): peak at nu = {nu0[j]:.3f}; |X_h| > 1e-3 max on nu in [{supp.min():.2f}, {supp.max():.2f}]; "
+           f"|X_h(20)|/max = {a[int(20/0.025)]/a.max():.1e}, |X_h(50)|/max = {a[int(50/0.025)]/a.max():.1e}")
+    for (dn, NN, lab) in ((0.05, 2048, 'scalar g'),):
+        S_ = Solver(np.zeros(10), 1.0, dn, NN, u_eta, 0.5)
+        hm, hp = F['RmS'](S_.nu), F['RpS'](S_.nu); nn = np.abs(hm) + np.abs(hp)
+        Aa, Bb = (hm + hp)/nn, (hm - hp)/nn
+        I_ = np.eye(NN)
+        M_ = np.array([S_.Cf(Aa*I_[:, j]) - 1j*S_.th*S_.Sf(Bb*I_[:, j]) for j in range(NN)]).T
+        sv = np.linalg.svd(M_, compute_uv=False)
+        pr(f"(N2) scalar-g kernel (old C^_2 of H0 §24.1, chi-normalisation n = |g| + |g~|; u_sc has a real pole at nu_0): smallest sv "
+           + " ".join(f"{v:.1e}" for v in sv[::-1][:4]))
+    pickle.dump(dict(nu=nu0, s=s0, V=V0), open(os.path.join(HERE, 'cache', 'v4_chi_null.pkl'), 'wb'))
     for Dg in Dgs:
         cf, Lam = load_weights(Dg)
         dnu, N = SETTINGS[Dg]
-        pr(f"\n## Delta_g = {Dg}: Lam = {Lam:.4f}; dnu = {dnu}, N = {N}, nu_max = {N*dnu:.0f}, dt = {np.pi/(N*dnu):.2e}, t_max = {np.pi/dnu:.0f}")
-        # ---- (V0) eta kernel vs h1
+        pr(f"\n## Delta_g = {Dg}: Lam = {Lam:.4f}; dnu = {dnu}, N = {N}, nu_max = {N*dnu:.0f}, t_max = {np.pi/dnu:.0f}")
+        # ---- (V0) eta kernel vs h1 (GMRES with the exact ODE preconditioner) and with LSQR
         t0 = time.time()
         Se = Solver(cf, Lam, dnu, N, u_eta, 0.5)
         Xe, rese, ite, _ = Se.solve()
+        Xe2, rese2, ite2, _ = Se.solve_lsqr()
         h1 = pickle.load(open(os.path.join(SF, 'cache', 'h1_%d.pkl' % Dg), 'rb'))
-        from scipy.interpolate import interp1d
         sel = Se.nu <= Lam
         ph1 = np.interp(Se.nu[sel], h1['nus'], h1['phit'])
         dev = np.max(np.abs(Xe[sel] - ph1))/np.max(Se.phi)
         lhs, rhs, lhs0 = Se.V3(Xe)
-        pr(f"  (V0) eta-kernel (u = i/(2nu), old §R.5): GMRES its {ite}, residual {rese:.1e}, max|Im X| {np.max(np.abs(Xe.imag)):.1e}; "
-           f"max|X - psit_h1|/max psi = {dev:.1e}; dk0 = {Se.dk0(Xe).real:+.5e} (h1: {h1['dk0']:+.5e}); V3 rel {abs(lhs - rhs)/rhs:.1e}  [{time.time() - t0:.0f}s]")
+        pr(f"  (V0) eta-kernel (u = i/(2nu), old §R.5): GMRES its {ite}, residual {rese:.1e}; LSQR its {ite2}, residual {rese2:.1e}, "
+           f"max|X_gmres - X_lsqr|/max psi {np.max(np.abs(Xe - Xe2))/Se.phi.max():.1e}; max|X - psit_h1|/max psi = {dev:.1e}; "
+           f"dk0 = {Se.dk0(Xe).real:+.6e} (h1: {h1['dk0']:+.6e}); V3 rel {abs(lhs - rhs)/rhs:.1e}  [{time.time() - t0:.0f}s]")
         # ---- spinning kernel
         t0 = time.time()
         Ss = Solver(cf, Lam, dnu, N, u_spin, 11.5)
-        Xs, ress, its, info = Ss.solve()
+        Xs, ress, its, ist = Ss.solve_lsqr()
         lhs, rhs, lhs0 = Ss.V3(Xs)
         mx, tail = Ss.stats(Xs)
         dk = Ss.dk0(Xs)
-        pr(f"  (C2') spinning kernel u_T: GMRES its {its} (info {info}), residual (V2) {ress:.1e}  [{time.time() - t0:.0f}s]")
+        pr(f"  (C2') u_T kernel: LSQR its {its} (istop {ist}), residual (V2) {ress:.1e}  [{time.time() - t0:.0f}s]")
         pr(f"     V3 graviton pole: int X K[D] = {lhs.real:.12e} {lhs.imag:+.1e}i ; int psi D = {rhs:.12e} ; rel diff {abs(lhs - rhs)/rhs:.1e}"
            f"  (without inversion: rel {abs(lhs0 - rhs)/rhs:.1e})")
-        pr(f"     dk0 = {dk.real:+.5e} {dk.imag:+.2e}i (eta-kernel/h1: {Se.dk0(Xe).real:+.5e});  max|X - psi|/max psi on [0,Lam] = {mx:.2e}"
-           f" (eta: {Se.stats(Xe)[0]:.2e}); tail mass (nu > Lam) {tail:.1e}")
-        pr(f"     => A, B_AdS factor 1/(1 + Re dk0) = {1/(1 + dk.real):.6f}; bounds factor {(1 + dk.real)**-0.5:.6f}")
-        # profile at small nu and in the interior
-        prof = [0.1, 0.3, 0.73, 1, 2, 4, 6.35, 10, 20, 0.25*Lam, 0.5*Lam, 0.75*Lam, 0.95*Lam]
-        pr("     profile nu: X/max psi (Re, Im) | psi/max psi | psit_eta/max psi")
+        jm = np.argmax(np.abs(Xs - Ss.phi)*(Ss.nu <= Lam))
+        pr(f"     dk0 = {dk.real:+.5e} {dk.imag:+.2e}i (eta-kernel: {Se.dk0(Xe).real:+.5e});  max|X - psi|/max psi on [0,Lam] = {mx:.2e} at nu = "
+           f"{Ss.nu[jm]:.2f} (eta: {Se.stats(Xe)[0]:.2e}); same on nu >= 20: {np.max(np.abs(Xs - Ss.phi)[(Ss.nu >= 20) & (Ss.nu <= Lam)])/Ss.phi.max():.2e};"
+           f" tail mass (nu > Lam) {tail:.1e}")
+        pr(f"     => A, B_AdS factor 1/(1 + Re dk0) = {1/(1 + dk.real):.6f}; bounds factor {(1 + dk.real)**-0.5:.6f}  (h1 convention, see §23.2)")
+        # large-nu symbol: X - psi ~ psi''/2 - (st psi)', st = -i u
+        p = Ss.nu/Lam; ph = Ss.phi; dph = Pl.polyval(p, Pl.polyder(cf, 1))/Lam; d2 = Pl.polyval(p, Pl.polyder(cf, 2))/Lam**2
+        st = -1j*Ss.u; dst_ = np.gradient(st, Ss.nu)
+        sym = 0.5*d2 - (dst_*ph + st*dph)
+        pr("     interior p = 0.2/0.4/0.6/0.8: (X - psi)/psi = " + " ".join(
+            f"{((Xs[j] - ph[j])/ph[j]).real:+.3e}{((Xs[j] - ph[j])/ph[j]).imag:+.1e}i" for j in [int(q*Lam/dnu) for q in (0.2, 0.4, 0.6, 0.8)])
+           + " ; symbol = " + " ".join(f"{(sym[j]/ph[j]).real:+.3e}{(sym[j]/ph[j]).imag:+.1e}i" for j in [int(q*Lam/dnu) for q in (0.2, 0.4, 0.6, 0.8)]))
+        pi1 = np.sum((0.5*d2 - (dst_*ph + st*dph))*p**6)*dnu/Lam*(-2)
+        pr(f"     dk0 from the symbol: {pi1.real:+.5e}")
+        prof = [0.1, 0.37, 0.73, 1, 1.5, 2, 4.4, 6.35, 10, 20, 0.25*Lam, 0.5*Lam, 0.75*Lam, 0.95*Lam]
+        pr("     profile nu: X/max psi (Re, Im) | psi/max psi | X_eta/max psi")
         for v in prof:
             j = int(v/dnu)
-            pr(f"       {Ss.nu[j]:9.3f}: {Xs[j].real/Ss.phi.max():+.5e} {Xs[j].imag/Ss.phi.max():+.2e}i | {Ss.phi[j]/Ss.phi.max():+.5e} |"
-               f" {Xe[j].real/Ss.phi.max():+.5e}")
-        # ---- (U) uniqueness probe: homogeneous system from a random start
-        rng = np.random.default_rng(1)
-        y0 = (rng.standard_normal(N) + 1j*rng.standard_normal(N))*np.exp(-Ss.t/5)
-        Xh, resh, ith, _ = Ss.solve(b=np.zeros(N, complex), x0=y0, tol=1e-10, maxiter=60)
-        pr(f"  (U) homogeneous system from a random start: |X_h| / |M y0| after {ith} its = "
-           f"{np.linalg.norm(Xh)/np.linalg.norm(Ss.Mref(y0)):.1e}")
-        # ---- (R) refinement: half dnu at the same nu_max, and double nu_max at the same dnu
+            pr(f"       {Ss.nu[j]:9.3f}: {Xs[j].real/ph.max():+.5e} {Xs[j].imag/ph.max():+.2e}i | {ph[j]/ph.max():+.5e} | {Xe[j].real/ph.max():+.5e}")
+        # ---- gauge spread: the 3 null vectors (interpolated), normalised to max |X_h| = max psi
+        for kk in range(3):
+            vh = np.interp(Ss.nu, nu0, V0[kk].real, right=0) + 1j*np.interp(Ss.nu, nu0, V0[kk].imag, right=0)
+            vh = vh/np.max(np.abs(vh))*ph.max()
+            r_h = np.linalg.norm(Ss.A(vh))/np.linalg.norm(Ss.Cf(vh))
+            lh = Ss.V3(Xs + vh)[0]
+            pr(f"     null vector {kk + 1} (max|X_h| = max psi): |A X_h|/|C X_h| = {r_h:.1e}; d(dk0) = {abs(Ss.dk0(Xs + vh) - dk):.1e}; "
+               f"V3 shift {abs(lh - lhs)/rhs:.1e}")
         out = dict(nu=Ss.nu, X=Xs, phi=Ss.phi, Xeta=Xe, Lam=Lam, dk0=dk, V3=(lhs, rhs), res=ress)
+        # ---- (R) refinement
         for (lab, dn2, N2) in (("dnu/2", dnu/2, 2*N), ("nu_max x2", dnu, 2*N)):
             t0 = time.time()
             S2 = Solver(cf, Lam, dn2, N2, u_spin, 11.5)
-            X2, r2, i2, _ = S2.solve()
+            X2, r2, i2, _ = S2.solve_lsqr()
             Xi = np.interp(Ss.nu, S2.nu, X2.real) + 1j*np.interp(Ss.nu, S2.nu, X2.imag)
-            d = np.max(np.abs(Xi - Xs)[Ss.nu <= Lam])/np.max(Ss.phi)
-            pr(f"  (R) {lab}: its {i2}, residual {r2:.1e}; max|dX|/max psi = {d:.1e}; dk0 = {S2.dk0(X2).real:+.6e}; "
-               f"V3 rel {abs(S2.V3(X2)[0] - S2.V3(X2)[1])/S2.V3(X2)[1]:.1e}  [{time.time() - t0:.0f}s]")
+            m20 = (Ss.nu <= Lam) & (Ss.nu >= 20)
+            d = np.max(np.abs(Xi - Xs)[Ss.nu <= Lam])/np.max(Ss.phi); d20 = np.max(np.abs(Xi - Xs)[m20])/np.max(Ss.phi)
+            l2, r2_, _ = S2.V3(X2)
+            pr(f"  (R) {lab}: its {i2}, residual {r2:.1e}; max|dX|/max psi = {d:.1e} (nu >= 20: {d20:.1e}); dk0 = {S2.dk0(X2).real:+.6e}; "
+               f"V3 rel {abs(l2 - r2_)/r2_:.1e}  [{time.time() - t0:.0f}s]")
         pickle.dump(out, open(os.path.join(HERE, 'cache', 'v4_chi_%d.pkl' % Dg), 'wb'))
     pr(f"\n[{time.time() - t00:.0f}s]")
     open(os.path.join(HERE, 'cache', 'v4_chi_' + '_'.join(map(str, Dgs)) + '.txt'), 'w').write(buf.getvalue())
