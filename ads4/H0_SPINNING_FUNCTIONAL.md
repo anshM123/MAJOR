@@ -1767,7 +1767,7 @@ legitimate given (a)–(c), but it is part of the definition of `Ω^{A′}` and 
 5. Files: `l1_tps.py` (env `L1_DEG`, default unchanged), `l9_tps.py`, `l9_scalar_k3.py`, `l9_points.py` (kinds `C2`/`C3H`/`C3V`, `K₂`/`K₃`),
    `l9_run.py`, `l9_analysis.py` (`L9_DESHIFT`, `L9_NUFIT`), `l9_neargap.py`. Caches: `cache/l9_*`. Added to `run_all.sh`.
 
-## 24. M6 round 6: the definition of `Ω^{A′}` fixed (CHMRS-type), and a non-perturbative evaluation of the crystal integral (`n1_*.py`) — `x ≥ 0.25` decided, `Δ_g = 100` still open through `x < 0.25`; hand-over in §24.7
+## 24. M6 round 6: the definition of `Ω^{A′}` fixed (CHMRS-type), and a non-perturbative evaluation of the crystal integral (`n1_*.py`) — `x ≥ 0.2` decided, `Δ_g = 100` still open through `x < 0.2`; hand-over in §24.7
 
 *Written 18 Nov 2026 by the numerics agent continuing after §23.7. Unrefereed, not committed. Updated incrementally.*
 
@@ -1833,9 +1833,21 @@ legitimate given (a)–(c), but it is part of the definition of `Ω^{A′}` and 
 ### 24.3 Scalar validation against the exact skeleton (`n1_scalar_validate.py`, `cache/n1_scalar_validate.txt`) [NE]
 
 Same points and fit as l9_scalar_k3 (`Δ_g = 100`, `m/Λ = 1.0–1.2`, `J = 0…10`, exact e1 Mellin data, `X = gC(ν+i) + g̃C(ν−i)`, fit
-`a_ν + b_J`), plus `x ∈ [0.2, 0.3) ∪ (0.7, 0.85]` with `ν ≥ 20`. **Status: see the numbers block at the end of this subsection (filled when
-the run finished; if absent, the run did not finish — resumable, `cache/n1_chain3.sh`).** Note the comparison object `X` itself is built
-from the LO density with third-order shifts (`O(m⁻⁴)`, §20.2), so it is a test of the direct integral to `≈ 10` c₂ units, not better.
+`a_ν + b_J`), plus `x ∈ [0.2, 0.3) ∪ (0.7, 0.85]` with `ν ≥ 20` (`2^{13}·16` RQMC points per point, ≈ 2 s). Note the comparison object
+`X` is itself built from the LO density with third-order shifts (`O(m⁻⁴)`, §20.2), so this tests the direct integral to `≈ 10` c₂ units.
+
+| window | points | residual `|Δc₂|` rms / max (c₂ units) | per `J = 0/2/4/6/8/10` rms | RQMC error median / max | `K₃` (linear) on the same points |
+|---|---|---|---|---|---|
+| `x ∈ [0.3, 0.7]` | 307 (2 dropped, RQMC error > 2 %) | **1.9 / 12.2** | 1.1 / 0.3 / 0.5 / 1.2 / 2.5 / 4.4 | 1.2 / 4.2 | 4.6 / 26.6 (158 common pts; direct 1.9 / 10.3) |
+| `x ∈ [0.2, 0.85]`, `ν ≥ 20` | 568 (16 dropped) | 8.4 / 42.2 | 8.1 / 3.3 / 4.9 / 3.9 / 14.2 / 12.5 | 1.7 / 63 | — |
+
+* **The direct integral reproduces the exact skeleton's state dependence to `≤ 12` c₂ units on `[0.3, 0.7]` and `≤ 42` on `[0.2, 0.85]`**,
+  i.e. 15–50× below the §19.3 tolerance `630`, and 2–3× better than `K₃` on the window where `K₃` converges. The larger values on the wide
+  window sit at `x ≥ 0.75` and are consistent with the `O(m⁻⁴)` error of `X`, not with the direct integral (RQMC errors there `≤ 63`).
+* **Bug found and fixed on the way:** the constant `Σ log c_i` of the log-coordinate Jacobian was first missing (a `(ν, Δ)`-dependent
+  normalisation; corrected in `n1_analysis.Hrep` for the graviton points stored without it, key `ljc`), then added to the TPS as a non-
+  constant (corrupting saddle and `L`); the graviton points of §24.4 were computed before either change and are unaffected; all scalar
+  validation points and the low-`x` graviton points were recomputed with the final code.
 
 ### 24.4 Graviton `Ĉ₂`, `Ĉ₃` (o_H): direct vs Laplace on the load-bearing window (`n1_run.py`, `n1_ratio_check.py`, `n1_analysis.py`) [NE]
 
@@ -1850,6 +1862,9 @@ from the LO density with third-order shifts (`O(m⁻⁴)`, §20.2), so it is a t
   `40 / 88 / 117 / 77` (`J = 4 / 6 / 8 / 10`, `C2 ++`), `≤ 103` for `C3H`, `≤ 47` for `+−`, `≤ 1` off-diagonal — against `|Γ|` up to
   `1.5–2.1·10³` there and `2–3.9·10³` at `x < 0.25`, and the §19.3 tolerance scale `630`. The `P_J`-oscillation makes the LO shapes small on
   `x ≥ 0.25` for `J ≥ 8`; the weight sits at `x < 0.25`.
+* **`x = 0.2` (`ν ≈ 19.6`) added after the restart** (`2^{14}·16` points; max element error 1–5 % at `Δ = 100`, 0.4–0.5 % at the
+  reference): normalisation-free `K₂` misses by 230–680, `K₃` (C2, `J = 8, 10`) by 340–370 (RQMC 46–80; 408 at `J = 6`). `x = 0.15`
+  (`ν ≈ 14.7`): fails (errors ≈ 100 %), as in §24.2.
 
 ### 24.5 `n` at `Δ_g = 100` with the direct values (`cache/n1_analysis.txt`) [NE + M]
 
@@ -1859,15 +1874,20 @@ from the LO density with third-order shifts (`O(m⁻⁴)`, §20.2), so it is a t
 | rows | `n` | min `λ/N_s` (binding) | `J = 4 / 6 / 8 / 10` min `λ/N_s` | `t*` |
 |---|---|---|---|---|
 | l9 (Laplace `K₂`) | 1 | 0.1855 (`J = 4`, `m/Λ = 1.04`) | 0.1855 / 0.2146 / 0.2304 / 0.4886 | (−0.7, +1.6) |
-| **direct on `x ≥ 0.25` (`Δ = 100` row), `K₂` below** | **1** | **0.1770** (`J = 4`, `m/Λ = 1.04`) | 0.1770 / 0.2046 / 0.2249 / 0.4886 | (−0.7, +1.6) |
+| direct on `x ≥ 0.25` (`Δ = 100` row), `K₂` below | 1 | 0.1770 (`J = 4`, `m/Λ = 1.04`) | 0.1770 / 0.2046 / 0.2249 / 0.4886 | (−0.7, +1.6) |
+| **direct on `x ≥ 0.2` (`ν ≥ 19.6`), `K₂` below** | **1** | **0.1814** (`J = 4`, `m/Λ = 1.04`) | 0.1814 / 0.2037 (0.2119 incl. the `J = 6`, `x = 0.2` C2 point, RQMC error 5.1 %) / 0.2742 / 0.4885 | (−0.8, +1.8) |
 
-* Replacing the Laplace values by non-perturbative ones on `x ≥ 0.25` moves `λ_min/N_s` by `≤ 0.010` (`J = 6`). RQMC error on these
-  numbers: `≲ 0.003 N_s` (from the replica spreads, `|ΔΓ| ≲ 30` c₂ on the relevant shapes).
-* **What is still not controlled: `x < 0.25` (`ν ≲ 25` at `m ≈ 100`).** There the corrections enter with 35–50 % of `Σ|ψ density|` for
+* Replacing the Laplace values by non-perturbative ones on `x ≥ 0.25` moves `λ_min/N_s` by `≤ 0.010` (`J = 6`); extending to `x = 0.2`
+  (`ν ≈ 19.6`; RQMC errors 1–5 %, `x = 0.15` fails) moves it by `≤ 0.05` (`J = 8`: 0.230 → 0.274) and leaves `n = 1`. RQMC error on these
+  numbers: `≲ 0.005 N_s` on `x ≥ 0.25`, `≈ 0.01–0.02 N_s` from the `x = 0.2` points (their 46–80 c₂ errors; 408 for `J = 6`).
+* **What is still not controlled: `x < 0.2` (`ν ≲ 20` at `m ≈ 100`).** There the corrections enter with 35–50 % of `Σ|ψ density|` for
   `J ≥ 6`, the Laplace chain gives `|ΔF_hh|/N_s` up to `1.0` (`J = 10`), and §24.2's direct method does not reach `ν ≲ 15`. `t* = (−0.7, +1.6)`
   says that a 70 % error of opposite sign in the total correction would break `n = 1` (at `J = 4`, `m/Λ = 1.04`).
 * **Verdict: `n = 1` at `Δ_g = 100` is supported, not decided [NE + M + I]:** it holds with every computed number, and the controlled
-  part (`x ≥ 0.25`) is now non-perturbative; the uncontrolled part is the `ν`-soft region `x < 0.25`, where the margin is `t* ≈ −0.7`.
+  part (`x ≥ 0.2`, validated method) is now non-perturbative; the uncontrolled part is the `ν`-soft region `x < 0.2` (`J ≥ 6`: ≈ 25–35 %
+  of `Σ|ψ density|`), where only the `K₂` chain exists; the whole-correction margin is `t* = (−0.8, +1.8)`. A statement "`Δ_g ≥ Δ*`" cannot
+  be given from this round: no computed number breaks `n = 1` at 100, and `Δ_g = 300` remains the smallest gap with `n = 1` from a
+  controlled computation (§23.4).
   `Δ_g = 300, 1000`: unchanged (§23.4, `n = 1`, `t* ≈ ±5 / ±37`).
 
 ### 24.6 Regraded table (supersedes §23.6 where they differ)
@@ -1881,16 +1901,18 @@ from the LO density with third-order shifts (`O(m⁻⁴)`, §20.2), so it is a t
 | graviton light side of that functional `= 16πG/(ν²+9/4)` | [I] (needs the spinning `Ψ` to share the scalar Regge kernel `gP_{l−1}+g̃P_{l+1}`); affects `A`, `B_AdS`, not `n` |
 | `Ĉ₃` shift relation | [I] (not derived) |
 | crystal Hessian: 2 directions `∝ Δ`, 5 `∝ ν` (log coordinates) — the expansion parameter at small `x` is `1/ν` | [NE] |
-| direct RQMC crystal integral (re-centred log contour, path-continued logs, wall masks) | [NE]: agrees with Laplace at `Δ = 1000` to `6·10⁻⁵`; converges for `ν ≳ 20–25`; **fails for `ν ≲ 15`** |
-| scalar validation of the direct integral vs exact skeleton | see §24.3 block |
+| direct RQMC crystal integral (re-centred log contour, path-continued logs, wall masks) | [NE]: agrees with Laplace at `Δ = 1000` to `7·10⁻⁴` (K₂ truncation); converges for `ν ≳ 20`; **fails for `ν ≲ 15`** |
 | `K₂`/`K₃` vs direct at `m ≈ 98`, `x ∈ [0.25, 0.8]`, `J = 4–10`: absolute `|ΔΓ| ≤ 117` c₂ (`K₂`) | [NE] |
-| `n = 1` at `Δ_g = 100` with direct values on `x ≥ 0.25`: min `λ/N_s = 0.177`, `t* = (−0.7, +1.6)` | [NE + M]; **`x < 0.25` uncontrolled → `n` at `Δ_g = 100` remains [I]** |
+| scalar validation of the direct integral (exact skeleton, `Δ_g = 100`, `J ≤ 10`): `|Δc₂| ≤ 12` (rms 1.9) on `[0.3, 0.7]`, `≤ 42` on `[0.2, 0.85]` | [NE] (the comparison object `X` limits it at `≈ 10`) |
+| `n = 1` at `Δ_g = 100` with direct values on `x ≥ 0.2`: min `λ/N_s = 0.181`, `t* = (−0.8, +1.8)` | [NE + M]; **`x < 0.2` uncontrolled → `n` at `Δ_g = 100` remains [I]** |
 | `n = 1` at `Δ_g = 300 / 1000` | [NE + M] unchanged (§23) |
 | **H4 for route A′** | **[I]**; at `Δ_g = 100` reduced to the `ν`-soft region `x < 0.25` |
 
 ### 24.7 Hand-over
 
-1. **The remaining obstacle is `ν ≲ 20` (`x < 0.25` at `m ≈ 100`), and it is a contour problem, not a truncation problem.** Five of seven
+0. Container restart (19 Nov): all `n1` caches survived; the scalar validation and the low-`x` points were relaunched and finished. Nothing is
+   running. Key outputs: `cache/n1_analysis.txt` (= `_relmax0.05`), `n1_ratio_check.txt`, `n1_scal_analyse.log`, `n1_definition.txt`.
+1. **The remaining obstacle is `ν ≲ 20` (`x < 0.2` at `m ≈ 100`), and it is a contour problem, not a truncation problem.** Five of seven
    directions are `ν`-soft. Next step: a curved steepest-descent contour in the soft block (`u_x, v_x, u_y, v_y, x̃₀`) — e.g. integrate the
    two `Δ`-stiff directions by Gauss–Hermite at each soft point and treat the 5-dim soft integral with a Picard–Lefschetz flow (gradient
    flow of `Re(νf)` from the real `w`-plane for a fixed time), which removes the walls. Validate on the scalar at `ν = 5–20` against exact

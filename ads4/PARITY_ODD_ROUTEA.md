@@ -154,6 +154,11 @@ the scalar, the stripped `+−` shape of §21.3 of H0 (`ρ₊₋/ρ₊₊ = d^J�
 
 * The order-0 deviation is a clean `1/Δ` term (it halves), and its `Δ → ∞` limit is the stripped `+−` shape to `≤ 2·10⁻⁴`
   (`4·10⁻³` at `x = 0.7`, next to a zero of `P₅`). The constant `c` is real (`arg c/π = 0.002` at order 0, `→ 0`).
+* Same for `J = 7, 9` (max absolute deviation `2.6·10⁻² → 1.3·10⁻²` and `5.2·10⁻² → 2.6·10⁻²` from `Δ = 1600 → 3200`, i.e. `∝ 1/Δ`, at the
+  `x = 0.7` point next to a zero of `P_J`; `arg c/π ≤ 0.003 → 0.001`).
+* **`Ĉ₃`** (`o_H`): `(Ĉ₃/Ĉ₂)·(2−y)/x² = 1.998i` at every `x` (`J = 5, 7`, `Δ = 3200`, order 0; spread `≤ 3·10⁻³` except one point next to a
+  zero, `1.2·10⁻²`): exactly the `σ₊₋ = −1` image of H0 §23.3's `++` value `−2i`. So the odd exchange has the full route-A′ `+−` LO action
+  (`(2−y)(…)d̃^J₄₄` in `Ĉ₂`, `−u(…)d̃^J₄₄` in `Ĉ₃`), the `Ĉ₃` phase being ν-only (absorbed in `N̂₃`).
 * So **a parity-odd exchange at odd `J` reproduces the stripped flat `+−` density at leading order** — the claim the binding state rests on.
   (The `1/Δ` part of order 0 is not an `O(1/m)` term of the action: it combines with `K₁`; the full corrections are §6.)
 
@@ -172,3 +177,69 @@ the scalar, the stripped `+−` shape of §21.3 of H0 (`ρ₊₋/ρ₊₊ = d^J�
   exact-skeleton set (l9_neargap conventions; base reproduces the binding `+−`, `J = 5` values `0.2256 / 0.2054 / 0.2021`). For odd `J` the
   action is 1×1 (no mixing: one structure, one helicity; EO cancels). `t*` = scale factor on the whole correction at which the odd sector
   first goes negative.
+
+**LO consistency and size of the corrections** (`cache/p4_odd_analysis_C2_C3H.txt`). Asymptotic (`Δ ≥ 400`, stable to `≤ 10` between rows)
+graviton-specific absolute corrections on `x ∈ [0.3, 0.7]`: `Ĉ₂`: `|Γ₂| ≤ 30` (`J = 5`), `≤ 160` (`J = 7`), `≤ 145` (`J = 9`); `Ĉ₃`:
+`|Γ₃| ≤ 140 / 92 / 191` plus an `m`-independent Regge-point offset of `Ĉ₃` relative to the common `a₊₋` (`Γ₃(x→0) ≈ 250 / 820 / 1510` at
+`J = 5 / 7 / 9`; it is the "`k`" pattern of H0 §19.3, here computed). Imaginary parts (dropped by `Re`): `m·|Im| ≤ 0.9` (`Ĉ₂`) and `≤ 0.03`
+(`Ĉ₃`) at `Δ ≥ 400` — no `O(1/m)` imaginary mixing exists for odd `J` (1×1). The `Δ = 100` row (`m ≈ 98`) is large: `|Γ| ≤ 1.2·10³ /
+3·10³ / 3.3·10³` (`J = 5 / 7 / 9`), and **not converged**: at `K₃` (`J = 5`, `Ĉ₂`) the per-state constant `a₊₋` drops by a factor 0.53 and `Γ₂`
+moves to `±4.5·10³` (the small-`ν` problem of H0 §23.4, now also for the odd sector).
+
+**Per-state test** (`cache/p6_odd_neargap_*`; odd-`J` states of the exact-skeleton set; `J = 5, 7, 9` covered, `J ≥ 11` unchanged):
+
+| `Δ_g` | functional | odd sector `n = 1`? | min `F/N_s` (state) | uncorrected | `t*` | max `|ΔF|/N_s` (J = 5 / 7 / 9) |
+|---|---|---|---|---|---|---|
+| 1000 | CHMRS-type (de-shift; §23 choice) | **yes** | 0.2023 (`J = 5`, `1.01Λ`) | 0.2021 | (−210, > 10⁴) | 0.0005 / 0.0020 / 0.0029 |
+| 300 | CHMRS-type | **yes** | 0.2072 (`J = 5`, `1.02Λ`) | 0.2054 | (−57, > 10⁴) | 0.0058 / 0.0176 / 0.0080 |
+| 100 | CHMRS-type | yes, **not controlled** | 0.2217 (`J = 5`, `1.05Λ`) | 0.2256 | (−29, +5.6) | 0.0056 / 0.141 / 0.096 |
+| 1000 | literal CLS-D (no de-shift) | yes | 0.2023 | 0.2021 | (−66, > 10⁴) | |
+| 300 | literal CLS-D | yes | 0.2077 | 0.2054 | (−6.1, > 10⁴) | |
+| 100 | literal CLS-D | yes, not controlled | 0.2505 | 0.2256 | (−0.8, > 10⁴) | |
+| 1000 / 300 / 100 | `Ĉ₂` only (CHMRS-type) | yes | 0.2021 / 0.2050 / 0.2522 | | (−284, +169) / (−48, +30) / (−7.3, +4.3) | |
+
+* `t*` is the factor on the *whole* computed correction at which an odd-`J` state first turns negative; `> 10⁴` means no positive factor
+  breaks it. The computed correction (`t = 1`) keeps the odd sector positive in every variant. **The binding state stays `+−`, `J = 5`,
+  and its margin is essentially unchanged** (`ΔF/N_s = +0.0002 / +0.0018 / −0.0039`).
+* **Against the §19.3 tolerances** (worst pattern `|δc₂| ≲ 630 / 3.4·10³ / 2.7·10⁴` on `x > 0.3`): the asymptotic odd-sector corrections
+  (`≤ 160` for `Ĉ₂`, `≤ 1.5·10³` incl. the `Ĉ₃` offset, which is concentrated at small `x`) are inside by factors `≳ 4 / ≳ 20 / ≳ 170` on `x ≥ 0.3` (`|Γ| ≤ 190`) at
+  `Δ_g = 100 / 300 / 1000` — but at `Δ_g = 100` the relevant rows are not converged (above), so that comparison is not a statement about
+  the true `m ≈ 100` correction.
+* **Where the CHMRS/CLS-D choice matters:** only at `Δ_g ≤ 300` and only in the margin `t*` (lower end −57 vs −6.1 at 300; −29 vs −0.8 at
+  100); `n` and the binding state do not depend on it.
+
+**`Δ_g = 100`, `a`-independent check** (`p7_crystal_sign.py`): `a₊₋ > 0` is a common positive factor of `Ĉ₂` and `Ĉ₃`, so the sign of the
+crystal's own `ψ`-integrated action at the `Δ = 100` row (`m ≈ 98 ≈ Λ`) does not depend on the unconverged normalisation. `K₂`:
+`F_cr/(aN) = +0.191` (`J = 5`; LO alone `+0.200`), `+0.159` (`J = 7`; LO `+0.180`). `K₃`: see §8.
+
+## 7. Graded summary
+
+| statement | grade |
+|---|---|
+| conserved symmetric parity-odd `⟨TT𝒪_{Δ,J}⟩` in `d = 3`, covariant, exact `Δ`-dependent coefficients; counts 1 (`J = 0, 2, ≥ 4`), 0 (`J = 1, 3`) | [DV] (null space; gap `10⁻¹⁴` vs `10⁻¹`) |
+| = CHL's `X^O_same` (even `J`) / `X^O_opp` (odd `J`) at matched points, real proportionality constant (Lorentzian-real basis = real multiple of `X^O`) | [DV] (9 states, spread `≤ 2.5·10⁻¹²`) |
+| no odd-`J` `+−` state at `J = 3` | [DV] (count) |
+| odd shadow coefficient `β_OO` (x₅-saddle, `O(1/Δ²)`): real, `β_EO = 0`, residuals `∝ Δ⁻³` | [NE], validated |
+| even–odd interference cancels identically in `Ĉ₂`, `Ĉ₃` (S⁰ sum; EO flips sign, EE/OO equal, every Laplace order) | [DV] (round-off) |
+| half-integer powers on the validated `Δ`-branch (`log B` = sum of logs) | [DV] |
+| parity-odd odd-`J` exchange gives the stripped flat `+−` density in `Ĉ₂` (`d^J₄₄/(1−x²)²` rel. scalar) and `Ĉ₃` (`Ĉ₃/Ĉ₂ = 2i x²/(2−y)`), `J = 5, 7, 9` | [NE] (`1/Δ` convergence; Richardson `≤ 2·10⁻⁴`) |
+| odd/even block ratio for CHL-normalised structures: `N_opp = 2.31756…` exactly constant in `x`, Laplace order, `Δ ≥ 400`, `J = 5, 7, 19`, functional; `N_same = 1/N_opp` | [NE] |
+| `N > 0` (odd exchange has the same sign as an even `+−` exchange at the same state) | [NE] |
+| identification of `2.31756`; reconciliation with the Regge-moment `3.77 / 3.30` | **[I]** / open (likely a CHL x-space normalisation slip, §4; Regge values at `J/m ≈ 0.5`) |
+| odd-sector `O(1/m²)` corrections (linear chain, reference subtraction, CHMRS de-shift), `J = 5, 7, 9`, `Δ ≥ 200` | [NE] |
+| **odd sector `n = 1` at `Δ_g = 1000` and `300`** with `Ĉ₂ + Ĉ₃` corrections; binding `+−`, `J = 5` unchanged (0.2023 / 0.2072); `t* ≥ 57` / `≥ 6` (CLS-D) | **[NE + M]** |
+| odd sector at `Δ_g = 100` | `n = 1` with the `K₂` numbers, **not controlled** (`Δ = 100` row unconverged at `K₃`); `a`-independent crystal sign positive at `K₂` |
+| odd `J ≥ 11` | [ND] (unchanged base) |
+| H12′ for route A′ (parity-odd binding state) | shape and sign [NE]; normalisation constant irrelevant (positive, state-independent) |
+
+## 8. Hand-over (state at the end of this round)
+
+* **Running / to finish** (resumable, `p3_run.py`): `K₃` (`L1_DEG=8`) `Δ = 100` rows for `J = 5` (`Ĉ₃` running) and `J = 7` (`p_queueC.sh`);
+  `N` at `J = 19`, `Δ = 100…800` (`cache/p5_J19.log`). When done: `L1_DEG=6 python3 p7_crystal_sign.py 5 7` (K₂ vs K₃ crystal sign) and
+  `P4_K=3 P4_KINDS=C2,C3H python3 p4_odd_analysis.py 5 7`.
+* **Files.** `p1_tto_odd.py` (structures), `p1b_validate_odd3.py`, `p2_shadow_odd.py` (`P3_ANTI=1`: antisymmetric even set at odd `J`),
+  `p3_odd_action.py` (+ `p3_run.py`; `L1_DEG=8` → `K₃` caches `*_k3.pkl`), `p4_odd_analysis.py` (LO check, `Γ` grid; `P4_DESHIFT`, `P4_K`,
+  `P4_KINDS`), `p5_N.py` (+ `p5_run.sh`), `p6_odd_neargap.py` (`P6_KINDS`, `P6_K3`), `p7_crystal_sign.py`. Caches `cache/p*`.
+* **Open.** (1) `Δ_g = 100`: needs a non-perturbative evaluation at `m ≈ Λ` (as for the even sector, H0 §23.4). (2) Closed form of
+  `N∞ = 2.31756`, and whether `odd3.xspace_odd` vs `chl_xspace` differ by it. (3) Odd `J ≥ 11`. (4) Combined even + odd `n` at 300/1000
+  is `n = 1` given H0 §23.4 (even) and §6 here (odd); a single combined run of `l9_neargap` + `p6` was not made.

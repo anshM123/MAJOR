@@ -137,7 +137,8 @@ def zmap(wv, c, pw=False):
     """w -> z (list), and the log-Jacobian: sum_i w_i (i in LOGV) [+ log sech^2 w_0 if TANH0]."""
     ex = (lambda a: np.exp(a)) if pw else texp
     zv = [c[i]*ex(wv[i]) if i in LOGV else wv[i] for i in range(7)]
-    lj = sum(wv[i] for i in LOGV) + np.sum(np.log([c[i] for i in LOGV]))      # dz_i = c_i e^{w_i} dw_i (constant part included)
+    lc = np.sum(np.log([c[i] for i in LOGV]))                                  # dz_i = c_i e^{w_i} dw_i (constant part included)
+    lj = sum(wv[i] for i in LOGV) + (lc if pw else T.const(lc))
     if TANH0:
         e2 = ex(2*wv[0])
         if pw:

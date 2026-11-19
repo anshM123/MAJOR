@@ -100,6 +100,15 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   which one Ω^{A′} is. Re-prescription judged legitimate [D] under three conditions (real OPE data in that basis — for the parity-odd
 >   sector "Re" may become "Im" in mixed entries; ν-only N̂ with fixed phase; same phase and functional on the light side).
 >
+> * **Update (Δ_g = 100, §24):** **definition fixed** [D given the CHMRS identity]: Ω^{A′} is the CHMRS-type functional (Ĉ₂ = inverse
+>   magic-block combination of CLS-D functionals, i.e. η-inversion with the exact kernel g P_{l−1} + g̃ P_{l+1}; Ĉ₃ likewise) — literal
+>   CLS-D has a vanishing heavy normalisation at ν₀ = 5.979 and is withdrawn. Base model, Theorem A and the light side already refer to
+>   this object; the remaining [I] (graviton shift relation) moves to the light side (A, B_AdS), not to n. **Direct (QMC) evaluation of the
+>   exact 7-variable crystal integrand**, validated on the scalar vs the exact skeleton (rms 1.9 c₂ units on x ∈ [0.3, 0.7]; 8.4 on
+>   [0.2, 0.85]; tolerance 630), works for ν ≳ 20. With direct graviton values on x ≥ 0.2 (Ĉ₂ + Ĉ₃, even J ≤ 10): **n = 1 at Δ_g = 100,
+>   min λ/N_s 0.181** (J = 4, m = 1.04Λ; QMC error ≈ 0.005–0.02) [NE + M on x ≥ 0.2]; x < 0.2 (ν ≲ 20, 25–35 % of the weight for J ≥ 6)
+>   covered only by the K₂ chain → **[I] overall**. No computed number breaks n = 1 at Δ_g = 100.
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
