@@ -230,6 +230,20 @@ def main():
     def Isc(Ym):      # int chi_h [g Y(nu+i) + g~ Y(nu-i)]  (normalisation of g irrelevant: N_com common)
         Ps = gm*Ym(nus + 1j) + gp*Ym(nus - 1j)
         return np.sum(xs*Ps/nn)*dns, np.sum(np.abs(xs*Ps/nn))*dns
+    # (T4b) refinement: project the scalar null vector onto the null space of finer operators (LSQR) and recompute F_h(-i/2)
+    for dnf, Nf in ((0.0125, 8192), (0.00625, 16384)):
+        Sf = C.Solver(np.zeros(10), 1.0, dnf, Nf, usc, 11/26.)
+        nf = np.abs(F_['RmS'](Sf.nu)) + np.abs(F_['RpS'](Sf.nu))
+        Af = (F_['RmS'](Sf.nu) + F_['RpS'](Sf.nu))/nf; Bf = (F_['RmS'](Sf.nu) - F_['RpS'](Sf.nu))/nf
+        mv = lambda X, Sf=Sf, Af=Af, Bf=Bf: Sf.Cf(Af*X) - 1j*Sf.th*Sf.Sf(Bf*X)
+        rmv = lambda r, Sf=Sf, Af=Af, Bf=Bf: np.conj(Af)*Sf.CT(r) + 1j*np.conj(Bf)*Sf.ST(Sf.th*r)
+        vi = np.interp(Sf.nu, nus, xs.real, right=0) + 1j*np.interp(Sf.nu, nus, xs.imag, right=0)
+        op = LinearOperator((Nf, Nf), matvec=mv, rmatvec=rmv, dtype=complex)
+        w_ = vi - lsqr(op, mv(vi), atol=1e-15, btol=1e-15, iter_lim=20000)[0]
+        gmf, gpf = F_['RmS'](Sf.nu), F_['RpS'](Sf.nu)
+        fhf = np.array([dnf*(np.sum(w_*gmf/nf*np.exp(-1j*Sf.nu*t_)) + np.sum(w_*gpf/nf*np.exp(1j*Sf.nu*t_))) for t_ in tt_])
+        Ff = np.sum(fhf*np.exp(0.5*tt_))*dtt/(2*np.pi)/(np.sum(np.abs(w_*gmf/nf))*dnf)
+        pr(f"     refined (dnu = {dnf}): |A Xt|/|Xt| = {np.linalg.norm(mv(w_))/np.linalg.norm(w_):.1e}; |F_h(-i/2)|/int|f_h| = {abs(Ff):.6e}")
     for lab, Ym in (("1/(nu^2+0.6^2) [in strip]", lambda z: 1/(z*z + 0.36)), ("1/(nu^2+1.5^2)", lambda z: 1/(z*z + 2.25)),
                     ("exp(-nu^2/25)", lambda z: np.exp(-z*z/25)), ("P_l(2)", None)):
         if Ym is None:

@@ -1220,3 +1220,324 @@ The pattern is the same as in the even sector (§25.6b): `Ĉ₃` is at 94–100 
 * `ads4/code/h7i14/v4_odd_impact.py`: odd sector at 300/1000 with `Ĉ₂′`, plus even re-run with the exact `u_T` → `cache/v4_odd_impact.txt`.
 * `ads4/code/h7i14/v4_odd100.py`: odd sector at 100 with n3 contour points and `Ĉ₂′`, windows → `cache/v4_odd100.txt` (`P8_XROWS=1`:
   `cache/v4_odd100_xrows.txt`), `.pkl`.
+
+## 24. The null directions of the `Ĉ₂′` weight: what they do, whether a canonical choice exists, and their effect on `n` (v5)
+
+*Written 19 Nov 2026 by the null-space agent. Unrefereed. New code `ads4/code/h7i14/v5_null.py`, `v5_null_heavy.py`; caches
+`ads4/code/h7i14/cache/v5_null*.{txt,pkl,log}`. Nothing in `spinfunc/`, H0, RESULT_D or STATUS was edited; spinfunc modules were only
+imported (read-only).*
+
+### 24.0 Verdict
+
+1. **Exact criterion [P given regularity of `X_h`, which is NE-observed].** A null vector `X_h` of the Abel equation annihilates
+   `Â_h[Y] := ½[(1+u_T)Y(ν+i) + (1−u_T)Y(ν−i)]` for every even `Y` analytic on the closed strip `|Im ν| ≤ 1` (Lemma N, §24.1). It does not
+   annihilate it when `Y` has poles in the strip; then there is an explicit residue formula (checked to `10⁻⁵–10⁻⁷`). So the null
+   directions drop out of **every term that is `Â_h` of a strip-analytic C-level density**: the leading-Regge heavy action, the graviton
+   pole, the `|ĝ₃|²` light term (rational, poles only at `±3i/2`) and the flat limit. The light side (`A`, `B_AdS`, bounds) is
+   gauge-independent.
+2. **Heavy states beyond leading Regge: [I].** They drop out on a state iff the exact `Ψᵀ_ν[state]` equals `Â_h[Y_state]` with `Y_state`
+   strip-analytic, i.e. iff an exact spinning magic-block identity holds. That identity is established only at leading Regge order (§18).
+   For the old scalar functional it is CHMRS's identity; for `Ψᵀ` it is open.
+3. **Index [P for the count of `w`; D + NE for the dimension].** `w := Δ_{(0,∞)} arg ρ/π = Z₊(ρ) − P₊(ρ)`, the number of zeros minus poles
+   of the rational `ρ = h₊/h₋` in the **whole upper half plane**, not the strip: `w = 7` for `Ĉ₂′` (zeros `i/2`, `±1.779+0.649i` in the
+   strip; `3i/2` (triple) and `5i/2` outside), `3` for the scalar `g`, `1` for `ηP_l`. The null dimension is `(w−1)/2 = 3 / 1 / 0`.
+4. **No canonical choice [D + NE].**
+   * The analyticity that matters (of `f = χh₋` in the lower strip) is automatic for every member of the family.
+   * Minimal growth does not discriminate: all null vectors decay faster than any power, and all vanish like `ν²` at 0, as `X₀` does.
+   * "`χ` analytic in the strip" is not single-valued for `Ĉ₂′` (`ρ(ν)ρ(−ν) ≠ 1`). On the right half-strip it gives either 1 condition
+     (open) or 4 (closed, incl. the imaginary axis). The 4 conditions are inconsistent (best residual 14 %).
+   * The scalar-`g` limit cannot fix a 3-dimensional freedom.
+   * The gauge is therefore part of the **definition**: it must be fixed by an explicit, state-independent convention. Recommended:
+     keep the current min-norm one, `X − ψ₂ ⊥ span{X_h}` in `L²(dν)`.
+5. **Size [NE + M, worst case].** Model: the whole graviton-specific beyond-Regge correction of the chains is treated as generic, i.e.
+   not in the range of `Â_h`.
+   * Per unit coefficient (null vector with `max|X_h| = max ψ₂`), the largest change of `λ/N_s` over all states is:
+     * `Δ_g = 100`: up to `0.3–0.5` (real part only, or controlled data `x ≥ 0.075` only; 1.2 on the odd extra-`m`-row protocol), on
+       `J = 10` (even) and `J = 9` (odd) at `m ≈ 1.1Λ`;
+     * `Δ_g = 300`: `≤ 10⁻³` (real part); `≤ 0.06` if the unreliable `K₂` imaginary residual is kept (§24.3);
+     * `Δ_g = 1000`: `≤ 3·10⁻⁵` (real part); `≤ 2·10⁻³` with the imaginary residual.
+   * Natural conventions differ by `|c| ≤ 0.23`. Switching between them moves the **binding** minima by `≤ 0.03` at 100 (`0.2206` even /
+     `0.2392` odd, main protocol) and by `< 10⁻⁴` at 300 and 1000.
+   * **`n = 1` at `Δ_g = 300, 1000` is gauge-independent** at the quoted precision. At 100 (main protocol) `n = 1` holds in every natural
+     gauge, with the combined min `λ/N_s` in `[0.19, 0.23]`.
+6. **Using the freedom (task 2): no material gain.**
+   * Even with gauge choices tuned on the states (not admissible), the Δ_g = 100 main-protocol minima move by `≤ +0.003` (`|c| ≤ 0.25`)
+     and `≤ +0.005` (`|c| ≤ 3`). The binding states (`J = 4` at `1.04Λ`, even; `J = 5` at `1.05Λ`, odd) are insensitive.
+   * The failing odd extra-`m`-row protocol (`J = 9`, `1.2Λ`, `−0.55`, from the `K₂` `x = 0.05` node) cannot be rescued:
+     * admissible gauges give `−0.36 … −0.68`;
+     * tuned gauges with `|c| ≤ 0.25` give at best `−0.40`;
+     * only a tuned `|c| ≈ 3` turns it positive, and only in one model. That works by cancelling the uncontrolled `K₂` node with a
+       weight bump at the same `ν`, which is circular (§24.5).
+   * The freedom can lower the weight `Re X` at `ν = 5–6.4` by a factor 2–3 (`low9`, `n0r`), but it cannot remove it. It does not replace
+     contour data at `x = 0.05`.
+7. **Scalar `g` (old H0 §24.1, task 3).**
+   * One null direction (peak `ν = 5.9`, support `ν ≲ 18`). By Lemma N it drops out on scalar correlators, given strip analyticity of
+     CHMRS's `C_{2,ν}` on blocks.
+   * It is **excluded** in the CHMRS class (`χ` even and analytic on the closed strip). Its `χ_h` has poles at `∓i/2`: `|F_h(−i/2)| =
+     1.141·10⁻³ ∫|f_h|`, stable to 7 digits under two grid refinements. So the scalar weight is unique in that class [NE + D].
+   * Applied to `⟨TTTT⟩` ("same combination for every correlator"), the scalar null direction is **visible at leading Regge order**:
+     `|∫X_h^{sc}𝒦ᵀ|/∫|X_h^{sc}𝒦ᵀ| = 0.33 / 0.25 / 0.07` at `η = 1.5 / 3 / 10`. So the old definition on `⟨TTTT⟩` is ambiguous unless the
+     class is stated (§24.6).
+
+### 24.1 Lemma N: what a null direction annihilates (`v5_null.py` → `cache/v5_null.txt`)
+
+**Setting.**
+* `X_h` is a null vector: `E[X_h] = 0`.
+* `f_h(ν) := X_h(1+u_T)/2` for `ν > 0`, and `f_h(−ν) := X_h(1−u_T)/2`. These are `χ_hh₋` and `χ_hh₊`.
+* §23.2 gave `E[X](t) = ½[e^t f̂(t) + e^{−t}f̂(−t)]`, with `f̂(t) = ∫_ℝ f e^{−iνt}dν`.
+
+**Lemma N.**
+* **(i)** `E[X_h] ≡ 0` means `G(t) := e^t f̂_h(t)` is odd. Hence `f̂_h(t) = −e^{−2t}f̂_h(−t) = O(e^{−2t})` as `t → +∞`. So `f_h` is the
+  boundary value of a function `F_h` analytic in `−2 < Im ν < 0`, with `F_h(ν) = −F_h(−ν−2i)` (odd about `−i`).
+  * At `ν = 0` there is no pole: `X_h = O(ν²)` (observed for all three, `X_h/ν² → 0.001 / 0.015 / 23.3`). A pole `X_h(0) ≠ 0` would give
+    `∫X_h𝒦_ν(η) ∝ X_h(0)P_{1/2}(η) ≠ 0`, contradicting nullity.
+* **(ii)** Let `Y` be even and analytic on `|Im ν| ≤ 1`, with growth there slower than the decay of `F_h`.
+  * Then `∫₀^∞X_hÂ_h[Y]dν = ∫_ℝF_h(ν−i0)Y(ν+i)dν`.
+  * Move the contour to `Im ν = −2`. Use `F_h(s−2i) = −F_h(−s)` and the evenness of `Y`. The integral equals minus itself, so it is
+    **0**.
+* **(iii)** If `Y` has simple poles in the strip, residues are picked up. For `Y = 1/(ν²+a²)`, `0 < a < 1`:
+  **`I_h = −(π/a)F_h(−i(1−a))`**.
+* Proof grade: **[P given (i)'s regularity]**. That regularity (`X_h ∈ L¹`, `O(ν²)` at 0, `|X_h| ≤ 10⁻¹⁵` at `ν = 50`) is [NE] on the
+  computed vectors.
+
+**Checks [DV].** The null vectors were re-projected onto the null space of the `dν = 0.0125`, `N = 8192` operator by LSQR:
+`|AX_h|/|X_h| = 3·10⁻¹⁴, 1·10⁻¹², 3·10⁻⁹`, against 1.9 for a generic vector. The principal cosines with the cached span are `≥ 0.9999992`.
+Ratio `|I_h|/∫|X_hÂ_h[Y]|`:
+
+| `Y` | `X₁` | `X₂` | `X₃` |
+|---|---|---|---|
+| `P_l(η)`, `η = 1, 1.5, 3, 10` (Mehler–Fock) | `≤ 8·10⁻¹⁷` | `≤ 2·10⁻¹⁶` | `≤ 2·10⁻¹²` |
+| `1/(ν²+a²)`, `a = 1.1, 1.5, 3` (analytic on the strip) | `≤ 2·10⁻¹⁵` | `≤ 6·10⁻¹⁶` | `≤ 5·10⁻¹³` |
+| `e^{−ν²/s²}`, `cos(bν)`, `(ν²+¼)e^{−ν²/25}` (entire) | `≤ 6·10⁻¹⁶` | `≤ 6·10⁻¹⁶` | `≤ 2·10⁻¹²` |
+| graviton pole `Â_h[1/(ν²+9/4)]` | `1·10⁻¹⁶` | `9·10⁻¹⁷` | `5·10⁻¹³` |
+| `1/(ν²+a²)`, `a = 0.3, 0.6, 0.9` (**poles in the strip**) | `1·10⁻⁴ … 6·10⁻⁵` | `0.13 … 2·10⁻³` | `0.95 … 0.71` |
+| generic: `ν²e^{−ν²/25}`; crystal LO `(2−x²)P₈(1−2x²)`; `1/(ν²+9/4)` *not* through `Â_h` | `0.37; 0.24; 0.48` | `0.31; 0.04; 0.25` | `0.55; 0.02; 0.26` |
+
+* The residue formula (iii) is checked with `F_h` from the Fourier continuation of `f_h`: relative agreement `7·10⁻⁶ / 2·10⁻⁷ / 5·10⁻⁷` at
+  `a = 0.3` and `6·10⁻⁴ / 4·10⁻⁵ / 4·10⁻⁵` at `a = 0.6`. At `a = 0.9` it is `10⁻¹` (truncation `t ≤ 16` of `∫f̂e^{0.1t}`).
+* **Consequence.** `span{X_h}` is contained in the annihilator of `Â_h[𝒜]`, with `𝒜` = even functions analytic on the closed strip. So
+  `Â_h` restricted to `𝒜` has cokernel of dimension `≥ 3`. Equality is the index statement of §24.2 [D-sketch].
+* Equivalently, a strip-analytic C-level pre-image of a given `Ψ̂` exists only if `Ψ̂` satisfies three linear conditions
+  `∫X_hΨ̂ = 0`. In the Abel form, "Mehler–Fock representable" can be replaced by "strip-analytic pre-image".
+
+### 24.2 The index and the zeros and poles of `ρ` [P / D + NE]
+
+* **Riemann–Hilbert form.** Under `z = e^{πν}`, the strip `−1 < Im ν < 0` maps to the lower half plane.
+  * The `f`-problem becomes a scalar RH problem on `ℝ` for `Φ(z) = F(z)` (`z ∈ ℂ₋`), `Φ(z) = F(1/z)` (`z ∈ ℂ₊`). It has the symmetry
+    `Φ(1/z) = Φ(z)`.
+  * Jump: `G(x) = ρ(|ν|)^{sgn ν}` on `x > 0` (`ν = log x/π`), and `G = −1` on `x < 0`.
+  * `arg G` winds by `2πw` along `x > 0`. `G` jumps between `±1` at `x = 0` and at `∞`.
+  * The homogeneous problem has `≈ w` solutions in the bounded class (`±1` from the endpoint classes). About half are
+    inversion-symmetric. This gives `(w−1)/2` [D-sketch]. The count is confirmed on three kernels by the SVD (§23.2) [NE].
+* **`w` in terms of zeros and poles [P].**
+  * For rational `ρ`, `Δ_{(0,∞)}arg ρ = Σ_zeros(−arg(−z)) + Σ_poles(arg(−p))`.
+  * The roots are symmetric under `z → −z̄`, and numerator and denominator have equal degree. Hence **`w = Z₊(ρ) − P₊(ρ)`**: zeros minus
+    poles of `ρ` in the open upper half plane.
+  * `Ĉ₂′`: zeros of `ρ` in `ℂ₊` are `i/2`, `±1.7788+0.6489i` (in the strip) and `3i/2` (triple), `5i/2` (outside). There are no poles, so
+    `w = 7`. The per-root contributions are listed in `cache/v5_null.txt` (T5).
+  * Scalar `g`: zeros `i/2`, `11i/2` (double), so `w = 3`. `ηP_l`: zero `i/2`, so `w = 1`.
+  * **The index is not a strip quantity.** The strip zeros alone would give 3, hence dimension 1. The four zeros just above the strip
+    (from the factors `(2ν−3i)³(2ν−5i)` of `ρ`, i.e. the double pole of `h₋` at `3i/2` and the zeros of `h₊` at `3i/2`, `5i/2`) are what
+    make it 3.
+  * The pole of `ρ` at `−0.2928i` and the zeros of `h₋+h₊` (`6.35−0.79i` etc.) do not enter.
+* **`χ` itself.** `χ_h = F_h/h₋` below the positive axis and `F_h(−ν)/h₊` above it. So `χ_h` has poles at the zeros of `h₋` at `−i/2` and
+  `−0.2928i`, and of `h₊` at `i/2` (double) and `1.7788+0.6489i`, unless `F_h` vanishes at the mirror points.
+  * Numerically `|F_h(−i/2)| = 3·10⁻⁶ / 5·10⁻³ / 0.11` and `|F_h(−0.2928i)| = 3·10⁻⁶ / 3·10⁻³ / 0.15` (units `max|X_h| = 1`).
+  * So the null directions do have `χ`-poles in the strip. They are invisible in every pairing, because only `f = χh∓` enters.
+
+### 24.3 Do the null directions affect the full functional? Size on the near-gap states (`v5_null_heavy.py` → `cache/v5_null_heavy_{even,odd_x0,odd_x1}.txt`) [NE + M]
+
+**What is gauge-independent [P given Lemma N].**
+* The leading-Regge heavy action: `𝒦_ν(η) = Â_h[P_l(η)]`, and `P_l` is entire.
+* The graviton-pole light term `Â_h[1/(ν²+9/4)]`, with poles at `±3i/2`, outside the closed strip: tested to `10⁻¹⁶–10⁻¹³`.
+* The `|ĝ₃|²` light term, given that it is, like the graviton pole, a C-level function analytic on the strip (CHMRS residue formula,
+  Lemma R; its AdS form at subleading order is H17's open item).
+* Hence **`L_A`, `A = 3022.3`, `B_AdS = −6552.7` and the bounds do not depend on the gauge.** §23.2's V3 test is the numerical instance.
+* The flat limit is also gauge-independent. The null vectors are fixed functions of `ν` supported on `ν ≲ 18`, i.e. `p ≲ 18/Λ → 0`, and
+  their contribution to `F` is `O(Λ⁻¹ ∫|X_h|)`.
+
+**What is not.** The beyond-leading-Regge heavy action, unless `Ψᵀ_ν[state] − Â_h[Y]` has no component along the three conditions for
+some strip-analytic `Y`. Whether it does is **[I]**: it requires the exact spinning magic-block identity (§24.0 item 2), which the existing
+data cannot test. The `ν ≲ 18` region has direct data only at `ν ≈ 9.8, 14.7` (n3), `ν ≈ 4.9` (`K₂`) on the `Δ = 100` row, against
+null vectors peaked at `ν = 4.36, 1.49, 0.37`.
+
+**Worst-case size.** The beyond-Regge part is treated as entirely generic (nothing of it in the range).
+* The pairing is `P_h = ∫₀¹dp X_h(Λp)δ(p)`, normalised to `max|X_h| = max ψ₂ = 21.18`, and `ΔF = Re(cP_h)`.
+* `δ` is the chains' own graviton-specific `k = 2` correction:
+  * **M1**: `env[Γ/m² − (ρ₂ − D_hρ₂(0))] + i[Im G/a − 2Re(u_T)Im P_{l−1}(cosh β)]`. The imaginary part is kept because a complex weight no
+    longer lets `Re` remove it. Its exact leading-Regge value (in the range) is subtracted.
+  * **M1r**: the real part only.
+  * **Mc**: M1 on the controlled data `x ≥ 0.075` only.
+  * **B**: the bound `∫|X_h||δ|`.
+* Same chains as §23.3–§23.4: n1 + n3 direct points at `Δ = 100` (even), p8 + n3 odd points (odd), `K₂` elsewhere. Exact `u_T`.
+  Baselines reproduced: `0.2206` (even, `Δ_g = 100`), `0.2392` (odd main), `−0.5499` (odd with extra `m`-rows), `0.2054 / 0.2072 / 0.2021 /
+  0.2023`.
+* Extrapolation below the first node (`x = 0.05`): chain spline / hold / linear to 0. The table gives the maximum over the three.
+
+Largest `|Δλ|/N_s` over all states per unit `|c|` (any phase), for `X₁` (peak 4.36); `X₂`, `X₃` are 5–30× smaller:
+
+| `Δ_g` | sector | M1 | M1r | Mc | B | state of the max |
+|---|---|---|---|---|---|---|
+| 100 | even | 2.5 | 0.51 | 0.42 | 3.5 | `J = 10`, `1.1Λ` (`N_s` = 0.16 / 0.29) |
+| 100 | odd (main) | 1.6 | 0.30 | 0.33 | 2.3 | `J = 9`, `1.09–1.12Λ` |
+| 100 | odd (extra `m`-rows) | 2.2 | 1.19 | 0.39 | 3.6 | `J = 9`, `1.1Λ` |
+| 300 | even / odd | 0.064 / 0.026 | `1.1·10⁻³ / 8.7·10⁻⁴` | `10⁻⁷` | 0.19 / 0.07 | `J = 10` / `J = 9`, `≈ 1.05Λ` |
+| 1000 | even / odd | `1.8·10⁻³ / 6.9·10⁻⁴` | `2.6·10⁻⁵ / 8·10⁻⁷` | 0 | `3·10⁻³ / 10⁻³` | same |
+
+* **Reading.**
+  * At `Δ_g = 300, 1000` the null directions are irrelevant for any `|c| = O(1)`.
+  * At 100 a unit null coefficient could move individual small-`N_s` states by `O(0.5 N_s)`. That is as large as the margin, so
+    **the gauge must be fixed as part of the definition**.
+  * The large M1 values come from the `K₂` imaginary part at `x ≤ 0.1`, which is unreliable (next paragraph).
+* **A side finding (matters for any non-local evaluation, gauge or not) [NE].** With a complex weight,
+  `Re[XΨ̂] = Re X Re Ψ̂ − Im X Im Ψ̂`, and `Im X = O(ψ₂)` at `ν ≲ 10` (e.g. `X(0.375) = 0.042 + 0.144i` in max-`ψ` units at 100). So the
+  imaginary part of the data enters.
+  * The direct n3 values at `x = 0.1, 0.15` agree with the exact leading-Regge `Im Ψ̂ = 2Re(u_T)Im P_{l−1}(cosh β)` to within a factor
+    `≈ 2`. Example, `Δ = 100`, `J = 4 / 8 / 10`, `x = 0.1`: data `−0.030 / −0.062 / −0.060` vs LO `−0.033 / −0.090 / −0.110`.
+  * The `K₂` values are **4–7× the exact LO**: at `x = 0.05`, `Δ = 100`, `J = 10`: `−0.82` vs `−0.215`; at `x = 0.1`, `Δ = 200`, `J = 8`:
+    `−0.048` vs `−0.006`.
+  * A non-local chain must take `Im Ψ̂` at small `x` from the exact LO plus direct data, not from `K₂`.
+
+### 24.4 Is there a canonical choice? [D + NE]
+
+| candidate | outcome |
+|---|---|
+| analyticity of `f = χh₋` in the lower strip (what the contour argument uses) | automatic for every Abel solution (Lemma N (i)); selects nothing |
+| `χ` analytic on `{Re ν ≥ 0, |Im ν| ≤ 1}` | 4 complex conditions `F(−i/2) = F′(−i/2) = F(−0.2928i) = F(−1.7788−0.6489i) = 0` for 3 parameters. The singular values of `[F_h(z_j)]` are `0.31, 0.17, 2.7·10⁻⁴`. The best gauge leaves a residual of `14 %` of `|F₀|` at `Δ_g = 100 / 300 / 1000`, with `|c| ~ 10³`. Imposing the 3 imaginary-axis conditions exactly misses the 4th by `3·10³` (relative to `|F₀|` there). **No solution.** |
+| `χ` analytic on the open right half-strip | 1 condition; leaves a 2-dimensional family |
+| `χ` even and analytic on the full strip (the CHMRS class) | not defined for `Ĉ₂′`: `χ = F/h₋` and `F(−ν)/h₊` continue differently around `ν < 0`, because `ρ(ν)ρ(−ν) ≠ 1` |
+| minimal growth / decay | all `X_h` decay faster than any power (`|X_h(30)| ≤ 3·10⁻⁹`) and vanish like `ν²` at 0, as `X₀` does; no discrimination |
+| matching the scalar-`g` limit | dimension 1 vs 3. The `X_h` live at `ν ≲ 18`, where `u_T` and `u_sc` differ at `O(1)`. At large `ν`, where they agree, the `X_h` vanish |
+| min-norm `X − ψ₂ ⊥ span{X_h}` in `L²(dν)` (current) | a convention; well defined in the continuum (grid-converged, §23.2) |
+
+* **Conclusion.** The weight is not canonical.
+  * **Recommendation:** make the gauge explicit in the definition (H0 §R): "`X` is the solution of the Abel equation with `X − ψ₂`
+    orthogonal in `L²(dν)` to its null space."
+  * Natural alternatives differ by `|c| ≤ 0.23` in max-`ψ` units at 100, `≤ 0.09` at 300 and `≤ 0.03` at 1000. They are:
+    * min-norm in the `χ`-normalisation;
+    * min-norm of the relative deviation `(X−ψ₂)/(ψ₂ + 0.05 max ψ)`;
+    * least weight below `ν = 9`;
+    * least weight at `ν = 4.5–7`.
+  * Their effect is in §24.5.
+
+### 24.5 Using the freedom at `Δ_g = 100` (task 2) [NE + M]
+
+**Admissible (state-independent, fixed before looking at states) gauges.** New min `λ/N_s` over all states, in the models M1 / M1r / Mc
+(chain extrapolation):
+
+| gauge (`|c₁|, |c₂|, |c₃|`) | even, `Δ_g = 100` (base 0.2206) | odd main (base 0.2392) | odd extra `m`-rows (base −0.5499) |
+|---|---|---|---|
+| `χ`-min-norm (0.226, 0.041, 0.010) | 0.2256* / 0.2206 / 0.2212 | 0.2416 / 0.2392 / 0.2395 | −0.356 / −0.541 / −0.596 |
+| relative (0.030, 0.073, 0.104) | 0.2193 / 0.2201 / 0.2201 | 0.2389 / 0.2392 / 0.2392 | −0.600 / −0.579 / −0.551 |
+| least weight `ν < 9` (0.106, 0.071, 0.102) | **0.1915** (`J = 8`, `1.08Λ`) / 0.2201 / 0.2196 | 0.2380 / 0.2392 / 0.2391 | −0.684 / −0.589 / −0.533 |
+| least weight `ν ∈ (4.5, 7)`, regularised (0.071, 0.015, 0.010) | 0.2173 / 0.2204 / 0.2202 | 0.2384 / 0.2392 / 0.2391 | −0.627 / −0.565 / −0.537 |
+| least weight `ν ∈ (4.5, 7)`, unregularised (`|c| ~ 10⁴–10⁷`) | excluded: weights `~10⁶ max ψ` at `ν < 3`; `n ≠ 1` in M1r | | |
+
+(* capped by the uncovered odd `J = 5`, `1.05Λ` base state, as in the even-sector run.) At `Δ_g = 300, 1000` every entry equals the
+baseline to 4 digits (`0.2054`, `0.2072`, `0.2021`, `0.2023`).
+
+**Tuned gauges (diagnostic only; choosing `c` by maximising the minimum over states is NOT an admissible definition).** Maximum over
+`|c_k| ≤ R` of the minimum `λ/N_s` (random search, 300 samples; M1r / Mc):
+
+| `R` | even 100 | odd main 100 | odd extra `m`-rows 100 | 300, 1000 |
+|---|---|---|---|---|
+| 0.25 | 0.2230 / 0.2235 | 0.2395 / 0.2396 | −0.403 / −0.507 | unchanged |
+| 1 | 0.2256* / 0.2256* | 0.2402 / 0.2407 | −0.029 / −0.380 | unchanged |
+| 3 | 0.2256* / 0.2256* | 0.2423 / 0.2442 | +0.255 / −0.017 | unchanged |
+
+**Reading.**
+1. **The binding states are insensitive.** Even `J = 4` at `1.04Λ` and odd `J = 5` at `1.05Λ` have small `ν ≲ 18` corrections. So no gauge
+   choice raises the `Δ_g = 100` main-protocol margins by more than `≈ 0.005` (even) or `≈ 0.005` (odd), even when tuned.
+   * Admissible gauges keep **`n = 1`** at 100 (main protocol) with min `λ/N_s ∈ [0.19, 0.23]`. The low end (0.1915) occurs only in M1,
+     the model driven by the unreliable `K₂` imaginary part.
+2. **The odd extra-`m`-row failure is not rescued by any admissible gauge** (`−0.36 … −0.68`).
+   * A tuned `|c| ≈ 3` can make it positive in M1r (`+0.25`), but not with controlled data only (Mc: `−0.017`).
+   * Such a `c` works by cancelling the `K₂` `x = 0.05` contribution with a weight bump at the same `ν`. That is circular: it uses the
+     uncontrolled data to fix the functional.
+   * **The `x = 0.05` node remains [I].** It needs contour data at `ν ≈ 5–6.5`, as in §23.4.
+3. **What the freedom can do.** The least-weight gauges lower `Re X` on `ν = 5–6.4` from `0.16 / 0.10 / 0.09 / 0.11` to
+   `0.09 / 0.03 / 0.03 / 0.07` max `ψ` (`ν < 9` gauge) at modest `|c| ≈ 0.1`. This reduces the functional's sensitivity to unknown
+   beyond-Regge errors there by a factor 2–3. It cannot remove it: the unregularised least-weight gauge needs `|c| ~ 10⁴`.
+   * Note that already the min-norm `X` is 2.5–5× smaller than `ψ₂` on `ν = 5–6.4` (`X` dips at `6.36`, §23.2). That is the non-local
+     weight's own response to the near-zero of `h₋+h₊`.
+
+### 24.6 The old scalar-`g` null direction (H0 §24.1), and proposed corrections to H0 §24.1 / §R (task 3)
+
+**Facts** (`v5_null.py` (T4), `χ`-normalisation `X̃ = χ(|g|+|g̃|)`, because `u_sc` has the real pole at `ν₀ = √143/2`):
+* **One null direction [NE + index].** The singular values are `1.5·10⁻¹⁶` and then `0.59`. `w = 3`, so `(w−1)/2 = 1`.
+  * Peak at `ν = 5.91` (next to `ν₀`); `|X̃_h| > 10⁻³ max` on `ν ∈ [0.04, 17.5]`; `|X̃_h(40)| = 5·10⁻¹⁵`; `f_h` is continuous at 0.
+* **Lemma N holds verbatim with `(h₋, h₊) → (g, g̃)` [P given regularity; DV].**
+  * `1/(ν²+1.5²)`, `e^{−ν²/25}` and `P_l(2)` through `𝒜_g` are annihilated to `≤ 10⁻¹⁵`; `1/(ν²+0.6²)` (poles in the strip) is not
+    (`0.33`).
+  * Hence **on scalar correlators the scalar null direction drops out of every state and of the light side**, given that CHMRS's
+    `C_{2,ν}[block]` is analytic on `|Im ν| ≤ 1` with mild growth.
+  * That is the case for the base-model representation `E₂P_J + 2(P_l − J₀) + E₂ρ₂` (entire terms; `E₂` has poles only at `ν = ±m`),
+    given analyticity of the smooth remainder `ρ₂` [assumption, as in `n3_exact`].
+* **In the CHMRS class (`χ` even and analytic on the closed strip, apart from the `ν = 0` pole term) the scalar weight is unique [NE + D].**
+  * The null direction's `χ_h = F_h/g` has poles at `∓i/2` (zeros of `g`, `g̃`), with `|F_h(−i/2)| = 1.141327·10⁻³ ∫|f_h| ≠ 0`. This value
+    is stable to 7 digits under LSQR re-projection at `dν = 0.0125` and `0.00625`.
+  * One complex condition fixes the one complex parameter.
+  * For the scalar `g` this class exists, since `g̃(ν) = g(−ν)` makes `χ` single-valued and even. For `Ĉ₂′` it does not (§24.4).
+* **On `⟨TTTT⟩` the old definition ("the same combination for every correlator") is ambiguous already at leading Regge order [NE].**
+  * `Ψᵀ` is not in the range of `𝒜_g` on strip-analytic functions; that is (HN)'s failure, §19.
+  * The scalar null direction paired with the spinning leading-Regge kernel (forward normalisation (ii)) gives
+    `|∫X̃_h𝒦ᵀ|/∫|X̃_h𝒦ᵀ| = 0.33 / 0.25 / 0.07` at `η = 1.5 / 3 / 10`. The scalar kernel gives `≤ 5·10⁻¹⁶`.
+  * So on `⟨TTTT⟩` the leading heavy action and the graviton-pole term of the old `Ĉ₂` depend on its (unstated) gauge. This adds to its
+    (HN) defect.
+
+**Proposed wording (not edited here; H0 is read-only for this agent).**
+* *H0 §24.1, after "Equivalently: §R.5's η-inversion with the exact kernel `gP_{l−1} + g̃P_{l+1}`":*
+  > The η-identity fixes the weight only up to one null direction (index `w = 3`; H7_I14 §24.6), supported on `ν ≲ 18`.
+  > * On scalar correlators it drops out (it annihilates `𝒜_g` of every strip-analytic C-level density, H7_I14 Lemma N), so `Ĉ₂ = C_{2,ν}`
+  >   there is unaffected.
+  > * The weight is unique in the CHMRS class (`χ` even, analytic on `|Im ν| ≤ 1` apart from the `ν = 0` pole term). That class is part of
+  >   the definition.
+  > * On `⟨TTTT⟩` the null direction does not drop out, even at leading Regge order. This is a further reason to use `Ĉ₂′`.
+* *H0 §R.5 (when `Ĉ₂′` is adopted), after the Abel-form equation:*
+  > The solution is unique up to a 3-dimensional null space (`w = Z₊(ρ) − P₊(ρ) = 7`). It is supported on `ν ≲ 18` and invisible to every
+  > `Â_h`-image of a strip-analytic density: the leading Regge action, the graviton pole, the `|ĝ₃|²` term, the flat limit.
+  > * No analyticity or growth condition selects a member.
+  > * **Gauge (part of the definition):** `X − ψ₂ ⊥ span{null vectors}` in `L²(dν)`.
+  > * Beyond leading Regge, the gauge matters on a state only through the part of `Ψᵀ` not of the form `Â_h[strip-analytic]`. That part
+  >   is [I]. Worst case `≤ 0.03` on the binding minimum at `Δ_g = 100`, `< 10⁻⁴` at 300 and 1000.
+
+### 24.7 Regraded table (supersedes §23.5 where they differ)
+
+| item | §23.5 | now |
+|---|---|---|
+| uniqueness of `χ` | 3-dim null space [NE]; gauge for the full functional iff Mehler–Fock representable [I] | **Lemma N**: null directions annihilate `Â_h[Y]` for every even strip-analytic `Y` **[P given NE-observed regularity; DV to `10⁻¹³`]**, with a residue formula for poles in the strip [DV]. Light side, leading Regge and flat limit gauge-independent [P]. Beyond leading Regge: gauge-independent iff an exact spinning magic-block identity holds **[I]** |
+| index | `(w−1)/2` rule checked on 3 kernels [NE] | **`w = Z₊(ρ) − P₊(ρ)`** [P]; `= 7 / 3 / 1`; includes the zeros `3i/2` (×3) and `5i/2` outside the strip; dimension `(w−1)/2` [D-sketch + NE] |
+| canonical choice | — | **none** (`f`-analyticity automatic; `χ`-analyticity inconsistent or underdetermined; growth and scalar limit do not discriminate) [D + NE]. Gauge must be fixed by convention: min-norm `L²(dν)` recommended |
+| effect on `n`, `Δ_g = 300 / 1000` | `n = 1` [NE + M] | **gauge-independent**: worst case per unit `|c|` `≤ 10⁻³ / 3·10⁻⁵` (real part; `≤ 0.06 / 2·10⁻³` incl. the `K₂` imaginary residual); natural gauges move the minima by `< 10⁻⁴` [NE + M] |
+| effect on `n`, `Δ_g = 100` (main protocol) | `n = 1`, 0.2206 (even) / 0.2392 (odd) [NE + M + I] | `n = 1` in every natural gauge; minimum `0.2206 → [0.1915, 0.2256]` worst case, `[0.2196, 0.2212]` without the `K₂` imaginary part. Single small-`N_s` states (`J = 9, 10` at `1.1Λ`) can move by `0.4–0.5 |c|` [NE + M] |
+| odd extra `m`-rows, `Δ_g = 100` | `n = 0` (`J = 9`, `1.2Λ`, −0.55) [I] | unchanged by any admissible gauge (`−0.36 … −0.68`); only a tuned, circular `|c| ≈ 3` flips it in one model [NE + M] → still **[I]** |
+| scalar-`g` null direction (old §24.1) | 1-dim [NE] | drops out on scalar correlators [P given strip analyticity of CHMRS `C`]; excluded in the CHMRS class (`F_h(−i/2) ≠ 0`, 7 digits) → unique there [NE + D]; on `⟨TTTT⟩` visible at leading Regge (0.07–0.33) [NE] |
+| `Im Ψ̂` of the `K₂` chain at `x ≤ 0.1` | (not examined) | 4–7× the exact leading-Regge value; n3 direct within `≈ 2×` [NE]. Irrelevant for the local chain (real weight), relevant for any non-local one |
+
+### 24.8 Hand-over (supersedes §23.6 where they differ)
+
+1. **H0 §R / §24.1 (not edited here).** Add the gauge sentence for `Ĉ₂′` and the scalar statement of §24.6.
+   * The gauge is now part of the definition of `Ω^{A′}`.
+   * `A`, `B_AdS`, the bounds and `δk(0)` are gauge-independent. For `δk(0)`, §23.3's restriction test already showed the `ν < 10`
+     insensitivity.
+2. **The remaining definitional [I]: the exact spinning magic-block identity beyond leading Regge.**
+   * If `Ψᵀ_ν[state] = Â_h[Y_state]` with `Y_state` strip-analytic for every state, the gauge question disappears and `Ĉ′_ν := Y_state`.
+   * A feasible test is the `O(r)` term of the §18.1 split-representation kernel: dual structure at `x₀ ≠ 0`, with the same plane-wave
+     machinery as `v3_regge_kernel` / `v4_hclosed`. Compute its heavy image as a function of `ν` and check the three conditions
+     `∫X_hΨ̂^{(1)} = 0` (`cache/v5_null.pkl` holds the refined `X_h`).
+   * If they fail, the gauge is a genuine (small) design choice. If they hold at `O(r)`, that is evidence for the identity.
+3. **Non-local chain (whoever replaces the local de-shift by `Re∫XΨ̂`).**
+   * Integrate `X` only against `Ψ̂_data − 2𝒦_ν(cosh β)`; the LO gives `∫ψ₂·2P_l` exactly.
+   * Take `Im Ψ̂` at `x ≲ 0.1` from direct points, not `K₂`.
+   * Fix the gauge to min-norm.
+4. **`Δ_g = 100`, odd extra `m`-rows: unchanged** (§23.6 item 2). The gauge freedom cannot substitute for contour data at `x = 0.05`
+   (`ν ≈ 5–6.5`).
+
+**Files (this round).**
+* `ads4/code/h7i14/v5_null.py`: Lemma N checks (T1), residue formula (T2), refined null vectors (T0), index decomposition (T5), the
+  `χ`-analyticity gauge test (T6), scalar-`g` null vector and its CHMRS-class exclusion and `⟨TTTT⟩` visibility (T4, T4b) →
+  `cache/v5_null.txt`, `cache/v5_null.pkl` (refined `X_h`, `dν = 0.0125`, `ν ≤ 102`), `cache/v5_null.log`.
+* `ads4/code/h7i14/v5_null_heavy.py`: per-state pairings of the null vectors with the chains' beyond-Regge corrections (M1, M1r, Mc, B),
+  natural and tuned gauges, effect on `λ_min` → `cache/v5_null_heavy_even.txt`, `cache/v5_null_heavy_odd_x0.txt` (main protocol),
+  `cache/v5_null_heavy_odd_x1.txt` (`P8_XROWS=1`), and `.log` files.
+  * Run: `python3 v5_null_heavy.py even`; `P8_XROWS=0|1 python3 v5_null_heavy.py odd`. About 1–3 min each on 1 core.

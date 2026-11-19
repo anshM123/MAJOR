@@ -42,6 +42,20 @@ Marks: **[Q]** quoted; **[D]** derived; **[DV]** derived and checked (exact alge
 
 ## R. The route-A′ functional `Ω^{A′}`: self-contained statement (for review; M2b/M3b/M4′ details in §12–§14)
 
+> **Definition update (supersedes the `Ĉ₂` de-shift below where they differ; H7_I14_LIGHTSIDE.md §18–§24).**
+> * `Ĉ₂` is replaced by **`Ĉ₂′`**: the two-term de-shift uses the spinning coefficients `h₋(ν), h₊(ν)` of the leading-Regge kernel of
+>   `Ψ_{2,ν}[q²]` (closed form `h∓ = N_com·R∓`, §23.1; `h₀ ≡ 0`) in place of the scalar `g, g̃`. (HN) then holds by construction and the
+>   graviton pole is exactly `16πG/(ν²+9/4)`. `Ĉ₃` is unchanged.
+> * The non-local weight is the solution of the generalised Abel equation `cosh t·C[X] − i sinh t·S[u_T X] = C[ψ₂]`, `X = χ(h₋+h₊)`. It is
+>   unique only up to a 3-dimensional null space (`w = Z₊(ρ) − P₊(ρ) = 7`), supported on `ν ≲ 18` and invisible to every `Â_h`-image of a
+>   strip-analytic density (leading Regge action, graviton pole, `|ĝ₃|²` term, flat limit) [P given Lemma N]. No analyticity or growth
+>   condition selects a member. **Gauge (part of the definition): `X − ψ₂ ⊥ span{null vectors}` in `L²(dν)`.** Beyond leading Regge the
+>   gauge matters only through the part of `Ψᵀ` not of the form `Â_h[strip-analytic]` [I]; worst case ≲ 0.03 on the binding minimum at
+>   `Δ_g = 100`, `< 10⁻⁴` at 300 and 1000.
+> * The old scalar-`g` definition (§24.1) has one null direction; on scalar correlators it drops out, and the weight is unique in the
+>   CHMRS class (χ even and analytic on `|Im ν| ≤ 1`), which must be stated as part of that definition. On `⟨TTTT⟩` it does not drop out
+>   even at leading Regge order — a further reason for `Ĉ₂′`.
+
 **Setting.**
 * Unitary CFT₃ with stress tensor `T` (`Δ = 3`, `J = 2`), large `c_T`, twist gap `Δ_g`; `Λ := √((Δ_g−2)(Δ_g−1))`.
 * Correlator `⟨TTTT⟩`, cross-ratios `u′ = x₁₂²x₃₄²/(x₁₃²x₂₄²)`, `v′ = x₁₄²x₂₃²/(x₁₃²x₂₄²)`.

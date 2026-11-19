@@ -1,20 +1,20 @@
-"""v5 (H7_I14_LIGHTSIDE.md §24.3-§24.4): size of the null directions X_h of C^_2' on the near-gap states, with the existing chain data.
+"""v5 (H7_I14_LIGHTSIDE.md §24.3-§24.5): size of the null directions X_h of C^_2' on the near-gap states, with the existing chain data.
 
 By Lemma N (§24.1, v5_null.py) a null direction changes the heavy action of a state only through the part of its forward-normalised
 Psi^_nu[state] that is NOT of the form A^_h[Y] with Y even and analytic on |Im nu| <= 1 (the leading-Regge kernel K_nu(cosh beta), the
 graviton pole, any entire/strip-analytic C-level density drop out exactly).  Whether the beyond-leading-Regge part of Psi^ is of that form
-is [I] (§24.2).  Here we bound the effect by treating the beyond-leading-Regge part as GENERIC (a worst case: nothing of it in the range):
-  M1: delta(nu) = env_{2,h}(x) [Gamma_{2,h}(x; m)/m^2 - (rho_2 - D_h rho_2(0))] + i env_{2,h} Gamma^im_{2,h}(x; m)/m   (the chain's
-      graviton-specific correction, k = 2, C^_2' local de-shift, incl. its imaginary O(1/m) part, which Re no longer removes when the
-      weight is complex), off-diagonal env_off (Gamma_off + i Gamma_off^im)/m;
-  M2: M1 + [env D_h(x) - 2 J0((2J+1)x)]  (also the crystal-vs-Regge leading-order difference treated as generic: envelope);
-  B : the bound int |X_h| |delta_M1|.
-Extrapolation of Gamma below the smallest row node x0 (0.05 on the Delta = 100 row): 'chain' (the chain's own natural-spline extrapolation),
-'hold' (Gamma(x0)), 'lin0' (Gamma(x0) x/x0).
+is [I] (§24.3).  Here we bound the effect by treating the graviton-specific beyond-leading-Regge part as GENERIC (worst case: nothing of
+it in the range):
+  M1 : delta = env_{2,h}[Gamma_{2,h}(x; m)/m^2 - (rho_2 - D_h rho_2(0))] + i [Im G/a - 2 Re(u_T) Im P_{l-1}(cosh beta)]  (the chain's
+       k = 2 correction, C^_2' local de-shift with the exact u_T; its imaginary part minus the exact leading-Regge imaginary part, which
+       is in the range; Re no longer removes Im when the weight is complex); off-diagonal env_off (Gamma_off + i Gamma_off^im)/m;
+  M1r: real part of M1 only;   Mc: M1 restricted to the controlled data x >= 0.075;   B: the bound int |X_h| |delta_M1|.
+Extrapolation of Gamma below the smallest row node x0 (0.05): 'chain' (the chains' natural-spline extrapolation), 'hold' (Gamma(x0)),
+'lin0' (Gamma(x0) x/x0).
 Pairing (per state, X_h normalised to max |X_h| = max_p psi_2(p)):  P_h = int_0^1 dp X_h(Lam p) delta(p);  Delta F(c) = Re(c P_h).
 Reported: max over states of the spectral norm of N_s^{-1/2} Re(e^{i th} P_h) N_s^{-1/2} (max over th) -- the largest possible change of
 lam_min/N_s per unit coefficient |c| = 1 -- and the same for the gauge differences between natural conventions (min-norm in the X-, chi- and
-psi-relative normalisations; v5 §24.3) and for the low-nu weight-minimising gauge of §24.4.
+psi-relative normalisations; §24.4) and for the low-nu weight-minimising gauges and tuned-leverage diagnostic of §24.5.
 Chains (read-only imports, nothing written in spinfunc/):
   even: l9 rows (K2) with direct n1 rows (x >= 0.2) and the n3 contour points (x = 0.1, 0.15) at Delta = 100 (as n3_analysis with
         N3_SPIN=1, but with the EXACT u_T of v4_hclosed); Delta_g = 300, 1000: l9 Laplace rows (as v3/v4).
@@ -248,17 +248,18 @@ def run_sector(states_fn, Gmods, extra, Dg, label):
     for lab, pf in prof.items():
         pr(f"   gauge '{lab}' profile, nu: Re X_0 / Re X_gauge / psi_2 (units max psi): " +
            "  ".join(f"{v:.1f}: {a.real:+.3f}/{b.real:+.3f}/{c_:.3f}" for v, a, b, c_ in pf))
-    # (c) leverage diagnostic (NOT a legitimate choice: tuned on the states): best min lam over |c_k| <= 0.25 (random search, M1r)
+    # (c) leverage diagnostic (NOT a legitimate choice: tuned on the states): best min lam over |c_k| <= R (random search, M1r and Mc)
     rng = np.random.default_rng(1)
-    best = (min(lam0), None)
-    for _ in range(400):
-        c = (rng.uniform(-1, 1, 3) + 1j*rng.uniform(-1, 1, 3))*0.25/np.sqrt(2)
-        lm = min(lam_min(r['F0'], r['Ns'], dFmat(P, c, r['hs'], 'M1r', 'chain')) for r, P in res)
-        lm = min([lm] + [l for l, r in zip(lam0, recs) if r['J'] not in Gmods])
-        if lm > best[0]:
-            best = (lm, c)
-    pr(f"   (c) leverage (diagnostic only; tuned on the states, not admissible): max over |c_k| <= 0.25 of min lam/N_s (M1r) = {best[0]:+.4f}"
-       f" (baseline {min(lam0):+.4f})")
+    for R in (0.25, 1.0, 3.0):
+        best = {mo: min(lam0) for mo in ('M1r', 'Mc')}
+        for _ in range(300):
+            c = (rng.uniform(-1, 1, 3) + 1j*rng.uniform(-1, 1, 3))*R/np.sqrt(2)
+            for mo in best:
+                lm = min(lam_min(r['F0'], r['Ns'], dFmat(P, c, r['hs'], mo, 'chain')) for r, P in res)
+                lm = min([lm] + [l for l, r in zip(lam0, recs) if r['J'] not in Gmods])
+                best[mo] = max(best[mo], lm)
+        pr(f"   (c) leverage (diagnostic only; tuned on the states, NOT admissible): max over |c_k| <= {R} of min lam/N_s: M1r {best['M1r']:+.4f},"
+           f" Mc {best['Mc']:+.4f} (baseline {min(lam0):+.4f})")
     return res
 
 
