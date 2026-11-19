@@ -2,7 +2,7 @@
 r5_universal (LARGEJ_OFFDIAG.md §3-4): the near-gap / large-b-hat 2x2 test with the UNIVERSAL (leading-Regge) off-diagonal of r4:
     F_+- density = eo2 beta^2 g2(nu beta) psi2  +  u eo2/(2-y) beta^2 g3(nu beta) psi3        (g2, g3: r4 medians, t in [1, 12]; [M] outside)
     F_hh = stripped flat B2 + B3 (exact, at the state's u, J) + leading-Regge curvature 2 int psi2 (P - J0) + u s int psi3 (P - J0)
-           (= ROUTEA_LARGE_B's F_hyb; scalar remainder and graviton DIAGONAL corrections dropped: the latter vanish in the Regge limit, r2)
+           (= ROUTEA_LARGE_B's F_hyb; scalar remainder and graviton DIAGONAL corrections dropped [M]: <= 0.2 N_s at the binding states)
 for an arbitrary weight pair in the NF02 LP family (robust/nf_lp basis r = 5, d = 8).  Modes:
     check  : NF02 on a (m/Lam, b-hat) grid at Delta_g -> min eigenvalue map, crossing b-hat per m/Lam
     lp     : NF02's LP (flat constraints, delta = 0.2, proxy 120) + these AdS rows on the grid with beta <= R5_BMAX: feasibility, A, B_AdS
@@ -107,7 +107,7 @@ def main():
     Lm = np.sqrt((Dg - 2.0)*(Dg - 1.0))
     G = NL.NFGrid(D, R)
     v_nf = R3.nf_vector()
-    mfls = [1.02, 1.05, 1.1, 1.2, 1.3, 1.5, 2.0, 3.0, 5.0]
+    mfls = [float(v) for v in os.environ.get('R5_MFLS', '1.02,1.05,1.1,1.2,1.3,1.5,2.0,3.0,5.0').split(',')]
     bhs = np.unique(np.round(np.geomspace(10, 2*Lm, 60), 3))
     sts = grid_states(Dg, Lm, bmax, mfls, bhs)
     blocks, _ = blocks_for(Dg, sts)
@@ -119,7 +119,15 @@ def main():
         d = pk.load(open(fn, 'rb'))
         v_nf = d['res'][float(key)]['v'] if 'res' in d else d['v']
         pr(f"  evaluating weights from {os.path.basename(fn)} [{key}]")
-    if mode in ('check', 'eval'):
+    if mode == 'states':                                   # explicit states "mfl:J,..." -> ratio table
+        sts2 = [(float(a.split(':')[0]), int(a.split(':')[1])) for a in os.environ['R5_STATES'].split(',')]
+        bl2, _ = blocks_for(Dg, sts2)
+        for b in bl2:
+            Fm = R3.evalF(b, v_nf); Nn = R3.evalN(b, v_nf)
+            pr(f"  m/Lam={b['mfl']:.4f} J={b['J']:3d} b-hat={b['bh']:.2f} beta={b['beta']:.4f}: F_++/N {Fm[0,0]/Nn[0]:+.3f}, F_+-/N {Fm[1,1]/Nn[1]:+.3f}, "
+               f"N_s = {Nn[0]:.4e} / {Nn[1]:.4e}, |X| = {abs(Fm[0,1]):.4e} (|X| Lam^2 = {abs(Fm[0,1])*Lm*Lm:.0f}), |X|/sqrt(NN) = "
+               f"{abs(Fm[0,1])/np.sqrt(Nn.prod()):.3f}, lambda/N_s = {R3.lam(b, v_nf)[0]:+.3f}")
+    elif mode in ('check', 'eval'):
         for mfl in mfls:
             bl = sorted([b for b in blocks if b['mfl'] == mfl and len(b['hs']) == 2], key=lambda b: b['bh'])
             if not bl:
