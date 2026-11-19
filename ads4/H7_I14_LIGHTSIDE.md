@@ -374,3 +374,265 @@ Also: `B_AdS = −6552.66`, not `−6552.5` (§6).
    a `Π₂` moment? (L3) does not depend on it (route A), but Lemma-R-based H17 for `Ĉ₃` does.
 5. R4 for spinning tree diagrams (integer Laurent expansion) and KKSDZ's loophole remain as quoted caveats.
 6. Fix the `B_AdS = −6552.5` transcription (→ `−6552.7`) when RESULT_D is next edited.
+
+---
+
+# Round 2 (19 Nov 2026, second derivation agent): D3, (HN), K2 at `η → ∞`, `Ĉ₃`'s `Π₂` moment
+
+*Appended by a second agent. §0–§11 are unchanged; where they differ, §12–§17 supersede them. Not refereed, not committed.*
+*New code: `ads4/code/h7i14/v2_d3_planewave.py`, `v2_k2_kernel.py`, `v2_hn_model.py`; output in `ads4/code/h7i14/cache/v2_*.txt`
+(about 4 min in total on 2 cores; `v2_d3_planewave.py` takes about 2.5 min).*
+
+## 12. D3: heavy (Laplace) versus light (Fourier) bookkeeping — now a lemma
+
+**Set-up.** Use the CHMRS frame (3.23), `d = 3`, mostly-plus metric on `ℝ^{2,1}`. `V⁺` is the future cone and `H₂` its unit hyperboloid,
+with `x̂ = x/|x|`.
+
+* The leading-Regge term of the functional's kernel is homogeneous: `K(x,y) = (|x||y|)^{a−3} 𝒦(x̂,ŷ; z)`, with `a = 2Δ_e + k − 1`
+  (`= 7` for `⟨TTTT⟩` at `k = 2`). Here `𝒦` carries the polarisation slots `z`.
+* **Heavy side** (Lemma V, `REGGE_MOMENT_TTTT` §3): a heavy block is a plane-wave pair `e^{2p·x+2p̄·y}` times a constant transverse
+  helicity tensor. Its leading action is the **Laplace** transform `L(p, p̄)` of `K`, contracted with that tensor.
+* **Light side** (CHP eq. `AtoB`): the Regge term is `∫dp dp̄ e^{−2ip·x−2ip̄·y} ℬ(p, p̄)`, with `ℬ` transverse at each vertex.
+  * `ℬ` is homogeneous in `p` and in `p̄`. At `k = j` its degree is complementary to that of `K`; this is v1 check (a), and the
+    reason the scale integral is the marginal `∫dr/r` that Lemma R evaluates.
+
+**Lemma D3.** **[P]** (elementary). Uses only homogeneity, Fubini and `SO(2,1)` invariance.
+
+* **(i) Per plane wave.** Assume `∫_{H₂}|𝒦(ŷ;z)|(−ŷ·p̂)^{−Re a}dŷ < ∞`; this holds for `a = 7`, since tensor growth is at most `e^{4χ}`. Then,
+  for `Re λ > 0`,
+
+  `∫_{V⁺}d³y e^{λy·p}K(y) = Γ(a) λ^{−a}|p|^{−a} ∫_{H₂}𝒦(ŷ)(−ŷ·p̂)^{−a}dŷ = λ^{−a} L_K(p)`.
+
+  * *Proof.* Write `y = Rŷ`, so `d³y = R²dR dŷ`. Fubini applies by absolute convergence. Use
+    `∫₀^∞R^{a−1}e^{−λRc}dR = Γ(a)(λc)^{−a}` with `c = −ŷ·p > 0` (principal branch). ∎
+  * The Fourier transform (`λ = −i`, with the Wightman `iε`) is the boundary value of this analytic function of `λ`. It is a
+    tempered distribution supported by the cone, and for `p` in the open cone it equals `e^{iπa/2}L_K(p)`.
+  * The angular integral is **literally the same** in both cases. So the heavy factors `γ_a(ν)²M_𝔖(ν;a)²` of `REGGE_MOMENT_TTTT`
+    Lemma L, and the polarisation dependence, are identical for the Laplace and the Fourier plane wave. The only difference is the phase
+    `e^{iπa/2}` per pair, which depends on `a` (i.e. `k`) only.
+* **(ii) Parseval on the cone (two pairs).** Let `Ĝ(x̂,ŷ)` be the angular part of the light Regge term (the `r^{−1}` coefficient of
+  Lemma R, before projection). Then the leading-moment angular pairing of Lemma R / E1 is
+
+  `𝒫 := ∫_{H₂}dŷ ⟨𝒦(x̂₀,ŷ), Ĝ(x̂₀,ŷ)⟩ = e^{iπa} ∫_{H₂}dp̄̂ ⟨ℬ̂(p̂₀,p̄̂), L(p̂₀,p̄̂)⟩`,
+
+  where `L(p̂,p̄̂) = Γ(a)²2^{−2a}∫∫𝒦(x̂,ŷ)(−p̂·x̂)^{−a}(−p̄̂·ŷ)^{−a}` is the **heavy** per-plane-wave action.
+  * *Proof.* (i) applied in both pairs, then Fubini on `(H₂)³`. Absolute convergence: `ℬ̂_E ∝ Π₂ ~ e^{−2L}` and `(cosh d)^{−7}` against
+    `P_l ~ e^{−d/2}` and tensor growth `≤ e^{4d}`.
+  * The integrand is `SO(2,1)`-invariant, so fixing `x̂₀` on one side is equivalent to fixing `p̂₀` on the other (unimodular group,
+    invariant measures). ∎
+  * At `a = 7`: `e^{iπa} = e^{7iπ} = −1` for either sign of `iε`, so there is no branch ambiguity.
+
+**Consequence for (L2).** Insert Einstein's `ℬ̂_E = c·Π₂(L)·𝟙_{p̄̂}⊗𝟙_{p̂}` (Q3, Q4, D2). `𝟙` contains only helicity-preserving
+components. Let `𝔥^h_ν(β)` be the normalised leading-Regge heavy kernel of `Ĉ₂` on helicity class `h ∈ {++, +−}`: the preserving part of
+`L`, divided by the heavy normalisation `N̂₂(ν)`. Then
+
+**`−Ĉ_{2,ν}|_E = 8πG Σ_{h∈{++,+−}} T̂_ν[𝔥^h_ν]`, where `T̂_ν[f] := (1/2π)∫_{H₂}Q₁(cosh d) f(cosh d) dŷ`**,
+
+with the overall constant fixed by the flat limit (E5).
+* This holds without (HN). Its grade is **[P given Lemma R, Q3, Q4, D2]**.
+* `N̂₂(ν)` cancels **identically**, because it is built from the same `L` (D3(i)). The phases `e^{iπa}` and `2πi/4` (Lemma R) and the
+  dDisc phases are `ν`-independent.
+* **With (HN)** (`𝔥^h_ν = P_{−½+iν}` for both classes): `T̂_ν[P_l] = 1/(ν²+9/4)` (v1 (c); v2 (D)), so `−Ĉ_{2,ν}|_E = 16πG/(ν²+9/4)`.
+
+**What D3 removes from §5.2 "why not [P]".**
+* Item 1 (tensor bookkeeping and phases): it is now a lemma, checked numerically below.
+* Item 2 (exchange of the plane-wave integral with the moment): at the level used here (angular pairing at fixed `r`, scale handled by
+  Lemma R) the exchange is Fubini with absolute convergence, as in (ii).
+* "A rational mismatch factor `r(ν)`" can now come **only** from `𝔥 ≠ P_l`, i.e. from a failure of (HN). D3 rules out any heavy/light
+  difference in `γ_a²M²`.
+
+**Numerical confirmation (`cache/v2_d3_planewave.txt`).**
+
+| check | content | result |
+|---|---|---|
+| (A) | `Γ(a)h_a(ν) = 2^{a−1}√π γ_a(ν)`, `h_a = 2π∫₁^∞x^{−a}P_l`. This is the angular core of (B.2), the "ν-only factor" itself. mpmath, 30 digits; `a = 7, 6.5, 9`; `ν = 0…6` | `≤ 2·10⁻³¹` |
+| (B) | Spin-2 rows of Lemma L (`D₁², D₁D₂, D₂²`, preserving vs `M⁰P_l`, flip vs `M^{flip}P^{(4)}`), `a = 7`, `ν = 0…3`, `ξ = 0.4, 1.1`. Not integrated numerically before (`REGGE_MOMENT_TTTT` §4.2) | preserving `≤ 1.1·10⁻¹²`; flip ratio `1.0000000000` (imaginary part `≤ 3·10⁻¹²`) |
+| (C) | Direct 3-d transform at `λ = e^{−iθ}`, radial integral done numerically; all spin-2 structures, both helicity sectors, `a = 7, 6.5`, `ν = 0.7, 3` | `I(λ)/(λ^{−a}I(1)) − 1 ≤ 4·10⁻¹⁴` (`θ = π/6`), `7·10⁻¹³` (`π/3`), `2·10⁻⁹` (`0.45π`), `3·10⁻⁷` (`0.47π`; quadrature-limited) |
+| (D) | Two-pair Parseval with the shock: `Ĝ(t)` built from `ℬ̂ = Q₁(cosh L)` by two explicit `H₂` convolutions (`ν`-independent), then projected on `P_l` | `𝒫/[h_a(ν)²·2π/(ν²+9/4)] − 1 ≤ 4·10⁻¹³` (`a = 7, 6.5`; `ν = 0, 0.7, 1.5, 3`) |
+| (E) | Heavy image of the kernel `ηP_l(η)`, direct `H₂` integral vs `[l h_7(ν+i)P_{l−1} + (l+1)h_7(ν−i)P_{l+1}]/(2l+1)` | `≤ 1.2·10⁻¹²` |
+| (E′) | `g(ν)` of `l2_scalar_validate.gfac` vs `(2l/(2l+1))(γ₇(ν+i)/γ₇(ν))²`, and `g̃ = ḡ` | `≤ 3·10⁻¹⁷` |
+
+(E) and (E′) show that **the CHMRS magic-block coefficient is exactly the heavy image of multiplication by `η`**: the subtraction factor
+`f₂ = v′−u′ ∝ ηr` at leading Regge order. This is used in §13 and §14.
+
+**Grade of the `Ĉ₂` part of H7.** **[P given (HN), Lemma R, Q3, Q4, D2]**; it was [D].
+* D2 (transversality at both vertices) is CHP's vertex-local conservation argument applied twice. It stays [D], but it is a one-line
+  extension of a quoted proof, not a new assumption.
+* Lemma R is [P given R1–R5] (R4 [D-sketch], as before).
+* The general formula `−Ĉ₂|_E = 8πG Σ_h T̂_ν[𝔥^h]` is **[P given Lemma R, Q3, Q4, D2]**, with no reference to (HN).
+
+## 13. (HN): what it must deliver, how it could fail, and what was (not) checked
+
+**Exactly what is needed.** By §12, H7's Einstein term is `8πG Σ_h T̂_ν[𝔥^h_ν]` whatever the heavy kernel is. So:
+* (HN) in the form `𝔥^{++}_ν = 𝔥^{+−}_ν = P_{−½+iν}` is necessary and sufficient for `16πG/(ν²+9/4)`;
+* any failure of (HN) changes heavy and light sides **coherently**: the light side is the `Π₂`-transform of the same kernel that the heavy
+  side uses.
+
+**Structure of the spinning kernel.**
+* **[P] Magic block = `η`.** (§12 (E).) The literal CLS-D `Ψ_{2,ν}` has the leading-Regge kernel `f·(index-l harmonic)`, with `f ∝ η`.
+  For scalars this gives the heavy image `½[gP_{l−1} + g̃P_{l+1}]`, with `g` exactly CHMRS's coefficient. So the de-shift **is** the
+  inversion of `η`-multiplication through the heavy map, as §R.5 / §24.1 described.
+* **[D] Spinning: three terms at most.** For the spinning `Ψ_{2,ν}[q²]` the kernel is `η × (index-l covariant tensor harmonic)`. This
+  is [D]: it assumes that the light-ray structure of `O_{3/2+iν}` gives an `SO(2,1)`-covariant eigen-kernel of index `l` at leading
+  Regge order; the rest of the argument is [P].
+  * `η` is the matrix element of the 3-dimensional representation of `SO(2,1)`, so `η·(index l)` decomposes into indices
+    `l−1, l, l+1`. The `l` term is absent for scalars and for derivative-free transverse structures.
+  * Lemma L maps each preserving index-`l′` component to `M⁰(ν′)P_{l′}`.
+  * Hence **`𝔥^h ∈ span{P_{l−1}, P_l, P_{l+1}}`**, and (HN) holds iff, after the `ν`-only normalisation, the `l` coefficient vanishes
+    and the `l±1` coefficients are `g, g̃` for both helicity classes.
+* **[P] `Re` removes conjugation-odd admixtures.**
+  * For real `ν`, `conj(P_{l−1}) = P_{l+1}`. The de-shift `𝔇` (inverse of `Y ↦ gY(ν+i) + g̃Y(ν−i)`) maps real data to real data,
+    because `g̃ = ḡ`.
+  * So an admixture `δ(ν)(gP_{l−1} − g̃P_{l+1})` with real `δ` is purely imaginary before and after `𝔇`, and `Re` removes it.
+  * This is the mechanism behind the helicity-odd imaginary `1/m` term of §22.2 (`m·Im D₊₊ = −m·Im D₊₋`, the same for
+    `Δ = 400…6400`). In the `δ` language it is a real, helicity-odd, roughly `ν`-independent `δ_h`, which is exactly the harmless case.
+  * The §23.5 prescription is therefore not only legitimate but **needed** for (HN).
+
+**A model of failure (`v2_hn_model.py`, `cache/v2_hn_model.txt`) [M].**
+* Suppose the kernel were `η × (𝔖⊗𝔖)P_l` with a fixed derivative-free transverse structure `𝔖`. `η` commutes with `𝔖`, so by Lemma L
+  exactly `g → g·ρ`, with `ρ(ν) = [M_𝔖(ν+i)/M_𝔖(ν)]²`.
+* This is conjugation-symmetric, so `Re` does **not** remove it.
+* `|ρ − 1|`, `a = 7`:
+
+  | `𝔖` | `ν = 0` | 1 | 1.5 | 3 | 10 | 25 | 50 |
+  |---|---|---|---|---|---|---|---|
+  | `D₁` | 0.063 | 0.13 | 0.17 | 0.21 | 0.066 | `6.9·10⁻³` | `9·10⁻⁴` |
+  | `D₁²` | 0.27 | 0.46 | 0.51 | 0.46 | 0.12 | `1.3·10⁻²` | `1.9·10⁻³` |
+  | `D₂²` | 1.7 | 3.9 | 9.8 | 1.3 | 0.28 | `1.6·10⁻²` | `1.9·10⁻³` |
+
+  Large-`ν` behaviour: `ρ − 1 = O(ν⁻³)` for `D₁², D₂²`.
+* **Reading.**
+  1. (HN) is a genuine premise. A generic spinning kernel violates it by `O(1)` at `ν ≈ 1–3`, the region that carries the graviton pole
+     `1/(ν²+9/4)`.
+  2. The violation decays like `ν⁻³`. At `ν ≥ 25`, where all heavy-side crystal numerics live, it is `≲ 1–2 %` of the de-shift
+     coefficient. The de-shift itself is an `O(1/m²)` effect at fixed `x`, so the crystal data **cannot** detect it.
+  3. A violation decaying like `ν⁻³` changes `∫ψ₂(−Ĉ₂|_E)` by a convergent amount. It shifts **`B_AdS`, not `A`** (the coefficient of
+     `log L` comes from `ν ∈ (n, Λ)` uniformly in `log ν`).
+  4. In this model the size would be `|δB_AdS| ~ A × O(0.3)` (`~10³`), i.e. `~10–20 %` of `B_AdS`. This is model-dependent [M].
+
+**Was it checked with the crystal code (`spinfunc/n1_pw`, `l*`)?** No. It could not be done in a meaningful way, and no new runs were made.
+* The non-perturbative crystal integral fails for `ν ≲ 15` at every `Δ` (§24.2). The curved contour of §25 (n3, read-only for this
+  agent) targets `ν = 5–20` at fixed `J ≤ 10`.
+* A fixed-`β` Regge limit needs `J ∝ m`, e.g. `J ≈ 100` at `Δ = 400` for `β ≈ 0.5`. That is far outside the tested range of the
+  conserved-structure and `P_J` machinery.
+* At accessible points (`ν ≥ 20`, `J ≤ 10`, `β ≲ 0.2`) the model deviation is `≤ 10⁻²` of an `O(1/m²)` term, below the RQMC
+  errors (§24.3–§24.4).
+* The existing evidence is all consistent with (HN) at large `ν`, and silent at small `ν`:
+  * `N̂₂` is helicity-independent to `2·10⁻⁶` at `Δ_ref = 2·10⁴` (§23.5(b)), which bounds a helicity-dependent `P_l`-admixture at `β → 0`;
+  * the imaginary helicity-odd `1/m` term is removed by `Re` (above);
+  * the scalar-`g` de-shift reproduces the exact skeleton at `ν ≥ 20` (§24.3).
+
+**Status of (HN): [I] for `ν ≲ 15`; consistent at `ν ≳ 20` [NE, via §22–§24].**
+
+**Recommended way to close it** (and in my view the right definition):
+* Define `Ĉ₂` on `⟨TTTT⟩` with the **spinning** de-shift coefficients: invert the actual preserving heavy kernel
+  `h₋P_{l−1} + h₀P_l + h₊P_{l+1}` (a three-term difference operator in `ν`) instead of using the scalar `g`.
+* Then (HN) holds by construction, and §12 makes H7 hold exactly. The cost moves to computing `h_{−,0,+}(ν)` at small `ν`. That is the
+  leading-Regge kernel of `Ψ_{2,ν}[q²]` in frame (3.23), a Lemma-L-type computation.
+* The heavy side needs the same object at `ν ≲ 15` (§24.7 / §25). At `ν ≥ 20` the change is `≤ 1–2 %` of the shift term, i.e. invisible.
+* **Caveat:** if `h^{++} ≠ h^{+−}` beyond `Re`-odd parts, no `ν`-only de-shift gives `P_l` for both helicity classes. The exact
+  statement is then §12's helicity sum, and the heavy side must use `𝔥^h` too.
+
+## 14. K2 at `η → ∞`: the total de-shifted kernel, with a bound
+
+**Object.** At leading Regge order the total kernel of `∫₀^Λdν ψ₂(ν/Λ)Ĉ_{2,ν}` is
+`𝒦_w(η) = ∫₀^Λdν w(ν)P_{−½+iν}(η)`, `η = cosh β`. Two normalisations:
+* `w = ψ₂(ν/Λ)`: heavy / Regge-moment normalisation;
+* `w = ψ₂(ν/Λ)·a/γ₇(ν)²`: the dDisc-space kernel, CHMRS's `C_{k,ν}`.
+
+By §12 (E), in the CLS-D building-block form this is `η × [η-inverted superposition of P_{l′}]` = `𝒦_w` itself. So "the exact kernel
+`gP_{l−1} + g̃P_{l+1}`" of §7.2 item 3 is **identical** to the inverted form: there is nothing separate to check.
+
+**Proposition K [P].** Let `w ∈ C⁴[0,Λ]` with `w(0) = 0` and `w′(Λ) = w″(Λ) = 0`. Put `M₀ = ‖w‖₁`, `M₂ = |w′(0)| + ‖w″‖₁`,
+`c₄ = |w‴(0)| + ‖w⁗‖₁`. Then for `β ≥ 2`
+
+`|(π/2)e^{β/2}𝒦_w(β) − w′(0)/β| ≤ c₄/(3β³) + 2M₀(e^{−β/2} + βe^{−β}/2) + (8M₂/β²)(e^{−1} + βe^{−β}/2) + 2.6M₂/(β−1)²`.
+
+**Proof.**
+1. Mehler–Dirichlet gives `𝒦_w = (√2/π)∫₀^βΦ(t)(cosh β − cosh t)^{−½}dt`, with `Φ(t) = ∫₀^Λw cos(νt)dν`.
+2. Two and four integrations by parts give `|Φ| ≤ M₂/t²` and `|Φ + w′(0)/t²| ≤ c₄/t⁴`. Cosine inversion with `w(0) = 0` gives
+   `∫₀^∞Φ = 0`, so `∫₀^βΦ = w′(0)/β + O(c₄/β³)`.
+3. Write `(cosh β − cosh t)^{−½} = √2e^{−β/2}κ`. Then `0 ≤ κ − 1 ≤ 2(e^{t−β} + e^{−t−β})` on `[0, β−1]`, and
+   `∫_{β−1}^β κ ≤ 2.6`. ∎
+
+**Consequences.**
+* `|𝒦_w(η)| ≤ (2/π)η^{−½}[|w′(0)|/log η + O(1/log²η)]`, with `w′(0) = X(0)/(k₀Λ) ≠ 0` for NF02.
+* **Correction to §7.2:** the decay is `η^{−½}/log η`, not `/log²η`. The extra `η⁻¹` of §7.2 is the `r`-range `r ≤ r_max = e^{−β}`; with
+  it the large-`η` integrand is `η^{−3/2}/log η`.
+
+**Numbers (`cache/v2_k2_kernel.txt`; NF02, `Δ_g = 100` and `300`).**
+* The Mehler evaluation agrees with direct `ν`-integration (mpmath) to `≤ 4·10⁻¹⁰` at `β = 1, 3, 6`.
+* `(π/2)e^{β/2}𝒦·β/w′(0) = 0.259, 0.792, 0.955, 0.9891, 0.9965` at `β = 2, 8, 32, 128, 400`, approaching 1. The remainder is
+  `≈ −1.39 w′(0)/β²`.
+* The bound holds at every tested `β`; it is loose by `10³` at `β ≤ 8` and by `≈ 10×` asymptotically.
+* The per-`ν` (unsmeared) kernel behaves like `(2/π)e^{−β/2}(β + 2log2)` at `ν = 0` (no `log` gain, still `η^{−½}log η`).
+* The individual shifted building blocks `ηP_{l±1}` grow like `η^{3/2}`.
+
+**Corollary (Fubini at the large-`η` Regge corner) [P given K1′].** Take the region `{ρ = re^β ≤ c}`, `c < 1`.
+* **Hypothesis K1′:** `|dDisc 𝒢(r,η)| ≤ B r^{1−J₀}` uniformly in `η` there. This is KKSDZ's Rindler bound "at fixed `σ`" made uniform
+  in the angle, which KKSDZ treat in §4.2.5, with their loophole. Both radial coordinates are `≤ c`, so the reflection-positive comparison
+  correlator is in its convergent `u`-channel OPE region.
+* **Conclusion:** the large-`η` part of `∫|ℋ||dDisc 𝒢|` is `≤ 2B∫^∞dη |𝒦_w(η)|(ce^{−β})^{2−J₀}/(2−J₀) < ∞` for `J₀ ≤ 1`.
+* **Margin:** a factor `η^{−½}`. It survives even an `η^{½−ε}` growth of `B`, and it holds per `ν` without the smearing.
+* The swap must use the **total** kernel. The shifted building blocks are not absolutely integrable (`η^{3/2}·η^{−1}`).
+* The dDisc-space weight `a/γ₇(ν)²` (`~e^{πΛ}`) only enlarges `M₀, M₂, c₄`, not the rate.
+
+**Spinning components [D].**
+* The same proof applies to each tensor component of the de-shifted spinning kernel, provided its leading-Regge `η`-dependence is a
+  `ν`-smearing of index-`l` functions with real `ν`, with smooth coefficients, and polarisation factors normalised as in KKSDZ.
+* Given (HN) in the spinning-de-shift form of §13, that is the case.
+* The `ρ ∼ 1` light-cone edge (`ρ̄ → 0` at finite `ρ`) is the separate "light-cone edges" row of §7.1, still [D].
+
+**K2 at `η → ∞`: [D-sketch] → [P given K1′] (scalar-type total kernel), [D] (spinning components).**
+
+## 15. Does `Ĉ₃` have a spin-2 Regge moment? (matters for H17 only)
+
+**Answer: no.** Grade [D + NE].
+
+* **Heavy scaling [NE, §23.3 data].** A `Π₂` component of `Ĉ₃` would give a heavy action `∝ m⁻⁴` at fixed `ν` (Q5). `Π₃` gives `m⁻⁶`.
+  * §23.3 found `Ĉ₃/Ĉ₂ ∝ x²` with ratio `4.000` (to `≤ 2·10⁻³`) between `Δ = 800` and `1600` at equal `ν` (`J = 4`, both odd structures).
+  * Write `Ĉ₃/Ĉ₂ = A₂/B + (A₃/B)m⁻²`. The ratio `4(1 + ε/4)/(1 + ε)` then bounds the `Π₂` share of `Ĉ₃` at `Δ = 1600` by `ε ≤ 7·10⁻⁴`.
+* **Kernel [Q, §R table].** The leading kernel is `−r¹P_l` (`f = −1`, no `η`, so no `r⁰` term).
+* **Consistency with the flat limit.** `−B₃ ∋ −2πG|ĝ₃|²p⁴ ≠ 0` does not need a `Π₂` moment. The `|ĝ₃|²` exchange has residue-formula Regge
+  spin `n = 4` (§18), so `Ĉ₃` sees it through `[𝒢]_{r^{−2}}` (and `r^{−4}`), as §18 already wrote.
+* **Hence:**
+  * CLS-D's odd-`j′` convergence count `k − 1 > J₀` is sufficient, not tight (§4 caveat resolved in that direction);
+  * route B for (L3) becomes [P given Lemma R + "no `Π₂`" (D + NE)], supporting route A;
+  * for H17, Lemma R for `Ĉ₃` needs only `k ≥ 3` moments.
+* **Caveats.**
+  * The `m`-scaling test was made only at the crystal nodes `ν` of §23.3 and `J = 4`. An analytic `â₂(ν)` that is `≤ 10⁻³` there is
+    not excluded by the data alone.
+  * The `r¹` kernel statement is quoted, not re-derived for spinning externals.
+
+## 16. Regraded table (supersedes §0, §9 where they differ)
+
+| item | §0–§11 | now | remaining |
+|---|---|---|---|
+| D3 (heavy vs light plane-wave bookkeeping, phases) | [D] | **[P]** (Lemma D3), [DV] to `10⁻¹²–10⁻³¹` | — |
+| H7, `Ĉ₂` part, general form `−Ĉ₂|_E = 8πG Σ_h T̂_ν[𝔥^h_ν]` | — | **[P given Lemma R, Q3, Q4, D2]** | Lemma R's R4 [D-sketch]; D2 [D] (vertex-local CHP) |
+| H7, `Ĉ₂` part, `= 16πG/(ν²+9/4)` | [D] | **[P given (HN), Lemma R, Q3, Q4, D2]** | (HN) |
+| (HN) | [D + DV pieces]/[I] | **[I] at `ν ≲ 15`**; consistent at `ν ≳ 20` [NE]; a generic spinning kernel violates it by `O(1)` at `ν ∼ 1–3` [M] | Spinning leading-Regge kernel of `Ψ_{2,ν}[q²]`, or redefine `Ĉ₂` with the spinning de-shift (§13) |
+| H7, `Ĉ₃` part | [P given Q2, Q8, F] | unchanged; route B now [P given Lemma R + no `Π₂` (D + NE)] | F [D] |
+| I14(a) | [P given K1, K2] | unchanged | K1 loophole; K2 endpoints [D] |
+| I14(b) | [P given K1–K3], K2 [D-sketch] at `η → ∞` | **[P given K1 (with K1′ uniformity), K2, K3]**; K2 at `η → ∞` now [P given K1′] (scalar-type kernel), [D] for spinning components; K2 endpoints/edges [D]; K3 [D] | K1′ = KKSDZ §4.2.5 uniformity + loophole |
+| `Ĉ₃` `Π₂` moment | open | **absent** [D + NE] | analytic derivation |
+
+**Proposed RESULT_D rows (not edited here).**
+* H7: **[P given (HN) + Lemma R + CHP/KKSDZ/KPZ]** for `Ĉ₂`, with `(HN)` [I] at small `ν`. State the unconditional form
+  `8πG Σ_h T̂_ν[𝔥^h]`. Any `(HN)` failure shifts `B_AdS` (model: `≲ 20 %`), **not `A`** (§13).
+* H16/I14: [P given K1 (+K1′), K2 (endpoints [D]), K3 [D]].
+
+## 17. Hand-over (supersedes §11)
+
+1. **(HN) is now the only premise between the heavy side and an exact graviton pole.**
+   * Either compute the spinning leading-Regge kernel of `Ψ_{2,ν}[q²]` in frame (3.23), i.e. the coefficients `h_{−,0,+}(ν)` of §13:
+     expand the CLS-D dual `q²` and the celestial structure at `r → 0`, then apply Lemma L (the transverse table is now fully checked,
+     §12 (B)).
+   * Or adopt the spinning-de-shift definition of `Ĉ₂` (§13) and compute `h_{−,0,+}` for the heavy side at `ν ≲ 15`.
+   * Watch for a helicity-even `P_l` component (`h₀`): it is not removed by `Re`.
+2. If (HN) is replaced by computed `𝔥^h`, evaluate `T̂_ν[𝔥^h]` (one-dimensional `Q₁`-transform; `v2_d3_planewave.two_pair` does the
+   two-pair version) and redo `L_A`, `B_AdS`. `A` is unchanged if `T̂_ν[𝔥]·(ν²+9/4) → 1` as `ν → ∞`.
+3. K1′: write out the uniformity in the angle of KKSDZ's Regge bound on `{ρ, ρ̄ ≤ c}` (their §4.2.5) for spinning normalised correlators.
+   That would make I14(b) [P given KKSDZ incl. loophole].
+4. `Ĉ₃` `Π₂` moment: a derivation of the spinning `r¹` kernel would upgrade §15 from [D + NE] to [P].
+5. Unchanged from §11: R4 (integer Laurent expansion for spinning tree diagrams); the `B_AdS = −6552.5 → −6552.7` transcription.

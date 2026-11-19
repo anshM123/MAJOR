@@ -17,7 +17,7 @@ from scipy.special import eval_legendre, jv
 from scipy.interpolate import BarycentricInterpolator
 import l2_scalar_validate as V
 
-NLOC = int(os.environ.get('N3_NLOC', '24'))
+NLOC = int(os.environ.get('N3_NLOC', '10'))   # local window; >= 20 nodes in s = p^2 is ill-conditioned (garbage at nu +- i)
 _DB = {}
 
 
