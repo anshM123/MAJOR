@@ -2105,6 +2105,28 @@ resolved node, i.e. the true small-`x` correction is 85–104 % of the `K₂` va
 | **`n` at `Δ_g = 100`** | **[NE + M + I]**: controlled down to `x = 0.1`; the remaining [I] is the `x = 0.05` node with a wide margin (needs > 64 % excess over `K₂`) |
 | H4 for route A′ | [I]; at `Δ_g = 100` reduced to `x < 0.1` |
 
+### 25.6b The same with the redefined `Ĉ₂′` (spinning two-term de-shift, H7_I14_LIGHTSIDE.md §18–§22) — the decisive version [NE + M]
+
+The crystal integrals are the literal CLS-D `Ψ_ν[q²]` and do not depend on the de-shift; only the chain's `k = 2` shift changes
+(`N3_SPIN=1 n3_analysis.py`: `l9_analysis.shift → v3_heavy_impact.shift_spin`, read-only import; `Ĉ₃` unchanged). Output
+`cache/n3_spin.log` / `cache/n3_analysis_spin.txt`. Direct values at `x ≥ 0.1` (Δ = 100 row), `K₂` at `x = 0.05`:
+
+| | old `Ĉ₂` (scalar `g`; §25.6, labelled) | **`Ĉ₂′`** |
+|---|---|---|
+| `n` at `Δ_g = 100` | 1 | **1** |
+| min `λ/N_s` (binding) | 0.2067 (`J = 4`, 1.04Λ) | **0.2206** (`J = 4`, 1.04Λ) |
+| per `J = 4 / 6 / 8 / 10` | 0.207 / 0.270 / 0.474 / 0.488 | 0.221 / 0.279 / **0.392** / 0.502 |
+| `t` at `x = 0.10 / 0.15` (`C2`; `C3H`) | 0.85–0.90 / 0.90–0.99; 0.97–0.98 | 0.70–0.77 / 0.78–0.94 (J = 8 ++ at the `P₈` zero excluded); 0.96–0.98 |
+
+* The coordinator's `Ĉ₂′` number "direct-row minimum 0.055 (`J = 8`)" used `K₂` on all of `x < 0.2`; with the direct `x = 0.1, 0.15`
+  values the `J = 8` minimum is 0.392, i.e. the `K₂` chain overstated the destabilising small-`x` correction there.
+* Tolerance windows for `Ĉ₂′`: whole-correction `t* = (−1.1, +3.0)`; correction on `x < 0.075` (the unresolved `x = 0.05` node region)
+  scaled by `t`: `n = 1` for `t ∈ [−32.6, +3.62]`. The `x < 0.2` window was still bisecting when this was written (`cache/n3_spin.log`,
+  final file `cache/n3_analysis_spin.txt`).
+* **Grade (`Ĉ₂′`, even sector): `n = 1` at `Δ_g = 100` [NE + M + I]** — controlled (validated method) down to `x = 0.1`, `λ_min/N_s =
+  0.221 ± 0.015`; the remaining [I] is the `x = 0.05` node (`ν ≈ 4.9`), where `n = 1` needs only `t < 3.6` times its `K₂` value, plus the
+  non-local de-shift caveat at `ν < ν₀` (now with the spinning `h∓`).
+
 ### 25.7 Parity-odd (`+−`, `J = 5, 7, 9`) integrands on the same contour (`n3_run_odd.py`, `cache/n3_odd_pts_<kind>_J<J>.pkl`) [NE, data only]
 
 At the coordinator's request: p8's integrand (`p8_odd_pw.P8.build`, kinds `C2`, `C3H`, `n0 = +1`; imported read-only) evaluated on
