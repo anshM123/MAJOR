@@ -2,7 +2,7 @@
 w3 (EE_NEARGAP.md §2): NON-PERTURBATIVE (direct RQMC, n1_direct contour; n1_run.point unchanged) crystal values of C^_EE, as q4_direct did
 for q^2: the point-wise backend n1_pw gets the EE integrand of w0 (make_build_even_EE on the point-wise module copies), kind 'EE'.
 Cache: cache/w3_n1_EE_J<J>.pkl keyed (Delta, nu rounded 1e-9) (state and reference Delta_ref = 2e4 at the same nu).
-Usage:  OMP_NUM_THREADS=1 python3 w3_direct.py run J Delta x1,x2,...
+Usage:  OMP_NUM_THREADS=1 python3 w3_direct.py run J Delta x1,x2,... [EE|C3H]
         W2_BASIS=q2 python3 w3_direct.py analyse "J:Delta,J:Delta,..."    -> cache/w3_direct_compare.txt, cache/w3_direct_grids.pkl
 """
 import os, sys, glob, pickle, time
@@ -15,12 +15,12 @@ import numpy as np
 C = os.path.join(HERE, 'cache')
 
 
-def wfn(J):
-    return os.path.join(C, 'w3_n1_EE_J%d.pkl' % J)
+def wfn(J, kind='EE'):
+    return os.path.join(C, 'w3_n1_%s_J%d.pkl' % (kind, J))
 
 
-def wload(J):
-    f = wfn(J)
+def wload(J, kind='EE'):
+    f = wfn(J, kind)
     return pickle.load(open(f, 'rb')) if os.path.exists(f) else {}
 
 
@@ -34,7 +34,7 @@ def setup_pw():
     return PW
 
 
-def run(J, Delta, xs):
+def run(J, Delta, xs, kind='EE'):
     setup_pw()
     import n1_run as R
     m = R.mphys(Delta, J)
@@ -42,14 +42,14 @@ def run(J, Delta, xs):
         for x in xs:
             nu = x*m
             key = (D, round(nu, 9))
-            if key in wload(J):
+            if key in wload(J, kind):
                 continue
             t = time.time()
-            r = R.point('EE', J, D, nu)
-            db = wload(J); db[key] = r
-            pickle.dump(db, open(wfn(J) + '.tmp', 'wb')); os.replace(wfn(J) + '.tmp', wfn(J))
+            r = R.point(kind, J, D, nu)
+            db = wload(J, kind); db[key] = r
+            pickle.dump(db, open(wfn(J, kind) + '.tmp', 'wb')); os.replace(wfn(J, kind) + '.tmp', wfn(J, kind))
             rel = np.max(np.abs(r['err']))/np.max(np.abs(r['E']))
-            print(f"EE J={J} Delta={D:.0f} x={x} nu={nu:.3f}: max rel err {rel:.1e}, nmask {r['nmask']}, {time.time() - t:.0f}s", flush=True)
+            print(f"{kind} J={J} Delta={D:.0f} x={x} nu={nu:.3f}: max rel err {rel:.1e}, nmask {r['nmask']}, {time.time() - t:.0f}s", flush=True)
 
 
 def selfcheck(J=18, D=400.0, x=0.15):
@@ -81,7 +81,9 @@ def analyse(specs):
                [os.path.join(C, 'u5_shadow_k2.pkl')]):
         if os.path.exists(fn):
             N1.SHK2.update(pickle.load(open(fn, 'rb')))
-    N1.dload = lambda kind, J: wload(J) if kind == 'C2' else {}
+    numin = float(os.environ.get('W3_NUMIN', '0'))          # drop direct points below this nu (edge of the contour method)
+    filt = lambda db: {k: v for k, v in db.items() if k[1] >= numin}
+    N1.dload = lambda kind, J: filt(wload(J)) if kind == 'C2' else (filt(wload(J, 'C3H')) if os.environ.get('W3_C3H', '1') == '1' else {})
     lines = []
     def pr(s=""):
         print(s, flush=True); lines.append(s)
@@ -115,7 +117,7 @@ def analyse(specs):
 
 if __name__ == '__main__':
     if sys.argv[1] == 'run':
-        run(int(sys.argv[2]), float(sys.argv[3]), [float(v) for v in sys.argv[4].split(',')])
+        run(int(sys.argv[2]), float(sys.argv[3]), [float(v) for v in sys.argv[4].split(',')], sys.argv[5] if len(sys.argv) > 5 else 'EE')
     elif sys.argv[1] == 'check':
         selfcheck()
     else:
