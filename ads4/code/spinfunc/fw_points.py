@@ -22,7 +22,13 @@ C = Z2.C
 TAG = os.environ.get('FW_TAG', '')
 
 
+STATE = [None]          # state Delta of this run: its reference points go to a per-state file (the z2 key (Delta, nu) does not
+                        # identify the state, and two rows of the same J sharing a nu overwrote each other's reference -- §2.6)
+
+
 def fn(kind, J):
+    if STATE[0] is not None:
+        return os.path.join(C, 'fw%s_pts_%s_J%d_D%g.pkl' % (TAG, kind, J, STATE[0]))
     return os.path.join(C, 'fw%s_pts_%s_J%d.pkl' % (TAG, kind, J))
 
 
@@ -58,6 +64,7 @@ if __name__ == '__main__':
     J = int(sys.argv[1])
     nus = [float(v) for v in sys.argv[2].split(',')]
     Ds = [float(v) for v in sys.argv[3].split(',')]
+    STATE[0] = Ds[0]
     if len(Ds) == 1:
         Ds.append(20000.0)
     Z2.run(J, nus, Ds, Z2.MQ, Z2.RQ)

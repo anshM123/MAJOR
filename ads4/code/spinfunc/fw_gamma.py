@@ -30,10 +30,18 @@ EST = os.environ.get('FW_EST', 'dir')
 CUR = {}                            # (J) -> dict(D=..., jk=None)
 
 
-def fwpts(kind, J):
+def fwpts(kind, J, D=None):
+    """direct points; legacy file fw_pts_<kind>_J<J>.pkl (state and reference keyed (Delta, nu): a reference at a nu shared by two
+    states of the same J is the LAST one computed -- §2.6), then the per-state file fw_pts_<kind>_J<J>_D<D>.pkl (overrides)."""
     R = {}
-    for f in sorted(glob.glob(os.path.join(C, 'fw_pts_%s_J%d.pkl' % (kind, J)))):
+    f = os.path.join(C, 'fw_pts_%s_J%d.pkl' % (kind, J))
+    if os.path.exists(f):
         R.update(pickle.load(open(f, 'rb')))
+    D = D if D is not None else CUR.get(J, {}).get('D')
+    if D is not None:
+        g = os.path.join(C, 'fw_pts_%s_J%d_D%g.pkl' % (kind, J, D))
+        if os.path.exists(g):
+            R.update(pickle.load(open(g, 'rb')))
     return R
 
 
@@ -89,14 +97,18 @@ _q20 = Q._q2_even
 def ee_even(J):
     if J not in CUR:
         return _ee0(J)
-    R = dict(fwk2('EE', J)); R.update(direct_records('EE', J, CUR[J].get('jk')))
+    R = dict(fwk2('EE', J))
+    if os.environ.get('FW_NODIRECT', '0') != '1':
+        R.update(direct_records('EE', J, CUR[J].get('jk')))
     return R
 
 
 def q2_even(kind, J):
     if J not in CUR or kind != 'C3H':
         return _q20(kind, J)
-    R = dict(fwk2('C3H', J)); R.update(direct_records('C3H', J, CUR[J].get('jk')))
+    R = dict(fwk2('C3H', J))
+    if os.environ.get('FW_NODIRECT', '0') != '1':
+        R.update(direct_records('C3H', J, CUR[J].get('jk')))
     return R
 
 
@@ -112,7 +124,7 @@ Q._q2_even = q2_even
 # matrices a_h b_h^T in that span (det(A1 + t A2) = 0), Ti = A^-1 (left), TiR = B^-1 (right); d_h made real on the basis records by a
 # constant phase per h (absorbed, like the modulus, in the per-row a_h); ++ identified by flatness as l8.basis.
 GB_X = dict(state=(float(os.environ.get('FW_XB0', '0.15')), float(os.environ.get('FW_XB1', '0.4'))),
-            ref=(float(os.environ.get('FW_XR0', '0.3')), float(os.environ.get('FW_XR1', '0.6'))))
+            ref=(float(os.environ.get('FW_XR0', '0.15')), float(os.environ.get('FW_XR1', '0.45'))))
 GB_LOG = {}
 
 
@@ -155,12 +167,20 @@ def gbasis(J, D, R):
     return out
 
 
-if os.environ.get('FW_MINNODES'):        # preliminary runs with fewer than 5 nodes on a row (l9 grid's minimum)
+if (os.environ.get('FW_MINNODES') or os.environ.get('FW_AFIT', 'full') != 'full') and not getattr(W._A_grid, '_fw', False):
+    # FW_MINNODES: preliminary runs with fewer than 5 nodes on a row (l9 grid's minimum);
+    # FW_AFIT=D: the per-row a_h fitted with D_h alone (l9: D_h, x^2, x^4 on x <= 0.25, nu >= 15 -- ill-conditioned when every node has
+    # x <~ 0.03, e.g. (1100, 100), where it returned a_+- off by 10^2).  a_h is a per-row constant absorbed in c0 D_h; r scales by 1/(1+eps).
     import inspect, textwrap
-    _gs = textwrap.dedent(inspect.getsource(Q.A.grid.__wrapped__ if hasattr(Q.A.grid, '__wrapped__') else W._A_grid))
-    assert 'if len(xs) < 5 or' in _gs
-    Q.A.__dict__['_MINN'] = int(os.environ['FW_MINNODES'])
-    exec(compile(_gs.replace('if len(xs) < 5 or', 'if len(xs) < _MINN or'), 'l9_grid_minn', 'exec'), Q.A.__dict__)
+    _gs = textwrap.dedent(inspect.getsource(W._A_grid))
+    _a_old = "A = np.array([Dsh(h, J, xs[sel]), xs[sel]**2, xs[sel]**4]).T"
+    assert 'if len(xs) < 5 or' in _gs and _a_old in _gs
+    Q.A.__dict__['_MINN'] = int(os.environ.get('FW_MINNODES', '5'))
+    Q.A.__dict__['_AFULL'] = os.environ.get('FW_AFIT', 'full') == 'full'
+    _gs = _gs.replace('if len(xs) < 5 or', 'if len(xs) < _MINN or').replace(
+        _a_old, "A = np.array([Dsh(h, J, xs[sel])] + ([xs[sel]**2, xs[sel]**4] if _AFULL else [])).T")
+    exec(compile(_gs, 'l9_grid_fw', 'exec'), Q.A.__dict__)
+    Q.A.__dict__['grid']._fw = True
     W._A_grid = Q.A.__dict__['grid']
 GBASIS = os.environ.get('FW_BASIS', 'gen') == 'gen'
 _basis0 = Q.A.L.basis
@@ -183,7 +203,7 @@ Q.A.helmat = _helmat
 
 
 def row(J, D, jk=None):
-    CUR.clear(); CUR[J] = dict(jk=jk)
+    CUR.clear(); CUR[J] = dict(jk=jk, D=float(D))
     Z3._SH.clear()
     m = Z3.mphys(D, J)
     nus = sorted(set(k[1] for k in fwpts('EE', J) if k[0] == float(D)) & set(k[1] for k in fwpts('C3H', J) if k[0] == float(D)))
@@ -198,14 +218,18 @@ def dshape(h, J, x):
     return D, (E.Dc_fixed(h, J, x + hh) - E.Dc_fixed(h, J, x - hh))/(2*hh)*x/(2*J + 1)
 
 
-def fit(x, y, h, J, basis='cs'):
+def fit(x, y, h, J, basis='cs', w=None):
+    """least squares (weights w = 1/sigma^2 if given: then the error is the propagated one, max'ed with the residual-scaled one)."""
     D, Dp = dshape(h, J, x)
     cols = [D, Dp] + ([x*x*D] if 'x2' in basis else []) + [np.ones_like(x)] + ([x - x.mean()] if 'lin' in basis else [])
     A = np.array(cols).T
-    c, *_ = np.linalg.lstsq(A, y, rcond=None)
+    sw = np.ones_like(y) if w is None else np.sqrt(w)
+    c, *_ = np.linalg.lstsq(A*sw[:, None], y*sw, rcond=None)
     res = y - A @ c
     dof = max(len(y) - A.shape[1], 1)
-    cov = np.linalg.inv(A.T @ A)*(res @ res)/dof
+    Aw = A*sw[:, None]
+    chi2 = float(((res*sw)**2).sum())/dof
+    cov = np.linalg.inv(Aw.T @ Aw)*(max(chi2, 1.0) if w is not None else (res @ res)/dof)
     ir = 2 + ('x2' in basis)
     return c, np.sqrt(np.diag(cov)), ir, np.sqrt(np.mean(res**2)), np.sqrt(np.mean(y**2))
 
@@ -235,14 +259,16 @@ def analyse(J, D, numin=8.0, numax=34.0, pr=print, bases=('cs', 'cs+x2', 'cs+lin
             pr(f"   {kd:3s} {h}: Gamma      = {np.round(g0[key]).tolist()}")
             pr(f"           kappa img  = {np.round(img).tolist()}")
             pr(f"           G - img    = {np.round(y0).tolist()}  (+- jk {np.round(ej).tolist()})")
+            WF = os.environ.get('FW_WFIT', '0') == '1'
+            wts = 1.0/np.maximum(ej[sel], 1.0)**2 if WF else None
             for b in bases:
                 if sel.sum() < 3 + ('x2' in b) + ('lin' in b) + 1:
                     continue
-                c, e, ir, res, rms = fit(xs[sel], y0[sel], h, J, b)
-                cj = np.array([fit(xs[sel], yy[sel], h, J, b)[0][ir] for yy in yj])
+                c, e, ir, res, rms = fit(xs[sel], y0[sel], h, J, b, wts)
+                cj = np.array([fit(xs[sel], yy[sel], h, J, b, wts)[0][ir] for yy in yj])
                 ejk = np.sqrt((R - 1)/R*np.sum((cj - cj.mean())**2))
                 out['fits'][(kd, h, b)] = (c[ir], e[ir], ejk, c[0], res, rms)
-                pr(f"           fit [{b:7s}] on nu in [{numin}, {numax}] ({sel.sum()} nodes): r = {c[ir]:+7.1f} +- {e[ir]:5.1f} (lsq) "
+                pr(f"           fit{'w' if WF else ' '}[{b:7s}] on nu in [{numin}, {numax}] ({sel.sum()} nodes): r = {c[ir]:+7.1f} +- {e[ir]:5.1f} (lsq) "
                    f"+- {ejk:5.1f} (jk);  c0 = {c[0]:+8.1f};  resid {res:.0f} of {rms:.0f}")
     return out
 

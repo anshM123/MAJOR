@@ -68,7 +68,7 @@ if __name__ == '__main__':
         J, D = int(spec.split(':')[0]), float(spec.split(':')[1])
         install(J, D)
         pr(f"# exact scalar validation J={J} Delta={D:g} (state exact: sm_exact {Z3._exact_override[(round(D, 9), J)]['src']})")
-        P = FG.fwpts('EE', J)
+        P = FG.fwpts('EE', J, D)
         by = {}
         for (DD, nu), r in P.items():
             by.setdefault(nu, {})[DD] = r

@@ -15,7 +15,9 @@ import os, sys, glob, pickle
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 C = os.path.join(HERE, 'cache')
-UNPATCHED = {(100, 400.0, 16.7), (100, 20000.0, 16.7)}          # (J, Delta, nu) of direct points with the unpatched structure basis
+UNPATCHED = {(100, 400.0, 16.7)}          # (J, Delta, nu) of direct points with the unpatched structure basis.  The (400, 100) run's
+# reference at (2e4, 16.7) was ALSO unpatched, but it was overwritten at ~18:30 UTC by the (1100, 100) run's (patched) reference at the
+# same key (FOLD_WINDOW_LARGEJ §2.6), so it is no longer converted.
 _B = {}
 
 
