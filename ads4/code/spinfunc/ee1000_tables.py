@@ -35,7 +35,26 @@ for J in Js:
         cells.append(f"`{w['lam']:+.3f}` [{w['mfl']:.3f}] ({d:.3f})")
         mins.append(w['lam']); dmax = max(dmax, d)
     pr(f"| {J} | `{lam0:+.3f}` | " + " | ".join(cells) + f" | **`{min(mins):+.3f}`** | {dmax:.3f} |")
+def lamt(r, t):
+    Fm = np.diag(r['base']) + t*r['dF']; n = 1/np.sqrt(r['Ns'])
+    return np.linalg.eigvalsh(n[:, None]*Fm*n[None, :])[0]
+
+
+def tstar(rs, sgn):
+    lo, hi = 0.0, 1.0
+    while all(lamt(r, sgn*hi) > 0 for r in rs) and hi < 1e4:
+        lo, hi = hi, 2*hi
+    if hi >= 1e4:
+        return np.inf
+    for _ in range(40):
+        mid = 0.5*(lo + hi)
+        lo, hi = (mid, hi) if all(lamt(r, sgn*mid) > 0 for r in rs) else (lo, mid)
+    return lo
+
+
 if 'main' in R:
+    pr("\n# t*_J (main): factor on the computed correction at which a state of that J first fails (+: as computed, -: sign reversed)")
+    pr("  " + "; ".join(f"J={J}: (+{tstar([r for r in R['main']['recs'] if r['J'] == J], 1):.1f}, -{tstar([r for r in R['main']['recs'] if r['J'] == J], -1):.1f})" for J in Js))
     pr("\n# per-state map, main variant: lam/N_s (diag corrections dF_hh/N_h)")
     for J in Js:
         rj = [r for r in R['main']['recs'] if r['J'] == J]

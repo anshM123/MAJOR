@@ -49,3 +49,36 @@ Grades: **[P]** proved, **[D]** derived, **[NE]** numerical evidence, **[M]** mo
 * Only the `+−` de-shift term is affected: even `J ≥ 28` at large `x`, odd `J ≥ 29` (parity-odd `+−`).
 * The fix touches neither the crystal records nor the `a_h` fits (`a_{+−}` changes by `< 10⁻¹⁰`).
 * It is applied to `Q.A.shift` and to `Q.P4.shift`.
+
+## 2. Interim results (20 Nov, ~03:30; superseded by §3–§7 when written)
+
+* **Rows done** (K₂, EE + C3H, state + `Δ_ref = 2·10⁴`; own near-gap mass `Δ = 1000 + J`):
+  * `(1036, 36)`: 35 nodes, `x = 0.05–0.8`.
+  * `(1040, 40)`: 41 nodes, `x = 0.025–0.9`.
+  * odd `(1017, 17)`: 35 nodes.
+  * refb `J = 48, 56, 64`.
+* **Direct (RQMC) vs K₂ at `(1040, 40)`**: state direct, K₂ reference.
+
+  | `x` | `Γ_{EE,++}` direct | `Γ_{EE,++}` K₂ | `Γ_{EE,+−}` direct | `Γ_{EE,+−}` K₂ | RQMC error |
+  |---|---|---|---|---|---|
+  | 0.5 | −1066 | −1436 | −1062 | −1375 | 34 / 41 |
+  | 0.6 | +1122 | +1752 | +1471 | +2094 | 39 / 58 |
+  | 0.7 | +598 | +656 | +69 | −684 | 128 / 68 |
+
+  K₂ is off by 300–750 `c₂` units, which is 30–40 % of `Γ`, mostly the same sign as `Γ`. Relative to the density this is `≲ 0.6 %`.
+* **Representation.** At `J ≥ 40` a cubic spline of the oscillating `Γ` on a 0.025 grid aliases (spline variant `J = 40`: `+0.95 N_s`).
+  It used the despiked node 0.575, a genuine K₂ outlier in both kinds. The shape fit `Γ = c D_h + s x D_h′/(2J+1) + r` is used
+  instead (§4).
+* **Per-`J` minimum `λ/N_s` at 1000** (ensemble of 7 representation variants; `cache/ee1000_tables_e1.txt`, `_low.txt`, `_t17.txt`):
+  * `J = 32`: `+0.79 … +0.91`.
+  * `J = 36`: `+0.967` in every variant (corrections `≤ 0.07`, spline 0.16).
+  * `J = 40`: `+0.77 … +0.94`.
+  * odd `J = 17`: `+0.839` (corrections `≤ 0.008`).
+  * The gap-mass states `m_gap(J) = √(998(999 + 2J))/Λ`, which are not in the exact-skeleton grid, are all positive as hybrids
+    [M]. The lowest is `J = 5` at `1.0048Λ`: `+0.201`.
+* **Small-`ν` window** (`ν < 50`, i.e. `x < 0.05`; `cache/ee1000_smallnu_50.txt`).
+  * Its weight relative to `N_s` grows like `J³`. A uniform `Γ = C` there flips the gap state for `C ≤ C*`:
+    `C* = −4600 / −2800 / −1300 / −480 / −270 / −130 / −90` at `J = 40 / 48 / 64 / 96 / 128 / 200 / 300`.
+  * K₂ at `ν = 26` (`J = 40`) gives `−1500`. K₂ is not reliable there: at 300 the direct values at `ν ≈ 12–21` are `+440 … −30`,
+    against K₂ `≈ −1300` at `ν = 16.7` (EE_DG300_SMALLNU §4).
+  * The direct method cannot reach the needed precision at `m ≈ 10³`: `Γ ∝ m² ×` the relative error.

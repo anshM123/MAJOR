@@ -258,6 +258,8 @@ if __name__ == '__main__':
     node_table(pr)
     for s in LOG:
         pr("# " + s)
+    if Z3.BEST_LOG:
+        pr("# estimator per node (kind, J, nu, chosen, jk rel err dir, cv): " + "; ".join(str(t) for t in sorted(set(Z3.BEST_LOG))))
     pr(f"# despiked nodes (J, Delta, x): {W2.DESPIKE_LOG}")
     pr(f"[{time.time() - t0:.0f}s]")
     open(os.path.join(C, 'z4_chain_%s.txt' % TAG), 'w').write(buf.getvalue())

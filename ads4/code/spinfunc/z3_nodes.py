@@ -28,9 +28,17 @@ def mphys(Delta, J):
     return np.sqrt(al*(al + 2*J + 1))
 
 
+PREFER = [t for t in os.environ.get('Z3_PREFER', 'x').split(',') if t]     # tagged z2 caches (Z2_TAG) that override the main one
+
+
 def zpts(kind, J):
     f = os.path.join(C, 'z2_pts_%s_J%d.pkl' % (kind, J))
-    return pickle.load(open(f, 'rb')) if os.path.exists(f) else {}
+    P = pickle.load(open(f, 'rb')) if os.path.exists(f) else {}
+    for t in PREFER:                      # e.g. 'x': n3 contour points at nodes first done by n4 (state AND reference replaced)
+        g = os.path.join(C, 'z2%s_pts_%s_J%d.pkl' % (t, kind, J))
+        if os.path.exists(g):
+            P.update(pickle.load(open(g, 'rb')))
+    return P
 
 
 def exact_rec(D, J):
@@ -130,6 +138,7 @@ def validate(Js, pr):
 
 # ------------------------------------------------------------------------------------------------ chain records
 _SH = {}
+BEST_LOG = []
 
 
 def shadow(D, J):
@@ -166,7 +175,15 @@ def records(kind, J, est='dir', jk=None, numin=0.0, numax=1e9, Ds=None):
             if Ds is not None and D not in Ds and D != DREF:
                 continue
             fac = 1.0
-            if est == 'cv' and D != DREF:
+            e_ = est
+            if est == 'best' and D != DREF:     # per node and kind: CV only where it lowers the jackknife error of the ratio
+                o_ = dd[DREF]; st_ = dd[D]
+                f1 = lambda s_: st_['reps'][s_].mean(0)/o_['reps'][s_].mean(0)
+                f2 = lambda s_: (st_['reps'][s_].mean(0)/st_['repsS'][s_].mean())/(o_['reps'][s_].mean(0)/o_['repsS'][s_].mean())
+                e1 = np.median(_jk(f1, R)[2]/np.abs(_jk(f1, R)[0])); e2 = np.median(_jk(f2, R)[2]/np.abs(_jk(f2, R)[0]))
+                e_ = 'cv' if e2 < e1 else 'dir'
+                BEST_LOG.append((kind, J, round(nu, 3), e_, round(float(e1), 4), round(float(e2), 4)))
+            if e_ == 'cv' and D != DREF:
                 ee = zpts('EE', J)          # the scalar on the common samples is stored with every kind; use this kind's own
                 o = scalar_check(J, nu, dd, D)
                 fac = o['cv'] if jk is None else o['cv_jk'][jk]

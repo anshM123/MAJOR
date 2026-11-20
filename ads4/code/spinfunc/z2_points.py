@@ -103,8 +103,11 @@ def _save(path, key, val):
         fcntl.flock(lk, fcntl.LOCK_UN)
 
 
+ZTAG = os.environ.get('Z2_TAG', '')            # separate cache for cross-checks (e.g. n3 at a node already done by n4)
+
+
 def fn(kind, J):
-    return os.path.join(C, 'z2_pts_%s_J%d.pkl' % (kind, J))
+    return os.path.join(C, 'z2%s_pts_%s_J%d.pkl' % (ZTAG, kind, J))
 
 
 def load(kind, J):
@@ -236,7 +239,7 @@ def run(J, nus, Ds, m=MQ, R=RQ):
         else:
             res = n4_pair(J, nu, Ds, m, R, more=[v for v in nus if v < NU_SPLIT])
         for D, (o, raw) in res.items():
-            _save(os.path.join(C, 'z2_raw.pkl'), (raw['method'], round(D, 9), J, round(nu, 9)), raw)
+            _save(os.path.join(C, 'z2%s_raw.pkl' % ZTAG), (raw['method'], round(D, 9), J, round(nu, 9)), raw)
             for k in KINDS:
                 _save(fn(k, J), (D, round(nu, 9)), o[k])
         print(f"## J={J} nu={nu:.4f} Ds={Ds}: done in {time.time() - t:.0f}s", flush=True)
