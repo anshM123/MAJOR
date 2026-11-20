@@ -22,7 +22,8 @@ Grades: **[P]** proved, **[D]** derived, **[NE]** numerical evidence, **[M]** mo
      (`Γ_c(5.0) = +10 000 ± 10 000` direct, `−8800 ± 16 000` CV), and without them (`ν ≥ 8.3` only) the 1.1Λ state is `+0.59 … +0.63`
      with failure at a uniform `Γ_c ≈ −4000` c₂ below `ν = 8.3`. **Grade for `J = 28`: passes on every central value [NE + M]; not
      statistically established at 1σ below `ν ≈ 8` [I].**
-   * `J = 32` (`Δ = 336` row built, §7): see §7.
+   * `J = 32`: `K₂` row on `Δ = 336` built; in convention A it fails at 1.15Λ (`−0.062`), same pattern; the direct nodes were
+     killed by a container restart and are re-queued — **[I]** (§7).
 3. **Canonical gauge: not controlled.** With `X_can` (`X_can/ψ₂ ≈ −170` at `ν ≈ 5`) the same data give `−22 … −40` (`J = 24`), i.e. the
    canonical-gauge `n` at 300 is decided by `ν ≲ 6`, where the thimble errors are `≥ 5 %` [I].
 4. **Reference / method findings [NE].** The fold of the crystal saddle is at `ν* ≈ 11.3–11.5` for every `(Δ, J)` used (no `J`
@@ -182,7 +183,12 @@ Reproduction check: `Z4_DIRECT=0 Z4_NL=0` gives `−0.0534 / −0.0950` (EE_NEAR
   breakdown at `x ≥ 0.5` is avoided as in EE_NEARGAP): `J = 32` fails at 1.15Λ (the lowest twist-allowed chain mass), `λ/N_s = −0.062`,
   with `dF_++/N = −1.06` (the same small-`ν` pattern as `J = 24, 28`) and `dF_+−/N = +4.9`; 1.2Λ `+0.063`, 1.3Λ `+0.38`, 1.5Λ `+0.72`
   [NE + M, convention A].
-* Direct-node results: **(pending — see hand-over)**.
+* Direct-node results: **not yet available** — the second container restart (≈ 04:50) killed the `J = 32` node queue before its
+  first node finished. Restarted as `z5_queueC3.sh` (n3 `ν = 11.65 … 33.3`, then n3 `ν_f = 13` at 10.0, 8.3; log `cache/z5_queueC3.log`;
+  ≈ 15 min per node). **`J = 32` at 300 is [I]**: fails in convention A (above); whether the direct small-`ν` values rescue it as for
+  `J = 24, 28` is not computed. Analysis once the nodes exist:
+  `Q3_JEVEN=32 Q3_JODD=5 Q3_EXTRA_M=… W2_ROWS=336,1040 Z4_JS=32 Z4_EST=best Z4_TAG=j32 python3 z4_chain.py 300`, plus the
+  `Z4_NUMIN=8 Z4_EXTRAP=const Z4_CONST=…` stress scan (§6) for the `ν < 8` window (no thimble nodes for `J = 32`).
 
 ## 8. Task 3: does every `J ≥ 24` near the gap at 300 pass? [M + I]
 
@@ -190,7 +196,7 @@ Reproduction check: `Z4_DIRECT=0 Z4_NL=0` gives `−0.0534 / −0.0950` (EE_NEAR
 |---|---|---|---|---|
 | 24 | 1.077 (chain state 1.1) | 45.5 | `1.1·10⁻²` | `≈ −8900` c₂ (computed) |
 | 28 | 1.090 (1.1) | 52.3 | `7.2·10⁻³` | `≈ −4000` (computed) |
-| 32 | 1.102 | 59.0 | `5.0·10⁻³` | (§7) |
+| 32 | 1.102 (chain state 1.15) | 59.0 | `5.0·10⁻³` | not computed (§7) |
 | 40 | 1.126 | 71.9 | `2.8·10⁻³` | `~ −10³` [M: `∝ N_s`] |
 | 64 | 1.195 | 107.9 | `8·10⁻⁴` | `~ −3·10²` [M] |
 | 103 | 1.300 (last `J` with a twist-allowed state `≤ 1.3Λ`) | **159** | `2.5·10⁻⁴` | `~ −10²` [M] |
@@ -222,7 +228,7 @@ Reproduction check: `Z4_DIRECT=0 Z4_NL=0` gives `−0.0534 / −0.0950` (EE_NEAR
 | `J = 24` at 300 passes (min `+0.84`, 1.1Λ `+1.06 ± 0.14`; every estimator / extrapolation; failure needs `Γ_c ≲ −8900` below 8.3) | [NE + M] |
 | `J = 28` at 300 passes on every central value (`+0.19 … +0.90`) | [NE + M] |
 | `J = 28` robust against the `ν < 8.3` window (needs `Γ_c > −4000`; data `±10⁴`) | [I] |
-| `J = 32` | §7 |
+| `J = 32` at 300 | fails in convention A (`−0.062`, 1.15Λ, new 336 row); direct nodes not computed → [I] |
 | `n = 1` at 300 for `J ≤ 28` (min-norm gauge, non-local `X`) | [NE + M] (central), with the `J = 28`, `ν < 8` caveat [I] |
 | canonical gauge at 300 | [I] (`X_can` amplifies the `ν ≲ 6` thimble region; computed values `−22 … −40`) |
 | all `J ≥ 24` near the gap at 300 (`b̂ ≤ 159`) | [I] (threshold `∝ N_s ∝ b̂⁻³`; not bounded) |
@@ -240,8 +246,14 @@ Reproduction check: `Z4_DIRECT=0 Z4_NL=0` gives `−0.0534 / −0.0950` (EE_NEAR
   main), `cache/z6_jk_*.log`, logs `cache/z2_queue*.log`, `cache/z5_queueC*.log`.
 * **Main run:** `Z4_EST=best Z4_JS=24,28 Q3_JEVEN=24,28 Q3_JODD=5 Q3_EXTRA_M=1.02,1.05,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2,2.5,3,4,5
   Z4_TAG=x python3 z4_chain.py 300` (≈ 1 min). `Z4_DIRECT=0 Z4_NL=0` reproduces EE_NEARGAP A exactly.
-* **Container restart (20 Nov ≈ 00:25)** killed the first queues; resumed with `z2_queueR{1,2}.sh`; `z2_queue{A,B,B2}.sh`, `z5_queueC.sh`
-  are superseded (C's tail replaced by `z5_queueC2.sh`).
+* **Container restarts.** (1) ≈ 00:25: first queues killed; resumed with `z2_queueR{1,2}.sh` (both finished). (2) ≈ 04:50: killed
+  `z5_queueC2.sh` (`J = 32` nodes, none finished) and `z2_queueS2.sh` (independent repeat of the `J = 28` thimble nodes `ν = 5.0, 6.67`,
+  new seed, `2¹⁰` points; none finished). Both re-launched (`z5_queueC3.sh`, `z2_queueS2.sh`; logs `cache/z5_queueC3.log`,
+  `cache/z2_queueS2.log`); `z2_points.py` skips finished nodes, so re-running a queue resumes it. Superseded: `z2_queue{A,B,B2}.sh`,
+  `z5_queueC.sh` (its `K₂` row part is done), `z5_queueC2.sh`.
+* **Status of the data:** `J = 24, 28`: all nodes done (`z2_pts_*` + `z2x_pts_*`). `J = 32`: `K₂` row done, direct nodes pending.
+  `J = 28` repeat (`z2s2_pts_*`): pending; to use it as an alternative source run with `Z3_PREFER=x,s2` (it overrides the `ν = 5.0, 6.67`
+  nodes) and compare with the main run — a reproducibility test of the `±10⁴` thimble values, not expected to settle the `J = 28` window.
 * **Next steps (value order):** (1) the `ν < 8` window at `J = 28` (and larger `J`): thimble statistics ×10–100, or a better
   representation below the fold (the n3 `ν_f = 13` contour still had 2–5 % at 8.3; try `ν_f = 12` or complex `ν_f` at 6–8); (2) `J = 32`
   thimble nodes and the 500 row's small-`ν` nodes (states at 1.15–1.3Λ use the 500 row with weight 0.1–0.6, still `K₂` there); (3) an
