@@ -67,6 +67,28 @@ At the test point (`J = 24`, `ν = 20.85`, `2⁸·16` points):
   has the wrong sign. With only these two direct nodes (NL weight below `ν = 25`, held below 13.34) the `J = 24` minimum is `+0.91`
   (at 1.3Λ; the 1.1Λ state is no longer the worst) [NE + M, preliminary].
 
+* **Interim 2 ( `cache/z4_chain_int3.txt`, CV estimator, min-norm NL weight, `Γ_NL` held below the lowest direct node):**
+  direct nodes so far `J = 24`: `ν = 11.68, 13.34, 16.68, 20.85`; `J = 28`: `13.33`. Scalar checks `|Δc₂| ≤ 99` (all ≤ 1.4σ).
+  `Γ_EE,++` (complex `Γ_c`, real part) at `ν = 11.68 / 13.34 / 16.68 / 20.85`: `+440 / +358 / +223 / −30` (`J = 24`); `+280` at 13.33
+  (`J = 28`). Chain: `J = 24` min `+0.853` (1.5Λ), `J = 28` min `+0.873` (1.5Λ) — the 1.1Λ states no longer bind; `n = 1` at 300
+  (binding `J = 5`, `+0.2052`) [NE + M, preliminary: below `ν ≈ 11.7` (`J = 24`) / `13.3` (`J = 28`) still the held value].
+* **Interim 3 ( `cache/z4_chain_i4_*.txt`):** `J = 24` n3 nodes complete (`ν = 11.68 … 33.4`), `J = 28` has `13.33,
+  16.66`. Chain (`J = 24 / 28` min `λ/N_s`): CV-hold `+0.828 / +0.897`; direct-hold `+0.827 / +0.897`; CV-zero `+0.815 / +0.897`;
+  CV-linear `+0.831 / +0.897`; CV-hold with `K₂` kept at the shared nodes `+0.839 / +0.873`. `J = 24` at 1.1Λ: `+0.905` (was `−0.053`).
+  Stress test (uniform real `Γ_c = C` below the lowest direct node, `ν < 11.68` / `13.33`): `C = −4000` → `+0.199 / +0.309`;
+  `−8000` → `−0.479 / −0.755`; `+8000` → pass. **Failure needs `Γ_c ≲ −5200` c₂ uniformly below the fold** (zero crossing by linear
+  interpolation, both `J`) — the n4 nodes test exactly this.
+* **Interim 4 (first n4 node, `J = 24`, `ν = 10.0`, `x = 0.03`):** scalar check `Re +0.0018 ± 0.0155` (`Δc₂ = +108 ± 908`),
+  `Im +0.099 ± 0.046` (2.2σ phase offset, as NEARGAP100 §4 saw at 5.45). Element ratio errors: EE 4.7 % direct, **0.95 % with the scalar
+  CV**; C3H 7.2 % / 5.2 %. `Γ_c` (CV): EE `−948 / −979` (`++/+−`), C3H `+6765 / −6021` (C3H error ≈ ±4000). The direct estimator
+  carries the thimble phase error into `Im Γ_c` (`+7755i`); the CV removes it. Chain with this node held below 10 (CV): `J = 24`
+  `+0.520` (1.1Λ), `J = 28` `+0.897`. The held value below `ν = 10` (where `X/φ ≈ 2–5` at `ν ≲ 4`) now drives `J = 24`; nodes 8.34,
+  6.67, 5.0 are running.
+* **Interim 5 (`J = 24` n4 nodes `ν = 10.0, 8.34`; `J = 28` n3 complete):** scalar checks at 8.34: `Re +0.012 ± 0.018`
+  (`Δc₂ = +852 ± 1302`). `J = 24` `Γ_c,EE` (CV) at 8.34: `+3368 − 3290i` (next to the zero 6.64 `Γ_c` is large; the NL density
+  `Re[(Y/φ)Γ_NL] = +388`). Chain `J = 24 / 28`: CV-hold `+0.807 / +0.812`; CV-zero `+0.726 / +0.788`; CV-lin `+0.847 / +0.818`;
+  direct-hold `+0.822 / +0.806` (`J = 28`: n3 nodes only, lowest 11.66). `z5_queueC.sh` (`J = 32`) is set to start when `R1` ends.
+
 ## 9. Hand-over (kept current)
 
 * **State (20 Nov, after the container restart at ≈ 00:25):** done and on disk: `J = 24` nodes `ν = 13.34, 16.68` (n3, state 336 +

@@ -146,7 +146,8 @@ def _A_grid(J, K, kinds=('C2', 'C3H'), *a, **k):
             continue
         m = r['m']; xs = r['xs']; nus = xs*m
         Rz = Z3.zpts('EE', J)
-        dnodes = np.array([(float(D), round(v, 9)) in Rz for v in nus])
+        dk = np.array([k[1] for k in Rz if k[0] == float(D)])
+        dnodes = np.array([dk.size > 0 and np.min(np.abs(dk - v)) < 1e-6*v for v in nus])
         if not dnodes.any():
             continue
         hels = [h for h in ('++', '+-') if ('C2', h) in r]
@@ -185,6 +186,9 @@ def _nl_row(J, D, h, nu):
     elif EXTRAP == 'lin':
         s = (gv[1] - gv[0])/(nn[1] - nn[0])
         v = np.where(nu < nn[0], gv[0] + s*(nu - nn[0]), v)
+    elif EXTRAP == 'const':                 # stress test: Gamma_c := Z4_CONST (real, c2 units) below the lowest node, i.e. Gamma_NL = a_chi C
+        hm, hp = hhat(nu)
+        v = np.where(nu < nn[0], float(os.environ.get('Z4_CONST', '0'))*(hm + hp), v)
     elif EXTRAP == 'spline':
         v = np.where(nu < nn[0], sr(nu) + 1j*si(nu), v)
     return v

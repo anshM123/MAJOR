@@ -36,10 +36,23 @@ def zpts(kind, J):
 def exact_rec(D, J):
     db = pickle.load(open(EXPK, 'rb')) if os.path.exists(EXPK) else {}
     key = (round(float(D), 9), int(J))
+    if key in db and not np.all(np.isfinite(db[key]['ex'][2])):
+        db.pop(key)
     if key not in db:
         import n4_exact as E4
         db = pickle.load(open(EXPK, 'rb')) if os.path.exists(EXPK) else {}
-        db[key] = E4.record(D, J)
+        rec = E4.record(D, J)
+        if not np.all(np.isfinite(rec['ex'][2])) and D >= 1e4:
+            # ExactState overflows at Delta = 2e4 for J >= 28: use the heavy-block value rho_2 := 0 (at J = 24 the exact reference
+            # has max |rho_2| = 5.5e-8, i.e. < 0.01 c2 units at the state; flagged 'heavy_rho0')
+            from scipy.special import j0, eval_legendre
+            import mpmath as mp
+            nus, x = rec['nus'], rec['x']
+            E2 = (2 - x*x)/(1 - x*x)**2
+            P = np.array([float(mp.legendre(-0.5 + 1j*v, rec['eta']).real) for v in nus])
+            hyb = E2*eval_legendre(J, 1 - 2*x*x) + 2*(P - j0((2*J + 1)*x))
+            rec['ex'] = {2: hyb}; rec['rho'] = {2: 0*hyb}; rec['heavy_rho0'] = True
+        db[key] = rec
         tmp = EXPK + '.tmp%d' % os.getpid()
         pickle.dump(db, open(tmp, 'wb')); os.replace(tmp, EXPK)
     return db[key]
