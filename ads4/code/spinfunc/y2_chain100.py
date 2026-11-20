@@ -139,7 +139,7 @@ def even_k2(kind, J):
         pats = ['l9_pts_C2_J%d_k2.pkl', 'l9_pts_C2_J%d.pkl', 'q2_pts_C2_J%d_k2*.pkl', 'w1_pts_C2_J%d_k2*.pkl']
     pats = pats + ['y1_pts_%s_J%%d_k2.pkl' % ('C2' if kind == 'C2q' else kind)] if kind != 'EE' else pats
     R = _pk([p % J for p in pats])
-    if not XROWS:
+    if not XROWS or os.environ.get('Y2_XEVEN', '1') == '0':        # Y2_XEVEN=0: extra rows in the odd sector only
         R = {k: v for k, v in R.items() if abs(k[0] - round(k[0])) < 1e-9}
     if kind == 'C2q' and J <= 10:
         R0 = dict(L8.records(J)); R0 = {k: dict(v, M6=0*v['M0']) if 'M6' not in v else v for k, v in R0.items()}
@@ -359,6 +359,8 @@ def build_grid(J, kinds, struct2):
         # the local u_EE de-shift used inside the fit is near its pole (6.64)
         fin = np.isfinite(rows[k2kind]['G'][hels[0]])
         sel = fin & (xs <= XFIT + 1e-9) & (xs*m >= NUFIT)
+        if k2kind == 'EE' and D < 150.0 and os.environ.get('Y2_AFITXR', 'small') == 'small':
+            sel = np.zeros(len(xs), bool)          # near-gap rows: the 3 smallest x with nu >= Y2_AFITNU (as on the Delta = 100 row)
         if sel.sum() < 3:
             numin = 0.0 if k2kind == 'C2q' else float(os.environ.get('Y2_AFITNU', '9'))
             cand = np.where(fin & (xs*m >= numin))[0]

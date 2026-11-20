@@ -66,3 +66,19 @@ At the test point (`J = 24`, `ν = 20.85`, `2⁸·16` points):
   (`−1317`)**, and at `ν = 13.34` it is `+282` / `+297`. The `K₂` node at `x = 0.05` — the node from which the q3 spline extrapolates —
   has the wrong sign. With only these two direct nodes (NL weight below `ν = 25`, held below 13.34) the `J = 24` minimum is `+0.91`
   (at 1.3Λ; the 1.1Λ state is no longer the worst) [NE + M, preliminary].
+
+## 9. Hand-over (kept current)
+
+* **State (20 Nov, after the container restart at ≈ 00:25):** done and on disk: `J = 24` nodes `ν = 13.34, 16.68` (n3, state 336 +
+  reference 2·10⁴; `cache/z2_pts_{EE,C3H}_J24.pkl`, `cache/z2_raw.pkl`). Lost: the in-flight `J = 24` n3 node and the `J = 28` n4 node
+  (`ν = 10`, state only). Resumed with `z2_queueR1.sh` (`J = 24`: n3 `ν = 11.68, 20.85, 25.0, 33.4`, then n4 `10.0, 8.34, 6.67, 5.0`)
+  and `z2_queueR2.sh` (`J = 28`: all n3 nodes, then n4); logs `cache/z2_queueR{1,2}.log`. `z2_points.py` skips finished nodes, so
+  re-running a queue resumes it. The old `z2_queue{A,B,B2}.sh` are superseded. `z5_queueC.sh` (`J = 32`: `K₂` row on 336 + direct nodes)
+  has not been started.
+* **Code.** `z1_fold.py` (fold scan), `z2_points.py` (direct points, CRN, `Q_J` overflow fix, n3/n4 switch at `ν = 11`), `z3_nodes.py`
+  (scalar validation vs exact Mellin `→ cache/z3_validate.txt`; conversion to chain records, estimators `dir`/`cv`, jackknife),
+  `z4_chain.py` (w2 chain + direct nodes + non-local `k = 2` term below `ν = 25`; env in its docstring).
+* **Re-run the analysis:** `python3 z3_nodes.py validate 24 28`;
+  `Z4_JS=24,28 Z4_EST=dir|cv Z4_GAUGE=min|can Z4_EXTRAP=hold|zero|lin Z4_TAG=… Q3_JEVEN=24,28 Q3_JODD=5
+  Q3_EXTRA_M=1.02,1.05,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2,2.5,3,4,5 python3 z4_chain.py 300` (≈ 1 min);
+  `Z4_DIRECT=0 Z4_NL=0` reproduces EE_NEARGAP's convention A (`−0.0534 / −0.0950`) exactly (checked).
