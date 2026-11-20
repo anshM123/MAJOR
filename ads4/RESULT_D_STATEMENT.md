@@ -1,5 +1,32 @@
 # Result D — consolidated statement (route A′ with `Ω^EE`; state of 20 Nov 2026)
 
+> **Post-review status (REVIEW_EE_2026-11.md; supersedes §0.3, §2, §4, §5.2, §6 below wherever they differ).**
+> No fatal error; constants, bounds and binding states reproduce. Corrections adopted:
+> * "Every computed state passes" means **the EE block** only; the parity-odd even-J (OO) block is at leading order only (H_OO).
+> * **New hypothesis H_edge:** the light-cone-edge window x ∈ (0.8, Λ/m] is held extrapolation for every computed state (cutting at
+>   x = 0.6 moves J = 36/40/31 at 1000 by −0.43/−0.33/−0.23 N_s); not computed [I].
+> * **K₂ beyond its convergence criterion (J²/m ≳ 2):** J = 28, 32 at Δ_g = 300 regraded to [M]/[I]; J = 48 at 1000 is at the K₂ limit.
+> * **Δ_g = 300, J ≤ 22:** post-fix numbers use the superseded small-ν treatment; J = 22 is +0.123 with t* = 1.1 (10 % margin), not +0.15.
+>   The local vs min-norm difference at 300 is 0.02–0.10 N_s (favourable direction), not ≤ 3·10⁻³. J = 28 with the independent thimble
+>   repeat: +0.69 (not +1.45 ± 0.58).
+> * **Chronology (selection):** the canonical gauge was adopted then dropped after heavy states failed; q² was replaced by EE after the
+>   J = 16–20 failures. Any fixed functional gives a valid bound if positive, but J = 18–28 at 300 are in-sample evidence. Out-of-sample:
+>   J = 32–48 and odd J = 19–31 at 1000, and the direct small-ν nodes at 300 — all pass. **Ω^EE (min-norm, NF02) is fixed from now on.**
+> * **H_LJ is large:** it covers most near-gap spins (J ≳ 50 up to ≈ 344 at 1000; J ≥ 34 and all odd J ≥ 17 at 300), with tolerance
+>   1–30 c₂ against raw corrections of 10²–10⁴ c₂ (oscillating parts integrate out), and is out of reach of present numerics for
+>   J ≳ 150 (1000) / ≳ 100 (300).
+> * Flat limit: [P given the H0 §17 polarisation map] + [NE]; H17 carried over from q² (structure part not recomputed for EE); |c₁| ≤ 1
+>   has no argument (c₁ is a free parameter); AKT/novelty comparison softened.
+>
+> **Result D (conditional), as it can honestly be claimed.** Assume A1 (twist gap, all J), A2 (tree level), V (K1 with KKSDZ's loophole,
+> K2, K3) [D], EE admissibility [D], H7 [D], L0 [D], H17 [model carried over], c₁ free. Then per-state positivity of the fixed functional
+> Ω^EE implies √(t₄²+α_T²) ≤ 3.13·10⁻⁶ (Δ_g = 300) and ≤ 2.89·10⁻⁸ (Δ_g = 1000) [D; constants DV]. Positivity at Δ_g = 1000 is computed
+> [NE + M] on the EE block for near-gap even J ≤ 40 with rows, J = 48 (K₂ limit) and odd J ≤ 31, with the edge window extrapolated;
+> [M] elsewhere; OO block leading order only; J ≳ 50 near the gap is H_LJ [I]. At Δ_g = 300, computed for even J ≤ 24 and odd J ≤ 15
+> (only J = 24 with the validated small-ν treatment); J ≥ 26 is model-level or open. Δ_g = 100: not established. No condition is a
+> spectral assumption beyond A1; all are statements about explicit block integrals.
+
+
 *20 Nov 2026, consolidation agent. Unrefereed, not committed. Written to replace the obsolete tables (§1–§6) of `RESULT_D.md`,
 which still describe the withdrawn B′-uplift functional. No existing document or code file was edited. Sources (later ones win where
 they differ): the `RESULT_D.md` update box (all bullets), `REVIEW_ROUTEA_2026-11.md`, `RESULT_D_CONDITIONAL.md`, `EE_FUNCTIONAL.md`,
