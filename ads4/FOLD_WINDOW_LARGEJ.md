@@ -9,7 +9,7 @@ Caches `spinfunc/cache/fw_*`. Project modules are imported read-only; every patc
 
 Grades: **[P]** proved, **[D]** derived, **[NE]** numerical evidence, **[M]** model, **[I]** open.
 
-**STATUS: final for this session (hand-over 22:00 UTC).** One job is still running: the reference block of the `(1200, 200)` probe (see the hand-over).
+**STATUS: final for this session.** All jobs have finished, including the `(1200, 200)` probe.
 
 ## 0. Summary (current)
 
@@ -53,7 +53,7 @@ Grades: **[P]** proved, **[D]** derived, **[NE]** numerical evidence, **[M]** mo
    | 300, 150 `(450, 150)` | 27 | one-node probe only: errors as at `J = 100` | **not decidable** with this method [NE + M] |
    | 1000, 64 `(1064, 64)` | 3580 | C2 `−200 ± 210`, C3H `−365 ± 700 / +440 ± 720` (weighted) | **inside tolerance** at 2σ [NE] |
    | 1000, 100 `(1100, 100)` | 1170 | C2 `+586 ± 179 / −378 ± 243` (weighted `cs`; classes `−378 … +586`); C3H `+592 ± 700 / +406 ± 590` (classes `−1588 … +1608`, errors `±600–1500`) | C2 **inside** at 2σ [NE]; C3H inside at about 1σ only [NE, weak] |
-   | 1000, 200 `(1200, 200)` | 306 | one-node probe: state-block element errors 6.0 % (EE) / 8.5 % (C3H) per `2¹⁰·2·8` points, about `10×` those at `(1100, 100)` (0.6 % / 0.9 %); reference block still running | **not decidable** with this method [NE + M] |
+   | 1000, 200 `(1200, 200)` | 306 | one-node probe: helicity-ratio errors 6.0 % (EE) / 8.2 % (C3H), i.e. `δΓ ≈ 4·10³–3·10⁴` `c₂` per node; bases degraded (`sv3` `10⁻⁴` / `10⁻³`) | **not decidable** with this method [NE] |
 
    * Exact-scalar control on the same nodes: `|r_s| ≤ 3` `c₂` at every state. The scalar MC is consistent with the exact
      state/reference ratio at `≤ 2.1σ` on every node (`≤ 1.8σ` on all fold nodes).
@@ -79,7 +79,7 @@ Grades: **[P]** proved, **[D]** derived, **[NE]** numerical evidence, **[M]** mo
      * Fold window: `J = 64` inside tolerance [NE]; `J = 100` inside for C2 [NE], for C3H only at about 1σ [NE, weak]; `J = 200`
        has a one-node probe only.
      * The conditional "fold value `≥ −200` at `J ≳ 150–300`" is **not tested**. At `(1200, 200)` the state-block element errors
-       are `6–8.5 %`, about `10×` those at `(1100, 100)`, which implies `r` errors `≳ 10³` against 306 [NE + M].
+       are `6–8 %` (full probe: `δΓ ≈ 4·10³` `c₂` per node, bases degraded), so the `r` errors are `≳ 10³` against 306 [NE].
      * Bulk smooth term at `J > 48`: **[I]** (K₂ not converged at `J = 64`; 3 direct bulk points cannot separate the classes).
    * `Δ_g = 300`:
      * `J = 64`: fold smooth part `≈ −50 ± 45` `c₂` (C2), at the tolerance edge (70) [NE, weak].
@@ -406,7 +406,7 @@ Relative jackknife error of the state/reference helicity-diagonal ratio, `2¹⁰
 | `(1064, 64)` | 3.9 | 0.37 % | 0.16 % | 0.70 % | 0.49 % | `2·10⁻¹²` |
 | `(400, 100)` | 26 | 2.9 % | 0.9 % | 31 % | 30 % | `1.6·10⁻⁷` |
 | `(450, 150)` | 53 | 3.3 % | — (no exact scalar computed) | 22–24 % | — | `7·10⁻⁵` |
-| `(1200, 200)` | 34 | state block: 6.0 % per element | — | state block: 8.5 % | — | `5·10⁻⁸` (x_ref ≤ 0.45; refs incomplete) |
+| `(1200, 200)` | 34 | 5.9–6.0 % | — (no exact scalar computed) | 8.2 % | — | `9·10⁻⁴` (state basis: `1.3·10⁻⁴`) |
 
 * The rough proxy `m²|D_h|·δ` reproduces the fw_gamma jackknife errors only to within a factor `3–7`.
 * At `(450, 150)` the per-node errors are like those at `(400, 100)`, i.e. `r` errors of a few hundred `c₂`, against a fold tolerance
@@ -521,9 +521,7 @@ Chain (ee1000 shape chain, hybrid states `m_gap … 5Λ`, sm_curvfix κ, rows 10
 **Running** (detached; resumable — after a container restart re-run the same commands from `ads4/code/spinfunc/`; finished points are
 skipped):
 * `setsid nohup ./fw_queueA7.sh > cache/fw_queueA7.log 2>&1 &`: `(1100, 100)` nodes at `x = 0.2, 0.1`, which anchor `a_h`.
-* `setsid nohup ./fw_queueB6.sh > cache/fw_queueB6.log 2>&1 &`: its last item, the `(1200, 200)` probe at `ν = 16.7`, was still in its
-  reference block at hand-over (22:00 UTC). It writes `cache/fw_pts_*_J200_D1200.pkl`; then run `python3 fw_probe.py 200:1200 16.7`.
-  fw_probe sets `CUR[J]['D']`, so it reads the per-state file.
+* `fw_queueB6.sh` has finished, including the `(1200, 200)` probe (`python3 fw_probe.py 200:1200 16.7`, §2.4).
 * Then analyse:
   * `FW_EST=cv FW_WFIT=1 python3 fw_gamma.py 100:1100 8 34` (fold fit; the `x = 0.1, 0.2` nodes enter `a_h` and are printed but are
     outside the fit window);
