@@ -26,17 +26,17 @@ import bj_xs as XS_
 # bg_ser.Poly prunes coefficients below 1e-15 x the largest one.  With high powers of Dhat (degree ~2n in radial atoms whose values in
 # the integration region are O(10)) tiny coefficients carry O(1) values: pruning them is a precision bug (found here: Dhat^5 x 1e-16 added
 # to an O(1) polynomial changed its value by 1e-4).  In every bj_* process the prune is VALUE-weighted: a term is dropped only if
-# |c x monomial| < 1e-17 x max over the polynomial, at two reference points (radial atoms p_i = 1 and 4; angular atoms generic).
+# |c x monomial| < 1e-16 x max over the polynomial at each of two reference points (radial atoms p_i = 1 and 4; angular atoms generic).
 _LPT = np.log(np.array([[1, 1, 1, 1, .5, .75, .8, .6, .3, .95, .7, 1.3],
                         [4, 4, 4, 4, .5, .75, .8, .6, .3, .95, .7, 1.3]], float))
 
 
-def value_keep(E, C, rel=1e-17):
+def value_keep(E, C, rel=1e-16):
+    """keep a term if |c x monomial| > rel x max_terms |c x monomial| at EITHER reference point."""
     if C.size == 0:
         return np.zeros(0, bool)
     w = np.log(np.abs(C) + 1e-300)[:, None] + E.astype(float) @ _LPT.T
-    w = w.max(1)
-    return w > w.max() + np.log(rel)
+    return np.any(w > w.max(0)[None, :] + np.log(rel), axis=1)
 
 
 def _prune_safe(self, rel=None):

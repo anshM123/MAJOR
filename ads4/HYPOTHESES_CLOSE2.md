@@ -22,8 +22,8 @@ Grades: **[P]** proved, **[D]** derived, **[NE + M]** direct crystal computation
 | **OO block, `J = 12–22`, `Δ_g = 300`, direct small-`ν` nodes** (3×3 integrand) | min `λ_OO/N_s` over near-gap states and twist-edge masses: **`+0.886 ± 0.002 / +0.998 ± 0.004 / +1.007 ± 0.009 / +0.994 ± 0.032 / +0.936 ± 0.059 / +0.842 ± 0.085`** at `J = 12 / 14 / 16 / 18 / 20 / 22` (jackknife). `J = 18` was `+0.222` in the superseded treatment; that number is reproduced exactly, and §1.4 shows it was an artefact. | **[NE + M]** for `m ≤ 1.3Λ` |
 | **New structural fact** | the forward-normalised OO correction **equals the `++` correction node by node**. `K₂` rows (`J = 12, 14, 18, 22`, 16–19 nodes): `|Γ_OO − Γ_++| ≤ 0.05 c₂` (C2), `≤ 0.12 c₂` (C3H). Direct small-`ν` records at the same estimator (`J = 18–22`): equal within `≤ 1 c₂` at `ν ≥ 10` and within `1–12 c₂` at the noisy `ν = 8.3` nodes (RQMC error there `≈ 10³ c₂`). Hence `λ_OO/N_s` is the EE block's normalised `++` diagonal, which is `≥` the EE 2×2 minimum. | identity **[NE]**; the implication "EE-block positivity ⇒ OO positivity" is then **[D]** |
 | Validation `J = 4–10` | `+0.2301 / +0.3071 / +0.4774 / +0.6022` reproduced exactly; with direct OO spot nodes at `J = 4`: `+0.2306` | [NE + M] |
-| **`ν < 8.3` window, `(336, 28)` / `(336, 32)`** | Not decided. | **[I]** |
-| … why | 98 % of the window's weight lies at `ν < 6` and 58 % at `ν = 3–5`. Only Lefschetz thimbles reach there, and they fail the project's own scalar check: the new `J = 32` thimble node misses the exact scalar by `Δc₂ = +32 600 ± 4900` (`6.7σ` in `Re`, `19σ` in `Im`). On that node the two estimators give opposite signs (`best`: twist-edge state `−1.63 ± 0.24`; `dir`: `+1.53`). An independent second seed gives `+0.884`, and the pooled seeds `+0.939`, but both still fail the `Im` check (`3.4σ`, `11σ`): a systematic thimble phase bias. The `J = 28` seeds disagree by `1.1·10⁴ c₂`. The n3 contour below the fold has 70–120 % errors at `ν = 5`. | |
+| **`ν < 8.3` window, `(336, 28)` / `(336, 32)`** | Not decided. `J = 28` improved: a pooled thimble node at `ν = 5.0` (two new/independent seeds) passes the scalar check (`≤ 1.7σ`) with `Re Γ_c = −1300 ± 980`, and failure now needs a uniform `Γ_c ≲ −7.3·10³` on `ν < 5`; gap state `+0.93 ± 0.24`. `J = 32`: no validated node. | `J = 28`: [NE + M] to `ν = 5`, [M]/[I] below; `J = 32`: **[I]** |
+| … why | 98 % of the window's weight lies at `ν < 6` and 58 % at `ν = 3–5`. Only Lefschetz thimbles reach there, and they fail the project's own scalar check: the new `J = 32` thimble node misses the exact scalar by `Δc₂ = +32 600 ± 4900` (`6.7σ` in `Re`, `19σ` in `Im`). On that node the two estimators give opposite signs (`best`: twist-edge state `−1.63 ± 0.24`; `dir`: `+1.53`). An independent second seed gives `+0.884`, and the pooled seeds `+0.939`, but both still fail the `Im` check (`3.4σ`, `11σ`): a systematic thimble phase bias. The `J = 28` seeds disagree by `1.1·10⁴ c₂`, but only because of the old `2⁹` main seed; the two `2¹⁰` seeds agree. The n3 contour below the fold has 70–120 % errors at `ν = 5`. | |
 | … best achievable bound | `J = 28`: failure needs a uniform `Γ_c ≲ −1.0·10⁴` (main thimble seed) or `≲ −7.7·10³ c₂` (repeat seed) on `ν < 5`, and `≲ −5400` on `ν < 8.3` without thimbles. `J = 32`: `≲ −4250` on `ν < 8.3` without thimbles. With the two new (unvalidated) seeds pooled, the central value passes (min `+0.865 ± 0.12`), but failure needs only `≲ −1.4·10³` on `ν < 5`, so **`J = 32` is the most fragile state at 300**. | |
 | **Item 3 (EE block), even `J = 12, 14, 16`, direct small-`ν` nodes** (the even 2×2 block of the same 3×3 points) | min `λ/N_s` near the gap: **`+0.673 ± 0.006 / +0.750 ± 0.007 / +0.884 ± 0.022`**, against convention A `+0.630 / +0.653 / +0.707`. Convention A was again pessimistic. | **[NE + M]** for `J = 12, 14, 16`. `J = 6–10` and odd `J = 7–15` were not computed. |
 
@@ -232,7 +232,18 @@ are irrelevant to the window. The decision needs `Γ_c` on `ν ≈ 2–5`, i.e. 
     the twist edge, i.e. failure at a uniform `Γ_c ≈ −1.4·10³ c₂` on `ν < 5` given this (unvalidated) node.
   * The spline between the `ν = 5.0` node and 8.3 is itself decisive: with `Γ_c := 0` below 5.0 every seed gives only
     `+0.22 … +0.47` at the twist edge, against `+0.885` with no thimble node and `Γ_c := 0` below 8.3.
-  * `J = 28`: a third seed (`oo3`) is @@OO3@@
+  * **`J = 28`, a third seed** (`oo3`, 6161, `2¹⁰·2·8`):
+    * `Γ_c,++(5.0) = −866 − 4380i`, against s2 `−1108 + 3610i` (`Re` consistent) and main `+10 073` (`2⁹`, the outlier);
+    * scalar check `Re −0.049 ± 0.071`, `Im −0.196 ± 0.090` (`2.2σ`).
+  * **Pooled s2 + oo3** (`Z3_PREFER=x,oom2`; the two `2¹⁰` seeds):
+    * scalar check **passes at `≤ 1.7σ`**: `Re −0.060 ± 0.035`, `Im −0.106 ± 0.069`, `Δc₂ = −5490 ± 3160`. The scalar test therefore
+      validates the method only to `≈ ±5·10³ c₂`;
+    * `Γ_c,++(5.0) = −1300 ± 980 − (590 ± 1590)i` (jackknife);
+    * with this node held below 5.0: `J = 28` min `+0.799 ± 0.011` [1.5Λ], gap state 1.091Λ `+0.927 ± 0.235`;
+    * uniform `Γ_c` on `ν < 5` of `0 / −2000 / −5000 / −10 000`: gap state `+0.96 / +0.70 / +0.31 / −0.35`, i.e. failure at
+      `≈ −7.3·10³ c₂`.
+  * Pooling all three `J = 28` seeds (main weight 0.2) gives `Γ_c = +2650 − 480i`, gap `+1.29`; the scalar `Im` is off by `2.5σ`.
+    The main seed's heavy tail (OO-element error 62 %) degrades the pool, so s2 + oo3 is the reference value.
 
 ### 3.3 Best achievable statement
 All runs use direct bulk (`HC_INJ`, `x = 0.125–0.8`), `best`, and rows 336/500/1600 (`J = 28`) or 336/1040 (`J = 32`).
@@ -242,6 +253,8 @@ All runs use direct bulk (`HC_INJ`, `x = 0.125–0.8`), `best`, and rows 336/500
 | `J = 28` | none (`ν ≥ 8.3`, HYPOTHESES_CLOSE §5) | `≈ −5400 c₂` on `ν < 8.3` | `+0.797` [1.5Λ] (`Γ_c := 0` below 8.3) |
 | `J = 28` | main seed at `ν = 5.0, 6.67` | `≈ −1.04·10⁴` on `ν < 5` | `+0.835` [1.5Λ]; gap 1.091Λ `+1.728` |
 | `J = 28` | s2 seed | `≈ −7.7·10³` on `ν < 5` | `+0.794 ± 0.007` [1.5Λ]; gap `+0.847 ± 0.163` (jk) |
+| `J = 28` | oo3 seed | `≈ −8.1·10³` on `ν < 5` | `+0.810` [1.5Λ]; gap `+1.176` |
+| **`J = 28`** | **s2 + oo3 pooled (scalar `≤ 1.7σ`)** | **`≈ −7.3·10³` on `ν < 5`** | **`+0.799 ± 0.011` [1.5Λ]; gap `+0.927 ± 0.235`** |
 | `J = 32` | none | `≈ −4250` on `ν < 8.3` | `+0.885` [1.2Λ] (`Γ_c := 0` below 8.3) |
 | `J = 32` | seed 1 (`oo`; scalar off `6.7σ / 19σ`) | — | `best`: **`−1.63 ± 0.24`** [1.102Λ]; `dir`: `+0.962` [4Λ], twist edge `+1.53` |
 | `J = 32` | seed 2 (`oo2`; scalar `Im` off `3.4σ`) | `≈ −2.6·10³` on `ν < 5` | `+0.825 ± 0.30` [1.15Λ]; twist edge `+0.884` |
@@ -250,7 +263,15 @@ All runs use direct bulk (`HC_INJ`, `x = 0.125–0.8`), `best`, and rows 336/500
 * **`J = 32` is the most fragile state at 300.** The `ν = 8.3` node (validated, `Δc₂` within `1.8σ`) is `Γ_c ≈ −1700 c₂`. The pooled
   thimble central value passes (`+0.865 ± 0.12`), but on `ν < 5` it tolerates only a uniform `Γ_c ≳ −1.4·10³ c₂` (`−2.6·10³` with
   seed 2 alone).
-* **Verdict: [I], unchanged.** No validated method reaches the window's weight (`ν ≈ 2–5`) at the needed precision. That precision
+* **`J = 28`: improved but not closed.**
+  * The `ν = 5.0` node is now resolved to `±10³ c₂` (two independent `2¹⁰` seeds that agree in `Re`) and passes the scalar check at
+    `≤ 1.7σ`. Its value, `Re Γ_c = −1300 ± 980`, is of the size of the validated `ν = 8.3` node (`−1175`).
+  * Failure needs a uniform `Γ_c ≲ −7.3·10³ c₂` on `ν < 5` (85 % of the window's weight), ≈ 6× the measured `ν = 5` value.
+  * Grade: **[NE + M]** down to `ν = 5`. Below 5 it is **[M]**, a held extrapolation that is not measured, and that sub-window stays
+    [I] in the strict sense.
+* **`J = 32`: [I].** There is no validated node below 8.3: both thimble seeds fail the `Im` scalar check, and their `Re` values differ
+  by `1.8·10⁴`.
+* **Verdict for the window as posed: [I].** No validated method reaches the window's weight (`ν ≈ 2–5`) at the needed precision. That precision
   is `|Γ_c| ≲ 2000 c₂`, i.e. relative state/reference errors `≲ 1–2 %` on a validated thimble sum.
 * The available thimble sums are not validated at `J = 28` or `J = 32` (scalar off by `2.6σ` and `6.7σ / 19σ`). Their seed-to-seed
   spread is `≈ 10⁴ c₂`.
@@ -261,7 +282,7 @@ All runs use direct bulk (`HC_INJ`, `x = 0.125–0.8`), `best`, and rows 336/500
   of the same sign.
 
 ## 4. Remaining open items (value order)
-1. **The `ν < 6` window at 300 for `J ≥ 28`** [I]. It needs a validated method below the fold: a thimble sum that passes the scalar
+1. **The `ν < 5` window at 300 for `J ≥ 28`** [I], with `J = 32` the most fragile state (no validated node below 8.3). It needs a validated method below the fold: a thimble sum that passes the scalar
    check at `ν ≈ 3–5` (fix masking/A₋ tracking; check the saddle set at `J = 32`), or an analytic small-`ν` bound on the
    beyond-Regge `Γ_c`. The same window governs all `J ≥ 24` at 300 (EE_DG300 §8).
 2. **A derivation of `Γ_OO ≡ Γ_++`** (CHL `X^O_same` vs even `++` helicity amplitudes under `Ĉ'_EE`, `Ĉ₃`). This would turn the
@@ -287,7 +308,11 @@ All runs use direct bulk (`HC_INJ`, `x = 0.125–0.8`), `best`, and rows 336/500
   * `cache/oo_chain_<tag>.{txt,pkl,log}`. Tags: `f_*` = main, `m3_*` = `J = 18–22` with hc EE nodes, `val410*` = validation,
     `val18A` = superseded `J = 18`;
   * `cache/oo_check.txt`;
-  * `cache/z2oo*_pts_*` (thimbles) and `cache/hc_chain_z4_oowin_*`.
+  * thimble caches: `cache/z2oo_pts_*_J32` and `z2oo2_pts_*_J32` (seeds 4242 / 6161), `z2oo3_pts_*_J28` (6161), and the pools
+    `z2oom_pts_*_J{28,32}` and `z2oom2_pts_*_J28`;
+  * `cache/hc_chain_z4_oowin_<J>_<src>_n<numin>_<variant>.*`.
+* **State at hand-over:** no process of mine is running. The fourth `J = 28` seed (`oo4`, 7171) was not run (stopped for time).
+  `oo_queueT2.sh` resumes it: finished nodes are skipped. Re-pool afterwards with `python3 oo_merge.py 28 4.999254944 oom2 s2,oo3,oo4`.
 * **Reproduce (each a few minutes):**
   * validation: `OO_J=4,6,8,10 OO_DESPIKE=0 Q3_EXTRA_M=1.02,1.05,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2,2.5,3,4,5 python3 oo_chain.py`;
   * main: `./oo_t.sh f 12,14,16,18,20,22 OO_EESRC=oo "OO_Z3EE=12:400;14:400;16:400;18:336,400;20:400;22:336"`, then

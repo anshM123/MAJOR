@@ -192,6 +192,12 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   - **Δ_g = 300, J ≤ 22 (validated small-ν):** J = 18 / 20 / 22 give +0.872 / +0.863 / +0.841; J = 4 and 5 unchanged (+0.214 / +0.204). Twist-edge masses lower J = 11 and J = 15 to +0.645 and +0.630. Even J = 6–16 and odd J are still on the K₂ small-ν treatment.
 >   - **(336, 28) and (336, 32):** K₂ is confirmed wrong (×5 in amplitude, and in phase); with a direct bulk J = 28 gives +0.835 (repeat +0.794) and J = 32 gives +0.783. The window ν < 8.3 stays [I]; failure would need a uniform Γ_c ≈ −5·10³ c₂, while the data there are resolved only to ±10⁴.
 >
+> * **Update (HYPOTHESES_CLOSE2):** H_OO reduces to EE positivity: node by node, the parity-odd (OO) correction equals the EE `++` correction, so λ_OO is the EE block's `++` diagonal [D, given an identity measured numerically, NE].
+>   - **OO minima at Δ_g = 300, J = 12–22:** +0.886 / +0.998 / +1.007 / +0.994 / +0.936 / +0.842 [NE + M]. The earlier J = 18 value of +0.222 was an artefact (spline aliasing plus convention A) and is withdrawn.
+>   - **EE near-gap minima:** J = 12 / 14 / 16 give +0.673 / +0.750 / +0.884.
+>   - **ν < 8.3 window:** J = 28 is computed directly down to ν = 5 (min +0.799). J = 32 has no validated node below ν ≈ 8.3 and is the most fragile state at Δ_g = 300; failure needs a uniform Γ_c ≲ −1.4·10³ on ν < 5.
+>   - The binding state at Δ_g = 300 is still J = 5, at +0.2038.
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
