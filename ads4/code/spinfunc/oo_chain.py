@@ -74,10 +74,23 @@ Z3EE = _parse(os.environ.get('OO_Z3EE', '18:336,400;20:400;22:336'))
 _zpts = Z3.zpts
 
 
+EESRC = os.environ.get('OO_EESRC', 'hc')       # EE-block direct nodes: 'hc' (hc_pts, w0 even integrand) | 'oo' (even 2x2 block of oo_pts)
+
+
+def _oo_even(kind, J, D):
+    """the parity-even 2x2 block [:2, :2] of the 3x3 oo_points records (same samples, same logN) in hc_pts format."""
+    out = {}
+    for k, v in oo_pts(kind, J, D).items():
+        w = dict(v)
+        w.update(E=v['E'][:2, :2], err=v['err'][:2, :2], reps=v['reps'][:, :2, :2], method=v.get('method', '') + ' (oo even block)')
+        out[k] = w
+    return out
+
+
 def zpts(kind, J):
     P = _zpts(kind, J)
     for D in Z3EE.get(J, []):
-        for k, v in N.pts(kind, J, D).items():
+        for k, v in (N.pts(kind, J, D) if EESRC == 'hc' else _oo_even(kind, J, D)).items():
             if k[0] == N.DREF:
                 assert k not in P, ('reference key collision', J, D, k)
             P[k] = v
@@ -396,10 +409,12 @@ if __name__ == '__main__':
             pr(f"    LO order-0 C3H/C2 x (2-y) [++ coupling: x-independent, ~2]: " +
                " ".join(f"{(cc*(2 - x*x)).real:+.3f}" for x, cc in zip(r['xs'], c)))
     # run0: unmodified z4 chain (EE block)
+    EENL = {}
     if os.environ.get('OO_RUN0', '1') == '1':
         res0 = Q.run(DGS, lambda s: None)[1]
     else:
         res0 = None
+    EENL = {k: (v['nus'].copy(), v[('++', 'c')].copy()) for k, v in Z4.NLROWS.items() if k[0] in OOJ}   # run0's EE ++ NL rows
     for k in [k for k in Z4.NLROWS if k[0] in OOJ]:
         Z4.NLROWS.pop(k)
     _grid = Q.A.grid
@@ -443,6 +458,9 @@ if __name__ == '__main__':
     for t in NODELOG:
         pr(f"    J={t[0]} D={t[1]:g} nu={t[2]:7.3f} {'dir' if t[3] else 'K2 '} Gc {t[4].real:+8.0f}{t[4].imag:+8.0f}i  NL {t[5].real:+8.0f}"
            f"{t[5].imag:+8.0f}i  dens {t[6]:+8.0f}  C3H {t[7]:+7.0f}  ReX/phi {t[8]:+.3f}")
+    pr("# EE ++ NL rows of run0 (J, D: nu: Gamma_c ++) -- for the OO/++ comparison at the direct nodes:")
+    for (J, D), (nn, gc) in sorted(EENL.items()):
+        pr(f"    J={J} D={D:g}: " + " ".join(f"{v:.2f}:{g.real:+.0f}{g.imag:+.0f}i" for v, g in zip(nn, gc)))
     if SELLOG:
         pr("# OO estimator per node (kind, J, D, nu, chosen, jk rel err dir, cv): " + "; ".join(str(t) for t in sorted(set(SELLOG))))
     pr(f"# despiked: {W2.DESPIKE_LOG}")

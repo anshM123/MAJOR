@@ -15,4 +15,4 @@ run zero OO_EST=best Z4_EXTRAP=zero OO_RUN0=0
 run lin OO_EST=best Z4_EXTRAP=lin OO_RUN0=0
 run convA OO_DIRECT=0 Z4_DIRECT=0 Z4_NL=0
 for c in -1000 -2000 -4000 -8000; do run c$c OO_EST=best Z4_EXTRAP=const Z4_CONST=$c OO_RUN0=0; done
-for i in 0 1 2 3 4 5 6 7; do run jk$i OO_EST=best OO_JK=$i OO_RUN0=0; done
+for i in 0 1 2 3 4 5 6 7; do run jk$i OO_EST=best OO_JK=$i Z4_JK=$i; done
