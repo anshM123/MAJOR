@@ -9,6 +9,13 @@ Authoritative. Supersedes the headline claims of RESULT_Q_STAGE0–7, BELOW_FOLD
 > - **Cubic terms restored at grade [D-sketch + M].** κ = 0.110, and the lower slope is 0.49 (0.255 if double-counted), so ≥ ¼ either way.
 > - **Implied cubic bound.** Result Q implies |ĝ₃|²Λ⁸ ≤ 120–198 (Δ_g = 300) and 154–257 (Δ_g = 1000). This is a *conditional strengthening* of Result D (1.07·10⁴ / 1.43·10⁴), not a replacement: Result D needs none of Q's extra hypotheses.
 
+> **V₄′ test (RESULT_Q_V4PRIME.md):**
+> - **V₄′ is false for the raw per-ν Ψ₄,ν, already at O(1).** The u-channel identity ⟨T₄T₂⟩⟨T₃T₁⟩ in MFT gives a contact term on f₄'s 1/x₁₃² pole that grows like ε^{−1/4}, and its value depends on the regularisation prescription. Result Q does not use the raw functional.
+> - **For the de-shifted Ĉ₄^{ds}, the 3-unit contour shift makes it go like ε^{5/4} → 0 [D-sketch].** The identity and the J-resummed [TT]₀ term cancel exactly [P].
+> - **Ψ₅ (k = 5) has no such problem [P / D + NE].**
+> - **O(G) corrections are corner-convergent by power counting [D-sketch].** The exact Einstein cancellation in the swapped form is [I].
+> - **V₄′ is replaced by V₄″:** on tree-level ⟨TTTT⟩ the total de-shifted kernels, with the ν-integral inside, converge absolutely at the corner, and the swapped form equals the commutator form there. Grade [D-sketch], with the O(1) regular part [P]. Hypothesis 5 (the de-shift exists and is analytic in |Im ν| ≤ 3) is now load-bearing for the light side too.
+
 ## Headline (conditional)
 
 At tree level, with twist gap Δ_g = 300 or 1000, and at ĝ₃ = 0:
