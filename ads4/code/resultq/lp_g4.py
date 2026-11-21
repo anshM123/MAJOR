@@ -13,8 +13,14 @@ from scipy.optimize import linprog
 from common_q import Grid, CACHE, SIGMA
 
 
+def rho(bh, b0=2.0):
+    return 1.0 / (1 + (bh / b0) ** 2) ** 1.5
+
+
 def solve(G, delta=0.0, use_b3=True, use_fwd=True, matter=False, lref=None, G3=0.0, maxit=60, vb=1e5, verbose=False,
-          kappa_min=None):
+          kappa_min=None, dsc=None):
+    if dsc is None:
+        dsc = delta
     n2, n3 = G.n2, G.n3
     nv = n2 + n3 + 2                                   # x, y, a, c
     cfix = 0.5
@@ -28,8 +34,8 @@ def solve(G, delta=0.0, use_b3=True, use_fwd=True, matter=False, lref=None, G3=0
     obj[:n2] += -G3 / 8 * (-2 * G.mu2_6); obj[n2:n2 + n3] += -G3 / 8 * (2 * G.mu3_4); obj[n2 + n3] += -G3 / 8 * 4
     bounds = [(-vb, vb)] * n2 + [((-vb, vb) if use_b3 else (0, 0))] * n3 + [((0, vb) if use_fwd else (0, 0)), (cfix, cfix)]
     fixed, bfix = [], []
-    # scaling limit: 2 int psi2 J0 >= 0
-    R = np.zeros((len(G.bsc), nv)); R[:, :n2] = -G.Bsc; fixed.append(R); bfix.append(np.zeros(len(G.bsc)))
+    # scaling limit: 2 int psi2 J0 >= dsc * rho(bhat)   (rho: unit height, bhat^-3 tail, scale 2)
+    R = np.zeros((len(G.bsc), nv)); R[:, :n2] = -G.Bsc; fixed.append(R); bfix.append(-dsc * rho(G.bsc))
     # asymptotic rows (large bhat, fixed u)
     for h in SIGMA:
         A2, A3, Fc, Cb = G.asym[h]
@@ -98,13 +104,14 @@ if __name__ == '__main__':
     ap.add_argument('--psi3zero', action='store_true'); ap.add_argument('--matter', action='store_true')
     ap.add_argument('--lref', type=float, default=None); ap.add_argument('--G3', type=float, default=0.0)
     ap.add_argument('--kmin', type=float, default=None)
+    ap.add_argument('--dsc', type=float, default=None)
     ap.add_argument('-v', action='store_true')
     o = ap.parse_args()
     t0 = time.time()
     G = Grid(o.d2, o.d3, o.r, j0=1 if o.psi3zero else 0)
-    out = solve(G, o.delta, not o.no_b3, not o.no_fwd, o.matter, o.lref, o.G3, verbose=o.v, kappa_min=o.kmin)
+    out = solve(G, o.delta, not o.no_b3, not o.no_fwd, o.matter, o.lref, o.G3, verbose=o.v, kappa_min=o.kmin, dsc=o.dsc)
     out.update(dict(d2=o.d2, d3=o.d3, r=o.r, delta=o.delta, b3=not o.no_b3, fwd=not o.no_fwd, psi3zero=o.psi3zero, matter=o.matter,
-                    lref=o.lref, G3=o.G3, kmin=o.kmin, secs=round(time.time() - t0, 1)))
+                    lref=o.lref, G3=o.G3, kmin=o.kmin, dsc=o.dsc, secs=round(time.time() - t0, 1)))
     short = {k: (round(v, 5) if isinstance(v, float) else v) for k, v in out.items() if k not in ('x', 'y', 'psi2', 'psi3')}
     print(json.dumps(short))
     with open(os.path.join(CACHE, 'lp_g4.jsonl'), 'a') as f:
