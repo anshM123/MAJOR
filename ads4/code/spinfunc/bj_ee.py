@@ -27,14 +27,16 @@ import bj_xs as XS_
 # the integration region are O(10)) tiny coefficients carry O(1) values: pruning them is a precision bug (found here: Dhat^5 x 1e-16 added
 # to an O(1) polynomial changed its value by 1e-4).  In every bj_* process the prune is VALUE-weighted: a term is dropped only if
 # |c x monomial| < 1e-16 x max over the polynomial at each of two reference points (radial atoms p_i = 1 and 4; angular atoms generic).
+PRUNE_REL = float(os.environ.get('BJ_PRUNE', '1e-16'))
 _LPT = np.log(np.array([[1, 1, 1, 1, .5, .75, .8, .6, .3, .95, .7, 1.3],
                         [4, 4, 4, 4, .5, .75, .8, .6, .3, .95, .7, 1.3]], float))
 
 
-def value_keep(E, C, rel=1e-16):
+def value_keep(E, C, rel=None):
     """keep a term if |c x monomial| > rel x max_terms |c x monomial| at EITHER reference point."""
     if C.size == 0:
         return np.zeros(0, bool)
+    rel = PRUNE_REL if rel is None else rel
     w = np.log(np.abs(C) + 1e-300)[:, None] + E.astype(float) @ _LPT.T
     return np.any(w > w.max(0)[None, :] + np.log(rel), axis=1)
 
@@ -139,13 +141,16 @@ def prune_keys(Bk, t, F, Gt, J, Dl, tol, nup=12, rscale=(1.0, 2.5)):
                 contrib[(k, n, n2)] = np.maximum(contrib.get((k, n, n2), 0*v), v)
     mx = np.max(np.array(list(contrib.values())), axis=0)
     keep = {k: set() for k in range(9)}
+    W = {}
     for (k, n, n2), v in contrib.items():
         if np.any(v > tol*mx):
             keep[k].add((n, n2))
+        W[(k, n, n2)] = float(np.max(v/mx))
+    keep['w'] = W
     return keep
 
 
-def pieces(depth, Delta, J, verbose=False, conserved=None, prune=1e-10):
+def pieces(depth, Delta, J, verbose=False, conserved=None, prune=float(os.environ.get('BJ_KTOL', '1e-6'))):
     """J-generic EE pieces at geometric depth `depth`: logs (J = 0 3-pt exponents), vmu, R, X_k[a][c] (k = 0..8), Dhat, t."""
     import l5_spin as S5
     t0 = time.time()
@@ -191,6 +196,19 @@ def pieces(depth, Delta, J, verbose=False, conserved=None, prune=1e-10):
           for Fa in F]
     X = [[[None]*nc for _ in range(na)] for _ in range(9)]
     keep = prune_keys(Bk, t, F, Gt, J, float(Delta), prune) if prune else {k: set(Bk[k]) for k in range(9)}
+    # adaptive geometric depth per entry (BJ_ADAPT=1): an entry of weight w is kept to relative order r_e = min(depth - 1,
+    # ceil(log(w/ATOL)/log 20) - 1)  (per-order suppression ~1/20 in c2 units at Delta ~ 300, BELOW_FOLD_SPINJ §2.2), ATOL = 1e-5
+    ADAPT = os.environ.get('BJ_ADAPT', '0') == '1'
+    Wt = keep.get('w', {})
+
+    def btr(k, key):
+        b = Bk[k][key]
+        if not ADAPT or (k,) + key not in Wt:
+            return b
+        w = Wt[(k,) + key]
+        r = int(min(depth - 1, max(0, np.ceil(np.log(max(w, 1e-30)/1e-5)/np.log(20.0)) - 1)))
+        return S.ASer(b.d, b.c[:r + 1])
+    topX = min(Em[0][0][4].d, Em[1][0][4].d) + Gt[0][0][4].d + min(b.d for kk_ in range(9) for b in Bk[kk_].values()) + (depth - 1)
     if verbose:
         print(f'   kept B entries per k: {[len(keep[k]) for k in range(9)]} of {[len(b) for b in Bk]}', flush=True)
     for k in range(min(8, J) + 1):
@@ -200,10 +218,12 @@ def pieces(depth, Delta, J, verbose=False, conserved=None, prune=1e-10):
             T = [[None]*9 for _ in range(5)]                    # T[j][n] = sum_n' Bk[n, n'] G_c[j][n']
             for j in range(5):
                 for kk in range(9):
-                    T[j][kk] = XS_.macc([(Bk[k][(kk - 4, kk2 - 4)], Gt[c][j][kk2], 1.0) for kk2 in range(9)
-                                         if (kk - 4, kk2 - 4) in keep[k]])
+                    T[j][kk] = XS_.macc_dense([(btr(k, (kk - 4, kk2 - 4)), Gt[c][j][kk2], 1.0) for kk2 in range(9)
+                                               if (kk - 4, kk2 - 4) in keep[k]],
+                                              top=(topX - min(Em[a_][4 - j][kk].d for a_ in range(na))) if ADAPT else None)
             for a in range(na):
-                X[k][a][c] = XS_.macc([(Em[a][j][kk], T[4 - j][kk], 1.0/k2[j]) for j in range(5) for kk in range(9)])
+                X[k][a][c] = XS_.macc_dense([(Em[a][j][kk], T[4 - j][kk], 1.0/k2[j]) for j in range(5) for kk in range(9)],
+                                            top=topX if ADAPT else None)
         if verbose:
             print(f'   X_{k} {time.time() - t0:.0f}s  d/K ' + str([(X[k][a][c].d, X[k][a][c].K) if X[k][a][c] is not None else None
                                                                 for a in range(na) for c in range(nc)]), flush=True)

@@ -104,6 +104,37 @@ def calibrate(J, depth=3, N=8, Kr=2, depth_ref=3, Nref=4, pr=print):
     return dict(rho_r=rho_r, kr_r=kr_r, rho=rho, err=err, nodes=out, nus=nus, Ist=Ist, nur=nur, Iref=Iref, R=R, m=m)
 
 
+def k2check(J, cal, pr=print, sfx='b'):
+    """engine vs the K2 rows (w1_pts_EE_J<J>_k2_<sfx>, l9_analysis.pred form, K = 2) above the fold, entrywise in the row's
+    structure/shadow basis: m^2 Re[(D(nu) - D(nu0))_engine - (same)_K2], D = log(state/reference) of the M = I b^-T entries."""
+    import l9_analysis as L9, hc_nodes as HN
+    d = pickle.load(open(os.path.join(C, 'w1_pts_EE_J%d_k2_%s.pkl' % (J, sfx)), 'rb'))
+    nus, Ist, nur, Iref = cal['nus'], cal['Ist'], cal['nur'], cal['Iref']
+    m = cal['m']
+    rows = []
+    for nu in sorted(set(k[1] for k in d if k[0] == DST)):
+        if (DREF, nu) not in d:
+            continue
+        i = int(np.argmin(np.abs(nus - nu))); j = int(np.argmin(np.abs(nur - nu)))
+        if abs(nus[i] - nu) > 2e-3 or abs(nur[j] - nu) > 2e-3:
+            continue
+        rs, rr = d[(DST, nu)], d[(DREF, nu)]
+        (bs, _, _), _ = HN.shadow(DST, J, rs.get('shadow_resid')); (br, _, _), _ = HN.shadow(DREF, J, rr.get('shadow_resid'))
+        Ms = Ist[i] @ np.linalg.inv(bs).T; Mr = Iref[j] @ np.linalg.inv(br).T
+        De = np.log(Ms/Mr)
+        a = [rs[k] for k in ('M0', 'M2', 'M4', 'M6')]; r = [rr[k] for k in ('M0', 'M2', 'M4', 'M6')]
+        Dk = np.log(L9.pred(a, r, 2)) + (rs['logC'] - rs['logK']) - (rr['logC'] - rr['logK'])
+        rows.append((nu, De, Dk))
+    if len(rows) < 2:
+        pr(f'# K2 check J={J}: fewer than 2 common nodes'); return
+    nu0, De0, Dk0 = rows[0]
+    pr(f'# K2 check J={J} (w1 k2_{sfx} rows, pred K=2) vs engine: m^2 Re[(D(nu) - D({nu0:.2f}))_eng - (same)_K2] per entry (a,c), c2')
+    for nu, De, Dk in rows[1:]:
+        dd = m*m*((De - De0) - (Dk - Dk0)).real
+        pr(f'    nu={nu:7.2f} (x={nu/m:.3f}): ' + '  '.join(f'({a},{c}) {dd[a, c]:+8.1f}' for a in range(2) for c in range(2))
+           + f'   | engine m^2 Re dD(++-ish 00) {m*m*(De - De0)[0, 0].real:+9.1f}')
+
+
 def records(J, cal, nucut=NUCUT):
     nus, Ist, nur, Iref = cal['nus'], cal['Ist'], cal['nur'], cal['Iref']
     R = cal['R']; m = cal['m']
@@ -150,6 +181,10 @@ if __name__ == '__main__':
         print(s, flush=True); lines.append(s)
     cal = calibrate(J, N=N, Kr=Kr, pr=pr)
     if mode == 'calib':
+        try:
+            k2check(J, cal, pr)
+        except Exception as ex:
+            pr(f'# K2 check failed: {ex}')
         open(os.path.join(C, 'bj_calib_J%d_N%d_K%d.txt' % (J, N, Kr)), 'w').write('\n'.join(lines) + '\n')
     else:
         recs = records(J, cal)

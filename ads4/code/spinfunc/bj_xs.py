@@ -231,3 +231,63 @@ def macc(pairs, maxpairs=2_000_000):
     for p in buf:
         flush(p)
     return S.ASer(d, [S.Poly(acc[p][0], acc[p][1]) for p in range(d, top + 1)])
+
+
+# ------------------------------------------------------------------------------ dense-box multiply-accumulate (no sorting)
+DENSE_MAX = int(os.environ.get('BJ_DENSE_MAX', str(12_000_000)))
+
+
+def macc_dense(pairs, maxpairs=3_000_000, top=None):
+    """as macc, but each output order is accumulated with np.bincount on a dense mixed-radix index over the output exponent box when the
+    box has <= DENSE_MAX cells (no sort of the ~1e8-1e9 redundant pairs); falls back to macc otherwise."""
+    pairs = [(A, B, c) for (A, B, c) in pairs if A is not None and B is not None]
+    if not pairs:
+        return None
+    d = min(A.d + B.d for A, B, c in pairs)
+    if top is None:
+        top = min(A.d + B.d + min(A.K, B.K) for A, B, c in pairs)
+    else:                     # explicit absolute top: each pair contributes the orders it has (shorter pairs = truncated terms)
+        d = min(d, top)
+    jobs = {p: [] for p in range(d, top + 1)}
+    for A, B, c in pairs:
+        for i, pa in enumerate(A.c):
+            if len(pa) == 0:
+                continue
+            for j, pb in enumerate(B.c):
+                pw = A.d + i + B.d + j
+                if pw > top or pw > A.d + B.d + min(A.K, B.K):
+                    break
+                if len(pb):
+                    jobs[pw].append((pa, pb, c))
+    out = []
+    for p in range(d, top + 1):
+        js = jobs[p]
+        if not js:
+            out.append(S.Poly()); continue
+        lo = np.min([pa.E.min(0).astype(np.int64) + pb.E.min(0) for pa, pb, c in js], axis=0)
+        hi = np.max([pa.E.max(0).astype(np.int64) + pb.E.max(0) for pa, pb, c in js], axis=0)
+        rg = hi - lo + 1
+        box = float(np.prod(rg.astype(float)))
+        if box > DENSE_MAX:
+            r = macc([(S.ASer(0, [pa]), S.ASer(0, [pb]), c) for pa, pb, c in js], maxpairs)
+            out.append(r.c[0]); continue
+        mult = np.concatenate([[1], np.cumprod(rg[:-1])]).astype(np.int64)
+        nbox = int(box)
+        accr = np.zeros(nbox); acci = np.zeros(nbox)
+        for pa, pb, c in js:
+            ka = (pa.E.astype(np.int64) - lo) @ mult; kb = pb.E.astype(np.int64) @ mult
+            Ca = pa.C*c; Cb = pb.C
+            step = max(1, maxpairs//max(1, len(Cb)))
+            for s0 in range(0, len(ka), step):
+                key = (ka[s0:s0 + step, None] + kb[None, :]).ravel()
+                val = (Ca[s0:s0 + step, None]*Cb[None, :]).ravel()
+                accr += np.bincount(key, weights=val.real, minlength=nbox)
+                acci += np.bincount(key, weights=val.imag, minlength=nbox)
+        nz = np.flatnonzero((accr != 0) | (acci != 0))
+        E = np.empty((len(nz), S.NV), np.int64)
+        rem = nz.copy()
+        for a_ in range(S.NV):
+            E[:, a_] = rem % rg[a_] + lo[a_]; rem //= rg[a_]
+        E, C = _pcombine(E, accr[nz] + 1j*acci[nz])
+        out.append(S.Poly(E, C))
+    return S.ASer(d, out)

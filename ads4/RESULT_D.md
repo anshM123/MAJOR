@@ -198,6 +198,12 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   - **ν < 8.3 window:** J = 28 is computed directly down to ν = 5 (min +0.799). J = 32 has no validated node below ν ≈ 8.3 and is the most fragile state at Δ_g = 300; failure needs a uniform Γ_c ≲ −1.4·10³ on ν < 5.
 >   - The binding state at Δ_g = 300 is still J = 5, at +0.2038.
 >
+> * **Update (PARITY_ODD_CLOSE):**
+>   - **Helicity lemma [D, checked numerically DV].** On a helicity eigen-direction, the parity-odd ⟨TTO⟩ equals ±i·w times the even structures. The crystal saddle sits exactly on such a direction [P].
+>   - **Consequence:** Γ_OO = Γ_++ exactly at order 0 and up to O(m⁻²) c₂ beyond it. The per-row constants are basis normalisations, not dynamics.
+>   - **Status of H_OO:** it reduces to EE positivity [D + NE].
+>   - **New direct nodes at Δ_g = 300:** J = 6 gives +0.3075 (unchanged); odd J = 15 gives +0.829 (it was +0.648 under convention A).
+>
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
