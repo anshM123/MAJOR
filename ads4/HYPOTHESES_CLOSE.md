@@ -8,7 +8,17 @@ the signs found here.*
 
 Grades: **[P]** proved, **[D]** derived, **[NE]** numerical evidence, **[M]** model, **[I]** open.
 
-**STATUS: in progress** (see hand-over at the end).
+**STATUS: all queued computations finished (21 Nov).** Results per hypothesis (details and variants in §2–§5):
+
+| hypothesis | what was computed | result | grade now |
+|---|---|---|---|
+| **`H_edge`** (edge window `x ∈ (0.8, x_edge]` held) | direct n1 nodes `x = 0.8–0.9` (8 nodes, step 0.0125, at `J = 31, 36, 40`; 5 at `J = 17, 16, 24`; 3–4 on the four `J = 5` rows) on the rows carrying the gap states: 1000 `J = 5, 17, 31, 36, 40`; 300 `J = 5, 16, 24`; chains re-run | every state passes; gap-state change `+0.005 … −0.14 N_s` (K1 edge model), `J = 31`'s favourable `+0.21` held artefact reduced to `+0.07`; minima `+0.9795 / +0.957 / +0.988 / +0.840 / +0.2021` (1000: `J = 40/36/31/17/5`), `+0.820 / +0.703 / +0.2052` (300: `J = 24/16/5`) | **closed [NE + M]** on the computed rows (M = edge representation between nodes; all representations positive, worst `+0.86`); **[M]** (assumption, supported) on the other rows |
+| **`H_OO`** (even-`J` parity-odd block) | identified (`X^O_same`, the 1×1 block of every even-`J` state, `J = 0, 2, 4, …`); K₂ OO rows `J = 4, 6, 8, 10` (Δ = 400, 1600) and `J = 18` (Δ = 336, 400); folded into the EE_NEARGAP chain | LO coupling `= ++` confirmed (`C3H/C2·(2−y)` constant to 0.3 %); min `λ_OO/N_s` `+0.230 / +0.307 / +0.477 / +0.602` (300) and `+0.215 / +0.309 / +0.503 / +0.605` (1000) at `J = 4/6/8/10`; `J = 18` (300): `+0.222` (superseded small-`ν` treatment), OO correction `1.6×` the EE `++` one | **closed [NE + M]** for `J = 4–10` (both `Δ_g`); `J = 18` positive in the superseded treatment only; **`J ≥ 12` [M]** — "OO tracks `++`" fails quantitatively at `J = 18` |
+| **`Δ_g = 300`, `J ≤ 22`, validated small-`ν`** | z4 protocol with direct n3 nodes `ν = 8.3–40` on the rows of `J = 18` (336, 400), 20 (400), 22 (336); spot nodes `J = 4, 5`; full sweep incl. every `J`'s twist-edge mass | min `λ/N_s`: `J = 18 / 20 / 22` **`+0.872 / +0.863 / +0.841`** (convention A had `+0.472 / +0.465 / +0.046`); `J = 4 / 5` `+0.2137 / +0.2038` (unchanged); jackknife `±0.03–0.08`; failure only for a uniform `Γ_c ≲ −1·10⁴ … −2·10⁴ c₂` below `ν = 8.3` | **[NE + M]** for `J = 4, 5, 18, 20, 22`; other `J ≤ 16` (even) and odd `J ≤ 15` still convention A (positive, min `+0.2038`), which was pessimistic wherever tested |
+| **`K₂` beyond criterion, `(336, 28)`, `(336, 32)`** | complete direct n1 sub-rows `x = 0.125–0.8` (16 nodes each); z4 chains | `K₂` wrong by up to ×5 in amplitude and in phase from `x = 0.2`; with direct bulk `J = 28` `+0.835` (`+0.794` with the repeat thimbles), `J = 32` `+0.783` (its twist-edge state `+0.284 → +0.826`) | bulk **[NE + M]**; `ν < 8.3` window **[I]** (failure at uniform `Γ_c ≈ −5400 / −4250 c₂`) |
+
+Nothing here is a proof: every "closed" means "computed in the project's chain model with direct crystal values replacing the
+extrapolation/expansion in question" ([NE + M]).
 
 ## 1. Methods and validation
 
@@ -132,7 +142,8 @@ Edge node values at `(336, 24)` (C2 `++ / +−`): `x = 0.8`: `−279 / +1935` (K
 * **Not computed:** the other rows (1000: even `J ≤ 32`, 48, odd `J = 7–15, 19–29`; 300: even `J ≤ 22` except 16, `J = 28, 32`, odd
   `J = 7–15`) still use the held extrapolation. There `H_edge` remains an assumption, now supported by the computed rows ([M]): the
   edge values grow towards the edge like the `+−` envelope, but the integrated effect on the computed states is `≤ 0.04 N_s` except
-  where a favourable held artefact was removed (`J = 31`, `−0.14`), against margins `≥ 0.70`.
+  where a favourable held artefact was removed (`J = 31`, `−0.14`), against margins `≥ 0.63` (`≥ 0.20` at `J ≤ 9`, where the edge
+  contribution is `< 10⁻³ N_s`).
 
 ## 3. `H_OO`: the even-`J` parity-odd block beyond leading order
 
@@ -306,25 +317,62 @@ compared node by node with the `K₂` row (`Γ`, curvature image subtracted; sam
   **`J = 28` at 300 with direct bulk: `n = 1` [NE + M]**; the `K₂` bulk error was unfavourable (it lowered the gap state by `0.19` (main) and `0.19` (repeat)
   and the repeat-thimble minimum from `+0.85` to `+0.66`). The `ν < 8.3` window caveat (thimble values `±10⁴`, failure at a uniform
   `Γ_c ≈ −4000`) is unchanged: **`J = 28` stays [I] at the 1σ level below `ν ≈ 8`**, but is no longer [M] in the bulk.
-* Side result (no new data): with the independent thimble repeat at `ν = 5.0, 6.67` (`Z3_PREFER=x,s2`) and the twist-edge mass
-  `1.091Λ` added, `J = 28`'s minimum is `+0.660` at the gap (`+0.691` at 1.1Λ, as the review found).
+* **`(336, 32)`, complete direct sub-row** (`cache/hc_t4f_32_nodes.txt`): `K₂` is wrong in amplitude and phase from `x = 0.2` on
+  (C2 `++` at `x = 0.2 … 0.5`: direct `+107, −115, +117, −99, +41, +78, −258` vs `K₂` `−86, +11, +105, −252, +397, −461, +306`; `0.75`:
+  `+996` vs `−2159`). z4 chain (rows 336/1040, z2 n3 small-`ν` nodes `ν ≥ 8.3`, no thimbles, `Γ` held below 8.3; twist-edge mass
+  `1.102Λ` added):
+
+  | | `K₂` bulk | **direct bulk** |
+  |---|---|---|
+  | min `λ/N_s` [`m/Λ`] | `+0.284` [1.102, the twist edge — never sampled before] | **`+0.783` [1.15]** (jk `±0.016`) |
+  | gap state `1.102Λ` / 1.15Λ | `+0.284 / +0.657` | `+0.826 / +0.783` |
+
+* **The `ν < 8.3` window with direct bulk** (`Z4_NUMIN=8`, uniform `Γ_c` below `ν = 8.3`): `J = 28`: `0 / −2000 / −4000 / −8000` →
+  `+0.797 / +0.556 / +0.228 / −0.428` (failure at `≈ −5400 c₂`); `J = 32`: `+0.885 / +0.515 / +0.056 / −0.861` (failure at
+  `≈ −4250 c₂`). Measured `Γ_c` at `ν = 8.3`: `−1175` (`J = 28`), `−895 … −1230` at `J = 20–28`; thimble values at `ν = 5–6.7`
+  (`J = 28`) `±10⁴` (two seeds disagree by `≈ 10⁴`).
+* Side result: with the independent thimble repeat at `ν = 5.0, 6.67` (`Z3_PREFER=x,s2`) and the twist-edge mass `1.091Λ`, `J = 28`'s
+  `K₂`-bulk minimum is `+0.660` at the gap (`+0.691` at 1.1Λ, as the review found); with direct bulk `+0.794`.
+
+### 5.1 Grade (`K₂` beyond its criterion, `J²/m ≳ 2`)
+* **`K₂` on `(336, 28)`, `(336, 32)` is wrong at `x ≥ 0.2` by up to `×5` in amplitude and in phase [NE]** — the review's S1 regrading
+  was right. Replacing it by a complete direct sub-row, `J = 28` and `J = 32` at `Δ_g = 300` **pass** (`+0.835 / +0.783`;
+  repeat-thimble `+0.794` at `J = 28`) **[NE + M]** in the bulk; the `K₂` error had been *unfavourable* (`J = 32` at its twist edge:
+  `+0.284 → +0.826`).
+* Remaining for both: the window `ν < 8.3` — **[I]** at the level of the available data (failure needs a uniform
+  `Γ_c ≲ −5400 / −4250 c₂` there; nodes at 8.3 are `≈ −10³`, the thimble nodes below are not resolved to `10⁴`).
+* `J = 48` at 1000 (`J²/m = 2.2`, the other "`K₂`-limit" state) was not tested here.
 
 ## Hand-over (kept current)
 
-* **Queues** (`ads4/code/spinfunc/`, all resumable: re-launch with `setsid nohup ./hc_queueX.sh > cache/hc_queueX.log 2>&1 &`;
-  finished points are skipped; at most 2 workers run at a time):
-  * `hc_queueA.sh` (edge nodes, done), `hc_queueOO.sh` (OO rows J = 4–10, done);
-  * `hc_queueA2.sh`: finer edge nodes on `(1040, 40)`, `(1036, 36)`, `(1031, 31)`; bulk nodes `(336, 28)`, `(336, 32)`; small-`ν`
-    nodes `(400, 18)`; spot nodes `(400, 4)`, `(400, 5)`;
-  * `hc_queueB.sh`: small-`ν` nodes `(336, 22)`, `(400, 20)`, `(336, 18)`;
-  * `hc_queueOO2.sh` (after B): OO rows `J = 18`, `Δ = 336, 400`.
-* **Code:** `hc_points.py` (direct points; `HC_METHOD=n1|n3`), `hc_nodes.py` (records, shadow matching, injection), `hc_chain.py`
-  (chains with injection; modes `ee1000`, `w2`, `z4`; node report), `hc_edge.py` (edge variant table, ee1000), `hc_oo_rows.py`,
-  `hc_oo.py` (OO block), `hc_sum.py`, `hc_jk.py` (summaries / jackknife of chain outputs).
+* **Done:** every queue finished (`hc_queueA`, `A2`, `A3`, `B`, `OO`, `OO2`; logs `cache/hc_queue*.log`). No process is running.
+  To recompute anything, the queue scripts are resumable (`setsid nohup ./hc_queueX.sh > cache/hc_queueX.log 2>&1 &` from
+  `ads4/code/spinfunc/`; finished points are skipped).
+* **Not done / open (value order):**
+  1. OO block at `J ≥ 12` with the validated small-`ν` treatment (direct n3 nodes of the 3×3 `p8` integrand at even `J`;
+     `hc_points.setup(odd=True)` would have to be forced for even `J` and the z4 NL term extended to the OO entry). `J = 18` at 300 is
+     the binding block (`+0.22`) in the superseded treatment.
+  2. The `ν < 8.3` window at 300 for `J = 28, 32` (and the `ν = 8.3` node itself, `≈ −10³` at 5 % RQMC error at every `J = 18–28`).
+  3. `H_edge` on the uncomputed rows (1000: even `J ≤ 32`, 48, odd `J = 7–15, 19–29`; 300: even `J ≤ 22` except 16, 28, 32);
+     same recipe: `HC_METHOD=n1 HC_ADAPT=1 HC_M=12–13 python3 hc_points.py J Δ 0.8,0.8125,…,0.9`, then `hc_edge.py` (1000) or
+     `hc_chain.py w2/z4` with `HC_INJ`, `HC_DESPIKE_INJ=0`.
+  4. Direct small-`ν` nodes for even `J = 6–16` and odd `J = 7–15` at 300 (still convention A); `J = 48` at 1000 against direct.
+* **Code** (`ads4/code/spinfunc/`): `hc_points.py` (direct points; `HC_METHOD=n1|n3`, `HC_ADAPT`, `HC_M`, `HC_MREF`; per-state
+  caches), `hc_nodes.py` (records, resid-matched shadows, injection), `hc_chain.py` (chains with injection: modes `ee1000`, `w2`,
+  `z4`; env `HC_INJ`, `HC_IXMIN/IXMAX`, `HC_Z3`, `HC_DESPIKE_INJ`, `HC_EDGE_MODEL`, `HC_EK`, `HC_EREP`, `HC_JK`, `HC_ROWDUMP`; node
+  report), `hc_edge.py` (edge variant table, ee1000 mode), `hc_t3.sh` (small-`ν` variants + jackknife), `hc_oo_rows.py`, `hc_oo.py`
+  (OO block), `hc_sum.py`, `hc_jk.py` (summaries).
 * **Caches:** `cache/hc_pts_<kind>_J<J>_D<Δ>.pkl` (+ `.lock`), `cache/hc_raw_J<J>_D<Δ>.pkl`, `cache/hc_p3_<kind>_J<J>.pkl`,
-  `cache/hc_p2shadow_<kind>_J<J>.pkl`, `cache/hc_exact.pkl` (z3's exact scalar records, redirected), `cache/hc_chain_*`, `cache/hc_edge_J*.txt`,
-  `cache/hc_oo_*.txt/.pkl`, logs `cache/hc_queue*.log`.
-* **Reproduce:** edge (1000): `python3 hc_edge.py 40 1040 1000` (likewise 36/1036, 31/1031, 17/1017); edge (300, `J = 24`):
-  `HC_TAG=t HC_INJ=24:336 HC_IXMAX=0.88 HC_DESPIKE_INJ=0 Z4_EST=best Z4_JS=24 Q3_JEVEN=24 Q3_JODD=5 Q3_EXTRA_M=1.078,1.1,… W2_ROWS=336,500,1600 python3 hc_chain.py z4 300`
-  then `python3 hc_sum.py z4 300 t J=24`; OO: `HC_OOJ=4,6,8,10 Q3_EXTRA_M=1.02,…,5 python3 hc_oo.py 300 1000`.
-* Analysis runs were made with one production worker SIGSTOPped (scratch `paused.sh`), to stay at 2 busy processes.
+  `cache/hc_p2shadow_<kind>_J<J>.pkl`, `cache/hc_exact.pkl` (z3's exact scalar records, redirected), `cache/hc_chain_<mode>_<tag>.*`,
+  `cache/hc_edge_J*.txt`, `cache/hc_oo_<tag>.*`, `cache/hc_t4f_{28,32}_nodes.txt`.
+* **Reproduce (each ≤ a few minutes):**
+  * edge, 1000: `python3 hc_edge.py 40 1040 1000` (also `36 1036`, `31 1031`, `17 1017`);
+  * edge, 300 `J = 24`: `HC_TAG=t HC_INJ=24:336 HC_IXMAX=0.88 HC_DESPIKE_INJ=0 Z4_EST=best Z4_JS=24 Q3_JEVEN=24 Q3_JODD=5
+    Q3_EXTRA_M=1.078,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2 W2_ROWS=336,500,1600 SM_CURV=row python3 hc_chain.py z4 300; python3 hc_sum.py z4 300 t J=24`;
+    `J = 16`: same in `w2` mode with `Q3_JEVEN=16 HC_INJ=16:400`; `J = 5`: `w2 300 1000` with `Q3_JODD=5 HC_INJ=5:200,400,800,1600 HC_IXMAX=0.92`;
+  * OO: `HC_OOJ=4,6,8,10 Q3_EXTRA_M=1.02,1.05,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2,2.5,3,4,5 python3 hc_oo.py 300 1000` (`HC_OOJ=18 … hc_oo.py 300`);
+  * small `ν`: `./hc_t3.sh 22 22:336`, `./hc_t3.sh 20 20:400`, `./hc_t3.sh 18 18:336,400`; sweep: `HC_TAG=t3_all Z4_EST=best
+    Z4_JS=18,20,22 HC_Z3='18:336,400;20:400;22:336' Q3_JEVEN=4,6,…,22 Q3_JODD=5,…,15 Q3_EXTRA_M=<gap masses>,1.1,…,5 python3 hc_chain.py z4 300`;
+  * `K₂` check: `scratchpad t4full.sh` equivalent: `Z4_EST=best Z4_JS=28 Q3_JEVEN=28 Q3_JODD=5 W2_ROWS=336,500,1600 HC_INJ=28:336
+    HC_IXMIN=0.12 HC_IXMAX=0.81 HC_DESPIKE_INJ=0 python3 hc_chain.py z4 300` (`J = 32`: `W2_ROWS=336,1040`).
+* Analysis runs were made with one production worker SIGSTOPped, to stay at 2 busy processes.
