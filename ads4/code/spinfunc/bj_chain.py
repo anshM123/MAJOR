@@ -55,7 +55,24 @@ def _near(nus, v):
     return i
 
 
-def calibrate(J, depth=3, N=8, Kr=2, depth_ref=3, Nref=4, pr=print):
+def at(nus, I, v):
+    """engine matrix at nu = v: the grid value if v is a grid node, else a cubic spline of the unwrapped log (grid step 0.25 below 12)."""
+    i = int(np.argmin(np.abs(nus - v)))
+    if abs(nus[i] - v) < 1e-5:
+        return I[i]
+    from scipy.interpolate import CubicSpline
+    sel = (nus > v - 1.6) & (nus < v + 1.6)
+    assert sel.sum() >= 6 and np.max(np.diff(nus[sel])) < 0.3, ('no dense grid around', v)
+    out = np.zeros((2, 2), complex)
+    for a in range(2):
+        for c in range(2):
+            L = np.log(I[sel, a, c]); L = L.real + 1j*np.unwrap(L.imag)
+            out[a, c] = np.exp(CubicSpline(nus[sel], L.real)(v) + 1j*CubicSpline(nus[sel], L.imag)(v))
+    return out
+
+
+def calibrate(J, depth=3, N=8, Kr=2, depth_ref=None, Nref=4, pr=print):
+    depth_ref = depth if depth_ref is None else depth_ref
     nus, Ist = engine(DST, J, depth, N, Kr)
     nur, Iref = engine(DREF, J, depth_ref, Nref, Kr)
     P = direct(J)
@@ -71,11 +88,15 @@ def calibrate(J, depth=3, N=8, Kr=2, depth_ref=3, Nref=4, pr=print):
             continue
         st, rf = P[(DST, v)], P[(DREF, v)]
         Vs = st['reps']*np.exp(st['logN']); Vr = rf['reps']*np.exp(rf['logN'])
-        ks = kap(Ist[_near(nus, v)], Vs); kr = kap(Iref[_near(nur, v)], Vr)
+        try:
+            Is, Ir = at(nus, Ist, v), at(nur, Iref, v)
+        except AssertionError:
+            continue
+        ks = kap(Is, Vs); kr = kap(Ir, Vr)
         # entrywise residual of the shape (state and reference separately), relative
-        es = np.max(np.abs(Vs.mean(0)/(ks.mean()*Ist[_near(nus, v)]) - 1)); er = np.max(np.abs(Vr.mean(0)/(kr.mean()*Iref[_near(nur, v)]) - 1))
+        es = np.max(np.abs(Vs.mean(0)/(ks.mean()*Is) - 1)); er = np.max(np.abs(Vr.mean(0)/(kr.mean()*Ir) - 1))
         per[v] = dict(ks=ks, kr=kr, rho=ks/kr, es=es, er=er)
-    cal = [v for v in per if any(abs(v - c) < 1e-6 for c in CAL)]
+    cal = [v for v in per if any(abs(v - c) < 0.05 for c in CAL)]
     # replica-wise calibration: mean over the calibration nodes of rho_r (weights 1/var of the jackknife)
     w = {}
     for v in cal:
@@ -176,16 +197,17 @@ if __name__ == '__main__':
     mode, J = sys.argv[1], int(sys.argv[2])
     N = int(sys.argv[3]) if len(sys.argv) > 3 else 8
     Kr = int(sys.argv[4]) if len(sys.argv) > 4 else 2
+    depth = int(sys.argv[5]) if len(sys.argv) > 5 else Kr + 1
     lines = []
     def pr(s=''):
         print(s, flush=True); lines.append(s)
-    cal = calibrate(J, N=N, Kr=Kr, pr=pr)
+    cal = calibrate(J, depth=depth, N=N, Kr=Kr, pr=pr)
     if mode == 'calib':
         try:
             k2check(J, cal, pr)
         except Exception as ex:
             pr(f'# K2 check failed: {ex}')
-        open(os.path.join(C, 'bj_calib_J%d_N%d_K%d.txt' % (J, N, Kr)), 'w').write('\n'.join(lines) + '\n')
+        open(os.path.join(C, 'bj_calib_J%d_N%d_K%d_d%d.txt' % (J, N, Kr, depth)), 'w').write('\n'.join(lines) + '\n')
     else:
         recs = records(J, cal)
         pickle.dump(recs, open(os.path.join(C, 'z2bj_pts_EE_J%d.pkl' % J), 'wb'))
