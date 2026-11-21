@@ -6,9 +6,9 @@ Variants (all with SM_CURV=row, odd despike, shape model K = 4 on x <= 0.8 as th
   base      : no injection, EE1000_XMAX = 0.8 (the protocol: c, s, r held beyond the last node)
   A         : direct nodes for x > 0.8 only (K2 kept at x = 0.8), edge model = constant-coefficient shape fit on x >= 0.8
   B         : direct nodes from x = 0.8 on (K2 at 0.8 replaced), same edge model           [main]
-  B_lin / B_spl : B with linear / natural-spline interpolation of the edge nodes instead of the shape fit
-  B_nd      : B, injected nodes exempt from the Hampel despike
   B_K1      : B with linear-in-x edge coefficients (needs >= 7 edge nodes)
+  B_lin / B_spl : B with linear / natural-spline interpolation of the edge nodes instead of the shape fit
+  B_desp    : B with the injected nodes subject to the Hampel despike (all other variants exempt them: they are direct values)
   glob      : one shape fit (K = 4) over all nodes up to the last edge node
   jk        : B with replica i of the injected nodes left out, i = 0..7 -> jackknife error of every per-state lambda
 Usage: python3 hc_edge.py J Delta [Dg] [variants]   (odd J: 1x1 +-)   -> cache/hc_edge_J<J>.txt
@@ -17,19 +17,21 @@ import os, sys, subprocess, pickle
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); C = os.path.join(HERE, 'cache')
 J = int(sys.argv[1]); D = float(sys.argv[2]); DG = int(sys.argv[3]) if len(sys.argv) > 3 else 1000
-VARS = sys.argv[4].split(',') if len(sys.argv) > 4 else ['base', 'A', 'B', 'B_lin', 'B_spl', 'B_nd', 'B_K1', 'glob', 'jk']
+VARS = sys.argv[4].split(',') if len(sys.argv) > 4 else ['base', 'A', 'B', 'B_K1', 'B_lin', 'B_spl', 'B_desp', 'glob', 'jk']
 odd = J % 2 == 1
 common = dict(W2_DMIN=str(1000 if DG == 1000 else 0), EE1000_DG=str(DG), EE1000_JEVEN='' if odd else str(J), EE1000_JODD=str(J) if odd else '',
               EE1000_MODEL='shape', EE1000_K='4', EE1000_XMIN='0.05', SM_CURV='row', OMP_NUM_THREADS='1', HC_NODES='0')
+IJ = '%d:%g' % (J, D)
+X = dict(EE1000_XMAX='0.99', HC_INJ=IJ, HC_DESPIKE_INJ='0')        # injected (direct) nodes are never Hampel-filtered (main)
 spec = {
     'base': dict(EE1000_XMAX='0.8', HC_INJ=''),
-    'A': dict(EE1000_XMAX='0.99', HC_INJ='%d:%g' % (J, D), HC_IXMIN='0.81'),
-    'B': dict(EE1000_XMAX='0.99', HC_INJ='%d:%g' % (J, D)),
-    'B_lin': dict(EE1000_XMAX='0.99', HC_INJ='%d:%g' % (J, D), HC_EREP='linear'),
-    'B_spl': dict(EE1000_XMAX='0.99', HC_INJ='%d:%g' % (J, D), HC_EREP='spline'),
-    'B_nd': dict(EE1000_XMAX='0.99', HC_INJ='%d:%g' % (J, D), HC_DESPIKE_INJ='0'),
-    'B_K1': dict(EE1000_XMAX='0.99', HC_INJ='%d:%g' % (J, D), HC_EK='1'),
-    'glob': dict(EE1000_XMAX='0.99', HC_INJ='%d:%g' % (J, D), HC_EDGE_MODEL='global'),
+    'A': dict(X, HC_IXMIN='0.81'),
+    'B': dict(X),
+    'B_K1': dict(X, HC_EK='1'),
+    'B_lin': dict(X, HC_EREP='linear'),
+    'B_spl': dict(X, HC_EREP='spline'),
+    'B_desp': dict(X, HC_DESPIKE_INJ='1'),
+    'glob': dict(X, HC_EDGE_MODEL='global'),
 }
 
 

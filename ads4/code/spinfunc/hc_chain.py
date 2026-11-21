@@ -367,6 +367,25 @@ def node_report(J):
             pr(s_)
 
 
+def row_dump(J, D):
+    """full row (with and without injection): a_h and Gamma at every node (diagnostic of the per-row normalisation a_h)."""
+    gi = Q.even_grid(J)
+    NOINJ[0] = True
+    try:
+        gb = Q.even_grid(J)
+    finally:
+        NOINJ[0] = False
+    ri, rb = gi[D], gb[D]
+    pr(f"   row dump J={J} D={D:g}: a_h injected {ri['a']} | base {rb['a']}")
+    for k in (('C2', '++'), ('C2', '+-'), ('C3H', '++'), ('C3H', '+-')):
+        pr(f"     {k[0]} {k[1]} x: " + " ".join(f"{x:.3f}:{v:+.0f}" + (f"({rb[k][np.argmin(np.abs(rb['xs'] - x))]:+.0f})" if np.min(np.abs(rb['xs'] - x)) < 1e-5 else '')
+                                          for x, v in zip(ri['xs'], ri[k])))
+
+
+if os.environ.get('HC_ROWDUMP', ''):
+    for spec_ in os.environ['HC_ROWDUMP'].split(';'):
+        Jd, Dd = spec_.split(':')
+        row_dump(int(Jd), float(Dd))
 if os.environ.get('HC_NODES', '1') == '1' and mode in ('ee1000', 'w2', 'z4'):
     for J in sorted(INJ):
         try:
