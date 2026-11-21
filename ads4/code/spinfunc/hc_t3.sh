@@ -3,7 +3,7 @@
 # usage: ./hc_t3.sh J "J:D[,D]" [extra env]   -> cache/hc_chain_z4_t3_<J>_<variant>.*
 cd "$(dirname "$0")"
 J=$1; ROWS=$2; shift 2
-EXM=1.02,1.05,1.058,1.0656,1.07,1.072,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2,2.5,3,4,5
+EXM=1.02,1.05,1.0586,1.0656,1.07,1.072,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2,2.5,3,4,5
 C="Q3_JEVEN=$J Q3_JODD=5 Q3_EXTRA_M=$EXM SM_CURV=row HC_NODES=0 Z4_JS=$J HC_Z3=$ROWS $*"
 run() { env $C HC_TAG=t3_${J}_$1 "${@:2}" python3 hc_chain.py z4 300 > cache/hc_chain_z4_t3_${J}_$1.log 2>&1; }
 run best Z4_EST=best
