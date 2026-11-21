@@ -23,11 +23,18 @@ def grid(spec):
         return np.array(sorted(set(np.round(np.arange(0.25, 12.001, 0.25), 6).tolist() + [4.999254944, 6.665673259] + Z2NODES)))
     if spec == 'wide':
         return np.round(np.arange(0.25, 30.001, 0.25), 6)
+    if spec == 'fw':          # window grid + the fw/pw node values (10 ... 33.4)
+        return np.array(sorted(set(np.round(np.arange(0.25, 24.001, 0.25), 6).tolist() +
+                                   [10.0, 11.7, 13.3, 15.0, 16.3, 16.7, 18.5, 20.8, 23.0, 25.0, 29.0, 33.4])))
     return np.array([float(v) for v in spec.split(',')])
 
 
-def fn(Dl, J, depth):
-    return os.path.join(C, 'bj_eeq_D%g_J%d_d%d.pkl' % (Dl, J, depth))
+PATCH = os.environ.get('BJ_PATCH', '0') == '1'     # fw_frame.patch_conserved_clean basis (the fw records' basis; needed for J >= 150)
+
+
+def fn(Dl, J, depth, patch=None):
+    patch = PATCH if patch is None else patch
+    return os.path.join(C, 'bj_eeq_D%g_J%d_d%d%s.pkl' % (Dl, J, depth, '_p' if patch else ''))
 
 
 def run(Dl, J, depth, Ns, nus, kinds=('EE2',), verbose=True):
@@ -37,6 +44,9 @@ def run(Dl, J, depth, Ns, nus, kinds=('EE2',), verbose=True):
     if not todo:
         return db
     t0 = time.time()
+    if PATCH:
+        import l5_spin as S5, fw_frame as FW
+        FW.patch_conserved_clean(S5)
     P = BJ.pieces(depth, Dl, J, verbose=verbose)
     db['pieces_time'] = time.time() - t0
     db['flip'] = P['flip']
