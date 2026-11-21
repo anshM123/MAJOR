@@ -36,6 +36,10 @@ def states(Dg):
     for J in JS:
         mg = np.sqrt((Dg - 2.0) * (Dg - 1.0 + 2 * J))
         ms = [mg] + [f * L for f in MFL if f * L > mg * 1.0005]
+        if Dg >= 300 and J >= 16:          # near the gap these have bhat >= 25: covered by the leading-Regge model (stage 12)
+            if J in (18, 22):
+                continue
+            ms = [x for x in ms if x >= 1.5 * L * 0.9999]
         for m in ms:
             al = 0.5 * (-(2 * J + 1) + np.sqrt((2 * J + 1) ** 2 + 4 * m * m))
             out.append((float(al + J + 2), J, float(m / L)))
