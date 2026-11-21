@@ -28,6 +28,26 @@ Authoritative. Supersedes the headline claims of RESULT_Q_STAGE0–7, BELOW_FOLD
 > - **Hypothesis 5 reworded:** "χR_j is analytic in |Im ν| < 3 up to edge poles" [NE]. χ itself has poles at ±i/2.
 > - **Open:** heavy-side validity uses the ν-integral inside, while the light side now uses it outside. This circularity is concrete and unresolved.
 
+> **Final light-side status (RESULT_Q_V4FINAL.md), superseding the V₄′/V₄″/V₄‴ boxes above:**
+> - **Pointwise Lemma A [D].** For tree terms with J₀ < 4, the t-integrated, 1↔3-symmetrised integrand vanishes at every φ₁ ≠ φ₃. So the light side is the zero function in every order of integration, and the ν-circularity is resolved: Stages 3–7 computed ν-outside images on both sides, consistently.
+> - **H_LT → definition D_LR [D].** CLS-D's domain and KS-D's contour fix the cone-preserving prescription. On the light-transform manifold, W_u·f₄ ≡ 0 [P]. The tube regularisation is not a regularisation of CLS-D's integral.
+> - **H_νout deleted.** For J₀ ≥ 4 terms the light side is (P) and converges absolutely.
+> - **The remaining interchange (heavy sum vs corner/ν) is H_K** [D-sketch], the same class as Result D's I14(b). It becomes [D] given H_ip (J₀ < ½ at the raw corner).
+>
+> **Final upper-bound hypotheses:**
+> 1. A1, A2, a local EFT, and no conspiracy in the contact tower.
+> 2. K1′/K2/K3 plus H_K.
+> 3. Pointwise Lemma A with D_LR [D].
+> 4. Spinning (F) + (P) [D-sketch].
+> 5. The continuum de-shift exists [NE to t = 30; the C₅ spinning coefficients are I].
+> 6. Inheritances from Result D.
+> 7. H_smear^Q [NE + M].
+> 8. H_fwd^Q.
+> 9. H_OO^Q.
+> 10. Accuracy.
+>
+> The numbers are unchanged.
+
 ## Headline (conditional)
 
 At tree level, with twist gap Δ_g = 300 or 1000, and at ĝ₃ = 0:

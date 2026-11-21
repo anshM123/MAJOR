@@ -47,7 +47,12 @@ def run(Dl, J, depth, Ns, nus, kinds=('EE2',), verbose=True):
     if PATCH:
         import l5_spin as S5, fw_frame as FW
         FW.patch_conserved_clean(S5)
-    P = BJ.pieces(depth, Dl, J, verbose=verbose)
+    ppath = path.replace('bj_eeq_', 'bj_pieces_')
+    if os.path.exists(ppath):
+        P = pickle.load(open(ppath, 'rb'))
+    else:
+        P = BJ.pieces(depth, Dl, J, verbose=verbose)
+        pickle.dump(P, open(ppath + '.tmp', 'wb')); os.replace(ppath + '.tmp', ppath)
     db['pieces_time'] = time.time() - t0
     db['flip'] = P['flip']
     for (N, Kr) in todo:

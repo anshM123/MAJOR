@@ -53,6 +53,34 @@ def _prune_safe(self, rel=None):
 S.Poly.prune = _prune_safe
 
 
+def _poly_mul_lowmem(self, o):
+    """bg_ser.Poly.__mul__ with the chunk results merged into a running accumulator (memory ~ output + one chunk; the original
+    concatenates all chunk outputs before the final combine, which ran out of memory on 1e9-pair products)."""
+    if not isinstance(o, S.Poly):
+        return self.scale(o)
+    if len(self) == 0 or len(o) == 0:
+        return S.Poly()
+    a, b = (self, o) if len(self) >= len(o) else (o, self)
+    step = max(1, S.MAXPAIRS//len(b))
+    accE, accC = None, None
+    for i0 in range(0, len(a), step):
+        Ea, Ca = a.E[i0:i0 + step], a.C[i0:i0 + step]
+        E = (Ea[:, None, :].astype(np.int32) + b.E[None, :, :]).reshape(-1, S.NV)
+        C = (Ca[:, None]*b.C[None, :]).reshape(-1)
+        E, C = S._combine(E, C)
+        E, C = S.canon(E, C)
+        E, C = S._combine(E, C)
+        if accE is None:
+            accE, accC = E.astype(np.int16), C
+        else:
+            accE, accC = S._combine(np.vstack([accE, E.astype(np.int16)]), np.concatenate([accC, C]))
+    return S.Poly(accE, accC).prune()
+
+
+S.Poly.__mul__ = _poly_mul_lowmem
+S.Poly.__rmul__ = _poly_mul_lowmem
+
+
 def tv(c):
     """coefficient vector of a z-linear form (sum_m z_m c_m) -> lightcone vector A with dot(A, z) = that form."""
     return [c[1].scale(-2.0), c[0].scale(-2.0), c[2]]
@@ -264,8 +292,8 @@ def pref_sum(P, N, Kr, ntri=1):
                 if Y[n] is None:
                     continue
                 rmax = max(0, Kr - n//ntri)
-                Dn = Dh.trunc(rmax) if Dn is None else (Dn.trunc(rmax)*Dh.trunc(rmax))
-                term = Dn*trunc_abs(Y[n], d0 + rmax)
+                Dn = Dh.trunc(rmax) if Dn is None else XS_.macc([(Dn.trunc(rmax), Dh.trunc(rmax), 1.0)])
+                term = XS_.macc([(Dn, trunc_abs(Y[n], d0 + rmax), 1.0)])
                 tot = pad_add(tot, term, top0)
             out[a][c] = tot
     return out
