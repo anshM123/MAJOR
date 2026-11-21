@@ -170,10 +170,18 @@ Edge node values at `(336, 24)` (C2 `++ / +−`): `x = 0.8`: `−279 / +1935` (K
 
 * Near the gap `dF_OO` has the sign and size of the EE `++` correction (ratio `1.0–1.25`; e.g. 300, `J = 10`, 1.05Λ: `−0.0438` vs
   `−0.034`); `λ_OO` sits within `≤ 0.008` of the EE `++` diagonal at every state.
+* **`J = 18` at 300** (OO rows `Δ = 336, 400`, 11 nodes; the comparative test). LO check `C3H/C2 × (2−y) = 1.99–2.00` (one node
+  2.05–2.11 at `x = 0.15`). In the same `K₂` protocol as the EE block (convention A, local; `K₂` + spline below `x = 0.05`):
+  `Γ_OO` at `x = 0.05` is `−902 / −658 c₂` (rows 336 / 400) — the same small-`x` `K₂` pattern that was an artefact for the EE `++`
+  (`K₂ −1331` vs direct `+212` at `(336, 24)`) — and **min `λ_OO/N_s = +0.222`** at the gap `1.0586Λ` (`dF_OO/N = −0.78` vs EE `++`
+  `−0.49`; EE-block min `+0.472`); with min-norm weights on the `K₂` nodes (`W2_GAUGE=min`): `+0.239`. So at `J = 18` the OO
+  correction is `≈ 1.6×` the EE `++` one, and the OO block, not the EE block, is the binding block of `J = 18` in this treatment.
 * **Grade:** OO block positive with margin `≥ 0.21` on every computed state, `J = 4–10`, `Δ_g = 300, 1000`, `m/Λ` from the gap to 5
-  **[NE + M]** (M = the same K₂ chain model as the EE block). For `J ≥ 12` the OO block is **[M]**: it tracks `base_++ + dF_++` with a
-  correction ratio `≈ 1–1.25` at `J ≤ 10`; where `dF_++` is large (300, `J ≥ 18`: `|dF_++|/N ≈ 0.5–1` in convention A) a 25 %
-  difference is `O(0.1–0.2) N_s` — a `J = 18` OO row (`Δ = 336, 400`) is queued as a comparative test (`hc_queueOO2.sh`).
+  **[NE + M]** (M = the same K₂ chain model as the EE block); `J = 18` at 300: positive (`+0.22 / +0.24`) **in the superseded
+  small-`ν` treatment only** [NE + M(superseded)]; the validated treatment would need direct small-`ν` nodes of the odd structure at
+  even `J` (the hc n3 path supports the 3×3 `p8` integrand, not run). For `J ≥ 12` the OO block remains **[M]**: the OO/`++` correction
+  ratio grows from `1.0–1.25` (`J ≤ 10`) to `1.6` (`J = 18`), so "OO tracks `++`" is **not** a safe extrapolation where `dF_++` is
+  large (300, `J ≳ 18`; 1000 large `J`). `H_OO` is narrowed, not closed.
 
 ## 4. `Δ_g = 300`, `J ≤ 22` with the validated small-`ν` treatment (z4 protocol)
 
@@ -280,10 +288,24 @@ compared node by node with the `K₂` row (`Γ`, curvature image subtracted; sam
   nodes (the negative `P_J` lobes; `K₂` overshoots the lobe amplitude); on `(336, 32)` by `50–660 c₂` with both signs (phase error
   of the oscillation). This is the non-convergence the order ratios `|M₄/M₂| = 0.79 / 1.20` suggested: **`K₂` is not usable on these
   rows at `x ≥ 0.2` at the `10²`-`c₂` level [NE]**, confirming the review's regrading (S1).
-* **The chain cannot be re-run on a partial replacement:** the `K₂` row oscillates with the `P_J` period (`Δx ≈ 0.1` at `x ≈ 0.5`),
-  and replacing only the nodes `0.2, 0.3, …, 0.6` (one lobe sign) turns the `K₂` lobe error into a spurious non-oscillating shift
-  (`dF_++/N` at the gap `+0.86 → +4.2`). A complete direct sub-row `x = 0.125 … 0.8` (11 more nodes per `J`) is queued
-  (`hc_queueA3.sh`); until it is analysed, `J = 28, 32` at 300 stay **[M]/[I]** as in the post-review statement.
+* **A partial replacement is meaningless:** the `K₂` row oscillates with the `P_J` period (`Δx ≈ 0.1` at `x ≈ 0.5`), and replacing
+  only the nodes `0.2, 0.3, …, 0.6` (one lobe sign) turns the `K₂` lobe error into a spurious non-oscillating shift (`dF_++/N` at the
+  gap `+0.86 → +4.2`). Hence complete direct sub-rows `x = 0.125 … 0.8` (step 0.05, plus 0.125/0.15/0.175; 16 nodes) were computed.
+* **`(336, 28)`, complete direct sub-row** (`cache/hc_t4f_28_nodes.txt`; `Γ` with the row's own `a_h`, which now includes the direct
+  nodes at `x ≤ 0.25`): `K₂` overshoots the `P_J` lobes by a factor 2–5 on `x = 0.25–0.55` (C2 `++`: direct `+32, −44, +55, −60, +55, −22`
+  vs `K₂` `+113, −157, +203, −257, +324, −402` at `x = 0.25 … 0.5`), and is out of phase at `x = 0.55–0.8` (`0.65`: `−607` vs `+61`;
+  `0.75`: `−69` vs `−1660`; `0.8`: `−2503` vs `−326`).
+  z4 chain (rows 336/500/1600; the 336 row now direct on `x ≤ 0.8`: z2 small-`ν` nodes on `ν ≤ 33`, hc nodes on `x = 0.125–0.8`; the
+  500 and 1600 rows are `K₂` with `J²/m = 1.58 / 0.49`, inside the criterion):
+
+  | thimble nodes `ν = 5.0, 6.67` | `K₂` bulk (as before) min / gap `1.091Λ` | **direct bulk** min / gap | jackknife (direct, hc nodes) |
+  |---|---|---|---|
+  | main run | `+0.813` [1.5] / `+1.538` | **`+0.835` [1.5] / `+1.728`** | `±0.002` at the minimum, `≤ ±0.026` over states |
+  | independent repeat (`s2`) | `+0.660` [gap] / `+0.660` | **`+0.794` [1.5] / `+0.847`** | |
+
+  **`J = 28` at 300 with direct bulk: `n = 1` [NE + M]**; the `K₂` bulk error was unfavourable (it lowered the gap state by `0.19` (main) and `0.19` (repeat)
+  and the repeat-thimble minimum from `+0.85` to `+0.66`). The `ν < 8.3` window caveat (thimble values `±10⁴`, failure at a uniform
+  `Γ_c ≈ −4000`) is unchanged: **`J = 28` stays [I] at the 1σ level below `ν ≈ 8`**, but is no longer [M] in the bulk.
 * Side result (no new data): with the independent thimble repeat at `ν = 5.0, 6.67` (`Z3_PREFER=x,s2`) and the twist-edge mass
   `1.091Λ` added, `J = 28`'s minimum is `+0.660` at the gap (`+0.691` at 1.1Λ, as the review found).
 
