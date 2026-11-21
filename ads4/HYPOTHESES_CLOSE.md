@@ -213,6 +213,20 @@ common-seed replicas (`Z4_JK`). States: all exact-skeleton + hybrid states incl.
   `19.9`: `+14`; `29.8`: `−33`; `39.8`: `−46`. The `ν ≈ 8.3` node is `≈ −1230` at both `J = 20` and 22 (−395 / −895 at `J = 24 / 28`):
   the n3 contour's least reliable node (scalar check at `J = 24`: `−301 ± 1020 c₂`); the zero/const variants bracket it.
 
+### 4.3 `J = 18` (rows `Δ = 336` and `400`, both with direct nodes; gap `1.0585Λ`; states below `1.119Λ` held at the 336 row)
+
+| variant | gap `1.0586Λ` | worst near-gap state | min over `m` |
+|---|---|---|---|
+| convention A — superseded | `+0.482` | `+0.472` [1.072] | `+0.472` |
+| **direct small-`ν`, `best`, held below 8.35** | **`+0.993 ± 0.037`** (jk) | **`+0.910 ± 0.027`** [1.08] | `+0.872` [4Λ, no small-`ν` dependence] |
+| `dir` / `cv` | `+0.969 / +0.993` | `+0.898 / +0.910` | `+0.872` |
+| zero / linear below 8.35 | `+1.015 / +0.952` | `+0.927 / +0.879` | `+0.872` |
+| `Γ_c := −1000 / −4000 / −8000` below 8.35 | `+0.96 / +0.81 / +0.60` | `+0.885 / +0.761 / +0.589` | failure at `≈ −2·10⁴ c₂` |
+
+* Node values (`Γ_c`, `++`): row 336: `ν = 8.35`: `−823`; `10.0`: `+2`; `11.7`: `+99`; `13.4`: `+108`; `16.7`: `+86`; `20.9`: `+15`;
+  `25.0`: `−35`; `33.4`: `−108`. Row 400: `8.36`: `−958`; `9.95`: `−100`; `11.7`: `+28`; `13.3`: `+61`; `16.7`: `+76`; `19.9`: `+45`;
+  `29.9`: `−21`; `39.8`: `−64`.
+
 ## 5. `K₂` beyond its convergence criterion: direct bulk nodes on `(336, 28)`, `(336, 32)`
 
 Method: n1 adaptive direct nodes (shared seeds, `2¹²·2·8` points, element errors `0.06–0.16 %`) at `x = 0.2, 0.3, 0.4, 0.5, 0.6`,
