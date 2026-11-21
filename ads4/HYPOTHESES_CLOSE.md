@@ -227,6 +227,30 @@ common-seed replicas (`Z4_JK`). States: all exact-skeleton + hybrid states incl.
   `25.0`: `−35`; `33.4`: `−108`. Row 400: `8.36`: `−958`; `9.95`: `−100`; `11.7`: `+28`; `13.3`: `+61`; `16.7`: `+76`; `19.9`: `+45`;
   `29.9`: `−21`; `39.8`: `−64`.
 
+### 4.4 `J = 4` (row 400, spot nodes) and the full `Δ_g = 300` sweep, even `J = 0–22`, odd `J = 5–15`
+* `J = 4`: direct `Γ_c` (`++`) `−18 / +5 / +4 c₂` at `ν = 10.0 / 19.9 / 39.8` (failure would need `≲ −4·10⁴` below `ν = 25`, §4 method
+  note); z4 with these nodes: gap state `1.0133Λ` **`+0.2137`**, identical (`±2·10⁻⁴`) to convention A. Closed [NE + M].
+* `J = 5` (odd, binding; row 400, spot nodes, n3 with the odd `p8` integrand): direct `Γ` (`+−`) C2 `−13 / +2 / +2`, C3H `+119 / +15 /
+  +16 c₂` at `x = 0.025 / 0.05 / 0.1` (`ν = 10 / 20 / 40`), against `K₂`/spline `−7 / +4 / +23` and `−40 / −40 / −39`; failure would need
+  `≲ −2·10⁵ c₂` uniformly below `ν = 25`. With the direct nodes in the row (local de-shift; the odd sector has no non-local
+  implementation): binding state **`+0.2038`** at `1.0166Λ`, unchanged. Closed [NE + M].
+* **Sweep** (one z4 run: direct small-`ν` + non-local min-norm `X` for `J = 18, 20, 22`; convention A — `K₂` rows, local `ψ₂` weights
+  — for every other `J`, which has no direct small-`ν` nodes; all exact-skeleton + hybrid states **including every `J`'s twist-edge
+  mass**; `cache/hc_chain_z4_t3_all.txt`):
+
+| `J` | 0 | 2 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 18* | 20* | 22* |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| min `λ/N_s` | +0.999 | +1.000 | +0.214 | **+0.2038** | +0.307 | +0.704 | +0.426 | +0.438 | +0.603 | +0.645 | +0.628 | +0.728 | +0.653 | +0.630 | +0.707 | +0.872 | +0.863 | +0.841 |
+| at `m/Λ` | 1.0 | 1.7 | 1.013 (gap) | 1.017 (gap) | 1.25 | 1.1 | 1.052 (gap) | 1.03 | 2.0 | 1.036 (gap) | 1.055 (gap) | 1.1 | 1.046 (gap) | 1.068 | 1.1 | 4.0 | 1.065 (gap) | 1.071 (gap) |
+
+  (`*` = direct small-`ν` nodes.) `n = 1` at 300 on all these `J`; binding state `J = 5` at its twist edge `1.0166Λ`, `+0.2038`
+  (hybrid; uncorrected `+0.2043`, as the statement's `+0.2043`). The twist-edge masses lower several minima that the old grid did not
+  sample (`J = 11: 0.749 → 0.645`, `12: 0.634 → 0.628`, `14: 0.690 → 0.653`, `15: 0.707 → 0.630`, `22: 0.123 → 0.046` in convention A).
+* **Grade.** `J = 18, 20, 22` (and `J = 4`): **[NE + M]** with the validated small-`ν` treatment (margins `+0.84 … +0.87`, jackknife
+  `±0.03–0.08`; failure needs a uniform `Γ_c ≲ −1.0·10⁴ / −1.45·10⁴ / −2·10⁴ c₂` below `ν = 8.3` at `J = 22 / 20 / 18`, against
+  `O(10²–10³)` measured at `ν ≥ 8.3`). Even `J = 6–16` and odd `J = 5–15`: still convention A ([NE + M] in the superseded treatment, which
+  at `J = 18–28` was always **pessimistic**, by `0.4–0.8 N_s`); the corrections there are `≤ 0.25 N_s` against margins `≥ 0.20`.
+
 ## 5. `K₂` beyond its convergence criterion: direct bulk nodes on `(336, 28)`, `(336, 32)`
 
 Method: n1 adaptive direct nodes (shared seeds, `2¹²·2·8` points, element errors `0.06–0.16 %`) at `x = 0.2, 0.3, 0.4, 0.5, 0.6`,
