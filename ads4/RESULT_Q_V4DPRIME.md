@@ -224,7 +224,35 @@ of the exchanged operator with `z₁`, `z₃`, `x₁₃` (all ≃ ∝ z) is O(1)
 * Corner integrand: `Δφ^{τ−3/2}`. **Twist 1 is absolutely convergent per ν, margin `r^{1/2}`.**
 
 **Exact light-ray structures.** These are the (13) legs `D₁^mD₃^nX^{−1/2}`, m, n ≤ 2, the singular factors of the twist-1 family, with closed
-forms in `v4d_og.py`. Results: OG_RESULTS
+forms in `v4d_og.py`.:
+
+* **Scaling [DV].** For all nine structures m, n ≤ 2 the fitted exponents are the lemma's: P = −0.500 in the contact region, Q = −1.000
+  pointwise. None of them vanishes identically, unlike the identity's `N`.
+* **Raw per-ν pairing [DV].** Stand-in: the smooth legs to 2 and 4 set to 1.
+  * It tends to a finite ε → 0 limit with an **ε^{1/4}** approach. Successive-difference exponents are +0.250 (ν = 6) and +0.23…+0.28
+    (ν = 2), for (1,1), (2,2), (0,0).
+  * So the O(G) corner is absolutely convergent per ν, as the lemma says.
+* **Heavy-normalised per-ν size**, structure (1,1), ε = 10⁻⁵:
+
+  | ν | 1 | 5 | 12 | 20 | 25 |
+  |---|---|---|---|---|---|
+  | `|G|N₀/N` | 1.3 | 22 | 1.9·10⁵ | 9·10¹¹ | 4·10¹⁶ |
+
+* **De-shifted with the XP weights**, `|G_ds|` (columns are ε):
+
+  | weight | ν_c | 10⁻³ | 10⁻⁵ | 10⁻⁷ |
+  |---|---|---|---|---|
+  | value | ≤ 12 | `(1.6–4.7)·10⁻⁷` | | stable |
+  | value | 16 | `6.6·10⁻⁴` | `1.4·10⁻⁴` | `3.2·10⁻⁵` |
+  | value | 20 | `7.6·10⁻²` | `1.6·10⁻²` | `8·10⁻³` |
+  | deriv | ≤ 12 | `1.2·10⁻⁷` | | |
+  | deriv | 20 | `3·10⁻³` | | `3·10⁻⁴` |
+
+  * The low-ν part converges to the ε = 0 pointwise value.
+  * The ν-sum grows without bound with ν_c, for the same reason as §1 (i).
+  * **The `ε^{1.69}` power count of V₄′ is not realised.** What exists is a per-ν statement: raw convergence with an ε^{1/4} approach.
+    Integrated over ν after the per-ν limit (ν outside), it gives a finite contribution, which Lemma A at O(G) must cancel.
+
 
 **Not done [I].** The Einstein ⟨TTT⟩ u-channel T block with its `[TT]₀` partners, and hence whether the four O(G) light-family residues
 cancel with spin as in the scalar Mellin proxy. With the per-ν (ν-outside) reading, that cancellation is the content of Lemma A at O(G).

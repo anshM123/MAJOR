@@ -16,6 +16,18 @@ Authoritative. Supersedes the headline claims of RESULT_Q_STAGE0–7, BELOW_FOLD
 > - **O(G) corrections are corner-convergent by power counting [D-sketch].** The exact Einstein cancellation in the swapped form is [I].
 > - **V₄′ is replaced by V₄″:** on tree-level ⟨TTTT⟩ the total de-shifted kernels, with the ν-integral inside, converge absolutely at the corner, and the swapped form equals the commutator form there. Grade [D-sketch], with the O(1) regular part [P]. Hypothesis 5 (the de-shift exists and is analytic in |Im ν| ≤ 3) is now load-bearing for the light side too.
 
+> **V₄″ test (RESULT_Q_V4DPRIME.md): V₄″ is false [DV]; V₄‴ replaces it.**
+> - **The cure fails.** With the actual de-shift weights, the u-channel contact term still diverges (exponent −0.15 to −0.23), and its size depends on the ν-truncation. There are two separate obstructions:
+>   - the ν-integrand grows like e^{πν/4};
+>   - the two branches do not join at ν = 0.
+> - **Cone-preserving regularisation removes it.** With the cone-preserving prescription t → t + iε the contact term is exactly 0. This prescription is the one consistent with L[T]|Ω⟩ = 0.
+> - **V₄‴ [D-sketch]:** per ν (with the ν-integral outside), swapped form = commutator form at the corner. The O(1) part is exactly 0 under the light-ray prescription, and the O(G) part converges per ν with margin r^{1/2}. The O(G) homogeneity lemma is [D], checked on the exact structures.
+> - **Two new hypotheses:**
+>   - **H_LT:** the CLS-D functional uses the light-ray regularisation at the collinear point.
+>   - **H_νout:** the per-ν light side, summed over families, is polynomially bounded in the heavy normalisation.
+> - **Hypothesis 5 reworded:** "χR_j is analytic in |Im ν| < 3 up to edge poles" [NE]. χ itself has poles at ±i/2.
+> - **Open:** heavy-side validity uses the ν-integral inside, while the light side now uses it outside. This circularity is concrete and unresolved.
+
 ## Headline (conditional)
 
 At tree level, with twist gap Δ_g = 300 or 1000, and at ĝ₃ = 0:
