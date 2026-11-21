@@ -41,8 +41,9 @@ Grades: **[P]** proved, **[D]** derived, **[NE]** numerical evidence, **[M]** mo
 * **Edge representation (ee1000 mode, `HC_EDGE_MODEL=piece`).** On `x ≤ 0.8` the protocol's model is kept (shape fit `K = 4` on the
   row's nodes `x ≤ 0.8`); on `x > 0.8` a separate shape fit `Γ = c D_h + s xD_h′/(2J+1) + r` with constant (`HC_EK=0`) or linear
   coefficients on the nodes `x ≥ 0.8`, held beyond the last node. Variants (`hc_edge.py`): `A` = direct only for `x > 0.8` (the `K₂`
-  node at 0.8 kept), `B` = direct from 0.8 on (main), `B_lin` / `B_spl` = linear / natural-spline interpolation of the edge nodes,
-  `B_nd` = injected nodes exempt from the Hampel filter, `glob` = one `K = 4` shape fit over `[0.05, 0.9]`; jackknife over the 8
+  node at 0.8 kept), `B` = direct from 0.8 on, `B_K1` = B with linear-in-`x` edge coefficients (main once 8 edge nodes exist),
+  `B_lin` / `B_spl` = linear / natural-spline interpolation of the edge nodes, `B_desp` = injected nodes subject to the Hampel filter
+  (all other variants exempt the direct nodes), `glob` = one `K = 4` shape fit over `[0.05, 0.9]`; jackknife over the 8
   replicas of the injected nodes. The `+−` window weight sits at `x ≤ 0.875` (`J = 40` gap: 61 / 32 / 11 % of the window in
   `(0.8, 0.825] / (0.825, 0.85] / (0.85, 0.875]`, the rest `≤ 3 %`, with sign changes from `ψ₂`), so nodes `0.8 … 0.9` cover it.
 
@@ -76,58 +77,38 @@ the representation between nodes (half-period of the oscillation ≈ node spacin
 | **31 (odd, 8 edge nodes)** | `+1.200 / +0.995` | **K1 `+1.056 / +0.988`** (residual 8 %) | B (K0, residual 39 %) `+1.051`, A `+1.090`, lin `+1.000`, spline `+1.014`, glob `+1.193` | `±0.0041` (B) |
 | 17 (odd) | `+0.992 / +0.839` | `+0.997 / +0.840` | A, lin, spline, glob: `+0.997 … +0.998` | `±0.0008` |
 
-### 2.3 Per-state effect, `Δ_g = 300` (z4 chain, rows 336/500/1600, `Z4_EST=best`, natural spline in `x` as the protocol; edge nodes
-exempt from the Hampel filter, `x = 0.9` excluded at `J = 24` (RQMC error > 100 % there: `ν = 300` is too close to `Δ = 336`))
-
-| `J` | variant | gap state (`1.078Λ`) | 1.1Λ | min over `m` |
-|---|---|---|---|---|
-| 24 | protocol (held) | `+1.021` | `+1.013` | `+0.8204` [1.5] |
-| 24 | B (direct 0.8–0.875) | `+1.011 ± 0.0007` (jk) | `+1.009` | `+0.8204` [1.5] |
-| 24 | A (K₂ kept at 0.8) / B with Hampel on | `+1.028` / `+1.008` | `+1.016` / `+1.008` | `+0.8204` |
-| 24 | linear interpolation in `x` (protocol / B) | `+1.040 / +1.014` | `+1.053 / +1.042` | `+0.8101` [1.5] |
-
-| 16 | protocol (held) | `+0.767` [gap 1.053] | `+0.707` | `+0.7074` [1.1] |
-| 16 | B (direct 0.8–0.9) | `+0.750` | `+0.703 ± 0.0001` (jk) | `+0.7032` [1.1] |
-| 16 | A / B with Hampel on | `+0.761 / +0.755` | `+0.705 / +0.703` | `+0.7048 / +0.7034` |
-| 16 | linear interpolation (protocol / B) | `+0.758 / +0.743` | `+0.702 / +0.698` | `+0.7020 / +0.6982` |
-
-### 2.4 The binding state, `J = 5` (odd, `+−`), both `Δ_g`
-* Direct edge nodes `x = 0.8, 0.85, 0.9` on all four `J = 5` rows (`Δ = 200, 400, 800, 1600`; `x = 0.95` has `~100 %` RQMC error on
-  the 200/400 rows and is excluded): `|Γ| ≤ 50 c₂` (C2 `+43, +17, +3` at 1600; `≤ 6` at 200/400), against a failure threshold for a
-  uniform edge value of `≈ −6·10⁴ c₂` (300) / `−5·10⁵ c₂` (1000).
-* w2 chain, all `J = 5` states: **`+0.2052` (300, 1.02Λ) and `+0.2021` (1000, 1.01Λ), unchanged to `< 5·10⁻⁵`** in every variant
-  (protocol, direct, direct + Hampel, linear interpolation).
-
-Edge node values at `(336, 24)` (C2 `++ / +−`): `x = 0.8`: `−279 / +1935` (K₂ `+1316 / +1282`), 0.825: `−1844 / −953`, 0.85:
-`+3418 / −2489`, 0.875: `−3566 / +5769`; the held protocol value is `+1316 / +1282` throughout. At `(400, 16)`: `x = 0.8 … 0.9`:
-`++` `+556, +878, −818, −1555, +2580`, `+−` `−1009, −559, +1286, +2216, −899` (held `+244 / −891`).
-
 * **Main representation = K1** (edge shape fit with linear-in-`x` coefficients on 8 nodes `x = 0.8 … 0.9`, spacing 0.0125): it is
   the only edge model whose residual (1–10 %) is at the level of the in-row fits; K0 (constant coefficients) misses the growth of the
   amplitude towards the edge (residual 25–40 %), and linear/spline interpolation alias the `D_h` oscillation (half-period ≈ 0.025).
+  Jackknife of K1 at the gap: `±0.0012 / ±0.0035 / ±0.0042` (`J = 40 / 36 / 31`).
 * **`J = 31`**: the favourable `+0.21` gap correction the review flagged (S3) came from the held `x = 0.775–0.8` nodes; with direct
   edge values it is `+0.065` (K1; `+0.01 … +0.10` over the non-global representations). The gap state stays `≥ +1.000`.
 * **`J = 36`**: the gap state drops from `+0.994` to `+0.957` (K1) and becomes the minimum over `m`; linear/spline interpolation give
   `+0.86 / +0.88` (aliased); every representation is positive.
 * **`J = 40`**: `−0.012` at the gap (K1); the minimum (`+0.9795`, 5Λ) is not in the edge window.
+* **`J = 17`**: `+0.005`; edge values `|Γ| ≤ 2800 c₂`, failure threshold for a uniform edge value `≈ −5600 c₂`.
 * Changing `x = 0.8` from `K₂` to direct also moves states without an edge window (`J = 31`, 1.4Λ: `+0.9945 → +0.9877`): `K₂` at
   `x = 0.8` is off by `≈ 1000 c₂` (`J = 31`: `+2744` vs direct `+1792`; `J = 40` `+−`: `+1367` vs `+4379`) — an `H_M` (K₂ accuracy) item,
   small here.
 
-### 2.3 Per-state effect, `Δ_g = 300` (z4 chain, rows 336/500/1600, `Z4_EST=best`, natural spline in `x` as the protocol; edge nodes
-exempt from the Hampel filter, `x = 0.9` excluded at `J = 24` (RQMC error > 100 % there: `ν = 300` is too close to `Δ = 336`))
+### 2.3 Per-state effect, `Δ_g = 300` (protocol chains: z4 for `J = 24` (rows 336/500/1600, `Z4_EST=best`), w2 for `J = 16`; natural
+spline in `x` as the protocol; edge nodes exempt from the Hampel filter; `x = 0.9` excluded at `J = 24` (RQMC error > 100 % there:
+`ν = 300` is too close to `Δ = 336`))
 
-| `J` | variant | gap state (`1.078Λ`) | 1.1Λ | min over `m` |
+| `J` | variant | gap state | 1.1Λ | min over `m` |
 |---|---|---|---|---|
-| 24 | protocol (held) | `+1.021` | `+1.013` | `+0.8204` [1.5] |
+| 24 | protocol (held) | `+1.021` [1.078] | `+1.013` | `+0.8204` [1.5] |
 | 24 | B (direct 0.8–0.875) | `+1.011 ± 0.0007` (jk) | `+1.009` | `+0.8204` [1.5] |
 | 24 | A (K₂ kept at 0.8) / B with Hampel on | `+1.028` / `+1.008` | `+1.016` / `+1.008` | `+0.8204` |
 | 24 | linear interpolation in `x` (protocol / B) | `+1.040 / +1.014` | `+1.053 / +1.042` | `+0.8101` [1.5] |
-
-| 16 | protocol (held) | `+0.767` [gap 1.053] | `+0.707` | `+0.7074` [1.1] |
+| 16 | protocol (held) | `+0.767` [1.053] | `+0.707` | `+0.7074` [1.1] |
 | 16 | B (direct 0.8–0.9) | `+0.750` | `+0.703 ± 0.0001` (jk) | `+0.7032` [1.1] |
 | 16 | A / B with Hampel on | `+0.761 / +0.755` | `+0.705 / +0.703` | `+0.7048 / +0.7034` |
 | 16 | linear interpolation (protocol / B) | `+0.758 / +0.743` | `+0.702 / +0.698` | `+0.7020 / +0.6982` |
+
+Edge node values at `(336, 24)` (C2 `++ / +−`): `x = 0.8`: `−279 / +1935` (K₂ `+1316 / +1282`), 0.825: `−1844 / −953`, 0.85:
+`+3418 / −2489`, 0.875: `−3566 / +5769`; the held protocol value is `+1316 / +1282` throughout. At `(400, 16)`: `x = 0.8 … 0.9`:
+`++` `+556, +878, −818, −1555, +2580`, `+−` `−1009, −559, +1286, +2216, −899` (held `+244 / −891`).
 
 ### 2.4 The binding state, `J = 5` (odd, `+−`), both `Δ_g`
 * Direct edge nodes `x = 0.8, 0.85, 0.9` on all four `J = 5` rows (`Δ = 200, 400, 800, 1600`; `x = 0.95` has `~100 %` RQMC error on
@@ -135,16 +116,6 @@ exempt from the Hampel filter, `x = 0.9` excluded at `J = 24` (RQMC error > 100 
   uniform edge value of `≈ −6·10⁴ c₂` (300) / `−5·10⁵ c₂` (1000).
 * w2 chain, all `J = 5` states: **`+0.2052` (300, 1.02Λ) and `+0.2021` (1000, 1.01Λ), unchanged to `< 5·10⁻⁵`** in every variant
   (protocol, direct, direct + Hampel, linear interpolation).
-
-Edge node values at `(336, 24)` (C2 `++ / +−`): `x = 0.8`: `−279 / +1935` (K₂ `+1316 / +1282`), 0.825: `−1844 / −953`, 0.85:
-`+3418 / −2489`, 0.875: `−3566 / +5769`; the held protocol value is `+1316 / +1282` throughout. At `(400, 16)`: `x = 0.8 … 0.9`:
-`++` `+556, +878, −818, −1555, +2580`, `+−` `−1009, −559, +1286, +2216, −899` (held `+244 / −891`).
-
-* **`J = 31`**: the favourable `+0.21` gap correction the review flagged (S3) came from the held `x = 0.775–0.8` nodes; with direct
-  edge values it is `+0.03 … +0.12`. The gap state stays at `≥ +1.016` in every representation.
-* **`J = 36`**: the representation spread is large (`+0.84 … +1.06`) because the `+−` edge values alternate in sign from node to node
-  (period ≈ 0.05 ≈ 2 × spacing); linear/spline interpolation is at the Nyquist limit there. Finer nodes (`0.8125, 0.8375, 0.8625`) are
-  queued (`hc_queueA2.sh`). Every representation is positive (worst `+0.84`).
 
 ### 2.5 Grade of `H_edge`
 * **Computed states (the binding and representative ones):** `Δ_g = 1000`: `J = 5` (odd, binding), 17 (odd), 31 (odd), 36, 40 at the
