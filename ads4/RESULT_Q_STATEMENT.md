@@ -2,6 +2,13 @@
 
 Authoritative. Supersedes the headline claims of RESULT_Q_STAGE0–7, BELOW_FOLD2/3 and PARITY_ODD_CLOSE wherever they differ. Review: REVIEW_RESULTQ_2026-11.md, verdict **major revision**; nothing fatal found for the upper bound at ĝ₃ = 0.
 
+> **Revision update (RESULT_Q_REVISION.md):**
+> - **H_smear^Q → [NE + M].** The smeared corrections at the binding states are ≤ 3·10⁻⁵ of B₂, against a tolerance of about 24 %. The minimum FF/N is unchanged at +0.1427. The edge window x > 0.8 and k = 3 below the fold are still [I], but bounded by tolerances.
+> - **V₄ → V₄′ (the single load-bearing input of the upper bound) [D-sketch].** V₄′ states absolute convergence at the corner where the light-cone edge meets the Regge corner, and Mellin equivalence of the spinning functional. The infinite [TT]₀ J-sum is never performed. In the scalar Mellin proxy the O(G) residues cancel identically [DV].
+> - **The W³W³ residue in ∂Ĉ₄(0) is zero [D-sketch].** The u-channel is annihilated, and the s- and t-channel light sides are polynomial in ν². This assumes a spinning analogue of CHMRS's light-side formula, which is a new hypothesis.
+> - **Cubic terms restored at grade [D-sketch + M].** κ = 0.110, and the lower slope is 0.49 (0.255 if double-counted), so ≥ ¼ either way.
+> - **Implied cubic bound.** Result Q implies |ĝ₃|²Λ⁸ ≤ 120–198 (Δ_g = 300) and 154–257 (Δ_g = 1000). This is a *conditional strengthening* of Result D (1.07·10⁴ / 1.43·10⁴), not a replacement: Result D needs none of Q's extra hypotheses.
+
 ## Headline (conditional)
 
 At tree level, with twist gap Δ_g = 300 or 1000, and at ĝ₃ = 0:
