@@ -118,38 +118,40 @@ def _grid_despiked(J, *a, **k):
 
 Q.P4.grid = _grid_despiked
 
-# even-row despike exemption of injected nodes (w2's Hampel acts inside W2._A_grid): optional
+# even-row despike exemption of injected nodes: w2's Hampel acts in W2._grid (= Q.A.grid as installed by w2_chain, AFTER the inner
+# l9 grid W2._A_grid); wrap Q.A.grid there: w2's filter off for rows with injected nodes, the same rule applied to the non-injected nodes
 if not DESP_INJ:
-    _Ag = W2._A_grid
+    _Wgrid = Q.A.grid
 
-    def _A_grid_ex(J, K, kinds=('C2', 'C3H'), *a, **k):
+    def _grid_ex(J, K, kinds=('C2', 'C3H'), *a, **k):
+        if J not in INJ:
+            return _Wgrid(J, K, kinds, *a, **k)
         old = os.environ.get('W2_DESPIKE', '1')
-        if (J in INJ):
-            os.environ['W2_DESPIKE'] = '0'
-            try:
-                g = _Ag(J, K, kinds, *a, **k)
-            finally:
-                os.environ['W2_DESPIKE'] = old
-            # Hampel on the non-injected nodes only
-            for D, r in g.items():
-                n = len(r['xs']); bad = np.zeros(n, bool)
-                inj = np.array([any(abs(x*r['m'] - v) < 1e-6*v for v in INJ_NU.get((J, D), ())) for x in r['xs']])
-                for kk in [kk for kk in r if isinstance(kk, tuple) and len(kk) == 2 and kk[1] in ('++', '+-')]:
-                    v = np.asarray(r[kk], float); scale = np.median(np.abs(v)) + 1e-12
-                    for i in range(n):
-                        w = np.r_[v[max(0, i - 3):i], v[i + 1:i + 4]]
-                        med = np.median(w); mad = np.median(np.abs(w - med))
-                        if abs(v[i] - med) > 6*max(mad, scale):
-                            bad[i] = True
-                bad[0] = False; bad &= ~inj
-                if bad.any():
-                    W2.DESPIKE_LOG.append((J, D, [round(float(x), 4) for x in r['xs'][bad]]))
-                    for kk, vv in list(r.items()):
-                        if isinstance(vv, np.ndarray) and vv.shape == bad.shape:
-                            r[kk] = vv[~bad]
+        os.environ['W2_DESPIKE'] = '0'
+        try:
+            g = _Wgrid(J, K, kinds, *a, **k)
+        finally:
+            os.environ['W2_DESPIKE'] = old
+        if old != '1':
             return g
-        return _Ag(J, K, kinds, *a, **k)
-    W2._A_grid = _A_grid_ex
+        for D, r in g.items():
+            n = len(r['xs']); bad = np.zeros(n, bool)
+            inj = np.array([any(abs(x*r['m'] - v) < 1e-5*v for v in INJ_NU.get((J, D), ())) for x in r['xs']])
+            for kk in [kk for kk in r if isinstance(kk, tuple) and len(kk) == 2 and kk[1] in ('++', '+-')]:
+                v = np.asarray(r[kk], float); scale = np.median(np.abs(v)) + 1e-12
+                for i in range(n):
+                    w = np.r_[v[max(0, i - 3):i], v[i + 1:i + 4]]
+                    med = np.median(w); mad = np.median(np.abs(w - med))
+                    if abs(v[i] - med) > 6*max(mad, scale):
+                        bad[i] = True
+            bad[0] = False; bad &= ~inj
+            if bad.any():
+                W2.DESPIKE_LOG.append((J, D, [round(float(x), 4) for x in r['xs'][bad]]))
+                for kk, vv in list(r.items()):
+                    if isinstance(vv, np.ndarray) and vv.shape == bad.shape:
+                        r[kk] = vv[~bad]
+        return g
+    Q.A.grid = _grid_ex
 
 import sm_curvfix as CF          # noqa: E402  (wraps Q.A.grid / Q.P4.grid: curvature image subtracted after despike)
 
