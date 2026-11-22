@@ -29,6 +29,16 @@ Note: HRS, OG and FH are later than RU and refine three of its items. Each such 
 
 ---
 
+> **Update (HRS_CLOSE.md, unreviewed): H_RS for Q's binding state [I] → [D-sketch], i.e. [D] given premise RD.** The argument is analytic and covers every ν window, including ν < 1.
+> - At every order of the 1/Δ expansion, the engine's integrand is one fixed multivalued function times a polynomial. Integration by parts reduces every term to a rational multiple of one base integral, the same on any cycle (s-/φ-odd terms vanish; there are no α-odd terms).
+> - So the crystal cycle = c_Γ(ν) × engine order by order, and c_Γ cancels in the state/reference ratio.
+> - The hypotheses of the argument are checked on the engine's pieces to a⁴–a⁵ [DV]: lattice-shifted exponents shared by scalar/EE2/EE4, no interior poles, no integer exponents, no boundary layers.
+> - **Remaining premise RD** (the crystal integral is Regge-dominated, with the far region e^{−O(Δ)}): [DV] for the scalar, [NE] for EE at ν ≥ 10, [D-sketch] for EE below 10.
+> - **New K = 5 images:**
+>   - truncation is ≤ 0.01 c₂ per harmonic (300), with |Δs_d| ≤ 0.015 (300) / 0.0015 (1000);
+>   - the binding FF/N is unchanged (+0.1427 / +0.1428 at δ = 0.2), with the margin ≥ 85× the bound.
+> - **Covered:** ++ J = 0, 2. OO J = 0 is covered via Γ_OO = Γ_++ (direct application [D-sketch]). **Not covered:** Result D's (336, 28/32) window, where the obstacle is the J²/Δ resummation, not the cycle.
+
 ## 0. Headline
 
 **Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper
