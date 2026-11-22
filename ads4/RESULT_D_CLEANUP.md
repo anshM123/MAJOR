@@ -1,6 +1,6 @@
 # Result D clean-up: direct small-`ν` nodes at `Δ_g = 300` for `J = 6–15`, `H_edge` on the remaining low-`J` rows, `J = 48` check
 
-*22 Nov 2026, clean-up agent. Unrefereed, not committed. No existing document, code file or cache was edited: new code
+*22 Nov 2026, clean-up agent. Unrefereed; not committed by this agent (intermediate drafts of this file were picked up by other commits). No existing document, code file or cache was edited: new code
 `ads4/code/spinfunc/cl_*.py` / `cl_*.sh`, new caches `spinfunc/cache/cl_*` only (a write guard, `cl_guard.py`, refuses any write to a
 non-`cl_` cache file in every `cl_` process). Background: RESULT_D.md (update bullets), HYPOTHESES_CLOSE.md (HC), HYPOTHESES_CLOSE2.md
 (HC2), PARITY_ODD_CLOSE.md (PO), REVIEW_EE_2026-11.md (the review), RESULT_D_STATEMENT.md.*
@@ -29,11 +29,11 @@ Spread = jackknife over the 8 common-seed replicas, then the range over the esti
 
 | `J` | block | old (convention A) min [`m/Λ`] | **new min** [`m/Λ`] | jackknife | variant range (near-gap min) | `n` | edge shift (§0.2) | grade |
 |---|---|---|---|---|---|---|---|---|
-| 6 | EE / OO | `+0.307` [1.25] | **`+0.3075` / `+0.3078`** [1.25] (PO; reproduced bit-for-bit) | `±0.0001` | `+0.307 … +0.308` | 0 | `0.0000` | [NE + M] |
 | 5 (odd, binding) | `+−` | `+0.2038` [1.0166] (HC: spot nodes, row 400 only) | **`+0.2038`** [1.0166] (rows 200 + 400 direct; `0.20384 → 0.20377`) | `±0.0000` | `+0.2038` | 0 | `0.0000` | [NE + M] |
+| 6 | EE / OO | `+0.307` [1.25] | **`+0.3075` / `+0.3078`** [1.25] (PO; reproduced bit-for-bit) | `±0.0001` | `+0.307 … +0.308` | 0 | `0.0000` | [NE + M] |
 | 7 (odd) | `+−` | `+0.704` [1.10] (same grid `+0.7025` [1.095]) | **`+0.7033`** [1.095] (rows 200 + 400 direct; row 400 only: `+0.7024`) | `±0.0002` | `+0.7033` | 0 | `0.0000` | [NE + M] |
 | 8 | EE | `+0.426` [1.052] | **`+0.4271`** [1.055] | `±0.0009` | `+0.4271` (dir/cv/no-Hampel); conv. A same grid `+0.4258` | 0 | `−0.0003` | [NE + M] |
-| 8 | OO | `+0.477` [1.65] (all `m`, HC) | **`+0.5493`** [1.085] near gap; all `m` `+0.4787` [1.65] (LO base) | `±0.0006` | `+0.549 … +0.550`; uniform `Γ_c = −8000` below `ν = 8.37`: `+0.520` | 0 | — | [NE + M] |
+| 8 | OO | `+0.5408` [1.08] (same grid); all `m` `+0.4774` [1.65] (HC) | **`+0.5493`** [1.085] near gap; all `m` `+0.4787` [1.65] (LO base) | `±0.0006` | `+0.549 … +0.550`; uniform `Γ_c = −8000` below `ν = 8.37`: `+0.520` | 0 | — | [NE + M] |
 | 9 (odd) | `+−` | `+0.4375` [1.03] | **`+0.4561`** [1.03] (rows 200 + 400 direct; row 400 only: `+0.4448 ± 0.0003`) | `±0.0006` | `+0.4561 … +0.4562` | 0 | `−0.0055` | [NE + M] |
 | 10 | EE | `+0.6631` [1.28] (all `m` `+0.6026` [2.0]) | **`+0.6697`** [1.28] (all `m` `+0.6033` [2.0]) | `±0.0009` | `+0.6697` | 0 | `+0.0001` | [NE + M] |
 | 10 | OO | `+0.6594` [1.28] (all `m` `+0.602`) | **`+0.6751`** [1.28] (all `m` `+0.6038` [2.0]) | `±0.0009` | `+0.674 … +0.676`; `Γ_c = −8000`: `+0.648` | 0 | — | [NE + M] |
@@ -45,7 +45,7 @@ Odd `J = 5, 7, 9`: the near-gap states lie between the `Δ = 200` and `400` rows
 
 **Verdict (task 1).** Every state of even `J = 6, 8, 10` and odd `J = 7, 9, 11, 13, 15` at `Δ_g = 300` is positive with direct small-`ν`
 nodes, with jackknife errors `≤ 0.015` and variant spreads `≤ 0.003`; no negative direction anywhere (`n = 0`). Convention A was again
-**pessimistic** wherever the small-`ν` window matters (`J = 9 / 11 / 13 / 15`: `+0.007 / +0.028 / +0.048 / +0.159`), and irrelevant where
+**pessimistic** wherever the small-`ν` window matters (`J = 9 / 11 / 13 / 15`: `+0.019 / +0.028 / +0.048 / +0.159`), and irrelevant where
 it does not (`J = 6, 7, 8, 10`: `|Δ| ≤ 0.007`, minima away from the gap or `N_s` large). Every direct node passes the scalar check
 against the exact Mellin object (`≤ 1.2σ`; §1.3). The binding state at `Δ_g = 300` is unchanged: **`J = 5`, `+0.2038`** (hybrid, twist edge
 `1.0166Λ`), now with direct small-`ν` nodes on both rows it draws on and direct edge nodes. The next-lowest states are `J = 4`
@@ -94,7 +94,13 @@ sizeable shifts are favourable (`J = 20`: `+0.042`, `J = 18`: `+0.012`), the sam
 
 ### 0.3 Task 3 — `J = 48` at `Δ_g = 1000` against direct values
 
-⟨J48⟩
+**The consistency check failed, the state still passes.** Direct n1 nodes on `(1048, 48)` (fw structure basis, shared seeds) disagree with the
+fixed-engine `K₂` row that FOLD_WINDOW §4 used: they agree at `x ≤ 0.2` (C2 `|Δ| ≲ 80 c₂`, C3H `≤ 180 c₂`), but from
+`x ≈ 0.22` on `K₂` overshoots the `P_J` lobes by ×2–4 (`x = 0.4–0.55`: `|Δ| ≈ 400–750 c₂`) and is out of phase at `x ≥ 0.7` (`|Δ|` up to
+`5·10³`, `1.9·10⁴` at `x = 0.8` `+−`) — the pattern HC found at `(336, 28)` (`J²/m = 2.35`; here `2.2`). So **`K₂` is not accurate on this
+row**, against EE_DG1000_LARGEJ's criterion `J²/m ≲ 2.2`. With a complete direct sub-row (`x = 0.125 … 0.8`, step `0.025`, 27 nodes) in the
+unchanged J = 48 chain: **min `λ/N_s = +0.915 ± 0.08`** (jackknife) at `1.15Λ` (was `+0.932`), `n = 1`; variants `+0.67` (natural spline,
+the aliasing variant, was `+0.73`) `… +0.99` (`K = 6`); max `|dF_hh|/N_h` `0.37` (was `0.065`). [NE + M].
 
 ### 0.4 Side findings
 * **Failed edge nodes.** At `Δ = 336` (`J = 15, 18, 22`) and `Δ = 200` (`J = 9`) the `x = 0.9` node (`ν = 0.9 m ≈ 0.89 Δ`) has RQMC errors
@@ -157,7 +163,19 @@ near-gap minimum (both rows direct vs 400 only): `J = 9` `+0.4448 → +0.4561`, 
   HC's shape-fit edge models exist only in ee1000 mode and were not needed here. Grade of the shifts: [NE + M].
 
 ## 3. Task 3: `J = 48` at `Δ_g = 1000`
-⟨J48 details⟩
+* **Points.** `cl_points.py 48 1048 …` with `CL_FWPATCH=1` (adds `fw_frame.patch_conserved_clean`, the structure basis of the fw rows),
+  n1 adaptive, `2¹²` (4 check nodes) / `2¹¹` / `2¹⁰` points per replica, `R = 8`; relative errors `0.03–1.7 %`. The `x = 0.475` node is left
+  out: its `2·10⁴` reference has `E₀₀/E₀₁ = 82` against `1.3–1.4` at every other node (the reference matrix is nearly singular at that
+  `ν`; the chain's off-diagonal becomes non-finite there). The `K₂` node at `0.475` stays (removing it as well changes nothing, `+0.9148`).
+* **Chain.** `cl_fw48.py` runs `fw_chain48.py` unchanged (ee1000 shape chain `K = 4`, `x ∈ [0.05, 0.8]`, hybrid states, κ image); the
+  direct nodes enter through fw_gamma's own direct-node path (replacing the `K₂` node at the same `ν`); the generalised helicity basis is
+  built from the pure `K₂` order-0 records (as hc_chain builds it without injected nodes; with the direct nodes in the basis window the
+  basis fit fails). Reproduction: `FW_NODIRECT=1` gives `+0.9319`, FOLD_WINDOW's number.
+* **Node comparison** (`cache/cl_j48.txt`, `Γ` in `c₂`, curvature image subtracted, C2 `++` direct / `K₂`): `x = 0.2`: `+237 / +212`;
+  `0.3`: `−214 / −402`; `0.4`: `−250 / +179`; `0.45`: `−14 / +587`; `0.5`: `+408 / +1097`; `0.6`: `+1424 / +1142`; `0.7`: `+2186 / +3248`;
+  `0.75`: `+2091 / +5203`; `0.8`: `−6600 / −2328`; C2 `+−` at `0.8`: `−5071 / +14099`. Jackknife errors `30–60 c₂` (`≤ 0.6`), `120–300` above.
+* **Per state** (main): gap `1.047Λ` `+0.979`, `1.1Λ` `+0.927`, `1.15Λ` `+0.915`, `1.2Λ` `+0.918`; jackknife replicas `+0.870 … +0.960`.
+* Partial replacement is again meaningless: the four check nodes alone give `+0.340` (gap), as HC warned for oscillating rows.
 
 ## 4. Regradings
 | item | before | now |
@@ -167,7 +185,7 @@ near-gap minimum (both rows direct vs 400 only): `J = 9` `+0.4448 → +0.4561`, 
 | **`H_edge`** | computed on 1000 `J = 5, 17, 31, 36, 40`, 300 `J = 5, 16, 24`; elsewhere an assumption [M] | **[NE + M] on every row carrying a near-gap state at 300 for `J = 4–22` (and 24, 16, 5 from HC)** and at 1000 for `J = 4–16` (+ 17, 31, 36, 40); largest unfavourable change of a near-gap state `−0.016 N_s`, of a per-`J` minimum `−0.006`. Still [M] on the rows not computed (§5). |
 | `J = 5` binding state at 300 | `+0.2038` (spot nodes on row 400 only) | `+0.2038` with direct small-`ν` nodes on rows 200 + 400 and direct edge nodes on all four rows (`x ≤ 0.92`) [NE + M] |
 | per-`J` minima at `Δ_g = 1000`, low `J` | taken on a mass grid from `1.01Λ` | the twist-edge states lower `J = 4, 6, 7, 11, 13, 16` by `0.006–0.19` (§0.4); all `≥ +0.204`, binding state unchanged |
-| `J = 48` at `Δ_g = 1000` | [NE + M], `+0.932` (FOLD_WINDOW §4) | ⟨J48 grade⟩ |
+| `J = 48` at `Δ_g = 1000` | [NE + M], `+0.932` on the fixed-engine `K₂` row (FOLD_WINDOW §4) | **[NE + M] with a direct sub-row**: `+0.915 ± 0.08` (`+0.67 … +0.99`); the `K₂` row itself is regraded **not accurate** at `x ≳ 0.22` (errors `10²–10⁴ c₂`), so `K₂` rows with `J²/m ≈ 2.2` are not usable at the `10² c₂` level [NE] |
 
 Nothing here changes the implication [D] or the bounds `3.13·10⁻⁶` (300) / `2.89·10⁻⁸` (1000); every computed state is positive and the
 binding states are unchanged (`J = 5`: `+0.2038` at 300, `+0.2021` / `+0.2009` (hybrid) at 1000).
@@ -179,8 +197,10 @@ binding states are unchanged (`J = 5`: `+0.2038` at 300, `+0.2021` / `+0.2009` (
 2. **Odd `J` small-`ν` treatment uses the local de-shift** [M]; the non-local min-norm term is implemented for even `J` only (PO §3).
 3. **`H_edge` not computed** [M]: `Δ_g = 300` rows of `J = 28, 32` (`Δ = 336`, where `x = 0.9` is within 10 % of `Δ` and fails — the
    edge window there needs a larger-`Δ` row or a different contour) and every `J ≥ 26` row; `Δ_g = 1000` even `J = 18–32`, odd
-   `J = 19–29`, `J = 48`, and the `Δ = 1000 + J` rows of the ee1000 chain for `J ≤ 16` (the w2 chain used here interpolates the 400/800/1600 rows).
-4. ⟨J48 open⟩
+   `J = 19–29` and `J = 48` (the ee1000 rows `Δ = 1000 + J`).
+4. **`K₂` rows near `J²/m ≈ 2` at `Δ_g = 1000`.** `J = 48` (`2.2`) is now on a direct sub-row; `J = 40` (`1.5`) was validated by a
+   25-node direct sub-row in EE_DG1000_LARGEJ (≤ `0.05 N_s`, old engine); the even rows in between (`J = 42–46`) have no rows at all
+   (`H_LJ`). Whether `K₂` is adequate at `J²/m ≈ 1.6–2` at the `10² c₂` level is open [I].
 5. Unchanged from HC2/RESULT_D_STATEMENT: the `ν < 5` window at 300 for `J ≥ 28`, a derivation of `Γ_OO ≡ Γ_++`, `H_LJ`, `H_R`, the
    analytic inputs; `Δ_g = 100` not established.
 
@@ -204,4 +224,5 @@ which SIGSTOPs one point worker and serialises analyses with a lock). Every `cl_
 * **Node validation:** `python3 cl_check.py 8:400:oo 10:400:oo 9:400 11:400 7:400 13:400 9:200 5:200 7:200` → `cache/cl_check.txt`.
 * **Reproduction checks:** `cl_chain.py` on PO's settings reproduces `hc_chain_z4_po15_inj` and `oo_chain_po6_best` (identical `J` blocks);
   `FW_NODIRECT=1 CL48_TAG=k2 python3 cl_fw48.py` reproduces `fw_chain48_k2` (`+0.9319`).
-* **`J = 48`:** `python3 cl_j48.py` (node comparison → `cache/cl_j48.txt`); chain with the direct sub-row: ⟨J48 repro⟩.
+* **`J = 48`:** `python3 cl_j48.py` (node comparison → `cache/cl_j48.txt`); chain with the direct sub-row: `CL48_TAG=full python3 cl_fw48.py` (`CL48_JK=i` jackknife, `EE1000_K=5|6`,
+  `EE1000_MODEL=spline`, `SM_CURV=none` variants; `FW_NODIRECT=1` = published chain) → `cache/cl_fw48_<tag>.txt`.

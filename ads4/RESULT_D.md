@@ -231,6 +231,23 @@ model for a functional whose graviton version is not yet defined. This revision 
 
 > * **Update (H_RS check; HRS_CHECK.md):** EE k = 2/4 engine ≡ crystal cycle beyond LO is confirmed at ν ≥ 10 [NE] (J = 0, 2) and weakly at 6 ≤ ν < 10. Below ν = 6 it is [I] (the n4 thimble errors are too large; ν < 2 is untested). The "512 c₂" item is the resolved k = 2 comparison-script artefact. For Result D, H_RS remains [I] where the engine is used below the fold (the (336, 28/32) window, OO beyond order 0).
 
+> * **Update (cleanup; RESULT_D_CLEANUP.md):**
+>   - **Δ_g = 300: every even J = 4–22 and odd J = 5–15 now uses direct small-ν nodes [NE + M]; n = 0 everywhere.**
+>     - J = 5 (binding): +0.2038 (unchanged).
+>     - J = 7: +0.703.
+>     - J = 8: EE +0.427 / OO +0.479.
+>     - J = 9: +0.456.
+>     - J = 10: +0.603.
+>     - J = 11: +0.673.
+>     - J = 13: +0.776.
+>     - J = 15: +0.789.
+>     - Convention A was pessimistic. [M] caveats: values below ν ≈ 8.3 are held, and odd J use the local de-shift.
+>   - **H_edge [NE + M]** on all near-gap rows at 300 for J ≤ 24, and at 1000 for J ≤ 17 plus 31, 36, 40. The worst unfavourable shift of a per-J minimum is −0.006.
+>   - New twist-edge masses at 1000 lower J = 4/6/7/11/13 to +0.204 / +0.230 / +0.268 / +0.349 / +0.411, all above the binding state (+0.2021).
+>   - **J = 48 at 1000:** the K₂ row fails beyond x ≈ 0.22 (as at (336, 28)). With a complete 27-node direct sub-row, min = **+0.915 ± 0.08**, n = 1 [NE + M], answering review issue 5.
+>   - Bounds and binding states are unchanged.
+>   - **Still open:** the ν < 8.3 window at 300 for J ≥ 28; H_edge at (336, 28/32) and at 1000 for J = 18–32 and 48; K₂ at J²/m ≈ 1.6–2.
+
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
