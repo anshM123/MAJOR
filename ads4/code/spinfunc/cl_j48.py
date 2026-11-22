@@ -15,14 +15,19 @@ import fw_gamma as FG
 import sm_curvfix as CF
 C = os.path.join(HERE, 'cache')
 J, D = 48, 1048.0
+SKIP = [float(v) for v in os.environ.get('CL48_SKIP', '0.475').split(',') if v]   # failed reference (E00/E01 = 82 vs ~1.4)
 
 
 def fwpts(kind, J_, D_=None):
     f = os.path.join(C, 'cl_pts_%s_J%d_D%g.pkl' % (kind, J_, D))
-    return pickle.load(open(f, 'rb')) if (J_ == J and os.path.exists(f)) else {}
+    P = pickle.load(open(f, 'rb')) if (J_ == J and os.path.exists(f)) else {}
+    m = FG.Z3.mphys(D, J)
+    return {k: v for k, v in P.items() if not any(abs(k[1]/m - s) < 1e-6 for s in SKIP)}
 
 
 FG.fwpts = fwpts
+_gb = FG.gbasis
+FG.gbasis = lambda J_, D_, R: _gb(J_, D_, FG.Q._strip(dict(FG.fwk2('EE', J_)), J_)) if J_ == J else _gb(J_, D_, R)   # pure-K2 basis
 out = []
 
 
@@ -34,7 +39,7 @@ P = fwpts('EE', J)
 nus = sorted(k[1] for k in P if k[0] == D and (FG.DREF, k[1]) in P)
 K2NU = sorted(set(k[1] for k in FG.fwk2('EE', J) if k[0] == D))
 for nu in nus:
-    assert any(abs(nu - v) < 1e-7*nu for v in K2NU), ('direct node not on the K2 grid', nu)
+    assert any(abs(nu - v) < 1e-7*nu for v in K2NU), ('direct node not on the K2 grid', nu)  # basis: pure K2 order-0 records (as the chain)
 
 
 def gam(jk=None, nodirect=False):

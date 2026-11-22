@@ -30,24 +30,26 @@ Spread = jackknife over the 8 common-seed replicas, then the range over the esti
 | `J` | block | old (convention A) min [`m/Λ`] | **new min** [`m/Λ`] | jackknife | variant range (near-gap min) | `n` | edge shift (§0.2) | grade |
 |---|---|---|---|---|---|---|---|---|
 | 6 | EE / OO | `+0.307` [1.25] | **`+0.3075` / `+0.3078`** [1.25] (PO; reproduced bit-for-bit) | `±0.0001` | `+0.307 … +0.308` | 0 | `0.0000` | [NE + M] |
-| 7 (odd) | `+−` | `+0.704` [1.10] | **`+0.7024`** [1.095] | `±0.0001` | `+0.7024 … +0.7025` | 0 | `+0.0000` | [NE + M] ⟨r2⟩ |
+| 5 (odd, binding) | `+−` | `+0.2038` [1.0166] (HC: spot nodes, row 400 only) | **`+0.2038`** [1.0166] (rows 200 + 400 direct; `0.20384 → 0.20377`) | `±0.0000` | `+0.2038` | 0 | `0.0000` | [NE + M] |
+| 7 (odd) | `+−` | `+0.704` [1.10] (same grid `+0.7025` [1.095]) | **`+0.7033`** [1.095] (rows 200 + 400 direct; row 400 only: `+0.7024`) | `±0.0002` | `+0.7033` | 0 | `0.0000` | [NE + M] |
 | 8 | EE | `+0.426` [1.052] | **`+0.4271`** [1.055] | `±0.0009` | `+0.4271` (dir/cv/no-Hampel); conv. A same grid `+0.4258` | 0 | `−0.0003` | [NE + M] |
 | 8 | OO | `+0.477` [1.65] (all `m`, HC) | **`+0.5493`** [1.085] near gap; all `m` `+0.4787` [1.65] (LO base) | `±0.0006` | `+0.549 … +0.550`; uniform `Γ_c = −8000` below `ν = 8.37`: `+0.520` | 0 | — | [NE + M] |
-| 9 (odd) | `+−` | `+0.4375` [1.03] | **`+0.4448`** [1.03] | `±0.0003` | `+0.4448 … +0.4449` | 0 | `−0.0032` | [NE + M] ⟨r2⟩ |
+| 9 (odd) | `+−` | `+0.4375` [1.03] | **`+0.4561`** [1.03] (rows 200 + 400 direct; row 400 only: `+0.4448 ± 0.0003`) | `±0.0006` | `+0.4561 … +0.4562` | 0 | `−0.0055` | [NE + M] |
 | 10 | EE | `+0.6631` [1.28] (all `m` `+0.6026` [2.0]) | **`+0.6697`** [1.28] (all `m` `+0.6033` [2.0]) | `±0.0009` | `+0.6697` | 0 | `+0.0001` | [NE + M] |
 | 10 | OO | `+0.6594` [1.28] (all `m` `+0.602`) | **`+0.6751`** [1.28] (all `m` `+0.6038` [2.0]) | `±0.0009` | `+0.674 … +0.676`; `Γ_c = −8000`: `+0.648` | 0 | — | [NE + M] |
 | 11 (odd) | `+−` | `+0.6447` [1.036, twist edge] | **`+0.6728`** [1.036] | `±0.0024` | `+0.6728 … +0.6737` | 0 | `−0.0041` | [NE + M] |
 | 13 (odd) | `+−` | `+0.7280` [1.10] | **`+0.7764`** [1.10] | `±0.0047` | `+0.7764 … +0.7788` | 0 | `−0.0018` | [NE + M] |
 | 15 (odd) | `+−` | `+0.6304` [1.07] (same grid; HC sweep `+0.630` [1.068]) | **`+0.7892`** [1.07] (PO: `+0.829` at 1.0586, sparse grid) | `±0.015` | `+0.7892 … +0.7892` | 0 | `−0.0038` | [NE + M] |
 
-⟨r2⟩: see §1.4 (the odd `J = 7, 9` near-gap states also draw on the `Δ = 200` row).
+Odd `J = 5, 7, 9`: the near-gap states lie between the `Δ = 200` and `400` rows (weight of the 200 row `≈ 0.3` at the gap), so both rows got direct nodes (§1.4).
 
 **Verdict (task 1).** Every state of even `J = 6, 8, 10` and odd `J = 7, 9, 11, 13, 15` at `Δ_g = 300` is positive with direct small-`ν`
 nodes, with jackknife errors `≤ 0.015` and variant spreads `≤ 0.003`; no negative direction anywhere (`n = 0`). Convention A was again
 **pessimistic** wherever the small-`ν` window matters (`J = 9 / 11 / 13 / 15`: `+0.007 / +0.028 / +0.048 / +0.159`), and irrelevant where
 it does not (`J = 6, 7, 8, 10`: `|Δ| ≤ 0.007`, minima away from the gap or `N_s` large). Every direct node passes the scalar check
 against the exact Mellin object (`≤ 1.2σ`; §1.3). The binding state at `Δ_g = 300` is unchanged: **`J = 5`, `+0.2038`** (hybrid, twist edge
-`1.0166Λ`). The lowest new values are `J = 8` EE (`+0.427`) and `J = 9` (`+0.445`).
+`1.0166Λ`), now with direct small-`ν` nodes on both rows it draws on and direct edge nodes. The next-lowest states are `J = 4`
+(`+0.2137`, HC), `J = 6` (`+0.3075`), `J = 8` EE (`+0.4271`) and `J = 9` (`+0.4561`).
 
 ### 0.2 Task 2 — `H_edge` on the remaining rows (shift of the near-gap minimum, `N_s` units)
 
@@ -59,13 +61,13 @@ state; "shift" = (with edge nodes) − (same chain, same small-`ν` nodes, held 
 | 300 | 4 (400) | `+0.2137 → +0.2137` [1.0133] | `0.0000` | `0.0000` | — |
 | 300 | **5** (200/400/800/1600, `x ≤ 0.92`) | **`+0.2038 → +0.2038`** [1.0166] | `0.0000` | `< 5·10⁻⁵` | `±0.0000` |
 | 300 | 6 (400) | `+0.3075 → +0.3075` | `0.0000` | `0.0000` | — |
-| 300 | 7 (200/400) | `+0.7024 → +0.7024` | `0.0000` | `0.0003` | — |
+| 300 | 7 (200/400) | `+0.7033 → +0.7033` | `0.0000` | `0.0004` | — |
 | 300 | 8 (400) | `+0.4271 → +0.4268` | `−0.0003` | `−0.0006` | — |
-| 300 | 9 (200/400) | `+0.4448 → +0.4417` | `−0.0032` | `−0.0032` | ⟨jk⟩ |
+| 300 | 9 (200/400) | `+0.4561 → +0.4506` | `−0.0055` | `−0.0056` | `±0.0006` |
 | 300 | 10 (400) | `+0.6697 → +0.6698` | `+0.0001` | `+0.0017` | — |
-| 300 | 11 (400) | `+0.6728 → +0.6687` | `−0.0041` | `−0.0041` | ⟨jk⟩ |
+| 300 | 11 (400) | `+0.6728 → +0.6687` | `−0.0041` | `−0.0041` | `±0.0022` |
 | 300 | 12 (400) | `+0.6712 → +0.6706` [1.055] | `−0.0006` | `−0.0006` | — |
-| 300 | 13 (400) | `+0.7764 → +0.7746` | `−0.0018` | `−0.0053` | ⟨jk⟩ |
+| 300 | 13 (400) | `+0.7764 → +0.7746` | `−0.0018` | `−0.0053` | `±0.0046` |
 | 300 | 14 (400) | `+0.7495 → +0.7487` [1.0458] | `−0.0008` | `−0.0008` | — |
 | 300 | 15 (336/400) | `+0.7892 → +0.7853` [1.07] | `−0.0038` | `−0.0156` [1.049] | `±0.015` |
 | 300 | 18 (336/400) | `+0.9104 → +0.9224` [1.08] | `+0.0120` | `+0.0201` | `±0.0012` |
@@ -85,7 +87,7 @@ state; "shift" = (with edge nodes) − (same chain, same small-`ν` nodes, held 
 
 **Verdict (task 2).** With direct edge values on every row that carries a near-gap state at `Δ_g = 300` (`J = 4–22`) and on the low-`J`
 rows at `Δ_g = 1000` (`J = 4–16`), every state stays positive; the largest unfavourable shift of any near-gap state is **`−0.016 N_s`**
-(`J = 15`, twist edge, which is not its minimum), the largest unfavourable shift of a per-`J` minimum `−0.0041` (`J = 11`, 300). The two
+(`J = 15`, twist edge, which is not its minimum), the largest unfavourable shift of a per-`J` minimum `−0.0055` (`J = 9`, 300). The two
 sizeable shifts are favourable (`J = 20`: `+0.042`, `J = 18`: `+0.012`), the same pattern as HC's `J = 31`. Together with HC (1000:
 `J = 5, 17, 31, 36, 40`; 300: `J = 5, 16, 24`) `H_edge` is now computed on **every row that carries a near-gap state at `Δ_g = 300` for
 `J ≤ 24`** and at `Δ_g = 1000` for `J ≤ 17` and `J = 31, 36, 40`.
@@ -113,7 +115,7 @@ sizeable shifts are favourable (`J = 20`: `+0.042`, `J = 18`: `+0.012`), the sam
   `hc_points.setup(odd=True)` forced, 3×3 `[EE(2), OO(1)]` p8 integrand, n3 hybrid contour, `ν_f = 13` below 13, `2¹⁰·2·8` points,
   reference `2·10⁴` on CRN) → `cache/cl_oopts_{EE,C3H}_J<J>_D400.pkl`. One file per state.
 * Odd `J = 7, 9, 11, 13`: `CL_MODE=hc HC_METHOD=n3 cl_points.py J 400 …` = `hc_points.py` n3 path (odd 1×1 integrand) →
-  `cache/cl_pts_*_J<J>_D400.pkl`. ⟨r2: plus the `Δ = 200` row for `J = 9, 5, 7` (`x = 0.042 … 0.1`, same `ν`).⟩
+  `cache/cl_pts_*_J<J>_D400.pkl`; plus the `Δ = 200` row for `J = 9, 5, 7` (`x = 0.042, 0.05, 0.059, 0.067, 0.084, 0.1`, `ν = 8.33 … 19.84`).
 * `J = 6` (oo_pts, PO) and `J = 15` (hc_pts, PO) were not recomputed; their chains were re-run here on the dense mass grid.
 
 ### 1.2 Chains
@@ -132,15 +134,20 @@ Scalar check against the exact Mellin object (z3 `scalar_check`, `cache/cl_check
 `J = 10`: `−311 −151i, −45, +1, +23, +37, +33` (`ν = 8.37 … 19.92`); odd `C3H` at `J = 11`: `+639, +188, +73, +5, −64, −63`.
 
 ### 1.4 The `Δ = 200` row for odd `J = 5, 7, 9`
-⟨r2⟩
+The odd rows of `J ≤ 9` are `Δ = 200, 400, 800, 1600`; a near-gap state at `m ≈ 1.02–1.1Λ` (`m ≈ 305–330`) is interpolated in `1/m`
+between the 200 row (`m ≈ 198`) and the 400 row (`m ≈ 398`), with weight `≈ 0.3` on the 200 row at the gap. The 200 row's lowest `K₂` node
+`x = 0.05` sits at `ν ≈ 9.9`, deep in the region where `K₂` fails. Direct values there (`J = 9`, C2 / C3H): `x = 0.05`: `−75 / +131` vs
+`K₂` `−875 / −434`; `x = 0.1` (`ν ≈ 20`): `−1 / −24` vs `−74 / −235`. Every 200-row node passes the scalar check (`≤ 1.1σ`). Effect on the
+near-gap minimum (both rows direct vs 400 only): `J = 9` `+0.4448 → +0.4561`, `J = 7` `+0.7024 → +0.7033`, `J = 5` `+0.20377` (both). The
+`Δ = 200` row with direct nodes is the main value in §0.1.
 
 ## 2. Task 2: method and notes
 * Points: `CL_MODE=hc HC_METHOD=n1 HC_ADAPT=1 HC_M=11 HC_MREF=11 cl_points.py J D 0.8,0.825,0.85,0.875,0.9` (= `hc_points.py` n1 path;
   even `J`: w0 2×2 EE integrand + C3H; odd `J`: 1×1). Errors `≤ 1 %` except the dropped `x = 0.9` nodes listed in §0.4.
 * Chains: 300 — z4 (`cl_teven.sh … edge`: `HC_INJ=J:rows HC_IXMIN=0.7 HC_DESPIKE_INJ=0` against the same chain without it; odd `J`:
   `cl_todd.sh … edge`, small-`ν` + edge vs small-`ν` only); 1000 — the EE_NEARGAP main chain `hc_chain w2 1000` (`cl_t1000.sh`), all
-  edge rows of the `J` injected. Variants: Hampel on the injected nodes (`edge_desp`; changes `≤ 0.004` except `J = 20`: `+0.885`); edge
-  jackknife where a shift exceeds `0.003`.
+  edge rows of the `J` injected. Variants: Hampel on the injected nodes (`edge_desp`; changes the near-gap states by `≤ 0.005`, except `J = 13`: `0.009` and
+  `J = 20`: `0.020`, min `+0.885`); edge jackknife where a shift exceeds `0.003`.
 * **Code fix needed for even `J < 11` (in the wrapper, not in hc_chain):** hc_chain injects `C3H` edge nodes only through `q3._q2_even`,
   which the w2 loader uses for `J ≥ 11`; for even `J < 11` the `C3H` rows come from `W2._q3_load` (l9 caches), so `C3H` edge nodes would
   silently not be injected. `cl_chain.py` injects them there too (`CL_C3HLOW=1`); the injection log lists both kinds for every run.
@@ -153,10 +160,48 @@ Scalar check against the exact Mellin object (z3 `scalar_check`, `cache/cl_check
 ⟨J48 details⟩
 
 ## 4. Regradings
-⟨regrade⟩
+| item | before | now |
+|---|---|---|
+| **`Δ_g = 300`, even `J = 6, 8, 10`, odd `J = 7, 9, 11, 13, 15` (review S4)** | [NE + M] in convention A (superseded small-`ν` treatment), `J = 12–16`, 18–22, 4, 5 already direct | **[NE + M] in the validated small-`ν` treatment for every even `J = 4–22` and odd `J = 5–15`**, near gap and to `5Λ`; min `+0.2038` (`J = 5`). Caveats unchanged: below the lowest direct node (`ν ≈ 8.3`) the value is held [M] (stress: for `J = 8, 10` a uniform `Γ_c = −8000 c₂` there still leaves `+0.52 / +0.65`); odd `J` use the local de-shift (z4's non-local term is wired for even `J` only) [M]. |
+| `H_OO`, `J = 8, 10` | [NE + M] with `K₂` (convention A) rows | **[NE + M] with direct small-`ν` OO nodes** (min `+0.4787` [1.65Λ, LO base] / near gap `+0.549`; `+0.6038` / `+0.675`) |
+| **`H_edge`** | computed on 1000 `J = 5, 17, 31, 36, 40`, 300 `J = 5, 16, 24`; elsewhere an assumption [M] | **[NE + M] on every row carrying a near-gap state at 300 for `J = 4–22` (and 24, 16, 5 from HC)** and at 1000 for `J = 4–16` (+ 17, 31, 36, 40); largest unfavourable change of a near-gap state `−0.016 N_s`, of a per-`J` minimum `−0.006`. Still [M] on the rows not computed (§5). |
+| `J = 5` binding state at 300 | `+0.2038` (spot nodes on row 400 only) | `+0.2038` with direct small-`ν` nodes on rows 200 + 400 and direct edge nodes on all four rows (`x ≤ 0.92`) [NE + M] |
+| per-`J` minima at `Δ_g = 1000`, low `J` | taken on a mass grid from `1.01Λ` | the twist-edge states lower `J = 4, 6, 7, 11, 13, 16` by `0.006–0.19` (§0.4); all `≥ +0.204`, binding state unchanged |
+| `J = 48` at `Δ_g = 1000` | [NE + M], `+0.932` (FOLD_WINDOW §4) | ⟨J48 grade⟩ |
+
+Nothing here changes the implication [D] or the bounds `3.13·10⁻⁶` (300) / `2.89·10⁻⁸` (1000); every computed state is positive and the
+binding states are unchanged (`J = 5`: `+0.2038` at 300, `+0.2021` / `+0.2009` (hybrid) at 1000).
 
 ## 5. What remains open
-⟨open⟩
+1. **`Δ_g = 300`, `ν < 8.3` below the lowest direct node** [M]: held in every chain. Irrelevant at `J ≤ 22` (failure needs a uniform
+   `Γ_c ≲ −10⁴ c₂` there; `J = 8, 10` tolerate `−8000` with margin `≥ 0.52`), decisive at `J ≥ 28` (HC2 §3: `J = 32` the most fragile
+   state, no validated method below the fold) — unchanged by this note.
+2. **Odd `J` small-`ν` treatment uses the local de-shift** [M]; the non-local min-norm term is implemented for even `J` only (PO §3).
+3. **`H_edge` not computed** [M]: `Δ_g = 300` rows of `J = 28, 32` (`Δ = 336`, where `x = 0.9` is within 10 % of `Δ` and fails — the
+   edge window there needs a larger-`Δ` row or a different contour) and every `J ≥ 26` row; `Δ_g = 1000` even `J = 18–32`, odd
+   `J = 19–29`, `J = 48`, and the `Δ = 1000 + J` rows of the ee1000 chain for `J ≤ 16` (the w2 chain used here interpolates the 400/800/1600 rows).
+4. ⟨J48 open⟩
+5. Unchanged from HC2/RESULT_D_STATEMENT: the `ν < 5` window at 300 for `J ≥ 28`, a derivation of `Γ_OO ≡ Γ_++`, `H_LJ`, `H_R`, the
+   analytic inputs; `Δ_g = 100` not established.
 
 ## 6. Reproduce
-⟨repro⟩
+All from `ads4/code/spinfunc/`, `OMP_NUM_THREADS=1`, `ulimit -v 3000000`; at most two busy processes (analyses go through `cl_pause.sh`,
+which SIGSTOPs one point worker and serialises analyses with a lock). Every `cl_` process loads `cl_guard.py` (no write outside `cache/cl_*`).
+* **Points** (resumable; finished nodes skipped): `./cl_queueA.sh` (small `ν`, `J = 8, 9, 10, 11, 7, 13`, row 400), `./cl_queueA2.sh`
+  (row 200, `J = 9, 5, 7`), `./cl_queueB.sh` (edge rows, 300 then 1000), `./cl_queueC.sh` (`J = 48` check nodes), `./cl_queueC2.sh` +
+  `./cl_queueC3.sh` (`J = 48` sub-row). Single node set: `CL_MODE=oo python3 cl_points.py 8 400 0.021,0.025,0.0293,0.0335,0.042,0.05`;
+  `CL_MODE=hc HC_METHOD=n3 python3 cl_points.py 9 400 …`; edge `CL_MODE=hc HC_METHOD=n1 HC_ADAPT=1 HC_M=11 HC_MREF=11 python3
+  cl_points.py 12 400 0.8,0.825,0.85,0.875,0.9`. Caches `cache/cl_oopts_*`, `cache/cl_pts_*` (+ `cl_*raw*`), logs `cache/cl_q*.log`.
+* **Chains** (each run 0.5–1 min): even `J`: `./cl_teven.sh 8 400 oo edge` → `cache/cl_oochain_cl8_<variant>.*` (OO + EE block) and
+  `cache/cl_chain_z4_cl8_{ebase,edge,…}.*`; `J = 18–22`: `CL_Z3SRC=hc ./cl_teven.sh 18 336,400 edge`; odd `J`: `./cl_todd.sh 11 400 400
+  small edge` (`J = 9, 7` with both rows: `cl_todd_r2.sh 9 200,400 200,400 small edge`, generated by `cl_driver5.sh`); `J = 5`:
+  `cl_driver5.sh` (tags `cl5r2_*`) and `./cl_t5b.sh`; 1000: `./cl_t1000.sh 13 400,800` → `cache/cl_chain_w2_k13_*`. The drivers
+  `cl_driver{,2,3,4,5,1000}.sh` ran all of these in the order of this note.
+* **Summaries:** `python3 cl_sum.py oo cl8 best dir cv nodesp zero lin convA c-1000 c-2000 c-4000 c-8000`;
+  `python3 cl_sum.py hc z4 300 cl9r2 inj convA inj_nodesp inj_drop --jk=injjk --ref=convA --J=9`;
+  `python3 cl_sum.py hc z4 300 cl20 edge ebase edge_desp --jk=edgejk --ref=ebase --J=20`;
+  `python3 cl_sum.py hc w2 1000 k13 edge base edge_desp --jk=edgejk --ref=base --J=13`; per-state lists with `--states=1`.
+* **Node validation:** `python3 cl_check.py 8:400:oo 10:400:oo 9:400 11:400 7:400 13:400 9:200 5:200 7:200` → `cache/cl_check.txt`.
+* **Reproduction checks:** `cl_chain.py` on PO's settings reproduces `hc_chain_z4_po15_inj` and `oo_chain_po6_best` (identical `J` blocks);
+  `FW_NODIRECT=1 CL48_TAG=k2 python3 cl_fw48.py` reproduces `fw_chain48_k2` (`+0.9319`).
+* **`J = 48`:** `python3 cl_j48.py` (node comparison → `cache/cl_j48.txt`); chain with the direct sub-row: ⟨J48 repro⟩.

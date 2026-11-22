@@ -48,6 +48,17 @@ Authoritative. Supersedes the headline claims of RESULT_Q_STAGE0–7, BELOW_FOLD
 >
 > The numbers are unchanged.
 
+> **Free fermion and H_EFT toy (RESULT_Q_FERMION_HEFT.md):**
+> - **Free fermion (t₄ = 0, like Einstein):** Ψ₄ and Ψ₅ annihilate its exact connected ⟨TTTT⟩ pointwise to ≤ 4·10⁻¹⁵ (k = 2–5, all 25 components, per ν); controls fail at O(1).
+>   - The spinor T-shift is derived from CLS-D's embedding definition and validated on 2- and 3-pt functions to 10⁻¹¹–10⁻¹³.
+>   - Limitation: two Wick classes vanish identically for the fermion, so the (13)-link/corner part of Lemma A is tested only on the scalar.
+> - **Lemma A + D_LR is [D], and its mechanism is [DV] at O(1/C_T) on both free theories.** The Einstein instance is still [I].
+> - **H_EFT splits in two:**
+>   - **(a)** For an exchange's double traces, the term-wise (P) value equals the actual value: [DV] in the scalar-Mellin toy for J_h = 0–6 (≥ 10⁵ below sensitivity), [D-sketch] spinning.
+>   - **(b)** There is no conspiracy in the heavy sum or the contact tower: [A].
+>   - Note: "double traces = −heavy block" holds only for J_h ≤ 3 (for J_h ≥ 4, Arc/H → flat forward values −35, −3423); Result Q does not use it.
+> - **Side note for hypothesis 5:** the stored sc3 de-shift weights have growing high moments (m₅ = −27), a ν-grid cutoff artefact that is harmless for Λ ≥ 300.
+
 > **O(1/C_T) spinning check of Lemma A + D_LR (RESULT_Q_OG_CHECK.md):**
 > - **Einstein ⟨TTTT⟩ is still unchecked [I]**: the repo has no light-ray-usable representation of it.
 > - **Substitute check: the exact connected ⟨TTTT⟩ of the free conformally coupled scalar.** It has T exchange in all channels and half-integer cuts at O(1/C_T).
