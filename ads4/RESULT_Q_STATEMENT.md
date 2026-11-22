@@ -84,6 +84,28 @@ Note: HRS, OG and FH are later than RU and refine three of its items. Each such 
 >   * It no longer depends on Result D, which removes RU issue 14.
 >   * **The `0.57|c₁|` / `0.059|c₁|` figures used above are superseded.**
 
+> **Update (LIGHTSIDE_DIST.md, unreviewed): M3 resolved structurally. Result Q's light side is ONE functional, and it is the one the heavy blocks use [D].**
+> * **The functional.** `Ω_k` is CLS-D's term-wise swapped double-commutator form on the s-channel OPE, with no separate collinear or ν-boundary terms.
+> * **Decomposition, by Cauchy in Mellin space:** `Ω_k = D_LR + 𝒜_k`, where `𝒜_k` is the Regge arc [D].
+>   * The arc is 0 for Regge spin `n < k`; that is Lemma A, now read as "no arc below the borderline" [DV].
+>   * At `n = k` the arc is fixed by the top Regge coefficient alone (P) [D + DV].
+> * **Checks on EIN's Witten family [DV]:**
+>   * term-wise values = whole-function values to 1e-11–3e-5;
+>   * the borderline contact gives a finite light value, e.g. −8.7642e-3 at P1, equal to its top-Regge term to ≤ 7e-7;
+>   * a borderline exchange (the H7 analogue) matches its top-Regge term to 8e-8.
+> * **Consequences:**
+>   * The piecewise "D_LR on J₀ < 4 + (F)+(P) on J₀ ≥ 4" light side is now the *derived* value of Ω₄.
+>   * `g̃₄ = −½·𝒜₄[light] = −(heavy sum)` given H_K [D].
+>   * Result D's H7 pole is the arc of the same functional at `n = k = 2` [D].
+>   * No number changes.
+> * **Corrections to the Einstein-check box above:**
+>   * Its claim that J₀ = k values sit at a = b or in the ν integral is **withdrawn**.
+>   * Its "J₀ = 4 contact under Ψ₄" is subcritical in that product family (effective n = J₀ − 2), so it is not an R⁴ control.
+> * **Remaining:**
+>   * (F), the normalisation `𝒜₄[R⁴] = 2g₄` [D-sketch];
+>   * the primaries-vs-Mellin-residue rearrangement [D-sketch];
+>   * a = b integrability against C_ν [I].
+
 ## 0. Headline
 
 **Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper
