@@ -48,6 +48,19 @@ Authoritative. Supersedes the headline claims of RESULT_Q_STAGE0–7, BELOW_FOLD
 >
 > The numbers are unchanged.
 
+> **O(1/C_T) spinning check of Lemma A + D_LR (RESULT_Q_OG_CHECK.md):**
+> - **Einstein ⟨TTTT⟩ is still unchecked [I]**: the repo has no light-ray-usable representation of it.
+> - **Substitute check: the exact connected ⟨TTTT⟩ of the free conformally coupled scalar.** It has T exchange in all channels and half-integer cuts at O(1/C_T).
+>   - Ψ₄ and Ψ₅ annihilate it pointwise to ≤ 8·10⁻¹⁵ on all 25 tensor components (k = 2–5) and per ν.
+>   - The GFF spin-2 double traces at generic Δφ, and their Δφ-derivative, also vanish (≤ 3·10⁻¹¹).
+> - **The zero is not automatic:**
+>   - a non-primary T gives 0.5–1.7;
+>   - the wrong light-transform weight gives 0.4–1.8;
+>   - no T-shift gives 0.03;
+>   - the wrong symmetrisation gives 2.0.
+> - **Lemma A + D_LR stays [D]; its mechanism is now [DV] at O(1/C_T).** The 10¹⁰–10²² Einstein leverage is not yet discharged.
+> - **H_EFT is narrowed.** Heavy exchanges with J_h ≤ 3 are fixed by Lemma A, so only J_h ≥ 4 and the contact tower need H_EFT.
+
 > **H_RS check (HRS_CHECK.md):** the crystal-cycle direct nodes were compared entry by entry with the engine at J = 0 at the gap (Δ_g = 300, 1000) and J = 2.
 > - **Engine confirmed beyond LO at ν ≥ 10 [NE]** (e.g. ν = 20: −0.3 ± 1.5 c₂ against Γ = −73.4).
 > - **6 ≤ ν < 10: [NE, weak].**
