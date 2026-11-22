@@ -51,6 +51,16 @@ Note: HRS, OG and FH are later than RU and refine three of its items. Each such 
 >   * This is how `g̃₄` is already defined (§1 table); the Einstein zero is unaffected.
 > * **Weight control qualified.** The light-transform-weight control is one-sided: lower weights also give 0. It therefore tests convergence of the light-ray integral, not light-transform covariance (RESULT_Q_OG_CHECK §3.4).
 
+> **Update (REPRO_ENGINE.md, independent): the engine ratio ρ(ν) and Q's binding `s_d` are reproduced by a different route, with no discrepancy beyond stated precision.**
+> * **Route.** A direct 7-D quadrature of the exact pointwise integrand on D at finite Δ. It uses no 1/Δ expansion, and the conserved ⟨TTO⟩ coefficients were re-derived symbolically.
+> * **ρ agreement:** `≤ 3·10⁻⁷` (Δ_g = 300) and `≤ 3·10⁻⁸` (Δ_g = 1000) relative to the engine's K = 5 ratio on ν < 4.
+> * **`s_d`:** `+0.50967` / `+0.50776`, against `+0.5096` / `+0.5077`.
+> * **FF/N:** `+0.14265` / `+0.14282`.
+> * **Sensitivity.** Reaching the fail point `s_d = 1.776` needs a worst-sign shape error of `2.1·10⁻⁴` / `1.9·10⁻⁵` in ρ, i.e. ≈ 2.5 % of its beyond-leading-Regge deviation. That is ~600× the measured direct-vs-engine difference.
+> * **New grade.** The engine's algebra and truncation for the binding state are [DV] on D.
+> * **Not tested:** premise RD (crystal cycle ≡ real section D), because both routes integrate over D. H_RS stays [D-sketch].
+> * **Record note.** Production K = 4 is missing some a⁴ pieces (HRS_CLOSE §3.5). Its effect on `s_d` is +0.0004, inside ±0.015.
+
 ## 0. Headline
 
 **Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper
