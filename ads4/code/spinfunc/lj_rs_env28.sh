@@ -1,0 +1,4 @@
+# hc/z4 environment of the (336, 28) window runs (HYPOTHESES_CLOSE §5 protocol; identical to bj_chain_28_* logs)
+export HC_INJ=28:336 HC_IXMIN=0.12 HC_IXMAX=0.81 HC_DESPIKE_INJ=0 Q3_EXTRA_M=1.091,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2,2.5,3,4,5 \
+       Q3_JEVEN=28 Q3_JODD=5 SM_CURV=row W2_BASIS=ee W2_GAUGE=none W2_MODES=ee W2_ROWS=336,500,1600 Z4_EST=best Z4_JS=28 Z4_NUMIN=0 \
+       OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 L1_DEG=6
