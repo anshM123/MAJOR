@@ -115,6 +115,32 @@ def sec_report(k, tag):
         fh.write('\n'.join(L) + '\n')
 
 
+
+def sec_exch(k, tag):
+    """the s- and t-channel spin-2 exchanges (xs: single-trace s-pole residue included term-wise), term-wise vs EIN whole-function."""
+    a, b, p2, p4 = P.config(tag)
+    pos = pickle.load(open(os.path.join(CACHE, f'lsd_pos_{tag}_n60' + ('_k3' if k == 3 else '') + '.pkl'), 'rb'))
+    sg = 1 if k % 2 == 0 else -1
+    res = {}
+    for order, (aa, bb) in (('ab', (a, b)), ('ba', (b, a))):
+        S = C.Setup(k, aa, bb, p2, p4, **GRID)
+        res[order] = profile(S, ('xs', 'xt', 'xu'), h13=0.05, Y13=10.0)
+    L = []
+    for p in ('xs', 'xt', 'xu'):
+        for order in ('ab', 'ba'):
+            v = sum(np.sum(res[order][(p, c)]) + res[order][(p, c, 'st')] for c in C.CLS)
+            st = sum(res[order][(p, c, 'st')] for c in C.CLS)
+            # (xu: no s-channel single-trace pole)
+            w = sum(pos[(k, order)][(p, c)] for c in C.CLS)
+            L.append(f'  k = {k} {p} ({order}): term-wise {v.real:+.8e} (single-trace residue {st.real:+.3e}), EIN whole {w.real:+.8e}, '
+                     f'rel. diff {abs(v - w)/abs(w):.1e}')
+    tot = {o: sum(np.sum(res[o][(p, c)]) + res[o][(p, c, 'st')] for p in ('xs', 'xt') for c in C.CLS) for o in ('ab', 'ba')}
+    L.append(f'  k = {k} xs + xt: sym {(tot["ab"] + sg*tot["ba"]).real:+.3e} (scale {abs(tot["ab"]):.3e})')
+    print('\n'.join(L), flush=True)
+    with open(os.path.join(CACHE, f'lsd_exch_k{k}_{tag}.txt'), 'w') as fh:
+        fh.write('\n'.join(L) + '\n')
+
+
 if __name__ == '__main__':
     sec, k, tag = sys.argv[1], int(sys.argv[2]), sys.argv[3]
-    {'profile': sec_profile, 'report': sec_report}[sec](k, tag)
+    {'profile': sec_profile, 'report': sec_report, 'exch': sec_exch}[sec](k, tag)

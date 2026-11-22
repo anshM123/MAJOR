@@ -1,0 +1,605 @@
+% refs_verified.bib -- verified replacement for refs.bib (letter.tex, supplement.tex).
+%
+% Written 22 Nov 2026. refs.bib was NOT edited; this file supersedes it once checked.
+% Every existing citation key is kept unchanged, so \bibliography{refs_verified} works with the
+% current letter.tex / supplement.tex without editing any \cite.
+%
+% Verification, per entry: (i) arXiv API (export.arxiv.org/api/query?id_list=...) for title,
+% author list and abstract; (ii) INSPIRE-HEP API (inspirehep.net/api/literature?q=arxiv:...) for
+% the journal reference, DOI and author list. Each entry gives its INSPIRE record id (recid).
+% Author names are given as printed on arXiv / INSPIRE. Diacritics (Mazac -> Maz\'a\v{c},
+% Joao -> Jo\~ao, Gregoire -> Gr\'egoire) were checked against the title page of the PDF.
+% A name for which only initials are verified (Osborn, Petkou) is given with initials only.
+%
+% Change log: LITERATURE.md, section "Bibliography changes". Entries 1-22 are the original keys;
+% entries 23-41 are new (referee M13, M14 and minor items 3 and 9).
+%
+% No TODO(bib) remains: every field below was confirmed by both sources unless noted.
+
+% ===================================================================== original keys (22)
+
+% recid 824673
+@article{HPPS,
+  author        = {Heemskerk, Idse and Penedones, Joao and Polchinski, Joseph and Sully, James},
+  title         = {Holography from Conformal Field Theory},
+  journal       = {J. High Energy Phys.},
+  volume        = {10},
+  pages         = {079},
+  year          = {2009},
+  doi           = {10.1088/1126-6708/2009/10/079},
+  eprint        = {0907.0151},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 781040
+@article{HofmanMaldacena,
+  author        = {Hofman, Diego M. and Maldacena, Juan},
+  title         = {Conformal collider physics: Energy and charge correlations},
+  journal       = {J. High Energy Phys.},
+  volume        = {05},
+  pages         = {012},
+  year          = {2008},
+  doi           = {10.1088/1126-6708/2008/05/012},
+  eprint        = {0803.1467},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 837541
+@article{Buchel,
+  author        = {Buchel, Alex and Escobedo, Jorge and Myers, Robert C. and Paulos, Miguel F. and Sinha, Aninda and Smolkin, Michael},
+  title         = {Holographic {GB} gravity in arbitrary dimensions},
+  journal       = {J. High Energy Phys.},
+  volume        = {03},
+  pages         = {111},
+  year          = {2010},
+  doi           = {10.1007/JHEP03(2010)111},
+  eprint        = {0911.4257},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 35315. The arXiv metadata misspells the second author as "A. Petkos";
+% INSPIRE and the journal have "Petkou, A.C.". Only initials are verified.
+@article{OsbornPetkou,
+  author        = {Osborn, H. and Petkou, A. C.},
+  title         = {Implications of conformal invariance in field theories for general dimensions},
+  journal       = {Ann. Phys. (N.Y.)},
+  volume        = {231},
+  pages         = {311--362},
+  year          = {1994},
+  doi           = {10.1006/aphy.1994.1045},
+  eprint        = {hep-th/9307010},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1307098
+@article{CEMZ,
+  author        = {Camanho, Xian O. and Edelstein, Jose D. and Maldacena, Juan and Zhiboedov, Alexander},
+  title         = {Causality Constraints on Corrections to the Graviton Three-Point Coupling},
+  journal       = {J. High Energy Phys.},
+  volume        = {02},
+  pages         = {020},
+  year          = {2016},
+  doi           = {10.1007/JHEP02(2016)020},
+  eprint        = {1407.5597},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1495213
+@article{AHKT,
+  author        = {Afkhami-Jeddi, Nima and Hartman, Thomas and Kundu, Sandipan and Tajdini, Amirhossein},
+  title         = {Einstein gravity 3-point functions from conformal field theory},
+  journal       = {J. High Energy Phys.},
+  volume        = {12},
+  pages         = {049},
+  year          = {2017},
+  doi           = {10.1007/JHEP12(2017)049},
+  eprint        = {1610.09378},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1611598
+@article{CHP,
+  author        = {Costa, Miguel S. and Hansen, Tobias and Penedones, Jo{\~a}o},
+  title         = {Bounds for {OPE} coefficients on the {Regge} trajectory},
+  journal       = {J. High Energy Phys.},
+  volume        = {10},
+  pages         = {197},
+  year          = {2017},
+  doi           = {10.1007/JHEP10(2017)197},
+  eprint        = {1707.07689},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1643058
+@article{MeltzerPerlmutter,
+  author        = {Meltzer, David and Perlmutter, Eric},
+  title         = {Beyond $a=c$: Gravitational Couplings to Matter and the Stress Tensor {OPE}},
+  journal       = {J. High Energy Phys.},
+  volume        = {07},
+  pages         = {157},
+  year          = {2018},
+  doi           = {10.1007/JHEP07(2018)157},
+  eprint        = {1712.04861},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1674093. The d = 3 bounds on <TTT> are in Sec. 7.1, eq. (7.7).
+@article{AKT,
+  author        = {Afkhami-Jeddi, Nima and Kundu, Sandipan and Tajdini, Amirhossein},
+  title         = {A Conformal Collider for Holographic {CFTs}},
+  journal       = {J. High Energy Phys.},
+  volume        = {10},
+  pages         = {156},
+  year          = {2018},
+  doi           = {10.1007/JHEP10(2018)156},
+  eprint        = {1805.07393},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1729545. J_0 <= 1 is proved in Sec. 4.2.4, eq. (4.55); caveat in Sec. 4.2.6 and fn. 29.
+@article{KKSDZ,
+  author        = {Kologlu, Murat and Kravchuk, Petr and Simmons-Duffin, David and Zhiboedov, Alexander},
+  title         = {Shocks, Superconvergence, and a Stringy Equivalence Principle},
+  journal       = {J. High Energy Phys.},
+  volume        = {11},
+  pages         = {096},
+  year          = {2020},
+  doi           = {10.1007/JHEP11(2020)096},
+  eprint        = {1904.05905},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1869299. AdS4 bounds: eqs. (5.64)-(5.65) (arXiv v1, the only version).
+@article{CHMRS,
+  author        = {Caron-Huot, Simon and Maz{\'a}{\v{c}}, Dalimil and Rastelli, Leonardo and Simmons-Duffin, David},
+  title         = {{AdS} bulk locality from sharp {CFT} bounds},
+  journal       = {J. High Energy Phys.},
+  volume        = {11},
+  pages         = {164},
+  year          = {2021},
+  doi           = {10.1007/JHEP11(2021)164},
+  eprint        = {2106.10274},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 2012035
+@article{CHLPS,
+  author        = {Caron-Huot, Simon and Li, Yue-Zhou and Parra-Martinez, Julio and Simmons-Duffin, David},
+  title         = {Causality constraints on corrections to {Einstein} gravity},
+  journal       = {J. High Energy Phys.},
+  volume        = {05},
+  pages         = {122},
+  year          = {2023},
+  doi           = {10.1007/JHEP05(2023)122},
+  eprint        = {2201.06602},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 2720176. arXiv v3 (21 Feb 2025) = published version.
+@article{CLSD,
+  author        = {Chang, Cyuan-Han and Landau, Yakov and Simmons-Duffin, David},
+  title         = {Spinning dispersive {CFT} sum rules and bulk scattering},
+  journal       = {J. High Energy Phys.},
+  volume        = {04},
+  pages         = {016},
+  year          = {2025},
+  doi           = {10.1007/JHEP04(2025)016},
+  eprint        = {2311.04271},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1846940. Title corrected: "...three-dimensional conformal field theory" (not "CFT").
+@article{CaronHuotLi,
+  author        = {Caron-Huot, Simon and Li, Yue-Zhou},
+  title         = {Helicity basis for three-dimensional conformal field theory},
+  journal       = {J. High Energy Phys.},
+  volume        = {06},
+  pages         = {041},
+  year          = {2021},
+  doi           = {10.1007/JHEP06(2021)041},
+  eprint        = {2102.08160},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1086844
+@article{Raju,
+  author        = {Raju, Suvrat},
+  title         = {Four Point Functions of the Stress Tensor and Conserved Currents in {AdS$_4$/CFT$_3$}},
+  journal       = {Phys. Rev. D},
+  volume        = {85},
+  pages         = {126008},
+  year          = {2012},
+  doi           = {10.1103/PhysRevD.85.126008},
+  eprint        = {1201.6452},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1748227. arXiv title; the journal prints "...amplitudes. Part II. Gravitons".
+@article{AlbayrakKharel,
+  author        = {Albayrak, Soner and Kharel, Savan},
+  title         = {Towards the higher point holographic momentum space amplitudes {II}: Gravitons},
+  journal       = {J. High Energy Phys.},
+  volume        = {12},
+  pages         = {135},
+  year          = {2019},
+  doi           = {10.1007/JHEP12(2019)135},
+  eprint        = {1908.01835},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 787590
+@article{ABJM,
+  author        = {Aharony, Ofer and Bergman, Oren and Jafferis, Daniel Louis and Maldacena, Juan},
+  title         = {{$\mathcal{N}=6$} superconformal {Chern-Simons}-matter theories, {M2}-branes and their gravity duals},
+  journal       = {J. High Energy Phys.},
+  volume        = {10},
+  pages         = {091},
+  year          = {2008},
+  doi           = {10.1088/1126-6708/2008/10/091},
+  eprint        = {0806.1218},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1860515
+@article{Kundu,
+  author        = {Kundu, Sandipan},
+  title         = {Swampland Conditions for Higher Derivative Couplings from {CFT}},
+  journal       = {J. High Energy Phys.},
+  volume        = {01},
+  pages         = {176},
+  year          = {2022},
+  doi           = {10.1007/JHEP01(2022)176},
+  eprint        = {2104.11238},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1829444
+@article{BCJP,
+  author        = {Binder, Damon J. and Chester, Shai M. and Jerdee, Max and Pufu, Silviu S.},
+  title         = {The 3d {$\mathcal{N}=6$} Bootstrap: From Higher Spins to Strings to Membranes},
+  journal       = {J. High Energy Phys.},
+  volume        = {05},
+  pages         = {083},
+  year          = {2021},
+  doi           = {10.1007/JHEP05(2021)083},
+  eprint        = {2011.05728},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1637243. c_T = -(64/pi^2) Z^{-1} d^2Z/d(r m_A)^2 is its eq. (26).
+@article{ACP,
+  author        = {Agmon, Nathan B. and Chester, Shai M. and Pufu, Silviu S.},
+  title         = {Solving {M}-theory with the Conformal Bootstrap},
+  journal       = {J. High Energy Phys.},
+  volume        = {06},
+  pages         = {159},
+  year          = {2018},
+  doi           = {10.1007/JHEP06(2018)159},
+  eprint        = {1711.07343},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1740327. AUTHOR LIST RESOLVED: THREE authors, Binder-Chester-Pufu (arXiv and INSPIRE
+% agree), so ABJM_THEOREM.md was right and LITERATURE.md wrong. "Binder-Chester-Pufu-Wang" is a
+% different paper, arXiv:1902.06263 (N=4 SYM, JHEP 12 (2019) 119), the probable source of the
+% mix-up. The key "BCPW" is kept only so that the existing \cite commands still resolve; rename
+% it to BCP when letter.tex is next edited. c_T = -(64/pi^2) d^2 log Z/dm_pm^2 is its eq. (3.12);
+% the IIA R^4 result is eqs. (1.2), (4.14)-(4.15).
+@article{BCPW,
+  author        = {Binder, Damon J. and Chester, Shai M. and Pufu, Silviu S.},
+  title         = {{AdS$_4$/CFT$_3$} from Weak to Strong String Coupling},
+  journal       = {J. High Energy Phys.},
+  volume        = {01},
+  pages         = {034},
+  year          = {2020},
+  doi           = {10.1007/JHEP01(2020)034},
+  eprint        = {1906.07195},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1115314. AUTHORS RESOLVED: Closset-Dumitrescu-Festuccia-Komargodski-Seiberg (CDFKS).
+% Eq. (4.6): (1/r^2) d^2 Re F/dm^2 |_{m=0} = (pi^2/2) tau_ff, where tau_ff is the FLAVOUR-current
+% two-point coefficient (not c_T). Checked in the PDF.
+@article{Fmax,
+  author        = {Closset, Cyril and Dumitrescu, Thomas T. and Festuccia, Guido and Komargodski, Zohar and Seiberg, Nathan},
+  title         = {Contact Terms, Unitarity, and {F}-Maximization in Three-Dimensional Superconformal Theories},
+  journal       = {J. High Energy Phys.},
+  volume        = {10},
+  pages         = {053},
+  year          = {2012},
+  doi           = {10.1007/JHEP10(2012)053},
+  eprint        = {1205.4142},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% ===================================================================== new keys (19)
+
+% recid 1729541. d = 4, infinite-gap limit: <T|[E1,E2]|T> = 0 => t2 = t4 = 0 (a = c), eq. (4.24).
+@article{BHM,
+  author        = {Belin, Alexandre and Hofman, Diego M. and Mathys, Gr{\'e}goire},
+  title         = {{Einstein} gravity from {ANEC} correlators},
+  journal       = {J. High Energy Phys.},
+  volume        = {08},
+  pages         = {032},
+  year          = {2019},
+  doi           = {10.1007/JHEP08(2019)032},
+  eprint        = {1904.05892},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1811404
+@article{CHMRSdisp,
+  author        = {Caron-Huot, Simon and Maz{\'a}{\v{c}}, Dalimil and Rastelli, Leonardo and Simmons-Duffin, David},
+  title         = {Dispersive {CFT} Sum Rules},
+  journal       = {J. High Energy Phys.},
+  volume        = {05},
+  pages         = {243},
+  year          = {2021},
+  doi           = {10.1007/JHEP05(2021)243},
+  eprint        = {2008.04931},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1847321. Sec. 3.7: D = 4 IR log, eq. (3.34). Sec. 3.8: 0 <= g0 M^6/(8 pi G) <= 3.000 in
+% D = 10 maximal supergravity, eq. (3.42); type II has 2 zeta(3), eq. (3.43). This is the source
+% of the letter's g4 normalisation.
+@article{CHMRSswamp,
+  author        = {Caron-Huot, Simon and Maz{\'a}{\v{c}}, Dalimil and Rastelli, Leonardo and Simmons-Duffin, David},
+  title         = {Sharp boundaries for the swampland},
+  journal       = {J. High Energy Phys.},
+  volume        = {07},
+  pages         = {110},
+  year          = {2021},
+  doi           = {10.1007/JHEP07(2021)110},
+  eprint        = {2102.08951},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1853049. 4D flat space: |beta_R3|^2 <= beta^+_R4 / m_gap^2, eq. (6.13).
+@article{BKZ,
+  author        = {Bern, Zvi and Kosmopoulos, Dimitrios and Zhiboedov, Alexander},
+  title         = {Gravitational effective field theory islands, low-spin dominance, and the four-graviton amplitude},
+  journal       = {J. Phys. A},
+  volume        = {54},
+  pages         = {344002},
+  year          = {2021},
+  doi           = {10.1088/1751-8121/ac0e51},
+  eprint        = {2103.12728},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1665717. M-theory regime, k = 1, 2 (N = 8 ABJ(M)).
+@article{CPY,
+  author        = {Chester, Shai M. and Pufu, Silviu S. and Yin, Xi},
+  title         = {The {M}-Theory {S}-Matrix From {ABJM}: Beyond {11D} Supergravity},
+  journal       = {J. High Energy Phys.},
+  volume        = {08},
+  pages         = {115},
+  year          = {2018},
+  doi           = {10.1007/JHEP08(2018)115},
+  eprint        = {1804.00949},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1692415
+@article{BCPD4R4,
+  author        = {Binder, Damon J. and Chester, Shai M. and Pufu, Silviu S.},
+  title         = {Absence of {$D^4R^4$} in {M}-Theory From {ABJM}},
+  journal       = {J. High Energy Phys.},
+  volume        = {04},
+  pages         = {052},
+  year          = {2020},
+  doi           = {10.1007/JHEP04(2020)052},
+  eprint        = {1808.10554},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 2860945
+@article{CDempseyP,
+  author        = {Chester, Shai M. and Dempsey, Ross and Pufu, Silviu S.},
+  title         = {Higher-derivative corrections in {M}-theory from precision numerical bootstrap},
+  journal       = {J. High Energy Phys.},
+  volume        = {07},
+  pages         = {096},
+  year          = {2025},
+  doi           = {10.1007/JHEP07(2025)096},
+  eprint        = {2412.14094},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1515535
+@article{CaronHuotInversion,
+  author        = {Caron-Huot, Simon},
+  title         = {Analyticity in Spin in Conformal Theories},
+  journal       = {J. High Energy Phys.},
+  volume        = {09},
+  pages         = {078},
+  year          = {2017},
+  doi           = {10.1007/JHEP09(2017)078},
+  eprint        = {1703.00278},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1733266
+@article{KKSDZlightray,
+  author        = {Kologlu, Murat and Kravchuk, Petr and Simmons-Duffin, David and Zhiboedov, Alexander},
+  title         = {The light-ray {OPE} and conformal colliders},
+  journal       = {J. High Energy Phys.},
+  volume        = {01},
+  pages         = {128},
+  year          = {2021},
+  doi           = {10.1007/JHEP01(2021)128},
+  eprint        = {1905.01311},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1609465. Source of the (t4, alpha_T) notation in d = 3 (referee minor item 3).
+@article{CDPrakash,
+  author        = {Chowdhury, Subham Dutta and David, Justin R. and Prakash, Shiroman},
+  title         = {Constraints on parity violating conformal field theories in $d=3$},
+  journal       = {J. High Energy Phys.},
+  volume        = {11},
+  pages         = {171},
+  year          = {2017},
+  doi           = {10.1007/JHEP11(2017)171},
+  eprint        = {1707.03007},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 896915. Published 2013 (arXiv 2011).
+@article{GPY,
+  author        = {Giombi, Simone and Prakash, Shiroman and Yin, Xi},
+  title         = {A Note on {CFT} Correlators in Three Dimensions},
+  journal       = {J. High Energy Phys.},
+  volume        = {07},
+  pages         = {105},
+  year          = {2013},
+  doi           = {10.1007/JHEP07(2013)105},
+  eprint        = {1104.4317},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1762395. Classification of local four-graviton S-matrices (referee M12).
+@article{CGGHJM,
+  author        = {Chowdhury, Subham Dutta and Gadde, Abhijit and Gopalka, Tushar and Halder, Indranil and Janagal, Lavneet and Minwalla, Shiraz},
+  title         = {Classifying and constraining local four photon and four graviton {S}-matrices},
+  journal       = {J. High Energy Phys.},
+  volume        = {02},
+  pages         = {114},
+  year          = {2020},
+  doi           = {10.1007/JHEP02(2020)114},
+  eprint        = {1910.14392},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1828536
+@article{CaronHuotVanDuong,
+  author        = {Caron-Huot, Simon and Van Duong, Vincent},
+  title         = {Extremal Effective Field Theories},
+  journal       = {J. High Energy Phys.},
+  volume        = {05},
+  pages         = {280},
+  year          = {2021},
+  doi           = {10.1007/JHEP05(2021)280},
+  eprint        = {2011.02957},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 2076023
+@article{CHLPSpw,
+  author        = {Caron-Huot, Simon and Li, Yue-Zhou and Parra-Martinez, Julio and Simmons-Duffin, David},
+  title         = {Graviton partial waves and causality in higher dimensions},
+  journal       = {Phys. Rev. D},
+  volume        = {108},
+  pages         = {026007},
+  year          = {2023},
+  doi           = {10.1103/PhysRevD.108.026007},
+  eprint        = {2205.01495},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1617788
+@article{DKKPS,
+  author        = {Dymarsky, Anatoly and Kos, Filip and Kravchuk, Petr and Poland, David and Simmons-Duffin, David},
+  title         = {The {3d} Stress-Tensor Bootstrap},
+  journal       = {J. High Energy Phys.},
+  volume        = {02},
+  pages         = {164},
+  year          = {2018},
+  doi           = {10.1007/JHEP02(2018)164},
+  eprint        = {1708.05718},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1427418
+@article{HLMPR,
+  author        = {Hofman, Diego M. and Li, Daliang and Meltzer, David and Poland, David and Rejon-Barrera, Fernando},
+  title         = {A Proof of the Conformal Collider Bounds},
+  journal       = {J. High Energy Phys.},
+  volume        = {06},
+  pages         = {111},
+  year          = {2016},
+  doi           = {10.1007/JHEP06(2016)111},
+  eprint        = {1603.03771},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 1623041. Holographic null energy operator used by AKT.
+@article{AHKTshock,
+  author        = {Afkhami-Jeddi, Nima and Hartman, Thomas and Kundu, Sandipan and Tajdini, Amirhossein},
+  title         = {Shockwaves from the Operator Product Expansion},
+  journal       = {J. High Energy Phys.},
+  volume        = {03},
+  pages         = {201},
+  year          = {2019},
+  doi           = {10.1007/JHEP03(2019)201},
+  eprint        = {1709.03597},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 2105412. AdS5 analogue (stress-tensor-multiplet dispersive sum rules).
+@article{CCTZ,
+  author        = {Caron-Huot, Simon and Coronado, Frank and Trinh, Anh-Khoi and Zahraee, Zahra},
+  title         = {Bootstrapping {$\mathcal{N}=4$} {sYM} correlators using integrability},
+  journal       = {J. High Energy Phys.},
+  volume        = {02},
+  pages         = {083},
+  year          = {2023},
+  doi           = {10.1007/JHEP02(2023)083},
+  eprint        = {2207.01615},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+% recid 2854642
+@article{CCZ,
+  author        = {Caron-Huot, Simon and Coronado, Frank and Zahraee, Zahra},
+  title         = {Bootstrapping {$\mathcal{N}=4$} {sYM} correlators using integrability and localization},
+  journal       = {J. High Energy Phys.},
+  volume        = {05},
+  pages         = {220},
+  year          = {2025},
+  doi           = {10.1007/JHEP05(2025)220},
+  eprint        = {2412.00249},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
