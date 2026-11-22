@@ -70,20 +70,23 @@ def wrap(z):
     return complex(z.real, (z.imag + np.pi) % (2*np.pi) - np.pi)
 
 
-def load_pts(kind, J, tags):
+def load_pts(kind, J, tags, Dst):
     P = {}
     for t in tags:
-        f = os.path.join(C, 'rs_pts_%s_J%d%s.pkl' % (kind, J, t))
+        f = os.path.join(C, 'rs_pts_%s_J%d_D%g%s.pkl' % (kind, J, Dst, t))
         if os.path.exists(f):
             P.update(pickle.load(open(f, 'rb')))
     return P
 
 
-def engine(Dst, J):
+EKIND = {'EE4': 'EE4', 'EE': 'EE2'}           # crystal kind -> engine kind (k = 4 / k = 2)
+
+
+def engine(Dst, J, kind='EE4'):
     import rs_engine as RE
     db = RE.get(Dst, J)                       # bg_eeq cache if present (read-only), else rs_eng_*
-    r = RE.gamma_K(db, '++')
-    r3 = RE.gamma_K(db, '++', Kt=3)
+    r = RE.gamma_K(db, '++', kind=EKIND[kind])
+    r3 = RE.gamma_K(db, '++', kind=EKIND[kind], Kt=3)
     return db, r, r3
 
 
@@ -111,7 +114,8 @@ def node_compare(J, nu, st, rf, Dst, eng):
     fcv = lambda sel: fg(sel) - (fs(sel) - (lxs - lxr))
     vc, cjk, ec = jk(fcv, R)
     out = dict(nu=nu, m=m, R=R, ds=ds, es=es, dc2s=fac*ds.real, ec2s=abs(fac)*es.real, fac=fac,
-               d_dir=wrap(vg - le), e_dir=eg, d_cv=wrap(vc - le), e_cv=ec, jk_dir=gjk - le, jk_cv=cjk - le,
+               d_dir=wrap(vg - le), e_dir=eg, d_cv=wrap(vc - le), e_cv=ec,
+               jkb_dir=(R - 1)*(np.mean(gjk) - vg), jkb_cv=(R - 1)*(np.mean(cjk) - vc), jk_dir=gjk - le, jk_cv=cjk - le,
                Tst=r['Tst'][i], SR=float(sum(abs(v[i]) for v in __import__('bf_qan').Rj(r['nus']).values())),
                GK=r['GK'][i].real, Gex=r['Gex'][i].real, trunc=(r['GK'][i] - r3['GK'][i]).real,
                relS=float(abs(st['errs']/st['Es'])), relG=float(np.max(np.abs(st['err']/st['E']))),
@@ -133,8 +137,8 @@ def main(J, Dst, tags, kind='EE4'):
     lines = []
     def pr(s=''):
         print(s, flush=True); lines.append(s)
-    P = load_pts(kind, J, tags)
-    eng = engine(Dst, J)
+    P = load_pts(kind, J, tags, Dst)
+    eng = engine(Dst, J, kind)
     nus = sorted(nu for (D, nu) in P if abs(D - Dst) < 1e-6 and (DREF, nu) in P)
     rows = [node_compare(J, nu, P[(Dst, nu)], P[(DREF, nu)], Dst, eng) for nu in nus]
     pr(f'# rs_compare: J={J} Delta={Dst} kind={kind} tags={tags}; crystal (n3/n4 thimble, CRN vs Delta_ref=2e4) vs engine (bg_eeq K=4)')
@@ -151,10 +155,27 @@ def main(J, Dst, tags, kind='EE4'):
             g = o['m']**2*o['Tst']/o['SR']
             dG = (g*dd).real; edG = np.hypot(abs(g.real)*e.real, abs(g.imag)*e.imag)
             o['dG_' + key] = dG; o['edG_' + key] = edG
-            pr(f"  nu={o['nu']:6.2f}: Re(d-k) = {dd.real:+.2e} +- {e.real:.1e}, Im {dd.imag:+.2e} +- {e.imag:.1e};  dG = {dG:+10.2f} +- {edG:8.2f} "
+            o['sys_' + key] = abs(g)*abs(o['ds'])          # scalar log-ratio residual in the same units (method-bias indicator)
+            o['bias_' + key] = (g*o['jkb_' + key]).real     # jackknife estimate of the ratio-of-means bias, same units
+            pr(f"  nu={o['nu']:6.2f}: Re(d-k) = {dd.real:+.2e} +- {e.real:.1e}, Im {dd.imag:+.2e} +- {e.imag:.1e};  dG = {dG:+10.2f} +- {edG:8.2f} [scal-sys {o['sys_' + key]:.1f}; jk-bias {o['bias_' + key]:+.1f}] "
                f"({abs(dG)/max(edG, 1e-12):.1f} sig) | engine GK {o['GK']/o['SR']:+7.2f} [a4 {o['trunc']/o['SR']:+.2f}] Gex {o['Gex']/o['SR']:+8.2f}; "
                f"m2|T|/SR = {abs(g):.2e}")
-    open(os.path.join(C, 'rs_compare_D%g_J%d_%s.txt' % (Dst, J, '_'.join(t.strip('_') or 'main' for t in tags))), 'w').write('\n'.join(lines) + '\n')
+    def chi2(sel, key):
+        c = 0.0; n = 0
+        kap, _ = fit_kappa(rows, key)
+        for o in rows:
+            if sel(o['nu']):
+                dd = wrap(o['d_' + key] - kap); e = o['e_' + key]
+                c += (dd.real/e.real)**2 + (dd.imag/e.imag)**2; n += 2
+        cs = 0.0; ns = 0
+        for o in rows:
+            if sel(o['nu']):
+                cs += (o['ds'].real/o['es'].real)**2 + (o['ds'].imag/o['es'].imag)**2; ns += 2
+        return c, n, cs, ns
+    for lab, sel in (('nu < 9 (n4 thimbles)', lambda v: v < 9), ('nu >= 9 (n3)', lambda v: v >= 9), ('all', lambda v: True)):
+        c, n, cs, ns = chi2(sel, 'dir')
+        pr(f'# chi2 [{lab}]: EE4 crystal-engine (Re, Im of d - kappa) {c:.1f} / {n} values (kappa fitted on all: 2 dof); scalar check {cs:.1f} / {ns}')
+    open(os.path.join(C, 'rs_compare_D%g_J%d_%s_%s.txt' % (Dst, J, kind, '_'.join(t.strip('_') or 'main' for t in tags))), 'w').write('\n'.join(lines) + '\n')
     return rows
 
 

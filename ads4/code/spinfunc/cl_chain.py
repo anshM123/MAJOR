@@ -4,6 +4,7 @@ redirections only (string-level, each asserted to occur exactly once in the sour
   * direct points: hc_nodes.pts(kind, J, D) and oo_chain.oo_pts(kind, J, D) return the union of the existing per-state cache
     (hc_pts_* / oo_pts_*, read only) and this agent's per-state cache (cl_pts_* / cl_oopts_*, written by cl_points.py); a reference key
     (Delta = 2e4, nu) present in both files is an error (one owner per reference point);
+  * failed direct nodes (state max|err|/max|E| > CL_MAXREL = 0.1, e.g. x = 0.9 at Delta = 336, x = 0.95 at Delta = 200/400) are dropped;
   * exact-scalar caches: hc_exact.pkl -> cl_exact.pkl, oo_exact.pkl -> cl_ooexact.pkl (initialised as copies of the originals, so the
     control-variate values of already computed states are identical; new states are appended to the cl_ copies only);
   * outputs: cache/hc_chain_<mode>_<tag>.* -> cache/cl_chain_<mode>_<tag>.*, cache/oo_chain_<tag>.* -> cache/cl_oochain_<tag>.*.
@@ -11,6 +12,7 @@ cl_guard refuses any write to a non-cl cache file.
 Usage: [env as for hc_chain.py] python3 cl_chain.py hc z4 300      |   [env as for oo_chain.py] python3 cl_chain.py oo
 """
 import os, sys, shutil, pickle
+import numpy as np
 sys.dont_write_bytecode = True
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import cl_guard     # noqa: E402,F401
@@ -21,12 +23,22 @@ for a, b in (('hc_exact.pkl', 'cl_exact.pkl'), ('oo_exact.pkl', 'cl_ooexact.pkl'
         shutil.copyfile(os.path.join(C, a), os.path.join(C, b))
 
 
+MAXREL = float(os.environ.get('CL_MAXREL', '0.1'))     # state points with max|err|/max|E| above this are dropped (failed RQMC nodes)
+DROPPED = set()
+
+
 def merged(files):
     out = {}; owner = {}
     for f in files:
         if not os.path.exists(f):
             continue
         for k, v in pickle.load(open(f, 'rb')).items():
+            if k[0] < DREF and float(np.max(np.abs(v['err']))/np.max(np.abs(v['E']))) > MAXREL:
+                if (f, k) not in DROPPED:
+                    DROPPED.add((f, k))
+                    print(f"# cl_chain: dropped failed node {os.path.basename(f)} Delta={k[0]:g} nu={k[1]:.4f} (max rel err "
+                          f"{float(np.max(np.abs(v['err']))/np.max(np.abs(v['E']))):.2f} > {MAXREL})", flush=True)
+                continue
             if k[0] == DREF:
                 assert k not in owner, ('cl_chain: reference key in two files', k, owner.get(k), f)
                 owner[k] = f

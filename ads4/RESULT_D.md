@@ -229,6 +229,8 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   - **c₁** is carried as a free parameter (∓0.22 % / ∓0.017 % per unit), not "|c₁| ≤ 1".
 >   - RESULT_D_STATEMENT.md is out of date against HYPOTHESES_CLOSE(2), PARITY_ODD_CLOSE, HLJ_ANALYTIC, HWIN_THIMBLE and BELOW_FOLD_SPINJ; to be rewritten once the cleanup and H_RS runs land.
 
+> * **Update (H_RS check; HRS_CHECK.md):** EE k = 2/4 engine ≡ crystal cycle beyond LO is confirmed at ν ≥ 10 [NE] (J = 0, 2) and weakly at 6 ≤ ν < 10. Below ν = 6 it is [I] (the n4 thimble errors are too large; ν < 2 is untested). The "512 c₂" item is the resolved k = 2 comparison-script artefact. For Result D, H_RS remains [I] where the engine is used below the fold (the (336, 28/32) window, OO beyond order 0).
+
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,

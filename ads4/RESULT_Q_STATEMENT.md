@@ -48,6 +48,15 @@ Authoritative. Supersedes the headline claims of RESULT_Q_STAGE0–7, BELOW_FOLD
 >
 > The numbers are unchanged.
 
+> **H_RS check (HRS_CHECK.md):** the crystal-cycle direct nodes were compared entry by entry with the engine at J = 0 at the gap (Δ_g = 300, 1000) and J = 2.
+> - **Engine confirmed beyond LO at ν ≥ 10 [NE]** (e.g. ν = 20: −0.3 ± 1.5 c₂ against Γ = −73.4).
+> - **6 ≤ ν < 10: [NE, weak].**
+> - **ν < 6: [I].** Consistent but uninformative (errors ±520 to ±1800 c₂ at ν = 2–3).
+> - **ν < 2: untested.** This window carries 68 % of the χ_d weight and the whole engine s_d.
+> - **For Q's binding state, H_RS stays [I].** s_d = +0.51 is [NE given H_RS]; Q's minimum is unchanged but not confirmed.
+> - The review's "512 c₂" is the already-resolved k = 2 log(ΣM_k) artefact, not an open k = 4 discrepancy.
+> - Routes for ν < 4: a control variate for the R factor, a lower Δ with a higher-K engine, or an analytic continuation argument.
+
 > **Hostile review corrections (REVIEW_UNIFIED_2026-11.md), superseding conflicting text below:**
 > - The bound at ĝ₃ = 0 is **sound with corrections**. The implication positivity ⇒ bound is [D].
 > - **Light side:** Einstein gravity's contribution is zero at [D] (pointwise Lemma A + D_LR; no circularity remains). Two caveats:

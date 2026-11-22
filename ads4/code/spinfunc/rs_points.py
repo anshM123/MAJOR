@@ -8,7 +8,9 @@ Protocol = EE_DG300_SMALLNU's z2 direct-node protocol, unchanged (z2_points impo
 New here: kind 'EE4' = the w0 EE (k = 2) integrand times the Lemma-B factor R = ((v'-u')^2 - 1)/(4u'v') (rational in z, so no new
 branch), i.e. exactly the integrand of bg_eeq's 'EE4' image (bg_ee was checked point-wise against the same w0 builder) and of bf_q.
 The scalar is computed on the same samples (validation against the exact Mellin skeleton).
-Output: cache/rs_pts_<kind>_J<J><tag>.pkl (key (Delta, round(nu, 9)); z2/n1 record format), cache/rs_raw<tag>.pkl.
+Output: cache/rs_pts_<kind>_J<J>_D<Dstate><tag>.pkl (key (Delta, round(nu, 9)); z2/n1 record format), cache/rs_raw_D<Dstate><tag>.pkl.
+ONE FILE PER STATE: the reference 2e4 at a given nu is computed on the state's own proposal (CRN), so reference keys must never be
+shared between states (a shared file let the Delta = 300 run overwrite the Delta = 1000 references; those pairs were re-run).
 Usage: OMP_NUM_THREADS=1 python3 rs_points.py J nu1,nu2,... Dstate[,Dref]   [env RS_TAG, RS_KINDS, Z2_M, Z2_R, RS_NUSPLIT, Z2_SEED]
 """
 import os, sys, pickle, time
@@ -57,12 +59,12 @@ def patch():
     _P[0] = True
 
 
-def fn(kind, J):
-    return os.path.join(C, 'rs_pts_%s_J%d%s.pkl' % (kind, J, TAG))
+def fn(kind, J, Dst):
+    return os.path.join(C, 'rs_pts_%s_J%d_D%g%s.pkl' % (kind, J, Dst, TAG))
 
 
-def load(kind, J, tag=None):
-    f = os.path.join(C, 'rs_pts_%s_J%d%s.pkl' % (kind, J, TAG if tag is None else tag))
+def load(kind, J, Dst):
+    f = fn(kind, J, Dst)
     return pickle.load(open(f, 'rb')) if os.path.exists(f) else {}
 
 
@@ -70,7 +72,7 @@ def run(J, nus, Ds, m=Z.MQ, R=Z.RQ):
     patch()
     for nu in nus:
         keys = [(D, round(nu, 9)) for D in Ds]
-        if all(all(k in load(kd, J) for kd in Z.KINDS) for k in keys):
+        if all(all(k in load(kd, J, Ds[0]) for kd in Z.KINDS) for k in keys):
             print(f"# J={J} nu={nu}: done", flush=True); continue
         t = time.time()
         if nu >= NU_SPLIT:
@@ -78,10 +80,9 @@ def run(J, nus, Ds, m=Z.MQ, R=Z.RQ):
         else:
             res = Z.n4_pair(J, nu, Ds, m, R, more=[v for v in nus if v < NU_SPLIT])
         for D, (o, raw) in res.items():
-            raw = dict(raw); raw.pop('prop', None)
-            Z._save(os.path.join(C, 'rs_raw%s.pkl' % TAG), (raw['method'], round(D, 9), J, round(nu, 9)), raw)
+            Z._save(os.path.join(C, 'rs_raw_D%g%s.pkl' % (Ds[0], TAG)), (raw['method'], round(D, 9), J, round(nu, 9)), raw)
             for k in Z.KINDS:
-                Z._save(fn(k, J), (D, round(nu, 9)), o[k])
+                Z._save(fn(k, J, Ds[0]), (D, round(nu, 9)), o[k])
         print(f"## J={J} nu={nu:.4f} Ds={Ds}: done in {time.time() - t:.0f}s", flush=True)
 
 

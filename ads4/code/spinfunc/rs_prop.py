@@ -35,7 +35,8 @@ def main(Dg, tags, est='dir', J=0, exclude=()):
     W = BQ.weights()
     nn = np.array([o['nu'] for o in rows])
     order = np.argsort(nn); rows = [rows[i] for i in order]; nn = nn[order]
-    d = np.array([o['d_' + est] for o in rows]); e = np.array([o['e_' + est] for o in rows])
+    infl = float(os.environ.get('RS_INFL', '1'))    # error inflation (independent-seed repeats at nu = 12.02: jackknife low by x2-3)
+    d = np.array([o['d_' + est] for o in rows]); e = infl*np.array([o['e_' + est] for o in rows])
     g = np.array([o['m']**2*o['Tst']/o['SR'] for o in rows])
     def dG_nodes(dv):
         w = 1.0/np.maximum(np.abs(e)**2, 1e-30)
@@ -56,7 +57,7 @@ def main(Dg, tags, est='dir', J=0, exclude=()):
     for _ in range(2000):
         dv = d + rng.normal(size=d.shape)*e.real + 1j*rng.normal(size=d.shape)*e.imag
         samp.append(proj(dG_nodes(dv)))
-    pr(f'# rs_prop: Delta_g={Dg} J={J} est={est} tags={tags}; nodes {list(np.round(nn, 2))} (measured range {nn[0]:.2f}-{nn[-1]:.2f}; outside: not tested)')
+    pr(f'# rs_prop: Delta_g={Dg} J={J} est={est} tags={tags}; node errors x {infl}; nodes {[round(float(v), 2) for v in nn]} (measured range {nn[0]:.2f}-{nn[-1]:.2f}; outside: not tested)')
     m = r['m']; u = (np.sqrt((Dg - 2.0)*(Dg - 1.0))/m)**2
     pr('  0.04 sum chi_d NH (projection of the a_h class; ~0 means the unmeasured dGamma(0.02) does not matter): ' +
        ', '.join(f'{gn} {0.04*np.sum(np.asarray(cd[:min(len(nus), len(cd))])*NH[:min(len(nus), len(cd))]).real:+.2e}' for gn, (_, _, cd) in W.items()))
@@ -79,7 +80,7 @@ def main(Dg, tags, est='dir', J=0, exclude=()):
         inw = [(dG0[i], np.hypot(abs(g[i].real)*e[i].real, abs(g[i].imag)*e[i].imag)) for i in range(len(nn)) if a <= nn[i] < b]
         meas = ', '.join(f'{x:+.1f}+-{s_:.1f}' for x, s_ in inw) if inw else 'not measured'
         pr(f'    nu [{a:2d},{b:2d}): weight {wgt:.4f}; breaking |dG| >= {th[0]:8.1f} (0.2) / {th[1]:7.2f} (0.05); measured: {meas}')
-    open(os.path.join(RC.C, 'rs_prop_D%g_%s.txt' % (Dg, est)), 'w').write('\n'.join(lines) + '\n')
+    open(os.path.join(RC.C, 'rs_prop_D%g_%s_x%g%s.txt' % (Dg, est, infl, '_ex' + '_'.join('%g' % x for x in exclude) if exclude else '')), 'w').write('\n'.join(lines) + '\n')
 
 
 if __name__ == '__main__':
