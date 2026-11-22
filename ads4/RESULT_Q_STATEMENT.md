@@ -48,6 +48,16 @@ Authoritative. Supersedes the headline claims of RESULT_Q_STAGE0–7, BELOW_FOLD
 >
 > The numbers are unchanged.
 
+> **Forward channels and parity-odd J = 0, 2 measured (RESULT_Q_FWD_CLOSE.md):**
+> - **H_OO^Q [I] → [NE+M].** OO J = 0, 2 (gap, 1.05Λ, 1.3Λ; Δ_g = 300, 1000): s_d = +0.509…+0.511, equal to ++ within 5·10⁻⁶ in every gauge. The helicity lemma holds for the k = 4 functional (order 0 exact to 10⁻⁹; beyond: ≤ 1.3·10⁻³ c₂, falling like Δ^−2.3…−2.5).
+> - **H_fwd^Q, channel coverage [I] → [NE+M].**
+>   - +− J = 6 (the last channel with failure threshold within 4× the measured size) has s_d = −0.515…−0.564, which is favourable.
+>   - +− J = 7, 8, 9, 11 are favourable. ++ J = 6, 8 are unfavourable but have thresholds ≥ 28.
+>   - Caveat: at Δ_g = 300 there is a J-drift of s_d (−0.07 at J = 7, 2.4× the truncation error), cause open. J ≥ 7 is therefore quoted from Δ_g = 1000.
+> - **Still assumed [I]:** real-section ≡ crystal-cycle equivalence for EE beyond LO (shared with Results D and Q). Also unmeasured: ++ J ≥ 10, +− J = 10 and ≥ 12, and states above 1.475Λ (all with thresholds ≥ 11 or (Λ/m)⁶-suppressed).
+> - **Untouched:** the σ_h·U double-counting question (it decides the sign at δ = 0.05, not at δ = 0.2).
+> - **Full-set minimum unchanged:** +0.1426 ± 0.0017 (δ = 0.2), +0.0060 ± 0.0013 (δ = 0.05). Binding pair: ++ J = 0 and OO J = 0 at the gap. **Numbers in the headline unchanged.**
+
 ## Headline (conditional)
 
 At tree level, with twist gap Δ_g = 300 or 1000, and at ĝ₃ = 0:

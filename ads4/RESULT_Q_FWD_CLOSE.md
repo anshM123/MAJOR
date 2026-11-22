@@ -1,20 +1,30 @@
 # Result Q: closing H_OO^Q and H_fwd^Q by direct measurement
 
 *21–22 Nov 2026, forward-close agent. Unrefereed, not committed. No existing document or code file was edited; no `bj_*` file was
-touched, imported or run. New code: `ads4/code/spinfunc/qf_*.py`, `qf_queue{A,C,D}.sh` (`qf_queueB.sh` was cut short after its first two
-jobs; its last job moved to `qf_queueD.sh`). Caches: `spinfunc/cache/qf_*` (git-ignored). Read-only imports: `po_ee_odd` (parity-odd
+touched, imported or run (two `bj_*` file headers were read, to learn that a J/Δ-resummed even-J EE engine is in progress there). New code: `ads4/code/spinfunc/qf_*.py`, `qf_queue{A,…,F}.sh` (`qf_queueB.sh` was cut short after its first two
+jobs; its last job moved to `qf_queueD.sh`, the J = 8 jobs to `E`/`F`). Caches: `spinfunc/cache/qf_*` (git-ignored). Read-only imports: `po_ee_odd` (parity-odd
 `⟨TTO⟩` prefactor on the analytic-radial engine), `bg_eeq`, `bg_ee`, `bg_geom`, `bg_ser`, `bg_qan` (projection, `ffn`), `bg_scalar`,
 `bg_scalarJ`, `bf_qan` (`mass`, `Rj`, `T`, `weights`), `p1_tto_odd`, `l5_spin`, `l6_spin_action`, `l7_dc2_analysis`, `l8_analysis`,
 `resultq/stage6_model`, `stage6_stress`, `stage6_scan`, `common_q`. Existing caches (`bg_eeq_*`, `bh_eeq_*`, `po_eeq_*`,
 `bh_helbasis.pkl`, `bh_shadow.pkl`) were read, never written. Compute: ≤ 2 worker processes, `ulimit -v 3 GB`, `OMP/OPENBLAS = 1`,
-≤ 1.4 GB per process.*
+peak 1.6 GB per process, ≤ 2.9 GB total; most short chain runs were made while pausing (SIGSTOP) one image worker; a few short checks (≤ 3 min each: `qf_jcheck`, a basis
+sensitivity test, two chains) ran briefly as a third process.*
 
 Grades: **[P]** proved; **[D]** derived; **[DV]** derived and checked numerically; **[NE]** numerical evidence; **[M]** model; **[I]**
 open. `c₂` = `m² ×` relative correction. `s_d = 0.04 Σ_ν χ_d(ν) Re Γ_K(ν)` (Stage 7 §2; BELOW_FOLD2 §4). "Engine" = the analytic-radial
 `1/Δ` engine of BELOW_FOLD2 on the real section D; its EE beyond-LO equivalence with the crystal cycle is **assumed** (BELOW_FOLD2 §5.4),
 here as in BELOW_FOLD2/3 and PARITY_ODD_CLOSE.
 
-@@SUMMARY@@
+## 0. Summary
+
+| item | result | grade |
+|---|---|---|
+| **H_OO^Q: OO J = 0, 2 measured** | Parity-odd `⟨TTO⟩` prefactor (`po_ee_odd`) on the engine at even J, k = 4, chain with `γ_{++}`. **`s_d` = +0.509 ± 0.016 (J = 0 gap, Δ_g = 300), +0.510 ± 0.002 (J = 0 gap, 1000), +0.511 ± 0.010 / +0.510 ± 0.001 (J = 2, 1.05Λ, 300 / 1000)**; H2/H3/H4/XP within 0.006, SB +0.525. m-independent (1.0–1.3Λ: spread ≤ 0.001). **Unfavourable, exactly as `++`.** FF/N: OO J = 0 gap **+0.1427 / +0.0061** (δ = 0.2 / 0.05; SB +0.1410 / +0.0048); OO J = 2 +0.1664 / +0.0195 at its channel minimum. | **[NE + M]** |
+| **Helicity lemma at k = 4** | Order 0: OO and `++` reference images proportional to `10⁻⁹` **[DV]**. Beyond: `Γ_K^OO − Γ_K^{++}` ≤ `1.3·10⁻³` c₂ per harmonic (Δ_g = 300), falling `∝ Δ^{−2.3…−2.5}` (`O(m⁻²) c₂`, relative `O(Δ⁻⁴)`, as for k = 2, 3); `|s_d(OO) − s_d(++)| ≤ 5·10⁻⁶`, every gauge **[NE]**. **The lemma's prediction holds for k = 4.** | [DV] / [NE] |
+| **H_fwd^Q: new channels** | **`+−` J = 6** (the last channel with `s_fail` < 9: 1.99 at δ = 0.05): `s_d` = **−0.564 ± 0.012** (gap, 300), **−0.515 ± 0.003** (gap, 1000), **−0.545 ± 0.010** (1.475Λ). **`+−` J = 7** (parity-odd): −0.517 ± 0.001 (1000), −0.591 ± 0.031 (300), −0.54 ± 0.28 (1.475Λ). **`+−` J = 8:** −0.513 ± 0.18 (1000), −0.52 ± 0.61 (1.475Λ). **`+−` J = 9:** −0.507 ± 0.32 (1000), −0.43 ± 1.7 / −0.48 ± 1.0 (300 gap / 1.475Λ). **`+−` J = 11:** −0.48 ± 0.67 (1000). **`++` J = 6:** +0.511 ± 0.008 (1000), +0.53 ± 0.10 (300); **`++` J = 8:** +0.54 ± 0.41. Gauge spread ≤ 0.016 everywhere (SB the outlier). **Every `+−` favourable (`σ_{+−} = −1`), every `++`/OO unfavourable (`+1`), all of the universal size 0.51 ± 0.08.** | **[NE + M]** |
+| J/Δ resummation | Scalar test: fixed order K = 4 adequate for `s_d` at J ≤ 9 (proxy ≤ 0.03 H0) but the EE image is more J-sensitive: at Δ_g = 300 `s_d` drifts with J (−0.07 at J = 7, favourable); the J ≥ 7 channels are quoted from Δ_g = 1000 (J²/Δ ≤ 0.12). Origin of the drift [I]. | [DV] scalar / [NE] / [I] |
+| **Full-set minimum** | **unchanged: +0.1426 ± 0.0017 (δ = 0.2; SB +0.1409), +0.0060 ± 0.0013 (δ = 0.05; SB +0.0047)**, both Δ_g, all gauges; binding = the pair `++` J = 0 / OO J = 0 at the gap. `+−` J = 6 rises +0.0497 → +0.0636 (δ = 0.05). Unmeasured states, even at 3× the size with the adverse sign: ≥ +0.232 / +0.197. | **[NE + M]** |
+| **Regradings** | **H_OO^Q: [I] → [NE + M].** **H_fwd^Q (channel coverage, m-independence): [I] → [NE + M]**; its other half, the EE real-section ≡ crystal equivalence, **stays assumed [I]**. Unmeasured: `++` J ≥ 10, `+−` J = 10, ≥ 12, OO J ≥ 4, masses > 1.475Λ — all with `s_fail ≥ 11` or `(Λ/m)⁶`-suppressed (§3.4, §5). | — |
 
 ---
 
@@ -55,8 +65,8 @@ coefficient drops out with the per-state constant `c`. The `S⁰` sum (both `n�
 at **the same Δ** (BELOW_FOLD2's `bg_eeq` caches, or new `qf_eeq even` images at 1.3Λ) goes through the **same** chain (REFCORR = 1 for both),
 so the comparison is like for like. Cost: J = 0 1.5 min, J = 2 11 min per state (depth 5, ≤ 0.9 GB); references 11 s / 83 s.
 
-Channel identification [DV]: `Re Γ_exact/Re Σ_j R_j(ν − ij)² = 0.73–0.78` for ν ≥ 4 in OO (the `++` covariant constant 0.75, not the
-`+−` 20.75), at every state.
+Channel identification [NE]: `Re Γ_exact/Re Σ_j R_j(ν − ij)²` on 4 ≤ ν < 40 has median 0.72–0.75 (10–90 % range 0.67–0.76) in OO at every
+state — the `++` covariant constant 0.75, not the `+−` 20.75.
 
 ### 2.2 Result
 
@@ -106,7 +116,7 @@ Same Δ, same chain, same projection; the two images are **different functions**
 
 **Consequence for Result Q.** OO J = 0 at the gap is a **co-binding** state of the full set with `++` J = 0: FF/N = +0.1427 ± 0.0017 (δ = 0.2;
 SB +0.1410) and +0.0061 ± 0.0013 (δ = 0.05; SB +0.0048), identical to `++` J = 0 to 10⁻⁶. OO J = 2: +0.0267 / +0.1812 at 1.05Λ (channel
-minimum with the m-independent `s_d`, §4: +0.0196 / +0.1665 at 1.089 / 1.118Λ, the `++` J = 2 values). **H_OO^Q is no longer an assumption at
+minimum with the m-independent `s_d`, §4: +0.0195 / +0.1664 at 1.089 / 1.118Λ, the `++` J = 2 values to 10⁻⁴). **H_OO^Q is no longer an assumption at
 J = 0, 2: it is measured** [NE + M; NE given D ≡ crystal for EE beyond LO, M for the HYB rest of the heavy action].
 
 ## 3. H_fwd^Q: the remaining forward channels
@@ -161,14 +171,18 @@ than the scalar; the proxy is therefore a lower estimate, and the J ≥ 7 channe
 | channel, state | Δ_g | K | `s_d` H0 | H2 | H3 | H4 | SB | XP | FF/N δ = 0.05 (K=0 → meas.; SB) | δ = 0.2 |
 |---|---|---|---|---|---|---|---|---|---|---|
 | **`+−` J = 6, gap `1.020Λ`** | 300 | 4 | **−0.564 ± 0.012** | −0.565 | −0.564 | −0.563 | −0.579 | −0.570 | +0.0775 → +0.0877 (+0.0880) | +0.2077 → **+0.2200** (+0.2203) |
-@@J6_1000@@
+| **`+−` J = 6, gap `1.006Λ`** | 1000 | 4 | **−0.515 ± 0.003** | −0.515 | −0.515 | −0.513 | −0.530 | −0.520 | +0.0743 → +0.0836 (+0.0839) | +0.2024 → **+0.2135** (+0.2138) |
+| `++` J = 6, gap `1.006Λ` | 1000 | 4 | +0.511 ± 0.008 | +0.511 | +0.511 | +0.510 | +0.526 | +0.516 | +0.7871 → +0.7763 | +0.8528 → +0.8416 |
 | **`+−` J = 6, `1.475Λ`** | 300 | 3 | **−0.545 ± 0.010** | −0.546 | −0.545 | −0.544 | −0.560 | −0.551 | +0.0497 → **+0.0633** (+0.0637) | +0.3454 → +0.3626 (+0.3631) |
 | `++` J = 6, gap `1.020Λ` | 300 | 4 | +0.530 ± 0.100 | +0.531 | +0.530 | +0.529 | +0.545 | +0.536 | +0.7811 → +0.7699 | +0.8497 → +0.8380 |
 | `++` J = 6, `1.475Λ` | 300 | 3 | +0.565 ± 0.53 | +0.565 | +0.565 | +0.564 | +0.580 | +0.570 | +0.5635 → +0.5532 | +0.7488 → +0.7377 |
 | **`+−` J = 7, gap `1.007Λ`** | 1000 | 4 | **−0.517 ± 0.001** | −0.518 | −0.517 | −0.516 | −0.532 | −0.523 | +0.6571 → +0.6627 | +0.6805 → +0.6880 |
 | `+−` J = 7, gap `1.023Λ` | 300 | 4 | −0.591 ± 0.031 | −0.591 | −0.591 | −0.589 | −0.605 | −0.596 | +0.6574 → +0.6641 | +0.6846 → +0.6935 |
 | `+−` J = 7, `1.475Λ` | 300 | 3 | −0.539 ± 0.28 | −0.539 | −0.539 | −0.538 | −0.554 | −0.544 | +0.3603 → +0.3700 | +0.4687 → +0.4795 |
-@@J8@@
+| **`+−` J = 8, gap `1.008Λ`** | 1000 | 3 | **−0.513 ± 0.18** | −0.514 | −0.513 | −0.512 | −0.528 | −0.519 | +0.0883 → +0.0927 (+0.0928) | +0.2902 → +0.2956 (+0.2958) |
+| `+−` J = 8, `1.475Λ` | 300 | 3 | −0.52 ± 0.61 | −0.52 | −0.52 | −0.52 | −0.53 | −0.52 | +0.6890 → +0.6964 | +0.6887 → +0.6970 |
+| `++` J = 8, gap `1.008Λ` | 1000 | 3 | +0.54 ± 0.41 | +0.54 | +0.54 | +0.54 | +0.55 | +0.54 | +0.8693 → +0.8623 | +0.9201 → +0.9129 |
+| `++` J = 8, `1.475Λ` | 300 | 3 | +0.67 ± 1.15 | +0.67 | +0.67 | +0.67 | +0.68 | +0.67 | +0.6617 → +0.6540 | +0.8335 → +0.8250 |
 | **`+−` J = 9, gap `1.009Λ`** | 1000 | 3 | **−0.507 ± 0.32** | −0.507 | −0.507 | −0.506 | −0.521 | −0.512 | +0.6633 → +0.6676 | +0.7790 → +0.7831 |
 | `+−` J = 9, gap `1.030Λ` | 300 | 3 | −0.43 ± 1.67 | −0.43 | −0.43 | −0.43 | −0.44 | −0.43 | +0.6812 → +0.6856 | +0.8069 → +0.8109 |
 | `+−` J = 9, `1.475Λ` | 300 | 3 | −0.48 ± 1.01 | −0.48 | −0.48 | −0.48 | −0.49 | −0.48 | +0.7536 → +0.7588 | +0.8278 → +0.8340 |
@@ -176,7 +190,7 @@ than the scalar; the proxy is therefore a lower estimate, and the J ≥ 7 channe
 
 Errors = size of the last included order (K = 3 rows: the a³ term; the projected series converges geometrically, ratio 9–30 per order,
 so these errors are conservative by roughly that factor). Per-order `s_d` (H0): `+−` J = 6 gap `+37.75 −37.37 −0.86 −0.10 +0.012`;
-J = 7 (1000) `+59.30 −57.90 −1.85 −0.065 −0.0008`; J = 9 (1000) `+111.7 −102.7 −9.16 −0.32`; J = 11 (1000) `+176.4 −158.2 −18.0 −0.67`:
+J = 7 (1000) `+59.30 −57.90 −1.85 −0.065 −0.0008`; J = 8 `+−` (1000) `+83.95 −78.98 −5.30 −0.18`; J = 9 (1000) `+111.7 −102.7 −9.16 −0.32`; J = 11 (1000) `+176.4 −158.2 −18.0 −0.67`:
 the leading two orders grow like J² and cancel to ~10 %, then the series converges.
 
 **Reading.**
@@ -185,12 +199,13 @@ the leading two orders grow like J² and cancel to ~10 %, then the series conver
   `+1.03 +4.58 +8.32 +10.46 +9.98 +7.53 +1.75 −1.83 +0.99` at ν = 0.5 … 10 vs `++` J = 0 `−1.03 −4.58 −8.30 −10.41 −9.92 −7.55 −2.11 +1.45
   −0.58`. The parity-odd `+−` exchange at J = 7, 9, 11 thus carries the same correction as at J = 5 (PARITY_ODD_CLOSE) and as the even
   `+−` at J = 4, 6.
-* `++` J = 6: `+0.53 ± 0.10` (gap) / `+0.57 ± 0.53` (1.475Λ): the universal `+U`, unfavourable, irrelevant (`s_fail ≥ 28`).
-* **Helicity-even part** `(s_d^{++} + s_d^{+−})/2` at J = 6: `−0.017` (gap), `+0.010` (1.475Λ) (J = 4: `+0.0001`): `σ_h`-universality holds to
-  ~3 % of `U` at J = 6.
+* `++` J = 6: `+0.511 ± 0.008` (Δ_g = 1000), `+0.53 ± 0.10` (300), `+0.57 ± 0.53` (1.475Λ); `++` J = 8: `+0.54 ± 0.41` / `+0.67 ± 1.15`: the
+  universal `+U`, unfavourable, irrelevant (`s_fail ≥ 28`).
+* **Helicity-even part** `(s_d^{++} + s_d^{+−})/2` at J = 6: `−0.0018` (gap, Δ_g = 1000), `−0.017` (gap, 300), `+0.010` (1.475Λ, 300) (J = 4:
+  `+0.0001`): `σ_h`-universality holds to 0.4 % of `U` at Δ_g = 1000 and ~3 % at 300.
 * **Δ_g-dependence at larger J [NE; origin I].** At Δ_g = 1000 the `+−` values are universal (−0.510 / −0.512 / −0.517 / −0.507 / −0.48 at
   J = 4 / 5 / 7 / 9 / 11). At Δ_g = 300 they drift with J: `s_d(300) − s_d(1000)` = −0.006 (J = 4), −0.027 (J = 5), −0.074 ± 0.031 (J = 7),
-  @@J6DIFF@@. At J = 7 the difference is 2.4× the a⁴ term and sits in orders k = 1–3 (`−54.98 −4.41 −0.52` at 300 vs `−57.90 −1.85 −0.065`
+  −0.049 ± 0.012 (J = 6; `++` J = 6: +0.019 ± 0.10). At J = 7 the difference is 2.4× the a⁴ term and sits in orders k = 1–3 (`−54.98 −4.41 −0.52` at 300 vs `−57.90 −1.85 −0.065`
   at 1000), i.e. it is a J²/Δ-enhanced finite-Δ term that the fixed-order series does compute, not obviously a truncation artefact (the
   scalar proxy of §3.1 gives only +0.011 for (307, 7)). Whether it is physical (`J²/m²` corrections to `U`) or a slow (J²/Δ)ⁿ tail beyond
   the last order cannot be decided from these data [I]. It is **favourable** in sign, and ≤ 0.08 against thresholds ≥ 8.9 for J ≥ 7. The
@@ -204,11 +219,90 @@ the leading two orders grow like J² and cancel to ~10 %, then the series conver
 * **m-dependence within a channel [NE]:** `+−` J = 6: −0.564 (1.02Λ) / −0.545 (1.475Λ); J = 7: −0.591 (1.02Λ) / −0.539 (1.475Λ) (Δ_g = 300,
   the difference within the J/Δ error); J = 9: −0.43 / −0.48 (both ± 1); OO/`++` J = 0: 0.509 / 0.510 / 0.510 (1.0 / 1.05 / 1.3Λ); J = 2:
   0.511 / 0.511 (1.05 / 1.3Λ). No m-dependence beyond the truncation/J-Δ errors anywhere between the gap and 1.475Λ.
-* **Helicity mixing at J = 6 [NE + M].** `m²κ ≈ +49` (`T0` from x ≥ 0.15) / `+210` (x ≥ 0.25) — basis-dependent, because the order-0
+* **Helicity mixing at J = 6, 8 [NE + M].** (J = 8: `m²κ ≈ ±340`, `s_off` up to 1.2 (SB); same conclusion.) `m²κ ≈ +49` (`T0` from x ≥ 0.15; +50 at Δ_g = 1000, whose basis is sharp: off-diagonal
+  `2.3·10⁻³`) / `+210` (x ≥ 0.25, Δ_g = 300) — basis-dependent, because the order-0
   Laplace basis at J = 6 near the gap is less sharp (rank-2 residual `7.9·10⁻⁵`, order-0 off-diagonal `2.6·10⁻²`, vs `1.7·10⁻⁶`, `1.5·10⁻³`
   at J = 4). The **diagonal** `s_d` are basis-independent to `10⁻⁴` (both bases). `s_off` (H0 … SB) = `−0.01 … −0.21` / `+0.10 … −0.76`; in
   the 2 × 2 positivity condition this enters as `(a·2u³ s_off/N)² ≤ (FF/N)_{++}(FF/N)_{+−}`: at most `(0.03·0.76)² = 5·10⁻⁴` against
   `0.77 × 0.088 = 0.068` (δ = 0.05, gap) — negligible.
 
-@@REST@@
+### 3.4 What is still unmeasured, and why it cannot bind [M]
+* **Channels:** `++` J ≥ 10 (even), `+−` J = 10 and J ≥ 12, OO J ≥ 4 (taken equal to `++` J — the lemma is now measured at k = 4 only for
+  J = 0, 2; flagged `L` in the scan). Their thresholds are `s_fail ≥ 11` (OO J = 4), ≥ 28 (OO/`++` J ≥ 6), ≥ 35 (`+−` J ≥ 10): 20–70× the
+  universal size measured in 14 channels.
+* **Masses above 1.475Λ** in every channel (m-independence measured from the gap to 1.475Λ only). The correction enters FF as `a·2u³ s_d`
+  with `u = Λ²/m²`, i.e. suppressed by `(Λ/m)⁶`: at 2Λ by 1/64, at the Stage-6 large-J edge (`m ≈ 27Λ`) by 10⁻⁹. A universal-size `s_d` cannot
+  matter there; an `s_d` growing like `m⁶` would be needed.
+* **Stress test** (`qf_ffscan`): every unmeasured state of the scan set at `s_d = σ_h s_0` (`s_0 = +0.53`): lowest unmeasured state +0.244
+  (δ = 0.05, `+−` J = 20, 5.1Λ) / +0.198 (δ = 0.2, `+−` J = 26, 6.3Λ, Stage 6 region R3); at **3× the size with the adverse sign** on all of them:
+  +0.232 / +0.197. No unmeasured state comes within 0.19 of the binding value.
+* The scan set is Stage 6's `stage6_stress.states` (J ≤ 60, b̂ < 30, plus exact states), as in every previous `*_ffscan`; the LR/HYB large-J
+  region (Stage 6's δ = 0.05 minimum +0.049 at `++` J = 278, 26.8Λ) has `u³ ~ 10⁻⁹` and is unaffected.
+
+## 4. Full-set minimum (`qf_ffscan.py` → `cache/qf_ffscan.txt`) [NE + M]
+
+`po_ffscan` + all measurements of this note (OO J = 0, 2; `+−` J = 6, 7, 8, 9, 11; `++` J = 6, 8; `++`/OO at 1.3Λ), with an explicit OO channel
+(Stage 6's even-J `++` rows duplicated). `s_d` applied m-independently within each (h, J), mean of the measurements at that Δ_g (both
+Δ_g where only one exists, `*`), error = max(truncation, half-spread).
+
+| δ | Δ_g | **min FF/N** H0 / H2 / H3 / H4 / SB / XP | binding | `+−` J = 6 channel (K = 0 → meas.) | OO J = 2 | `+−` J = 8 |
+|---|---|---|---|---|---|---|
+| 0.05 | 300 | **+0.0060 ± 0.0013** / +0.0060 / +0.0060 / +0.0061 / **+0.0047** / +0.0055 | OO J = 0 ≡ `++` J = 0, gap | +0.0497 → **+0.0636** (1.475Λ) | +0.0195 (1.089Λ) | +0.186 (1.026Λ) |
+| 0.05 | 1000 | **+0.0060 ± 0.0001** / +0.0060 / +0.0060 / +0.0061 / **+0.0047** / +0.0055 | same | +0.0498 → +0.0627 | +0.0196 | +0.093 (1.008Λ) |
+| 0.2 | 300 | **+0.1426 ± 0.0017** / +0.1425 / +0.1426 / +0.1427 / **+0.1409** / +0.1420 | same | +0.2074 → **+0.2195** (gap) | +0.1664 (1.118Λ) | +0.379 |
+| 0.2 | 1000 | **+0.1426 ± 0.0002** / +0.1425 / +0.1426 / +0.1427 / **+0.1409** / +0.1420 | same | +0.2024 → +0.2135 (gap) | +0.1665 | +0.296 |
+
+Per-channel minima (δ = 0.2, Δ_g = 300, H0): `++`/OO J = 0 +0.1427 / +0.1426; J = 2 +0.1665 / +0.1664; J = 4 +0.380; J = 6 +0.486; J = 8 +0.563;
+`+−` J = 4 +0.277, J = 5 +0.218, J = 6 +0.220, J = 7 +0.411, J = 8 +0.379, J = 9 +0.421, J = 11 +0.395. (δ = 0.05: `++`/OO J = 0 +0.0061 / +0.0060,
+J = 2 +0.0196 / +0.0195, `+−` J = 4 +0.117, J = 5 +0.065, J = 6 +0.064, J = 7 +0.155, J = 8 +0.186, J = 9 +0.229, J = 11 +0.259.)
+
+* **The full-set minimum is unchanged:** **+0.1426 ± 0.0017 (δ = 0.2; SB +0.1409)** and **+0.0060 ± 0.0013 (δ = 0.05; SB +0.0047)**, both Δ_g,
+  every gauge (previous: +0.1427 / +0.0061; the 10⁻⁴ shift is the REFCORR convention and the 1.3Λ points in the OO/`++` J = 0 average).
+  The binding state is now the **pair** `++` J = 0 / OO J = 0 at the gap, equal to 10⁻⁵.
+* **`+−` J = 6**, the last unmeasured channel with a threshold within 4× of the universal size (δ = 0.05, 1.475Λ, `s_fail = 1.99`), is
+  measured with the favourable sign and moves up from +0.0497 to +0.0636.
+* δ = 0.2: closed on every channel with margin ≥ +0.141 (SB) [NE + M]. δ = 0.05: +0.005 ± 0.001 at the binding pair, unchanged; the `σ_h U`
+  double-counting question (BELOW_FOLD3 §4.2) still decides its sign and is untouched here.
+
+## 5. Regradings
+
+| hypothesis / claim | before | now | basis |
+|---|---|---|---|
+| **H_OO^Q** (parity-odd even-J channels = `++`, J = 0, 2 binding) | [I] | **[NE + M]** (NE given the engine's EE ≡ crystal equivalence; M = HYB for the rest of the heavy action) | OO J = 0, 2 measured directly at the gap / 1.05Λ (both Δ_g) and 1.3Λ: `s_d = +0.509 … +0.511`, FF/N = `++` to 10⁻⁵; `Γ_OO − Γ_{++} = O(m⁻²) c₂` (≤ 1.3·10⁻³ c₂) |
+| helicity lemma for the k = 4 functional | assumed (lemma checked on k = 2, 3 only) | order 0 **[DV]** (reference ratio constant to 10⁻⁹); beyond order 0 **[NE]**, `O(Δ⁻⁴)` relative, J = 0, 2; mechanism [I] | §2.3 |
+| OO at J ≥ 4 | = `++` (implicit) | = `++` by the lemma [D-sketch + NE at J = 0, 2]; not binding (`s_fail ≥ 11`) | §3.4 |
+| **H_fwd^Q, channel coverage** (unmeasured forward channels ≈ universal `σ_h U`, m-independence) | [I] | **[NE + M]** | every channel with `s_fail < 8.9` measured (`++`/OO J = 0, 2; `+−` J = 4, 5, 6), plus `+−` J = 7, 8, 9, 11 and `++` J = 6, 8 (all universal size, `σ_{+−} = −1`, `σ_{++} = σ_OO = +1`); m-independence gap → 1.475Λ in `++`/OO J = 0, 2, `+−` J = 6, 7, 9; remaining channels/masses have `s_fail ≥ 11` or `u³`-suppression (§3.4) [M] |
+| **H_fwd^Q, real-section ≡ crystal for EE beyond LO** | assumed | **unchanged: assumed [I]** | not testable on this engine; every `s_d` here and in BELOW_FOLD2/3, PARITY_ODD_CLOSE inherits it |
+| full-set min FF/N +0.1426 (δ = 0.2) | [M] smeared + [NE] forward (5 channels) | [M] smeared (H_smear^Q [NE + M] per RESULT_Q_REVISION) + **[NE] forward (14 channels incl. OO)**, given D ≡ crystal | §4 |
+| Δ_g-independence of `s_d` | [NE] (J ≤ 5) | [NE] at Δ_g = 1000 for J ≤ 11; at Δ_g = 300 a J-growing drift (0.07 at J = 7, favourable) of undetermined origin [I] | §3.3 |
+
+**Precisely what remains unmeasured** (all with `s_fail ≥ 11` or `u³ ≤ 1/64`-suppressed): `++` J ≥ 10; `+−` J = 10, ≥ 12; OO J ≥ 4; every
+channel above 1.475Λ (and `++`/OO J = 0, 2 above 1.3Λ); the per-harmonic `U`-profile at J ≥ 8, Δ_g = 300 (fixed-order series not converged
+per harmonic there; only the projection is). Not addressed: the EE real-section ≡ crystal equivalence; the `σ_h U` double-counting question
+(δ = 0.05 only); β > 30 and the realised-weight limits (hypotheses 5, 10).
+
+## 6. Open items [I]
+1. The engine's EE beyond-LO equivalence with the crystal cycle (BELOW_FOLD2 §5.4) — the one assumption every forward measurement shares.
+2. Why `Γ_OO − Γ_{++}` cancels beyond order 0 to `O(Δ⁻⁴)` relative, now for k = 2, 3 and 4.
+3. The Δ_g = 300 drift of `s_d` with J (§3.3): physical `J²/m²` terms of `U`, or a slow (J²/Δ)ⁿ tail? A J/Δ-resummed EE engine (the other
+   agent's `bj_*` line, when validated) would settle it; it does not affect the bound.
+4. The helicity-mixing size `m²κ` at J ≥ 6 depends on the order-0 basis (`T0` from Laplace points with x ≥ 0.15 vs 0.25); harmless in the
+   2 × 2 condition here, but the basis itself is less sharp at J ≥ 6 near the gap.
+
+## 7. Files (`ads4/code/spinfunc/`; caches in `cache/`, git-ignored)
+| file | content | run |
+|---|---|---|
+| `qf_tol.py` | per-channel K = 0 minima and `s_fail` thresholds (Stage-6 HYB state set) → `cache/qf_tol.txt` | 3 min |
+| `qf_eeq.py` | image driver: `odd` (po_ee_odd.images) / `even` (bg_eeq.images, 2 × 2) → `cache/qf_eeq_{odd,even}_D*_J*_K*.pkl` (+ logs) | 1.5 min (J = 0) … 105 min (J = 6, 2 × 2, depth 5) |
+| `qf_helbasis.py` | copy of bh_helbasis with its own cache → `cache/qf_helbasis.pkl` (reads `bh_helbasis.pkl`) | 1 min per Δ |
+| `qf_qan.py` | chain: `oo` (OO + `++` at the same Δ + lemma test), `pmodd`, `even` (helicity basis, mixing; `QF_XSMIN`) → `cache/qf_qan.txt`, `qf_qan_*.pkl` | 1 min |
+| `qf_jcheck.py` | fixed order vs J/Δ resummation (scalar), projection proxy → `cache/qf_jcheck.txt` | 2 min |
+| `qf_tables.py` | all qf_qan results as tables → `cache/qf_tables.txt` | 10 s |
+| `qf_ffscan.py` | full-set scan with the OO channel and all measurements → `cache/qf_ffscan.txt` | 3 min |
+| `qf_queue{A,C,D,E,F}.sh` (`B` cut short) | the production queues (A: OO J = 0, 2; C: odd J = 7, 9, 11; B/D/E/F: even J = 6, 8) | — |
+
+Reproduce: `./qf_queueA.sh`, `./qf_queueC.sh`, `python3 qf_eeq.py even 20000 6 2 3`, `python3 qf_eeq.py even 306.0297506031432 6 4 5`,
+`./qf_queueD.sh`, `./qf_queueE.sh`, `./qf_queueF.sh`; then `python3 qf_qan.py oo|pmodd|even Δ J K Δ_g` per state (the list is in
+`cache/qf_qan.txt`), `python3 qf_tables.py`, `python3 qf_ffscan.py`. Nothing of mine is left running at hand-over.
+
 

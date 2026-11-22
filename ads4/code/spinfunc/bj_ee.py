@@ -67,14 +67,25 @@ def _poly_mul_lowmem(self, o):
         Ea, Ca = a.E[i0:i0 + step], a.C[i0:i0 + step]
         E = (Ea[:, None, :].astype(np.int32) + b.E[None, :, :]).reshape(-1, S.NV)
         C = (Ca[:, None]*b.C[None, :]).reshape(-1)
-        E, C = S._combine(E, C)
+        E, C = XS_.lowmem_combine(E, C)
         E, C = S.canon(E, C)
-        E, C = S._combine(E, C)
+        E, C = XS_.lowmem_combine(E, C)
         if accE is None:
             accE, accC = E.astype(np.int16), C
         else:
-            accE, accC = S._combine(np.vstack([accE, E.astype(np.int16)]), np.concatenate([accC, C]))
+            accE, accC = XS_.lowmem_combine(np.vstack([accE, E.astype(np.int16)]), np.concatenate([accC, C]))
     return S.Poly(accE, accC).prune()
+
+
+def _poly_add_lowmem(self, o):
+    if not isinstance(o, S.Poly):
+        o = S.Poly.const(o)
+    E, C = XS_.lowmem_combine(np.vstack([self.E, o.E]), np.concatenate([self.C, o.C]))
+    return S.Poly(E, C).prune()
+
+
+S.Poly.__add__ = _poly_add_lowmem
+S.Poly.__radd__ = _poly_add_lowmem
 
 
 S.Poly.__mul__ = _poly_mul_lowmem
