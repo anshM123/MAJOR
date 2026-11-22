@@ -46,6 +46,19 @@ A chain carries the grade of its weakest link.
 >   * This is how `g̃₄` is already defined (§1 table); the Einstein zero is unaffected.
 > * **Weight control qualified.** The light-transform-weight control is one-sided: lower weights also give 0. It therefore tests convergence of the light-ray integral, not light-transform covariance (RESULT_Q_OG_CHECK §3.4).
 
+> **Update (DG_SCAN.md, unreviewed): Δ_g dependence.**
+> * **Bound values as explicit functions of Λ [DV].** The functionals are held fixed, and the forms reproduce every quoted digit at 100, 300 and 1000:
+>   * cubic: `√(t₄²+α_T²) ≤ 1.3194·10⁴·√(ln(Λ/8.7415) + 6.384/Λ + O(lnΛ/Λ²))/Λ⁴`;
+>   * quartic upper end: `17.2407·ln(2Λ/3) − 19.2782 + 10.314/Λ + (860.3·ln(2Λ/3) − 2508.6)/Λ² + …`.
+> * **Where the constant drift comes from.** The shift −19.220 → −19.265 is the finite-Λ tail of the AdS pole, and the constant tends to the flat value −19.2782.
+> * **Error terms in Λ:**
+>   * c₁ (Result D): `∓19941/(Λ²√(16L_A))` per unit c₁;
+>   * H17: `±212.5/Λ²` [M].
+> * **Positivity threshold not computed.** The model bracket is `140 ≲ Δ_g* ≲ 300` [M]. The sign-free large-J window closes only from Δ_g ≈ 275, with margin ×1.1 at 300. So 300 is the lowest gap where the current method closes.
+> * **Proposed corollary.** Under H_mono (corrections fall monotonically at fixed (J, m/Λ)) and H_cont (continuity in m/Λ), the bounds hold for all `Δ_g ≥ 300` [D-sketch + M]. Nothing is claimed below 300.
+> * **Q's binding state is Δ_g-stable:** `s_d ≈ 0.50 + 1440/Δ²` [NE/M].
+> * **Record correction.** RESULT_D_STATEMENT's c₁ entry at Δ_g = 100 should read `∓2.37 %`, not `≈ ∓1.7 %`, by the same formula as the 300/1000 entries.
+
 ## 1. Setup and normalisations
 
 | item | definition |
