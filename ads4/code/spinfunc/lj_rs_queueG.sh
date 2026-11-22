@@ -1,5 +1,5 @@
 #!/bin/bash
-# HLJ_CLOSE §5: analytic normalisation (patched basis) and fw-convention Gamma - kappa for the high-J rows with fw K2 bases.
+# HLJ_CLOSE §5: analytic normalisation (fw patched basis + fw_frame Fourier cure) and fw-convention Gamma - kappa for the high-J rows.
 cd "$(dirname "$0")"
 ulimit -v 3000000
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 BJ_PATCH=1

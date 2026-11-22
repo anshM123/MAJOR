@@ -96,11 +96,55 @@ def direct_pointwise(S_, Dl, J, nus):
     return out
 
 
+def direct_pointwise_pw(S_, Dl, J, nus, chunk=1 << 10):
+    """NOT USED in production: at Delta_ref = 2e4 it disagrees with the w0 contraction by O(1) (t - 1 ~ 1e-9: float64 cancellation in
+    the TPS of t_U), at (336, 28) it agrees to 2e-9 (median).
+    As direct_pointwise, but the spin-J contraction is pw_grav's exact closed form (f = P_J, mode 0) instead of the w0 Fourier sum
+    over 2J+1 null-circle samples, which carries eps^2 4^J round-off at J >~ 40 (FOLD_WINDOW §1.1; HWIN_THIMBLE §1.2: the two agree to
+    1e-13 where the Fourier sum is clean).  Same logs/branches as bf_core.grav_parts (n1_pw batch, continued from bf_core._ref_point)."""
+    import types
+    import bf_core as B, pw_grav as PG, pw_core as PC, l5_spin as S5
+    PW = B.pw(); a = 1.0/Dl
+    mons, sol, _ = S5.conserved(Dl, J)
+    _, solt, _ = S5.conserved(3.0 - Dl, J)
+    Z, lj, psi = S_.raw(a, 1)
+    z0 = B._ref_point(a, S_.theta)
+    ev = types.SimpleNamespace(kind='EE', nu=1.0, Delta=Dl, J=J, mons=mons, sol=sol, solt=solt, mode=0)
+    S = PW.S
+    k2 = S.kappa(2)
+    out = None
+    for c0 in range(0, S_.n, chunk):
+        zz = np.vstack([z0[None, :], Z[c0:c0 + chunk]])
+        PW.set_batch(zz.shape[0])
+        zl = [zz[:, i].copy() for i in range(7)]
+        _, _, P = PW.Cr.build(zl, 1.0, Dl, 0, n0=1.0, parts=True)
+        lamF, Gs, Dm, geo = PG.kind_parts(ev, zl)
+        zw, zzz = PC.zw_geom(zl)
+        ts = zw*PW.powr(zzz, -0.5)
+        x0, x1, x2, x3, x4, e, W2 = (geo[k] for k in ('x0', 'x1', 'x2', 'x3', 'x4', 'e', 'W2'))
+        Ta, v = PG.side(S, x1, PW.Cr.sub(x1, x0), x2, e, W2, mons, sol)
+        Tc, vp = PG.side(S, x3, PW.Cr.sub(x3, x0), x4, e, W2, mons, solt)
+        tV = PG.gmet(v, vp)/np.sqrt(PG.gmet(v, v)*PG.gmet(vp, vp))
+        sig = np.sign(np.real(tV/ts))
+        P5, ln = PG.pairing(Ta, Tc, v, vp, J, sig*ts, 0)
+        Ph = S.fourier(S.fourier(P5, 2, 2), 3, 2)[:, :, ::-1, ::-1]
+        Dh = S.fourier(S.fourier(Dm, 0, 2), 1, 2)
+        pref = np.einsum('i,j,acijn->acn', 1/k2, 1/k2, Ph*Dh[None, None])
+        base = (0.5*Dl*P['lB'] + Gs + ln)[1:] + lj[c0:c0 + chunk]
+        blk = np.zeros(pref.shape[:2] + (zz.shape[0] - 1, len(nus)), complex)
+        for inu, nu in enumerate(nus):
+            blk[..., inu] = pref[..., 1:]*np.exp(base + 0.5j*nu*P['lA'][1:])[None, None, :]
+        out = blk if out is None else np.concatenate([out, blk], axis=2)
+    return out
+
+
 def run(J, Dst, depth, N, Kr, patch=False, npts=10, nus=(0.5, 3.0, 8.332091574, 16.664183148), pr=print, rscale=1.0):
     import bj_eeq as BQ
     if patch:
-        import l5_spin as S5, fw_frame as FW
+        import l5_spin as S5, fw_frame as FW, bf_core as B
         FW.patch_conserved_clean(S5)
+        FW.install_pw(B.pw())                 # fw_points' cure of the eps^2 4^J Fourier round-off of the spin-J contraction (J >~ 40)
+        FW.patch_conserved_clean(B.pw().S)
     nus = np.asarray(nus, float)
     S_ = make_points(npts, 1, rscale)
     res = {}
@@ -116,7 +160,10 @@ def run(J, Dst, depth, N, Kr, patch=False, npts=10, nus=(0.5, 3.0, 8.332091574, 
                     break
         P = pickle.load(open(pp, 'rb'))
         fe = engine_pointwise(P, NN, KK, S_, nus)
-        fd = direct_pointwise(S_, Dl, J, nus)
+        fd = direct_pointwise_pw(S_, Dl, J, nus) if os.environ.get('LJ_DIR', 'w0') == 'pw' else direct_pointwise(S_, Dl, J, nus)
+        if os.environ.get('LJ_DIRCHK') == '1':          # cross-check of the two direct contractions (clean only at J <~ 30)
+            f2 = direct_pointwise(S_, Dl, J, nus)
+            pr(f'#   direct pw vs w0 Fourier contraction: max |pw/w0 - 1| = {np.max(np.abs(fd/f2 - 1)):.2e}')
         r = fe/fd
         res[Dl] = dict(r=r, fe=fe, fd=fd)
         lr = np.log(r)
@@ -145,6 +192,6 @@ if __name__ == '__main__':
         pr(f'# radial scale x{rs} (truncation check)')
         o2 = run(J, Dst, depth, N, Kr, patch, pr=pr, rscale=rs)
         out['rho_rs%g' % rs] = o2['rho']
-    tag = 'lj_rs_norm_J%d_D%g_d%d_N%d_K%d%s' % (J, Dst, depth, N, Kr, '_p' if patch else '')
+    tag = 'lj_rs_norm_J%d_D%g_d%d_N%d_K%d%s%s' % (J, Dst, depth, N, Kr, '_p' if patch else '', os.environ.get('LJ_NTAG', ''))
     open(os.path.join(C, tag + '.txt'), 'w').write('\n'.join(lines) + '\n')
     pickle.dump(out, open(os.path.join(C, tag + '.pkl'), 'wb'))
