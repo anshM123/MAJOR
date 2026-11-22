@@ -43,7 +43,7 @@ A chain of inputs carries the grade of its weakest link.
    **`√(t₄² + α_T²) ≤ 3.13·10⁻⁶` at `Δ_g = 300` and `≤ 2.89·10⁻⁸` at `Δ_g = 1000`** (tree level, AdS units).
    * The coefficient `c₁` of a possible `E × W³` light term is **not computed and is carried as a free parameter**. It moves the bound by
      `∓0.22 %` (300) or `∓0.017 %` (1000) per unit `c₁`.
-   * H17 adds `±0.2 %` / `±0.02 %`.
+   * H17 adds `±0.24 %` / `±0.021 %`.
    * There is no argument for `|c₁| ≤ 1`, and none is assumed.
 2. **Positivity is not established.**
    * **`Δ_g = 1000`.** The EE block is computed [NE + M] on:
@@ -51,7 +51,7 @@ A chain of inputs carries the grade of its weakest link.
      * odd `J ≤ 31`;
      * masses from the twist edge to `5Λ`.
 
-     The minimum is `+0.2009` (`J = 5`, `+−`, hybrid state at the twist edge `1.0048Λ`). The large-spin near-gap region is the
+     The minimum is `+0.2009` (`J = 5`, `+−`, hybrid state at the twist edge `1.00499Λ`). The large-spin near-gap region is the
      hypothesis `H_LJ(1000)`, graded [D-sketch + M].
    * **`Δ_g = 300`.** The EE block is computed [NE + M] on even `J ≤ 24`, `28`, `32` and odd `J ≤ 15`, with direct small-`ν` nodes on
      every computed `J ≥ 4` (`J = 0, 2` are still on the superseded small-`ν` treatment, at margin `≈ 1`). The minimum is `+0.2038` (`J = 5`, `+−`, twist edge `1.0166Λ`). `H_LJ(300)` is [D-sketch/M] in the bulk
@@ -160,7 +160,7 @@ with `16L_A = A log Λ + B_AdS + O(1/Λ)`, `A = 16ψ₂′(0) = 3022.34`, `B_AdS
 | `Δ_g` | `Λ` | `16L_A` (exact) | `A log Λ + B_AdS` | **bound** (exact `p`-integral, `k = 1`) | `δk(0)` factor | H17 band | per unit `c₁` | cubic closure `|ĝ₃|²Λ⁸ ≤` | status of positivity |
 |---|---|---|---|---|---|---|---|---|---|
 | 100 | 98.499 | 7508.51 | 7320.0 | 2.21·10⁻⁴ | ×1.0036 | ±2 % | ∓2.37 % (corrected from ≈ ∓1.7 %, DG_SCAN) | 7.51·10³ | **not established** (§5.4) |
-| 300 | 298.50 | 10734.61 | 10670.9 | **3.13·10⁻⁶** (3.1321·10⁻⁶) | ×1.0004 | ±0.2 % | ∓0.22 % | 1.07·10⁴ | conditional (§4, §5.3) |
+| 300 | 298.50 | 10734.61 | 10670.9 | **3.13·10⁻⁶** (3.1321·10⁻⁶) | ×1.0004 | ±0.24 % | ∓0.22 % | 1.07·10⁴ | conditional (§4, §5.3) |
 | 1000 | 998.50 | 14339.59 | 14320.4 | **2.89·10⁻⁸** (2.8913·10⁻⁸) | ×1.00003 | ±0.02 % | ∓0.017 % | 1.43·10⁴ | conditional (§4, §5.2) |
 
 Cross-checks:
@@ -187,7 +187,7 @@ Cross-checks:
 | Flat | flat limit = stripped NF02; certificate applies | [P given H0 §17 map] + [NE]; NF02 [certified] (one float corner) | `EE_FUNCTIONAL` §1, §7; `NOFORWARD_FUNCTIONAL` | — |
 | Re | `Re` prescription; strip `logK − iπ(Δ+J)` | definition; legitimacy [D]. The strip **is load-bearing for odd `J ≥ 17` at 1000**: state `Im logK ≡ 0`, reference `≡ π`. The code strips and asserts this (`q3_analysis._strip`), and the numbers are right (REVIEW_EE m3). | `PARITY_ODD_ROUTEA` §12 | — |
 | Gauge / Lemma N | min-norm gauge; null directions invisible to `A`, `B_AdS`, flat limit, graviton pole, leading-Regge action | definition; Lemma N [P given NE-observed regularity] + [DV `10⁻¹⁵`] | `EE_FOUNDATIONS` §2.5, §3 | — |
-| **H17** | `|ĝ₃|²` light coefficient `k(0)(1+δ)` | **[D-sketch + M], carried over from `q²`**. The `Π̂₄` admixture of `Ĉ′_EE` was not derived. Separate `t₄²`, `α_T²` coefficients at `O(Λ⁻²)` are not excluded; if present, the bound is on a weighted norm. Effect on the bound: `±0.2 % / ±0.02 %`. | `H0` §18; REVIEW_EE m4 | spinning `R³` exchange to `O(r²)` |
+| **H17** | `|ĝ₃|²` light coefficient `k(0)(1+δ)` | **[D-sketch + M], carried over from `q²`**. The `Π̂₄` admixture of `Ĉ′_EE` was not derived. Separate `t₄²`, `α_T²` coefficients at `O(Λ⁻²)` are not excluded; if present, the bound is on a weighted norm. Effect on the bound: `±0.24 % / ±0.021 %`. | `H0` §18; REVIEW_EE m4 | spinning `R³` exchange to `O(r²)` |
 | **c₁** | the `E × W³` light term (`k = 2` and `k = 3`) | **free parameter, carried explicitly** (`∓0.22 % / ∓0.017 %` per unit) [I] | REVIEW_EE m5; RU issue 14 | Regge residue of the `E × R³` `T` exchange (Lemma R with `n = 2`) |
 | **H_RS** | the analytic-radial engine's EE image beyond leading order equals the crystal-cycle integral | **[I]** where D uses it. Scalar [DV]; EE at LO [DV]; EE `k = 2, 4` at `J = 0, 2`, `ν ≥ 10` [NE] and `6 ≤ ν < 10` [NE, weak] (HRS_CHECK); `ν < 6` [I]. At `J = 28` the entry-resolved test fails at 3–16σ (RU issue 2). | HRS_CHECK; RU issues 2–3 | an independent crystal check below the fold at large `J` |
 | **H_M** | the near-gap chain (model M) is accurate on the computed states | [M], validated [NE] on every row with direct data | §5; HC §5; CL §0.3 | interval versions of the chains |
@@ -222,7 +222,7 @@ Cross-checks:
 
 | `J` | value (min `λ/N_s` [`m/Λ`]) | protocol | source | grade |
 |---|---|---|---|---|
-| **5 (binding)** | **`+0.2009`** (hybrid, twist edge `1.0048Λ`); `+0.2021` at `1.01Λ` on the exact-skeleton grid | w2 chain + edge | `EE_DG1000_LARGEJ` §4; REVIEW_EE §2; HC §2 (edge, unchanged) | [NE + M] |
+| **5 (binding)** | **`+0.2009`** (hybrid, twist edge `1.00499Λ`); `+0.2021` at `1.01Λ` on the exact-skeleton grid | w2 chain + edge | `EE_DG1000_LARGEJ` §4; REVIEW_EE §2; HC §2 (edge, unchanged) | [NE + M] |
 | 4, 6, 7, 8, 9, 10 | `+0.2041` [1.004] / `+0.2296` / `+0.2684` / `+0.4309` / `+0.4542` / `+0.5886` | twist-edge grid + edge | CL §0.2, §0.4 | [NE + M] |
 | 11, 12, 13, 14, 16 | `+0.3482` / `+0.6759` / `+0.4076` / `+0.6982` / `+0.7191` | twist-edge grid + edge | CL §0.2 | [NE + M] |
 | 15 | `+0.869` (grid from `1.01Λ`; no twist-edge mass, no edge nodes) | w2 chain | previous statement §9.2 | [NE + M]; `H_edge` [M] |
@@ -351,7 +351,7 @@ then*
 
 `√(t₄² + α_T²) ≤ 240·√(16L_A(Λ)/(k(0)(1+δ)))/Λ⁴ · (1 + O(c₁Λ⁻²))`,
 
-*i.e. `≤ 3.13·10⁻⁶` (`Δ_g = 300`) and `≤ 2.89·10⁻⁸` (`Δ_g = 1000`), `∓0.22 % / ∓0.017 %` per unit `c₁`, `±0.2 % / ±0.02 %` from H17.*
+*i.e. `≤ 3.13·10⁻⁶` (`Δ_g = 300`) and `≤ 2.89·10⁻⁸` (`Δ_g = 1000`), `∓0.22 % / ∓0.017 %` per unit `c₁`, `±0.24 % / ±0.021 %` from H17.*
 
 Proof: heavy `≥ 0` ⇒ `−Ω_light ≥ 0` ⇒ `k(0)(1+δ)|ĝ₃|²Λ⁸ ≤ 16L_A`. Constants [DV] (REVIEW_EE §0).
 
@@ -458,7 +458,7 @@ least `−ε·16L_A`. Then `√(t₄²+α_T²) ≤ 240√((1+ε)16L_A)/Λ⁴` [D
 | **`(300, J = 28)`** | `+1.45 ± 0.58` (EE_DG300_SMALLNU, 1.1Λ, pre-curvature fix; post-fix central `+1.570`); `+0.81` (curvature-fixed, `K₂` bulk); `+0.69` (REVIEW_EE S5, repeat thimble seed, `K₂` bulk, 1.1Λ); `+0.835` / `+0.794` (HC §5, direct bulk, main / repeat seed); **`+0.799 ± 0.011`** (HC2 §3, direct bulk + pooled validated `ν = 5` node); `+0.787` / `+0.739` (BF_SPINJ engine, a² / a¹) | **`+0.799 ± 0.011`** (HC2) | latest value with every input validated. `K₂` bulk is wrong at `J²/m = 2.35`; the main thimble seed is a `2⁹` outlier; BF_SPINJ is [M] (RU issue 2) and agrees within its calibration (±0.05) |
 | **`(300, J = 32)`** | `+0.657` (previous statement §9.3, `K₂` bulk); **`+0.783`** (HC §5, direct bulk); `+0.865 ± 0.12` (HC2, pooled thimble seeds that fail the scalar check); `+0.834` (BF_SPINJ a¹, [M]); `−1.63` (HC2, failed thimble node, not a measurement) | **`+0.783`** (HC) | latest with validated inputs; window `ν < 8.3` [M] |
 | binding state, 300 | `+0.2052` (`1.02Λ` grid point); `+0.2043` (hybrid at the twist edge, uncorrected); `+0.2038` | **`+0.2038`** (twist edge `1.0166Λ`, corrected; HC, CL) | the `+0.2052` is the grid point `1.02Λ`, not the minimum; `+0.2043` is the uncorrected value |
-| binding state, 1000 | `+0.2021` (`1.01Λ` grid); `+0.2009` (hybrid, `1.0048Λ`) | **`+0.2009`** | the twist-edge state is the minimum; both reproduced by REVIEW_EE |
+| binding state, 1000 | `+0.2021` (`1.01Λ` grid); `+0.2009` (hybrid, `1.00499Λ`) | **`+0.2009`** | the twist-edge state is the minimum; both reproduced by REVIEW_EE |
 | `(300, J = 22)` | `+0.15` / `+0.123` (`t* = 1.1`) / `+0.046` (twist edge), all conv. A | **`+0.844`** (CL, direct + edge) | conv. A artefact (`K₂` at `x = 0.05`) |
 | `(300, J = 24)` | 1.1Λ `+1.06 ± 0.14` (pre-fix) / `+1.013` (post-fix); min `+0.82` | **`+0.820`** (HC, with edge) | — |
 | `(300, J = 18)` OO | `+0.222` (HC, conv. A) | **`+0.994`** (HC2) | spline aliasing + conv. A artefact |

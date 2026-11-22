@@ -56,8 +56,30 @@ A chain carries the grade of its weakest link.
 >   * H17: `±212.5/Λ²` [M].
 > * **Positivity threshold not computed.** The model bracket is `140 ≲ Δ_g* ≲ 300` [M]. The sign-free large-J window closes only from Δ_g ≈ 275, with margin ×1.1 at 300. So 300 is the lowest gap where the current method closes.
 > * **Proposed corollary.** Under H_mono (corrections fall monotonically at fixed (J, m/Λ)) and H_cont (continuity in m/Λ), the bounds hold for all `Δ_g ≥ 300` [D-sketch + M]. Nothing is claimed below 300.
-> * **Q's binding state is Δ_g-stable:** `s_d ≈ 0.50 + 1440/Δ²` [NE/M].
+> * **Q's binding state is Δ_g-stable.** The law `s_d ≈ 0.50 + 1440/Δ²` was mis-fitted (REPRO D1). The cached data give `s_d ≈ 0.5076 + 147/Δ²` [NE/M], which is more stable than stated.
 > * **Record correction.** RESULT_D_STATEMENT's c₁ entry at Δ_g = 100 should read `∓2.37 %`, not `≈ ∓1.7 %`, by the same formula as the 300/1000 entries.
+
+> **Update (REPRO.md, independent reproduction with fresh code): every headline number reproduces within its stated precision.**
+> * **Bounds and constants (fully independent):**
+>   * cubic bound `3.13206·10⁻⁶` / `2.89126·10⁻⁸`;
+>   * `2L_AdS` `72.0406` / `92.8135`;
+>   * `B_eff` and the DG_SCAN Λ-forms.
+> * **Error terms (fully independent):** c₁, H17 and δk(0).
+> * **Binding states:**
+>   * Q binding FF/N `+0.14270` / `+0.14282`. Partly independent: the engine ratio ρ(ν), the de-shift weights χ and `R_j` were taken as given.
+>   * D binding states: hybrid `+0.20427` (300) and `+0.20090` (1000).
+> * **ABJM:** placement `3.34 %` / `2.59 %`, with `8πG = 256/c_T` confirmed.
+> * **Not independently reproduced:**
+>   * the analytic-radial engine ρ(ν), which carries all of `s_d`;
+>   * the Abel de-shift weights;
+>   * D's crystal corrections;
+>   * the NF02 flat certificate (grid check only);
+>   * the full 14000-state Q scan.
+> * **Record fixes applied:**
+>   * H17 band `±0.24 %` (was `±0.2 %`);
+>   * twist edge `1.00499Λ` (was `1.0048Λ`);
+>   * the `s_d` vs Δ_g law corrected.
+> * **Remaining minor items (none binding):** D4, D5, D7 and D9 in REPRO §2.
 
 ## 1. Setup and normalisations
 
@@ -113,7 +135,7 @@ min-norm gauge.
 > 1. **(cubic)** `√(t₄² + α_T²) ≤ 240·√(16L_A/(k(0)(1+δ)))/Λ⁴ · (1 + O(c₁Λ⁻²))`, with `L_A = ∫₀¹ψ₂(t)dt/(t² + 9/(4Λ²))`. In AdS
 >    units:
 >    * **`≤ 3.13·10⁻⁶` at `Δ_g = 300`** and **`≤ 2.89·10⁻⁸` at `Δ_g = 1000`**;
->    * `∓0.22 %` / `∓0.017 %` per unit `c₁`, and `±0.2 %` / `±0.02 %` from H17.
+>    * `∓0.22 %` / `∓0.017 %` per unit `c₁`, and `±0.24 %` / `±0.021 %` from H17.
 >
 >    Equivalently, `|ĝ₃|²Λ⁸ ≤ 1.07·10⁴ / 1.43·10⁴`.
 > 2. **(quartic)** Add one of two hypotheses:
