@@ -1,0 +1,83 @@
+% macros.tex -- shared by letter.tex and supplement.tex (\input{macros}).
+%
+% =====================================================================
+%  H_LJ(300) SWITCH  --  the ONE line to change is marked  <<< SWITCH
+% =====================================================================
+%  H_LJ(300) = near-gap large-spin hypothesis of Result D at Delta_g = 300.
+%  Its Regge-window part for J >= 34 is [I] in UNIFIED_THEOREM.md (§3.2, §4, §5)
+%  and is being worked on in HLJ_CLOSE.md (outcome unknown at the time of writing).
+%
+%   \HLJclosedtrue   -> (a) window closed: headline Delta_g = 300
+%                        (cubic 3.13e-6, quartic upper end 72.04, ABJM 3.3 %).
+%   \HLJclosedfalse  -> (b) still a hypothesis [I]: headline Delta_g = 1000
+%                        (cubic 2.89e-8, quartic upper end 92.81, ABJM 2.6 %).
+%
+%  What the switch changes automatically (both files):
+%    * title-page abstract headline (Delta_g, both numbers, ABJM placement);
+%    * the status sentence \HLJstatus (alternatives (a)/(b) below);
+%    * the grade printed for the H_LJ(300) window in Table I and Table S1;
+%    * the wording of the Delta_g >= 300 corollary (\HLJcorollary);
+%    * the "weakest links" sentence (\HLJweakest).
+%  What must ALSO be edited by hand if the window closes (TODO(HLJ)):
+%    * \HLJgrade and \HLJsource below (grade X and section of HLJ_CLOSE.md);
+%    * check that the (336, 28/32) nu < 8.3 window [M] is or is not covered by
+%      HLJ_CLOSE (it is a separate item; if covered, edit Table I/S1 rows by hand);
+%    * NOTES.md, section "H_LJ switch".
+%  Nothing at Delta_g = 1000 depends on H_LJ(300). Result Q (item 2) at
+%  Delta_g = 300 needs H_LJ(300) ONLY if Result D's t4 bound is used to bound
+%  eps_{c1}; carrying c1*t4 explicitly avoids it (UNIFIED_THEOREM §2, Remark 1).
+% =====================================================================
+\newif\ifHLJclosed
+\HLJclosedfalse   % <<< SWITCH: \HLJclosedtrue (closed) / \HLJclosedfalse (open)
+% TODO(HLJ): if closed, fill in the grade X and the source:
+\newcommand{\HLJgrade}{[TODO(HLJ)]}
+\newcommand{\HLJsource}{\texttt{HLJ\_CLOSE.md}, \S\,[TODO(HLJ)]}
+
+% --- headline quantities driven by the switch ---
+\newcommand{\DgHead}{\ifHLJclosed 300\else 1000\fi}
+\newcommand{\DgOther}{\ifHLJclosed 1000\else 300\fi}
+\newcommand{\CubicHead}{\ifHLJclosed 3.13\times10^{-6}\else 2.89\times10^{-8}\fi}
+\newcommand{\QuartHead}{\ifHLJclosed 72.04\else 92.81\fi}
+\newcommand{\ABJMHead}{\ifHLJclosed 3.3\else 2.6\fi}
+\newcommand{\HLJwindowGrade}{\ifHLJclosed \HLJgrade\else [I]\fi}
+
+% --- the two alternative status sentences (a) closed / (b) open ---
+\newcommand{\HLJstatusA}{The Regge window of $H_{\rm LJ}(300)$ (near-gap spins
+$J\ge 34$), open in the consolidated statement, has since been closed at grade
+\HLJgrade\ (\HLJsource); this is why we headline $\Delta_g=300$.}
+\newcommand{\HLJstatusB}{The Regge window of $H_{\rm LJ}(300)$ (near-gap spins
+$J\ge 34$) is still an open hypothesis [I]: there are no graviton window data at
+these spins, and the sign-free tolerance exceeds the measured window corrections
+only after their leading-Regge-shaped part is removed (a [D-sketch] step), and then
+by a factor of just $1.1$. Every use of $\Omega^{EE}$ positivity at
+$\Delta_g=300$ is therefore conditional on an open input, and we headline
+$\Delta_g=1000$.}
+\newcommand{\HLJstatus}{\ifHLJclosed\HLJstatusA\else\HLJstatusB\fi}
+
+\newcommand{\HLJcorollary}{\ifHLJclosed
+the $H_{\rm LJ}$ window, closed at $\Delta_g=300$ (\HLJgrade), whose refined
+sign-free margin grows from $\times1.1$ at $300$ to $\times2$ at
+$\Delta_g\approx490$ [M]%
+\else
+the $H_{\rm LJ}(300)$ window, which is open [I] at $\Delta_g=300$ and whose
+refined sign-free margin grows from $\times1.1$ at $300$ to $\times2$ at
+$\Delta_g\approx490$ [M]%
+\fi}
+
+\newcommand{\HLJweakest}{\ifHLJclosed
+At $\Delta_g=300$ the window of $H_{\rm LJ}(300)$ is now \HLJgrade; the
+$(\Delta,J)=(336,28/32)$ window below $\nu=8.3$ remains [M]%
+\else
+At $\Delta_g=300$ the window of $H_{\rm LJ}(300)$ for $J\ge34$ is open [I], and the
+$(\Delta,J)=(336,28/32)$ window below $\nu=8.3$ is [M]%
+\fi}
+
+% --- notation ---
+\newcommand{\gt}{\tilde g_4}
+\newcommand{\ghat}{\hat g_3}
+\newcommand{\OEE}{\Omega^{EE}}
+\newcommand{\Qup}{\Omega^{Q}_{\rm up}}
+\newcommand{\Qlow}{\Omega^{Q}_{\rm low}}
+\newcommand{\Dg}{\Delta_g}
+\newcommand{\eps}{\varepsilon_{c_1}}
+\newcommand{\grade}[1]{\textrm{[#1]}}

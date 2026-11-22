@@ -153,7 +153,7 @@ Structure part (entries (0,1), (1,0), (1,1) minus (0,0); `R₀`, `R₁`, `R₂`;
   asymptotic series at its optimal truncation looks like; it is not a cycle (H_RS) discrepancy, which would not follow the engine's
   own `a²` term.
 * **Unexplained**: an offset of `−20 … −60 c₂` (J = 28) at ν = 8.33 and 10.0 that no engine order reproduces (`|R_k| > |s_k|` there),
-  3–15σ on the precise structure errors. Same sign and pattern at J = 32 (§3.2), larger: `−40 … −130` at 8.32, `−80 … −220` at 10.0.
+  3–15σ on the precise structure errors; also at the n4 thimble node ν = 5.0 (`R₂ = −66, −77, −33 ± 5`, against `s₂ = 21, 24, 11`). Same sign and pattern at J = 32 (§3.2), larger: `−40 … −130` at 8.32, `−80 … −220` at 10.0.
   Candidates: a systematic of the below-fold z2 nodes (8.33, 10.0 are below ν* ≈ 11.3), or a beyond-all-orders piece of the structure
   series [I]. It is carried as a structure stress in §4.
 
@@ -201,14 +201,36 @@ of ρ plus its jackknife).
 | | uniform shift −2000 / −4000 | +0.540 / +0.087 → failure at `≈ −4.4·10³` | gap (1.102) |
 | | for comparison: BELOW_FOLD_SPINJ (fitted ρ) | +0.834 | 1.3 |
 PLACEHOLDER-32CHAIN
-PLACEHOLDER-SSTRESS
+
+**Structure-part stress** (`LJ_SSTRUCT`: `I_ac → I_ac(1 + d_ac/m²)` on every engine node `ν < 8.3`, entry (0,0) fixed; C3H kept).
+The chain is **20× more sensitive to the structure part than to the common part** (it splits `++` from `+−`):
+
+| state | `(d₀₁, d₁₀, d₁₁)` [c₂] | `λ/N_s` (min, at `m/Λ`) |
+|---|---|---|
+| (336, 28) | (−50, −60, −25) ≈ the measured direct − engine offset (§3.1) | +0.799 (1.5) |
+| | (−150, −180, −75) / (−500, −600, −250) | +0.813 (1.5) / +0.815 (1.5) |
+| | (+66, +77, +33) (the measured offset at ν = 5.0, opposite sign) | +0.530 (gap) |
+| | (+150, +180, +75) / (+250, +300, +125) | +0.229 / −0.125 (gap) → **failure at `d₀₁ ≈ +215`** |
+| (336, 32) | (−224, −83, −82) (measured at ν = 10) / ×3 | +0.945 (1.5) / +0.938 (1.2) |
+| | (+672, +249, +246) | −0.308 (gap) → failure at `d₀₁ ≈ +490` (linear) |
+
+* Every measured structure discrepancy at ν = 5.0 (n4 thimble node), 8.33 and 10.0 is **negative** (J = 28: `−66/−77/−33 ± 5`,
+  `−32/−33/−16 ± 6`, `−104/−123/−48 ± 4`; J = 32: `−94/−37/−40`, `−224/−83/−82`), i.e. in the direction that *raises* `λ`.
+* The engine's own structure terms in the window are `≤ 36 c₂` on ν ≤ 5 and `≤ 60` at 7–8 (larger only in the narrow zero region
+  ν ≈ 6, which the NL convention weights little: the `±3.3×` stress, which multiplies those `120–300 c₂` terms, moves `λ` by `≤ 0.013`).
+* So failure needs a **uniform positive** structure error `≈ +215 c₂` (J = 28) / `+490` (J = 32): `3–6×` the engine's structure terms
+  and of the opposite sign to every measured discrepancy. This is the binding margin of the window, not the common-part `−4.6·10³`.
+* The thimble node at ν = 5.0 cannot test the common part: its scalar has a 23 % MC error (CV factor `0.78 + 0.15i`), so its common
+  residual (`−2.2·10⁴ ± 3.9·10³` after CV) is noise; its structure combination is clean (`±5`).
+
 
 **Reading.**
 * With the normalisation fixed analytically the window result **no longer depends on the engine order** (J = 28: `a¹ → a²` moves
   `λ` by +0.002, against +0.048 with the fitted constant) and is stable under `±3.3×` the last term (`0.751 … 0.772`).
-* The failure scale is an *additional* uniform `Γ_c ≈ −4.5·10³ c₂`; the engine's error in the window is bounded by the last term
-  (`≲ 300 c₂` common, `≲ 25 c₂` structure, §1.2), by the unexplained structure offset of §3 (`≲ 10² c₂`, stressed above), and by the
-  analytic constant (`≤ 2 c₂`). Margin `≥ 15`.
+* Common part: failure needs an *additional* uniform `Γ_c ≈ −4.5·10³ c₂`, against an engine error `≲ 300 c₂` (last term) and
+  `≤ 2 c₂` (analytic constant): margin `≥ 15`.
+* Structure part: failure needs a uniform positive structure error `≈ +2·10² c₂` (J = 28), against engine structure terms `≲ 36–60`
+  and measured discrepancies of the opposite sign: margin `≈ 3–6` in magnitude, and the sign is favourable.
 * For J = 32 the `±1 ×` stress at order `a¹` is not an error estimate: the last term there is the full `a¹` normalisation term
   (`≈ 5·10³ c₂`, §1.1), so `a¹ ± 1×(a¹ − a⁰)` spans `+0.23 … +0.96`; the `a²` run (above) replaces it.
 
@@ -252,7 +274,7 @@ PLACEHOLDER-SSTRESS
 
 | item | before (UNIFIED_THEOREM §3.2 / RU) | now | basis |
 |---|---|---|---|
-| `(336, 28)` window `ν < 8.3` | [M] (fitted constant; entry misses 3–16σ) | **[NE + M]** | §2–§4: no fitted parameter (ρ_an, `≤ 2 c₂`); Prop. RS bookkeeping at J = 28 [DV] (cycle question below the fold reduced to RD); common part reproduced parameter-free at 1–1.5σ on 10–16.7; structure misses = engine truncation (asymptotic series), except an unexplained `≲ 60 c₂` offset at 8.3–10; `λ/N_s = +0.759 / +0.765` (C3H kept / dropped), `0.751 … 0.772` under every stress, failure needs an extra uniform `−4.6·10³`. M = the chain (HYPOTHESES_CLOSE §5), C3H below 8.3 not computed by the engine, RD. |
+| `(336, 28)` window `ν < 8.3` | [M] (fitted constant; entry misses 3–16σ) | **[NE + M]** | §2–§4: no fitted parameter (ρ_an, `≤ 2 c₂`); Prop. RS bookkeeping at J = 28 [DV] (cycle question below the fold reduced to RD); common part reproduced parameter-free at 1–1.5σ on 10–16.7; structure misses = engine truncation (asymptotic series), except an unexplained `≲ 60 c₂` offset at 8.3–10; `λ/N_s = +0.759 / +0.765` (C3H kept / dropped), `0.751 … 0.772` under the series stresses, `+0.80` with the measured structure offset applied; failure needs an extra uniform common `Γ_c ≈ −4.6·10³` or a uniform positive structure error `≈ +2·10²` (`3–6×` the engine's structure terms, opposite in sign to every measured discrepancy). M = the chain (HYPOTHESES_CLOSE §5), C3H below 8.3 not computed by the engine, RD, and the structure margin. |
 | `(336, 32)` window | [M] (no validated datum below 8.3) | **[NE + M]**, see §4.2 for the order-`a²` numbers | same; `λ/N_s = +0.8405` at `a¹`; PLACEHOLDER-32GRADE |
 | `H_LJ(300)` Regge window, J ≥ 34 | [I] | **[I]** (unchanged) | §5: at J = 64 the engine's last term in the window, after the D_h class, is `20–50 × T_B`; no rows at J = 34, 48; J = 100, 150 not run. The engine cannot decide it. |
 | `H_LJ(300)` bulk | [D-sketch/M] | unchanged | not addressed |

@@ -1,0 +1,402 @@
+% supplement.tex -- Supplemental Material for letter.tex.
+% Source of truth: ads4/UNIFIED_THEOREM.md and its Update boxes; numbers traced in NOTES.md.
+\documentclass[aps,prl,onecolumn,superscriptaddress,nofootinbib]{revtex4-2}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\input{macros}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thesection}{S\arabic{section}}
+
+\begin{document}
+
+\title{Supplemental Material for ``Einstein gravity through quartic order in
+AdS$_4$/CFT$_3$: conditional bounds on the $R^3$ and $R^4$ couplings''}
+
+\author{Ansh Mishra}
+\affiliation{TODO: affiliation}
+\author{Aryan Senthilkumar}
+\affiliation{TODO: affiliation}
+
+\date{\today}
+\maketitle
+\setcounter{secnumdepth}{1}
+
+\section{Provenance and grades}
+
+All statements are quoted from the project's consolidated documents: the unified statement
+(which merges Result D, the cubic bound, and Result Q, the quartic bound), the two result
+statements, and six later documents whose conclusions supersede the unified statement where
+they conflict. Four of the six are \emph{unreviewed} analyses: the closure of $H_{\rm RS}$ by
+a contiguity argument, the reduction of its remaining premise to a cycle-class premise
+$P_{\rm cyc}$, an interacting check of the Lemma A mechanism, and the $\Delta_g$ scan. The
+other two are \emph{independent reproductions} with fresh code (Sec.~\ref{sec:repro}). Items
+resting on unreviewed documents are marked $^\dagger$ below.
+
+\textbf{Grades.} [P] proved; [certified] computer-assisted proof; [D] derived; [D-sketch]
+derivation sketched; [DV] derived and checked numerically; [Q] quoted from the literature;
+[NE] numerical evidence; [NE + M] computed inside the near-gap chain / hybrid (HYB) model;
+[M] model (an approximation whose accuracy is itself a hypothesis); [A] assumption; [I]
+open. A chain carries the grade of its weakest link. \HLJstatus
+
+\section{Hypotheses}
+
+Table~\ref{tab:analytic} lists the setting and the analytic inputs, Table~\ref{tab:pos} the
+per-state positivity inputs. ``D'' (item 1, $\Omega^{EE}$) and ``Q'' (item 2, $\Omega^Q$) mark
+which result uses an item.
+
+\begin{table}[!htbp]
+\caption{\label{tab:analytic}Setting and analytic inputs.}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{L{2.2cm}L{6.5cm}L{0.9cm}L{3.3cm}L{3.5cm}}
+item & statement & used by & grade & would be upgraded by\\\hline
+A1 & twist $\Delta-J\ge\Delta_g$ for every single trace $\neq T$, all $J$ (incl.\ $J=0,1,2$); unique $T$ & D, Q & [A] & ---\\
+A2 & tree level, $O(1/c_T)$, $c_T\gg\Delta_g^2$; loops dropped & D, Q & [A] & ---\\
+K1 & KKSDZ Regge bound $J_0\le1$ for spinning correlators~\cite{KKSDZ} & D, Q & [Q], with KKSDZ's stated loophole (first/second-sheet boundary) & closing the loophole\\
+K1$'$ & uniformity of K1 towards the light-cone edges & D, Q & [D-sketch] & writing it out\\
+K2, K3 & kernel power counting; per-family Rindler positivity $\Rightarrow$ swap lemma; validity $J_0<7/2$ of the de-shifted $k=4,5$ functionals & D, Q & [Q]/[D]; $J_0<7/2$ [D-sketch] & ---\\
+V(a) & $\Omega^{EE}$ annihilates the non-perturbative $\langle TTTT\rangle$ & D, Q & [P given K1, K2] & ---\\
+$H_K$ & heavy OPE sum $\leftrightarrow$ (corner, $\nu$) interchange for the heavy-normalised de-shifted kernels ($\hat C'_{EE}$; $\hat C_4^{ds}$, $\partial\hat C_4^{ds}$, $\hat C_5^{ds}$) & D, Q & [D-sketch] ([D given $H_{\rm ip}$]: raw per-$\nu$ heavy-sum convergence, $J_0<\tfrac12$, not implied by KKSDZ) & Proposition K for the heavy-normalised kernel, or $H_{\rm ip}$\\
+Flat & bulk-point limit of $\Omega^{EE}$ = stripped flat functional (NF02); flat certificate, minimum $0.200$ & D & [P given polarisation map] + [NE]; NF02 [certified] (one corner float-checked) & ---\\
+Adm & $EE$ is an admissible $j'=0$ dual structure & D, Q & [D] & ---\\
+H7 & $-\hat C'_{EE}|_E=16\pi G/(\nu^2+9/4)$; $\hat C_3|_E=0$ & D, Q & [D] & independent small-$\nu$ check of $h_-+h_+$\\
+L0 & $[TT]$ double zeros at $k=2,3$; contacts drop out & D & [D] & ---\\
+Lemma A + D$_{\rm LR}$ & tree terms with $J_0<4$ (Einstein, $E\times W^3$, MFT) annihilated pointwise by swapped-form $\Psi_4,\Psi_5$; collinear set carries nothing & Q & [D]; MFT instance [P]; mechanism [DV] at $O(1/c_T)$ on free scalar and free fermion (residual $\le8\times10^{-15}$) and on spinning Witten-diagram correlators with a $J_0=2$ spin-2 exchange$^\dagger$ & ---\\
+\quad Einstein instance & Lemma A on the Einstein $\langle TTTT\rangle$ itself & Q & [I] (not evaluated; graviton $\tau=1$, its tensor structures and exact coefficients not exercised) & one swapped-form $\Psi_4$ on Einstein $\langle TTTT\rangle$\\
+light-side definition & D$_{\rm LR}$ on $J_0<4$ terms plus term-wise (F)+(P) on $J_0\ge4$ terms; not D$_{\rm LR}$ on the full correlator$^\dagger$ & Q & [D-sketch] (clarification; Einstein zero unaffected) & ---\\
+(F)+(P) & spinning flat limit and polynomial light side ($-\hat C_4^{ds}|_{R^4}=2g_4$, $g_5$ cancellation); gives $\tilde g_4=g_4$ & Q & [D-sketch] & a $J_0=4$ spinning position-space correlator\\
+$H_{\rm EFT}$(a) & term-wise (P) of heavy-exchange double traces = their actual value & Q & [DV] in scalar-Mellin toy ($J_h=0$--$6$); [D-sketch] spinning & a spinning toy\\
+$H_{\rm EFT}$(b) & no conspiracy in the heavy sum / contact tower & Q & [A] & ---\\
+de-shift & continuum C4/C5 solutions exist for all $\beta$ & (C2: [D]), Q & [NE] to $t=30$; C5 spinning $j'=1$ coefficients [I] & ---\\
+H17 & $|\hat g_3|^2$ light coefficient $k(0)(1+\delta_3)$; band $\pm212.5/\Lambda^2$ on the bound & D, ($\kappa$) & [D-sketch + M] (carried over from $q^2$); band [M] & spinning $R^3$ exchange to $O(r^2)$\\
+$\kappa\ge0$ & sign of Q's upper $|\hat g_3|^2$ coefficient ($\kappa=0.110$) & Q if $\hat g_3\ne0$ & [D-sketch + M] & spinning $W^3W^3$\\
+$c_L>0$ & sign of the lower functional's $|\hat g_3|^2$ slope (measured $0.255$--$0.49$) & Q if $\hat g_3\ne0$ & [D-sketch + M] & same\\
+$c_1$ & $E\times W^3$ light term ($k=2$ and $k=3$ parts) & D, Q & free parameter, carried explicitly; no argument for $|c_1|\le1$ & Regge residue of the $E\times R^3$ $T$ exchange\\
+$\sigma_{hU}$ & double counting of the helicity-odd correction & --- & [I]; \emph{not used} (decides only $\delta=0.05$ and the withdrawn cubic closure) & ---\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\begin{table}[!htbp]
+\caption{\label{tab:pos}Per-state positivity: what is computed, and the hypotheses that cover
+the rest.}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{L{2.2cm}L{6.5cm}L{0.9cm}L{3.3cm}L{3.5cm}}
+item & statement & used by & grade & would be upgraded by\\\hline
+computed set, D & $\Delta_g=1000$: even $J\le24$, 28, 32, 36, 40, 48; odd $J\le31$; min $+0.2009$. $\Delta_g=300$: even $J\le24$, 28, 32; odd $J\le15$; min $+0.2038$ (Table~\ref{tab:Dstates}) & D & [NE + M] & ---\\
+computed set, Q & $++$ $J=0,2,4,6,8$; OO $J=0,2$; $+-$ $J=4$--$9$, $11$; every other channel needs $|s_d|\ge17$--$30\times$ the measured $0.51$ to fail & Q & [NE + M] given $H_{\rm RS}$ & ---\\
+$H_{\rm RS}$ & engine image = crystal-cycle integral for EE beyond leading order. Q's binding state ($++$ $J=0,2$; OO $J=0$ via $\Gamma_{\rm OO}=\Gamma_{++}$)$^\dagger$ & Q & [D given $P_{\rm cyc}$]; $P_{\rm cyc}$ [DV] for the scalar (periods), not proved & a proof of $P_{\rm cyc}$ (identify CLS-D's defining contour with $D'$)\\
+\quad D's window & $(336,28/32)$ window: not covered (obstacle is the $J^2/\Delta$ resummation, not the cycle) & D & [M] (see $H_{\rm LJ}(300)$) & a validated below-fold method\\
+$H_M$ & near-gap chain accurate on the computed states (incl.\ $K_2$ validity) & D & [M], validated [NE] on rows with direct data; $K_2$ band $J^2/m=1.6$--$2.2$ untested & direct sub-rows in the band; interval chains\\
+$H_{\rm edge}$ & light-cone-edge window $x\in(0.8,\Lambda/m]$ & D, (Q) & [NE + M] where computed (300: $J=4$--$24$; 1000: $J=4$--$14$, 16, 17, 31, 36, 40); [M] elsewhere & remaining rows\\
+$H_{\rm OO}$ & parity-odd even-$J$ block & D, Q & [D given $\Gamma_{\rm OO}=\Gamma_{++}$]; identity [P given helicity lemma] at order 0, [NE] beyond ($\le0.05/0.12\,c_2$; $|\Delta s_d|\le5\times10^{-6}$) & a derivation beyond order 0\\
+$H_R$ & beyond-leading-Regge at $m\gtrsim1.3\Lambda$, large $\hat b$ & D, (Q) & [M] & spinning $O(r)$ Regge kernel\\
+$H_{\rm cont}$ & continuity in $m$ between sampled masses (exception: $J=15$ at 1000) & D & [NE] & ---\\
+$H_{\rm LJ}(1000)$ & near-gap large spin: $H_{\rm AG}\wedge H_{\rm win}$(refined)$\wedge H_{\rm edge\text{-}amp}$ & D & [D-sketch + M]; sign-free $H_{\rm win}$ violated at $(1100,100)$, refined form rests on a [D-sketch] step & spinning $O(r)$ kernel at $\beta\le0.53$\\
+$H_{\rm LJ}(300)$ & same at 300, plus the $(336,28/32)$ window $\nu<8.3$ (Q needs it only if item (1) is used to bound $t_4$) & D & bulk [D-sketch/M]; \textbf{Regge window $J\ge34$: \HLJwindowGrade}; $(336,28/32)$ window [M] & graviton window data at 300; a validated below-fold method\\
+$H_{\rm LJ}^Q$ & large-$J$ near-gap corrections below Q's tolerance ($\ge1.1\times10^4\,c_2$) & Q & [M], margin $\times10$--$10^3$ & $s_d$ at larger $J$\\
+$H_{\rm fwd}^Q$ & unmeasured forward channels; the 300 $J$-drift ($J\ge7$ quoted from 1000) & Q & [NE + M] given $H_{\rm RS}$; drift [I], harmless at $\delta=0.2$ & ---\\
+$H_{\rm smear}^Q$ & smeared graviton corrections at the binding states ($\le3\times10^{-5}$ of $B_2$ vs tolerance $\approx24\%$) & Q & [NE + M] & ---\\
+HYB & scalar skeleton + leading Regge elsewhere; $\beta>30$ & (D), Q & [M] & ---\\
+$H_{\rm mono}$ & at fixed $(J,m/\Lambda)$ the beyond-leading-Regge correction (in $c_2$) grows at most like $m$; in the Regge window it is bounded uniformly in $\Delta_g$ (corollary only)$^\dagger$ & D, Q & [M] (consistent with all 300/1000 data, $p_{\rm emp}\ge1.4>1$) & $\Gamma$ at fixed $(J,\nu)$ at three $\Delta$ for $J\ge32$\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\section{Numbers at $\Delta_g=300$ and $1000$}
+
+\begin{table}[!htbp]
+\caption{\label{tab:numbers}Headline numbers. Bound constants are [DV] and were reproduced
+independently (Sec.~\ref{sec:repro}); positivity margins are [NE + M] unless stated.}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{L{7.4cm}L{3.6cm}L{3.6cm}L{2.0cm}}
+quantity & $\Delta_g=300$ & $\Delta_g=1000$ & grade\\\hline
+$\Lambda=\sqrt{(\Delta_g-2)(\Delta_g-1)}$ & $298.50$ & $998.50$ & def.\\
+$16L_A$ & $10734.61$ & $14339.59$ & [DV]\\
+cubic bound on $\sqrt{t_4^2+\alpha_T^2}$ ($k=1$) & $3.13\times10^{-6}$ ($3.13206\times10^{-6}$) & $2.89\times10^{-8}$ ($2.89126\times10^{-8}$) & [DV]\\
+equivalently $|\hat g_3|^2\Lambda^8\le$ & $1.07\times10^4$ & $1.43\times10^4$ & [DV]\\
+$\delta k(0)$ factor on the bound & $\times1.0004$ & $\times1.00003$ & [D] + [DV]\\
+H17 band & $\pm0.24\%$ & $\pm0.021\%$ & [M]\\
+shift per unit $c_1$ & $\mp0.22\%$ ($0.216\%$) & $\mp0.017\%$ ($0.0167\%$) & [D] (linearised)\\
+$2L_{\rm AdS}$ (upper end of $\tilde g_4\Lambda^6/8\pi G$) & $72.04$ ($72.041$) & $92.81$ ($92.814$) & [DV]\\
+$B_{\rm eff}$ (with $A_Q=17.241$) & $-19.220$ ($-19.2197$) & $-19.265$ ($-19.2647$) & [DV]\\
+$|\varepsilon_{c_1}|$ using item (1) for $t_4$ & $\le0.57|c_1|$ ($0.567$) & $\le0.059|c_1|$ ($0.0586$) & [D]\\
+$\kappa$ & \multicolumn{2}{c}{$0.110$ ($0.1099$)} & [D-sketch + M] (sign)\\
+ABJM placement $2\zeta(3)/2L_{\rm AdS}$ & $3.3\%$ ($0.0334$) & $2.6\%$ ($0.0259$) & [DV]\\\hline
+D binding state ($J=5$, $+-$, twist edge) & $+0.2038$ at $1.0166\Lambda$ & $+0.2009$ at $1.00499\Lambda$ & [NE + M]\\
+\quad hybrid baseline (uncorrected) & $+0.2043$ & $+0.2009$ & [M]\\
+D, most fragile computed large-$J$ state & $J=32$: $+0.783$ & $J=48$: $+0.915\pm0.08$ & [NE + M]\\
+Q binding action FF/N, $\delta=0.2$ ($++$/OO $J=0$ at gap) & $+0.1427$ & $+0.1428$ & [NE + M], $H_{\rm RS}$\\
+Q full-set minimum (both $\Delta_g$, all gauges) & \multicolumn{2}{c}{$+0.1426\pm0.0017$} & [NE + M]\\
+$s_d$ (gauge H0, $K=5$) & $+0.5096\pm0.015$ & $+0.5077\pm0.0015$ & [NE]; [DV] on $D$\\
+$s_{\rm fail}/s_d$ & $1.78/0.51\approx3.5$ ($3.48$) & $\approx3.5$ & ---\\
+truncation margin $(s_{\rm fail}-s_d)/|\Delta s_d|$ & $\ge85$ & $\ge850$ & [NE]\\
+far-region EE weight on the thimbles (vs failure threshold)$^\dagger$ & $\le e^{-37}$ (vs $e^{-8.5}$) & $\le e^{-171}$ (vs $e^{-10.8}$) & [NE + D-sketch]\\
+$H_{\rm LJ}$ refined sign-free window margin & $\times1.1$ & $\times4.8$ & [M]\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\begin{table}[!htbp]
+\caption{\label{tab:dg}Values of the \emph{implication} at $\Delta_g\ge300$ with the
+functionals fixed$^\dagger$. They are bounds only where per-state positivity holds: computed
+[NE + M] at 300 and 1000 only; at other $\Delta_g\ge300$ only through the corollary of
+Sec.~\ref{sec:cor}. No row below $300$ is given or claimed.}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{rrrrrrrrrr}
+$\Delta_g$ & $\Lambda$ & $16L_A$ & cubic bound & H17 band & $c_1$/unit & $2L_{\rm AdS}$ & $B_{\rm eff}$ & $|\varepsilon_{c_1}|/|c_1|$ & ABJM\\\hline
+300 & 298.50 & 10734.61 & $3.1321\times10^{-6}$ & $\pm0.24\%$ & $\mp0.216\%$ & 72.041 & $-19.2197$ & 0.567 & 3.3\%\\
+500 & 498.50 & 12259.23 & $4.3031\times10^{-7}$ & $\pm0.086\%$ & $\mp0.073\%$ & 80.855 & $-19.2473$ & 0.217 & 3.0\%\\
+1000 & 998.50 & 14339.59 & $2.8913\times10^{-8}$ & $\pm0.021\%$ & $\mp0.0167\%$ & 92.814 & $-19.2647$ & 0.0586 & 2.6\%\\
+2000 & 1998.5 & 16427.19 & $1.9283\times10^{-9}$ & $\pm0.0053\%$ & $\mp0.0039\%$ & 104.769 & $-19.2721$ & 0.0157 & 2.3\%\\
+5000 & 4998.5 & 19192.12 & $5.3262\times10^{-11}$ & $\pm0.00085\%$ & $\mp0.0006\%$ & 120.571 & $-19.2759$ & 0.0027 & 2.0\%\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\section{$\Lambda$-forms and error terms}
+\label{sec:lambda}
+
+\textbf{Closed forms [D]; constants [DV].} With $a=3/(2\Lambda)$ (the exact graviton pole
+$16\pi G/(\nu^2+9/4)$, H7) and $L(\psi;a):=\int_0^1\psi(p)\,dp/(p^2+a^2)$, a polynomial weight
+$\psi=\sum_n c_np^n$ ($c_0=0$) integrates term by term,
+\begin{equation}
+I_0=\frac{\arctan(1/a)}{a},\quad I_1=\tfrac12\ln(1+a^{-2}),\quad I_n=\frac{1}{n-1}-a^2I_{n-2},
+\end{equation}
+and for $\psi=c_1p+c_2p^2+c_3p^3+R$, $R=O(p^4)$,
+\begin{equation}
+L=c_1\ln\frac1a+\Big[c_2+\frac{c_3}{2}+\int\frac{R}{p^2}\Big]-\frac{\pi}{2}c_2a
++a^2\Big[\frac{c_1}{2}+c_2-c_3\ln\frac1a-\int\frac{R}{p^4}\Big]+O(a^3).
+\end{equation}
+Result D ($16L_A=16L(\psi_2^{\rm NF};a)$, $k(0)=1$):
+\begin{equation}
+16L_A=A\ln\frac{2\Lambda}{3}+B_\infty+\frac{b_1}{\Lambda}+\frac{b_{2L}\ln(2\Lambda/3)+b_2}{\Lambda^2}
++O\Big(\frac{\ln\Lambda}{\Lambda^3}\Big),
+\end{equation}
+$A=3022.3377$, $B_\infty=-5327.2096$ ($=B_{\rm AdS}+A\ln\tfrac32$, $B_{\rm AdS}=-6552.662$),
+$b_1=19293.4$, $b_{2L}=-13549$, $b_2=-14705$; equivalently
+$16L_A=A\ln(\Lambda/\Lambda_0^D)+b_1/\Lambda+\dots$ with $\Lambda_0^D=8.7415$. Result Q
+($2L_{\rm AdS}=2L(\psi_2^Q;a)$): $A_Q=17.240713$, $B_\infty=-19.278176$, $b_1=10.3137$
+($=-(3\pi/2)c_2$), $b_{2L}=860.35$, $b_2=-2508.6$, $\Lambda_0^Q=4.5889$. Hence
+\begin{align}
+\sqrt{t_4^2+\alpha_T^2}&\le\frac{240\sqrt{16L_A(\Lambda)}}{\Lambda^4}
+=\frac{1.3194\times10^4}{\Lambda^4}\sqrt{\ln\frac{\Lambda}{8.7415}+\frac{6.384}{\Lambda}
++O\Big(\frac{\ln\Lambda}{\Lambda^2}\Big)},\\
+2L_{\rm AdS}(\Lambda)&=17.2407\ln\frac{2\Lambda}{3}-19.2782+\frac{10.314}{\Lambda}
++\frac{860.3\ln(2\Lambda/3)-2508.6}{\Lambda^2}+O\Big(\frac{\ln\Lambda}{\Lambda^3}\Big).
+\end{align}
+The leading behaviour is $p=4$ with a $\sqrt{\ln}$ enhancement for the cubic bound, and
+$17.24\ln\Lambda-26.27+10.3/\Lambda$ for the quartic upper end.
+
+\textbf{The drift of $B_{\rm eff}$.} $B_{\rm eff}=-19.220$ ($300$) $\to-19.265$ ($1000$) is
+the finite-$\Lambda$ tail of the exact AdS pole $1/(p^2+9/4\Lambda^2)$ and converges to the
+flat constant $-19.2782$ (the stored $B$ of the flat functional). Of the difference to the
+flat value at 300, $0.0450$: $0.0242$ from the $1/\Lambda$ term, $0.0199$ from the
+$\Lambda^{-2}\ln\Lambda$ terms, $0.0009$ higher order.
+
+\textbf{Error terms as functions of $\Lambda$.}
+\begin{itemize}
+\item $c_1$ (Result D): relative shift of the cubic bound per unit $c_1$,
+  $\mp1920\int\psi_2/(\Lambda^2\sqrt{16L_A})=\mp19941/(\Lambda^2\sqrt{16L_A})$ [D, linearised].
+\item $c_1$ (Result Q): $|\varepsilon_{c_1}|=2\int\psi_2^Q|c_1t_4|\Lambda^2=2.032|c_1t_4|\Lambda^2$;
+  with Result D's $t_4$, $\le487.7\sqrt{16L_A}\,|c_1|/\Lambda^2$ [D].
+\item H17: $|\delta k_{\rm H17}|=424.97/\Lambda^2$ (heuristic model), i.e.\ a band
+  $\pm212.5/\Lambda^2$ on the bound [M].
+\item EE curvature correction $\delta k(0)=-68.08/\Lambda^2\,(1+O(\Lambda^{-1}))$ [D] (first-order
+  symbol), against the exact $-68.3$ / $-68.1$ at $300$ / $1000$ [DV]; bound factor
+  $1+34.0/\Lambda^2$.
+\item $\kappa=0.1099$ and $c_L$ are flat numbers plus $O(\Lambda^{-2})$ [D-sketch + M]; the
+  lower end $-O(\Lambda^{-2})$ has no computed constant.
+\end{itemize}
+
+\textbf{Accuracy of the truncated forms} (checked against the exact integrals, and
+independently reproduced): the cubic form with the $1/\Lambda$ term has relative error
+$\lesssim5\times10^{-5}$ at $\Delta_g=300$ and $1000$ (without it, $-0.30\%$ / $-0.067\%$); the
+quartic form has absolute error $-0.058$ / $-0.013$ with the logarithm only, $-0.024$ /
+$-0.003$ adding $10.314/\Lambda$, and $\le10^{-3}$ with all terms shown. $\Lambda^4$ must not be
+replaced by $\Delta_g^4$: at $\Delta_g=300$ that alone moves the cubic bound by $-2.0\%$.
+
+\section{Per-state positivity: data}
+
+\begin{table}[!htbp]
+\caption{\label{tab:Dstates}$\Omega^{EE}$ (Result D): minimum $\lambda/N_s$ of the per-state
+action matrix over the chain's masses (twist edge to $5\Lambda$), one adopted value per
+state; brackets give $m/\Lambda$ at the minimum. All [NE + M]; ``in-sample'' states were seen
+before the functional was fixed. The minimum over all computed states is always the
+parity-odd $+-$, $J=5$ state at the twist edge.}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{L{2.5cm}L{14.5cm}}
+$\Delta_g=300$ & $J=4$: $+0.2137$ [1.013]; \textbf{$J=5$: $+0.2038$} [1.0166, twist edge]; 6: $+0.3075$; 7: $+0.7033$; 8: $+0.4268$;
+9: $+0.4506$; 10: $+0.6033$; 11: $+0.6687$; 12: $+0.6706$; 13: $+0.7746$; 14: $+0.7487$; 15: $+0.7853$; 16: $+0.884\pm0.022$;
+18: $+0.872$ (in-sample); 20: near gap $+0.905$ (in-sample); 22: $+0.844$; 24: $+0.820$ (in-sample);
+28: $+0.799\pm0.011$ (in-sample; $\nu<5$ [M]); 32: $+0.783$ (window $\nu<8.3$ [M]); $J=0/2$: $+0.999/+1.000$ (superseded small-$\nu$ treatment).
+OO block: $J=4$--$22$ computed (min $+0.230$ at $J=4$).\\
+$\Delta_g=1000$ & \textbf{$J=5$: $+0.2009$} [1.00499, twist edge]; 4: $+0.2041$; 6: $+0.2296$; 7: $+0.2684$; 8: $+0.4309$; 9: $+0.4542$;
+10: $+0.5886$; 11: $+0.3482$; 12: $+0.6759$; 13: $+0.4076$; 14: $+0.6982$; 16: $+0.7191$; 15: $+0.869$ (grid from $1.01\Lambda$, see below);
+17: $+0.840$; even 0, 2, 18--24, 28: positive, above the binding state; odd 19--29: $+0.887$ to $+0.979$; 31: $+0.988$; 32/36/40: $+0.904/+0.957/+0.9795$; 48: $+0.915\pm0.08$.
+OO block: $J=4,6,8,10$: $+0.215/+0.309/+0.503/+0.605$.\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\textbf{Caveats from the independent reproduction} (none binding): at $\Delta_g=1000$ the quoted
+$J=15$ value is a grid minimum from $1.01\Lambda$; the hybrid baseline at its twist edge
+$1.0149\Lambda$ is $\approx+0.69$ [M]. At $\Delta_g=300$ the quoted $J=16$ value appears to be
+the near-gap minimum only; the hybrid $++$ baseline at large mass is $+0.805$ at
+$3.17\Lambda$, and $m\ge1.3\Lambda$ corrections at 300 are negative ($-0.04$ to $-0.49$), so the
+true minimum is plausibly $\le0.80$. Both are far above the binding $+0.2038$.
+
+\textbf{Result Q channels.} With $s_{\rm fail}$ the value of $s_d$ at which a channel's action
+reaches zero ($\delta=0.2$): $++$ and OO $J=0$: $s_{\rm fail}=+1.78$, measured
+$s_d=+0.509\pm0.016$ / $+0.508\pm0.002$ (300 / 1000), unfavourable sign; $++$/OO $J=2$:
+$+2.81$, measured $\approx+0.51$; $+-$ $J=4,5,6$: $s_{\rm fail}=+2.38/+2.10$, $+5.72$,
+$+9.5/+9.4$ with the favourable sign; $+-$ $J=7,8,9,11$: $\ge20$; $++$ $J=6,8$: $+36$/$+66$.
+The correction is helicity-odd and universal, $\Gamma_K^h\approx\sigma_hU(\nu)$, with
+$|s_d|\approx0.51\pm0.08$.
+
+\textbf{$H_{\rm RS}$ for Q's binding state}$^\dagger$. (i) \emph{Contiguity [D].} To every order
+in $a=1/\Delta$ the engine's integrand is $\Psi_\lambda\times$(Laurent polynomial), with
+$\Psi_\lambda$ a product of one-variable twisted local systems (four radial, $s$, $\varphi$,
+$\alpha$). Integration by parts reduces every monomial to a rational multiple of
+$\int\Psi_\lambda$ with cycle-independent coefficients; $s$- and $\varphi$-odd forms are exact
+and the $\alpha$-odd class is not populated. Hence $\int_\Gamma=c_\Gamma(\nu)\times$(engine)
+order by order, and $c_\Gamma$ cancels in the state/reference ratio $\rho(\nu)$. The hypotheses
+(same local system as the scalar, no interior poles, no integer exponents, no boundary layers)
+are checked on the engine's pieces to $a^4$--$a^5$ [DV]. (ii) \emph{Far region.} The EE
+integrand equals $a\,Q\times$(scalar integrand) exactly, with $Q$ single-valued rational and every
+pole of $Q$ already singular for the scalar [P + DV]. On the real section cut at the zeros of
+$B$ ($D'$) the far region contributes $O(\Delta^Ne^{-c\Delta})$, $c=2\,{\rm artanh}(r/2)$
+($\ge0.336$ at the guaranteed split $r=1/3$) [D]; integrated checks give fitted exponents within
+$3\%$ of the analytic value for EE and scalar [DV]. (iii) \emph{What remains}: $P_{\rm cyc}$, the
+statement that the physical cycle lies in the twisted-homology class of $D'$. It is the same
+premise for scalar and EE, and is [DV] for the scalar through its periods (engine = exact
+Mellin skeleton to $\le6\times10^{-9}$ at $\Delta=300$, $\le1\times10^{-9}$ at 1000). Net:
+$H_{\rm RS}$ [D given $P_{\rm cyc}$]. Error budget: truncation $|\Delta s_d|\le0.015$ /
+$0.0015$. A side finding: at $\nu\lesssim2$ the untruncated scalar thimble has an angular end on
+which the EE integrand does not decay, which plausibly explains an earlier loss of signal in
+direct crystal checks below $\nu\approx2$ [D-sketch]; the real-angle cycle $D'$ is admissible.
+
+\textbf{Lemma A checks}$^\dagger$. Swapped-form $\Psi_4,\Psi_5$ on the exact connected
+$\langle TTTT\rangle$ of the free scalar (all 25 $(2,4)$ components, residual $\le8\times10^{-15}$)
+and free fermion ($\le3.8\times10^{-15}$), and on $T'=\sigma\otimes T_{\rm free}$ with $G_\sigma$ an
+exact sum of AdS$_4$ Witten diagrams: contacts with $J_0=0,2,4$ and a massive spin-2 exchange
+($\tau=2$, $J_0=2$) in the $s$, $t$, $u$ channels. The pointwise zero holds to
+$10^{-14}$--$2\times10^{-12}$, and in the collinear approach down to $\Delta\varphi=0.025$.
+Controls (non-single-valued correlator, non-primary $T$, wrong symmetrisation, light-transform
+weight raised) fail at $O(1)$; the weight control is one-sided (lower weights also give zero),
+so it tests convergence of the light-ray integral, not light-transform covariance. In the test
+family the zero holds whenever $J_0\le k$ (joint Regge corner exponent $k-1-J_0$), which is why
+the $R^4$ value cannot sit in the fixed-angle integrand and the light side must be defined as
+in Table~\ref{tab:analytic}.
+
+\section{The $\Delta_g\ge300$ corollary}
+\label{sec:cor}
+
+\textbf{Statement}$^\dagger$. Assume, in addition to the hypotheses of the theorem at
+$\Delta_g=300$, $H_{\rm mono}$ (Table~\ref{tab:pos}) and $H_{\rm cont}$ for states between the
+300 and $\Delta_g$ twist edges. Then positivity holds, and the bounds of
+Sec.~\ref{sec:lambda} with their error terms apply, for every $\Delta_g\ge300$ [D-sketch given
+$H_{\rm mono}$ + $H_{\rm cont}$ ([M]) + $H_{\rm LJ}(\Delta_g)$]. The corollary inherits
+\HLJcorollary. It is not a proof: $\Gamma$ is measured only where $K_2$ rows or direct data
+exist, and the $\Delta_g$-independence of the window correction is a structural argument.
+
+\textbf{Why it is plausible} (proxy analysis reusing exact per-state weights and the
+corrections measured at 300/1000; validated on the 300/1000 verdicts). At fixed $(J,m/\Lambda)$
+a correction fixed in $x=\nu/m$ costs $\propto\Lambda^{-2}$ and one fixed in $\nu$ at small $\nu$
+costs $\propto\Lambda^{-4}$ [D for the weights, DV]; the empirical exponent between 300 and 1000
+is $p=2.83$ (median; range $1.4$--$3.2$) [NE]. The binding baseline decreases monotonically to the
+certified flat $0.200$ (excess $0.0043$ / $0.0009$ / $0.00016$ at 300 / 1000 / 5000) [M + NE].
+The large-spin window tolerance grows like $\Lambda^{1.0\text{--}1.2}$ [D, DV]. Q's binding state
+is $\Delta_g$-stable: the measured values fit $s_d\approx0.5076+147/\Delta^2$ [NE/M]. Hypotheses
+that get easier with $\Delta_g$: H17, $\delta k(0)$, $c_1$ ($\propto\Lambda^{-2}$), $H_{\rm LJ}$,
+$H_{\rm edge}$, $H_R$, $H_{\rm OO}$, $H_{\rm RS}$, the de-shift. Harder: A2 ($c_T\gg\Delta_g^2$),
+the $K_2$ coverage of $H_M$, and possibly $H_{\rm EFT}$(a) (toy error grows with $\Delta_h$;
+untested at $\Delta_h\ge300$) [I].
+
+\textbf{Below 300.} Nothing is claimed. The positivity threshold was not computed. At
+$\Delta_g=100$ positivity fails at model level for near-gap spins $J\gtrsim18$ [M]; the
+sign-free large-spin window bound closes only from $\Delta_g\approx275$ (margin $\times1.1$ at
+300), so 300 is the lowest gap at which the present method closes.
+
+\section{Independent reproduction}
+\label{sec:repro}
+
+Two reproducers wrote fresh code (no project script run or imported for the light side).
+
+\begin{table}[!htbp]
+\caption{\label{tab:repro}Reproduction summary. ``Fully'' = own code from the definitions plus the
+stored functional coefficients; ``partly'' names what was shared.}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{L{5.6cm}L{3.8cm}L{3.8cm}L{3.6cm}}
+quantity & claimed & reproduced & independence\\\hline
+$A$, $B_{\rm AdS}$ / $B_\infty$ (D) & $3022.34$, $-6552.66$ / $-5327.21$ & $3022.3377$, $-6552.662$ / $-5327.2096$ & fully\\
+cubic bound 300 / 1000 & $3.13206\times10^{-6}$ / $2.89126\times10^{-8}$ & same & fully\\
+$A_Q$, $B_\infty^Q$, $\kappa$ & $17.241$, $-19.2782$, $0.1099$ & $17.240713$, $-19.278176$, $0.109908$ & fully\\
+$2L_{\rm AdS}$ 300 / 1000 & $72.04$ / $92.81$ & $72.0406$ / $92.8135$ & fully\\
+$\Lambda$-form coefficients and errors & Sec.~\ref{sec:lambda} & agree ($<10^{-4}$) & fully\\
+$c_1$, $\varepsilon_{c_1}$, H17, $\delta k(0)$ & Table~\ref{tab:numbers} & agree; H17 band $\pm0.24\%$ (record fixed) & fully\\
+ABJM placement & $3.3\%$ / $2.6\%$ & $3.34\%$ / $2.59\%$; $8\pi G=256/c_T$ confirmed & fully\\
+D binding, hybrid & $+0.2043$ / $+0.2009$ & $+0.20427$ at $1.01658\Lambda$ / $+0.20090$ at $1.00499\Lambda$ & fully (hybrid); $-0.0005$ correction at 300 not reproduced\\
+Q binding FF/N 300 / 1000 & $+0.1427$ / $+0.1428$ & $+0.14270$ / $+0.14282$ & partly (engine ratio $\rho$, de-shift weights $\chi$, $R_j$ shared)\\
+engine ratio $\rho(\nu)$, $\nu<4$ & engine $K=5$ & direct 7-D quadrature at finite $\Delta$: $\le3.4\times10^{-7}$ / $\le3\times10^{-8}$ & independent route (shared integrand definition)\\
+$s_d$ (H0) 300 / 1000 & $+0.5096$ / $+0.5077$ & $+0.50967$ / $+0.50776$ & as above\\
+FF/N from direct $\rho$ & $+0.1427$ / $+0.1428$ & $+0.14265$ / $+0.14282$ & as above\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\textbf{Sensitivity.} Reaching the fail point $s_d=1.776$ would need a worst-sign relative
+shape error of $\rho$ of $2.1\times10^{-4}$ (300) / $1.9\times10^{-5}$ (1000) on $\nu<4$, about
+$2.5\%$ of its beyond-leading-Regge deviation and $\sim600\times$ the measured direct-versus-engine
+difference. The engine's algebra and truncation for the binding state are therefore [DV] on
+the real section; premise $P_{\rm cyc}$ (equivalently RD) is not tested by either route,
+because both integrate over the real section.
+
+\textbf{Not reproduced independently:} the Abel de-shift weights; Result D's crystal corrections
+(including the $-0.0005$ behind $+0.2038$); the flat NF02 certificate (grid check only); the
+full 14\,000-state $\Omega^Q$ scan (binding state only); the $c_L$ slope; any $H_*$ hypothesis.
+
+\textbf{Record fixes adopted here:} H17 band $\pm0.24\%$ (was $\pm0.2\%$); twist edge of the
+1000 binding state $1.00499\Lambda$ (was $1.0048\Lambda$); the $s_d$ versus $\Delta_g$ law
+$0.5076+147/\Delta^2$ (a previously quoted $0.50+1440/\Delta^2$ does not fit its own anchor
+points). Production $K=4$ engine images miss some $a^4$ pieces; the effect on $s_d$ is
+$+0.0004$, inside $\pm0.015$.
+
+\section{ABJM details}
+
+Dictionary: $M^2=4/\alpha'$, $L^2/\alpha'=\pi\sqrt{2\lambda}$, so $\Lambda\leftrightarrow
+ML=2^{5/4}\pi^{1/2}\lambda^{1/4}\approx4.22\lambda^{1/4}$ (leading order in $1/(ML)$). The
+type~IIA $R^4$ term $\zeta(3)\alpha'^3/32$ gives $g_4M^6/(8\pi G)=2\zeta(3)=2.404$, checked by
+expanding the Virasoro--Shapiro amplitude numerically. Placement $2.404/72.04=0.0334$ and
+$2.404/92.81=0.0259$. $\hat g_3=0$ by ten-dimensional type~IIA supersymmetry (not by ``maximal''
+supersymmetry: $\mathcal N=6$ at $k>2$). $c_T$ does not enter. The normalisation
+$8\pi G=256/c_T$ follows from $c_T=32L^2/(\pi G)$ (free real scalar $c_T=1$). The identity
+$c_T=(64/\pi^2)\partial_m^2F$ holds when the mass couples to a current in the stress-tensor
+multiplet~\cite{ACP,BCPW}; in an $\mathcal N=2$ theory $\partial_m^2F$ gives a flavour-current
+two-point coefficient~\cite{Fmax}, not $c_T$. ABJM violates A1 (light Kaluza--Klein modes);
+only the flat image (F) is used and the bound is log-dominated. This is a consistency check,
+not evidence for the theorem.
+
+\section{What is not claimed}
+
+No unconditional bound. No $\Delta_g<300$ (in particular not $\Delta_g=100$, where positivity is
+contradicted at model level). No loop-level statement. No cubic closure
+$|\hat g_3|^2\Lambda^8\le\dots$ from item (2) and no ratio $|\hat g_3|^2/g_4$: an earlier closure
+was withdrawn because its lower slope ($0.49$) is $1.9\times$ the flat optimum $0.26$ of
+Ref.~\cite{CHLPS}; at most $|\hat g_3|^2\Lambda^8\le2L_{\rm AdS}/(\kappa+\tfrac14)\approx200$ / $257$
+[D-sketch + M] is a remark. Not the $\delta=0.05$ functional (margin $+0.0060$, depends on
+$\sigma_{hU}$). Nothing about theories violating A1. The Einstein instance of Lemma A is
+unchecked. Novelty is asserted only at literature-search level.
+
+\bibliography{refs}
+
+\end{document}
