@@ -69,6 +69,21 @@ Note: HRS, OG and FH are later than RU and refine three of its items. Each such 
 > * **What P_cyc says:** the physical cycle lies in the class of D′. For the scalar it is supported through its periods (engine = exact skeleton).
 > * **Side finding.** At ν ≲ 2 the scalar thimble has an angular end on which EE does not decay. This plausibly explains HRS_CHECK's signal loss below ν ≈ 2 [D-sketch].
 
+> **Update (C1_COMPUTE.md, unreviewed): c₁ is one uncomputed universal constant, not a free parameter. Exact (non-linearised) bounds hold for every c₁.**
+> * **What vanishes, in H7's prescription:**
+>   * the k = 3 part [P given Q2, Q8, F];
+>   * the u-channel E×R³ T-exchange Regge residue [D]. At O(t₄) it is helicity-flip, and EE kills every flip configuration; checked across all 16 polarisation assignments.
+> * **What c₁ is.** The remaining contact-like piece is ν- and Δ_g-independent [D, given J₀(E×W³) = 2 (D-sketch) and polynomiality].
+>   * Its value is [I].
+>   * Its natural size is ~10⁻³–10⁻¹ [M].
+>   * No bound on it exists [I].
+> * **Cubic bound, exact:** `√(t₄²+α_T²) ≤ R₀(x + √(1+x²))`, with `x = 2.160·10⁻³|c₁|` (Δ_g = 300) or `1.670·10⁻⁴|c₁|` (1000) [D].
+>   * |c₁| = 100 gives 3.88·10⁻⁶ / 2.94·10⁻⁸.
+>   * |c₁| = 1000 gives 1.42·10⁻⁵ / 3.41·10⁻⁸.
+> * **Quartic upper end, exact (given κ > 0):** `2L_AdS + 6.81·10⁻⁵c₁²` (300) / `+ 5.44·10⁻⁷c₁²` (1000), taking the supremum over unknown t₄, α_T [D].
+>   * It no longer depends on Result D, which removes RU issue 14.
+>   * **The `0.57|c₁|` / `0.059|c₁|` figures used above are superseded.**
+
 ## 0. Headline
 
 **Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper

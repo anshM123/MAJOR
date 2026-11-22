@@ -113,6 +113,21 @@ A chain carries the grade of its weakest link.
 > * **Unexplained:** a negative structure offset of 20–330 c₂ at ν = 5–10 [I].
 > * **Net for Result D:** the only remaining [I] is the H_LJ(300) Regge window for J ≥ 34. The headline at Δ_g = 1000 stands (PRL draft switch = open).
 
+> **Update (C1_COMPUTE.md, unreviewed): c₁ is one uncomputed universal constant, not a free parameter. Exact (non-linearised) bounds hold for every c₁.**
+> * **What vanishes, in H7's prescription:**
+>   * the k = 3 part [P given Q2, Q8, F];
+>   * the u-channel E×R³ T-exchange Regge residue [D]. At O(t₄) it is helicity-flip, and EE kills every flip configuration; checked across all 16 polarisation assignments.
+> * **What c₁ is.** The remaining contact-like piece is ν- and Δ_g-independent [D, given J₀(E×W³) = 2 (D-sketch) and polynomiality].
+>   * Its value is [I].
+>   * Its natural size is ~10⁻³–10⁻¹ [M].
+>   * No bound on it exists [I].
+> * **Cubic bound, exact:** `√(t₄²+α_T²) ≤ R₀(x + √(1+x²))`, with `x = 2.160·10⁻³|c₁|` (Δ_g = 300) or `1.670·10⁻⁴|c₁|` (1000) [D].
+>   * |c₁| = 100 gives 3.88·10⁻⁶ / 2.94·10⁻⁸.
+>   * |c₁| = 1000 gives 1.42·10⁻⁵ / 3.41·10⁻⁸.
+> * **Quartic upper end, exact (given κ > 0):** `2L_AdS + 6.81·10⁻⁵c₁²` (300) / `+ 5.44·10⁻⁷c₁²` (1000), taking the supremum over unknown t₄, α_T [D].
+>   * It no longer depends on Result D, which removes RU issue 14.
+>   * **The `0.57|c₁|` / `0.059|c₁|` figures used above are superseded.**
+
 ## 1. Setup and normalisations
 
 | item | definition |

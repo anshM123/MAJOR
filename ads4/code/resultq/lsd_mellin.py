@@ -24,7 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import numpy as np
 from scipy.special import loggamma, digamma
 
-PIECES_M = ('c0', 'c2', 'c3', 'c4', 'xs', 'xt', 'xu')
+PIECES_M = ('c0', 'c2', 'c3', 'c4', 'xs', 'xt', 'xu', 'xu4', 'r4', 'r4u')
 
 
 # ------------------------------------------------------------------ Mellin amplitudes and their delta12-derivative (d14 = 2 - d12 - d13)
@@ -45,6 +45,12 @@ def M_amp(p, d12, d13):
         return ((d13 - d12)**2/4 + 1/12)/(d14 - 1)
     if p == 'xu':
         return ((d12 - d14)**2/4 + 1/12)/(d13 - 1)
+    if p == 'r4':                   # top Regge term of c4: s2^2 = (d12 - d14)^4/4 + g (d12 - d14)^2 + g^2
+        return (d12 - d14)**4/4
+    if p == 'r4u':                  # top Regge term of xu4: Q_u^2 = (d12 - d14)^4/16 + ...
+        return (d12 - d14)**4/(16*(d13 - 1))
+    if p == 'xu4':                  # u-channel exchange with a degree-4 (polynomial, hence microcausal) residue: Regge growth 4
+        return ((d12 - d14)**2/4 + 1/12)**2/(d13 - 1)
     raise KeyError(p)
 
 
@@ -71,6 +77,13 @@ def dM_amp(p, d12, d13, h=1e-4):
     if p == 'xu':
         dQ = (d12 - d14)            # d/dd12 of (d12 - d14)^2/4 with d(d12 - d14) = 2
         return dQ/(d13 - 1)
+    if p == 'r4':
+        return 2*(d12 - d14)**3
+    if p == 'r4u':
+        return (d12 - d14)**3/(2*(d13 - 1))
+    if p == 'xu4':
+        Q = (d12 - d14)**2/4 + 1/12
+        return 2*Q*(d12 - d14)/(d13 - 1)
     raise KeyError(p)
 
 
