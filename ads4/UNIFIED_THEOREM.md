@@ -99,6 +99,20 @@ A chain carries the grade of its weakest link.
 > * **What P_cyc says:** the physical cycle lies in the class of D′. For the scalar it is supported through its periods (engine = exact skeleton).
 > * **Side finding.** At ν ≲ 2 the scalar thimble has an angular end on which EE does not decay. This plausibly explains HRS_CHECK's signal loss below ν ≈ 2 [D-sketch].
 
+> **Update (HLJ_CLOSE.md, unreviewed): H_LJ(300) is not closed. Its Regge window for J ≥ 34 stays [I], and H_LJ(1000) stays [D-sketch + M].**
+> * **Diagnosis.** The large a¹ term is a J-independent EE normalisation, of size 16–21/Δ relative.
+>   * The genuinely J-dependent part is the helicity structure. It is small in the window (25–60 c₂ per order), but its 1/Δ series at fixed J/Δ is asymptotic, not convergent.
+>   * No resummation was achieved [I].
+> * **Analytic normalisation `ρ_an`.** It has no fitted constant, agrees with the old fits within their errors, and Prop. RS bookkeeping holds at J = 28, 32 [DV].
+> * **Window states at Δ_g = 300, `ν < 8.3`: [M] → [NE + M].**
+>   * (336, 28): `λ/N_s = +0.759`; stresses give 0.751–0.772.
+>   * (336, 32): `+0.837`.
+>   * The binding margin is the structure error, at 3–6× the engine's structure terms. Every measured discrepancy has the safe sign.
+>   * (336, 28) at +0.759 is now the lowest computed large-J value at 300, below the previously quoted J = 32 +0.783.
+> * **High J (J = 64, 100).** The engine's last term is 20–55 × T_B, so it cannot decide H_win either way.
+> * **Unexplained:** a negative structure offset of 20–330 c₂ at ν = 5–10 [I].
+> * **Net for Result D:** the only remaining [I] is the H_LJ(300) Regge window for J ≥ 34. The headline at Δ_g = 1000 stands (PRL draft switch = open).
+
 ## 1. Setup and normalisations
 
 | item | definition |
