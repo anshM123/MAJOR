@@ -48,6 +48,25 @@ Authoritative. Supersedes the headline claims of RESULT_Q_STAGE0–7, BELOW_FOLD
 >
 > The numbers are unchanged.
 
+> **Hostile review corrections (REVIEW_UNIFIED_2026-11.md), superseding conflicting text below:**
+> - The bound at ĝ₃ = 0 is **sound with corrections**. The implication positivity ⇒ bound is [D].
+> - **Light side:** Einstein gravity's contribution is zero at [D] (pointwise Lemma A + D_LR; no circularity remains). Two caveats:
+>   - no spinning O(G) evaluation of Ψ₄ has been done (to do);
+>   - the J₀ ≥ 4 part of the remainder (contacts **and heavy-exchange double traces**) needs a new named hypothesis **H_EFT [A]/[I]** (CHMRS (5.3)-type).
+> - **ĝ₃ ≠ 0 requires κ ≥ 0 [D-sketch + M].** The bound is stated for κ ≥ 0 or t₄ = α_T = 0. If κ could be negative, Result D's |ĝ₃|² bound would allow a shift ~15× the bound.
+> - **The implied cubic closure is withdrawn.**
+>   - The "|ĝ₃|²Λ⁸ ≤ 120–257" values are dropped from claims.
+>   - The Δ_g-independent lower slope 0.49 is 1.9× CHLPS's flat optimum of 0.26, which cannot survive the flat limit. This favours the σ_h·U double-counting reading.
+>   - At most a remark remains (≈ 200/257 [D-sketch + M]); no ratio |ĝ₃|²/g₄ is claimed.
+> - **c₁t₄** is carried explicitly: ε_{c₁} ≤ 0.57|c₁| (300) / 0.059|c₁| (1000) using Result D's t₄ bound. Importing D's bound makes Q inherit H_LJ.
+> - **New and regraded items:**
+>   - H_K is [D-sketch].
+>   - **H_RS is [I]** (every s_d depends on it).
+>   - **H_LJ^Q** is new, [M]: large-J tolerances ≥ 1.1·10⁴ c₂, a margin of ×10–10³.
+>   - The lower bound reads −O(Λ⁻²) ≤ g̃₄Λ⁶/(8πG) [D-sketch].
+> - **ABJM:** the arithmetic is confirmed and c_T does not enter the placement. ĝ₃ = 0 there follows from 10d IIA supersymmetry, not "maximal SUSY". Consistency check only (outside A1).
+> - **Literature:** CLS-D 2311.04271 leaves the AdS uplift as future work, so Results D and Q are a first conditional execution of that programme; credit CLS-D and CHMRS 2106.10274. No prior ⟨TTTT⟩ sum-rule bound on R³/R⁴ couplings was found.
+
 > **Forward channels and parity-odd J = 0, 2 measured (RESULT_Q_FWD_CLOSE.md):**
 > - **H_OO^Q [I] → [NE+M].** OO J = 0, 2 (gap, 1.05Λ, 1.3Λ; Δ_g = 300, 1000): s_d = +0.509…+0.511, equal to ++ within 5·10⁻⁶ in every gauge. The helicity lemma holds for the k = 4 functional (order 0 exact to 10⁻⁹; beyond: ≤ 1.3·10⁻³ c₂, falling like Δ^−2.3…−2.5).
 > - **H_fwd^Q, channel coverage [I] → [NE+M].**

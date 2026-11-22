@@ -217,6 +217,18 @@ model for a functional whose graviton version is not yet defined. This revision 
 >     - This closes HYPOTHESES_CLOSE2 §4 item 1 at J = 28, 32 (modulo the engine's 10²–10³ c₂ truncation).
 >   - **High J not decided [I].** The 1/Δ series of J²/Δ-growing terms converges too slowly. At (1100, 100) the a¹ term alone is ~8·10³ c₂, against T_B ≈ 1.4·10³. **H_LJ/H_win remain hypotheses at J ≥ 64 (300) and J ≳ 100–150 (1000).** Next step would be resumming the J²/Δ geometric terms.
 
+> * **Correction (hostile review REVIEW_UNIFIED_2026-11.md, issues 2–6):**
+>   - **BELOW_FOLD_SPINJ is regraded.**
+>     - The one-constant calibration does not validate the engine. Entry-resolved out-of-sample misses are 3–16σ at a¹ and 4–90σ at a² (`code/review/rv2_bj_entry.py`). The quoted "+1.5 ± 27" is a cancellation between entries.
+>     - **The (336, 28/32) ν < 8.3 window is [M]** (probably positive with a ×2–4 margin), not [NE + M].
+>     - **The claim "first evidence of real-section ≡ crystal" is retracted.**
+>   - **H_RS (real-section ≡ crystal-cycle for EE beyond LO) is now a named hypothesis, [I], for Results D and Q.**
+>   - **H_LJ is regraded.** At 1000 it is [D-sketch + M] (HWIN_THIMBLE refuted the sign-free H_win at (1100, 100); the refined form rests on a [D-sketch]). At 300 it is [D-sketch/M] in the bulk and **[I] in the window for J ≥ 34**.
+>   - **J = 48 at Δ_g = 1000: [M]** (it rests on K₂ at J²/m = 2.2).
+>   - **The swap (V)/H_K is [D-sketch]** in both results (D had [D]).
+>   - **c₁** is carried as a free parameter (∓0.22 % / ∓0.017 % per unit), not "|c₁| ≤ 1".
+>   - RESULT_D_STATEMENT.md is out of date against HYPOTHESES_CLOSE(2), PARITY_ODD_CLOSE, HLJ_ANALYTIC, HWIN_THIMBLE and BELOW_FOLD_SPINJ; to be rewritten once the cleanup and H_RS runs land.
+
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,
