@@ -82,8 +82,9 @@ if args[0] == 'hc':
             vs.append(f"{v} {u['lam']:+.4f}[{u['mfl']:.3f}] (at main state {same:+.4f}; neg {sum(nneg(r) for r in Rv)})")
         if vs:
             print("      variants (near-gap min [m]): " + "; ".join(vs))
-        print("      near-gap states: " + " ".join(f"{r['mfl']:.4f}:{r['lam']:+.4f}" for r in sorted(near, key=lambda r: (r['mfl'], r['lam']))
-                                             if r is min((q for q in near if abs(q['mfl'] - r['mfl']) < 1e-9), key=lambda q: q['lam'])))
+        if opt.get('states', '0') == '1':
+            print("      near-gap states: " + " ".join(f"{r['mfl']:.4f}:{r['lam']:+.4f}" for r in sorted(near, key=lambda r: (r['mfl'], r['lam']))
+                                                 if r is min((q for q in near if abs(q['mfl'] - r['mfl']) < 1e-9), key=lambda q: q['lam'])))
 elif args[0] == 'oo':
     pre, main = args[1], args[2]
     others = args[3:]

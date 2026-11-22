@@ -12,4 +12,4 @@ run() { ./cl_pause.sh env $C HC_TAG=k${J}_$1 "${@:2}" python3 cl_chain.py hc w2 
 run base
 run edge HC_INJ=$J:$RE HC_IXMIN=0.7 HC_DESPIKE_INJ=0
 run edge_desp HC_INJ=$J:$RE HC_IXMIN=0.7
-for i in 0 1 2 3 4 5 6 7; do run edgejk$i HC_INJ=$J:$RE HC_IXMIN=0.7 HC_DESPIKE_INJ=0 HC_JK=$i; done
+S=$(python3 cl_shift.py w2 1000 $J k${J}_edge k${J}_base 2>/dev/null || echo 1); if python3 -c "import sys; sys.exit(0 if float('$S') > 0.003 else 1)"; then for i in 0 1 2 3 4 5 6 7; do run edgejk$i HC_INJ=$J:$RE HC_IXMIN=0.7 HC_DESPIKE_INJ=0 HC_JK=$i; done; fi   # edge jackknife only if the edge shifts a near-gap state by > 0.003 N_s

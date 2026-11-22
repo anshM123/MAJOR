@@ -4,7 +4,8 @@
 cd "$(dirname "$0")"
 exec 9> cache/cl_pause.lock
 flock 9
-P=$(pgrep -f "python3 cl_points.py [0-9]+ [0-9]+ 0[.]0" | head -1)                     # the small-nu worker (cl_queueA) first
+P=$(pgrep -f "python3 cl_points.py 48 1048" | head -1)                                  # the J = 48 check (cl_queueC) first
+[ -z "$P" ] && P=$(pgrep -f "python3 cl_points.py [0-9]+ [0-9]+ 0[.]0" | head -1)       # then the small-nu worker (cl_queueA)
 [ -z "$P" ] && P=$(pgrep -f "python3 cl_points.py [0-9]+ [0-9]+ 0[.][1-9]" | head -1)   # else the edge / J = 48 worker
 [ -n "$P" ] && kill -STOP $P
 ulimit -v 3000000
