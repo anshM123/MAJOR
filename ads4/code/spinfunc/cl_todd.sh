@@ -5,7 +5,7 @@
 cd "$(dirname "$0")"
 J=$1; RS=$2; RE=$3; shift 3
 TW=$(python3 cl_tw.py 300 $J)
-EXM=$TW,1.02,1.05,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2,2.5,3,4,5
+EXM=$TW,$(seq -s, 1.015 0.005 1.12),$(seq -s, 1.13 0.01 1.2),1.25,1.3,1.4,1.5,1.75,2,2.5,3,4,5     # dense near the gap (J >= 11 has no exact-skeleton states)
 C="Q3_JEVEN=4 Q3_JODD=$J Q3_EXTRA_M=$EXM SM_CURV=row Z4_JS=$J Z4_EST=best"
 run() { ./cl_pause.sh env $C HC_TAG=cl${J}_$1 "${@:2}" python3 cl_chain.py hc z4 300 > cache/cl_chain_z4_cl${J}_$1.log 2>&1; }
 for part in "$@"; do

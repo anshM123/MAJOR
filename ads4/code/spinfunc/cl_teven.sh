@@ -7,7 +7,7 @@
 cd "$(dirname "$0")"
 J=$1; R=$2; shift 2
 TW=$(python3 cl_tw.py 300 $J)
-EXM=$TW,1.02,1.05,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2,2.5,3,4,5
+EXM=$TW,$(seq -s, 1.015 0.005 1.12),$(seq -s, 1.13 0.01 1.2),1.25,1.3,1.4,1.5,1.75,2,2.5,3,4,5     # dense near the gap (J >= 11 has no exact-skeleton states)
 for part in "$@"; do
 if [ "$part" == "oo" ]; then
   C="OO_J=$J Q3_EXTRA_M=$EXM SM_CURV=row Z4_EST=best OO_EESRC=oo OO_Z3EE=$J:$R"
@@ -23,7 +23,8 @@ if [ "$part" == "oo" ]; then
   for i in 0 1 2 3 4 5 6 7; do run jk$i OO_EST=best OO_JK=$i Z4_JK=$i; done
 fi
 if [ "$part" == "edge" ]; then
-  C="Q3_JEVEN=$J Q3_JODD=5 Q3_EXTRA_M=$EXM SM_CURV=row Z4_EST=best Z4_JS=$J HC_Z3=$J:$R CL_Z3OO=$J:$R"
+  Z3OO=$J:$R; [ "$CL_Z3SRC" == "hc" ] && Z3OO=      # CL_Z3SRC=hc: small-nu EE nodes from hc_pts (J = 18-22), else the 3x3 oo points
+  C="Q3_JEVEN=$J Q3_JODD=5 Q3_EXTRA_M=$EXM SM_CURV=row Z4_EST=best Z4_JS=$J HC_Z3=$J:$R CL_Z3OO=$Z3OO"
   run() { ./cl_pause.sh env $C HC_TAG=cl${J}_$1 "${@:2}" python3 cl_chain.py hc z4 300 > cache/cl_chain_z4_cl${J}_$1.log 2>&1; }
   run ebase
   run edge HC_INJ=$J:$R HC_IXMIN=0.7 HC_DESPIKE_INJ=0

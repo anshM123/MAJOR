@@ -5,7 +5,7 @@
 cd "$(dirname "$0")"
 J=$1; RE=$2
 TW=$(python3 cl_tw.py 1000 $J)
-EXM=$TW,1.01,1.02,1.05,1.1,1.15,1.2,1.3,1.4,1.5,1.75,2,2.5,3,4,5
+EXM=$TW,$(seq -s, 1.005 0.005 1.06),$(seq -s, 1.07 0.01 1.2),1.25,1.3,1.4,1.5,1.75,2,2.5,3,4,5
 if [ $((J % 2)) -eq 0 ]; then JJ="Q3_JEVEN=$J Q3_JODD=5"; else JJ="Q3_JEVEN=4 Q3_JODD=$J"; fi
 C="$JJ Q3_EXTRA_M=$EXM SM_CURV=row"
 run() { ./cl_pause.sh env $C HC_TAG=k${J}_$1 "${@:2}" python3 cl_chain.py hc w2 1000 > cache/cl_chain_w2_k${J}_$1.log 2>&1; }
