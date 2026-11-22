@@ -25,7 +25,8 @@ def rho_an(J, D):
     import glob
     fs = sorted(glob.glob(os.path.join(C, 'lj_rs_norm_J%d_D%g_*_p.pkl' % (J, D))))
     assert fs, ('no lj_rs_norm (patched) for', J, D)
-    return complex(np.mean(pickle.load(open(fs[0], 'rb'))['rho']))
+    o = pickle.load(open(fs[0], 'rb'))
+    return complex(np.mean(o.get('rho_rs0.3', o['rho'])))      # smallest radial scale (truncation-free limit)
 
 
 def engine(Dl, J, depth, N, Kr):

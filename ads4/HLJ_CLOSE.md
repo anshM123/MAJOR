@@ -167,7 +167,6 @@ Structure part (entries (0,1), (1,0), (1,1) minus (0,0); `R₀`, `R₁`, `R₂`;
 Common part consistent at every node (≤ 1.6σ). Structure: same pattern as J = 28, `|R₁| ≈ 1.5–4 |s₁|`.
 PLACEHOLDER-32D3
 
-
 ## 4. The `ν < 8.3` windows at `Δ_g = 300`: (336, 28) and (336, 32) through the unchanged chain (`lj_rs_chain.py`) [NE + M]
 
 Protocol: exactly BELOW_FOLD_SPINJ §3.1 / `bj_chain.chain2 + chain_win` (two passes of the unchanged `hc_chain.py z4 300`; engine C2
@@ -214,6 +213,74 @@ PLACEHOLDER-SSTRESS
   (`≈ 5·10³ c₂`, §1.1), so `a¹ ± 1×(a¹ − a⁰)` spans `+0.23 … +0.96`; the `a²` run (above) replaces it.
 
 
+
+
+## 5. High J: `Γ − κ` in the H_win window from the engine, fw conventions, `ρ_an` (`lj_rs_gamma.py`) [NE: negative]
+
+* Done for the two high-J rows that have fw `K₂` helicity bases and direct anchors: **(1100, 100)** (Δ_g = 1000, window `ν < 16.3`,
+  `T_B(c=3) = 1409`) with the cached depth-2 engine, and **(364, 64)** (Δ_g = 300, window `ν < 8.3`, `T_B ≈ 255` with `W_X`) with a new
+  depth-2 engine (fw patched basis, N = 4, 5; 3.7 h). Engine nodes injected below 13.0 / 9.9 into `fw_gamma` exactly as `bj_gamma`
+  (a_h from the fw anchors `x = 0.1, 0.2`; fw `K₂` bases), but with `ρ := ρ_an`.
+* `ρ_an` at high J needs `fw_frame`'s cure of the `ε²4^J` Fourier round-off in the point-wise direct integrand (without it the
+  point-wise ratio scatters by `O(1)` at J = 100); with it the ratio is constant to `7·10⁻⁴` (max) / `8·10⁻⁵` (median), J = 100, and
+  `ρ_an` is ν-independent to `4·10⁻¹²`. (`pw_grav`'s closed-form contraction was tried as the direct side: it agrees with w0 to `2·10⁻⁹`
+  at (336, 28) but loses all precision at Δ = 2·10⁴, `t − 1 ~ 10⁻⁹`; not used.)
+* The fitted constants that `bj_gamma` would use scatter by `±4·10⁴` (1100) and `−7·10³ … +8·10³` (364) between the direct nodes
+  ν = 11.7–16.7: the engine is not converged there, so no fitted calibration is possible at high J. `ρ_an` removes that problem but not the
+  next one.
+* Results (C2; `max` over the window without the de-shift zeros ν ∈ (0.75, 1.5) ∪ (5.5, 7.5), where the local `Γ` of the fw convention
+  is singular at every J):
+
+| row | engine `max|Γ − κ|` (`a¹`) | after the `c₀D_h + s xD_h′` class (`a¹`) | last term `a¹ − a⁰`: max / after its own class | `T_B(c=3)` |
+|---|---|---|---|---|
+| (1100, 100) `++` / `+−` | 7.4·10³ / 6.7·10³ | 1.5·10⁴ / 6.2·10³ | 2.3·10⁴ / 6.9·10⁴ ; 2.3·10⁴ / 3.1·10⁴ | 1409 |
+| (364, 64) `++` / `+−` | 3.8·10³ / 4.9·10³ | 6.9·10³ / 6.3·10³ | 7.1·10³ / 1.1·10⁴ ; 6.7·10³ / 1.4·10⁴ | 255 |
+
+  (Excluding (5.0, 8.0) instead: remainders 1.6·10⁴ / 3.6·10³ and 4.7·10³ / 5.0·10³.) Per-node values: `cache/lj_rs_gamma.txt`,
+  `cache/lj_rs_gamma_J*_K*.pkl`.
+* **Reading.** At `J²/Δ = 9–11` the engine's last computed term in the window, *after* the D_h class is removed, is `2–50×` the H_win
+  tolerance, and the structure series (§1.2) is not convergent there (structure `a¹` alone is `10²–10³ c₂` in the window at (364, 64)).
+  The engine at the available depth **cannot decide H_win at (1100, 100) or (364, 64)**, in either the sign-free or the refined form.
+  It gives no number that could be compared with `T_B`. The large values in the table are engine truncation, not a measured violation.
+* Not computed: J = 34, 48 (300) and J = 150, 200 (1000). There are no fw/`K₂` basis rows for (334, 34), (348, 48), (1150, 150),
+  (1200, 200), so `Γ − κ` cannot be formed in the H_win conventions, and §1.2's structure asymptotics (worse with `J²/Δ`) says the
+  engine would not be accurate enough at J ≥ 48 even with rows. At J = 34 (`J²/Δ = 3.5`, window ν < 14.4) the engine might reach the
+  common part to `≲ 10²` on ν ≲ 8, but not the window above ν ≈ 10, where the structure terms are `10²–10³`.
+
+
+## 6. Regrading
+
+| item | before (UNIFIED_THEOREM §3.2 / RU) | now | basis |
+|---|---|---|---|
+| `(336, 28)` window `ν < 8.3` | [M] (fitted constant; entry misses 3–16σ) | **[NE + M]** | §2–§4: no fitted parameter (ρ_an, `≤ 2 c₂`); Prop. RS bookkeeping at J = 28 [DV] (cycle question below the fold reduced to RD); common part reproduced parameter-free at 1–1.5σ on 10–16.7; structure misses = engine truncation (asymptotic series), except an unexplained `≲ 60 c₂` offset at 8.3–10; `λ/N_s = +0.759 / +0.765` (C3H kept / dropped), `0.751 … 0.772` under every stress, failure needs an extra uniform `−4.6·10³`. M = the chain (HYPOTHESES_CLOSE §5), C3H below 8.3 not computed by the engine, RD. |
+| `(336, 32)` window | [M] (no validated datum below 8.3) | **[NE + M]**, see §4.2 for the order-`a²` numbers | same; `λ/N_s = +0.8405` at `a¹`; PLACEHOLDER-32GRADE |
+| `H_LJ(300)` Regge window, J ≥ 34 | [I] | **[I]** (unchanged) | §5: at J = 64 the engine's last term in the window, after the D_h class, is `20–50 × T_B`; no rows at J = 34, 48; J = 100, 150 not run. The engine cannot decide it. |
+| `H_LJ(300)` bulk | [D-sketch/M] | unchanged | not addressed |
+| `H_LJ(1000)` | [D-sketch + M] | **[D-sketch + M]** (unchanged) | §5: at (1100, 100) the engine's last term after the D_h class is `20–50 × T_B`; it neither supports nor violates H_win. The refined H_win remains supported only by HWIN_THIMBLE's direct nodes at ν ≥ 13 [NE]. |
+| H_RS for Result D's window (J = 28, 32) | "not covered" (HRS_CLOSE §7) | **[D given RD]** at J = 28 for the `1/Δ` series (B1–B4 [DV]; B6 for the J-dependent factors not checked) | §2.2. Note: at fixed J/Δ the structure series is asymptotic (ratio ≥ 1 at ν ≳ 5), so "all orders" means the asymptotic series. |
+
+**Net for the theorem.** The two computed large-J states at `Δ_g = 300` are now [NE + M] like the other computed states, with margin
+`≈ 0.75 N_s`. **`H_LJ(300)` stays [I]** because its window clause for J ≥ 34 is not decided, and **`H_LJ(1000)` stays
+[D-sketch + M]**. UNIFIED_THEOREM §2's "two items are [I]" becomes, for D, one item: the `H_LJ(300)` Regge window for `J ≥ 34`.
+(This note changes no existing document; the wording is a recommendation.)
+
+## 7. What remains
+
+1. **The `J`-enhanced structure series.** At fixed `J/Δ` it is asymptotic, not convergent (ratio `≈ 1–2` at ν ≳ 5 for
+   `J²/Δ = 2.3`; residuals of the truncated engine track the omitted terms, §3.1). Closing `H_LJ(300)` for J ≥ 34 needs a genuine
+   resummation of it, e.g. a uniform-in-`J²/Δ` treatment of the helicity structure of the conserved `⟨TTO_J⟩` contraction, or the
+   per-wave thimble with a working below-fold contour (HWIN_THIMBLE §7 item 1). Neither was achieved here [I].
+2. **The structure offset at ν = 8.3–10** (`−20 … −60 c₂` at J = 28, `−40 … −220` at J = 32), 3–15σ on the precise structure errors,
+   not reproduced by any engine order. Small against the window's failure scale, but unexplained: a below-fold systematic of the z2
+   nodes, or a beyond-all-orders piece [I]. The cheapest test: the same structure combination on the n4 thimble nodes or on a second
+   n3 seed at ν = 8.3, 10.
+3. **C3H below 8.3** at (336, 28/32): still the thimble/n3 nodes or nothing (kept/dropped differ by `≤ 0.006`); the engine has no
+   C3H integrand.
+4. **RD** (Regge dominance of the crystal integral) for the EE at J = 28 below the fold: [D-sketch], as in HRS_CLOSE.
+5. **B6** (no boundary layers) for the J-dependent factors (`√(V²W²)⁻¹`, `D̂`) at J = 28; and B1–B4 at J = 32 (not run: J = 32 pieces
+   at depth 3 only became available at the end).
+6. High J: rows (`K₂` bases, anchors) for (334, 34), (348, 48), (1150, 150), (1200, 200) and depth ≥ 3 engines there; neither helps
+   without item 1.
 
 
 ## 8. Reproduce (`ads4/code/spinfunc/`; every job `ulimit -v 3000000; OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1`)

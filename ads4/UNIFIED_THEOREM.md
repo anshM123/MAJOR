@@ -91,6 +91,14 @@ A chain carries the grade of its weakest link.
 > * **Not tested:** premise RD (crystal cycle ≡ real section D), because both routes integrate over D. H_RS stays [D-sketch].
 > * **Record note.** Production K = 4 is missing some a⁴ pieces (HRS_CLOSE §3.5). Its effect on `s_d` is +0.0004, inside ±0.015.
 
+> **Update (RD_CLOSE.md, unreviewed): premise RD at ν < 10 is reduced to one cycle-class premise P_cyc, which EE shares with the scalar.**
+> * **EE = a·Q·scalar exactly [P + DV].** Q is single-valued rational, every pole of Q is already singular for the scalar, and Q is regular at m₁₄ = 0 and at s → ±1.
+> * **Far-region suppression on D′** (the real section cut at the zeros of B): `O(Δ^N e^{−cΔ})`, with `c = 2 artanh(r/2)` (≥ 0.336) [D]. The integrated check gives fitted exponents within 2 % of analytic for EE and scalar [DV].
+> * **On the actual crystal thimbles** the far weight is `≤ e^{−37}` (Δ_g = 300) and `≤ e^{−171}` (1000), against failure thresholds `e^{−8.5}` / `e^{−10.8}` [NE + D-sketch].
+> * **Net:** RD for EE at ν < 10 is [D given P_cyc], and H_RS for Q's binding state is [D given P_cyc].
+> * **What P_cyc says:** the physical cycle lies in the class of D′. For the scalar it is supported through its periods (engine = exact skeleton).
+> * **Side finding.** At ν ≲ 2 the scalar thimble has an angular end on which EE does not decay. This plausibly explains HRS_CHECK's signal loss below ν ≈ 2 [D-sketch].
+
 ## 1. Setup and normalisations
 
 | item | definition |
