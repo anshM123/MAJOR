@@ -212,6 +212,8 @@ even k and − for odd k.
 
 ### 3.4 Controls (connected part, random null (2,4) polarisations; residual relative to the largest family)
 
+> **Qualification (RESULT_Q_EINSTEIN_CHECK §3.4).** The weight control is one-sided. Lowering the weight (q = −1, −2, −3) also gives 0 (10⁻⁶–10⁻¹⁵). Rows (a) therefore test the decay of the light-ray integral (weight ≤ Δ + J − 2), not exact light-transform covariance.
+
 | control | what it breaks | k = 4 | k = 5 |
 |---|---|---|---|
 | none (ξ = ⅛, weight `t³`) | — | 1.4·10⁻¹⁴ | 9.2·10⁻¹⁵ |

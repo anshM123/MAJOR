@@ -34,6 +34,18 @@ A chain carries the grade of its weakest link.
 >   - the binding FF/N is unchanged (+0.1427 / +0.1428 at δ = 0.2), with the margin ≥ 85× the bound.
 > - **Covered:** ++ J = 0, 2. OO J = 0 is covered via Γ_OO = Γ_++ (direct application [D-sketch]). **Not covered:** Result D's (336, 28/32) window, where the obstacle is the J²/Δ resummation, not the cycle.
 
+> **Update (RESULT_Q_EINSTEIN_CHECK.md, unreviewed): Lemma A + D_LR stays [D]; the Einstein `⟨TTTT⟩` itself is still not evaluated [I].**
+> * **New evidence [DV].** The mechanism was checked on interacting spinning correlators: `T′ = σ ⊗ T_free`, where `G_σ` is an exact sum of AdS₄ Witten diagrams.
+>   * The diagrams: contacts with `J₀ = 0, 2, 4`, and a massive spin-2 exchange (`τ = 2`, `J₀ = 2`) in the s, t and u channels.
+>   * The pointwise zero holds at `Ψ₄` and `Ψ₅` to 10⁻¹⁴–2·10⁻¹², and in the collinear approach down to Δφ = 0.025.
+>   * Controls fail at O(1).
+> * **Not exercised:** the graviton's `τ = 1`, its own tensor structures, and the exact Einstein coefficients at external Δ = 3.
+> * **Definition of the light side (clarified, [D-sketch]).** The light side is **D_LR on the `J₀ < 4` terms plus term-wise (F)+(P) on the `J₀ ≥ 4` terms**. It is not D_LR applied to the full correlator.
+>   * In the test family the swapped-form zero holds whenever `J₀ ≤ k`, because the joint Regge corner then has an integrable exponent `k − 1 − J₀`.
+>   * So the R⁴ value `−Ĉ₄ = 2g₄` cannot sit in the fixed-angle integrand. Applied to the full correlator, D_LR would give it 0.
+>   * This is how `g̃₄` is already defined (§1 table); the Einstein zero is unaffected.
+> * **Weight control qualified.** The light-transform-weight control is one-sided: lower weights also give 0. It therefore tests convergence of the light-ray integral, not light-transform covariance (RESULT_Q_OG_CHECK §3.4).
+
 ## 1. Setup and normalisations
 
 | item | definition |
@@ -147,7 +159,7 @@ RESULT_Q_FERMION_HEFT (FH) and RESULT_D_CLEANUP (CL).
 | Adm | `EE` is an admissible `j′ = 0` dual structure | ✓ | ✓ | [D] | `EE_FOUNDATIONS` §1 | — |
 | H7 | `−Ĉ′_EE|_E = 16πG/(ν² + 9/4)`, `Ĉ₃|_E = 0` | ✓ | ✓ | [D] | `H7_I14` §3–§5, §18–§23 | an independent small-`ν` check of `h₋ + h₊` |
 | L0 | `[TT]` double zeros at `k = 2, 3`; contacts drop out | ✓ | — | [D] | `H0` §15; `PARITY_ODD_ROUTEA` §12 | — |
-| **Lemma A + D_LR** | tree terms with `J₀ < 4` (Einstein, `E × W³`, MFT) are annihilated pointwise by `Ψ₄`, `Ψ₅`; the collinear set carries nothing | — | ✓ | **[D]**. MFT instance [P]. Mechanism **[DV] at `O(1/C_T)`** on the exact free-scalar and free-fermion `⟨TTTT⟩` (residual `≤ 8·10⁻¹⁵`; controls fail at O(1)). **Einstein instance unchecked.** | V4FINAL §2.2; OG; FH | one swapped-form `Ψ₄` on Einstein `⟨TTTT⟩` at one `ν` |
+| **Lemma A + D_LR** | tree terms with `J₀ < 4` (Einstein, `E × W³`, MFT) are annihilated pointwise by `Ψ₄`, `Ψ₅`; the collinear set carries nothing | — | ✓ | **[D]**. MFT instance [P]. Mechanism **[DV] at `O(1/C_T)`** on the exact free-scalar and free-fermion `⟨TTTT⟩` (residual `≤ 8·10⁻¹⁵`; controls fail at O(1)). Also **[DV] on spinning Witten-diagram correlators** with a `J₀ = 2` spin-2 exchange (EIN). **Einstein `⟨TTTT⟩` itself not evaluated [I].** | V4FINAL §2.2; OG; FH; EIN | one swapped-form `Ψ₄` on Einstein `⟨TTTT⟩` at one `ν` |
 | **(F)+(P)** | spinning flat limit and polynomial light side (`−Ĉ₄^{ds}|_{R⁴} = 2g₄`, `g₅` cancellation) | — | ✓ | [D-sketch] | V4FINAL §5 | a `J₀ = 4` spinning position-space correlator |
 | **H_EFT** | (a) term-wise (P) of heavy-exchange double traces = their actual value; (b) no conspiracy in the heavy sum / contact tower | — | ✓ | (a) [DV] in the scalar-Mellin toy (`J_h = 0–6`), [D-sketch] spinning; **(b) [A]** | FH §4.5 (refines RU issue 9 and OG §5.2) | (a) a spinning toy; (b) — |
 | De-shift | continuum C4/C5 solutions exist for all `β` | (C2: [D]) | ✓ | [NE] to `t = 30`; C5 spinning `j′ = 1` coefficients [I] | Stage 7; V4FINAL §5 | — |

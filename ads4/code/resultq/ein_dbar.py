@@ -431,3 +431,350 @@ def grid_D_ellipse(n, y, order, kappa=1.0, kind='sv', chunk=10, corder='ab', rho
             D[key][i0:i0 + chunk] = Dc[key]
         minsep[i0:i0 + chunk] = ms
     return D, minsep
+
+
+# ------------------------------------------------------------------ exact log-derivatives of Phi via (z, zb) Leibniz
+# The (logU, logV) polydisc of phi_derivs is ill-conditioned at the light-ray endpoint (U ~ V >> 1, z ~ U - V cancels); this route is
+# exact: every block depends on z or on zb only, its z-derivatives are elementary, and D_U^m D_V^n = sum_ij c_ij(z, zb) d_z^i d_zb^j with
+# rational c_ij obtained once with sympy (acting on a generic f(z, zb)).
+from math import comb, factorial
+_OPC = {}
+
+
+def _padd(p, q, c=1):
+    for k, v in q.items():
+        p[k] = p.get(k, 0) + c*v
+        if p[k] == 0:
+            del p[k]
+    return p
+
+
+def _pmul(p, q):
+    out = {}
+    for (a, b, c), u in p.items():
+        for (d, e, f), v in q.items():
+            k = (a + d, b + e, c + f)
+            out[k] = out.get(k, 0) + u*v
+    return {k: v for k, v in out.items() if v != 0}
+
+
+def _pdz(p):            # d/dz on polynomials in (z, zb, w), w = 1/(z - zb): dw/dz = -w^2
+    out = {}
+    for (a, b, c), u in p.items():
+        if a:
+            k = (a - 1, b, c); out[k] = out.get(k, 0) + a*u
+        if c:
+            k = (a, b, c + 1); out[k] = out.get(k, 0) - c*u
+    return {k: v for k, v in out.items() if v != 0}
+
+
+def _pdzb(p):           # dw/dzb = +w^2
+    out = {}
+    for (a, b, c), u in p.items():
+        if b:
+            k = (a, b - 1, c); out[k] = out.get(k, 0) + b*u
+        if c:
+            k = (a, b, c + 1); out[k] = out.get(k, 0) + c*u
+    return {k: v for k, v in out.items() if v != 0}
+
+
+def _opcoefs(order):
+    """D_U^m D_V^n = sum_ij c_ij d_z^i d_zb^j, c_ij integer polynomials in (z, zb, w = 1/(z - zb)) (exact)."""
+    if order in _OPC:
+        return _OPC[order]
+    # D_U = A_z d_z + A_zb d_zb,  A_z = -z zb (1 - z) w,  A_zb = z zb (1 - zb) w ;  D_V: B_z = -z^2 (1-z)(1-zb) w... (expanded below)
+    one = {(0, 0, 0): 1}
+    Z = {(1, 0, 0): 1}; ZB = {(0, 1, 0): 1}; W = {(0, 0, 1): 1}
+    omz = _padd(dict(one), Z, -1); omzb = _padd(dict(one), ZB, -1)
+    A_z = _pmul(_pmul(_pmul(Z, ZB), omz), W); A_z = {k: -v for k, v in A_z.items()}
+    A_zb = _pmul(_pmul(_pmul(Z, ZB), omzb), W)
+    V = _pmul(omz, omzb)
+    B_z = _pmul(_pmul(V, Z), W); B_z = {k: -v for k, v in B_z.items()}
+    B_zb = _pmul(_pmul(V, ZB), W)
+
+    def apply(op, cz, czb):
+        out = {}
+        for (i, j), c in op.items():
+            dc = _padd(_pmul(cz, _pdz(c)), _pmul(czb, _pdzb(c)))
+            if dc:
+                out[(i, j)] = _padd(out.get((i, j), {}), dc)
+            out[(i + 1, j)] = _padd(out.get((i + 1, j), {}), _pmul(c, cz))
+            out[(i, j + 1)] = _padd(out.get((i, j + 1), {}), _pmul(c, czb))
+        return {k: v for k, v in out.items() if v}
+    res = {}
+    colm = {(0, 0): one}
+    for m in range(order + 1):
+        if m > 0:
+            colm = apply(colm, A_z, A_zb)
+        g = colm
+        for n in range(order + 1 - m):
+            if n > 0:
+                g = apply(g, B_z, B_zb)
+            res[(m, n)] = g
+    _OPC[order] = res
+    return res
+
+
+def _peval(p, z, zb, w, cache):
+    tot = 0
+    for (a, b, c), u in p.items():
+        for key, base in ((('z', a), z), (('zb', b), zb), (('w', c), w)):
+            if key not in cache:
+                cache[key] = base**key[1]
+        tot = tot + u*cache[('z', a)]*cache[('zb', b)]*cache[('w', c)]
+    return tot
+
+
+def _block_derivs(w, lw, l1w, L2w, K):
+    """k-th derivatives (k = 0..K) of log w, log(1-w), Li2(w) on the tracked branch."""
+    dl = [lw] + [(-1)**(k - 1)*factorial(k - 1)/w**k for k in range(1, K + 1)]
+    dl1 = [l1w] + [-factorial(k - 1)/(1 - w)**k for k in range(1, K + 1)]
+    inv = [(-1)**k*factorial(k)/w**(k + 1) for k in range(K + 1)]          # d^k (1/w)
+    dL2 = [L2w]
+    for k in range(1, K + 1):                                               # d^k Li2 = d^(k-1)[-l1 * (1/w)]
+        q = k - 1
+        dL2.append(-sum(comb(q, r)*dl1[r]*inv[q - r] for r in range(q + 1)))
+    return dl, dl1, dL2
+
+
+def _prod_derivs(a, b, K):
+    return [sum(comb(k, r)*a[r]*b[k - r] for r in range(k + 1)) for k in range(K + 1)]
+
+
+def _dphi(st, K, kind='sv'):
+    dlz, dl1z, dL2z = _block_derivs(st.z, st.lz, st.l1z, st.L2z, K)
+    dlzb, dl1zb, dL2zb = _block_derivs(st.zb, st.lzb, st.l1zb, st.L2zb, K)
+    zz = [0*st.z]*(K + 1)
+    one = [1 + 0*st.z] + zz[1:]
+    pz = _prod_derivs(dlz, dl1z, K); pzb = _prod_derivs(dlzb, dl1zb, K)
+    # N = 2 L2z - 2 L2zb + lz l1z - lz l1zb + lzb l1z - lzb l1zb ;  dN[i][j]
+    dN = [[None]*(K + 1) for _ in range(K + 1)]
+    for i in range(K + 1):
+        for j in range(K + 1 - i):
+            sv = 1.0 if kind == 'sv' else 0.0
+            v = 0
+            if j == 0:
+                v = v + 2*dL2z[i] + sv*pz[i]
+            if i == 0:
+                v = v - 2*dL2zb[j] - sv*pzb[j]
+            v = v + sv*(-dlz[i]*dl1zb[j] + dlzb[j]*dl1z[i])
+            dN[i][j] = v
+    r = st.z - st.zb
+    dR = lambda i, j: (-1)**i*factorial(i + j)/r**(1 + i + j)
+    dPhi = {}
+    for i in range(K + 1):
+        for j in range(K + 1 - i):
+            dPhi[(i, j)] = sum(comb(i, a)*comb(j, b)*dN[a][b]*dR(i - a, j - b) for a in range(i + 1) for b in range(j + 1))
+    return dPhi
+
+
+def phi_derivs_exact(st, order):
+    dPhi = _dphi(st, order); r = st.z - st.zb
+    C = _opcoefs(order)
+    w = 1/r; cache = {}
+    out = {}
+    for mn, co in C.items():
+        out[mn] = sum(_peval(c, st.z, st.zb, w, cache)*dPhi[ij] for ij, c in co.items())
+    return out
+
+
+# ------------------------------------------------------------------ jet (local Taylor) arithmetic: well-conditioned D_U, D_V
+def _jmul(A, B, K):
+    S = A.shape[:-2]
+    C = np.zeros(S + (K + 1, K + 1), complex)
+    for i in range(K + 1):
+        for j in range(K + 1 - i):
+            acc = 0
+            for a in range(i + 1):
+                for b in range(j + 1):
+                    acc = acc + A[..., a, b]*B[..., i - a, j - b]
+            C[..., i, j] = acc
+    return C
+
+
+def _jdz(A, K):
+    C = np.zeros_like(A)
+    for i in range(K):
+        for j in range(K - i):
+            C[..., i, j] = (i + 1)*A[..., i + 1, j]
+    return C
+
+
+def _jdzb(A, K):
+    C = np.zeros_like(A)
+    for i in range(K):
+        for j in range(K - i):
+            C[..., i, j] = (j + 1)*A[..., i, j + 1]
+    return C
+
+
+def phi_derivs_jet(st, order, kind='sv'):
+    """D_U^m D_V^n Phi, m + n <= order, by local Taylor-jet arithmetic in (z, zb) (no global polynomial expansion)."""
+    K = order
+    dPhi = _dphi(st, K, kind)
+    S = st.z.shape
+    J = np.zeros(S + (K + 1, K + 1), complex)
+    for (i, j), v in dPhi.items():
+        J[..., i, j] = v/(factorial(i)*factorial(j))
+
+    def var(c0, i, j):
+        A = np.zeros(S + (K + 1, K + 1), complex); A[..., 0, 0] = c0
+        if i + j:
+            A[..., i, j] = 1
+        return A
+    Z = var(st.z, 1, 0); ZB = var(st.zb, 0, 1)
+    ONE = var(1.0, 0, 0)
+    r0 = st.z - st.zb
+    Wj = np.zeros(S + (K + 1, K + 1), complex)
+    for i in range(K + 1):
+        for j in range(K + 1 - i):
+            k = i + j
+            Wj[..., i, j] = (-1)**k*comb(k, i)*(-1)**j/r0**(k + 1)
+    UZ = _jmul(Z, ZB, K); VZ = _jmul(ONE - Z, ONE - ZB, K)
+    Az = -_jmul(_jmul(UZ, ONE - Z, K), Wj, K); Azb = _jmul(_jmul(UZ, ONE - ZB, K), Wj, K)
+    Bz = -_jmul(_jmul(VZ, Z, K), Wj, K); Bzb = _jmul(_jmul(VZ, ZB, K), Wj, K)
+    DU = lambda F: _jmul(Az, _jdz(F, K), K) + _jmul(Azb, _jdzb(F, K), K)
+    DV = lambda F: _jmul(Bz, _jdz(F, K), K) + _jmul(Bzb, _jdzb(F, K), K)
+    out = {}
+    col = J
+    for m in range(K + 1):
+        if m > 0:
+            col = DU(col)
+        g = col
+        for n in range(K + 1 - m):
+            if n > 0:
+                g = DV(g)
+            out[(m, n)] = g[..., 0, 0].copy()
+    return out
+
+
+# ------------------------------------------------------------------ high-precision fallback (mpmath) for ill-conditioned nodes
+def _mp_state_node(t1, t3, y, st, i):
+    """mpmath (z, zb, blocks) at one node, with the branches of the float-tracked state st[i]."""
+    import mpmath as mp
+    a = 1/mp.mpc(complex(t1)); b = 1/mp.mpc(complex(t3)); yy = mp.mpf(float(y))
+    U = (2 - a)*(2 - b)/(8*yy); V = (2 + a)*(2 + b)/(8*yy); S = 1 + U - V; d = mp.sqrt(S*S - 4*U)
+    r1 = (S + d)/2; r2 = (S - d)/2
+    zf = st.z[i]
+    z, zb = (r1, r2) if abs(complex(r1) - zf) <= abs(complex(r2) - zf) else (r2, r1)
+
+    def br(tr, p):
+        return p + 2j*mp.pi*int(round(((tr - complex(p))/(2j*np.pi)).real))
+
+    def l2(tr, w):
+        p = mp.polylog(2, w); D = tr - complex(p); c = 2j*np.pi*complex(mp.log(w))
+        m = int(round(D.imag/c.imag)) if abs(c.imag) > 1e-12 else 0
+        l = int(round((D.real - m*c.real)/(4*np.pi**2)))
+        return p + m*2j*mp.pi*mp.log(w) + 4*mp.pi**2*l
+    return (z, zb, br(st.lz[i], mp.log(z)), br(st.lzb[i], mp.log(zb)), br(st.l1z[i], mp.log(1 - z)), br(st.l1zb[i], mp.log(1 - zb)),
+            l2(st.L2z[i], z), l2(st.L2zb[i], zb))
+
+
+def _mp_jet_derivs(blk, K, kind='sv'):
+    """same algorithm as phi_derivs_jet, scalar mpmath."""
+    import mpmath as mp
+    z, zb, lz, lzb, l1z, l1zb, L2z, L2zb = blk
+    fac = [mp.factorial(k) for k in range(K + 2)]
+
+    def bd(w, lw, l1w, L2w):
+        dl = [lw] + [(-1)**(k - 1)*fac[k - 1]/w**k for k in range(1, K + 1)]
+        dl1 = [l1w] + [-fac[k - 1]/(1 - w)**k for k in range(1, K + 1)]
+        inv = [(-1)**k*fac[k]/w**(k + 1) for k in range(K + 1)]
+        dL2 = [L2w] + [-sum(mp.binomial(k - 1, r)*dl1[r]*inv[k - 1 - r] for r in range(k)) for k in range(1, K + 1)]
+        return dl, dl1, dL2
+    dlz, dl1z, dL2z = bd(z, lz, l1z, L2z); dlzb, dl1zb, dL2zb = bd(zb, lzb, l1zb, L2zb)
+    pz = [sum(mp.binomial(k, r)*dlz[r]*dl1z[k - r] for r in range(k + 1)) for k in range(K + 1)]
+    pzb = [sum(mp.binomial(k, r)*dlzb[r]*dl1zb[k - r] for r in range(k + 1)) for k in range(K + 1)]
+    r0 = z - zb
+    dN = {}
+    for i in range(K + 1):
+        for j in range(K + 1 - i):
+            sv = 1 if kind == 'sv' else 0
+            v = sv*(-dlz[i]*dl1zb[j] + dlzb[j]*dl1z[i])
+            if j == 0:
+                v += 2*dL2z[i] + sv*pz[i]
+            if i == 0:
+                v -= 2*dL2zb[j] + sv*pzb[j]
+            dN[(i, j)] = v
+    idx = [(i, j) for i in range(K + 1) for j in range(K + 1 - i)]
+    J = {}
+    for (i, j) in idx:
+        d = sum(mp.binomial(i, a)*mp.binomial(j, b)*dN[(a, b)]*(-1)**(i - a)*fac[i - a + j - b]/r0**(1 + i - a + j - b)
+                for a in range(i + 1) for b in range(j + 1))
+        J[(i, j)] = d/(fac[i]*fac[j])
+
+    def mul(A, B):
+        return {(i, j): sum(A.get((a, b), 0)*B.get((i - a, j - b), 0) for a in range(i + 1) for b in range(j + 1)) for (i, j) in idx}
+
+    def dzj(A):
+        return {(i, j): (i + 1)*A.get((i + 1, j), 0) for (i, j) in idx}
+
+    def dzbj(A):
+        return {(i, j): (j + 1)*A.get((i, j + 1), 0) for (i, j) in idx}
+    Z = {(0, 0): z, (1, 0): 1}; ZB = {(0, 0): zb, (0, 1): 1}
+    omZ = {(0, 0): 1 - z, (1, 0): -1}; omZB = {(0, 0): 1 - zb, (0, 1): -1}
+    W = {(i, j): (-1)**(i + j)*mp.binomial(i + j, i)*(-1)**j/r0**(i + j + 1) for (i, j) in idx}
+    UZ = mul(Z, ZB); VZ = mul(omZ, omZB)
+    neg = lambda A: {k: -v for k, v in A.items()}
+    Az = neg(mul(mul(UZ, omZ), W)); Azb = mul(mul(UZ, omZB), W)
+    Bz = neg(mul(mul(VZ, Z), W)); Bzb = mul(mul(VZ, ZB), W)
+    add = lambda A, B: {k: A.get(k, 0) + B.get(k, 0) for k in idx}
+    DU = lambda F: add(mul(Az, dzj(F)), mul(Azb, dzbj(F)))
+    DV = lambda F: add(mul(Bz, dzj(F)), mul(Bzb, dzbj(F)))
+    out = {}
+    col = J
+    for m in range(K + 1):
+        if m > 0:
+            col = DU(col)
+        g = col
+        for n in range(K + 1 - m):
+            if n > 0:
+                g = DV(g)
+            out[(m, n)] = complex(g[(0, 0)])
+    return out
+
+
+def phi_derivs_mixed(st, t1, t3, y, order, zmax=0.0, sepmin=1e9, dps=32, kind="sv"):
+    """D_U^m D_V^n Phi by jets.  float64 jets lose digits already at |z| ~ 5 for order >= 3 (cancellation between the d_z and d_zb parts
+    of D_U, D_V; found at dphi = 0.44, RESULT_Q_EINSTEIN_CHECK.md §2.4), so by default EVERY node is recomputed in mpmath with
+    dps + 4 log10 max(|z|, |zb|, 1) digits (zmax = 0).  Returns (table, number of hp nodes)."""
+    import mpmath as mp
+    D = phi_derivs_jet(st, order, kind)
+    t1, t3 = np.broadcast_arrays(np.asarray(t1, complex), np.asarray(t3, complex))
+    flag = (np.abs(st.z) > zmax) | (np.abs(st.zb) > zmax) | (np.abs(st.z - st.zb) < sepmin)
+    idxs = np.argwhere(flag)
+    for ix in idxs:
+        ix = tuple(ix)
+        big = max(abs(st.z[ix]), abs(st.zb[ix]), 1.0)
+        with mp.workdps(dps + int(4*np.log10(big))):
+            sub = State()
+            for k in State.__slots__:
+                setattr(sub, k, getattr(st, k)[ix])
+            blk = _mp_state_node(t1[ix], t3[ix], y, State_wrap(sub), 0)
+            r = _mp_jet_derivs(blk, order, kind)
+        for key in D:
+            D[key][ix] = r[key]
+    return D, len(idxs)
+
+
+class State_wrap:
+    """index-0 view of a scalar State for _mp_state_node."""
+    def __init__(self, s):
+        for k in State.__slots__:
+            setattr(self, k, np.atleast_1d(getattr(s, k)))
+
+
+def grid_D_ellipse_hp(n, y, order, kappa=1.0, chunk=10, corder='ab', kind='sv', **kw):
+    t, w, th = contour_ellipse(n, kappa)
+    D = {(m, k): np.empty((n, n), complex) for m in range(order + 1) for k in range(order + 1 - m)}
+    nhp = 0
+    minsep = np.empty((n, n))
+    for i0 in range(0, n, chunk):
+        st, ms = continue_ellipse(th[i0:i0 + chunk, None], th[None, :], y, kappa=kappa, order=corder)
+        T1, T3 = np.broadcast_arrays(t[i0:i0 + chunk, None], t[None, :])
+        Dc, k = phi_derivs_mixed(st, T1, T3, y, order, kind=kind, **kw)
+        nhp += k
+        for key in D:
+            D[key][i0:i0 + chunk] = Dc[key]
+        minsep[i0:i0 + chunk] = ms
+    return D, minsep, nhp

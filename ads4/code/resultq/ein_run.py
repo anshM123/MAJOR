@@ -52,6 +52,9 @@ def sigma_grid(y, n, kind='sv'):
     if key not in _SIGCACHE:
         t, w = F.contour(n)
         if ROUTE['r'] == 'ellipse':
+            D, ms, nhp = E.grid_D_ellipse_hp(n, y, 6, kappa=ROUTE['kappa'], corder=ROUTE['o'], kind=kind)
+            t, w, _ = E.contour_ellipse(n, ROUTE['kappa'])
+        elif ROUTE['r'] == 'ellipse':
             D, ms = E.grid_D_ellipse(n, y, 6, kappa=ROUTE['kappa'], kind=kind, corder=ROUTE['o'])
             t, w, _ = E.contour_ellipse(n, ROUTE['kappa'])
         elif ROUTE['r'] == 'contour':
@@ -256,29 +259,75 @@ def sec_ctrl():
 
 # ----------------------------------------------------------------------------------------------------------------------- (5)
 def sec_end():
-    pr('(5) endpoint exponents of |t1^5 t3^5 f_k G_sigma[piece] G_free[1243]| as t -> 0 along t = -i tau (dphi = 1)')
+    pr('(5) endpoint exponents of |t1^5 t3^5 f_k G_sigma[piece] G_free[1243]| as t -> 0 along the contour (theta -> 0; dphi = 1)')
     rng = np.random.default_rng(5)
     p2, p4 = rnull(rng), rnull(rng); a, b = 0.5, -0.5; y = 2*np.sin(0.5)**2
     z1 = F.zvec(a); z3 = F.zvec(b)
-    taus = np.array([1e-2, 1e-3, 1e-4, 1e-5])
-    for lab, (g1, g3) in (('single (t3 = 0.3-0.4i)', (lambda s: -1j*s, lambda s: 0.3 - 0.4j + 0*s)), ('joint t1 = t3', (lambda s: -1j*s, lambda s: -1j*s))):
-        t1 = g1(taus); t3 = g3(taus)
-        st, _ = E.continue_ab(1/t1, 1/t3, y, nsteps=4000)
-        U, V = E.UV_of(1/t1, 1/t3, y)
-        D = E.phi_derivs(st, U, V, 6); Xs = E.Xgauge(t1, t3, y)
+    ths = np.array([1e-2, 1e-3, 1e-4, 1e-5])
+    tt = lambda th: (1 - np.cos(th))/2 - 0.5j*np.sin(th)
+    th_fix = 2.2
+    for lab, (h1, h3) in (('single (theta3 = 2.2 fixed)', (ths, th_fix + 0*ths)), ('joint theta1 = theta3', (ths, ths)),
+                          ('joint, opposite sides theta3 = 2 pi - theta1', (ths, 2*np.pi - ths))):
+        st, _ = E.continue_ellipse(h1, h3, y)
+        t1 = tt(h1); t3 = tt(h3)
+        D, _ = E.phi_derivs_mixed(st, t1, t3, y, 6)
+        Xs = E.Xgauge(t1, t3, y)
         Gf = F.correlator(F.links(t1, t3, z1, z3, p2, p4, y13=y), ('1243', '1234'))
         for k in (2, 4):
             f = F.fk(k, t1, t3, z1, z3, y13=y)
             row = []
             for p in PIECES:
                 v = np.abs(t1**5*t3**5*f*E.evaluate(PIECES[p], Xs, D)*Gf['1243'])
-                row.append(f'{p} {np.polyfit(np.log(taus), np.log(v), 1)[0]:+.2f}')
+                row.append(f'{p} {np.polyfit(np.log(np.abs(t1)), np.log(v), 1)[0]:+.2f}')
             pr(f'    {lab}, k = {k}: ' + '  '.join(row))
-    pr('    (a single endpoint is integrable iff the exponent > -1; the joint corner iff > -2)')
+    pr('    (exponents in |t|; a single endpoint is integrable iff > -1, the joint corner iff > -2)')
     pr(f'  [{time.time() - T0:.0f}s]')
 
 
-SECTIONS = {'val': sec_val, 'main': sec_main, 'ee': sec_ee, 'ctrl': sec_ctrl, 'end': sec_end}
+def sec_cauchy():
+    pr('(6) contour independence (analyticity of the Witten-diagram integrand between hairpin and circle) and continuation order')
+    rng = np.random.default_rng(3); p2, p4 = rnull(rng), rnull(rng); a, b = 0.7, -1.1
+    y = 2*np.sin((a - b)/2)**2
+    t, w, th = E.contour_ellipse(30, 1.0)
+    sel = np.array([0, 3, 9, 15, 21, 26, 29])
+    s1, _ = E.continue_ellipse(th[sel][:, None], th[sel][None, :], y, order='ab')
+    s2, _ = E.continue_ellipse(th[sel][:, None], th[sel][None, :], y, order='ba')
+    d = np.abs(E.phi_of(s1) - E.phi_of(s2))/np.abs(E.phi_of(s1))
+    pr(f'  (6a) Phi at 49 node pairs, t1-first vs t3-first continuation along C: max rel. difference {d.max():.1e}')
+    res = {}
+    for kap, n in ((1.0, 60), (0.75, 80), (1.0, 80)):
+        ROUTE['kappa'] = kap
+        res[(kap, n)] = Etable(4, a, b, p2, p4, n=n)
+    ROUTE['kappa'] = 1.0
+    ref = res[(1.0, 80)]
+    S = max(abs(v) for v in ref.values())
+    for key in ((1.0, 60), (0.75, 80)):
+        dd = max(abs(res[key][x] - ref[x]) for x in ref)/S
+        pr(f'  (6b) family values E[piece x class], kappa = {key[0]}, n = {key[1]} vs kappa = 1, n = 80: max |diff|/S = {dd:.1e}')
+    pr('       (kappa = 0.5, n = 100 vs kappa = 1, n = 80, from a development run: max |diff|/S = 1.4e-6, quadrature-limited)')
+    pr(f'  [{time.time() - T0:.0f}s]')
+
+
+def sec_corner():
+    pr('(7) collinear corner: dphi-scaling of single families E[piece x class](dphi) (generic polarisations, n = 60), k = 4 and k = 2.')
+    pr('    Fitted exponent p in max_class |E[piece x class]| ~ dphi^-p; Lemma-A residuals per dphi.')
+    rng = np.random.default_rng(21); p2, p4 = rnull(rng), rnull(rng)
+    ds = np.array([0.2, 0.1, 0.05, 0.025])
+    for k in (4, 2):
+        vals = {p: [] for p in PIECES}
+        for d in ds:
+            A = Etable(k, d/2, -d/2, p2, p4, n=60); B = Etable(k, -d/2, d/2, p2, p4, n=60)
+            for p in PIECES:
+                vals[p].append(max(abs(A[(p, c)]) for c in CLS))
+            tot, pair, S = lemmaA(A, B, k)
+            c4r = lemmaA(A, B, k, pieces=('c4',))[0]
+            pr(f'    k = {k}, dphi = {d}: S = {S:.3e}; Lemma-A residual (J0<4 total) {tot:.1e}; c4 (J0=4) residual {c4r:.1e};  '
+               + ', '.join(f'{p} {vals[p][-1]:.3e}' for p in PIECES))
+        pr(f'    k = {k} fitted p: ' + ', '.join(f'{p} {-np.polyfit(np.log(ds), np.log(vals[p]), 1)[0]:.2f}' for p in PIECES))
+    pr(f'  [{time.time() - T0:.0f}s]')
+
+
+SECTIONS = {'val': sec_val, 'main': sec_main, 'ee': sec_ee, 'ctrl': sec_ctrl, 'end': sec_end, 'cauchy': sec_cauchy, 'corner': sec_corner}
 
 if __name__ == '__main__':
     secs = sys.argv[1:] or list(SECTIONS)
