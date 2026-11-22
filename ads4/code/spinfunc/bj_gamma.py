@@ -50,6 +50,7 @@ def calib(J, D, spec):
         ks = np.einsum('ac,rac->r', np.conj(Ist[i]), Vs)/np.sum(np.abs(Ist[i])**2)
         kr = np.einsum('ac,rac->r', np.conj(Iref[j]), Vr)/np.sum(np.abs(Iref[j])**2)
         per[nu] = (ks, kr)
+        LN[(J, 'st')] = st['logN']; LN[(J, 'ref')] = rf['logN']
     assert per, ('no calibration nodes', J, D)
     R = len(next(iter(per.values()))[0])
     rho = {nu: ks/kr for nu, (ks, kr) in per.items()}
@@ -59,14 +60,19 @@ def calib(J, D, spec):
                + ', '.join(f'{nu:.1f}: {m*m*(rho[nu].mean()/rm - 1).real:+.0f}' for nu in sorted(rho))
                + f'; replica spread m^2|d rho|/|rho| = {m*m*np.std(rho_r)/abs(rm)/np.sqrt(R):.0f} c2')
     out = {}
+    import bj_chain as BC
     for i, v in enumerate(nus):
         if v > NUCUT:
             continue
-        j = int(np.argmin(np.abs(nur - v)))
-        reps_r = np.array([kr_r[r]*Iref[j] for r in range(R)])
-        reps_s = np.array([kr_r[r]*rho_r[r]*Ist[i] for r in range(R)])
-        for DD, reps in ((D, reps_s), (DREF, reps_r)):
-            out[(DD, round(float(v), 6))] = dict(ljc=True, E=reps.mean(0), err=0*reps.mean(0), reps=reps, logN=0j, Es=1.0 + 0j,
+        vp = round(float(v)/m, 6)*m                         # l9 record lookup matches x*m (x to 6 decimals) to 1e-7
+        Is = BC.at(nus, Ist, vp); Ir = BC.at(nur, Iref, vp)
+        # records carry the logN of the calibration node's direct records (q3 strips/uses the phase of logC - logK): E = value/e^logN
+        ls, lr = LN[(J, 'st')], LN[(J, 'ref')]
+        reps_r = np.array([kr_r[r]*Ir for r in range(R)])*np.exp(-lr)
+        reps_s = np.array([kr_r[r]*rho_r[r]*Is for r in range(R)])*np.exp(-ls)
+        v = vp
+        for DD, reps, ln in ((D, reps_s, ls), (DREF, reps_r, lr)):
+            out[(DD, round(float(v), 9))] = dict(ljc=True, E=reps.mean(0), err=0*reps.mean(0), reps=reps, logN=ln, Es=1.0 + 0j,
                                                  errs=0.0, repsS=np.ones(R, complex), logNs=0j, nu=float(v), Delta=DD, J=J,
                                                  m=FG.Z3.mphys(DD, J), method='bj engine', R=R)
     return out
@@ -74,16 +80,20 @@ def calib(J, D, spec):
 
 SPEC = {}
 MINE = {}
+LN = {}
 
 
 def fwpts(kind, J, D=None):
     D = D if D is not None else FG.CUR.get(J, {}).get('D', STATE.get(J))
     base = _fw0(kind, J, D)
-    if kind != 'EE' or J not in SPEC:
+    if J not in SPEC:
         return base
     if J not in MINE:
         MINE[J] = calib(J, D, SPEC[J])
     keep = {k: v for k, v in base.items() if k[1] > NUCUT}
+    # C3H at the engine nodes: COPIES of the EE engine records, only so that q3's grid keeps these nodes (it needs both kinds);
+    # the C2 values there depend on the EE records alone (a_h: fw anchors nu >= 15; bases: fw_k2 rows).  C3H output at engine
+    # nodes is meaningless and is not reported.
     keep.update(MINE[J])
     return keep
 
@@ -107,8 +117,24 @@ if __name__ == '__main__':
         SPEC[J] = (depth, N, int(p[4]) if len(p) > 4 else 6)
         STATE[J] = D
         pr(f"######## bj_gamma J={J} Delta={D:g} estimator {FG.EST}; engine depth {depth} N={N}; engine nodes nu <= {NUCUT}")
-        FG.analyse(J, D, lo, hi, pr, bases=('cs',))
+        o = FG.analyse(J, D, 99.0, 99.0, pr, bases=())
         for s in LOG:
             pr('# ' + s)
+        if o is not None:
+            m = o['m']; nus = o['nus']; xs = nus/m
+            eng = nus <= NUCUT + 1e-9
+            pr(f'# C2 at the engine nodes (nu <= {NUCUT}) and cs fits  [c0 D_h + s x D_h\'/(2J+1) + r] (lsq on the listed range):')
+            for h in ('++', '+-'):
+                r_ = o[('C2', h)]
+                y = r_['y']
+                pr(f'   C2 {h}: nu: ' + ' '.join(f'{v:.2f}:{yy:+.0f}' for v, yy in zip(nus, y)))
+                for (a_, b_) in [(lo, NUCUT), (lo, hi), (2.0, NUCUT), (4.0, hi)]:
+                    sel = (nus >= a_ - 1e-9) & (nus <= b_ + 1e-9)
+                    if sel.sum() < 5:
+                        continue
+                    c, e, ir, res, rms = FG.fit(xs[sel], y[sel], h, J, 'cs')
+                    pr(f'      fit nu in [{a_:g}, {b_:g}] ({sel.sum()} nodes, {int((sel & eng).sum())} engine): c0 = {c[0]:+9.1f}, s = {c[1]:+9.1f}, '
+                       f'r = {c[ir]:+8.1f} +- {e[ir]:6.1f};  rms resid {res:7.1f};  max|y - c0 D_h - s..| = '
+                       f'{np.max(np.abs(y[sel] - (np.array([*FG.dshape(h, J, xs[sel])]).T @ c[:2]))):7.1f};  max|y| {np.max(np.abs(y[sel])):7.1f}')
     with open(os.path.join(HERE, 'cache', 'bj_gamma.txt'), 'a') as f:
         f.write("\n".join(lines) + "\n")

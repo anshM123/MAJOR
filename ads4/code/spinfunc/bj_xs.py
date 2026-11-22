@@ -180,17 +180,36 @@ class XS:
 
 
 # ------------------------------------------------------------------------------ batched multiply-accumulate of bg_ser.ASer
+def lowmem_combine(E, C):
+    """merge duplicate rows of E (n x 12 ints) with a single int64 key built column by column (no n x 12 int64 temporary)."""
+    if E.shape[0] == 0:
+        return E, C
+    mn = E.min(0).astype(np.int64); rg = E.max(0).astype(np.int64) - mn + 1
+    if np.sum(np.log2(rg.astype(float))) >= 62:
+        from bg_ser import _combine as cb
+        return cb(E, C)
+    key = np.zeros(E.shape[0], np.int64); mult = 1
+    for i in range(E.shape[1]):
+        key += (E[:, i].astype(np.int64) - mn[i])*mult; mult *= int(rg[i])
+    u, inv = np.unique(key, return_inverse=True)
+    del key
+    Cr = np.bincount(inv, weights=C.real, minlength=len(u)); Ci = np.bincount(inv, weights=C.imag, minlength=len(u))
+    first = np.full(len(u), -1, np.int64)
+    first[inv[::-1]] = np.arange(len(inv))[::-1]
+    return E[first], Cr + 1j*Ci
+
+
 def _pcombine(E, C):
-    from bg_ser import _combine as cb, canon
-    E, C = cb(E, C)
+    from bg_ser import canon
+    E, C = lowmem_combine(E.astype(np.int16), C)
     E, C = canon(E, C)
-    E, C = cb(E, C)
+    E, C = lowmem_combine(E.astype(np.int16), C)
     import bj_ee
     k = bj_ee.value_keep(E, C) if C.size else np.zeros(0, bool)
     return E[k].astype(np.int32), C[k]
 
 
-def macc(pairs, maxpairs=2_000_000):
+def macc(pairs, maxpairs=600_000):
     """sum_i c_i A_i B_i for pairs [(A, B, c)] of bg_ser.ASer (c a number), with ASer truncation semantics
     (product: d = dA + dB, K = min(KA, KB); sum: d = min, top = min) and ONE combine per output order (chunked)."""
     pairs = [(A, B, c) for (A, B, c) in pairs if A is not None and B is not None]

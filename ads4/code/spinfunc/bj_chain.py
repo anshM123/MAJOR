@@ -28,8 +28,9 @@ import bj_ee as BJ
 C = os.path.join(HERE, 'cache')
 DREF = 20000.0
 DST = 336.0
-CAL = [float(v) for v in os.environ.get('BJ_CAL', '8.332091574,9.998509889,11.664928204,13.331346519,16.664183148').split(',')]
+CAL = [float(v) for v in os.environ.get('BJ_CAL', '8.332091574,9.998509889,11.664928204').split(',')]
 NUCUT = float(os.environ.get('BJ_NUCUT', '8.3'))
+CV = os.environ.get('BJ_CV', '1') == '1'
 
 
 def mphys(D, J):
@@ -93,6 +94,11 @@ def calibrate(J, depth=3, N=8, Kr=2, depth_ref=None, Nref=4, pr=print):
         except AssertionError:
             continue
         ks = kap(Is, Vs); kr = kap(Ir, Vr)
+        if CV:              # scalar control variate (z3's 'cv' estimator): rho_r x (exact scalar ratio)/(replica's MC scalar ratio)
+            import z3_nodes as Z3
+            o = Z3.scalar_check(J, v, {DST: st, DREF: rf}, DST)
+            sr = (st['repsS']*np.exp(st['logNs']))/(rf['repsS']*np.exp(rf['logNs']))
+            ks = ks*o['cv']*sr.mean()/sr
         # entrywise residual of the shape (state and reference separately), relative
         es = np.max(np.abs(Vs.mean(0)/(ks.mean()*Is) - 1)); er = np.max(np.abs(Vr.mean(0)/(kr.mean()*Ir) - 1))
         per[v] = dict(ks=ks, kr=kr, rho=ks/kr, es=es, er=er)
@@ -110,7 +116,7 @@ def calibrate(J, depth=3, N=8, Kr=2, depth_ref=None, Nref=4, pr=print):
     rho = rho_r.mean()
     jk = np.array([np.mean(np.delete(rho_r, i)) for i in range(R)])
     err = np.sqrt((R - 1)/R*np.sum(np.abs(jk - jk.mean())**2))
-    pr(f'# bj_chain calibration J={J} (state {DST:g}, ref {DREF:g}; engine depth {depth} N={N} Kr={Kr}, ref depth {depth_ref} N={Nref}): '
+    pr(f'# bj_chain calibration (cv {CV}) J={J} (state {DST:g}, ref {DREF:g}; engine depth {depth} N={N} Kr={Kr}, ref depth {depth_ref} N={Nref}): '
        f'rho = kappa_st/kappa_ref fitted on nu = {[round(v, 2) for v in cal]}; m^2 |d rho/rho| (jackknife) = {m*m*err/abs(rho):.1f} c2')
     pr('#   node nu: shape check m^2 Re(rho_nu/rho - 1) [c2] +- jk | max entrywise |V/(kappa I) - 1| state / reference (MC + shape)')
     out = {}
@@ -157,18 +163,22 @@ def k2check(J, cal, pr=print, sfx='b'):
 
 
 def records(J, cal, nucut=NUCUT):
+    """engine records at nu' = x m, x = round(nu/m, 6) (the l9 record lookup matches x*m to 1e-7 relative), for every engine grid
+    node nu < nucut; values at nu' by a cubic spline of the log on the 0.25 grid (shift <= 2e-4)."""
     nus, Ist, nur, Iref = cal['nus'], cal['Ist'], cal['nur'], cal['Iref']
     R = cal['R']; m = cal['m']
     out = {}
-    for i, v in enumerate(nus):
+    for v in nus:
         if v >= nucut:
             continue
-        j = _near(nur, v)
-        repr_ = np.array([cal['kr_r'][r]*Iref[j] for r in range(R)])
-        reps_ = np.array([cal['kr_r'][r]*cal['rho_r'][r]*Ist[i] for r in range(R)])
+        x = round(float(v)/m, 6); vp = x*m
+        Is = at(nus, Ist, vp) if abs(vp - v) > 1e-9 else Ist[_near(nus, v)]
+        Ir = at(nur, Iref, vp) if abs(vp - v) > 1e-9 else Iref[_near(nur, v)]
+        repr_ = np.array([cal['kr_r'][r]*Ir for r in range(R)])
+        reps_ = np.array([cal['kr_r'][r]*cal['rho_r'][r]*Is for r in range(R)])
         for D, reps, mm in ((DST, reps_, m), (DREF, repr_, mphys(DREF, J))):
-            out[(D, round(float(v), 9))] = dict(E=reps.mean(0), err=0*reps.mean(0), reps=reps, logN=0j, Es=1.0 + 0j, errs=0.0,
-                                                 repsS=np.ones(R, complex), logNs=0j, nu=float(v), Delta=D, J=J, m=mm,
+            out[(D, round(float(vp), 9))] = dict(E=reps.mean(0), err=0*reps.mean(0), reps=reps, logN=0j, Es=1.0 + 0j, errs=0.0,
+                                                 repsS=np.ones(R, complex), logNs=0j, nu=float(vp), Delta=D, J=J, m=mm,
                                                  method='bj closed-form engine (calibrated)', R=R)
     return out
 
@@ -193,8 +203,93 @@ def chain(J, recs, c3h='keep', nucut=NUCUT):
     runpy.run_path(os.path.join(HERE, 'hc_chain.py'), run_name='__main__')
 
 
+def chain2(J, recs, c3h='keep', nucut=NUCUT, tag='bj'):
+    """two passes: (1) extraction -- engine EE records at every engine node below nucut, C3H records at the same nodes COPIED from the
+    EE ones only so that the rows keep these nodes (C2 values depend on the EE kind alone; a_h is fitted on nu >= 15 and the helicity
+    basis without injected records, so neither is touched); read the NL values Gamma_NL = a_chi Gamma_c of C2 per helicity from
+    z4_chain.NLROWS.  (2) the production chain with C3H as in the baseline (c3h = keep | drop below nucut) and z4's k = 2 NL density
+    below nucut replaced by the engine's Gamma_NL (cubic spline in nu over the engine nodes, held below the lowest)."""
+    import z3_nodes as Z3, w2_chain as W2
+    orig = Z3.zpts
+    store = {}
+
+    def zpts1(kind, J_):
+        P = dict(orig(kind, J_))
+        if J_ != J:
+            return P
+        for k in [k for k in P if k[1] < nucut and k[0] in (DST, DREF)]:
+            P.pop(k)
+        P.update(recs)
+        return P
+    Z3.zpts = zpts1
+    os.environ['HC_TAG'] = tag + '_pass1'
+    sys.argv = ['hc_chain.py', 'z4', '300']
+    runpy.run_path(os.path.join(HERE, 'hc_chain.py'), run_name='__main__')
+    Z4 = sys.modules['z4_chain']
+    rec = Z4.NLROWS[(J, DST)]
+    sel = rec['nus'] < nucut
+    store = dict(nus=rec['nus'][sel].copy(), **{h: rec[h][sel].copy() for h in ('++', '+-')},
+                 c={h: rec[(h, 'c')][sel].copy() for h in ('++', '+-')})
+    pickle.dump(store, open(os.path.join(C, 'bj_nl_J%d_%s.pkl' % (J, tag)), 'wb'))
+
+
+def chain_win(J, nltag, c3h='keep', nucut=NUCUT, tag='bj'):
+    """pass 2 (separate process): production chain with the engine's C2 Gamma_NL below nucut (from bj_nl_J<J>_<nltag>.pkl)."""
+    import z3_nodes as Z3, w2_chain as W2
+    store = pickle.load(open(os.path.join(C, 'bj_nl_J%d_%s.pkl' % (J, nltag)), 'rb'))
+    recs = pickle.load(open(os.path.join(C, 'z2bj_pts_EE_J%d.pkl' % J), 'rb'))
+    orig2 = Z3.zpts
+
+    def zpts2(kind, J_):
+        P = dict(orig2(kind, J_))
+        if J_ != J:
+            return P
+        low = [k for k in P if k[1] < nucut and k[0] in (DST, DREF)]
+        if c3h == 'drop':
+            for k in low:
+                P.pop(k)
+        elif kind == 'EE':          # keep the node set of the baseline; EE values there from the engine (same keys)
+            for k in low:
+                P[k] = recs[k]
+        return P
+    Z3.zpts = zpts2
+    _sm = W2.set_mode
+    from scipy.interpolate import CubicSpline
+
+    def set_mode(*a, **k):
+        if 'z4_chain' not in sys.modules or getattr(sys.modules['z4_chain'], '_bj_patched', False):
+            return _sm(*a, **k)
+        Z4b = sys.modules['z4_chain']
+        Z4b._bj_patched = True
+        nlo = Z4b._nl_row
+        nn = store['nus']; o = np.argsort(nn)
+        sp = {h: (CubicSpline(nn[o], store[h][o].real), CubicSpline(nn[o], store[h][o].imag)) for h in ('++', '+-')}
+
+        def _nl_row(J_, D, h, nu):
+            v = nlo(J_, D, h, nu)
+            if J_ != J or float(D) != DST:
+                return v
+            nu = np.asarray(nu, float)
+            nc = np.clip(nu, nn.min(), None)
+            e = sp[h][0](nc) + 1j*sp[h][1](nc)
+            gs = float(os.environ.get('BJ_GSHIFT', '0'))          # stress: uniform Gamma_c shift (c2) of the engine values
+            if gs:
+                hm, hp = Z4b.hhat(nu)
+                e = e + gs*(hm + hp)
+            return np.where(nu < nucut, e, v)
+        Z4b._nl_row = _nl_row
+        return _sm(*a, **k)
+    W2.set_mode = set_mode
+    os.environ['HC_TAG'] = tag
+    sys.argv = ['hc_chain.py', 'z4', '300']
+    runpy.run_path(os.path.join(HERE, 'hc_chain.py'), run_name='__main__')
+
+
 if __name__ == '__main__':
     mode, J = sys.argv[1], int(sys.argv[2])
+    if mode == 'win':          # python3 bj_chain.py win J nltag
+        chain_win(J, sys.argv[3], os.environ.get('BJ_C3H', 'keep'), tag=os.environ.get('HC_TAG', 'bj'))
+        sys.exit(0)
     N = int(sys.argv[3]) if len(sys.argv) > 3 else 8
     Kr = int(sys.argv[4]) if len(sys.argv) > 4 else 2
     depth = int(sys.argv[5]) if len(sys.argv) > 5 else Kr + 1
@@ -211,4 +306,7 @@ if __name__ == '__main__':
     else:
         recs = records(J, cal)
         pickle.dump(recs, open(os.path.join(C, 'z2bj_pts_EE_J%d.pkl' % J), 'wb'))
-        chain(J, recs, os.environ.get('BJ_C3H', 'keep'))
+        if mode == 'chain':
+            chain(J, recs, os.environ.get('BJ_C3H', 'keep'))
+        else:
+            chain2(J, recs, tag=os.environ.get('HC_TAG', 'bj'))
