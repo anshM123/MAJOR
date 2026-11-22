@@ -204,6 +204,19 @@ model for a functional whose graviton version is not yet defined. This revision 
 >   - **Status of H_OO:** it reduces to EE positivity [D + NE].
 >   - **New direct nodes at Δ_g = 300:** J = 6 gives +0.3075 (unchanged); odd J = 15 gives +0.829 (it was +0.648 under convention A).
 >
+> * **Update (spin-J below-fold engine; BELOW_FOLD_SPINJ.md):**
+>   - **Construction.** The spin-J O-index contraction is a closed-form 9×9 kernel on the quartic's null-circle modes [P/D].
+>     - It matches 60-digit sampled pairings to ≤10⁻¹³ (J = 4–32) and the scalar bg_scalarJ path to ≤0.01 c₂ [DV].
+>     - A precision bug in `bg_ser.Poly.prune` was found and worked around inside bj_* only. Old J ≤ 4 results are unaffected as far as checked.
+>   - **First large-J test of real-section ≡ crystal for EE beyond LO.** At J = 28, engine − direct n3 nodes is consistent with zero (one fitted constant) on ν = 8.3–20.8 [NE].
+>   - **ν < 8.3 window at Δ_g = 300 now computed [NE + M].**
+>     - (336, 28): min λ/N_s = +0.787 at order a² (a⁰ → a¹ → a²: +0.590 → +0.739 → +0.787).
+>     - (336, 32) at a¹: +0.834 at 1.3Λ.
+>     - Calibration ±0.05 in λ. Failure would need an extra uniform Γ_c ≲ −4.3·10³ c₂.
+>     - C3H below 8.3 is kept from thimble/n3 nodes or dropped; the two agree to 0.01–0.05.
+>     - This closes HYPOTHESES_CLOSE2 §4 item 1 at J = 28, 32 (modulo the engine's 10²–10³ c₂ truncation).
+>   - **High J not decided [I].** The 1/Δ series of J²/Δ-growing terms converges too slowly. At (1100, 100) the a¹ term alone is ~8·10³ c₂, against T_B ≈ 1.4·10³. **H_LJ/H_win remain hypotheses at J ≥ 64 (300) and J ≳ 100–150 (1000).** Next step would be resumming the J²/Δ geometric terms.
+
 > The tables below still describe the B′-uplift functional and will be rewritten at the next batched review.
 
 Sources: `STATUS.md` (chain), `OMEGA_U.md`, `OMEGA_NF.md`, `SUPERCONVERGENT_UPLIFT.md`, `FLAT_UNSTRIPPED.md`, `ROBUST_FUNCTIONAL.md`,

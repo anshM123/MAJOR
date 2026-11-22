@@ -25,20 +25,25 @@ EE beyond-LO equivalence with the crystal cycle is assumed there — §2.2 below
    = −1374 ± 2756, −230 ± 496, +72 ± 254, −50 ± 286, +242 ± 195, +1.5 ± 27 c₂** (after one fitted constant; first test of "D ≡ crystal
    cycle" for EE beyond LO at large J) [NE]; reference (2·10⁴, J = 28) vs direct: entrywise 2·10⁻⁷ … 5·10⁻⁵ (ν = 8.3–33) [NE];
    J = 4 vs the sampled engine: agreement at the level of the sampled engine's own truncation (§2.1) [NE, not decisive].
-   **Not achieved:** a convergent comparison with the K₂ rows above the fold at J ≥ 4 (the engine's D̂-series at N = 5 is not
-   converged at ν ≳ 20 for J = 28) [I]; the a² geometric order for J = 28/32 (depth-3 run, §3.3) — see the hand-over.
+   **Not achieved:** a convergent comparison with the K₂ rows above the fold at J ≥ 4 (the engine's D̂-series at N = 4–5 is not
+   converged at ν ≳ 20 for J = 28) [I]. **Main limitation found [NE]:** the geometric 1/Δ series converges slowly at large `J²/Δ`
+   (J = 28, Δ = 336: per-entry a¹ term 2–4·10³ c₂, a² term ≤ 250 c₂ on ν ≤ 5 but 370–730 at ν = 10–12; at (1100, 100) the a¹ term
+   is ≈ 8·10³ c₂) — the J/Δ resummation of P_J does not resum these J-enhanced geometric terms.
 3. **Result D, `ν < 8.3` at `Δ_g = 300` (§3) [NE + M].** Engine `Γ_c` below the fold (C2, complex, chain convention):
    `(336, 28)`: `++` `Re Γ_c ≈ +210 … +430` on ν = 1.5–6 (`+317 / +367` at ν = 3 / 5), `+−` `≈ −580` mean (`−700 / −800`);
    `(336, 32)`: `++` `+380 … +560`, `+−` `≈ −490` mean. **None is near the failure scale (uniform ≲ −4·10³ … −5·10³).**
    Fed into the unchanged hc_chain z4 protocol (engine C2 NL density below 8.3, everything else as HYPOTHESES_CLOSE §5):
-   **min λ/N_s = +0.739 (J = 28, gap 1.091Λ; C3H thimble nodes kept) / +0.746 (C3H below 8.3 dropped); +0.834 (J = 32, at 1.3Λ;
-   twist edge 1.102Λ: +0.974)**. Calibration (one fitted constant per state) ±295 / ±540 c₂ → ±0.05 / ±0.06 (J = 28: +0.690 … +0.789;
-   J = 32: +0.771 … +0.877). Failure needs an additional uniform `Γ_c ≲ −4.3·10³ c₂` on top of the engine values (both J).
-4. **High J / H_LJ / H_win (§4) [I mostly].** The engine runs at (1100, 100) and (364, 64) (fw structure basis), but at depth 2 with
-   the D̂-series truncated at N = 5 (memory) it is converged only below ν ≈ 8 at (1100, 100): the calibration against the fw direct
-   nodes (ν ≥ 13.3) is therefore not possible there and the window values cannot be put in Γ-units. @@HIGHJ@@
+   **min λ/N_s at the gap: J = 28 +0.787 (relative order a², depth 3; C3H thimble nodes kept) / +0.793 (C3H below 8.3 dropped);
+   order a¹: +0.739 / +0.746; order a⁰: +0.590. J = 32 (order a¹ only): +0.834 at 1.3Λ (twist edge 1.102Λ: +0.974).** Calibration
+   (one fitted constant per state) ±295 / ±540 c₂ → ±0.05 / ±0.06. Failure needs an additional uniform `Γ_c ≲ −4.3·10³ c₂` on top
+   of the engine values (both J). Grade [NE + M]: the window is now computed, positive with margin ≈ 0.7, but the engine's own
+   uncertainty there is O(10²–10³ c₂) (slow geometric convergence, calibration), not O(10).
+4. **High J / H_LJ / H_win (§4) [I].** The engine runs at (1100, 100) (pieces + images, fw basis) and (364, 64) (pieces only, run
+   stopped), but there it is not accurate enough for the H_win tolerances (T_B ≈ 1.4·10³ / 2.5·10²): at (1100, 100) the D̂-series is
+   converged (N = 4 vs 5 ≤ 6 c₂) only for ν ≤ 10 (560 c₂ at 13.3, where the fw direct nodes start, so no calibration), and the
+   geometric a¹ term alone is ≈ 8·10³ c₂ (J²/Δ = 9). No λ/N_s or Γ − κ is quoted for high J.
    **Verdict: the fold region at J ≥ 64 (300) / J ≥ 150 (1000) still requires H_win/H_LJ** [I]; what is missing is technical
-   (N ≳ 8 at depth ≥ 2 in ≤ 3 GB: per-n integration, §5).
+   (a resummation of the J²/Δ-enhanced geometric terms, and N ≳ 8 within 3 GB, §5).
 
 ## 1. Construction
 ### 1.1 Quartic remainder and the 9×9 pairing kernel [P + DV]
@@ -137,10 +142,12 @@ channel swings through 10³–10⁴ where its forward normalisation is small; th
 | J | variant | gap state | min over m [m/Λ] |
 |---|---|---|---|
 | 28 | baseline (main thimble run, held below 8.3) | +1.728 (1.091) | +0.835 [1.5] |
-| 28 | **engine below 8.3, C3H kept** | **+0.739** (1.091) | **+0.739** [gap] |
-| 28 | engine, C3H below 8.3 dropped | +0.746 | +0.746 [gap] |
+| 28 | **engine below 8.3 (order a², depth 3, N = 4), C3H kept** | **+0.787** (1.091) | **+0.785** [1.3] |
+| 28 | same, C3H below 8.3 dropped | +0.793 | +0.787 [1.3] |
+| 28 | engine order a¹ (depth 2, N = 5), C3H kept | +0.739 (1.091) | +0.739 [gap] |
+| 28 | engine order a¹, C3H below 8.3 dropped | +0.746 | +0.746 [gap] |
 | 28 | engine also replacing the 8.33 node (cut 8.4), C3H kept / dropped | +0.741 / +0.806 | +0.741 / +0.790 [1.3] |
-| 28 | calibration ±1σ (uniform ±295) | +0.789 / +0.690 | +0.786 / +0.690 |
+| 28 | order a¹, calibration ±1σ (uniform ±295) | +0.789 / +0.690 | +0.786 / +0.690 |
 | 28 | geometric order a⁰ only (Kr = 0) — for scale | +0.590 | +0.590 |
 | 32 | baseline (held, oowin x_oo2) | +0.884 (1.102) | +0.825 [1.15] |
 | 32 | **engine below 8.3** | **+0.974** (1.102) | **+0.834** [1.3] |
@@ -151,14 +158,69 @@ channel swings through 10³–10⁴ where its forward normalisation is small; th
 λ/N_s ≈ +0.74 (J = 28) and +0.83 (J = 32), the failure scale is an *additional* uniform `Γ_c ≈ −4.3·10³ c₂`, and the measured engine
 values are O(10²–10³) with both signs. Grade **[NE + M]** for the engine values (M = depth 2 (a¹) truncation and the calibration
 constant), conditional on the C3H window (below 8.3 still the thimble/n3 C3H nodes or nothing, as in the main run; the engine has no
-C3H integrand). The a² term is not computed (depth-3 run did not finish in the session, §5) — the a¹ term itself moves λ(gap) by 0.15,
-so a 10× smaller a² term is ≤ 0.02; this ratio is an expectation from the scalar (Kr 2 → 4: 3–9 c₂ vs ≥ 10² for 1 → 2), **not measured**.
+C3H integrand). **Order by order (J = 28):** λ(gap) = +0.590 (a⁰) → +0.739 (a¹) → +0.787 (a²). Per entry the a² term is ≤ 250 c₂
+on ν ≤ 5 (where 98 % of the window weight sits) and 370–730 c₂ at the calibration nodes ν = 10–11.7, so most of its effect on λ comes
+through the calibration constant (a c₀D_h-type shift). The a² Γ_c table: `++` +1016 / +1052 / +903 / +911 / +854 / +760 / +612 / +247 /
++1291 / +680, `+−` −1817 / −5461 / +2160 / +607 / −25 / −390 / −927 / −2615 / +3917 / +351 at the ν of §3.2. Against the direct nodes
+above the fold the a² engine is not closer than the a¹ one (13.3: +705 ± 288; 16.7: −581 ± 194; 20.8: +1692 ± 27, the last
+N-unconverged) — the geometric series is converging slowly here, and the engine's window values are uncertain at the 10²–10³ c₂
+level [NE]. J = 32 was run at order a¹ only.
 
 ## 4. High J (H_LJ / H_win)
-@@SEC4@@
+* **What was run.** `(1100, 100)`, Δ_g = 1000 (J = 100, Δ = 1100, `m = 1093.9`, H_win window ν < 16.3 (c = 3)): pieces at depth 2
+  (95 min), images N = 4, 5; reference (2·10⁴, 100); fw (patched) conserved basis, so that the records sit in the fw rows' basis.
+  `(364, 64)`, Δ_g = 300: pieces at depth 2 (stopped at k = 5 to end the session); reference (2·10⁴, 64) done. `(1150, 150)`,
+  `(1300, 300)`, `(334, 34)`, `(348, 48)`: not run (no time; also no basis rows for Δ = 1150, 1300, 334, 348 — the chain would need them).
+* **Convergence at (1100, 100)** (`cache/bj_conv.txt`): D̂-series N = 4 vs 5: ≤ 1.5 c₂ on ν ≤ 8, 6 at 10, 26 at 11.7, **560 at 13.3 and
+  16.7**; geometric order a⁰ → a¹: 8–1.8·10⁴ c₂ per entry over the whole window (J²/Δ = 9.1, vs 2.3 at (336, 28) where a¹ ≈ 2–4·10³).
+* **fw_gamma conventions** (`bj_gamma.py`, `cache/bj_gamma_1100.log`): engine nodes ν ≤ 13 injected into the fw (1100, 100) row with
+  the fw direct nodes ≥ 13.3 (C3H copies only to keep the nodes; C2 only), calibrated on the 13.3 node: the engine's `Γ − κ` runs from
+  −7·10⁴ (ν = 1) to −2·10⁴ (ν = 12) and jumps to +1262 at the direct 13.3 node — i.e. the calibration node is where the engine is not
+  converged, and the engine values are not usable in Γ units. (Also: the fw local de-shift `Γ` is singular at the zero of `h₋ + h₊`,
+  ν ≈ 6.64; the z4 NL convention would be needed in the window.) The CV estimator cannot be used for engine records (no MC scalar);
+  `FW_EST=dir` was used.
+* **Verdict for H_LJ / H_win.** The closed-form engine removes the 2J+1-sample bottleneck and computes the window below the fold at
+  any J, but at J²/Δ ≳ 2 its 1/Δ geometric series converges too slowly to resolve `|Γ − κ| ≲ T_B` (1.4·10³ at (1100, 100), 2.5·10² at
+  (364, 64)): the a¹ term alone is 2·10³–2·10⁴ c₂. **The fold region still requires H_LJ / H_win at J ≥ 64 (300) and J ≳ 100–150
+  (1000)** [I]. The one large-J point where it does decide something is (336, 28/32) (§3), because there the failure scale (≈ −4·10³)
+  is far above the engine's uncertainty.
 
 ## 5. Remaining open items [I]
-@@SEC5@@
+1. **J²/Δ-enhanced geometric terms.** The a-expansion at fixed J/Δ is uniform only for the P_J factor; the EE structure (the q, s
+   attachments of §1.2 and the conserved coefficients) carries terms growing like J²/Δ per order (a¹ ≈ 2·10³ c₂ at J = 28 vs ≈ 40 at
+   J = 0). A resummation in J²/Δ (e.g. expanding around the exact frame of V, W rather than around the forward point) is the next step;
+   without it the engine is a 10²–10³ c₂ tool at J ≈ 30 and a 10⁴ c₂ tool at J ≈ 100.
+2. **N ≳ 8 at depth ≥ 2 within 3 GB**: pref_sum + assembly of D̂^n·Y_n grow to 10⁶ terms per order; per-n integration (linear) instead
+   of summing the polynomial first would bound the memory. Needed at (1100, 100) above ν ≈ 11 and at (364, 64) above ν ≈ 10.
+3. **C3H window** at (336, 28/32): the engine has no C3H (o_H q) integrand; below 8.3 the chain keeps the n3/thimble C3H nodes or
+   drops them (both variants quoted, they agree to 0.01–0.05).
+4. **Calibration constant**: one fitted complex constant per state (±295 / ±540 c₂); an analytic normalisation (the Δ-dependent constants
+   of the n3/w0 integrand vs the engine's dropped powers) would remove it.
+5. **J = 4 equal-depth check** against the sampled engine (depth 3 both) and the image-level comparison with `bh_eeq_D304.03_J4_K4`
+   (depth 5) were not run; the K₂-row check at J ≥ 4 above the fold needs N-converged engine values at ν ≥ 20.
+6. **J = 32 at order a²**, (364, 64) images, and the high-J states without rows — not run.
+7. Inherited: the real-section ≡ crystal-cycle equivalence for the EE beyond LO is now supported at J = 28 on ν = 8–21 (§2.2) [NE], not
+   proved; the chain model [M] (HYPOTHESES_CLOSE).
+
+Hand-over: nothing is running. To resume: `BJ_ADAPT=1 BJ_PRUNE=1e-12 BJ_KTOL=1e-6 python3 bj_eeq.py 336 32 3 4 win` (≈ 4 h; pieces are
+cached once computed), then `python3 bj_chain.py calib 32 4 2 3`, `HC_TAG=bj32d3 python3 bj_chain.py nl 32 4 2 3`,
+`HC_TAG=bj32d3_win_keep python3 bj_chain.py win 32 bj32d3` with the J = 32 hc/z4 environment of §3 (`HC_INJ=32:336 Z4_JS=32
+Q3_JEVEN=32 W2_ROWS=336,1040 Q3_EXTRA_M=1.102,1.1,…,5 HC_IXMIN=0.12 HC_IXMAX=0.81 HC_DESPIKE_INJ=0 Z4_EST=best Q3_JODD=5
+SM_CURV=row`).
+
+## Graded claims
+| claim | grade |
+|---|---|
+| conserved ⟨TTO_J⟩ = (V·z)^{J−4}×quartic; contraction = 9×9 kernel in the quartic's Fourier modes; R^J cancels the J-parts of the 3-pt exponents | [P] |
+| closed-form kernel (polarised Legendre identity, manifest-small variables) = sampled pairing to 10⁻¹³, J = 4–32 | [DV] |
+| bookkeeping: exact J numbers, geometric truncation relative to O(1) objects; ASer B → exact as K grows (8·10⁻⁴ → 3·10⁻⁷) | [D] + [DV] |
+| "J ~ a⁻¹" bookkeeping (BELOW_FOLD3 §3.2) is wrong at J = 6–30 (drops O(1/J²) cross terms) | [DV] |
+| bg_ser prune drops O(1)-valued terms of high-degree polynomials (fixed process-locally in bj_*) | [DV] |
+| scalar through the bj P-series path = bg_scalarJ to ≤ 0.01 c₂ (J = 24–32) | [DV] |
+| EE engine at J = 28 agrees with independent n3 direct nodes on ν = 8.3–20.8 within errors (one constant) | [NE] |
+| (336, 28/32) window: engine Γ_c = O(10²–10³) c₂ with both signs; λ/N_s = +0.787 (28, a²) / +0.834 (32, a¹); failure needs ≈ −4.3·10³ extra | [NE + M] |
+| engine accuracy at (336, 28) in the window: O(10²–10³) c₂ (slow geometric convergence + calibration) | [NE] |
+| high-J (J²/Δ ≳ 2) window not resolvable at the T_B level with the present engine; H_LJ/H_win still needed | [NE] / [I] |
 
 ## 6. Files (`ads4/code/spinfunc/`; caches in `cache/`)
 | file | content |
