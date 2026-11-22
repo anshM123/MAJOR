@@ -1,156 +1,323 @@
-# Result Q: current statement (post-review, 2026-11)
+# Result Q: two-sided bound on the R⁴ coupling `g₄` (consolidated statement, 22 Nov 2026)
 
-Authoritative. Supersedes the headline claims of RESULT_Q_STAGE0–7, BELOW_FOLD2/3 and PARITY_ODD_CLOSE wherever they differ. Review: REVIEW_RESULTQ_2026-11.md, verdict **major revision**; nothing fatal found for the upper bound at ĝ₃ = 0.
+*Consolidation of 22 Nov 2026. This is a writing pass with no new computation; every number is quoted from the source named next to
+it. This file replaces the version of commit `17dc133`, whose eight stacked update boxes superseded its own body. That version is in
+git history; Appendix A summarises the sequence.*
 
-> **Revision update (RESULT_Q_REVISION.md):**
-> - **H_smear^Q → [NE + M].** The smeared corrections at the binding states are ≤ 3·10⁻⁵ of B₂, against a tolerance of about 24 %. The minimum FF/N is unchanged at +0.1427. The edge window x > 0.8 and k = 3 below the fold are still [I], but bounded by tolerances.
-> - **V₄ → V₄′ (the single load-bearing input of the upper bound) [D-sketch].** V₄′ states absolute convergence at the corner where the light-cone edge meets the Regge corner, and Mellin equivalence of the spinning functional. The infinite [TT]₀ J-sum is never performed. In the scalar Mellin proxy the O(G) residues cancel identically [DV].
-> - **The W³W³ residue in ∂Ĉ₄(0) is zero [D-sketch].** The u-channel is annihilated, and the s- and t-channel light sides are polynomial in ν². This assumes a spinning analogue of CHMRS's light-side formula, which is a new hypothesis.
-> - **Cubic terms restored at grade [D-sketch + M].** κ = 0.110, and the lower slope is 0.49 (0.255 if double-counted), so ≥ ¼ either way.
-> - **Implied cubic bound.** Result Q implies |ĝ₃|²Λ⁸ ≤ 120–198 (Δ_g = 300) and 154–257 (Δ_g = 1000). This is a *conditional strengthening* of Result D (1.07·10⁴ / 1.43·10⁴), not a replacement: Result D needs none of Q's extra hypotheses.
+**Status.** This is a conditional result.
+* The implication "per-state positivity of the two fixed functionals ⇒ the bounds" is [D], given the analytic inputs of §4.
+* Per-state positivity is computed [NE + M] on the binding and near-binding channels, and assumed elsewhere.
+* The decisive below-fold input, `H_RS` for the binding state at `ν < 6`, is **[I]**.
 
-> **V₄′ test (RESULT_Q_V4PRIME.md):**
-> - **V₄′ is false for the raw per-ν Ψ₄,ν, already at O(1).** The u-channel identity ⟨T₄T₂⟩⟨T₃T₁⟩ in MFT gives a contact term on f₄'s 1/x₁₃² pole that grows like ε^{−1/4}, and its value depends on the regularisation prescription. Result Q does not use the raw functional.
-> - **For the de-shifted Ĉ₄^{ds}, the 3-unit contour shift makes it go like ε^{5/4} → 0 [D-sketch].** The identity and the J-resummed [TT]₀ term cancel exactly [P].
-> - **Ψ₅ (k = 5) has no such problem [P / D + NE].**
-> - **O(G) corrections are corner-convergent by power counting [D-sketch].** The exact Einstein cancellation in the swapped form is [I].
-> - **V₄′ is replaced by V₄″:** on tree-level ⟨TTTT⟩ the total de-shifted kernels, with the ν-integral inside, converge absolutely at the corner, and the swapped form equals the commutator form there. Grade [D-sketch], with the O(1) regular part [P]. Hypothesis 5 (the de-shift exists and is analytic in |Im ν| ≤ 3) is now load-bearing for the light side too.
+**Sources and precedence** (later wins):
+1. the previous `RESULT_Q_STATEMENT.md` (body and boxes);
+2. `RESULT_Q_STAGE0–7`, `RESULT_Q_REVISION`, `RESULT_Q_V4PRIME/V4DPRIME`;
+3. `RESULT_Q_V4FINAL` (V4F);
+4. `REVIEW_RESULTQ_2026-11`;
+5. `RESULT_Q_FWD_CLOSE` (FWD);
+6. `REVIEW_UNIFIED_2026-11` (RU; authoritative on grades);
+7. `HRS_CHECK` (HRS);
+8. `RESULT_Q_OG_CHECK` (OG);
+9. `RESULT_Q_FERMION_HEFT` (FH).
 
-> **V₄″ test (RESULT_Q_V4DPRIME.md): V₄″ is false [DV]; V₄‴ replaces it.**
-> - **The cure fails.** With the actual de-shift weights, the u-channel contact term still diverges (exponent −0.15 to −0.23), and its size depends on the ν-truncation. There are two separate obstructions:
->   - the ν-integrand grows like e^{πν/4};
->   - the two branches do not join at ν = 0.
-> - **Cone-preserving regularisation removes it.** With the cone-preserving prescription t → t + iε the contact term is exactly 0. This prescription is the one consistent with L[T]|Ω⟩ = 0.
-> - **V₄‴ [D-sketch]:** per ν (with the ν-integral outside), swapped form = commutator form at the corner. The O(1) part is exactly 0 under the light-ray prescription, and the O(G) part converges per ν with margin r^{1/2}. The O(G) homogeneity lemma is [D], checked on the exact structures.
-> - **Two new hypotheses:**
->   - **H_LT:** the CLS-D functional uses the light-ray regularisation at the collinear point.
->   - **H_νout:** the per-ν light side, summed over families, is polynomially bounded in the heavy normalisation.
-> - **Hypothesis 5 reworded:** "χR_j is analytic in |Im ν| < 3 up to edge poles" [NE]. χ itself has poles at ±i/2.
-> - **Open:** heavy-side validity uses the ν-integral inside, while the light side now uses it outside. This circularity is concrete and unresolved.
+Note: HRS, OG and FH are later than RU and refine three of its items. Each such refinement is marked.
 
-> **Final light-side status (RESULT_Q_V4FINAL.md), superseding the V₄′/V₄″/V₄‴ boxes above:**
-> - **Pointwise Lemma A [D].** For tree terms with J₀ < 4, the t-integrated, 1↔3-symmetrised integrand vanishes at every φ₁ ≠ φ₃. So the light side is the zero function in every order of integration, and the ν-circularity is resolved: Stages 3–7 computed ν-outside images on both sides, consistently.
-> - **H_LT → definition D_LR [D].** CLS-D's domain and KS-D's contour fix the cone-preserving prescription. On the light-transform manifold, W_u·f₄ ≡ 0 [P]. The tube regularisation is not a regularisation of CLS-D's integral.
-> - **H_νout deleted.** For J₀ ≥ 4 terms the light side is (P) and converges absolutely.
-> - **The remaining interchange (heavy sum vs corner/ν) is H_K** [D-sketch], the same class as Result D's I14(b). It becomes [D] given H_ip (J₀ < ½ at the raw corner).
->
-> **Final upper-bound hypotheses:**
-> 1. A1, A2, a local EFT, and no conspiracy in the contact tower.
-> 2. K1′/K2/K3 plus H_K.
-> 3. Pointwise Lemma A with D_LR [D].
-> 4. Spinning (F) + (P) [D-sketch].
-> 5. The continuum de-shift exists [NE to t = 30; the C₅ spinning coefficients are I].
-> 6. Inheritances from Result D.
-> 7. H_smear^Q [NE + M].
-> 8. H_fwd^Q.
-> 9. H_OO^Q.
-> 10. Accuracy.
->
-> The numbers are unchanged.
+**Grades.**
+* **[P]**: proved. **[D]**: derived. **[D-sketch]**: derivation sketched. **[DV]**: derived and checked numerically.
+* **[Q]**: quoted. **[NE]**: numerical evidence. **[NE + M]**: computed in the chain/HYB model. **[M]**: model.
+* **[A]**: assumption. **[I]**: open.
 
-> **Free fermion and H_EFT toy (RESULT_Q_FERMION_HEFT.md):**
-> - **Free fermion (t₄ = 0, like Einstein):** Ψ₄ and Ψ₅ annihilate its exact connected ⟨TTTT⟩ pointwise to ≤ 4·10⁻¹⁵ (k = 2–5, all 25 components, per ν); controls fail at O(1).
->   - The spinor T-shift is derived from CLS-D's embedding definition and validated on 2- and 3-pt functions to 10⁻¹¹–10⁻¹³.
->   - Limitation: two Wick classes vanish identically for the fermion, so the (13)-link/corner part of Lemma A is tested only on the scalar.
-> - **Lemma A + D_LR is [D], and its mechanism is [DV] at O(1/C_T) on both free theories.** The Einstein instance is still [I].
-> - **H_EFT splits in two:**
->   - **(a)** For an exchange's double traces, the term-wise (P) value equals the actual value: [DV] in the scalar-Mellin toy for J_h = 0–6 (≥ 10⁵ below sensitivity), [D-sketch] spinning.
->   - **(b)** There is no conspiracy in the heavy sum or the contact tower: [A].
->   - Note: "double traces = −heavy block" holds only for J_h ≤ 3 (for J_h ≥ 4, Arc/H → flat forward values −35, −3423); Result Q does not use it.
-> - **Side note for hypothesis 5:** the stored sc3 de-shift weights have growing high moments (m₅ = −27), a ν-grid cutoff artefact that is harmless for Λ ≥ 300.
+---
 
-> **O(1/C_T) spinning check of Lemma A + D_LR (RESULT_Q_OG_CHECK.md):**
-> - **Einstein ⟨TTTT⟩ is still unchecked [I]**: the repo has no light-ray-usable representation of it.
-> - **Substitute check: the exact connected ⟨TTTT⟩ of the free conformally coupled scalar.** It has T exchange in all channels and half-integer cuts at O(1/C_T).
->   - Ψ₄ and Ψ₅ annihilate it pointwise to ≤ 8·10⁻¹⁵ on all 25 tensor components (k = 2–5) and per ν.
->   - The GFF spin-2 double traces at generic Δφ, and their Δφ-derivative, also vanish (≤ 3·10⁻¹¹).
-> - **The zero is not automatic:**
->   - a non-primary T gives 0.5–1.7;
->   - the wrong light-transform weight gives 0.4–1.8;
->   - no T-shift gives 0.03;
->   - the wrong symmetrisation gives 2.0.
-> - **Lemma A + D_LR stays [D]; its mechanism is now [DV] at O(1/C_T).** The 10¹⁰–10²² Einstein leverage is not yet discharged.
-> - **H_EFT is narrowed.** Heavy exchanges with J_h ≤ 3 are fixed by Lemma A, so only J_h ≥ 4 and the contact tower need H_EFT.
+## 0. Headline
 
-> **H_RS check (HRS_CHECK.md):** the crystal-cycle direct nodes were compared entry by entry with the engine at J = 0 at the gap (Δ_g = 300, 1000) and J = 2.
-> - **Engine confirmed beyond LO at ν ≥ 10 [NE]** (e.g. ν = 20: −0.3 ± 1.5 c₂ against Γ = −73.4).
-> - **6 ≤ ν < 10: [NE, weak].**
-> - **ν < 6: [I].** Consistent but uninformative (errors ±520 to ±1800 c₂ at ν = 2–3).
-> - **ν < 2: untested.** This window carries 68 % of the χ_d weight and the whole engine s_d.
-> - **For Q's binding state, H_RS stays [I].** s_d = +0.51 is [NE given H_RS]; Q's minimum is unchanged but not confirmed.
-> - The review's "512 c₂" is the already-resolved k = 2 log(ΣM_k) artefact, not an open k = 4 discrepancy.
-> - Routes for ν < 4: a control variate for the R factor, a lower Δ with a higher-K engine, or an analytic continuation argument.
+**Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper
+functional `Ω^Q_up` and the lower functional `Ω^Q_low` on every twist-allowed heavy block. Then the CFT-defined R⁴ coefficient `g̃₄`
+(§1; equal to the bulk `g₄` given (F)+(P)) satisfies
 
-> **Hostile review corrections (REVIEW_UNIFIED_2026-11.md), superseding conflicting text below:**
-> - The bound at ĝ₃ = 0 is **sound with corrections**. The implication positivity ⇒ bound is [D].
-> - **Light side:** Einstein gravity's contribution is zero at [D] (pointwise Lemma A + D_LR; no circularity remains). Two caveats:
->   - no spinning O(G) evaluation of Ψ₄ has been done (to do);
->   - the J₀ ≥ 4 part of the remainder (contacts **and heavy-exchange double traces**) needs a new named hypothesis **H_EFT [A]/[I]** (CHMRS (5.3)-type).
-> - **ĝ₃ ≠ 0 requires κ ≥ 0 [D-sketch + M].** The bound is stated for κ ≥ 0 or t₄ = α_T = 0. If κ could be negative, Result D's |ĝ₃|² bound would allow a shift ~15× the bound.
-> - **The implied cubic closure is withdrawn.**
->   - The "|ĝ₃|²Λ⁸ ≤ 120–257" values are dropped from claims.
->   - The Δ_g-independent lower slope 0.49 is 1.9× CHLPS's flat optimum of 0.26, which cannot survive the flat limit. This favours the σ_h·U double-counting reading.
->   - At most a remark remains (≈ 200/257 [D-sketch + M]); no ratio |ĝ₃|²/g₄ is claimed.
-> - **c₁t₄** is carried explicitly: ε_{c₁} ≤ 0.57|c₁| (300) / 0.059|c₁| (1000) using Result D's t₄ bound. Importing D's bound makes Q inherit H_LJ.
-> - **New and regraded items:**
->   - H_K is [D-sketch].
->   - **H_RS is [I]** (every s_d depends on it).
->   - **H_LJ^Q** is new, [M]: large-J tolerances ≥ 1.1·10⁴ c₂, a margin of ×10–10³.
->   - The lower bound reads −O(Λ⁻²) ≤ g̃₄Λ⁶/(8πG) [D-sketch].
-> - **ABJM:** the arithmetic is confirmed and c_T does not enter the placement. ĝ₃ = 0 there follows from 10d IIA supersymmetry, not "maximal SUSY". Consistency check only (outside A1).
-> - **Literature:** CLS-D 2311.04271 leaves the AdS uplift as future work, so Results D and Q are a first conditional execution of that programme; credit CLS-D and CHMRS 2106.10274. No prior ⟨TTTT⟩ sum-rule bound on R³/R⁴ couplings was found.
+    −O(Λ⁻²) ≤ g̃₄ Λ⁶/(8πG) ≤ 2L_AdS − κ|ĝ₃|²Λ⁸ + ε_{c₁},
+    2L_AdS = 17.241·log(2Λ/3) + B_eff,   B_eff = −19.220 (Δ_g = 300) / −19.265 (Δ_g = 1000),
+    i.e.  2L_AdS = 72.04 (300) / 92.81 (1000).
 
-> **Forward channels and parity-odd J = 0, 2 measured (RESULT_Q_FWD_CLOSE.md):**
-> - **H_OO^Q [I] → [NE+M].** OO J = 0, 2 (gap, 1.05Λ, 1.3Λ; Δ_g = 300, 1000): s_d = +0.509…+0.511, equal to ++ within 5·10⁻⁶ in every gauge. The helicity lemma holds for the k = 4 functional (order 0 exact to 10⁻⁹; beyond: ≤ 1.3·10⁻³ c₂, falling like Δ^−2.3…−2.5).
-> - **H_fwd^Q, channel coverage [I] → [NE+M].**
->   - +− J = 6 (the last channel with failure threshold within 4× the measured size) has s_d = −0.515…−0.564, which is favourable.
->   - +− J = 7, 8, 9, 11 are favourable. ++ J = 6, 8 are unfavourable but have thresholds ≥ 28.
->   - Caveat: at Δ_g = 300 there is a J-drift of s_d (−0.07 at J = 7, 2.4× the truncation error), cause open. J ≥ 7 is therefore quoted from Δ_g = 1000.
-> - **Still assumed [I]:** real-section ≡ crystal-cycle equivalence for EE beyond LO (shared with Results D and Q). Also unmeasured: ++ J ≥ 10, +− J = 10 and ≥ 12, and states above 1.475Λ (all with thresholds ≥ 11 or (Λ/m)⁶-suppressed).
-> - **Untouched:** the σ_h·U double-counting question (it decides the sign at δ = 0.05, not at δ = 0.2).
-> - **Full-set minimum unchanged:** +0.1426 ± 0.0017 (δ = 0.2), +0.0060 ± 0.0013 (δ = 0.05). Binding pair: ++ J = 0 and OO J = 0 at the gap. **Numbers in the headline unchanged.**
+* **Cubic terms.**
+  * **Case `t₄ = α_T = 0`** (CFT-checkable; then `ĝ₃ = 0`): the `κ` term drops, and so does `ε_{c₁}` (∝ `t₄`).
+  * **Case general `ĝ₃`:** the upper bound needs **`κ ≥ 0`** [D-sketch + M], with `κ = 0.110`. Then `ĝ₃ ≠ 0` only tightens it.
+  * If `κ` could be negative, Result D's `|ĝ₃|²Λ⁸ ≤ 1.07·10⁴` would allow a shift of order `10³`, about 15× `2L_AdS` (RU issue 7).
+  * The lower bound for `ĝ₃ ≠ 0` reads `g̃₄Λ⁶/8πG ≥ |ĝ₃|²Λ⁸/(4c_L) − O(Λ⁻²)` with `c_L > 0`. It uses the sign of the W³W³ light term
+    of the lower functional (§2.4).
+* **`c₁`** (free) is the coefficient of the `E × W³` light term (`k = 2` and `k = 3` parts).
+  * `|ε_{c₁}| = 2|c₁t₄|Λ²∫ψ₂`, with `∫ψ₂ = 1.016` for the δ = 0.2 weights.
+  * With Result D's `t₄` bound: `|ε_{c₁}| ≤ 0.57|c₁|` (0.79 % of `2L_AdS`, 300) and `≤ 0.059|c₁|` (0.06 %, 1000).
+  * Importing D's bound makes Q inherit D's `H_LJ`, `H_M`, `H_R`, `H_edge` and `H_RS`. Carrying `c₁t₄` explicitly avoids that.
+* **Heavy side.**
+  * Full-set minimum of FF/N for the δ = 0.2 functional: **`+0.1426 ± 0.0017`** (SB gauge `+0.1409`).
+  * Binding pair: `++` J = 0 and OO J = 0 at the gap, at both `Δ_g` [NE + M given `H_RS`].
+  * The binding margin in the derivative piece is `s_fail/s_d = 1.78/0.51 ≈ 3.5`.
+* **Not claimed.**
+  * `Δ_g = 100` or any other `Δ_g`.
+  * Loop level.
+  * The δ = 0.05 functional as a headline (its margin is `+0.0060`, 10 % of δ, and depends on `σ_hU`).
+  * **Any cubic closure `|ĝ₃|²Λ⁸ ≤ …` from Q** (§5.3).
+* **ABJM:** `g₄Λ⁶/8πG = 2ζ(3)` lies at 3.3 % (300) / 2.6 % (1000) of the bound. It violates A1, so this is a consistency check only (§6).
 
-## Headline (conditional)
+---
 
-At tree level, with twist gap Δ_g = 300 or 1000, and at ĝ₃ = 0:
+## 1. Setting, normalisations, functionals
 
-    0 ≤ g̃₄ Λ⁶/(8πG) ≤ 17.24 · log(2Λ/3) − 19.22 (Δ_g = 300) / −19.27 (Δ_g = 1000)   (+ c₁ t₄ term)
+* **A1, A2, `c_T`, `G`, `Λ`, `m`** as in `RESULT_D_STATEMENT.md` §1:
+  * free real scalar `c_T = 1`;
+  * `8πG = 256/c_T`;
+  * `Λ = √((Δ_g−2)(Δ_g−1)) = 298.50 / 998.50`;
+  * `m² = (Δ−J−2)(Δ+J−1)`;
+  * gap state `m_gap² = (Δ_g−2)(Δ_g−1+2J)`.
 
-- The functional is the δ = 0.2 functional, with A = 17.241.
-- **Heavy positivity minimum:** +0.143 on the measured forward channels, with the binding state ++ J = 0 at the gap. The smeared pieces use the scalar skeleton plus leading Regge only, so graviton corrections to them are [I].
-- **Status:** the Δ_g = 100 column is dropped, and the |ĝ₃|² terms (κ, the ¼ lower slope, 4πG|ĝ₃|²) are [I].
-- **ABJM:** g₄Λ⁶/(8πG) = 2ζ(3) sits at 3.3 % / 2.6 % of the bound. This is a log-dominated consistency check on a theory outside A1, not evidence for the bound.
+  These conventions are identical in `resultq/stage6_model.py` and Result D (RU §1).
+* **Couplings.** `g₄` is the flat R⁴ Wilson coefficient in Stage 0's normalisation: the type II Virasoro–Shapiro amplitude has
+  `g₄/(8πG) = 2ζ(3)/M⁶`, `M² = 4/α′`. `ĝ₃` is the CHLPS `R³` normalisation, with `√(t₄²+α_T²) = 240|ĝ₃|` (AdS units).
+* **`g̃₄` (CFT-defined).** After Lemma A removes every tree term with Regge intercept `J₀ < 4`, `g̃₄` is defined by the light side of the
+  de-shifted `k = 4` value functional, `−Ĉ₄^{ds}|_light = 2g̃₄`. It equals the bulk `g₄` given (F)+(P) [D-sketch].
+* **Upper functional `Ω^Q_up`.**
+  * The flat functional is δ = 0.2, `Q3-full-delta0.2` of `code/resultq/functionals_q3.json`: `A = 2ψ₂′(0) = 17.241`, `κ = 0.1099`.
+  * It is realised in AdS by the de-shifted `Ĉ₄^{ds}`, `∂Ĉ₄^{ds}`, `Ĉ₅^{ds}`, with the C4/C5 weights of Stage 7
+    (`functionals_q7_xprec.json`), plus the smeared `k = 2, 3` parts `∫ψ₂Ĉ′_EE`, `∫ψ₃Ĉ₃` (Result D's objects with Q's weights).
+  * `s_d` and FF/N are quoted in gauge H0, with H2/H3/H4/SB/XP as variants (spread `≤ 0.016`).
+* **Lower functional `Ω^Q_low`.** The value piece: heavy image `P_{−½}(cosh β) > 0` at leading Regge, flat
+  `2(|c⁺⁺|²+|c⁺⁻|²)/m⁸ ≥ 0`, light side `2g̃₄` (RU issue 17; `RESULT_Q_REVISION` §3.3).
+* **Fixed as of 22 Nov 2026.**
 
-## Regradings applied
+## 2. Light side
 
-| claim | grade |
-|---|---|
-| Lemma A / V₄ (the swapped form and the infinite [TT]₀ tail are untested) | D-sketch |
-| −Ĉ₄^{ds}\|_{R⁴} = 2g₄; the g₅ cancellation | D-sketch |
-| κ, the ¼ slope, 4πG\|ĝ₃\|² in AdS (W³W³ is an exchange, not a contact) | I |
-| validity J₀ < 7/2 of the de-shifted functionals | D-sketch |
-| full-set minimum +0.143 | M (smeared) + NE (forward, 5 channels, given real-section ≡ crystal for EE) |
-| ABJM placement | D-sketch given Q, outside A1 |
+### 2.1 Lemma A + D_LR (tree terms with `J₀ < 4` contribute zero)
+* **Pointwise Lemma A [D]** (V4F §2.2). For every tree term with `J₀ < 4` (Einstein, `E × W³`, MFT), the integrand integrated over
+  `t₁, t₃` and symmetrised under 1↔3 vanishes identically at `φ₁ ≠ φ₃`.
+  * Inputs: microcausality, CLS-D endpoint convergence (`J₀ < k`), Lemmas B and C, `J₀(E×W³) ≤ 3`.
+  * So this light side is the zero function in every order of the ν-, angle- and `t`-integrations.
+  * The earlier ν-inside/outside circularity is resolved.
+* **D_LR [D] (consequence [P]).** CLS-D's domain `x₁₃² > 0`, with the operators on their null contours, fixes the cone-preserving
+  prescription. On the light-transform manifold, `W_u·f₄ ≡ 0`. The timelike-tube regularisation is not a regularisation of CLS-D's
+  integral.
+* **Checks at `O(1/C_T)` [DV]** (OG, FH).
+  * **Correlators.** `Ψ₄` and `Ψ₅` were evaluated in swapped form on the exact connected `⟨TTTT⟩` of:
+    * the free conformally coupled scalar: all 25 (2,4) components, `k = 2–5`, residual `≤ 8·10⁻¹⁵`; per ν (ν = 1, 3) `≤ 5·10⁻¹³`;
+    * the free Dirac/Majorana fermion: `≤ 3.8·10⁻¹⁵`; per ν `≤ 1.4·10⁻¹⁵`.
 
-## Hypotheses
+    Hence they vanish on every boson + fermion mixture, including the `t₄ = 0` mixture that has Einstein's `⟨TTT⟩`.
+  * **Generic exponents and logs.** GFF `[φφ]₀,₂` and `[ψ̄ψ]₀,₂` families and their Δ-derivatives: `≤ 3·10⁻¹¹` / `1·10⁻¹⁰`.
+  * **Controls fail at O(1).**
+    * Scalar: non-primary `T` 0.5–1.7; wrong light-transform weight 0.4–1.8; no T-shift 0.03–0.04; wrong symmetrisation 2.00.
+    * Fermion: weight, primarity and frame controls 0.04–1.8. The no-T-shift control is degenerate there; the branch rule is pinned by
+      the 2- and 3-point validation instead (`κ = i` gives `−1`).
+  * **Corner.** The collinear-corner law `Δφ^{−1/2}` (scalar) confirms V4DPRIME's twist-1 homogeneity lemma [DV].
+  * **Limitation.** The fermion is blind to the (13) link and the collinear corner in the CLS-D gauge (two Wick classes vanish
+    identically [P]). The (13)-channel/corner part of D_LR is therefore checked on the scalar only.
+* **Grade.** Lemma A + D_LR [D]; mechanism [DV] at `O(1/C_T)` on two free theories. **The Einstein instance is unchecked [I].** No
+  light-ray-usable Einstein `⟨TTTT⟩` exists in the repository. Its leverage on `g₄` is `10¹⁰–10²²` (RU issue 9).
 
-1. **Setup:** A1 (twist gap for all J) and A2 (tree level). The light sector is a local EFT, with no conspiracy in the contact tower.
-2. **Regge:** the KKSDZ Regge bound plus K1′/K2/K3 for the de-shifted functionals.
-3. **V₄:** including the [TT]₀ large-J tail; microcausality; J₀(E×W³) ≤ 3.
-4. **Spinning functionals:** (F) + (P).
-5. **De-shift:** the continuum C4/C5 de-shift solutions exist for all β.
-6. **Inherited from Result D:** H7, EE admissibility, c₁, and the t₄ bound — or carry c₁t₄ explicitly.
-7. **H_smear^Q:** graviton corrections to the smeared parts stay below about 24 % of B₂.
-8. **H_fwd^Q:** covers the forward channels not measured, and real-section ≡ crystal for EE beyond leading order.
-9. **H_OO^Q:** the parity-odd J = 0, 2 channels equal ++.
-10. **Accuracy:** HYB accuracy elsewhere; β > 30.
+### 2.2 Contacts and heavy-exchange double traces (`J₀ ≥ 4`): (F)+(P) and `H_EFT`
+* **(F)+(P) [D-sketch].** The spinning flat limit and polynomial light side: `−Ĉ₄^{ds}|_{R⁴} = 2g₄`, and the `g₅` cancellation. The R⁴
+  normalisation control in position space is not reachable: no `J₀ = 4` spinning correlator exists (OG §5.1, FH §6).
+* **`H_EFT` splits in two (FH §4.5, refining RU issue 9 and OG §5.2).**
+  * **(a)** The term-wise (P) value of a heavy exchange's double-trace part equals its actual (OPE-side) double-trace value.
+    * **[DV] in the scalar-Mellin toy** (`J_h = 0, 2, 4, 6`; `Δ_h = 20, 50, 100`). The error at the asymptotic optimum or numerical
+      floor is `≤ 1·10⁻⁹` (`Δ_h = 20`) to `≤ 1.5·10⁻⁶` (`Δ_h = 100`) of the heavy image, `≥ 10⁵×` below the bound's sensitivity.
+    * Spinning and position-space versions: [D-sketch].
+  * **(b)** The heavy-sum / contact-tower interchange ("no conspiracy"): **[A]**, untested. The absolute moments grow super-geometrically,
+    so the term-wise series is at best asymptotic.
+  * Caution: "double traces = −heavy block" holds only for `J_h ≤ 3`, where it is Lemma A, checked `D = −H` to the numerical floor. For
+    `J_h ≥ 4`, `Arc/H ≈ −30 … −35` (`J_h = 4`) and `≈ −2.5·10³ … −3.4·10³` (`J_h = 6`), tending to the flat values `−35`, `−3423`.
+    Result Q does not use the `J_h ≤ 3` shortcut.
 
-## Literature
+### 2.3 The `|ĝ₃|²` sector and `c₁`
+* **W³W³.** The u-channel diagram has Regge spin 2 and is annihilated by `k = 4`. The s- and t-channel diagrams act like contacts:
+  `−Λ²∂_{ν²}Ĉ₄(0)|_{W³W³} = 4πG|ĝ₃|²` [DV algebra in the scalar-Mellin form; spinning D-sketch] (`RESULT_Q_REVISION` §0.3).
+* **`κ = 0.110`.** Flat moments of the δ = 0.2 functional, plus H17-type `O(Λ⁻²)` terms. **`κ ≥ 0`: [D-sketch + M]** (RU §4). The earlier
+  table grade [I] is superseded.
+* **`c₁`:** free (§0). It includes the `Ĉ₃` (`k = 3`) `E × W³` term as well as the `k = 2` one (RU issue 14).
 
-The novelty claim stands at [I] (based on an abstract-level search). The closest real precedent is CHMRS 2106.10274: two-sided log(Δ_gap) bounds on scalar contact couplings in AdS4 with gravity. Kundu 2104.11238 and the N = 6 bootstrap papers (Binder–Chester–Jerdee–Pufu 2011.05728) need to be discussed, not just cited.
+### 2.4 Lower bound
+* At `ĝ₃ = 0`: `g̃₄Λ⁶/8πG ≥ −O(Λ⁻²)` **[D-sketch]**, limited by (F)+(P) and `H_K` (RU issue 17). It uses only the value piece. It is
+  unaffected by `σ_hU` and by `s_d`. "≥ 0" really means "≥ −O(Λ⁻²) × (EFT data)", from `b₀`, `s_v` and the contact tower.
+* For `ĝ₃ ≠ 0`: `≥ |ĝ₃|²Λ⁸/(4c_L)`, with `c_L = 0.509` (measured `s_d`; slope `0.49`) or `0.98` (`s_d` double counted; slope `0.255`).
+  * The slope is positive in both readings [D-sketch + M]: W³W³ sign as in §2.3, plus HYB.
+  * This item is not in RU §5's wording. It is added here because the lower functional's `|ĝ₃|²` term enters once `ĝ₃ ≠ 0`.
 
-## Next steps (cheapest first, largest effect on the grades)
+---
 
-1. The smeared k = 2 EE correction at ++ J = 0, 2, from the existing `bg_eeq` images (H_smear^Q).
-2. The swapped-form Ψ₄ on MFT ⟨TTTT⟩, including the [TT]₀ large-J tail (V₄).
-3. The W³W³ residue in ∂Ĉ₄(0) (the |ĝ₃|² sector).
+## 3. Heavy side: per-state positivity
+
+### 3.1 Which channels can bind (FWD §1, tolerances `s_fail` = the `s_d` at which a channel's FF reaches 0)
+
+| channel | `s_fail` (δ = 0.2) | `s_fail` (δ = 0.05) | measured `s_d` (gap; 300 / 1000) | sign | source |
+|---|---|---|---|---|---|
+| **`++` J = 0** | **+1.78** | +0.58 | `+0.509 ± 0.016` / `+0.508 ± 0.002` | unfavourable | BF2 |
+| **OO J = 0** | +1.78 | +0.58 | `+0.509 ± 0.016` / `+0.510 ± 0.002` | unfavourable (= `++`) | FWD §2 |
+| `++` / OO J = 2 | +2.81 | +0.83 | `++` `+0.511 ± 0.010` / `+0.508 ± 0.001`; OO `+0.511 ± 0.010` / `+0.510 ± 0.001` (1.05Λ) | unfavourable | BF2; FWD §2 |
+| `+−` J = 4 | +2.38 / +2.10 | +1.04 / +0.75 | `−0.516 ± 0.039` / `−0.510 ± 0.004` | favourable | BF3 |
+| `+−` J = 5 (parity-odd) | +5.72 | +1.78 | `−0.539 ± 0.033` / `−0.512 ± 0.004` | favourable | PO §2 |
+| `+−` J = 6 | +9.5 / +9.4 | +1.99 | `−0.564 ± 0.012` / `−0.515 ± 0.003` | favourable | FWD §3 |
+| `+−` J = 7, 8, 9, 11 | ≥ 20 | ≥ 8.9 | 1000 (used): `−0.48 … −0.52`; 300: `−0.43 … −0.59` | favourable | FWD §3 |
+| `++` J = 6, 8 | +36 / +66 | +28 / +52 | `+0.511 ± 0.008` / `+0.54 ± 0.41` | unfavourable | FWD §3 |
+
+* The correction is helicity-odd and universal: `Γ_K^h ≈ σ_h U(ν)`, with `σ_{++} = σ_OO = +1`, `σ_{+−} = −1`, and `|s_d| ≈ 0.51 ± 0.08`.
+* Unmeasured channels (`++` J ≥ 10, `+−` J = 10 and ≥ 12, OO J ≥ 4, masses `> 1.475Λ`) have `s_fail ≥ 11`, or are `(Λ/m)⁶`-suppressed.
+* **Full-set minimum.**
+  * δ = 0.2: `+0.1426 ± 0.0017` (SB `+0.1409`). The 300 state alone is `+0.1427 ± 0.0017`; the 1000 state `+0.1426 ± 0.0002`.
+  * δ = 0.05: `+0.0060 ± 0.0013` (SB `+0.0047`).
+  * Both `Δ_g`, all gauges [NE + M] (FWD §0; unchanged by HRS).
+
+### 3.2 `H_RS` for the binding state (HRS; refines RU issue 3)
+
+* **Weight.** `s_d = 0.04 Σ_ν χ_d(ν) Re Γ_K(ν)`.
+  * Per window, engine `s_d` (H0) is `+0.10` [0,1), `+0.57` [1,2), `−0.05` [2,3), `−0.10` [3,4), `−0.01` [4,8), `≈ 0` above.
+  * `ν < 2` carries 68 % of the weight, and `ν < 4` 89 %.
+* **Crystal-cycle test** (direct n3/n4 nodes, `J = 0` at the gap at 300, 1000, `Δ = 100`; `J = 2` at 1.05Λ). Crystal = engine beyond
+  leading order:
+  * **[NE] at `ν ≥ 10`**: `Γ_exact` up to `−209` per harmonic reproduced to 0.3–1 %; e.g. `ν = 20.02`: `−0.3 ± 1.5` against
+    `Γ_exact = −73.4`;
+  * **[NE, weak] at `6 ≤ ν < 10`**;
+  * **[I] at `2 ≤ ν < 6`**: consistent, but the errors (`±39 … ±1800` per harmonic, with ×3 seed inflation) are 3–30× the δ = 0.2
+    thresholds;
+  * **untested at `ν < 2`**.
+* **Propagated.** On `ν ∈ [5, 25]` at 300: `Δs_d = −0.10 ± 0.35` and `ΔFF/N = +0.011 ± 0.039` (×3 errors), against the margin
+  `s_fail − s_d = 1.27`. On `[2, 25]`: no information.
+* **To break δ = 0.2.** A uniform per-harmonic error of 30 (ν ∈ [0,1)) or 17 ([1,2)) would break it.
+* **`H_RS` for Q's binding state stays [I].** `s_d = +0.51` is [NE given `H_RS`].
+
+### 3.3 Other heavy-side items
+
+| item | content | grade | source |
+|---|---|---|---|
+| `H_OO^Q` | OO J = 0, 2 measured, equal to `++` (helicity lemma at `k = 4`: order 0 to `10⁻⁹`; beyond, `≤ 1.3·10⁻³ c₂` per harmonic; `|Δs_d| ≤ 5·10⁻⁶`) | [NE + M], i.e. **[D given `H_RS`]**: OO and `++` use the same engine (RU issue 11) | FWD §2; PO §1 |
+| `H_fwd^Q` | unmeasured forward channels; the `Δ_g = 300` J-drift of `s_d` (`−0.07` at J = 7, 2.4× the truncation error, cause [I]), J ≥ 7 quoted from 1000 (a substitution; tolerance ×17 at δ = 0.05) | [NE + M] given `H_RS`; drift [I], harmless at δ = 0.2 | FWD §3; RU issue 12 |
+| `H_smear^Q` | graviton corrections to the smeared `k = 2, 3` parts at the binding states: `≤ 3·10⁻⁵` of B₂ against a tolerance `≈ 24 %` | [NE + M]; edge `x > 0.8` and `k = 3` below the fold bounded by tolerances | REVISION §1 |
+| `H_LJ^Q` | large-J near-gap corrections stay below Q's tolerance: `≥ 1.1·10⁴ c₂` (`+−` J = 8, 300), `≥ 1.6·10⁵` (J ≥ 16), against measured `10²–10⁴`. The forward term `a(2J(J+1) − c₄)u³` dominates. | [M], margin ×10–10³ | RU issue 13 |
+| HYB | scalar skeleton + leading Regge accuracy away from measured states; `β > 30` | [M] (was [NE]) | RU §4 |
+
+---
+
+## 4. Hypotheses (single list)
+
+| # | hypothesis | role | grade | evidence | what would upgrade it |
+|---|---|---|---|---|---|
+| 1 | **A1**, **A2** | setting | [A] | — | — |
+| 2 | **K1** (KKSDZ 1904.05905, with its loophole), **K1′**, K2/K3 for the de-shifted functionals (validity `J₀ < 7/2`) | Regge | [Q] + [D-sketch] | V4F §5 | closing the loophole; writing out K1′ |
+| 3 | **`H_K`**: heavy OPE sum ↔ (corner, ν) interchange for the heavy-normalised `Ĉ₄^{ds}`, `∂Ĉ₄^{ds}`, `Ĉ₅^{ds}` (same statement as Result D's) | the only load-bearing Regge input | **[D-sketch]** ([D given `H_ip`], raw corner `J₀ < ½`) | V4F §2.4 | Proposition K for the heavy-normalised kernel |
+| 4 | **Lemma A + D_LR** | `J₀ < 4` light side `= 0` | **[D]**; mechanism [DV] at `O(1/C_T)` (free scalar + free fermion); **Einstein instance [I], unchecked** | V4F §2.2; OG; FH | one swapped-form `Ψ₄` on Einstein `⟨TTTT⟩` (needs O(G) `[TT]` data or a light-ray-usable representation) |
+| 5 | **(F)+(P)** spinning | EFT light values (`2g₄`, `g₅` cancellation) | [D-sketch] | V4F §5 | a `J₀ = 4` spinning position-space correlator (AdS contact diagram) |
+| 6a | **`H_EFT`(a)**: term-wise (P) of heavy-exchange double traces = actual value | `J₀ ≥ 4` light side | [DV] scalar-Mellin toy; [D-sketch] spinning | FH §4 | spinning toy |
+| 6b | **`H_EFT`(b)**: no conspiracy in the heavy sum / contact tower | same | **[A]** | — | — |
+| 7 | **De-shift** existence: continuum C4/C5 solutions for all β | heavy images beyond `t = 30` | [NE] to `t = 30`; C5 spinning coefficients [I]. The stored sc3 weights have growing high moments (`m₄ = −1.4·10⁻²`, `m₅ = −27`, ratio `≈ 1.9·10³`, a ν-grid cutoff effect), harmless for `Λ ≥ 300` (ratio `≤ 0.02` per order). | Stage 7; FH §4.4 | — |
+| 8 | Adm, H7 (inherited from D) | `k = 2` smeared part | [D] | Result D §4 | — |
+| 9 | **`κ ≥ 0`** | only if `ĝ₃ ≠ 0` (upper) | [D-sketch + M] | REVISION §3.3 | spinning W³W³ |
+| 9′ | `c_L > 0` (lower slope) | only if `ĝ₃ ≠ 0` (lower) | [D-sketch + M] | REVISION §3.3 | same |
+| 10 | **`c₁`** | `E × W³` light term | free parameter, carried | RU issue 14 | Regge residue of `E × R³` |
+| 11 | **`H_RS`** | every `s_d`, incl. the binding state | **[I]** for `ν < 6`; [NE] `ν ≥ 10`; [NE, weak] 6–10 | HRS | an EE `k = 4` crystal value at `ν < 4` to ~10–20 per harmonic (lower Δ, variance control for the `R` factor, or an analytic continuation argument) |
+| 12 | `H_OO^Q` | OO J = 0, 2 | [D given `H_RS`] | FWD §2 | — |
+| 13 | `H_fwd^Q` | unmeasured channels, 300 J-drift | [NE + M]; drift [I] | FWD §3 | — |
+| 14 | `H_smear^Q` | smeared parts | [NE + M] | REVISION §1 | — |
+| 15 | `H_LJ^Q` | large-J near-gap | [M], margin ×10–10³ | RU issue 13 | — |
+| 16 | HYB accuracy; `β > 30` | rest of the heavy action | [M] | RU §4 | — |
+| — | `σ_hU` double counting | **not needed** for the δ = 0.2 headline. It decides δ = 0.05 and the (withdrawn) closure. | [I]; the flat-limit argument favours double counting | RU issue 8 | — |
+| — | `H_νout`, H_LT, V₄/V₄′/V₄″/V₄‴ | **deleted/replaced** by item 4 | — | V4F | — |
+
+---
+
+## 5. Caveats
+
+1. **The weakest links.**
+   * `H_RS` at `ν < 6` for the binding state [I]. An engine error of ×3.5 in the derivative piece at J = 0 would break δ = 0.2, and
+     nothing independent excludes it.
+   * Then `H_EFT`(b) [A], the unchecked Einstein instance of Lemma A, `H_K` and (F)+(P) [D-sketch].
+2. **`g̃₄` vs `g₄`.** Only `g̃₄` is CFT-defined. Its identification with the bulk coupling is (F)+(P).
+3. **Cubic closure withdrawn** (RU issue 8).
+   * The values "`|ĝ₃|²Λ⁸ ≤ 120–198 / 154–257`" are not claimed.
+   * The `Δ_g`-independent lower slope 0.49 (with the measured `σ_hU` correction) is 1.9× CHLPS's flat optimum `0.26`, which an AdS
+     bound whose sum rules reduce to the flat ones cannot exceed in the flat limit. This favours the double-counting reading.
+   * At most a remark: `|ĝ₃|²Λ⁸ ≤ 2L_AdS/(κ + ¼) ≈ 200 / 257` [D-sketch + M]. No ratio `|ĝ₃|²/g₄` is claimed.
+   * Result D's `1.07·10⁴ / 1.43·10⁴` stands under fewer hypotheses.
+4. **δ = 0.05.** Its minimum `+0.0060 ± 0.0013` is positive but depends on `σ_hU`. It is not the headline.
+5. **Rounding.** `B_eff(1000) = −19.2647` (REVIEW_RESULTQ §1) has been quoted as "−19.27" in earlier documents; to two decimals it is
+   −19.26. The effect on `2L_AdS = 92.81` is `< 0.01`.
+
+## 6. ABJM consistency check
+
+* **Dictionary** (Stage 0; arithmetic re-checked by RU §1):
+  * `M² = 4/α′`, `L²/α′ = π√(2λ)`, so `Λ ↔ ML = 2^{5/4}π^{1/2}λ^{1/4} ≈ 4.22 λ^{1/4}`. The identification `Λ ↔ ML` holds only at leading
+    order in `1/(ML)`.
+  * The type IIA `R⁴` term `ζ(3)α′³/32` gives `g₄M⁶/8πG = 2ζ(3) = 2.404`, independent of `λ`.
+* **Placement.** `2ζ(3)/2L_AdS = 3.3 %` (300) and `2.6 %` (1000), recomputed: `0.0334`, `0.0259`.
+* **`ĝ₃ = 0`** because 10d type IIA supersymmetry forbids an `R³` term. It does *not* follow from "maximal SUSY": ABJM at `k > 2` has
+  `N = 6`.
+* **`c_T` does not enter the placement.** Do not confuse flavour-current coefficients with `c_T`:
+  * for `N = 2` theories, `∂²_m F` gives a flavour-current two-point coefficient, not `c_T`;
+  * the identity `c_T = (64/π²)∂²_m F` (free real scalar `c_T = 1`) relies on the mass coupling to a current in the stress-tensor
+    multiplet. It is used only in `ABJM_THEOREM`'s separate `c_T` result, consistently with `8πG = 256/c_T`.
+* **Outside A1** (light KK modes); only the flat image (F) is used; log-dominated. **Consistency check, not evidence.**
+
+## 7. Literature
+
+* **CHMRS 2106.10274** (Caron-Huot–Mazáč–Rastelli–Simmons-Duffin) is the **methodological precedent**: two-sided `log(Δ_gap)` bounds
+  on contact couplings in AdS₄ with dynamical gravity, from uplifted flat sum rules, for scalar correlators. Q's light-side formula and
+  `H_EFT` are of CHMRS's (5.3) type.
+* **CLS-D 2311.04271** (Chang–Landau–Simmons-Duffin; JHEP 04 (2025) 016) build the spinning light-ray sum rules and the crystal
+  dictionary, and leave the uplift of flat bounds to AdS as future work. **Result Q is a first explicit-constant, conditional execution
+  of that programme for `g₄`**. Method priority: CLS-D and CHMRS.
+* **CHLPS 2201.06602:** the flat D = 4 two-sided graviton bounds (log IR). Stage 0 reproduces the flat ¼ from the same forward rules.
+* **To be discussed (not only cited):** Kundu 2104.11238 and the `N = 6` bootstrap (Binder–Chester–Jerdee–Pufu 2011.05728).
+* **Novelty [I] at search level.** No `⟨TTTT⟩` sum-rule bound on `R⁴` was found (abstract-level search plus one extended search, RU §1).
+
+## 8. Open problems (value order)
+
+1. `H_RS` at `ν < 4` for the binding state.
+2. One swapped-form `Ψ₄` on Einstein `⟨TTTT⟩` (routes: O(G) `[TT]` data in every helicity structure, days; momentum space, impractical).
+   Also the (13)-channel/corner part of D_LR on a correlator with a spin-1/spin-2 single-trace exchange.
+3. `H_EFT`(b); spinning `H_EFT`(a).
+4. `H_K`.
+5. (F)+(P) in position space; the R⁴ normalisation control.
+6. Spinning W³W³ (would firm up `κ ≥ 0` and `c_L > 0`); `σ_hU`.
+7. The 300 J-drift of `s_d`.
+8. `c₁`.
+
+---
+
+## Appendix A. History (superseded content, in order)
+
+1. **Stages 0–7** built the forward functionals.
+   * δ = 0.05 (`A = 11.45`) was replaced by δ = 0.2 (`A = 17.241`) as the quoted bound.
+   * The `Δ_g = 100` column was dropped.
+2. **REVIEW_RESULTQ: major revision.**
+   * `κ`, the ¼ slope and `4πG|ĝ₃|²` were graded [I].
+   * V₄ (swapped form, `[TT]₀` tail) was graded [D-sketch].
+3. **REVISION.**
+   * `H_smear^Q` → [NE + M].
+   * The W³W³ residue in `∂Ĉ₄(0)` was found to be zero (Mellin).
+   * Cubic terms were restored at [D-sketch + M], and a closure `|ĝ₃|²Λ⁸ ≤ 120–198 / 154–257` was proposed. **Later withdrawn (RU).**
+4. **The V₄ sequence.**
+   * V₄′ was false at O(1) for the raw `Ψ₄,ν`; the tube contact term grows like `ε^{−1/4}`.
+   * V₄″ was false [DV], because of `e^{πν/4}` growth.
+   * V₄‴ worked per ν with H_LT and H_νout, but left a circularity.
+   * **V4F replaced all of them** by the pointwise Lemma A [D] and D_LR [D], deleted H_νout, and isolated `H_K`.
+5. **PARITY_ODD_CLOSE / FWD.**
+   * `+−` J = 5, OO J = 0, 2 and `+−` J = 6–11 were measured.
+   * `H_OO^Q` [I] → [NE + M]; `H_fwd^Q` coverage [I] → [NE + M].
+   * The minimum was unchanged.
+6. **RU.**
+   * Sound with corrections.
+   * New or renamed: `H_EFT`, `H_RS` [I], `H_LJ^Q`; `H_K` [D-sketch].
+   * Cubic closure withdrawn; `κ ≥ 0` required for `ĝ₃ ≠ 0`; `c₁t₄` carried; HYB [M].
+7. **HRS.** `H_RS` regraded by window; the binding state is still [I]. The "512 c₂" item is the resolved `k = 2` comparison artefact
+   (BF3 §2), not an open `k = 4` discrepancy.
+8. **OG, FH.**
+   * Lemma A mechanism [DV] at `O(1/C_T)` on free scalar and fermion; the Einstein instance is still [I].
+   * `H_EFT` split into (a) [DV toy] and (b) [A].
+   * The OG reading "`H_EFT` is an assumption only for `J_h ≥ 4`" is refined by FH: (b) is assumed for all `J_h`.
+
+**Numbers unchanged throughout:** `2L_AdS = 72.04 / 92.81`; full-set min `+0.1426 / +0.1427` (δ = 0.2).
+
+**Superseded statements of the previous body:**
+* hypotheses 3 ("V₄ incl. the `[TT]₀` tail") and 9 ("`H_OO^Q` assumed");
+* the regrading table's "`κ` [I]" and "Lemma A [D-sketch]";
+* "Next steps" 1–3 (all done: smeared `k = 2` correction, swapped-form `Ψ₄` on MFT, W³W³ residue).
+
+**Unresolved between documents.** The absolute de-shift moments of the sc3 weights are `2.2, 83, 1.4·10⁴, 3.6·10⁶` in V4F but
+`1.49, 33, 3.5·10³, 6.6·10⁵` in FH ("different normalisation or key"). No bound depends on them.
