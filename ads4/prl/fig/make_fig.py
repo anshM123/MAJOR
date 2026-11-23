@@ -85,7 +85,7 @@ for ax in (ax1, ax2):
 
 
 def series(ax, key, color, ls, label, lab_xy, lab_ha='left'):
-    ax.plot(xs, [V[x][key] for x in xs], color=color, ls=ls, lw=1.4, zorder=3)
+    ax.plot(xs, [V[x][key] for x in xs], color=color, ls=ls, lw=1.0, alpha=0.45, zorder=3)  # positivity not examined between markers
     ax.plot([300], [V[300][key]], 'o', ms=4.5, mfc='white', mec=color, mew=1.2, zorder=4)
     ax.plot([1000], [V[1000][key]], 'o', ms=4.5, mfc=color, mec='white', mew=0.8, zorder=4)
     ax.annotate(label, xy=lab_xy, color=INK, fontsize=6.8, ha=lab_ha, va='center')
