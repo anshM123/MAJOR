@@ -96,7 +96,7 @@ def Phi(k, x):
     """closed form, vectorised; for x < 40 an mpmath evaluation at 50 digits is used (cancellation)."""
     x = np.atleast_1d(np.asarray(x, float))
     out = np.empty_like(x)
-    big = x >= 40
+    big = x >= 5
     if big.any():
         xb = x[big]
         a0 = d0(k); a1 = d1(k)
@@ -108,17 +108,38 @@ def Phi(k, x):
             acc += (-1)**j*(a1[j]*ex - a0[j])/pw
             pw = pw*ix
         out[big] = acc.real
-    small = ~big
-    if small.any():
-        out[small] = [_Phi_mp(k, xi) for xi in x[small]]
+    tiny = x < 5
+    if tiny.any():                       # float Taylor series (terms <= e^12 * |moments|: ~1e-11 absolute)
+        mom = [float(v) for v in _moments(k)]
+        xt = x[tiny]; acc = np.zeros_like(xt); t = np.ones_like(xt)
+        for m in range(0, 40):
+            acc += t*mom[2*m]
+            t = -t*xt*xt/((2*m + 1)*(2*m + 2))
+        out[tiny] = acc
+    mid = (~big) & (~tiny)
+    if mid.any():
+        out[mid] = [_Phi_mp(k, xi) for xi in x[mid]]
     return out
 
 
-def _Phi_mp(k, x):
-    with mp.workdps(50):
+def _moments(k, N=80):
+    """exact moments int_0^1 psi_k p^n dp, n = 0..N (mp)."""
+    key = ('mom', k)
+    if key not in _D0:
         c = psi_coeffs(k)
-        if x == 0:
-            return float(sum(mp.mpf(cn.numerator)/cn.denominator/(n + 1) for n, cn in enumerate(c)))
+        _D0[key] = [sum((cn/(n + j + 1) for j, cn in enumerate(c)), Fr(0)) for n in range(N + 1)]   # exact rationals
+    return _D0[key]
+
+
+def _Phi_mp(k, x):
+    with mp.workdps(60):
+        if x < 12:                      # Taylor series: Phi = sum_m (-1)^m x^{2m}/(2m)! int psi p^{2m}
+            mom = [mp.mpf(v.numerator)/v.denominator for v in _moments(k)]
+            xm = mp.mpf(x); acc = mp.mpf(0); t = mp.mpf(1)
+            for m in range(0, 40):
+                acc += t*mom[2*m]
+                t *= -xm*xm/((2*m + 1)*(2*m + 2))
+            return float(acc)
         xm = mp.mpf(x)
         a0 = [mp.mpf(v.numerator)/v.denominator for v in derivs_at(k, 0)]
         a1 = [mp.mpf(v.numerator)/v.denominator for v in derivs_at(k, 1)]
@@ -129,9 +150,15 @@ def _Phi_mp(k, x):
         return float(acc.real)
 
 
+_GLC = {}
+
+
 def gl01(n):
-    x, w = np.polynomial.legendre.leggauss(n)
-    return (x + 1)/2, w/2
+    if n not in _GLC:
+        from scipy.special import roots_legendre
+        x, w = roots_legendre(n)
+        _GLC[n] = ((x + 1)/2, w/2)
+    return _GLC[n]
 
 
 def Omega(k, beta, Dg=1000, nphi=6000):
@@ -167,6 +194,15 @@ def M1(beta):
 SIGMA = {'++': 1.0, '+-': -1.0}
 
 
+def Omega_form(k, beta, Dg=1000):
+    """two-term form a1 M1/Lam^2 - a2/(2 bhat^3) (Lemma LR-inf: |Omega - form| <= bound, lsl_lrinf.py)."""
+    L = lam(Dg); bh = 2*L*np.sinh(beta/2)
+    return d0(k)[1]*M1(beta)/L**2 - d0(k)[2]/(2*bh**3)
+
+
 def LR_action(beta, u, sig, Dg=1000):
-    """leading-Regge per-state action 2 Omega_2 + u sigma Omega_3 (= the hybrid's flat-Regge + curvature)."""
-    return 2*Omega(2, beta, Dg) + u*sig*Omega(3, beta, Dg)
+    """leading-Regge per-state action 2 Omega_2 + u sigma Omega_3 (= the hybrid's flat-Regge + curvature).
+    Direct Mehler quadrature for beta < 2, the Lemma LR-inf two-term form beyond (the direct quadrature loses accuracy at beta >~ 8)."""
+    if beta < 2:
+        return 2*Omega(2, beta, Dg) + u*sig*Omega(3, beta, Dg)
+    return 2*Omega_form(2, beta, Dg) + u*sig*Omega_form(3, beta, Dg)

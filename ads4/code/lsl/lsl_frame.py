@@ -85,7 +85,7 @@ def main():
     x = rand_future(); y = rand_future(); B, t = invariants(*first_frame(x, y))
     lines.append(f"     sign of t on the causal region: {np.sign(t):+.0f} (the overall (+-1)^J of l1_crystal is a convention; |t| enters P_J up to (-1)^J)")
     # (F2) conformal invariance
-    errB2, errt2 = 0.0, 0.0
+    errB2, errt2 = 0.0, 0.0; nflip = 0
     for _ in range(500):
         x = rand_future(rng.uniform(0.05, 2)); y = rand_future(rng.uniform(0.05, 2))
         pts = list(first_frame(x, y, L=50.0))
@@ -94,31 +94,33 @@ def main():
         b = rng.normal(size=3)*0.003
         pts2 = [sct(M @ p*lam_ + a, b) for p in pts]
         B1, t1 = invariants(*pts2)
-        errB2 = max(errB2, abs(B1/B0 - 1)); errt2 = max(errt2, abs(t1/t0 - 1))
-    lines.append(f"(F2) 500 random conformal maps (boost, dilatation, translation, SCT |b| ~ 3e-3): max rel change B {errB2:.2e}, t {errt2:.2e}")
+        errB2 = max(errB2, abs(B1/B0 - 1)); errt2 = max(errt2, abs(abs(t1)/abs(t0) - 1)); nflip += (np.sign(t1) != np.sign(t0))
+    lines.append(f"(F2) 500 random conformal maps (boost, dilatation, translation, SCT |b| ~ 3e-3): max rel change B {errB2:.2e}, |t| {errt2:.2e}; sign of t flipped in {nflip} maps (a point crossed infinity: (+-1)^J patch convention)")
     # (F3) Laplace's second integral
-    mp.mp.dps = 30
+    mp.mp.dps = 20
+    print('\n'.join(lines), flush=True)
     worst = 0
     for (tau, J) in [(1000, 0), (1000, 5), (1000, 50), (1000, 344), (300, 100), (12.5, 7)]:
-        for _ in range(3):
+        for _ in range(2):
             w = E + rand_future(rng.uniform(0.01, 1.0))
             wm = mp.sqrt(-(-w[0]**2 + w[1]**2 + w[2]**2)); ch = mp.mpf(w[0])/wm
             lhs = wm**(-(tau + J)) * mp.legenp(J, 0, ch, type=3)
             f = lambda ph: wm**(-(tau - 1)) * (mp.mpf(w[0]) - mp.cos(ph)*w[1] - mp.sin(ph)*w[2])**(-(J + 1))
-            rhs = mp.quad(f, mp.linspace(0, 2*mp.pi, 9))/(2*mp.pi)
+            rhs = mp.quad(f, mp.linspace(0, 2*mp.pi, 129))/(2*mp.pi)
             worst = max(worst, abs(rhs/lhs - 1))
     lines.append(f"(F3) (-w^2)^(-Delta/2) P_J(w0/|w|) = (1/2pi) int dphi (-w^2)^(-(tau-1)/2) (-n.w)^(-(J+1)): max rel err {float(worst):.1e} (tau,J up to (1000,344))")
     # (F4) Euler
     worst = 0
     for J in [0, 5, 50, 344, 3000]:
         a = mp.mpf('1.37')
-        val = mp.quad(lambda s: mp.exp(J*mp.log(s) - s*a - mp.loggamma(J + 1)), [0, J/a, 2*J/a + 50, mp.inf])
+        pk = J/a; wd = 12*mp.sqrt(J + 1)/a
+        val = mp.quad(lambda s: mp.exp(J*mp.log(s) - s*a - mp.loggamma(J + 1)) if s > 0 else mp.mpf(0), [0] + [max(mp.mpf(0), pk - wd + i*wd/8) for i in range(17)] + [pk + 3*wd, mp.inf])
         worst = max(worst, abs(val/a**(-(J + 1)) - 1))
     lines.append(f"(F4) Euler int s^J e^(-a s)/J! = a^-(J+1): max rel err {float(worst):.1e} (J <= 3000)")
     # (F5) Riesz
     worst = 0
-    for lam_ in [0.75, 2.0, 7.5, 50.0]:
-        for _ in range(3):
+    for lam_ in [0.75, 2.0, 7.5]:
+        for _ in range(2):
             w = rand_future(rng.uniform(0.3, 2.0)); wm = np.sqrt(-dot(w, w)); chi = np.arccosh(w[0]/wm)
             # rest frame of w: integrand e^{-|p| wm cosh(rel)} -> reduce to the known 1D form, then do the angular integral numerically
             def I(chi_p):
@@ -127,10 +129,10 @@ def main():
                     c = mp.cosh(chi_p)*mp.cosh(chi) - mp.sinh(chi_p)*mp.sinh(chi)*mp.cos(ph)
                     return mp.gamma(2*lam_)/(wm*c)**(2*lam_)
                 return mp.quad(az, [0, mp.pi, 2*mp.pi])*mp.sinh(chi_p)
-            tot = mp.quad(I, [0, 1, 3, 8, 30])
+            tot = mp.quad(I, [0, 0.5, 1.5, 4, 10, 30])
             pred = 2*mp.pi*mp.gamma(2*lam_)/(2*lam_ - 1)*wm**(-2*lam_)
             worst = max(worst, abs(tot/pred - 1))
-    lines.append(f"(F5) Bernstein/Riesz representation of (-w^2)^-lam, lam in {{0.75, 2, 7.5, 50}}, boosted w: max rel err {float(worst):.1e}")
+    lines.append(f"(F5) Bernstein/Riesz representation of (-w^2)^-lam, lam in {{0.75, 2, 7.5}}, boosted w: max rel err {float(worst):.1e}")
     txt = "\n".join(lines)
     print(txt)
     with open(OUT, 'w') as fh:

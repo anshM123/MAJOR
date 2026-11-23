@@ -363,6 +363,27 @@ A chain carries the grade of its weakest link.
 >   Λ_amp ≈ 2–3 stays [NE] (from J = 100); K_sh and K₄ stay [M].
 > * **J\*:** with P3, J\* = 50 (100 at ×2). Without P3, positivity holds on 50 ≤ J ≤ 250 (and J = 301) but fails at J = 300 and 344. So R1 at O(1/m²) is load-bearing only for J ≳ 300.
 
+> **Update (LARGESPIN_L.md, unreviewed): Route L gives no unconditional theorem either. It proves the leading-Regge floor at large impact parameter, gives a conditional Theorem L with J\* ≈ 0.52m (857 at the twist edge), and reduces the residual to two CFT-data-free statements about the EE functional's own plane-wave images.**
+> * **Lemma LR∞ [P + DV]:** F_LR ≥ (1 − r)·A₁M₁/Λ² + 2047/(2b̂³) > 0 for all β ≥ 1, all m ≥ Λ and both helicities, with r ≤ 0.58 (β ≥ 1) down to 1.6·10⁻³ (β ≥ 3). The constants are float on a β grid to 64; the tail is [D]. With Lemma C′ and ROUTEA, the leading-Regge floor is rigorous on every b̂ for m ≥ 1.5Λ. This closes the old "b̂ > 2Λ: hybrid [NE]" entry and supplies Route W's P0 for J ≥ 857.
+> * **Spin-Gamma representation:** [P] for the scalar heavy factor; [D-sketch] for ⟨TTO⟩⟨OTT⟩. Every heavy block is a positive average of plane waves, with J entering only through a Gamma(J+1) average.
+>   * Corollary [D]: R1 holds automatically for the heavy-factor part of any correction. **R1 can fail only through the EE kernel's own plane-wave images, a property of the functional, not of the CFT.**
+>   * Lemma W [P given Paley–Wiener on H₂]: a correction of exponential type T has its density within T of the ring.
+> * **Theorem L [D given P_L]:** for J ≥ J\*(m) = ⌈(1.0421m − 1)/2⌉, the per-state matrix is ⪰ 0 for every coupling vector.
+>   * Premise P_L, part (R1): de-shift form.
+>   * Premise P_L, part (Loc): the de-shifted correction's density is ≤ tol(1)/4 at t ≥ 1 and ≤ 10⁻⁷–4·10⁻⁹ at t < 1.
+>
+>   P_L reduces to two open statements: **(PW-R1)** the EE functional's plane-wave images are in de-shift form, and **(PW-Loc)** they carry no density at t < 1 [I].
+> * **Negative findings:**
+>   * Corrections do not decay like O(1/J) at fixed twist; they tend to a J-independent lightcone amplitude (scalar ≤ 1.2·10⁻⁴ on ν ≤ 10).
+>   * The de-shift tolerance has its minimum of 6.7·10⁻⁴ at J ≈ 350–500, so large J is not easier.
+>   * In raw form the tolerance falls like 0.7/J.
+>   * ANEC positivity holds only for the sum over states.
+>   * Graviton non-ring remainder 2–5·10⁻⁴ (relative) at J = 29–100, 40× the scalar; the sign-free L ≈ 1.3–3 in the hardest band if it stays J-independent.
+> * **Inventory:**
+>   * J ≥ J\*(m): [D given P_L], with a rigorous floor.
+>   * 150 ≤ J < 857 near the gap: the hardest band, still numeric/model.
+>   * Route W covers J ≥ 50 given scalar-size coefficients and R1. Both routes stall on the same object: the EE-kernel polarisation contraction beyond leading order.
+
 ## 1. Setup and normalisations
 
 | item | definition |
