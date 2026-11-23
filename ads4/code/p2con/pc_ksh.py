@@ -92,3 +92,90 @@ def B1_mono_eval(ypt, z0, z1, z3, v, delta):
     for (cf, kf, mf, i, j, l, _) in B1_monomials():
         tot += cf(*args)*Yn**kf(delta)*t**mf(delta)*U1**i*U3**j*UV**l
     return tot
+
+
+# ------------------------------------------------------------------------------------------------ tables with custom monomials
+def table_custom(nus, monos, dirsets, argfun, grad, b=6, side='B'):
+    """generic side table: monos = [(coef(args..., delta), kf, mf, powers tuple over the direction vectors)];
+    dirsets: list of tuples of rest-frame direction vectors; argfun(z(phi), dirs) -> tuple of coefficient args (arrays over phi).
+    Returns T[nu, iset, igrad, k] (harmonics k = -KH..KH), with the side's K_ref removed (as pc_engine.side_table)."""
+    nus = np.atleast_1d(np.asarray(nus, complex)); delta = 0.5 + 1j*nus
+    lref = E._lk((b - 3) + (1 - delta), 1 - delta) if side == 'A' else E._lk((b - 3) + delta, delta)
+    groups = {}
+    dt = 0.37 + 1.91j
+    for mono in monos:
+        cf, kf, mf, pw = mono[0], mono[1], mono[2], mono[3]
+        key = (round(complex(kf(dt)).real, 9), round(complex(kf(dt)).imag, 9), round(complex(mf(dt)).real, 9), round(complex(mf(dt)).imag, 9))
+        groups.setdefault(key, [kf, mf, []])[2].append((cf, pw))
+    grP = [E.one() if g is None else E.opoly_dir(np.eye(3)[g]) for g in grad]
+    out = np.zeros((len(nus), len(dirsets), len(grad), E.NPHI), complex)
+    for (kf, mf, terms) in groups.values():
+        k = np.asarray(kf(delta), complex)*np.ones_like(delta); m = np.asarray(mf(delta), complex)*np.ones_like(delta)
+        c = (b - 3) + k; lam = -m; kap = (2*lam - c - 3)/2
+        Kr = np.exp(E._lk(c, lam) - lref)
+        D = E.jet_SR(lam, kap)
+        for isx, dirs in enumerate(dirsets):
+            args = argfun(E.ZREST, dirs)
+            dP = [E.opoly_dir(v) for v in dirs]
+            bypw = {}
+            for (cf, pw) in terms:
+                bypw.setdefault(pw, []).append(cf)
+            for pw, cfs in bypw.items():
+                Wc = sum(np.asarray(cf(*[a[None, :] if np.ndim(a) else a for a in args], delta[:, None]), complex)*np.ones((len(nus), E.NPHI)) for cf in cfs)
+                if not np.any(Wc):
+                    continue
+                base = E.one()
+                for v, p in zip(dP, pw):
+                    base = E.jmul(base, E.opoly_pow(v, p))
+                for ig in range(len(grad)):
+                    Q = E.jmul(base, grP[ig])
+                    out[:, isx, ig] += Kr[:, None]*Wc*np.einsum('npg,g->np', D, Q)
+    H = np.fft.fft(out, axis=-1)/E.NPHI
+    ks = np.arange(-E.KH, E.KH + 1)
+    return H[..., ks % E.NPHI]
+
+
+def A1_monos():
+    """O(r) A side: term 1 = +128 e24 (z4'.x) [pairs with v = z2'], term 2 = -128 e24 (z2'.x) [pairs with v = z4']."""
+    kf = lambda d: 1 - d; mf = lambda d: -(1 - d)
+    t1 = [(lambda a1, a2, a3, d: 128*a3, kf, mf, (0, 1))]
+    t2 = [(lambda a1, a2, a3, d: -128*a3, kf, mf, (1, 0))]
+    return t1, t2
+
+
+def argsA(z, dirs):
+    e, f = dirs
+    return (E.mdot(z, e[None, :]), E.mdot(z, f[None, :]), E.mdot(e, f))
+
+
+def argsB1(z, dirs):
+    z1, z3, v = dirs
+    return (E.mdot(z, z1[None, :]), E.mdot(z, z3[None, :]), E.mdot(z1, z3), E.mdot(z, v[None, :]), E.mdot(z1, v), E.mdot(z3, v))
+
+
+def ksh_raw(nus, beta, lead_tensor):
+    """raw image (engine normalisation) of the O(r) kernel term on the leading block tensor {(k1,k2,k3,k4): c} (x 1/4 radial factor)."""
+    P5 = E.POLS5
+    WM = np.array([E.mode_weights(k) for k in E.MODES])
+    BAB = E.boost(beta)                                    # A-rest components -> B-rest components
+    t1, t2 = A1_monos()
+    dA = [(P5[a], P5[b]) for a in range(5) for b in range(5)]
+    TA1 = table_custom(nus, t1, dA, argsA, [0, 1, 2], side='A').reshape(len(nus), 5, 5, 3, -1)
+    TA2 = table_custom(nus, t2, dA, argsA, [0, 1, 2], side='A').reshape(len(nus), 5, 5, 3, -1)
+    bm = [(cf, kf, mf, (i, j, l)) for (cf, kf, mf, i, j, l, _) in B1_monomials()]
+    dB = [(P5[a], P5[b], BAB @ P5[c]) for a in range(5) for b in range(5) for c in range(5)]
+    TB = table_custom(nus, bm, dB, argsB1, [0, 1, 2], side='B').reshape(len(nus), 5, 5, 5, 3, -1)   # [nu, j1, j3, jv, b, k']
+    G = E.gradient_metric(beta)
+    import pc_contract as Ct
+    M = Ct.Mpair(nus, beta)
+    tot = np.zeros(len(nus), complex)
+    for (k1, k2, k3, k4), c in lead_tensor.items():
+        w1, w2, w3, w4 = WM[k1 + 2], WM[k2 + 2], WM[k3 + 2], WM[k4 + 2]
+        # term 1: v = z2' (index j2);  term 2: v = z4' (index j4)
+        A1 = np.einsum('b,d,nbdak->nbak', w2, w4, TA1)            # [nu, j2, a, k]   (j4 summed)
+        B1 = np.einsum('a,c,nacvbl->nvbl', w1, w3, TB)            # [nu, jv, b, l]
+        A2 = np.einsum('b,d,nbdak->ndak', w2, w4, TA2)            # [nu, j4, a, k]
+        r1 = np.einsum('ab,nvak,nvbl,nkl->n', G, A1, B1, M)
+        r2 = np.einsum('ab,nvak,nvbl,nkl->n', G, A2, B1, M)
+        tot += c*(r1 + r2)
+    return tot/4

@@ -104,7 +104,7 @@ def costs_state(beta, m):
     return res
 
 
-# stripped (R2) costs: the raw image equals S itself; cost = 2 Re sum_k X_k S(nu_k)/(R_- + R_+)(nu_k) dnu/Lam / m^2 (k = 2 only)
+# stripped (R2) costs: the normalised raw image A[.] is replaced by S itself; cost = 2 Re sum_k X_k S(nu_k) dnu/Lam / m^2 (k = 2 only)
 import sympy as _sp
 _kj = json.load(open('../../prl/data/kernels.json'))['D_k2_EE']
 _nus = _sp.Symbol('nu')
@@ -129,7 +129,7 @@ def costs_stripped(beta, m):
     res = {}
     for k, Sv in S.items():
         sc = m**4 if k in ('4a', '4b') else m**2
-        res[k] = 2 * float(np.real(np.sum(gchi * Sv)) * gdnu / Lam) / sc
+        res[k] = 2 * float(np.real(np.sum(gX * Sv)) * gdnu / Lam) / sc
     return res
 
 states = json.load(open('../lsw/cache/costs_1000.json'))
