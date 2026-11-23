@@ -20,7 +20,9 @@ sm_chainfix fodd_hampel_K6_row_kappa: J = 29 twist edge +0.9477 vs +0.948).
 Budget, lambda level (x3 on every model term, 3 sigma on the Monte Carlo):
   E_mc    : 3 x jackknife sigma (8 RQMC replicas) of the main value (all direct nodes, bulk and edge),
   E_quad  : 3 x |gk - g7| (twist edge) or 3 x max|espl - eshape, held| (other masses),
-  E_miss  : 3 x sign-free cost of the missing GK nodes,
+  E_miss  : sign-free cost of the missing GK nodes with |Gamma| <= 3 A ((1 - x_l)/(1 - x))^2 (A = max|Gamma| of the last three valid
+            nodes, x_l the last one: the measured growth of the edge amplitude ~ (1 - x)^-2, with x3), plus, for a GK node within ZWIN of the
+            reference zero, the sign-free cost of 3 x the largest |Gamma| of its 4 nearest valid edge nodes,
   E_trunc : 3 x |lam(K2 bulk, K = 2) - lam(K = 1)|  (only when the bulk is K2),
   E_repr  : 3 x max |lam(bulk degree KB) - lam(KB - 2, KB - 1, KB + 1; two half-samples at degree 4)|,
   E_low   : sign-free |Gamma| <= G on nu < 50: G = 1e4 (NEARGAP2 convention) and G = 10 x max|Gamma| of the three lowest nodes.
@@ -74,8 +76,13 @@ class Model:
         self.gmax = max(1e4, 10*max([np.abs(self.k[kd]['ey']).max() for kd in self.k if len(self.k[kd]['ey'])] + [0]))
 
 
+ZWIN = 0.002      # |x - x_refzero| < ZWIN: direct values not used (MC noise x 1/|D_h(x_ref)|)
+ZCOST = [0.0]
+
+
 def value(J, mfl, M, edge, xcut=XCUT, nb=800):
     """lam/N_s of the state (J, mfl) with bulk model M and edge treatment; returns (lam, base/N_s, sign-free missing-node cost/N_s)."""
+    ZCOST[0] = 0.0
     hs, base, Ns, st = H.base_of(Dg, J, mfl)
     xmax = 1.0/mfl
     t, w = leggauss(nb); xb = 0.5*xcut*(t + 1); wb = 0.5*xcut*w
@@ -86,11 +93,24 @@ def value(J, mfl, M, edge, xcut=XCUT, nb=800):
         xe, wk, wg = H.gk15_nodes(xcut, xmax)
         ww = wk if edge == 'gk' else wg
         w2e, w3e = H.state_weights(Dg, J, mfl, '+-', xe)
-        have = np.array([np.any(np.abs(M.ex - x) < 1e-6) for x in xe])
+        have = np.array([np.any(np.abs(M.ex - x) < 5e-6) for x in xe])
+        x0 = H.ref_zero_x(J, 1000.0 + J)
+        inz = np.abs(xe - x0) < ZWIN                    # reference-zero window: the direct ratio is unusable there too
         for kd, we in (('C2', w2e), ('C3H', w3e)):
             ey = np.array([M.k[kd]['ey'][np.argmin(np.abs(M.ex - x))] if h else 0.0 for x, h in zip(xe, have)])
+            ey[inz] = 0.0
             d += (ww*we*ey).sum()
-            miss += M.gmax*(ww*np.abs(we))[~have].sum()
+            # missing (RQMC-failed, x -> Lam/m) nodes: 3 x the light-cone envelope A ((1 - x_l)/(1 - x))^2 fitted to the last valid nodes
+            okx = np.abs(M.ex - x0) >= ZWIN
+            last = np.argsort(M.ex + -9*(~okx))[-3:]
+            A = max(np.abs(M.k[k_]['ey'][last]).max() for k_ in ('C2', 'C3H')); xl = M.ex[last].max()
+            genv = 3*A*np.maximum(1.0, ((1 - xl)/(1 - xe))**2)
+            miss += (genv*ww*np.abs(we))[~have & ~inz].sum()
+            if inz.any():                               # sign-free: 3 x the largest |Gamma| of the 4 nearest valid edge nodes
+                okx = np.abs(M.ex - x0) >= ZWIN
+                near = np.argsort(np.abs(M.ex - x0) + 1e9*(~okx))[:4]
+                gl = 3*max(np.abs(M.k[k_]['ey'][near]).max() for k_ in ('C2', 'C3H'))
+                ZCOST[0] += gl*(ww*np.abs(we))[inz].sum()
     else:
         t, w = leggauss(300); xx = xcut + 0.5*(xmax - xcut)*(t + 1); wx = 0.5*(xmax - xcut)*w
         w2e, w3e = H.state_weights(Dg, J, mfl, '+-', xx)
@@ -99,6 +119,7 @@ def value(J, mfl, M, edge, xcut=XCUT, nb=800):
             if f is None:
                 return np.nan, np.nan, np.nan
             d += (wx*we*f(xx)).sum()
+    ZCOST[0] /= Ns[0]
     return float((base[0] + d)/Ns[0]), float(base[0]/Ns[0]), float(miss/Ns[0])
 
 
@@ -171,7 +192,7 @@ if __name__ == '__main__':
     for mfl in mfls:
         tw = abs(mfl - mtw) < 1e-6
         Mm = M[bulk_main]
-        have = np.array([np.any(np.abs(Mm.ex - x) < 1e-6) for x in xe])
+        have = np.array([np.any(np.abs(Mm.ex - x) < 5e-6) for x in xe])
         o = dict(hyb=value(J, mfl, Mm, 'held')[1], pub=pub_value(J, mfl, rK, bad))
         gk_ok = tw and have.sum() >= 10
         for edge in (['gk', 'g7'] if gk_ok else []) + ['espl', 'eshape', 'held']:
@@ -179,7 +200,7 @@ if __name__ == '__main__':
                 lam, _, miss = value(J, mfl, m_, edge)
                 o[f'{b}/{edge}'] = lam
                 if edge == 'gk' and b == bulk_main:
-                    o['E_miss'] = 3*miss
+                    o['E_miss'] = miss; o['E_zero'] = ZCOST[0]
         edge_main = 'gk' if gk_ok else 'espl'
         main = f'{bulk_main}/{edge_main}'
         o['main'] = o[main]; o['main_key'] = main
@@ -191,7 +212,7 @@ if __name__ == '__main__':
         else:
             alt = [o[f'{bulk_main}/{e}'] for e in ('eshape', 'held') if np.isfinite(o[f'{bulk_main}/{e}'])]
             E_quad = 3*max(abs(o[main] - a) for a in alt)
-        E_miss = o.get('E_miss', 0.0)
+        E_miss = o.get('E_miss', 0.0) + o.get('E_zero', 0.0)
         o['K1'] = value(J, mfl, MK1, edge_main)[0]
         E_tr = 3*abs(o['K2/' + edge_main] - o['K1']) if bulk_main == 'K2' else 0.0
         o['repr'] = {k: value(J, mfl, m_, edge_main)[0] for k, m_ in Mrep.items()}

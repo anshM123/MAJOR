@@ -31,6 +31,19 @@ NC, HN = V.NC, V.HN
 E, Q, W = NC.E, NC.Q, NC.W
 HN.C = HSC                                      # direct points: highspin/cache (neargap2 points are copied there by hs_points)
 HN._SC.clear()
+_records0 = HN.records
+
+
+def _records_rekeyed(kind, J, D, jk=None, **kw):
+    """hc_nodes.records with every nu moved to round(nu/m, 6) m (m = the state's mass): p4_odd_analysis.grid / l9 rebuild nu from x
+    rounded to 6 decimals and match the reference record within 1e-7 nu, so a direct node at a non-round x (the GK15 nodes) would
+    otherwise be silently dropped.  The shift is |d nu| <= 5e-7 m (a phase change <= 1e-5 of the oscillation)."""
+    out = _records0(kind, J, D, jk, **kw)
+    m = HN.mphys(D, J)
+    return {(k[0], round(round(k[1]/m, 6)*m, 9)): v for k, v in out.items()}
+
+
+HN.records = _records_rekeyed
 DREF = 20000.0
 GKX = np.array([0.991455371120813, 0.949107912342759, 0.864864423359769, 0.741531185599394, 0.586087235467691,
                 0.405845151377397, 0.207784955007898, 0.0])
