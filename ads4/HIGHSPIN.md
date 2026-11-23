@@ -1,6 +1,9 @@
 # HIGHSPIN: the high-spin near-gap states of Result D at Δ_g = 1000 — J = 29 resolved, J = 12, 16 error-bounded, the edge sweep, H_LJ(1000)
 
-*23 Nov 2026. Unreviewed, not committed. No existing file was edited; `R4ARC_HEFT.md` and `code/r4heft/` were not touched.*
+*23 Nov 2026. Unreviewed, not committed by this agent (another agent's commits db03df3 / 0e58356 swept in intermediate snapshots of this
+file and of `code/highspin/`; the working tree holds the final versions). No existing file was edited; `R4ARC_HEFT.md` and
+`code/r4heft/` were not touched. One write escaped the guard: Python's bytecode cache `code/highspin/__pycache__/` (from importing
+`hs_core` in scratch scripts; git-ignored); it was deleted.*
 * *New code:* `ads4/code/highspin/` — `hs_guard.py` (process-local write guard: every write outside `highspin/cache/` raises),
   `hs_core.py` (rows with direct nodes injected, reference-zero diagnostic, κ image, shape model, GK15 quadrature), `hs_points.py` (direct
   n1 RQMC points), `hs_odd.py` (odd-J state with direct bulk / GK edge and budget), `hs_even.py` (even-J own-row state with direct nodes,
@@ -11,7 +14,7 @@
   *copied* there (`hs_points.py J D seed`), not moved.
 * *Read-only imports:* `neargap2/` (`ng_val`, `ng_chain`, `ng_bind`), `spinfunc/` (`hc_points`, `hc_nodes`, `ee1000_common`, `ee1000_chain`,
   `sm_curvfix`, `w2_chain`, `q3_analysis`, `p4_odd_analysis`), and their caches.
-* *Compute:* ≈ 7 CPU-h, at most two computing processes of this note at any time (short analyses ran while one worker was SIGSTOPped,
+* *Compute:* ≈ 7.2 CPU-h, at most two computing processes of this note at any time (short analyses ran while one worker was SIGSTOPped,
   `hs_run.sh`; one accidental 40-s overlap of a third worker was killed), `ulimit -v 3000000`, one thread everywhere.
 
 Grades as in UNIFIED_THEOREM_v2 §0 and POS_ERRORS: [P], [certified], [D], [D-sketch], [DV], [NE], [NE±] (explicit error budget, every
@@ -31,7 +34,8 @@ model input with a stated safety factor, conclusion surviving it), [NE + M], [M]
 | **J = 16, twist edge `1.01589Λ`** | own-row K₂ `+0.9342` → **`+0.9402 ± 0.0012`** (full direct row) | `0.49` sign-free (`ν < 50`: 0.32; edge: 0.16) | **1.9** (3.6 with `ν ≥ 25` direct) | [NE + M] → **[NE±]** |
 | J = 16, 1.02 / 1.03 / 1.05Λ | `+0.7681 / +0.7509 / +1.0009` | `0.45 / 0.53 / 0.84` sign-free (`0.39 / 0.34 / 0.34` λ-level) | `1.7 / 1.4 / 1.2` (λ-level `2.0 / 2.2 / 2.9`; with `ν ≥ 25` direct `3.1 / 2.3 / 1.6`) | [NE + M] → **[NE±]** (1.03, 1.05Λ draw on the 1600 K₂ row; their margin is set by its truncation) |
 | J = 31, 32 (published shape chain) | J = 31 twist edge `+1.208 → +1.023`; J = 32 `1.0315Λ` `+0.904 → +0.997` (reference-zero node removed, K = 4) | — | — | [NE + M] unchanged; published values carried a K₂ node at the reference zero (§2). Both shifts favourable |
-| edge sweep (§3): odd J = 21, 23, 27; even J = 20, 22, 28, 32 | see §3 | | | see §3 |
+| edge sweep (§3): odd J = 21, 23, 27 | twist edge `+0.984 / +0.880 / +0.956` → `+0.980 / +0.883 / +0.959` (GK15 direct edge); minima `+0.868` (J = 21, 1.03Λ), `+0.883`, `+0.928` | edge terms `≤ 0.33`; bulk K₂ step 0.4–1.0 not closed at ×3 | — (≈ 2–6 with the §4 calibration) | edge [M] → [NE + M]; states [NE + M] |
+| edge sweep (§3): even J = 20, 22, 28, 32 | edge shifts `−0.13 ± 0.14` (J = 20, MC-limited), `−0.017`, `−0.016`, `+0.093` | — | — | edge [M] → [NE + M]; states [NE + M] |
 | J = 10, 14 | not run (no own-mass K₂ rows; building them and the direct rows did not fit the budget) | | | [NE + M] unchanged |
 | J = 26, 30 (even), J = 48 edge | not run: no K₂ rows exist at J = 26, 30 (interpolated in J, inside `H_LJ(1000)`); J = 48's edge needs the fw structure basis (`fw_frame.patch_conserved_clean`) | | | [M] unchanged |
 | **`H_LJ(1000)`** | — | — | — | **[D-sketch + M] unchanged** (§5): no compute route to [NE±] within budget; what is model is listed precisely |
@@ -168,7 +172,35 @@ small-ν envelope.
 
 ## 3. The other edge states (sweep)
 
-SWEEP_PLACEHOLDER
+Direct n1 edge nodes on every row that carries one of the requested near-gap states (`cache/hs_odd_J{21,23,27}.txt`,
+`cache/hs_edgeval_J{20,22,28,32}.txt`). Odd J: the 15 GK nodes of `[0.8, Λ/m_row]` (nodes above x = 0.945 skipped: weight
+`≤ 2·10⁻⁶ N_s/c₂`), own rows `Δ = 1000 + J`, bulk K₂ (shape fit, as published). Even J: `x = 0.8, 0.825, …, 0.9` on the chain's rows
+(not at the state's mass; 1/m interpolation, w2 spline chain, NEARGAP2's `ng_val` protocol), edge nodes only (`HS_IXMIN = 0.7`).
+
+| J (rows) | `J²/m` | reference zero in row? | twist edge: published → with direct edge | other masses (shift) | budget / grade |
+|---|---|---|---|---|---|
+| 21 (1021) | 0.43 | no (x₀ = 1.12) | `+0.984 → +0.980 ± 0.007` (GK; G7 `+0.988`) | 1.03Λ `+0.869 → +0.868` (min); 1.05, 1.075, 1.1: `≤ 0.001` | edge: quadrature 0.022, missing 0.09; bulk K₂ step `λ_K2 − λ_K1 = 0.40` (×3 = 1.2) |
+| 23 (1023) | 0.52 | no (x₀ = 1.02) | `+0.880 → +0.883 ± 0.0004` (G7 `+0.891`) | 1.03Λ `+0.903 → +0.905`; 1.05–1.1: `≤ 0.001` | edge: 0.023 + missing 0.31 (x = 0.941 failed); bulk step 0.49 |
+| 27 (1027) | 0.71 | **in the edge**, x₀ = 0.862 (no GK node within 0.002) | `+0.956 → +0.959 ± 0.002` (G7 `+0.937`) | 1.05Λ `+0.928 → +0.928` (min); others `≤ 0.003` | edge: 0.064 + 0.14; bulk step 0.98 |
+| 20 (800, 1600) | 0.50 / 0.25 | 1600: x₀ = 0.733 (K₂ 0.75 kept) | `+0.965 → +0.830 ± 0.138` (jk) | 1.03Λ `0.000`; 1.05Λ `−0.043 ± 0.055` | the 1600-row direct values carry `±1.7–9.5·10³ c₂` replica errors (vs `±50–180` on the 800 row, which agrees with them node by node to `≲ 100 c₂`): the twist-edge shift is not resolved beyond 1σ; ≥ `+0.41` at 3σ |
+| 22 (336 only) | 1.45 | no | `+0.901 → +0.884 ± 0.001` | 1.03Λ `−0.013`; 1.05Λ `−0.007` | 0.875 failed (`ν/Δ = 0.87`); K₂ on this row is off by up to `900 c₂` at x = 0.8 (`J²/m = 1.45`); a 336 row for a 1000-gap state is itself a model (held in 1/m) |
+| 28 (500, 1600) | 1.58 / 0.49 | 1600: x₀ = 0.528 (K₂ 0.55 kept) | `+0.990 → +0.974 ± 0.003` | 1.05, 1.075Λ `≤ 0.0004` | 1600: x = 0.825 failed |
+| 32 (1040; + 336, 1600) | 0.99 | 1040: x₀ = 0.713 (K₂ 0.725 **kept**) | w2 chain `+0.913 → +1.006 ± 0.001` | 1.05Λ `+0.016`; 1.075Λ `−0.002` | favourable; the published ee1000 value (+0.904) also changes by `+0.09` when the reference-zero node is removed (§2.1) |
+| 26, 30 | — | — | **not run: no K₂ rows exist** (the states are J-interpolated, inside `H_LJ(1000)`) | | [M] |
+| 48 | 2.2 | x₀ = 0.474 | not run (the fw chain's structure basis needs `fw_frame.patch_conserved_clean` on the points and its own injection path) | | `H_edge` [M] |
+
+**Reading.**
+* **The edge is small wherever it was computed with a resolved representation.** Odd J = 21, 23, 27: the GK15 direct edge moves the
+  published shape-chain values by `−0.004 … +0.003` (J = 29: `+0.024`, but its bulk moved too). Even J = 22, 28: `−0.017, −0.016`;
+  J = 32: `+0.09` (favourable). J = 20's twist-edge shift `−0.13 ± 0.14` is Monte-Carlo-limited (1600-row direct noise).
+* **Every computed state stays positive**; the lowest is J = 21 at 1.03Λ (`+0.868`) and J = 20 at its twist edge (`+0.83 ± 0.14`).
+  J = 21 at 1.03Λ lies between the published mass grid points (`m_gap = 1.0208`, then 1.05): it is below the published J = 21
+  minimum (`+0.939` at 1.1Λ) because the hybrid itself dips there (`+0.883`); an `H_cont` observation, not an edge effect.
+* **Grades.** Edge: [M] → **[NE + M]** for J = 20, 21, 22, 23, 27, 28, 32 (the representation inside the window is now direct
+  quadrature for odd J; spline between 5 nodes for even J). The states themselves stay **[NE + M]**: the bulk is K₂ and its λ-level
+  Laplace step (0.40–0.98 for J = 21–27) does not close a ×3 budget. With the calibration of §4 (actual K₂ error 4–5 % of the step,
+  three direct rows), the ×3-calibrated truncation is `0.06 / 0.07 / 0.15` and the twist-edge leverages would be ≈ `6 / 2 / 2`
+  (J = 21 / 23 / 27) — an [NE + M] statement, the M being the calibration.
 
 ---
 
@@ -202,7 +234,7 @@ at the twist edge, `≥ 2.0` λ-level), with no Laplace truncation on the own ro
 
 **Calibration of the K₂ truncation estimate.** `λ_K2 − λ_K1` vs `λ_direct − λ_K2` at the twist edge: J = 12 `0.069` vs `+0.003`; J = 16
 `0.160` vs `+0.008`; J = 29 `1.276` vs `+0.046` (GK edge on both). The actual K₂ error is **4–5 % of the last Laplace step**, with the
-same (favourable) sign in all three. NEARGAP2's `3 × |K2 − K1|` is therefore ≈ 60× conservative near the gap. [NE, three points]
+same (favourable) sign in all three. NEARGAP2's `3 × |K2 − K1|` is therefore 60–80× conservative near the gap. [NE, three points]
 
 ---
 
@@ -241,7 +273,7 @@ K₂ values at `J²/m ≲ 1` are accurate to `≲ 0.05 N_s`; it does not reach `
 | **J = 12 near gap (to 1.05Λ)** | [NE + M] | **[NE±]**, `L ≥ 2.5` sign-free | §4 |
 | **J = 16 near gap (to 1.05Λ)** | [NE + M] | **[NE±]**, `L ≥ 1.2` sign-free (`≥ 1.9` twist, `≥ 2.0` λ-level) | §4 |
 | J = 7, 9–11, 13–15 near gap | [NE + M] (J = 15 own row) | unchanged | NEARGAP2; K₂ truncation at λ level ≈ 4–5 % of the step (§4 calibration) |
-| J = 17–28 near gap (K₂ rows) | [NE + M]; `H_edge` [M] except J = 18, 19, 24, 25 | [NE + M]; edges see §3 | K₂ not error-bounded at the λ level (steps 0.3–1.1 `N_s`), accurate to ≲ 5 % of the step where checked |
+| J = 17–28 near gap (K₂ rows) | [NE + M]; `H_edge` [M] except J = 18, 19, 24, 25 | [NE + M]; **`H_edge` now computed for J = 20, 21, 22, 23, 27, 28** (and 32) [NE + M] | K₂ not error-bounded at the λ level (steps 0.3–1.1 `N_s`), accurate to ≲ 5 % of the step where checked; J = 26 has no row ([M]) |
 | **J = 29 near gap** | [M] (representation-dominated) | **[NE + M]**: `+0.972 ± 0.018`, `L = 1.4–9.5` with the `ν < 50` window as the one model input (tolerance `≥ 3.2·10³ c₂`, measured ≤ 116) | §2 |
 | J = 31, 32 near gap | [NE + M] (`+0.988`, `+0.904`) | [NE + M]; published values carried a reference-zero K₂ node; without it `+1.02`, `+0.997` (favourable) | §2.1 |
 | J = 36, 40, 48 | [NE + M]; J = 48 edge [M] | unchanged | — |
@@ -266,7 +298,7 @@ K₂ values at `J²/m ≲ 1` are accurate to `≲ 0.05 N_s`; it does not reach `
    reference at x = 0.475" are the same mechanism.
 4. **The published odd-J chain description** should state that the x = 0.8 node of (1029, 29) was removed (the "hampel" variant);
    without it the same chain gives `−1.17`.
-5. **NEARGAP2 §1.2 truncation rule:** `3|λ_K2 − λ_K1|` is ≈ 60× conservative near the gap (actual K₂ error 4–5 % of the step at
+5. **NEARGAP2 §1.2 truncation rule:** `3|λ_K2 − λ_K1|` is 60–80× conservative near the gap (actual K₂ error 4–5 % of the step at
    J = 12, 16, 29); it is a valid bound but should not be read as an estimate.
 6. **POS_ERRORS §3.2 "model-only states" list:** remove "the edge window of … odd J = 19–29" for J = 29 (computed; and see §3 here for
    21, 23, 27).
@@ -284,7 +316,9 @@ python3 hs_refzero.py; EE1000_JEVEN=32,40 EE1000_JODD=29,31 EE1000_K=6 python3 h
 python3 hs_points.py 12 1012 0.025,0.05,...,0.95; python3 hs_even.py 12 1012 1.0119407,1.02,1.05 J12    # §4 (also 16 1016)
 NG_NULOW=25 python3 hs_even.py 12 1012 1.0119407,1.02,1.05 J12_nu25; python3 hs_nodes.py 12 1012
 python3 hs_points.py 27 1027 gk15:0.8:0.974022:0.945; python3 hs_odd.py 27         # §3 (21, 23 likewise)
-python3 hs_points.py 20 1600 0.8,0.825,0.85,0.875,0.9; python3 hs_edgeval.py 20 800,1600 <masses>    # §3 (28, 32, 22 likewise)
+python3 hs_points.py 20 1600 0.8,0.825,0.85,0.875,0.9; python3 hs_edgeval.py 20 800,1600 1.0198198,1.03,1.05   # §3
+python3 hs_edgeval.py 28 500,1600 1.027654,1.05,1.075; python3 hs_edgeval.py 32 1040 1.0315315,1.05,1.075
+HS_IXMIN=0.7 python3 hs_edgeval.py 22 336 1.0217776,1.03,1.05      # edge nodes only (HC's small-nu 336 nodes are in the copied file)
 ```
 Exact job lists and times: `cache/lane_A.log`, `cache/lane_B.log`.
 
