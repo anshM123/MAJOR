@@ -1,9 +1,10 @@
 # P_cyc: the physical chain is D′ by definition; a direct EE test of the crystal cycle; an extended census
 
 *23 Nov 2026, P_cyc agent. Unrefereed, not committed. No existing document or code file was edited. New code in `ads4/code/pcyc/`:
-`pcyc_region.py`, `pcyc_dlib.py`, `pcyc_dquad.py`, `pcyc_crys.py`, `pcyc_cv.py`, `pcyc_compare.py`, `pcyc_exact.py`, `pcyc_census.py`,
-`dqsum.py`, `crsum.py` and the queue scripts `q_conv.sh`, `dimscan.sh`, `dimscanE.sh`, `dq_queue.sh`, `dq_prod.sh`, `cr_queue.sh`,
-`census_queue.sh`, `census_queue2.sh`. Caches in `ads4/code/pcyc/cache/` (git-ignored by its own `.gitignore`). Read-only imports:
+`pcyc_region.py`, `pcyc_dlib.py`, `pcyc_dquad.py`, `pcyc_crys.py`, `pcyc_cv.py`, `pcyc_compare.py`, `pcyc_exact.py`, `pcyc_farw.py`,
+`pcyc_census.py`, helpers `dqsum.py`, `crsum.py`, `census_table.py`, `mk_table.py`, and the queue scripts `q_conv.sh`, `dimscan.sh`,
+`dimscanE.sh`, `dq_queue.sh`, `dq_prod.sh`, `cr_queue.sh`, `cr_seed2.sh`, `d50_queue.sh`, `exact_more.sh`, `farw_q.sh`,
+`census_queue.sh`, `census_queue2.sh`, `census_big.sh` (`q_conv.sh`, `dq_queue.sh`, `census_queue.sh` were superseded mid-run). Caches in `ads4/code/pcyc/cache/` (git-ignored by its own `.gitignore`). Read-only imports:
 `rd/rd_core`, `rd/rd_saddle`, `rd/rd_census` (RD_CLOSE), `spinfunc/n4_thimble`, `n3_hybrid`, `n3_flow`, `n3_thimble`, `n1_pw`,
 `l1_crystal`, `n4_exact`, `n3_exact` (and through them `exactskel/skelexact`), `repro_engine/integrand` (through `rd_core.Qratio`).
 No project cache was written (the RD saddle cache was redirected to `pcyc/cache`). The CLS-D source (arXiv:2311.04271, `draft.tex`) was
@@ -27,8 +28,8 @@ Grades: **[P]** proved; **[D]** derived; **[D-sketch]**; **[DV]** derived and ch
 | (A2) crystal cycle vs `D′`, Regge-scaled system (§2.1) | `D` = the principal product thimble; intersection numbers `δ_{k0}` with every sheet; rank 1 in the populated sector. | **[P]** |
 | (A2) scalar → EE transfer (§2.2) | `Q` rational, poles only on the shared divisors: classes transfer with the same constant (not periods). | **[D]** |
 | (A2) crystal cycle vs `D′`, finite Δ (§2.3) | gap: no Stokes jump of the crystal cycle along `a ∈ (0, 1/Δ]`, `n± = 1` through the fold. | **[I]** |
-| **(B) direct EE test, above the fold** (§3, n3, Δ = 100, ν = 10–16) | `T = ⟨Q⟩_crys/⟨Q⟩_{D′} − 1` (normalisation-free; `P_cyc` ⇒ `T = 0` exactly): B_N3_LINE | B_GRADE_N3 |
-| **(B) direct EE test, below the fold** (n4, Δ = 30, 100, ν = 3–10) | B_N4_LINE | B_GRADE_N4 |
+| **(B) direct EE test, above the fold** (§3, n3, Δ = 50, 100, ν = 10–16) | `T = ⟨Q⟩_crys/⟨Q⟩_{D′} − 1` (normalisation-free; `P_cyc` ⇒ `T = 0` exactly): consistent at every point (`|T|/σ ≤ 1.05`); σ = 3·10⁻³ – 4·10⁻² (seed scatter and `D′` grid error included); best `(|T| + 2σ)/thr` = 4.8 at (Δ, ν) = (100, 16). At Δ = 30 the `D′` EE integral is not resolved for ν ≥ 10. | **[NE, weak]** |
+| **(B) direct EE test, below the fold** (n4, Δ = 30, 100, ν = 3–10) | consistent (`|T|/σ ≤ 1.7`; 2.5σ at (100, 4), a 4-replica run), but σ = 0.1–1.4, i.e. 16–2000× the threshold. | **[I]** (uninformative) |
 | (B) ν < 3 | not run: the scalar thimble is not EE-admissible there (RD_CLOSE §3.4). | [I] |
 | **Census** (§4) | 12 × 4000 starts (Δ = 30–1000, ν = 2, 4, 8): critical points **do** exist in the far region `0.3 ≤ r < 1.5` (0–4 at Δ ≥ 300, 6–276 at Δ ≤ 100), many with `|B| ≈ 1` and heights +30…+94 above the crystal. RD_CLOSE's pilot "none at raw radius 0.1–39" is withdrawn. Not saturated (> 10³ points per run). | **[NE]** |
 
@@ -44,7 +45,7 @@ Grades: **[P]** proved; **[D]** derived; **[D-sketch]**; **[DV]** derived and ch
   and its phases non-perturbatively [DV].
 * The crystal-cycle question survives only as a question about the saddle-point *numerics*. In the Regge-scaled system the crystal is
   `D` [P]; at finite Δ it is open (a Stokes-wall question). The direct EE test of those numerics is consistent everywhere but weak
-  (best: within ≈ BEST_FACTOR of the failure threshold above the fold; uninformative below it).
+  (best: within a factor ≈ 5 of the failure threshold above the fold; uninformative below it).
 * The extended census withdraws RD_CLOSE's "no critical point in the far region": there are many, with `|B| ≈ 1` and heights e^{30–90}
   above the crystal. This does not touch `D′` (its scalar integral is the exact one) but shows that the Picard–Lefschetz route to the
   crystal-cycle identity at finite Δ is far from closable.
@@ -239,7 +240,8 @@ Grades: **[P]** proved; **[D]** derived; **[D-sketch]**; **[DV]** derived and ch
   at low Δ); those points are not used. ν = 1 lies next to the zero of the EE image (ν ≈ 1.07, HRS_CHECK), ν = 6 next to that of
   the scalar (5.98): relative errors are larger there.
 * **`⟨Q⟩_{D′}`** (fine grids): Δ = 100: ν = 4: 2.316628·10⁻⁶; 8: 9.88642·10⁻⁷; 10: −6.67481·10⁻⁶; 12: −5.75613·10⁻⁶; 14: 8.2582·10⁻⁶;
-  16: 4.1490·10⁻⁵. Δ = 30: ν = 3: 4.67187·10⁻⁴; 4: 3.26982·10⁻⁴; 8: 1.961·10⁻⁴.
+  16: 4.1490·10⁻⁵. Δ = 50: ν = 12: −9.633·10⁻⁵; 14: 1.2472·10⁻⁴; 16: 6.3330·10⁻⁴. Δ = 30: ν = 3: 4.67187·10⁻⁴; 4: 3.26982·10⁻⁴;
+  8: 1.961·10⁻⁴.
 
 ### 3.3 The crystal side: the project's n4 / n3 contours with Q evaluated point-wise
 * **Contours** (`pcyc_crys.py`): the project's crystal cycle, unchanged (imported read-only, no cache written):
@@ -248,8 +250,8 @@ Grades: **[P]** proved; **[D]** derived; **[D-sketch]**; **[DV]** derived and ch
   * as an internal check, ν = 10 is run with both (n4 `A₊ + A₋` and n3 with `ν_f = 13`).
 * **Points and sheet.** At each contour point the raw `z` and the sheet of `y₀ = ±√y₀²` are read off by replaying the scalar integrand's own
   branch references (the same log sequence as `pint`). Check: `[Re P_int − Re log J_w − Σ Re(e_k) log|f_k|]/(−ν/2) − Arg A ∈ 2πℤ` to
-  ≤ 2·10⁻¹² on every weighted point (a wrong `y₀` sheet changes `|f_k|` and `A`). `Q` is evaluated there with `rd_core.Qratio`;
-  its double-precision condition number (`Q_condition`) is ≤ 4·10⁻¹⁶ on the weighted points.
+  ≤ 3·10⁻¹² on every weighted point of every run (a wrong `y₀` sheet changes `|f_k|` and `A`). `Q` is evaluated there with `rd_core.Qratio`;
+  its double-precision condition number (`Q_condition`) is ≤ 1·10⁻¹⁵ on the weighted points.
 * **Estimator.** Scrambled Sobol in the contour parameter, antithetic, Gaussian proposal moment-matched to `|F|(1 + |Q|/⟨|Q|⟩)`; R = 8
   replicas, jackknife errors; `A₊`, `A₋` combined with their `e^{logN}`.
 * **Control variates** (`pcyc_cv.py`). On any closed twisted cycle `∫ e^Φ CV = 0` for `CV = ∂_{w_j}ψ + ψ ∂_{w_j}Φ` (Stokes; nothing about
@@ -259,29 +261,51 @@ Grades: **[P]** proved; **[D]** derived; **[D-sketch]**; **[DV]** derived and ch
   * On the n3 contour (Δ = 100, ν = 16, 2¹¹·2·8 points) the CVs cut the error of `⟨Q⟩` from 7.3·10⁻³ to 8.3·10⁻⁴ (degree 2; degree 3:
     6.5·10⁻⁴).
   * On the n4 thimbles (ν ≤ 10) they do not help (Δ = 100, ν = 4: 0.22 → 0.40): the variance there comes from the flow Jacobians
-    ("fingers") and from 2–5 % of cut flow lines, not from the smooth variation of `Q`.
-* **Cost.** n3: ≈ 0.4 ms per point. n4: ≈ 20 ms per point (the finite-difference flows), with a relative error of `⟨Q⟩` of ≈ 0.2 at
-  1.6·10⁴ points. Reaching 10⁻³ below the fold would need ≈ 10⁸ points per (Δ, ν), i.e. ≈ 500 CPU-h: out of reach with this machinery.
+    ("fingers") and from 1–9 % of cut flow lines, not from the smooth variation of `Q`.
+* **Cost.** n3: ≈ 0.4 ms per point. n4: ≈ 20 ms per point (the finite-difference flows), with a relative error of `⟨Q⟩` of 0.1–1 at
+  2 × 1.6·10⁴ points. Reaching 10⁻³ below the fold would need ≈ 10⁸ points per (Δ, ν), i.e. ≈ 500 CPU-h: out of reach with this machinery.
 
 ### 3.4 Results against the failure threshold
 `cache/pcyc_compare.txt` (per run and combined over independent seeds). `σ` = max(jackknife, seed scatter)/√n_runs ⊕ the `D′`
 quadrature error. The threshold column is the `c₂`-scaled failure threshold of §3.1 (`2.1·10⁻⁴(300/Δ)²`; it is the ν < 4 threshold,
 conservative for ν ≥ 10, whose own tolerance is 3–10× larger, HRS_CLOSE §5).
 
-COMPARE_TABLE
+| Δ | ν | contour | runs | `⟨Q⟩` rel. error per run | `D′` error | Re T | Im T | σ | `|T|/σ` | thr. | `(|T| + 2σ)/thr` |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 30 | 3 | n4 | 1 | 6e-01 | 2e-05 | +5.8e-01 | +3.8e-01 | 6.5e-01 | 1.06 | 2.1e-02 | 95 |
+| 30 | 4 | n4 | 1 | 2e-01 | 5e-06 | -1.4e-01 | +3.3e-02 | 2.0e-01 | 0.73 | 2.1e-02 | 26 |
+| 30 | 8 | n4 | 1 | 7e-01 | 3e-03 | +1.6e-01 | +1.2e+00 | 7.5e-01 | 1.67 | 2.1e-02 | 1.3e+02 |
+| 30 | 10 | n3 | 1 | 9e-02 | 4e-02 | -9.6e-02 | +2.7e-02 | 9.6e-02 | 1.05 | 2.1e-02 | 14 |
+| 30 | 10 | n4 | 1 | 1e-01 | 4e-02 | -2.4e-02 | -1.3e-01 | 1.1e-01 | 1.29 | 2.1e-02 | 16 |
+| 30 | 12 | n3 | 1 | 6e-03 | 4e-01 | +4.9e-02 | +1.5e-02 | 4.1e-01 | 0.13 | 2.1e-02 | 41 |
+| 30 | 14 | n3 | 1 | 1e-02 | 2e+00 | -4.1e-01 | -7.9e-02 | 1.5e+00 | 0.27 | 2.1e-02 | 1.7e+02 |
+| 30 | 16 | n3 | 1 | 1e-03 | 1e+00 | -5.0e-01 | -8.2e-02 | 9.8e-01 | 0.52 | 2.1e-02 | 1.2e+02 |
+| 50 | 12 | n3 | 2 | 3e-02/2e-02 | 9e-03 | -1.2e-02 | -1.3e-03 | 1.9e-02 | 0.65 | 7.6e-03 | 6.8 |
+| 50 | 14 | n3 | 2 | 6e-03/2e-02 | 4e-02 | +7.0e-03 | +5.2e-04 | 4.1e-02 | 0.17 | 7.6e-03 | 12 |
+| 50 | 16 | n3 | 2 | 8e-04/5e-03 | 3e-02 | -1.1e-03 | -1.3e-03 | 3.4e-02 | 0.05 | 7.6e-03 | 9.3 |
+| 100 | 4 | n4 | 1 | 1e-01 | 1e-05 | -3.5e-01 | -4.5e-02 | 1.4e-01 | 2.46 | 1.9e-03 | 3.4e+02 |
+| 100 | 8 | n4 | 1 | 1e+00 | 3e-05 | +6.4e-01 | +1.2e+00 | 1.4e+00 | 0.98 | 1.9e-03 | 2.1e+03 |
+| 100 | 10 | n3 | 2 | 4e-02/1e-02 | 3e-05 | +2.2e-03 | +5.1e-03 | 1.9e-02 | 0.30 | 1.9e-03 | 23 |
+| 100 | 12 | n3 | 2 | 3e-02/1e-02 | 1e-04 | -8.6e-03 | +1.0e-02 | 1.4e-02 | 0.95 | 1.9e-03 | 22 |
+| 100 | 14 | n3 | 2 | 7e-03/2e-02 | 4e-04 | +1.0e-02 | -4.5e-03 | 1.4e-02 | 0.79 | 1.9e-03 | 21 |
+| 100 | 16 | n3 | 2 | 8e-04/4e-03 | 4e-04 | +2.0e-03 | -1.1e-03 | 3.4e-03 | 0.67 | 1.9e-03 | 4.8 |
 
-* **Above the fold (n3).** Every point is consistent with `T = 0` (`|T|/σ ≤ 1.2`). The jackknife over 8 replicas underestimates the
+* **Above the fold (n3).** Every point is consistent with `T = 0` (`|T|/σ ≤ 1.05`). The jackknife over 8 replicas underestimates the
   error, as HRS_CHECK found for `k = 4`: at (100, 16) the two seeds give `T = −1.4·10⁻³ ± 0.9·10⁻³` and `+5.3·10⁻³ ± 3.7·10⁻³`, i.e. a
-  scatter ≈ 3× the smaller jackknife error; the combined σ uses the scatter. The best sensitivity, `|T| + 2σ`, is BEST_N3.
-* **Below the fold (n4).** Consistent, but the `A₊ + A₋` thimble estimates of `⟨Q⟩` carry 10–40 % errors (flow-Jacobian
-  "fingers", 2–6 % of cut flow lines, partial cancellation between `A₊` and `A₋`); the CVs do not reduce them. These points are
-  10²–10³ times above the threshold and carry no weight for `P_cyc`.
+  scatter ≈ 4× the smaller jackknife error; the combined σ uses the sample scatter. The best sensitivity, `|T| + 2σ`, is 4.8× the
+  threshold, at (Δ, ν) = (100, 16) (σ = 3.4·10⁻³). At Δ = 50, ν = 16 the two seeds agree with `D′` to −4·10⁻³ and +2·10⁻³, which on
+  the crystal side alone would give ≈ 1× the threshold; but the conservative `D′` grid error there (coarse − fine, 3·10⁻²) dominates the
+  quoted σ, and a finer `D′` grid was not run.
+* **Below the fold (n4).** Consistent, but the `A₊ + A₋` thimble estimates of `⟨Q⟩` carry 10–100 % errors (flow-Jacobian
+  "fingers", 1–9 % of cut flow lines, partial cancellation between `A₊` and `A₋`); the CVs do not reduce them, so the plain estimator
+  is used. The 2.5σ at (100, 4) comes from a 4-replica run; with HRS_CHECK's ×3 rule for the `k = 4` jackknife it is 0.8σ. These
+  points are 16–2000 times above the threshold and carry no weight for `P_cyc`.
 * **Internal check at ν = 10, Δ = 30:** n3 (`ν_f = 13`) and n4 (`A₊ + A₋`) give `⟨Q⟩ = −7.8·10⁻⁴ (±10 %)` and `−8.4·10⁻⁴ (±10 %)`;
   the `D′` value `−8.6·10⁻⁴` is itself only good to 4 % there.
 * **ν < 3** was not run: the untruncated scalar thimble is not EE-admissible at ν ≲ 2 (RD_CLOSE §3.4), so a direct EE thimble number
   there would need a new contour (radial thimble × real angles).
 * **(B) verdict.** No discrepancy between the project's crystal-cycle numerics and `D′` for the EE form at any tested point
-  (Δ = 30, 50, 100; ν = 3–16). The test is weak: it reaches the failure threshold within a factor BEST_FACTOR above the fold, and not
+  (Δ = 30, 50, 100; ν = 3–16). The test is weak: it reaches the failure threshold within a factor ≈ 5 above the fold, and not
   at all below it, where the decisive weight of `s_d` lies. **[NE, weak]** above the fold, **[I]** (uninformative) below. Because of
   §1, this no longer affects `H_RS`.
 
@@ -333,8 +357,8 @@ COMPARE_TABLE
 | `P_cyc` as a statement about the crystal (saddle-point) cycle, Regge-scaled system | (Prop. RS, order by order) | **[P]** (product thimble, intersection numbers δ_{k0}) | §2.1 |
 | same, scalar → EE transfer of classes | (Lemma F, same local system) | **[D]** (classes; not periods) | §2.2 |
 | same, at finite Δ | [I] | **[I]**, precise gap: no Stokes jump along `a ∈ (0, 1/Δ]`, `n± = 1` through the fold | §2.3 |
-| direct EE test of the crystal cycle, ν ≥ 10 (n3) | none | B_GRADE_N3 | §3.4 |
-| direct EE test of the crystal cycle, 3 ≤ ν < 10 (n4) | none | B_GRADE_N4 | §3.4 |
+| direct EE test of the crystal cycle, ν ≥ 10 (n3) | none | **[NE, weak]** | §3.4 |
+| direct EE test of the crystal cycle, 3 ≤ ν < 10 (n4) | none | **[I]** (uninformative) | §3.4 |
 | ν < 3 | none | **[I]**, not run (angular corner, RD_CLOSE §3.4) | §3.4 |
 | critical-point census | pilot (1 point, 400 starts) | **[NE]**: far region populated (0–276 points in `0.3 ≤ r < 1.5` per run), `|B| ≈ 1` candidates exist; pilot's "none" withdrawn; not saturated | §4 |
 | **`H_RS`** (engine = physical integral at Q's binding state) | [D given P_cyc] | **[D]** (Prop. D′ [D] with one [D-sketch] sub-step + §1), **[DV]** numerically (REPRO_ENGINE's direct `∫_{D′}` = engine `K = 5`, 3·10⁻⁷) | §1.5 |
@@ -352,7 +376,7 @@ P_cyc … [NE + D-sketch]."):
 > `s_d` comes from an analytic `1/Δ` expansion integrated over the real section. By its definition the functional's action on a heavy
 > block is an integral over the causal region `4 > 5 > 3 > 0 > 1 > 2` of real Lorentzian points; in the gauge used this region is
 > exactly the real section cut at the light cones of `x₅` (`D′`). On `D′` the expansion holds to all orders with a remainder
-> `O(Δ^N e^{−0.336Δ})`, so the identity of the expansion with the functional (`H_RS`) is derived (one sub-step derivation-sketch), and a
+> `O(Δ^N e^{−0.336Δ})`, so the identity of the expansion with the functional (`H_RS`) is derived (one step at the level of a sketch), and a
 > direct finite-Δ integration over `D′` reproduces it at the binding state. The saddle-point cycle is used only as a numerical method;
 > its homology class is no longer a premise.
 
@@ -366,20 +390,23 @@ below ν ≈ 10".
 > (Lorentzian shadow representation of the block). In the gauge `x₃ = −x₁ = y`, `x₄ = −x₂ = x/(−x²)`, `x₅ = e` this region is
 > `D′` [P; 2·10⁵ random configurations, no mismatch], every non-integer-power factor is positive on it, and the integral converges
 > absolutely. So the physical integral is `∫_{D′}` up to a ν-dependent constant that cancels in `ρ` [D]; for the scalar this is checked
-> end to end against the exact Mellin skeleton (≤ 10⁻⁹ at Δ = 300, 1000, and ≤ 2·10⁻⁸ at Δ = 20, 30, 50 for ν ≤ 5 at Δ = 30, where the far part of `D′` is not
-> small) [DV]. With (ii), `H_RS` is [D]. The saddle-point cycle is a steepest-descent representation of `D′`; its class identity with
-> `D′` (`P_cyc`) is [P] in the Regge-scaled system, open at finite Δ (a Stokes-wall question), and is used only by the saddle-point
-> numerics. A direct EE test of those numerics gives B_SHORT.
+> end to end against the exact Mellin skeleton (≤ 10⁻⁹ at Δ = 300, 1000 through the expansion; ≤ 2·10⁻⁸ directly at Δ = 20, 30, 50
+> for ν ≤ 5, where 3–80 % of the weight of `D′` lies outside the convergence region of the expansion) [DV]. With (ii), `H_RS` is [D]. The
+> saddle-point cycle is a steepest-descent representation of `D′`; its class identity with `D′` (`P_cyc`) is [P] in the Regge-scaled
+> system, open at finite Δ (a Stokes-wall question), and is used only by the saddle-point numerics. A direct EE test of those numerics
+> is consistent at every tested point (Δ = 30–100, ν = 3–16), with a sensitivity within a factor ≈ 5 of the failure threshold above the
+> fold and none below it.
 
 **Supplement, hypothesis table**: `H_RS` → "[D] on the physical chain `D′` (was [D given P_cyc])"; `P_cyc` → "not a premise of `H_RS`
-(the physical chain is `D′` by definition); as a statement about the saddle-point numerics: [P] Regge-scaled, B_GRADE at Δ = 30, 100".
+(the physical chain is `D′` by definition); as a statement about the saddle-point numerics: [P] Regge-scaled, [I] at finite Δ; direct EE test [NE, weak] above the fold, [I] below".
 
 **Supplement, reproduction paragraph**: "Both routes integrate over the real section, so P_cyc is not tested" → "Both routes integrate
 over the real section, which is the physical chain `D′`".
 
 **UNIFIED_THEOREM_v2 §5.2, row H_RS** (suggested): "**[D]** on the physical chain `D′` (CLS-D's causal domain, PCYC_CLOSE §1); numerically
 [DV] at the binding state (REPRO_ENGINE: direct `∫_{D′}` = engine `K = 5` to 3·10⁻⁷). `P_cyc` is not a premise; the saddle-point
-numerics agree with `D′` for EE where they are precise (B_SHORT)." 
+numerics agree with `D′` for EE wherever tested (Δ = 30–100, ν = 3–16; sensitive only above the fold, within a factor ≈ 5 of
+the failure threshold)."
 
 ## 7. What remains
 1. **Nothing for `H_RS`'s cycle question.** What `H_RS` still inherits is RD_CLOSE's [D-sketch] sub-step (convergence radius of the
@@ -402,10 +429,12 @@ python3 pcyc_region.py 200000              # 1 s     -> cache/pcyc_region.txt   
 ./dq_prod.sh 30; ./dq_prod.sh 100          # 2 x 30 min -> cache/dq_D{30,100}_{S,E}_<grid>.npz  (D' product rule, nu = 1..16)
 python3 pcyc_exact.py 30 100               # seconds -> cache/pcyc_exact_D30_D100.txt  (D' vs exact skeleton, end to end)
 ./exact_more.sh                            # Delta = 20, 50 likewise -> cache/pcyc_exact_D{20,50}_D100.txt
-./cr_queue.sh; ./cr_seed2.sh               # crystal runs: n3 ~1-3 min, n4 ~13 min each (+ pcyc_cv.py, ~1 min) -> cache/cr_*.pkl, log_cr_*
+./cr_queue.sh; ./cr_seed2.sh; ./d50_queue.sh   # crystal runs: n3 ~1-3 min, n4 ~12 min each (+ pcyc_cv.py, ~1-2 min) -> cache/cr_*.pkl
+python3 pcyc_farw.py                       # 5 min   -> cache/pcyc_farw.txt (far share of |Phi| on D')
 python3 pcyc_crys.py 100 16 11 8           # single run;  env PC_SEED, PC_TAG, PC_NUSPLIT (9.9 forces n3 at nu = 10), PC_STORE
 python3 pcyc_cv.py cache/cr_D100_nu16.pkl 2   # control variates -> appended to cache/pcyc_cv.txt
-python3 pcyc_compare.py                    # -> cache/pcyc_compare.txt (the T table of section 3.4)
+python3 pcyc_compare.py; python3 mk_table.py   # -> cache/pcyc_compare.txt, cache/compare_table.md (the T table of section 3.4)
 ./census_queue2.sh; ./census_big.sh        # -> cache/census_D<Delta>_nu<nu>_s<seed>.txt (+ .pkl); ~75 s per 4000 starts
+python3 census_table.py                    # -> the table of section 4
 python3 crsum.py cache/cr_D100_nu4_cvtest.pkl # per-thimble diagnostics
 ```

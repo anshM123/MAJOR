@@ -102,7 +102,7 @@ def main():
         Ts = np.array([r['T'] for r in runs]); sj = np.array([r['sT'] for r in runs])
         n = len(runs)
         Tm = Ts.mean()
-        sc = float(np.std(np.abs(Ts - Tm))*np.sqrt(n/(n - 1))) if n > 1 else 0.0
+        sc = float(np.sqrt(np.sum(np.abs(Ts - Tm)**2)/(n - 1))) if n > 1 else 0.0          # sample std of the runs
         sig = max(float(np.sqrt(np.sum(sj**2))/n), sc/np.sqrt(n) if n > 1 else 0.0, runs[0]['qerr'])
         thr = 2.1e-4*(300.0/k[0])**2
         L.append(f'  {k[0]:6g} {k[1]:5g} {k[2]:3s} {n:2d}   {Tm.real:+.2e} {Tm.imag:+.2e}  {sig:.1e}  {abs(Tm)/sig:5.2f}   {thr:.1e}   '

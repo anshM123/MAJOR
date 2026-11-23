@@ -16,7 +16,7 @@ for k in sorted(groups):
     runs = [(d.get('CV', d.get('plain')) if k[2] == 'n3' else d['plain']) for d in groups[k].values()]   # CVs help on n3, not on n4
     Ts = np.array([r['T'] for r in runs]); sj = np.array([r['sT'] for r in runs]); n = len(runs)
     Tm = Ts.mean()
-    sc = float(np.std(np.abs(Ts - Tm))*np.sqrt(n/(n - 1))) if n > 1 else 0.0
+    sc = float(np.sqrt(np.sum(np.abs(Ts - Tm)**2)/(n - 1))) if n > 1 else 0.0          # sample std of the runs
     sig = max(float(np.sqrt(np.sum(sj**2))/n), sc/np.sqrt(n) if n > 1 else 0.0, runs[0]['qerr'])
     thr = 2.1e-4*(300.0/k[0])**2
     est = '/'.join('%.0e' % float(np.sqrt(max(r['sT']**2 - r['qerr']**2, 0))) for r in runs)

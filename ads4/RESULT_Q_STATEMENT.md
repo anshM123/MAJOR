@@ -189,6 +189,14 @@ Note: HRS, OG and FH are later than RU and refine three of its items. Each such 
 >   * Q's stored C5 is not reproducible, but it is superseded by the new weight.
 > * **Data published** in prl/data/ (weights, kernels, README, checksums).
 
+> **Update (PCYC_CLOSE.md, unreviewed): P_cyc, as H_RS needs it, is an identity. The physical integration chain IS D′. H_RS [D given P_cyc] → [D].**
+> * **Definition [P] + [DV].** CLS-D (arXiv:2311.04271) define the functional as an absolutely convergent integral over real Lorentzian points in the causal order 4>5>3>0>1>2. In the gauge x₃=−x₁=y, x₄=−x₂=x/(−x²), x₅=e this region is exactly D′, the real section cut at the light cones of x₅ (the zeros of B). Checked with an independent Minkowski code: 0 mismatches in 2·10⁵ configurations.
+> * **Integrand [D] + [DV].** On D′ all 25 factor bases are positive, A, B > 0 and Q is real. So the physical integrand = point-independent constant × the project's integrand, and the constant cancels in ρ.
+> * **End to end, scalar [DV].** ∫_{D′}, exact in Δ with the cut, against the exact CHMRS Mellin skeleton: |ε| ≤ 2·10⁻⁸ (Δ = 20), ≤ 6·10⁻⁹ (Δ = 30) for ν ≤ 5, and ≤ 1·10⁻⁹ to ν = 10 at Δ = 50. At these Δ, 82 % / 47 % / 3 % of ∫|Φ| lies beyond raw radius 0.3, outside the convergence region of the 1/Δ series. So this checks the chain itself, non-perturbatively.
+> * **H_RS [D]** = RD_CLOSE Prop. D′ (engine = ∫_{D′} + O(Δ^N e^{−0.336Δ}); one [D-sketch] sub-step: the convergence radius of the x₀-dependent slow factors) + the identification above. REPRO_ENGINE's direct ∫_{D′} = engine K = 5 to 3·10⁻⁷ [DV].
+> * **The crystal (saddle-point) cycle is only a numerical method; its class is no longer a premise.** Crystal = D: [P] in the Regge-scaled system; [I] at finite Δ (gap: no Stokes jump for a ∈ (0, 1/Δ], n± = 1 through the fold). A direct EE test T = ⟨Q⟩_crys/⟨Q⟩_{D′} − 1 finds no discrepancy (|T|/σ ≤ 1.7), but it is weak: (|T|+2σ)/threshold ≥ 4.8 above the fold and 16–2000 below it [NE, weak].
+> * **Retraction.** RD_CLOSE's census statement "no critical point at raw radius 0.1–39" is withdrawn. There are 0–276 critical points per run at 0.3 ≤ r < 1.5, many with |B| ≈ 1, at heights 30–94 above the crystal (12 × 4000 starts, not saturated) [NE]. This does not touch D′.
+
 ## 0. Headline
 
 **Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper
