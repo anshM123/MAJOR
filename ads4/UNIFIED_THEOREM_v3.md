@@ -159,6 +159,21 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 > * **J\* (model constants, K₄ = 4):** K_sh = 10 gives 38 with R1 or stripped (θ = 1), 50 at ×2 with R1. K_sh = 30 gives 38 with R1 and none stripped. **This holds only if the flat ν⁶ tower is assigned to the hybrid floor, now a named premise.** K_sh is uncomputed [M] and binding at J ≥ 300.
 > * The J = 0 engine O(a²) comparison was not done (it needs the full three-channel contraction).
 
+> **Update (REGGE_TREE.md, unreviewed): referee-3 M2 is a presentation defect (the order of limits was never stated), not a derivation gap. Done as CHMRS do it, the Result never needs H_K at tree level; all grades stay.**
+> * **H_K's J₀** is the exponent of the uniform bound on dDisc of the **exact** correlator (KKSDZ (4.70)). **Route N [D]:**
+>   1. Apply the sum rule at finite c_T. H_K is [D] under J₀ ≤ 1, with margin ½ at k = 2, 3, 5 and 3/2 at k = 4.
+>   2. (Pos) makes the heavy side ≥ 0 at every c_T, multi-trace states included.
+>   3. Expand only the light side in 1/c_T.
+>
+>   The tree-level heavy sum is never expanded; CHMRS §4.4 show it need not be analytic in 1/c_T. The order-of-limits step is [D-sketch] given A2. A2 must be restated as tree-level EFT light data up to o(1/c_T), uniformly in spin.
+> * **Term-by-term reading (not made):** with a uniform planar J₀ = 2, the corner count fails at k = 2, 3 **and 5**, and for generic k = 4 weights (Q's k = 4 weights pass with margin ½). "J₀ = 2 (Einstein)" is the Wightman/elastic intercept; the heavy tree dDisc is empty for pure Einstein, and for strings its fixed-η intercept is 2 − 9/(2Λ²) with an η⁻² k = 2 moment (CHMRS (4.45)).
+> * **Literature [Q]:**
+>   * CHMRS (§1.1.1, (1.12)–(1.14), §4.1, §4.4) and CLS-D (§3.4, §3.5.2) use J₀ ≤ 1 non-perturbatively and assume no tree-level J₀ < 2.
+>   * KKSDZ §4.5 gives J₀^planar ≤ 2 (4.80); their planar sum rules need J₀ < 3.
+> * **Model check:** with the uniform J₀ = 1 bound, the corner integrals converge for every k; with the uniform J₀ = 2 bound they diverge at k = 2, 3, 5; with a stringy Regge-pole model they converge for every k.
+> * **Wording:** proposed replacements for letter.tex:109 (A2), :133–135 and :183–185, plus supplement paragraphs "Order of limits" and "Term-wise use (not made)", are in REGGE_TREE §5. Say "every state with Δ−J ≥ Δ_g", not "heavy single traces".
+> * **Open:** the size of the light-side remainder O(Δ_g^p/c_T²) is not computed, so keep "at leading order in 1/c_T".
+
 ## 0. Grades
 
 | grade | meaning |
