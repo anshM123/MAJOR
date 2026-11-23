@@ -106,6 +106,19 @@ Note: HRS, OG and FH are later than RU and refine three of its items. Each such 
 >   * the primaries-vs-Mellin-residue rearrangement [D-sketch];
 >   * a = b integrability against C_ν [I].
 
+> **Update (HK_CLOSE.md, unreviewed): H_K no longer needs J₀ < ½. With an analytic cutoff on the de-shift weights it follows under the known bound J₀ ≤ 1, with margin ½.**
+> * **No-go [P].** Any de-shift weight supported on a bounded ν-range, including every stored grid weight, regrows at the raw Regge rate by Paley–Wiener. The interchange then needs J₀ < ½, the old H_ip.
+> * **The fix: Proposition K_c [D given K1′, K2ν, LRC, K3, DS].**
+>   * Each de-shift weight is multiplied by an entire erf cutoff c(ν): ν_c = 150, a = 6 for Q; ν_c = Λ+100, a = 10 for D.
+>   * The de-shift identity forces strip-analyticity [D], so the cutoff does not reintroduce growth.
+>   * Tonelli then gives an absolutely convergent heavy sum for J₀ < 3/2 (k = 2) and J₀ < 5/2 (k = 4).
+>   * Checks: exactly solvable toys [DV]; real Q weights [NE].
+> * **Every computed number is unchanged.** ε_c ≲ e^{−180} (Q) and ≲ 10⁻⁴¹ (D).
+> * **Ĉ₅^{ds} and Ĉ₃ need nothing new** (plain Fubini).
+> * **Net grade.** H_K stays [D-sketch] by weakest link, but it is no longer an independent hypothesis. It reduces to K1′ (existing), K2ν (new: per-ν kernel growth ≤ e^{γν} away from the corner, [D-sketch]), LRC and DS.
+> * **Required change.** The cutoff must be added to the functional definitions (§1 above; RESULT_D_STATEMENT §2; RESULT_Q_STATEMENT).
+> * **Side note.** The C5 de-shift is poor beyond t ≈ 15, which affects per-state positivity at β ≳ 15 (the HYB region).
+
 ## 0. Headline
 
 **Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper
