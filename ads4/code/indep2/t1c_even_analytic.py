@@ -22,6 +22,8 @@ for nu in (mp.mpf('0.7'), mp.mpc('2.3', '0.4')):
     for b in range(-4, 5):
         B1 = recursion(l, b, 0, NM, conv); B2 = recursion(-1 - l, b, 0, NM, conv)
         for N in range(NM + 1):
+            if not B1[N]:
+                assert not B2[N]; continue
             sc = max(abs(c) for c in B1[N].values())
             for m, c in B1[N].items():
                 worst = max(worst, abs(c - B2[N].get(-m, 0)) / sc)
@@ -29,18 +31,21 @@ log(f'evenness of Ghat^0_b in mu, b = -4..4, N <= {NM}, two nu: max |B(l)[N,m] -
 
 # analyticity at mu = i/2 (l = 0, -1) and mu = 3i/2 (l = 1, -2)
 for l0 in (0, -1, 1, -2):
-    worst_growth = 0; maxabs = 0
-    for b in range(-4, 5):
-        vals = []
-        for e in (mp.mpf('1e-12'), mp.mpf('1e-24'), mp.mpf('1e-36')):
+    maxes = []; worst = 0
+    for e in (mp.mpf('1e-12'), mp.mpf('1e-24'), mp.mpf('1e-36')):
+        mx = 0
+        for b in range(-4, 5):
             B = recursion(l0 + e * (1 + 1j), b, 0, NM, conv)
-            vals.append(B)
-        for N in range(NM + 1):
-            for m in vals[0][N]:
-                a, c = vals[1][N].get(m, 0), vals[2][N].get(m, 0)
-                maxabs = max(maxabs, abs(c))
-                worst_growth = max(worst_growth, abs(a - c) / max(abs(c), mp.mpf('1e-300')) if abs(c) > 0 else 0)
-    log(f'l0 = {l0:+d} (mu = {"+-i/2" if l0 in (0, -1) else "+-3i/2"}): max over b, N <= {NM} of |B(eps=1e-24) - B(eps=1e-36)|/|B| = {mp.nstr(worst_growth, 3)}; max |B| = {mp.nstr(maxabs, 4)}  (a pole would give growth ~1e12)')
+            mx = max(mx, max(abs(c) for d in B for c in d.values()))
+            if e == mp.mpf('1e-36'):
+                Bref = recursion(l0 + mp.mpf('1e-24') * (1 + 1j), b, 0, NM, conv)
+                for N in range(NM + 1):
+                    if B[N]:
+                        sc = max(abs(c) for c in B[N].values())
+                        worst = max(worst, max(abs(c - Bref[N].get(m, 0)) for m, c in B[N].items()) / sc)
+        maxes.append(mx)
+    log(f'l0 = {l0:+d} (mu = {"+-i/2" if l0 in (0, -1) else "+-3i/2"}), b = -4..4, N <= {NM}: max|B| at eps = 1e-12/1e-24/1e-36: '
+        f'{", ".join(mp.nstr(x, 6) for x in maxes)}; max_N |B(1e-36) - B(1e-24)|/max|B[N]| = {mp.nstr(worst, 3)}  (a pole would scale like 1/eps)')
 
 # frame identity
 r, eta = sp.symbols('r eta', positive=True)

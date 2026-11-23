@@ -13,7 +13,7 @@ from fractions import Fraction
 
 mp.mp.dps = 40
 DATA = '../../prl/data/'
-out = open('cache/t2_lrinf.txt', 'w')
+out = open('cache/t2_lrinf.txt' if len(sys.argv) == 1 else 'cache/t2_lrinf_extra.txt', 'w')
 def log(*a):
     s = ' '.join(str(x) for x in a); print(s); out.write(s + '\n'); out.flush()
 
