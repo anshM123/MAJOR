@@ -412,3 +412,57 @@ pairings with conserved operators" and "OPE coefficients of 3d stress-tensor MFT
   therefore carries this normalisation once more than CHMRS's (3.20). This is consistent with a double-counted or differently defined m²
   normalisation, but that is not verified [I].
 * **Harmless either way.** It is ν-flat and multiplies the leading image (W1c).
+
+### 7.1b Spinning symbols at O(1/m⁴), helicity-diagonal model [M] (`s5_order4.py` → `cache/s5_order4.txt`)
+
+**Method.**
+* Exact series to ε⁴ for the even-J structures at q = 3/2 and 2.
+* Polynomials of degree ≤ k in (X, Y), from exact interpolation on 210 monomials with 6 check points (residual 0). The series construction
+  is [DV]; the kernel action is the §3.2 model.
+* The normalisation drift is factored out as a congruence (W1c). That removes the X, Y-constant parts, the constant at each order, and
+  constant × s₂.
+* The O(1/m⁴) insertion σ₄ + s₂σ₂ − c₂(s₂ + σ₂) is pushed through the mechanism.
+
+**Results:**
+
+| β | ν⁴P | ν⁴P′ | ν²P (×1/m⁴) | ν²P′ (×1/m⁴) |
+|---|---|---|---|---|
+| 0.81 | −0.1698 = **−(5/24)(η²−1)** (both helicities) | **0** | 175.5 (+−) / 65.8 (++) | 19.4 / 4.9 |
+| 1.39 | −0.7324 = **−(5/24)(η²−1)** (both helicities) | **0** | 426.2 / 217.2 | 72.6 / 36.5 |
+
+**Reading.**
+* In the model, the spinning symbol adds to the ν⁴ classes only the helicity-independent −(5/24)(η²−1)ν⁴P. In K₄ units that is
+  ≤ (5/24)(1 − η⁻²) < **0.21** at every β.
+* **K₄ (model, beyond the flat ν⁶ term)** = the seed's Δφ-dependent |5189η² − 1595|/(1440η²) ≤ 3.60, plus 0.21. So **K₄ ≤ 3.8**,
+  uniformly in the coupling ratios and in β. Grade: [M], on [DV] series.
+* The new ν²/m⁴ terms (≤ 430/m⁴) are a ≤ 4·10⁻⁴ correction to κ_B at m ≥ Λ. They are negligible.
+* **Model-independently**, K₄ is not bounded here. The three-channel contraction (PW_IMAGES) and the hybrid subtraction of the ν⁶ tower
+  (§7.1) are both needed.
+
+### 7.5 Theorem W's J\* with the follow-up constants (`s4_jstar.py` → `cache/s4_jstar.txt`)
+
+| premise constants | P2 grade | form | θ = 1 | θ = ½ |
+|---|---|---|---|---|
+| **model: Λ_B = Λ_C2 = 1, Λ_A = 3.17, Λ_C3 = 2.03, K₄ = 4, K_sh = 10** | [M] | R1 / **R2** | **38** / **38** | 50 / none (300, 344) |
+| same, K_sh = 30 | [M] | R1 / R2 | 38 / none (300, 344) | none (300, 344) |
+| model, K₄ = 10 (earlier §4), K_sh = 10 | [M] | R1 / R2 | 50 / 50 | 80 / none (300, 344) |
+| LARGESPIN_W baseline (Λ_amp = 3, 10, 10) | [NE] / [M] | R1 / R2 | 50 / none | 100 / none |
+
+**Caveats on this table.**
+1. **The flat ν⁶ term.** "K₄ = 4" holds only if the flat-universal ν⁶ tower of §7.1 is assigned to the hybrid floor. This is [D-sketch]
+   and is now a named premise. If it were costed as a Regge term, every sampled J would fail.
+2. **K_sh is the binding premise at J ≥ 300.** It is uncomputed [M] and is PW_IMAGES' object.
+3. **P1** stays [D-sketch] (§7.2).
+
+### 7.6 Net of the follow-ups
+* **(a) K₄.**
+  * The seed's O(1/m⁴) is validated exactly against CHMRS's ancillary series [DV].
+  * The model gives **K₄ ≤ 3.8** [M], and J\* improves 50 → **38** (θ = 1, either form).
+  * **New gap in P4:** CHMRS's O(1/m⁴) contains a Δφ-independent ν⁶(η²−1)/72 term outside P4's representatives. Its full-range
+    Lemma-I cost is equivalent to K₄ ≈ 35–3000. Theorem W needs the hybrid subtraction of this flat tower to be explicit [I].
+* **(b) (S).** Not supported by KKSD 1809.05111. Shadow matrices are diagonal only in the momentum-space SO(d−1) basis, and ++ and +− can
+  mix. **P1 stays [D-sketch]**; the §2.4 upgrade is withdrawn. What remains [D]: B₀ is diagonal and positive, and the model-level O(1/m)
+  off-diagonal is a constant (a congruence).
+* **(c) J = 0 engine O(a²).** Not done. It needs the full kernel contraction (PW_IMAGES) and the engine's normalisation.
+* **−8η.** It is the first-order term of the moment's ν-flat normalisation [DV, at O(1/m²) and O(1/m⁴)]. The single responsible factor is
+  not pinned down. Harmless.

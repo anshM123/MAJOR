@@ -151,6 +151,14 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 > * **Theorem L [D given P_L′]:** J\* = 857 at the gap. The monopole tolerance gives a tolerated Λ_amp of 1240 (J = 857), 555 (10⁴), 166 (10⁵) and 43 (10⁶).
 > * **Still needed by both:** the spinning O(1/m²) magnitudes (Λ_amp ≈ 2–3 [NE] for J ≤ 100, [M] above) and the beyond-all-orders premise. Untested: polarisation-tilt O(1/m²) terms.
 
+> **Update (P2_SPINNING.md §7, unreviewed): K₄ ≤ 3.8 in the model; the (S) check FAILS, so the P1 upgrade is withdrawn and P1 stays [D-sketch]; a new gap in P4 (the flat ν⁶ tower) is found. Model J\* = 38.**
+> * **K₄:** the scalar seed matches CHMRS's O(1/m⁴) series exactly (ν⁴, ν⁶ coefficients at two β). In the helicity-diagonal model the spinning symbol adds only −(5/24)(η²−1)ν⁴P, so K₄ ≤ 3.6 + 0.21 ≤ 3.8 [M]. There is no model-independent bound.
+> * **New gap in P4:** CHMRS's O(1/m⁴) term contains −(η²−1)ν⁶P/72, which is the same for every Δφ (part of the flat-space tower). Costed as a Regge term it is equivalent to K₄ ≈ 35 (J = 26) to ≈ 3000 (J = 120–200), and every sampled J fails. **P4 needs this tower's hybrid subtraction made explicit:** the identification is [DV], the subtraction is [I].
+> * **(S) fails:** Karateev–Kravchuk–Simmons-Duffin 1809.05111 shadow matrices mix structures, so the two parity-even structures can mix. P1 stays [D-sketch]. What survives: the leading shadow matrix is diagonal and positive [D], and in the model the O(1/m) off-diagonal is constant, so it cannot affect positivity.
+> * **−8η factor:** the first-order term of the moment's normalisation, exact at O(1/m²) and O(1/m⁴). It is harmless (a rescaling); its sign relative to N2's residual is [I].
+> * **J\* (model constants, K₄ = 4):** K_sh = 10 gives 38 with R1 or stripped (θ = 1), 50 at ×2 with R1. K_sh = 30 gives 38 with R1 and none stripped. **This holds only if the flat ν⁶ tower is assigned to the hybrid floor, now a named premise.** K_sh is uncomputed [M] and binding at J ≥ 300.
+> * The J = 0 engine O(a²) comparison was not done (it needs the full three-channel contraction).
+
 ## 0. Grades
 
 | grade | meaning |
