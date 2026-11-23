@@ -21,6 +21,12 @@ used. "HLJ floor" is `0.9 λ₀ N_s` (HLJ_ANALYTIC's `T_B`). "LS floor" is `N_fl
 
 ---
 
+> **Update (DIRCV.md, unreviewed): the dir–cv discrepancy is resolved. Both estimators are biased, in opposite directions, by one per-wave systematic. H_LJ(1000) leverage at (1100, 100): 2.3–3.4 central, 1.3–2.0 at 2σ (ring classes A + C); with the full ring class (R1), 7–9 central and ≥ 2.7 at 2σ. A leverage of ≈ 1 is excluded at ≥ 2σ in every fit [NE].**
+> * **Errors:** the quoted r errors were 1-dof least-squares residual errors. Replica-jackknife errors are 2–20× larger: cv −160 ± 213 / +327 ± 216, dir −1310 ± 526 / −810 ± 529, paired gap 2.4σ. The gap comes entirely from the node at ν = 13.3, where seed 4242 is a 1.4σ fluctuation (4-seed scalar bias −0.0075 ± 0.0021).
+> * **Bias:** the CV mean is exact (≤ 10⁻¹⁰), but the graviton carries λ = 0.5 ± 0.25 of the scalar's per-wave bias (three tests: 0.55, 0.58, 0.43). dir assumes λ = 0 and cv assumes λ = 1, so each is disfavoured at ≈ 2σ. The unbiased P_J-cv twin agrees with the pooled result. The k = 3 "miss" disappears with jackknife errors. No heavy tails were found (Hill index 2.6–3.2).
+> * **Pooled fits** (7× statistics at ν = 13.3 and 16.3): A + C, 4 nodes: r = −441 ± 180, L 2.3–2.8 (2σ 1.3). A + C, 6 nodes: +147 ± 77, L 2.7–3.4 (2σ 2.0). A + B + C: −102 ± 122, L 7.2–9.0 (2σ 2.9). J ≥ 150 is not feasible (no basis rows; windows at or below the fold), so it stays [M].
+> * **Corrections:** this supersedes the leverage quoted in the N2 and LARGESPIN boxes ("3.0–4.2 (cv), ≥ 4.1 at 2σ; dir 0.8–1.4", "1.1–4.8"). Quote "2.3–3.4 (1.3–2.0 at 2σ); ≥ 2.7 at 2σ given R1". The cv window values in HWIN carry a systematic of ≈ 0.5·|Γ_dir − Γ_CV|. Next cheap step: 4× P_J-twin statistics at ν ≈ 13 (≈ 1.5 CPU-h), giving σ_r ≈ 90 with no λ assumption.
+
 ## 0. Summary
 
 | item | result | grade | effect on H_LJ(1000) |
