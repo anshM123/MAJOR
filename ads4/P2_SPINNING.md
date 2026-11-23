@@ -308,3 +308,46 @@ Maximum coefficient (constant, X, Y polynomial), relative to the structure's own
     and the helicity basis.
   * R1 is no longer needed at margin ×1 if the model holds. Its residual is localised in the helicity leakage (§3.3) and K_sh.
 * **Do not write** "Λ_amp = 1 is derived", or "proved for J ≥ 50".
+
+---
+
+## 7. Follow-ups (coordinator request): K₄, the (S) check, the J = 0 engine, the −8η factor, and J\*
+
+*Same day. The three-channel kernel contraction was not attempted: it is covered by `PW_IMAGES.md` / `code/pwimg/` (another agent;
+not touched). New code: `s5_order4.py` (O(1/m⁴) seed + symbols), `s5b_dphi.py` (Δφ-dependence of CHMRS's O(1/m⁴) top-ν terms),
+`s6_nu6cost.py` (Lemma-I cost of the ν⁶ shape). Compute ≈ 1.5 CPU-h.*
+
+### 7.1 (a) O(1/m⁴): the seed, validated, and a gap in P4's representatives
+
+**Seed at O(1/m⁴) [DV], exact.**
+* The mechanism of §3.1 is extended with memoised derivatives and Legendre reduction to order 10.
+* It is compared with CHMRS's ancillary "series Π" at order 1/m2², parsed from `regge_moments_order8.m` and Legendre-reduced. At
+  β = 0.81 and 1.39 (q = 3/2, 2):
+  * the **ν⁶ and ν⁴ coefficients of P and P′ are identical**;
+  * the ν² and ν⁰ differences equal **exactly** 8η × (my first-order coefficients);
+  * so CHMRS's series = (1 − 8η/m² + n₂/m⁴) × (mechanism), i.e. the same ν-flat normalisation as at first order (§3.1).
+* The O(1/m⁴) mechanism is therefore validated exactly (`cache/s5_order4.txt`).
+
+**The O(1/m⁴) seed contains a ν⁶ term.** By `s5b_dphi.py` (Δφ = 1, 2, 3, 5, 8; k = 2; d = 3):
+
+| coefficient at O(1/m⁴) (per unit leading P) | value | Δφ-dependence |
+|---|---|---|
+| ν⁶ P | **−(η²−1)/72** | none (flat-universal) |
+| ν⁴ P′ | (11/30) η(η²−1) | none (flat-universal) |
+| ν⁴ P | (5189η² − 1595)/1440 at Δφ = 3 | yes (Δφ = 5: (389η² + 3205)/1440) |
+
+* **K₄ units.** Theorem W's P4 bounds the O(1/m⁴) remainder by K₄ in units of {η²ν⁴P, η sinhβ ν⁴∂_βP} only (LARGESPIN_W §4.0, caveat 4).
+  * In those units the scalar seed has K₄ = |5189η² − 1595|/(1440η²) ≤ 3.6 (ν⁴P) and 0.367 (ν⁴P′). That is within K₄ = 10.
+  * **But the ν⁶ shape is not among the representatives.** Its Lemma-I cost per unit, relative to the 4a unit
+    (`cache/s6_nu6cost.txt`, R2), is 2.5·10³ (J = 26) … 2.3·10⁵ (J = 120). With the 1/72 coefficient this is **equivalent to K₄ ≈ 35
+    (J = 26), 135 (J = 50), 410 (J = 100), 2·10³–3·10³ (J = 120–200), 560 (J = 344)**.
+* **Reading [D-sketch].**
+  * The ν⁶ term is Δφ-independent, i.e. part of CHMRS's flat-space top-ν tower. These are the terms the hybrid floor resums (flat partial
+    wave, LARGESPIN_W §3.5 / §4.3 note).
+  * They must therefore be **excluded from P4, not costed**. P4 should be restated as "the beyond-hybrid O(1/m⁴) part ≤ K₄".
+  * If they are costed as Regge-series terms over the full range ν ≤ Λ, Theorem W fails at every sampled J. This is the full-range artefact
+    that LARGESPIN_W already flags for K₄ at J < 50, now visible at all J.
+  * **This is a gap in Theorem W's P4 as stated**, independent of spin. It needs either the explicit hybrid subtraction at O(1/m⁴) or a
+    restatement. Graded [I] for the subtraction; the identification of the ν⁶ term is [DV].
+
+**Spinning symbols at O(1/m⁴), helicity-diagonal model [M].** See §7.1b; the numbers are filled in from `cache/s5_order4.txt`.
