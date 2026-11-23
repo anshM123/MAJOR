@@ -21,15 +21,18 @@ its weakest link.
 |---|---|---|
 | 1. Heavy image of the k = 4 EE position kernel; EE3 ν-normalisation; f_pos(±3i/2) | LRC-a EE k = 4 [D]; normalisation "rests on the same code path, not rechecked" | **Confirmed. LRC-a EE k = 4 → [D + DV].** EESTEP's b-shifted leading-Regge kernel equals the split kernel that Stage 4 transformed, with ratio **1 to 1.8·10⁻⁷**, ν-, β- and polarisation-independent (4 pol. sets × β = 1, 3, 6 × ν = 0.5–6). Its rank-3 plane-wave transform, done numerically and independently of stage4_hj's symbolic route, reproduces the stored R_j^{EE3} (and R_j^{sc3}) **to ≤ 1.1·10⁻¹¹**. So the position weight is χ·const/N_com, with the scalar's const, and **f_pos(±3i/2) = 0 stands** (§1) |
 | 2. Spinning K1′, numerical | scalar examples only | **[D + DV]** on the exact free-scalar ⟨TTTT⟩ (N = 1, 10; c = 0.5, 0.9; 63 polarisation sets; box down to 10⁻⁶): Cauchy–Schwarz holds everywhere (saturated only where it must be), B(c) is finite and sits at the corner (c, c), \|𝒢_Regge\| ≤ 0.53–0.999 B(c), \|dDisc 𝒢\| ≤ 0.007–0.25 · 2B(c), and the edge row \|M − 1\| ≤ (B − 1)(min(ρ, ρ_b)/c)^{τ_min/2} holds over the whole box with τ_min = 1 (§2) |
-| 3. DS for Q in the Tonelli argument | "DS [NE]", the only non-derived input of H_K for Q | **ε-DS replaces DS with no change of criterion** [D] (§3.1–3.2). ε_W enters the absolute-convergence bound only additively, through a finite constant; the bounds move by ≤ ε_W × the factors of §3.2. **ε_W is now [certified] for C4:** [[EPS]] (§3.3) |
+| 3. DS for Q in the Tonelli argument | "DS [NE]", the only non-derived input of H_K for Q | **For the explicit continuum weights the swap needs no de-shift identity.** The analyticity that HK derived from DS (Lemmas S2/S4) holds by construction [P], and the criterion is unchanged (J₀ < 5/2) [D]. ε-DS fixes only the values (images and moments = targets ± ε). ε enters a Tonelli bound only additively, through a finite C_E. The bounds move by ≤ ε × the factors of §3.2 (E). **ε_W is now [certified] for C4:** [[EPS]] (§3.3) |
 | 4. (P): C5 piece and J = 2 | J = 0 derivative piece only | [[P4]] (§4) |
 
 **H_K.**
 * **Result D: [D]** (unchanged; DS for k = 2 is [D + NE] through Lemma S2 and the cutoff).
-* **Result Q: [D given ε-DS], with ε-DS [certified] for the C4 value and derivative pieces** (the only Q pieces for which H_K uses the
-  de-shift at all). This holds for Ω^Q_up *defined* by the published continuum weights (DESHIFT §2.4, equal to the Stage-7 XP weights to
-  10⁻¹⁶). The C5 piece needs no de-shift for H_K (raw Fubini, J₀ < 3/2); its ε_W = 2.4·10⁻⁷ stays [DV] and affects per-state numbers
-  only. Q's Ĉ′_EE (k = 2, ψ₂) is in the same position as D's. **Net: H_K for Q is [D]**, with one certified numerical input.
+* **Result Q: [D]** for Ω^Q_up *defined* by the published continuum weights (DESHIFT §2.4; equal to the Stage-7 XP weights to 10⁻¹⁶).
+  * The swap for the C4 pieces uses the weights' explicit analytic structure [P], not DS.
+  * The C5 piece is raw Fubini (J₀ < 3/2).
+  * Q's Ĉ′_EE (k = 2, ψ₂) is in the same position as D's: DS [D + NE] via Lemma S2 and the cutoff.
+  * **ε-DS is an input of the bound values, not of H_K.** It is [D + certified] for C4 (§3.3) and [DV] for C5 (2.4·10⁻⁷, per-state
+    numbers only).
+  * If Ω^Q_up is instead kept as the Stage-7 *grid* weights, H_K is [D given DS] as in EESTEP, with DS [NE].
 * Criteria unchanged: J₀ < 3/2 (k = 2, 5, Ĉ₃), **J₀ < 5/2** (k = 4, Q's weights). Under J₀ ≤ 1 the margins are ½ and 3/2.
 
 ---
@@ -145,70 +148,80 @@ The per-j ratios `h_j^{EE}/h_j^{sc}` match the exact rationals to all printed di
 ## 3. DS for Q, stated cleanly: ε-DS in the Tonelli argument
 
 ### 3.1 Statement
-Let Ω^Q_up's k = 4 de-shifted pieces be **defined** by the explicit continuum weights `u_p` (p = C4v, C4d; `prl/data`), which
-satisfy (DESHIFT §2.1, the shift identity [D]), for all t ≥ 0,
+Define Ω^Q_up's k = 4 de-shifted pieces by the explicit continuum weights `u_p` (p = C4v, C4d; `prl/data`). These are
+`u = Q·B` with Q rational (prescribed poles at ±3i, ±i/2, ±5i/2, ±i(3+2√2)/2 and zeros at 0, ±i, ±2i), B an entire Gaussian-RBF sum,
+super-Gaussian decay beyond ν ≈ 60. By DESHIFT §2.1 (shift identity, [D]), for all t ≥ 0,
 
     |W[u_p](t) − Φ_p(t)| ≤ ε_p,       Φ_{C4v} = 1,  Φ_{C4d} = −t²/2.                                  (ε-DS)
 
-Then the following hold.
+Then:
+* **(i) The swap (H_K proper) does not use the de-shift identity at all.** Absolute convergence and the interchange follow from K1′,
+  K2ν, K3, LRC-a and LRC\* together with the analytic structure of u. That structure was *derived* from DS for the grid weights (HK
+  Lemmas S2, S4); for the explicit weights it holds **by construction [P]**. The criterion is unchanged: J₀ < 5/2 (k = 4).
+* **(ii) ε-DS fixes the values.** It identifies the per-state images and the light-side moments with their targets, up to ε_p
+  (images) and `M_{n,p} = ∫|E_p,even|μ^{2n}` (moments). If one insists on writing the kernel as "target + remainder", ε enters the
+  absolute-convergence bound only additively, through a finite constant C_E (§3.2 (C)).
+* **(iii)** The bounds move by at most ε_p times the factors of §3.2 (E).
 
-* **(i)** H_K holds for these pieces, with absolute convergence, under the same criterion as with exact DS (J₀ < 5/2 for k = 4).
-* **(ii)** ε_p enters the absolute-convergence bound only additively, through a finite constant C_E.
-* **(iii)** The bounds move by at most ε_p times the factors given in §3.2 (E).
-
-**Grade: [D given K1′, K2ν, K3, LRC\*, LRC-a] — the same inputs as before, with DS replaced by ε-DS.**
+**Grade: H_K for Q's C4 pieces [D given K1′, K2ν, K3, LRC\*, LRC-a], with no DS input. The values need ε-DS: [D + certified] for C4
+(§3.3), [DV] for C5.**
 
 ### 3.2 Derivation [D]
-Write `E_p(μ) = Σ_j u_p(μ + ij)R_j(μ + ij) − S_j` for the shifted residual of DESHIFT §2.1, so that `W − Φ = ½∫E_p cos μt` and
-`ε_p ≥ ∫₀^∞|E_p,even|`.
+Write `E_p(μ) = Σ_j [u_p(μ + ij)R_j(μ + ij)] − S_j` (DESHIFT §2.1), so that `W − Φ = ½∫E_p cos μt` and `ε_p ≥ ∫₀^∞|E_p,even|`.
 
-**(A) Kernel.** `w = u·const/N_com` with `|u| ≤` (rational) × (super-Gaussian), and `N_com⁻¹ ~ e^{πν}ν^{−9}`. So by K2ν the position kernel
-`K_W = ∫w C_ν dν` converges absolutely at every point of the CLS-D domain. No DS is involved.
+**(A) Kernel.** `w = u·const/N_com` (§1: the const is the scalar's, ν-independent). We have `|u| ≤` (rational) × (super-Gaussian) and
+`N_com⁻¹ ~ e^{πν}ν^{−9}`. So by K2ν the position kernel `K_W = ∫w C_ν dν` converges absolutely at every point of the CLS-D domain. The HK
+cutoff is not even needed: it changes u by < e^{−300} (DESHIFT §2.4).
 
-**(B) Leading Regge, heavy side.** Mehler–Dirichlet:
-`I_W(β) − I_Φ(β) = (√2/π)∫₀^β (W − Φ)(t)(cosh β − cosh t)^{−½}dt`. Hence, for **all β**,
+**(B) Leading Regge: growth from analyticity, value from ε-DS.**
+* In each j-term of the LR image (heavy, `Σ_j∫χR_jP_{l+j}`; position, `∫w ηⁿ Σ_k p_k P_{l+k}`), shift the contour by ij.
+  * u is meromorphic with the poles listed. Those at ±i/2, ±5i/2, ±i(3+2√2)/2 sit at zeros of every crossed R_j (heavy) and at zeros of
+    c_l or decaying edge terms (position: ±i/2, ±5i/2 → l = −1, −3 where c_l = 0; 2.914i → η^{−0.41}, EESTEP §3).
+  * The shifted lines carry no growth. The target pole ±3i gives the target profile.
+  * The resulting bound `|I_W| ≤ (|target| + Σ_j∫|f_j|)P_{−½}(cosh β)` holds without any smallness of E. This is what the corner count
+    uses; Lemma PW's raw regrowth is excluded because u is analytic, not because the identity holds.
+* For the EE k = 4 kernel the same holds per tensor component. Its polarisation dependence sits in ν-independent C_b(x), and every edge
+  coefficient is c_l × (B^{(b)}, F_b), analytic in the strip apart from 3i/2 (+2p) where c_l vanishes (EESTEP §1.4). §1 makes w's
+  analytic structure that of χ.
+* **Value.** Mehler–Dirichlet, `I_W(β) − I_Φ(β) = (√2/π)∫₀^β (W − Φ)(t)(cosh β − cosh t)^{−½}dt`, gives for **all β**:
 
-    |I_W(β) − I_Φ(β)| ≤ ε_p P_{−½}(cosh β) ≤ ε_p .
+      |I_W(β) − I_Φ(β)| ≤ ε_p P_{−½}(cosh β) ≤ ε_p .
 
-* This replaces HK Lemma S4 and its [NE] structure in Prop K_c. The image class `η^{−½}log^{0,3}η` is that of the target.
-* For C4d, the residue part is exact only to the certified ball sizes of §3.3. These add `(d₀ + d₂t² + ½|a₂|(√(2π) + πt))` to
-  `|W − Φ|`, hence at most `(d₀ + d₂β² + |a₂|(1.3 + 1.6β))P_{−½}` to the image. All are ≤ 5·10⁻³⁵.
+  * For C4d the residue part is exact only to the certified ball sizes of §3.3. These add `d₀ + d₂t² + ½|a₂|(√(2π) + πt)` to
+    `|W − Φ|`, i.e. at most `(d₀ + d₂β² + |a₂|(1.3 + 1.6β))P_{−½}` to the image. All are ≤ 5·10⁻³⁵.
 
-**(C) Leading Regge, position side.** Shift each j-term by ij, exactly as in LEMMAS §3.2 / EESTEP §1.4.
-* The target pole ±3i gives the target profile.
-* The poles at ±i/2, ±5i/2, ±i(3 + 2√2)/2 sit at zeros of every crossed R_j, and E₉ has no poles in the strips.
-* What remains is a real-line integral at harmonic label μ, whose coefficient is the heavy residual divided by the heavy map at μ.
-  For the scalar-type map that is `E_p(μ)/(κ₀E₉(μ))`. For the EE k = 4 kernel it is the same linear map at fixed μ (§1). Hence
+**(C) If the kernel is split as "target + remainder".** After the shift, the remainder of the LR position profile is a real-line integral at
+harmonic label μ. Its coefficient is the heavy residual E_p(μ) divided by the heavy map at μ: `E_p(μ)/(κ₀E₉(μ))` for the scalar-type map,
+and the same fixed linear map at label μ for EE k = 4 (§1). So
 
-      |K_W^{LR}(η) − K_target^{LR}(η)| ≤ C_E · r^a ηⁿ |P_{−½+iμ}|-envelope ≤ C_E r^a ηⁿ P_{−½}(η)·(de-shifted power),
-      C_E := ∫|E_p(μ)| / |κ₀E₉(μ)| dμ < ∞.
+    |K_W^{LR} − K_target^{LR}| ≤ C_E r^a ηⁿ P_{−½}(η)·(de-shifted power),      C_E := ∫|E_p(μ)|/|κ₀E₉(μ)| dμ < ∞.
 
-* **C_E is finite but not small.** `1/E₉ ~ e^{πμ}μ^{−14}` while E_p decays super-Gaussianly beyond the basis edge ν ≈ 60. C_E is ε_p
-  re-weighted to position normalisation. It is **not** a bound on any computed number; it only enters the size of the Tonelli bound.
+C_E is finite, since E_p decays super-Gaussianly. It is **not small**, since `1/E₉ ~ e^{πμ}μ^{−14}`, and it is not a bound on any computed
+number. This is the only way ε enters a Tonelli bound, and it does so additively.
 
 **(D) Beyond leading Regge, and the swap.**
-* LRC\* uses only the analyticity of `w c_l` in the strips, apart from target singularities, and regularity at 3i/2. For the continuum
-  weights this is explicit [P] (§1.4). So the (exact − LR) remainder has the same exponents as with exact DS: k = 4 shell `η^{½}`.
+* LRC\* uses only the analyticity of `w c_l` in the strips, apart from target singularities, and regularity at 3i/2. Both are explicit
+  here. So the (exact − LR) remainder has the exponents of EESTEP §2: k = 4 shell `η^{½}`.
 * The corner count therefore gives
   `Σ_O ∫|K_W||dDisc G_O| ≤ 2B(c)∫_box |K_W| + (K2 region) < ∞` for J₀ < 5/2.
-* By K3 and Tonelli, `Σ_O Tr[P_O Ω_W[G_O]] = −Ω_W[light]`, with absolute convergence. **This is exact for Ω_W. Exactness of the de-shift
-  is never used.** ε_p appears only in C_E, additively, in the absolute-convergence bound.
+* By K3 and Tonelli, `Σ_O Tr[P_O Ω_W[G_O]] = −Ω_W[light]`, with absolute convergence. **This holds exactly for Ω_W. The de-shift
+  identity is never used in it.**
 
-**(E) From Ω_W to the bounds.** Write `a_p` for the LP coefficients of the pieces, and N_O for the per-state normalisation (forward
-image = 1).
+**(E) From Ω_W to the bounds: where ε_p acts.** Write `a_p` for the LP coefficients of the pieces, and N_O for the per-state
+normalisation (forward image = 1).
 * **Heavy side, per state:** `|Ω_W[G_O] − Ω_target[G_O]|_{LR} ≤ Σ_p |a_p| ε_p P_{−½}(cosh β_O) ≤ Σ_p |a_p| ε_p`.
   * Per-state positivity margins m_O (binding FF/N ≥ 0.1427; LR minima ≥ 0.9866) survive iff `Σ_p|a_p|ε_p < m_O N_O`.
   * DESHIFT §2.5 evaluated the worst-sign shift over all 8 sign patterns on the full LR/HYB scan: **≤ 6·10⁻¹¹** (dominated by C5's
-    2.4·10⁻⁷; C4 alone ≤ 10⁻¹²).
+    2.4·10⁻⁷; the C4 pieces alone give ≤ 10⁻¹²).
 * **Light side:** `|m_{n,p} − m_{n,p}^{target}| ≤ M_{n,p} := ∫₀^∞|E_p,even|μ^{2n}dμ` (M_{0,p} = ε_p). So
   `|ΔL| ≤ Σ_p |a_p| Σ_n |λ_n| M_{n,p}`, with λ_n the EFT coefficients of degree 2n (Λ^{−2n}-suppressed). For a coupling g fixed by
   `L(g) = 0`, `|δg| ≤ |ΔL|/|∂L/∂g|`.
-  * **R⁴:** `2g₄ W(0)`, `|W(0) − 1| ≤ ε_{C4v}`. The relative shift of the R⁴ coefficient is ≤ ε_{C4v}.
-  * **g₅ (n = 1):** `M_{1,C4d} = 2.1·10⁻¹⁰` and `M_{1,C5} = 8.3·10⁻⁶`, in Λ⁻² units [DV, DESHIFT].
-  * **|ĝ₃|² (n ≤ 1):** the same.
-* **Result.** Every bound moves by **≤ (Σ_p|a_p|ε_p)/m_min** relative on the heavy side and by **≤ max(ε_{C4v}, M_{1,C4d}Λ⁻², M_{1,C5}Λ⁻²)**
-  relative on the light side. Numerically: ≤ 6·10⁻¹¹ (margins) and ≤ 10⁻¹² (C4) / < 10⁻⁶ (C5, g₅ cancellation), the DESHIFT §1.2 /
-  §2.5 numbers. **No computed number moves.**
+  * **R⁴:** `2g₄W(0)`, `|W(0) − 1| ≤ ε_{C4v}`, so the relative shift of the R⁴ coefficient is ≤ ε_{C4v}.
+  * **g₅ and |ĝ₃|² (n ≤ 1):** `M_{1,C4d} = 2.1·10⁻¹⁰`, `M_{1,C5} = 8.3·10⁻⁶`, in Λ⁻² units [DV, DESHIFT; M_{n≥1} not certified].
+* **Result.** Every bound moves by **≤ Σ_p|a_p|ε_p / min_O(m_O N_O)** through the heavy side and by
+  **≤ max(ε_{C4v}, M_{1,C4d}/Λ², M_{1,C5}/Λ²)** (relative) through the light side. Numerically: ≤ 6·10⁻¹¹ on the margins, ≤ 10⁻¹² (C4) and
+  < 10⁻⁶ (C5, the g₅ cancellation) on the light side. These are DESHIFT §1.2 and §2.5's numbers, now with the C4 ε certified. **No
+  computed number moves.**
 
 ### 3.3 ε_W made interval-rigorous for C4 (`hk3_epscert.py` → `cache/hk3_epscert_{c4v,c4d}.txt`) [certified]
 DESHIFT's ε_W were 384-bit **midpoint** sums of |E_even| on a 0.01 grid. Certification turned out to be mechanical, but not trivial, for
@@ -258,8 +271,8 @@ two reasons.
 | LRC-a, EE k = 4 | [D] | **[D + DV]**: EESTEP kernel = Stage-4 split kernel (ratio 1 ± 1.8·10⁻⁷); numerical rank-3 heavy image = R_j^{EE3} (≤ 1.1·10⁻¹¹) |
 | f_pos(±3i/2) = 0 (Q's C4) | [D given DS + NE] | normalisation [DV]; **[P] for the continuum weights** (no pole at ±3i/2 by construction) |
 | K1′ | [D] | **[D + DV]** (free-scalar ⟨TTTT⟩, generic polarisations, whole box, edge row with τ_min = 1) |
-| DS for Q (H_K input) | [NE] | **replaced by ε-DS for the explicit weights; C4: [D + certified]** (ε_W ≤ [[EV]] / [[ED]]); C5 [DV], not an H_K input |
-| H_K, Result Q | [D given DS] | **[D given ε-DS], ε-DS certified ⇒ [D]** |
+| DS for Q (H_K input) | [NE] | **not an H_K input** for the explicit continuum weights (analyticity by construction); **ε-DS is the input of the values: C4 [D + certified]** (ε_W ≤ [[EV]] / [[ED]]), C5 [DV] |
+| H_K, Result Q | [D given DS] | **[D]** (Ω^Q_up defined by the continuum weights); values: ε-DS [certified] (C4) |
 | H_K, Result D | [D] | [D] (unchanged) |
 | (P) for g₅ | [D-sketch + NE] (J = 0, derivative piece) | [[P5]] |
 
