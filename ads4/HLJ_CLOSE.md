@@ -58,6 +58,30 @@ Grades: **[P]** proved; **[D]** derived; **[D-sketch]**; **[DV]** derived and ch
 > * **Every central leverage is ≥ 1.6, and every A+C fit is ≥ 1.0 at 2σ.** The only 2σ entry below 1 is λ-free A+B+C on 9 nodes, where the ν²D coefficient rests on noisy P_J nodes. The 2σ floor is set by P_J noise at ν < 13 (fold side). Grade [NE].
 > * The one-contour twin does not reduce variance. P_J-dir is unusable (point drops at ν < 13; only the control variate cancels them).
 
+> **Update (LARGESPIN_W.md, unreviewed): Route W gives a conditional theorem with an explicit J\*, not an unconditional one. H_LJ(1000) stays [D-sketch + M]; do NOT read it as "proved for J ≥ 50".**
+> * **Theorem W** (implication [P] given P0–P4; costs [DV] on sampled states). Premises:
+>   * P0: the leading-Regge hybrid floor.
+>   * P1: parity, M = 𝔫U†gU with g even in 1/m at fixed β; [D-sketch].
+>   * P2: beyond-hybrid O(1/m²) corrections are ring class with |κ_s| ≤ Λ_amp·|κ_s(scalar CHMRS)|, and index-shifted harmonics have |κ| ≤ K_sh. Magnitudes are [NE] at J ≤ 100 and [M] beyond.
+>   * P3: R1, i.e. de-shift form; [I] at O(1/m²) for the ν² classes.
+>   * P4: O(1/m⁴) ≤ K₄, plus the AG beyond-all-orders hypothesis; [M].
+>
+>   If the summed Lemma-I cost d ≤ H = f₊₊f₊₋/(f₊₊+f₊₋), then M_Ω ⪰ 0 for every coupling ratio.
+> * **J\*** over the samples (even J 26–344, odd J 33–301, m ≤ 1.3Λ):
+>   * with (Λ_amp, K_sh, K₄) = (3, 10, 10) and R1: J\* = 50 at margin ×1, 100 at ×2;
+>   * with (1, 10, 1): 30 / 38;
+>   * if R1 fails (stripped form), there is no J\*: it fails at J = 300 and 344.
+> * **New pieces:**
+>   * W1a [D+DV]: the 1/m parity comes from a Weyl reflection T(−x,−y; Δ,J) = T(x,y; 3−Δ, −1−J), holding to 10⁻⁴⁰.
+>   * W1c [P], congruence lemma: ν-independent normalisation and coupling-basis effects cannot change positivity. This disposes of the measured +21/m term and N2's a_h excess.
+>   * W2 [D] / [D-sketch]: every finite order is ring class, so there is no window-smooth class.
+>   * R1 at O(1/m) is no longer needed given P1.
+>   * The leading term c(ν) = 32γ₃²γ₄/(γ₁γ₂γ₇) is exact.
+>   * The (1100, 100) B fits correspond to Λ_amp ≈ 2–3 and sit ×10–100 inside tolerance.
+> * **Decisive residuals:**
+>   * the P2 magnitudes, which need the next-order EE-contracted expansion of the integrand at fixed β;
+>   * R1 at O(1/m²) for the ν² classes at J ≳ 200. A sufficient, cheap check: the s = ±1 harmonics of the leading-r EE kernel share one polarisation tensor (`eestep/ee_quad.py`).
+
 ## 0. Summary
 
 **Bottom line.** `H_LJ(300)` is **not closed**: its Regge-window clause for `J ≥ 34` stays **[I]**. What changed: the two computed

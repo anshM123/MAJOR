@@ -85,6 +85,30 @@ Grades are those of UNIFIED_THEOREM_v2 §0. One label is added:
 > * **J = 23 / 27 / 31:** window cost now 0.15 / 0.29 / 0.46, but the K₂ λ-level truncation blocks them (with calibrated truncation L ≈ 1.5 / 1.4). **J = 32:** the window costs 0.26 measured, vs 2.31 under the convention. J = 20 and J = 32 have no budget.
 > * **Cautions:** the window weight grows steeply with J (1.4 → 23·10⁻⁵ N_s/c₂ from J = 12 to 32), so for J ≳ 32 it is a live input again. Lemma C/C′ cannot bound Γ (it is beyond leading Regge). HIGHSPIN's odd-J window weight omits a gauge factor (8.52 vs 8.73·10⁻⁵). EE_DG1000_LARGEJ's "direct RQMC cannot reach the precision" is false on ν = 25–50.
 
+> **Update (LARGESPIN_W.md, unreviewed): Route W gives a conditional theorem with an explicit J\*, not an unconditional one. H_LJ(1000) stays [D-sketch + M]; do NOT read it as "proved for J ≥ 50".**
+> * **Theorem W** (implication [P] given P0–P4; costs [DV] on sampled states). Premises:
+>   * P0: the leading-Regge hybrid floor.
+>   * P1: parity, M = 𝔫U†gU with g even in 1/m at fixed β; [D-sketch].
+>   * P2: beyond-hybrid O(1/m²) corrections are ring class with |κ_s| ≤ Λ_amp·|κ_s(scalar CHMRS)|, and index-shifted harmonics have |κ| ≤ K_sh. Magnitudes are [NE] at J ≤ 100 and [M] beyond.
+>   * P3: R1, i.e. de-shift form; [I] at O(1/m²) for the ν² classes.
+>   * P4: O(1/m⁴) ≤ K₄, plus the AG beyond-all-orders hypothesis; [M].
+>
+>   If the summed Lemma-I cost d ≤ H = f₊₊f₊₋/(f₊₊+f₊₋), then M_Ω ⪰ 0 for every coupling ratio.
+> * **J\*** over the samples (even J 26–344, odd J 33–301, m ≤ 1.3Λ):
+>   * with (Λ_amp, K_sh, K₄) = (3, 10, 10) and R1: J\* = 50 at margin ×1, 100 at ×2;
+>   * with (1, 10, 1): 30 / 38;
+>   * if R1 fails (stripped form), there is no J\*: it fails at J = 300 and 344.
+> * **New pieces:**
+>   * W1a [D+DV]: the 1/m parity comes from a Weyl reflection T(−x,−y; Δ,J) = T(x,y; 3−Δ, −1−J), holding to 10⁻⁴⁰.
+>   * W1c [P], congruence lemma: ν-independent normalisation and coupling-basis effects cannot change positivity. This disposes of the measured +21/m term and N2's a_h excess.
+>   * W2 [D] / [D-sketch]: every finite order is ring class, so there is no window-smooth class.
+>   * R1 at O(1/m) is no longer needed given P1.
+>   * The leading term c(ν) = 32γ₃²γ₄/(γ₁γ₂γ₇) is exact.
+>   * The (1100, 100) B fits correspond to Λ_amp ≈ 2–3 and sit ×10–100 inside tolerance.
+> * **Decisive residuals:**
+>   * the P2 magnitudes, which need the next-order EE-contracted expansion of the integrand at fixed β;
+>   * R1 at O(1/m²) for the ν² classes at J ≳ 200. A sufficient, cheap check: the s = ±1 harmonics of the leading-r EE kernel share one polarisation tensor (`eestep/ee_quad.py`).
+
 ## 0. Verdict
 
 | item | result | grade |
