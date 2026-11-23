@@ -1,11 +1,11 @@
-% letter.tex -- PRL draft, v6 (v5 rewritten after prl/REFEREE_REPORT_3.md: order of limits stated (ads4/REGGE_TREE.md Sec. 5),
-% positivity ledger cut to one paragraph (details in supplement.tex), coverage figure Fig. 2, framing and accuracy fixes;
-% changes in prl/CHANGES_v6.md). Earlier logs: CHANGES_v3/v4/v5.md.
+% letter.tex -- PRL draft, v7 (v6 rewritten after the large-spin results INDEP_CHECK2, LRINF_TIGHT, P2_CONTRACT, P4_WINDOW,
+% EXT_FOLD (update boxes of ads4/UNIFIED_THEOREM.md) and an outside critique: grade tags removed from the main text (one
+% pointer to the Supplement's legend, Sec. S1), positivity paragraph cut to five sentences around Fig. 2, large-spin paragraph
+% rewritten (Theorem W window form, Theorem L' with J* = 223 at the gap). Changes in prl/CHANGES_v7.md; earlier logs CHANGES_v3-v6.md.
 % Source of truth: ads4/UNIFIED_THEOREM_v3.md (UT3) and the update boxes of ads4/UNIFIED_THEOREM.md; numbers traced in UT3 Sec. 12,
 % UT2 Sec. 12 and NOTES.md Sec. 4. The H_LJ(300) switch lives in macros.tex.
-% "% P2CONTRACT" marks constants a running computation (ads4/P2_CONTRACT.md: the three-channel EE contraction of the spinning
-% O(1/m^2) symbols) may update: Lambda_amp, K_sh, K_4, J* and the Theorem-L tolerance. (v5's "% P2FOLLOW" marks are superseded:
-% the P2 follow-up returned K_4 <= 3.8 [M], (S) fails, flat nu^6 tower subtraction [I].)
+% "% AGPROOF" marks every place that changes if the assumption (AG') (beyond-all-orders analytic structure on nu >= 3/beta;
+% P4_WINDOW Sec. 6) is proved (ads4/AG_PROOF.md, in progress). The v6 "% P2CONTRACT" marks are resolved (P2_CONTRACT.md).
 \documentclass[aps,prl,twocolumn,superscriptaddress,nofootinbib,floatfix]{revtex4-2}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
@@ -77,15 +77,14 @@ $\sqrt{t_4^2+\alpha_T^2}\le\CubicHead$ at $\Delta_g=\DgHead$. The secondary resu
 (item 2) is an upper bound on one $R^4$ graviton coefficient in AdS. To our knowledge
 neither has been derived before from $\langle TTTT\rangle$. Both are implications, not
 unconditional theorems. Positivity is certified in the flat limit for the functional of
-item (1); in AdS it is supported by error-budgeted numerics on low-lying heavy states, and on
-parts of the large-spin region it is reduced to conditional statements whose premises are
-measured on one state or modelled (Fig.~\ref{fig:coverage}). Grades: [P] proved; [certified]
-computer-assisted proof; [D] derived (written out, not independently checked);
-[D-sketch] sketched; [DV] derived and checked numerically; [NE$\pm$] numerical with an
-explicit error budget ($\times3$ safety factors on all model terms; not a bound);
-[NE] numerical; [NE\,+\,M] numerical inside a model; [M] model; [A] assumption; [I] open.
-``[X\,+\,Y]'' is X with one ingredient of grade Y, ``[D given X]'' is derived from inputs X,
-and a chain carries its weakest grade (Supplemental Material~\cite{SM}, Sec.~S1).
+item (1); in AdS it rests on error-budgeted numerics for low-lying heavy states and, at large
+spin, on two conditional theorems whose one structural premise we state as an assumption
+(Fig.~\ref{fig:coverage}). % AGPROOF: "whose one structural premise we state as an assumption"
+We write ``we prove'' for a written proof, ``certified'' for a computer-assisted proof in
+interval arithmetic, ``error-budgeted'' for numerics with a $\times3$ safety factor on every
+model term (an estimate, not a bound), and ``model'' for a computation whose accuracy is
+itself a hypothesis; the Supplemental Material~\cite{SM} grades every statement against a
+fixed legend (Sec.~S1).
 
 \paragraph*{Why it matters.}
 If positivity and the stated inputs hold, then at leading order in $1/c_T$ and up to the
@@ -128,8 +127,8 @@ $t_4$, and $\alpha_T$, which multiplies the parity-odd structure that exists onl
 $d=3$~\cite{GPY}. Positivity of energy flux confines them to the disk
 $t_4^2+\alpha_T^2\le16$~\cite{HofmanMaldacena,CDPrakash}. In the bulk,
 $\tau:=\sqrt{t_4^2+\alpha_T^2}=240|\hat g_3|$, with $\hat g_3$ the complex $R^3$ coupling
-of Ref.~\cite{CHLPS} ([DV] for the $t_4$ part; [D] for the $\alpha_T$ part, whose sign
-convention is not fixed; only the modulus enters). The quartic coupling $g_4$ is defined
+of Ref.~\cite{CHLPS} (derived and checked numerically for the $t_4$ part; derived for the
+$\alpha_T$ part, whose sign convention is not fixed; only the modulus enters). The quartic coupling $g_4$ is defined
 by the flat-space amplitude $M(1^+2^-3^-4^+)=\langle23\rangle^4[14]^4f$,
 $f=8\pi G/(stu)+\dots+g_4+g_5t+\dots$~\cite{CHLPS}, normalised so that type~II strings
 have $g_4M^6/8\pi G=2\zeta(3)$, $M^2=4/\alpha'$~\cite{CHMRSswamp}. We bound only $g_4$
@@ -162,16 +161,16 @@ space~\cite{CHLPS}. The difficulty in AdS is that curvature shifts every heavy s
 away from its flat value, by amounts that are not small near the gap and at large impact
 parameter.
 
-Three ingredients make this work. (i) A dual tensor structure, $EE$, for which AdS
-curvature produces no helicity mixing at leading Regge order [P]; with the standard
-structure that mixing makes the functional negative at large impact parameter [M]. (ii)
+Three ingredients make this work. (i) A dual tensor structure, $EE$, for which we prove that AdS
+curvature produces no helicity mixing at leading Regge order; with the standard
+structure that mixing makes the functional negative at large impact parameter (in a model). (ii)
 \emph{De-shifting}: the weights are chosen so that, at leading Regge order, every heavy
 state's action equals its flat value exactly (a generalised Abel equation); what is left
 are beyond-leading-Regge corrections, which are what Pos must survive. (iii) The light
 side at $k=4$, where the $R^4$ contact, which grows like the fourth power of the energy, sits
 exactly at the convergence border of the $k=4$ sum rule: its
 contribution is a finite Regge ``arc'', normalised by calibrating against a heavy scalar
-that generates an $R^4$ contact when integrated out, $-\mathcal A_4[R^4]=2g_4$ [D].
+that generates an $R^4$ contact when integrated out; we derive $-\mathcal A_4[R^4]=2g_4$.
 
 \begin{figure}[tb]
 \includegraphics[width=\columnwidth]{fig/fig1_bounds}
