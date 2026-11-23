@@ -201,7 +201,7 @@ if __name__ == '__main__':
                 o[f'{b}/{edge}'] = lam
                 if edge == 'gk' and b == bulk_main:
                     o['E_miss'] = miss; o['E_zero'] = ZCOST[0]
-        edge_main = 'gk' if gk_ok else 'espl'
+        edge_main = 'gk' if gk_ok else ('espl' if np.isfinite(o[f'{bulk_main}/espl']) else 'held')
         main = f'{bulk_main}/{edge_main}'
         o['main'] = o[main]; o['main_key'] = main
         lj = [value(J, mfl, mj, edge_main)[0] for mj in Mj]; sj = jk_sigma(lj)
@@ -210,8 +210,8 @@ if __name__ == '__main__':
         if gk_ok:
             E_quad = 3*abs(o[f'{bulk_main}/gk'] - o[f'{bulk_main}/g7'])
         else:
-            alt = [o[f'{bulk_main}/{e}'] for e in ('eshape', 'held') if np.isfinite(o[f'{bulk_main}/{e}'])]
-            E_quad = 3*max(abs(o[main] - a) for a in alt)
+            alt = [o[f'{bulk_main}/{e}'] for e in ('eshape', 'held') if np.isfinite(o[f'{bulk_main}/{e}']) and e != edge_main]
+            E_quad = 3*max([abs(o[main] - a) for a in alt] + [0.0]) if edge_main != 'held' else np.nan
         E_miss = o.get('E_miss', 0.0) + o.get('E_zero', 0.0)
         o['K1'] = value(J, mfl, MK1, edge_main)[0]
         E_tr = 3*abs(o['K2/' + edge_main] - o['K1']) if bulk_main == 'K2' else 0.0
