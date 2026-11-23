@@ -44,6 +44,15 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 > * **Pooled fits** (7× statistics at ν = 13.3 and 16.3): A + C, 4 nodes: r = −441 ± 180, L 2.3–2.8 (2σ 1.3). A + C, 6 nodes: +147 ± 77, L 2.7–3.4 (2σ 2.0). A + B + C: −102 ± 122, L 7.2–9.0 (2σ 2.9). J ≥ 150 is not feasible (no basis rows; windows at or below the fold), so it stays [M].
 > * **Corrections:** this supersedes the leverage quoted in the N2 and LARGESPIN boxes ("3.0–4.2 (cv), ≥ 4.1 at 2σ; dir 0.8–1.4", "1.1–4.8"). Quote "2.3–3.4 (1.3–2.0 at 2σ); ≥ 2.7 at 2σ given R1". The cv window values in HWIN carry a systematic of ≈ 0.5·|Γ_dir − Γ_CV|. Next cheap step: 4× P_J-twin statistics at ν ≈ 13 (≈ 1.5 CPU-h), giving σ_r ≈ 90 with no λ assumption.
 
+> **Update (DIRCV.md §7, unreviewed): with 4× more P_J-twin statistics the error on r did not shrink. The twin has a heavy tail at ν = 13.3 (tail index ≈ 2.3; one replica sits ≈ 8× from the typical one). Without a λ assumption, the 4-node A+C fit reaches leverage 0.8 at 2σ, so leverage ≤ 1 is no longer excluded in every fit.**
+> * **P_J-cv, no λ, worse helicity:**
+>   * A+C, 4 nodes: r = +534 ± 387, L = 1.8–2.3 central, 0.8 at 2σ.
+>   * A+C, 6 nodes: +289 ± 124, L = 2.7–3.4, 1.7 at 2σ.
+>   * A+B+C: +181 ± 231, L = 4.7–6.0, 1.6 at 2σ.
+> * **λ-corrected numbers unchanged** (combined λ ≈ 0.6 ± 0.25): A+C 2.3–3.4 central (1.3–2.0 at 2σ); A+B+C 7–9 central (2.9 at 2σ). Every central leverage is ≥ 1.8.
+> * **The earlier 56-replica P_J-cv cross-check was not robust** (e.g. `++` 4-node −393 ± 174 → +23 ± 380); the bracketed numbers in the DIRCV box above are superseded.
+> * **Next:** add window nodes at ν = 11–15 so the fit leans less on ν = 13.3, or use a variance-bounded twin at that node. More plain samples are inefficient.
+
 ## 0. Grades
 
 | grade | meaning |

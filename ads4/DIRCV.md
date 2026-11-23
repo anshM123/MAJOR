@@ -272,3 +272,57 @@ The full table, including the 6-node F1 and F1B fits, is in `cache/dc_lev_pool.t
 * **Caches:** `cache/pw_pts_J100_D1100_x{1,2}{,P}.pkl` (new seeds) and `_pool{,P}.pkl`; per-point samples in `tail_*.pkl`; the text
   results named above.
 * **Nothing is running.**
+
+---
+
+## 7. Addendum: 4× P_J-twin statistics at ν = 13.3 (the λ-free route) [NE]
+
+*Code:*
+* `dc_ptwin.py` (P_J twin only: state + reference, same contour and proposal as production);
+* `run_ptwin.sh`: seeds 5001 and 6001, 84 replicas each, for +168 replicas;
+* `dc_pool.py` now takes separate P_J tags and an output tag; `DC_INTERLEAVE=1` sets the grouping;
+* `dc_pjseed.py`.
+
+*Compute:* +1.65 CPU-h, two processes. The total for DIRCV is ≈ 3.9 CPU-h.
+
+**Data.** The P_J twin at ν = 13.3 now pools 224 replicas (8 + 24 + 24 + 84 + 84), 4× the 56 of §2.6. The waves are unchanged. The
+pool is `_pool2`, contiguous groups of 28; `_pool2i` is the same pool grouped by interleaving.
+
+**Result: the error did not drop to ≈ 90.** The P_J twin at ν = 13.3 has a heavy tail at the replica level.
+* The seeds agree with each other: the state quantity log(G_P/S_P) has χ² = 3.6/4 over the 5 seeds (`dc_pjseed.txt`). So there is no
+  sign of bias.
+* But one replica of seed 6001 has a leave-one-out pseudo-value ≈ 8× the typical one. That run also had 6 dropped points and maximum
+  winding 3.07. Seed 6001 alone has twice the error of seed 5001 at equal size.
+* This matches the P_J per-point Hill index α ≈ 2.3–2.4 (§2.5): the variance is barely finite.
+* The jackknife error of r therefore depends on the grouping (contiguous vs interleaved: 306 vs 380 on 4 nodes). The larger one
+  (interleaved: seeds spread evenly, so the groups are closer to i.i.d.) is quoted below.
+* **The earlier 56-replica P_J-cv values (§0 brackets, §2.6) were not robust.** For example, F1 4-node `++` moved from −393 ± 174 to
+  +23 ± 380.
+
+**λ-free (P_J-cv) remainder and leverage at (1100, 100).** Worse helicity in bold.
+
+| class (fit) | r `++` (rms) | r `+−` (rms) | L central | L at 2σ |
+|---|---|---|---|---|
+| A + C, 4 pw nodes | +23 ± 380 (39) | **+534 ± 387 (96)** | **1.8–2.3** | **0.8** (`++`: 1.4) |
+| A + C, 6 nodes | **+289 ± 124 (133)** | −35 ± 124 (250) | **2.7–3.4** | **1.7** (`+−`: 2.2) |
+| A + B + C, 6 nodes | +181 ± 231 (60) | +184 ± 232 (59) | **4.7–6.0** | **1.6** |
+
+(With the contiguous grouping the r errors are 306 / 313, 87 / 91 and 171 / 175. The 2σ leverages are then 1.7 / 0.9, 1.9 / 2.5 and
+2.0 / 1.9.)
+
+**Effect on λ.** The P_J-cv centre moved towards cv.
+* Compared without pairing with the per-wave family r(λ), it now prefers λ ≈ 1.4–1.7 ± 0.7.
+* The raw state-level test is unchanged (0.55 ± 0.29; the waves were not rerun), and k = 3 gives 0.43 ± 0.50.
+* Combined: **λ ≈ 0.6 ± 0.25**. The λ-corrected table of §0 (λ = 0.5 ± 0.25) moves by less than its errors (e.g. A + C 4 nodes `++`:
+  r ≈ −390 ± 200, L = 2.5, 1.35 at 2σ).
+
+**Net (supersedes the bracketed P_J-cv numbers in §0):**
+* **λ-corrected per-wave estimator** (§0, unchanged): A + C 2.3–3.4 central, 1.3–2.0 at 2σ; A + B + C 7–9 central, 2.9 at 2σ.
+* **λ-free P_J-cv (this section):** A + C 1.8–3.4 central, **0.8–1.7 at 2σ**; A + B + C 4.7–6.0 central, **1.6 at 2σ**.
+* **Correction to §0's last bullet.** "A leverage ≤ 1 is excluded at ≥ 2σ in every fit" holds only for the λ-corrected estimator.
+  Without any λ assumption, the 4-node A + C fit reaches **0.8 at 2σ** (`+−`). The 6-node A + C fit and the full ring class stay at
+  ≥ 1.6 at 2σ.
+* **Central leverages are > 1.8 in every variant.**
+* **Next step.** More P_J statistics at ν = 13.3 do not help efficiently, because of the heavy tail. Either:
+  * a variance-bounded twin at 13.3 (both waves on one contour, or a tail-robust proposal); or
+  * more window nodes (ν ≈ 11–15) to reduce the 4-node fit's leverage on ν = 13.3.

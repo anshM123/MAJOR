@@ -15,6 +15,7 @@ E = S.E
 DG = 1000.0
 NU_W = 50.0
 _DC = {}
+_HC = {}
 
 
 def _d(J, mfl, npn=1024):
@@ -63,3 +64,48 @@ def cost_x(J, mfl, fx, numin=0.0, numax=NU_W, gauge=True):
     """cost of an envelope given as a function of x (= nu/m_state; the chain's rows are used at fixed x)."""
     m = mfl*E.lam_of(DG)
     return cost(J, mfl, lambda nu: fx(nu/m), numin, numax, gauge)
+
+
+def cost_entries(J, mfl, gfun, numin=0.0, numax=NU_W, gauge=True):
+    """as cost(), but with a separate envelope per matrix entry: gfun(entry, x) for entry in ('+-',) (odd) or ('++', '+-', 'off')
+    (even; 'off' bounds |c_off| = m|Gamma_off|), x = nu/m_state.  Same errmat structure (Frobenius of the normalised 2x2)."""
+    d = _d(J, mfl)
+    nu = d['nu']; x = nu/d['m']
+    sel = (nu >= numin) & (nu < numax)
+    g = d['gf'] if gauge else 1.0
+    hs = d['hs']; Ns = d['Ns']; n = len(hs)
+    M = np.zeros((n, n))
+    for i, h in enumerate(hs):
+        a2, a3 = d['abs'][h]
+        M[i, i] = ((a2 + a3)*gfun(h, x)*g)[sel].sum()/Ns[i]
+    if n == 2:
+        a2, a3 = d['abs']['off']
+        M[0, 1] = M[1, 0] = ((a2 + a3)*gfun('off', x)*g)[sel].sum()/np.sqrt(Ns[0]*Ns[1])
+    return float(np.sqrt((M*M).sum()))
+
+
+def signed_dF(J, mfl, gam, numin=0.0, numax=NU_W):
+    """signed window contribution: dF matrix (normalised by sqrt(Ns_i Ns_j)) of Gamma given as gam(key, x) for key in
+    ('C2', h) / ('C3H', h) (h = '++', '+-', 'off'; 'off' = c_off) or 'C2' / 'C3H' (odd), on numin <= nu < numax, with the chain's
+    own density weights (ng_chain.dens: psi_k env_k / m^2; off: eo2 c_off / m^2).  Returns (dF raw, base, Ns)."""
+    Q = S.Q
+    Lm = E.lam_of(DG); m = mfl*Lm
+    hs = ['+-'] if J % 2 else ['++', '+-']
+    kk = (J, round(mfl, 9))
+    if kk not in _HC:
+        _HC[kk] = {h: E.hyb(DG, J, mfl, h, 1024) for h in hs}
+    st = _HC[kk]
+    s0 = st[hs[0]]; x, u, y = s0['x'], s0['u'], s0['y']
+    nu = s0['pn']*Lm
+    sel = (nu >= numin) & (nu < numax)
+    env = Q.P4.env if J % 2 else Q.A.env
+    n = len(hs); dF = np.zeros((n, n))
+    for i, h in enumerate(hs):
+        k2 = 'C2' if J % 2 else ('C2', h); k3 = 'C3H' if J % 2 else ('C3H', h)
+        v = st[h]['p2']*env(h, x, 2)*gam(k2, x)/m**2 + st[h]['p3']*u*env(h, x, 3)*gam(k3, x)/m**2
+        dF[i, i] = v[sel].sum()
+    if n == 2:
+        eo2 = np.sqrt(Q.A.env('++', x, 2)*Q.A.env('+-', x, 2))
+        v = s0['p2']*eo2*gam(('C2', 'off'), x)/m**2 + s0['p3']*u*eo2/(2 - y)*gam(('C3H', 'off'), x)/m**2
+        dF[0, 1] = dF[1, 0] = v[sel].sum()
+    return dF, np.array([st[h]['base'] for h in hs]), np.array([st[h]['Ns'] for h in hs])
