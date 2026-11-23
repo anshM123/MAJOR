@@ -85,6 +85,26 @@ Grades are as in UNIFIED_THEOREM_v3 §0. **"c₂ units"**: a coefficient κ of a
 > * **Theorem W:** the 2×2 criterion d ≤ H is correct and sharp (200 000 random tests). All J\* table entries are reproduced. The Gershgorin factor is ≤ 1.5 only if f₊₊ ≈ f₊₋ (otherwise up to 3; 1.50–1.53 on the samples). **Main qualification: d omits the k = 3 piece of the corrections. Including it moves J\* 50 → 64 at (3, 10, 10), 30 → 33, and 64 → 80**; the J = 50, 51 states fail at d/H ≈ 1.24. This must be stated as a named premise or used as the J\*. The cache stores the 4a/4b shapes with 1/m² instead of 1/m⁴ (documentation slip only).
 > * **⟨TTO⟩ counts:** verified against DKKPS's TTTT.tex table and by an independent helicity count (ℓ ≤ 11).
 
+> **Update (P2_CONTRACT.md, unreviewed): the helicity model is replaced by an exact three-channel computation at all 47 Theorem W sample states. All of P2 (Λ_amp, K_sh, P2′, P3) is now computed [DV]. P4 (beyond-hybrid O(1/m⁴) and beyond-all-orders) is the only magnitude premise left, and it is still open [I]: the state-wise scalar O(1/m⁴) remainder costed to ν ≈ m exceeds tolerance at every sampled J ≥ 80 except 301.**
+> * **Engine:** an exact leading-Regge EE plane-wave image engine with any polarisation and insertion (all three channels). It reproduces the heavy images (ratio 1.000000), the R∓ normalisation, and CHMRS ∂_p to 10⁻¹⁵.
+> * **Computed constants:**
+>   * Λ_B (block) = Λ_C2 = 1 exactly.
+>   * The kernel's own O(r) term is ring class with κ_B = ±2, giving **Λ_B(+−, odd J) ≈ 2.0 (worse than the model)**; Λ_B(++) ≤ 0.09.
+>   * C1(+−) ≈ 200× scalar (harmless); Λ_A ≈ 6–8 (a rescaling).
+>   * Off-diagonal ++/+− at O(1/m²) = 0. The O(1/m) image after drift removal = 0, so P1′ is [DV] at leading-Regge kernel level and the (S) failure cannot act.
+>   * **The monopole cancels between block and kernel (∓12.8 vs ±12.8), so PW-R1 holds for ⟨TTTT⟩ at O(1/m²).**
+>   * Exact O(1/m²) cost/H: ≤ 0.41 (J = 26), ≤ 0.05 (J ≥ 64), ≤ 0.005 (J ≥ 200).
+>   * κ_B(+−) ≈ 3.8 matches the (1100, 100) B fits [NE].
+> * **Flat ν⁶ tower:** subtracted exactly at O(y): the block reproduces the flat partial waves E₂d⁰⁰ and E₂d⁴⁴, and with the kernel's O(r) term gives exactly the hybrid's stripped flat part. At O(y²) the ++ case matches up to an unexplained +(3/16)J₀y²; +− at this order is [D-sketch].
+> * **P4 remainder:** scalar O(1/m⁴) minus the flat tower gives K₄ ≲ 3 for J ≤ 50 (exceptions J = 46: 26.6; J = 26, 34 marginal), 10–16 at J = 64, and 20–7·10³ at J ≥ 80. The cause is the AdS/flat kinematic mismatch when costed to ν ≈ Λ ≈ m, where the fixed-β series is invalid. **P4 needs a ν-window statement instead of the truncated full-range series.**
+> * **Theorem W [P given P0, P1′, P4] + [DV]:** J\* = 26 (K₄ = 0), 30 (K₄ = 1), 38 (K₄ = 4), 50 (K₄ = 10), 100 (K₄ = 35), at θ = 1. With the state-wise computed scalar remainder there is no J\*: only J = 30, 33, 38, 42, 50, 64 and 301 pass.
+> * **Open:**
+>   * P4 (a ν-window bound, plus the spinning O(1/m⁴) symbols and the kernel O(r²) term);
+>   * the (3/16)J₀y² residual;
+>   * P1′ beyond the leading-Regge kernel;
+>   * the J = 0 engine comparison;
+>   * behaviour between samples.
+
 ## 0. Summary
 
 | # | claim | grade | explicit constants / J\* | residual |
