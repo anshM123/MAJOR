@@ -178,9 +178,10 @@ def side_table(side, spin, nus, pol_pairs, alphas, grad, b=6, astruct=None):
         lref = _lk((b - 3) + delta, delta)
     groups = side_groups(side, spin, astruct)
     npol, nal, ngr = len(pol_pairs), len(alphas), len(grad)
-    out = np.zeros((len(nus), npol, nal, ngr, NPHI), complex)
+    out = np.zeros((len(nus), npol, nal*ngr, NPHI), complex)
     insP = [opoly_ins(a) for a in alphas]
     grP = [one() if g is None else opoly_dir(np.eye(3)[g]) for g in grad]
+    IG = np.array([jmul(insP[ia], grP[ig]) for ia in range(nal) for ig in range(ngr)])        # (nal*ngr, NM)
     for (kf, mf, terms) in groups:
         k = np.asarray(kf(delta), complex)*np.ones_like(delta); m = np.asarray(mf(delta), complex)*np.ones_like(delta)
         c = (b - 3) + k; lam = -m; kap = (2*lam - c - 3)/2
@@ -200,12 +201,10 @@ def side_table(side, spin, nus, pol_pairs, alphas, grad, b=6, astruct=None):
                 if not np.any(W):
                     continue
                 base = jmul(opoly_pow(eP, i), opoly_pow(fP, j))
-                for ia in range(nal):
-                    b1 = jmul(base, insP[ia])
-                    for ig in range(ngr):
-                        Q = jmul(b1, grP[ig])                               # operator polynomial (NM,)
-                        val = np.einsum('npg,g->np', D, Q)                  # (nu, phi)
-                        out[:, ip, ia, ig, :] += (Kr[:, None]*W*val)
+                Qs = jmul(base[None, :], IG)                                # (nal*ngr, NM)
+                val = np.einsum('npg,qg->npq', D, Qs)                       # (nu, phi, q)
+                out[:, ip] += np.transpose(Kr[:, None, None]*W[:, :, None]*val, (0, 2, 1))
+    out = out.reshape(len(nus), npol, nal, ngr, NPHI)
     H = np.fft.fft(out, axis=-1)/NPHI                                       # harmonic k at index k mod NPHI
     ks = np.arange(-KH, KH + 1)
     return H[..., ks % NPHI], np.abs(H[..., (np.arange(KH + 1, NPHI - KH)) % NPHI]).max() if NPHI > 2*KH + 1 else 0.0
