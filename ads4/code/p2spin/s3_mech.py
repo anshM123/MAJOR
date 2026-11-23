@@ -80,7 +80,8 @@ def apply_insertion(poly, P0, Pb0, a):
     Ps, Qs, G, F = deriv_table(a)
     poly = sp.Poly(sp.expand(poly), *X, *Y)
     sub = dict(zip(Ps, P0)); sub.update(dict(zip(Qs, Pb0)))
-    F0 = F.subs(sub)
+    nP = sp.sqrt(-mdot(Ps, Ps)); nQ = sp.sqrt(-mdot(Qs, Qs))
+    F0 = (nP**(-a)*nQ**(-a)).subs(sub)          # divide by the radial factor only (G kept)
     tot = 0
     for mon, c in poly.terms():
         expr = F

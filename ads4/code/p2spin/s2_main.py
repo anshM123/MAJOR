@@ -97,15 +97,63 @@ def main():
     pr(f'helicity basis (even J): same = {HB["same"][0]}*b0 + {HB["same"][1]}*b1 ;  opp = {HB["opp"][0]}*b0 + {HB["opp"][1]}*b1')
     res['lead'] = lead; res['HB'] = HB
     pr(f'   [{time.time() - t0:.0f}s]')
-    # ---- orders 1, 2, symbolic X, Y, at q in QS
+    # ---- orders 1, 2 at q in QS: exact polynomial interpolation in (X, Y) (degree <= order), from rational points
     PS.ORDER = 2
     X = S2.xs; Y = S2.ys
     res['orders'] = {}
+    import random, itertools
+    mons = [()] + [(i,) for i in range(6)] + [(i, j) for i in range(6) for j in range(i, 6)]          # 28 monomials, degree <= 2
+    def monval(pt, mon):
+        r = sp.Integer(1)
+        for i in mon:
+            r *= pt[i]
+        return r
+    rng = random.Random(42)
+    def rpt():
+        while True:   # future timelike X, Y (u, v > 0, y^2 < u v), rational
+            u1, v1, u2, v2 = [sp.Rational(rng.randint(1, 30), rng.randint(1, 9)) for _ in range(4)]
+            y1 = sp.Rational(rng.randint(-9, 9), 10)*sp.sqrt(u1*v1); y2 = sp.Rational(rng.randint(-9, 9), 10)*sp.sqrt(u2*v2)
+            y1 = sp.nsimplify(sp.floor(y1*7)/7); y2 = sp.nsimplify(sp.floor(y2*7)/7)
+            if y1**2 < u1*v1 and y2**2 < u2*v2:
+                return (u1, v1, y1, u2, v2, y2)
+    NPT = len(mons) + 4
+    pts = [rpt() for _ in range(NPT)]
+    Mat = sp.Matrix([[monval(pt, mo) for mo in mons] for pt in pts[:len(mons)]])
+    Minv = Mat.inv()
+    polyX = [sp.Integer(1)] + list(X) + list(Y)
+    allv = list(X) + list(Y)
+    def interp(vals_per_pt):
+        """vals_per_pt: list over points of {mode: value}; returns {mode: polynomial} and a check on the extra points."""
+        keys = set().union(*[set(v) for v in vals_per_pt])
+        out = {}; maxres = 0
+        for kk in keys:
+            b = sp.Matrix([vals_per_pt[i].get(kk, 0) for i in range(len(mons))])
+            c = Minv*b
+            poly = sum(ci*monval(allv, mo) for ci, mo in zip(c, mons))
+            for i in range(len(mons), NPT):
+                r = sp.simplify(poly.subs(dict(zip(allv, pts[i]))) - vals_per_pt[i].get(kk, 0))
+                maxres = max(maxres, abs(complex(sp.N(r))))
+            if sp.expand(poly) != 0:
+                out[kk] = sp.expand(poly)
+        return out, maxres
     for qv in QS:
         sm = {}
         for sec, sig, k in fams:
-            v, ms = sym_modes('L', (sec, sig), can[(sec, sig)][k], X, Y, qv)
-            sm[(sec, sig, k)] = (v, ms)
+            per = [[], [], []]
+            for pt in pts:
+                v, ms = sym_modes('L', (sec, sig), can[(sec, sig)][k], pt[:3], pt[3:], qv)
+                assert v == 0
+                for o in range(3):
+                    per[o].append(ms[o])
+            ords = []
+            for o in range(3):
+                d, mr = interp(per[o])
+                ords.append(d)
+                if mr > 1e-20:
+                    pr(f'   WARNING: interpolation residual {mr:.2e} ({sec}, {sig}, {k}, order {o})')
+            pr(f'   [{sec} sigma={sig:+d} basis {k}] q={qv}: orders interpolated exactly (degree <= 2 in X, Y; residual on '
+               f'{NPT - len(mons)} extra points = 0)   [{time.time() - t0:.0f}s]')
+            sm[(sec, sig, k)] = (0, ords)
         # helicity combos
         hb = {}
         for h in ('same', 'opp'):

@@ -128,6 +128,18 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 >   * 150 ≤ J < 857 near the gap: the hardest band, still numeric/model.
 >   * Route W covers J ≥ 50 given scalar-size coefficients and R1. Both routes stall on the same object: the EE-kernel polarisation contraction beyond leading order.
 
+> **Update (P2_SPINNING.md, unreviewed): steps 1–2 done; step 3 done only inside a labelled model [M]. P2 is not closed, and H_LJ(1000) stays [D-sketch + M]. Do not read this as "Λ_amp = 1 derived".**
+> * **Step 1 [DV + Q]: conserved ⟨TTO_{Δ,J}⟩ in d = 3, solved exactly over ℚ(Δ,J).** Generic even J: 2 parity-even + 1 parity-odd structure; odd J: 1 parity-odd. This matches Dymarsky–Kos–Kravchuk–Poland–Simmons-Duffin 1708.05718; conservation checked to 4·10⁻²⁷. The odd-J "+−" structure is parity-odd.
+> * **Step 2 [D + DV]: heavy symbols to O(1/m²).** The leading symbols are pure helicity. The shadow side is exactly m → −m. O(1/m) is a basis drift plus a Wigner phase. **P1 is now [D given (S)]**, where (S) is that the shadow coefficients are diagonal in the helicity basis with positive leading entries [D-sketch]; check against 1809.05111.
+> * **Step 3:** the CHMRS ∂_p mechanism reproduces CHMRS's O(1/m²) scalar series [DV] (ν⁰P off by exactly 8η, from normalisation). By-product [NE]: N2's unexplained "−8…−9·P" scalar residual is −8ηP at all 8 states. **Model [M]** (helicity-diagonal kernel): the spinning symbol adds nothing to the ν² classes, giving Λ_amp(B) = Λ_amp(C2) = 1, Λ_A = 3.17, Λ_C3 = 2.03. In the conjugate pairing, Λ_C1 ≈ 205. The (1100,100) and (364,64) fits bracket the model (inconclusive).
+> * **Theorem W rerun (model constants):** J\* = 50 with R1 or in stripped form at K_sh = 10, K₄ = 10; 30 at K₄ = 1; fails at J = 300 and 344 if K_sh ≥ 30 without R1. **Now binding:** K₄ (below J = 50) and K_sh (J ≥ 300), both [M]. In the model, R1 is not needed at margin ×1. Helicity leakage into the non-de-shift channels is ≲ 10² at O(1/m²), possibly 1.8·10³ in the even basis; estimate κ ≲ 30 [M] against a tolerance of 52–59 at J = 300–344.
+> * **Remaining:**
+>   * the true three-channel kernel contraction at O(1/m²) (overlaps PW_IMAGES);
+>   * K_sh from the kernel's O(r) terms;
+>   * K₄ to O(1/m⁴) (cheap);
+>   * the (S) check;
+>   * the J = 0 engine O(a²) comparison.
+
 ## 0. Grades
 
 | grade | meaning |

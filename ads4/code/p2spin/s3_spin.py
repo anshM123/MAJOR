@@ -46,8 +46,7 @@ def ring(poly, P, Pb):
         return (0, 0, 0, 0)
     expr, et0, reps = M.apply_insertion(sp.expand(poly), P, Pb, A)
     c0, c1 = M.reduce_legendre(expr, reps, et0)
-    G0 = sp.Symbol('G0')
-    c0 = sp.expand(sp.simplify(c0*G0)); c1 = sp.expand(sp.simplify(c1*G0))     # apply_insertion divides by F0 = |P|^-a G0
+    c0 = sp.expand(c0); c1 = sp.expand(c1)
     return (c0.coeff(M.nu2, 1), c0.coeff(M.nu2, 0), c1.coeff(M.nu2, 1), c1.coeff(M.nu2, 0))
 
 
@@ -84,24 +83,27 @@ def main():
                     ser.append([sp.expand(sp.expand(x).subs(LC)) for x in v])
                 Ls[(h, t)] = ser
         mat = {}
-        for h in ('same', 'opp'):
+        for pairing in ('direct', 'conj'):
+          for h in ('same', 'opp'):
             for h2 in ('same', 'opp'):
                 for t in ('same', 'opp'):
-                    tot = 0
+                    tot = 0; o1 = 0
                     for im in range(2):                       # each of the two conjugate modes, averaged
-                        l = [Ls[(h, t)][o][im] for o in range(3)]; r = [Ls[(h2, t)][o][im]*(-1)**o for o in range(3)]
+                        jm = im if pairing == 'direct' else 1 - im     # right mode paired with left mode im
+                        l = [Ls[(h, t)][o][im] for o in range(3)]; r = [Ls[(h2, t)][o][jm]*(-1)**o for o in range(3)]
                         tot += (l[0]*r[2] + l[1]*r[1] + l[2]*r[0])/2
-                    tot = sp.expand(tot)
-                    # O(eps^1) check: l0 r1 + l1 r0
-                    o1 = sp.expand(sum((Ls[(h, t)][0][im]*(-Ls[(h2, t)][1][im]) + Ls[(h, t)][1][im]*Ls[(h2, t)][0][im])/2 for im in range(2)))
-                    re = sp.expand((tot + sp.conjugate(tot))/2) if tot.has(sp.I) else tot
+                        o1 += (l[0]*r[1] + l[1]*r[0])/2
+                    tot = sp.expand(tot); o1 = sp.expand(o1)
+                    re = sp.expand((tot + tot.subs(sp.I, -sp.I))/2)          # X, Y real
                     im_part = sp.expand(tot - re)
-                    rr = ring(re, P, Pb)
-                    mat[(h, h2, t)] = dict(ring=rr, o1=o1, im=im_part, lead=(Ls[(h, t)][0][0]*Ls[(h2, t)][0][0]))
-                    pr(f'   M[{h},{h2}] via class {t}: leading weight {sp.nsimplify(mat[(h, h2, t)]["lead"])}; O(eps) part '
-                       f'{"0" if o1 == 0 else str(sp.factor(o1))[:80]}; eps^2 symbol -> nu^2 P: {float(rr[0]):+.5f}, '
+                    zero = {v: 0 for v in M.X + M.Y}
+                    cst = re.subs(zero)                      # X,Y-independent part: basis/normalisation drift (congruence class, W1c)
+                    rr = list(ring(sp.expand(re - cst), P, Pb)); rr.append(cst)
+                    mat[(pairing, h, h2, t)] = dict(ring=rr, o1=o1, im=im_part, lead=sp.expand((lambda z: (z + z.subs(sp.I, -sp.I))/2)(sp.expand(Ls[(h, t)][0][0]*Ls[(h2, t)][0][0]))))
+                    pr(f'   [{pairing}] M[{h},{h2}] via class {t}: leading weight {sp.nsimplify(mat[(pairing, h, h2, t)]["lead"])}; '
+                       f'O(eps) part {"0" if o1 == 0 else str(sp.factor(o1))[:70]}; eps^2 symbol -> nu^2 P: {float(rr[0]):+.5f}, '
                        f'nu^0 P: {float(rr[1]):+.5f}, nu^2 P\': {float(rr[2]):+.5f}, nu^0 P\': {float(rr[3]):+.5f}'
-                       + ('' if im_part == 0 else f'  [imag part dropped: {str(im_part)[:60]}]'))
+                       + ('' if im_part == 0 else f'  [imag part: {str(im_part)[:50]}]'))
         # leakage: modes outside the |h| = 2 classes, at orders 1, 2 (constant term size and X,Y polynomial size)
         for h in ('same', 'opp'):
             for o in (1, 2):
@@ -113,15 +115,17 @@ def main():
                 pr(f'   leakage of {h} at order {o}: modes {sorted(lk)}; max |polynomial coefficient| / leading = {mx:.3g}')
         res[qv] = dict(seed=seed, mat=mat, eta=eta0)
         # Lambda_amp(model): spinning total = seed (x leading weight) + symbol, per class; operator norm over (same, opp)
-        for k, lab in ((0, 'B  (nu^2 P)'), (2, 'C2 (nu^2 P\')')):
-            Mx = np.zeros((2, 2))
-            for i, h in enumerate(('same', 'opp')):
-                for j, h2 in enumerate(('same', 'opp')):
-                    Mx[i, j] = float(sum(mat[(h, h2, t)]['ring'][k] + (seed[k]*mat[(h, h2, t)]['lead'] if True else 0)
-                                         for t in ('same', 'opp')))
-            ev = np.linalg.eigvalsh((Mx + Mx.T)/2)
-            pr(f'   {lab}: spinning 2x2 (seed + symbol) = {np.round(Mx, 5).tolist()}; eigenvalues {np.round(ev, 5).tolist()}; '
-               f'scalar {float(seed[k]):.5f}; Lambda_amp(model) = {max(abs(ev))/abs(float(seed[k])):.3f}')
+        for pairing in ('direct', 'conj'):
+            for k, lab in ((0, 'B  (nu^2 P)'), (2, 'C2 (nu^2 P\')'), (1, 'nu^0 P [X,Y-dep.]'), (3, 'nu^0 P\''), (4, 'const (normalisation)')):
+                Mx = np.zeros((2, 2)); Ms = np.zeros((2, 2))
+                for i, h in enumerate(('same', 'opp')):
+                    for j, h2 in enumerate(('same', 'opp')):
+                        Ms[i, j] = float(sum(mat[(pairing, h, h2, t)]['ring'][k] for t in ('same', 'opp')))
+                        Mx[i, j] = Ms[i, j] + (float(seed[k]) if k < 4 else 0.0)*float(sum(mat[(pairing, h, h2, t)]['lead'] for t in ('same', 'opp')))
+                ev = np.linalg.eigvalsh((Mx + Mx.T)/2); evs = np.linalg.eigvalsh((Ms + Ms.T)/2)
+                pr(f'   [{pairing}] {lab}: symbol-only 2x2 = {np.round(Ms, 5).tolist()} ; seed+symbol eigenvalues {np.round(ev, 5).tolist()}; '
+                   f'scalar {float(seed[k]) if k < 4 else float("nan"):.5f}; ratio max|eig|/|scalar| = {max(abs(ev))/abs(float(seed[k])) if k < 4 else float("nan"):.3f}; '
+                   f'symbol-only max|eig|/|scalar| = {max(abs(evs))/abs(float(seed[k])) if k < 4 else float("nan"):.3f}')
     pickle.dump({sp.srepr(q): {'seed': [sp.srepr(sp.sympify(x)) for x in r['seed']],
                                'mat': {k: [sp.srepr(sp.sympify(x)) for x in v['ring']] for k, v in r['mat'].items()},
                                'lead': {k: sp.srepr(sp.sympify(v['lead'])) for k, v in r['mat'].items()}}

@@ -44,7 +44,8 @@ if __name__ == '__main__':
             for th in (1.0, 0.5):
                 js, f = jstar(form, uni(La), Ksh, K4, th)
                 pr(f'  {lab} Lam={La} K_sh={Ksh} K4={K4} theta={th}: J* = {js}  fails {f}')
-    cfg = json.load(open(os.path.join(HERE, 'cache', 's4_premises.json'))) if os.path.exists(os.path.join(HERE, 'cache', 's4_premises.json')) else []
+    # model premise constants of P2_SPINNING.md §3.2 (direct / conj pairing of the helicity-diagonal kernel model [M])
+    cfg = [{"label": "model-direct, K_sh=10, K4=1", "lam": {"A": 3.17, "B": 1.0, "C1": 1.0, "C2": 1.0, "C3": 2.03}, "Ksh": 10, "K4": 1}, {"label": "model-direct, K_sh=10, K4=10", "lam": {"A": 3.17, "B": 1.0, "C1": 1.0, "C2": 1.0, "C3": 2.03}, "Ksh": 10, "K4": 10}, {"label": "model-direct, K_sh=30, K4=10", "lam": {"A": 3.17, "B": 1.0, "C1": 1.0, "C2": 1.0, "C3": 2.03}, "Ksh": 30, "K4": 10}, {"label": "model-conj, K_sh=10, K4=10", "lam": {"A": 11.5, "B": 1.0, "C1": 205.0, "C2": 1.0, "C3": 6.4}, "Ksh": 10, "K4": 10}, {"label": "model-direct, K_sh=50, K4=10", "lam": {"A": 3.17, "B": 1.0, "C1": 1.0, "C2": 1.0, "C3": 2.03}, "Ksh": 50, "K4": 10}]
     for c in cfg:
         lam = {k: c['lam'].get(k.strip(), c['lam'].get(k, 1.0)) for k in SC}
         for form, lab in ((0, 'R1 (de-shift)'), (1, 'R2 (stripped)')):
