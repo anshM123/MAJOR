@@ -121,7 +121,7 @@ if __name__ == '__main__':
             base = load(os.path.join(CODE, 'highspin', 'cache', fn))
             allp = dict(old)
             if J in JOBA:
-                fs = ext_job_files(JOBA[J], kind, J, D)
+                fs = ext_job_files(JOBA[J], kind, J, D) + (ext_job_files('E_edge_J31', kind, J, D) if J == 31 else [])  # batch 2: J=31 GK15 edge
                 n0 = sum(1 for k in allp if k[0] == D)
                 for f in fs:
                     merge_into(allp, load(f), 'ext:' + os.path.basename(os.path.dirname(f)), kind, J)

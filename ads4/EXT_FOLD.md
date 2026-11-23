@@ -345,3 +345,21 @@ python3 ef_summary.py                                 # -> cache/ef_summary.txt 
 6. **J = 29:** the heavy-tailed streams make the jackknife σ itself uncertain. The χ² tests use block σ and are not sensitive to a single
    outlier stream at the level that matters here.
 7. Only the masses listed were evaluated; between them, `H_cont` as before.
+
+## Addendum: batch 2 (J = 31 GK15 edge window, external machine)
+
+11 GK15 edge nodes on [0.8, Λ/m = 0.970342] (nodes above x = 0.945 skipped, as for J = 23, 27) were computed on the external machine
+(`ext/jobs_batch2.txt`, `ext/results/ext_results_batch2.json`) and merged (`ef_merge.py` now also reads tag `E_edge_J31`); `ef_oddrun.py 31`
+and `ef_window.py 31` were rerun unchanged (batch-1 outputs kept as `cache/hs_odd_J31_batch1.txt`, `cache/sn_odd_J31_batch1.txt`).
+
+| J = 31 | value (dir/gk) | λ-level budget (mc, quad, miss, repr) | L, window ×3 envelope | L, signed window | grade |
+|---|---|---|---|---|---|
+| twist edge 1.0306Λ | +0.862 ± 0.023 (was +0.805 spline) | 0.828 (0.070, 0.213, 0.167, 0.377) | 0.31 → **0.70** | **0.85** | [NE + M] unchanged |
+| 1.04Λ | +0.869 | 0.478 | 0.53 → **1.00** | 1.29 | [NE + M] (borderline) |
+| 1.05Λ | +0.907 | 0.357 | 0.83 → **1.22** | 1.65 | [NE + M] → **[NE±]** |
+| 1.075 / 1.10Λ | +0.926 / +0.964 | 0.246 / 0.178 | 1.55 / 1.90 | 2.19 / 2.79 | [NE±] (unchanged) |
+
+The unmeasured edge tail (1.85 N_s sign-free in batch 1) is now replaced by GK quadrature: its remaining costs are the GK-vs-Gauss-7 quadrature
+estimate (0.213) and the skipped nodes x > 0.945 covered sign-free (0.167). The binding term at the twist edge is the same noise-amplified
+degree-7 representation probe (0.377) as for J = 23 (§3.2); with a noise-aware representation term J = 31's twist edge would still be ≈ 0.9,
+so J = 31's twist edge stays [NE + M]. No value came out negative.

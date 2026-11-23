@@ -519,6 +519,8 @@ A chain carries the grade of its weakest link.
 >   * Job C (J = 400) failed: a float SVD failure in the conserved-structure solver at large J.
 > * **Code issues:** hs_odd.py's non-GK edge lacks a sign-free tail term, and its degree-7 representation probe is noise-amplified on direct rows.
 
+> **Update (EXT_FOLD addendum, batch 2):** the J = 31 GK15 edge points from the external machine replace the unmeasured edge tail. J = 31's twist edge goes +0.805 → +0.862 ± 0.023, L 0.31 → 0.70 (×3 window envelope) / 0.85 (signed); it stays [NE+M], limited by the noise-amplified representation probe (0.377) and the edge quadrature (0.213 + 0.167). **J = 31 at 1.05Λ → [NE±]** (L 1.22); 1.04Λ is borderline (1.00). Nothing negative.
+
 ## 1. Setup and normalisations
 
 | item | definition |
