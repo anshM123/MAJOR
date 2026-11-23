@@ -44,10 +44,10 @@
 \newcommand{\HLJstatusA}{The Regge window of $H_{\rm LJ}(300)$ (near-gap spins
 $J\ge34$) has been closed at grade \HLJgrade\ (\HLJsource); this is why we
 headline $\Delta_g=300$.}
-\newcommand{\HLJstatusB}{At $\Delta_g=300$ one covering hypothesis is open [I]:
-the Regge window of the near-gap large-spin hypothesis $H_{\rm LJ}(300)$ for
-spins $J\ge34$, where no graviton data exist and the $1/\Delta$ expansion we use
-is only asymptotic. We therefore headline $\Delta_g=1000$.}
+\newcommand{\HLJstatusB}{At $\Delta_g=300$ one covering hypothesis is open [I] (the
+Regge window of the near-gap large-spin hypothesis for $J\ge34$), so we headline
+$\Delta_g=1000$.}
+% (v6: shortened from the v5 wording; same content.)
 \newcommand{\HLJstatus}{\ifHLJclosed\HLJstatusA\else\HLJstatusB\fi}
 
 \newcommand{\HLJweakest}{\ifHLJclosed
@@ -76,6 +76,7 @@ at $\Delta_g=300$ the window of $H_{\rm LJ}(300)$ for $J\ge34$ is open [I]%
 \HSdraftfalse
 \newcommand{\HS}{\ifHSdraft\textsuperscript{\textsf{HS}}\fi}
 %
-% --- conformal-collider comparison (follows the H_LJ(300) switch) ---
+% --- conformal-collider comparison (follows the H_LJ(300) switch; v6: no longer printed in the Letter, which now says
+%     that most of the ~1e8 is the Lambda^-4 scaling; kept for the record) ---
 % tau_0 / 4 (energy-flux disk radius 4): 2.89e-8/4 = 7.2e-9 < 1e-8 (1000); 3.13e-6/4 = 7.8e-7 < 1e-6 (300).
 \newcommand{\CollFrac}{\ifHLJclosed 10^{-6}\else 10^{-8}\fi}

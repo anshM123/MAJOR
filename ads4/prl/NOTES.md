@@ -1,5 +1,13 @@
 # PRL draft: notes, build, length, provenance, referee responses, fallback plan, open items
 
+*Revised 23 Nov 2026, **v6** (writing pass after `REFEREE_REPORT_3.md` and `ads4/REGGE_TREE.md`): order of limits stated (A2,
+Mechanism, Functionals; Supplement Table S2 rows A2/R1/H_K and two paragraphs at the end of Sec. S5.D); the Letter's "Status of
+positivity" + "Large spin" (≈ 830 words) condensed to one paragraph (≈ 310 prose words) with a new **Fig. 2** (coverage of (Pos) in
+the (J, m/Λ) plane, `fig/make_fig2.py`); Theorem W/L scope and premises stated (P0 [NE], P1 [D-sketch] after the (S) failure, flat ν⁶
+tower subtraction [I], Λ_amp from one state); "why it matters" reframed (Λ⁻⁴ scaling, leading order in 1/c_T); B_eff(Λ) fixed; Fig. 1
+markers/key (m14). Change log: **`CHANGES_v6.md`**. Marks: `% P2CONTRACT` (constants the running three-channel contraction may
+update); the v5 `% P2FOLLOW` marks are resolved. No physics recomputed except B_eff/2L_AdS (from `fig/make_fig.py`'s integrals).*
+
 *Revised 23 Nov 2026, v5 (writing pass after HIGHSPIN, SMALLNU_WINDOW, N2_SUBREGGE, DIRCV §8, LARGESPIN_ANALYTIC/_W/_L,
 P2_SPINNING, PW_IMAGES, INDEP_CHECK): the HIGHSPIN places are filled and `\HSdraftfalse`; the Letter gains a "Why it matters"
 paragraph, a "Large spin" paragraph (conditional Theorems W and L) and one de Sitter outlook sentence in the Discussion; the
@@ -21,6 +29,7 @@ Files in `ads4/prl/`:
 | `supplement.tex` | Supplemental Material (one column): grades and composites, definitions/data, inputs table, **full statement + I1–I6 + lower-end outlook (new §S4)**, derivation sketches, Λ-forms (now with the displayed forms), positivity evidence, conditional remark on Δ_g ≥ 300, reproduction, ABJM |
 | `macros.tex` | shared macros: H_LJ(300) switch, `\QuartRep`, `\GthreeHead` (new), HIGHSPIN marker `\HS` |
 | `fig/make_fig.py`, `fig/fig1_bounds.pdf` | Fig. 1 (new): bounds vs Δ_g from the published data; `fig1_bounds_preview.png` is a raster preview |
+| `fig/make_fig2.py`, `fig/fig2_coverage.pdf` | Fig. 2 (v6): coverage of (Pos) for Ω^EE at Δ_g = 1000 by grade in the (J, m/Λ) plane; boundaries transcribed from the deliverables (docstring); `fig2_coverage_preview.png` |
 | `refs_verified.bib` | bibliography; v4: JHEP year convention, key BCPW → BCP, CMT, HaringZhiboedov, HKT, `SM` |
 | `refs.bib` | legacy, unused (not updated in v4) |
 | `data/` | published functional data; v4 adds `q3star_factored.json` + `make_q3star.py`, README errata §5, MANIFEST lines |
@@ -39,6 +48,7 @@ Files in `ads4/prl/`:
 cd ads4/prl
 ulimit -v 3000000; export OMP_NUM_THREADS=1
 (cd fig && python3 make_fig.py)          # Fig. 1 (prints the headline constants as a check)
+(cd fig && python3 make_fig2.py)         # Fig. 2 (v6; prints the twist-edge / Theorem-L crossings as a check)
 (cd data && python3 make_q3star.py)      # optional: regenerates q3star_factored.json, asserts the certified fingerprint
 for f in letter supplement; do
   pdflatex -interaction=nonstopmode -output-directory=build $f.tex
@@ -48,7 +58,11 @@ for f in letter supplement; do
 done
 ```
 
-Status (23 Nov, **v5**): both compile with **no errors, no undefined references or citations, no overfull boxes, no stuck floats**
+Status (23 Nov, **v6**): both compile with no errors, no undefined references or citations, no overfull boxes, no
+stuck floats (Letter: 5 underfull-box notices; Supplement: Table S2 set in `\scriptsize` after the A2/R1/H_K rows grew).
+`build/letter.pdf` 5 pages, text ends ≈ 0.55 down the right column of page 4 (≈ 3.8 pages); `build/supplement.pdf` 21 pages.
+
+Status (v5, for the record): both compile with **no errors, no undefined references or citations, no overfull boxes, no stuck floats**
 (the Letter has 5 underfull-box notices, cosmetic). `build/letter.pdf` **5 pages** (text ends ≈ 0.3 down the right column of
 page 4, i.e. ≈ 3.65 pages incl. the title block; references fill the rest of page 4 and page 5); `build/supplement.pdf` **20 pages**.
 In v5 the figure environment was moved to just before "Functionals" (it had become a stuck float after the new paragraphs).
@@ -57,6 +71,11 @@ In v5 the figure environment was moved to just before "Functionals" (it had beco
 Figure: `cd fig && python3 make_fig.py` (needs mpmath, matplotlib) before compiling the Letter.
 
 ## 2. Length
+
+**v6** (tool `scratchpad/tools/wc_prl6.py letter.tex 3 0.9375 1.0385`: as wc_prl5, for any number of figures):
+abstract **563** characters rendered; prose 2501 words, 314 inline formulas (conservative 423), 3 display rows (48), Fig. 1 180,
+Fig. 2 164 (aspect 3.375/3.25 = 1.0385); **TOTAL ≈ 3207 (≈ 3316 conservative)**; limit 3750. Text ends ≈ 3.8 pages.
+
 
 **v5** (tool `scratchpad/tools/wc_prl5.py letter.tex 3 0.9375`: as wc_prl4, plus it expands the prose macro `\HLJstatus`, which
 wc_prl4 silently dropped (≈ 45 words), and counts to `\bibliography`, since there are no acknowledgments now):
@@ -206,6 +225,18 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
    size estimate. UT3 was not edited (outside this task's files).
 
 ## 7. Source inconsistencies
+
+**v6** (found while answering referee 3; the paper's choice is stated):
+1. Letter v5 wrote B_eff = −19.265 for both gaps; with the published weights B_eff = −19.2646 (1000), −19.2197 (300); the single value
+   gives 72.00 at 300, not 72.04. Fixed (Letter Eq. (3) text; Supplement already had both).
+2. Letter v5 spin lists overlapped (J = 26, 36, 40 both "computed in models" and "interpolated"); Table S7 said "even J = 26, 30,
+   34–46 without rows". Resolved from POS_ERRORS §3.2/HIGHSPIN: computed (chain) 36, 40, 48; interpolated 26, 30, 34, 38, 42, 44, 46.
+3. Supplement graded Theorem W's P0 "curvature [P + DV] for b ≤ 119"; that bound needs m ≥ 1.3Λ, so P0 is [NE] in W's region.
+4. Supplement "residual ≤ 8·10⁻⁴⁸ (also b = 7, 10)": 7.9·10⁻⁴⁸ for b ≤ 4; b = 7: 2.0·10⁻⁴⁷; b = 10: 1.1·10⁻⁴⁷ (`pw1_magic.txt`).
+5. Letter v5 "|c₁| ≳ 1260 (item 2)" is the (2b) value; (2a) is 1306.
+6. Letter v5 "measured … only at J ≤ 100" for Λ_amp: it is one state, (1100, 100).
+7. P1 "[D given (S)]" (v5 supplement) is superseded: (S) fails (P2_SPINNING §7.2); P1 [D-sketch].
+8. REGGE_TREE: the referee's term-wise corner failure also hits k = 5, not only k = 2, 3 (stated in the Supplement's "Term-wise use").
 
 **v5: found between the deliverables read for this pass (not silently resolved; the paper's choice is stated).**
 1. The coordinator's brief said "near-gap J = 4–8 [NE±]"; J = 7 is [NE + M] (HIGHSPIN §6, NEARGAP2). The paper lists J = 0, 2, 4, 6, 8

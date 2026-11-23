@@ -12,6 +12,8 @@ Plotted:
   (b) the upper end of g4~ Lam^6/8piG: (2a) 2 L_AdS; (2b) 2 L_AdS + 2 eps L_A, eps = 0.040; type II / ABJM-IIA value 2 zeta(3).
 Values between and beyond Delta_g = 300, 1000 are values of the implication with the functionals fixed; positivity was
 examined only at 300 and 1000. Nothing below 300 is claimed.
+v6 (referee 3, m14): 300 markers are open diamonds (one positivity hypothesis open); a key says the faded lines are values
+of the implication only; the annotation carries c1 = 0, K = 1.
 Usage (from ads4/prl/fig):  python3 make_fig.py  -> fig1_bounds.pdf (and a printed check of the headline constants).
 Colours: first three slots of the dataviz reference palette (all-pairs CVD-validated); every series also has its own line style.
 """
@@ -86,7 +88,7 @@ for ax in (ax1, ax2):
 
 def series(ax, key, color, ls, label, lab_xy, lab_ha='left'):
     ax.plot(xs, [V[x][key] for x in xs], color=color, ls=ls, lw=1.0, alpha=0.45, zorder=3)  # positivity not examined between markers
-    ax.plot([300], [V[300][key]], 'o', ms=4.5, mfc='white', mec=color, mew=1.2, zorder=4)
+    ax.plot([300], [V[300][key]], 'D', ms=3.8, mfc='white', mec=color, mew=1.1, zorder=4)   # 300: one hypothesis open (v6)
     ax.plot([1000], [V[1000][key]], 'o', ms=4.5, mfc=color, mec='white', mew=0.8, zorder=4)
     ax.annotate(label, xy=lab_xy, color=INK, fontsize=6.8, ha=lab_ha, va='center')
 
@@ -96,10 +98,16 @@ series(ax1, 'g3', C1, '-', r'this work, item (1): $\sqrt{16L_A}$', (1150, 92))
 series(ax1, 'chlps', C2, (0, (4, 2)), r'flat $D{=}4$ optimum [CHLPS], transplanted', (330, 23))
 ax1.set_ylim(0, 160); ax1.set_yticks([0, 50, 100, 150])
 ax1.set_ylabel(r'upper bound on $|\hat{g}_3|\,\Lambda^4$')
-ax1.annotate(r'$\sqrt{t_4^2+\alpha_T^2}\leq 2.89\times10^{-8}$', xy=(1000, V[1000]['g3']), xytext=(1150, 145),
+ax1.annotate(r'$\sqrt{t_4^2+\alpha_T^2}\leq 2.89\times10^{-8}$ ($c_1{=}0$, $K{=}1$)', xy=(1000, V[1000]['g3']), xytext=(700, 145),
              fontsize=6.8, color=INK, arrowprops=dict(arrowstyle='-', color=MUTED, lw=0.5))
 ax1.text(0.015, 0.97, '(a)', transform=ax1.transAxes, va='top', fontsize=7.5)
-ax1.text(262, 75, 'not claimed', rotation=90, fontsize=6.3, color=INK2, ha='center', va='center')
+# v6 (referee 3, m14): key for the marker shapes; faded lines are values of the implication only
+from matplotlib.lines import Line2D
+key = [Line2D([], [], marker='o', ls='', ms=4.0, mfc=INK2, mec='white', label=r'$\Delta_g=1000$: claimed'),
+       Line2D([], [], marker='D', ls='', ms=3.4, mfc='white', mec=INK2, mew=1.0, label=r'$\Delta_g=300$: one hypothesis open'),
+       Line2D([], [], color=INK2, alpha=0.45, lw=1.0, label='lines: implication only')]
+ax1.legend(handles=key, loc='center right', bbox_to_anchor=(1.0, 0.38), fontsize=5.9, frameon=False, handlelength=1.4, borderaxespad=0.2, labelspacing=0.25)
+ax1.text(262, 75, 'nothing claimed', rotation=90, fontsize=6.3, color=INK2, ha='center', va='center')
 
 # (b) quartic
 series(ax2, 'q2b', C3, (0, (1.2, 1.4)), r'(2b): any light scalars, $\epsilon=0.04$', (330, 205))
@@ -113,7 +121,7 @@ ax2.set_xlabel(r'higher-spin gap $\Delta_g$')
 ax2.set_xticks([300, 500, 1000, 2000, 5000]); ax2.set_xticklabels(['300', '500', '1000', '2000', '5000'])
 ax2.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
 ax2.text(0.015, 0.97, '(b)', transform=ax2.transAxes, va='top', fontsize=7.5)
-ax2.text(262, 115, 'not claimed', rotation=90, fontsize=6.3, color=INK2, ha='center', va='center')
+ax2.text(262, 115, 'nothing claimed', rotation=90, fontsize=6.3, color=INK2, ha='center', va='center')
 
 fig.subplots_adjust(left=0.155, right=0.98, top=0.985, bottom=0.10)
 out = os.path.join(HERE, 'fig1_bounds.pdf')
