@@ -1,6 +1,9 @@
 # SMALLNU_WINDOW: the `ν < 50` window of the large-J near-gap states at Δ_g = 1000, measured
 
-*23 Nov 2026. Unreviewed, not committed by this agent. No existing file was edited; `DIRCV.md` and `code/dircv/` were not touched.*
+*23 Nov 2026. Unreviewed, not committed by this agent (another agent's commits 1b46f9c / 031e9e0 swept in intermediate snapshots of
+this file and of `code/smallnu/`; the working tree holds the final versions). No existing file was edited; `DIRCV.md` and `code/dircv/`
+were not touched. One write escaped the guard: Python's bytecode cache `code/smallnu/__pycache__/` (from a first `python3 -c "import
+sn_core"` test); it was deleted.*
 * *New code:* `ads4/code/smallnu/`: `sn_guard.py` (process-local write guard: every write outside `smallnu/cache/` raises; it also
   stands in for `hs_guard` / `ng_guard`), `sn_points.py` (direct n1 / n3 RQMC points at small ν), `sn_core.py` (Γ at small ν in the chain's own
   convention and in the baseline normalisation, jackknife), `sn_window.py` (window weights in NEARGAP2's `E_low` convention, measured
@@ -11,7 +14,7 @@
 * *Read-only imports:* `highspin/` (`hs_core`, `hs_odd`), `neargap2/` (`ng_bind`, `ng_val`, `ng_chain`), `spinfunc/` (`hc_points`,
   `hc_nodes`, `z2_points`, `p4_odd_analysis`, `l9_analysis`, `q3_analysis`, `ee1000_common`), their caches, and HIGHSPIN's result files
   (`highspin/cache/hs_odd_J*.json`, `hs_even_J*.json`).
-* *Compute:* ≈ CPUH CPU-h, at most two computing processes of this note at any time (`sn_run.sh` lanes; analyses ran with one lane
+* *Compute:* ≈ 6.0 CPU-h, at most two computing processes of this note at any time (`sn_run.sh` lanes; analyses ran with one lane
   SIGSTOPped), `ulimit -v 3000000`, one thread everywhere.
 
 Grades as in UNIFIED_THEOREM_v2 §0, POS_ERRORS, NEARGAP2 and HIGHSPIN: [P], [certified], [D], [D-sketch], [DV], [NE], [NE±] (explicit
@@ -22,7 +25,7 @@ correction. `L = value / budget`. "Window" = `ν < 50` of the state (`ν = x m_s
 
 ## 0. Verdict
 
-**The `10⁴ c₂` convention is replaced by measured values on `ν ≥ 10` (J = 16, 29, 32), `ν ≥ 12.5` (J = 12), `ν ≥ 16` (J = 20) and
+**The `10⁴ c₂` convention is replaced by measured values on `ν ≥ 10` (J = 16, 29, 32), `ν ≥ 12.5` (J = 12), `ν ≥ 13` (J = 20) and
 `ν ≥ 20` (J = 21, 23, 27, 31).** `10⁴ c₂` is kept only *below* the lowest measured node, where it now carries 6 % (`ν < 10`) to 18 %
 (`ν < 20`) of the window's weight, and is ×3.6 above the largest value known there (§4.4).
 
@@ -30,7 +33,7 @@ correction. `L = value / budget`. "Window" = `ν < 50` of the state (`ν = x m_s
 |---|---|---|---|---|---|
 | **J = 29, twist edge `1.02862Λ`** | `|Γ| ≤ 310` on ν = 25–47 (n1, σ ≤ 200); ν = 10–20: `≤ 1113` (n3/n1, σ 230–730, all within 2.1σ of 0); `−56 … +116` at 51–77 (HIGHSPIN) | `0.873` → `0.327` (×3) / **`0.093`** (signed: direct values on `[10, 50)`, `±0.041`; `ν < 10` at `10⁴`: `0.052`) | **`0.79`** (HIGHSPIN λ-level `0.697` + window `0.093`) | `0.61` (window at `10⁴`) → **`1.23`** (signed); `0.94` with the ×3 envelope | [NE + M] → **[NE±]** (thin; sign-free ×3 does not close at the twist edge, §3.1) |
 | J = 29, 1.04 / 1.05 / 1.06 / 1.075 / 1.10Λ | same row | `0.80 … 0.61` → `0.30 … 0.25` (×3) / `0.085 … 0.070` (signed) | `0.43 / 0.35 / 0.30 / 0.23 / 0.17` | `0.83 … 1.38` → **`2.2 / 2.8 / 3.4 / 4.3 / 5.7`** (×3 envelope: `1.5 / 1.7 / 2.0 / 2.3 / 2.8`) | [NE + M] → **[NE±]** |
-| **J = 16, twist edge `1.01589Λ`** | `|Γ| ≤ 104` on ν = 25–51; ν = 10–20: `≤ 648` (σ 110–350) | `0.305` → **`0.040`** (×3) / `0.021` (measured) | `0.21` sign-free | `1.92` → **`4.4`** | [NE±] → [NE±] (strengthened) |
+| **J = 16, twist edge `1.01589Λ`** | `|Γ| ≤ 104` on ν = 25–51; ν = 10–20: `≤ 648` (σ 65–350) | `0.305` → **`0.040`** (×3) / `0.021` (measured) | `0.21` sign-free | `1.92` → **`4.4`** | [NE±] → [NE±] (strengthened) |
 | J = 16, 1.02 / 1.03 / 1.05Λ | same row | `0.27` → `0.035` | `0.21 / 0.29 / 0.59` sign-free | `1.69 / 1.43 / 1.20` → **`3.7 / 2.6 / 1.7`** (λ-level `5.2 / 7.1 / 10.0`) | [NE±] (strengthened; 1.05Λ limited by the 1600 K₂ row's truncation) |
 | **J = 12, twist edge `1.01194Λ`** | `|Γ| ≤ 55` on ν = 25–51; ν = 12.5–20: `≤ 288` | `0.137` → **`0.018`** (×3) | `0.12` sign-free | `3.56` → **`7.4`** | [NE±] (strengthened) |
 | J = 12, 1.02 / 1.05Λ | same row | `0.135 / 0.094` → `0.017 / 0.013` | `0.13 / 0.19` | `3.90 / 2.50` → **`7.5 / 3.6`** | [NE±] (strengthened) |
@@ -39,14 +42,14 @@ correction. `L = value / budget`. "Window" = `ν < 50` of the state (`ν = x m_s
 | J = 23 (`1.0228Λ` … 1.10Λ) | `|Γ| ≤ 349` on ν = 25–47; ν = 20: `622 ± 512` | `0.40` → `0.15` / `0.08` | `1.84 + 0.15` (K₂ truncation `1.48`) | `0.40` → `0.45` (twist); calibrated truncation `1.5` | [NE + M] unchanged (window no longer binding; the K₂ bulk is) |
 | J = 27 (`1.0267Λ` … 1.10Λ) | `|Γ| ≤ 361` on ν = 25–47; ν = 20: `793 ± 659` | `0.71` → `0.29` / `0.15` | `3.25 + 0.29` (truncation `2.95`) | `0.25` → `0.28`; calibrated `1.4` | [NE + M] unchanged |
 | J = 31 (`1.0306Λ` … 1.075Λ) | `|Γ| ≤ 465` on ν = 25–47; ν = 20: `1068 ± 807` | `1.04` → `0.46` / `0.22` | `9.9 + 0.46` (truncation `9.5`) | `0.08` → `0.08` | [NE + M] unchanged (K₂ diverging, `J²/m = 0.93`) |
-| J = 20 (rows 800 / 1600; `1.0198Λ`, 1.03, 1.05Λ) | `|Γ| ≤ 315` on state-ν 16–45 (row 1600) and 38–48 (row 800); row 800 at state-ν 26: `702 ± 404` | `0.56` → `0.23` (×3) / `0.17` (measured; `0.16` of it below ν_min) J20UPD | no budget exists (HIGHSPIN: value `+0.83 ± 0.14`) | — | [NE + M] unchanged |
-| **J = 32 (row 1040; `1.0315Λ`, 1.03, 1.05Λ)** | `|Γ| ≈ 450–550` on ν = 25–40 (C2 and C3H, both helicities, σ 90–170); ν = 10–20: `≤ 1262` (σ 370–830); `|c_off| ≤ 5` | **`2.31`** → `0.73` (×3) / **`0.26`** (measured; the measured window matrix itself is `+0.027` to first order, favourable) | no budget exists (value `+0.997 … +1.006`) | — | [NE + M] unchanged; **the `10⁴` convention alone would have exceeded the state value ×2.3** |
+| J = 20 (rows 800 / 1600; `1.0198Λ`, 1.03, 1.05Λ) | `|Γ| ≤ 315` on state-ν 16–45 (row 1600, σ ≤ 154), `≤ 336` on 38–48 (row 800); state-ν 10–26: `≤ 702` (σ 106–407) | `0.556` → `0.159` (×3) / **`0.065`** (measured; `ν < 13` at `10⁴`: `0.049`) | no budget exists (HIGHSPIN: value `+0.83 ± 0.14`, MC-limited) | — | [NE + M] unchanged (window closed; K₂ bulk and the 1600-row edge noise are not) |
+| **J = 32 (row 1040; `1.0315Λ`, 1.03, 1.05Λ)** | `|Γ| ≈ 450–550` on ν = 25–40 (C2 and C3H, both helicities, σ 90–170); ν = 10–20: `≤ 1262` (σ 260–830); `|c_off| ≤ 5` | **`2.31`** → `0.73` (×3) / **`0.26`** (measured; the measured window matrix itself is `+0.027` to first order, favourable) | no budget exists (value `+0.997 … +1.006`) | — | [NE + M] unchanged; **the `10⁴` convention alone would have exceeded the state value ×2.3** |
 
 **What this note establishes.**
 1. **No state is negative, and no measured small-ν value is large.** On every row the direct Γ on `ν = 25–50` is `O(10²) c₂`:
    `≤ 55` (J = 12), `≤ 104` (J = 16), `≤ 121` (J = 21, direct-bulk normalisation), `≤ 310` (J = 29), `≤ 349–465` (J = 23–31, K₂-row
    normalisation), `≈ 500` (J = 32), i.e. ×20–180 below `10⁴` (the absolute level shifts by `≈ 10²` with the row normalisation, §4.2). Below ν = 20 the values
-   are compatible with the same size; the direct method's errors there are `σ = 100–800 c₂` (§2.2).
+   are compatible with the same size; the direct method's errors there are `σ = 65–830 c₂` (§2).
 2. **J = 29 moves to [NE±]** (twist edge `L = 1.23`, thin; `L ≥ 2.2` at 1.04–1.10Λ). The one remaining model input is `|Γ| ≤ 10⁴ c₂` on
    `ν < 10`, which the state tolerates up to `4.5·10⁴ c₂` (×4.5; ×16 above the largest value known there). With a *sign-free* ×3
    envelope the twist edge does **not** close (`L = 0.94`): the envelope there is set by Monte-Carlo noise of the n3 / near-fold n1
@@ -59,7 +62,7 @@ correction. `L = value / budget`. "Window" = `ν < 50` of the state (`ν = x m_s
 5. **The window grows steeply with J at fixed `ν`**: `W(ν < 50) = 1.4 / 3.1 / 3.5 / 5.6 / 8.7 / 23·10⁻⁵ N_s/c₂` at J = 12 / 16 / 21 / 20 /
    29 / 32 (twist edges, gauge factor included; even J with the off-diagonal). At J = 32 the old convention costs `2.3 N_s`; the
    measured window `0.26`, of which `0.14` is still the `ν < 10` convention. **For `J ≳ 32` the window is again a live input** even
-   with measurements, because `σ(Γ)` of the direct method at `ν < 20` is `≥ 400 c₂` at Δ ≈ 10³.
+   with measurements, because `σ(Γ)` of the direct method at `ν < 20` is `300–800 c₂` at J ≳ 29, Δ ≈ 10³.
 
 ---
 
@@ -92,10 +95,11 @@ correction. `L = value / budget`. "Window" = `ν < 50` of the state (`ν = x m_s
   rows, `neargap2/ng_val` loader wrappers, `hc_nodes` records, κ image subtracted for odd J) and read off the row exactly where the
   chain reads its K₂ nodes. **Normalisation.** Each row's constant `a` is fitted on its C2 nodes `x ≤ 0.25, ν ≥ 15`, and each record
   carries `exp(−c₀)` with `c₀` the log-ratio at the row's first node. A new small-ν node enters that fit and becomes the first node:
-  the effective normalisation moves by `1–2.5·10⁻⁴`, which shifts Γ on the *whole* row by `≈ 10²–2.5·10² c₂ × D_h` (a near-pure
+  the effective normalisation moves by `3·10⁻⁶ … 4.8·10⁻⁴` (J = 12 … row 800 of J = 20), which shifts Γ on the *whole* row by up to
+  `≈ 3·10² c₂ × D_h` (a near-pure
   renormalisation of the image, positivity-neutral to first order). All values here are transformed back to the **baseline
   normalisation** (HIGHSPIN's row): one ratio per helicity measured on the old nodes, `Γ′ = m²[(Γ/m² + S)/r − S]`,
-  `S = sh_k/env_k + σ_k D_h` from the chain module's own functions; checked to reproduce every old node to `≤ 0.3 c₂`.
+  `S = sh_k/env_k + σ_k D_h` from the chain module's own functions; checked to reproduce every old node to `≤ 0.5 c₂`.
   Jackknife over the 8 replicas (all injected nodes together), each replica transformed with its own baseline.
 * **Window weights** (`sn_window.py`): NEARGAP2's `E_low` structure exactly (`ng_bind.absdens`, `errmat`, `gauge_factor` — the
   min-norm/local de-shift factor `≤ 6.84` at ν < 5, `≤ 1.67` on 5–8, `≤ 1.04` above), 1024 hybrid nodes. (HIGHSPIN's odd-J `W_low`
@@ -201,7 +205,12 @@ edge, where the representation term (×3 on the degree-7 fit) dominates.
   except C3H `+−` at ν = 10 (`+1198 ± 628`). `|c_off| ≤ 5`. Window at the twist edge: `10⁴` **`2.305`** (this alone exceeds the state's
   `λ/N_s ≈ 1.0` ×2.3) → ×1 `0.32`, ×3 `0.73`, ×10 `2.18`; **measured `0.257`** = `|dF_win|₂ 0.038` (first-order effect on the hybrid
   `+0.027`, favourable) + error `0.081` + `ν < 10` at `10⁴` `0.138`. 1.03 / 1.05Λ: `0.259 / 0.235`.
-* **J = 20** (state at `t = 0.43` between rows 800 and 1600): J20TEXT
+* **J = 20** (state at `t = 0.43` between rows 800 and 1600; rows used at fixed x, so row 800 at row-ν 10–38 covers state-ν 13–49 and
+  row 1600 at row-ν 16–70 covers 10–45): C2 and C3H `++` `+105 … +635`, C3H `+−` `−117 … −702` (row 800, ν_state 17–48; σ 42–407), `+107 …
+  +315` / `−149 … −243` (row 1600, ν_state 16–45); ν_state ≲ 13 within 1.8σ of 0 (σ 190–330). `|c_off| ≤ 2`. Window at the twist edge: `10⁴` `0.556` →
+  ×1 `0.082`, ×3 `0.159`, ×10 `0.438`; measured `0.065` (`|dF_win|₂ 0.006`, first-order `+0.003`; error `0.010`; `ν < 13` at `10⁴` `0.049`).
+  1.03 / 1.05Λ: `0.067 / 0.061`. The K₂ node of row 800 at x = 0.05 (`C2 ++ −206`) disagrees with the direct node at x = 0.0476
+  (`+225 ± 69`): the K₂ row 800 (`J²/m = 0.50`) is off at small x by `≈ 4·10² c₂` (it lies outside the window, at state-ν 51).
 
 ---
 
@@ -215,8 +224,8 @@ edge, where the representation term (×3 on the degree-7 fit) dominates.
   on every row (§3).
 
 ### 4.2 Normalisation and the transform
-* Injecting new nodes into a row moves its fitted normalisation by `r − 1 = −3·10⁻⁶ … −2.6·10⁻⁴` (J = 12 … 32), i.e. Γ on the whole row
-  by up to `−260 c₂ × D_h` in the injected grid. In the baseline normalisation (the transform of §2) every old node is reproduced to
+* Injecting new nodes into a row moves its fitted normalisation by `r − 1 = −3·10⁻⁶ … −4.8·10⁻⁴` (J = 12 … row 800 of J = 20; `−2.0 … −2.6·10⁻⁴` on the odd rows and row 1040), i.e. Γ on the
+  whole row by up to `≈ 3·10² c₂ × D_h` in the injected grid. In the baseline normalisation (the transform of §2) every old node is reproduced to
   `≤ 0.5 c₂` (odd rows, x < 0.94) and `≤ 10⁻⁹ c₂` (even rows). The quoted envelopes are therefore those of HIGHSPIN's rows, i.e. of the
   state values whose budgets are recomputed. A uniform shift of this kind is a multiplicative change of the image and does not change
   the sign of λ.
@@ -230,8 +239,8 @@ edge, where the representation term (×3 on the degree-7 fit) dominates.
 ### 4.3 Reference zeros and near-degenerate references
 * The ratio's reference is `Δ_ref = 2·10⁴` at the same ν: at ν < 50 its `x_ref < 0.0025`, `(2J+1)x_ref ≤ 0.17`, far from its partial
   wave's first zero (`2.405`); HIGHSPIN's "reference-zero" failure cannot occur in the window. The *state's* partial wave has its first
-  zero inside the window for J ≳ 27 (ν₀ ≈ 2.405 m/(2J+1): 45 / 42 / 39 / 38 at J = 27 / 29 / 31 / 32), but Γ is not divided by it
-  (Γ = m²(G/(a env) − D_h)); the direct values pass smoothly through ν₀.
+  zero inside or near the window for J ≳ 27 (J₀ estimate ν₀ ≈ 2.405 m/(2J+1): 45 / 42 / 39 / 38 at J = 27 / 29 / 31 / 32), but Γ is not
+  divided by it (Γ = m²(G/(a env) − D_h)); the direct values show no anomaly there (J = 29: smooth, sign change near ν ≈ 48).
 
 ### 4.4 What is known below the lowest node (the remaining `10⁴` input)
 * Direct n3 at ν = 10 (Δ ≈ 10³): `|Γ| ≤ 648` (J = 16), `≤ 1113` (J = 29), `≤ 1198` (J = 32), each with σ 200–790.
@@ -260,11 +269,11 @@ edge, where the representation term (×3 on the degree-7 fit) dominates.
 ## 6. Caveats
 
 1. The direct n1/n3 integrals are the project's reference standard [NE], not certified. n1 and n3 agree where both run (§4.1).
-2. Below ν ≈ 20 the direct errors at Δ ≈ 10³ are 100–800 `c₂`: the window there is measured to "small compared with `10⁴`", not to
+2. Below ν ≈ 20 the direct errors at Δ ≈ 10³ are 65–830 `c₂`: the window there is measured to "small compared with `10⁴`", not to
    the size of Γ itself. Sign-free envelopes are noise-dominated on ν < 20 (J = 29: bare `|Γ| + 3σ` already gives `L = 1.15`).
 3. The signed window (J = 29 main statement) uses a natural spline in x through the direct nodes (×3 on spline − linear) and a fully
    correlated MC error; between nodes Γ is assumed smooth on the node spacing (Δν = 2.5–7.5 against an oscillation period ≈ 110 at J = 29).
-4. `|Γ| ≤ 10⁴ c₂` on `ν < 10` (J = 29, 16, 32), `< 12.5` (J = 12), `< 16–26` (J = 20), `< 20` (J = 21–31) remains a model input
+4. `|Γ| ≤ 10⁴ c₂` on `ν < 10` (J = 29, 16, 32), `< 12.5` (J = 12), `< 13` (J = 20), `< 20` (J = 21–31) remains a model input
    (stated safety factor ×3.6 vs the largest known value, §4.4). Below ν ≈ 8 there is no direct value at Δ ≈ 10³.
 5. Only the masses of HIGHSPIN's tables were evaluated; between them, `H_cont` as before. All non-window budget terms are HIGHSPIN's,
    unchanged (for J = 21 recomputed with the same code, §3.3).
@@ -278,23 +287,26 @@ edge, where the representation term (×3 on the degree-7 fit) dominates.
    "[NE + M], `ν < 50` window the one model input" → "**[NE±]** (SMALLNU_WINDOW): direct Γ on ν = 10–50 (`|Γ| ≤ 310 c₂` on 25–47,
    within 2.1σ of 0 below 20); twist edge `L = 1.23` (signed window), `L ≥ 2.2` at 1.04–1.10Λ; remaining input `|Γ| ≤ 10⁴` on ν < 10
    (tolerance `4.5·10⁴`)."
-2. **HIGHSPIN §4 / §6, J = 12, 16:** leverages `3.6 / 3.9 / 2.5` → `7.4 / 7.5 / 3.6` (J = 12) and `1.9 / 1.7 / 1.4 / 1.2` →
+2. **HIGHSPIN §3 / §6, J = 21:** "[NE + M], bulk K₂ step not closed" → "**[NE±]** with a direct bulk row (SMALLNU_WINDOW §3.3):
+   `+0.998 ± 0.020` at the twist edge, `L = 1.20` (`1.7–6.2` at 1.03–1.10Λ); the K₂ bulk was `0.018` low (favourable)."
+3. **HIGHSPIN §4 / §6, J = 12, 16:** leverages `3.6 / 3.9 / 2.5` → `7.4 / 7.5 / 3.6` (J = 12) and `1.9 / 1.7 / 1.4 / 1.2` →
    `4.4 / 3.7 / 2.6 / 1.7` (J = 16).
-3. **NEARGAP2 §1.2 `E_low` / HIGHSPIN §1 "Budgets":** `G_low = 10⁴ c₂` on `ν < 50` should be replaced by the measured envelope on
+4. **NEARGAP2 §1.2 `E_low` / HIGHSPIN §1 "Budgets":** `G_low = 10⁴ c₂` on `ν < 50` should be replaced by the measured envelope on
    `ν ≥ 10–20` and kept only below; HIGHSPIN's odd-J `W_low` omits the gauge factor (`8.52` vs `8.73·10⁻⁵` at J = 29, +2.5 %).
-4. **HIGHSPIN §0 "Negative findings" 4 / POS_ERRORS caution "the ν < 50 window is now the binding model input at large J":** true for the
+5. **HIGHSPIN §0 "Negative findings" 4 / POS_ERRORS caution "the ν < 50 window is now the binding model input at large J":** true for the
    convention, false for the measured window at J = 12–31: the binding input for J = 23–31 is the K₂ bulk truncation, and for J = 21 (direct bulk row) and J = 29 the representation /
    missing-node terms of the bulk and edge, not the window.
-5. **EE_DG1000_LARGEJ §3 item 4 ("direct RQMC cannot reach `m² × 10⁻⁴` precision at `m ≈ 10³`"):** with common random numbers it reaches
-   `σ = 4–200 c₂` (`≲ 2·10⁻⁴` of `m²`) on ν = 25–50 (n1) and `100–800 c₂` on ν = 10–20 (n3) at J = 12–32.
-6. **For J = 32 (and any J ≳ 30) the window must be quoted with its measured value**: under the convention it costs `2.3 N_s`.
+6. **EE_DG1000_LARGEJ §3 item 4 ("direct RQMC cannot reach `m² × 10⁻⁴` precision at `m ≈ 10³`"):** with common random numbers it reaches
+   `σ = 4–200 c₂` (`≲ 2·10⁻⁴` of `m²`) on ν = 25–50 (n1) and `65–830 c₂` on ν = 10–20 (n3, and n1 at ν = 20) at J = 12–32.
+7. **For J = 32 (and any J ≳ 30) the window must be quoted with its measured value**: under the convention it costs `2.3 N_s`.
 
 ## 8. Reproduce
 ```bash
 cd ads4/code/smallnu      # compute lanes: bash sn_run.sh <jobfile> <log>  (ulimit -v 3000000, one thread); jobs: cache/lane_{A,B}.jobs
 python3 sn_points.py n1 29 1029 20,25,30,35,40,45          # n1 small-nu nodes (explicit nu); likewise 21/1021, 23/1023, 27/1027, 31/1031
 python3 sn_points.py n3 29 1029 10,12.5,15,17.5            # n3 nodes below nu = 20; likewise 16/1016, 12/1012 (12.5,16), 32/1040, 20/800, 20/1600
-python3 sn_points.py n3 29 1029 25 n3chk                   # cross-checks in separate caches (n1chk/, n3chk/)
+python3 sn_points.py n1 29 1029 12.5,15,25 n1chk; python3 sn_points.py n3 16 1016 30 n3chk   # cross-checks (n1chk/, n3chk/;
+                                                           # the J = 29 n3 nu = 25 point was computed in cache/ and moved to n3chk/)
 python3 sn_odd.py 29;  python3 sn_odd.py 21; ... 31        # odd-J windows and budgets  -> cache/sn_odd_J<J>.txt/.json
 python3 sn_even.py 16 1016; python3 sn_even.py 12 1012; python3 sn_even.py 32 1040; python3 sn_even.py 20 800,1600
 python3 sn_points.py n1 21 1021 <34 nu of x = 0.05 ... 0.775>; python3 sn_oddrun.py 21 1.03,1.05,1.075,1.1   # J = 21 direct bulk row

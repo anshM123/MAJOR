@@ -28,6 +28,13 @@ explicit error budget, every model input with a stated safety factor, conclusion
 > * **J = 12:** +0.8528, L = 3.6 / 3.9 / 2.5 (twist edge, 1.02Λ, 1.05Λ). **J = 16:** +0.9402, L = 1.9 / 1.7 / 1.4 / 1.2. Both now **[NE±]**, from full direct rows (38 nodes) that remove the truncation term. Odd J = 21, 23, 27 and even J = 20, 22, 28, 32 edges: [M] → [NE + M]. Not run: J = 26, 30, 48, 10, 14. **H_LJ(1000): unchanged [D-sketch + M].**
 > * **Cautions:** the K₂ λ-level Laplace step cannot close a ×3 budget for J ≳ 17, although the actual K₂ error is only 4–5 % of the step and always favourable. The ν < 50 window is now the binding model input at large J. Lowest computed values: J = 21 at 1.03Λ, +0.868; J = 20 twist edge, +0.83 ± 0.14. Code bugs worked around: `p4_odd_analysis.grid` and `l9_analysis.grid` drop direct nodes whose x is not round to 6 decimals.
 
+> **Update (SMALLNU_WINDOW.md, unreviewed): the ν < 50 window is now measured. The 10⁴ c₂ convention is kept only below the lowest measured node (6–18 % of the window weight). Nothing came out negative. J = 29 and J = 21 → [NE±] (thin); J = 12, 16 leverage roughly doubles; J = 23, 27, 31 stay [NE+M] (now limited by the K₂ bulk truncation, not the window).**
+> * **Method:** direct n1 points at ν ≥ 20 and n3 points at ν = 10–17.5 on each state's own row, with jackknife errors. n1 fails below ν ≈ 20 (crystal-saddle fold); n1 and n3 agree at ν = 25 and 30. Reference zeros cannot occur in the window.
+> * **J = 29 twist edge:** measured Γ ≤ 310 c₂ on ν = 25–47; ν = 10–20 is consistent with 0 (σ up to 730). Signed window: L 0.61 → **1.23**, λ ≥ +0.18. The remaining model input is |Γ| ≤ 10⁴ on ν < 10; the state tolerates 4.5·10⁴ there, 16× the largest known value. Masses 1.04–1.10Λ: L 2.2–5.7. **A sign-free ×3 envelope does not close (L = 0.94)**, because of Monte Carlo noise at ν = 10–20.
+> * **J = 21:** a new 34-node direct bulk row puts the twist edge at +0.998 ± 0.020, L 0.58 → 1.20 (1.7–6.2 at 1.03–1.10Λ). **J = 16:** L → 4.4 / 3.7 / 2.6 / 1.7. **J = 12:** L → 7.4 / 7.5 / 3.6.
+> * **J = 23 / 27 / 31:** window cost now 0.15 / 0.29 / 0.46, but the K₂ λ-level truncation blocks them (with calibrated truncation L ≈ 1.5 / 1.4). **J = 32:** the window costs 0.26 measured, vs 2.31 under the convention. J = 20 and J = 32 have no budget.
+> * **Cautions:** the window weight grows steeply with J (1.4 → 23·10⁻⁵ N_s/c₂ from J = 12 to 32), so for J ≳ 32 it is a live input again. Lemma C/C′ cannot bound Γ (it is beyond leading Regge). HIGHSPIN's odd-J window weight omits a gauge factor (8.52 vs 8.73·10⁻⁵). EE_DG1000_LARGEJ's "direct RQMC cannot reach the precision" is false on ν = 25–50.
+
 ## 0. Verdict
 
 | item | result | grade |
