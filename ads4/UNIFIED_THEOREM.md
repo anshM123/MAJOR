@@ -483,6 +483,28 @@ A chain carries the grade of its weakest link.
 >   * the J = 0 engine comparison;
 >   * behaviour between samples.
 
+> **Update (P4_WINDOW.md, unreviewed): P4 is reformulated as a ν-window statement and reduced to three premises (W, AG′, EDGE). It is NOT proved: the beyond-all-orders part remains an assumption [A], now with explicit constants. Do not write "proved for J ≥ 26 / 42".**
+> * **The full-range P4 failure is a series artefact [DV].** On exact scalar heavy moments, the true remainder costs ≤ 1.5·10⁻³ of the budget (K₄-units 0.99 at J = 64, 8.1 at J = 100). The fixed-β series is asymptotic and worsens past x ≈ 0.3–0.4. In the Regge window ν < 3/β it converges (successive ratio ≤ 6.5·10⁻³ at all 47 states) and matches the exact cost to 0.3 %.
+> * **Lemma P4W [P] (Cauchy).** cost(G) ≤ window sup-bound + boundary term + an edge term at ν = Λ (suppressed by κ⁻⁶) + the exact monopole. Premises:
+>   * (W) a real-axis window bound;
+>   * (AG′) exact − flat is a pair of analytic travelling waves on [3/β, Λ], with local decay 0.97β/√(1−x²);
+>   * (EDGE) an amplitude bound at ν = Λ.
+>
+>   The 1/m series is never used outside the window. Checked on the exact scalar: bound 4.0–7.9 % of budget.
+> * **Theorem W, 47 states [DV]:** computed part ≤ 0.49 H everywhere (k = 3 included); every state where the full-range series failed now passes. With the scalar-calibrated edge, J\* = 26 (edge multiple tolerated up to 114; spinning O(1/m⁴) coefficient tolerated up to 20.8).
+>   * **If the +− edge carries the Ω^U helicity factor (1−x₁²)⁻²**, then (26, 1.026Λ), (30, 1.030Λ), (34, 1.033Λ) and (38, 1.037Λ) fail. J\* becomes 42 (edge multiple 1), 51 (×3), 100 (×10).
+>   * The remaining inequality there is |ρ₊₋(x₁)| ≤ 0.15–0.63; the exact scalar has 0.27–0.69.
+> * **Theorem L′ range (16 states, J = 223 to 10⁶):** P4 is discharged with ε_R ≤ 0.086 of the certified half-floor (0.28 at Λ_amp = 10). EDGE is not binding (tolerance ≥ 600× the scalar envelope).
+> * **(3/16)J₀y² residual resolved:** it is a genuine, harmless beyond-hybrid O(1/m⁴) term.
+> * **Remaining:**
+>   * (AG′) beyond all orders [A]: local rate [NE] at x ≤ 0.86, [M] at x₁ > 0.94;
+>   * the graviton edge amplitude and its +− factor [M];
+>   * the spinning O(1/m⁴) window coefficients [M] (margin ×5–10⁴);
+>   * the boundary factor 2 [D-sketch];
+>   * sampled states only; float only.
+>
+>   Sensitivity: with threshold 10/κ the edge multiple tolerated drops from 114 to 18.7.
+
 ## 1. Setup and normalisations
 
 | item | definition |
