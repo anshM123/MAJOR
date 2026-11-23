@@ -16,9 +16,14 @@ Exchange residues (s-channel poles delta12 = delta_m = 2 - Delta_h/2 - m):  R_m 
 (scalar block, d = 3, Delta_i = 2; overall constant irrelevant: everything is linear in R).
 Term-wise residues at delta12 = -n exactly as lsd_run.profile; d13 line Re = 2/3, |Im| <= 8, h = 0.2; production grid of LIGHTSIDE_DIST.
 
-Usage:
-  (ulimit -v 3000000; OMP_NUM_THREADS=1 python3 fn_spin.py run ab P1 400)   # and 'ba' in parallel (two processes)  ~6 min each
-  python3 fn_spin.py report P1 400                                            -> cache/fn_spin_P1.txt
+Usage (two processes at a time; each 'run' ~2.5 min at N = 160, each 'runsh' ~3 min):
+  (ulimit -v 3000000; OMP_NUM_THREADS=1 python3 fn_spin.py run ab P1 160)   # and 'run ba P1 160' in parallel
+  (ulimit -v 3000000; OMP_NUM_THREADS=1 python3 fn_spin.py runsh ab P1)     # and 'runsh ba P1' in parallel (single-trace sums)
+  python3 fn_spin.py report P1     -> cache/fn_spin_P1.txt      (calibration attempt at fixed angles; residues n <= 160)
+  python3 fn_spin.py reportsh P1   -> cache/fn_spin_sh_P1.txt   (Lemma A for heavy exchanges: sym S_h + DT = 0)
+  python3 fn_spin.py diag P1       -> cache/fn_spin_diag_P1.txt ((P) on q4, q5; where the fixed-angle discrepancy accumulates)
+Finding (F_NORM.md sec. 3.4): Lemma A and (P) hold; the fixed-angle calibration does NOT (O(1) from Mellin residues n ~ <delta>), which
+this non-holographic family cannot be expected to satisfy (see F_NORM.md).  The production grid resolves K(-n) only to n ~ 170.
 Read-only imports: lsd_core, lsd_mellin, lsd_pos (and og_free through lsd_core).
 """
 import os, sys, time, pickle
@@ -115,7 +120,7 @@ def tail(r, n0):
     return pp, A*(len(r) - 0.5)**(1 - pp)/(pp - 1)
 
 
-def report(tag, N=400, NU=160, NT=80):
+def report(tag, N=160, NU=160, NT=80):
     """NU: residues used (n <= NU; the production grid resolves K(-n) to n ~ 170, cf. LIGHTSIDE_DIST's N = 150); tail fit on [NT, NU]."""
     L = []
     pr = lambda s: (print(s, flush=True), L.append(s))
@@ -179,7 +184,7 @@ def run_sh(order, tag, M=160, Y13=8.0, h13=0.2, c2=2/3, dhs=(13.0, 21.0)):
     print(f'done [{time.time() - t0:.0f}s]', flush=True)
 
 
-def report_sh(tag, N=600, NU=160, NT=80):
+def report_sh(tag, N=160, NU=160, NT=80):
     R = {o: pickle.load(open(os.path.join(CACHE, f'fn_spin_{tag}_{o}_N{N}.pkl'), 'rb')) for o in ('ab', 'ba')}
     Q = {o: pickle.load(open(os.path.join(CACHE, f'fn_spin_sh_{tag}_{o}.pkl'), 'rb')) for o in ('ab', 'ba')}
     cls = sorted(set(c for (p, c) in R['ab']['res']))
@@ -195,6 +200,10 @@ def report_sh(tag, N=600, NU=160, NT=80):
             Sv = np.sum(sh) + ts; Dv = np.sum(dt) + td
             pr(f'  Delta_h = {Dh}, ({o}): S_h = {Sv.real:+.8e} (tail {abs(ts)/abs(Sv):.1e}, p {ps:.2f}), DT = {Dv.real:+.8e} '
                f'(tail {abs(td)/abs(Dv):.1e}), S_h + DT = {(Sv + Dv).real:+.3e}  (rel. {abs(Sv + Dv)/max(abs(Sv), abs(Dv)):.1e})')
+            Ssym = Sv if o == 'ab' else Ssym + Sv
+            Dsym = Dv if o == 'ab' else Dsym + Dv
+        pr(f'  Delta_h = {Dh}, sym: S_h = {Ssym.real:+.9e}, DT = {Dsym.real:+.9e}, S_h + DT = {(Ssym + Dsym).real:+.2e} '
+           f'({abs(Ssym + Dsym)/abs(Ssym):.1e} of |S_h|)')
     with open(os.path.join(CACHE, f'fn_spin_sh_{tag}.txt'), 'w') as fh:
         fh.write('\n'.join(L) + '\n')
 
@@ -230,7 +239,7 @@ if __name__ == '__main__':
     if sys.argv[1] == 'run':
         run(sys.argv[2], sys.argv[3], N=int(sys.argv[4]) if len(sys.argv) > 4 else 400)
     elif sys.argv[1] == 'report':
-        report(sys.argv[2], N=int(sys.argv[3]) if len(sys.argv) > 3 else 400)
+        report(sys.argv[2], N=int(sys.argv[3]) if len(sys.argv) > 3 else 160)
     elif sys.argv[1] == 'runsh':
         run_sh(sys.argv[2], sys.argv[3])
     elif sys.argv[1] == 'reportsh':

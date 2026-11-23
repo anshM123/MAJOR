@@ -163,6 +163,22 @@ A chain carries the grade of its weakest link.
 > * **Required change.** The cutoff must be added to the functional definitions (§1 above; RESULT_D_STATEMENT §2; RESULT_Q_STATEMENT).
 > * **Side note.** The C5 de-shift is poor beyond t ≈ 15, which affects per-state positivity at β ≳ 15 (the HYB region).
 
+> **Update (F_NORM.md, unreviewed): (F) [D-sketch] → [D]. The normalisation `−𝒜₄[R⁴] = 2g₄` (= `−Ĉ₄^{ds}|_{R⁴}`) is confirmed with factor 2, and the all-plus `ĝ₄` gives 0.**
+> * **Sign correction.** "𝒜₄[R⁴] = 2g₄" in the LIGHTSIDE box above and in LIGHTSIDE_DIST §4 drops a minus; the correct form is `𝒜₄[R⁴] = −2g₄`.
+> * **Method: calibration.** An auxiliary heavy scalar coupled through `χ(W⁺)²` has Regge spin 3, below the borderline. Lemma A therefore makes the arc of the R⁴ contact it generates equal minus its block value. That value is `2g₄^χ` by the flat sum rule; the identity is exact and independent of m.
+> * **Grade** [D], given Lemma A (term-wise), ν-paired H_EFT(a) at leading order, and the CLS-D J = 0 heavy dictionary, all already on Q's list.
+> * **Checks [DV]:**
+>   * CHMRS contact functional reproduced exactly;
+>   * Penedones top coefficient vs the heavy-density coupling, extrapolated ratio 0.9999990;
+>   * calibration identity to 5e-10;
+>   * Lemma A on heavy σ-exchanges, ≤ 1.7e-4;
+>   * (P) polynomial ratios to 1e-7.
+> * **Negative finding.** At fixed celestial angle the calibration fails (an O(1) residue). H_EFT(a) is false pointwise in angle and must be used in ν-paired form.
+> * **Net.** `g̃₄ = g₄ + O(Λ⁻²)`, given H_EFT(b) [A]. This is CHMRS's standing assumption (2106.10274 §5.1) and is also assumed by CLS-D. No numbers change.
+> * **(P), the g₅ cancellation: [D-sketch], with tension.** Exact cancellation requires the ++ J ≤ 3 heavy-image correction to vanish as m → ∞, but the measured s_d ≈ 0.51 is m-independent. The consistent reading is RU's double counting, which gives lower slope 0.255 (CHLPS 0.26).
+>   * The δ = 0.2 / 0.05 upper bounds survive either reading.
+>   * Deciding test, not run: the engine ++ J = 0 derivative-piece correction at m = 3–10Λ (F_NORM §2.6, §6).
+
 ## 1. Setup and normalisations
 
 | item | definition |
