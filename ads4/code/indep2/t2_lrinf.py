@@ -134,7 +134,13 @@ if __name__ == '__main__':
     for beta in (mp.mpf('0.1'), mp.mpf(1), mp.mpf(4), mp.mpf(10)):
         cb = mp.cosh(beta); K0 = 1 / mp.sqrt(cb - 1)
         Kf = lambda t: 1 / mp.sqrt(2 * mp.sinh((beta + t) / 2) * mp.sinh((beta - t) / 2))
-        I = mp.quad(lambda t: (Kf(t) - K0) / t**2, [0, beta / 2, beta * mp.mpf('0.9'), beta])
+        # K - K0 = 2 sinh^2(t/2) / ((c - cosh t)(c - 1)(K + K0)), stable at small t
+        def integrand(t):
+            if t == 0:
+                return K0 / (4 * (cb - 1))
+            Kt = Kf(t)
+            return 2 * mp.sinh(t / 2)**2 / ((cb - mp.cosh(t)) * (cb - 1) * (Kt + K0)) / t**2
+        I = mp.quad(integrand, [0, beta / 2, beta * mp.mpf('0.9'), beta])
         lhs = mp.sqrt(2) / mp.pi * (K0 / beta - I)
         log(f'(iii) beta={mp.nstr(beta,3)}: Hadamard form {mp.nstr(lhs, 15)}  M1 = {mp.nstr(M1(beta), 15)}')
     # control of Omega against an independent nu-quadrature at small beta (double precision is fine there)
