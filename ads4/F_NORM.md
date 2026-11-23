@@ -10,6 +10,12 @@ Grades: **[P]** proved; **[D]** derived; **[D-sketch]**; **[DV]** derived and ch
 
 ---
 
+> **Update (R4ARC_HEFT.md, unreviewed): L6′ [I] → [D] with a free-standing proof; H_EFT(a), spinning [D-sketch] → [D]; H_EFT(b) stays [A], with no assumption beyond CHMRS. Result Q's upper end goes from [I] in one link to [D-sketch].**
+> * **L6′.** In the og/CLS-D gauge the collinear variable y = 2sin²(Δφ/2) enters only through X₁₃ and an explicit y⁻¹ in f₂, f₄. Counting Lemma Y [P] (exhaustive over 997,836 parity-even and one-ε structures, worst margin 0): every term of a spin-2 contact diagram is O(y⁰ log y). So |L_{R⁴}| ≤ C Δφ⁻²(1+|log Δφ|): p = 2 against the criterion p < 7/2, margin 3/2. It uses neither H_EFT(a) nor LRC\*, and the same bound holds for all contacts and heavy-exchange double-trace parts.
+> * **Premise: dispersiveness** (finitely many non-zero s-channel residues δ₁₂ = −n). [D] for integer Mellin shifts, and CLS-D's statement [Q]; every holographic ⟨TTTT⟩ tree term qualifies. In non-dispersive toy classes (half-integer free-field links, 1243) the collinear growth reaches the edge (slope 4.7 → 3.5), so LEMMAS's worry was real for non-holographic terms. LEMMAS §4.1 item 4 and LRC §6.5 item 3 (η^{5/2}, p = 5/2) are superseded.
+> * **H_EFT(a) [D] for dispersive terms.** It holds pointwise in angle, hence also ν-paired: only finitely many double-trace residues at bounded Mellin arguments enter. "False pointwise in angle" (F_NORM B3, §3.4, §4) applies only to non-dispersive toy classes. Checks on T′ = σ⊗T: σ-exchanges with J_h = 0, 2, 4 and τ_h = 41–81 at k = 2, 4; the term-wise expansion matches the double-trace value to 10⁻¹⁸–10⁻³⁷. An unexplained ≈ −3 % leading-order ratio for J_h = 2 stays at [NE]; route II needs only the scalar case.
+> * **Residual:** neither the actual AdS₄ R⁴ ⟨TTTT⟩ nor a spinning χ-exchange was evaluated. The physical Δφ scan is not yet asymptotic at Δφ = 0.04 (slopes 2.5–2.8), so p = 2 rests on the analytic checks. Refs to add to the bib: Paulos 1107.1504, Costa–Gonçalves–Penedones 1404.5625, Penedones 1011.1485.
+
 ## 0. Summary
 
 **Verdict.** The normalisation is confirmed. No factor changes: **−𝒜₄[R⁴] = 2g₄**, i.e. −Ĉ₄^{ds}|_{R⁴} = 2g₄ in Stage 0's
