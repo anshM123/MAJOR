@@ -209,7 +209,10 @@ edge, where the representation term (×3 on the degree-7 fit) dominates.
 
 ### 4.1 Two contours at the same ν
 * J = 29, ν = 25: n1 `C2 +230 ± 98, C3H −283 ± 200` vs n3 `−4 ± 441, −347 ± 409` (`cache/n3chk/`): differences `0.5σ / 0.1σ`.
-N3CHK
+* J = 16, ν = 30: n3 `C2 ++ −93 ± 183, +− −79 ± 172, C3H ++ +83 ± 173, +− −17 ± 149` vs n1 `+37 ± 12, +40 ± 11, +90 ± 31, −54 ± 55`
+  (0.7 / 0.7 / 0.04 / 0.2σ). The two contours agree; n3 is ×3–15 noisier at equal cost.
+* n1 vs n3 at ν < 20 is not possible (n1 fails); the n3 values at 10–17.5 join the n1 values at 20–25 smoothly within their errors
+  on every row (§3).
 
 ### 4.2 Normalisation and the transform
 * Injecting new nodes into a row moves its fitted normalisation by `r − 1 = −3·10⁻⁶ … −2.6·10⁻⁴` (J = 12 … 32), i.e. Γ on the whole row
