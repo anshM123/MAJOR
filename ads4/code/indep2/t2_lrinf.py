@@ -174,8 +174,10 @@ if __name__ == '__main__':
         r_act = (2 * abs(E[2]) + abs(E[3])) / (A1 * m1 / Lam**2)
         F = 2 * Om[2] - abs(Om[3])
         rc = r_claim(beta)
+        if rc is None:
+            rc = 0.0   # beta < 1: outside the lemma; bound column then uses r = 0 (report only)
         bound = (1 - rc) * A1 * m1 / Lam**2 + mp.mpf('2047.1') / (2 * bhat**3)
         worst.append((beta, r_act, rc, F, bound))
         log(f'{beta:5.2f}  {mp.nstr(bhat/Lam,6):>8}  {mp.nstr(Om[2],10):>16}  {mp.nstr(tt[2],10):>16}  {mp.nstr(E[2]/tt[2],3):>10}  {mp.nstr(Om[3],8):>14}  {mp.nstr(tt[3],8):>14}  {mp.nstr(abs(E[3])/(a1[3]*m1/Lam**2),3):>10}  {mp.nstr(r_act,3):>12}  {rc:8.2e}  {mp.nstr(F,8):>14}  {mp.nstr(bound,8):>14}  {mp.nstr(F/bound,6):>8}  [{time.time()-t0:.0f}]')
-    ok = all(F > 0 and F >= bound and ra <= rc for (_, ra, rc, F, bound) in worst)
+    ok = all(F > 0 and F >= bound and ra <= rc for (b_, ra, rc, F, bound) in worst if b_ >= 1)
     log(f'\nall grid points: F_LR,min > 0, F_LR,min >= stated bound, r_act <= stated r : {ok}')

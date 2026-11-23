@@ -3,11 +3,11 @@
 and compare sup_{beta' >= beta} r with the stated table (1.0: 0.577, 1.2: 0.225, 1.5: 0.070, 2: 0.015, 3: 1.6e-3, 5: 1.0e-4, 64: 1.6e-7).
 Grid as stated: step 0.01 on [0.9, 3], 0.05 to 16, 0.5 to 64.   Output: cache/t2c_rbound.txt
 """
-import json
+import json, sys
 from fractions import Fraction
 import mpmath as mp
 mp.mp.dps = 30
-out = open('cache/t2c_rbound.txt', 'w')
+out = open('cache/t2c_rbound.txt' if len(sys.argv) == 1 else 'cache/t2c_rbound_extra.txt', 'w')
 def log(*a):
     s = ' '.join(str(x) for x in a); print(s); out.write(s + '\n'); out.flush()
 
@@ -55,15 +55,17 @@ def Ebound(k, beta):
     return mp.sqrt(2) / mp.pi * (Ta + Tb + Tc1 + Tc2), (Ta, Tb, Tc1, Tc2)
 
 grid = [mp.mpf(90 + i) / 100 for i in range(0, 211)] + [mp.mpf(3) + mp.mpf(i) / 20 for i in range(1, 261)] + [mp.mpf(16) + mp.mpf(i) / 2 for i in range(1, 97)]
+if len(sys.argv) > 1:
+    grid = [mp.mpf(x) for x in sys.argv[1:]]
 rs = []
 for b in grid:
     m1 = M1(b)
     e2, parts2 = Ebound(2, b); e3, _ = Ebound(3, b)
     r = (2 * e2 + e3) / (A1 * m1 / Lam**2)
     rs.append((b, r))
-    if abs(b - mp.nint(b * 4) / 4) < 1e-9 and (b <= 3 or abs(b - mp.nint(b)) < 1e-9):
+    if len(sys.argv) > 1 or (abs(b - mp.nint(b * 4) / 4) < 1e-9 and (b <= 3 or abs(b - mp.nint(b)) < 1e-9)):
         log(f'beta = {mp.nstr(b, 4):>5}: r_bound = {mp.nstr(r, 4)}   (T_a, T_b, T_c1, T_c2 for k=2: {", ".join(mp.nstr(x, 3) for x in parts2)};  M1 = {mp.nstr(m1, 6)})')
 log('')
-for b0, claim in ((1.0, 0.577), (1.2, 0.225), (1.5, 0.070), (2.0, 0.015), (3.0, 1.6e-3), (5.0, 1.0e-4), (64, 1.6e-7)):
+for b0, claim in (() if len(sys.argv) > 1 else ((1.0, 0.577), (1.2, 0.225), (1.5, 0.070), (2.0, 0.015), (3.0, 1.6e-3), (5.0, 1.0e-4), (64, 1.6e-7))):
     sup = max(r for (b, r) in rs if b >= b0 - 1e-12)
     log(f'sup_(beta >= {b0}) r_bound = {mp.nstr(sup, 4)}   stated {claim}')
