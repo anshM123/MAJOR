@@ -1,32 +1,34 @@
-"""make_fig2.py -- Fig. 2 of the Letter (v6): coverage of (Pos) for Omega^EE at Delta_g = 1000 in the (J, m/Lambda) plane,
-coloured by evidence grade. No computation of physics: every boundary below is transcribed from the deliverables named here.
+"""make_fig2.py -- Fig. 2 of the Letter (v7): coverage of positivity for Omega^EE at Delta_g = 1000 in the (J, m/Lambda) plane,
+shaded by strength of evidence. No computation of physics: every boundary below is transcribed from the deliverables named here.
 
 Plane.  x = J + 1/2 (log scale; J = 0 sits at x = 1/2), y = m/Lambda, m^2 = (Delta-J-2)(Delta+J-1),
 Lambda = sqrt((Dg-2)(Dg-1)), Dg = 1000.  Physical states lie on or above the twist edge
     m_gap(J)/Lambda = sqrt(1 + 2J/(Dg-1))         (supplement Sec. S2.A; crosses 1.3 between J = 344 and 345).
-Impact parameter b = (2J+1) Lambda / m, i.e. b < B  <=>  x < (B/2) y.
+Impact parameter b = (2J+1) Lambda / m = 2 Lambda sinh(beta/2), i.e. b < B  <=>  x < (B/2) y.
 
 Grades (ordinal, strongest first), with sources:
   certified   flat limit m -> infinity at fixed b: Omega^EE >= N/5 on every heavy state [certified]          CERT_CLOSE; Table S5
   [NE+-]      error budget with x3 on every model term (not a bound):
                 near gap J = 0, 2 (to 1.2 Lambda; POS_ERRORS Sec. 3.1), J = 4, 5, 6, 8 (to 1.05; NEARGAP2, J = 8 on the
-                lambda-level budget), J = 12, 16 (to 1.05; HIGHSPIN Sec. 4, SMALLNU_WINDOW Sec. 3.2), J = 21, 29 (to 1.10;
-                SMALLNU_WINDOW Sec. 0, 3.1, 3.3; thin at the twist edge);
-                strip m >= 1.3 Lambda, b < 5 (POS_ERRORS Sec. 2.4; one bulk model input tolerated x76; computed to 20 Lambda)
-  theorem     conditional theorems (implications with measured/modelled premises):
-                W: near gap, m <= 1.3 Lambda, 50 <= J <= 344 (40 sampled states, even J 26-344, odd 33-301; PW_IMAGES TW',
-                   LARGESPIN_W Sec. 4, 9; P2_SPINNING Sec. 7); its premises are listed in the Letter/Supplement S7.C
-                L: b >= 1.0421 Lambda (J + 1/2 >= 0.52105 m), J <= 10^6 (PW_IMAGES Sec. 6; LARGESPIN_L Sec. 3)
-  [NE+M]/[M]  computed inside models or interpolated: near-gap J <= 32 (chain spins, masses to 5 Lambda; interpolated
-                even J = 26, 30 included), even J = 36, 40, 48 (HIGHSPIN, POS_ERRORS Sec. 3.2, Table S5/S6);
+                lambda-level budget), J = 7 (twist edge to 1.05; EXT_FOLD Sec. 0), J = 12, 16 (to 1.05; HIGHSPIN Sec. 4,
+                SMALLNU_WINDOW Sec. 3.2), J = 21, 29 (to 1.10; SMALLNU_WINDOW Sec. 0, 3.1, 3.3; thin at the twist edge),
+                J = 27 (twist edge to 1.10; EXT_FOLD), J = 23 (1.03-1.10 only) and J = 31 (1.05-1.10 only; EXT_FOLD incl. its
+                batch-2 addendum: their twist edges stay [NE+M]); strip m >= 1.3 Lambda, b < 5 (POS_ERRORS Sec. 2.4; one bulk model input tolerated x76;
+                computed to 20 Lambda)
+  theorem     conditional theorems (implications whose premises include the assumption (AG') [A]; P4_WINDOW Sec. 6-7):
+                W (window form): near gap, m <= 1.3 Lambda, sampled states with 26 <= J <= 344 (47 sampled (J, m) states, even
+                   J = 26-50, 64, 80, 100, 120, 150, 200, 250, 300, 344, odd 33, 51, 101, 201, 301; P2_CONTRACT Sec. 4,
+                   P4_WINDOW Sec. 4.2: J* = 26 with the plain edge envelope, 42 with the Omega^U +- helicity transfer: dashed line)
+                L' : b >= 0.37211 Lambda (J + 1/2 >= 0.186055 m), J <= 10^6 (LRINF_TIGHT Sec. 3, 5; P4_WINDOW Sec. 5);
+                   J*(m) = ceil((0.37211 m - 1)/2) = 223 at the twist edge; overlaps W at the gap on 223 <= J <= 344
+  [NE+M]/[M]  computed inside models or interpolated: near-gap J <= 25 not error-budgeted (chain spins, masses to 5 Lambda)
+                and J = 26-32 at masses outside W's samples (drawn under W), even J = 36, 40, 48 above 1.3 Lambda;
                 m >= 1.3 Lambda, 5 <= b < b_A(m) (POS_ERRORS Sec. 2.4: b_A = 8.5, 8.7, 10.5, 13, 15, 15.3, 13.8
                 at m/Lambda = 1.3, 1.5, 2, 3, 5, 10, 20)
-  hypothesis  no computation and no theorem: covered only by H_LJ(1000) / H_R' [D-sketch + M] -- near-gap odd J = 33-49 and
-                even J = 34, 38, 42-46 (interpolated), m >= 1.3 Lambda with b_A(m) <= b < 1.0421 Lambda (this contains the
-                near-gap band 345 <= J < 857, m = 1.3-1.65 Lambda, which neither theorem covers), and J > 10^6
-                (LARGESPIN_ANALYTIC Sec. 5.2; LARGESPIN_L Sec. 8 inventory; Table S11)
-  The star marks (Delta, J) = (1100, 100), the one state at which the spinning O(1/m^2) magnitudes (Lambda_amp ~ 2-3) were
-  measured (DIRCV Sec. 8; LARGESPIN_W C2).
+  hypothesis  no computation and no theorem: covered only by H_R' [D-sketch + M] -- m >= 1.3 Lambda with
+                b_A(m) <= b < 0.37211 Lambda, and J > 10^6 (off scale) (LARGESPIN_ANALYTIC Sec. 5.2; Table S11)
+  v7: the v6 bracket "345 <= J < 857: no theorem" is removed (that band lies inside Theorem L', LRINF_TIGHT Sec. 6), and the
+  v6 star at (1100, 100) is removed (the O(1/m^2) premise is now computed at all 47 W states, P2_CONTRACT).
 Usage (from ads4/prl/fig):  python3 make_fig2.py  -> fig2_coverage.pdf, fig2_coverage_preview.png
 Colours: one-hue ordinal blue ramp (dataviz reference sequential steps 700/550/400/250; validated with
 validate_palette.js --ordinal), neutral grey + hatch for "hypothesis only"; every region also carries a direct label.
@@ -56,11 +58,14 @@ def b_A(y):
     return np.interp(np.log(y), np.log(BA_M), BA_V)
 
 
-XL_COEF = 0.52105 * LAM
+XL_COEF = 0.37211 / 2 * LAM      # Theorem L': 2J + 1 >= 0.37211 m  (LRINF_TIGHT Sec. 3)
 XMIN, XMAX = 0.4, 4.0e6
 JL_MAX = 1.0e6 + 0.5
 
-NEPM = [(0, 1.2), (2, 1.2), (4, 1.05), (5, 1.05), (6, 1.05), (8, 1.05), (12, 1.05), (16, 1.05), (21, 1.10), (29, 1.10)]
+NEPM = [(0, None, 1.2), (2, None, 1.2), (4, None, 1.05), (5, None, 1.05), (6, None, 1.05), (7, None, 1.05), (8, None, 1.05),
+        (12, None, 1.05), (16, None, 1.05), (21, None, 1.10), (23, 1.03, 1.10), (27, None, 1.10), (29, None, 1.10),
+        (31, 1.05, 1.10)]          # (J, lowest budgeted mass or None = twist edge, highest)
+JW_LO, JW_ALT = 26, 42             # Theorem W: sampled J* (plain edge envelope / Omega^U +- transfer)
 NEM_TICKS = [36, 40, 48]
 
 # ---------------------------------------------------------------- style
@@ -122,15 +127,19 @@ YD0, YD1 = 1.0, 1.3
 yd = np.linspace(YD0, YD1, 1200)
 xed = np.minimum(x_edge(yd), XMAX)
 fbx(axD, yd, XMIN, np.minimum(xed, 33.0), C_NEM, z=2)                               # near-gap J <= 32
-fbx(axD, yd, 33.0, np.minimum(xed, 50.0), C_HYP, hatch='//////', z=1)               # H_LJ: odd 33-49, interpolated even
-fbx(axD, yd, 50.0, np.minimum(xed, 345.0), C_THM, z=2)                              # Theorem W (sampled 50-344)
+fbx(axD, yd, JW_LO, np.minimum(xed, 345.0), C_THM, z=2.5)                            # Theorem W (sampled 26-344)
+fbx(axD, yd, XL_COEF * yd, xed, C_THM, z=2.5)                                        # Theorem L' (J >= 223 at the gap)
 axD.set_ylim(YD0, YD1); axD.set_yticks([1.0, 1.1, 1.2]); axD.set_yticklabels(['1.0', '1.1', '1.2'])
 for J in NEM_TICKS:                                                                # same spins, chain masses to 5 Lambda
     axU.plot([J + 0.5] * 2, [YU0, 5.0], color=C_NEM, lw=1.1, solid_capstyle='butt', zorder=3)
-for J in NEM_TICKS:                                                                # computed even J = 36, 40, 48
-    axD.plot([J + 0.5] * 2, [y_gap(J + 0.5), YD1], color=C_NEM, lw=1.1, solid_capstyle='butt', zorder=3)
-for J, ytop in NEPM:                                                               # [NE+-] near-gap budgets
-    axD.plot([J + 0.5] * 2, [max(y_gap(J + 0.5), YD0), ytop], color=C_NEPM, lw=1.9, solid_capstyle='butt', zorder=4)
+for J, ybot, ytop in NEPM:                                                         # [NE+-] near-gap budgets
+    y0 = max(y_gap(J + 0.5), YD0) if ybot is None else ybot
+    axD.plot([J + 0.5] * 2, [y0, ytop], color=C_NEPM, lw=1.6, solid_capstyle='butt', zorder=4)
+# Theorem W threshold under the helicity caveat (J* = 42) and Theorem L' boundary in the near-gap panel
+axD.plot([JW_ALT, JW_ALT], [y_gap(JW_ALT), YD1], color='white', lw=0.7, ls=(0, (2.2, 1.4)), zorder=5)
+yl = np.linspace(y_gap(223.5), YD1, 50)
+axD.plot(XL_COEF * yl, yl, color='white', lw=0.7, ls=(0, (0.8, 1.0)), zorder=5)
+
 
 # twist edge, Theorem-L end, panel seam
 for ax, y in ((axU, yu), (axD, yd)):
@@ -151,42 +160,29 @@ axD.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
 axD.set_xlabel(r'spin $J$ (log scale)', labelpad=1.5)
 fig.text(0.018, 0.60, r'mass $m/\Lambda$', rotation=90, va='center', ha='center', fontsize=7.2)
 
-# star: the one state where Lambda_amp was measured
-m_star = np.sqrt((1100 - 100 - 2) * (1100 + 100 - 1)) / LAM
-axD.plot([100.5], [m_star], marker='*', ms=6.5, mfc='white', mec=INK, mew=0.6, zorder=7)
 
 # ---------------------------------------------------------------- direct labels
 kw = dict(fontsize=6.2, ha='center', va='center', zorder=8)
-axD.text(112, 1.25, 'Thm W', color='white', **kw)
-axD.annotate(r'$(1100,100)$: premise' '\n' r'measured here only', xy=(100.5, m_star), xytext=(2.5e3, 1.055),
-             fontsize=5.9, color=INK, ha='left', va='center', zorder=8,
-             arrowprops=dict(arrowstyle='-', color=INK2, lw=0.5, shrinkA=0, shrinkB=3))
+axD.text(95, 1.2, 'theorem\n1', color='white', fontsize=5.8, ha='center', va='center', zorder=8)
+axD.text(JW_ALT * 1.07, 1.275, '42', color='white', fontsize=5.6, ha='left', va='center', zorder=8)
 axD.text(9.0e4, 1.20, r'no states ($\Delta-J<\Delta_g$)', color=INK2, fontsize=6.0, ha='center', va='center', zorder=8)
 axU.text(2.0, 7.0, r'$b<5$', color='white', rotation=0, **kw)
-axU.text(4.0e4, 14.0, 'Thm L', color='white', **kw)
+axU.text(3.0e4, 14.0, 'theorem 2', color='white', **kw)
 axU.text(5.0e5, 1.75, 'no states', color=INK2, fontsize=6.0, ha='center', va='center', zorder=8)
-axU.text(3.0e2, 9.0, r'hypothesis only' '\n' r'($H_R^\prime$, $H_{\rm LJ}$)', color=INK, fontsize=6.0, ha='center',
+axU.text(330.0, 9.0, r'hypothesis' '\n' r'only', color=INK, fontsize=6.0, ha='center',
          va='center', zorder=8, bbox=dict(boxstyle='round,pad=0.15', fc=C_HYP, ec='none'))
-# the near-gap band 345 <= J < 857 that neither theorem covers
-axU.annotate(r'$345\leq J<857$: no theorem', xy=(560, 1.47), xytext=(9.0, 1.62), fontsize=5.9, color=INK,
-             ha='center', va='center', zorder=8, bbox=dict(boxstyle='round,pad=0.12', fc='white', ec='none'),
-             arrowprops=dict(arrowstyle='-', color=INK2, lw=0.5, shrinkA=0, shrinkB=1))
-axU.plot([345.5, 857.5], [1.36, 1.36], color=INK, lw=0.6, zorder=7)
-for xx in (345.5, 857.5):
-    axU.plot([xx, xx], [1.33, 1.39], color=INK, lw=0.6, zorder=7)
-
 # ---------------------------------------------------------------- legend (ordinal, strongest first)
 handles = [Patch(fc=C_CERT, ec='none', label='certified (flat limit)'),
-           Patch(fc=C_NEPM, ec='none', label=r'error-budgeted [NE$\pm$]'),
-           Patch(fc=C_THM, ec='none', label='conditional theorem (W, L)'),
-           Patch(fc=C_NEM, ec='none', label='model / interpolated [NE+M], [M]'),
-           Patch(fc=C_HYP, ec=C_HATCH, hatch='//////', lw=0.0, label=r'hypothesis only (not covered)')]
+           Patch(fc=C_NEPM, ec='none', label='numerics with error control'),
+           Patch(fc=C_THM, ec='none', label='conditional theorem'),
+           Patch(fc=C_NEM, ec='none', label='model / interpolated'),
+           Patch(fc=C_HYP, ec=C_HATCH, hatch='//////', lw=0.0, label='hypothesis only')]
 fig.legend(handles=handles, loc='lower center', ncol=2, fontsize=6.0, frameon=False, bbox_to_anchor=(0.53, 0.0),
            handlelength=1.6, handleheight=0.9, columnspacing=0.9, labelspacing=0.3, borderaxespad=0.15)
 
 out = os.path.join(HERE, 'fig2_coverage.pdf')
 fig.savefig(out)
 fig.savefig(os.path.join(HERE, 'fig2_coverage_preview.png'), dpi=240)
+jl = next(J for J in range(2000) if 2 * J + 1 >= 0.37211 * LAM * y_gap(J + 0.5))
 print('wrote', out, '  aspect (width/height) = %.4f' % (W_IN / H_IN),
-      '  twist edge 1.3 at J = %.1f; b = 1.0421 Lambda at the gap: J = %.1f' % (x_edge(1.3) - 0.5,
-      (lambda y: XL_COEF * y)(1.6480) - 0.5), '  star m/Lambda = %.4f' % m_star)
+      '  twist edge 1.3 at J = %.1f; Theorem L\' J* at the twist edge = %d (expect 223)' % (x_edge(1.3) - 0.5, jl))

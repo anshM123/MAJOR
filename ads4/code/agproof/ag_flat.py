@@ -74,6 +74,9 @@ def flatplus(J, m, nu):
     x = mp.mpc(nu)/m
     th = 2*mp.asin(x)
     E2 = (2 - x*x)/(1 - x*x)**2
+    if J > 3000:          # large n: Hilb/Darboux leading term (relative error O(1/(n sin theta)) < 1e-3 here)
+        n = J
+        return E2*mp.exp(1j*((n + 0.5)*th - mp.pi/4))/mp.sqrt(2*mp.pi*(n + 0.5)*mp.sin(th))/2
     return E2*Wplus(J, th)/2
 
 

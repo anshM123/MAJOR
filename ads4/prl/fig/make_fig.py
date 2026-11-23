@@ -94,8 +94,8 @@ def series(ax, key, color, ls, label, lab_xy, lab_ha='left'):
 
 
 # (a) cubic
-series(ax1, 'g3', C1, '-', r'this work, item (1): $\sqrt{16L_A}$', (1150, 92))
-series(ax1, 'chlps', C2, (0, (4, 2)), r'flat $D{=}4$ optimum [CHLPS], transplanted', (330, 23))
+series(ax1, 'g3', C1, '-', r'this work: $\sqrt{16L_A}$', (1150, 92))
+series(ax1, 'chlps', C2, (0, (4, 2)), r'flat $D{=}4$ optimum, transplanted', (330, 23))
 ax1.set_ylim(0, 160); ax1.set_yticks([0, 50, 100, 150])
 ax1.set_ylabel(r'upper bound on $|\hat{g}_3|\,\Lambda^4$')
 ax1.annotate(r'$\sqrt{t_4^2+\alpha_T^2}\leq 2.89\times10^{-8}$ ($c_1{=}0$, $K{=}1$)', xy=(1000, V[1000]['g3']), xytext=(700, 145),
@@ -110,7 +110,7 @@ ax1.legend(handles=key, loc='center right', bbox_to_anchor=(1.0, 0.38), fontsize
 ax1.text(262, 75, 'nothing claimed', rotation=90, fontsize=6.3, color=INK2, ha='center', va='center')
 
 # (b) quartic
-series(ax2, 'q2b', C3, (0, (1.2, 1.4)), r'(2b): any light scalars, $\epsilon=0.04$', (330, 205))
+series(ax2, 'q2b', C3, (0, (1.2, 1.4)), r'(2b): light scalars allowed', (330, 205))
 series(ax2, 'q2a', C1, '-', r'(2a): no scalar with $m<0.46\Lambda$ in $T\times T$', (560, 50))
 ax2.axhline(2 * float(mp.zeta(3)), color=INK2, lw=0.9, ls=(0, (6, 2, 1, 2)), zorder=2)
 ax2.annotate(r'type II / ABJM-IIA: $2\zeta(3)$', xy=(1500, 2.404), xytext=(1500, 20), fontsize=6.8, color=INK, ha='left',

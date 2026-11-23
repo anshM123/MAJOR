@@ -1,5 +1,16 @@
 # PRL draft: notes, build, length, provenance, referee responses, fallback plan, open items
 
+*Revised 23 Nov 2026, **v7** (writing pass after INDEP_CHECK2, LRINF_TIGHT, P2_CONTRACT, P4_WINDOW, EXT_FOLD incl. its J = 31 addendum,
+an outside critique and the authors' instruction that the Letter read like a PRL): the Letter's main text has **no grade tags** (one
+sentence points to the legend, Supplement §S1, which now maps every plain phrase to its grade); internal labels (A1′/A2, (Pos), H_LJ,
+W/L′, AG′, [NE±], K₂) are gone from the main text and Fig. 2; the positivity paragraph ("Is the functional positive?") is six sentences
+around Fig. 2; the large-spin paragraph describes the two conditional theorems and their one technical assumption in words. Supplement
+§S7 rewritten: Lemma LR∞ certified to β ≥ 0.37, Theorem L′ with J\*(m) = ⌈(0.37211 m − 1)/2⌉ (223 at the gap), computed O(1/m²)
+corrections (monopole cancels), window Lemma P4W and the assumption (AG′), Theorem W in window form (47 sampled states, J\* = 26, or 42
+with the Ω^U +− edge factor); the v6 "345 ≤ J < 857 uncovered" statement is gone (W and L′ overlap at the gap). Fig. 2 redrawn
+accordingly. Change log: **`CHANGES_v7.md`** (incl. the PRLs read for voice, and inconsistencies §4). Marks: **`% AGPROOF`** at every
+place that changes if (AG′) is proved (list in CHANGES_v7 §3); v6's `% P2CONTRACT` marks are resolved.*
+
 *Revised 23 Nov 2026, **v6** (writing pass after `REFEREE_REPORT_3.md` and `ads4/REGGE_TREE.md`): order of limits stated (A2,
 Mechanism, Functionals; Supplement Table S2 rows A2/R1/H_K and two paragraphs at the end of Sec. S5.D); the Letter's "Status of
 positivity" + "Large spin" (≈ 830 words) condensed to one paragraph (≈ 310 prose words) with a new **Fig. 2** (coverage of (Pos) in
@@ -35,7 +46,7 @@ Files in `ads4/prl/`:
 | `data/` | published functional data; v4 adds `q3star_factored.json` + `make_q3star.py`, README errata §5, MANIFEST lines |
 | `build/` | all build outputs (git-ignored) |
 
-| `CHANGES_v3.md`, `CHANGES_v4.md`, `CHANGES_v5.md` | change logs v2 → v3, v3 → v4 (referee 2), v4 → v5 (HIGHSPIN filled, large spin) |
+| `CHANGES_v3.md` … `CHANGES_v7.md` | change logs v2 → v3, v3 → v4 (referee 2), v4 → v5 (HIGHSPIN filled, large spin), v5 → v6 (referee 3), v6 → v7 (plain prose, large-spin theorems) |
 
 (v5: the stale v3 copy of this table that followed here was removed; `letter.tex` is v5, `supplement.tex` has the new §S7,
 `macros.tex` has `\HSdraftfalse` and `\CollFrac`, `refs_verified.bib` adds CPPR 1109.6321.)
@@ -58,6 +69,11 @@ for f in letter supplement; do
 done
 ```
 
+Status (23 Nov, **v7**): both compile with no errors, no undefined references or citations, no overfull boxes, no stuck floats
+(Letter: 7 underfull-box notices; Supplement: hyperref "token not allowed" for math in section titles). `build/letter.pdf` 5 pages,
+text ends ≈ 0.55 down the right column of page 4; `build/supplement.pdf` 23 pages. `make_fig2.py` prints Theorem L′'s twist-edge J\*
+(223) as a check.
+
 Status (23 Nov, **v6**): both compile with no errors, no undefined references or citations, no overfull boxes, no
 stuck floats (Letter: 5 underfull-box notices; Supplement: Table S2 set in `\scriptsize` after the A2/R1/H_K rows grew).
 `build/letter.pdf` 5 pages, text ends ≈ 0.55 down the right column of page 4 (≈ 3.8 pages); `build/supplement.pdf` 21 pages.
@@ -71,6 +87,10 @@ In v5 the figure environment was moved to just before "Functionals" (it had beco
 Figure: `cd fig && python3 make_fig.py` (needs mpmath, matplotlib) before compiling the Letter.
 
 ## 2. Length
+
+**v7** (tool `scratchpad/tools/wc_prl7.py letter.tex 3 0.9375 1.0385`: wc_prl6 plus expansion of `\HLJstatusLetter`): abstract
+**563** characters (unchanged); prose 2715 words, 212 inline formulas (conservative 264), 3 display rows (48), Fig. 1 180, Fig. 2 164;
+**TOTAL ≈ 3319 (≈ 3371 conservative)**; limit 3750. Plain prose costs words (v6: 3207), offset by moving numbers to the Supplement.
 
 **v6** (tool `scratchpad/tools/wc_prl6.py letter.tex 3 0.9375 1.0385`: as wc_prl5, for any number of figures):
 abstract **563** characters rendered; prose 2501 words, 314 inline formulas (conservative 423), 3 display rows (48), Fig. 1 180,
@@ -208,7 +228,12 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
 
 1. ~~HIGHSPIN~~ **done in v5**: places filled, `\HSdraftfalse`; no state negative, so §8's fallback was not triggered.
 2. ~~Front matter~~ **done in v5**: affiliations "Independent researcher", e-mails in both files; acknowledgments removed (none).
-2a. **P2 follow-up** (running when v5 was written): K₄ to O(1/m⁴), the (S) check against 1809.05111, and the O(1/m⁴) hybrid
+2b. **v7: (AG′)** (beyond-all-orders analytic structure of exact − flat on ν ≥ 3/β; Supplement §S7.D) is the one structural
+   assumption of both large-spin theorems; a proof is being attempted (`ads4/AG_PROOF.md`). Update every `% AGPROOF` place
+   (CHANGES_v7 §3). The magnitude premises (W: spinning O(1/m⁴) window coefficients [M]; EDGE: graviton edge amplitude [M], +− factor;
+   P_L′(i) above J = 344 [M]) and W's P0 below b = 245 [NE] remain. Also open: the J = 23 and 31 twist edges (noise-aware representation
+   term), J = 29 sign-free (resolve the ν = 20 node), certification (Arb) of Lemma P4W's constants, the J = 0 engine comparison.
+2a. ~~**P2 follow-up**~~ (done: P2_CONTRACT, P4_WINDOW; v6's `% P2CONTRACT` marks resolved in v7) (running when v5 was written): K₄ to O(1/m⁴), the (S) check against 1809.05111, and the O(1/m⁴) hybrid
    subtraction behind premise (P4) of Theorem W (P2_SPINNING §7.1 found the flat ν⁶ term). Update every `% P2FOLLOW` place
    (letter.tex Large-spin paragraph; supplement §S7.C, Table S9 and the "Evidence on the premises" paragraph).
 3. ~~Publish the Q3\* factored coefficients~~ **done in v4** (`data/q3star_factored.json`).
@@ -219,12 +244,18 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
    v5: INDEP_CHECK reproduced the H_K EE-kernel reduction and Lemma Y (count and correlator level) from the statements; not covered:
    the correlator → light-function step of L6′, the non-dispersive counterexample. Still wanted: full write-ups of H_K, L6′, the R⁴
    calibration and c₁; an independent check of PW_IMAGES' identity (cheap: sympy to r⁸) and of Lemma LR∞; interval evaluation of
-   LR∞'s constants (now floating point).
+   LR∞'s constants (now floating point). **v7:** INDEP_CHECK2 reproduced the identity, D, LR∞ and W's algebra; LR∞'s constants are
+   now certified (LRINF_TIGHT); LRINF_TIGHT, P2_CONTRACT, P4_WINDOW, EXT_FOLD are unreviewed.
 7. `refs.bib` (unused legacy) still has the old JHEP fields; delete it or mirror `refs_verified.bib` before submission.
 8. UT3 still carries the stale "natural size 10⁻³–10⁻¹" for c₁ (§3) and "universality [D]" (L3d); the paper now uses [D-sketch] and no
    size estimate. UT3 was not edited (outside this task's files).
 
 ## 7. Source inconsistencies
+
+**v7**: eleven items, listed in `CHANGES_v7.md` §4 (J\*(1.3Λ) = 242 not 241 in LRINF_TIGHT §6; 40 vs 47 W states; the J\* = 64
+vs 26/42 lineage; EXT_FOLD verdict vs addendum for J = 31; magic-identity residual normalisations; Theorem L tolerance 43 (numerical
+floor) vs 32 (certified); P_L′ status; K₂ calibration 4–5 % vs 0.6–8 %; CHMRS/CLS-D citation labels; the 3/16 residual; a stale UT
+box).
 
 **v6** (found while answering referee 3; the paper's choice is stated):
 1. Letter v5 wrote B_eff = −19.265 for both gaps; with the published weights B_eff = −19.2646 (1000), −19.2197 (300); the single value
@@ -271,6 +302,9 @@ writes "[D, one step D-sketch]".
 
 ## 8. Fallback plan if HIGHSPIN returns a negative state (referee 2, M1(d))
 
+**Status v7: not triggered** (EXT_FOLD: no state negative; the lowest new value is J = 7's twist edge, +0.268). The P2 trigger in
+the next paragraph is obsolete: the O(1/m²) corrections are computed and use ≤ 0.41 H. A new trigger: a proof that (AG′) fails, or a
+graviton edge amplitude above Theorem W's tolerance (Table S9), would remove large-spin support without making a state negative.
 **Status v5: not triggered.** HIGHSPIN and SMALLNU_WINDOW found no negative physical state (both J = 29 negatives were chain
 artefacts). The plan below **remains valid** as the response to any future negative state of Ω^EE at Δ_g = 1000 (e.g. from the
 untested premises of Theorems W/L, the near-gap band 345 ≤ J < 857, or J ≥ 150 window data), with one update: the trigger list should
