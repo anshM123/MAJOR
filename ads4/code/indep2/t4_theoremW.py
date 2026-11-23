@@ -97,48 +97,100 @@ def costs_state(beta, m):
     for k, Sv in S.items():
         O2 = np.sum(pw * psiv[2] * Sv); O3 = np.sum(pw * psiv[3] * Sv)
         sc = m**4 if k in ('4a', '4b') else m**2
-        res[k] = [(2 * O2 + u * O3) / sc, (2 * O2 - u * O3) / sc]
+        # [k=2 only (Route W convention), ++ with k=3, +- with k=3]
+        res[k] = [2 * O2 / sc, (2 * O2 + u * O3) / sc, (2 * O2 - u * O3) / sc]
     # leading: 2 Omega2 + sigma u Omega3 (for the record)
     res['LR'] = [2 * np.sum(pw * psiv[2] * P) + u * np.sum(pw * psiv[3] * P), 2 * np.sum(pw * psiv[2] * P) - u * np.sum(pw * psiv[3] * P)]
     return res
 
+
+# stripped (R2) costs: the raw image equals S itself; cost = 2 Re sum_k X_k S(nu_k)/(R_- + R_+)(nu_k) dnu/Lam / m^2 (k = 2 only)
+import sympy as _sp
+_kj = json.load(open('../../prl/data/kernels.json'))['D_k2_EE']
+_nus = _sp.Symbol('nu')
+_Rm = _sp.lambdify(_nus, _sp.sympify(_kj['R_minus'], locals={'nu': _nus}), 'numpy')
+_Rp = _sp.lambdify(_nus, _sp.sympify(_kj['R_plus'], locals={'nu': _nus}), 'numpy')
+_a = np.loadtxt('../../prl/data/d_abel_X_1000.txt')
+gnu = _a[:, 0]; gX = _a[:, 1] + 1j * _a[:, 2]; gdnu = gnu[1] - gnu[0]
+gchi = gX / (_Rm(gnu + 0j) + _Rp(gnu + 0j))
+def mehler_chunk(mu, beta, chunk=2048):
+    return np.concatenate([mehler(mu[i:i + chunk], beta) for i in range(0, len(mu), chunk)])
+def costs_stripped(beta, m):
+    nu = gnu
+    eta = np.cosh(beta); sh = np.sinh(beta)
+    P = mehler_chunk(nu + 0j, beta).real
+    Pp1 = mehler_chunk(nu + 1j, beta); Pm1 = mehler_chunk(nu - 1j, beta)
+    Pp2 = mehler_chunk(nu + 2j, beta); Pm2 = mehler_chunk(nu - 2j, beta)
+    mu = -0.5 + 1j * nu
+    e2P1 = (mu * (eta * P - Pp1)).real
+    S = {'A ': eta * P, 'B ': eta * nu**2 * P, 'C1': e2P1 / (eta * eta - 1), 'C2': nu**2 * e2P1, 'C3': e2P1,
+         'sh+1': Pm1.real, 'sh-1': Pp1.real, 'sh+2': Pm2.real, 'sh-2': Pp2.real,
+         '4a': eta**2 * nu**4 * P, '4b': eta * nu**4 * e2P1}
+    res = {}
+    for k, Sv in S.items():
+        sc = m**4 if k in ('4a', '4b') else m**2
+        res[k] = 2 * float(np.real(np.sum(gchi * Sv)) * gdnu / Lam) / sc
+    return res
+
 states = json.load(open('../lsw/cache/costs_1000.json'))
-log('\n(ii) own Lemma-I costs (R1) vs Route W cache (costs_1000.json), relative differences per structure, worse helicity:')
+log('\n(ii) own Lemma-I costs (R1, k = 2 part 2 Omega_2[S]/m^2; O(1/m^4) shapes /m^4) vs Route W cache costs_1000.json "cost"[k][0] (R1 entry)')
 mine = []
 worst_rel = {}
 for st in states:
     c = costs_state(st['beta'], st['m'])
     mine.append(c)
-    rels = []
+    line = []
     for k in st['cost']:
-        for h in (0, 1):
-            ref = st['cost'][k][h]; v = c[k][h]
-            r = abs(v - ref) / max(abs(ref), 1e-300)
-            rels.append((r, k, h))
-            worst_rel[k] = max(worst_rel.get(k, 0), r if abs(ref) > 1e-3 * max(abs(st['cost'][k][0]), abs(st['cost'][k][1]), 1e-300) else 0)
-    rmax = max(rels)
-    log(f"  J={st['J']:3d} m/L={st['mfl']:.3f} beta={st['beta']:.4f}: LR(++) mine {c['LR'][0]:.6e} vs base {st['fl']['++']['base']:.6e};"
-        f" A {c['A '][0]:+.3e}/{st['cost']['A '][0]:+.3e}, B {c['B '][0]:+.3e}/{st['cost']['B '][0]:+.3e}, C2 {c['C2'][1]:+.3e}/{st['cost']['C2'][1]:+.3e},"
-        f" sh+1 {c['sh+1'][0]:+.2e}/{st['cost']['sh+1'][0]:+.2e}, 4a {c['4a'][0]:+.3e}/{st['cost']['4a'][0]:+.3e}; max rel diff {rmax[0]:.1e} ({rmax[1]},{rmax[2]})")
-log('  worst relative difference per structure (entries > 1e-3 of the structure scale): ' + ', '.join(f'{k.strip()}: {v:.1e}' for k, v in worst_rel.items()))
+        ref = st['cost'][k][0]; v = c[k][0]
+        ratio = ref / v if v != 0 else float('nan')
+        line.append(f"{k.strip()} {v:+.3e}/{ref:+.3e}")
+        if k not in ('4a', '4b'):
+            worst_rel[k] = max(worst_rel.get(k, 0), abs(v - ref) / abs(ref))
+    lr = 2 * np.sum(pw * psiv[2] * mehler(Lam * px, st['beta']).real)
+    hk = '++' if '++' in st['fl'] else '+-'
+    r4 = st['cost']['4a'][0] / c['4a'][0]
+    log(f"  J={st['J']:3d} m/L={st['mfl']:.3f} b={st['beta']:.4f}: 2Om2 mine {lr:.6e} / Ns {st['fl'][hk]['Ns']:.6e}; " + ', '.join(line) +
+        f";  4a ratio theirs/mine = {r4:.4e} (m^2 = {st['m']**2:.4e})")
+strip = []
+wr2 = {}
+for st in states:
+    cs = costs_stripped(st['beta'], st['m'])
+    strip.append(cs)
+    for k in st['cost']:
+        ref = st['cost'][k][1] / (st['m']**2 if k in ('4a', '4b') else 1)
+        wr2[k] = max(wr2.get(k, 0), abs(cs[k] - ref) / abs(ref))
+log('  stripped (R2) costs vs cache "cost"[k][1] (4a/4b cache divided by m^2), worst relative difference: ' + ', '.join(f'{k.strip()}: {v:.1e}' for k, v in wr2.items()))
+log('  worst relative difference per structure (R1, k = 2): ' + ', '.join(f'{k.strip()}: {v:.1e}' for k, v in worst_rel.items()))
+k3 = max(abs(c[k][1] - c[k][0]) / abs(c[k][0]) for c in mine for k in ('A ', 'B ', 'C1', 'C3'))
+k3c2 = max(abs(c['C2'][1] - c['C2'][0]) / abs(c['C2'][0]) for c in mine)
+log(f'  effect of the omitted k = 3 piece (u Omega_3[S]) on the costs: up to {k3:.2f} relative for A, B, C1, C3; up to {k3c2:.2f} for C2')
 
 # ---------------------------------------------------------------- (iii) J* from own costs
 kap = {'A ': 6.46, 'B ': 11 / 6, 'C1': 1 / 6, 'C2': 1 / 6, 'C3': 11.75 / 6}
-def jstar(Lams, Ksh, K4, theta, use_mine=True):
+def jstar(Lams, Ksh, K4, theta, use_mine=True, variant=0, m4fix=1.0, ringR2=False, shR2=False, verbose=False):
     fails = []
-    for st, c in zip(states, mine):
+    for st, c, cs in zip(states, mine, strip):
         cc = c if use_mine else st['cost']
+        hs = (variant,) if (use_mine and variant == 0) else ((1, 2) if use_mine else (0,))
         dh = []
-        for h in (0, 1):
-            d = sum(Lams[k] * kap[k] * abs(cc[k][h]) for k in kap)
-            d += Ksh * sum(abs(cc[k][h]) for k in ('sh+1', 'sh-1', 'sh+2', 'sh-2'))
-            d += K4 * (abs(cc['4a'][h]) + abs(cc['4b'][h]))
+        for h in hs:
+            fac4 = m4fix if use_mine else m4fix / st['m']**2
+            g = (lambda k: abs(cs[k])) if (use_mine and ringR2) else (lambda k: abs(cc[k][h]))
+            gs = (lambda k: abs(cs[k])) if (use_mine and shR2) else (lambda k: abs(cc[k][h]))
+            d = sum(Lams[k] * kap[k] * g(k) for k in kap)
+            d += Ksh * sum(gs(k) for k in ('sh+1', 'sh-1', 'sh+2', 'sh-2'))
+            d += K4 * fac4 * (g('4a') + g('4b'))
             dh.append(d)
         d = max(dh)
-        fpp, fpm = st['fl']['++']['floor'], st['fl']['+-']['floor']
-        H = fpp * fpm / (fpp + fpm) if st['J'] % 2 == 0 else fpm
+        if st['J'] % 2 == 0:
+            fpp, fpm = st['fl']['++']['floor'], st['fl']['+-']['floor']
+            H = fpp * fpm / (fpp + fpm)
+        else:
+            H = st['fl']['+-']['floor']
         if d > theta * H:
             fails.append(st['J'])
+        if verbose and st['J'] in verbose:
+            log(f"      J={st['J']} m/L={st['mfl']:.3f}: d = {d:.3e}, theta H = {theta*H:.3e}, d/(theta H) = {d/(theta*H):.3f}")
     Js = sorted(set(s['J'] for s in states))
     fs = sorted(set(fails))
     js_ = None
@@ -152,7 +204,15 @@ cases = [((1, 10, 1), 1.0, '30'), ((1, 10, 1), 0.5, '38'), ((3, 10, 10), 1.0, '5
 for (La, Ksh, K4), th, claim in cases:
     Lams = {k: La for k in kap}
     j1, f1 = jstar(Lams, Ksh, K4, th); j2, f2 = jstar(Lams, Ksh, K4, th, use_mine=False)
-    log(f'  (Lam_amp, K_sh, K4) = ({La}, {Ksh}, {K4}), theta = {th}: J* = {j1}  failing {f1}   [claimed {claim}; recomputed from their cached costs: {j2}, failing {f2}]')
+    j3, f3 = jstar(Lams, Ksh, K4, th, variant=1)
+    j4, f4 = jstar(Lams, Ksh, K4, th, shR2=True)
+    j5, f5 = jstar(Lams, Ksh, K4, th, shR2=True, ringR2=True)
+    log(f'    ring R1 + index-shifted STRIPPED (own costs): J* = {j4}, failing {f4};   all stripped (R2 row): J* = {j5}, failing {f5}')
+    log(f'  (Lam_amp, K_sh, K4) = ({La}, {Ksh}, {K4}), theta = {th}: own k=2 costs: J* = {j1}, failing {f1} | own costs incl. k=3 (worse helicity): J* = {j3}, failing {f3} | [claimed {claim}]  (their cached costs, 4a/4b divided by m^2: J* = {j2}, failing {f2})')
+log('  margins at the boundary states, (3, 10, 10), theta = 1, own costs with k = 3 included:')
+jstar({k: 3 for k in kap}, 10, 10, 1.0, variant=1, verbose=(46, 50, 51, 64))
+log('  same, k = 2 only:')
+jstar({k: 3 for k in kap}, 10, 10, 1.0, verbose=(46, 50, 51, 64))
 # P2_SPINNING §7.5 model constants (Lambda_C1 not stated in §7.5; taken = 1 and = 3.17 as bracket)
 for LC1 in (1.0, 3.17):
     Lams = {'A ': 3.17, 'B ': 1.0, 'C1': LC1, 'C2': 1.0, 'C3': 2.03}
