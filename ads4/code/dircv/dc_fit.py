@@ -75,3 +75,31 @@ def paired(oa, ob, h, nus_sel, model='F1', kind='C2'):
     dy = fa['yj'] - fb['yj']
     edy = np.sqrt((R - 1)/R*np.sum((dy - dy.mean(0))**2, axis=0))
     return dict(dr=fa['r'] - fb['r'], edr=edr, dy=fa['y'] - fb['y'], edy=edy, fa=fa, fb=fb)
+
+
+WFIT = os.environ.get('DC_WFIT', '0') == '1'
+_fit_unw = fit
+
+
+def fitw(o, h, nus_sel, model='F1', kind='C2', floor=30.0):
+    """WEIGHTED version (DIRCV §8): weights 1/max(err, floor)^2 from the full-sample jackknife errors of y (fixed across the jackknife
+    replicas); 'rms' is the weighted rms sqrt(sum w res^2 / sum w); chi2 with the same errors."""
+    idx = select(o, nus_sel); J, m = o['J'], o['m']; nu = np.asarray(o['nus'])[idx]
+    C = columns(J, m, nu, h)
+    cols = [C['AD'], C['ADp']] + ([C['AB']] if model == 'F1B' else []) + [C['A1']]
+    y = o[(kind, h)]['y'][idx] - C['dk']
+    yj = o[(kind, h)]['yj'][:, idx] - C['dk'][None, :]
+    R = yj.shape[0]
+    ey = np.sqrt((R - 1)/R*np.sum((yj - yj.mean(0))**2, axis=0))
+    w = 1.0/np.maximum(ey, floor)**2; sw = np.sqrt(w)
+    A = np.array(cols).T
+    sol = lambda yy: np.linalg.lstsq(A*sw[:, None], yy*sw, rcond=None)[0]
+    c = sol(y); res = y - A @ c
+    cj = np.array([sol(yy) for yy in yj])
+    ej = np.sqrt((R - 1)/R*np.sum((cj - cj.mean(0))**2, axis=0))
+    return dict(c=c, cj=cj, ec=ej, r=c[-1], er=ej[-1], rms=float(np.sqrt(np.sum(w*res**2)/np.sum(w))), res=res, ey=ey, y=y, yj=yj,
+                chi2=float(np.sum(w*res**2)), dof=len(y) - len(cols), nu=nu, model=model)
+
+
+if WFIT:
+    fit = fitw

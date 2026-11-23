@@ -53,6 +53,19 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 > * **The earlier 56-replica P_J-cv cross-check was not robust** (e.g. `++` 4-node −393 ± 174 → +23 ± 380); the bracketed numbers in the DIRCV box above are superseded.
 > * **Next:** add window nodes at ν = 11–15 so the fit leans less on ν = 13.3, or use a variance-bounded twin at that node. More plain samples are inefficient.
 
+> **Update (DIRCV.md §8, unreviewed): 5 new window nodes at (1100, 100) (ν = 11.0–15.0, avoiding the D_h zero at 13.09). The A+C fit no longer hinges on ν = 13.3: dropping that node moves r by +6 to −149, inside the errors. Weighted fits (χ²/dof 0.8–1.3) are now required. λ = 0.7 ± 0.25.**
+> * **Leverage, worse helicity, central / 2σ:**
+>
+>   | fit | λ-corrected | λ-free P_J-cv |
+>   |---|---|---|
+>   | A+C, 9 nodes | 2.2–2.7 / 1.4 | 2.0–2.6 / 1.0–1.3 |
+>   | A+C, 11 nodes | 3.1–4.5 / 1.8 | 2.2–2.9 / 1.7 |
+>   | A+B+C, 9 nodes | 2.7–3.8 / 1.4–1.7 | 1.6–2.1 / 0.5–0.6 |
+>   | A+B+C, 11 nodes | 4.2–5.6 / 2.3–2.5 | 5.1–7.4 / 2.1–3.2 |
+>
+> * **Every central leverage is ≥ 1.6, and every A+C fit is ≥ 1.0 at 2σ.** The only 2σ entry below 1 is λ-free A+B+C on 9 nodes, where the ν²D coefficient rests on noisy P_J nodes. The 2σ floor is set by P_J noise at ν < 13 (fold side). Grade [NE].
+> * The one-contour twin does not reduce variance. P_J-dir is unusable (point drops at ν < 13; only the control variate cancels them).
+
 ## 0. Grades
 
 | grade | meaning |

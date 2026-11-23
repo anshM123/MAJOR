@@ -326,3 +326,68 @@ pool is `_pool2`, contiguous groups of 28; `_pool2i` is the same pool grouped by
 * **Next step.** More P_J statistics at ν = 13.3 do not help efficiently, because of the heavy tail. Either:
   * a variance-bounded twin at 13.3 (both waves on one contour, or a tail-robust proposal); or
   * more window nodes (ν ≈ 11–15) to reduce the 4-node fit's leverage on ν = 13.3.
+
+---
+
+## 8. Addendum: five new window nodes ν = 11–15, and a "both waves on one contour" twin [NE]
+
+*Code:*
+* `run_win.sh` → `dc_points.py`: tags `_z1`/`_z2`, seeds 9101/9201, 16 replicas each, full production nodes (waves + P_J twin +
+  reference);
+* `dc_ponc.py` (the one-contour twin);
+* `dc_pool.py`: pools `_pool3` (contiguous groups) and `_pool3i` (interleaved);
+* `dc_fit.fitw` (weighted fit, `DC_WFIT=1`);
+* `dc_final2.py` and `dc_nodes2.py`.
+
+*Compute:* +1.5 CPU-h, two processes. The total for DIRCV is ≈ 5.4 CPU-h.
+
+**Nodes.** ν = 11.0, 11.7, 12.3, 14.2, 15.0. They avoid the zero of D_h at ν = 13.09, which is what gave 13.3 its leverage. Together with
+13.3, 16.3, 20.8 and 25 this makes 9 per-wave nodes; "11 nodes" adds the fw records at 16.7 and 33.4.
+* ν < 13 runs with ν_f = 13. It has the largest errors and point drops: P_J nbad 12–15 per 16384 at 11–12.3, waves 3–8.
+* The 12.3 node is poor for the waves (±5000 c₂).
+* At 14.2 the scalar record nearly vanishes, so the scalar cv factor is noisy there (d_w = +0.046 ± 0.025).
+
+**Weighted fits are now required.** The node errors span 50–5000 c₂. The unweighted F1 fit of §0–§7 is dominated by the noisiest node:
+its rms is ≈ 1700–1900, driven by 12.3, and χ²/dof is 6–17. With weights 1/err² (jackknife errors, fixed across replicas), χ²/dof is
+0.8–1.3 for every λ-corrected and P_J-cv fit (2.6 for one 11-node `++` λ fit). The rms is now the weighted rms.
+
+**λ.** With 17 nodes the raw state-level test gives λ = 0.77 ± 0.25. The new P_J-twin comparisons sit at λ ≈ 1.0–1.1, with errors ≈ 0.5.
+**Adopted: λ = 0.7 ± 0.25.**
+
+**The A + C fit no longer hinges on ν = 13.3.** Dropping 13.3 from the 9-node λ-corrected F1 fit moves r by +6 (`++`) and −149 (`+−`),
+inside the errors (§8 tables, "w/o 13.3"). In the 4-node fit, the same node carried the whole dir − cv gap.
+
+**Results at (1100, 100).** Weighted fits. Worse helicity; the range covers the two groupings (contiguous / interleaved). Errors are
+statistical ⊕ λ. L uses `|r| + rms_w`.
+
+| class (fit) | estimator | r (worse h) | L central | L at 2σ |
+|---|---|---|---|---|
+| A + C, 9 pw nodes | λ-corrected | −370 … −384 ± 150–165 (`++`), rms 145–155 | **2.2–2.7** | **1.4** |
+| A + C, 9 pw nodes | λ-free P_J-cv | +324 … +335 ± 172–282 (`+−`) | **2.0–2.6** | **1.0–1.3** |
+| A + C, 11 nodes | λ-corrected | −16 … +63 ± 140–160 (`++`), rms 304–314 | **3.1–4.5** | **1.8** |
+| A + C, 11 nodes | λ-free P_J-cv | +272 … +335 ± 81–87 (`++`) | **2.2–2.9** | **1.7** |
+| A + B + C, 9 pw nodes | λ-corrected | +251 … +290 ± 135–207 | **2.7–3.8** | **1.4–1.7** |
+| A + B + C, 9 pw nodes | λ-free P_J-cv | −455 … −510 ± 580–850 | 1.6–2.1 | **0.5–0.6** |
+| A + B + C, 11 nodes | λ-corrected | −75 … −92 ± 105–120 | **4.2–5.6** | **2.3–2.5** |
+| A + B + C, 11 nodes | λ-free P_J-cv | +46 … +57 ± 86–164 | **5.1–7.4** | **2.1–3.2** |
+
+**Notes on the table.**
+* **P_J-dir is not usable.** It gives r ≈ −1300 … −2800 ± 300–800, 2–3σ below P_J-cv. P_J's dropped points (nbad) remove weight from
+  dir. The control variate cancels them, because the same points are dropped from the scalar. This is one more reason to use only
+  cv-type ratios for the P_J twin.
+* **The one-contour twin (PonC) is not variance-bounded.** P_J was integrated on the W₊ contour (flow of W₊, integrand P_J = W₊ + W₋;
+  no Q cut, hence no sweep), at ν = 13.3, seed 4242, 8 replicas.
+  * The scalar is consistent with exact: d = +0.025 ± 0.030.
+  * But the relative errors are 3.3 % (scalar) and 5 % (EE), the same as P_J on the n3 contour (3.2 %) and 6–8× the waves'.
+  * W₋ on C₊ is not tamed. Not pursued.
+
+**Net (supersedes §0 and §7 where they differ).** H_LJ(1000) leverage at (1100, 100), worse helicity, with 9–11 window nodes:
+* **A + C:** central **2.0–4.5**; at 2σ **1.4–1.8 (λ-corrected), 1.0–1.7 (λ-free)**.
+* **A + B + C:** central **2.7–7.4**.
+  * At 2σ it is **≥ 1.4 (λ-corrected)** and ≥ 2.1 (λ-free) on 11 nodes.
+  * The one sub-1 entry is the λ-free full class on the 9 per-wave nodes: 0.5–0.6 at 2σ. There the ν²D coefficient is fixed only by
+    the noisy P_J nodes at 11–12.3, so σ_r is 580–850.
+* **Every central value is ≥ 1.6.**
+* **At 2σ, every A + C fit is ≥ 1.0.** The 2σ floor is set by the P_J twin's noise at ν < 13 (fold side, point drops), not by any one
+  node.
+* **Grade: [NE].**

@@ -18,6 +18,7 @@ def scalar_check(*a, **k):
 Z3.scalar_check = scalar_check
 J, D = 100, 1100.0
 TAG = sys.argv[1]; PTAG = TAG + 'P'
+WF = os.environ.get("DC_WFIT", "0") == "1"
 LAM0, DLAM = float(os.environ.get('DC_LAM0', '0.6')), float(os.environ.get('DC_DLAM', '0.25'))
 TB = {'++': (1158.0, 1441.0), '+-': (1152.0, 1439.0)}
 lines = []
@@ -31,7 +32,7 @@ Pd = {kf: cfg(1.0, PTAG, kf, est='dir') for kf in (False, True)}
 nus_pw = [v for v in W[(0.0, False)]['nus'] if 10.5 <= v <= 25.01]
 nus_fw = [v for v in W[(0.0, True)]['nus'] if 10.5 <= v <= 34.01]
 sets = (('pw nodes', False, nus_pw), ('pw + fw', True, nus_fw), ('pw w/o 13.3', False, [v for v in nus_pw if abs(v - 13.3) > 1e-6]))
-pr(f"# dc_final2 (1100,100) record set {TAG}; lambda = {LAM0} +- {DLAM};  pw nodes {np.round(nus_pw, 2).tolist()};  +fw {np.round(nus_fw, 2).tolist()}")
+pr(f"# dc_final2 (1100,100) record set {TAG}; {'WEIGHTED' if WF else 'unweighted'} fits; lambda = {LAM0} +- {DLAM};  pw nodes {np.round(nus_pw, 2).tolist()};  +fw {np.round(nus_fw, 2).tolist()}")
 pr("| fit | nodes | h | dir | cv | lambda-corr r +- stat +- lam (rms) | L central / 2 sigma (lambda-corr) | P_J-cv r +- stat (rms) | L central / 2 sigma (P_J-cv) | P_J-dir r |")
 pr("|---|---|---|---|---|---|---|---|---|---|")
 for model in ('F1', 'F1B'):
@@ -53,4 +54,4 @@ for model in ('F1', 'F1B'):
             for h in ('++', '+-'):
                 f = F.fit(o, h, nus, model); s.append(f"{lab} {h} chi2 {f['chi2']:.1f}/{f['dof']}")
         pr(f"  {model} {name}: " + "; ".join(s))
-open(os.path.join(dc_guard.CACHE, 'dc_final2%s.txt' % TAG), 'w').write('\n'.join(lines) + '\n')
+open(os.path.join(dc_guard.CACHE, 'dc_final2%s%s.txt' % (TAG, '_w' if WF else '')), 'w').write('\n'.join(lines) + '\n')
