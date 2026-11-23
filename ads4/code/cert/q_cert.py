@@ -26,15 +26,17 @@ DATA = os.path.join(HERE, '..', '..', 'prl', 'data', 'q3_full_delta0.2.json')
 
 
 def exact_factor(P):
-    """P (exact binary rationals) = (1-p)^3 q + rem; returns (1-p)^3 q (exact) and rem."""
-    q = list(P); rems = []
+    """P (exact binary rationals) = p^e (1-p)^3 q + rem, e = 1 if P(0) = 0 exactly (psi2) else 0 (psi3);
+    returns p^e (1-p)^3 q (exact) and the dropped remainders.  (Keeps psi2(0) = 0, which the low side needs.)"""
+    e = 1 if P[0] == 0 else 0
+    q = list(P[e:]); rems = []
     for _ in range(3):                       # divide by (p - 1) three times (synthetic division); P = (p-1)^3 q + rem
         out = [Fr(0)] * (len(q) - 1); acc = Fr(0)
         for i in reversed(range(1, len(q))):
             acc = acc + q[i]; out[i - 1] = acc
         rems.append(acc + q[0]); q = out
     omp3 = [Fr(1), Fr(-3), Fr(3), Fr(-1)]
-    return rcert.pmul(omp3, [-x for x in q]), rems
+    return [Fr(0)] * e + rcert.pmul(omp3, [-x for x in q]), rems
 
 
 def load_q():

@@ -7,7 +7,7 @@ DESHIFT_CLOSE §7.4, as far as they bear on H_K.*
 * *Read-only imports:* `eestep/{ee6_lrprofile, ee_quad, ee_blocks, ee3_deshift}`, `h7i14/v3_regge_kernel`, `spinfunc/{s1_offdiag_kernel,
   bg_eeq}` (bg_eeq's cache directory redirected), `resultq/{stage4_hj, og_free}`, `repro_engine/sdchain`, `deshift/kern`.
   Data: `resultq/cache/stage4_hj.pkl`, `resultq/functionals_q4_deshift.json`, `prl/data/q_deshift_continuum_{c4v,c4d}.json`.
-* *Compute:* ≈ [[CPU]] CPU-minutes, at most 2 processes, one thread each, < 3 GB each.
+* *Compute:* ≈ 80 CPU-minutes, at most 2 processes, one thread each, < 3 GB each.
 
 Grades: **[P]** proved; **[D]** derived; **[DV]** derived and checked numerically; **[NE]** numerical evidence; **[M]** model;
 **[I]** open; **[certified]** interval-rigorous (ball arithmetic with explicit truncation and aliasing bounds). A chain carries the grade of
@@ -20,9 +20,9 @@ its weakest link.
 | item | before | after |
 |---|---|---|
 | 1. Heavy image of the k = 4 EE position kernel; EE3 ν-normalisation; f_pos(±3i/2) | LRC-a EE k = 4 [D]; normalisation "rests on the same code path, not rechecked" | **Confirmed. LRC-a EE k = 4 → [D + DV].** EESTEP's b-shifted leading-Regge kernel equals the split kernel that Stage 4 transformed, with ratio **1 to 1.8·10⁻⁷**, ν-, β- and polarisation-independent (4 pol. sets × β = 1, 3, 6 × ν = 0.5–6). Its rank-3 plane-wave transform, done numerically and independently of stage4_hj's symbolic route, reproduces the stored R_j^{EE3} (and R_j^{sc3}) **to ≤ 1.1·10⁻¹¹**. So the position weight is χ·const/N_com, with the scalar's const, and **f_pos(±3i/2) = 0 stands** (§1) |
-| 2. Spinning K1′, numerical | scalar examples only | **[D + DV]** on the exact free-scalar ⟨TTTT⟩ (N = 1, 10; c = 0.5, 0.9; 63 polarisation sets; box down to 10⁻⁶): Cauchy–Schwarz holds everywhere (saturated only where it must be), B(c) is finite and sits at the corner (c, c), \|𝒢_Regge\| ≤ 0.53–0.999 B(c), \|dDisc 𝒢\| ≤ 0.007–0.25 · 2B(c), and the edge row \|M − 1\| ≤ (B − 1)(min(ρ, ρ_b)/c)^{τ_min/2} holds over the whole box with τ_min = 1 (§2) |
+| 2. Spinning K1′, numerical | scalar examples only | **[D + DV]** on the exact free-scalar ⟨TTTT⟩ (N = 1, 10; c = 0.5, 0.9; 63 polarisation sets; box down to 10⁻⁶): Cauchy–Schwarz holds everywhere (max ratio 1 to 12 digits, reached by the sets with P ∝ Q, where equality is exact), B(c) is finite and sits at the corner (c, c), \|𝒢_Regge\| ≤ 0.53–0.999 B(c), \|dDisc 𝒢\| ≤ (0.0007–0.25) · 2B(c), and the edge row \|M − 1\| ≤ (B − 1)(min(ρ, ρ_b)/c)^{τ_min/2} holds over the whole box with τ_min = 1 (§2) |
 | 3. DS for Q in the Tonelli argument | "DS [NE]", the only non-derived input of H_K for Q | **For the explicit continuum weights the swap needs no de-shift identity.** The analyticity that HK derived from DS (Lemmas S2/S4) holds by construction [P], and the criterion is unchanged (J₀ < 5/2) [D]. ε-DS fixes only the values (images and moments = targets ± ε). ε enters a Tonelli bound only additively, through a finite C_E. The bounds move by ≤ ε × the factors of §3.2 (E). **ε_W is now [certified] for C4:** `ε_W ≤ 2.673·10⁻¹³` (value) and `≤ 9.058·10⁻¹¹` (derivative) (§3.3) |
-| 4. (P): C5 piece and J = 2 | J = 0 derivative piece only | [[P4]] (§4) |
+| 4. (P): C5 piece and J = 2 | J = 0 derivative piece only | **J = 2 run** [NE]: s_d^∞ = 0.5102 / 0.5085 / 0.5095 / 0.5096 at m/Λ = 1 / 3.35 / 10 / 20, i.e. m-independent to 0.3 % and equal to J = 0. The engine switch (analytic-radial, since the direct engine is J = 0 only) is validated against EESTEP's direct J = 0 numbers to ≤ 1.7·10⁻⁴. **C5 not run** (no k = 5 finite-m engine in the repo) [I] (§4) |
 
 **H_K.**
 * **Result D: [D]** (unchanged; DS for k = 2 is [D + NE] through Lemma S2 and the cutoff).
@@ -57,7 +57,7 @@ with `B_EE` evaluated from `v3_regge_kernel.B_monomials(spin=True)` at `ŷ`, wit
 
 | | β = 1 | β = 3 | β = 6 |
 |---|---|---|---|
-| max \|ratio − 1\|, 4 polarisation sets × ν ∈ {0.5, 1.5, 3, 6} | 3·10⁻⁸ | 5·10⁻¹⁰ | 1.8·10⁻⁷ |
+| max \|ratio − 1\|, 4 polarisation sets × ν ∈ {0.5, 1.5, 3, 6} | 4.8·10⁻⁸ | 4.6·10⁻¹⁰ | 1.8·10⁻⁷ |
 
 * The ratio is **1**, not merely constant: the ν-only factors that v3 dropped are exactly the scalar's, and EESTEP's dressing
   `D = [(H₂₄ − 2V₂V₄)/(X₂₀X₄₀)]²` reduces at x₀ = 0 to `16(z₂·z₄)²` (and z′₂·z′₄ = z₂·z₄, the inversion being an isometry).
@@ -131,7 +131,8 @@ The per-j ratios `h_j^{EE}/h_j^{sc}` match the exact rationals to all printed di
   | 0.9, 1 | 1.000000000000 | 2.19·10¹⁵ (0.9, 0.9) | 0.987 | 0.0066 | 1.0000 | 0.52 |
   | 0.9, 10 | 1.000000000000 | 2.18·10¹⁵ (0.9, 0.9) | 0.999 | 0.0007 | 1.0000 | 0.66 |
 
-  * Cauchy–Schwarz is never violated. Equality occurs only where it must: for the polarisation sets with P ∝ Q.
+  * Cauchy–Schwarz is never violated. The maximum ratio, 1 to 12 digits, is reached by the polarisation sets with P ∝ Q (e.g. all
+    angles 0), where equality is exact.
   * No comparison value falls below 1, and the identity parts N_P, N_Q are positive everywhere.
   * **B(c) is finite and attained at the corner (c, c).** Its size is the t-channel identity `(u/v)^Δ` at z = z̄ = 4c/(1+c)², as for
     GFF with Δ = 3 (lem2). K1′ needs finiteness only.
@@ -254,10 +255,9 @@ two reasons.
   this; there is no need.
 * **The residue part is exact to 10⁻³⁵.** With the IEEE-double h, σ the solver used, DESHIFT's "a₂ = 8·10⁻⁴²" and "const 10⁻⁴³" are
   confirmed as bounds ≤ 1.3·10⁻³⁵ and ≤ 5.2·10⁻³⁵ (aliasing-limited).
-* **Rigour caveat (bookkeeping only).** The stored outputs were produced before a one-line fix to `up()`. Earlier, a positive enclosure
+* **Rigour note.** A first run preceded a one-line fix to `up()`. In it, a positive enclosure
   below 10⁻³⁰⁸ could round to 0.0 in the float accumulation; this can only have happened for μ ≳ 78, where |E| ≤ e^{−(μ−60)²/2σ²+22} <
-  10⁻⁴⁰⁰. The omitted amount is below 10⁻³⁰⁰ and does not affect the stated digits. Re-running the current script reproduces the table
-  (see §6).
+  10⁻⁴⁰⁰. The omitted amount is below 10⁻³⁰⁰. **Both pieces were re-run with the fixed script and reproduce the table digit for digit.**
 
 **Certified statement.** For all t ≥ 0, `|W(t) − Φ(t)| ≤ ε_W^{cert} + (residue terms)`, and `|image − target| ≤ ε_W^{cert}P_{−½}(cosh β)`
 (+ the ≤ 10⁻³⁴ residue terms of §3.2 (B)).
@@ -270,7 +270,50 @@ two reasons.
 
 ## 4. (P) completion (`hk4_p_j2.py` → `cache/hk4_p_j2.txt`)
 
-[[SEC4]]
+**What was run.**
+* **J = 2, derivative piece**, at m/Λ₃₀₀ = 1.00, 3.35, 10.05 (and 20.1), with EESTEP §5(b)'s chain unchanged:
+  * r_D = I(D; ν)/I(D; 0.02);
+  * infinitely heavy reference r_∞ by Richardson in 1/m² from D = 6000 and 2·10⁴ (same J);
+  * Γ_K, s_d = 0.04 Σ_{ν<12} χ_d Re Γ_K with the Stage-6 H0 weight;
+  * m² = (D − J − 2)(D + J − 1).
+* **One deviation from "EESTEP's method".** The direct 7-d engine (`repro_engine/direct_rho.py`) is J = 0 only. The images are therefore
+  produced by the analytic-radial engine `spinfunc/bg_eeq.py` (BELOW_FOLD2's production engine; exact order by order in 1/Δ, conserved
+  ⟨TTO_J⟩ for any even J), at order K = 4 for D = 300 and K = 3 otherwise.
+* **Validation of the switch at J = 0** against EESTEP's direct numbers, same chain:
+
+  | D (m/Λ) | analytic-radial (order) | direct (EESTEP) | difference |
+  |---|---|---|---|
+  | 300 (1.00) | +0.50821 (K = 4) | +0.50814 | 7·10⁻⁵ |
+  | 1000 (3.35) | +0.50957 (K = 4) | +0.50952 | 5·10⁻⁵ |
+  | 3000 (10.05) | +0.50948 (K = 3) | +0.50961 | 1.3·10⁻⁴ |
+  | 6000 (20.1) | +0.50962 (K = 3) | +0.50945 | 1.7·10⁻⁴ (direct engine's own spread) |
+
+  * Truncation. The increments s_d(K) − s_d(K−1) fall like the expected powers of a = 1/Δ: 0.26 → 0.015 at D = 300. The order-K result is
+    accurate to roughly (last increment)²/(previous increment): ≈ 10⁻³ at D = 300 (K = 4) and at D = 1000 (K = 3), < 2·10⁻⁴ at
+    D ≥ 3000 (K = 3).
+
+**Result, J = 2 `++`, derivative piece [NE]:**
+
+| D | m/Λ₃₀₀ | order | s_d^∞ (ν < 12) | s_v^∞ | windows [0,1) [1,2) [2,3) [3,4) [4,12) |
+|---|---|---|---|---|---|
+| 300 | 1.00 | 4 | **+0.51016** | −13.355 | +0.0986 +0.5686 −0.0448 −0.0997 −0.0124 |
+| 1000 | 3.35 | 3 | **+0.50853** | −13.328 | +0.0981 +0.5669 −0.0448 −0.0994 −0.0123 |
+| 3000 | 10.05 | 3 | **+0.50954** | −13.426 | +0.0989 +0.5697 −0.0454 −0.1009 −0.0127 |
+| 6000 | 20.1 | 3 | **+0.50964** | −13.436 | +0.0990 +0.5700 −0.0455 −0.1011 −0.0128 |
+
+* Fit `s_d^∞ = 0.50923 + 78/D²`; spread 1.6·10⁻³ (0.3 %) over m/Λ = 1–20. That is the truncation level of the D = 300 and 1000 entries.
+  The D = 1000 entry (K = 3) is the low one, as its truncation estimate predicts.
+* **J = 2 equals J = 0** (0.5096) to 0.3 %. This is F_NORM's "+0.509 / +0.511 (J = 0 / 2)", now at fixed functional and growing m.
+* **Exact cancellation of the g₅ light term is excluded at J = 2 as well.** The double-counting reading (lower slope 0.255) stands.
+  Premises as EESTEP §5: real section D, the CLS-D integrand, `++`.
+
+**Not run: the C5 piece [I].**
+* No engine in the repo evaluates the k = 5 (j′ = 1) heavy image at finite m. direct_rho and bg_eeq are EE k = 4 (and k = 2) only.
+* Building one means a new integrand: f₅, the j′ = 1 celestial sign structure of q1, and the C5 R_j. That is beyond "cheap".
+* What is known: DESHIFT §1.3 bounds the effect of *any* admissible C5 weight on the binding state by `|δ(FF/N)| ≤ 3·10⁻⁷ G`, if the C5
+  beyond-LR corrections are G ≪ 10⁴ c₂ [M].
+* The deciding test for the (∂Ĉ₄ − Ĉ₅) combination of F_NORM §2.6 therefore rests on the derivative piece alone. That piece is now
+  checked at J = 0 (direct) and J = 2 (analytic-radial).
 
 ---
 
@@ -284,7 +327,7 @@ two reasons.
 | DS for Q (H_K input) | [NE] | **not an H_K input** for the explicit continuum weights (analyticity by construction); **ε-DS is the input of the values: C4 [D + certified]** (ε_W ≤ **2.673·10⁻¹³** / **9.058·10⁻¹¹**), C5 [DV] |
 | H_K, Result Q | [D given DS] | **[D]** (Ω^Q_up defined by the continuum weights); values: ε-DS [certified] (C4) |
 | H_K, Result D | [D] | [D] (unchanged) |
-| (P) for g₅ | [D-sketch + NE] (J = 0, derivative piece) | [[P5]] |
+| (P) for g₅ | [D-sketch + NE] (J = 0, derivative piece) | **[D-sketch + NE]**, now J = 0 and J = 2: exact cancellation excluded; C5 piece [I] |
 
 ## 6. Reproduce
 
@@ -292,4 +335,7 @@ two reasons.
     python3 hk1_heavy.py                     # ~1 min  -> cache/hk1_heavy.txt
     python3 hk2_k1spin.py                    # ~1 min  -> cache/hk2_k1spin.txt
     python3 hk3_epscert.py c4v & python3 hk3_epscert.py c4d; wait      # ~10 min each -> cache/hk3_epscert_{c4v,c4d}.txt
-    [[RUN4]]
+    for D in 300 1000 3000 6000 20000; do python3 hk4_p_j2.py run $D 0 3 4; done      # ~40 s each
+    for D in 1000 3000 6000 20000; do python3 hk4_p_j2.py run $D 2 3 4; done         # ~4 min each
+    python3 hk4_p_j2.py run 300 0 4 5; python3 hk4_p_j2.py run 1000 0 4 5; python3 hk4_p_j2.py run 300 2 4 5   # 1.5 / 1.5 / 10 min
+    python3 hk4_p_j2.py report 3                                                     # s  -> cache/hk4_p_j2.txt

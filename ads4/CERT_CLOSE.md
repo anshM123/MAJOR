@@ -26,7 +26,7 @@ or FLINT/Arb ball arithmetic, on top of analytic lemmas that are written out her
 | what changes for D | "`𝔉 ≥ (3/20)N` except one corner, 0.200 float" → "`𝔉 ≥ N/5` everywhere, attained to `10⁻⁸`". **No bound value changes.** UT/RD-S's "min 0.200 [certified]" is now **true** (it was not when written) | — |
 | **Q flat (REPRO D9)** | REPRO reproduced: `0.196585` (`+−`, J = 26, `u = 0.02535`), `0.19990` (`++`, J = 2). **But the true flat minimum is lower:** `0.1835` at `++`, `J ≈ 3600`, `m ≈ 100M` (`b̂ ≈ 72`), a region the earlier dense grids cut off (`J ≤ 3000`, `b̂ ≤ 400`) | [NE] |
 | **Q flat, a definitional defect** | The stored `Q3-full-delta0.2` weights (expanded IEEE doubles, coefficients up to `7.8·10⁵`) carry their `(1−p)³` factor only to rounding: `ψ₂(1) = 1.8·10⁻¹¹`, `ψ₃(1) = 2.4·10⁻¹⁰`. At `+−`, `m = M` the backward peak of `d̃⁴⁴ ~ J⁸` amplifies this: **the flat action of the stored functional is negative for J ≥ 1990 at `m = M`**. With the `(1−p)³` factor made exact (`Q3*`, a `10⁻⁹` change) the minimum there is `0.2000`. | [NE] (finding); fix = definitional |
-| **Q flat certificate (Q3\*)** | see §2.3 for the region-by-region status at margin `9/50` | §2.3 |
+| **Q flat certificate (Q3\*)** | `FF ≥ (9/50)N` **certified** on: all `J < 400` (every mass); `J ≥ 400` with `b̂ ≤ 120` (this region contains the global minimum, `b̂ ≈ 72`); `++`, `J ≥ 400`, `m ≤ 2M`; `J ≥ 400`, `b̂ ≥ 120`, `2M ≤ m ≤ 10M`. **Not certified:** `+−`, `J ≥ 400`, `m ≤ 2M`, and `J ≥ 400`, `b̂ ≥ 120`, `m ≥ 10M` (the existing lemmas are too crude for Q's weights there, §2.3); float minima there are ≥ the global 0.1835 | [certified] on the listed regions; [NE] elsewhere |
 | **`X^Q` published** | `prl/data/k2/xq_abel_X_{300,1000}.txt`; independently re-solved (DESHIFT's solver): `X` to `≤ 8·10⁻⁷` of `max ψ₂^Q` (ν < 2), `≤ 10⁻¹¹` (ν > 25); V3 exact to `10⁻¹⁴`; `dk₀^Q = −1.630147·10⁻⁴ / −1.453690·10⁻⁵` | [DV] |
 | **continuum k = 2 weights (D and Q)** | built in DESHIFT's shifted form, k = 2 version: **`ε_W = 3.3·10⁻⁶ / 1.1·10⁻⁶` (D, 300/1000; `1.1·10⁻⁹ / 1.1·10⁻¹⁰` of `∫|ψ|`) and `1.9·10⁻⁷ / 7.4·10⁻⁸` (Q)** for all `t ≥ 0`. Pole structure: double poles at `±i/2` (the double zeros of `R_∓`), branch points at `±i` (the `|μ|` kink of `ψ₂`). Equal to the stored grid weights to `≤ 4·10⁻⁷` of `max ψ`; V3 and `dk₀` reproduced (`dk₀` to `≤ 4.5·10⁻⁷` relative) | [DV] |
 | cubic bound | **unchanged**: `R₀ = 3.13206·10⁻⁶ / 2.89126·10⁻⁸` (K = 1), and `(1+dk₀)^{−½} = 1.00038354 / 1.00003415` for both the grid and the continuum weight | [DV] |
@@ -122,19 +122,32 @@ works with the Jacobi operator itself, whose adjoint `L` maps polynomials to pol
   | 0.9999 … 0.3 | min `+0.20002 … +0.417` | identical |
 
   The cause is the backward peak `d̃^J_{44}(−1) = binom(J+4, 8)` acting on `w(1) ≈ 10⁻⁹`. Previous dense checks cut `J` at
-  `(400/√u − 1)/2 ≈ 200` at `u = 1`, so they never saw it. **Fix (definitional, changes nothing else above `10⁻⁹`):** state `ψ₂, ψ₃` of
-  Q3 as `(1−p)³ × cofactor`, i.e. Q3\*. In AdS the same defect would enter only through the backward edge of the smeared pieces at
+  `(400/√u − 1)/2 ≈ 200` at `u = 1`, so they never saw it. **Fix (definitional, changes nothing else above `10⁻⁹`):** state Q3's weights
+  in factored form, `ψ₂ = p(1−p)³X(p)`, `ψ₃ = (1−p)³Y(p)`, with `X, Y` the exact quotients of the stored doubles (`q_cert.exact_factor`;
+  the dropped remainders have coefficients `≤ 1.7·10⁻⁸`; `ψ₂(0) = 0` and `A = 2ψ₂′(0) = 17.240713160205082` are unchanged). This is
+  **Q3\*** (exact-coefficient fingerprint `sha256 80e0834a…33f2`), the object certified below. In AdS the same defect would enter only through the backward edge of the smeared pieces at
   `m ≈ Λ`, `J ≳ 2000`; it is not a computed state, and Q3\* removes it.
 
 ### 2.2 The certified floor for Q
-See §2.3. The honest flat statement for Q is: **"FF ≥ δ′N with δ′ = 9/50 is certified on the regions listed in §2.3; the global flat
-minimum is ≈ 0.1835 [NE]; the nominal 0.2 is not met (by 8 %)."**
+**`9/50 = 0.18`**, certified on the regions of §2.3, which include every state where any scan found `FF/N < 0.1998`; the global flat
+minimum is `0.1835` [NE] (§2.1), so 0.18 is within 2 % of the truth. The nominal δ = 0.2 is **not** met (by 8 %). A constant closer to
+0.1835 would need the S cells to be sharper than their ≈ 5 % (FLAT_GRAVITON §3); not attempted.
 
 ### 2.3 Region-by-region status of the Q3\* certificate at `δ′ = 9/50` (`q_cert.py`)
 `q_cert.py` is ROBUST_FUNCTIONAL's certificate (`rcert.py`) with the one extra term `−2c(1+δ′)u²` of Q's action inserted in each region
 (P: polynomial; C: `Φ → Φ − 4c_q`, since `m² ≤ 4`; M: `η → η + c_q/(a_φb̂²/2)`; S: the exact `u²` Taylor coefficient lowered by `c_q`).
 
-⟦Q3S_TABLE⟧
+| region | code | result at `δ′ = 9/50` |
+|---|---|---|
+| P: `J < 400`, all `u ∈ [0,1]`, both channels | exact Lemma-P polynomial − `c_q u²`, Descartes | **PASS** (2384 polynomials; includes `+−` J = 26, `u = 0.0253`, ratio 0.1966) |
+| S: `J ≥ 400`, `u ≤ 1/4`, `b̂ ≤ 120` | Cauchy cells | **PASS** (2416 cells per channel; contains the global minimum 0.1835, `b̂ ≈ 72`) |
+| C`++`: `J ≥ 400`, `u ≥ 1/4` | `|P_J| ≤ 1`, forward term | **PASS** (`2aJJ − c − 4c_q = 44558 > 64∫(|W₀|+|W₁|) ≤ 254`) |
+| C`+−`: `J ≥ 400`, `u ≥ 1/4` | `|d̃⁴⁴| ≤ min(binom, (1−p²)⁻⁴)` | **FAIL** (`44552 < 64U = 2.5–3.6·10⁵`): Q's forward coefficient `a = 0.169` is too small for this crude bound. Lemma B (§1.3) would close it; not done |
+| M, `1/100 ≤ u ≤ 1/4`, `b̂ ≥ 120` | Lemma M with the forward term | **PASS** (all 8 patterns) |
+| M, `u ≤ 1/100`, `b̂ ≥ 120` | Lemma M | **FAIL**: `γ₀b̂ = 3.6–5.2 × 120 ≈ 430–620` against `C_R ≈ 1.0–1.5·10⁴`; Q's `ψ₂″(0)` is small in these units, so Lemma M bites only at `b̂ ≳ 3·10³`, beyond the S cells' validity at `J_P = 400` |
+
+Float evidence in the two uncertified regions [NE]: at `m = M` (`+−`, Q3\*) the minimum is `0.20000` to `J = 2·10⁴`, and `≥ 0.2007` at
+`u ≤ 0.9999`; for `m ≥ 10M` the `+−` minimum over `b̂ ≤ 200` is `0.1998`, and the `++` minimum is the global 0.1835 (inside S).
 
 ---
 
@@ -206,7 +219,7 @@ smaller. Double vs 50-digit evaluation of χ: `≤ 1.1·10⁻¹²` of `max|χ|`.
   (interval-arithmetic) certificate that `𝔉 ≥ N/5` on every heavy state; the bound is attained to `10⁻⁸` at `m = M`. **[certified]**"
   Delete "except one corner" and the "float-checked 0.765" caveat.
 * **Q, flat.** "The flat limit of `Ω^Q_up` is the δ = 0.2 functional Q3; its flat margin `FF/N` is ≥ 0.18 on every state we
-  computed (minimum 0.1835 at `m ≈ 100M`, `J ≈ 3600` [NE]) and is certified `≥ 9/50` on ⟦Q3S_REGIONS⟧." Replace "δ = 0.2 (dense min 0.1966;
+  computed (minimum 0.1835 at `m ≈ 100M`, `J ≈ 3600` [NE]) and is certified `≥ 9/50` on all states with `J < 400` or `b̂ ≤ 120` and on most of the rest [certified]; the uncertified remainder (`+−`, `m ≤ 2M`, `J ≥ 400`; `m ≥ 10M`, `b̂ ≥ 120`) is float-checked [NE]." Replace "δ = 0.2 (dense min 0.1966;
   nominal at the 2 % level)" by "nominal δ = 0.2; flat minimum 0.1835 [NE]". **State Q3's weights as `(1−p)³ × cofactor`.**
 * **Weights.** "All weights defining the functionals are published, including the k = 2 de-shift weights as explicit continuum functions
   satisfying the de-shift identity to `ε_W/∫|ψ| ≤ 1.1·10⁻⁹` uniformly in `t` [DV]."
@@ -214,8 +227,8 @@ smaller. Double vs 50-digit evaluation of χ: `≤ 1.1·10⁻¹²` of `max|χ|`.
 ## 5. Suggested changes to UNIFIED_THEOREM_v2 (not made here)
 1. §5 "Not certified" bullet and §11 item 4: replace by "NF02: `𝔉 ≥ N/5` on all flat states [certified] (CERT_CLOSE §1)". Table row
    "Flat" in §5.2: certificate grade [certified].
-2. §2.3 / §12 "Q3 δ nominal: dense min 0.1966": → "flat min 0.1835 (`++`, `m ≈ 100M`) [NE]; ⟦certified part⟧"; add the `(1−p)³` definitional
-   fix (§2.1 here).
+2. §2.3 / §12 "Q3 δ nominal: dense min 0.1966": → "flat min 0.1835 (`++`, `m ≈ 100M`) [NE]; `FF ≥ 0.18N` certified on `J < 400` and on
+   `b̂ ≤ 120` (CERT_CLOSE §2.3)"; add the factored-weight definitional fix (§2.1 here) to §2.3's definition of Q3.
 3. §2.2, §11 item 18, row DS: D now has an explicit continuum k = 2 weight with ε-DS [DV] (`prl/data/k2/`); §11 item 17 is closed
    (`X^Q` published, re-solved).
 4. §2.1: the k = 2 pieces of Q use D's cutoff parameters.

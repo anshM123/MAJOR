@@ -10,14 +10,18 @@ from rcommon import nodes, flat_integrals
 d = json.load(open(os.path.join(HERE, '..', '..', 'prl', 'data', 'q3_full_delta0.2.json')))
 a = float(d['a']); c = float(d['c'])
 def split(coeffs):
+    """stored doubles (exact binary rationals) P = Q3* part + rem, with Q3* = p^e (1-p)^3 q exactly (q_cert.exact_factor)."""
+    sys.path.insert(0, HERE)
+    import q_cert
     P = [Fr(float(x)) for x in coeffs]
-    q = list(P); quo = []
-    # divide by (1-p)^3 = -(p-1)^3: synthetic division by (p - 1) three times, keep remainders exactly
-    rem_poly = P
-    import sympy as sp
-    p = sp.Symbol('p'); Pe = sum(sp.Rational(x.numerator, x.denominator) * p ** i for i, x in enumerate(P))
-    Q_, R_ = sp.div(sp.Poly(Pe, p), sp.Poly((1 - p) ** 3, p))
-    return [float(x) for x in reversed(Q_.all_coeffs())], [sp.Rational(x) for x in reversed(R_.all_coeffs())]
+    S_, _ = q_cert.exact_factor(P)
+    rem = [a_ - b_ for a_, b_ in zip(P, S_ + [Fr(0)] * (len(P) - len(S_)))]
+    # Q3* part as (1-p)^3 * cof (cofactor in double, evaluated in factored form)
+    q = list(S_); out = []
+    import numpy as np_
+    cof = np_.polynomial.polynomial.polydiv(np_.array([float(x) for x in S_]), np_.polynomial.polynomial.polypow([1, -1], 3))[0]
+    while len(rem) > 1 and rem[-1] == 0: rem.pop()
+    return list(cof), rem
 q2, r2 = split(d['psi2']); q3, r3 = split(d['psi3'])
 print('rem psi2 =', [float(x) for x in r2], ' rem psi3 =', [float(x) for x in r3])
 def action(h, u, Jmax, with_rem=True):
