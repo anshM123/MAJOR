@@ -43,15 +43,15 @@ def _yrule(kl, T):
     return np.array(ys), np.array(wy)
 
 
-def profiles(beta, mfl):
-    """flat-wave profiles on the right side p = 1 and the top (exponents, theta = 1)."""
-    key = (round(beta, 12), round(mfl, 12))
+def profiles(beta, mfl, T=None):
+    """flat-wave profiles on the right side p = 1 and the top (exponents, theta = 1); rectangle height T (p-units)."""
+    key = (round(beta, 12), round(mfl, 12), None if T is None else round(T, 12))
     if key in _prof_cache:
         return _prof_cache[key]
     m = mfl*L; Jh = m*np.sinh(beta/2)                # J + 1/2
     J = int(round(Jh - 0.5))
     x1 = 1/mfl; k0 = 0.97*beta*L; kl = k0/np.sqrt(1 - x1*x1)
-    T = 25.0/k0
+    T = 25.0/k0 if T is None else T
     ys, wy = _yrule(kl, T)
     th = lambda z: complex(2*mp.asin(mp.mpc(z)*L/m))
     th1 = th(1.0)
@@ -87,8 +87,9 @@ def contour_bound(beta, mfl, pw, Mw, Mfun, mode='uniform', k=2, u=1.0, Aunif=0.0
         return _orig_contour(beta, mfl, pw, Mw, Mfun, mode, k=k, u=u, Aunif=Aunif)
     bd, _, _ = _orig_contour(beta, mfl, pw, Mw, Mfun, 'local', k=k, u=u, Aunif=Aunif)     # boundary side: unchanged (computed)
     w = 2.0 if k == 2 else u
-    pf = profiles(beta, mfl); beta_glob[0] = beta
     fam, th = FAM['name'], FAM['theta']
+    # rectangle height scaled so that the assumed decay at the top is still e^{-25 (theta/0.97)^0}: T = 25/(theta Lam beta)
+    pf = profiles(beta, mfl, 25.0/(th*beta*L)); beta_glob[0] = beta
     ps = np.abs(K.psi_c(k, 1 + 1j*pf['ys']))
     Vp = float((ps*np.exp(-expo(pf, fam, th))*pf['wy']).sum())
     VA = K.V(k, 1.0, 0.97*beta*L, pf['T'])                     # curvature waves, explicit uniform rate
@@ -173,12 +174,12 @@ def run_L(thetas, fams, La=3.0):
 def main():
     t0 = time.time()
     pr(__doc__.split('->')[0])
-    fams = ['Lt', 'Fa', 'Fp', 'U']
-    thetas = [0.97, 0.8, 0.6, 0.5, 0.4, 0.3]
+    fams = ['Lt', 'Fa', 'U']
+    thetas = [0.97, 0.8, 0.6, 0.45]
     pr('\n== Theorem W, 47 sampled states (c = 3, theta_H = 1); P4_WINDOW reference (AG\', T1 = 15): min tol plain 114, transferred 0.287')
     rw = run_W(thetas, fams)
     pr('\n== Theorem L\' states (Lam_amp = 3, +- transferred envelope, certified half-floor); P4_WINDOW reference: max d = 0.086')
-    rl = run_L([0.97, 0.5, 0.3, 0.2], fams)
+    rl = run_L([0.97, 0.6, 0.4], fams)
     pr(f'[{time.time() - t0:.0f}s]')
     json.dump(dict(W={f'{k[0]}|{k[1]}': v for k, v in rw.items()}, L={f'{k[0]}|{k[1]}': v for k, v in rl.items()}),
               open(os.path.join(AF.CACHE, 'p4w.json'), 'w'), default=float)

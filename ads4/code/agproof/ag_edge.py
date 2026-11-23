@@ -44,9 +44,10 @@ def main():
         k0 = 0.97*beta*L; kl = k0/np.sqrt(1 - x1*x1)            # p-units
         T = 25.0/k0
         # nodes on [0.55, 1]: composite GL, dense enough for local frequency <= 1.2 kl
-        nseg = int(np.ceil(0.45*1.2*kl/np.pi*2)) + 20
+        p0 = 0.05
+        nseg = int(np.ceil((1 - p0)*1.2*kl/np.pi*2)) + 20
         xs, ws = np.polynomial.legendre.leggauss(16)
-        br = np.linspace(0.55, 1.0, nseg + 1)
+        br = np.linspace(p0, 1.0, nseg + 1)
         p = np.concatenate([a + (b - a)*(xs + 1)/2 for a, b in zip(br[:-1], br[1:])])
         wp = np.concatenate([ws*(b - a)/2 for a, b in zip(br[:-1], br[1:])])
         nu = L*p; x = nu/m
@@ -61,13 +62,15 @@ def main():
         fpl = np.array([complex(AF.flatplus(J, m, L*(1 + 1j*y))) for y in yy])
         Eflat_contour = float(2*np.real(-1j*np.sum(K.psi_c(2, 1 + 1j*yy)*fpl*wy)))
         rows = []
-        for pe, sg in ((0.80, 0.03), (0.85, 0.03), (0.85, 0.05), (0.90, 0.02), (0.75, 0.05)):
+        kloc = lambda pp: (2*J + 1)/mfl/np.sqrt(1 - (pp/mfl)**2)            # flat local frequency (p-units)
+        for pe, ks in ((0.80, 12.0), (0.80, 16.0), (0.85, 14.0), (0.85, 18.0), (0.90, 14.0)):
+            sg = ks/kloc(pe)
             chi = erfc((pe - p)/sg)/2
-            if pe - 5*sg < 0.55:
+            if pe - 6*sg < p0:
                 continue
             Ef = float(np.sum(wp*ps*chi*flat)); Eg = float(np.sum(wp*ps*chi*g)); EG = float(np.sum(wp*ps*chi*G))
             Ec = float(np.sum(wp*ps*chi*cur))
-            rows.append(dict(pe=pe, sigma=sg, kappa_sigma=kl*sg*np.sqrt(1 - (pe*L/m)**2)/np.sqrt(1 - x1*x1), Eflat=Ef, Eg=Eg, EG=EG, Ecur=Ec))
+            rows.append(dict(pe=pe, sigma=sg, kappa_sigma=ks, Eflat=Ef, Eg=Eg, EG=EG, Ecur=Ec))
         # P4W's edge term (k = 2, no ring weight): 2[V(1;kl,T1=15)(e_sc(1) + A) + V(1;k0) A]
         esc1 = float(K.e_sc(beta, mfl)(np.array([1.0]))[0]); A = K.A_curv(beta, J, mfl)
         V1 = K.V(2, 1.0, kl, T, kap0=k0, T1=min(T, 15/kl)); V0 = K.V(2, 1.0, k0, T)
