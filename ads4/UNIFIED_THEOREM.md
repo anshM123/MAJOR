@@ -441,6 +441,28 @@ A chain carries the grade of its weakest link.
 > * **Theorem W:** the 2×2 criterion d ≤ H is correct and sharp (200 000 random tests). All J\* table entries are reproduced. The Gershgorin factor is ≤ 1.5 only if f₊₊ ≈ f₊₋ (otherwise up to 3; 1.50–1.53 on the samples). **Main qualification: d omits the k = 3 piece of the corrections. Including it moves J\* 50 → 64 at (3, 10, 10), 30 → 33, and 64 → 80**; the J = 50, 51 states fail at d/H ≈ 1.24. This must be stated as a named premise or used as the J\*. The cache stores the 4a/4b shapes with 1/m² instead of 1/m⁴ (documentation slip only).
 > * **⟨TTO⟩ counts:** verified against DKKPS's TTTT.tex table and by an independent helicity count (ℓ ≤ 11).
 
+> **Update (LRINF_TIGHT.md, unreviewed): Lemma LR∞ is certified down to β₀ = 0.37, so Theorem L's J\* at the twist edge goes 857 → 223. The 345–857 band is now inside Theorem L′ at every J (not only sampled J), and Theorems W (J\* = 64 with k = 3, sampled to 344) and L overlap at the gap on 223 ≤ J ≤ 344.**
+> * **Constants [certified]:** ∫|ψ₂| = 10.386029907129 and ∫|ψ₃| = 12.835622283960 (Arb, ±7·10⁻²⁰; Sturm-counted sign changes). The old table used Σ|c_n|/(n+1) = 7.9·10⁵ / 1.9·10⁶, which explains the 0.577. A₁,min and A₂′ are exact rationals.
+> * **r(β) [certified]:** monotone pieces evaluated in Arb on cells covering [0.1, 64], plus a new explicit tail for β ≥ 64 with r ≤ 2.03·10⁻⁷ (was [D]). sup r = 0.0162 for β ≥ 1 and 0.280 for β ≥ 0.5. **β₀ = 0.37 for r < 1.** F_LR > 0 is certified for β ≥ 0.245. Step 3 (the Hadamard identity) is now [P]; Lemma LR∞ is [P + certified].
+> * **New J\*(m) = ⌈(0.37211·m − 1)/2⌉ [certified]:**
+>
+>   | m | old J\* | new J\* |
+>   |---|---|---|
+>   | twist edge | 857 | 223 |
+>   | 1.1 m_gap | 987 | 250 |
+>   | 1.3 m_gap | 1275 | 307 |
+>   | 1.5Λ | 780 | 279 |
+>   | 2Λ | 1041 | 372 |
+>   | 5Λ | 2602 | 929 |
+>
+>   At J\* = 223 the certified floor is 0.57 of the numerical floor.
+> * **Tolerances at J\* = 223 (certified floor) [DV]:**
+>   * monopole Q_tol = 4.8·10⁻³;
+>   * tolerated Λ_amp: 181 for the full scalar-shaped vector, 1025 for the monopole alone; ≥ 181 up to J = 10⁴, 133 to 10⁵, 32 to 10⁶;
+>   * K_tol for sh±1 ≥ 449.
+> * **Floor coverage:** the floor is rigorous at every b̂ for m ≥ 1.5Λ. For m ∈ [1.3, 1.5)Λ the [NE] hole shrinks to b̂ ∈ (119, 245). For m < 1.3Λ the floor is [NE] below b̂ = 245. Theorem W's P0 is now certified at its sampled gap states with J ≥ 139.
+> * **Still uncovered:** non-sampled 64 < J < 223, J < 64, and each theorem's premises (P_L′ magnitudes [M], beyond-all-orders). This is not an unconditional theorem.
+
 ## 1. Setup and normalisations
 
 | item | definition |

@@ -33,13 +33,14 @@ def B1_monomials():
     v.n = c (v.m) + sn (v.t); t-component products reduced by nullness / completeness (one transverse direction)."""
     momv = lambda i2, j2: sp.rf(sp.Rational(1, 2), i2)*sp.rf(sp.Rational(1, 2) - _dl/2, j2)/sp.rf(1 - _dl/2, i2 + j2)
     u1, u3, m1, m3, t1, t3, uv, mv, tv = sp.symbols('u1 u3 m1 m3 t1 t3 uv mv tv')
+    MS = {(i2, j2): sp.Symbol('M%d%d' % (i2, j2)) for i2 in range(4) for j2 in range(4)}
     P = sp.expand((u1 + _c*m1 + _sn*t1)**2*(u3 - _c*m3 - _sn*t3)**2*(_c*mv + _sn*tv))
     W = 0
     for term in sp.Add.make_args(P):
         pw = term.as_powers_dict(); ic = int(pw.get(_c, 0)); js = int(pw.get(_sn, 0))
         if ic % 2 or js % 2:
             continue
-        W += term/(_c**ic*_sn**js)*momv(ic//2, js//2)
+        W += term/(_c**ic*_sn**js)*MS[(ic//2, js//2)]
     W = sp.expand(W)
     pi11, pi33, pi13 = u1**2, u3**2, _E13 + u1*u3
     pi1v, pi3v = _E1V + u1*uv, _E3V + u3*uv
@@ -55,7 +56,8 @@ def B1_monomials():
     out = []
     for (kY, kt, i, j, l), coef in Wp.terms():
         k = kY - 10 + _dl; m = kt - 10 - _dl
-        out.append((sp.lambdify((_A1, _A3, _E13, _AV, _E1V, _E3V, _dl), sp.simplify(coef), 'numpy'), sp.lambdify(_dl, k, 'numpy'),
+        coef = sp.simplify(coef.subs({MS[kk]: momv(*kk) for kk in MS}))
+        out.append((sp.lambdify((_A1, _A3, _E13, _AV, _E1V, _E3V, _dl), coef, 'numpy'), sp.lambdify(_dl, k, 'numpy'),
                     sp.lambdify(_dl, m, 'numpy'), i, j, l, coef))
     return out
 

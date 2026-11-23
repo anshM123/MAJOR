@@ -33,7 +33,7 @@ def _ev(s):
 
 def load_q(q):
     """{h: [ {mode: poly}, ... orders 0..2 ]} at exact rational q."""
-    q = sp.nsimplify(q)
+    q = q if isinstance(q, sp.Rational) else sp.nsimplify(q)
     fn = os.path.join(HERE, 'cache', 'sym_q%s.pkl' % str(q).replace('/', '_'))
     if os.path.exists(fn):
         d = pickle.load(open(fn, 'rb'))
@@ -93,7 +93,7 @@ def drift_free(sym):
 
 
 def rest_subs(q):
-    q = sp.nsimplify(q)
+    q = q if isinstance(q, sp.Rational) else sp.nsimplify(q)
     ch = (q + 1/q)/2; sh = (q - 1/q)/2
     XG = [ch*Xr[0] + sh*Xr[1], sh*Xr[0] + ch*Xr[1], Xr[2]]
     YG = [ch*Yr[0] - sh*Yr[1], -sh*Yr[0] + ch*Yr[1], Yr[2]]
@@ -115,7 +115,7 @@ def seed_terms(q):
     """the scalar seed's O(eps^2) insertion s2 (CHMRS T, Delta_phi = 3; p2spin/s3_mech.seed_series), rest-frame terms."""
     sys.path.insert(0, os.path.join(HERE, '..', 'p2spin'))
     import s3_mech as M
-    q = sp.nsimplify(q)
+    q = q if isinstance(q, sp.Rational) else sp.nsimplify(q)
     P, Pb, (s1, s2) = M.seed_series(q)
     assert s1 == 0
     ch = (q + 1/q)/2; sh = (q - 1/q)/2
