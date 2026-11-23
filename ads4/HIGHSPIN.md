@@ -101,13 +101,14 @@ by a small Monte-Carlo number: its error is amplified by `1/|D_h(x_ref)|`.
   those of the neighbours, and at the GK node x = 0.8007 (`7·10⁻⁵` from `x₀`) the direct value is unusable (`C2 = +3.8·10⁴ ± 4.5·10³`).
 * **Why the plain w2 odd chain gives −3.62:** w2's Hampel filter acts on even-J keys only, so the outlier stays, and the spline holds the
   last node's value (`≈ −1.8·10⁴ c₂`, non-oscillating) over the whole edge (`W[0.8, 0.972] = 4.5·10⁻⁴ N_s/c₂`).
-* **Why +1.39 with the five direct edge nodes:** the spline through 5 nodes per ≈ 2.5 periods of an oscillation whose amplitude grows
+* **Why +1.39 with the five direct edge nodes:** the spline through 5 nodes per ≈ 2 periods of an oscillation whose amplitude grows
   like `(1 − x)⁻²` (direct: `|Γ| ≈ 3·10³` at 0.82, `10⁴` at 0.92, `3·10⁴` at 0.94) aliases it into a smooth component and then holds the
   x = 0.9 value to the end. With 16 direct edge nodes the same spline gives `+1.44`, a shape fit `+0.72`, GK15 `+0.97`: **the spline
   value is an artefact; the w2 odd chain is not right at J = 29.**
 * **The published value** (`+0.948`) came from the ee1000 shape chain **with the x = 0.8 node removed** (`sm_chainfix_ee1000_fodd_hampel_*`;
   the same chain without that step gives `−1.17`, `…fodd_K6_row_kappa`), shape-fitted to x ≤ 0.775 and continued with the exact `D_h`.
-  That representation is close to right: its edge continuation differs from the GK15 direct edge by only `−0.02 … −0.05 N_s`.
+  That representation is close to right: its continuation of the shape fit beyond x = 0.8 is within `0.025 N_s` of the GK15 direct edge
+  (twist edge `+0.022`, 1.04Λ `+0.009`), and its K₂ bulk is `0.046` below the direct bulk.
 
 **Survey** (`cache/hs_refzero.txt`, every K₂ row of the 1000 chain, J = 17–40, 48; reference excess `|r₂/r₀|` minus its smooth trend):
 
