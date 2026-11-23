@@ -199,6 +199,33 @@ def report_sh(tag, N=600, NU=160, NT=80):
         fh.write('\n'.join(L) + '\n')
 
 
+def diag(tag, N=160, NT=80):
+    """(P) checks V[q4] = V[r4]/2, V[q5] = (5/4) V[r5]; and where the fixed-angle discrepancy DT[X5] := DT[X4] + mu4 DT[q4] accumulates."""
+    R = {o: pickle.load(open(os.path.join(CACHE, f'fn_spin_{tag}_{o}_N{N}.pkl'), 'rb')) for o in ('ab', 'ba')}
+    cls = sorted(set(c for (p, c) in R['ab']['res']))
+    sym = lambda p: sum(R['ab']['res'][(p, c)] for c in cls) + sum(R['ba']['res'][(p, c)] for c in cls)
+    L = []
+    pr = lambda s: (print(s, flush=True), L.append(s))
+    V = {}
+    for p in ('r4', 'r5', 'q4', 'q5'):
+        r = sym(p); pp, tl = tail(r, NT); V[p] = np.sum(r) + tl
+    pr(f'fn_spin diag, tag {tag}, k = 2, N = {N}:')
+    pr(f'  (P) on the EFT polynomials: V[q4]/(V[r4]/2) - 1 = {(V["q4"]/(V["r4"]/2) - 1).real:+.2e};  V[q5]/((5/4)V[r5]) - 1 = '
+       f'{(V["q5"]/(1.25*V["r5"]) - 1).real:+.2e}   (V[r4] = {V["r4"].real:+.7e}, V[q4] = {V["q4"].real:+.7e})')
+    pr('  DT[X5] = DT[X4] - DT[P4] (P4 = -mu4 q4): partial sums / |A4| at N = 5, 10, 20, 40, 80, 160 (A4 = -mu4 V[q4]):')
+    for Dh in DHS:
+        mu = R['ab']['mu'][Dh]
+        x4 = sym(f'X{Dh:g}'); p4 = -mu[4]*sym('q4'); p5 = -mu[5]*sym('q5')
+        A4 = -mu[4]*V['q4']
+        x5 = x4 - p4
+        cs = np.cumsum(x5)
+        cs6 = np.cumsum(x5 - p5)
+        pr(f'    Delta_h = {Dh:4.1f} (<delta> = {(mu[4]/mu[5]).real:7.2f}): DT[X5]: ' + ', '.join(f'{(cs[n]/abs(A4)).real:+.3f}' for n in (5, 10, 20, 40, 80, N)) +
+           ';  DT[X6] = DT[X5] - DT[P5]: ' + ', '.join(f'{(cs6[n]/abs(A4)).real:+.3f}' for n in (5, 10, 20, 40, 80, N)))
+    with open(os.path.join(CACHE, f'fn_spin_diag_{tag}.txt'), 'w') as fh:
+        fh.write('\n'.join(L) + '\n')
+
+
 if __name__ == '__main__':
     if sys.argv[1] == 'run':
         run(sys.argv[2], sys.argv[3], N=int(sys.argv[4]) if len(sys.argv) > 4 else 400)
@@ -208,6 +235,8 @@ if __name__ == '__main__':
         run_sh(sys.argv[2], sys.argv[3])
     elif sys.argv[1] == 'reportsh':
         report_sh(sys.argv[2])
+    elif sys.argv[1] == 'diag':
+        diag(sys.argv[2])
     elif sys.argv[1] == 'mu':
         for Dh in DHS:
             E = Exch(Dh)
