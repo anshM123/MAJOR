@@ -146,7 +146,7 @@ A chain carries the grade of its weakest link.
 >   * Its claim that J₀ = k values sit at a = b or in the ν integral is **withdrawn**.
 >   * Its "J₀ = 4 contact under Ψ₄" is subcritical in that product family (effective n = J₀ − 2), so it is not an R⁴ control.
 > * **Remaining:**
->   * (F), the normalisation `𝒜₄[R⁴] = 2g₄` [D-sketch];
+>   * (F), the normalisation `−𝒜₄[R⁴] = 2g₄` (now [D], see the F_NORM box);
 >   * the primaries-vs-Mellin-residue rearrangement [D-sketch];
 >   * a = b integrability against C_ν [I].
 
