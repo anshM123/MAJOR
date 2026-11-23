@@ -170,6 +170,25 @@ Note: HRS, OG and FH are later than RU and refine three of its items. Each such 
 > * **H7 §14 corollary (Result D):** it now holds for the exact kernel, with margin ½ [D-sketch through the EE step].
 > * **LC\* is not needed.** The fixed-ρ light-cone expansion (Hartman–Jain–Kundu) is itself [A] for spinning operators.
 
+> **Update (DESHIFT_CLOSE.md, unreviewed): M6 addressed. No bound value or binding margin changes.**
+> * **C5 j′ = 1 coefficients.** The "[I]" label was stale: Stage 5 computed them [P + DV].
+>   * The upper end 72.04 / 92.81 and the leading-Regge per-state values are exactly independent of the C5 weight [D].
+>   * Beyond leading Regge, moving the binding state would need corrections of ≳ 3·10⁴ c₂ [D + M].
+> * **Explicit continuum de-shift weights for C4 and C5, valid for all t ≥ 0 [DV].** The identity error is bounded uniformly by ε_W:
+>   * C4 value: 1.2e-13;
+>   * C4 derivative: 4.2e-11;
+>   * C5: 2.4e-7.
+>   * By comparison, the stored weights fail at t ≈ 41 (C4) and ≈ 20 (C5).
+>   * The new weights decay super-Gaussianly, so they are already cut-off weights in HK_CLOSE's sense.
+>   * Ω^Q_up can now be *defined* by these published weights, so DS is replaced by ε-DS [DV]. Exact C4 existence is [NE + D-sketch] and no longer needed.
+> * **"C5 poor beyond t ≈ 15": fixed.** Worst-sign leading-Regge scan to β = 45: the Λ = 100 dip goes from +0.9645 to ≥ +0.9866; nothing is negative.
+> * **Moments.** There is no real disagreement: RESULT_Q_STATEMENT mislabels V4FINAL's EE3 moments as "sc3". For the theorem's XP weights, |m_n − δ| ≤ 2.5e-16 (n ≤ 9).
+> * **Independent Abel inversion:**
+>   * D (NF02, k = 2) reproduced [DV];
+>   * Q's C4 reproduced to 1e-16 by a different method;
+>   * Q's stored C5 is not reproducible, but it is superseded by the new weight.
+> * **Data published** in prl/data/ (weights, kernels, README, checksums).
+
 ## 0. Headline
 
 **Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper
