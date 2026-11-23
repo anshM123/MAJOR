@@ -12,7 +12,7 @@ Method (all constants in FLINT/Arb ball arithmetic or exact rationals):
         L f := d/dp[(f' - f/p)(1 - u p^2) + 16 u p f]      (L p^m = (m-1)^2 p^(m-2) + (17-m)(m+1) u p^m),
       (K y')' = -4 u lam rho y,  K = p(1-up^2)^9,  rho = p(1-up^2)^8,  lam = (J-4)(J+5),  4 u lam = b^2 - 81 u,  and
         int_0^1 f y = -(4 u lam)^-1 [ beta_f + int_0^1 (L f) y ],
-        beta_f = f(1)(1-u) y'(1) - ((f'(1) - f(1))(1-u) + 16 u f(1)) y(1),     for f in C^2 with f = 0 near p = 0.
+        beta_f = f(1)(1-u) y'(1) - ((f'(1) - f(1))(1-u) + 16 u f(1)) y(1),     for f in C^2[0,1] with f(0) = f'(0) = 0.
       Applied three times to f0 = w_B (f0, f1 = L f0 vanish to second order at p = 1, f2 = L^2 f0 vanishes at p = 1, all exact):
         |I_B| <= (b^2 - 81u)^-3 [ |f2'(1)| (1-u) |y(1)| + int_0^1 |L^3 w_B| |y| ],
       with |y| <= min(B_n, (1-up^2)^-4)  (B_n = binom(J+4, 8) = max|P^{(0,8)}_{J-4}|;  |d^J_44| <= 1).

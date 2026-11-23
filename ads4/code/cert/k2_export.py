@@ -46,7 +46,8 @@ def write_cont(W, Dg, info):
         for k in range(B.nsing): s += mp.mpf(float(x[len(B.cent) + k])) * z ** (2 * k) * l * e
         return s
     samp = [0.3, 1.0, 5.0, 30.0, 100.0, T.Lam * 0.8, T.Lam - 1]
-    rd = max(abs(float(chi_mp(v, xr['x'])) - float(K.chi_eval(B, xr['x'], np.array([v]))[0])) / max(abs(float(chi_mp(v, xr['x']))), 1e-300) for v in samp)
+    cmax = np.abs(K.chi_eval(B, xr['x'], np.linspace(0, T.Lam + 30, 20001))).max()
+    rd = max(abs(float(chi_mp(v, xr['x'])) - float(K.chi_eval(B, xr['x'], np.array([v]))[0])) for v in samp) / cmax
     js = dict(
         name='Omega^EE k = 2 continuum de-shift weight (Result D, NF02 psi2/k0)' if W == 'D' else 'Omega^Q_up smeared k = 2 continuum de-shift weight (Q3-full-delta0.2 psi2)',
         Delta_g=Dg, Lam=float(T.Lam),
@@ -65,7 +66,7 @@ def write_cont(W, Dg, info):
         certificate='for all t >= 0: |W[chi_re](t) - Phi(t)| <= eps_W_re, |W[chi_im](t)| <= eps_W_im_null (shifted form, CERT_CLOSE.md §3.2); '
                     'eps_W = int_0^oo |E(mu) - psi(mu)| dmu, E(mu) = 2 Re[chi(mu - i) R_-(mu - i)], by a 4.2e5-point quadrature in double precision '
                     '(grade [DV], not interval-verified); hence |image - target| <= eps_W P_{-1/2}(cosh beta) for all beta',
-        precision='coefficients are IEEE doubles (exact as given); double-precision evaluation agrees with 50-digit evaluation to %.1e relative at nu = %s'
+        precision='coefficients are IEEE doubles (exact as given); double-precision evaluation of chi_re agrees with 50-digit evaluation to %.1e of max|chi_re| at nu = %s'
                   % (rd, ', '.join('%.4g' % v for v in samp)),
         checks=info)
     fn = os.path.join(OUT, 'k2_continuum_%s_%d.json' % (W, Dg))

@@ -2,7 +2,9 @@
 
 Flat action (prl/data/q3_full_delta0.2.json, RESULT_Q_STAGE0 / common_q.heavy_action), u = 1/m^2, JJ = J(J+1):
     FF = int psi2 (2 - u p^2) D_h + s u int psi3 D_h + a (2 JJ - c4 + s) u^3 - 2 c u^2,     N = |B2| + |B3| + |FW| + 2 c u^2,
-with psi2, psi3 the stored IEEE doubles read as EXACT binary rationals, a, c likewise.  FF - DELTA N >= 0  <=>  for all
+with psi2, psi3 the stored IEEE doubles read as EXACT binary rationals, a, c likewise.  Default (Q_EXACT_FACTOR=1): the certified object is
+Q3* = the same functional with the (1-p)^3 factor made exact (psi -> (1-p)^3 q, q the exact quotient; the dropped remainders are ~1e-9,
+CERT_CLOSE.md §2.1: with them the flat action is negative at +-, m = M, J >= 1990 [NE], so the binary-rounded Q3 itself is not flat-positive).  FF - DELTA N >= 0  <=>  for all
 (s2, s3) in {+-1}^2 the sign-pattern action of rcert.gens (forward sign sF = sign(2JJ - c4 + s)) minus 2 c (1 + DELTA) u^2 is >= 0.
 This is ROBUST_FUNCTIONAL.md's certificate (rcert.py, read-only import) with one extra term, -cq u^2, cq = 2c(1 + DELTA), inserted:
   P   J < JP, all u in [0,1]         Lemma-P polynomial + (-cq) u^2, exact Descartes
@@ -23,12 +25,29 @@ from rcert import A, fq, gens   # noqa: E402
 DATA = os.path.join(HERE, '..', '..', 'prl', 'data', 'q3_full_delta0.2.json')
 
 
+def exact_factor(P):
+    """P (exact binary rationals) = (1-p)^3 q + rem; returns (1-p)^3 q (exact) and rem."""
+    q = list(P); rems = []
+    for _ in range(3):                       # divide by (p - 1) three times (synthetic division); P = (p-1)^3 q + rem
+        out = [Fr(0)] * (len(q) - 1); acc = Fr(0)
+        for i in reversed(range(1, len(q))):
+            acc = acc + q[i]; out[i - 1] = acc
+        rems.append(acc + q[0]); q = out
+    omp3 = [Fr(1), Fr(-3), Fr(3), Fr(-1)]
+    return rcert.pmul(omp3, [-x for x in q]), rems
+
+
 def load_q():
     d = json.load(open(DATA))
     psi2 = [Fr(float(x)) for x in d['psi2']]; psi3 = [Fr(float(x)) for x in d['psi3']]
     a = Fr(float(d['a'])); c = Fr(float(d['c']))
+    if os.environ.get('Q_EXACT_FACTOR', '1') == '1':
+        # Q3*: the (1-p)^3 factor made exact (the stored doubles carry it only to rounding, remainders ~1e-9: CERT_CLOSE.md §2.1)
+        psi2, r2 = exact_factor(psi2); psi3, r3 = exact_factor(psi3)
+        print('Q3* (exact (1-p)^3 factor): dropped remainders psi2 %s, psi3 %s (values of the successive synthetic divisions)'
+              % (['%.2e' % float(x) for x in r2], ['%.2e' % float(x) for x in r3]), flush=True)
     canon = 'psi2=' + ','.join(map(str, psi2)) + ';psi3=' + ','.join(map(str, psi3)) + ';a=%s;c=%s' % (a, c)
-    print('FUNCTIONAL %s from prl/data/q3_full_delta0.2.json (file sha256[:16] %s); sha256(exact binary coefficients) = %s'
+    print('FUNCTIONAL %s from prl/data/q3_full_delta0.2.json (file sha256[:16] %s); sha256(exact coefficients) = %s'
           % (d['name'], hashlib.sha256(open(DATA, 'rb').read()).hexdigest()[:16], hashlib.sha256(canon.encode()).hexdigest()), flush=True)
     return psi2, psi3, a, c
 

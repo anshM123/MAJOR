@@ -43,9 +43,15 @@ def pr(*a):
     s = ' '.join(str(x) for x in a); print(s, flush=True); OUT.append(s)
 
 
+TINY = 5e-324                                   # smallest positive double: an upper bound for any underflowing positive arb
+
+
 def up(x):
-    """upper bound (float) of a nonnegative arb."""
-    return float(x.upper()) if hasattr(x, 'upper') else float(x)
+    """upper bound (float) of a nonnegative arb; never rounds a positive enclosure down to 0 (float underflow beyond ~1e-308)."""
+    if not hasattr(x, 'upper'):
+        return float(x)
+    v = float(x.upper())
+    return v if (v > 0 or x.upper() <= 0) else TINY
 
 
 class Weight:
@@ -202,7 +208,7 @@ def rect_max(fun, x0, x1, y, bs=0.03):
     mx = 0.0
     for (cx, cy) in pts:
         Z = acb(arb(cx, hx), arb(cy, hy))
-        u = float(abs(fun(Z)).upper())
+        u = up(abs(fun(Z)))
         if not math.isfinite(u):
             return float('inf')
         mx = max(mx, u)

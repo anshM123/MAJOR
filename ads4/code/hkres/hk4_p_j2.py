@@ -10,7 +10,7 @@ s_d = 0.04 sum_{nu<12} chi_d Re Gamma_K (Stage-6 H0 weight, Delta_g-independent)
 Truncation: the a-expansion is kept to order K; |s_d(K) - s_d(K-1)| is printed (it multiplies m^2: relative size a^{K-1}).
 The C5 piece is NOT run: no engine in the repo evaluates the k = 5 (j' = 1) heavy image at finite m (direct_rho and bg_eeq are k = 4 / 2).
 Usage:  python3 hk4_p_j2.py run D J K depth      -> cache/hk4_eeq_D{D}_J{J}_K{K}.pkl
-        python3 hk4_p_j2.py report K             -> cache/hk4_p_j2.txt
+        python3 hk4_p_j2.py report K             -> cache/hk4_p_j2.txt   (per state the order K + 1 is used where it was run)
 """
 import os, sys, time, pickle
 sys.dont_write_bytecode = True
@@ -48,7 +48,12 @@ def report(K):
     import sdchain as C
     pr(f'# hk4_p_j2: m-dependence of the ++ derivative-piece correction s_d at fixed functional, analytic-radial images (order K = {K})')
     for J in (0, 2):
-        recs = {D: pickle.load(open(fn(D, J, K), 'rb')) for D in DS if os.path.exists(fn(D, J, K))}
+        recs, Kof = {}, {}
+        for D in DS:                                   # highest order available per state: K + 1 if run, else K
+            for KK in (K + 1, K):
+                if os.path.exists(fn(D, J, KK)):
+                    recs[D] = pickle.load(open(fn(D, J, KK), 'rb')); Kof[D] = KK
+                    break
         if len(recs) < len(DS):
             pr(f'  J = {J}: missing runs {[D for D in DS if D not in recs]}'); continue
         n = 1024
@@ -57,10 +62,10 @@ def report(K):
         nus = nus[sel]
         R = C.Rj(nus); NH = sum(R.values()); Tinf = sum(R.values())
         res = {}
-        for Kt in (K - 1, K):
+        for dk in (-1, 0):
             rr = {}
             for D, rec in recs.items():
-                I, _ = EQ.value(rec, 'EE4', Kt=Kt)
+                I, _ = EQ.value(rec, 'EE4', Kt=Kof[D] + dk)
                 I = I[:n][sel]
                 rr[D] = I/I[0]
             ma2 = C.mass(2e4, J)[0]**2; mb2 = C.mass(6000.0, J)[0]**2
@@ -75,14 +80,14 @@ def report(K):
                 nfull = (np.arange(1024) + 0.5)*0.04
                 sd, sv = C.sd(nfull, full, 'H0', 0.0, 12.0)
                 win = [C.sd(nfull, full, 'H0', lo, hi)[0] for lo, hi in ((0, 1), (1, 2), (2, 3), (3, 4), (4, 12))]
-                res[(Kt, D)] = (sd, sv, win, m)
-        pr(f'  J = {J}:   D      m/Lambda_300   s_d^inf (nu<12)   s_v^inf    |s_d(K) - s_d(K-1)|   windows [0,1) [1,2) [2,3) [3,4) [4,12)')
+                res[(dk, D)] = (sd, sv, win, m)
+        pr(f'  J = {J}:   D      m/Lambda_300  order K  s_d^inf (nu<12)   s_v^inf    |s_d(K) - s_d(K-1)|   windows [0,1) [1,2) [2,3) [3,4) [4,12)')
         ys = []
         for D in DS[:4]:
-            sd, sv, win, m = res[(K, D)]
-            dK = abs(sd - res[(K - 1, D)][0])
+            sd, sv, win, m = res[(0, D)]
+            dK = abs(sd - res[(-1, D)][0])
             ys.append(sd)
-            pr(f'         {D:6.0f}    {m/298.5:7.2f}        {sd:+.5f}        {sv:+.4f}       {dK:.1e}            ' + ' '.join(f'{w:+.4f}' for w in win))
+            pr(f'         {D:6.0f}    {m/298.5:7.2f}      {Kof[D]}      {sd:+.5f}        {sv:+.4f}       {dK:.1e}            ' + ' '.join(f'{w:+.4f}' for w in win))
         ys = np.array(ys); Dv = np.array(DS[:4])
         A = np.vstack([np.ones_like(Dv), 1/Dv**2]).T
         coef, *_ = np.linalg.lstsq(A, ys, rcond=None)

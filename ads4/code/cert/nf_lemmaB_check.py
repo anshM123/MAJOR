@@ -38,13 +38,14 @@ from nf_corner import P2, smoothstep
 mp.mp.dps = 60
 F0 = nf_cert.load('NF02')
 g = rcert.gens(*F0, Fr(1, 5), '+-', 1)[3]
-a, c = Fr(1, 5), Fr(3, 5)
+a, c = Fr(os.environ.get('LB_A', '1/5')), Fr(3, 5)
 S = smoothstep(a, c, 7)
 w = P2.from_p(g.W0) + P2.from_p(g.W1, 1)
 pieces0 = [(a, c, w * P2.from_p(S)), (c, Fr(1), w)]
+print('cutoff a = %s, c = %s' % (a, c))
 def ev(P, pp, uu):
     return mp.fsum(mp.mpf(v.numerator) / v.denominator * pp**i * uu**j for (i, j), v in P.c.items())
-for J in (60, 201):
+for J in ((60, 201) if os.environ.get('LB_A', '1/5') == '1/5' else (60,)):
     nn = J - 4; lamv = nn * (nn + 9)
     for uu in (mp.mpf('0.5'), mp.mpf('0.9'), mp.mpf(1)):
         yv = lambda pp: mp.jacobi(nn, 0, 8, 1 - 2 * uu * pp**2)

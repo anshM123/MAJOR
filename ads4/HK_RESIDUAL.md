@@ -21,7 +21,7 @@ its weakest link.
 |---|---|---|
 | 1. Heavy image of the k = 4 EE position kernel; EE3 ν-normalisation; f_pos(±3i/2) | LRC-a EE k = 4 [D]; normalisation "rests on the same code path, not rechecked" | **Confirmed. LRC-a EE k = 4 → [D + DV].** EESTEP's b-shifted leading-Regge kernel equals the split kernel that Stage 4 transformed, with ratio **1 to 1.8·10⁻⁷**, ν-, β- and polarisation-independent (4 pol. sets × β = 1, 3, 6 × ν = 0.5–6). Its rank-3 plane-wave transform, done numerically and independently of stage4_hj's symbolic route, reproduces the stored R_j^{EE3} (and R_j^{sc3}) **to ≤ 1.1·10⁻¹¹**. So the position weight is χ·const/N_com, with the scalar's const, and **f_pos(±3i/2) = 0 stands** (§1) |
 | 2. Spinning K1′, numerical | scalar examples only | **[D + DV]** on the exact free-scalar ⟨TTTT⟩ (N = 1, 10; c = 0.5, 0.9; 63 polarisation sets; box down to 10⁻⁶): Cauchy–Schwarz holds everywhere (saturated only where it must be), B(c) is finite and sits at the corner (c, c), \|𝒢_Regge\| ≤ 0.53–0.999 B(c), \|dDisc 𝒢\| ≤ 0.007–0.25 · 2B(c), and the edge row \|M − 1\| ≤ (B − 1)(min(ρ, ρ_b)/c)^{τ_min/2} holds over the whole box with τ_min = 1 (§2) |
-| 3. DS for Q in the Tonelli argument | "DS [NE]", the only non-derived input of H_K for Q | **For the explicit continuum weights the swap needs no de-shift identity.** The analyticity that HK derived from DS (Lemmas S2/S4) holds by construction [P], and the criterion is unchanged (J₀ < 5/2) [D]. ε-DS fixes only the values (images and moments = targets ± ε). ε enters a Tonelli bound only additively, through a finite C_E. The bounds move by ≤ ε × the factors of §3.2 (E). **ε_W is now [certified] for C4:** [[EPS]] (§3.3) |
+| 3. DS for Q in the Tonelli argument | "DS [NE]", the only non-derived input of H_K for Q | **For the explicit continuum weights the swap needs no de-shift identity.** The analyticity that HK derived from DS (Lemmas S2/S4) holds by construction [P], and the criterion is unchanged (J₀ < 5/2) [D]. ε-DS fixes only the values (images and moments = targets ± ε). ε enters a Tonelli bound only additively, through a finite C_E. The bounds move by ≤ ε × the factors of §3.2 (E). **ε_W is now [certified] for C4:** `ε_W ≤ 2.673·10⁻¹³` (value) and `≤ 9.058·10⁻¹¹` (derivative) (§3.3) |
 | 4. (P): C5 piece and J = 2 | J = 0 derivative piece only | [[P4]] (§4) |
 
 **H_K.**
@@ -244,10 +244,20 @@ two reasons.
   * `∫_panel|E| ≤ Σ_n (|ĉ_n| + e_n)·2(w/2)^{n+1}/(n+1) + w M (w/2ρ)^{N+1}/(1 − w/2ρ)`.
 * **(C) Tail μ > 110.** Explicit Gaussian/coefficient bound.
 
-| piece | DESHIFT midpoint ε_W | **certified ε_W** | residue part: \|const − Φ(0)\|, \|t²-coeff − Φ₂\|, \|a₂ sum\| | tail > 110 |
+| piece | DESHIFT midpoint ε_W (step 0.01) | **certified ε_W** | residue part: \|const − Φ(0)\|, \|t²-coeff − Φ₂\|, \|a₂ sum\| | tail > 110 |
 |---|---|---|---|---|
-| C4 value | 1.205·10⁻¹³ | [[EV]] | [[RV]] | [[TV]] |
-| C4 derivative | 4.171·10⁻¹¹ | [[ED]] | [[RD]] | [[TD]] |
+| C4 value | 1.205·10⁻¹³ | **2.673·10⁻¹³** | ≤ 5.2·10⁻³⁶, —, — | ≤ 10⁻²⁶²⁸ |
+| C4 derivative | 4.171·10⁻¹¹ | **9.058·10⁻¹¹** | ≤ 5.2·10⁻³⁵, ≤ 4.1·10⁻³⁶, ≤ 1.3·10⁻³⁵ | ≤ 10⁻²⁶²⁸ |
+
+* **Why the certified values are about 2.2× the midpoint sums.** Each panel bound `Σ|ĉ_n||s|ⁿ` majorises max|E| over the panel, and E
+  oscillates. Most of ε comes from μ < 2 (1.83·10⁻¹³ of 2.67·10⁻¹³ for the value; E peaks near μ ≈ 0.5). Smaller panels would tighten
+  this; there is no need.
+* **The residue part is exact to 10⁻³⁵.** With the IEEE-double h, σ the solver used, DESHIFT's "a₂ = 8·10⁻⁴²" and "const 10⁻⁴³" are
+  confirmed as bounds ≤ 1.3·10⁻³⁵ and ≤ 5.2·10⁻³⁵ (aliasing-limited).
+* **Rigour caveat (bookkeeping only).** The stored outputs were produced before a one-line fix to `up()`. Earlier, a positive enclosure
+  below 10⁻³⁰⁸ could round to 0.0 in the float accumulation; this can only have happened for μ ≳ 78, where |E| ≤ e^{−(μ−60)²/2σ²+22} <
+  10⁻⁴⁰⁰. The omitted amount is below 10⁻³⁰⁰ and does not affect the stated digits. Re-running the current script reproduces the table
+  (see §6).
 
 **Certified statement.** For all t ≥ 0, `|W(t) − Φ(t)| ≤ ε_W^{cert} + (residue terms)`, and `|image − target| ≤ ε_W^{cert}P_{−½}(cosh β)`
 (+ the ≤ 10⁻³⁴ residue terms of §3.2 (B)).
@@ -271,7 +281,7 @@ two reasons.
 | LRC-a, EE k = 4 | [D] | **[D + DV]**: EESTEP kernel = Stage-4 split kernel (ratio 1 ± 1.8·10⁻⁷); numerical rank-3 heavy image = R_j^{EE3} (≤ 1.1·10⁻¹¹) |
 | f_pos(±3i/2) = 0 (Q's C4) | [D given DS + NE] | normalisation [DV]; **[P] for the continuum weights** (no pole at ±3i/2 by construction) |
 | K1′ | [D] | **[D + DV]** (free-scalar ⟨TTTT⟩, generic polarisations, whole box, edge row with τ_min = 1) |
-| DS for Q (H_K input) | [NE] | **not an H_K input** for the explicit continuum weights (analyticity by construction); **ε-DS is the input of the values: C4 [D + certified]** (ε_W ≤ [[EV]] / [[ED]]), C5 [DV] |
+| DS for Q (H_K input) | [NE] | **not an H_K input** for the explicit continuum weights (analyticity by construction); **ε-DS is the input of the values: C4 [D + certified]** (ε_W ≤ **2.673·10⁻¹³** / **9.058·10⁻¹¹**), C5 [DV] |
 | H_K, Result Q | [D given DS] | **[D]** (Ω^Q_up defined by the continuum weights); values: ε-DS [certified] (C4) |
 | H_K, Result D | [D] | [D] (unchanged) |
 | (P) for g₅ | [D-sketch + NE] (J = 0, derivative piece) | [[P5]] |
@@ -281,5 +291,5 @@ two reasons.
     cd ads4/code/hkres; ulimit -v 3000000; export OMP_NUM_THREADS=1
     python3 hk1_heavy.py                     # ~1 min  -> cache/hk1_heavy.txt
     python3 hk2_k1spin.py                    # ~1 min  -> cache/hk2_k1spin.txt
-    python3 hk3_epscert.py c4v & python3 hk3_epscert.py c4d; wait      # [[T3]] each -> cache/hk3_epscert_{c4v,c4d}.txt
+    python3 hk3_epscert.py c4v & python3 hk3_epscert.py c4d; wait      # ~10 min each -> cache/hk3_epscert_{c4v,c4d}.txt
     [[RUN4]]
