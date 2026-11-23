@@ -4,7 +4,7 @@ hs_edgeval (HIGHSPIN.md §3): H_edge on the rows that carry an even-J near-gap s
 HC_INJ does, exempt from the Hampel rule; w2 spline chain, held beyond the last node), with the direct points read from highspin/cache
 and every RQMC-failed node (rel. err > 0.2) left out.  Prints Gamma at the direct nodes (K2 where it exists) and the shift of each
 state, with its jackknife.
-Usage: python3 hs_edgeval.py J Delta1[,Delta2] mfl[,mfl...]   -> cache/hs_edgeval_J<J>.txt
+Usage: [HS_IXMIN=0.7] python3 hs_edgeval.py J Delta1[,Delta2] mfl[,mfl...]   -> cache/hs_edgeval_J<J>.txt
 """
 import os, sys, time
 sys.dont_write_bytecode = True
@@ -17,13 +17,14 @@ if __name__ == '__main__':
     J = int(sys.argv[1]); Downs = [float(v) for v in sys.argv[2].split(',')]
     mfls = [float(v) for v in sys.argv[3].split(',')]
     Dg = 1000
+    IXMIN = float(os.environ.get('HS_IXMIN', '0'))     # inject only direct nodes with x >= IXMIN (edge only)
     bad = {D: H.failed_x(J, D) for D in Downs}
     _rec0 = HN.records
 
     def _records(kind, J_, D, jk=None, **kw):
         out = _rec0(kind, J_, D, jk, **kw)
         m = HN.mphys(D, J_)
-        return {k: v for k, v in out.items() if round(k[1]/m, 6) not in bad.get(D, set())}
+        return {k: v for k, v in out.items() if round(k[1]/m, 6) not in bad.get(D, set()) and k[1]/m >= IXMIN - 1e-9}
     HN.records = _records
     lines = []
 

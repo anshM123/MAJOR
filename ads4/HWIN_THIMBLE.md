@@ -8,6 +8,14 @@ Grades: [P] proved; [D] derived; [NE] numerical evidence; [M] model; [I] open.
 
 **STATUS: final for this session. Nothing is running.**
 
+> **Update (N2_SUBREGGE.md, unreviewed): N2's premise is right (X, not ψ₂, multiplies the window data), but the claimed leverage collapse does not happen. A dir–cv estimator systematic at (1100, 100) is now the dominant uncertainty.**
+> * **What the rows are [DV].** Window rows Γ are raw images / (R₋+R₊), and X multiplies them; Re ΣX𝒜[P_β] = Σψ₂P_β holds to 2·10⁻¹². Γ has poles at the real zeros of R₋+R₊ (ν = 1.171, 6.643), which explains HLJ_CLOSE's "local Γ singular at every J". H_win should be stated on the regular aΓ_c with weight |Y|.
+> * **T_B with the exact weight:** (1100, 100): 1409 → 1439 (|X|) / 1152 (|Y|). Over all sample states the change is −28 % to +3 %. LARGESPIN's "1.1" and "3.2" were artefacts (ψ₂ + |X−ψ₂| overcounts; a different floor and structure were switched in; signed ring tolerance 31 vs measured 4.5–6.6). The D_h excess is an a_h normalisation, already in de-shift form (cross-checked against k = 3, which shares a_h). The published Γ − κ contains a stripped-κ artefact of ±120–460 c₂.
+> * **Corrected H_LJ(1000) leverage at (1100, 100)** (cv estimator, raw-form refit): **3.0–4.2 central; ≥ 4.1 at 2σ with the full ring class.** (364, 64): 20–36. **With the dir estimator: 0.8–1.4.** This dir–cv systematic is unresolved and dominant.
+> * **New explicit hypothesis R1 [I] for EE beyond leading Regge:** ring-type window corrections enter in de-shift form. It holds exactly for the a_h mechanism and for the scalar. In stripped form they would cost 27–228× the ring action at J = 150–344.
+> * **Subleading Regge:** CHMRS (3.20) is checked against the exact scalar skeleton (9 states). All its terms sit on the state's own ring, with cost 6.5·10⁻⁴ (J = 100) to ≤ 6·10⁻⁵ (J ≥ 150) of the floor, so margins are ×17 to ×10⁴. The graviton window data fit the same ring classes, with non-ring remainder consistent with zero. The **spinning formula is not derived [I]** (obstacle: the EE = Σ_b identity decomposes the kernel, not the spinning block; it needs ⟨TTO⟩ structure ratios). At each finite 1/m² order the corrections are ring-located or index-shifted at the state's β [D-sketch].
+> * **Corrections:** the "leverage 1.1" in the LARGESPIN box above is superseded. Quote "3.0–4.2 (cv), ≥ 4.1 at 2σ; 0.8–1.4 with dir". HWIN_THIMBLE: refit the D_h class in de-shift form, after which the (364, 64) remainder is 7–13 c₂.
+
 ## 0. Summary (read this first)
 1. **Exact per-wave integrands, scalar and graviton** [P structure + NE, §1]. The graviton spin-J contraction is re-derived in closed
    form (a bidegree-(4,4) derivative of `c_J(gg′)^{J/2} f(t)`). It is linear in `f`, so `f = W±` (exact Legendre-Q waves) splits EE
