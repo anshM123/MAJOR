@@ -197,6 +197,11 @@ Note: HRS, OG and FH are later than RU and refine three of its items. Each such 
 > * **The crystal (saddle-point) cycle is only a numerical method; its class is no longer a premise.** Crystal = D: [P] in the Regge-scaled system; [I] at finite Δ (gap: no Stokes jump for a ∈ (0, 1/Δ], n± = 1 through the fold). A direct EE test T = ⟨Q⟩_crys/⟨Q⟩_{D′} − 1 finds no discrepancy (|T|/σ ≤ 1.7), but it is weak: (|T|+2σ)/threshold ≥ 4.8 above the fold and 16–2000 below it [NE, weak].
 > * **Retraction.** RD_CLOSE's census statement "no critical point at raw radius 0.1–39" is withdrawn. There are 0–276 critical points per run at 0.3 ≤ r < 1.5, many with |B| ≈ 1, at heights 30–94 above the crystal (12 × 4000 starts, not saturated) [NE]. This does not touch D′.
 
+> **Update (NEARGAP2.md, unreviewed): under A1′, ε* = 0.038034 leaves zero flat margin on a massless scalar; use ε = 0.040.**
+> * With ε*, the repaired functional Ω^Q_up + ε*Ω^EE_θ on a light J = 0 has flat margin ≈ 3.3 (m/Λ)², which vanishes as m → 0. For Δ_L = O(1) the sign is set by O(Λ⁻²) AdS terms that nothing controls, so it is **[I]** (Lemma C can sign it only for Δ_L ≳ 30 at 1000 and ≳ 15 at 300).
+> * **Adopted fix [D-sketch]: ε = 0.040.** The flat margin at m → 0 becomes 0.022 N, ×100 above every computed curvature effect. The upper end under a pure higher-spin gap becomes **164.51 (Δ_g = 1000) / 125.71 (300)**, up from 160.99 / 123.08; the c₁² coefficient has to be recomputed for ε = 0.040.
+> * The published 72.04 / 92.81 are unaffected when no scalar lighter than 0.46Λ couples to TT.
+
 ## 0. Headline
 
 **Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper

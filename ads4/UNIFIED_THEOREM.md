@@ -241,6 +241,18 @@ A chain carries the grade of its weakest link.
 > * **The crystal (saddle-point) cycle is only a numerical method; its class is no longer a premise.** Crystal = D: [P] in the Regge-scaled system; [I] at finite Δ (gap: no Stokes jump for a ∈ (0, 1/Δ], n± = 1 through the fold). A direct EE test T = ⟨Q⟩_crys/⟨Q⟩_{D′} − 1 finds no discrepancy (|T|/σ ≤ 1.7), but it is weak: (|T|+2σ)/threshold ≥ 4.8 above the fold and 16–2000 below it [NE, weak].
 > * **Retraction.** RD_CLOSE's census statement "no critical point at raw radius 0.1–39" is withdrawn. There are 0–276 critical points per run at 0.3 ≤ r < 1.5, many with |B| ≈ 1, at heights 30–94 above the crystal (12 × 4000 starts, not saturated) [NE]. This does not touch D′.
 
+> **Update (NEARGAP2.md, unreviewed): Result D's binding state is now error-bounded [NE + M] → [NE±]; light J = 0, 2 states are positive up to just below the gap.**
+> * **Binding state** (J = 5, `+−`, twist edge 1.0049925Λ, Δ_g = 1000), on a K₂ row at its own mass (Δ = 1005, 36 nodes): λ/N_s = +0.20088. Error budget, sign-free with ×3 on every model term: 2.6·10⁻³, so **λ/N_s ≥ +0.198, leverage L = 78** (130 with the λ-level truncation). Certified flat floor minus the Lemma-C bound gives ≥ +0.197 with no quadrature input. 9 direct RQMC nodes agree with K₂ (λ moves < 10⁻⁶); the parity-odd analytic-radial engine agrees on ν = 12.5–38. At Δ_g = 300: ≥ +0.146, L = 3.5 [NE±], with no direct check.
+> * **Near-gap J = 4, 6** (own rows): [NE±], L ≥ 22 / 5.0 sign-free. **J = 8**: [NE±] on the λ-level budget only (L = 4.3–8.4). **J = 12, 16**: [NE + M]; the budget does not close (L ≈ 1–3), and the next Laplace order is needed. The published chain differs from the own-row values by at most 0.015 N_s.
+> * **H_cont, J = 15 twist edge**: computed, +0.6900 [NE + M] (was [M]). **H_edge**: J = 18, 19, 24, 25 shift by ≤ 0.032 [NE + M]. **J = 29 is not resolved:** one K₂ outlier at x = 0.8 drives the plain w2 odd chain to −3.62, while the direct nodes give +1.39 ± 0.03. It stays [M], and is carried into the high-spin task.
+> * **Light J = 0, 2 (A1′):** positive at every Δ_L up to Δ_g − 1 in the leading-Regge model (F/N ≥ 0.788 / 0.638), and Lemma-C certified there for Δ_L ≥ 4.5. Own rows at Δ_L = 990 give L = 4362 / 913 [NE±]; Δ_L ≳ 0.7Δ_g gives [NE + M]. Whether the leading-Regge form is the true AdS image of a light block at Δ_L = O(1) remains [D-sketch].
+> * **Correction to POS_ERRORS §3.1:** odd J has only the parity-odd `+−` channel, a 1×1 block; the sign-free tolerance at the binding state is 3.6·10⁴ c₂, not 6.6·10³.
+
+> **Update (NEARGAP2.md, unreviewed): under A1′, ε* = 0.038034 leaves zero flat margin on a massless scalar; use ε = 0.040.**
+> * With ε*, the repaired functional Ω^Q_up + ε*Ω^EE_θ on a light J = 0 has flat margin ≈ 3.3 (m/Λ)², which vanishes as m → 0. For Δ_L = O(1) the sign is set by O(Λ⁻²) AdS terms that nothing controls, so it is **[I]** (Lemma C can sign it only for Δ_L ≳ 30 at 1000 and ≳ 15 at 300).
+> * **Adopted fix [D-sketch]: ε = 0.040.** The flat margin at m → 0 becomes 0.022 N, ×100 above every computed curvature effect. The upper end under a pure higher-spin gap becomes **164.51 (Δ_g = 1000) / 125.71 (300)**, up from 160.99 / 123.08; the c₁² coefficient has to be recomputed for ε = 0.040.
+> * The published 72.04 / 92.81 are unaffected when no scalar lighter than 0.46Λ couples to TT.
+
 ## 1. Setup and normalisations
 
 | item | definition |

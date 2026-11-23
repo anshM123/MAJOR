@@ -59,6 +59,45 @@ def _wrap(loader, odd):
 
 
 Q.P4.load = _wrap(Q.P4.load, True)
+DESP_LOG = []
+
+
+def _clean(g, J):
+    """even rows: the chain's Hampel rule (w2_chain._grid) with the injected direct nodes exempt (the HC protocol, HC_DESPIKE_INJ=0);
+    all rows: nodes with a non-finite entry dropped (logged)."""
+    inj = {D: {round(k[1], 6) for k in HN.pts('EE', J, D) if k[0] == D} for D in INJ.get(J, [])}
+    for D, r in g.items():
+        n = len(r['xs']); bad = np.zeros(n, bool)
+        isinj = np.array([round(x*r['m'], 6) in inj.get(D, set()) or any(abs(x*r['m'] - v) < 1e-5 for v in inj.get(D, set()))
+                          for x in r['xs']])
+        for k, v in r.items():
+            if isinstance(v, np.ndarray) and v.shape == (n,):
+                bad |= ~np.isfinite(np.asarray(v, complex))
+        if J % 2 == 0:
+            for k in [kk for kk in r if isinstance(kk, tuple) and len(kk) == 2 and kk[1] in ('++', '+-')]:
+                v = np.asarray(r[k], float); scale = np.median(np.abs(v[np.isfinite(v)])) + 1e-12
+                for i in range(n):
+                    w = np.r_[v[max(0, i - 3):i], v[i + 1:i + 4]]; w = w[np.isfinite(w)]
+                    if len(w) and not isinj[i]:
+                        med = np.median(w); mad = np.median(np.abs(w - med))
+                        if abs(v[i] - med) > 6*max(mad, scale):
+                            bad[i] = True
+            bad[0] = False
+        if bad.any():
+            DESP_LOG.append((J, D, [round(float(x), 4) for x in r['xs'][bad]]))
+            for k, v in list(r.items()):
+                if isinstance(v, np.ndarray) and v.shape == (n,):
+                    r[k] = v[~bad]
+    return g
+
+
+def grid(J):
+    os.environ['W2_DESPIKE'] = '0'
+    try:
+        g = Q.odd_grid(J) if J % 2 else Q.even_grid(J)
+    finally:
+        os.environ['W2_DESPIKE'] = '1'
+    return _clean(g, J)
 _wl = _wrap(W._load, False)
 W._load = _wl
 Q.A._load = _wl
@@ -76,12 +115,13 @@ if __name__ == '__main__':
     def pr(s=""):
         print(s, flush=True); lines.append(s)
     NC.KK = 2
-    gK2 = Q.odd_grid(J) if J % 2 else Q.even_grid(J)
-    INJ[J] = Downs
+    INJ[J] = Downs; _saved = INJ.pop(J)
+    gK2 = grid(J)
+    INJ[J] = _saved
     reps = []
     for jk in [None] + list(range(8)):
         JK[0] = jk
-        reps.append((Q.odd_grid(J) if J % 2 else Q.even_grid(J)))
+        reps.append(grid(J))
     keys = ['C2', 'C3H'] if J % 2 else [(kd, h) for kd in ('C2', 'C3H') for h in (('++', '+-') if J >= 4 else ('++',))]
     pr(f"# ng_val J={J} rows {Downs}: Gamma (c2) at the direct nodes, K2 row vs direct (jackknife over 8 replicas); rows of the model "
        f"{sorted(gK2)}")
@@ -115,4 +155,5 @@ if __name__ == '__main__':
         lk = NC.lam_of(NC.dens(Dg, J, mfl, f, 256))[0]
         lj = np.array(lam[1:]); e = np.sqrt(7/8*((lj - lj.mean())**2).sum())
         pr(f"   state m/Lam={mfl}: lam/N_s K2 rows {lk:+.6f} | with direct nodes {lam[0]:+.6f} +- {e:.6f} (jackknife) | shift {lam[0] - lk:+.6f}")
+    pr(f"# dropped nodes (Hampel on K2 nodes only / non-finite), per grid build: {sorted(set((a, b, tuple(c)) for a, b, c in DESP_LOG))}")
     open(os.path.join(NGC, 'ng_val_J%d_%s.txt' % (J, '_'.join('%g' % D for D in Downs))), 'w').write("\n".join(lines) + "\n")

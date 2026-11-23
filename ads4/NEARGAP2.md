@@ -1,16 +1,18 @@
 # NEARGAP2: the near-gap rows of Result D on their own-mass rows, with error budgets; light J = 0, 2 single traces at finite Δ_L
 
-*23 Nov 2026. Unreviewed, not committed. No existing file was edited; `PCYC_CLOSE.md` and `code/pcyc/` were not touched.*
+*23 Nov 2026. Unreviewed, not committed by this agent (another agent's commits 508ea02 / 3a3d6c8 swept in intermediate snapshots of this
+file and of `code/neargap2/`; the working tree holds the final versions). No existing file was edited; `PCYC_CLOSE.md` and `code/pcyc/`
+were not touched.*
 * *New code:* `ads4/code/neargap2/` — `ng_guard.py` (process-local write guard: every write outside `neargap2/cache/` raises),
   `ng_rows.py` (own-mass K₂ rows), `ng_points.py` (direct n1 RQMC points), `ng_chain.py` (the EE_NEARGAP chain, unchanged, with the new
   rows visible), `ng_bind.py` (per-state error budget), `ng_val.py` (direct vs K₂, node by node and at the state), `ng_engine5.py` +
   `ng_engcmp.py` (parity-odd analytic-radial engine at the binding state), `ng_rowdump.py`, `ng_light.py` (light states),
-  `ng_queue.sh`, `ng_pause.sh`.
+  `ng_edgew.py`, `ng_summary.py`, `ng_queue.sh`, `ng_pause.sh`.
 * *Caches:* `ads4/code/neargap2/cache/` (its `.gitignore` ignores everything but itself).
 * *Read-only imports:* `spinfunc/` (`w1_rows`, `w2_chain` via `ee1000_common`, `q3_analysis`, `p4_odd_analysis`, `l9_analysis`,
   `hc_points`, `hc_nodes`, `po_ee_odd`, `bg_eeq`), `prl/data/q3_full_delta0.2.json`; read-only data: the existing K₂ rows and shadows in
   `spinfunc/cache/`, `x2_chi_EE_can_*.pkl`, `u3_chi_EE_*.pkl`.
-* *Compute:* ≈ 6 CPU-h, at most 2 processes of this note at any time (short analyses ran while one worker was SIGSTOPped, `ng_pause.sh`),
+* *Compute:* ≈ 5.5 CPU-h, at most 2 processes of this note at any time (short analyses ran while one worker was SIGSTOPped, `ng_pause.sh`),
   `ulimit -v 3000000`, `OMP_NUM_THREADS=1` everywhere.
 
 Grades as in UNIFIED_THEOREM_v2 §0 and POS_ERRORS: [P], [certified], [D], [D-sketch], [DV], [NE], [NE±] (numerical evidence with an
@@ -31,14 +33,15 @@ explicit error budget, every model input with a stated safety factor, conclusion
 | H_M, J = 12 | Own row `Δ = 1012`: twist edge `+0.84968` (published `+0.84326`); `1.05Λ` `+0.68574`. Sign-free budget fails (`L = 0.3`); λ-level `L = 1.6–3.1`. | [NE + M] (own row removes the 1/m interpolation; truncation not bounded with ×3 margin) |
 | H_M, J = 16 | Own row `Δ = 1016`: twist edge `+0.93421` (published `+0.93981`), `1.02Λ` `+0.76316`, `1.03Λ` `+0.74581`. λ-level `L = 1.0–1.3`; sign-free `L = 0.1`. | [NE + M] (own row; not error-bounded) |
 | **H_cont, J = 15 twist edge** (`1.0149042Λ`) | **Computed: `+0.6900` on its own row `Δ = 1015`** (36 nodes); `+0.6751` with the published rows (Δ = 336/400, held at the 400 row); hybrid `+0.6946`. λ-level budget `L = 1.3` (`≥ +0.16`); sign-free does not close. Not binding (×3.4 above the binding state). | **[NE + M]** (was [M]) |
-| **H_edge** | ⟦pending⟧ | |
+| **H_edge** (direct n1 edge nodes `x = 0.8 … 0.9`, injected as HC does) | Computed on even J = 18 (rows 800 + 1600), 24 (500 + 1600) and odd J = 19, 25, 29 (rows 1000 + J). Shift of the twist-edge state: J = 18 `−0.0066`, J = 19 `+0.0041`, J = 24 `+0.024`, J = 25 `+0.032` (jackknife `≤ 4·10⁻⁴`). **J = 29: not resolved** — the edge window carries `≈ 1.2 N_s` sign-free at the measured `|Γ| ≈ 2.8·10³ c₂`; in the w2 chain the K₂ node at x = 0.8 is an outlier (C3H `−1.8·10⁴` vs direct `+2.4·10³ ± 0.4·10³`) that drives the state to `−3.6`, and with the direct nodes it is `+1.39 ± 0.03`, i.e. the value is set by the edge representation. Not run: J = 20, 22, 26–28, 30–32, odd 21, 23, 27, J = 48. | J = 18, 19, 24, 25: [NE + M] (was [M]); J = 29: [M], representation-dominated |
 | bj engine at even J = 4–16 | **Not run.** It would decide only `ν < 12–20`, which carries `≈ 0.1 %` of the weight of every near-gap state at Δ_g = 1000 (row 2); the compute went to own-mass rows. The odd-J analogue at the binding state was run (row 1). | — |
-| **Light J = 0, 2 under Ω^EE** (hybrid: exact flat image + leading-Regge AdS curvature) | Positive at every `Δ_L` from 2.6 (J = 0) / 4.5 (J = 2) to `Δ_g − 1`, both Δ_g: `F/N ≥ 0.788` (J = 0), `≥ 0.638` (J = 2); the curvature moves `F/N` by `≤ 1.8·10⁻⁴`. **Lemma C certifies the leading-Regge image** (flat [P] minus the sign-free curvature bound `> 0`) for `Δ_L ≥ 4.5` (J = 0, 1000), `≥ 3.5` (J = 0, 300), `≥ 4.5` (J = 2, both). | flat [P]; leading-Regge image [P given the LR form] + [NE]; beyond-LR: below |
+| **Light J = 0, 2 under Ω^EE** (hybrid: exact flat image + leading-Regge AdS curvature) | Positive at every `Δ_L` from 2.6 (J = 0) / 4.5 (J = 2) to `Δ_g − 1`, both Δ_g: `F/N ≥ 0.788` (J = 0), `≥ 0.638` (J = 2); the curvature moves `F/N` by `≤ 1.8·10⁻⁴`. **Lemma C certifies the leading-Regge image** (flat [P] minus the sign-free curvature bound `> 0`) for `Δ_L ≥ 4.5` (J = 0, 1000), `≥ 3.5` (J = 0, 300), and every computed J = 2 state (`Δ_L ≥ 4.5`, both Δ_g). | flat [P]; leading-Regge image [P given the LR form] + [NE]; beyond-LR: below |
 | Light J = 0, 2 just below the gap, beyond leading Regge (K₂ rows) | **Own rows at `Δ_L = 990`** (1000): `λ/N = +1.0000`, `L = 4362` (J = 0), `913` (J = 2). Published rows (1/m-interpolated; `x > 0.8`, which runs past `x = 1` for light states, sign-free): `Δ_L ≥ 0.9Δ_g`: `L ≥ 378`; `0.7Δ_g`: `L ≥ 28` (1000). At 300 (rows held at Δ = 400): `L ≥ 13` (J = 0), `≥ 8.8` (J = 2, `Δ_L ≥ 270`), `1.4` (J = 2, `Δ_L = 200`). | `Δ_L = 0.99Δ_g`: **[NE±]**; `≳ 0.7Δ_g`: [NE + M] (was [I]) |
 | **Repaired Q on light J = 0** (`Ω^Q_up + 0.038034 Ω^EE_θ`) | Flat margin is `F/N ≈ 3.3 (m/Λ)²`, **zero at `m → 0` by construction of ε\***. Leading-Regge model: positive at every computed `Δ_L ≥ 2.6`, but the margin there (`2·10⁻⁵`, 1000; `2·10⁻⁴`, 300) is the AdS curvature itself, and Lemma C cannot sign it below `Δ_L ≈ 30` (1000) / `15` (300). For `1 < Δ_L < 2` the heavy-state convention gives `m² < 0` and a flat value `< 0` (of size `10⁻⁶`). **The sign for `Δ_L = O(1)` is decided by `O(Λ⁻²)` AdS terms that no computation controls.** Remedy: `ε = 0.040` gives a flat margin `0.022 N` at `m → 0` (×100 above every computed curvature effect) for `+3.5` (1000: 160.99 → 164.51) / `+2.6` (300: 123.08 → 125.71) on the upper end. | `Δ_L ≥ 30`: [P given LR] + [NE]; `Δ_L = O(1)` with ε\*: **[I]**; with `ε = 0.040`: [D-sketch] |
 
-**Failures.** No computed state fails. The sign-free budgets do not close at J = 12 (and are expected not to at J = 16), and the repaired
-Q functional has no robust margin on very light scalars.
+**Failures.** No physical state is found negative. One chain variant is: the J = 29 twist edge at Δ_g = 1000 in the plain w2 odd chain
+(`−3.62`), caused by a single K₂ outlier at x = 0.8 that direct RQMC replaces (`+1.39 ± 0.03`); the edge window decides that state (§1.6).
+The sign-free budgets do not close from J = 12 on, and the repaired Q functional has no robust margin on very light scalars.
 
 ---
 
@@ -181,12 +184,12 @@ on the J = 5 states to 1.05Λ (`L ≥ 78`). This replaces POS_ERRORS §3.1's "no
 * **H_M is confirmed where it was used.** Own row vs published chain (1/m interpolation between rows 400/800/1600): `≤ 10⁻⁴` at
   J = 4–6, `4·10⁻⁴` at J = 8, `+6·10⁻³` at J = 12 (published chain pessimistic), `−5.6·10⁻³` at J = 16 (optimistic), `+1.5·10⁻²` at
   J = 15 (published: held 400 row). All shifts are `≤ 0.015 N_s`, against margins `≥ 0.2`. [NE]
-* **Error bounding stops between J = 8 and J = 12.** The sign-free K₂ budget grows like `1/G_tol ∝ J³` (`N_s ∝ b̂⁻³`), while the K₂
-  terms themselves stay O(10²) `c₂`; from J = 8 on, only the signed λ-level truncation closes (the corrections cancel across x, as
+* **Error bounding stops between J = 8 and J = 12.** The sign-free tolerance falls steeply with J (`G_tol = 6.8·10⁴ → 4.2·10² c₂`
+  from J = 4 to 15, §1.1; `N_s ∝ b̂⁻³`), while the K₂ terms themselves stay O(10²–10³) `c₂`; from J = 8 on, only the signed λ-level truncation closes (the corrections cancel across x, as
   POS_ERRORS §3.3 found), and at J = 12, 15, 16 even that has only ×1.0–1.6. The K₂ λ-level step K = 1 → 2 is
   `3·10⁻⁵ / 1·10⁻⁴ / 8·10⁻³ / 7·10⁻² / 0.10 / 0.16` at J = 4 / 6 / 8 / 12 / 15 / 16: the Laplace series slows down as `J²/m` grows
   (0.016 → 0.25). Error-bounding J ≥ 12 would need the next Laplace order (`L1_DEG = 8` records, M6) on the own rows.
-* `G_low = 10⁴ c₂` is generous; at J ≥ 8 it costs 0.03–0.14 `N_s`. A measured small-ν bound (e.g. the J = 5 engine, ≲ 10² `c₂`
+* `G_low = 10⁴ c₂` is generous; at J ≥ 8 it costs 0.03–0.32 `N_s`. A measured small-ν bound (e.g. the J = 5 engine, ≲ 10² `c₂`
   away from the normalisation) would cut `E_low` ×10–100, but it was measured only at J = 5.
 
 ### 1.5 H_cont: the J = 15 twist edge
@@ -201,7 +204,39 @@ on the J = 5 states to 1.05Λ (`L ≥ 78`). This replaces POS_ERRORS §3.1's "no
 
 ### 1.6 H_edge
 
-⟦pending⟧
+Direct n1 points (`ng_points.py` = hc_points n1, adaptive, `HC_M = HC_MREF = 11`, 8 replicas, shared seeds; RESULT_D_CLEANUP §2) at
+`x = 0.8, 0.825, 0.85, 0.875, 0.9` on the rows that carry the 1000 near-gap states, injected into the chain exactly as `hc_chain`'s
+`HC_INJ` does (`hc_nodes.to_record`; the injected nodes exempt from the Hampel rule, `HC_DESPIKE_INJ = 0`; nodes with a non-finite
+entry dropped); `ng_val.py`, `cache/ng_val_J*.txt`. Odd J = 19–29 sit on the single ee1000 row `Δ = 1000 + J` (EE_DG1000_LARGEJ), read
+here through the w2 odd chain (not the ee1000 shape chain that produced the published odd-J values).
+
+| J (rows) | twist edge `m/Λ` | without → with edge nodes | shift | other masses (shift) | largest direct `|Γ|` in the window (`c₂`) | K₂ vs direct at x = 0.8 |
+|---|---|---|---|---|---|---|
+| 18 (800, 1600) | 1.01786 | +0.7399 → +0.7333 ± 0.0003 | −0.0066 | 1.03: −0.0048; 1.05: −0.0018 | 1.3·10³ | `|Δ| ≤ 172` (800); the 1600 K₂ node at 0.8 is Hampel-dropped |
+| 19 (1019) | 1.01884 | +0.9954 → +0.9995 ± 0.0003 | +0.0041 | 1.03: +0.0017; 1.05: −0.0002 | 5.6·10³ | −131 / +122 (≈ 3σ) |
+| 24 (500, 1600) | 1.02374 | +0.9454 → +0.9699 ± 0.0002 | +0.024 | 1.03: +0.017; 1.05: +0.006; 1.1: +0.001 | 1.8·10³ | row 500 (`J²/m = 1.15`): `++` off by `−1006 / −1054`; row 1600: `|Δ| ≤ 210` |
+| 25 (1025) | 1.02472 | +0.8918 → +0.9234 ± 0.0004 | +0.032 | 1.03: +0.026; 1.05: +0.008 | 3.7·10³ | −428 / +472 |
+| 29 (1029) | 1.02862 | **−3.62 → +1.39 ± 0.03** | (+5.0) | 1.04: −1.83 → +1.24; 1.06: −0.21 → +1.15 | 2.8·10³ | C3H: K₂ −17 933 vs direct +2370 ± 401 |
+
+Sign-free weight of the window (`ng_edgew.py`, hybrid weights, twist edge): `W[0.8, 0.9] = 1.2·10⁻⁴` (J = 18, `+−`), `1.9·10⁻⁴`
+(19), `3.0·10⁻⁴` (24, 25), `4.3·10⁻⁴` (29) per `c₂`; `W(0.9, Λ/m] = 0.7–2.1·10⁻⁵`. At the measured `|Γ|` the sign-free cost of
+`[0.8, 0.9]` is `0.35` (J = 18) to `1.2 N_s` (J = 19–29): the window is decided by the oscillation of `Γ` (signs alternate node to node
+with a period ≈ 0.05–0.1 in x), not by its size. At J = 5 the same window costs `< 10⁻⁴ N_s`.
+
+**Reading.**
+* J = 18, 19, 24, 25: the direct edge values move the near-gap states by `−0.007 … +0.032 N_s`, jackknife `≤ 4·10⁻⁴`; the two
+  sizeable moves are favourable (as RESULT_D_CLEANUP found at 300). With the remaining spline representation between 5 nodes per
+  window, this is [NE + M], the same grade as the computed rows at lower J (was [M]).
+* **J = 29 is not resolved, and is the one place where a chain variant gives a negative value.** On the (1029, 29) row the K₂ series is
+  slow (`J²/m = 0.83`; K = 0 → 1 → 2 steps of `1.8·10⁴ → 4·10³ → 9·10²` `c₂` at x = 0.75) and its x = 0.8 C3H node is off by
+  `2·10⁴ c₂`. The w2 odd chain has no Hampel filter on odd rows (hc_chain and the ee1000 shape chain do), so that node turns the
+  twist-edge state to `−3.62`; with the direct nodes it is `+1.39 ± 0.03`. A value `> 1` means the edge window dominates the
+  correction. The published odd-J values (`+0.89 … +0.98`, EE_DG1000_LARGEJ / HC) come from the ee1000 shape chain, whose window stops at
+  x = 0.8. **So `H_edge` at J = 29 (and plausibly at the other odd J ≳ 27 on ee1000 rows) is representation-dominated: the sign of the state depends on how `x ∈ [0.8, Λ/m]` is modelled
+  between nodes spaced at a quarter of the oscillation period.** It stays [M]. The K₂ node at x = 0.8 on rows with `J²/m ≳ 0.8` should
+  not be trusted (also J = 24, row 500: `++` off by `10³ c₂`).
+* Not run (time): even J = 20, 22, 26, 28, 30, 32; odd 21, 23, 27; J = 48 (fw chain). J = 22 at 1000 still draws on the Δ = 336 row only,
+  where `x = 0.9` is within 10 % of Δ (the RQMC fails there; RESULT_D_CLEANUP §0.4).
 
 ---
 
@@ -230,8 +265,8 @@ on the J = 5 states to 1.05Λ (`L ≥ 78`). This replaces POS_ERRORS §3.1's "no
 | Lemma C certifies `flat − |curv| > 0` for | Δ_L ≥ 4.5 | Δ_L ≥ 3.5 | Δ_L ≥ 4.5 (all) | Δ_L ≥ 4.5 (all) |
 
 * `F/N → 1` from `m ≳ 0.3Λ` (J = 0) and `m ≳ 0.5Λ` (J = 2): both pieces positive.
-* The curvature is tiny because for a light state `β` is small (`β ≈ (2J+1)/m`) only when `m ≫ 1`, and at small `m` the oscillating
-  integrand averages out against the smooth weights. Lemma C is sign-free and fails only at `Δ_L ≲ 4` (J = 0), where `ν(B − β)` saturates.
+* The curvature is tiny: `β ≈ (2J+1)/m` is small unless `m = O(1)`, and where it is not (`Δ_L ≲ 5`) the curvature integrand oscillates
+  at frequency `νB ≈ Λ(2J+1)/m` and averages out against the smooth weights. Lemma C is sign-free and fails only at `Δ_L ≲ 4` (J = 0), where `ν(B − β)` saturates.
 * **Grade.** The flat image is [P] (A1PRIME). The leading-Regge AdS image is positive at every Δ_L [P given the LR form + quadrature
   NE] for `Δ_L ≥ 4.5`, and [NE] (computed, not bounded) for `2 < Δ_L < 4.5` at J = 0. Whether the leading-Regge form is the AdS image
   of a light block at `Δ_L = O(1)` is not established: for heavy states it is the leading term of a `1/Δ` expansion, which a light state
@@ -267,7 +302,7 @@ below Δ_g". Lower Δ_L at 300 (`Δ_L = 200`, J = 2: `L = 1.4`) is held from the
 
 * **Flat:** `F_R(m) = (2.032073 + ε*·20.771893) m² = 2.8221 m²` (m in Λ units): zero at `m = 0` by the choice of ε\*, `F/N ≈ 3.3 m²`.
 * **Leading-Regge AdS curvature** (`cache/ng_light.txt`, column R): `+1.6·10⁻⁵ N` (1000) and `+1.7·10⁻⁴ N` (300) at `Δ_L = 2.6–8`,
-  i.e. **larger than the flat margin for `Δ_L ≲ 8` (1000) / `≲ 20` (300)**. It happens to be positive at every computed Δ_L
+  i.e. **larger than the flat margin `3.3(m/Λ)²` for `Δ_L ≲ 4`** (both Δ_g). It happens to be positive at every computed Δ_L
   (min `F/N = +1.8·10⁻⁵`, 1000; `+2.0·10⁻⁴`, 300), but Lemma C cannot sign it for `Δ_L < 30` (1000) / `< 15` (300), and the leading-Regge
   form is itself not established there (§2.2).
 * **`1 < Δ_L < 2`** (allowed for a scalar in d = 3): `m² < 0` in the heavy convention and `F_R < 0` at order `m²/Λ² ~ 10⁻⁶`. Whether this
@@ -294,9 +329,10 @@ below Δ_g". Lower Δ_L at 300 (`Δ_L = 200`, J = 2: `L = 1.4`) is held from the
 | D8 | value below ν ≈ 8.3 at J = 5 | [M] | inside the sign-free `E_low` (engine-supported) |
 | D9 | odd J, local de-shift only | [M], `L ≥ 100` | at J = 5: inside `E_low` via the min-norm gauge factor |
 | D6 | J = 15 twist edge | [M], hybrid ≈ +0.69 | **computed `+0.690`** (own row) / `+0.675` (published rows) [NE + M] |
-| D4 | `H_edge` | [M] on even J = 18–32, odd 19–29, J = 48 | ⟦pending⟧ |
-| A1PRIME §6 | AdS light J ≤ 2 just below the gap | [I] | [NE + M] (§2.3) |
-| A1PRIME §6 | AdS light J ≤ 2 at `Δ_L ≪ Λ`, Ω^EE | [D-sketch] | unchanged; LR image positive with `F/N ≥ 0.64` [P given LR] |
+| D4 | `H_edge` | [M] on even J = 18–32, odd 19–29, J = 48 | **J = 18, 19, 24, 25: [NE + M]** (shifts −0.007 … +0.032); **J = 29: [M], representation-dominated** (§1.6); J = 20–22, 26–28, 30–32, 21, 23, 27, 48: [M] (not run) |
+| — | binding state at Δ_g = 300 | [NE + M] (`+0.2038`) | **[NE±]**, own row `Δ = 305`, `L = 3.5` (`≥ +0.146`) |
+| A1PRIME §6 | AdS light J ≤ 2 just below the gap | [I] | **[NE±]** at `Δ_L = 0.99Δ_g` (own rows, `L ≥ 913`); [NE + M] for `Δ_L ≳ 0.7Δ_g` (1000) / `≳ 0.8Δ_g` (300) (§2.3) |
+| A1PRIME §6 | AdS light J ≤ 2 at `Δ_L ≪ Λ`, Ω^EE | [D-sketch] | unchanged as a statement about the true image; the LR image is positive with `F/N ≥ 0.64` ([P given LR] for `Δ_L ≥ 4.5`) |
 | A1PRIME §4.3 | repaired Q on light J = 0 | "positive on all light states" [P, flat] | flat margin 0 at `m → 0`; `Δ_L = O(1)`: **[I]**; use `ε = 0.040` |
 
 **Letter wording (suggested).** "At Δ_g = 1000 the lowest state (J = 5, parity odd, at the twist edge) has λ/N_s = 0.201; on a crystal row
@@ -325,6 +361,12 @@ python3 ng_bind.py 1000 J5 5:1005:1.0049927,1.01,1.02,1.05             # budgets
 python3 ng_val.py 1000 5 1005 1.0049927,1.02                             # direct vs K2 -> cache/ng_val_J5_1005.txt
 python3 ng_rowdump.py 5 1005                                             # Gamma per order
 python3 ng_light.py                                                      # light states -> cache/ng_light.{txt,json}
+python3 ng_points.py 19 1019 0.8,0.825,0.85,0.875,0.9                    # edge nodes (also 25/1025, 29/1029, 18/800+1600, 24/500+1600)
+python3 ng_val.py 1000 18 800,1600 1.0178588,1.03,1.05                    # edge injection -> cache/ng_val_J18_800_1600.txt
+python3 ng_edgew.py 1000 19:1.0188417:5650 ...                           # sign-free weight of the edge windows
+python3 ng_summary.py                                                    # every budget and state shift -> cache/ng_summary.txt
 python3 ng_bind.py 1000 light1000 0:400:<mfl list> 2:400:<mfl list>      # and 300 light300 ...
+python3 ng_bind.py 1000 light990 0:990:0.989985 2:990:0.989982          # light states on their own rows
+python3 ng_rows.py odd EE,C3H 5 305 dense; python3 ng_bind.py 300 J5_300 5:305:1.0165851,1.02,1.05   # binding state at 300
 ```
 The exact job lists, in run order, are in `cache/lane_A.log` and `cache/lane_B.log`.
