@@ -337,3 +337,84 @@ Do not write "proved for J ≥ 50".
 3. "Stripped" (R2) uses the published grid X, which is correct to t ≈ 22–25 (UT3 §2.2). The ν⁴ structures probe it hardest.
 4. The O(1/m⁴) representatives are two shapes, not CHMRS's full O(1/m⁴) basis. The ancillary `regge_moments_order8.m` was not processed.
 5. The 2×2 criterion assumes the same bound d on all entries. With entry-wise bounds, H can be replaced by the exact 2×2 condition.
+
+---
+
+## 9. Follow-up (coordinator request): R1 at O(1/m²), and the P2 magnitudes
+
+*Same day. Additional code: `code/lsw/lsw_r1rank.py` → `cache/r1rank.txt`. It imports `eestep/ee6_lrprofile.py`, `ee3_deshift.py`,
+`ee_quad.py` and `ee_blocks.py` read-only. Compute ≈ 0.1 CPU-h.*
+
+### 9.1 The sufficient condition of §3.4 is false: the leading-r EE kernel has exactly three polarisation channels [DV]
+
+**Test.** Let `L_ν[w₁, w₃, z₂, z₄](B)` be the r⁰ Cauchy coefficient of `K^EE/(N r²)`, i.e. EESTEP §1.4's leading-Regge position kernel,
+computed with eestep's own code. One polarisation tensor (`L = 𝒯(pols; B)·ℓ(ν, B)`) holds iff the matrix `M[pol set, ν]` has rank 1 at
+fixed B. The test used 7 random null-polarisation sets × ν ∈ {0.5, 1.5, 3, 6, 10}.
+
+| B | singular values / σ₀ |
+|---|---|
+| 0.3 | 1, 0.24, 3.0·10⁻⁴, **2·10⁻¹¹**, 8·10⁻¹³ |
+| 1.0 | 1, 0.37, 3.3·10⁻³, **4·10⁻¹⁵**, 3·10⁻¹⁶ |
+| 3.0 | 1, 0.26, 4.2·10⁻³, **6·10⁻¹⁶**, 3·10⁻¹⁷ |
+
+* **The rank is exactly 3 at every B.** The third singular value is small but 10⁸–10¹³ above the floor.
+  So `L_ν = Σ_{i=1}^{3} 𝒯_i(pols; B) ℓ_i(ν, B)`: three tensor channels with three independent ν-functions.
+* **Consequence.**
+  * The factorisation argument of §3.3 cannot give R1.
+  * At leading order the heavy symbols see only the de-shift combination `𝒜[cP]`: the project's exact
+    `h∓ = g·c(ν ± i)` holds for both helicities with the same R∓ (EE_FUNCTIONAL §2). So at least one channel combination, call it
+    ℓ_𝒜, carries the de-shift form. The other two directions are invisible to the leading symbols.
+  * At O(1/m²), the spinning block's subleading polarisation tensors can project onto the other two channels. Their contributions
+    `κ_i ℓ_i(ν; β)/m²` are **not of de-shift form** in general.
+  * By P1 they cannot appear at O(1/m). That is consistent with the ν-flat O(1/m) data.
+* **Status of R1 at O(1/m²): [I]**, now localised. Two things are missing:
+  1. the identity of ℓ₂, ℓ₃: their harmonic content P_{l+s} and the rational ν-coefficients;
+  2. the size of their coefficients, i.e. the contraction of 𝒯₂, 𝒯₃ with the O(1/m²) part of the heavy symbols.
+
+  If ℓ₂ and ℓ₃ are index-shifted harmonics with rational coefficients, they fall in the "index-shifted (stripped)" class of §4.2,
+  tolerated at K_sh ≥ 52 (J = 344) to ≥ 10⁴ (J ≤ 100). If they contain ν²-weighted pieces, the stripped ν² columns of §4.2 apply.
+
+### 9.2 P2 magnitudes: not computed. What exactly remains
+The next-order EE-contracted expansion was **not attempted beyond its set-up**. The work in §9.1 shows that it requires three ingredients
+that do not exist in the project for J > 0.
+
+1. **Conserved ⟨TTO_{Δ,J}⟩ structures for general J in d = 3**, in the helicity basis, with their (Δ, J)-dependent coefficients.
+   * `repro_engine/tto_conserved.py` solves J = 0 only.
+   * The general-J solve is the same linear algebra over ℚ(Δ, J) on the 14 CPPR monomials `V₁^{2−a−b}V₂^{2−a−c}V₅^{J−b−c}H₁₂^aH₁₅^bH₂₅^c`,
+     with conservation imposed by the Todorov operator.
+   * Estimate: about 1 day, sympy.
+2. **The heavy symbols to O(1/m²) at fixed β.**
+   * Evaluate those structures in CHMRS's symmetric frame at x₁ = −y/m, x₂ = −(x/m)/(−x²/m²), x₅ = e, with n fixed and
+     `V₅^{J}` exponentiated through `J + ½ = m sinh(β/2)` (as in §2.2).
+   * Taylor-expand the ratio monomials to second order. They are rational, so this is exact and mechanical.
+   * The shadow-side structures follow by the Weyl reflection m → −m (§2.2), which also controls the parity (P1).
+3. **Contraction with the three kernel channels and the p-derivative integration.**
+   * Contract the symbols with 𝒯₁, 𝒯₂, 𝒯₃ of §9.1. These need to be extracted as explicit tensors, e.g. by fitting `L_ν[pols]` on a
+     basis of degree-(2, 2, 2, 2) trigonometric polynomials in the polarisation angles. That is a cheap linear solve with ee6's code.
+   * Then apply the polynomial insertions as ∂_p derivatives in the Fourier–Laplace identity: CHMRS's mechanism, validated for the
+     scalar in N2 §3.2.
+   * Output: κ_s^{hh′}(β) for the five ring classes, κ₂, κ₃ for the non-𝒜 channels, and the leading-order check `h∓ = g c(ν ± i)`.
+
+**Validation targets** (unchanged):
+* the J = 0 engine's order-a² images;
+* the (1100, 100) ring-class fits: Λ_amp ≈ 2–3, r ≈ 0;
+* (364, 64) at Δ_g = 300: B = 0.11, r = +1 ± 5.
+
+Estimated total: several days. This is beyond the present budget, so **Λ_amp, K_sh and K₄ for ⟨TTTT⟩ remain [NE] (Λ_amp ≈ 2–3 from
+the J = 100 fits) and [M] (K_sh, K₄).**
+
+### 9.3 Updated J\* for Theorem W (`cache/jstar_1000.txt`, plus the run in §9.1's session)
+With (Λ_amp, K_sh, K₄) = (3, 10, 10) or (2, 10, 10) and margin θ = 1, over the sampled H_LJ states:
+
+| premise on form | sampled J covered | J\* |
+|---|---|---|
+| P3 (de-shift form) assumed, as in §4.3 | all J ≥ 50 | **50** (×2 margin: 100) |
+| **P3 dropped (worst case: all O(1/m²) ring terms stripped)** | **50 ≤ J ≤ 250** (including J = 51, 101, 201, 301); fails at J = 300 and 344 | no J\*; a **window** [50, 250] (301 also passes) |
+| P3 dropped, ν² classes with the beyond-hybrid β² suppression (§3.5, [D-sketch]) | J = 50–250 at θ = 1 (Λ_amp = 3); J ≥ 26 at Λ_amp = 1 | 50 (window) |
+
+**Net.**
+* R1 at O(1/m²) is now the one structural premise that separates "J\* = 50" from "the window 50 ≤ J ≤ 250". It is load-bearing only for
+  J ≳ 300, i.e. near the top of H_LJ (m → 1.3Λ).
+* It is localised to two extra kernel channels that are invisible at leading order (§9.1).
+* Theorem W's grade is unchanged: [P given P0–P4] + [DV]. P3 is **[I]** (the cheap route is closed by §9.1). P2's magnitudes are **[NE]
+  (J ≤ 100) / [M] (J ≥ 150)**.

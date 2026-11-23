@@ -353,6 +353,16 @@ A chain carries the grade of its weakest link.
 >   * the P2 magnitudes, which need the next-order EE-contracted expansion of the integrand at fixed β;
 >   * R1 at O(1/m²) for the ν² classes at J ≳ 200. A sufficient, cheap check: the s = ±1 harmonics of the leading-r EE kernel share one polarisation tensor (`eestep/ee_quad.py`).
 
+> **Update (LARGESPIN_W.md §9, unreviewed): neither premise of Theorem W closed.**
+> * **R1's sufficient condition is false [DV].** The leading-r EE kernel has rank exactly 3 in polarisation (singular values 1, 0.24–0.37, 3·10⁻⁴–4·10⁻³; the next is at the 10⁻¹¹–10⁻¹⁶ floor). At leading order the heavy symbols see only the de-shift combination. At O(1/m²) the two other channels can enter in non-de-shift form; P1 forbids that at O(1/m). R1 stays [I], now pinned to these two kernel channels. If they are index-shifted harmonics with rational coefficients, they are tolerated even in stripped form (K_sh ≥ 52 at J = 344).
+> * **P2 magnitudes not computed.** Three steps remain:
+>   1. conserved ⟨TTO_{Δ,J}⟩ structures in d = 3 for general J;
+>   2. second-order heavy symbols at fixed β;
+>   3. contraction with the three kernel channels.
+>
+>   Λ_amp ≈ 2–3 stays [NE] (from J = 100); K_sh and K₄ stay [M].
+> * **J\*:** with P3, J\* = 50 (100 at ×2). Without P3, positivity holds on 50 ≤ J ≤ 250 (and J = 301) but fails at J = 300 and 344. So R1 at O(1/m²) is load-bearing only for J ≳ 300.
+
 ## 1. Setup and normalisations
 
 | item | definition |
