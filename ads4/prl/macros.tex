@@ -68,11 +68,14 @@ at $\Delta_g=300$ the window of $H_{\rm LJ}(300)$ for $J\ge34$ is open [I]%
 % \EESTEP placeholder macro has been removed.
 %
 % --- HIGHSPIN placeholders ---------------------------------------------------
-% Near-gap J >= 12 at Delta_g = 1000, the J = 29 light-cone edge and H_LJ(1000)
-% are being recomputed elsewhere (ads4/HIGHSPIN.md). Every place their numbers or
-% grades go carries a "% HIGHSPIN:" comment and the visible marker \HS.
-% When HIGHSPIN lands: fill those places (list in CHANGES_v3.md), then set
-% \HSdraftfalse to suppress the marker.
+% v4 marked every place that awaited ads4/HIGHSPIN.md with "% HIGHSPIN:" and the visible marker \HS.
+% v5 (23 Nov 2026): all places filled from HIGHSPIN.md, SMALLNU_WINDOW.md, DIRCV.md (Sec. 8),
+% LARGESPIN_ANALYTIC.md and LARGESPIN_L.md (list in CHANGES_v5.md); the marker is switched off.
+% The macro is kept so that a future recomputation can mark places again (\HSdrafttrue).
 \newif\ifHSdraft
-\HSdrafttrue
+\HSdraftfalse
 \newcommand{\HS}{\ifHSdraft\textsuperscript{\textsf{HS}}\fi}
+%
+% --- conformal-collider comparison (follows the H_LJ(300) switch) ---
+% tau_0 / 4 (energy-flux disk radius 4): 2.89e-8/4 = 7.2e-9 < 1e-8 (1000); 3.13e-6/4 = 7.8e-7 < 1e-6 (300).
+\newcommand{\CollFrac}{\ifHLJclosed 10^{-6}\else 10^{-8}\fi}

@@ -162,6 +162,7 @@ def main():
     import p2_series as PS
     PS.ORDER = 4
     import s2_symbols as S2, s2_main as SM
+    PS.ORDER = 4                      # s2_main sets 2 at import
     can = S2.CAN()
     allv = list(S2.xs) + list(S2.ys)
     mons = [m for deg in range(5) for m in sp.itermonomials(allv, deg) if sp.Poly(m, *allv).total_degree() == deg]
@@ -186,6 +187,7 @@ def main():
                 v, ms = SM.sym_modes('L', ('even', 1), cf, p[:3], p[3:], qv)
                 per.append(ms)
             vals[k] = per
+            assert len(per[0]) == 5
         pr(f'q = {qv}: symbols evaluated at {len(pts)} points   [{time.time() - t0:.0f}s]')
         HB = {h: [sp.sympify(c).subs(sp.Symbol('q', positive=True), qv) for c in SM_HB(h)] for h in ('same', 'opp')}
         L = {}

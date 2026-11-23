@@ -351,3 +351,64 @@ not touched). New code: `s5_order4.py` (O(1/m⁴) seed + symbols), `s5b_dphi.py`
     restatement. Graded [I] for the subtraction; the identification of the ν⁶ term is [DV].
 
 **Spinning symbols at O(1/m⁴), helicity-diagonal model [M].** See §7.1b; the numbers are filled in from `cache/s5_order4.txt`.
+
+### 7.2 (b) The (S) check against Karateev–Kravchuk–Simmons-Duffin 1809.05111: (S) is NOT what KKSD establish
+
+KKSD's source was fetched; the relevant parts are §§2.3, 4.1–4.3 and the 3d sections "Implementation in 3d", "Shadow transforms and
+pairings with conserved operators" and "OPE coefficients of 3d stress-tensor MFT".
+
+**What KKSD say [Q].**
+1. **Shadow transforms are matrices.** The shadow transform of a three-point structure is a matrix S(…)^d_e on the structure space. It is
+   in general **non-diagonal**: their stress-tensor MFT formula carries S([T̃₁]T̃₂𝒪)^d_e S(T₁[T̃₂]𝒪)^e_a.
+2. **Diagonality holds only in momentum space.** The shadow transform is diagonal only in the **momentum-space SO(d−1) basis of the
+   shadowed leg**, with eigenvalues 𝒜_{λ_{d−1}}. The Fourier transform is diagonal in the position-space SO(d) basis.
+   * The algorithm needs two **non-diagonal** changes of basis between them ("the coefficients ℱ_{Δ,J} and 𝒜_{λ_{d−1}} for different J and
+     λ_{d−1} will mix").
+   * In 3d, the position-space structures are labelled by SO(2) weights [q₁, q₂, q₃] of the collinear frame. Only the **pairing** is
+     diagonal in that label ([q] ↔ [−q]), not the shadow transform.
+3. **Conserved T adds gauge redundancy.** For conserved T the shadow structures ⟨T̃T̃𝒪⟩ carry the gauge redundancy T̃ ~ T̃ + ∂ξ. This does
+   not make S diagonal.
+
+**Consequence.**
+* §2.4's assumption (S) ("the shadow matrix is diagonal in the exact helicity basis of the T legs") is **not supported**. The two
+  parity-even structures (++, +−) can mix under the shadow transform. (The parity-odd one cannot.)
+* My §2.4 argument that "SO(2) × parity separates them" was wrong. Equivariance holds for SO(d) on the T legs at (0, ∞), whose labels are
+  the SO(3) channels of 2 ⊗ 2. It does not hold for the collinear SO(2) helicities.
+* **P1 therefore stays [D-sketch]. The upgrade of §2.4 is withdrawn.**
+
+**What survives.**
+1. **[D, from known facts] B₀ is diagonal and positive.** The leading heavy block is helicity-diagonal ([P], EE_FUNCTIONAL), and the
+   leading g₀ is diagonal with positive entries (§2.2). Since M₀ = g₀B₀, the leading shadow matrix B₀ is diagonal and positive in the
+   helicity basis.
+2. **[DV] + [M] The model-level O(1/m) off-diagonal is constant.** At O(1/m) the off-diagonal symbol content between the two parity-even
+   classes is X, Y-**independent** (exact, §3.3: the "other ±2 class" leakage at O(ε) has zero X, Y-coefficients). So in the
+   helicity-diagonal model, the O(1/m) off-diagonal of M is a constant multiple of the leading image: a congruence, whatever B₁ is.
+3. **Model-independently, still [D-sketch].** The X, Y-dependent O(1/m) content sits only in |k| < 2 modes (≤ 8 relative). Its kernel
+   projection is the three-channel question (PW_IMAGES).
+4. **Next step if wanted.** KKSD's 3d algorithm (their eqs. for 𝒜_{1,m} and the SO(3) ↔ SO(2) Clebsch–Gordan change of basis) gives
+   S(T₁[T̃₂]𝒪_{Δ,J}) explicitly. In the heavy limit one would check that its off-diagonal (++ ↔ +−) part is O(1/m) and odd.
+   Not done here.
+
+### 7.3 (c) The J = 0 engine O(a²) comparison: not done
+
+* **What the engine is.** `repro_engine/integrand.py` is the **k = 4** EE integrand at **J = 0** in the a = 1/Δ expansion. It includes the
+  light-ray x₀ integral and its own state/reference normalisation at ν = 0.02. At J = 0 the heavy state sits at β = O(1/m), outside the
+  fixed-β expansion of §§2–3.
+* **What the comparison would need.**
+  * The full EE kernel contraction (§3.2's model is not enough at J = 0, where everything is ++ and the test is of the kernel, not the
+    symbol). That is PW_IMAGES' object.
+  * The engine's normalisation conventions.
+* Neither is cheap. **Step 3's validations remain:**
+  * the exact reproduction of CHMRS's scalar series at O(1/m²) and O(1/m⁴) (§§3.1, 7.1);
+  * the J = 0 structure identity (§1.3).
+
+### 7.4 The −8η factor
+* **Normalisation-side behaviour [DV].** The relation "CHMRS series Π = (1 − 8η/m² + n₂/m⁴) × (bare mechanism)" holds exactly at
+  O(1/m²) and O(1/m⁴) (§7.1). So −8η/m² is the first-order term of the moment's **ν-independent normalisation**. In the bare mechanism
+  that normalisation is set to |P| = |P̄| = 1 at the rescaled momenta, and 1/b_{Δ,J}, m^{2k}, γ² and the dropped constants are omitted.
+* **Not pinned to a single factor.** Which factor carries it (1/b_{Δ,J}'s Stirling tail, or |p|² = Δ² − J² against
+  m² = (Δ−J−2)(Δ+J−1)) was not determined; that needs CHMRS's exact normalisation chain.
+* **Sign relative to N2.** N2's residual (exact skeleton − (3.20) = −8ηP) has the sign of "CHMRS × (1 − 8η/m²)". The project's skeleton
+  therefore carries this normalisation once more than CHMRS's (3.20). This is consistent with a double-counted or differently defined m²
+  normalisation, but that is not verified [I].
+* **Harmless either way.** It is ν-flat and multiplies the leading image (W1c).
