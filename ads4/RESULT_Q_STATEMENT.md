@@ -135,6 +135,25 @@ Note: HRS, OG and FH are later than RU and refine three of its items. Each such 
 >   * The δ = 0.2 / 0.05 upper bounds survive either reading.
 >   * Deciding test, not run: the engine ++ J = 0 derivative-piece correction at m = 3–10Λ (F_NORM §2.6, §6).
 
+> **Update (LEMMAS_CLOSE.md, unreviewed).**
+> * **Lemma C′: → [D]**, with a closed-form check [DV] at ≤ 2·10⁻⁹.
+>   * On Ω = {Re t₁, Re t₃ > 0} ∖ (0, ½] the swapped integrand is one single-valued analytic function, by an exact identity keeping z, z̄ off [1, ∞) [P].
+>   * Lemma A is [D given C′]. The Einstein instance is [D] (not numerically evaluated), which answers M7.
+> * **K1′: → [D]**, uniform on the Regge box at J₀ = 1, with no edge dependence.
+> * **K2ν: → [D].** `|𝒦_ν| ≤ K̄` for all real ν.
+> * **LRC leading form:** [D + DV] for scalar k = 2, 4 and EE k = 2; [D-sketch] for EE at k = 4.
+> * **Correction to the H_K box above: the LRC uniform remainder is [I].**
+>   * Over the large-η part of the Regge box the corrections are O(ρ = re^β), not O(r). Prop K_c's "extra factor r" step therefore fails uniformly, and with K1′ alone the remainder again needs J₀ < ½.
+>   * The same gap sits in H7 §14's corollary for Ĉ′_EE.
+>   * It closes given either of two inputs, both [I]:
+>     * LRC\*: the de-shift cancellation survives the O(ρ) corrections;
+>     * LC\*: uniform light-cone suppression of dDisc with exponent κ > ¼.
+>   * **H_K stays [D-sketch].**
+> * **a = b integrability:**
+>   * the kernel bound is [D] (integrable iff growth p < 7/2);
+>   * J₀ < 4 terms carry nothing at a = b [D];
+>   * the borderline R⁴ arc in that corner is [I], tied to LRC\*/LC\*.
+
 ## 0. Headline
 
 **Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper
