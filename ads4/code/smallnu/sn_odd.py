@@ -37,9 +37,13 @@ def main(J, numin_req=None):
 
     def pr(s=""):
         print(s, flush=True); lines.append(s)
-    fj = os.path.join(H.HSC, 'hs_odd_J%d_final.json' % J)
-    if not os.path.exists(fj):
-        fj = os.path.join(H.HSC, 'hs_odd_J%d.json' % J)
+    fj = os.path.join(S.SNC, 'hs_odd_J%d.json' % J)          # this note's own hs_odd run (direct bulk row in smallnu/cache), if any
+    if os.path.exists(fj):
+        S.FULL[0] = True
+    else:
+        fj = os.path.join(H.HSC, 'hs_odd_J%d_final.json' % J)
+        if not os.path.exists(fj):
+            fj = os.path.join(H.HSC, 'hs_odd_J%d.json' % J)
     old = json.load(open(fj))
     nodes, chk, da, m = S.small_nodes(J, D, numax=80.0)
     pr(f"# sn_odd J={J} row {D:g} (m={m:.3f}); HIGHSPIN results from {os.path.basename(fj)}; normalisation transform check on old "
@@ -64,7 +68,7 @@ def main(J, numin_req=None):
     pr(f"#  nu_min = {numin:.2f}; window nodes {len(inwin)}; max over the window of (|Gamma| + 3 sigma) = {Gm:.0f} c2 (max |Gamma| {Gc:.0f}); "
        f"node bounds: " + ", ".join(f"{r['nu']:.0f}:{g:.0f}" for r, g in zip(good, gb)))
     # bulk model (baseline points) for X_low and the reproduction check
-    S.BASE[0] = True
+    S.BASE[0] = not S.FULL[0]
     try:
         rK, rI, isdir = HO.rows(J, D)
         bad = H.refbad(J, D, HO.RTOL)

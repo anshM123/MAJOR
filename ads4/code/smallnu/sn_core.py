@@ -26,6 +26,7 @@ HN, Q, E = H.HN, H.Q, H.E
 SNC = os.path.join(HERE, 'cache')
 HSC = H.HSC
 BASE = [False]
+FULL = [False]           # True: no baseline -- the row's normalisation is that of the grid with ALL direct points (own direct bulk row)
 SUBDIR = [None]          # read the smallnu points from smallnu/cache/<subdir> instead (cross-check caches)
 
 
@@ -135,11 +136,11 @@ def keys(J):
 def small_nodes(J, D, numax=80.0, jkn=8):
     """Gamma at every node of row D with nu <= numax: per node dict(x, nu, src ('sn' = this note, 'hs' = HIGHSPIN direct, 'K2'),
     key -> (value, jackknife sigma)); values in the BASELINE normalisation.  Also returns the max transform residual on old nodes."""
-    rb = _rowgrid(J, D, True); rf = _rowgrid(J, D, False)
+    rf = _rowgrid(J, D, False); rb = rf if FULL[0] else _rowgrid(J, D, True)
     rt, rnorm, chk = _transform(J, rf, rb)
     reps = []
     for jk in range(jkn):
-        b = _rowgrid(J, D, True, jk); f = _rowgrid(J, D, False, jk)
+        f = _rowgrid(J, D, False, jk); b = f if FULL[0] else _rowgrid(J, D, True, jk)
         t_, _, c_ = _transform(J, f, b)
         reps.append(t_); chk = max(chk, c_)
     m = rf['m']
