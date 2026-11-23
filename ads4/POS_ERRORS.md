@@ -140,6 +140,17 @@ Grades are those of UNIFIED_THEOREM_v2 §0. One label is added:
 >   * 150 ≤ J < 857 near the gap: the hardest band, still numeric/model.
 >   * Route W covers J ≥ 50 given scalar-size coefficients and R1. Both routes stall on the same object: the EE-kernel polarisation contraction beyond leading order.
 
+> **Update (PW_IMAGES.md, unreviewed): R1 is replaced by an exact identity plus one bounded monopole term. PW-R1 and PW-Loc are false as literally stated, but neither is needed any more. Theorem W keeps J\* = 50 (100 at ×2) WITHOUT P3. Theorem L keeps J\* = 857 with P_L reduced to magnitudes.**
+> * **Exact de-shift identity for the EE kernel.** Every b-shifted scalar block in EE = Σ_b satisfies CHMRS's magic-block identity with b-independent coefficients:
+>   2η(1+r²)Ĝ¹_b(ν) = (1+i/2ν)Ĝ⁰_b(ν+i) + (1−i/2ν)Ĝ⁰_b(ν−i).
+>   It is [P] to r⁸, [DV] to r⁴⁰ at 50 digits, [D] at all orders. So every plane-wave image, in any gauge and with any insertion, is exactly 𝒜_g[F] (CHMRS's scalar de-shift), with F even and analytic for |Im μ| ≤ 3/2. End to end against ee_quad: 2·10⁻⁷–1.1·10⁻⁶. **Route W's stripped (R2) worst case cannot occur.**
+> * **PW-R1 is refuted** with respect to the EE operator 𝒜 = 𝒜_g∘c. It needs F(±i/2) = 0, which O(1/m²) radial insertions violate [P]: |y|² gives a ratio of 0.914, r gives 0.500. Whether the full ⟨TTTT⟩ sum cancels this is [I].
+> * **The failure is exactly a monopole term, and it is bounded [DV].** The exact cost is ∫ψ₂F/c + D·F(i/2), with D = −9.98·10⁻⁴ (1000) / −1.10·10⁻² (300), ≈ −990/Λ². D is constant in impact parameter, and the equivalent cost kernel stays below 10⁻³ (no e^{t/2} growth).
+> * **PW-Loc is false at O(1/m²):** index-shifted harmonics carry density 0.271 per unit coefficient at t < 1 (closed form [P]). It is no longer needed, since every finite-order structure now has an exact cost.
+> * **Theorem W without P3 [P given P0, P1, P2, P2′, P4] + [DV]:** the scalar-shaped worst case is tolerated at ×24–29 for J ≥ 150 (stripped form gave ×1.8–7). J\* = 50 at (3, 10, 10); J\* = 100 at ×2. P2′ (the radial-shift family exhausts the O(1/m²) multipliers) is [D-sketch].
+> * **Theorem L [D given P_L′]:** J\* = 857 at the gap. The monopole tolerance gives a tolerated Λ_amp of 1240 (J = 857), 555 (10⁴), 166 (10⁵) and 43 (10⁶).
+> * **Still needed by both:** the spinning O(1/m²) magnitudes (Λ_amp ≈ 2–3 [NE] for J ≤ 100, [M] above) and the beyond-all-orders premise. Untested: polarisation-tilt O(1/m²) terms.
+
 ## 0. Verdict
 
 | item | result | grade |

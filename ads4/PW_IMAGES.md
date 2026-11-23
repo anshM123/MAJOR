@@ -7,7 +7,7 @@
   recursion), `h7i14/v3_regge_kernel.py`, `h7i14/v4_hclosed.py`, `spinfunc/u2_hclosed_struct.py`, `spinfunc/s1_offdiag_kernel.py`
   (exact leading-Regge heavy images), `n2sub/n2_common.py` (published X, ψ₂, R∓ of EE), `lsw/lsw_common.py` + `lsw/cache/costs_1000.json`
   (Route W's states, floors and structures), `lsl/lsl_core.py` (F_LR, Ω_k). No bytecode was written.
-* *Compute:* ≈ 1.3 CPU-h, ≤ 2 processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`.
+* *Compute:* ≈ 1.5 CPU-h, ≤ 2 processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`.
 
 Grades as UNIFIED_THEOREM §0. Notation as LARGESPIN_L/W: `l = −½ + iν` (Regge spin), `P_μ := P_{−½+iμ}(cosh β)`, H7 frame
 `x₁ = −rŷ, x₃ = rŷ, x₂ = −x̂, x₄ = x̂` (|x| = 1, η = cosh B), `f := v′ − u′`. `Ĝ^{Dp}_b(r, η; μ) = Σ_n r^n Σ_m B^{Dp}_b[n, m](μ) P_{l+m}(η)`
@@ -29,8 +29,8 @@ is the (0, b) continuous-spin block of EESTEP §1.3 divided by (4r)^{Dp}; `E^{Dp
 | **PW3** | **PW-R1 as stated** (de-shift form w.r.t. the EE operator `𝒜 = 𝒜_g∘c` with f = F/c strip-analytic) **⇔ F(±i/2) = 0**, i.e. the Regge-spin-0 (l = 0, −1) value of the scalar-de-shifted image vanishes. It holds at leading Regge (F₀ ∝ c). **It is not protected:** the zeros of the EE/scalar ratio at ±i/2 are a property of the leading radial weights. Under the radial-weight shifts that O(1/m²) corrections produce they move: `|y|²` (side 13): zeros → ±3i/2, ±7i/2; `|x||y|`: → ±1.085i, ±2.515i; only `|x|²` (side 24) keeps them | **PW-R1 is refuted as a structural statement**; generically false at O(1/m²) | exact ratios **[P]** (sympy, v4_hclosed method); "generic" [D]; the actual O(1/m²) value of F(±i/2) for ⟨TTTT⟩ **[I]** (needs Route W's P2 coefficients) | — |
 | **PW4** | **Exact cost of every raw correction:** `cost(𝒜_g[F]) = ∫ψ₂ F/c + D·F(i/2)`, **D = −9.98332·10⁻⁴** (Δ_g = 1000), −1.09754·10⁻² (300); D ≈ −990/Λ². D is **independent of the impact parameter** (spread 6·10⁻¹⁵ over t ∈ [0, 12]), because `P_t(±i/2) ≡ 1`. Equivalently: Lemma I holds for the scalar-de-shifted density σ_F with Ω₂ replaced by `Ω̃(t) = ∫ψ₂P_t/c + D`, **bounded by 1.0·10⁻³ for all t ≥ 0.03** and → D as t → ∞ (no e^{t/2} growth) | the non-de-shift part is a single **monopole** term | **[DV]** (formula to 10⁻¹²–4·10⁻⁸ on test mixtures; controls F = cP_t and F = P_t/(ν²+9/4) give defect 0) | replaces P3/R1 by a magnitude bound |
 | **PW5** | **PW-Loc as stated** (no density at t < 1) | **false at O(1/m²)**: an index-shifted harmonic has the exact density `σ[Re P_{ν∓i}] = cosh β·δ_β − ½ d(cosh s)·1_{s<β}` (mass 0.271 per unit coefficient on t < 1); `σ[Re P_{ν∓2i}] = cosh 2β·δ_β − ½(3cosh s + cosh β) d(cosh s)·1_{s<β}`; a monopole (F(i/2) ≠ 0) carries the massless H₂ Green's-function density (infinite total variation). **But (Loc) is no longer needed:** costs are computed exactly per structure (PW4) | densities **[P]** (Abel inversion, closed form); costs [DV] | — |
-| **TW′** | **Theorem W without P3.** With R1′ (exact c-ratio form, monopole included, sign-free, worst radial shift) in place of R2 | see §5 | [P given P0, P1, P2, P2′, P4] + [DV] | see §5 |
-| **TL′** | **Theorem L with P_L reduced to magnitudes.** (R1) is now an identity plus an explicit monopole term; (Loc) is replaced by exact per-structure costs. Monopole tolerance at the gap: `Q_tol = min F_LR/(4|D|)` = 3.6·10⁻³ (J = 857) … (§6); a scalar-sized O(1/m²) monopole is ≤ 3.6·10⁻⁶: **tolerated up to Λ_amp ≈ 10³** (J = 857–3000) … (§6) | J\* = 857 at the gap (unchanged; set by Lemma LR∞) | **[D given P_L′]** (magnitudes only) | none |
+| **TW′** | **Theorem W without P3.** With R1′ (exact c-ratio form, monopole included, sign-free, worst radial shift) in place of the stripped R2 | the scalar-shaped O(1/m²) vector is tolerated at ×24–29 for every sampled J ≥ 150 (stripped: ×1.8–7); **J\* = 50** at (Λ_amp, K_sh, K₄) = (3, 10, 10), **100 at margin ×2**, the same as with P3 assumed; W §9.3's window [50, 250] closes | [P given P0, P1, P2, P2′, P4] + [DV]; P2′ (multipliers in the radial-shift family) [D-sketch] | **J\* = 50 without R1** (was: no J\*, window [50, 250]) |
+| **TL′** | **Theorem L with P_L reduced to magnitudes.** (R1) becomes an identity plus an explicit monopole term; (Loc) is replaced by exact per-structure costs. Monopole tolerance `Q_tol = min F_LR/(4\|D\|)` = 3.6·10⁻³ (J = 857), 1.7·10⁻³ (10⁴), 1.4·10⁻⁴ (10⁶). A scalar-shaped O(1/m²) correction (CHMRS (3.20) coefficients × Λ_amp, worst radial multiplier) is tolerated up to **Λ_amp = 1240 (J = 857), 555 (10⁴), 166 (10⁵), 43 (10⁶)** at the gap | J\* = 857 at the gap (unchanged; set by Lemma LR∞) | **[D given P_L′]** (magnitudes + remainder only) | none |
 
 ### 0.2 Bottom line
 
@@ -39,14 +39,20 @@ is the (0, b) continuous-spin block of EESTEP §1.3 divided by (4r)^{Dp}; `E^{Dp
   **always** of de-shift form with respect to the scalar operator 𝒜_g, at every order and in every gauge. The project's EE weight is
   built for `𝒜 = 𝒜_g∘c`. The two agree exactly when the de-shifted image vanishes at Regge spin l = 0.
 * **Refutation (reported prominently).** PW-R1 in its literal form, "the images enter through 𝒜 exactly as the leading term does", is
-  **not protected**. It needs `F(±i/2) = 0`. That holds at leading order only because of the leading radial weights. Route W's "two
-  extra channels" are exactly this: the O(1/m²) terms that do not carry the factor c(μ). PW-Loc in its literal form is also false at
-  O(1/m²) (index-shifted harmonics have explicit density down to t = 0).
+  **not protected**. It needs `F(±i/2) = 0`. That holds at leading order only because of the leading radial weights.
+  * Concretely [P], the plane-wave image of the leading EE kernel with an O(1/m²) insertion `|y|²` or `r = |x||y|` is **not** in EE
+    de-shift form: its EE/scalar ratio is nonzero at μ = i/2 (0.914 and 0.500).
+  * Whether the O(1/m²) terms of a full ⟨TTTT⟩ block cancel in the sum is open [I]; no mechanism for a cancellation was found.
+  * In this language, Route W's "two extra channels" correspond to the O(1/m²) terms that do not carry the factor c(μ).
+  * PW-Loc in its literal form is also false at O(1/m²): index-shifted harmonics have explicit density down to t = 0.
 * **Why the refutation does not hurt.** The failure has an exact and benign form. It is a single number per state, the monopole
   `Q = F₁(i/2)`, with cost `2D·Q` independent of the impact parameter. It does not grow with β, unlike the stripped (R2) form that made R1
   load-bearing in Routes W and L (N-L3: tolerance ∝ 1/J). Every finite-order structure is then costed exactly.
-* **Effect.** Theorem W: the R1 premise P3 is no longer needed (§5). Theorem L: J\* = 857 unchanged. The premise is reduced to
-  magnitude bounds, with ×10²–10³ margin for scalar-sized coefficients (§6). Both theorems still rest on the unknown spinning O(1/m²)
+* **Effect.**
+  * **Theorem W:** the R1 premise P3 is no longer needed. **J\* = 50** at (Λ_amp, K_sh, K₄) = (3, 10, 10) (100 at margin ×2), the same
+    as with P3 assumed. The window [50, 250] closes (§5).
+  * **Theorem L:** J\* = 857 unchanged. The premise is reduced to magnitude bounds: tolerated Λ_amp = 1240 (J = 857), 555 (10⁴), 166
+    (10⁵), **43 (10⁶)** at the gap (§6). Both theorems still rest on the unknown spinning O(1/m²)
   coefficients (Route W's P2) and on the beyond-all-orders premise. **Neither becomes unconditional.**
 
 ---
@@ -248,7 +254,47 @@ Checks: the total masses equal F(i/2) = (1 + η)/2 and (η + P₂(η))/2, as the
 block-side `|x|², |y|², x·y` insertions and the kernel's r¹ term produce on the leading split-representation kernel. Polarisation tilts
 are not covered (§8, caveat 3).
 
-PLACEHOLDER5B
+**Class-wise tolerances** K_tol = H/cost (minimum over the sampled masses; the same states, floors and structures as Route W §4.2, read
+from `lsw/cache/costs_1000.json`). Entries are R1 (P3 assumed) / R2 (stripped; now excluded) / **R1′ (P3 dropped, exact)**:
+
+| J | B | C2 | index-shifted (sum) | scalar-shaped vector ×1 |
+|---|---|---|---|---|
+| 26 | 18.8 / 18.6 / **18.8** | 0.70 / 0.70 / **0.70** | 2.8e4 / 5.8e4 / **2.0e4** | 3.26 / 3.26 / **3.27** |
+| 50 | 96 / 71 / **104** | 5.5 / 5.6 / **5.5** | 4.4e4 / 1.1e4 / **3.5e3** | 23.2 / 22.0 / **23.5** |
+| 100 | 406 / 48 / **114** | 69 / 38 / **30** | 1.8e4 / 3.1e3 / **1.1e3** | 140 / 23 / **40** |
+| 150 | 989 / 61 / **75** | 69 / 6.5 / **42** | 4.6e3 / 1.1e3 / **625** | 225 / 17 / **31** |
+| 200 | 1630 / 22 / **71** | 150 / 4.1 / **28** | 2.1e3 / 197 / **411** | 419 / 7.1 / **27** |
+| 250 | 2480 / 7.6 / **77** | 292 / 7.5 / **24** | 1.3e3 / 89 / **280** | 682 / 3.5 / **27** |
+| 300 | 3570 / 5.1 / **88** | 305 / 3.9 / **25** | 843 / 59 / **196** | 812 / 2.3 / **28** |
+| 344 | 4500 / 5.0 / **101** | 2930 / 1.4 / **25** | 632 / 52 / **146** | 1520 / 1.8 / **29** |
+| 301 (odd) | 7250 / 10 / **176** | 2160 / 7.5 / **47** | 1.7e3 / 118 / **389** | 2400 / 4.6 / **56** |
+
+A (≥ 697), C1 (≥ 101) and C3 (≥ 2.1·10³ for J ≥ 100) are harmless in every form (`cache/pw4_theoremW.txt`).
+
+**Reading.**
+* The exact worst case costs **10–40× less** than the stripped (R2) form at J ≥ 200. It costs 2–60× more than full de-shift (R1) at
+  J ≥ 100.
+* **The scalar-shaped vector is now tolerated at ×24–29 for every sampled J ≥ 150**, against ×1.8–7 stripped. That was the obstruction
+  of W §9.3.
+* For the ring classes A and B the R1′ cost is dominated by the monopole term 2D·c_s(i/2)S(i/2)/m². For the index-shifted harmonics the
+  monopole is the whole R1′ excess (the "monopole part" column of `pw4_theoremW.txt`).
+
+**J\* (Theorem W′).** The criterion is Route W's (`d ≤ θH`), with R1′ for every class:
+
+| (Λ_amp, K_sh, K₄) | θ | J\*: P3 assumed (W §4.3) | P3 dropped, stripped (W §9.3) | **P3 dropped, exact (this note)** |
+|---|---|---|---|---|
+| (1, 10, 1) | 1 | 30 | 30 | **30** |
+| (1, 10, 1) | ½ | 38 | none (fails 300, 344) | **38** |
+| **(3, 10, 10)** | **1** | **50** | none: window [50, 250] (fails 300, 344) | **50** |
+| (3, 10, 10) | ½ | 100 | none | **100** |
+| (10, 30, 10) | 1 | 64 | none | **64** |
+| (10, 30, 10) | ½ | 100 | none | none (fails 300, 344) |
+| (30, 100, 30) | 1 | 100 | none | none (ν² classes, J ≥ 120) |
+
+**Theorem W′.** Theorem W (LARGESPIN_W §4.0) holds **with (P3) deleted**. Its place is taken by PW2 (exact) and (P2′) [D-sketch]. **J\* = 50**
+at (Λ_amp, K_sh, K₄) = (3, 10, 10) with θ = 1, and **J\* = 100 at margin ×2**: the same values as with P3 assumed. The window
+[50, 250] of W §9.3 closes. **Grade:** [P given P0, P1, P2, P2′, P4] + [DV] (sampled costs). P2 magnitudes stay [NE] (J ≤ 100) / [M]
+(J ≥ 150).
 
 ## 6. Theorem L′ (`pw5_theoremL.py` → `cache/pw5_theoremL.txt`)
 
@@ -268,7 +314,61 @@ Assume premise **P_L′** (magnitudes only):
 Then `M_Ω ⪰ 0` for every coupling vector whenever `Λ_amp/Λ_tol + K_sh/K_tol^{sh} + ε_R ≤ 1`, with the tolerances below (2×2 criterion of
 Theorem L, half of the budget per entry). **[D given P_L′]**; the floor is [P + DV] (Lemma LR∞); the costs are [DV].
 
-PLACEHOLDER6B
+**Tolerances.**
+* Gap states (and 1.3 m_gap), worse helicity, half of Theorem L's per-entry budget ½ min F_LR. All entries are maxima of the premise
+  constants that the criterion tolerates.
+* The monopole of a scalar-shaped O(1/m²) correction is bounded by `|Q| ≤ c*(|κ_A| + |κ_B|/4)η/m²`, with c\* = 0.914.
+* The C-classes and every β-derivative have zero monopole (`∂_β P_{±i/2} = 0`).
+
+| J | m/m_gap | β | min F_LR | Q_tol = minF_LR/(4\|D\|) | η/m² | **Λ_amp tolerated (monopole only)** | **Λ_amp tolerated, scalar vector, R1′** (R1) | K_tol sh±1, R1′ | K_tol C2 |
+|---|---|---|---|---|---|---|---|---|---|
+| 857 | 1 | 1.000 | 1.44·10⁻⁵ | 3.6·10⁻³ | 5.7·10⁻⁷ | 1003 | **1240** (6.5·10⁴) | 1.1·10⁴ | 1.3·10⁴ |
+| 1000 | 1 | 1.100 | 1.40·10⁻⁵ | 3.5·10⁻³ | 5.6·10⁻⁷ | 992 | **1220** (1.1·10⁵) | 1.1·10⁴ | 1.8·10⁴ |
+| 2000 | 1 | 1.611 | 1.20·10⁻⁵ | 3.0·10⁻³ | 5.2·10⁻⁷ | 912 | **1050** (1.3·10⁵) | 1.0·10⁴ | 3.5·10⁵ |
+| 3000 | 1 | 1.948 | 1.08·10⁻⁵ | 2.7·10⁻³ | 5.1·10⁻⁷ | 832 | **925** (1.3·10⁵) | 9.5·10³ | 2.9·10⁵ |
+| 10⁴ | 1 | 3.046 | 6.86·10⁻⁶ | 1.7·10⁻³ | 5.0·10⁻⁷ | 540 | **555** (2.9·10⁴) | 6.7·10³ | 6.1·10³ |
+| 10⁵ | 1 | 5.305 | 2.08·10⁻⁶ | 5.2·10⁻⁴ | 5.0·10⁻⁷ | 164 | **166** (6.7·10⁴) | 2.2·10³ | 2.3·10⁴ |
+| **10⁶** | 1 | 7.603 | 5.51·10⁻⁷ | 1.4·10⁻⁴ | 5.0·10⁻⁷ | 43 | **43** (7.6·10³) | 599 | 1.35·10³ |
+| 10⁴ | 1.3 | 2.582 | 8.48·10⁻⁶ | 2.1·10⁻³ | 1.9·10⁻⁷ | 1790 | 1830 | 2.2·10⁴ | 9.4·10⁴ |
+| 10⁶ | 1.3 | 7.079 | 7.48·10⁻⁷ | 1.9·10⁻⁴ | 1.8·10⁻⁷ | 168 | 169 | 2.3·10³ | 1.75·10⁴ |
+
+Index shifts by 2 with the lightcone-consistent coefficient κη/m⁴ (L4) are tolerated at K ≥ 8·10⁵ (J = 10⁶) to 10¹⁰ (J = 857). With a
+bare κ/m⁴·m² normalisation (Route W's units) they would be tolerated only at K ≈ 15 (10⁵) and 0.4 (10⁶). That normalisation would
+violate L4's J-uniformity (relative size η²/m² unbounded), so it is not a physical worst case.
+
+**Reading.**
+* The monopole is the binding piece of R1′ at large J. Its cost 2|D||Q| does not decay with J, while the floor decays like M₁(β).
+  η/m² → 1/(2(τ−2)²) is J-independent.
+* The tolerated Λ_amp therefore falls slowly: ≈ 1000 at J = 857–3000, 555 at 10⁴, 166 at 10⁵, **43 at 10⁶** (gap; 168 at 1.3 m_gap).
+* Against the J = 100 fits (Λ_amp ≈ 2–3, Route W C2) the margin is ×15–20 at J = 10⁶ and ×300–500 near J\*.
+* Extrapolating `F_LR ∝ M₁(β) ~ βe^{−β/2}`, a J-independent monopole of scalar size × Λ_amp = 3 would exhaust the budget near
+  J ~ 10⁹ (β ≈ 14). That is beyond the theorem's sampled range but inside the weight-realisation range (J ≲ 10¹²; LARGESPIN_L §3.3).
+  **Theorem L′ as stated covers J\* ≤ J ≤ 10⁶ (sampled) for Λ_amp ≤ 43.** Beyond 10⁶ it needs Λ_amp ≲ 43·(F_LR(β)/F_LR(7.6)).
+
+**Status of P_L′ for the graviton.**
+
+| ingredient | before (Route L) | now |
+|---|---|---|
+| (R1) | [I]: PW-R1 | **identity** (PW2, [P to O(r⁸)] + [DV]) plus an explicit monopole term (PW4, [DV]); PW-R1 in literal form refuted as a structural property (PW3) |
+| (Loc), finite orders | [I]: PW-Loc | **not needed**: exact per-structure costs (4.1); literal PW-Loc false at O(1/m²) (closed-form densities (4.2)) |
+| magnitudes at O(1/m²) | [NE] (J ≤ 100), [M] | unchanged: [NE]/[M]. Requirement Λ_amp ≤ 43 (J ≤ 10⁶, gap) |
+| beyond all orders | RD for EE [D given P_cyc]; not checked at J ≥ 150 | unchanged; may now be stated with the bounded kernel Ω̃ |
+
+## 6.1 Suggested inventory changes (not applied)
+* LARGESPIN_W §9.3 / UT inventory, "R1 at O(1/m²) [I]":
+  * replace by "R1 w.r.t. 𝒜_g: identity (PW_IMAGES PW2). EE de-shift form fails at most through a Regge-spin-0 monopole with exact
+    cost 2D·Q, D = −9.98·10⁻⁴ (PW4)";
+  * Theorem W's J\* = 50 then holds without P3 (window closed).
+* LARGESPIN_L Theorem L, premise P_L:
+  * "(R1) [I], (Loc) [I]" → "(R1) identity + monopole bound Q ≤ Q_tol (§6); (Loc) replaced by exact per-structure costs at finite
+    orders";
+  * grade [D given P_L′] (magnitudes only); J\* = 857 unchanged; tolerated Λ_amp ≥ 43 on 857 ≤ J ≤ 10⁶.
+* LARGESPIN_L N-L3 ("raw-form tolerance collapses ∝ 1/J"): this applies only to the stripped form, which PW2 excludes. The exact
+  non-de-shift cost per unit monopole is J-independent.
+* The EESTEP letter sentence can add: "the EE kernel is exactly a finite difference in ν of a single de-shifted kernel family, at all
+  orders and for every polarisation."
+* **Remark (not tested).** The monopole exists only because the EE weight is built for 𝒜_g∘c. A weight solving the Abel equation for
+  𝒜_g with target 32ψ₂/c, if one exists, would have no defect. The (constant-in-t) solvability condition is the obstruction [I].
 
 ## 7. Numerical verification (against the project's own EE kernel code)
 
