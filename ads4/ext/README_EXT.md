@@ -41,3 +41,10 @@ Only that one JSON file is committed (the raw `out/` directory is git-ignored).
   model level; they get the same treatment that moved J = 12, 16, 21, 29 to error-budgeted.
 * **B** — J = 29 small-ν window (ν = 10–17.5, n3 contour), 16 extra independent seeds, to close its margin without the signed window.
 * **C** — exploratory: J = 400 at its twist edge, in the near-gap band 345 ≤ J < 857 that no theorem covers.
+
+## Notes after the first run (EXT_FOLD.md)
+* **B seeds overlap:** in the n3 sampler, replica r of a job with seed s uses stream s + r, so seeds 5001–5016 share streams
+  (only 23 independent). Space independent n3 seeds by at least 8 (e.g. 6000, 6008, 6016, ...).
+* **A's seed is irrelevant:** the n1 contour uses fixed Sobol seeds.
+* **C (J = 400) failed:** the conserved-structure solver (float SVD) does not converge at large J; it must be replaced by the exact
+  ℚ(Δ,J) structures (P2_SPINNING) before large-J jobs can run.

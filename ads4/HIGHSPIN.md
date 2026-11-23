@@ -30,6 +30,20 @@ model input with a stated safety factor, conclusion surviving it), [NE + M], [M]
 > * **J = 23 / 27 / 31:** window cost now 0.15 / 0.29 / 0.46, but the K₂ λ-level truncation blocks them (with calibrated truncation L ≈ 1.5 / 1.4). **J = 32:** the window costs 0.26 measured, vs 2.31 under the convention. J = 20 and J = 32 have no budget.
 > * **Cautions:** the window weight grows steeply with J (1.4 → 23·10⁻⁵ N_s/c₂ from J = 12 to 32), so for J ≳ 32 it is a live input again. Lemma C/C′ cannot bound Γ (it is beyond leading Regge). HIGHSPIN's odd-J window weight omits a gauge factor (8.52 vs 8.73·10⁻⁵). EE_DG1000_LARGEJ's "direct RQMC cannot reach the precision" is false on ν = 25–50.
 
+> **Update (EXT_FOLD.md, unreviewed): the external-machine points are folded in. J = 7 and J = 27 → [NE±]; J = 23 and J = 31 are [NE±] at their higher masses but stay [NE+M] at the twist edge; J = 29 still does not close sign-free (L 0.94). No state came out negative.**
+> * **J = 7:** twist edge +0.2683, L = 6.7; 1.01–1.05Λ: L = 7.2–25. **[NE±]** (its own direct row; shadow coefficient computed and checked bit-for-bit).
+> * **J = 27:** twist edge +0.976 ± 0.019, L 0.28 → **1.64** (signed 2.02); 1.03–1.10Λ: L = 1.93–3.21. **[NE±].**
+> * **J = 23:** twist edge +0.923, L 0.45 → 0.85, stays [NE+M]. It is now limited by the degree-7 shape-fit representation term, which Monte Carlo noise amplifies; a noise-aware term would give L ≈ 1.52, but that is a protocol change. 1.03–1.10Λ: L = 1.16–2.33, **[NE±]**.
+> * **J = 31:** it has no GK15 edge run, so the tail beyond x = 0.9 must be covered sign-free; twist edge to 1.05Λ: L = 0.31–0.83, stays [NE+M]. 1.075/1.10Λ: L = 1.53/1.91, **[NE±]**. A GK15 edge window on [0.8, 0.970] is needed.
+> * **J = 29 sign-free:** not closed. The 16 B seeds give only 23 independent streams: in n3, replica r of seed s uses stream s + r, so consecutive seeds share 7 of 8 replicas; independent seeds must be spaced by ≥ 8. The streams are heavy-tailed (|z| ≈ 11), and the binding inputs are the n1 node at ν = 20 and the 10⁴ convention below ν = 10. Even with σ → 0 on ν = 10–17.5, L = 0.97. **SMALLNU's "≈16× n3 points would close it" is false.**
+> * **Checks:**
+>   * External points reproduce local recomputation to 1.5·10⁻¹² / 4.5·10⁻⁷.
+>   * Direct-vs-K₂ differences are always favourable (median 58–89 c₂).
+>   * The K₂ error is 0.6–8 % of the last Laplace step over seven states (HIGHSPIN's "4–5 %" is corrected).
+>   * Job A's seed is irrelevant: n1 uses fixed Sobol seeds.
+>   * Job C (J = 400) failed: a float SVD failure in the conserved-structure solver at large J.
+> * **Code issues:** hs_odd.py's non-GK edge lacks a sign-free tail term, and its degree-7 representation probe is noise-amplified on direct rows.
+
 ## 0. Verdict
 
 | state (Δ_g = 1000) | value `λ/N_s` (old → new) | budget | `L` | grade (old → new) |

@@ -173,6 +173,20 @@ Grades are those of UNIFIED_THEOREM_v2 §0. One label is added:
 > * **Floor coverage:** the floor is rigorous at every b̂ for m ≥ 1.5Λ. For m ∈ [1.3, 1.5)Λ the [NE] hole shrinks to b̂ ∈ (119, 245). For m < 1.3Λ the floor is [NE] below b̂ = 245. Theorem W's P0 is now certified at its sampled gap states with J ≥ 139.
 > * **Still uncovered:** non-sampled 64 < J < 223, J < 64, and each theorem's premises (P_L′ magnitudes [M], beyond-all-orders). This is not an unconditional theorem.
 
+> **Update (EXT_FOLD.md, unreviewed): the external-machine points are folded in. J = 7 and J = 27 → [NE±]; J = 23 and J = 31 are [NE±] at their higher masses but stay [NE+M] at the twist edge; J = 29 still does not close sign-free (L 0.94). No state came out negative.**
+> * **J = 7:** twist edge +0.2683, L = 6.7; 1.01–1.05Λ: L = 7.2–25. **[NE±]** (its own direct row; shadow coefficient computed and checked bit-for-bit).
+> * **J = 27:** twist edge +0.976 ± 0.019, L 0.28 → **1.64** (signed 2.02); 1.03–1.10Λ: L = 1.93–3.21. **[NE±].**
+> * **J = 23:** twist edge +0.923, L 0.45 → 0.85, stays [NE+M]. It is now limited by the degree-7 shape-fit representation term, which Monte Carlo noise amplifies; a noise-aware term would give L ≈ 1.52, but that is a protocol change. 1.03–1.10Λ: L = 1.16–2.33, **[NE±]**.
+> * **J = 31:** it has no GK15 edge run, so the tail beyond x = 0.9 must be covered sign-free; twist edge to 1.05Λ: L = 0.31–0.83, stays [NE+M]. 1.075/1.10Λ: L = 1.53/1.91, **[NE±]**. A GK15 edge window on [0.8, 0.970] is needed.
+> * **J = 29 sign-free:** not closed. The 16 B seeds give only 23 independent streams: in n3, replica r of seed s uses stream s + r, so consecutive seeds share 7 of 8 replicas; independent seeds must be spaced by ≥ 8. The streams are heavy-tailed (|z| ≈ 11), and the binding inputs are the n1 node at ν = 20 and the 10⁴ convention below ν = 10. Even with σ → 0 on ν = 10–17.5, L = 0.97. **SMALLNU's "≈16× n3 points would close it" is false.**
+> * **Checks:**
+>   * External points reproduce local recomputation to 1.5·10⁻¹² / 4.5·10⁻⁷.
+>   * Direct-vs-K₂ differences are always favourable (median 58–89 c₂).
+>   * The K₂ error is 0.6–8 % of the last Laplace step over seven states (HIGHSPIN's "4–5 %" is corrected).
+>   * Job A's seed is irrelevant: n1 uses fixed Sobol seeds.
+>   * Job C (J = 400) failed: a float SVD failure in the conserved-structure solver at large J.
+> * **Code issues:** hs_odd.py's non-GK edge lacks a sign-free tail term, and its degree-7 representation probe is noise-amplified on direct rows.
+
 ## 0. Verdict
 
 | item | result | grade |
