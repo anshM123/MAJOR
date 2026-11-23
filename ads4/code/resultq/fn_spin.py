@@ -77,7 +77,7 @@ def run(order, tag, N=400, Y13=8.0, h13=0.2, c2=2/3):
     EX = {Dh: Exch(Dh) for Dh in DHS}
     nf = np.arange(N + 1).astype(float)
     dL = -nf.astype(complex)
-    pieces = ['r4', 'r5'] + [f'X{Dh:g}' for Dh in DHS]
+    pieces = ['r4', 'r5', 'q4', 'q5'] + [f'X{Dh:g}' for Dh in DHS]
     out = {(p, c): np.zeros(N + 1, complex) for p in pieces for c in S.H}
     y13 = np.arange(-Y13, Y13 + h13/2, h13)
     for i, yy in enumerate(y13):
@@ -87,7 +87,8 @@ def run(order, tag, N=400, Y13=8.0, h13=0.2, c2=2/3):
         gL = np.exp(2*loggamma(2 - d13 + nf) - 2*loggamma(nf + 1)); psi14 = digamma(2 - d13 + nf); psin = digamma(nf + 1)
         d14 = 2 - dL - d13
         D = dL - d14
-        Ms = {'r4': (D**4/4, 2*D**3), 'r5': ((2 - d13)*D**4/4, (2 - d13)*2*D**3)}
+        Ms = {'r4': (D**4/4, 2*D**3), 'r5': ((2 - d13)*D**4/4, (2 - d13)*2*D**3),
+              'q4': (dL**4 + d14**4 + d13**4, 4*dL**3 - 4*d14**3), 'q5': (dL**5 + d14**5 + d13**5, 5*dL**4 - 5*d14**4)}
         for Dh, E in EX.items():
             X12, dX12 = E.X(dL)
             X14, dX14 = E.X(d14)
