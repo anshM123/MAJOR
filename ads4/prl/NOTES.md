@@ -1,6 +1,12 @@
 # PRL draft: notes, build, length, provenance, referee responses, fallback plan, open items
 
-*Revised 23 Nov 2026 (v4 writing pass after `REFEREE_REPORT_2.md`: the Letter is narrowed to item (1) at Δ_g = 1000 plus item (2a)'s
+*Revised 23 Nov 2026, v5 (writing pass after HIGHSPIN, SMALLNU_WINDOW, N2_SUBREGGE, DIRCV §8, LARGESPIN_ANALYTIC/_W/_L,
+P2_SPINNING, PW_IMAGES, INDEP_CHECK): the HIGHSPIN places are filled and `\HSdraftfalse`; the Letter gains a "Why it matters"
+paragraph, a "Large spin" paragraph (conditional Theorems W and L) and one de Sitter outlook sentence in the Discussion; the
+Supplement gains §S7 "Large spin: two conditional theorems" (old §S7–§S10 become §S8–§S11), Table S8 (H_LJ(1000) leverage) and the independent-check rows; front
+matter filled (authors' message), acknowledgments removed. Change log: **`CHANGES_v5.md`**. No new physics computation in v5.*
+
+*Previous header (v4): Revised 23 Nov 2026 (v4 writing pass after `REFEREE_REPORT_2.md`: the Letter is narrowed to item (1) at Δ_g = 1000 plus item (2a)'s
 upper end, rewritten for a general reader, and given one figure; everything removed from the Letter is in the Supplement). The only new
 arithmetic in v4: the figure's curves (same integrals as `code/repro/bounds.py`, recomputed from `prl/data/`), λ(Λ = ML) = 2.51·10⁷ /
 3.15·10⁹, the |ĝ₃| ratio to the transplanted CHLPS optimum (10.1 / 10.3), and the Q3\* data file (exact division, fingerprint
@@ -20,15 +26,10 @@ Files in `ads4/prl/`:
 | `data/` | published functional data; v4 adds `q3star_factored.json` + `make_q3star.py`, README errata §5, MANIFEST lines |
 | `build/` | all build outputs (git-ignored) |
 
----|---|
-| `letter.tex` | the Letter (REVTeX 4.2, `aps,prl,twocolumn`) |
-| `supplement.tex` | Supplemental Material (REVTeX 4.2, one column): definitions, data, input table, derivation sketches, light single traces, positivity evidence, corollary, reproduction, ABJM |
-| `macros.tex` | shared macros: the H_LJ(300) switch, the repair headline `\QuartRep`, the HIGHSPIN marker `\HS` (switch `\HSdrafttrue`) |
-| `refs_verified.bib` | bibliography used by both documents; v3 adds Paulos, CGPspin, PenedonesMellin, JJMNS (verified against arXiv and INSPIRE) |
-| `refs.bib` | legacy, unused; the four v3 entries are mirrored for completeness |
-| `data/` | published functional data (README, MANIFEST; `k2/` with `X^Q` and the continuum k = 2 weights, SHA256SUMS) |
-| `build/` | all build outputs (git-ignored) |
-| `CHANGES_v3.md` | change log v2 → v3 and the HIGHSPIN placeholder list |
+| `CHANGES_v3.md`, `CHANGES_v4.md`, `CHANGES_v5.md` | change logs v2 → v3, v3 → v4 (referee 2), v4 → v5 (HIGHSPIN filled, large spin) |
+
+(v5: the stale v3 copy of this table that followed here was removed; `letter.tex` is v5, `supplement.tex` has the new §S7,
+`macros.tex` has `\HSdraftfalse` and `\CollFrac`, `refs_verified.bib` adds CPPR 1109.6321.)
 
 ---
 
@@ -47,12 +48,26 @@ for f in letter supplement; do
 done
 ```
 
-Status (23 Nov, v4): both compile with **no errors, no undefined references or citations, no overfull boxes, no stuck floats**.
-`build/letter.pdf` **4 pages** (text ends ≈ 0.95 down page 3; references fill page 4); `build/supplement.pdf` 15 pages. BibTeX: one
+Status (23 Nov, **v5**): both compile with **no errors, no undefined references or citations, no overfull boxes, no stuck floats**
+(the Letter has 5 underfull-box notices, cosmetic). `build/letter.pdf` **5 pages** (text ends ≈ 0.3 down the right column of
+page 4, i.e. ≈ 3.65 pages incl. the title block; references fill the rest of page 4 and page 5); `build/supplement.pdf` **20 pages**.
+In v5 the figure environment was moved to just before "Functionals" (it had become a stuck float after the new paragraphs).
+(v4 status: Letter 4 pages, text ending ≈ 0.95 down page 3; Supplement 15 pages.) BibTeX: one
 `jnrlst` style notice and "empty year in SM" (the Supplemental-Material pointer, intended). The JHEP "missing number" warnings are gone.
 Figure: `cd fig && python3 make_fig.py` (needs mpmath, matplotlib) before compiling the Letter.
 
-## 2. Length (v4)
+## 2. Length
+
+**v5** (tool `scratchpad/tools/wc_prl5.py letter.tex 3 0.9375`: as wc_prl4, plus it expands the prose macro `\HLJstatus`, which
+wc_prl4 silently dropped (≈ 45 words), and counts to `\bibliography`, since there are no acknowledgments now):
+
+| item | value |
+|---|---|
+| abstract | **563 characters** rendered incl. spaces (555 without the spaces pdftotext inserts in ⟨TTTT⟩); limit 600 |
+| main text, APS counting | **≈ 3110** (inline formula = 1 word) / **≈ 3210** (conservative); prose 2567 words, 315 inline formulas, 3 display rows (48), Fig. 1 180, no table; limit 3750 |
+| rendered | text ends ≈ 0.3 down the right column of page 4 (≈ 3.65 pages; target ≤ 3.95) |
+
+### v4 (for the record)
 
 | item | value | method |
 |---|---|---|
@@ -69,7 +84,7 @@ undercounted, ≈ 4.2 pages).
 * **H_LJ(300)**: `\HLJclosedfalse` (open; headline Δ_g = 1000). Unchanged. The abstract, the introduction's headline and the
   discussion use `\CubicHead`, `\DgHead`, `\QuartHead`, `\GthreeHead`, so they follow the switch; the Result paragraph prints both gaps.
   Fig. 1 marks 1000 filled, 300 open, and does not follow the switch (re-run `make_fig.py` with the markers swapped if it is flipped).
-* **HIGHSPIN**: `\HSdrafttrue`. Places in v4 (each with a `% HIGHSPIN:` comment): `letter.tex` Status-of-positivity items (i) near-gap
+* **HIGHSPIN**: **`\HSdraftfalse` (v5: every place filled; list in CHANGES_v5.md §1)**. The v4 text follows. Places in v4 (each with a `% HIGHSPIN:` comment): `letter.tex` Status-of-positivity items (i) near-gap
   J ≥ 12, (ii) J = 29 edge, (iii) H_LJ(1000); `supplement.tex` Tables S5 (J ≥ 12 row), S6 (J = 12, 16, 29), S7 (H_M, H_edge, H_LJ(1000)).
   The v3 Letter's Table I placeholders are gone with the table (its content is in Tables S5/S7). When HIGHSPIN lands: update those
   places, UT3 §5.2/§5.6/§10, and set `\HSdraftfalse`. If any state comes back negative, use §8 below.
@@ -115,6 +130,30 @@ undercounted, ≈ 4.2 pages).
 | ABJM: (Λ/ML)⁶ shift ≈ −3 % at 1000; λ = 2.51·10⁷ / 3.15·10⁹ for Λ = ML | UT3 §8; `(Λ/2^{5/4}π^{1/2})⁴` (referee 2 m12) |
 | CHLPSpw = D ≥ 5 graviton partial waves; "record new bounds on the central charges of holographic conformal theories" | arXiv API abstract of 2205.01495 (checked 23 Nov 2026) |
 
+**v5 additions and replacements** (rows above that they supersede: the J = 29 row and the J = 12, 16 minima).
+
+| letter item | source |
+|---|---|
+| binding J = 5: +0.2009, ≥ +0.198, L = 78 [NE±] (unchanged) | NEARGAP2 §0 |
+| [NE±] near gap: J = 0, 2 (L ≥ 6), 4 (≥ 22), 6 (≥ 5.0), 8 (λ-level 4.3–8.4; sign-free 1.1–1.8) | NEARGAP2 §0 (Letter: "from 1.7 to 22 for J ≤ 16, J = 8 on a less conservative budget") |
+| J = 12: +0.8528 / +1.0006 / +0.6872, L 7.4 / 7.5 / 3.6; J = 16: +0.9402 / +0.7681 / +0.7509 / +1.0009, L 4.4 / 3.7 / 2.6 / 1.7 | HIGHSPIN §4 (values); SMALLNU_WINDOW §0, §3.2 (leverages with the measured window) |
+| J = 21: +0.998 ± 0.020, L = 1.20 (×3) / 1.26 (signed); 1.7–6.2 at 1.03–1.10Λ | SMALLNU_WINDOW §0, §3.3 |
+| J = 29: +0.972 ± 0.018; L = 1.23 (signed window), 0.94 (sign-free ×3 envelope); 2.2–5.7 at 1.04–1.10Λ; −3.62 = reference-zero node, +1.39 = spline aliasing | HIGHSPIN §2; SMALLNU_WINDOW §3.1 |
+| J = 31: twist edge +1.20 → +1.02; J = 32 (1.0315Λ) +0.904 → +0.997 | HIGHSPIN §2.1 (K = 4 values; K6: +1.208 → +1.019, +0.785 → +0.945) |
+| J = 23, 27, 31 [NE + M], limited by K₂ truncation (1.48 / 2.95 / 9.47 N_s); calibrated L ≈ 1.5 / 1.4 | SMALLNU_WINDOW §3.3; HIGHSPIN §3, §4 |
+| ν < 50 window measured; convention kept on 6–18 % of the weight, ×3.6 above the largest known value | SMALLNU_WINDOW §0, §1, §4.4 |
+| H_LJ(1000) at (1100, 100): central ≥ 1.6; A+C ≥ 1.0 at 2σ; λ-free A+B+C 9 nodes 0.5–0.6 at 2σ | DIRCV §8 (table and "Net") |
+| D_h excess = a_h normalisation [DV]; congruence lemma [P] | N2_SUBREGGE §1 / UT box; LARGESPIN_W W1c |
+| H_R′ [M] → [D-sketch + M] at b̂ ≥ b̂_A(m) = 8.5–15; ROUTEA window only m ≥ 1.5Λ | LARGESPIN_ANALYTIC §0.1, §5.2, N4 |
+| leading-Regge floor rigorous at all b̂ for m ≥ 1.5Λ; b̂ ≥ 1.0421Λ for every m ≥ Λ (Lemma LR∞; r ≤ 0.577 …) | LARGESPIN_L §0.1 L1, L1′, §3 |
+| magic-block identity for every b-shifted block, [P] to r⁸, [DV] to r⁴⁰, [D] all orders; monopole D = −9.98332·10⁻⁴ | PW_IMAGES §0.1 PW1–PW4, §2, §4 |
+| Theorem W: J\* = 50 (100 at ×2) at (Λ_amp, K_sh, K₄) = (3, 10, 10) without P3; tolerance table | PW_IMAGES §5; LARGESPIN_W §4, §9 |
+| Theorem L: J\*(m) = ⌈(1.0421m − 1)/2⌉, 857 at the gap; Λ_tol 1240 … 43 (J = 857 … 10⁶) | PW_IMAGES §6; LARGESPIN_L §3.3 |
+| Λ_amp ≈ 2–3 [NE] from the J = 100 fits; model Λ_B = Λ_C2 = 1, Λ_A = 3.17, Λ_C3 = 2.03 [M] | LARGESPIN_W C2; P2_SPINNING §0, §3 |
+| P4 gap: flat ν⁶ term −(η²−1)ν⁶P/72 at O(1/m⁴), subtraction [I] (P2FOLLOW) | P2_SPINNING §7.1 (in progress when read) |
+| EE-kernel reduction and Lemma Y reproduced from statements | INDEP_CHECK §0 |
+| τ₀/4 < 10⁻⁸ (conformal-collider comparison) | arithmetic: 2.89·10⁻⁸/4 = 7.2·10⁻⁹ |
+
 All other letter numbers: unchanged from v2/v3 (UT2 §12, UT3 §12).
 
 ## 5. Referee reports
@@ -143,24 +182,55 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
 | M13 ABJM | v3: an in-scope consistency check, explicitly not evidence for positivity. |
 | M14 novelty/credit | addressed (v2); v3 adds Paulos, Costa–Gonçalves–Penedones, Penedones, Jain et al. |
 | M15 jargon, derivations | addressed (v2); v3 adds derivation sketches for the EE kernel, L6′, H_EFT(a), c₁, light states, D′. |
-| minor 11 front matter | **remaining**: affiliations, emails, acknowledgments (TODO). |
+| minor 11 front matter | **done in v5** (authors' data via the coordinator): both authors "Independent researcher", e-mails ansh.mishra2025@gmail.com, aryan.senthilk@gmail.com; no acknowledgments (section removed). |
 | overall verdict | positivity is still numerical; v3 makes part of it error-bounded and states exactly which states are model-only. |
 
 ## 6. Open items before submission
 
-1. **HIGHSPIN** (in progress elsewhere): fill the `\HS` places (§3) and set `\HSdraftfalse`; if a state is negative, §8.
-2. Front matter (affiliations, e-mails, acknowledgments): placeholders "[… to be supplied …]" with `% TODO(authors)` comments in both files.
+1. ~~HIGHSPIN~~ **done in v5**: places filled, `\HSdraftfalse`; no state negative, so §8's fallback was not triggered.
+2. ~~Front matter~~ **done in v5**: affiliations "Independent researcher", e-mails in both files; acknowledgments removed (none).
+2a. **P2 follow-up** (running when v5 was written): K₄ to O(1/m⁴), the (S) check against 1809.05111, and the O(1/m⁴) hybrid
+   subtraction behind premise (P4) of Theorem W (P2_SPINNING §7.1 found the flat ν⁶ term). Update every `% P2FOLLOW` place
+   (letter.tex Large-spin paragraph; supplement §S7.C, Table S9 and the "Evidence on the premises" paragraph).
 3. ~~Publish the Q3\* factored coefficients~~ **done in v4** (`data/q3star_factored.json`).
 4. Optional: certify C5's ε_W (root isolation of the quintic pole).
 5. Before submission, the INSPIRE sweep recommended in LITERATURE.md §6 (v4 added CMT 1710.03199, Häring–Zhiboedov 2202.08280,
    Hartman–Kundu–Tajdini 1610.05308, verified on arXiv and INSPIRE).
-6. Unreviewed deliverables: every analysis behind v3/v4 except REPRO / REPRO_ENGINE is unreviewed (referee 2 M3). Highest value:
-   independent reproduction of the H_K EE-kernel reduction and of Lemma Y; full write-ups of H_K, L6′, the R⁴ calibration and c₁.
+6. Unreviewed deliverables: every analysis behind v3–v5 except REPRO / REPRO_ENGINE / INDEP_CHECK is unreviewed (referee 2 M3).
+   v5: INDEP_CHECK reproduced the H_K EE-kernel reduction and Lemma Y (count and correlator level) from the statements; not covered:
+   the correlator → light-function step of L6′, the non-dispersive counterexample. Still wanted: full write-ups of H_K, L6′, the R⁴
+   calibration and c₁; an independent check of PW_IMAGES' identity (cheap: sympy to r⁸) and of Lemma LR∞; interval evaluation of
+   LR∞'s constants (now floating point).
 7. `refs.bib` (unused legacy) still has the old JHEP fields; delete it or mirror `refs_verified.bib` before submission.
 8. UT3 still carries the stale "natural size 10⁻³–10⁻¹" for c₁ (§3) and "universality [D]" (L3d); the paper now uses [D-sketch] and no
    size estimate. UT3 was not edited (outside this task's files).
 
 ## 7. Source inconsistencies
+
+**v5: found between the deliverables read for this pass (not silently resolved; the paper's choice is stated).**
+1. The coordinator's brief said "near-gap J = 4–8 [NE±]"; J = 7 is [NE + M] (HIGHSPIN §6, NEARGAP2). The paper lists J = 0, 2, 4, 6, 8
+   (+ binding 5), 12, 16, 21, 29.
+2. HIGHSPIN §0 / negative finding 2 and its UT box say removing the reference-zero node *raises* J = 31, 32 ("all shifts favourable"),
+   but J = 31's twist edge goes +1.208 → +1.023 (down; still positive and above the published minimum +0.988). HIGHSPIN §0 also pairs
+   "+1.208 → +1.023" although §2.1 gives K = 4: +1.200 → +1.023 and K6: +1.208 → +1.019. Paper: "+1.20 → +1.02", no "favourable".
+3. J = 31 twist edge has three values: published +1.20, reference-zero-free shape chain +1.02, HIGHSPIN's hs_odd spline-edge run
+   +0.786 (SMALLNU: +0.841 after window removal). Paper quotes +1.02 and notes "+0.84 with a spline-edge representation".
+4. Name clashes: LARGESPIN_ANALYTIC's "Lemma C′" (curvature bound to b̂ ≈ 119) ≠ the Supplement's Lemma C′ (LEMMAS_CLOSE); LARGESPIN_L's
+   "Lemma W" (Paley–Wiener locality) ≠ the Supplement's Lemma W (no roots in [1, ∞)). The Supplement calls the former "an extended
+   Mehler–Dirichlet curvature bound" and does not use the latter.
+5. DIRCV's first UT box still says "leverage ≤ 1 excluded at ≥ 2σ in every fit"; DIRCV §7 and §8 withdraw it (λ-free fits 0.8, then
+   0.5–0.6 at 2σ). Paper follows §8.
+6. LARGESPIN_L §8 inventory calls near-gap 150 ≤ J < 857 "still numeric/model"; PW_IMAGES/Theorem W′ covers sampled J = 50–344 at
+   m ≤ 1.3Λ (conditionally). Near-gap 345 ≤ J < 857 (m ≈ 1.3–1.65Λ) is in neither theorem's sample; the paper assigns it to H_R′
+   [D-sketch + M] (Table S11).
+7. Theorem W's P4 as stated in LARGESPIN_W/PW_IMAGES bounds the whole O(1/m⁴) term; P2_SPINNING §7.1 (in progress) finds a flat ν⁶
+   term that must be excluded. The paper states P4 as "the part not already resummed in the floor" and flags the subtraction as [I]
+   (P2FOLLOW).
+8. HIGHSPIN's caution "the ν < 50 window is now the binding model input at large J" is superseded by SMALLNU (binding input for
+   J = 23–31 is the K₂ truncation); HIGHSPIN's odd-J window weight omitted a gauge factor (8.52 vs 8.73·10⁻⁵).
+9. The update boxes in UNIFIED_THEOREM.md run oldest → newest (PW_IMAGES last), not newest first as the brief said.
+
+**Earlier (v3/v4):**
 
 UT3 §11: UT2's twenty items (17 resolved; #9 RD fit 2 % vs 3 % and #20 CHMRS equation numbers still open in the record; #1 procedural)
 and fifteen new ones (N1–N15). Items that changed letter text in v3: H_K k = 4 criterion back to 5/2 for our weights; certificate now
@@ -169,6 +239,14 @@ negative finding. One grading tension is left as found: PCYC_CLOSE calls H_RS "[
 writes "[D, one step D-sketch]".
 
 ## 8. Fallback plan if HIGHSPIN returns a negative state (referee 2, M1(d))
+
+**Status v5: not triggered.** HIGHSPIN and SMALLNU_WINDOW found no negative physical state (both J = 29 negatives were chain
+artefacts). The plan below **remains valid** as the response to any future negative state of Ω^EE at Δ_g = 1000 (e.g. from the
+untested premises of Theorems W/L, the near-gap band 345 ≤ J < 857, or J ≥ 150 window data), with one update: the trigger list should
+include "a P2 computation giving Λ_amp beyond the Theorem-W tolerance (≈ 23 at J = 50, ≈ 27–31 at J ≥ 150, Table S9)", which would
+not by itself make a state negative but would remove the large-spin support. The "If HIGHSPIN closes positively" paragraph at the end
+applies: weak points (i)–(iii) are kept in the Letter, rewritten with the new numbers, because the budgets for J = 21, 29 are thin and
+H_LJ(1000)/H_R′ remain [D-sketch + M].
 
 Worked out from UT3 §3 ("Dependence"), §5.2–§5.4 and §5.6. Trigger: any heavy state of `Ω^EE` at Δ_g = 1000 comes back with
 `λ_min < 0` (the J = 29 edge resolves negative, a near-gap J ≥ 12 state is negative, or the refined H_LJ(1000) fails on a measured

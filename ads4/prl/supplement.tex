@@ -966,15 +966,20 @@ with an exact, impact-parameter-independent cost.
 \emph{Two lemmas used below.} \emph{Lemma I} [P]: if a de-shifted image is $\int P_{-1/2+i\nu}(\cosh t)\,\sigma(dt)$,
 its $k=2$ action is $\int\Omega_2(t)\,\sigma(dt)$; every correction structure therefore has an exact cost. \emph{Congruence}
 [P]: if $M(m)=\mathfrak n\,U^\dagger gU$ with $\mathfrak n>0$ and $U$ invertible and $\nu$-independent, then $M\succeq0\Leftrightarrow g\succeq0$:
-$\nu$-independent normalisations and coupling-basis maps cannot change positivity, at any size. A Weyl reflection,
+$\nu$-independent normalisations and coupling-basis maps cannot change positivity, at any size. In the symmetric
+frame of Ref.~\cite{CHMRS} the spinning integrand is a sum of $(\Delta,J)$-independent weight-shifting operators
+acting on scalar seeds~\cite{CPPR} [Q\,+\,D]. A Weyl reflection,
 $T(-x,-y;\Delta,J)=T(x,y;3-\Delta,-1-J)$, which is $m\to-m$ at fixed $\beta$ [D\,+\,DV, to $10^{-40}$], makes the
 symmetric-frame integrand even in $1/m$, so $O(1/m)$ effects are of this congruence type.
 
 \subsection{Leading-Regge floor at every impact parameter}
 \emph{Lemma LR$_\infty$} [P\,+\,DV]. With $a_1=\psi_k'(0)$, $a_2=\psi_k''(0)$ ($\psi_2$: $188.896$, $-1023.546$) and
-$M_1(\beta)=\int_0^\infty2\nu P_{-1/2+i\nu}(\cosh\beta)\,d\nu/(e^{2\pi\nu}+1)>0$ [certified],
+the function $M_1$ below, which is positive for all $\beta$ [certified],
 \begin{equation}
-\Omega_k(\beta)=\frac{a_1M_1(\beta)}{\Lambda^2}-\frac{a_2}{2b^3}+E_k(\beta),\qquad
+M_1(\beta)=\int_0^\infty\frac{2\nu P_{-1/2+i\nu}(\cosh\beta)\,d\nu}{e^{2\pi\nu}+1},\qquad
+\Omega_k(\beta)=\frac{a_1M_1(\beta)}{\Lambda^2}-\frac{a_2}{2b^3}+E_k(\beta),
+\end{equation}
+\begin{equation}
 F_{\rm LR}\ge\big(1-r(\beta)\big)\frac{A_1M_1(\beta)}{\Lambda^2}+\frac{2047.1}{2b^3}>0
 \label{eq:lrinf}
 \end{equation}
@@ -1157,7 +1162,9 @@ gap where the method closes'' holds only with the refinement. It is not a proof.
 \label{sec:repro}
 
 Two reproducers wrote fresh code (no project script run or imported for the light side); further analyses
-re-solved the de-shift weights and certified the flat floors and $\varepsilon_W$.
+re-solved the de-shift weights and certified the flat floors and $\varepsilon_W$. A third checker rebuilt the
+$EE$-kernel reduction behind $H_K$ and Lemma Y (the counting lemma behind L6$'$) from the written statements
+only, without reading or running any project code (last four rows).
 
 \begin{table}[!htbp]
 \caption{\label{tab:repro}Reproduction summary. ``Fully'' = own code from the definitions and the
@@ -1178,6 +1185,10 @@ $s_d$ 300 / 1000 & $+0.5096$ / $+0.5077$ & $+0.50967$ / $+0.50776$ & as above\\
 de-shift weights & --- & $\Omega^{EE}$ Abel to $1.5\times10^{-6}$; $X^Q$ to $8.3\times10^{-7}$; Q's C4 to $10^{-16}$ & independent code\\
 flat floors, $\varepsilon_W$ (C4) & --- & certified (Sec.~\ref{sec:pos}, Sec.~\ref{sec:deshift}) & interval arithmetic\\
 ABJM placement, $8\pi G=256/c_T$ & $2.6\%$ / $3.3\%$ & $2.59\%$ / $3.34\%$ & fully\\
+$EE$ kernel $=\sum_b c_b\Psi^{(b)}$, $b=-4..4$; $\Psi^{(b)}$ = shifted scalar blocks & exact; end to end $1.6\times10^{-7}$--$1.5\times10^{-6}$ & $2.6\times10^{-12}$ (81 cases); end to end $10^{-9}$--$5\times10^{-8}$ & from statements only\\
+corner exponents, $J_0$ thresholds, $f_{\rm pos}(\pm3i/2)=0$ & $-0.50$, $-0.4$, $-0.50$, $+1.00$; $\tfrac32$, $\tfrac52$ & same ($-0.500$ to $\beta=13$ in 45 digits); contour $\le10^{-68}$ & from statements only\\
+Lemma Y count, worst margin & $997\,836$, margin 0 & $997\,836=35\,637\times28$, margin 0; closed form for $\sigma$ [P] & from statements only\\
+spin-2 contacts at the correlator level & $O(y^0\log y)$ & $A+B\log y$ to $y=1.2\times10^{-6}$ (five contacts) & from statements only\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
@@ -1186,7 +1197,9 @@ ABJM placement, $8\pi G=256/c_T$ & $2.6\%$ / $3.3\%$ & $2.59\%$ / $3.34\%$ & ful
 of $2.1\times10^{-4}$ (300) / $1.9\times10^{-5}$ (1000) on $\nu<4$, $\sim600\times$ the measured
 direct-versus-expansion difference. \textbf{Not reproduced:} the beyond-Regge corrections to $\Omega^{EE}$'s
 binding state by fresh code (they are now error-budgeted, Table~\ref{tab:computed}, but with the project's own
-code); the full $\Omega^Q$ state scan (binding state only); the $c_L$ slope; any covering hypothesis.
+code); the full $\Omega^Q$ state scan (binding state only); the $c_L$ slope; any covering hypothesis; the step from the
+correlator to the $R^4$ light function in L6$'$ and the non-dispersive counterexample (INDEP: not attempted); the
+analyses of Sec.~\ref{sec:largespin} (unreviewed). No substantive discrepancy was found by the third checker.
 \textbf{Record fixes:} H17 band $\pm0.24\%$ (was $\pm0.2\%$); twist edge $1.00499\Lambda$ (was $1.0048\Lambda$);
 $s_d$ law (Sec.~\ref{sec:pos}); $\Lambda^4\to\Delta_g^4$ effect $-1.99\%$ (was $-2.2\%$); flat minimum of
 Q3$^*$ $0.1835$ (an earlier dense grid gave $0.1966$, missing $J\approx3600$).
@@ -1231,7 +1244,8 @@ or a ratio $|\hat g_3|^2/g_4$ (an earlier closure was withdrawn: its lower slope
 the flat optimum $0.26$); the $\delta=0.05$ functional (margin $+0.0060$, depends on $\sigma_{hU}$); a
 lower constant; a value of $c_1$ without F$_2$; a numerical evaluation of Lemma A on the Einstein correlator or
 of the AdS$_4$ $R^4$ correlator; anything about theories with light single traces of spin $\ge4$ or with light
-spectra accumulating below $\Delta_g$; positivity ``for $m\ge m_*$''.
+spectra accumulating below $\Delta_g$; positivity ``for $m\ge m_*$''; unconditional positivity at large spin
+(Sec.~\ref{sec:largespin}: Theorems W and L are conditional on magnitude premises graded [NE]/[M]).
 
 Corrections relative to the previous draft: A1 (full gap) $\to$ A1$'$ (higher-spin gap); ``ABJM violates A1''
 $\to$ ABJM-IIA satisfies A1$'$, A2 at leading order; flat certificate ``$\ge0.15$ except one corner'' $\to$
@@ -1243,7 +1257,12 @@ preliminary'' $\to$ [D] (the physical chain is $D'$ by definition), and an earli
 points withdrawn; $c_1$ ``uncomputed'' $\to$ universal, zero given F$_2$, its $u$-channel route identically zero; an
 earlier description of $c_1$'s contact-like part as an independent seagull withdrawn (it is an energy-channel $T$
 exchange); $\varepsilon_W$ (C4) $1.2\times10^{-13}$ / $4.2\times10^{-11}$ (midpoint sums) $\to$ certified bounds
-$2.673\times10^{-13}$ / $9.058\times10^{-11}$; odd-$J$ near-gap states are $1\times1$ blocks.
+$2.673\times10^{-13}$ / $9.058\times10^{-11}$; odd-$J$ near-gap states are $1\times1$ blocks. In v5: $J=29$ at
+$\Delta_g=1000$ ``unresolved, $-3.6$ or $+1.39$'' $\to$ $+0.972\pm0.018$ (both earlier values were chain artefacts);
+published $J=31$, $32$ chain values carried a reference-zero node; $J=12$, $16$ [NE\,+\,M] $\to$ [NE$\pm$], $J=21$, $29$
+$\to$ [NE$\pm$]; the $\nu<50$ convention replaced by measured values; $H_{\rm LJ}(1000)$ leverage ``$2.7$--$4.8$'' $\to$
+Table~\ref{tab:dircv}; $H_R'$ [M] $\to$ [D-sketch\,+\,M] at $b\ge b_A$; ``hybrid floor [certified] on $[91.2,2\Lambda]$'' holds
+for $m\ge1.5\Lambda$ only.
 
 \bibliography{refs_verified}
 
