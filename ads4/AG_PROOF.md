@@ -164,7 +164,26 @@ upward mirrors the decay of g₊, up to the amplitude factor |a(ν+iy)a(ν−iy)
   is **phase-locked to the flat wave to a few %** in the bulk and at the edge.
 * **At the edge, |g/flat| decreases upward** (×17 at J = 40). Two readings are consistent with this: (i) g's phase is slower than the
   flat's (which would violate the local rate), or (ii) the *relative amplitude* of g decreases away from the twist edge like
-  |1 − x²|^{−(1.6…2.5)} (the edge enhancement of e_sc), which is harmless. The vertical-line data cannot separate them.
+  |1 − x²|^{−(1.6…2.5)} (the edge enhancement of e_sc), which is harmless. The vertical-line data alone cannot separate them.
+
+**Growth rates** (`ag_growth.py`, `cache/growth.txt`): the mean slope of log|g| (and of log|flat|) over y ∈ [5, 15]/κ_loc(ν_r), where the
+growing wave dominates by ≥ e¹⁰. For a real-analytic two-wave function this is the decay rate of the + wave, up to the slowly varying
+amplitude factor |a(ν+iy)a(ν−iy)| [NE reading]. Entries: growth(g)/κ₀ | growth(g)/κ_loc | growth(flat)/κ_loc.
+
+| J (x₁) | p = 1 | p = 0.95 | p = 0.9 | p = 0.8 | p = 0.6 | p = 0.4 |
+|---|---|---|---|---|---|---|
+| 40 (0.962) | 2.33 \| **0.64** \| 0.73 | 2.01 \| 0.82 \| 0.87 | 1.80 \| 0.90 \| 0.92 | 1.54 \| 0.98 \| 0.96 | 1.26 \| 1.03 \| 1.00 | 1.11 \| 1.03 \| 1.01 |
+| 48 (0.955) | 2.48 \| **0.73** \| 0.82 | 2.09 \| 0.88 \| 0.91 | 1.84 \| 0.94 \| 0.95 | 1.56 \| 1.01 \| 0.98 | 1.26 \| 1.03 \| 1.01 | 1.11 \| 1.03 \| 1.01 |
+| 64 (0.942) | 2.54 \| **0.86** \| 0.92 | 2.12 \| 0.95 \| 0.97 | 1.86 \| 0.99 \| 0.99 | 1.57 \| 1.04 \| 1.01 | 1.26 \| 1.04 \| 1.02 | 1.11 \| 1.03 \| 1.02 |
+| 100 (0.913) | 2.44 \| 0.99 \| 1.00 | 2.05 \| 1.02 \| 1.01 | 1.80 \| 1.03 \| 1.02 | 1.56 \| 1.06 \| 1.02 | 1.24 \| 1.04 \| 1.03 | 1.11 \| 1.03 \| 1.03 |
+
+* **In the bulk (x ≤ 0.86) the exact correction has AG′'s local rate** (0.98–1.06 κ_loc ≥ 0.97): this confirms lj_scan independently,
+  with the exact function instead of the saddle expansion.
+* **At the near-gap edge it does not:** 0.64 / 0.73 / 0.86 κ_loc at x₁ = 0.962 / 0.955 / 0.942 (and 0.99 at 0.913). The flat wave itself
+  has 0.73 / 0.82 / 0.92 there (N1). **(AG′)'s local rate at x₁ > 0.94 is [NE]-contradicted for the scalar analogue**, at least in this
+  averaged sense.
+* **The uniform rate holds with margin everywhere:** growth(g) ≥ 1.11κ₀ on every line, ≥ 2.3κ₀ at the edge. This is the evidence for
+  (AG_U) at the near-gap edge (§5).
 
 ### 3.3 Negative: no constructive split
 `ag_lock.py` fits g = c̄·flat₋ + c·flat₊ (c, c̄ polynomials in ν, degree 8–12) by least squares on 300–400 exact complex values in a disc
