@@ -55,7 +55,7 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 | `g₄` | `M(1⁺2⁻3⁻4⁺) = ⟨23⟩⁴[14]⁴f(s,u)`, `f = 8πG/(stu) + … + g₄ + g₅t + …`; type II: `g₄M⁶/8πG = 2ζ(3)`, `M² = 4/α′`. **Under A1′, `g₄` is the R⁴ coefficient with the light fields kept in the amplitude (minimal light-exchange completion, CHLPS App. B convention)** [D] | UT2 §1; A1P §2.2, §6 |
 | not bounded | all-plus `ĝ₄` (value 0 under the k = 4 functional [D]); `g₅` | F_NORM §2.4 |
 | `g̃₄` | `g̃₄ := −½𝒜₄[light] = −½Ĉ₄^{ds}|_light` | F_NORM §1 |
-| `c₁` | coefficient of the `O(t₄)` light term `16πGc₁t₄` of `Ĉ′_EE` (and `Ĉ₃`). One universal constant fixed by `⟨TT⟩` and `⟨TTT⟩` data (`c_T`, `t₄`) alone [D]; uncomputed; **zero given premise F₂ [A]** (§4.3). Not a free parameter. | C1V §0, §4 |
+| `c₁` | coefficient of the `O(t₄)` light term `16πGc₁t₄` of `Ĉ′_EE` (and `Ĉ₃`). One universal constant fixed by `⟨TT⟩` and `⟨TTT⟩` data (`c_T`, `t₄`) alone [D-sketch] (weakest link: the regular second-order ASD solution, L3d); uncomputed; **zero given premise F₂ [A]** (§4.3). Not a free parameter. | C1V §0, §4 |
 
 ---
 
@@ -154,7 +154,7 @@ trace in `T × T`** that enters the sum rule at that k (§4.7). Values: `λ/N_s`
 | (2a) | `|c₁| < 103` | `|c₁| < 1306` |
 | (2b) | `|c₁| < 99` | `|c₁| < 1262` |
 
-Exact sample values of (1) and (2a) for `|c₁| = 0 … 1000`: UT2 §3 (unchanged). Natural size `10⁻³–10⁻¹` [M]. Under F₂, `c₁ = 0` and
+Exact sample values of (1) and (2a) for `|c₁| = 0 … 1000`: UT2 §3 (unchanged). (The earlier natural-size estimate `10⁻³–10⁻¹` [M] is withdrawn: C1V shows c₁ is not a curvature remnant of the seagull, so the estimate had no basis.) Under F₂, `c₁ = 0` and
 the headlines are exact as printed.
 
 ---
@@ -193,7 +193,7 @@ the headlines are exact as printed.
 | L3a | the `O(t₄)` light term is `16πGc₁t₄`, ν- and Δ_g-independent | [D given `J₀(E×W³) = 2` (D-sketch) and polynomiality] | C1 §0 |
 | L3b | `u`-channel (shock) part = 0; **in d = 3 the preserved elements of the CHP impact-parameter operators vanish identically on every H₂ eigenfunction (all ν, L), so the shock route gives exactly 0 and cannot see a ν-independent term at all** | [D]; identity **[P]**; no-go [D] | C1 §3; **C1V §2** |
 | L3c | k = 3 part = 0 | [P given Q2, Q8, F] | C1 |
-| L3d | **ASD closure: the whole `O(ĝ₃)` preserved⊗preserved tree (s-, t-channel `E×W³` exchanges + seagull) collapses to an energy-channel `T` exchange `⟨T⁺T⁺T⁺⟩_{W₊}·[⟨T⁺T⁻T⁻⟩_E − κCS]/⟨TT⟩`; no independent seagull; so `c₁` is fixed by `⟨TT⟩`, `⟨TTT⟩` data alone (universal)** | [D] (one input, a regular second-order ASD solution, [D-sketch]); boundary relation checked against Jain–John–Mehta–Nizami–Suresh 2106.00016 [Q + DV] | **C1V §3** |
+| L3d | **ASD closure: the whole `O(ĝ₃)` preserved⊗preserved tree (s-, t-channel `E×W³` exchanges + seagull) collapses to an energy-channel `T` exchange `⟨T⁺T⁺T⁺⟩_{W₊}·[⟨T⁺T⁻T⁻⟩_E − κCS]/⟨TT⟩`; no independent seagull; so `c₁` is fixed by `⟨TT⟩`, `⟨TTT⟩` data alone (universal)** | [D-sketch] by the weakest-link rule (one input, a regular second-order ASD solution, is [D-sketch]); boundary relation checked against Jain–John–Mehta–Nizami–Suresh 2106.00016 [Q + DV] | **C1V §3** |
 | L3e | **`c₁ = 0` given F₂** (the k = 2 functional sees the s-channel `T` family only through light-ray one-point matrices: diagonal for Einstein, pure helicity flip at `O(t₄)`) | `c₁ = 0` [D-sketch given F₂]; **F₂ [A]** (k = 3 analogue [D]); unconditional value [I]; no rigorous bound | **C1V §4** |
 
 ### 4.4 Light side of `Ω^Q` (item 2)
