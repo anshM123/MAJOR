@@ -40,6 +40,12 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 
 ---
 
+> **Update (INDEP_CHECK.md, independent reproduction from the statements with new code; no project code imported or read): the H_K EE reduction is reproduced, and Lemma Y is reproduced for the count and at the correlator level.**
+> * **EE kernel = Σ_{b=−4..4} shifted scalar waves:** holds to 2.6·10⁻¹² at 81 cases; end to end to 10⁻⁹–5·10⁻⁸. **Corner exponents** (w2g −0.50, w2s ≈ −0.4, w4g −0.50, w4p +1.00) and the **thresholds** J₀ < 3/2 (k = 2, 3, 5) and J₀ < 5/2 (k = 4) are re-derived. The w4g exponent stays at −0.500 out to β = 13 in 45-digit arithmetic, so the c = ½ input is conservative. **f_pos(±3i/2) = 0** for Q's published k = 4 continuum weights (contour ≤ 10⁻⁶⁸; decay-rate test against a control with a pole).
+> * **Lemma Y:** the count of 997,836 = 35,637 × 28 is reproduced, worst margin 0. The closed form σ = (g+e+f) − (z+e′+f′) + (k₁₃−k₂₄)/2 makes it [P] for any P·P content. Five explicit bulk spin-2 contacts (833 polynomial × D-function terms each) behave as A + B log y down to y = 1.2·10⁻⁶.
+> * **Not independently reproduced:** the step from the correlator to the light-function bound for L6′ (it stays [D] on the original work); the non-dispersive counterexample slopes; HK_RESIDUAL §1's k = 4 kernel normalisation; K1′, K2ν and LRC-a.
+> * **Minor corrections:** the failure of EESTEP §1.3's negative-b series is truncation, not round-off (not load-bearing); HK_CLOSE and RESULT_Q_STAGE3 differ by one factor of η in the raw k = 2 corner entry (both say "fails"); one displayed line in R4H §2.3 is garbled, and the closed form replaces it.
+
 ## 1. Setting, normalisations, couplings
 
 | item | definition | source |

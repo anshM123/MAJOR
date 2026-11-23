@@ -265,6 +265,12 @@ A chain carries the grade of its weakest link.
 > * **H_EFT(a) [D] for dispersive terms.** It holds pointwise in angle, hence also ν-paired: only finitely many double-trace residues at bounded Mellin arguments enter. "False pointwise in angle" (F_NORM B3, §3.4, §4) applies only to non-dispersive toy classes. Checks on T′ = σ⊗T: σ-exchanges with J_h = 0, 2, 4 and τ_h = 41–81 at k = 2, 4; the term-wise expansion matches the double-trace value to 10⁻¹⁸–10⁻³⁷. An unexplained ≈ −3 % leading-order ratio for J_h = 2 stays at [NE]; route II needs only the scalar case.
 > * **Residual:** neither the actual AdS₄ R⁴ ⟨TTTT⟩ nor a spinning χ-exchange was evaluated. The physical Δφ scan is not yet asymptotic at Δφ = 0.04 (slopes 2.5–2.8), so p = 2 rests on the analytic checks. Refs to add to the bib: Paulos 1107.1504, Costa–Gonçalves–Penedones 1404.5625, Penedones 1011.1485.
 
+> **Update (INDEP_CHECK.md, independent reproduction from the statements with new code; no project code imported or read): the H_K EE reduction is reproduced, and Lemma Y is reproduced for the count and at the correlator level.**
+> * **EE kernel = Σ_{b=−4..4} shifted scalar waves:** holds to 2.6·10⁻¹² at 81 cases; end to end to 10⁻⁹–5·10⁻⁸. **Corner exponents** (w2g −0.50, w2s ≈ −0.4, w4g −0.50, w4p +1.00) and the **thresholds** J₀ < 3/2 (k = 2, 3, 5) and J₀ < 5/2 (k = 4) are re-derived. The w4g exponent stays at −0.500 out to β = 13 in 45-digit arithmetic, so the c = ½ input is conservative. **f_pos(±3i/2) = 0** for Q's published k = 4 continuum weights (contour ≤ 10⁻⁶⁸; decay-rate test against a control with a pole).
+> * **Lemma Y:** the count of 997,836 = 35,637 × 28 is reproduced, worst margin 0. The closed form σ = (g+e+f) − (z+e′+f′) + (k₁₃−k₂₄)/2 makes it [P] for any P·P content. Five explicit bulk spin-2 contacts (833 polynomial × D-function terms each) behave as A + B log y down to y = 1.2·10⁻⁶.
+> * **Not independently reproduced:** the step from the correlator to the light-function bound for L6′ (it stays [D] on the original work); the non-dispersive counterexample slopes; HK_RESIDUAL §1's k = 4 kernel normalisation; K1′, K2ν and LRC-a.
+> * **Minor corrections:** the failure of EESTEP §1.3's negative-b series is truncation, not round-off (not load-bearing); HK_CLOSE and RESULT_Q_STAGE3 differ by one factor of η in the raw k = 2 corner entry (both say "fails"); one displayed line in R4H §2.3 is garbled, and the closed form replaces it.
+
 ## 1. Setup and normalisations
 
 | item | definition |

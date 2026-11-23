@@ -78,6 +78,7 @@ class Model:
 
 ZWIN = 0.002      # |x - x_refzero| < ZWIN: direct values not used (MC noise x 1/|D_h(x_ref)|)
 ZCOST = [0.0]
+XROW = [None]       # Lam/m_row (upper end of the row's GK window)
 
 
 def value(J, mfl, M, edge, xcut=XCUT, nb=800):
@@ -90,8 +91,9 @@ def value(J, mfl, M, edge, xcut=XCUT, nb=800):
     d = (wb*w2*M.k['C2']['bulk'](xb)).sum() + (wb*w3*M.k['C3H']['bulk'](xb)).sum()
     miss = 0.0
     if edge in ('gk', 'g7'):
-        xe, wk, wg = H.gk15_nodes(xcut, xmax)
-        ww = wk if edge == 'gk' else wg
+        xe, wk, wg = H.gk15_nodes(xcut, XROW[0])    # the ROW's GK nodes (= the state's own window at the twist edge)
+        cut = (xe <= xmax).astype(float)             # p = x m/Lam <= 1; psi_k ~ (1-p)^5: the integrand is C^4 at the cut
+        ww = (wk if edge == 'gk' else wg)*cut
         w2e, w3e = H.state_weights(Dg, J, mfl, '+-', xe)
         have = np.array([np.any(np.abs(M.ex - x) < 5e-6) for x in xe])
         x0 = H.ref_zero_x(J, 1000.0 + J)
@@ -146,6 +148,7 @@ def jk_sigma(v):
 if __name__ == '__main__':
     J = int(sys.argv[1]); D = 1000.0 + J
     rowm = H.HN.mphys(D, J); Lm = H.E.lam_of(Dg); mtw = rowm/Lm
+    XROW[0] = 1.0/mtw
     mfls = [mtw] + ([float(v) for v in sys.argv[2].split(',')] if len(sys.argv) > 2 else [1.04, 1.05, 1.06])
     lines, res = [], dict(J=J, D=D, states={})
 
@@ -194,7 +197,7 @@ if __name__ == '__main__':
         Mm = M[bulk_main]
         have = np.array([np.any(np.abs(Mm.ex - x) < 5e-6) for x in xe])
         o = dict(hyb=value(J, mfl, Mm, 'held')[1], pub=pub_value(J, mfl, rK, bad))
-        gk_ok = tw and have.sum() >= 10
+        gk_ok = have.sum() >= 10
         for edge in (['gk', 'g7'] if gk_ok else []) + ['espl', 'eshape', 'held']:
             for b, m_ in M.items():
                 lam, _, miss = value(J, mfl, m_, edge)
