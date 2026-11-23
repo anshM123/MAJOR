@@ -23,7 +23,6 @@ def split(coeffs):
     while len(rem) > 1 and rem[-1] == 0: rem.pop()
     return list(cof), rem
 q2, r2 = split(d['psi2']); q3, r3 = split(d['psi3'])
-print('rem psi2 =', [float(x) for x in r2], ' rem psi3 =', [float(x) for x in r3])
 def action(h, u, Jmax, with_rem=True):
     n = Jmax + 16; p, w = nodes(n)
     s = 1 if h == '++' else -1; c4 = 1 if h == '++' else 41
@@ -36,11 +35,13 @@ def action(h, u, Jmax, with_rem=True):
     FW = a * (2 * Js * (Js + 1.0) - c4 + s) * u ** 3
     FF = R[:, 0] + R[:, 1] + FW - 2 * c * u * u; N = np.abs(R[:, 0]) + np.abs(R[:, 1]) + np.abs(FW) + 2 * c * u * u
     return Js, FF, N
-Jmax = int(sys.argv[1]) if len(sys.argv) > 1 else 20000
-for h in ['+-', '++']:
-    for u in [1.0, 0.9999, 0.999, 0.99, 0.9, 0.6, 0.3]:
-        out = []
-        for wr in (True, False):
-            Js, FF, N = action(h, u, Jmax, wr); q = FF / N; j = int(np.argmin(q))
-            out.append('min FF/N = %+.5f at J = %d (first J with FF<0: %s)' % (q[j], Js[j], (int(Js[np.argmax(FF < 0)]) if np.any(FF < 0) else '-')))
-        print('%s u=%-7g binary: %s | exact-factor: %s' % (h, u, out[0], out[1]), flush=True)
+if __name__ == '__main__':
+    print('rem psi2 =', [float(x) for x in r2], ' rem psi3 =', [float(x) for x in r3])
+    Jmax = int(sys.argv[1]) if len(sys.argv) > 1 else 20000
+    for h in ['+-', '++']:
+        for u in [1.0, 0.9999, 0.999, 0.99, 0.9, 0.6, 0.3]:
+            out = []
+            for wr in (True, False):
+                Js, FF, N = action(h, u, Jmax, wr); q = FF / N; j = int(np.argmin(q))
+                out.append('min FF/N = %+.5f at J = %d (first J with FF<0: %s)' % (q[j], Js[j], (int(Js[np.argmax(FF < 0)]) if np.any(FF < 0) else '-')))
+            print('%s u=%-7g binary: %s | exact-factor: %s' % (h, u, out[0], out[1]), flush=True)

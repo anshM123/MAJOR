@@ -3,7 +3,7 @@
 *23 Nov 2026. Unreviewed, not committed. No existing file was edited; `EESTEP_CLOSE.md` and `code/eestep/` were not touched.*
 
 * *Code (new):* `ads4/code/cert/` — `nf_corner.py`, `nf_lemmaB_check.py`, `nf_exact_min.py`, `nf_Pext.py` (NF02);
-  `q_cert.py`, `q_scan_bhat.py`, `q_scan_refine.py`, `q_backward.py` (Q); `k2_cont.py`, `k2_xq_check.py`, `k2_export.py` (k = 2);
+  `q_cert.py`, `q_scan_bhat.py`, `q_scan_refine.py`, `q_backward.py`, `q_scan_uncov.py` (Q); `k2_cont.py`, `k2_xq_check.py`, `k2_export.py` (k = 2);
   `proto_corner.py` (float prototype used only to choose the cutoff; not a certificate); `cert_run_all.sh` (reproduction).
 * *Caches/logs:* `ads4/code/cert/cache/` (git-ignored by its own `.gitignore`).
 * *New data:* `ads4/prl/data/k2/` (README, `SHA256SUMS`).
@@ -22,11 +22,11 @@ or FLINT/Arb ball arithmetic, on top of analytic lemmas that are written out her
 
 | item | result | grade |
 |---|---|---|
-| **NF02 flat floor** | **`𝔉 ≥ (1/5)N` on every flat heavy state** (both channels, all `J`, all `m ≥ M`). The uncertified corner `+−`, `J ≥ 400`, `M ≤ m < 1.633M` is closed by a new backward-endpoint lemma (Lemma B, §1.3). The floor is sharp: the exact minimum is `𝔉/N = 22603106861933/113015528461279 = 0.2000000103` (`+−`, J = 5, `m = M`) | **[certified]** (new corner code unreviewed) |
+| **NF02 flat floor** | **`𝔉 ≥ (1/5)N` on every flat heavy state** (both channels, all `J`, all `m ≥ M`). The uncertified corner `+−`, `J ≥ 400`, `M ≤ m < 1.633M` is closed by a new backward-endpoint lemma (Lemma B, §1.3). The floor is sharp: at `+−`, J = 5, `m = M` the ratio is exactly `22603106861933/113015528461279 = 0.2000000103` | **[certified]** (new corner code unreviewed) |
 | what changes for D | "`𝔉 ≥ (3/20)N` except one corner, 0.200 float" → "`𝔉 ≥ N/5` everywhere, attained to `10⁻⁸`". **No bound value changes.** UT/RD-S's "min 0.200 [certified]" is now **true** (it was not when written) | — |
-| **Q flat (REPRO D9)** | REPRO reproduced: `0.196585` (`+−`, J = 26, `u = 0.02535`), `0.19990` (`++`, J = 2). **But the true flat minimum is lower:** `0.1835` at `++`, `J ≈ 3600`, `m ≈ 100M` (`b̂ ≈ 72`), a region the earlier dense grids cut off (`J ≤ 3000`, `b̂ ≤ 400`) | [NE] |
+| **Q flat (REPRO D9)** | REPRO reproduced: `0.196585` (`+−`, J = 26, `u = 0.02535`), `0.19990` (`++`, J = 2). **But the true flat minimum is lower:** `0.1835` at `++`, `J ≈ 3600`, `m ≈ 100M` (`b̂ ≈ 72`), a region the earlier dense grids missed (coarse `u`-grid, `J ≤ 3000`) | [NE] |
 | **Q flat, a definitional defect** | The stored `Q3-full-delta0.2` weights (expanded IEEE doubles, coefficients up to `7.8·10⁵`) carry their `(1−p)³` factor only to rounding: `ψ₂(1) = 1.8·10⁻¹¹`, `ψ₃(1) = 2.4·10⁻¹⁰`. At `+−`, `m = M` the backward peak of `d̃⁴⁴ ~ J⁸` amplifies this: **the flat action of the stored functional is negative for J ≥ 1990 at `m = M`**. With the `(1−p)³` factor made exact (`Q3*`, a `10⁻⁹` change) the minimum there is `0.2000`. | [NE] (finding); fix = definitional |
-| **Q flat certificate (Q3\*)** | `FF ≥ (9/50)N` **certified** on: all `J < 400` (every mass); `J ≥ 400` with `b̂ ≤ 120` (this region contains the global minimum, `b̂ ≈ 72`); `++`, `J ≥ 400`, `m ≤ 2M`; `J ≥ 400`, `b̂ ≥ 120`, `2M ≤ m ≤ 10M`. **Not certified:** `+−`, `J ≥ 400`, `m ≤ 2M`, and `J ≥ 400`, `b̂ ≥ 120`, `m ≥ 10M` (the existing lemmas are too crude for Q's weights there, §2.3); float minima there are ≥ the global 0.1835 | [certified] on the listed regions; [NE] elsewhere |
+| **Q flat certificate (Q3\*)** | `FF ≥ (9/50)N` **certified** on: all `J < 400` (every mass); `J ≥ 400` with `b̂ ≤ 120` (this region contains the global minimum, `b̂ ≈ 72`); `++`, `J ≥ 400`, `m ≤ 2M`; `J ≥ 400`, `b̂ ≥ 120`, `2M ≤ m ≤ 10M`. **Not certified:** `+−`, `J ≥ 400`, `m ≤ 2M`, and `J ≥ 400`, `b̂ ≥ 120`, `m ≥ 10M` (the existing lemmas are too crude for Q's weights there, §2.3); float minima there are `0.304` and `0.997` | [certified] on the listed regions; [NE] elsewhere |
 | **`X^Q` published** | `prl/data/k2/xq_abel_X_{300,1000}.txt`; independently re-solved (DESHIFT's solver): `X` to `≤ 8·10⁻⁷` of `max ψ₂^Q` (ν < 2), `≤ 10⁻¹¹` (ν > 25); V3 exact to `10⁻¹⁴`; `dk₀^Q = −1.630147·10⁻⁴ / −1.453690·10⁻⁵` | [DV] |
 | **continuum k = 2 weights (D and Q)** | built in DESHIFT's shifted form, k = 2 version: **`ε_W = 3.3·10⁻⁶ / 1.1·10⁻⁶` (D, 300/1000; `1.1·10⁻⁹ / 1.1·10⁻¹⁰` of `∫|ψ|`) and `1.9·10⁻⁷ / 7.4·10⁻⁸` (Q)** for all `t ≥ 0`. Pole structure: double poles at `±i/2` (the double zeros of `R_∓`), branch points at `±i` (the `|μ|` kink of `ψ₂`). Equal to the stored grid weights to `≤ 4·10⁻⁷` of `max ψ`; V3 and `dk₀` reproduced (`dk₀` to `≤ 4.5·10⁻⁷` relative) | [DV] |
 | cubic bound | **unchanged**: `R₀ = 3.13206·10⁻⁶ / 2.89126·10⁻⁸` (K = 1), and `(1+dk₀)^{−½} = 1.00038354 / 1.00003415` for both the grid and the continuum weight | [DV] |
@@ -108,13 +108,13 @@ works with the Jacobi operator itself, whose adjoint `L` maps polynomials to pol
 
 ### 2.1 REPRO D9 checked, and two corrections [NE]
 * `q_cert.py dense` (1201 log-spaced `u` plus dense windows, `J ≤ min(3000, (400/√u − 1)/2)`): `+−` min `0.196585` at J = 26,
-  `u = 0.02535` (`m = 6.28M`) — **REPRO's number reproduced**; `++` J = 2 at `u ≈ 0.79`: `0.19990` reproduced.
+  `u = 0.02535` (`m = 6.28M`) — **REPRO's number reproduced**; `++` J = 2: `0.199895` at `u = 0.788` — reproduced.
 * **Lower minimum at large J.** `q_scan_bhat.py` (`u ∈ [10⁻⁶, 10⁻²]`, `J ≤ 2·10⁴`, `b̂ ≤ 200`) and `q_scan_refine.py`: `++` min
   `0.18349` at J = 3608, `u = 1.0·10⁻⁴` (`m = 100M`, `b̂ = 72.2`). Mechanism: at small `u` and `b̂ ~ 70` the three terms
   `γ₀/b̂³` (B₂), `σuψ₃(0)/b̂` (B₃, negative for `++` since `ψ₃(0) = −5.70`) and `ab̂²u²/2` (forward) are comparable, and `N` counts B₃ with
   the opposite sign. REPRO's and Stage 6's dense grids stopped at `J = 3000` / coarser `u`. `+−` in that region: `0.1998`.
-* **Rounding defect at `m = M`.** `q_backward.py`: splitting the stored doubles exactly as `ψ = (1−p)³q + rem`, `rem` of degree ≤ 2 with
-  coefficients `≤ 1.7·10⁻⁸`, and evaluating both parts accurately:
+* **Rounding defect at `m = M`.** `q_backward.py`: splitting the stored doubles exactly as `ψ = (Q3\* part) + rem` (below), `rem` of
+  degree ≤ 3 with coefficients `≤ 1.7·10⁻⁸`, and evaluating both parts accurately:
 
   | `+−`, `u` | stored (binary) Q3 | Q3\* (`rem` dropped) |
   |---|---|---|
@@ -129,7 +129,7 @@ works with the Jacobi operator itself, whose adjoint `L` maps polynomials to pol
   `m ≈ Λ`, `J ≳ 2000`; it is not a computed state, and Q3\* removes it.
 
 ### 2.2 The certified floor for Q
-**`9/50 = 0.18`**, certified on the regions of §2.3, which include every state where any scan found `FF/N < 0.1998`; the global flat
+**`9/50 = 0.18`**, certified on the regions of §2.3, which contain every state where any scan found `FF/N < 0.30`; the global flat
 minimum is `0.1835` [NE] (§2.1), so 0.18 is within 2 % of the truth. The nominal δ = 0.2 is **not** met (by 8 %). A constant closer to
 0.1835 would need the S cells to be sharper than their ≈ 5 % (FLAT_GRAVITON §3); not attempted.
 
@@ -146,8 +146,8 @@ minimum is `0.1835` [NE] (§2.1), so 0.18 is within 2 % of the truth. The nomina
 | M, `1/100 ≤ u ≤ 1/4`, `b̂ ≥ 120` | Lemma M with the forward term | **PASS** (all 8 patterns) |
 | M, `u ≤ 1/100`, `b̂ ≥ 120` | Lemma M | **FAIL**: `γ₀b̂ = 3.6–5.2 × 120 ≈ 430–620` against `C_R ≈ 1.0–1.5·10⁴`; Q's `ψ₂″(0)` is small in these units, so Lemma M bites only at `b̂ ≳ 3·10³`, beyond the S cells' validity at `J_P = 400` |
 
-Float evidence in the two uncertified regions [NE]: at `m = M` (`+−`, Q3\*) the minimum is `0.20000` to `J = 2·10⁴`, and `≥ 0.2007` at
-`u ≤ 0.9999`; for `m ≥ 10M` the `+−` minimum over `b̂ ≤ 200` is `0.1998`, and the `++` minimum is the global 0.1835 (inside S).
+Float evidence in the two uncertified regions (`q_scan_uncov.py`) [NE]: `J ≥ 400`, `u ≤ 1/100`, `b̂ ∈ [120, 600]`, `J ≤ 2·10⁴`: min
+`0.304` (`++`, `b̂ = 123`) and `0.998` (`+−`); `+−`, `J ≥ 400`, `u ≥ 1/4` (Q3\*, `J ≤ 6000`): min `0.997`. Both far above 9/50.
 
 ---
 
@@ -220,7 +220,7 @@ smaller. Double vs 50-digit evaluation of χ: `≤ 1.1·10⁻¹²` of `max|χ|`.
   Delete "except one corner" and the "float-checked 0.765" caveat.
 * **Q, flat.** "The flat limit of `Ω^Q_up` is the δ = 0.2 functional Q3; its flat margin `FF/N` is ≥ 0.18 on every state we
   computed (minimum 0.1835 at `m ≈ 100M`, `J ≈ 3600` [NE]) and is certified `≥ 9/50` on all states with `J < 400` or `b̂ ≤ 120` and on most of the rest [certified]; the uncertified remainder (`+−`, `m ≤ 2M`, `J ≥ 400`; `m ≥ 10M`, `b̂ ≥ 120`) is float-checked [NE]." Replace "δ = 0.2 (dense min 0.1966;
-  nominal at the 2 % level)" by "nominal δ = 0.2; flat minimum 0.1835 [NE]". **State Q3's weights as `(1−p)³ × cofactor`.**
+  nominal at the 2 % level)" by "nominal δ = 0.2; flat minimum 0.1835 [NE]". **State Q3's weights in factored form, `ψ₂ = p(1−p)³X(p)`, `ψ₃ = (1−p)³Y(p)` (Q3\*, §2.1).**
 * **Weights.** "All weights defining the functionals are published, including the k = 2 de-shift weights as explicit continuum functions
   satisfying the de-shift identity to `ε_W/∫|ψ| ≤ 1.1·10⁻⁹` uniformly in `t` [DV]."
 

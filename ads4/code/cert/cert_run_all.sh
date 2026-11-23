@@ -23,6 +23,8 @@ fi
 if [[ $what == q || $what == all ]]; then
   python3 -u q_cert.py dense 3000                              > cache/Q3_dense.log
   python3 -u q_scan_bhat.py 20000                              > cache/Q3_scan_bhat.log
+  python3 -u q_scan_refine.py                                  > cache/Q3_scan_refine.log
+  python3 -u q_scan_uncov.py                                   > cache/Q3_scan_uncov.log
   python3 -u q_backward.py 20000                               > cache/Q3_backward.log
   for reg in "P 400" "C 400" "S++ 120 400" "S+- 120 400" "M 120 1/100 4000"; do
     set -- $reg; python3 -u q_cert.py 9/50 $reg > cache/Q3s_${1}_9-50.log
