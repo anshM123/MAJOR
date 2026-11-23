@@ -22,8 +22,10 @@ ctx.prec = int(os.environ.get('AB_PREC', '384'))
 I = acb(0, 1)
 
 
-def load(piece):
-    d = json.load(open(os.path.join(kern.CACHE, f'ab_{piece}.json')))
+def load(piece, tag=''):
+    d = json.load(open(os.path.join(kern.CACHE, f'ab_{piece}{"_" + tag if tag else ""}.json')))
+    if d.get('c5poles'):
+        os.environ['AB_C5POLES'] = '1'
     P = AB.Piece(piece, d['h'], d['sigma'], d['K'])
     x = [arb(s) for s in d['coeffs']]
     return P, x, d
@@ -79,12 +81,12 @@ class Sol:
         return (tot*arb(d)/2)
 
 
-def main(piece):
+def main(piece, src=None):
     out = []
     def pr(*a):
         s = " ".join(str(x) for x in a); print(s, flush=True); out.append(s)
     t0 = time.time()
-    P, x, d = load(piece)
+    P, x, d = load(piece, src or '')
     S = Sol(P, x)
     pr(f"# ab_check {piece}: h = {d['h']}, sigma = {d['sigma']}, K = {d['K']} (unknowns {P.n}), lam = {d['lam']}, prec {ctx.prec}")
     # (1)
@@ -146,8 +148,8 @@ def main(piece):
         cmax = max(cmax, abs(complex(S.weight(arb(v)).mid()))*abs(float((c - 1).mid())))
     pr(f"(7) HK cutoff (nu_c = 150, a = 6): max_nu |w (c - 1)| / max|w| <= {cmax/sc:.1e} (nu in [100, 200]; below 100 |c - 1| < e^-300)")
     pr(f"[{time.time() - t0:.0f}s]")
-    open(os.path.join(kern.CACHE, f'ab_check_{piece}.txt'), 'w').write("\n".join(out) + "\n")
+    open(os.path.join(kern.CACHE, f'ab_check_{piece}{"_" + src if src else ""}.txt'), 'w').write("\n".join(out) + "\n")
 
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)

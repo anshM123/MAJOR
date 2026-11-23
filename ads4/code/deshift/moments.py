@@ -47,7 +47,7 @@ def mom_mp(nu, chi_s, R, dnu, nmax=10, nu_c=None):
     return [x*dnu for x in m], [x*dnu for x in a]
 
 
-if __name__ == '__main__':
+if __name__ == '__main__' and not os.environ.get('MOM_CONT'):
     R4 = kern.load_C4()
     st = json.load(open(os.path.join(kern.CODE, 'resultq', 'functionals_q4_deshift.json')))
     Rsc = {int(j): kern.Rat(v) for j, v in st['sc3']['R_j'].items()}
@@ -67,3 +67,32 @@ if __name__ == '__main__':
             mt, at = mom_mp(nu, X[key]['w'], R4, dnu, nu_c=nc)
             pr(f"    tail nu > {nc:.0f}: m_n = " + " ".join(mp.nstr(x.real, 2) for x in mt))
     open(os.path.join(kern.CACHE, 'moments.txt'), 'w').write("\n".join(out) + "\n")
+
+
+def continuum():
+    """(d) the continuum (cut-off) weights q_deshift_continuum_c4v/c4d (tables at nu = k/50, trapezoid on [0, 60]; the integrand
+    chi sum_j R_j (nu - ij)^{2n} is even and analytic in a strip, so the trapezoid rule is exponentially accurate)."""
+    R4 = kern.load_C4()
+    for piece in ('c4v', 'c4d'):
+        rows = [l.split() for l in open(os.path.join(kern.ADS4, 'prl', 'data', f'q_deshift_continuum_{piece}_table.txt')) if l[0] != '#']
+        nu = [mp.mpf(r[0]) for r in rows]; chi = [mp.mpf(r[1]) for r in rows]
+        cf = {j: ([mp.mpc(mp.mpf(sp.re(q).p)/sp.re(q).q, mp.mpf(sp.im(q).p)/sp.im(q).q) for q in R4[j].num],
+                  [mp.mpc(mp.mpf(sp.re(q).p)/sp.re(q).q, mp.mpf(sp.im(q).p)/sp.im(q).q) for q in R4[j].den]) for j in R4}
+        m = [mp.mpc(0)]*10; a = [mp.mpf(0)]*10
+        for i, (z, c) in enumerate(zip(nu, chi)):
+            wt = mp.mpf(1)/50*(mp.mpf(1)/2 if i == 0 else 1)
+            if z == 0:
+                continue
+            for j in R4:
+                rv = mp.polyval(cf[j][0], z)/mp.polyval(cf[j][1], z); w = z - 1j*j
+                for n in range(10):
+                    p = w**(2*n); m[n] += wt*c*rv*p; a[n] += wt*abs(c*rv)*abs(p)
+        pr(f"(d) continuum {piece} (exact definition in prl/data; tail beyond nu = 60 < 1e-25 relative):\n    m_n  = " +
+           " ".join(mp.nstr(x.real, 3) for x in m) + "\n    |m|_n = " + " ".join(mp.nstr(x, 4) for x in a) +
+           "\n    ratio |m|_(n+1)/|m|_n = " + " ".join(mp.nstr(a[n + 1]/a[n], 3) for n in range(9)))
+
+
+if __name__ == '__main__' and os.environ.get('MOM_CONT'):
+    out.clear()
+    continuum()
+    open(os.path.join(kern.CACHE, 'moments.txt'), 'a').write("\n".join(out) + "\n")

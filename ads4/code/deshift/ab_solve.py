@@ -56,6 +56,10 @@ class Piece:
         else:
             self.R = kern.load_C5(); self.sym = 'herm'; self.jp = 2; self.p = 1; self.Phi = (1, 0)
             self.Nhat = kern.Rat(sum(r.expr for r in self.R.values()))
+            self.c5poles = []
+            if os.environ.get('AB_C5POLES'):
+                # zeros of R_{-2} in (-2i, 0) and of R_2 in (0, 2i): -1.19592...i (quintic factor), 1.5i, (sqrt73 - 7.5)i
+                self.c5poles = [arb('-1.1959255152079597574167783025926225852751788544871656199454775140993396108347312228640016370108165755996851883487224225334973'), arb('1.5'), arb(73).sqrt() - arb('7.5')]
         self.js = sorted(self.R)
         self.k29 = (3 + 2*arb(2).sqrt())**2          # 4 nu^2 + (3 + 2 sqrt 2)^2 = 0 at nu = +-2.9142i, zeros of R_{-+3}
         # unknown labels
@@ -72,7 +76,11 @@ class Piece:
             z2 = z*z
             return z2*(z2 + 1)*(z2 + 4)/((z2 + 9)**self.p*(4*z2 + 1)*(4*z2 + 25)*(4*z2 + self.k29))
         z2 = z*z
-        return I*z*(z2 + 1)/(z2 + 4)
+        q = I*z*(z2 + 1)/(z2 + 4)
+        if self.c5poles:      # optional simple poles at zeros of the crossed R_{-+2} (i/(nu - i a) keeps the Hermitian symmetry)
+            for a in self.c5poles:
+                q = q*I/(z - I*a)
+        return q
 
     def basis(self, z):
         """list of the n basis functions B_i(z) (without Q)."""
@@ -205,8 +213,10 @@ def build_and_solve(P, mu_max=80.0, dmu=0.05, lam=1e-4, nug_max=60.0, Wc=1e10, x
     # gauge rows
     ng = 0
     if xp is not None and lam > 0:
-        nug, wg = xp
+        nug, wg = xp[0], xp[1]
         sc = float(np.max(np.abs(wg)))
+        if len(xp) > 2:
+            wg = 0*wg
         dg = arb(nug[1] - nug[0]).sqrt()
         for nu, w in zip(nug, wg):
             if nu > nug_max:
@@ -244,6 +254,15 @@ if __name__ == '__main__':
     key = {'c4v': 'C4_value', 'c4d': 'C4_deriv', 'c5': 'C5'}[piece]
     pr(f"\n## ab_solve {piece}: h = {h}, sigma = {sigma}, K = {K} (centres to {h*K}), unknowns {P.n}, lam = {lam}, prec {ctx.prec}, "
        f"mu-grid (0, {mu_max}] step {dmu}")
-    x, LA = build_and_solve(P, mu_max=mu_max, dmu=dmu, lam=lam, xp=(X[key]['nu'], X[key]['wf']))
-    save(P, x, LA, dict(lam=lam, mu_max=mu_max, dmu=dmu))
-    pr(f"  saved cache/ab_{piece}.json")
+    gauge = os.environ.get('AB_GAUGE', 'xp')            # 'xp': pull towards the stored XP weight; 'zero': min-norm (Tikhonov) gauge
+    xp = (X[key]['nu'], X[key]['wf'])
+    if gauge == 'zero':
+        xp = (X[key]['nu'], X[key]['wf'], 'zero')
+    pr(f"  gauge: {gauge}")
+    x, LA = build_and_solve(P, mu_max=mu_max, dmu=dmu, lam=lam, xp=xp)
+    tag = os.environ.get('AB_TAG', '')
+    save(P, x, LA, dict(lam=lam, mu_max=mu_max, dmu=dmu, gauge=gauge, c5poles=bool(getattr(P, 'c5poles', []))))
+    if tag:
+        import shutil
+        shutil.copy(os.path.join(kern.CACHE, f'ab_{piece}.json'), os.path.join(kern.CACHE, f'ab_{piece}_{tag}.json'))
+    pr(f"  saved cache/ab_{piece}.json" + (f" (and ab_{piece}_{tag}.json)" if tag else ""))

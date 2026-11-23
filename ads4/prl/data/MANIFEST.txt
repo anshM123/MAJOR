@@ -1,0 +1,14 @@
+nf02_psi.json  1609 bytes  sha256[:16] 8896b45da3611cbf
+q3_full_delta0.2.json  1595 bytes  sha256[:16] ba325d7cfbb8148d
+kernels.json  3089 bytes  sha256[:16] 4562e60af6c39b9b
+q_deshift_xp_C4_value.txt  258805 bytes  sha256[:16] 9fc42d24d0e22ff5
+q_deshift_xp_C4_deriv.txt  258773 bytes  sha256[:16] d2778324f28e4078
+q_deshift_xp_C5.txt  316081 bytes  sha256[:16] c2415919b4713607
+q_deshift_continuum_c4v.json  35284 bytes  sha256[:16] bedd3a045d086f7f
+q_deshift_continuum_c4v_table.txt  128037 bytes  sha256[:16] 0524a678dcc9e88f
+q_deshift_continuum_c4d.json  35310 bytes  sha256[:16] baaf3cfc18e63144
+q_deshift_continuum_c4d_table.txt  128232 bytes  sha256[:16] dda1e2423b8579b7
+q_deshift_continuum_c5.json  68507 bytes  sha256[:16] 0a32b28e6a2d231d
+q_deshift_continuum_c5_table.txt  388204 bytes  sha256[:16] dca5cf894cfc5a8c
+d_abel_X_300.txt  2109392 bytes  sha256[:16] 76c31c3f222fe658
+d_abel_X_1000.txt  4232223 bytes  sha256[:16] 98d42b28e8a4e5fa

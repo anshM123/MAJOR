@@ -96,6 +96,22 @@ A chain of inputs carries the grade of its weakest link.
 >   * J₀ < 4 terms carry nothing at a = b [D];
 >   * the borderline R⁴ arc in that corner is [I], tied to LRC\*/LC\*.
 
+> **Update (LRC_CLOSE.md, unreviewed): LRC\* holds. H_K no longer needs J₀ < ½ or LC\*; it has no [I] link left.**
+> * **The exact kernel.** The exact per-ν kernel is a d = 3 continuous-spin partial wave (dimension 1, spin −½+iν) in the (13)(42) channel, checked against direct quadrature to 3·10⁻⁸.
+> * **The light-cone-edge corrections:**
+>   * they resum to `₂F₁(½, h; h+½; ρ²)`, with no O(ρ¹) term;
+>   * the result is analytic for Im ν < 3/2, so the de-shift cancellation survives to all orders [D + DV, scalar-type kernels].
+> * **Criteria under the known J₀ ≤ 1:**
+>   * Ĉ′_EE (k = 2): J₀ < 3/2;
+>   * Ĉ₄^{ds}, ∂Ĉ₄^{ds}: **J₀ < 2**, which corrects HK_CLOSE's 5/2 (that needs f_pos(±3i/2) = 0);
+>   * Ĉ₅^{ds}, Ĉ₃: J₀ < 3/2.
+> * **H_K: [D-sketch]**, explicitly [D given K1′, K2ν, K3, DS, LRC-a, LRC\*]. Its weakest links are:
+>   * the EE step (spinning partial wave → scalar ones with shifted labels, standard CPPR/weight-shifting, not checked end to end) [D-sketch];
+>   * LRC-a for EE at k = 4 [D-sketch];
+>   * DS for Q [NE].
+> * **H7 §14 corollary (Result D):** it now holds for the exact kernel, with margin ½ [D-sketch through the EE step].
+> * **LC\* is not needed.** The fixed-ρ light-cone expansion (Hartman–Jain–Kundu) is itself [A] for spinning operators.
+
 ## 0. Headline
 
 1. **Implication [D]; constants [DV].** Let `𝒯` satisfy A1 and A2 and the analytic inputs of §4. Suppose the fixed functional `Ω^EE`
