@@ -417,6 +417,12 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 > * **Batch 5** (`ext/jobs_batch5.txt`): 666 n1 jobs for J = 17–20, 22, 24–26, 28, 30, 32 plus J = 23/31 mid-points; ≈ 1.8 h on 16 workers. J = 26 and 30 need even shadows computed locally first.
 > * **Cautions:** for J ≥ 13 the base is the hybrid quadrature (the certified floor does not close). The 10⁴ c₂ small-ν convention (~100× the measured values) is still the largest or second-largest budget term at J ≤ 14.
 
+> **Update (EDGE_R2.md, unreviewed): the batch-3 n1 rows do not close (EDGE-R) at any of the 8 gap-mass Theorem W states. The ++ entry closes at (26, 1.026) and (30, 1.030) [NE+M]; the binding +− entry stays open everywhere. Theorem W's J\* = 26 is unchanged and still conditional on (EDGE-R).**
+> * **Data-handling finding:** **even-J records from the external machine are in a different ⟨TTO⟩ conserved-structure basis** (an SVD null-space basis, machine-dependent, differing by a 2×2 transformation). Repaired by joint diagonalisation (`code/edger2/e2_basis.py`); the EE fit residual is 4e-7–3e-4 and C3H comes out diagonal unfitted. **Every even-J external job needs this repair**, or the external runs should ship their basis. Odd J is unaffected.
+> * **Warning (not an established violation):** the ++ central values at (46, 1.045) and (50, 1.049) are 2.0× / 2.6× the EDGE-R tolerance. Their 3σ budgets reach below it, and the bulk is aliased on the 0.025 grid, so they are [NE] at best. Recheck on a denser grid (~20 n1 nodes per state). This concerns the premise's tolerance, not the sign of the state's functional value.
+> * **To close +−:** the n3 k=2 edge jobs, the n3 C3H fix (the k=3 edge remainder alone exceeds tolerance at all 8 states), lower MC, and a 0.0125 bulk grid. A combined-weight version of Lemma P4W-χ that keeps the C2/C3H cancellation (J = 26: D₂+D₃ = 0.05 vs 0.27) is a possible route [M].
+> * **Code issues:** `er_jobs.state_nodes` puts the edge-window start one shift late; the `ng_val._clean` tolerance fails after hs_core re-keying (J = 12/16 checked unaffected).
+
 ## 0. Grades
 
 | grade | meaning |

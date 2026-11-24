@@ -48,3 +48,7 @@ Only that one JSON file is committed (the raw `out/` directory is git-ignored).
 * **A's seed is irrelevant:** the n1 contour uses fixed Sobol seeds.
 * **C (J = 400) failed:** the conserved-structure solver (float SVD) does not converge at large J; it must be replaced by the exact
   ℚ(Δ,J) structures (P2_SPINNING) before large-J jobs can run.
+
+* **Even-J structure basis (EDGE_R2.md):** even-J records from an external machine come in a machine-dependent ⟨TTO⟩
+  conserved-structure basis (SVD null space). Before use, map them into the local basis with `code/edger2/e2_basis.py`
+  (joint diagonalisation), or make the external run export its basis. Odd J is unaffected.
