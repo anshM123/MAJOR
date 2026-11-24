@@ -242,7 +242,9 @@ def _binom(p, n):
 def log(a, branch0=None):
     """log a = log a0 (principal, or branch0) + Log(1 + t), the continuation from the crystal (|t| < 1 on P)."""
     a = obj(a)
-    s, a0 = _compose(a, [0.0] + [(-1.0)**(n + 1)/n for n in range(1, DEG + 1)],
+    # GAP_MORSE fix: EXACT series coefficients (-1)^{n+1}/n (gc_ball used rounded floats 1/3, 1/5, ..., which the remainder
+    # bound does not account for; effect ~1e-17 relative, but outside the enclosure)
+    s, a0 = _compose(a, [acb(0)] + [acb((-1)**(n + 1))/n for n in range(1, DEG + 1)],
                      lambda q: q**(DEG + 1)/((DEG + 1)*(1 - q)))
     l0 = _vlog(a0) if branch0 is None else obj(np.broadcast_to(branch0, a0.shape))
     s[..., 0] = s[..., 0] + l0
@@ -254,9 +256,7 @@ def powr(a, p):
     """a^p = exp(p log a0) (1 + t)^p; remainder |binom(p, D+1)| q^(D+1) (1-q)^(p-D-1) (integral form, real p <= D+1)."""
     a = obj(a)
     assert p <= DEG + 1
-    c = [1.0]
-    for n in range(1, DEG + 1):
-        c.append(c[-1]*(p - n + 1)/n)
+    c = [_binom(p, n) for n in range(DEG + 1)]          # GAP_MORSE: exact binomial coefficients (Arb), not floats
     bnd = abs(_binom(p, DEG + 1))
     s, a0 = _compose(a, c, lambda q: bnd*q**(DEG + 1)*(1 - q)**(arb(p) - DEG - 1))
     return s*_vexp(A(p)*_vlog(a0))[..., None]

@@ -65,17 +65,33 @@ def amp_tm(kind, J, xi, rho, Delta=DREF):
     F = S.tto_samples(x1, x10, x2, W2, e, WJ, J, mons, sol)
     Gt = S.tto_samples(x3, x30, x4, W2, e, WJ, J, mons, solt)
     F = S.fourier(S.fourier(F, 1, 2), 2, J); Gt = S.fourier(S.fourier(Gt, 1, 2), 2, J)
-    if kind == 'EE':
-        Eb = B.W0.e_factor(B, S, x0, z0, x2, x4, W2)
+    # GAP_MORSE: the powers of X20 = -m20, X40 = -m40, X24 = -m24 in the prefactor as exp of the (already computed) elementary logs,
+    # instead of recip / powr of products of 2 and 5 factors (whose ranges add up); the values at the crystal are the principal ones.
+    fac = r['fac']
+    X20s, X40s, X24s = -fac['m20'][0], -fac['m40'][0], -fac['m24'][0]
+    inv = B.exp(-lg('m20') - lg('m40'))*(1/(X20s*X40s))
+    if kind == 'EE':                                 # w0_ee_common.e_factor with this inv
+        H24b = np.array([[S.Hfun(x2, S.BASIS[m], x4, S.BASIS[k]) for k in range(3)] for m in range(3)])
+        H24 = np.einsum('im,jk,mkn->ijn', W2, W2, H24b)
+        V204 = S.lin_samples([S.Vfun(x2, S.BASIS[m], x0, x4) for m in range(3)], W2)
+        V402 = S.lin_samples([S.Vfun(x4, S.BASIS[m], x0, x2) for m in range(3)], W2)
+        Eb = S.bm(S.bm(S.bm(v042, v042)[None, None], H24 - 2*S.bm(V204[:, None], V402[None, :])), inv)
         pref = B.W0._contract(S, B, S.bm(Eb, Eb), F, Gt, J)
-    else:                                            # l9_points.build_spin, kind C3H (lines of the 'C3*' branch, unchanged)
+    else:                                            # l9_points.build_spin, kind C3H, and l9 odd_structure 'H', with these powers
         H20 = S.lin_samples([S.Hfun(x2, S.BASIS[m], x0, z0) for m in range(3)], W2)
         H40 = S.lin_samples([S.Hfun(x4, S.BASIS[m], x0, z0) for m in range(3)], W2)
         H24b = np.array([[S.Hfun(x2, S.BASIS[m], x4, S.BASIS[k]) for k in range(3)] for m in range(3)])
         H24 = np.einsum('im,jk,mkn->ijn', W2, W2, H24b)
-        inv = B.recip(B.mul(S.Xfun(x2, x0), S.Xfun(x4, x0)))
         q = S.bm(2*S.bm(H20[:, None], H40[None, :]) + S.bm(S.bm(v042, v042)[None, None], H24), inv)
-        D = S.bm(q, B.P9.odd_structure(x0, z0, x2, x4, W2, kind[-1]))
+        P9 = B.P9
+        c = P9.eps_cof([P9.vec5X(x2), P9.vec5X(x4), P9.vec5X(x0), P9.vec5Z(x0, z0)])
+        e2b = [sum(B.mul(P9.vec5Z(x2, S.BASIS[m])[i], c[i]) for i in range(5)) for m in range(3)]
+        e4b = [-sum(B.mul(P9.vec5Z(x4, S.BASIS[m])[i], c[i]) for i in range(5)) for m in range(3)]
+        e2 = S.lin_samples(e2b, W2); e4 = S.lin_samples(e4b, W2)
+        n2 = B.exp(-0.5*(lg('m24') + lg('m20') + 3*lg('m40')))*((X24s*X20s*X40s**3)**-0.5)
+        n4 = B.exp(-0.5*(lg('m24') + lg('m40') + 3*lg('m20')))*((X24s*X40s*X20s**3)**-0.5)
+        o = S.bm(S.bm(e2, n2)[:, None], H40[None, :]) + S.bm(H20[:, None], S.bm(e4, n4)[None, :])
+        D = S.bm(q, o)
         pref = B.W0._contract(S, B, D, F, Gt, J)
     assert pref.shape[:2] == (1, 1)
     g = B.mul(grel, pref[0, 0])
@@ -102,8 +118,11 @@ def cert(kind, J, xi, rho):
     t0 = time.time()
     R = amp_tm(kind, J, xi, rho)
     g = R['g']
-    Dh = abs(eval_legendre(J, 1 - 2*xi*xi))
-    env = arb(float(abs(g[0]).lower()))/arb(Dh)
+    xa = arb(xi*DREF)/arb(DREF)                                  # the exact xi of the node
+    c = 1 - 2*xa*xa
+    Dh_b = abs(sum(arb(nm)/dn*c**p for (p, nm, dn) in GS.legendre_exact(J)))
+    Dh = float(Dh_b.mid())
+    env = arb(float(abs(g[0]).lower()))/arb(float(Dh_b.upper()))       # lower bound of |g(z*)|/|P_J(1 - 2 xi^2)|
     bh = B.bombieri(g[:B.NM][None])[0]
     return dict(kind=kind, J=J, xi=xi, rho=rho, deg=B.DEG, norm=B.NORM, q=R['q'], bad=R['bad'], badPhi=R['badPhi'], Dh=Dh,
                 bh=[float((bh[k]/env).upper()) for k in range(B.DEG + 1)], remh=float((abs(g[B.NM])/env).upper()),

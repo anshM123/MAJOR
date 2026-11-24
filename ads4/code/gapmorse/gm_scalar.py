@@ -110,12 +110,18 @@ class TMB:
         return f/f[0]
 
 
+def legendre_exact(J):
+    """P_J(x) = sum_p (num_p/den) x^p exactly: P_J = 2^{-J} sum_k (-1)^k C(J,k) C(2J-2k, J) x^{J-2k}."""
+    from math import comb
+    return [(J - 2*k, (-1)**k*comb(J, k)*comb(2*J - 2*k, J), 2**J) for k in range(J//2 + 1)]
+
+
 def legendre_poly_coeffs(J):
     c = npleg.leg2poly(np.eye(J + 1)[J])
     return [(p, c[p]) for p in range(J + 1) if abs(c[p]) > 0]
 
 
-def build(zv, nu, Delta, J, K, y00, n0=1.0, xi=None, amp='explog', mark=None):
+def build(zv, nu, Delta, J, K, y00, n0=1.0, xi=None, amp='explog', mark=None, qj='cos'):
     """returns dict: dPhi = Phi - Phi*, grel = g/g*, plus diagnostics.  y00: value of y0 at the crystal (from l1_crystal, principal)."""
     xt0, ux, vx, uy, vy, xp, yp = zv
     M = K.mul
@@ -167,9 +173,14 @@ def build(zv, nu, Delta, J, K, y00, n0=1.0, xi=None, amp='explog', mark=None):
         dPhi = (0.5j*xi)*dlA + 0.5*dlB
     else:                                 # xi: acb ball (an interval of xi values, Taylor models then cover all of them)
         from flint import acb
-        dPhi = (acb(0, 0.5)*xi)*dlA + 0.5*dlB
+        if isinstance(xi, np.ndarray):    # GAP_MORSE: xi itself a Taylor model (8th variable delta = xi - xi0, gm_ball8)
+            dPhi = M(xi*acb(0, 0.5), dlA) + 0.5*dlB
+        else:
+            dPhi = (acb(0, 0.5)*xi)*dlA + 0.5*dlB
     if mark is not None:                  # GAP_MORSE: snapshot of the branch checks needed by the phase alone
         mark()
+    if amp == 'none':                     # GAP_MORSE: phase only (higher-degree phase records)
+        return dict(dPhi=dPhi, fac=fac, t=t)
     # amplitude e^G / e^G*: powers of elementary factors (rational pieces exactly), fsub as a rational function
     P = {'uy': 0.5, 'vy': 0.5, 'F3': -0.5, 'F2': -0.5, 'mxsq': -6.0, 'fp1': 1.0, 'fp2': 1.0, 'fp3': 1.0,
          'Nn': -0.5, 'm24': 0.75, 'm20': -0.25, 'm40': -0.25, 'c13': 1.25, 'c10': -0.25, 'c30': -0.25,
@@ -189,7 +200,39 @@ def build(zv, nu, Delta, J, K, y00, n0=1.0, xi=None, amp='explog', mark=None):
             Gl = f if Gl is None else Gl + f
         grel = M(K.exp0(Gl), K.norm(num))
         hJ = None
-        if J > 0:
+        if J > 0 and qj == 'cos':
+            # Q_J = (ZZ WW)^{J/2} P_J(cos), with the closed forms (x_ab = x_a - x_b, dot(x_ab, x_ab) = -m_ab):
+            #   ZZ = -m12 m15 m25,  WW = -m34 m35 m45,
+            #   ZW = -(m13 m25 m45 - m14 m25 m35 - m23 m15 m45 + m24 m15 m35)/2,
+            # so (ZZ WW/ZZ* WW*)^{J/2} = exp((J/2) sum Log(m/m*)) joins the exponent, and cos = ZW/sqrt(ZZ WW) is a sum of four
+            # exp-of-log-sums; P_J is expanded exactly around cos* = 1 - 2 xi^2.  No dot-product cancellation enters a remainder.
+            LZ = lg('m12') + lg('m15') + lg('m25') + lg('m34') + lg('m35') + lg('m45')
+            V0 = K.val0
+            N2 = V0(m12)*V0(m15)*V0(m25)*V0(m34)*V0(m35)*V0(m45)
+            Nn_ = N2**0.5 if not hasattr(K, 'B') else N2.sqrt()
+            terms = ((('m13', 'm25', 'm45'), -0.5), (('m14', 'm25', 'm35'), 0.5), (('m23', 'm15', 'm45'), 0.5),
+                     (('m24', 'm15', 'm35'), -0.5))
+            loc = dict(m12=m12, m13=m13, m14=m14, m15=m15, m23=m23, m24=m24, m25=m25, m34=m34, m35=m35, m45=m45)
+            ast = 0
+            dc = None
+            for (fs, sg) in terms:
+                Ci = sg*V0(loc[fs[0]])*V0(loc[fs[1]])*V0(loc[fs[2]])/Nn_
+                ast = ast + Ci
+                ex = K.sub0(K.exp0(lg(fs[0]) + lg(fs[1]) + lg(fs[2]) - 0.5*LZ))
+                dc = ex*Ci if dc is None else dc + ex*Ci
+            if hasattr(K, 'B'):
+                from flint import acb as _acb
+                pc = {p: _acb(nm)/dn for (p, nm, dn) in legendre_exact(J)}
+            else:
+                pc = {p: nm/dn for (p, nm, dn) in legendre_exact(J)}
+            from math import comb
+            an = [sum(pc.get(p, 0)*comb(p, n)*ast**(p - n) for p in range(n, J + 1)) for n in range(J + 1)]
+            acc = K.const(an[J], xt0)
+            for n in range(J - 1, -1, -1):
+                acc = M(acc, dc) + K.const(an[n], xt0)
+            hJ = M(M(K.exp0(Gl + (J/2)*LZ), K.norm(num)), acc)
+            bb_ = K.exp0(LZ)
+        elif J > 0:
             # Q_J/|ZZWW*|^{J/2} = (unimodular const) x f(a, b),  f = sum_p c_p a^p b^{(J-p)/2},  a = ZW/N, b = ZZWW/N^2, N^2 = ZZWW*;
             # f expanded EXACTLY around (a*, 1) = (cos th*, 1) in (da, db): no composition and no cancellation between the Legendre
             # monomials enters the Taylor-model remainder.
@@ -203,14 +246,18 @@ def build(zv, nu, Delta, J, K, y00, n0=1.0, xi=None, amp='explog', mark=None):
             bb_ = ZZWW_*(1/N2)
             ast = K.val0(aa_)
             da, db = K.sub0(aa_), K.sub0(bb_)
-            pc = dict(legendre_poly_coeffs(J))
+            if hasattr(K, 'B'):
+                from flint import acb as _acb
+                pc = {p: _acb(nm)/dn for (p, nm, dn) in legendre_exact(J)}     # exact Legendre coefficients
+            else:
+                pc = {p: nm/dn for (p, nm, dn) in legendre_exact(J)}
             from math import comb
             Cij = {}
             for p, cp in pc.items():
                 mp = (J - p)//2
                 for i in range(p + 1):
                     for j in range(mp + 1):
-                        Cij[(i, j)] = Cij.get((i, j), 0.0) + cp*comb(p, i)*ast**(p - i)*comb(mp, j)
+                        Cij[(i, j)] = Cij.get((i, j), 0) + cp*comb(p, i)*ast**(p - i)*comb(mp, j)
             outer = None
             for j in range(J//2, -1, -1):
                 inner = None
@@ -249,4 +296,5 @@ def build(zv, nu, Delta, J, K, y00, n0=1.0, xi=None, amp='explog', mark=None):
                 term = M(term, ZZWW)
             Q = term if Q is None else Q + term
     geo = dict(x0=x0, x1=x1, x2=x2, x3=x3, x4=x4, e=e, z0=z0)       # GAP_MORSE: exposed for the spinning amplitudes (gm_spin)
-    return dict(dPhi=dPhi, grel=grel, Q=Q, ZZWW=ZZWW, fac=fac, t=t, geo=geo, lg=lg, num=num, P=P, hJ=hJ)
+    return dict(dPhi=dPhi, grel=grel, Q=Q, ZZWW=ZZWW, fac=fac, t=t, geo=geo, lg=lg, num=num, P=P, hJ=hJ,
+                bJ=(bb_ if (amp == 'explog' and J > 0) else None))

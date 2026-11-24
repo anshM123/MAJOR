@@ -48,7 +48,7 @@ def lap_coeffs(c):
     return out
 
 
-def cert(J, xi, rho, Delta=DREF):
+def cert(J, xi, rho, Delta=DREF, phase_only=False):
     t0 = time.time()
     B.BAD.clear(); B.WMAX[0] = 0.0; B.RHO[0] = rho
     nu = xi*Delta
@@ -60,7 +60,7 @@ def cert(J, xi, rho, Delta=DREF):
     snap = {}
     def mark():
         snap['bad'] = len(B.BAD); snap['q'] = B.WMAX[0]
-    r = GS.build(zv, nu, Delta, J, K, acb(aa), xi=xib, mark=mark)
+    r = GS.build(zv, nu, Delta, J, K, acb(aa), xi=xib, mark=mark, amp=('none' if phase_only else 'explog'))
     NM = B.NM
     dPhi = r['dPhi']
     grad = max(up(dPhi[1 + i]) for i in range(7))
@@ -83,8 +83,12 @@ def cert(J, xi, rho, Delta=DREF):
         tr = tr - lap_coeffs(ck)/acb(k)
     bTr0 = B.bombieri(tr[None])[0]                    # index = degree of p_tr part (k - 2)
     bTr = [0.0, 0.0, 0.0] + [up(bTr0[k - 2]) for k in range(3, B.DEG + 1)]   # index k: the part from Phi_k
+    if phase_only:                  # phase record only (amplitude fields absent; usable as the phase partner of any J)
+        return dict(J=-1, xi=xi, nu=nu, Delta=Delta, rho=rho, deg=B.DEG, norm=B.NORM, a=float(aa.mid()), q=B.WMAX[0],
+                    bad=len(B.BAD), qPhi=snap['q'], badPhi=snap['bad'], grad=grad, EF=up(EF), trE=up(trE),
+                    bPhi=[up(bPhi[k]) for k in range(B.DEG + 1)], remPhi=up(dPhi[NM]), bTr=bTr, t=time.time() - t0)
     g = r['grel']
-    if J > 0:                       # h = Q_J g/(g* |ZZWW*|^{J/2}) up to a unimodular constant (gm_scalar, centred Legendre)
+    if J > 0:                       # h = Q_J g/(g* |ZZWW*|^{J/2}) up to a unimodular constant (gm_scalar, closed-form cos theta)
         g = r['hJ']
     bh = B.bombieri(g[:NM][None])[0]
     out = dict(J=J, xi=xi, nu=nu, Delta=Delta, rho=rho, deg=B.DEG, norm=B.NORM, a=float(aa.mid()), q=B.WMAX[0], bad=len(B.BAD), qPhi=snap['q'], badPhi=snap['bad'],
@@ -95,6 +99,20 @@ def cert(J, xi, rho, Delta=DREF):
 
 
 if __name__ == '__main__':
+    if sys.argv[1] == 'phase':                 # GC_DEG=10 python3 gm_cert.py phase xi rho1,rho2 -> cache/gm_phase.json
+        fn = os.path.join(HERE, 'cache', 'gm_phase.json')
+        xi = float(sys.argv[2])
+        for rho in [float(a) for a in sys.argv[3].split(',')]:
+            key = '%.4f_%.4f_%d' % (xi, rho, B.DEG)
+            db = json.load(open(fn)) if os.path.exists(fn) else {}
+            if key in db:
+                continue
+            o = cert(0, xi, rho, phase_only=True)
+            db = json.load(open(fn)) if os.path.exists(fn) else {}
+            db[key] = o
+            json.dump(db, open(fn + '.tmp', 'w')); os.replace(fn + '.tmp', fn)
+            print(key, 'badPhi', o['badPhi'], 'remPhi %.3g' % o['remPhi'], 't %.0f' % o['t'], flush=True)
+        sys.exit(0)
     J, xi, rho = int(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])
     o = cert(J, xi, rho)
     print(json.dumps(o))

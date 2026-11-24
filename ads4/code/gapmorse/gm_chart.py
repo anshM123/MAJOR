@@ -59,13 +59,17 @@ def Mh(d, t):
     t = arb(t); D = d.get('deg_h', d['deg'])
     assert t <= arb(d.get('rho_h', d['rho']))
     rh = arb(d.get('rho_h', d['rho']))
+    if d.get('remh_flat'):                      # xi-interval data: the remainder does not vanish to order D+1 in v alone
+        return sum(arb(d['bh'][k])*t**k for k in range(D + 1)) + arb(d['remh'])
     return sum(arb(d['bh'][k])*t**k for k in range(D + 1)) + arb(d['remh'])*(t/rh)**(D + 1)
 
 
 def Rb(d, t):
     """sup_{B_t} |R| (Schwarz), t <= rho."""
     t = arb(t)
-    return arb(d['remPhi'])*(t/arb(d['rho']))**(d['deg'] + 1)
+    m = d.get('ordR', d['deg'] + 1)             # vanishing order of R in v (>= 7 needed: R enters F at eps^{m-2}, odd or >= 6)
+    assert m >= 7
+    return arb(d['remPhi'])*(t/arb(d['rho']))**m
 
 
 def MH(d, rv):

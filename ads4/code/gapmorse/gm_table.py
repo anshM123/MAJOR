@@ -43,6 +43,8 @@ def main(Js=None):
     fn = os.path.join(HERE, 'cache', 'gm_table.json')
     if os.path.exists(fn):
         out = json.load(open(fn))
+    fph = os.path.join(HERE, 'cache', 'gm_phase.json')
+    extra = list(json.load(open(fph)).values()) if os.path.exists(fph) else []      # phase-only records (J-independent)
     for f in sorted(glob.glob(os.path.join(HERE, 'cache', 'gm_cert_J*.json'))):
         db = json.load(open(f))
         recs = list(db.values())
@@ -51,7 +53,8 @@ def main(Js=None):
             continue
         for xi in sorted(set(round(r['xi'], 4) for r in recs)):
             rr = [r for r in recs if round(r['xi'], 4) == xi]
-            b = node_best(rr, J)
+            ex = [r for r in extra if round(r['xi'], 4) == xi]
+            b = node_best(rr + ex, J, amps=rr, mixed=True)
             key = '%d_%.4f' % (J, xi)
             if b is None:
                 out[key] = dict(J=J, xi=xi, Delta1=None, target=target(J))
@@ -76,5 +79,27 @@ def main(Js=None):
     print('\n'.join(lines))
 
 
+
+
+def intervals():
+    """xi-interval certificates (cache/gm_int_J*.json, gm_cert8): Delta_1 valid for every xi in [xi0 - rx, xi0 + rx]."""
+    out = {}
+    for f in sorted(glob.glob(os.path.join(HERE, 'cache', 'gm_int_J*.json'))):
+        for k, r in json.load(open(f)).items():
+            if r.get('bad') != 0 or not r.get('grad_ok') or not (r.get('lam_min', -1) > 0):
+                out[k] = dict(J=r['J'], xi0=r['xi0'], rx=r['rx'], rho=r['rho'], Delta1=None)
+                continue
+            d = dict(r)
+            D1, info = G.delta1(d, target(r['J']))
+            out['%d_%s' % (r['J'], k)] = dict(J=r['J'], xi0=r['xi0'], rx=r['rx'], rho=r['rho'], deg=r['deg'], Delta1=D1,
+                                             EF=r['EF'], lam_min=r['lam_min'], **(info or {}))
+            print(r['J'], r['xi0'], r['rx'], r['rho'], r['deg'], 'EF %.3g' % r['EF'], 'Delta1', D1, flush=True)
+    json.dump(out, open(os.path.join(HERE, 'cache', 'gm_int_table.json'), 'w'), indent=1)
+    return out
+
+
 if __name__ == '__main__':
-    main([int(a) for a in sys.argv[1:]] or None)
+    if sys.argv[1:2] == ['int']:
+        intervals()
+    else:
+        main([int(a) for a in sys.argv[1:]] or None)

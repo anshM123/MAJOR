@@ -17,6 +17,12 @@ crystal (`z = z* + L_Φ v`, `L_Φ = √Δ · L`, L the l1_crystal Morse matrix; 
 
 ---
 
+> **Update (GAP_MORSE.md, unreviewed): a certified holomorphic Morse chart plus Laplace remainder (Lemma M [P], data [certified]) lowers the certified threshold Δ₁ by ×16–47 relative to GAP_C3, to Δ₁\*(J) ≈ 0.9·10⁵ (J = 0), 1.1·10⁵ (2), 1.8·10⁵ (4), 1.3·10⁵ (5), 2.2·10⁵ (6), 2.5·10⁵ (7), 4.2·10⁵ (8), and graviton EE/C3H at J = 0, 2: 2.2/3.0·10⁵. It still does not reach 1000–5000.**
+> * **Gap coverage:** 1000 ≤ Δ_g < Δ₁\* (about 2–2.6 decades) rests on premise B_F, checked at the [NE±] rows at 1000, 2000 (and 5000) and by the exact scalar to 10⁴. Above Δ₁\* positivity is [P given GAP_C3's premises]: the TAIL, Π ≤ 3, the K₂ part bounded, and ξ-continuity.
+> * **Interval coverage:** ξ-intervals work (one certificate per interval, ×4–8 cost); full [0.1, 0.85] coverage is ~2 CPU-h per spin and was not run. ξ = 0.1 sets the threshold.
+> * **Why 1000 is out of reach:** Δ₁ ∝ r_c⁻², and Δ = 1000 needs r_c ≈ 0.24, against a certified radius of 0.023–0.052.
+> * **Defect:** GAP_C3's `gc_ball.log` used float series coefficients outside the enclosure. It is numerically irrelevant, and fixed in GAP_MORSE's copy.
+
 ## 0. Verdict
 
 **C₃ is now explicit and certified, but it is ~10⁸–10¹² too large to be used at Δ_g = 1000. What it buys is an explicit,
