@@ -1,3 +1,12 @@
+*Revised 24 Nov 2026, **v13** (confident-tone cleanup; no physics, no grade or claim changed): the Letter states its assumptions
+once, in "Setting and assumptions" ((i) higher-spin gap, (ii) weak coupling / leading order in 1/c_T, (iii) positivity with its evidence
+summary; c₁ = 0 for the numbers, κ > 0 or τ = 0 for the quartic bound, the light-scalar condition for 92.8) and refers back to them;
+defensive phrasing, spin lists and thin-margin details moved to the Supplement; the Discussion's not-claimed list and next steps removed.
+Supplement: "unreviewed" labels, version history, deliverable names and the "Corrections to earlier drafts" section removed; S1 legend
+maps the new Letter wording; "What is not claimed" → "Scope". All internal `%` comments stripped except `% BATCH4` / `% BATCH5`;
+macros.tex reduced (switch unchanged). Acknowledgments byte-identical. Length 3461 APS words (headroom 289), abstract 585 characters.
+Change log: **`CHANGES_v13.md`**.*
+
 *Revised 24 Nov 2026, **v12** (writing pass after NEARGAP_FILL, GAP_SEAM, GAP_SEAM2; all unreviewed; no physics recomputed): at
 Δ_g = 1000 every near-gap spin J ≤ 16 is now [NE±] (J = 9–11, 13–15 on own direct rows, twist edge and 1.02–1.05Λ; thinnest J = 14, 15,
 L ≥ 1.52 / 1.75), the J = 23 twist edge [NE±] thin (L = 1.18, after the consistency correction that evaluates the odd-J representation
@@ -128,6 +137,11 @@ for f in letter supplement; do
 done
 ```
 
+Status (24 Nov, **v13**): both compile with no errors, no undefined references or citations, no overfull boxes (Letter: 8
+underfull-box notices). `build/letter.pdf` 5 pages: text and acknowledgments end on page 4, references on pages 4–5;
+`build/supplement.pdf` 31 pages (§S13 "Corrections" removed). Length tool now `scratchpad/tools/wc_prl8.py` (expands the v13
+`\HLJstatusLetter`; run on a copy of letter.tex without the acknowledgments, next to a copy of macros.tex).
+
 Status (24 Nov, **v12**): both compile with no errors, no undefined references or citations, no overfull boxes, no "float too large"
 (Letter: 8 underfull-box notices). `build/letter.pdf` 6 pages: the text ends two lines into page 5's left column, followed by the
 acknowledgments and references. `build/supplement.pdf` 32 pages; Table S5 is split over two floats ("(continued)", one number) and
@@ -166,6 +180,10 @@ In v5 the figure environment was moved to just before "Functionals" (it had beco
 Figure: `cd fig && python3 make_fig.py` (needs mpmath, matplotlib) before compiling the Letter.
 
 ## 2. Length
+
+**v13** (`wc_prl8.py letter.tex 3 0.9375 1.0385`, acknowledgments excluded): abstract **585** rendered characters; prose 2836
+words, 233 inline formulas (conservative 295), 3 display rows (48), figures 344; **TOTAL 3461 (3523 conservative)**, headroom **289**
+(227 conservative).
 
 **v12** (same tool and basis, acknowledgments excluded): abstract **599** rendered characters (unchanged; not edited); prose 3006
 words, 240 inline formulas (conservative 302), 3 display rows (48), figures 344; **TOTAL 3638 (3700 conservative)**, headroom **112**
@@ -224,6 +242,10 @@ Target was ≤ 3300 APS words and ≤ 3.7 pages: met with ≈ 900 words of headr
 undercounted, ≈ 4.2 pages).
 
 ## 3. Switches
+
+* **v13:** macros.tex keeps only the H_LJ(300) switch (`\HLJclosedfalse`, headline 1000), the headline macros and
+  `\HLJstatusLetter` ("We quote Δ_g = 1000 because at Δ_g = 300 positivity on near-gap states of large spin is an open hypothesis");
+  `\HS`, `\HLJstatus`, `\HLJweakest`, `\CollFrac` and the notation macros were unused and are removed. Entries below are historical.
 
 * **H_LJ(300)**: `\HLJclosedfalse` (open; headline Δ_g = 1000). Unchanged. The abstract, the introduction's headline and the
   discussion use `\CubicHead`, `\DgHead`, `\QuartHead`, `\GthreeHead`, so they follow the switch; the Result paragraph prints both gaps.

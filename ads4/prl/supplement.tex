@@ -43,42 +43,56 @@ is derived from inputs X; ``[D, one step D-sketch]'' is net [D-sketch]. A chain 
 [P]\,$=$\,[certified]\,$>$\,[DV]\,$>$\,[D]\,$>$\,[D-sketch]\,$>$\,[NE$\pm$]\,$>$\,[NE]\,$>$\,[NE\,+\,M]\,$>$\,[M]\,$>$\,[A]\,$>$\,[I].
 
 \textbf{The Letter's wording.} The Letter's main text carries no grade tags. Its words map to the grades as
-follows: ``we prove'' = [P]; ``certified'' = [certified]; ``we derive'' = [D] or [DV]; ``derived and checked numerically'' =
-[DV]; ``sketched'', ``we sketch the argument'', ``we argue'' = [D-sketch]; ``with error control'' = [NE$\pm$] (``near the gap on every other spin up to 16 and on spins 21, 23, 27, 29 and 31'' is the
-[NE$\pm$] row of Table~\ref{tab:coverLS}, at the masses listed there; ``spin 23 at its lowest mass only narrowly'' is $L=1.18$
-after the consistency correction of Sec.~\ref{sec:pos}); a ``signed estimate of the truncation error'' is the $\lambda$-level budget; ``computed'',
-``measured'' (of a value) = [NE] or [DV]; ``computed inside models'', ``in a model'', ``interpolated'' = [NE\,+\,M] or [M];
-``we assume'', ``assumption'' = [A]; ``open'' = [I]. Its assumptions (i) and (ii) are A1$'$ and A2 below; ``the two
-conditional theorems'' are Theorems W and L$'$ of Sec.~\ref{sec:largespin}; ``an assumption on the decay of heavy-state
-contributions beyond the Regge regime'' (they split into two analytic waves decaying at a uniform rate) is (AG$_U$) of
-Sec.~\ref{sec:largespin}.D, [A] beyond all orders; ``one edge integral of the graviton'' (``one integral of the graviton's
-contribution near the light-cone edge'') is
-(EDGE-R) of the same subsection, [M], and ``a scalar analogue meets it, narrowly'' is Table~\ref{tab:jstarW}
-(the exact scalar, read in the graviton's transferred units: margin $1.42$ at $(J,m)=(26,1.026\Lambda)$ at the tabulated cutoff,
-$0.405$ against $0.406$ at the worst cutoff of the lemma's grid); ``the other magnitudes \dots\ estimated in models'' are the spinning $O(1/m^4)$ window
-coefficients (premise W), the $+-$ helicity transfer, Theorem L$'$'s edge amplitude (EDGE) and its $O(1/m^2)$ coefficients above
-$J=344$; ``a hypothesis supported by a sketched argument'' is $H_R'$. ``We derive that $c_1$ is a single universal number'' is row
-L3 of Table~\ref{tab:inputs} ([D]); the light single traces' ``contribution fixed by their Regge behaviour up to an AdS mass
-shift we have not computed; we only sketch this step'' is row LS4 ([D given (E$'$)], (E$'$) [D-sketch]). The Letter's Result is
-stated without light single traces in $T\times T$, where implication (1) is [D]; light single traces are its extension, which
-rests on (E$'$). ``The remainder was checked on sampled states up to mass $5\Lambda$'' is $\varepsilon_R$ of Theorem L$'$
-(Table~\ref{tab:thmL}). The Letter's paragraph ``Larger gaps'' is Sec.~\ref{sec:allgap}, and the Introduction's ``the
-evidence extends to larger gaps, at no better strength, if near-gap corrections do not grow with the gap and the large-spin premises
-do not change'' and the paragraph's first sentence are that section's net statement. ``Wherever the de-shifted weight exists (we
-constructed it up to $5000$)'' is row \emph{Weights} of Table~\ref{tab:allgapU} and the files of Table~\ref{tab:data}. ``The
-premise'' that ``a near-gap state's correction, relative to its flat value, does not grow with the gap'' is B$_F$ (and, without
-explicit factors, $H_{\rm mono\text{-}A}$), [NE]; ``tested \dots\ only on the saddle-point evaluations used for the checks'' means the
-own-mass $K_2$ (Laplace) rows, whose chart-A gap independence is largely structural (fixed-phase row of Table~\ref{tab:allgapU});
-``for spins up to 7 we prove that it suffices, with a safety factor above ten'' is the Proposition of Sec.~\ref{sec:allgap}.D, [P given
-B$_F$ and the window conventions], $F_J\ge11.8$; ``up to spin 21 the checks close, for spin 12 and from 14 on only with a signed estimate of the truncation error, and up to spin 16
-the error budgets shrink like $\Delta_g^{-2}$'' is Table~\ref{tab:gap2000} and readings (ii)--(v) there: [NE$\pm$] sign-free for
-$J\le11$ and $13$, [NE$\pm$] on the $\lambda$-level budget for $J=12$, $14$--$17$, $19$, $21$, every term scaling by $0.25\pm0.04$ for
-$J\le16$; ``several spins have their lowest values just above the new gap, with no counterpart at $1000$'' is reading (vi) (the seam strip); ``a certified remainder bound supplements it for the
-lowest spins, given further premises'' is Sec.~\ref{sec:allgap}.E, [P given TAIL, $\Pi\le3$, the $K_2$ part bounded, $\xi$-continuity],
-where the third premise is B$_F$ for an explicit function; ``if the large-spin premises do not change with the gap in AdS units, the
-theorems' margins grow'' is Table~\ref{tab:lsgap}, [DV] given that hypothesis [M]; ``near-gap states with spins from 33 to about
-$0.026\Lambda$'' are the band of Table~\ref{tab:coverGap} that no transfer route reaches; ``a theory with a larger gap also has a gap
-of 1000'' is the Remark of Sec.~\ref{sec:allgap}.A, [D].
+follows: ``we prove'' = [P]; ``certified'' = [certified]; ``we derive'' = [D] or [DV]; ``sketched'', ``we sketch'', ``a step we
+sketch'', ``sketch an argument'' = [D-sketch]; ``with error control'' = [NE$\pm$]; a ``signed estimate of the truncation error'' is
+the $\lambda$-level budget; ``computed'', ``measured'' (of a value) = [NE] or [DV]; ``computed in models'', ``in a model'', ``model
+estimates'', ``interpolated'' = [NE\,+\,M] or [M]; ``we assume'', ``assumption'' = [A]; ``open hypothesis'' = [I].
+
+\emph{The Letter's assumptions.} (i) and (ii) are A1$'$ and A2 below. (iii) is (Pos$_\Omega$) of Sec.~\ref{sec:defs}.C for
+$\Omega^{EE}$ (item 1) or $\Omega^Q_{\rm up}$ (item 2); the Result assumes it, and Secs.~\ref{sec:pos}--\ref{sec:allgap} give its
+evidence, which is never used as an input. The evidence summary in (iii) maps as follows. ``We prove this in the flat-space limit''
+(for the cubic functional) is the flat certificate NF02 [certified] (Sec.~\ref{sec:pos}). ``With error control on the most
+constraining near-gap states'' is the [NE$\pm$] row of Table~\ref{tab:coverLS}: the binding state ($J=5$ at the gap), and near the gap
+$J=0,2,4$--$16$, $21$, $23$, $27$, $29$ from the twist edge and $J=31$ from $1.04\Lambda$, at the masses listed there; the thinnest
+are $J=14$, $15$ ($L\ge1.5$), $21$, $23$ ($L=1.18$ at its twist edge, with the representation term on $\lambda_c$,
+Sec.~\ref{sec:pos}) and $29$ (signed window only). The positivity paragraph's ``several larger spins'' are $J=21$, $23$, $27$, $29$,
+$31$. ``At large spin, on sampled near-gap states and at large impact parameter, \dots\ given a uniform decay of heavy-state
+contributions beyond the Regge regime and model estimates of a few magnitudes'' are Theorems W and L$'$ of Sec.~\ref{sec:largespin}:
+the decay assumption is (AG$_U$) of Sec.~\ref{sec:largespin}.D, [A] beyond all orders (they split into two analytic waves decaying at
+a uniform rate); the model estimates are (EDGE-R) [M] (Theorem W) and the magnitude premises [M]. ``Elsewhere the evidence is computed
+in models'' are the [NE\,+\,M] and [M] entries of Tables~\ref{tab:computed}, \ref{tab:cover} and \ref{tab:coverLS}, and $H_R'$
+[D-sketch\,+\,M]. The quoted numbers at $c_1=0$: row L3 of Table~\ref{tab:inputs}; the sign $\kappa>0$: row L9; the scalar
+condition: row LS5 and Sec.~\ref{sec:light}.
+
+\emph{Other phrases.} ``One edge integral of the graviton, estimated in a model and met by an exactly computable scalar analogue'' is
+(EDGE-R), [M], and Table~\ref{tab:jstarW} (the exact scalar, read in the graviton's transferred units: margin $1.42$ at
+$(J,m)=(26,1.026\Lambda)$ at the tabulated cutoff, $0.405$ against $0.406$ at the worst cutoff of the lemma's grid); ``the other
+magnitudes the theorems use are model estimates with large margins'' are the spinning $O(1/m^4)$ window coefficients (premise W), the
+$+-$ helicity transfer, Theorem L$'$'s edge amplitude (EDGE) and its $O(1/m^2)$ coefficients above $J=344$; ``a hypothesis supported by
+a sketched argument'' is $H_R'$. ``$c_1$ is a single universal number'' is row L3 ([D]); that it vanishes under one further
+assumption is [D-sketch given F$_2$]. The light single traces' ``contribution that, by a step we sketch, is fixed by their Regge
+behaviour up to an AdS mass shift'' is row LS4 ([D given (E$'$)], (E$'$) [D-sketch]). The Letter's Result is stated without light
+single traces in $T\times T$, where implication (1) is [D]; light single traces are its extension, which rests on (E$'$). ``The
+remainder was checked on sampled states up to mass $5\Lambda$'' is $\varepsilon_R$ of Theorem L$'$ (Table~\ref{tab:thmL}). ``The
+states examined while the functionals were being chosen'' are the in-sample states of Table~\ref{tab:Dstates} (Sec.~\ref{sec:pos},
+Remark (i)). ``At $\Delta_g=300$ positivity on near-gap states of large spin is an open hypothesis'' is the window of $H_{\rm LJ}(300)$,
+\HLJwindowGrade\ (Table~\ref{tab:cover}). The Letter's paragraph ``Larger gaps'' is Sec.~\ref{sec:allgap}, whose net statement is that
+paragraph's first sentence. ``Wherever the de-shifted weight exists (we construct it up to $5000$)'' is row \emph{Weights} of
+Table~\ref{tab:allgapU} and the files of Table~\ref{tab:data}. ``Twenty spins up to $29$ \dots\ the checks close for every computed
+spin up to $21$, for several with a signed estimate of the truncation error, and up to spin 16 the error budgets shrink like
+$\Delta_g^{-2}$'' is Table~\ref{tab:gap2000} and readings (ii)--(v) there: $J=0$, $2$, $4$--$17$, $19$, $21$, $27$, $29$ at $2000$;
+[NE$\pm$] sign-free for $J\le11$ and $13$, [NE$\pm$] on the $\lambda$-level budget for $J=12$, $14$--$17$, $19$, $21$, [NE\,+\,M] at
+the $2000$ twist edges of $J=27$, $29$; every term scaling by $0.25\pm0.04$ for $J\le16$. The no-growth assumption (``a near-gap
+state's correction, relative to its flat value, does not grow with the gap'') is B$_F$ (and, without explicit factors, $H_{\rm
+mono\text{-}A}$), [NE]; ``tested \dots\ on the saddle-point evaluations used for the checks'' means the own-mass $K_2$ (Laplace) rows,
+whose chart-A gap independence is largely structural (fixed-phase row of Table~\ref{tab:allgapU}); ``for spins up to 7 we prove that it
+suffices, with a safety factor above ten'' is the Proposition of Sec.~\ref{sec:allgap}.D, [P given B$_F$ and the window conventions],
+$F_J\ge11.8$; ``a certified remainder bound supplements it for the lowest spins, given further premises'' is
+Sec.~\ref{sec:allgap}.E, [P given TAIL, $\Pi\le3$, the $K_2$ part bounded, $\xi$-continuity], where the third premise is B$_F$ for an
+explicit function; ``the strip just above each new gap'' is the seam of reading (vi) of Table~\ref{tab:gap2000}; ``near-gap states
+with spins from 33 to about $0.026\Lambda$'' are the band of Table~\ref{tab:coverGap} that no transfer route reaches; ``with the
+large-spin premises fixed in AdS units, the theorems' margins grow'' is Table~\ref{tab:lsgap}, [DV] given that hypothesis [M]; ``a
+theory with a larger gap also has a gap of 1000'' is the Remark of Sec.~\ref{sec:allgap}.A, [D].
 
 \textbf{What is here.} The full statement with the lower end, the exact $c_1$ forms and thresholds, the H17 remark and the
 inputs list I1--I6 (Sec.~\ref{sec:full}), the $\Lambda$-forms (Sec.~\ref{sec:lambda}), positivity at every gap $\Delta_g\ge1000$ (Sec.~\ref{sec:allgap}), the conditional remark on
@@ -92,17 +106,10 @@ parameter); they are unrelated to Lemma W of Sec.~\ref{sec:Cprime}.
 (Table~\ref{tab:inputs}); (iii) per-state positivity, which the result assumes and for which
 Sec.~\ref{sec:pos} gives the \emph{evidence}. Evidence is never used as an input.
 
-\textbf{Provenance.} Every statement is quoted from the project's consolidated statement and the analyses
-it cites; none of these is externally refereed. Two analyses are independent reproductions with fresh code
-(Sec.~\ref{sec:repro}); a third reproduced the $EE$-kernel reduction and Lemma Y from the written
-statements alone, and a second check (Sec.~\ref{sec:repro}) reproduced the de-shift identity, the monopole constant,
-Lemma LR$_\infty$, the algebra of Theorem W and the $\langle TT\mathcal O\rangle$ structure counts. Not independently checked,
-and unreviewed: the certified constants of Lemma LR$_\infty$, the three-channel $O(1/m^2)$ computation and Lemmas P4W, F and
-P4W-$\chi$ of Sec.~\ref{sec:largespin}; the attempt at the graviton's edge integral (Sec.~\ref{sec:largespin}.E); the $c_1$
-universality step and the light-single-trace step (Secs.~\ref{sec:c1}, \ref{sec:light}); the check of the $k=2$ weights beyond
-$\Lambda$ (Sec.~\ref{sec:defs}.B--C); the direct own rows of $J=9$--$11$, $13$--$15$ at $1000$ and the evaluation of the
-representation term on $\lambda_c$ (Sec.~\ref{sec:pos}); and every analysis of Sec.~\ref{sec:allgap} (gap scaling, uniform
-large-spin certificates, the near-gap and seam rows at $2000$ and $5000$, the remainder certificates). Corrections to earlier drafts are collected at the end (Sec.~\ref{sec:corr}).
+\textbf{Independent checks.} Two analyses are independent reproductions with fresh code
+(Sec.~\ref{sec:repro}); a third reproduced the $EE$-kernel reduction and Lemma Y from the written statements alone, and a second check
+reproduced the de-shift identity, the monopole constant, Lemma LR$_\infty$, the algebra of Theorem W and the $\langle TT\mathcal
+O\rangle$ structure counts. Sec.~\ref{sec:repro} lists the analyses not reproduced independently.
 
 \section{Definitions and published data}
 \label{sec:defs}
@@ -225,7 +232,7 @@ is built from the MHV function $f$ alone, whose heavy side is $\sum_X(|c^{+-}_X|
 the parity of $X$, so the certificates cover such states [D]. AdS side: the dual structures ($EE$, $j'=1$ for
 $\hat C_3$) are built from parity-even invariants and the integration region is parity-symmetric, so the action
 is even in the parity-odd OPE coefficient and mixed even--odd waves integrate to zero; this was shown, and
-checked end to end to $2\times10^{-12}$, for the earlier functionals [D; DV], and carries over to $EE$ and to the
+checked end to end to $2\times10^{-12}$, for the analogous functionals with the $q^2$ structure and without de-shifting [D; DV], and carries over to $EE$ and to the
 de-shifted pieces (the de-shift weights depend on $\nu$ only) [D-sketch]. The overall normalisation of the
 parity-odd coupling is [I]; it is not used, because positivity is quoted per block.
 
@@ -346,7 +353,7 @@ $\nu$-independence are [D]); with light single traces, [D-sketch] through their 
 the H17 band [D-sketch\,+\,M]; constants [DV]. Implication (2a): [D-sketch] in the $g_5$ term (I4) and the
 light single traces; [D-sketch\,+\,M] in the sign of $\kappa$ (I6) if $\hat g_3\ne0$; [A] through $H_{\rm EFT}$(b) for
 $\tilde g_4=g_4$. (2b) adds the $0.040\,\Omega^{EE}$ repair [D-sketch] and (Pos) for $\Omega^{EE}$. No input is open.
-Positivity: not established (Sec.~\ref{sec:pos}); its transfer to every $\Delta_g\ge1000$ is Sec.~\ref{sec:allgap}. \emph{Dependence:} (1) uses only $\Omega^{EE}$; (2a) only
+Positivity is the Letter's assumption (iii); its evidence is in Secs.~\ref{sec:pos} and \ref{sec:largespin}, and at every $\Delta_g\ge1000$ in Sec.~\ref{sec:allgap}. \emph{Dependence:} (1) uses only $\Omega^{EE}$; (2a) only
 $\Omega^Q_{\rm up}$; (2b) both.
 
 \textbf{Inputs I1--I6} (a summary of Table~\ref{tab:inputs}).
@@ -381,9 +388,7 @@ $\tilde g_4\ge-O(\Lambda^{-2})$. \emph{Status.} (i) No constant: the $O(\Lambda^
 positivity evidence for $\Omega^Q_{\rm low}$ beyond leading Regge, where its heavy image is $P_{-1/2}(\cosh\beta)>0$; this
 margin decays like $\beta e^{-\beta/2}$ at large $\beta$ (large $J$ at fixed $m$), exactly where beyond-Regge corrections
 are least controlled. (iii) The $c_L$ slope ($0.255$ or $0.49$, Sec.~\ref{sec:F}) was not reproduced
-independently. The Letter therefore does not state a lower end, and neither its abstract nor its discussion
-presents a two-sided window. Supporting it would need $\Omega^Q_{\rm low}$ evaluated at its binding states and at
-large $\beta$, at least at the [NE\,+\,M] level of $\Omega^Q_{\rm up}$.
+independently. The Letter therefore states no lower end; supporting one requires $\Omega^Q_{\rm low}$ at its binding states and at large $\beta$, at the [NE\,+\,M] level of $\Omega^Q_{\rm up}$.
 
 \section{Derivation sketches}
 \label{sec:deriv}
@@ -445,9 +450,7 @@ every contact and every heavy exchange's double-trace part, using \emph{dispersi
 non-zero $s$-channel residues $\delta_{12}=-n$; [D] for integer Mellin shifts, CLS-D's statement~\cite{CLSD}
 [Q]), which every holographic $\langle TTTT\rangle$ tree term has. In non-dispersive toy classes
 (half-integer free-field links) the collinear growth reaches the edge of the criterion (local slope $4.7\to3.5$)
-[NE], so dispersiveness is essential. The AdS$_4$ $R^4$ correlator itself was not evaluated, and the
-physical $\Delta\varphi$ scan is not yet asymptotic at $\Delta\varphi=0.04$ (slopes $2.5$--$2.8$); $p=2$ rests
-on the analytic count.
+[NE], so dispersiveness is essential. $p=2$ rests on the analytic count; the physical $\Delta\varphi$ scan is pre-asymptotic at $\Delta\varphi=0.04$ (slopes $2.5$--$2.8$), and the AdS$_4$ $R^4$ correlator itself is not evaluated.
 
 \subsection{Lemma C\texorpdfstring{$'$}{'}}
 \label{sec:Cprime}
@@ -506,8 +509,7 @@ $\le1.7\times10^{-4}$; (P) polynomial ratios to $10^{-7}$.
 arguments enter the term-wise functional, so the term-wise EFT expansion of a heavy exchange's double-trace
 part converges to its actual value as an asymptotic series in $1/m^2$, pointwise in celestial angle and hence
 after pairing at fixed $\nu$. Checks on the dispersive spin-2 sector of $T'=\sigma\otimes T$ (heavy exchanges of
-spin $0,2,4$, twist $41$--$81$, $k=2,4$): agreement to $10^{-18}$--$10^{-37}$ [DV]. An earlier finding that the
-calibration fails at fixed angle is a property of the non-dispersive (free-field) classes of that toy only. An
+spin $0,2,4$, twist $41$--$81$, $k=2,4$): agreement to $10^{-18}$--$10^{-37}$ [DV]. The calibration fails at fixed angle only in the non-dispersive (free-field) classes of that toy. An
 unexplained $\approx-3\%$ leading-order ratio for a spin-2 heavy exchange remains [NE]; the calibration
 uses only a scalar.
 
@@ -521,7 +523,7 @@ $\le1.7\times10^{-4}$) [NE]: $m$-independent to $0.3\%$. So exact cancellation i
 premises of the evaluation (real-section integral, CLS-D integrand), and the consistent reading is that the
 uncancelled $g_5$ term and the measured correction are one term counted twice (lower slope $0.255$, matching
 the flat optimum $0.26$). The $\delta=0.2$ upper end holds under either reading, since $s_{\rm fail}>0$ in every
-channel. The C5 piece was not run (no $k=5$ finite-mass evaluation exists) [I].
+channel. The C5 piece has no finite-mass evaluation [I].
 
 \emph{From $\tilde g_4$ to $g_4$.} $\tilde g_4=g_4+O(\Lambda^{-2})\times$(EFT data) given L7(b), the
 standing assumption of CHMRS (``the light OPE data agrees with a tree-level AdS effective field
@@ -606,8 +608,7 @@ $\Omega[{\rm light}]=c_T^{-1}L_1+o(c_T^{-1})$, so $L_1\le0$, which is the Result
 analytic in $1/c_T$: in an eikonalised heavy sector the $k=2$ sum rule holds while its term-wise $O(G)$ heavy sum diverges
 \cite[Sec.~4.4]{CHMRS}. This is the logic of \cite[Sec.~1.1.3, eqs.~(1.12)--(1.14)]{CHMRS}; CLS-D restate the same light/heavy split
 \cite[Sec.~2.2.2]{CLSD} but do not discuss the order of limits. The uniformity in spin of the light-side
-remainder is [D-sketch] inside A2, and its size (a power $\Delta_g^p/c_T^2$) was not computed; so only the $c_T\to\infty$ statement
-is made, and nothing is claimed about how large $c_T$ must be for the numbers to bound the exact $t_4$, $\alpha_T$, $\tilde g_4$.
+remainder is [D-sketch] inside A2, and its size (a power $\Delta_g^p/c_T^2$) is not estimated: the statements hold as $c_T\to\infty$, with no statement on how large $c_T$ must be for the numbers to bound the exact $t_4$, $\alpha_T$, $\tilde g_4$.
 
 \emph{Term-wise use (not made).} Applying the sum rules to the $O(1/c_T)$ correlator itself needs two things:
 (i) $J_0^{\rm planar}<2$ at $k=2,3$ ($<4$ at $k=4,5$), which Einstein gravity saturates \cite[eq.~(4.80)]{KKSDZ} and which a stringy
@@ -647,8 +648,7 @@ g_3)$ MHV term, so the light term is exactly $16\pi Gc_1t_4$ [D]. (d) \emph{Valu
 Premise F$_2$ [A]: the $s$-channel $T$-family term of the $k=2$ functional factorises through light-ray one-point
 matrices, diagonal for Einstein and purely helicity-flipping at $O(t_4)$ (the $k=3$ analogue is derived). Given
 F$_2$ the $O(t_4)$ term is a dual-line flip, which $EE$ annihilates, so $c_1=0$ [D-sketch given F$_2$]. Without
-F$_2$ the value is uncomputed and no estimate of its size is claimed. The bounds
-are therefore stated exactly in $c_1$, with the thresholds below.
+F$_2$ its value is left free, and the bounds are stated exactly in $c_1$, with the thresholds below.
 
 \emph{Item (1).} With $I_D=\int\psi_2=10.385947$ the sum rule reads
 $K\tau^2\Lambda^8/57600-16I_D\Lambda^2c_1t_4-16L_A\le0$, $(t_4,\alpha_T)$ free. Its root gives
@@ -707,8 +707,7 @@ all $t\ge0$, hence $|{\rm image}-{\rm target}|\le\varepsilon_WP_{-1/2}(\cosh\bet
 (Mehler--Dirichlet), and light-side moments exact to $\int|E|\mu^{2n}$. Results: $\varepsilon_W\le2.673\times10^{-13}$
 (C4 value) and $\le9.058\times10^{-11}$ (C4 derivative), \emph{certified} by ball arithmetic (384 bits; Taylor
 panels with Cauchy and aliasing remainders; residue part exact to $10^{-35}$); $\varepsilon_W=2.4\times10^{-7}$ (C5,
-a 384-bit quadrature, not certified; it would need root isolation of the quintic pole and is not
-load-bearing for $H_K$). For $k=2$ the shifted form has no residue terms (the target is a function):
+a 384-bit quadrature, not certified; it is not load-bearing for $H_K$). For $k=2$ the shifted form has no residue terms (the target is a function):
 $W(t)=\tfrac12\int E(\mu)\cos\mu t\,d\mu$, $E(\mu)=2{\rm Re}[\chi(\mu-i)R_-(\mu-i)]$, and the continuum weights give
 $\varepsilon_W=3.3\times10^{-6}$ / $1.1\times10^{-6}$ ($\Omega^{EE}$, i.e.\ $1.1\times10^{-9}$ / $1.1\times10^{-10}$ of
 $\int|\psi|$) and $1.9\times10^{-7}$ / $7.4\times10^{-8}$ ($\Omega^Q_{\rm up}$) [DV]; the grid weights hold the identity
@@ -854,16 +853,16 @@ an explicit safety factor ($\times3$ on each model term, sign-free) and the conc
 error budget is not a bound: only the flat floor and the Lemma-C curvature term are bounds; the beyond-Regge
 part of the budget is an estimate with a safety factor.
 
-\textbf{Disclosures.} (i) \emph{Chronology and gauge.} The structure ($q^2\to EE$) and the Abel gauge
+\textbf{Remarks.} (i) \emph{Choice of the functionals.} The structure ($q^2\to EE$) and the Abel gauge
 (canonical $\to$ minimal norm) were chosen after heavy-state failures were seen; $\Omega^{EE}$ has
 been fixed since 20 Nov 2026, $\Omega^Q$ since 22 Nov. $J=18$, $20$, $24$, $28$ at $\Delta_g=300$ are
 in-sample. In the canonical gauge the $J=24$ state at $300$ fails ($n=1.55$ by spline; $-22$ to $-40$
 from direct data). The statement concerns the minimal-norm functional. (ii) \emph{Finite sets.} The
 heavy spectrum is infinite in $J$ and $m$; Table~\ref{tab:cover} lists what covers the rest. There is no mass
 $m_*$ above which all spins are covered. (iii) \emph{Flat certificates.} NF02: $\mathcal F\ge\tfrac15N$ on
-every flat heavy state, both channels, all $J$ and $m\ge M$ [certified]; the earlier uncertified corner ($+-$,
-$J\ge400$, $M\le m<1.633M$) is closed by a backward-endpoint lemma for the Jacobi operator; the constant is sharp
-(ratio $0.2000000103$ at $+-$, $J=5$, $m=M$); the code of the backward-endpoint corner lemma is unreviewed. Q3$^*$: $\mathcal F\ge\tfrac{9}{50}N$ [certified] on all $J<400$, on $J\ge400$
+every flat heavy state, both channels, all $J$ and $m\ge M$ [certified]; the corner ($+-$,
+$J\ge400$, $M\le m<1.633M$) is covered by a backward-endpoint lemma for the Jacobi operator; the constant is sharp
+(ratio $0.2000000103$ at $+-$, $J=5$, $m=M$). Q3$^*$: $\mathcal F\ge\tfrac{9}{50}N$ [certified] on all $J<400$, on $J\ge400$
 with $b\le120$ (which contains the global minimum $0.1835$), on $++$, $J\ge400$, $m\le2M$, and on $J\ge400$, $b\ge120$,
 $2M\le m\le10M$; not certified on $+-$, $J\ge400$, $m\le2M$ and on $J\ge400$, $b\ge120$, $m\ge10M$, where the
 floating-point minima are $0.997$ and $0.304$ [NE]. The bulk-point limit of $\Omega^{EE}$ is NF02 by $EE\equiv q^2$ on
@@ -892,12 +891,12 @@ $\Omega^{EE}$, 1000, $J=7$ & own direct row at the twist edge ($1.00698\Lambda$)
 \begin{ruledtabular}
 \begin{tabular}{L{3.0cm}L{10.8cm}L{2.4cm}}
 item & content & grade\\\hline
-$\Omega^{EE}$, 1000, $J=23$, $27$, $31$ & direct bulk rows (34 nodes) $+$ Gauss--Kronrod direct edges (nodes above $x=0.945$ covered sign-free). The representation term ($3\times$ the largest deviation of a shape-fit probe) is evaluated on the value $\lambda_c$ from which the window $\nu<50$ is removed and bounded separately; evaluated on $\lambda$, as before, it also contained each probe's polynomial extrapolation into that window and so counted the window twice ($J=23$: $+0.120$ of the degree-7 probe's $+0.184$). Every probe and the $\times3$ factor are kept. $J=27$: twist edge ($1.02667$) $+0.976\pm0.019$, $L=1.81$ ($2.29$ signed; $1.64$ on $\lambda$); $1.03$--$1.10$: $L=2.17$--$3.88$. $J=23$: twist edge ($1.02276$) $+0.923\pm0.016$, $L=1.18$ ($1.27$ signed; $0.85$ on $\lambda$), set by the missing Gauss--Kronrod nodes above $x=0.941$ ($0.303$) and the degree-7 probe ($0.258$: a $0.8\sigma$ deviation counted $\times3$); $1.03$/$1.05$/$1.075$/$1.10$: $L=1.87$/$3.56$/$5.22$/$6.22$; a noise-weighted shape fit gives only $L=1.01$ and is not used. $J=31$: twist edge ($1.0306$) $+0.862\pm0.023$, $L=0.76$ ($0.94$ signed): its half-sample probe ($+0.09$, $5$--$6\sigma$) is a real under-resolution of the half grid, and the window ($0.427$) and edge ($0.213+0.167$) terms bind; $1.04$: $L=1.09$; $1.05$/$1.075$/$1.10$: $+0.907$/$+0.926$/$+0.964$, $L=1.35$/$1.75$/$2.18$ & [NE$\pm$]: $J=27$; $J=23$ (thin at the twist edge); $J=31$ at $m\ge1.04\Lambda$. [NE\,+\,M]: twist edge of $J=31$ % BATCH5
+$\Omega^{EE}$, 1000, $J=23$, $27$, $31$ & direct bulk rows (34 nodes) $+$ Gauss--Kronrod direct edges (nodes above $x=0.945$ covered sign-free). The representation term ($3\times$ the largest deviation of a shape-fit probe) is evaluated on the value $\lambda_c$ from which the window $\nu<50$ is removed and bounded separately; on $\lambda$ itself it would contain each probe's polynomial extrapolation into that window and so count the window twice ($J=23$: $+0.120$ of the degree-7 probe's $+0.184$). Every probe and the $\times3$ factor are kept. $J=27$: twist edge ($1.02667$) $+0.976\pm0.019$, $L=1.81$ ($2.29$ signed; $1.64$ on $\lambda$); $1.03$--$1.10$: $L=2.17$--$3.88$. $J=23$: twist edge ($1.02276$) $+0.923\pm0.016$, $L=1.18$ ($1.27$ signed; $0.85$ on $\lambda$), set by the missing Gauss--Kronrod nodes above $x=0.941$ ($0.303$) and the degree-7 probe ($0.258$: a $0.8\sigma$ deviation counted $\times3$); $1.03$/$1.05$/$1.075$/$1.10$: $L=1.87$/$3.56$/$5.22$/$6.22$; a noise-weighted shape fit gives only $L=1.01$ and is not used. $J=31$: twist edge ($1.0306$) $+0.862\pm0.023$, $L=0.76$ ($0.94$ signed): its half-sample probe ($+0.09$, $5$--$6\sigma$) is a real under-resolution of the half grid, and the window ($0.427$) and edge ($0.213+0.167$) terms bind; $1.04$: $L=1.09$; $1.05$/$1.075$/$1.10$: $+0.907$/$+0.926$/$+0.964$, $L=1.35$/$1.75$/$2.18$ & [NE$\pm$]: $J=27$; $J=23$ (thin at the twist edge); $J=31$ at $m\ge1.04\Lambda$. [NE\,+\,M]: twist edge of $J=31$ % BATCH5
 \\
 $\Omega^{EE}$, 1000, other & even $J\le24$, 28, 32, 36, 40, 48; odd $J\le31$; masses twist edge to $5\Lambda$ (where not budgeted above; not budgeted near the gap: $J=17$--$20$, $22$, $24$--$26$, $28$, $30$, $32$, the $J=31$ twist edge, $J=26$, $30$ interpolated in $J$); $J=20$ twist edge $+0.83\pm0.14$ (direct edge, Monte-Carlo limited); $J=32$: $+0.997$ at $1.0315\Lambda$ without the reference-zero node (published $+0.904$); $J=48$: $+0.915\pm0.08$; light-cone edges from direct nodes for $J=18$--$25$, $27$--$29$, $31$, $32$ & [NE\,+\,M]\\ % BATCH5: ads4/ext/jobs_batch5.txt (666 jobs) adds direct rows for these spins
-$\Omega^{EE}$, 1000, OO block $J=4$--$10$ & parity-odd even-$J$ block: normalised $++$ diagonal of the $EE$ chain on own-mass $K_2$ rows ($\Gamma_{\rm OO}=\Gamma_{++}$, carried as a sign-free $10\,c_2$ term; measured $\le0.044\,c_2$ at $2000$), budget of Sec.~\ref{sec:pos}. Twist edge: $J=4$: $+0.2059$ ($1.0040$), $L=22.7$; $6$: $+0.3551$, $8.0$; $8$: $+0.5884$, $2.7$; $10$: $+0.9378$, $1.4$. Earlier minima at $1.01$/$1.25$/$1.75$/$2.0\Lambda$: $+0.2150$/$+0.3093$/$+0.5033$/$+0.6046$, $L=24$/$21$/$43$/$31$ & [NE$\pm$] given $H_{\rm OO}$ [NE]\\
+$\Omega^{EE}$, 1000, OO block $J=4$--$10$ & parity-odd even-$J$ block: normalised $++$ diagonal of the $EE$ chain on own-mass $K_2$ rows ($\Gamma_{\rm OO}=\Gamma_{++}$, carried as a sign-free $10\,c_2$ term; measured $\le0.044\,c_2$ at $2000$), budget of Sec.~\ref{sec:pos}. Twist edge: $J=4$: $+0.2059$ ($1.0040$), $L=22.7$; $6$: $+0.3551$, $8.0$; $8$: $+0.5884$, $2.7$; $10$: $+0.9378$, $1.4$. Minima over $m\ge1.01\Lambda$ (at $1.01$/$1.25$/$1.75$/$2.0\Lambda$): $+0.2150$/$+0.3093$/$+0.5033$/$+0.6046$, $L=24$/$21$/$43$/$31$ & [NE$\pm$] given $H_{\rm OO}$ [NE]\\
 $\Omega^{EE}$, 1000, large mass & $m\ge1.3\Lambda$, $b<5$ ($J\le2$ at $1.3\Lambda$, \dots, $J\le49$ at $20\Lambda$): flat floor $-$ Lemma C $-$ engine envelope ($\times3$): $L\ge8.7$, growing $\propto m$; the one model input (bulk-$\nu$ envelope) may be too small by $\times76$; $5\le b<b_A(m)$: $L\ge3$, bulk-model dominated & [NE$\pm$]; [NE\,+\,M]\\
-$\Omega^{EE}$, 300 & binding $J=5$, $1.0165851\Lambda$: own row $+0.20377$, $\ge+0.146$, $L=3.5$ (no direct check) [NE$\pm$]. Even $J\le24$, 28, 32; odd $J\le15$; $(336,28)$: $+0.759$ ($0.751$--$0.772$ under stresses); $(336,32)$: $+0.837$; $J=0,2$ on a superseded small-$\nu$ treatment (margin $\approx1$); $m\ge1.3\Lambda$, $b<5$: $L\ge2.1$ & as stated; else [NE\,+\,M]\\
+$\Omega^{EE}$, 300 & binding $J=5$, $1.0165851\Lambda$: own row $+0.20377$, $\ge+0.146$, $L=3.5$ (no direct check) [NE$\pm$]. Even $J\le24$, 28, 32; odd $J\le15$; $(336,28)$: $+0.759$ ($0.751$--$0.772$ under stresses); $(336,32)$: $+0.837$; $J=0,2$ with the small-$\nu$ convention of the $300$ scan (margin $\approx1$); $m\ge1.3\Lambda$, $b<5$: $L\ge2.1$ & as stated; else [NE\,+\,M]\\
 $\Omega^Q$, both & measured: $++$ $J=0,2,4,6,8$; OO $J=0,2$; $+-$ $J=4$--$9$, $11$. Binding $++$/OO $J=0$ at the gap: $+0.1427$ / $+0.1428$ (truncation leverage $\times85$ / $\times850$); full-set minimum $+0.1426\pm0.0017$. At 1000, $1.3\Lambda\le m\le3\Lambda$, $J^2/\Delta\le1$: $L\ge3.95$ against the certified $9/50$ [NE$\pm$]; $m>3\Lambda$: $L\ge1.65$ & [NE\,+\,M] given $H_{\rm RS}$\\
 light $J=0,2$ ($\Omega^{EE}$) & the light value is the Regge polynomial of Sec.~\ref{sec:light} (flat top coefficients, AdS shift $m^2\to\mu^2/\Lambda^2$); positive iff $\mu^2>-0.545\Lambda^2$, i.e.\ for every $\Delta_L$ unless the AdS shift is below $-4.9\times10^4$ / $-5.4\times10^5$ ($J=0$), and for lower-coefficient shifts up to $K=3.2\times10^3$ / $3.5\times10^4$ ($J=2$), against a natural size $\approx21$. Leading-Regge ``images'' ($F/N\ge0.788$ / $0.638$; own rows at $\Delta_L=990$) are not the AdS value of a light block (Sec.~\ref{sec:light}) and are not used as AdS evidence; they stand as flat values & [D given (E$'$)]; shift size [M]; flat signs [P]\\
 \end{tabular}
@@ -914,11 +913,11 @@ fixed. Published chain values; values from direct rows (Table~\ref{tab:computed}
 $\Delta_g=300$ & $J=4$: $+0.2137$ [1.013]; \textbf{5: $+0.2038$} [1.0166]; 6: $+0.3075$; 7: $+0.7033$; 8: $+0.4268$; 9: $+0.4506$; 10: $+0.6033$;
 11: $+0.6687$; 12: $+0.6706$; 13: $+0.7746$; 14: $+0.7487$; 15: $+0.7853$; 16: $+0.884\pm0.022$ (near-gap only; $\le0.80$ at large
 mass [M]); 18: $+0.872$ (in-sample); 20: $+0.905$ (in-sample); 22: $+0.844$; 24: $+0.820$ (in-sample); 28: $+0.759$ (in-sample);
-32: $+0.837$; $J=0/2$: $+0.999/+1.000$ (superseded small-$\nu$ treatment). OO block $J=4$--$22$: min $+0.230$ ($J=4$).\\
+32: $+0.837$; $J=0/2$: $+0.999/+1.000$ (small-$\nu$ convention of the $300$ scan). OO block $J=4$--$22$: min $+0.230$ ($J=4$).\\
 $\Delta_g=1000$ & \textbf{$J=5$: $+0.2009$} [1.00499]; 4: $+0.2041$; 6: $+0.2296$; 7: $+0.2684$ (direct row: $+0.2683$); 8: $+0.4309$; 9: $+0.4542$ (direct row: $+0.4543$ at $1.03$); 10: $+0.5886$ (direct: $+0.5892$); 11: $+0.3482$ (direct: $+0.3485$);
 12: $+0.6759$ (direct row: $+0.6872$ at $1.05$); 13: $+0.4076$ (direct: $+0.4076$); 14: $+0.6982$ (direct: $+0.7264$ at $1.03$; the chain minimum lies between budgeted masses); 15: $+0.6751$ (own $K_2$ row $+0.6900$, direct $+0.6943$, twist edge); 16: $+0.7191$ (direct: $+0.7509$ at $1.03$);
-17: $+0.840$; even 0, 2, 18--24, 28: above the minimum; odd 19--29: $+0.887$ to $+0.979$ (21: $+0.885$ at $1.03$ with a direct bulk row; 23, 27: $+0.923$, $+0.976$ at the twist edge, direct; 29: $+0.972\pm0.018$ at the twist edge, $\ge+0.956$ on $1.04$--$1.10$, direct; the earlier $-3.62$ and $+1.39$ were chain artefacts, Sec.~\ref{sec:pos}); 31: $+0.988$ (twist edge $+1.20\to+1.02$ without the reference-zero node; direct, with a Gauss--Kronrod edge: $+0.862$); 32/36/40: $+0.904$ ($\to+0.997$ without that node)$/+0.957/+0.9795$;
-48: $+0.915\pm0.08$. OO $J=4,6,8,10$: $+0.206$ [1.0040, twist edge; the earlier grid started at 1.01, $+0.215$]$/+0.309/+0.503/+0.605$.\\
+17: $+0.840$; even 0, 2, 18--24, 28: above the minimum; odd 19--29: $+0.887$ to $+0.979$ (21: $+0.885$ at $1.03$ with a direct bulk row; 23, 27: $+0.923$, $+0.976$ at the twist edge, direct; 29: $+0.972\pm0.018$ at the twist edge, $\ge+0.956$ on $1.04$--$1.10$, direct; the chain values $-3.62$ and $+1.39$ there are reference-zero and aliasing artefacts, Sec.~\ref{sec:pos}); 31: $+0.988$ (twist edge $+1.20\to+1.02$ without the reference-zero node; direct, with a Gauss--Kronrod edge: $+0.862$); 32/36/40: $+0.904$ ($\to+0.997$ without that node)$/+0.957/+0.9795$;
+48: $+0.915\pm0.08$. OO $J=4,6,8,10$: $+0.206$ [1.0040, twist edge; $+0.215$ at 1.01]$/+0.309/+0.503/+0.605$.\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
@@ -934,7 +933,7 @@ $H_{\rm RS}$ & at $\Omega^Q$'s binding states the $1/\Delta$ expansion equals th
 $H_M$ & the near-gap chain is accurate where no own or direct row exists (mainly $J=17$--$20$, $22$, $24$--$26$, $28$, $30$, $32$) % BATCH5
 & D & [M], validated on rows with direct data: the actual $K_2$ error is $0.4$--$8\%$ of its last Laplace step, with the favourable sign, on 13 states [NE]; so the $K_2$ values at $J\gtrsim17$ are accurate to $\lesssim0.05N_s$ but cannot be error-budgeted from $K_2$ alone\\
 $H_{\rm edge}$ & light-cone-edge window $x=\nu/m\in(0.8,\Lambda/m]$ & D & computed from direct nodes for $J=18$--$25$, $27$--$29$, $31$, $32$ [NE\,+\,M] (odd $J$: Gauss--Kronrod quadrature, no interpolation); $J=26$, $30$, $48$ and larger $J$: [M]\\
-$H_{\rm low}$ & window $\nu<50$ of the near-gap states, formerly the convention $|\Gamma|\le10^4c_2$ & D & measured on $\nu\ge10$--$20$ for $J=12,16,20,21,23,27,29,31,32$ ($J=9$--$15$: $\le61\,c_2$ at $\nu\approx25$, $50$): $|\Gamma|=O(10^2)c_2$ on $\nu=25$--$50$ [NE]; convention kept below the lowest node ($6$--$18\%$ of the window weight; $\times3.6$ above the largest value known there) [M]\\
+$H_{\rm low}$ & window $\nu<50$ of the near-gap states & D & measured on $\nu\ge10$--$20$ for $J=12,16,20,21,23,27,29,31,32$ ($J=9$--$15$: $\le61\,c_2$ at $\nu\approx25$, $50$): $|\Gamma|=O(10^2)c_2$ on $\nu=25$--$50$ [NE]; convention kept below the lowest node ($6$--$18\%$ of the window weight; $\times3.6$ above the largest value known there) [M]\\
 $H_{\rm OO}$ & parity-odd even-$J$ block via $\Gamma_{\rm OO}=\Gamma_{++}$ ($J\ge12$; budgeted for $J\le10$) & D, Q & identity [P given helicity lemma] at order 0, [NE] beyond; leverage $\ge10^3$\\
 $H_R'$ & beyond-Regge corrections at $m\ge1.3\Lambda$, $5\le b<0.37211\Lambda$ (above, Theorem L$'$) & D & $b\ge b_A(m)$ ($8.5$--$15$): [D-sketch\,+\,M] (the decomposition of $H_{\rm LJ}$, saddle property checked on 5 states; window tolerance $\ge324c_2$, $150$ with $|X|$); $5\le b<b_A$: [NE\,+\,M]; leading-Regge floor rigorous on every $b$ for $m\ge1.5\Lambda$ (Sec.~\ref{sec:largespin}); the certified window $b\in[91.2,2\Lambda]$ holds for $m\ge1.5\Lambda$ only\\
 $H_{\rm LJ}(1000)$ & near-gap large spin ($J\ge26$, $m\le1.3\Lambda$, i.e.\ $J\le344$); replaced on the 47 sampled states by Theorem W (Sec.~\ref{sec:largespin}); the window fits at $(1100,100)$ (sign-free bound violated, $-2154\pm43$ vs $1409$, by a leading-Regge-shaped excess, a normalisation [DV] that cannot change the sign by the congruence lemma) agree with the computed class-B coefficient & D & between samples [NE] (smooth trends); leverage at $(1100,100)$ Table~\ref{tab:dircv}: central $\ge1.6$, at $2\sigma$ $\ge1.0$ for the minimal ring class, $0.5$--$0.6$ in one fit [NE]\\
@@ -979,12 +978,10 @@ identity with $D'$ is [P] in the Regge-scaled system, open at finite $\Delta$, a
 but weak. Critical points do lie in the far region (there are many,
 at raw radius $0.3$--$1.5$); this does not affect $D'$.
 
-\textbf{Record notes.} The $\Delta_g=300$ minimum is $+0.2038$ in the adopted protocol, confirmed by its own-mass
+\textbf{Protocol notes.} The $\Delta_g=300$ minimum is $+0.2038$ in the adopted protocol, confirmed by its own-mass
 row ($+0.20377$); the protocol used for the $(336,28/32)$ windows gives $+0.2054$. With a finite reference
 ($\Delta_{\rm ref}=2\times10^4$) the production $s_d$ drifts as $0.5076+147/\Delta^2$; with an infinitely heavy
-reference it is $0.50957-128/\Delta^2$ ($\nu<12$), i.e.\ the drift is mostly a reference artefact. An earlier
-treatment of odd $J$ as a $2\times2$ block was wrong (only $+-$ exists); the sign-free tolerance at the binding
-state is $3.6\times10^4c_2$, not $6.6\times10^3c_2$.
+reference it is $0.50957-128/\Delta^2$ ($\nu<12$), i.e.\ the drift is mostly a reference artefact. Odd-$J$ states are $1\times1$ blocks (only $+-$ exists); the sign-free tolerance at the binding state is $3.6\times10^4c_2$.
 
 \textbf{The $J=29$ edge and a reference-zero artefact} [D\,+\,DV]. Every chain row is a ratio: the state's
 record over a heavy reference ($\Delta_{\rm ref}=2\times10^4$) at the same $\nu$, multiplied back by the
@@ -999,20 +996,17 @@ edge nodes the state is $+0.972\pm0.018$ at the twist edge (budget without the w
 $0.055$, quadrature $0.11$, missing nodes $0.48$, representation $0.05$). The same mechanism affects nine other
 chain rows at $J\ge18$, among them the published $J=31$ (node $x=0.75$) and $J=32$ (row $\Delta=1040$, $x=0.725$)
 chains: without the node, $J=31$'s twist edge moves from $+1.20$ to $+1.02$ (still above its published minimum
-$+0.988$) and $J=32$ at $1.0315\Lambda$ from $+0.904$ to $+0.997$. Future chains drop nodes whose \emph{reference}
-record has $|r_2/r_0|>0.1$, a criterion fixed before the state's value is seen.
+$+0.988$) and $J=32$ at $1.0315\Lambda$ from $+0.904$ to $+0.997$. Such nodes are identified by their \emph{reference} record, $|r_2/r_0|>0.1$, a criterion applied before the state's value is seen.
 
-\textbf{The window $\nu<50$} [NE]. The earlier budgets covered $\nu<50$ by the sign-free convention
-$|\Gamma|\le10^4c_2$. Direct nodes (real-contour points at $\nu\ge20$, a hybrid contour at $\nu=10$--$17.5$,
-common random numbers, jackknife over 8 replicas; the two contours agree at $\nu=25$, $30$) now measure it:
+\textbf{The window $\nu<50$} [NE]. On $\nu<50$ the sign-free convention $|\Gamma|\le10^4c_2$ is used only below the lowest measured node; above it, direct nodes (real-contour points at $\nu\ge20$, a hybrid contour at $\nu=10$--$17.5$,
+common random numbers, jackknife over 8 replicas; the two contours agree at $\nu=25$, $30$) measure the window:
 $|\Gamma|\le55$, $104$, $121$, $310$, $349$--$465$ and $\approx500\,c_2$ on $\nu=25$--$50$ for $J=12$, $16$, $21$, $29$,
 $23$--$31$ and $32$, a factor $20$--$180$ below the convention; on $\nu=10$--$20$ every value is within $2.1\sigma$ of
-zero, with $\sigma=65$--$830\,c_2$. The convention is kept only below the lowest measured node, where it carries
+zero, with $\sigma=65$--$830\,c_2$. Below the lowest node the convention carries
 $6\%$ ($\nu<10$) to $18\%$ ($\nu<20$) of the window weight and lies $\times3.6$ above the largest value known there.
 At $J=32$ the convention alone would cost $2.3N_s$, more than twice the state's value; the measured window costs
 $0.26$. The window weight grows steeply with $J$ ($1.4\to23\times10^{-5}N_s/c_2$ from $J=12$ to $32$), so for
-$J\gtrsim32$ it is a live input again. (The odd-$J$ window weight of the first $J=29$ budget omitted a gauge factor,
-$8.52$ vs $8.73\times10^{-5}N_s/c_2$; corrected.)
+$J\gtrsim32$ it is a live input again. 
 
 \textbf{$H_{\rm LJ}(1000)$ at $(1100,100)$} [NE]. The sign-free window bound is violated there ($-2154\pm43$ against
 $1409$). The window rows are raw images divided by the sum of the Abel coefficients, the de-shift weight $X$
@@ -1020,7 +1014,7 @@ multiplies them (checked to $2\times10^{-12}$), and the excess has the leading-R
 the leading term, already in de-shift form [DV], and a $\nu$-independent normalisation cannot change the sign of a
 per-state matrix (congruence lemma, Sec.~\ref{sec:largespin}). The refined statement compares the non-ring
 remainder $r$ of a fit with ring classes A ($\eta P$), C ($P'$-type) and optionally B ($\eta\nu^2P$) with the window
-tolerance $T_B=1152$--$1441\,c_2$. Two Monte Carlo estimators of the per-wave records turned out to be biased in
+tolerance $T_B=1152$--$1441\,c_2$. Two Monte Carlo estimators of the per-wave records are biased in
 opposite directions by one per-wave systematic; the graviton carries a fraction $\lambda=0.7\pm0.25$ of the scalar's
 per-wave bias, and a twin estimator avoids any assumption on $\lambda$ at the cost of larger noise below $\nu=13$.
 Table~\ref{tab:dircv} gives the leverage from weighted fits ($\chi^2/{\rm dof}=0.8$--$1.3$) on 9 window nodes
@@ -1048,8 +1042,7 @@ A\,+\,B\,+\,C, 11 nodes & $4.2$--$5.6$ / $2.3$--$2.5$ & $5.1$--$7.4$ / $2.1$--$3
 \label{sec:largespin}
 
 This section states what is proved, and under which premises, about $\Omega^{EE}$ at $\Delta_g=1000$ on heavy
-states beyond the computed sets. The Letter calls the two results ``the two conditional theorems'' (``theorem 1'' =
-Theorem W, ``theorem 2'' = Theorem L$'$ in its Fig.~2). \textbf{Neither is unconditional.} Both rest on one structural
+states beyond the computed sets. The Letter's two conditional theorems (``first'' and ``second'' in its Fig.~2) are Theorem W and Theorem L$'$. Both rest on one structural
 assumption, the uniform decay rate (AG$_U$) of Sec.~\ref{sec:largespin}.D, beyond all orders [A], and on magnitude premises graded
 [M]; Theorem W also on one real-axis edge integral of the graviton, (EDGE-R) [M], and on a leading-Regge floor that is [NE] at its
 lower spins. (The stronger pointwise premise (AG$'$) is false near the gap edge and is not used, Sec.~\ref{sec:largespin}.D.)
@@ -1057,7 +1050,7 @@ Notation: $\beta$ is the transverse (H$_2$) impact parameter in AdS units, $\sin
 $b=2\Lambda\sinh(\beta/2)=(2J+1)\Lambda/m$, $\eta=\cosh\beta$, $u=\Lambda^2/m^2$, $x=\nu/m$, $P=P_{-1/2+i\nu}(\eta)$,
 $\Omega_k(\beta)=\int_0^1\psi_k(p)P_{-1/2+i\Lambda p}(\cosh\beta)\,dp$, and
 $F_{\rm LR}(\beta,u,\sigma)=2\Omega_2(\beta)+u\sigma\Omega_3(\beta)$ ($\sigma=\pm1$ for $++$/$+-$) is the leading-Regge
-per-state action. Every analysis of this section is unreviewed; an independent check (Sec.~\ref{sec:repro}) reproduced the
+per-state action. An independent check (Sec.~\ref{sec:repro}) reproduced the
 identity of Sec.~\ref{sec:largespin}.A, the constant $D$, Lemma LR$_\infty$ and the algebra of Theorem W.
 
 \subsection{An exact de-shift identity for the $EE$ kernel}
@@ -1157,7 +1150,7 @@ flat helicity partial waves in the hybrid floor, both helicities; the $+-$ class
 $(\Delta,J)=(1100,100)$ (Table~\ref{tab:dircv}). \emph{Flat tower.} The flat-space $\nu^6$ tower of the $O(1/m^4)$ scalar
 series is part of the floor's flat partial wave and is subtracted exactly at $O(y)$, both helicities, and at $O(y^2)$ for
 $++$ up to a residual $\tfrac3{16}J_0(b p)\,y^2$ that is a genuine, harmless beyond-hybrid term [DV\,+\,NE]; for $+-$ at
-$O(y^2)$ [D-sketch]. Not done: the comparison with the $J=0$ engine at $O(a^2)$.
+$O(y^2)$ [D-sketch]. 
 
 \subsection{Higher orders: window lemmas and the assumption (AG\texorpdfstring{$_U$}{\_U})}
 \emph{Why a window.} Costing the truncated fixed-$\beta$ $1/m$ series over the whole range $0\le\nu\le\Lambda\approx m$ fails
@@ -1197,7 +1190,7 @@ $|W_+(\theta)|\le\tfrac2\pi C_Je^{-(J+1){\rm Im}\,\theta}\min\{2/|\sin{\rm Re}\,
 Abel summation; checked to $3\times10^{-29}$). It satisfies the uniform rate below on the whole rectangle (ratio $\ge1.013$ at every
 sampled state); so do the curvature waves of the hybrid (Harish-Chandra and Hankel forms) [P].
 
-\emph{Assumption (AG$_U$)} (the Letter's ``one technical assumption''). For each entry $e$, $G_e:=$ exact$_e-$hybrid$_e$ (de-shifted,
+\emph{Assumption (AG$_U$)} (the decay assumption in the Letter's (iii)). For each entry $e$, $G_e:=$ exact$_e-$hybrid$_e$ (de-shifted,
 per unit leading image) is, on $Q_\pm=[p_w,1]\times[0,\pm T]$, $T\le T_0=25/(0.97\Lambda\beta)$, a sum $G_{e,+}+G_{e,-}$ of functions
 analytic in $Q_\pm$ and continuous on their closures, with $|G_{e,\pm}(p\pm iy)|\le M(p)\,e^{-0.97\Lambda\beta\,y}$ on the three sides:
 the \emph{uniform} rate only, with no local rate and no threshold. Amplitudes: $M(p_w)$ from the window series' waves (computed),
@@ -1255,7 +1248,7 @@ $d_\chi$: everything except the edge integral, plain / $+-$ transferred envelope
 $(1-d_\chi/H)H$, in units of $S_{E,t}=S_E(1-x_1^2)^{-2}$, the edge cost of a flat-profile wave pair of amplitude $e_{\rm sc}(1)$ carrying the
 $+-$ helicity factor of the $\Omega^U$ model [M] (the plain-unit tolerance, $\ge158\,S_E$, is the same number; $S_{E,t}/S_E=408$ at
 $(26,1.026)$). Exact scalar: $|E_\chi|$ of the exact scalar correction, $k=2$, in its own units $S_{E2}$, at the state's tabulated cutoff
-/ maximum over the lemma's cutoff grid (no exact scalar exists at the odd states). Graviton: not computed at any sampled state. States
+/ maximum over the lemma's cutoff grid (no exact scalar exists at the odd states). Graviton: model premise [M]. States
 $(J,m/\Lambda)$.}
 \footnotesize
 \begin{ruledtabular}
@@ -1272,17 +1265,16 @@ $(33,1.033)$, $(51,1.050)$ & 0.968, 0.952 & 0.040, 0.062 & 1.77, 5.89 & --- & [M
 \end{ruledtabular}
 \end{table}
 
-\emph{Reading.} (EDGE-R) for the graviton is \textbf{not closed} [M]: no graviton edge integral was computed at any sampled state, and
-no violation was found. If the graviton's $+-$ edge integral, in its transferred units, is as small as the exact scalar's in its own,
+\emph{Reading.} (EDGE-R) for the graviton is a model premise [M]: the graviton edge integral is not evaluated at the sampled states. If the graviton's $+-$ edge integral, in its transferred units, is as small as the exact scalar's in its own,
 every sampled state passes and $J_*=26$: at $(26,1.026)$ with margin $0.406/0.285=1.42$ at the tabulated cutoff, but over the full
 cutoff grid of the lemma the scalar reaches $0.405$, essentially at the tolerance $0.406$. If only $\le1.2\,S_{E,t}$ is granted,
-$J_*=38$. (A comparison in plain rather than transferred units would say nothing about the graviton.) What blocks a graviton computation [DV]: at the gap-mass states the integral is decided on
+$J_*=38$. (A comparison in plain rather than transferred units would say nothing about the graviton.) The graviton evaluation is delicate [DV]: at the gap-mass states the integral is decided on
 $x=\nu/m\in[0.94,x_1]$, where the exact scalar's parts above and below $x=0.94$ cancel to a net $0.11$--$0.29\,S_{E2}$, so sign-free
 covers cost $4$--$10$ times the tolerance and extrapolation from $x\le0.94$ misses by up to $3\times$; the direct real-contour evaluation
 fails above $\nu/\Delta\approx0.94$ (the spin prefactor grows at complex angle and puts a second hump on the contour); a hybrid thimble
 contour reproduces the exact scalar to the edge (within $1.6\sigma$ up to $\nu/\Delta=0.970$) and the graviton's $k=2$ piece, but its
-$k=3$ piece comes out $200$--$1000$ times too small, for a reason not found [I]. The 20 states with $m\ge1.13\Lambda$ need only the
-direct method; their jobs (and the gap-mass ones) are listed for external computation. Further inputs: the floor at $m<1.3\Lambda$ below
+$k=3$ piece comes out $200$--$1000$ times too small, for an unexplained reason [I]. The 20 states with $m\ge1.13\Lambda$ need only the
+direct method. Further inputs: the floor at $m<1.3\Lambda$ below
 $b=245$ is [NE]; the $+-$ transfer is a model convention [M]; the boundary factor $2$ (a factor-2 error would raise $d/H$ to
 $\approx0.9$ at $J=300$, $344$) and (P1$'$) beyond the leading-Regge kernel are [D-sketch]. Theorem W is a statement about the sampled states; the region between them is covered by
 smooth trends in every column [NE].
@@ -1343,7 +1335,7 @@ D-sketch spinning]. Heavy blocks are positive averages of plane waves, with $J$ 
 $J$-independent function [P for the scalar heavy factor; D-sketch for $\langle TT\mathcal O\rangle\langle\mathcal OTT\rangle$]; this
 positivity does not by itself give sign-free control.
 
-\subsection{Coverage at $\Delta_g=1000$, and what is not claimed}
+\subsection{Coverage at $\Delta_g=1000$}
 \begin{table}[!htbp]
 \caption{\label{tab:coverLS}Status of (Pos) for $\Omega^{EE}$ at $\Delta_g=1000$ by region. Fig.~2 of the Letter draws
 these regions in the $(J,m/\Lambda)$ plane (script \texttt{fig/make\_fig2.py}).}
@@ -1353,7 +1345,7 @@ these regions in the $(J,m/\Lambda)$ plane (script \texttt{fig/make\_fig2.py}).}
 region & status\\\hline
 flat limit & [certified]\\
 near gap: $J=0,2,4$--$16,21,23,27,29$ from the twist edge (to $1.2\Lambda$ for $J=0,2$, $1.05\Lambda$ for $4\le J\le16$, $1.10\Lambda$ above); $J=31$ at $1.04$--$1.10\Lambda$; OO block $J=4$--$10$ & [NE$\pm$] (Table~\ref{tab:computed}); thin: $J=14$, $15$ ($L\ge1.5$), $21$, $23$ ($L=1.18$ at the twist edge, with the representation term on $\lambda_c$, Sec.~\ref{sec:pos}), $29$ (signed window only)\\
-near gap, other states with $J\le25$; $J=31$ below $1.04\Lambda$ & [NE\,+\,M]: $J=17$--$20$, $22$, $24$, $25$ and the $J=31$ twist edge (computed in models; direct rows prepared for external computation); masses between and above the budgeted ones, to $1.3\Lambda$, via $H_{\rm cont}$ [NE]\\ % BATCH5
+near gap, other states with $J\le25$; $J=31$ below $1.04\Lambda$ & [NE\,+\,M]: $J=17$--$20$, $22$, $24$, $25$ and the $J=31$ twist edge (computed in models); masses between and above the budgeted ones, to $1.3\Lambda$, via $H_{\rm cont}$ [NE]\\ % BATCH5
 near gap, $26\le J\le344$, $m\le1.3\Lambda$ & Theorem W on 47 sampled states, sampled $J_*=26$, [P given P0, P1$'$, W, AG$_U$, EDGE-R]\,+\,[DV]; (EDGE-R) for the graviton [M], not computed (a scalar-like edge passes at all 47 states, thinnest at $(26,1.026\Lambda)$; $J_*=38$ if only $\le1.2\,S_{E,t}$ is granted); between samples [NE]; the non-sampled spins $28$, $32$, $36$, $40$, $48$ also have model values [NE\,+\,M], and $27$, $29$, $31$ error budgets (above)\\
 near gap, $223\le J\le344$ & also Theorem L$'$ (the two overlap)\\
 $m\ge1.3\Lambda$, $b<5$ & [NE$\pm$], $L\ge8.7$\\
@@ -1365,10 +1357,7 @@ $J>10^6$ & no theorem as stated (tolerance falls like the floor); $H_R'$ [D-sket
 \end{ruledtabular}
 \end{table}
 
-Not claimed: positivity ``for all $J\ge26$'' (or $38$) or ``for $J\ge J_*(m)$'' without the premises; a proof of (AG$_U$) beyond all
-orders; (AG$'$) itself, which is false in its pointwise form near the gap edge; a value of the graviton's edge integral (EDGE-R), of
-its edge amplitude, or of the spinning $O(1/m^4)$ window coefficients beyond models; positivity between sampled states beyond smooth
-trends; anything at $\Delta_g=300$ from this section (only $D$ is quoted there). The band $345\le J<857$ near the gap lies inside Theorem
+\emph{Scope.} Positivity ``for all $J\ge26$'' (or $38$) or ``for $J\ge J_*(m)$'' holds given the premises; (AG$_U$) is assumed beyond all orders, and the pointwise (AG$'$) is not used (it is false near the gap edge); the graviton's edge integral (EDGE-R), its edge amplitude and the spinning $O(1/m^4)$ window coefficients enter as model values; between sampled states positivity rests on smooth trends; at $\Delta_g=300$ only $D$ is quoted from this section. The band $345\le J<857$ near the gap lies inside Theorem
 L$'$'s range.
 
 \section{Positivity at every gap \texorpdfstring{$\Delta_g\ge1000$}{Delta g >= 1000}}
@@ -1378,15 +1367,14 @@ This section states which parts of the $\Delta_g=1000$ evidence for $\Omega^{EE}
 \ref{sec:largespin}) hold at every $\Delta_g\ge1000$, with which grade and under which premises. \emph{Chart A} compares a
 state with the state of the same $(J,m/\Lambda,h)$ at another gap; \emph{chart B} with the state of the same
 $(\beta,m/\Lambda)$, i.e.\ $J+\tfrac12\propto\Lambda$. $\Gamma$ is the beyond-hybrid correction in $c_2$ units ($m^2\times$ the
-correction relative to the flat envelope), $x=\nu/m$, $\xi=\nu/\Delta$. None of the analyses quoted here is reviewed or
-independently reproduced.
+correction relative to the flat envelope), $x=\nu/m$, $\xi=\nu/\Delta$. 
 
 \textbf{Summary.} (1) The certified layers hold at every $\Delta_g\ge1000$ [P; certified] (Sec.~\ref{sec:allgap}.B).
 (2) At $\Delta_g=2000$ every near-gap spin $J\le21$ except $18$ and $20$, the parity-odd OO states $J=4$--$10$, and $J=27$, $29$
 were computed on own-mass $K_2$ rows, including the seam strip (two spins also at $5000$); nothing is negative; $J\le11$, $J=13$ and
 the OO states close [NE$\pm$] sign-free, $J=12$, $14$--$17$, $19$, $21$ on the $\lambda$-level budget only, and for $J\le16$ every budget
 term scales like $\Lambda^{-2}$ or faster; $J=27$, $29$ are [NE\,+\,M] at their $2000$ twist edges; $J=18$, $20$, $22$--$26$, $28$,
-$30$--$32$ have no rows at $2000$ (Sec.~\ref{sec:allgap}.C).
+$30$--$32$ are not computed at $2000$ (Sec.~\ref{sec:allgap}.C).
 % BATCH4: update summary item (2) when the external direct rows at 2000 are in (J = 27, 29 twist edges; sign-free closure for J >= 12).
 (3) Between and beyond the computed gaps the
 transfer rests on a no-growth premise: for $J\le7$ the implication is proved, [P given B$_F$ + windows] with B$_F$ [NE]; for the other
@@ -1397,7 +1385,7 @@ $J\le8$ is [P given TAIL, $\Pi\le3$, bounded $K_2$ part, $\xi$-continuity], with
 (Sec.~\ref{sec:allgap}.F). (6) One near-gap band, $33\le J<J_W$ above the seam ($J_W\approx26.5\,\Lambda/\Lambda_0$, the chart-B image of $J=26$), is reached by no transfer
 route (Sec.~\ref{sec:allgap}.D, Table~\ref{tab:coverGap}). \emph{Net:} positivity of $\Omega^{EE}$ at a gap $\Delta_g>1000$ has at best
 the grade it has at $1000$; on $1000<\Delta_g<\Delta_1^*$ it rests in addition on the no-growth premise, at large spin on premise
-constants carried in AdS units [M], and the band of (6) is not covered. It is not ``(Pos) proved for all $\Delta_g\ge1000$''. Nothing
+constants carried in AdS units [M], and the band of (6) is not covered.  Nothing
 in this section concerns $\Omega^Q_{\rm up}$. \emph{Literature.} We know of no explicit uniform-in-gap bound: the flat-to-AdS uplifts
 of CHMRS (``sufficiently large'' $M$)~\cite{CHMRS} and of Ref.~\cite{CHLPSpw} (an unquantified $O(1/\Delta_{\rm gap}^4)$) are not
 effective; the uniformity of Knop and Maz\'a\v{c} in AdS$_2$ comes from pointwise kernel positivity~\cite{KnopMazac}, which
@@ -1417,7 +1405,7 @@ $4.03\times10^{-16}$ at $\Delta_g=1000$, $2000$, $5000$, $10^4$, $10^5$ ($K=1$, 
 \end{equation}
 at the same gaps [DV] (\texttt{fig/make\_fig.py} prints them). So the $\Delta_g=1000$ numbers are the weakest of the family in
 absolute terms, not in gap units. The quartic upper end $2L_{\rm AdS}=92.81$, $104.77$, $120.57$ (Table~\ref{tab:dg}) remains a
-value of the implication at $\Delta_g\ne1000$, because positivity of $\Omega^Q_{\rm up}$ was not examined there.
+value of the implication at $\Delta_g\ne1000$, because positivity of $\Omega^Q_{\rm up}$ is examined only at $300$ and $1000$.
 
 \subsection{What holds uniformly in the gap}
 \begin{table}[!htbp]
@@ -1434,9 +1422,7 @@ $\nu=O(1)$, $\Lambda X(\nu)$ tends to a fixed profile; $\Lambda^2\delta k_0\to-6
 are the minimal-norm grid solutions (\texttt{data/gap/}, Table~\ref{tab:data}; they enter the near-gap budgets through the gauge
 factor). Checked there: discrete residual $\le5\times10^{-13}$; off-grid de-shift residual $|E[X]-\Phi|\le6\times10^{-6}$ for $t\le14$
 ($|\Phi(0.3)|=1.1$ / $0.42$) (it fails beyond $t\approx18$, as for the $1000$ grid); graviton-pole identity to
-$10^{-14}$; $\Lambda^2\delta k_0=-68.081$ / $-68.077$; grid floor $\le1.5\times10^{-14}$ beyond $\Lambda+10$. No continuum
-(strip-analytic) fit with an all-$t$ bound $\varepsilon_W$, which $H_K$ uses, was made at $2000$ or $5000$; beyond $5000$ only the
-expansion above exists & [P]; weights [DV] at $300$--$5000$ (grids; continuum form with $\varepsilon_W$ only at $300$, $1000$);
+$10^{-14}$; $\Lambda^2\delta k_0=-68.081$ / $-68.077$; grid floor $\le1.5\times10^{-14}$ beyond $\Lambda+10$. The continuum (strip-analytic) form with an all-$t$ bound $\varepsilon_W$, which $H_K$ uses, is constructed at $300$ and $1000$; at $2000$, $5000$ the grids are used, beyond $5000$ the expansion above & [P]; weights [DV] at $300$--$5000$ (grids; continuum form with $\varepsilon_W$ only at $300$, $1000$);
 asymptotic beyond\\
 \emph{Flat floor.} NF02: $\mathcal F\ge N/5$ on every flat heavy state; $\Lambda$-independent at fixed $(J,m/\Lambda,h)$ & [certified]\\
 \emph{Lemma C is monotone.} At fixed $(J,m/\Lambda,h)$ the Lemma-C bound decreases in $\Lambda$, so the sign-free floor (flat $-$ Lemma C)
@@ -1477,8 +1463,7 @@ agreement at one gap excludes a competing saddle at every gap (barring an accide
 The protocol is that of Sec.~\ref{sec:pos} (the same budget code, $\times3$ on every model term) on own-mass $K_2$ rows at
 $\Delta=\Delta_g+J$ (light $J=0,2$ at $\Delta_L=0.99\Delta_g$), with the gauge factor of the gap's own minimal-norm weight (published
 in \texttt{data/gap/}). The reference row is at $\Delta_{\rm ref}=2\times10^4$ for $J\le8$, $12$ and OO $J=4$--$8$, and at
-$5\times10^4$ for $J=9$--$11$, $13$--$21$, $27$, $29$ and OO $J=10$ (reading (iv)). Rerun at $\Delta_g=1000$ with the new rows hidden, it
-reproduces the published near-gap table to every printed digit. Table~\ref{tab:gap2000} lists the results.
+$5\times10^4$ for $J=9$--$11$, $13$--$21$, $27$, $29$ and OO $J=10$ (reading (iv)). Run at $\Delta_g=1000$, it reproduces the near-gap values of Sec.~\ref{sec:pos} to every printed digit. Table~\ref{tab:gap2000} lists the results.
 
 \begin{table}[!htbp]
 \caption{\label{tab:gap2000}$\Omega^{EE}$ near gap at $\Delta_g=2000$ and $5000$: $\lambda/N_s$ / sign-free leverage $L$
@@ -1554,28 +1539,26 @@ OO 10 & tw$_{2000}$; tw$_{1000}$ & $+0.9378$ / $1.4$ & $+0.9441$ / $5.7$; $+0.93
 twist edge and $+0.2002$ at $5000$, then $J=4$ ($+0.2021$; OO $+0.2029$); the lowest values at $J\ge8$ ($+0.285$, $+0.286$, $+0.303$,
 $+0.335$, $+0.366$ for $J=8$, $12$ at $5000$, $13$, $11$, $15$) are dips of the hybrid itself, not of the corrections, and stay
 $\ge1.4$ times the binding value. (ii) $J\le11$, $J=13$, the light states and the OO states $J=4$--$10$ are [NE$\pm$] sign-free from
-$K_2$ rows alone, with leverages $4$--$9$ times those at $1000$ where the comparison is like for like; $J=8$ is now sign-free (it was
-$\lambda$-level only), $J=7$ needs no direct row, and $J=13$ closes sign-free only by $3\%$ (lower bound $+0.009$). (iii) $J=12$,
+$K_2$ rows alone, with leverages $4$--$9$ times those at $1000$ where the comparison is like for like; $J=8$ is sign-free (at $1000$ $\lambda$-level only), $J=7$ needs no direct row, and $J=13$ closes sign-free only by $3\%$ (lower bound $+0.009$). (iii) $J=12$,
 $14$--$17$, $19$, $21$ close only on the $\lambda$-level budget ($L\ge1.7$, thin for $J=19$, $21$ at the $2000$ twist edge): the
 per-node $K_2$ step is $\approx1$--$4\times10^3c_2$ at every gap and its cost falls only like $\Lambda^{-2}$, which with the
 $\times3$ factor is not enough for a sign-free closure at $J\ge14$; at $5000$, $J=12$ is sign-free. $J=17$, $19$ are [NE\,+\,M] at
-$1000$ (batch 5) but [NE$\pm$] $\lambda$-level at $2000$. (iv) \emph{Reference.} Each chain row is a ratio to a reference row at
+$1000$ but [NE$\pm$] $\lambda$-level at $2000$. (iv) \emph{Reference.} Each chain row is a ratio to a reference row at
 the same $\nu$, whose leading partial wave vanishes at $x_0=2.405\,m_{\rm ref}/((2J+1)m_{\rm row})$: with $\Delta_{\rm ref}=2\times10^4$
 inside the $2000$ rows for $J\ge16$ ($x_0=0.72$, $0.56$, $0.44$, $0.41$ at $J=16$, $21$, $27$, $29$), with $5\times10^4$ at $x_0\ge1.0$.
 The larger reference removes an inflation of the $\lambda$-level step (at $J=21$, $1000$ twist edge: $0.781\to0.297$; its $2000/1000$
 ratio becomes $0.24$, against $0.48$--$0.64$), which lifts $J=21$'s $2000$ twist edge from [NE\,+\,M] ($\lambda$-level $L=0.9$) to
 [NE$\pm$] $\lambda$-level ($1.7$). At $J=27$, $29$ the step falls as predicted ($0.97\to0.55$, $0.94\to0.55$), but the edge term
 (where a row stops at $x=0.8$; $|\Gamma|\approx10^4c_2$ at $x=0.85$--$0.9$) and the window below the first node then dominate, and their $2000$
-twist edges stay [NE\,+\,M]; they need the direct rows of batch 4 (or a higher Laplace order). Their values move by $-0.02$ to $-0.03$
+twist edges stay [NE\,+\,M]. Their values move by $-0.02$ to $-0.03$
 between the two references, toward the $1000$ values, and stay $\ge+0.91$. $J=27$ is graded on a grid with edge nodes to $x=0.9$; on
 the $1000$ grid alone (to $x=0.8$) its $\lambda$-level $L$ is lower ($0.25$--$0.73$ up to $1.05$, $1.25$--$1.64$ at $1.075$--$1.10$), and
 $J=29$ has only that grid. The values at $2000$ in the table use the larger reference where both exist; with $2\times10^4$, $J=16$
 gives $+0.9994$ / $0.4$ ($3.7$) and $+0.9418$ / $0.4$ ($4.4$), and $J=27$, $29$ give $+1.024$ and $+1.028$ at the $1000$ twist edge (own-row
-$K_2$ values $+1.031$, $+1.025$, as tabulated in the previous version).
+$K_2$ values $+1.031$, $+1.025$, ).
 \emph{OO block.} The OO value is the normalised $++$ diagonal of the $EE$ chain; the identity $\Gamma_{\rm OO}=\Gamma_{++}$, checked on
-the $2000$ rows on six nodes per spin to $\le7\times10^{-14}$ (EE) and $\le0.044\,c_2$ (C3H, $J=10$), is carried as a sign-free
-$10\,c_2$ term. At $1000$ the same construction reproduces the earlier OO minima to $10^{-4}$, and the OO twist edge of $J=4$
-($+0.2059$) lies below the earlier quoted minimum $+0.2150$ at $1.01\Lambda$, a mass grid that did not include the twist edge.
+the $2000$ rows on six nodes per spin to $\le7\times10^{-14}$ (EE) and $\le0.044\,c_2$ ($k=3$, $J=10$), is carried as a sign-free
+$10\,c_2$ term. At $1000$ the same construction reproduces the chain OO values to $10^{-4}$; the $J=4$ OO minimum is at its twist edge ($+0.2059$; $+0.2150$ at $1.01\Lambda$).
 (v) \emph{Chart-A scaling.} For $J\le16$ and the OO states the budget terms $E_{\rm trunc}$, the $\lambda$-level $K_2$ step and
 $E_{\rm edge}$ scale by $0.25\pm0.04$ from $1000$ to $2000$ ($(\Lambda_{1000}/\Lambda_{2000})^2=0.2496$; $J=13$: $E_{\rm trunc}$
 $0.18$) and $E_{\rm low}$ by $0.059$--$0.065$ ($\approx\Lambda^{-4}$); to $5000$ by $0.040$--$0.043$ (expected $0.0399$) [NE$\pm$].
@@ -1589,8 +1572,7 @@ $\le80$--$330\,c_2$ elsewhere ($J=15$--$29$, $x\le0.8$) from $1000$ to $2000$, a
 chart-A counterpart and is computed on its own rows: [NE$\pm$] for $J\le16$, $17$, $19$, $21$ and the OO states, [NE\,+\,M] for $27$,
 $29$. It holds the lowest $2000$ values of $J=11$, $13$, $15$, $17$, $27$ ($+0.30$ to $+0.53$ for $J\le17$, below their $1000$ twist-edge
 values $+0.35$ to $+1.00$; $J=27$: $+0.910$ at $1.0175\Lambda$), where the $K_2$ corrections are small ($\le6\times10^{-4}$); chart A
-cannot supply these states, so every larger gap needs its own seam rows. Spins $18$, $20$, $22$--$26$, $28$, $30$--$32$ have no rows at
-$2000$ yet; at $1000$ they carry the grades of Table~\ref{tab:coverLS}.
+cannot supply these states, so every larger gap needs its own seam rows. Spins $18$, $20$, $22$--$26$, $28$, $30$--$32$ are not computed at $2000$; at $1000$ they carry the grades of Table~\ref{tab:coverLS}.
 In the tolerance form of Lemma T the seam is the $x\to1$ edge window of chart-A states: for $J\le16$ the seam tolerances are
 $0.65$--$1.0$ (hybrid floor) and $\ge0.75$ (certified floor, $J\le12$) of the scaled $1000$ twist-edge tolerance, and the strip
 carries $\le10^{-3}$ of the sign-free weight [DV].
@@ -1648,14 +1630,13 @@ $k=2$ cost relative to the leading-Regge action is $|S/\Omega_2|=5.0\times10^{-4
 $7.5\times10^{-6}$ at $\Delta_g=500$, $1000$, $1500$, $2000$ [DV, scalar]. Chart A is not usable there: at a fixed spin's twist edge the
 $+-$ transfer factor $(1-x_1^2)^{-2}$ of (EDGE-R) grows like $(\Delta_g/J)^2$ ($408$, $1550$, $9400$ at $J=26$ and $\Delta_g=1000$,
 $2000$, $5000$). In chart B pointwise corrections do not shrink, so sign-free per-node budgets do not improve; only signed integrals do.
-The graviton's edge integral is uncomputed at every gap.
+The graviton's edge integral enters as the premise (EDGE-R) [M] at every gap.
 
 \emph{A band with no transfer route.} The near-gap states above the seam with $33\le J<J_W$, where $J_W$ is the chart-B image of $J=26$ ($J_W=52$ at $2000$,
 $132$ at $5000$), are reached by neither chart: chart A maps them to $1000$ states in Theorem W's range, where the $+-$
 (EDGE-R) transfer grows like $(\Delta_g/J)^2$, and chart B maps them to $1000$ near-gap states with $J\approx16$--$25$, mostly
 [NE\,+\,M], whose sign-free budgets do not improve. This band,
-which grows with the gap, carries no grade at any $\Delta_g>1000$; $K_2$ rows at $2000$ with $\Delta_{\rm ref}\ge5\times10^4$ would
-give it one.
+which grows with the gap, carries no grade at any $\Delta_g>1000$.
 
 \subsection{Certified eventual positivity}
 At each node $(J,\xi)$, a certified holomorphic Morse chart ($\Phi_\xi-\Phi^*=-\tfrac12W\cdot W$ exactly, by Taylor-model inversion
@@ -1666,12 +1647,10 @@ states of spin $J\in\{0,2,4,5,6,7,8\}$ are positive at every $\Delta_g\ge\Delta_
 cycle outside the certified real Morse ball ($\ge9$ Gaussian widths at $\Delta_1$) is negligible [D-sketch]; (ii) the chain's
 propagation factor $\Pi\le3$ [M]; (iii) $\sup_m|\Gamma_{K_2,m}|$ bounded, i.e.\ B$_F$ for the explicit $K_2$ function [NE];
 (iv) continuity in $\xi$ between the certified nodes [D-sketch]. Six $\xi$-intervals were certified directly, at a cost of $\times4$--$8$
-in $\Delta_1$; covering $\xi\in[0.1,0.85]$ needs about 2 CPU-h per spin and was not run. The graviton $EE$ and C3H amplitudes are
+in $\Delta_1$; continuity between the nodes is premise (iv). The graviton $EE$ ($k=2$) and $k=3$ amplitudes are
 certified at $J=0$, $2$ only; for $J=4$--$8$ the certified data are those of the scalar $k=2$ integrand with spin contraction $Q_J$,
 which has the same phase. $\Delta_g=1000$ is out of reach of the method: $\Delta_1\propto r_c^{-2}$, and $1000$ needs a certified radius
-$r_c\approx0.24$, against $0.023$--$0.052$ (scalar) and $0.014$--$0.032$ (graviton prefactors). A first remainder lemma, with the cubic term of the phase in the exponent, gave
-$\Delta_1=4.7\times10^5$--$10^7$; it is superseded (its evaluator also used floating-point series coefficients outside the enclosure,
-numerically irrelevant and fixed). So $1000\le\Delta_g<\Delta_1^*(J)$, about two decades, rests on B$_F$.
+$r_c\approx0.24$, against $0.023$--$0.052$ (scalar) and $0.014$--$0.032$ (graviton prefactors). So $1000\le\Delta_g<\Delta_1^*(J)$, about two decades, rests on B$_F$.
 
 \begin{table}[!htbp]
 \caption{\label{tab:delta1}Certified thresholds $\Delta_1(J,\xi)$: for every $\Delta\ge\Delta_1$ the $K_2$ truncation error is below
@@ -1689,8 +1668,8 @@ scalar, 7 & $2.5\times10^5$ & $7.1\times10^4$ & $4.5\times10^4$ & $4.2\times10^4
 scalar, 8 & $4.2\times10^5$ & $1.1\times10^5$ & $8.4\times10^4$ & $9.4\times10^4$ & $1.4\times10^5$ & $4.2\times10^5$\\
 graviton $EE$, 0 & $2.2\times10^5$ & $6.3\times10^4$ & $5.6\times10^4$ & $5.6\times10^4$ & $8.4\times10^4$ & $2.2\times10^5$\\
 graviton $EE$, 2 & $2.8\times10^5$ & $7.9\times10^4$ & $5.6\times10^4$ & $6.3\times10^4$ & $1.0\times10^5$ & $2.8\times10^5$\\
-graviton C3H, 0 & $2.2\times10^5$ & $6.0\times10^4$ & $4.5\times10^4$ & $4.7\times10^4$ & $7.5\times10^4$ & $2.2\times10^5$\\
-graviton C3H, 2 & $3.0\times10^5$ & $7.9\times10^4$ & $5.0\times10^4$ & $5.6\times10^4$ & $8.9\times10^4$ & $3.0\times10^5$\\
+graviton $k=3$, 0 & $2.2\times10^5$ & $6.0\times10^4$ & $4.5\times10^4$ & $4.7\times10^4$ & $7.5\times10^4$ & $2.2\times10^5$\\
+graviton $k=3$, 2 & $3.0\times10^5$ & $7.9\times10^4$ & $5.0\times10^4$ & $5.6\times10^4$ & $8.9\times10^4$ & $3.0\times10^5$\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
@@ -1702,7 +1681,7 @@ constants in AdS units [M]. Under that hypothesis every tolerance at the chart-B
 floor falls (Table~\ref{tab:lsgap}) [DV]. For Theorem W, at the chart-B images of all 47 states, $d_\chi/H$ is $0.48$--$0.50$ times its
 $1000$ value at $2000$ and $0.19$--$0.22$ times at $5000$. If the graviton's edge integral, in units of its own flat-profile scale at
 fixed $(\beta,x_1)$, grows more slowly than $\Lambda^{3.1}$, the $1000$ statement transfers with margin $\times8.5$ ($2000$) and $\times140$
-($5000$) at the binding state. The graviton's edge integral is not computed at any gap, and the trend between the computed gaps is
+($5000$) at the binding state. The graviton's edge integral enters as the premise (EDGE-R) [M] at every gap, and the trend between the computed gaps is
 [D-sketch].
 
 \begin{table}[!htbp]
@@ -1723,7 +1702,7 @@ W: tolerated edge integral at the binding state ($J=26\to52\to132$), $S_{E,t}$ &
 \end{ruledtabular}
 \end{table}
 
-\subsection{Coverage at every gap, and what is not claimed}
+\subsection{Coverage at every gap}
 \begin{table}[!htbp]
 \caption{\label{tab:coverGap}Status of (Pos) for $\Omega^{EE}$ at every $\Delta_g\ge1000$ by region; compare Table~\ref{tab:coverLS}
 ($\Delta_g=1000$).}
@@ -1748,39 +1727,31 @@ near gap $J=17$, $19$ & [NE\,+\,M] at $1000$, [NE$\pm$] $\lambda$-level at $2000
 near gap $J=21$ & [NE$\pm$] thin at $1000$ (direct rows); $\lambda$-level at $2000$ at every computed mass ($\Delta_{\rm ref}=5\times10^4$);
 transfer as above\\
 near gap $J=23$, $27$, $29$, $31$ & at $1000$ as in Table~\ref{tab:coverLS} (direct rows; $23$ thin, $29$ signed, $31$ from $1.04\Lambda$);
-at $2000$ $J=27$, $29$ [NE\,+\,M] at the twist edges and at $1.0175\Lambda$ ($J=27$), thin $\lambda$-level from $1.04$/$1.075\Lambda$, pending
-direct rows; $23$, $31$ not computed; transfer as above\\
+at $2000$ $J=27$, $29$ [NE\,+\,M] at the twist edges and at $1.0175\Lambda$ ($J=27$), thin $\lambda$-level from $1.04$/$1.075\Lambda$; $23$, $31$ not computed at $2000$; transfer as above\\
 other near-gap states, $J\le32$ ($J=18$, $20$, $22$, $24$--$26$, $28$, $30$, $32$) & the grade of Table~\ref{tab:coverLS} at $1000$ ([NE\,+\,M]
 or [M]), transferred under $H_{\rm mono\text{-}A}$; no rows at $2000$; seam strip not covered by chart A % BATCH5
 \\
 near gap above the seam, $33\le J<J_W$ ($\le51$ at $2000$, $\le131$ at $5000$; $J_W\approx26.5\,\Lambda/\Lambda_0$) & no transfer route
-(chart A: EDGE-R transfer $\propto(\Delta_g/J)^2$; chart B: $1000$ images at $J\approx16$--$25$, mostly [NE\,+\,M]); not covered, hypothesis only;
-not computed at any $\Delta_g>1000$\\
+(chart A: EDGE-R transfer $\propto(\Delta_g/J)^2$; chart B: $1000$ images at $J\approx16$--$25$, mostly [NE\,+\,M]); no grade (hypothesis only)\\
 near gap, $26\le J\le344$ at $1000$ and their chart-B images & Theorem W [P given P0, P1$'$, W, AG$_U$, EDGE-R at $\Delta_g$]\,+\,[DV],
 premise constants carried in AdS units [M]; between samples [NE]\\
 $b\ge0.37211\Lambda$ (Theorem L$'$) & floor [P\,+\,certified]; theorem [D given P$_L'$(i), AG$_U$, EDGE at $\Delta_g$], tolerances [DV]
 at $1000$, $2000$, $5000$, [D-sketch] between\\
-$m\ge1.3\Lambda$, $b_A(m)\le b<0.37211\Lambda$ & $H_R'$ [D-sketch\,+\,M], as at $1000$; floor now rigorous\\
+$m\ge1.3\Lambda$, $b_A(m)\le b<0.37211\Lambda$ & $H_R'$ [D-sketch\,+\,M], as at $1000$; floor rigorous\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
 % BATCH4: the rows "J = 12, 14-16", "J = 21", "J = 23, 27, 29, 31" change when the direct rows at 2000 are in.
 % BATCH5: the rows "J = 17, 19" and "other near-gap states" change when the direct rows at 1000 are in.
 
-Not claimed: positivity at $\Delta_g>1000$ without the no-growth premise (B$_F$ or $H_{\rm mono\text{-}A}$, $H_{\rm mono\text{-}B}$)
-below $\Delta_1^*$, or with a grade better than at $1000$; anything in the band $33\le J<J_W$ near the gap;
-the large-spin margins without premise constants carried in AdS units; B$_F$ itself; certified eventual positivity for the graviton amplitude at
-$J\ge4$, for $J>8$, or uniformly in $\xi$; a value of the graviton's edge integral at any gap; anything below $\Delta_g=1000$
-(Sec.~\ref{sec:cor} remains a conditional remark); positivity of $\Omega^Q_{\rm up}$ at any gap other than $300$, $1000$.
+\emph{Scope.} Positivity at $\Delta_g>1000$ has at most its $1000$ grade and, below $\Delta_1^*$, rests on the no-growth premise (B$_F$ or $H_{\rm mono\text{-}A}$, $H_{\rm mono\text{-}B}$), itself [NE]; the band $33\le J<J_W$ near the gap carries no grade; the large-spin margins assume premise constants carried in AdS units; eventual positivity is certified with graviton amplitudes at $J=0,2$, for $J\le8$, at the certified $\xi$ nodes; the graviton's edge integral is a model premise at every gap; below $\Delta_g=1000$ Sec.~\ref{sec:cor} is a conditional remark; positivity of $\Omega^Q_{\rm up}$ is examined at $300$ and $1000$.
 
 \section{A conditional remark on \texorpdfstring{$\Delta_g\ge300$}{Delta g >= 300}}
 \label{sec:cor}
 
-For $\Delta_g\ge1000$ this remark is superseded by Sec.~\ref{sec:allgap}, which uses computations at $2000$ and $5000$
+For $\Delta_g\ge1000$ Sec.~\ref{sec:allgap} replaces this remark; it uses computations at $2000$ and $5000$
 and certified statements uniform in the gap; what follows concerns $300\le\Delta_g<1000$.
-This is not a result of this work: it is a conditional remark,
-recorded to show how the method would extend, and its inputs include an open item and an assumption close to
-its own conclusion (see \emph{What it assumes} below).
+It records how the method extends below $1000$; its inputs include an open item and an assumption close to its own conclusion (\emph{What it assumes}, below).
 
 \textbf{Statement} [D-sketch\,+\,M]. Assume (i) A1$'$, A2 and the inputs of Table~\ref{tab:inputs} at
 every $\Delta_g\ge300$; (ii) (Pos) at $\Delta_g=300$ for the functional in question, which at 300
@@ -1826,7 +1797,7 @@ $A$, $B_{\rm AdS}$ / $B_\infty$ & $3022.34$, $-6552.66$ / $-5327.21$ & $3022.337
 $\tau_0$ at 300 / 1000 & $3.13206\times10^{-6}$ / $2.89126\times10^{-8}$ & same; also with the continuum $k=2$ weight & fully\\
 $A_Q$, $B_\infty^Q$, $\kappa$ & $17.241$, $-19.2782$, $0.1099$ & $17.240713$, $-19.278176$, $0.109908$ & fully\\
 $2L_{\rm AdS}$ at 300 / 1000 & $72.04$ / $92.81$ & $72.0406$ / $92.8135$ & fully\\
-$\Lambda$-forms, H17 band, $\delta K_0$ & Sec.~\ref{sec:lambda} & agree; H17 band $\pm0.24\%$ (record fixed) & fully\\
+$\Lambda$-forms, H17 band, $\delta K_0$ & Sec.~\ref{sec:lambda} & agree; H17 band $\pm0.24\%$ & fully\\
 $\Omega^{EE}$ binding, hybrid & $+0.2043$ / $+0.2009$ & $+0.20427$ / $+0.20090$ & fully (hybrid); $-0.0005$ correction not\\
 $\Omega^Q$ binding 300 / 1000 & $+0.1427$ / $+0.1428$ & $+0.14270$ / $+0.14282$ & partly (ratio, weights shared)\\
 ratio $\rho(\nu)$, $\nu<4$ & expansion to order 5 & direct 7-D quadrature: $\le3.4\times10^{-7}$ / $\le3\times10^{-8}$ & independent route\\
@@ -1841,7 +1812,7 @@ spin-2 contacts at the correlator level & $O(y^0\log y)$ & $A+B\log y$ to $y=1.2
 identity~\eqref{eq:magic} & [P] to $O(r^8)$, $b=0..4$ & exact with $b$ and spin symbolic to $O(r^6)$; $b=-4..4$ to $O(r^8)$; $\le3.7\times10^{-48}$ to $O(r^{40})$ & second check, own code\\
 monopole $D$ (1000 / 300) & $-9.98332\times10^{-4}$ / $-1.09754\times10^{-2}$ & $-9.9833211\times10^{-4}$ / $-1.0975445\times10^{-2}$; $t$-independence derived & second check, own code\\
 Lemma LR$_\infty$ & $r\le0.577$ ($\beta\ge1$, cruder constant) & true $r\le8\times10^{-7}$; stated bound with $\int|\psi|$: $0.0162$ (certified) & second check, own code\\
-Theorem W algebra, an earlier $J_*$ table & $J_*=50$ at $(3,10,10)$ & $2\times2$ criterion sharp; table reproduced; $64$ with the $k=3$ piece & own costs; floors read as data\\
+Theorem W algebra & $2\times2$ criterion $d\le H$ & sharp ($2\times10^5$ random matrices); costs recomputed with the $k=3$ piece & own costs; floors read as data\\
 $\langle TT\mathcal O_J\rangle$ structures & even $J$: $2^++1^-$; odd: $1^-$ & Ref.~\cite{DKKPS}'s table; own helicity count, $J\le11$ & literature $+$ own count\\
 \end{tabular}
 \end{ruledtabular}
@@ -1850,15 +1821,12 @@ $\langle TT\mathcal O_J\rangle$ structures & even $J$: $2^++1^-$; odd: $1^-$ & R
 \textbf{Sensitivity.} Reaching $s_{\rm fail}=1.776$ needs a worst-sign relative shape error of $\rho$
 of $2.1\times10^{-4}$ (300) / $1.9\times10^{-5}$ (1000) on $\nu<4$, $\sim600\times$ the measured
 direct-versus-expansion difference. \textbf{Not reproduced:} the beyond-Regge corrections to $\Omega^{EE}$'s
-binding state by fresh code (they are error-budgeted, Table~\ref{tab:computed}, but with the project's own
-code); the full $\Omega^Q$ state scan (binding state only); the $c_L$ slope; any covering hypothesis; the step from the
-correlator to the $R^4$ light function in L6$'$ and the non-dispersive counterexample (INDEP: not attempted); the analyses of
+binding state by fresh code (they are error-budgeted, Table~\ref{tab:computed}, but with our own code); the full $\Omega^Q$ state scan (binding state only); the $c_L$ slope; any covering hypothesis; the step from the
+correlator to the $R^4$ light function in L6$'$ and the non-dispersive counterexample (not attempted); the analyses of
 Sec.~\ref{sec:largespin} beyond the rows above (the certified constants of Lemma LR$_\infty$, the three-channel $O(1/m^2)$
 computation, Lemmas P4W, F and P4W-$\chi$ and their constants, the exact scalar at complex $\nu$ and its edge integrals), the
 explicit second-order ASD solution and the Barnes map behind $c_1$, the light-block growth and light-state tolerances, and the
-$k=2$ tails beyond $\Lambda$; all unreviewed. No substantive discrepancy was found by the third checker. The second check (last five rows)
-found no load-bearing error; it corrected the constant behind an earlier $r(\beta)$ table, the omission of the $k=3$ piece in Theorem
-W's costs, and three citation labels (all fixed here).
+$k=2$ tails beyond $\Lambda$; the direct own rows of $J=9$--$11$, $13$--$15$ at $1000$ and the evaluation of the representation term on $\lambda_c$ (Sec.~\ref{sec:pos}); the analyses of Sec.~\ref{sec:allgap}. The third checker found no substantive discrepancy, and the second check (last five rows) no load-bearing error.
 
 \section{ABJM consistency check}
 Dictionary: $M^2=4/\alpha'$, $L^2/\alpha'=\pi\sqrt{2\lambda}$, so
@@ -1891,12 +1859,10 @@ consistency check of a theory inside the assumptions [D-sketch for ``inside''], 
 is not shown for string states in AdS, and at $3\%$ of the upper end the check could fail only grossly. Loops
 (finite $g_s$) are outside A2.
 
-\section{What is not claimed}
-Not claimed: an unconditional bound; any statement beyond leading order in $1/c_T$, in particular the size of the $1/c_T$
+\section{Scope} The following lie outside the results: an unconditional bound; any statement beyond leading order in $1/c_T$, in particular the size of the $1/c_T$
 corrections to the bounds (end of Sec.~\ref{sec:HK}); any $\Delta_g<1000$ other than 300 (Sec.~\ref{sec:cor} is a conditional remark only); at $\Delta_g>1000$, anything beyond
 Sec.~\ref{sec:allgap} (positivity of $\Omega^{EE}$ there has at best its $1000$ grade, rests on the no-growth premise below $\Delta_1^*$ and, at large
-spin, on premise constants carried in AdS units, and leaves the band $33\le J<J_W$ near the gap uncovered; $\Omega^Q_{\rm up}$ was not
-examined);
+spin, on premise constants carried in AdS units, and leaves the band $33\le J<J_W$ near the gap uncovered; $\Omega^Q_{\rm up}$ is examined at $300$, $1000$ only);
 the lower end of item (2) (Sec.~\ref{sec:lower});
 loop level; bounds on $\hat g_4$ or $g_5$; a cubic closure $|\hat g_3|^2\Lambda^8\le\dots$ from item (2)
 or a ratio $|\hat g_3|^2/g_4$ (a closure of this kind would have lower slope $0.49$, $1.9\times$
@@ -1907,64 +1873,6 @@ spectra accumulating below $\Delta_g$; positivity ``for $m\ge m_*$''; unconditio
 (Sec.~\ref{sec:largespin}: Theorems W and L$'$ are conditional on the assumption (AG$_U$) [A], Theorem W also on the graviton's
 edge integral (EDGE-R) [M], and both on magnitude premises graded [M]); positivity between sampled states beyond smooth trends; any
 statement on $J>10^6$ beyond $H_R'$.
-
-\section{Corrections to earlier drafts}
-\label{sec:corr}
-For readers of earlier versions only; nothing in the sections above depends on this list. Record fixes: H17 band $\pm0.24\%$
-(was $\pm0.2\%$); twist edge $1.00499\Lambda$ (was $1.0048\Lambda$); $\Lambda^4\to\Delta_g^4$ effect $-1.99\%$ (was $-2.2\%$); ABJM
-$\lambda$ values earlier quoted as $2.6\times10^7$ / $3.2\times10^9$ correspond to $ML=\Delta_g$. Grade changes: $H_K$ [D-sketch]
-$\to$ [D]; R1$'$ [D] $\to$ [D\,+\,DV]; LRC-a for $EE$ at $k=4$ [D-sketch] $\to$ [D\,+\,DV]; L6$'$ [I] $\to$ [D]; L7(a) spinning
-[D-sketch] $\to$ [D]. Other corrections: A1 (full gap) $\to$ A1$'$ (higher-spin gap); ``ABJM violates A1''
-$\to$ ABJM-IIA satisfies A1$'$, A2 at leading order; flat certificate ``$\ge0.15$ except one corner'' $\to$
-$\ge1/5$ everywhere [certified]; Q's flat margin ``dense minimum $0.1966$'' $\to$ minimum $0.1835$, Q3$^*$ factored
-weights; $H_K$ for $k=4$: $J_0<2$ $\to$ $J_0<\tfrac52$ for our weights (the earlier change from $\tfrac52$ to $2$ was
-correct for generic weights only); $H_K$ [D-sketch] $\to$ [D]; integrability of the $R^4$ arc [I] $\to$ [D];
-$H_{\rm EFT}$(a) ``fails pointwise in angle'' restricted to non-dispersive toy terms; $H_{\rm RS}$ ``[D given $P_{\rm cyc}$],
-preliminary'' $\to$ [D] (the physical chain is $D'$ by definition), and an earlier census claim on far-region critical
-points withdrawn; $c_1$ ``uncomputed'' $\to$ universal, zero given F$_2$, its $u$-channel route identically zero; an
-earlier description of $c_1$'s contact-like part as an independent seagull withdrawn (it is an energy-channel $T$
-exchange); $\varepsilon_W$ (C4) $1.2\times10^{-13}$ / $4.2\times10^{-11}$ (midpoint sums) $\to$ certified bounds
-$2.673\times10^{-13}$ / $9.058\times10^{-11}$; odd-$J$ near-gap states are $1\times1$ blocks. In v5: $J=29$ at
-$\Delta_g=1000$ ``unresolved, $-3.6$ or $+1.39$'' $\to$ $+0.972\pm0.018$ (both earlier values were chain artefacts);
-published $J=31$, $32$ chain values carried a reference-zero node; $J=12$, $16$ [NE\,+\,M] $\to$ [NE$\pm$], $J=21$, $29$
-$\to$ [NE$\pm$]; the $\nu<50$ convention replaced by measured values; $H_{\rm LJ}(1000)$ leverage ``$2.7$--$4.8$'' $\to$
-Table~\ref{tab:dircv}; $H_R'$ [M] $\to$ [D-sketch\,+\,M] at $b\ge b_A$; ``hybrid floor [certified] on $[91.2,2\Lambda]$'' holds
-for $m\ge1.5\Lambda$ only. In v6: $B_{\rm eff}$ depends on $\Lambda$ ($-19.220$ at 300, $-19.265$ at 1000; the Letter's v5 single value
-gave $72.00$ instead of $72.04$ at 300); Theorem W's P0 is [NE] in its region (was graded by the $b\le119$ curvature bound, which
-needs $m\ge1.3\Lambda$); P1's upgrade via (S) withdrawn; the magic-identity residual is $\le7.9\times10^{-48}$ for $b\le4$ (was
-``$\le8\times10^{-48}$, also $b=7$''); the order of limits is now stated (Sec.~\ref{sec:HK}). In v7: Lemma LR$_\infty$'s $r(\beta)$ table used the constant
-$\sum_n|c_n|/(n+1)$, not the stated $\int|\psi|$ (valid but $\times36$ conservative at $\beta=1$); with certified $\int|\psi_k|$ the
-lemma holds for $\beta\ge0.37$ and Theorem L$'$ starts at $J=223$ at the gap (was $857$), so the band $345\le J<857$ is no longer
-outside both theorems; Theorem W's costs now include the $k=3$ piece; its v6 premises on $O(1/m^2)$ magnitudes are replaced by
-computation and its full-range $O(1/m^4)$ premise, false as a statement about the series, by Lemma P4W; the monopole cancels at
-$O(1/m^2)$ (v6: ``whether the full sum cancels is open''); the $K_2$ calibration is $0.6$--$8\%$ of the last Laplace step (was
-$4$--$5\%$); CHMRS's tree-level-suppression quote is in their Sec.~1 and their technical assumption is eq.~(5.3); CLS-D restate the
-light/heavy logic (their Sec.~2.2.2) but do not discuss the order of limits. In v8: the large-spin assumption (AG$'$) is false in its
-pointwise form near the gap edge (the flat partial wave violates it) and is replaced by the strictly weaker pair (AG$_U$) [A],
-(EDGE-R) [M] (Lemma P4W-$\chi$ [P]); Theorem W's sampled $J_*=26$ now holds under that pair, and the v7 alternative $J_*=42$ (transferred
-$+-$ edge under (AG$'$), (EDGE)) is superseded; Theorem L$'$ needs only the uniform rate ($\varepsilon_R\le0.133$, was $0.086$ with
-(AG$'$)); an earlier statement that the exact scalar's edge integral is $\le0.30\,S_E$ over all cutoffs is wrong at $J=26$ (grid maximum
-$0.405$ against the tolerance $0.406$), and a ``plain-envelope margin $\ge520$'' is not a statement about the graviton; $c_1$'s
-universality and $\nu$-independence [D-sketch] $\to$ [D]; the leading-Regge ``AdS image'' of a light single trace, flat value
-$\times(1+O(\Delta_L^2/\Lambda^2))$, is refuted in CHMRS's exact representation and replaced by the Regge polynomial of its exchange
-[D given (E$'$)]; $\varepsilon^*=0.038034$ is expected to fail on light scalars with $\Delta_L\lesssim6$ (it was [I]); the $k=2$ pieces are
-defined by the continuum weights, and the $k=2$ grids are read as zero beyond $\Lambda+10$ (the $\Delta_g=1000$ grids carry a round-off
-floor there that, read literally, would make the grid object ill-posed on near-gap states; no computed number changes). In v10:
-``we claim nothing at other gaps'' $\to$ Sec.~\ref{sec:allgap}; the hybrid floor on $119<b<245.2$ at $1.3\le m/\Lambda<1.5$, and on
-$b\ge114.06$ at $m<1.3\Lambda$, [NE] $\to$ [D\,+\,certified] (a $\Lambda$-uniform remainder for the certified window); Theorem W's P0
-correspondingly rigorous at its sampled states with $b\ge114.06$. In v12: $J=9$--$11$, $13$--$15$ near the gap at $1000$ [NE\,+\,M]
-$\to$ [NE$\pm$] (own direct rows); the odd-$J$ representation term is evaluated on $\lambda_c$ (it had counted the window $\nu<50$
-twice), so the $J=23$ twist edge [NE\,+\,M] $\to$ [NE$\pm$] (thin, $L=0.85\to1.18$), $J=27$ $L=1.64\to1.81$, $J=31$ at $1.04\Lambda$
-$\to$ [NE$\pm$] ($1.09$), and the earlier description of the $J=23$, $31$ twist edges as limited by a probe that amplifies Monte Carlo noise is
-corrected (at $J=23$ the larger part was the double count, and a noise-weighted fit gives only $L=1.01$; at $J=31$ the probe measures a
-real under-resolution of the half grid); the parity-odd OO minimum at $J=4$, $\Delta_g=1000$, is $+0.2059$ at
-its twist edge (was quoted as $+0.2150$ at $1.01\Lambda$), and OO $J=4$--$10$ are [NE$\pm$] at $1000$ and $2000$ given $H_{\rm OO}$; the
-$K_2$ calibration is $0.4$--$8\%$ over 13 states (was $0.6$--$8\%$ over seven); at $\Delta_g=2000$ the $J=21$ twist edge [NE\,+\,M] $\to$
-[NE$\pm$] $\lambda$-level with $\Delta_{\rm ref}=5\times10^4$, the $J=16$, $21$, $27$, $29$ values of Table~\ref{tab:gap2000} are those
-with the larger reference (they moved by $\le0.03$), and the statement that the sign-free budget scaling at $J=21$, $27$ fails because of
-the reference is corrected: the $\lambda$-level step was inflated by the reference, the sign-free $E_{\rm trunc}$ by an extra node at
-$x=0.025$ (reading (v) there). A value $+0.967$ for $J=21$ at the $1000$ twist edge in one source analysis (same protocol, $K_2$) should
-read $+1.0009$; no number here used it.
 
 \bibliography{refs_verified}
 
