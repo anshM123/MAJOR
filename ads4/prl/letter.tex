@@ -73,10 +73,12 @@ parity-odd deviations $t_4$, $\alpha_T$ of $\langle TTT\rangle$ from its Einstei
 explicit constant; a second result bounds one $R^4$ graviton coefficient from above. To our
 knowledge neither has been derived before from $\langle TTTT\rangle$. Both are implications:
 they hold if fixed linear functionals are positive on every heavy state. For the functional of
-the cubic bound, that positivity is certified in the flat-space limit. In AdS we establish it numerically, with error control, for
-the low-lying heavy states, and for states of large spin we reduce it to two conditional
-theorems that rest on one technical assumption, a uniform decay rate of heavy-state
-contributions beyond the Regge regime (Fig.~\ref{fig:coverage}).
+the cubic bound, that positivity is certified in the flat-space limit. In AdS we check it
+numerically, with error control, on the most constraining state and a sample of other low-lying
+states, and for states of large spin we reduce it to two conditional theorems
+(Fig.~\ref{fig:coverage}). Their main premises are an assumption on the decay of heavy-state
+contributions beyond the Regge regime and, near the gap, a bound on one edge integral of the
+graviton that we could not compute; its scalar analogue meets it, narrowly.
 Throughout, ``we prove'' means a written proof, ``certified'' a computer-assisted proof in
 interval arithmetic, ``with error control'' a computation in which every modelled term carries
 a threefold safety factor (an estimate, not a bound), and ``in a model'' a computation whose
@@ -85,9 +87,9 @@ against a fixed legend (Sec.~S1).
 
 \paragraph*{Why it matters.}
 If positivity holds, then at leading order in $1/c_T$ every holographic CFT$_3$ with a
-higher-spin gap $\Delta_g=\DgHead$ has stress-tensor three-point couplings within
-$\tau:=\sqrt{t_4^2+\alpha_T^2}\le\CubicHead$ of their Einstein values, up to one universal
-constant $c_1$ that we have not computed. Conformal-collider bounds allow $\tau\le4$ in every
+gap $\Delta_g=\DgHead$ in the single traces of $T\times T$ has stress-tensor three-point couplings
+within $\tau:=\sqrt{t_4^2+\alpha_T^2}\le\CubicHead$ of their Einstein values, at $c_1=0$, where
+$c_1$ is one universal constant that we have not computed. Conformal-collider bounds allow $\tau\le4$ in every
 unitary CFT$_3$~\cite{HofmanMaldacena,CDPrakash}. Most of the factor $10^8$ between the two is
 the $\Lambda^{-4}$ scaling already implied by causality~\cite{CEMZ,AKT}; what is new is the
 coefficient. In units of the gap the cubic graviton coupling obeys
@@ -154,7 +156,7 @@ AdS curvature produces no helicity mixing at leading Regge order; with the stand
 the mixing makes the functional negative at large impact parameter, at least in a model
 calculation. Second,
 \emph{de-shifting}: we choose the weights so that, at leading Regge order, every heavy state
-contributes exactly its flat value (a generalised Abel equation), leaving only
+contributes its flat value, to about one part in $10^6$ (a generalised Abel equation), leaving only
 beyond-leading-Regge corrections for positivity to survive. Third, the light side at $k=4$.
 There the $R^4$ contact, which grows like the fourth power of the energy, sits exactly at the
 convergence border of the sum rule and contributes a finite Regge ``arc''. We normalise it by
@@ -179,7 +181,7 @@ The functional $\Omega^{EE}$ of the cubic bound combines CLS-D's functional at R
 $k=2,3$ with polynomial weights fixed by a linear program, the $EE$ structure and de-shifting.
 The functional $\Omega^Q_{\rm up}$ of the quartic bound adds de-shifted $k=4,5$ pieces. All
 weights are published as explicit functions, and their de-shift identity is certified for the
-load-bearing $k=4$ pieces~\cite{SM}. We show that the OPE sum may be exchanged with the
+load-bearing $k=4$ pieces~\cite{SM}. We derive that the OPE sum may be exchanged with the
 integrals, with absolute convergence, whenever $J_0<\tfrac32$ ($k=2,3,5$) or $J_0<\tfrac52$
 ($k=4$); since $J_0\le1$, this holds at every finite $c_T$ with room to spare. The bounds are
 then the $c_T\to\infty$ limit of an exact inequality whose heavy side is non-negative at every
@@ -199,17 +201,17 @@ $O(\Lambda^{-2})$ by assuming, as CHMRS and CLS-D do~\cite{CHMRS,CLSD}, that lig
 double-trace data are those of a tree-level bulk effective theory.
 
 Light single traces of spin 0 and 2, allowed by (i), enter the $k=2,3$ sum rules like heavy
-states, with a contribution fixed by their Regge behaviour up to a small AdS mass shift; we
-sketch the argument. We prove that $\Omega^{EE}$ is positive on them at every mass
-in the flat limit, so the cubic bound is unaffected and bounds their couplings
-too~\cite{CHLPS}. By contrast, $\Omega^Q_{\rm up}$ is negative on scalars lighter than
+states, with a contribution fixed by their Regge behaviour up to an AdS mass shift we have not
+computed; we only sketch this step. We prove that $\Omega^{EE}$ is positive on them at every
+mass in the flat limit, so, given the light-side formula we sketch, they enter with the
+favourable sign and the cubic bound also bounds their couplings~\cite{CHLPS}. By contrast, $\Omega^Q_{\rm up}$ is negative on scalars lighter than
 $0.46\Lambda$, which couple to $TT$ through $\phi W^2$ (cf.\ Ref.~\cite{CMT}). This is the origin
 of the scalar condition in the quartic bound.
 
 % ---------------------------------------------------------------------------
 \paragraph*{Result.}
-\emph{Assume (i), (ii), the analytic inputs listed in the Supplemental Material~\cite{SM}, and
-positivity of the functional used on every heavy state and on light spin-0 and spin-2 states.
+\emph{Assume (i) with no light single trace in $T\times T$, (ii), the analytic inputs listed in
+the Supplemental Material~\cite{SM}, and positivity of the functional used on every heavy state.
 Then, at leading order in $1/c_T$ and for every value of $c_1$:}
 
 \emph{(1) Cubic.} With $L_A=\int_0^1\psi_2(p)\,dp/(p^2+\tfrac{9}{4\Lambda^2})$, where $\psi_2$ is
@@ -221,8 +223,7 @@ the published $k=2$ weight,
 \emph{where $x\propto|c_1|/\Lambda^2$~\cite{SM}. At $\Delta_g=1000$ and $K=1$,
 $\tau_0=2.89\times10^{-8}$, that is $|\hat g_3|\Lambda^4\le120$.}
 
-\emph{(2a) Quartic. If no scalar single trace lighter than $0.46\Lambda$ appears in $T\times T$,
-and if either $\tau=0$ or a light-side coefficient $\kappa$ is positive,}
+\emph{(2a) Quartic. If either $\tau=0$ or a light-side coefficient $\kappa$ is positive,}
 \begin{equation}
 \frac{\tilde g_4\Lambda^6}{8\pi G}\le17.2407\ln\frac{2\Lambda}{3}+B_{\rm eff}(\Lambda)
 +\frac{5.946\times10^4c_1^2}{\kappa\Lambda^4},
@@ -231,18 +232,20 @@ and if either $\tau=0$ or a light-side coefficient $\kappa$ is positive,}
 \emph{where $B_{\rm eff}(\Lambda)\approx-19.3$ varies slowly with the gap~\cite{SM}. At
 $\Delta_g=1000$ and $c_1=0$ the right side is $\QuartHead$.}
 
-\emph{(2b) Without the scalar condition, the combination $\Omega^Q_{\rm up}+0.04\,\Omega^{EE}$,
-which needs positivity of both functionals, gives the weaker upper bound $\QuartRep$ at
-$\Delta_g=1000$.}
+Light single traces of spin 0 and 2 are an extension that rests on the sketched step above:
+given it and positivity on them, (1) holds unchanged, and so does (2a) if no scalar lighter than
+$0.46\Lambda$ couples to $TT$. \emph{(2b)} Without that condition, the combination
+$\Omega^Q_{\rm up}+0.04\,\Omega^{EE}$, which needs positivity of both functionals, gives the
+weaker upper bound $\QuartRep$ at $\Delta_g=1000$.
 
 The dependence on $c_1$ is exact~\cite{SM}; at $\Delta_g=1000$ it moves the bounds by less than
 $1\%$ unless $|c_1|$ exceeds about $60$ (cubic) or $1300$ (quartic). Item (2a) uses only
 $\Omega^Q_{\rm up}$, so it does not need positivity of $\Omega^{EE}$; a scalar lighter than
 $0.46\Lambda$ does not invalidate it, but adds a term proportional to its squared
-coupling~\cite{SM}. Without light single traces the cubic implication is derived; their action
-is only sketched, as are, for the quartic bound, a subleading $g_5$ term, the repair in
-(2b) and, when $\tau\ne0$, the sign of $\kappa$, which also rests on a model. Independent code reproduces every constant, and a third check rebuilt the
-two most delicate analytic steps from the written statements alone. We claim no lower bound on
+coupling~\cite{SM}. The cubic implication (1) is derived; for the quartic bound a subleading
+$g_5$ term, the repair in (2b) and, when $\tau\ne0$, the sign of $\kappa$, which also rests on a
+model, are only sketched. Separate code reproduces every constant of the bounds, and a separate
+check rebuilt the $EE$-kernel reduction and the counting lemma from the written statements alone. We claim no lower bound on
 $\tilde g_4$: the functional that would give one has no positivity evidence beyond leading Regge
 order. The constants are explicit functions of $\Lambda$ (Fig.~\ref{fig:bounds}), but since we
 examined positivity only at $\Delta_g=300$ and $1000$, we claim nothing at other gaps.
@@ -257,8 +260,9 @@ too, outside two asymptotic corners where it is only computed), and, in AdS, pos
 leading Regge part of $\Omega^{EE}$ on every state whose impact parameter exceeds about a third of
 the AdS radius. With error control, $\Omega^{EE}$ is positive on its most constraining state, spin
 5 at the gap, on thirteen further near-gap spins up to $J=31$, and on heavier states at small
-impact parameter; two of these spins are covered only above their lowest mass, and at $J=29$ the
-margin is thin and depends on the measured sign of one low-frequency contribution. For large
+impact parameter. Three of these spins are covered only above their lowest mass; at $J=29$ the
+lowest mass is within error control only with the measured sign of one low-frequency
+contribution. For large
 spin, positivity follows from the conditional theorems described next. Everywhere else,
 including $\Omega^Q_{\rm up}$ outside masses $1.3$--$3\Lambda$, we have values computed inside
 models or interpolated, but no error control; no computed state is negative, although we fixed
@@ -271,14 +275,16 @@ the functionals only after earlier versions had failed on some states~\cite{SM}.
 \paragraph*{Large spin.}
 States of large spin are where curvature bites hardest, because the margin of the functional
 shrinks as the impact parameter grows. Two facts make them tractable. An exact identity, which
-we prove order by order in the distance from the Regge limit and derive at all orders, turns
+we prove through eighth order in the distance from the Regge limit, check numerically to
+fortieth order and derive at all orders, turns
 every curvature correction into one that the de-shifted weights already absorb, plus a single
 explicit extra term. And when we compute the leading spinning corrections exactly, on near-gap
 states with spins up to $344$, the extra term cancels and the corrections use less than half of
 the margin. With a contour argument for the higher orders, this gives two conditional theorems:
-positivity on every sampled near-gap state of spin $J\ge26$, and on every state of spin below
-$10^6$ whose impact parameter exceeds about a third of the AdS radius, where the leading margin
-is certified. Both rest on one technical assumption: beyond the Regge regime, the difference
+positivity on the 47 sampled near-gap states of spin $26\le J\le344$, given the edge bound below,
+and on states of spin below $10^6$ whose impact parameter exceeds about a third of the AdS
+radius, where the leading margin is certified on every state and the remainder was checked on
+sampled states up to mass $5\Lambda$. Both rest on an assumption: beyond the Regge regime, the difference
 between a heavy state's contribution and its flat-space value splits into two waves, analytic in
 the frequency, that decay at a uniform rate. Every explicit piece of the calculation has this
 property and it holds to all orders of the saddle-point expansion, but we have not proved it
@@ -295,9 +301,10 @@ intermediate impact parameter; there we rely on a hypothesis supported by a sket
 $\Delta_g=1000$, in the plane of spin $J$ (log scale) and bulk mass $m$. The lower panel is the
 near-gap region $m\le1.3\Lambda$; the black curve is its edge, $\Delta-J=\Delta_g$. The flat-space
 limit is certified. Bars mark near-gap spins with error-controlled numerics, over the masses
-covered. The two conditional theorems cover the sampled near-gap states from $J=26$ and all
-states of large impact parameter (dotted boundary) up to $J=10^6$, off scale; both rest on the
-assumptions stated in the text. Lighter shading: values computed in models or interpolated; hatched: only a
+covered; at $J=29$ the lightest part (pale) needs the measured sign of one contribution. The
+first conditional theorem covers only the 47 sampled near-gap states (dots; the hatched band
+between them is interpolated), the second all states of large impact parameter (dotted boundary)
+up to $J=10^6$, off scale; both rest on the assumptions stated in the text. Lighter shading: values computed in models or interpolated; hatched: only a
 hypothesis. Grades and sources: Supplemental Material, Sec.~S7; script
 \texttt{fig/make\_fig2.py}.}
 \end{figure}
@@ -318,7 +325,7 @@ consistency check at the one-digit level, not evidence for positivity.
 % ---------------------------------------------------------------------------
 \paragraph*{Discussion.}
 If positivity holds, the cubic and quartic graviton couplings of a holographic CFT$_3$ with a
-large higher-spin gap (for the quartic one, without light scalars in $T\times T$) are, in units of the gap, at most of order a hundred, as one expects when
+large gap in the single traces of $T\times T$ are, in units of the gap, at most of order a hundred, as one expects when
 the gap sets the size of higher-derivative terms. The bounds are not optimal. The cubic bound is about ten times weaker
 in $|\hat g_3|$ than the flat-space optimum transplanted to AdS~\cite{CHLPS}
 (Fig.~\ref{fig:bounds}), which uses forward and helicity-flip sum rules that are not available
