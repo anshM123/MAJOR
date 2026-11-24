@@ -2,9 +2,10 @@
 nf_repr (NEARGAP_FILL.md §3): a noise-aware representation term for the odd-J direct-bulk twist edges (J = 23, 31; J = 27 as control).
 The protocol (highspin/hs_odd.py + smallnu/sn_odd.py, both run UNCHANGED via runpy / import, on extfold's merged point set 'all',
 read-only) fits the direct bulk nodes Gamma(x_i) with the shape basis c(x)D_h + s(x)xD_h'/(2J+1) + r(x) (degree K = 6) by ORDINARY
-least squares, and sets E_repr = 3 max|lam(K6) - lam(K4, K5, K7, two half-samples at K4)|.  On a direct row the node errors are
-heteroscedastic (sigma_i grows ~10x from x = 0.05 to x = 0.8), so OLS with 3(K+1) = 24 parameters (K7) on 34 nodes lets the noisy
-large-x nodes drive the fit: the K7 probe is then a noise amplifier (EXT_FOLD §3.2: its jackknife sigma is 5x that of K6).
+least squares, and sets E_repr = 3 max|lam(K6) - lam(K4, K5, K7, two half-samples at K4)|.  Hypothesis tested here: if the node
+errors were heteroscedastic, OLS with 3(K+1) = 24 parameters (K7) on 34 nodes would let the noisy nodes drive the fit (EXT_FOLD §3.2:
+the K7 probe's jackknife sigma is 5x that of K6).  RESULT (NEARGAP_FILL §3): on the J = 23 / 31 direct rows sigma_i is nearly constant
+(median 36 c2, x < 0.3: 35, x > 0.6: 38), so WLS = OLS to within ~10 % in the weights and cannot be the fix; see nf_reprcut.py.
 Mode 'wls' replaces ONLY the estimator: every shape fit (main fit, all probes, all jackknife replicas, sn_odd's bulk model) becomes
 weighted least squares with weights 1/sigma_i^2, sigma_i^2 = mean over the two kinds of the node's replica-jackknife variance
 (computed once, from the full point set; held fixed in the jackknife).  The rule E_repr = 3 max|...| over the SAME probes is kept.

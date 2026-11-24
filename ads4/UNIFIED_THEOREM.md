@@ -663,6 +663,12 @@ A chain carries the grade of its weakest link.
 >   * sign-free closure for J ≥ 14 needs direct rows (batch 4);
 >   * there is no direct check at 2000.
 
+> **Update (GAP_SEAM2.md, unreviewed): the Δ_g = 2000 reruns of J = 27, 29 with Δ_ref = 5·10⁴ did not lift their twist edges. They stay [NE+M]; no state is negative (all ≥ +0.91).**
+> * **Why the expected doubling failed:** the λ-level truncation step fell as predicted (chart-A ratio 0.22–0.25), but two other terms took over. The edge term (the row stops at 0.8 while |Γ| ≈ 10⁴ c₂ at x = 0.85–0.9) and the small-ν window (larger when the first node is 0.05) dominate.
+> * **Chart A holds cleanly** once the node set and the reference are matched: E_trunc ratio 0.26–0.27 and λ-step ratio 0.22–0.25, against 0.25 predicted. Γ(x) at 2027 matches 1027 to ≤ 40 c₂ for x ≤ 0.6.
+> * **New lower state:** J = 27 at 1.0175Λ, +0.910, inside the seam strip. J = 29 at 1.075/1.10Λ and J = 27 at 1.075/1.10Λ are λ-level [NE±].
+> * **J = 27, 29 twist edges at 2000 need the batch-4 direct rows (or a K₃ order).** J = 18, 20, 22, 24 not done; resume commands are in GAP_SEAM2 §3. Hybrid minima for J = 22/24 at 2000: +0.780 / +0.826.
+
 ## 1. Setup and normalisations
 
 | item | definition |

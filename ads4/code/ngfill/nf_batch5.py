@@ -79,7 +79,7 @@ if __name__ == '__main__':
          "# Expect failures (replica error > 20 %) for nu/Delta >~ 0.94 (x = 0.95 on the even rows) and possibly at nu = 20 (crystal fold);",
          "# the node nearest a reference zero (rz groups) is noisy by construction -- its flanking nodes are included.",
          f"# {tot} jobs in all: " + ", ".join(f"J={J}: {n}" for J, n in per.items()) + ".",
-         "# Priority order = file order is by J; to get the lowest spins first run as is.  Estimated cost: 1.5-3 min per job on one core",
-         f"# (n1 at J = 13: 1.4 min measured here; 2.5 min at J = 26, EDGE_R §6) -> ~{tot*2.3/60:.0f} core-h, ~{tot*2.3/60/16:.1f} h on 16 workers."]
+         "# Priority order = file order is by J; to get the lowest spins first run as is.  Estimated cost: ~2.6 min per job on one core",
+         f"# (pilot here, nf_b5pilot.py: J = 24 edge node x = 0.888, 2.8 min; J = 13 bulk 1.3-1.4 min; EDGE_R §6: 2.5 min at J = 26) -> ~{tot*2.6/60:.0f} core-h, ~{tot*2.6/60/16:.1f} h on 16 workers (one core per worker, ~0.7 GB each)."]
     open(outf, 'w').write("\n".join(H + L) + "\n")
     print("\n".join(H + L))
