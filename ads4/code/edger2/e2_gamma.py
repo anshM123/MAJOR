@@ -30,6 +30,7 @@ import numpy as np
 import er_core as R            # read-only (its er_guard import resolves to e2_guard)
 import hs_core as HC           # read-only
 import er_jobs as EJ           # read-only: the job-list node layout
+import e2_basis as EB          # structure-basis repair of the external even-J records
 CACHE = os.path.join(HERE, 'cache')
 PTS = os.path.join(CACHE, 'pts')
 K2D = os.path.join(CACHE, 'k2')
@@ -96,6 +97,8 @@ def _clean(g, J):
 OFFNAN = []
 V._clean = _clean
 Dg = 1000
+ZWIN = 0.002        # hs_odd.ZWIN: nodes this close to the reference zero are not used (zero-node cover instead)
+OFFTOL = 0.02       # a state node whose repaired matrix is not helicity-diagonal to 2 % is treated as an MC failure
 TAGS = {26: 1.026, 30: 1.030, 34: 1.033, 33: 1.033, 38: 1.037, 42: 1.041, 46: 1.045, 50: 1.049}
 
 
@@ -189,10 +192,53 @@ def costs(J, mfl, M, lay, pe, sg, edge='k15'):
 
 
 def layout(J, mfl):
+    """the job list's edge windows.  NB er_jobs.state_nodes reports edge_a AFTER its last shift even when the loop ran out without a
+    break; the GK nodes actually run belong to the window start of the last iteration (a_used; e.g. J = 26: 0.818, reported 0.824)."""
     wr = R.w_state(J, mfl)
     s = EJ.state_nodes(J, wr['mfl'], wr['pe'], wr['sigma'], wr['pw'])
-    a, x1 = s['edge_a'], s['x1']; xm = 0.5*(a + x1)
-    return dict(a=a, x1=x1, xm=xm, win=[(a, xm), (xm, x1)], x0=s['x0'], wr=wr, D=s['D'])
+    x1, x0 = s['x1'], s['x0']
+    a = 0.8
+    for _ in range(4):
+        xm = 0.5*(a + x1); e = EJ.gk(a, xm) + EJ.gk(xm, x1); a_used = a
+        if min(abs(np.array(e) - x0)) >= 0.004:
+            break
+        a += 0.006
+    a = a_used; xm = 0.5*(a + x1)
+    return dict(a=a, x1=x1, xm=xm, win=[(a, xm), (xm, x1)], x0=x0, wr=wr, D=s['D'], a_reported=s['edge_a'])
+
+
+FIX = os.path.join(CACHE, 'ptsfix')
+PERMS = [((0, 1), (0, 1)), ((1, 0), (0, 1)), ((0, 1), (1, 0)), ((1, 0), (1, 0))]
+
+
+def repair(J, D, pr):
+    """even J: map the external records into the local structure basis (e2_basis) and choose the helicity labels (the permutation
+    for which max over (kind, h) of rms Gamma on 0.05 <= x < 0.6 is smallest)."""
+    Q = NC.Q
+    Re = Q._strip(W.ee_even(J), J)
+    HN.RESID.clear(); HN.set_resid(Re, J, 'EE')
+    Tloc = {DD: Q.A.L.basis(J, DD, Re)['T'] for DD in (D, 20000.0)}
+    scores = []
+    for pm in PERMS:
+        HN.C = PTS
+        rep = EB.fix(J, D, HN, Tloc, perm=pm, dst=FIX)
+        HN.C = FIX; HN._SC.clear()
+        r = row(J, D); s = (r['xs'] >= 0.05) & (r['xs'] < 0.6)
+        rms = {str(k): float(np.sqrt(np.mean(np.asarray(r[k])[s]**2))) for k in keys(J)}
+        scores.append((max(rms.values()), pm, rms, rep))
+    scores.sort(key=lambda t: t[0])
+    best = scores[0]
+    HN.C = PTS
+    rep = EB.fix(J, D, HN, Tloc, perm=best[1], dst=FIX)
+    HN.C = FIX; HN._SC.clear()
+    for sc, pm, rms, _ in scores:
+        pr(f"  helicity labels (state, ref) permutation {pm}: rms Gamma (0.05 <= x < 0.6) " +
+           ", ".join(f"{k} {v:.3g}" for k, v in rms.items()) + ("   <- used" if pm == best[1] else ""))
+    for DD, q in rep.items():
+        pr(f"  structure-basis repair, Delta = {DD:g}: residual off/||C|| over {len(q['x'])} nodes: EE (fitted) median "
+           f"{np.median(q['off_EE']):.1e} max {q['off_EE'].max():.1e}; C3H (not fitted) median {np.median(q['off_C3H']):.1e} max "
+           f"{q['off_C3H'].max():.1e}")
+    return rep, scores
 
 
 def main(J, KB=6, rtol=0.2):
@@ -202,11 +248,32 @@ def main(J, KB=6, rtol=0.2):
     lay = layout(J, mfl0); wr = lay['wr']; mfl = wr['mfl']; D = 1000.0 + J
     assert abs(lay['D'] - D) < 1e-6, lay['D']
     L_ = R.lam()
+    HN.C = PTS; HN._SC.clear()
     rel = node_relerr(J, D)
     FAILED.clear(); FAILED.update(x for x, (fro, ent) in rel.items() if fro > rtol)
+    m_ = HN.mphys(D, J)
+    zero = {x for x in rel if abs(x - lay['x0']) < ZWIN}
+    FAILED.update(zero)
+    offq = {}
+    if J % 2 == 0:
+        rep, scores = repair(J, D, pr)
+        q = rep[D]
+        offq = {round(nu/m_, 6): float(o) for nu, o in zip(q['x'], np.maximum(q['off_EE'], q['off_C3H']))}
+        FAILED.update(x for x, o in offq.items() if o > OFFTOL)
     r0 = row(J, D)
     M = Model(J, r0, lay['a'], KB)
-    reps = [Model(J, row(J, D, jk=j), lay['a'], KB) for j in range(8)]
+    def aligned(rj):
+        out = dict(rj); out['xs'] = r0['xs']
+        for key in keys(J):
+            gk_ = gkey(J, key); v = np.array(r0[gk_], float)
+            for i, x in enumerate(r0['xs']):
+                j_ = int(np.argmin(np.abs(rj['xs'] - x)))
+                if abs(rj['xs'][j_] - x) < 5e-6:
+                    v[i] = rj[gk_][j_]
+            out[gk_] = v
+        return out
+    reps = [Model(J, aligned(row(J, D, jk=j)), lay['a'], KB) for j in range(8)]
+    lost = sorted(set(rel) - FAILED - set(np.round(r0['xs'], 6)))
     Mr = {kb: Model(J, r0, lay['a'], kb) for kb in (KB - 2, KB - 1, KB + 1)}
     SE, SEt, _ = R.SE_units(J, mfl)
     H = wr['H']; tol = wr['tolE_tr']*SEt
@@ -217,8 +284,11 @@ def main(J, KB=6, rtol=0.2):
     xv = np.array(sorted(x for x in M.xs))
     pr(f"J = {J}, row Delta = {D:g}, m/Lam = {mfl:.5f}, x1 = {lay['x1']:.5f}; cutoff p_e = {pe}, sigma = {sg:.4f}; edge windows "
        f"[{lay['a']:.4f}, {lay['xm']:.4f}], [{lay['xm']:.4f}, {lay['x1']:.4f}]; reference zero x0 = {lay['x0']:.4f}")
-    pr(f"  direct nodes in the row: {len(xv)} (x {xv.min():.4f} .. {xv.max():.4f}); bulk fit nodes {M.nb}; failed (Frobenius rel. err > "
-       f"{rtol}): {sorted(FAILED)}; max-entry rel. err > {rtol} at {sorted(x for x, v in rel.items() if v[1] > rtol)}")
+    pr(f"  windows: job list reported edge start {lay['a_reported']:.4f}, nodes actually on [{lay['a']:.4f}, ...]")
+    pr(f"  direct nodes in the row: {len(xv)} (x {xv.min():.4f} .. {xv.max():.4f}); bulk fit nodes {M.nb}; excluded: Frobenius rel. err > "
+       f"{rtol}: {sorted(x for x, v in rel.items() if v[0] > rtol)}; within ZWIN = {ZWIN} of the reference zero: {sorted(zero)}; "
+       f"dropped by the chain (non-finite / despike): {lost}; helicity off-diagonal / ||C|| > {OFFTOL} after the repair: {sorted(x for x, o in offq.items() if o > OFFTOL)} | "
+       f"(max-entry rel. err > {rtol}, not used as a criterion: {sorted(x for x, v in rel.items() if v[1] > rtol)})")
     pr(f"  H = {H:.4e}, S_E = {SE:.4e}, S_E,t = {SEt:.4e} (chi.json S_E,t {wr['SEt']:.4e}); tolerance {wr['tolE_tr']:.3f} S_E,t = {tol:.4e}")
     res = dict(J=J, D=D, mfl=mfl, x1=lay['x1'], a=lay['a'], xm=lay['xm'], pe=pe, sigma=sg, H=H, SE=SE, SEt=SEt, tol=tol,
                tol_tr=wr['tolE_tr'], failed=sorted(FAILED), entries={}, nodes={})

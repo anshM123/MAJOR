@@ -52,7 +52,13 @@ def main(Js):
             return ex(nu) - E2h*eval_legendre(J, 1 - 2*x*x) - (C.Pd(beta, nu)[0].real - j0((2*J + 1)/mfl*p)), E2h
         wr = R.w_state(J, mfl)
         s = EJ.state_nodes(J, wr['mfl'], wr['pe'], wr['sigma'], wr['pw'])
-        a, x1 = s['edge_a'], s['x1']; xm = 0.5*(a + x1)
+        x1 = s['x1']; a = 0.8
+        for _ in range(4):                       # the windows actually run (e2_gamma.layout: er_jobs reports edge_a one shift late)
+            xm = 0.5*(a + x1); e = EJ.gk(a, xm) + EJ.gk(xm, x1); a_used = a
+            if min(abs(np.array(e) - s['x0'])) >= 0.004:
+                break
+            a += 0.006
+        a = a_used; xm = 0.5*(a + x1)
         pe, sg = wr['pe'], wr['sigma']
         pw = 3.0/beta/L
         xl = XL.get(str(J), max(x for x in s['n1']))
