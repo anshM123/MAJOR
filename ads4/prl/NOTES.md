@@ -1,3 +1,14 @@
+*Revised 24 Nov 2026, **v11** (cheap fixes after `REFEREE_REPORT_5.md`; no new physics): every all-gap statement in the Letter
+brought down to §S8's strength (Intro "the evidence extends to larger gaps, at no better strength, if …"; "Larger gaps" opens with
+"at best as strong as at 1000 and needs further premises", says which spins close at 2000 (≤ 16) and which do not (21/27/29; others
+not recomputed), that the 2000/5000 no-growth test uses the saddle-point (K₂) rows, that the remainder certificate *supplements*
+the premise, and that the margins grow *if* the premise constants do not change; Fig. 1/2 captions fixed). New Table S17 row and
+§S8.D paragraph for the near-gap band 33 ≤ J < J_W (52 / 132 at 2000 / 5000) with no transfer route. The k = 2 grid weights used at
+2000 / 5000 are published in `data/gap/` with checks (`data/export_gap_weights.py`; README §8; no continuum ε_W fit there). "Large
+spin" cut to ≈ 225 words; κ in the abstract ("given a sign condition") and Discussion; x = 1.67·10⁻⁴|c₁|; Fig. 1 comparison curve
+without status markers; five references (KSDlight, PSZ, HJK in the Letter; KnopMazac, vanReesZhao in §S8). Acknowledgments untouched.
+Length 3572 APS words without acknowledgments (headroom 178); text ends on page 4. Change log: **`CHANGES_v11.md`**.*
+
 *Revised 24 Nov 2026, **v10** (positivity at every gap Δ_g ≥ 1000, after GAP_SCALING, GAP_LARGESPIN, GAP_UNIFORM, GAP_C3,
 GAP_NEARGAP, GAP_MORSE; all unreviewed; no physics recomputed): the Letter gains a paragraph "Larger gaps" (certified layers at every
 gap; near-gap rechecks at 2000, two spins at 5000, budgets ∝ Δ_g⁻² to J = 16; the no-growth premise, proved sufficient for J ≤ 7 with
@@ -106,6 +117,11 @@ for f in letter supplement; do
 done
 ```
 
+Status (24 Nov, **v11**): both compile with no errors, no undefined references or citations, no overfull boxes (Letter: 8
+underfull-box notices). `build/letter.pdf` 6 pages: the text, acknowledgments included, ends at the bottom of page 4; references fill
+pages 5–6. `build/supplement.pdf` 31 pages. Optional data step (v11): `(cd data && python3 export_gap_weights.py)` rewrites `data/gap/`
+(deterministic gzip, ≈ 6 s; reads `code/gapscale/cache/weights_{1000,2000,5000}.npz`, imports `code/deshift/d_abel.py` read-only).
+
 Status (24 Nov, **v10**): both compile with no errors, no undefined references or citations, no overfull boxes (Letter: 7
 underfull-box notices). `build/letter.pdf` 6 pages: the text ends near the top of page 5 (the new "Larger gaps" paragraph, ≈ 0.25
 page), references fill pages 5–6. `build/supplement.pdf` 30 pages (new §S8 with Tables S12–S17). `fig/make_fig.py` (v10) draws the
@@ -134,6 +150,12 @@ In v5 the figure environment was moved to just before "Functionals" (it had beco
 Figure: `cd fig && python3 make_fig.py` (needs mpmath, matplotlib) before compiling the Letter.
 
 ## 2. Length
+
+**v11** (same tool, run on a copy of `letter.tex` without the acknowledgments environment, as APS counts): abstract **599**
+rendered characters (≈ 593 without pdftotext's inserted spaces; limit 600, tight); prose 2940 words, 240 inline formulas
+(conservative 302), 3 display rows (48), figures 344; **TOTAL 3572 (3634 conservative)**, headroom **178** (116). With the
+acknowledgments: 3600 / 3662. Cuts: "Large spin" 316 → ≈ 225, "Larger gaps" rewritten (≈ 210, fewer numbers), de Sitter sentence,
+Intro swampland clause, two connectors.
 
 **v10** (same tool and arguments; it counts the acknowledgments too): abstract **580** rendered characters (unchanged); prose 3056
 words, 236 inline formulas (conservative 298), 3 display rows (48), Fig. 1 180, Fig. 2 164; **TOTAL ≈ 3684 (≈ 3746 conservative)**;
@@ -258,6 +280,13 @@ undercounted, ≈ 4.2 pages).
 All other letter numbers: unchanged from v2/v3 (UT2 §12, UT3 §12).
 
 ## 5. Referee reports
+
+**Fifth report (`REFEREE_REPORT_5.md`, reject for PRL, PRD/JHEP encouraged).** Cheap fixes in v11 (`CHANGES_v11.md` §1): M2
+(all-gap wording at §S8 strength), M3 (band 33 ≤ J < J_W stated as uncovered), M5 (2000/5000 grid weights published with checks;
+no continuum ε_W fit there), m1, m2, m4 (κ), m5, m7–m9, m11, m12. **Relayed to the authors, not acted on:** M6 (the AI-use
+disclosure says "formulation and drafting" and "thoroughly reviewed all output", while the record shows AI-run computations and the
+Supplement labels analyses "unreviewed"; the referee suggests a broader disclosure, repeated in the Supplement) — the acknowledgments
+are unchanged. Open by computation: M1, M4, the M3 band rows, BATCH4, SEAM, continuum weights at 2000/5000.
 
 **Second report (`REFEREE_REPORT_2.md`, reject for PRL as written).** Point-by-point response with file:line: `CHANGES_v4.md`. Summary:
 §6 items 1 (narrow/rewrite + figure), 4 (positioning), 5 (lower end dropped from abstract/discussion), 8 (housekeeping) done; M4 grade

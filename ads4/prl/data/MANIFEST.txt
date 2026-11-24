@@ -25,3 +25,9 @@ TRUNC_SHA256SUMS  366 bytes  sha256[:16] 1afce90361990ec5   (v8)
 # v8 note: the k = 2 pieces are defined by the continuum weights (k2/); the stored k = 2 grids d_abel_X_*.txt and k2/xq_abel_X_*.txt
 #   are read as zero beyond nu = Lambda + 10 (README.md Sec. 4, 7); the *_trunc.txt copies (truncate_grids.py) are that reading.
 #   All files listed above the v8 lines are unchanged (hashes valid).
+export_gap_weights.py  6370 bytes  sha256[:16] 4bcfea70d03632d4   (v11: writes gap/ from code/gapscale/cache, read-only)
+gap/d_abel_X_2000_trunc.txt.gz  2082879 bytes  sha256[:16] e9c6521261f66935   (v11: Omega^EE k = 2 grid weight at Delta_g = 2000)
+gap/d_abel_X_5000_trunc.txt.gz  5139503 bytes  sha256[:16] fec502ea3a246d07   (v11: same at Delta_g = 5000)
+gap/gap_weights_checks.txt  3275 bytes  sha256[:16] 945c26160756ddc9   (v11: checks; README.md Sec. 8)
+gap/SHA256SUMS  275 bytes  sha256[:16] 1b2f46f0796d6604   (v11: full SHA-256 of the three gap/ files)
+# v11 note: new files only (README.md Sec. 8); all files listed above are unchanged (hashes valid).

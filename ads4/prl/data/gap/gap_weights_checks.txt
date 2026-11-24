@@ -1,0 +1,34 @@
+# export_gap_weights.py: checks of the k = 2 weights of Omega^EE used at Delta_g = 2000, 5000 (1000 cache for comparison)
+## Delta_g = 1000: Lam = 998.4998748122, dnu = 0.05, N = 20770 (nu_max = Lam + 40), source code/gapscale/cache/weights_1000.npz
+   psi2 column vs fresh psi2: max diff 5.9e-10;  max|X - a Y|/max|X| = 6.7e-16
+   discrete equation, relative residual: 4.1e-13
+   off-grid de-shift residual |E[X](t) - Phi(t)| (|Phi(t)|): t=0.3: 6.0e-15 (2.1e+00); t=1: 5.0e-14 (1.9e-01); t=3: 1.2e-12 (2.1e-02); t=6: 1.1e-11 (5.2e-03); t=10: 1.2e-09 (1.9e-03); t=14: 4.5e-07 (9.4e-04); t=18: 1.1e-04 (5.6e-04); t=22: 4.8e-03 (3.7e-04); t=25: 1.6e+00 (2.8e-04)
+   graviton-pole identity V3: 8.975795450646e-01 vs 8.975795450646e-01 (rel 6.2e-15)
+   dk0 = -6.830150e-05; Lam^2 dk0 = -68.0967 (first-order value -68.076); (1 + dk0)^(-1/2) = 1.00003415
+   rescaling: max |Lam^2 (Re X - psi2) - S(p)| / max|S| on p in [0.1, 1] = 2.86e-02
+   max |X| on nu > Lam + 10: 6.9e-15 (double-precision floor; read as zero)
+   gauge factor max |Re X/psi2| on nu <= 25: 6.839
+
+## Delta_g = 2000: Lam = 1998.4999374531, dnu = 0.05, N = 40770 (nu_max = Lam + 40), source code/gapscale/cache/weights_2000.npz
+   psi2 column vs fresh psi2: max diff 5.9e-10;  max|X - a Y|/max|X| = 5.0e-16
+   discrete equation, relative residual: 4.8e-13
+   off-grid de-shift residual |E[X](t) - Phi(t)| (|Phi(t)|): t=0.3: 7.6e-14 (1.1e+00); t=1: 3.5e-13 (9.5e-02); t=3: 3.3e-12 (1.0e-02); t=6: 1.5e-10 (2.6e-03); t=10: 4.4e-09 (9.4e-04); t=14: 1.8e-06 (4.7e-04); t=18: 1.6e-04 (2.8e-04); t=22: 4.5e-03 (1.8e-04); t=25: 2.6e+00 (1.4e-04)
+   graviton-pole identity V3: 5.137393836802e-01 vs 5.137393836802e-01 (rel 7.5e-15)
+   dk0 = -1.704586e-05; Lam^2 dk0 = -68.0812 (first-order value -68.076); (1 + dk0)^(-1/2) = 1.00000852
+   rescaling: max |Lam^2 (Re X - psi2) - S(p)| / max|S| on p in [0.1, 1] = 7.07e-03
+   max |X| on nu > Lam + 10: 8.8e-15 (double-precision floor; read as zero)
+   gauge factor max |Re X/psi2| on nu <= 25: 6.865
+
+## Delta_g = 5000: Lam = 4998.4999749925, dnu = 0.05, N = 100770 (nu_max = Lam + 40), source code/gapscale/cache/weights_5000.npz
+   psi2 column vs fresh psi2: max diff 5.3e-10;  max|X - a Y|/max|X| = 5.0e-16
+   discrete equation, relative residual: 3.6e-13
+   off-grid de-shift residual |E[X](t) - Phi(t)| (|Phi(t)|): t=0.3: 1.5e-13 (4.2e-01); t=1: 2.0e-13 (3.8e-02); t=3: 2.5e-11 (4.2e-03); t=6: 2.6e-10 (1.0e-03); t=10: 8.7e-09 (3.7e-04); t=14: 6.0e-06 (1.9e-04); t=18: 3.3e-04 (1.1e-04); t=22: 1.3e-02 (7.4e-05); t=25: 1.2e+01 (5.6e-05)
+   graviton-pole identity V3: 2.399752422519e-01 vs 2.399752422519e-01 (rel 4.0e-15)
+   dk0 = -2.724710e-06; Lam^2 dk0 = -68.0769 (first-order value -68.076); (1 + dk0)^(-1/2) = 1.00000136
+   rescaling: max |Lam^2 (Re X - psi2) - S(p)| / max|S| on p in [0.1, 1] = 1.13e-03
+   max |X| on nu > Lam + 10: 1.5e-14 (double-precision floor; read as zero)
+   gauge factor max |Re X/psi2| on nu <= 25: 6.881
+
+Not done here: a continuum (strip-analytic) fit of these weights with an all-t bound eps_W, as published for 300 and 1000
+(k2/k2_continuum_D_*.json). The k = 3 piece of Omega^EE (psi3, not de-shifted) and the k = 4, 5 weights of Omega^Q_up
+(functions of nu only) do not depend on the gap; Omega^Q_up was not used at 2000 or 5000.

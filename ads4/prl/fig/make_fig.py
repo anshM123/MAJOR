@@ -18,6 +18,8 @@ v10 (GAP_SCALING, GAP_LARGESPIN, GAP_UNIFORM, GAP_NEARGAP, GAP_C3, GAP_MORSE): t
 Delta_g >= 1000, where positivity of Omega^EE carries over from 1000 given the no-growth premise B_F / H_mono-A (Supplement
 Sec. S8); small open circles mark 2000 and 5000, where near-gap states were recomputed. Panel (b) is unchanged (Omega^Q_up was
 not examined at other gaps). The script also prints sqrt(16 L_A) at 2000, 5000, 1e4, 1e5 (Supplement Sec. S8.A).
+v11 (referee 5 m9): the transplanted flat optimum is a comparison curve, drawn without the paper's status markers (no filled
+1000 dot, no open 300 diamond); the (2b) label says that it needs both functionals; the key says the solid part rests on premises.
 Usage (from ads4/prl/fig):  python3 make_fig.py  -> fig1_bounds.pdf (and a printed check of the headline constants).
 Colours: first three slots of the dataviz reference palette (all-pairs CVD-validated); every series also has its own line style.
 """
@@ -90,20 +92,23 @@ for ax in (ax1, ax2):
         ax.spines[s].set_visible(False)
 
 
-def series(ax, key, color, ls, label, lab_xy, lab_ha='left', solid_from=None):
+def series(ax, key, color, ls, label, lab_xy, lab_ha='left', solid_from=None, status=True):
     ax.plot(xs, [V[x][key] for x in xs], color=color, ls=ls, lw=1.0, alpha=0.45, zorder=3)  # positivity not examined between markers
     if solid_from is not None:   # v10: Delta_g >= 1000 for Omega^EE (given the no-growth premise; Supplement Sec. S8)
         xx = [x for x in xs if x >= solid_from]
         ax.plot(xx, [V[x][key] for x in xx], color=color, ls=ls, lw=1.3, alpha=1.0, zorder=3)
         ax.plot([2000, 5000], [V[2000][key], V[5000][key]], 'o', ms=3.0, mfc='white', mec=color, mew=0.9, zorder=4)
-    ax.plot([300], [V[300][key]], 'D', ms=3.8, mfc='white', mec=color, mew=1.1, zorder=4)   # 300: one hypothesis open (v6)
-    ax.plot([1000], [V[1000][key]], 'o', ms=4.5, mfc=color, mec='white', mew=0.8, zorder=4)
+    if status:   # v11: status markers only on this paper's own curves
+        ax.plot([300], [V[300][key]], 'D', ms=3.8, mfc='white', mec=color, mew=1.1, zorder=4)   # 300: one hypothesis open (v6)
+        ax.plot([1000], [V[1000][key]], 'o', ms=4.5, mfc=color, mec='white', mew=0.8, zorder=4)
+    else:        # comparison curve: drawn at full strength, no markers
+        ax.plot(xs, [V[x][key] for x in xs], color=color, ls=ls, lw=1.0, alpha=1.0, zorder=3)
     ax.annotate(label, xy=lab_xy, color=INK, fontsize=6.8, ha=lab_ha, va='center')
 
 
 # (a) cubic
 series(ax1, 'g3', C1, '-', r'this work: $\sqrt{16L_A}$', (1150, 92), solid_from=1000)
-series(ax1, 'chlps', C2, (0, (4, 2)), r'flat $D{=}4$ optimum, transplanted', (330, 23))
+series(ax1, 'chlps', C2, (0, (4, 2)), r'flat $D{=}4$ optimum, transplanted', (330, 23), status=False)
 ax1.set_ylim(0, 160); ax1.set_yticks([0, 50, 100, 150])
 ax1.set_ylabel(r'upper bound on $|\hat{g}_3|\,\Lambda^4$')
 ax1.annotate(r'$\sqrt{t_4^2+\alpha_T^2}\leq 2.89\times10^{-8}$ ($c_1{=}0$, $K{=}1$)', xy=(1000, V[1000]['g3']), xytext=(700, 145),
@@ -114,13 +119,13 @@ from matplotlib.lines import Line2D
 key = [Line2D([], [], marker='o', ls='', ms=4.0, mfc=INK2, mec='white', label=r'$\Delta_g=1000$: claimed'),
        Line2D([], [], marker='D', ls='', ms=3.4, mfc='white', mec=INK2, mew=1.0, label=r'$\Delta_g=300$: one hypothesis open'),
        Line2D([], [], color=C1, lw=1.3, marker='o', ms=3.0, mfc='white', mec=C1, mew=0.9,
-              label=r'solid: $\Delta_g\geq1000$, see text'),
+              label=r'solid: $\Delta_g\geq1000$, given premises (text)'),
        Line2D([], [], color=INK2, alpha=0.45, lw=1.0, label='faded: implication only')]
 ax1.legend(handles=key, loc='center right', bbox_to_anchor=(1.0, 0.38), fontsize=5.9, frameon=False, handlelength=1.4, borderaxespad=0.2, labelspacing=0.25)
 ax1.text(262, 75, 'nothing claimed', rotation=90, fontsize=6.3, color=INK2, ha='center', va='center')
 
 # (b) quartic
-series(ax2, 'q2b', C3, (0, (1.2, 1.4)), r'(2b): light scalars allowed', (330, 205))
+series(ax2, 'q2b', C3, (0, (1.2, 1.4)), r'(2b): light scalars allowed; needs both functionals', (330, 205))
 series(ax2, 'q2a', C1, '-', r'(2a): no scalar with $m<0.46\Lambda$ in $T\times T$', (560, 50))
 ax2.axhline(2 * float(mp.zeta(3)), color=INK2, lw=0.9, ls=(0, (6, 2, 1, 2)), zorder=2)
 ax2.annotate(r'type II / ABJM-IIA: $2\zeta(3)$', xy=(1500, 2.404), xytext=(1500, 20), fontsize=6.8, color=INK, ha='left',

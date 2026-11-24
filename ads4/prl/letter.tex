@@ -1,4 +1,6 @@
-% letter.tex -- PRL draft, v10 (v9 + positivity at every gap Delta_g >= 1000: GAP_SCALING, GAP_LARGESPIN, GAP_UNIFORM, GAP_C3,
+% letter.tex -- PRL draft, v11 (v10 + REFEREE_REPORT_5 cheap fixes: all-gap wording brought to Supplement Sec. S8's strength,
+% Large spin cut to ~200 words, kappa in abstract/Discussion, x value, Fig. 1 markers, five references; changes in prl/CHANGES_v11.md).
+% v10 (v9 + positivity at every gap Delta_g >= 1000: GAP_SCALING, GAP_LARGESPIN, GAP_UNIFORM, GAP_C3,
 % GAP_NEARGAP, GAP_MORSE; new paragraph "Larger gaps", Result's last paragraph, intro and Discussion scope, Fig. 1 solid cubic
 % curve above 1000, Fig. 2 caption; changes in prl/CHANGES_v10.md). Marks: "% SEAM" (seam spins J = 9-20 and parity-odd OO
 % states at 2000, ads4/GAP_SEAM.md when it exists) and "% BATCH4" (external direct rows for J = 12-29 at 2000).
@@ -37,8 +39,8 @@ If fixed light-ray functionals on $\langle TTTT\rangle$ are positive on heavy st
 three-dimensional conformal field theory with large central charge $c_T$ and a gap
 $\Delta_g=\DgHead$ in the single traces of $T\times T$ has, at leading order in $1/c_T$, a cubic
 graviton coupling $|\hat g_3|\Lambda^4\le\GthreeHead$ in units of the gap, i.e.\
-$\sqrt{t_4^2+\alpha_T^2}\le\CubicHead$, and one quartic coupling is bounded above, a bound ABJM
-theory obeys. Positivity is proved in the flat-space limit for the cubic bound and supported numerically
+$\sqrt{t_4^2+\alpha_T^2}\le\CubicHead$, and, given a sign condition, one quartic coupling is bounded above, a bound ABJM
+theory obeys. Positivity is proved in the flat limit for the cubic bound and supported numerically
 in AdS. The numbers are for $c_1=0$, where $c_1$ is one universal constant we have not computed.
 \end{abstract}
 
@@ -50,10 +52,9 @@ A conformal field theory (CFT) with a large central charge $c_T$ and a large gap
 spectrum of single-trace operators is expected to be dual to weakly coupled Einstein
 gravity, with higher-derivative corrections suppressed by the gap~\cite{HPPS}. Turning
 this expectation into inequalities with numbers tests holography from the CFT side and
-gives sharp ``swampland'' constraints on gravitational effective field theories in anti-de
-Sitter space. For the graviton cubic couplings the expectation has been made parametric:
+constrains gravitational effective field theories in anti-de Sitter space. For the graviton cubic couplings the expectation has been made parametric:
 causality of high-energy scattering~\cite{CEMZ} and of CFT correlators in the Regge
-limit~\cite{AHKT,CHP,MeltzerPerlmutter,AKT} forces the non-Einstein three-point
+limit~\cite{HJK,AHKT,CHP,MeltzerPerlmutter,AKT} forces the non-Einstein three-point
 couplings of the stress tensor to vanish as powers of $1/\Delta_g$, without explicit
 constants. Averaged null energy is positive~\cite{HofmanMaldacena,HKT}, and the light-ray
 operators that measure it commute at spacelike separation~\cite{KKSDZ,KKSDZlightray}; this
@@ -83,8 +84,8 @@ states, and for states of large spin we reduce it to two conditional theorems
 (Fig.~\ref{fig:coverage}). Their main premises are an assumption on the decay of heavy-state
 contributions beyond the Regge regime and, near the gap, a bound on one edge integral of the
 graviton that we could not compute; its scalar analogue meets it, narrowly.
-We do this at $\Delta_g=1000$ and carry it, assuming that near-gap corrections do not grow with
-the gap, to every larger gap.
+We do this at $\Delta_g=1000$. The evidence extends to larger gaps, at no better strength, if
+near-gap corrections do not grow with the gap and the large-spin premises do not change.
 Throughout, ``we prove'' means a written proof, ``certified'' a computer-assisted proof in
 interval arithmetic, ``with error control'' a computation in which every modelled term carries
 a threefold safety factor (an estimate, not a bound), and ``in a model'' a computation whose
@@ -128,12 +129,12 @@ normalised so that type~II strings have $g_4M^6/8\pi G=2\zeta(3)$, $M^2=4/\alpha
 
 % ---------------------------------------------------------------------------
 \paragraph*{Mechanism.}
-Light-transformed stress tensors, which are energy detectors at null infinity, commute when
+Light-transformed stress tensors~\cite{KSDlight}, which are energy detectors at null infinity, commute when
 spacelike separated. Integrating the vacuum expectation value of their double commutator
 against a weight gives a sum rule~\cite{KKSDZ,CLSD}. If the weight decays fast enough in the
 Regge limit (high energy at fixed momentum transfer), the total vanishes: its Regge spin $k$
 must exceed the Regge intercept $J_0$ of the exact correlator, and $J_0\le1$ in every unitary
-CFT~\cite{KKSDZ,CaronHuotInversion}. Like Refs.~\cite{CHMRS,CLSD}, we use the sum rule at finite
+CFT~\cite{KKSDZ,CaronHuotInversion,PSZ}. Like Refs.~\cite{CHMRS,CLSD}, we use the sum rule at finite
 $c_T$, expand only its light part in $1/c_T$, and use the heavy part only through its sign; the
 planar intercept, $J_0=2$ for graviton exchange~\cite{KKSDZ}, never enters. Expanding in the
 $T\times T$ OPE splits the sum rule into a light part (the identity, $T$ and its multi-traces
@@ -152,7 +153,7 @@ in flat space~\cite{CHLPS}. The difficulty in AdS is that curvature moves each h
 contribution away from its flat value, by amounts that are not small near the gap or at large
 impact parameter.
 
-Three ingredients overcome it. First, a dual tensor structure, $EE$, for which we prove that
+Three ingredients make it tractable. First, a dual tensor structure, $EE$, for which we prove that
 AdS curvature produces no helicity mixing at leading Regge order; with the standard structure
 the mixing makes the functional negative at large impact parameter, at least in a model
 calculation. Second,
@@ -172,8 +173,8 @@ Ref.~\cite{CHLPS} cut off in the infrared at the AdS scale (not an AdS bound); t
 energy-flux disk~\cite{HofmanMaldacena} lies far off scale. (b)~The upper bound on the
 $R^4$ coefficient, with and without the light-scalar condition, and the type~II string value
 $2\zeta(3)$. Filled markers: $\Delta_g=1000$, the headline; open diamonds: $\Delta_g=300$, where
-one positivity hypothesis is still open. The solid cubic curve above $\Delta_g=1000$ holds given the
-premise on near-gap corrections stated in the text; faded lines: the implication alone. Data:
+one positivity hypothesis is still open. Above $\Delta_g=1000$ the solid cubic curve is supported, given the
+premises stated in the text, at the strength it has at $1000$; faded lines: the implication alone. Data:
 published weights; script \texttt{fig/make\_fig.py}.}
 \end{figure}
 
@@ -182,7 +183,7 @@ published weights; script \texttt{fig/make\_fig.py}.}
 The functional $\Omega^{EE}$ of the cubic bound combines CLS-D's functional at Regge spins
 $k=2,3$ with polynomial weights fixed by a linear program, the $EE$ structure and de-shifting.
 The functional $\Omega^Q_{\rm up}$ of the quartic bound adds de-shifted $k=4,5$ pieces. All
-weights are published as explicit functions, and their de-shift identity is certified for the
+weights are published (at $\Delta_g=2000$ and $5000$ as tables only), and their de-shift identity is certified for the
 load-bearing $k=4$ pieces~\cite{SM}. We derive that the OPE sum may be exchanged with the
 integrals, with absolute convergence, whenever $J_0<\tfrac32$ ($k=2,3,5$) or $J_0<\tfrac52$
 ($k=4$); since $J_0\le1$, this holds at every finite $c_T$ with room to spare. The bounds are
@@ -193,7 +194,7 @@ On the light side, $\Omega^{EE}$ sees the graviton pole $16\pi G/(\nu^2+9/4)$ at
 frequency $\nu$, a term $K|\hat g_3|^2$ with $K=1+O(\Lambda^{-2})$, and a term $16\pi Gc_1t_4$.
 We derive that $c_1$ is a single universal number fixed by $\langle TT\rangle$ and
 $\langle TTT\rangle$, and argue, without a complete derivation, that it vanishes under one
-further assumption; we have not computed it, and we carry it as a free parameter. For $\Omega^Q_{\rm up}$ the $R^4$
+further assumption; we carry it as a free parameter. For $\Omega^Q_{\rm up}$ the $R^4$
 arc is an integral over celestial angles, and an analytic counting lemma shows that it
 converges; a direct numerical scan follows the predicted trend but has not yet reached the
 asymptotic regime. We identify $\tilde g_4:=-\frac12\mathcal A_4[\text{light}]$ with $g_4$ up to
@@ -220,8 +221,8 @@ the published $k=2$ weight,
 \tau\le\tau_0\big(x+\sqrt{1+x^2}\big),\qquad \tau_0=\frac{240}{\Lambda^4}\sqrt{\frac{16L_A}{K}},
 \label{eq:cubic}
 \end{equation}
-\emph{where $x\propto|c_1|/\Lambda^2$~\cite{SM}. At $\Delta_g=1000$ and $K=1$,
-$\tau_0=2.89\times10^{-8}$, that is $|\hat g_3|\Lambda^4\le120$.}
+\emph{At $\Delta_g=1000$ and $K=1$,
+$\tau_0=2.89\times10^{-8}$, that is $|\hat g_3|\Lambda^4\le120$, and $x=1.67\times10^{-4}|c_1|$~\cite{SM}.}
 
 \emph{(2a) Quartic. If either $\tau=0$ or a light-side coefficient $\kappa$ is positive,}
 \begin{equation}
@@ -243,15 +244,15 @@ $1\%$ unless $|c_1|$ exceeds about $60$ (cubic) or $1300$ (quartic). Item (2a) u
 $\Omega^Q_{\rm up}$, so it does not need positivity of $\Omega^{EE}$; a scalar lighter than
 $0.46\Lambda$ does not invalidate it, but adds a term proportional to its squared
 coupling~\cite{SM}. The cubic implication (1) is derived; for the quartic bound a subleading
-$g_5$ term, the repair in (2b) and, when $\tau\ne0$, the sign of $\kappa$, which also rests on a
-model, are only sketched. Separate code reproduces every constant, and a separate
+$g_5$ term, the repair in (2b) and, when $\tau\ne0$, the sign of $\kappa$ are only sketched; the
+sign of $\kappa$ also rests on a model. Separate code reproduces every constant, and a separate
 check rebuilt the $EE$-kernel reduction and the counting lemma from the written statements alone. We claim no lower bound on
 $\tilde g_4$: the functional that would give one has no positivity evidence beyond leading Regge
-order. A theory with a larger gap also has a gap of $1000$, so these numbers bound it too;
-positivity at its own gap gives a sharper bound (Fig.~\ref{fig:bounds}), $\tau_0\propto
+order. A theory with a larger gap also has a gap of $1000$, so these numbers bound it too.
+Positivity at its own gap would give a sharper bound (Fig.~\ref{fig:bounds}), $\tau_0\propto
 \sqrt{\ln\Lambda}/\Lambda^4$, although in gap units the cubic constant grows slowly, to
-$|\hat g_3|\Lambda^4\le128$ at $\Delta_g=2000$ and $139$ at $5000$. We argue below that positivity of
-$\Omega^{EE}$ carries over to every $\Delta_g\ge1000$; that of $\Omega^Q_{\rm up}$ we examined only at
+$|\hat g_3|\Lambda^4\le128$ at $\Delta_g=2000$ and $139$ at $5000$. What supports positivity of
+$\Omega^{EE}$ at larger gaps is described below; that of $\Omega^Q_{\rm up}$ we examined only at
 $\Delta_g=300$ and $1000$.
 
 % ---------------------------------------------------------------------------
@@ -264,7 +265,7 @@ too, outside two asymptotic corners where it is only computed), and, in AdS, pos
 leading Regge part of $\Omega^{EE}$ on every state whose impact parameter exceeds about a third of
 the AdS radius. With error control, $\Omega^{EE}$ is positive on its most constraining state, spin
 5 at the gap, on thirteen further near-gap spins up to $J=31$, and on heavier states at small
-impact parameter. Three of these spins are covered only above their lowest mass; at $J=29$ the
+impact parameter. Spins 23 and 31 are covered only above their lowest mass, and at $J=29$ the
 lowest mass is within error control only with the measured sign of one low-frequency
 contribution. Elsewhere,
 including $\Omega^Q_{\rm up}$ outside masses $1.3$--$3\Lambda$, we have values computed inside
@@ -276,48 +277,43 @@ the functionals only after earlier versions had failed on some states~\cite{SM}.
 % (graviton edge integral not computed; exact scalar at J = 26: 0.285 / grid max 0.405 vs tolerance 0.406). Theorem names (W, L'),
 % thresholds and premises are in Supplement Sec. S7.
 \paragraph*{Large spin.}
-States of large spin are where curvature bites hardest, because the margin of the functional
-shrinks as the impact parameter grows. Two facts make them tractable. An exact identity, which
-we prove through eighth order in the distance from the Regge limit, check numerically to
-fortieth order and derive at all orders, turns
-every curvature correction into one that the de-shifted weights already absorb, plus a single
-explicit extra term. And when we compute the leading spinning corrections exactly, on near-gap
-states with spins up to $344$, the extra term cancels and the corrections use less than half of
-the margin. With a contour argument for the higher orders, this gives two conditional theorems:
-positivity on the 47 sampled near-gap states of spin $26\le J\le344$, given the edge bound below,
-and on states of spin below $10^6$ whose impact parameter exceeds about a third of the AdS
-radius, where the leading margin is certified on every state and the remainder was checked on
-sampled states up to mass $5\Lambda$. Both rest on an assumption: beyond the Regge regime, the difference
-between a heavy state's contribution and its flat-space value splits into two waves, analytic in
-the frequency, that decay at a uniform rate. Every explicit piece of the calculation has this
-property and it holds to all orders of the saddle-point expansion, but we have not proved it
-beyond all orders. The first theorem also needs a bound on one integral of the graviton's
-contribution near the light-cone edge, which we could not compute; a scalar analogue meets it,
-narrowly at the lowest spins. The other magnitudes the theorems use were estimated in models,
-with large margins, and the first theorem's leading margin is certified only at its larger
-spins~\cite{SM}. No theorem covers the near-gap states between the samples, or heavier states at
-intermediate impact parameter; there we rely on a hypothesis supported by a sketched argument.
+At large spin curvature bites hardest: the margin of the functional shrinks as the impact
+parameter grows. An exact identity, which we prove through eighth order in
+the distance from the Regge limit, check numerically to fortieth order and derive at all orders,
+turns every curvature correction into one that the de-shifted weights already absorb, plus one
+explicit term. Computed exactly on near-gap states with spins up to $344$, that term cancels and
+the corrections use less than half of the margin. With a contour argument for the higher orders,
+this gives two conditional theorems: positivity on 47 sampled near-gap states of spin
+$26\le J\le344$, and on states of spin below $10^6$ whose impact parameter exceeds about a third of
+the AdS radius (remainder checked on sampled states up to mass $5\Lambda$). Both assume that, beyond
+the Regge regime, the difference between a heavy state's contribution and its flat value splits
+into two analytic waves that decay at a uniform rate; this holds to all orders of the saddle-point
+expansion but is unproved beyond them. The first theorem also needs a bound on one edge integral
+of the graviton, which we could not compute; a scalar analogue meets it, narrowly. The other
+magnitudes the theorems use were estimated in models, with large margins~\cite{SM}. Between the
+samples, and at intermediate impact parameter, we rely on a hypothesis supported by a sketched
+argument.
 
 % v10: positivity at every gap. Sources: GAP_SCALING Sec. 0, 2-4; GAP_LARGESPIN Sec. 0 (U1-U6, Table 0.2); GAP_UNIFORM Sec. 0, 3
 % (Lemma T, U7, B_F); GAP_NEARGAP Sec. 0, 5; GAP_C3 Sec. 0; GAP_MORSE Sec. 0 (Delta_1*(J)). Grades: Supplement Sec. S8.
 \paragraph*{Larger gaps.}
-The evidence for $\Omega^{EE}$ carries over to every $\Delta_g\ge1000$~\cite{SM}. The certified
-statements hold at every gap: the flat-space floor, the leading-Regge curvature bound, which only
-decreases, and the leading-Regge floor at large impact parameter. We repeated the error-controlled near-gap checks at $\Delta_g=2000$, and for two spins
-at $5000$. No state is negative; up to spin 16 the error budgets shrink like $\Delta_g^{-2}$, as the
-approach to flat space predicts, and for spins up to 8 the ratio of margin to budget grows four-
-to ninefold. Spins 21, 27 and 29 remain thin at
-$2000$ until direct evaluations, needed at $1000$ too, are included.
+Above $\Delta_g=1000$ the evidence for $\Omega^{EE}$ is at best as strong as at $1000$ and needs
+further premises~\cite{SM}. The certified statements carry over to every gap, the leading-Regge ones
+wherever the de-shifted weight exists (we constructed it up to $5000$). At $\Delta_g=2000$ we
+repeated the error-controlled near-gap checks. No state is negative, and up to spin 16 the checks
+close, with error budgets that shrink like $\Delta_g^{-2}$, as the approach to flat space predicts. Spins 21, 27 and 29 are
+not yet error-controlled at their lowest mass (at $1000$ this needed direct evaluations), and the
+other near-gap spins have not been recomputed.
 % BATCH4: external direct rows for J = 12, 16, 21, 27, 29 at Delta_g = 2000 (ext/jobs_batch4.txt) update the sentence above.
 % SEAM: seam spins J = 9-11, 13-15, 17-20 (and 22-26, 28, 30-32) and the parity-odd OO states J = 4-10 at 2000 have no rows yet
-% (ads4/GAP_SEAM.md, when it exists); the sentence "We repeated ... checks" then covers them too.
-Between and beyond the computed gaps we assume that a near-gap state's correction, relative to
-its flat value, does not grow with the gap. We checked this at $1000$, $2000$ and $5000$, and up
-to $10^4$ on an exactly computable scalar analogue; for spins up to 7 we prove that it suffices,
-with a safety factor above ten. Above $\Delta_g\approx10^5$--$4\times10^5$
-a certified bound on the saddle-point remainder replaces it for the lowest spins, given further
-technical premises. At large spin the theorems' margins grow: at $\Delta_g=5000$ the first uses a
-tenth of its margin, not half, and tolerates a graviton edge integral $140$ times larger.
+% (ads4/GAP_SEAM.md, when it exists); "the other near-gap spins have not been recomputed" then changes.
+Between and beyond the computed gaps we assume that a near-gap state's correction, relative to its
+flat value, does not grow with the gap. At $2000$ and $5000$ we tested this only on the
+saddle-point evaluations used for the checks, and up to $10^4$ on an exactly computable scalar
+analogue. For spins up to 7 we prove that it suffices, with a safety factor above ten; above
+$\Delta_g\approx10^5$ a certified remainder bound supplements it for the lowest spins, given further
+premises. If the large-spin premises do not change with the gap in AdS units, the theorems' margins
+grow. Near-gap states with spins from 33 to about $0.026\Lambda$ are covered by no argument yet.
 
 \begin{figure}[tb]
 \includegraphics[width=\columnwidth]{fig/fig2_coverage}
@@ -329,7 +325,8 @@ covered; at $J=29$ the lightest part (pale) needs the measured sign of one contr
 first conditional theorem covers only the 47 sampled near-gap states (dots; the hatched band
 between them is interpolated), the second all states of large impact parameter (dotted boundary)
 up to $J=10^6$, off scale; both rest on the assumptions stated in the text. Lighter shading: values computed in models or interpolated; hatched: only a
-hypothesis. In these units every larger gap looks the same or better. Grades and sources:
+hypothesis. At larger gaps the near-gap corrections shrink like $\Delta_g^{-2}$, and the large-spin
+regions move to proportionally larger $J$. Grades and sources:
 Supplemental Material, Secs.~S7, S8; script \texttt{fig/make\_fig2.py}.}
 \end{figure}
 
@@ -349,23 +346,22 @@ consistency check at the one-digit level, not evidence for positivity.
 % ---------------------------------------------------------------------------
 \paragraph*{Discussion.}
 If positivity holds, the cubic and quartic graviton couplings of a holographic CFT$_3$ with a
-large gap in the single traces of $T\times T$ are, in units of the gap, at most of order a hundred, as one expects when
-the gap sets the size of higher-derivative terms. The bounds are not optimal. The cubic bound is about ten times weaker
-in $|\hat g_3|$ than the flat-space optimum transplanted to AdS~\cite{CHLPS}
-(Fig.~\ref{fig:bounds}), which uses forward and helicity-flip sum rules that are not available
-here, and the quartic bound is dominated by the infrared logarithm. Beyond the parametric statements of
+large gap in the single traces of $T\times T$ are, in units of the gap, at most of order a hundred
+(the quartic one if $\kappa>0$ or $\tau=0$), as expected when the gap sets the size of
+higher-derivative terms. The bounds are not optimal: the cubic bound is about ten times weaker in
+$|\hat g_3|$ than the flat-space optimum transplanted to AdS~\cite{CHLPS} (Fig.~\ref{fig:bounds}),
+which uses forward and helicity-flip sum rules not available here, and the quartic bound is
+dominated by the infrared logarithm. Beyond the parametric statements of
 Refs.~\cite{KKSDZ,BHM,AKT} and the flat-space and higher-dimensional
 precedents~\cite{CHLPS,CHLPSpw}, the new elements are explicit constants derived from
 $\langle TTTT\rangle$ in three dimensions, the parity-odd coupling $\alpha_T$, and an AdS bound
 on a graviton $R^4$ coefficient (which localisation determines in ABJ(M)
-theory~\cite{BCP,BCJP}). We do not claim an unconditional bound,
-unconditional positivity at large spin, positivity at larger gaps without the premise on near-gap
-corrections, results below $\Delta_g=1000$, the size of the $1/c_T$
-corrections, a lower bound, or bounds on $g_5$ or on the all-plus $R^4$ coefficient~\cite{CGGHJM}. The most
-useful next steps are a proof of the uniform-decay assumption and of that premise, the graviton's
-light-cone-edge integral, error control for the remaining near-gap states, the value of
-$c_1$, and a quartic functional built to be positive on light scalars. A de Sitter analogue of the
-flat-space core would need a positivity principle that is not established there.
+theory~\cite{BCP,BCJP}). We do not claim an unconditional bound, unconditional positivity at large
+spin or at larger gaps, results below $\Delta_g=1000$, the size of the $1/c_T$ corrections, a lower
+bound, or bounds on $g_5$ or on the all-plus $R^4$ coefficient~\cite{CGGHJM}. The most useful next
+steps are a proof of the uniform-decay assumption, the graviton's light-cone-edge integral, error
+control for the remaining near-gap states, the value of $c_1$, and a quartic functional built to be
+positive on light scalars.
 
 \begin{acknowledgments}
 AI (Claude) assisted with the formulation and drafting of this manuscript. The authors take full

@@ -115,3 +115,29 @@ The files are left byte-identical so that the hashes quoted in the Supplement an
   Each copy keeps the original header plus one provenance line (source file and its full SHA-256). On `(Λ, Λ + 10]` the kept rows agree
   with the continuum tables to `≤ 2.6·10⁻¹⁰` absolute. Full SHA-256 of the copies: `TRUNC_SHA256SUMS`.
 
+
+## 8. The k = 2 weights of `Ω^EE` at Δ_g = 2000 and 5000 (v11, 24 Nov 2026; Supplement §S8.B, row *Weights*)
+
+New files only; no published file was changed.
+
+| file | content |
+|---|---|
+| `gap/d_abel_X_2000_trunc.txt.gz`, `gap/d_abel_X_5000_trunc.txt.gz` | columns as `d_abel_X_1000.txt` (`ν_k`, `Re X`, `Im X`, `Re Y`, `Im Y`, `ψ₂(ν_k)`), `ν_k = (k+½)·0.05`, rows `ν_k ≤ Λ + 10` only (40170 / 100170 rows; already in the reading of §4, §7) |
+| `gap/gap_weights_checks.txt` | the checks below, also for the Δ_g = 1000 grid of the same solver |
+| `gap/SHA256SUMS` | full SHA-256 of the three files above |
+| `export_gap_weights.py` | writes `gap/` from `ads4/code/gapscale/cache/weights_{2000,5000}.npz` (read-only; numpy, scipy, sympy; imports `code/deshift/d_abel.py` read-only; ≈ 6 s) |
+
+* **What they are.** The minimal-norm grid solutions of the k = 2 Abel equation of §4 (NF02 ψ₂, EE kernel), computed by
+  `code/gapscale/gs_weights.py` with the independent solver `deshift/d_abel.Abel` (`dν = 0.05`, `ν_max = Λ + 40`). These are the weights
+  the near-gap computations at 2000 and 5000 used (gauge factor of the budgets, `code/gapnear/gn_bind.py`). gzip with `mtime = 0`
+  (`zcat` to read); hashes reproducible.
+* **Checked** (`gap_weights_checks.txt`) [DV]: discrete relative residual `≤ 5·10⁻¹³`; `X = aY` to `5·10⁻¹⁶`; off-grid de-shift
+  residual `|E[X](t) − Φ(t)|` by direct quadrature `≤ 1.8·10⁻⁶` (2000) / `6.0·10⁻⁶` (5000) for `t ≤ 14` (`|Φ(0.3)| = 1.1 / 0.42`), failing
+  beyond `t ≈ 18` like the Δ_g = 1000 grid; graviton-pole identity V3 to `≤ 8·10⁻¹⁵`; `Λ²dk₀ = −68.081 / −68.077` (first-order value
+  −68.076); `Λ²(Re X − ψ₂) − S(p)` on `p ≥ 0.1` is `7.1·10⁻³ / 1.1·10⁻³` of `max|S|` (the `Λ⁻²` expansion of Supplement Table S12);
+  double-precision floor beyond `Λ + 10` `≤ 1.5·10⁻¹⁴`; gauge factor `max|Re X/ψ₂|` on `ν ≤ 25` = 6.865 / 6.881.
+* **Not done.** No continuum (strip-analytic) fit with an all-`t` bound `ε_W`, as in `k2/k2_continuum_D_{300,1000}.json`, exists at
+  2000 or 5000 (`code/cert/k2_cont.py` is parametrised by Λ; ≲ 2.5 CPU-h per gap was not spent). Beyond 5000 no weight was constructed;
+  only the expansion `Re X = ψ₂ + S/Λ² + O(Λ⁻⁴)` [DV].
+* **Gap-independent pieces.** The k = 3 piece of `Ω^EE` (ψ₃, not de-shifted) and the k = 4, 5 weights of `Ω^Q_up` (§3; functions of ν
+  only) do not depend on the gap. `Ω^Q_up` was not used at 2000 or 5000.

@@ -1,4 +1,6 @@
 % supplement.tex -- Supplemental Material for letter.tex.
+% prl/CHANGES_v11.md (v10 -> v11): REFEREE_REPORT_5 cheap fixes in Sec. S8 (band with no transfer route, weights at 2000/5000
+% published in data/gap/, Lemma T caveat, r_c ranges, literature), legend mapping of the Letter's new wording, Table S1 row.
 % prl/CHANGES_v10.md (v9 -> v10): new Sec. S8 "Positivity at every gap Delta_g >= 1000" (GAP_SCALING, GAP_LARGESPIN, GAP_UNIFORM,
 % GAP_C3, GAP_NEARGAP, GAP_MORSE; unreviewed); the hybrid-floor hole 119 < b < 245.2 at 1.3 <= m/Lambda < 1.5 closed (also at 1000);
 % Theorem W's P0 rigorous for b >= 114.06; scope sentences (Secs. S1, S5.G, S6 table S7 caption, S9, S12) updated. Marks "% SEAM" and
@@ -81,7 +83,7 @@ conditional theorems'' are Theorems W and L$'$ of Sec.~\ref{sec:largespin}; ``an
 contributions beyond the Regge regime'' (they split into two analytic waves decaying at a uniform rate) is (AG$_U$) of
 Sec.~\ref{sec:largespin}.D, [A] beyond all orders; ``one edge integral of the graviton'' (``one integral of the graviton's
 contribution near the light-cone edge'') is
-(EDGE-R) of the same subsection, [M], and ``a scalar analogue meets it, narrowly at the lowest spins'' is Table~\ref{tab:jstarW}
+(EDGE-R) of the same subsection, [M], and ``a scalar analogue meets it, narrowly'' is Table~\ref{tab:jstarW}
 (the exact scalar, read in the graviton's transferred units: margin $1.42$ at $(J,m)=(26,1.026\Lambda)$ at the tabulated cutoff,
 $0.405$ against $0.406$ at the worst cutoff of the lemma's grid); ``the other magnitudes \dots\ estimated in models'' are the spinning $O(1/m^4)$ window
 coefficients (premise W), the $+-$ helicity transfer, Theorem L$'$'s edge amplitude (EDGE) and its $O(1/m^2)$ coefficients above
@@ -90,14 +92,21 @@ L3 of Table~\ref{tab:inputs} ([D]); the light single traces' ``contribution fixe
 shift we have not computed; we only sketch this step'' is row LS4 ([D given (E$'$)], (E$'$) [D-sketch]). The Letter's Result is
 stated without light single traces in $T\times T$, where implication (1) is [D]; light single traces are its extension, which
 rests on (E$'$). ``The remainder was checked on sampled states up to mass $5\Lambda$'' is $\varepsilon_R$ of Theorem L$'$
-(Table~\ref{tab:thmL}). The Letter's paragraph ``Larger gaps'' is Sec.~\ref{sec:allgap}: ``the premise'' that ``a near-gap state's
-correction, relative to its flat value, does not grow with the gap'' is B$_F$ (and, without explicit factors, $H_{\rm mono\text{-}A}$),
-[NE]; ``for spins up to 7 we prove that it suffices, with a safety factor above ten'' is the Proposition of
-Sec.~\ref{sec:allgap}.D, [P given B$_F$ and the window conventions], $F_J\ge11.8$; ``the error budgets shrink like $\Delta_g^{-2}$''
-and ``the margins grow four- to ninefold'' are Table~\ref{tab:gap2000} and reading (v) there, [NE$\pm$]; ``a certified bound on the
-saddle-point remainder \dots\ given further technical premises'' is Sec.~\ref{sec:allgap}.E, [P given TAIL, $\Pi\le3$, the $K_2$ part
-bounded, $\xi$-continuity]; the theorems' margins are Table~\ref{tab:lsgap}, [DV] given premise constants carried in AdS units [M];
-``a theory with a larger gap also has a gap of 1000'' is the Remark of Sec.~\ref{sec:allgap}.A, [D].
+(Table~\ref{tab:thmL}). The Letter's paragraph ``Larger gaps'' is Sec.~\ref{sec:allgap}, and the Introduction's ``the
+evidence extends to larger gaps, at no better strength, if near-gap corrections do not grow with the gap and the large-spin premises
+do not change'' and the paragraph's first sentence are that section's net statement. ``Wherever the de-shifted weight exists (we
+constructed it up to $5000$)'' is row \emph{Weights} of Table~\ref{tab:allgapU} and the files of Table~\ref{tab:data}. ``The
+premise'' that ``a near-gap state's correction, relative to its flat value, does not grow with the gap'' is B$_F$ (and, without
+explicit factors, $H_{\rm mono\text{-}A}$), [NE]; ``tested \dots\ only on the saddle-point evaluations used for the checks'' means the
+own-mass $K_2$ (Laplace) rows, whose chart-A gap independence is largely structural (fixed-phase row of Table~\ref{tab:allgapU});
+``for spins up to 7 we prove that it suffices, with a safety factor above ten'' is the Proposition of Sec.~\ref{sec:allgap}.D, [P given
+B$_F$ and the window conventions], $F_J\ge11.8$; ``up to spin 16 the checks close, with error budgets that shrink like
+$\Delta_g^{-2}$'' is Table~\ref{tab:gap2000} and reading (v) there, [NE$\pm$]; ``a certified remainder bound supplements it for the
+lowest spins, given further premises'' is Sec.~\ref{sec:allgap}.E, [P given TAIL, $\Pi\le3$, the $K_2$ part bounded, $\xi$-continuity],
+where the third premise is B$_F$ for an explicit function; ``if the large-spin premises do not change with the gap in AdS units, the
+theorems' margins grow'' is Table~\ref{tab:lsgap}, [DV] given that hypothesis [M]; ``near-gap states with spins from 33 to about
+$0.026\Lambda$'' are the band of Table~\ref{tab:coverGap} that no transfer route reaches; ``a theory with a larger gap also has a gap
+of 1000'' is the Remark of Sec.~\ref{sec:allgap}.A, [D].
 
 \textbf{What is here.} The full statement with the lower end, the exact $c_1$ forms and thresholds, the H17 remark and the
 inputs list I1--I6 (Sec.~\ref{sec:full}), the $\Lambda$-forms (Sec.~\ref{sec:lambda}), positivity at every gap $\Delta_g\ge1000$ (Sec.~\ref{sec:allgap}), the conditional remark on
@@ -272,6 +281,7 @@ file & content & check\\\hline
 \texttt{k2/k2\_continuum\_}\allowbreak\texttt{D\_300/1000.json} & $\Omega^{EE}$ continuum $k=2$ weights & \texttt{74830220\dots}, \texttt{314db16a\dots}\\
 \texttt{k2/k2\_continuum\_}\allowbreak\texttt{Q\_300/1000.json} & $\Omega^Q_{\rm up}$ continuum $k=2$ weights & \texttt{7966e0a5\dots}, \texttt{70af2f70\dots}\\
 \texttt{d\_abel\_X\_300/1000\_trunc.txt}, \texttt{k2/xq\_abel\_X\_}\allowbreak\texttt{300/1000\_trunc.txt} & the four $k=2$ grids cut at $\nu\le\Lambda+10$ (dropped: $|X|\le5.7\times10^{-12}$, $\sum|X|d\nu\le4\times10^{-12}$) & \texttt{2c192c5d\dots}, \texttt{a8982609\dots}, \texttt{b5576cc2\dots}, \texttt{6d4eef83\dots}\\
+\texttt{gap/d\_abel\_X\_}\allowbreak\texttt{2000/5000\_trunc.txt.gz} & $\Omega^{EE}$'s $k=2$ grid weights used at $\Delta_g=2000$, $5000$ ($d\nu=0.05$, $\nu\le\Lambda+10$); checks in \texttt{gap/gap\_weights\_checks.txt}; script \texttt{export\_gap\_weights.py} (Sec.~\ref{sec:allgap}.B) & \texttt{e9c65212\dots}, \texttt{fec502ea\dots}\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
@@ -1401,16 +1411,23 @@ correction relative to the flat envelope), $x=\nu/m$, $\xi=\nu/\Delta$. None of 
 independently reproduced.
 
 \textbf{Summary.} (1) The certified layers hold at every $\Delta_g\ge1000$ [P; certified] (Sec.~\ref{sec:allgap}.B).
-(2) The error-budgeted near-gap states were recomputed at $\Delta_g=2000$ (two spins also at $5000$); nothing is negative and every
-budget term scales like $\Lambda^{-2}$ or faster [NE$\pm$] (Sec.~\ref{sec:allgap}.C). (3) Between and beyond the computed gaps the
+(2) The error-budgeted near-gap spins except $23$ and $31$ were recomputed at $\Delta_g=2000$ (two spins also at $5000$) on own-mass
+$K_2$ rows; nothing is negative; for $J\le16$ the checks close [NE$\pm$] and every budget term scales like $\Lambda^{-2}$ or faster;
+$J=21$, $27$, $29$ are [NE\,+\,M] at their $2000$ twist edges; seam spins and OO states have no rows yet (Sec.~\ref{sec:allgap}.C).
+% SEAM / BATCH4: update summary item (2) when the seam rows and the direct rows at 2000 are in. (3) Between and beyond the computed gaps the
 transfer rests on a no-growth premise: for $J\le7$ the implication is proved, [P given B$_F$ + windows] with B$_F$ [NE]; for the other
 near-gap states it is [D-sketch given $H_{\rm mono\text{-}A}$], and near-gap large spin is taken in chart B under $H_{\rm mono\text{-}B}$ [M]
 (Sec.~\ref{sec:allgap}.D). (4) Above $\Delta_1^*(J)\approx0.9\times10^5$--$4.2\times10^5$ positivity of the near-gap states with
 $J\le8$ is [P given TAIL, $\Pi\le3$, bounded $K_2$ part, $\xi$-continuity], with the graviton amplitude certified at $J=0,2$ only
 (Sec.~\ref{sec:allgap}.E). (5) The large-spin theorems keep their premises, and their margins grow with the gap [DV]
-(Sec.~\ref{sec:allgap}.F). \emph{Net:} positivity of $\Omega^{EE}$ at a gap $\Delta_g>1000$ has at best the grade it has at $1000$,
-and on $1000<\Delta_g<\Delta_1^*$ it rests in addition on the no-growth premise. It is not ``(Pos) proved for all
-$\Delta_g\ge1000$''. Nothing in this section concerns $\Omega^Q_{\rm up}$.
+(Sec.~\ref{sec:allgap}.F). (6) One near-gap band, $33\le J<J_W$ above the seam ($J_W\approx26.5\,\Lambda/\Lambda_0$, the chart-B image of $J=26$), is reached by no transfer
+route (Sec.~\ref{sec:allgap}.D, Table~\ref{tab:coverGap}). \emph{Net:} positivity of $\Omega^{EE}$ at a gap $\Delta_g>1000$ has at best
+the grade it has at $1000$; on $1000<\Delta_g<\Delta_1^*$ it rests in addition on the no-growth premise, at large spin on premise
+constants carried in AdS units [M], and the band of (6) is not covered. It is not ``(Pos) proved for all $\Delta_g\ge1000$''. Nothing
+in this section concerns $\Omega^Q_{\rm up}$. \emph{Literature.} We know of no explicit uniform-in-gap bound: the flat-to-AdS uplifts
+of CHMRS (``sufficiently large'' $M$)~\cite{CHMRS} and of Ref.~\cite{CHLPSpw} (an unquantified $O(1/\Delta_{\rm gap}^4)$) are not
+effective; the uniformity of Knop and Maz\'a\v{c} in AdS$_2$ comes from pointwise kernel positivity~\cite{KnopMazac}, which
+$\Omega^{EE}$ does not have; van Rees and Zhao note that uniformity is not immediate~\cite{vanReesZhao}.
 
 \subsection{Monotonicity in the gap, and the constants}
 \emph{Remark} [D]. A theory that satisfies A1$'$ and A2 with gap $\Delta_g'$ satisfies them with every $\Delta_g\le\Delta_g'$:
@@ -1439,7 +1456,14 @@ statement & grade\\\hline
 \emph{Weights.} $\psi_k(p)$ are $\Lambda$-independent by definition, and the leading-Regge action is exactly $\int\psi_kP_{-1/2+i\Lambda p}$
 at every $\Lambda$. The realised minimal-norm $k=2$ weight is ${\rm Re}\,X(\Lambda p)=\psi_2(p)+S(p)/\Lambda^2+O(\Lambda^{-4})$ on $p\ge0.1$,
 $S=\tfrac12\psi_2''-\tfrac{23}2(\psi_2/p)'$ (residual $0.029$ / $0.0071$ / $0.0011$ of $\max|S|$ at $1000$ / $2000$ / $5000$); at
-$\nu=O(1)$, $\Lambda X(\nu)$ tends to a fixed profile; $\Lambda^2\delta k_0\to-68.076$ & [P]; weights [DV] at $300$--$5000$\\
+$\nu=O(1)$, $\Lambda X(\nu)$ tends to a fixed profile; $\Lambda^2\delta k_0\to-68.076$. The weights actually used at $2000$ and $5000$
+are the minimal-norm grid solutions (\texttt{data/gap/}, Table~\ref{tab:data}; they enter the near-gap budgets through the gauge
+factor). Checked there: discrete residual $\le5\times10^{-13}$; off-grid de-shift residual $|E[X]-\Phi|\le6\times10^{-6}$ for $t\le14$
+($|\Phi(0.3)|=1.1$ / $0.42$) (it fails beyond $t\approx18$, as for the $1000$ grid); graviton-pole identity to
+$10^{-14}$; $\Lambda^2\delta k_0=-68.081$ / $-68.077$; grid floor $\le1.5\times10^{-14}$ beyond $\Lambda+10$. No continuum
+(strip-analytic) fit with an all-$t$ bound $\varepsilon_W$, which $H_K$ uses, was made at $2000$ or $5000$; beyond $5000$ only the
+expansion above exists & [P]; weights [DV] at $300$--$5000$ (grids; continuum form with $\varepsilon_W$ only at $300$, $1000$);
+asymptotic beyond\\
 \emph{Flat floor.} NF02: $\mathcal F\ge N/5$ on every flat heavy state; $\Lambda$-independent at fixed $(J,m/\Lambda,h)$ & [certified]\\
 \emph{Lemma C is monotone.} At fixed $(J,m/\Lambda,h)$ the Lemma-C bound decreases in $\Lambda$, so the sign-free floor (flat $-$ Lemma C)
 increases. Near the twist edge (worse helicity) it is positive up to $J=13$ / $17$ / $23$ / $35$ / $61$ at $\Delta_g=1000$ / $2000$ /
@@ -1463,7 +1487,8 @@ that Sec.~\ref{sec:largespin}.B leaves at [NE]; for $m<1.3\Lambda$ the floor is 
 \emph{Lemma T} (chart A). Node coefficients, node positions $x_n$, flat parts and $N_f$ are $\Lambda$-independent; hence the sign-free
 tolerance obeys $G_{\rm cert}(\Lambda)\ge G_{\rm cert}(\Lambda_0)(\Lambda/\Lambda_0)^2$, and a near-gap state is positive at $\Lambda$ if
 $\sup_x|\Gamma_\Lambda(x)|\le G_{\rm cert}(\Lambda_0)(\Lambda/\Lambda_0)^2$ and its window terms fit. Checked on 366 states $J\le60$ at
-$1000$ / $2000$ / $5000$ & [P]; numbers [DV]\\
+$1000$ / $2000$ / $5000$. ``$\Lambda$-independent'' holds for the flat weights $\psi_k$; the realised $k=2$ weight differs by
+$S/\Lambda^2$ (row \emph{Weights}) & [P]; numbers [DV]\\
 \emph{Fixed-phase structure.} At fixed $\xi$ the crystal integral is $\int e^{\Delta\Phi_\xi}g_J$ with $\Phi_\xi$ exactly $\Delta$-independent,
 so ``$\Gamma$ has a limit as $m\to\infty$ at fixed $(J,x)$'' is ordinary fixed-phase Laplace asymptotics & [D]\\
 \emph{Cycle rigidity.} The thimble coefficients of the physical chain are $\Delta$-independent in chart A, so a direct-versus-Laplace
@@ -1477,7 +1502,7 @@ agreement at one gap excludes a competing saddle at every gap (barring an accide
 \subsection{Near-gap states at \texorpdfstring{$\Delta_g=2000$}{Delta g = 2000} and 5000}
 The protocol is that of Sec.~\ref{sec:pos} (the same budget code, $\times3$ on every model term) on own-mass $K_2$ rows at
 $\Delta=\Delta_g+J$ (light $J=0,2$ at $\Delta_L=0.99\Delta_g$), with the reference row at $\Delta_{\rm ref}=2\times10^4$ and the gauge
-factor of the gap's own minimal-norm weight. Rerun at $\Delta_g=1000$ with the new rows hidden, it reproduces the published
+factor of the gap's own minimal-norm weight (published in \texttt{data/gap/}). Rerun at $\Delta_g=1000$ with the new rows hidden, it reproduces the published
 near-gap table to every printed digit. Table~\ref{tab:gap2000} lists the results.
 
 \begin{table}[!htbp]
@@ -1601,6 +1626,13 @@ $+-$ transfer factor $(1-x_1^2)^{-2}$ of (EDGE-R) grows like $(\Delta_g/J)^2$ ($
 $2000$, $5000$). In chart B pointwise corrections do not shrink, so sign-free per-node budgets do not improve; only signed integrals do.
 The graviton's edge integral is uncomputed at every gap.
 
+\emph{A band with no transfer route.} The near-gap states above the seam with $33\le J<J_W$, where $J_W$ is the chart-B image of $J=26$ ($J_W=52$ at $2000$,
+$132$ at $5000$), are reached by neither chart: chart A maps them to $1000$ states in Theorem W's range, where the $+-$
+(EDGE-R) transfer grows like $(\Delta_g/J)^2$, and chart B maps them to $1000$ near-gap states with $J\approx16$--$25$, mostly
+[NE\,+\,M], whose sign-free budgets do not improve. This band,
+which grows with the gap, carries no grade at any $\Delta_g>1000$; $K_2$ rows at $2000$ with $\Delta_{\rm ref}\ge5\times10^4$ would
+give it one.
+
 \subsection{Certified eventual positivity}
 At each node $(J,\xi)$, a certified holomorphic Morse chart ($\Phi_\xi-\Phi^*=-\tfrac12W\cdot W$ exactly, by Taylor-model inversion
 with explicit Bombieri-norm bounds) [P\,+\,certified] and an explicit remainder lemma for the $K_2$ truncation, each of whose terms
@@ -1613,7 +1645,7 @@ propagation factor $\Pi\le3$ [M]; (iii) $\sup_m|\Gamma_{K_2,m}|$ bounded, i.e.\ 
 in $\Delta_1$; covering $\xi\in[0.1,0.85]$ needs about 2 CPU-h per spin and was not run. The graviton $EE$ and C3H amplitudes are
 certified at $J=0$, $2$ only; for $J=4$--$8$ the certified data are those of the scalar $k=2$ integrand with spin contraction $Q_J$,
 which has the same phase. $\Delta_g=1000$ is out of reach of the method: $\Delta_1\propto r_c^{-2}$, and $1000$ needs a certified radius
-$r_c\approx0.24$, against $0.014$--$0.052$. A first remainder lemma, with the cubic term of the phase in the exponent, gave
+$r_c\approx0.24$, against $0.023$--$0.052$ (scalar) and $0.014$--$0.032$ (graviton prefactors). A first remainder lemma, with the cubic term of the phase in the exponent, gave
 $\Delta_1=4.7\times10^5$--$10^7$; it is superseded (its evaluator also used floating-point series coefficients outside the enclosure,
 numerically irrelevant and fixed). So $1000\le\Delta_g<\Delta_1^*(J)$, about two decades, rests on B$_F$.
 
@@ -1678,7 +1710,8 @@ region & status at every $\Delta_g\ge1000$\\\hline
 flat limit & [certified]\\
 leading-Regge floor, $b\ge0.2456\Lambda$; $J\ge J_*(m)$ ($r<1$) & [P\,+\,certified]\\
 hybrid floor, $m\ge1.3\Lambda$, $b\le2\Lambda$; $m\ge\Lambda$, $b\ge114.06$ & [D\,+\,certified] (Lemma-C$'$ part [P\,+\,DV] at sampled masses)\\
-near gap $J=0,2,4$--$7$ & [NE$\pm$] at $1000$ and $2000$ ($J=5$ also $5000$); every larger gap [P given B$_F$\,+\,windows], B$_F$ [NE];
+near gap $J=0,2,4$--$7$ & [NE$\pm$] at $1000$ and $2000$ ($J=5$ also $5000$); every larger gap [P given B$_F$\,+\,windows], B$_F$ [NE],
+at the sampled masses (twist edge, $1.02$, $1.05$, $1.1$, $1.3\Lambda$), between them $H_{\rm cont}$ [NE];
 $\Delta_g\ge\Delta_1^*(J)$: [P given TAIL, $\Pi$, $K_2$, $\xi$]\\
 near gap $J=8$ & [NE$\pm$] ($\lambda$-level at $1000$, sign-free at $2000$); transfer [D-sketch given $H_{\rm mono\text{-}A}$];
 $\Delta_g\ge4.2\times10^5$: as above, scalar data\\
@@ -1688,6 +1721,9 @@ near gap $J=21$, $27$, $29$ & [NE$\pm$] thin at $1000$ (direct rows); at $2000$ 
 pending direct rows; transfer as above\\
 other near-gap states, $J\le32$ & the grade of Table~\ref{tab:coverLS} at $1000$, transferred under $H_{\rm mono\text{-}A}$; seam spins
 at $2000$ not yet computed\\
+near gap above the seam, $33\le J<J_W$ ($\le51$ at $2000$, $\le131$ at $5000$; $J_W\approx26.5\,\Lambda/\Lambda_0$) & no transfer route
+(chart A: EDGE-R transfer $\propto(\Delta_g/J)^2$; chart B: $1000$ images at $J\approx16$--$25$, [NE\,+\,M]); not covered, hypothesis only;
+not computed at any $\Delta_g>1000$\\
 near gap, $26\le J\le344$ at $1000$ and their chart-B images & Theorem W [P given P0, P1$'$, W, AG$_U$, EDGE-R at $\Delta_g$]\,+\,[DV],
 premise constants carried in AdS units [M]; between samples [NE]\\
 $b\ge0.37211\Lambda$ (Theorem L$'$) & floor [P\,+\,certified]; theorem [D given P$_L'$(i), AG$_U$, EDGE at $\Delta_g$], tolerances [DV]
@@ -1700,7 +1736,8 @@ $m\ge1.3\Lambda$, $b_A(m)\le b<0.37211\Lambda$ & $H_R'$ [D-sketch\,+\,M], as at 
 % seam rows at 2000 are in.
 
 Not claimed: positivity at $\Delta_g>1000$ without the no-growth premise (B$_F$ or $H_{\rm mono\text{-}A}$, $H_{\rm mono\text{-}B}$)
-below $\Delta_1^*$, or with a grade better than at $1000$; B$_F$ itself; certified eventual positivity for the graviton amplitude at
+below $\Delta_1^*$, or with a grade better than at $1000$; anything in the band $33\le J<J_W$ near the gap;
+the large-spin margins without premise constants carried in AdS units; B$_F$ itself; certified eventual positivity for the graviton amplitude at
 $J\ge4$, for $J>8$, or uniformly in $\xi$; a value of the graviton's edge integral at any gap; anything below $\Delta_g=1000$
 (Sec.~\ref{sec:cor} remains a conditional remark); positivity of $\Omega^Q_{\rm up}$ at any gap other than $300$, $1000$.
 
@@ -1825,7 +1862,8 @@ is not shown for string states in AdS, and at $3\%$ of the upper end the check c
 \section{What is not claimed}
 Not claimed: an unconditional bound; any statement beyond leading order in $1/c_T$, in particular the size of the $1/c_T$
 corrections to the bounds (end of Sec.~\ref{sec:HK}); any $\Delta_g<1000$ other than 300 (Sec.~\ref{sec:cor} is a conditional remark only); at $\Delta_g>1000$, anything beyond
-Sec.~\ref{sec:allgap} (positivity of $\Omega^{EE}$ there rests on the no-growth premise below $\Delta_1^*$, and $\Omega^Q_{\rm up}$ was not
+Sec.~\ref{sec:allgap} (positivity of $\Omega^{EE}$ there has at best its $1000$ grade, rests on the no-growth premise below $\Delta_1^*$ and, at large
+spin, on premise constants carried in AdS units, and leaves the band $33\le J<J_W$ near the gap uncovered; $\Omega^Q_{\rm up}$ was not
 examined);
 the lower end of item (2) (Sec.~\ref{sec:lower});
 loop level; bounds on $\hat g_4$ or $g_5$; a cubic closure $|\hat g_3|^2\Lambda^8\le\dots$ from item (2)
