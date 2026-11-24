@@ -1,3 +1,14 @@
+*Revised 24 Nov 2026, **v10** (positivity at every gap Δ_g ≥ 1000, after GAP_SCALING, GAP_LARGESPIN, GAP_UNIFORM, GAP_C3,
+GAP_NEARGAP, GAP_MORSE; all unreviewed; no physics recomputed): the Letter gains a paragraph "Larger gaps" (certified layers at every
+gap; near-gap rechecks at 2000, two spins at 5000, budgets ∝ Δ_g⁻² to J = 16; the no-growth premise, proved sufficient for J ≤ 7 with
+F_J ≥ 11.8, checked at 1000/2000/5000 and on the exact scalar to 10⁴; certified remainder above 10⁵–4·10⁵ for the lowest spins given
+premises; large-spin margins grow), the Result's last paragraph (monotonicity in the gap [D]; per-gap constant |ĝ₃|Λ⁴ ≤ 128 / 139 at
+2000 / 5000, i.e. the gap-unit constant GROWS like √ln Λ while τ₀ falls like √ln Λ/Λ⁴; Ω^Q_up only at 300/1000), and scope edits
+(Intro, Discussion, Fig. 1/2 captions; Fig. 1 cubic curve solid above 1000). Abstract and the AI-use disclosure unchanged. Supplement:
+new **§S8 "Positivity at every gap Δ_g ≥ 1000"** (Tables S12–S17); the 1000 hybrid-floor hole 119 < b < 245.2 and W's P0 upgraded via
+the uniform ROUTEA window. Marks **`% SEAM`** (GAP_SEAM.md: seam spins and OO states at 2000) and **`% BATCH4`** (external direct rows
+J = 12–29 at 2000). Change log: **`CHANGES_v10.md`** (incl. inconsistencies §6).*
+
 *Revised 24 Nov 2026, **v9** (cheap fixes after `REFEREE_REPORT_4.md`; no new physics): title "How Close to Einstein Must
 Holographic Gravity Be?"; abstract leads with the assumption and |ĝ₃|Λ⁴ ≤ 120 (τ ≤ 2.89·10⁻⁸ as "i.e."), "proved in the flat-space
 limit for the cubic bound and supported numerically in AdS", "numbers are for c₁ = 0"; Introduction lists the large-spin premises
@@ -71,7 +82,7 @@ Files in `ads4/prl/`:
 | `data/` | published functional data; v4 adds `q3star_factored.json` + `make_q3star.py`, README errata §5, MANIFEST lines |
 | `build/` | all build outputs (git-ignored) |
 
-| `CHANGES_v3.md` … `CHANGES_v9.md` | change logs v2 → v3, v3 → v4 (referee 2), v4 → v5 (HIGHSPIN filled, large spin), v5 → v6 (referee 3), v6 → v7 (plain prose, large-spin theorems), v7 → v8 (AG_U + EDGE-R, c₁ [D], light single traces, k = 2 definition), v8 → v9 (referee 4 cheap fixes) |
+| `CHANGES_v3.md` … `CHANGES_v10.md` | change logs v2 → v3, v3 → v4 (referee 2), v4 → v5 (HIGHSPIN filled, large spin), v5 → v6 (referee 3), v6 → v7 (plain prose, large-spin theorems), v7 → v8 (AG_U + EDGE-R, c₁ [D], light single traces, k = 2 definition), v8 → v9 (referee 4 cheap fixes), v9 → v10 (positivity at every gap Δ_g ≥ 1000, Supplement §S8) |
 | `data/truncate_grids.py`, `data/*_trunc.txt`, `data/k2/*_trunc.txt`, `data/TRUNC_SHA256SUMS` | v8: the k = 2 grids cut at ν ≤ Λ + 10 (the reading the Supplement now prescribes); published grids unchanged |
 
 (v5: the stale v3 copy of this table that followed here was removed; `letter.tex` is v5, `supplement.tex` has the new §S7,
@@ -94,6 +105,11 @@ for f in letter supplement; do
   pdflatex -interaction=nonstopmode -output-directory=build $f.tex
 done
 ```
+
+Status (24 Nov, **v10**): both compile with no errors, no undefined references or citations, no overfull boxes (Letter: 7
+underfull-box notices). `build/letter.pdf` 6 pages: the text ends near the top of page 5 (the new "Larger gaps" paragraph, ≈ 0.25
+page), references fill pages 5–6. `build/supplement.pdf` 30 pages (new §S8 with Tables S12–S17). `fig/make_fig.py` (v10) draws the
+cubic curve solid above 1000 and prints √(16L_A) at 2000 / 5000 / 10⁴ / 10⁵ (128.17 / 138.54 / 145.90 / 168.06). Fig. 2 not redrawn.
 
 Status (24 Nov, **v8**): both compile with no errors, no undefined references or citations, no overfull boxes, no stuck or oversized
 floats (Letter: 7 underfull-box notices; Supplement: hyperref "token not allowed" for math in section titles). `build/letter.pdf` 5
@@ -118,6 +134,12 @@ In v5 the figure environment was moved to just before "Functionals" (it had beco
 Figure: `cd fig && python3 make_fig.py` (needs mpmath, matplotlib) before compiling the Letter.
 
 ## 2. Length
+
+**v10** (same tool and arguments; it counts the acknowledgments too): abstract **580** rendered characters (unchanged); prose 3056
+words, 236 inline formulas (conservative 298), 3 display rows (48), Fig. 1 180, Fig. 2 164; **TOTAL ≈ 3684 (≈ 3746 conservative)**;
+limit 3750. To make room for "Larger gaps" (≈ 200 words) v10 cut ≈ 90 words elsewhere (CHANGES_v10 §2: spins 1, 3 reason, g₄-only
+sentence, Why-it-matters ABJM sentence, the term-by-term sentence in Functionals, a connector in the positivity paragraph, ABJM
+IR-log clause, de Sitter sentence shortened). Little room is left (≈ 65 words APS, ≈ 5 conservative).
 
 **v9** (`scratchpad/tools/wc_prl7.py letter.tex 3 0.9375 1.0385`): abstract **580** rendered characters (pdftotext, whitespace
 normalised); prose 2850 words, 215 inline formulas (conservative 268), 3 display rows (48), Fig. 1 180, Fig. 2 164;
@@ -294,7 +316,19 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
 8. UT3 still carries the stale "natural size 10⁻³–10⁻¹" for c₁ (§3); the paper uses no size estimate. (v8: universality is [D] again,
    now with the explicit ASD solution of DSKETCH_UP, so UT3's "universality [D]" agrees with the paper.) UT3 was not edited.
 
+9. **v10 (all gaps):** open for the all-gap statement: the seam spins J = 9–11, 13–15, 17–20, 22–26, 28, 30–32 and the parity-odd
+   OO states J = 4–10 at Δ_g = 2000 (`% SEAM`, GAP_SEAM.md); the batch-4 direct rows for J = 12, 16, 21, 27, 29 at 2000 (`% BATCH4`;
+   J = 21, 27, 29 are [NE + M] at their 2000 twist edges until then); a proof of the no-growth premise B_F / H_mono-A on
+   1000 ≤ Δ_g < Δ₁\* (≈ 2 decades); certified graviton amplitudes at J ≥ 4 and ξ-interval coverage for the eventual-positivity
+   certificate; Ω^Q_up at any gap other than 300/1000; the monotonicity remark of §S8.A (new wording, [D]) should be confirmed by the
+   authors; GAP_* analyses unreviewed.
+
 ## 7. Source inconsistencies
+
+**v10**: listed in `CHANGES_v10.md` §6 (gap-unit constants grow, not shrink; "certified above 10⁵" only under premises and for the
+graviton only at J = 0, 2; Lemma T vs B_F wording; J = 8 L = 5.2 vs 3.9; budgets ∝ Λ⁻² only to J = 16; L′ tolerances recomputed in
+GAP_LARGESPIN although GAP_SCALING says not; the v9 [NE] floor hole upgraded; UNIFIED_THEOREM.md not edited).
+
 
 **v8**: listed in `CHANGES_v8.md` §3 (AG_PROOF's "exact scalar ≤ 0.30 S_E over all cutoffs" and "plain margin ≥ 520" corrected by
 EDGE_R; the 1.35 vs 1.42 margin; UT box for DSKETCH_UP vs its §0 table; HK_CLOSE §5/§6 vs NU_TAIL_CHECK; k2/README "θ changes nothing

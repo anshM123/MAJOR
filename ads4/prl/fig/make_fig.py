@@ -14,6 +14,10 @@ Values between and beyond Delta_g = 300, 1000 are values of the implication with
 examined only at 300 and 1000. Nothing below 300 is claimed.
 v6 (referee 3, m14): 300 markers are open diamonds (one positivity hypothesis open); a key says the faded lines are values
 of the implication only; the annotation carries c1 = 0, K = 1.
+v10 (GAP_SCALING, GAP_LARGESPIN, GAP_UNIFORM, GAP_NEARGAP, GAP_C3, GAP_MORSE): the cubic curve of panel (a) is drawn solid for
+Delta_g >= 1000, where positivity of Omega^EE carries over from 1000 given the no-growth premise B_F / H_mono-A (Supplement
+Sec. S8); small open circles mark 2000 and 5000, where near-gap states were recomputed. Panel (b) is unchanged (Omega^Q_up was
+not examined at other gaps). The script also prints sqrt(16 L_A) at 2000, 5000, 1e4, 1e5 (Supplement Sec. S8.A).
 Usage (from ads4/prl/fig):  python3 make_fig.py  -> fig1_bounds.pdf (and a printed check of the headline constants).
 Colours: first three slots of the dataviz reference palette (all-pairs CVD-validated); every series also has its own line style.
 """
@@ -57,14 +61,14 @@ def vals(Dg):
                 chlps=float(mp.sqrt(mp.mpf('24.9') * mp.log(2 * L / 3) - mp.mpf('27.6'))))
 
 
-for Dg in (300, 1000):
+for Dg in (300, 1000, 2000, 5000, 10000, 100000):
     v = vals(Dg)
     print('Delta_g = %4d: tau0 = %.5e  |g3|Lam^4 <= %.2f  2L_AdS = %.4f  (2b) %.2f  CHLPS-transplant %.2f  ratio %.1f  '
           'ABJM 2zeta(3)/2L_AdS = %.2f %%' % (Dg, v['tau'], v['g3'], v['q2a'], v['q2b'], v['chlps'], v['g3'] / v['chlps'],
                                               100 * 2 * float(mp.zeta(3)) / v['q2a']))
 
 grid = [int(round(10 ** (2.48 + 0.02 * i))) for i in range(int((3.74 - 2.48) / 0.02) + 1)]
-grid = sorted(set([g for g in grid if g >= 300] + [300, 1000]))
+grid = sorted(set([g for g in grid if g >= 300] + [300, 1000, 2000, 5000]))
 V = {Dg: vals(Dg) for Dg in grid}
 xs = grid
 
@@ -86,15 +90,19 @@ for ax in (ax1, ax2):
         ax.spines[s].set_visible(False)
 
 
-def series(ax, key, color, ls, label, lab_xy, lab_ha='left'):
+def series(ax, key, color, ls, label, lab_xy, lab_ha='left', solid_from=None):
     ax.plot(xs, [V[x][key] for x in xs], color=color, ls=ls, lw=1.0, alpha=0.45, zorder=3)  # positivity not examined between markers
+    if solid_from is not None:   # v10: Delta_g >= 1000 for Omega^EE (given the no-growth premise; Supplement Sec. S8)
+        xx = [x for x in xs if x >= solid_from]
+        ax.plot(xx, [V[x][key] for x in xx], color=color, ls=ls, lw=1.3, alpha=1.0, zorder=3)
+        ax.plot([2000, 5000], [V[2000][key], V[5000][key]], 'o', ms=3.0, mfc='white', mec=color, mew=0.9, zorder=4)
     ax.plot([300], [V[300][key]], 'D', ms=3.8, mfc='white', mec=color, mew=1.1, zorder=4)   # 300: one hypothesis open (v6)
     ax.plot([1000], [V[1000][key]], 'o', ms=4.5, mfc=color, mec='white', mew=0.8, zorder=4)
     ax.annotate(label, xy=lab_xy, color=INK, fontsize=6.8, ha=lab_ha, va='center')
 
 
 # (a) cubic
-series(ax1, 'g3', C1, '-', r'this work: $\sqrt{16L_A}$', (1150, 92))
+series(ax1, 'g3', C1, '-', r'this work: $\sqrt{16L_A}$', (1150, 92), solid_from=1000)
 series(ax1, 'chlps', C2, (0, (4, 2)), r'flat $D{=}4$ optimum, transplanted', (330, 23))
 ax1.set_ylim(0, 160); ax1.set_yticks([0, 50, 100, 150])
 ax1.set_ylabel(r'upper bound on $|\hat{g}_3|\,\Lambda^4$')
@@ -105,7 +113,9 @@ ax1.text(0.015, 0.97, '(a)', transform=ax1.transAxes, va='top', fontsize=7.5)
 from matplotlib.lines import Line2D
 key = [Line2D([], [], marker='o', ls='', ms=4.0, mfc=INK2, mec='white', label=r'$\Delta_g=1000$: claimed'),
        Line2D([], [], marker='D', ls='', ms=3.4, mfc='white', mec=INK2, mew=1.0, label=r'$\Delta_g=300$: one hypothesis open'),
-       Line2D([], [], color=INK2, alpha=0.45, lw=1.0, label='lines: implication only')]
+       Line2D([], [], color=C1, lw=1.3, marker='o', ms=3.0, mfc='white', mec=C1, mew=0.9,
+              label=r'solid: $\Delta_g\geq1000$, see text'),
+       Line2D([], [], color=INK2, alpha=0.45, lw=1.0, label='faded: implication only')]
 ax1.legend(handles=key, loc='center right', bbox_to_anchor=(1.0, 0.38), fontsize=5.9, frameon=False, handlelength=1.4, borderaxespad=0.2, labelspacing=0.25)
 ax1.text(262, 75, 'nothing claimed', rotation=90, fontsize=6.3, color=INK2, ha='center', va='center')
 
