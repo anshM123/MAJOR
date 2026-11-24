@@ -1,8 +1,11 @@
 """
-b5_even (BATCH5_FOLD.md §2): even-J near-gap states (2x2 helicity block) at Delta_g = 1000 on their OWN-MASS rows Delta = 1000 + J
-(J = 18, 20, 22, 24, 26, 28, 30, 32) with the batch-5 direct n1 row (x = 0.025 ... 0.95, 38 nodes), its GK15 edge nodes (x <= 0.945,
-injected as extra row nodes) and the n1 small-nu nodes (nu = 20 ... 47) -- the protocol of ngfill/nf_state.py (= HIGHSPIN §4,
-neargap2/ng_bind.run_state UNCHANGED, read-only), with:
+b5_state (BATCH5_FOLD.md §2): near-gap states at Delta_g = 1000 on their OWN-MASS rows Delta = 1000 + J by the own-row protocol of
+ngfill/nf_state.py (= HIGHSPIN §4 / EXT_FOLD's J = 7; neargap2/ng_bind.run_state UNCHANGED, read-only), for both parities:
+  even J = 18 ... 32 (2x2 helicity block): the batch-5 direct n1 row (x = 0.025 ... 0.95, 38 nodes), its GK15 edge nodes (x <= 0.945,
+  injected as extra row nodes) and the n1 small-nu nodes (nu = 20 ... 47);
+  odd J = 17, 19 (and 25 as a cross-check; parity-odd 1x1 +-): the direct bulk row x = 0.05 ... 0.775 + 0.025, 0.0375, the GK15 and
+  NEARGAP2 edge nodes and the small-nu nodes, all injected into the own row (the protocol NEARGAP_FILL used for odd J = 9 ... 15);
+with:
   * the even shadow b(1000 + J, J) (b5_shadow.py) and >= 4 K2 EE state records on the row (b5_k2.py) for the l8 helicity basis: there
     is no K2 row at Delta = 1000 + J; every row NODE is a direct node;
   * nodes dropped: RQMC-failed (hs_core.failed_x: replica rel. err > 0.2) and, for J >= 24, nodes closer to the Delta_ref = 2e4
@@ -13,7 +16,8 @@ neargap2/ng_bind.run_state UNCHANGED, read-only), with:
     bounded separately); E_interp_c = the same probes on lam_c.
 Budget (NEARGAP2 §1.2 sign-free, x3 on model terms) + E_mc = 3 x jackknife sigma (8 replicas).  The nu < 50 window is then replaced by
 the measured window (smallnu/sn_even.main, unchanged, FULL normalisation = the grid with all direct points; b5_evensum.py).
-Usage: python3 b5_even.py J [mfl,...]   -> cache/even/hs_even_J<J>.json (nf_state / hs_even format), cache/even/b5_even_J<J>.{txt,json}
+Env B5_SET: point set (default 'fix' = batch-5 even records mapped to the local structure basis, b5_basis.py; 'all' = unmapped).
+Usage: python3 b5_state.py J [mfl,...]   -> cache/state/hs_even_J<J>.json (nf_state / hs_even format), cache/state/b5_state_J<J>.{txt,json}
 """
 import os, sys, json, time, glob, pickle
 sys.dont_write_bytecode = True
@@ -23,7 +27,8 @@ import numpy as np
 import ng_bind as NB          # read-only
 H, V = C.H, C.V
 NC = H.NC; W = NC.W
-OUT = os.path.join(C.B5C, 'even'); os.makedirs(OUT, exist_ok=True)
+C.SET[0] = os.environ.get('B5_SET', 'fix')
+OUT = os.path.join(C.B5C, 'state' if C.SET[0] == 'fix' else 'state_' + C.SET[0]); os.makedirs(OUT, exist_ok=True)
 H.HSC = OUT; C.S.HSC = OUT; C.S.SNC = OUT
 RZW = 0.0125
 _pk0 = W._pk
@@ -71,27 +76,31 @@ if __name__ == '__main__':
     t0 = time.time()
     m = C.mphys(Down, J)
     xd = H.direct_x(J, Down); failed = H.failed_x(J, Down)
-    z = {h: H.ref_zero_x(J, Down, h) for h in ('++', '+-')}
-    rz = {round(float(x), 6) for x in xd if J >= 24 and abs(x - z['++']) < RZW} if z['++'] < 0.98 else set()
+    z = {h: H.ref_zero_x(J, Down, h) for h in (('+-',) if J % 2 else ('++', '+-'))}
+    if J % 2:
+        z['++'] = z['+-']
+    rz = {round(float(x), 6) for x in xd if abs(x - z['++']) < RZW} if z['++'] < 0.98 else set()
     bad = set(failed) | rz
-    pr(f"# b5_even J={J} own row {Down:g} (m = {m:.3f}, J^2/m = {J*J/m:.3f}, twist edge m/Lam = {mtw:.7f}); reference zeros x0(++) = "
+    pr(f"# b5_state J={J} set {C.SET[0]} own row {Down:g} (m = {m:.3f}, J^2/m = {J*J/m:.3f}, twist edge m/Lam = {mtw:.7f}); reference zeros x0(++) = "
        f"{z['++']:.4f}, x0(+-) = {z['+-']:.4f}; direct nodes {len(xd)} (x {xd.min():.4f} .. {xd.max():.4f}); failed (rel. err > 0.2): "
        f"{sorted(failed)}; dropped by the reference-zero rule |x - x0(++)| < {RZW}: {sorted(rz)}")
     # node table (all direct nodes, before dropping)
     g = H.grid(J, inject=[Down])[Down]
     reps = [H.grid(J, inject=[Down], jk=j)[Down] for j in range(8)]
-    keys = [(kd, h) for kd in ('C2', 'C3H') for h in ('++', '+-')]
+    keys = ['C2', 'C3H'] if J % 2 else [(kd, h) for kd in ('C2', 'C3H') for h in ('++', '+-')]
+    offk = [] if J % 2 else [('C2', 'off'), ('C3H', 'off')]
     nt = []
     pr("#  node table (Gamma, c2; jackknife sigma over 8 replicas; c_off = m Gamma_off):")
     for i, x in enumerate(g['xs']):
         rec = dict(x=float(x), nu=float(x*m), flag=('FAILED' if round(float(x), 6) in failed else ('RZ' if round(float(x), 6) in rz else '')))
         s = f"   x={x:.4f} nu={x*m:7.1f} {rec['flag']:6s}"
-        for k in keys + [('C2', 'off'), ('C3H', 'off')]:
-            sc = m if k[1] == 'off' else 1.0
+        for k in keys + offk:
+            sc = m if isinstance(k, tuple) and k[1] == 'off' else 1.0
             vj = np.array([r[k][int(np.argmin(np.abs(r['xs'] - x)))] for r in reps])*sc
             e = float(np.sqrt(7/8*((vj - vj.mean())**2).sum())); v = float(g[k][i])*sc
-            rec[k[0] + k[1]] = (v, e)
-            s += f" | {k[0]}{k[1]} {v:+10.1f} +- {e:7.1f}"
+            kk = k if isinstance(k, str) else k[0] + k[1]
+            rec[kk] = (v, e)
+            s += f" | {kk} {v:+10.1f} +- {e:7.1f}"
         nt.append(rec); pr(s)
     _rec0 = H.HN.records
 
@@ -138,7 +147,7 @@ if __name__ == '__main__':
         pr(f"     certified-floor route: (Nf/5 - LemmaC)/Ns = {b['rig']:+.4f}")
     H.HN.records = _rec0
     pr(f"[{time.time() - t0:.0f}s]")
-    open(os.path.join(OUT, 'b5_even_J%d.txt' % J), 'w').write("\n".join(lines) + "\n")
+    open(os.path.join(OUT, 'b5_state_J%d.txt' % J), 'w').write("\n".join(lines) + "\n")
     js = dict(J=J, nodes=nt, states=res)
-    json.dump(js, open(os.path.join(OUT, 'b5_even_J%d.json' % J), 'w'), indent=1, default=lambda v: float(v) if isinstance(v, (np.floating, np.integer)) else str(v))
+    json.dump(js, open(os.path.join(OUT, 'b5_state_J%d.json' % J), 'w'), indent=1, default=lambda v: float(v) if isinstance(v, (np.floating, np.integer)) else str(v))
     json.dump(res, open(os.path.join(OUT, 'hs_even_J%d.json' % J), 'w'), indent=1, default=lambda v: float(v) if isinstance(v, (np.floating, np.integer)) else str(v))

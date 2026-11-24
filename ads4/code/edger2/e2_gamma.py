@@ -91,7 +91,37 @@ def _clean(g, J):
         for k in [k for k in r if isinstance(k, tuple) and len(k) >= 2 and k[1] == 'off']:
             OFFNAN.append((J, D, int(np.isfinite(np.asarray(r[k], complex)).sum())))
             r.pop(k)
-    return _clean0(g, J)
+    return _clean_fixed(g, J)
+
+
+def _clean_fixed(g, J):
+    """ng_val._clean, copied, with ONE change: an injected direct node is recognised within |d nu| < 1e-3 (was 1e-5).  hs_core's
+    re-keying moves every direct nu to round(nu/m, 6) m (|d nu| up to 5e-7 m ~ 5e-4), so with 1e-5 some direct nodes were not
+    recognised as injected and went through the K2 Hampel despike (J = 26: x = 0.8961 dropped).  Direct nodes are exempt (HC protocol)."""
+    inj = {D: [k[1] for k in HN.pts('EE', J, D) if k[0] == D] for D in V.INJ.get(J, [])}
+    for D, r in g.items():
+        n = len(r['xs']); bad = np.zeros(n, bool)
+        iv = np.array(inj.get(D, []) or [np.inf])
+        isinj = np.array([np.min(np.abs(x*r['m'] - iv)) < 1e-3 for x in r['xs']])
+        for k, v in r.items():
+            if isinstance(v, np.ndarray) and v.shape == (n,):
+                bad |= ~np.isfinite(np.asarray(v, complex))
+        if J % 2 == 0:
+            for k in [kk for kk in r if isinstance(kk, tuple) and len(kk) == 2 and kk[1] in ('++', '+-')]:
+                v = np.asarray(r[k], float); scale = np.median(np.abs(v[np.isfinite(v)])) + 1e-12
+                for i in range(n):
+                    w = np.r_[v[max(0, i - 3):i], v[i + 1:i + 4]]; w = w[np.isfinite(w)]
+                    if len(w) and not isinj[i]:
+                        med = np.median(w); mad = np.median(np.abs(w - med))
+                        if abs(v[i] - med) > 6*max(mad, scale):
+                            bad[i] = True
+            bad[0] = False
+        if bad.any():
+            V.DESP_LOG.append((J, D, [round(float(x), 4) for x in r['xs'][bad]]))
+            for k, v in list(r.items()):
+                if isinstance(v, np.ndarray) and v.shape == (n,):
+                    r[k] = v[~bad]
+    return g
 
 
 OFFNAN = []
@@ -317,7 +347,8 @@ def main(J, KB=6, rtol=0.2):
             xs_ok = M.xs[ok]; order = np.argsort(xs_ok)[-3:]
             A = float(np.max(np.abs(M.val[key][ok][order]))); xl = float(xs_ok.max())
             # same with A over both kinds (HIGHSPIN's rule)
-            ent[kd] = dict(det=c['det'], bulk=c['bulk'], edge=c['edge'], mc=mc, repr=rep, quad_lo=quad_lo, miss=c['miss'], A=A, xl=xl)
+            ent[kd] = dict(det=c['det'], bulk=c['bulk'], edge=c['edge'], mc=mc, repr=rep, quad_lo=quad_lo, quad=3*abs(c['edge'] - c['edge_g7']),
+                           miss=c['miss'], A=A, xl=xl, jk=js.tolist())
         ent['A_both'] = max(ent['C2']['A'], ent['C3H']['A'])
         res['entries'][h] = ent
         u = lambda v: v/SEt
