@@ -1,87 +1,18 @@
-% macros.tex -- shared by letter.tex and supplement.tex (\input{macros}).
-% Source of truth: ads4/UNIFIED_THEOREM_v3.md (UT3); older numbers via UNIFIED_THEOREM_v2.md (UT2).
-%
-% =====================================================================
-%  H_LJ(300) SWITCH  --  the ONE line to change is marked  <<< SWITCH
-% =====================================================================
-%  H_LJ(300) = near-gap large-spin hypothesis of Result D (item 1) at
-%  Delta_g = 300. Its Regge-window part for J >= 34 is [I] in UT3 (Sec. 5.3, 5.6);
-%  HLJ_CLOSE.md (final) did NOT close it. Hence the switch stays OPEN.
-%
-%   \HLJclosedtrue   -> window closed: headline Delta_g = 300
-%                        (cubic 3.13e-6, quartic upper end 72.04).
-%   \HLJclosedfalse  -> still open [I]: headline Delta_g = 1000
-%                        (cubic 2.89e-8, quartic upper end 92.81).
-%
-%  What the switch changes automatically (both files): abstract headline,
-%  the status sentence \HLJstatus, the window grade \HLJwindowGrade in the
-%  positivity tables, and \HLJweakest.
-%  If the window is ever closed, ALSO set \HLJgrade and \HLJsource below
-%  (they are printed only in the closed position) and update NOTES.md Sec. 3.
-%  Nothing at Delta_g = 1000 depends on H_LJ(300); item (2) with the published
-%  constants does not depend on item (1) (exact c1 form, UT3 Sec. 3). The pure
-%  higher-spin-gap form of item (2) (Omega^Q_up + 0.04 Omega^EE) also needs (Pos)
-%  for Omega^EE at the same Delta_g.
-% =====================================================================
+% macros.tex -- shared by letter.tex and supplement.tex.
+% Headline switch: \HLJclosedfalse quotes Delta_g = 1000 (the near-gap large-spin hypothesis at Delta_g = 300 is open);
+% \HLJclosedtrue would quote Delta_g = 300 (then also set \HLJgrade and \HLJsource).
 \newif\ifHLJclosed
-\HLJclosedfalse   % <<< SWITCH: \HLJclosedtrue (closed) / \HLJclosedfalse (open)
-% Printed only if the switch is flipped to closed:
-\newcommand{\HLJgrade}{[grade of the closing document]}
-\newcommand{\HLJsource}{the closing document}
+\HLJclosedfalse
+\newcommand{\HLJgrade}{[grade]}
+\newcommand{\HLJsource}{Supplemental Material}
 
-% --- headline quantities driven by the switch ---
 \newcommand{\DgHead}{\ifHLJclosed 300\else 1000\fi}
-\newcommand{\DgOther}{\ifHLJclosed 1000\else 300\fi}
 \newcommand{\CubicHead}{\ifHLJclosed 3.13\times10^{-6}\else 2.89\times10^{-8}\fi}
 \newcommand{\QuartHead}{\ifHLJclosed 72.0\else 92.8\fi}
-% upper end with the eps = 0.040 repair (light scalars below 0.46 Lambda allowed; UT3 Sec. 3)
 \newcommand{\QuartRep}{\ifHLJclosed 125.7\else 164.5\fi}
-% |g3| Lambda^4 <= sqrt(16 L_A) at the headline gap (103.6 / 119.75; UT3 Sec. 3, repro/bounds.py)
 \newcommand{\GthreeHead}{\ifHLJclosed 104\else 120\fi}
 \newcommand{\HLJwindowGrade}{\ifHLJclosed \HLJgrade\else [I]\fi}
 
-% --- status sentence: (A) closed / (B) open ---
-\newcommand{\HLJstatusA}{The Regge window of $H_{\rm LJ}(300)$ (near-gap spins
-$J\ge34$) has been closed at grade \HLJgrade\ (\HLJsource); this is why we
-headline $\Delta_g=300$.}
-\newcommand{\HLJstatusB}{At $\Delta_g=300$ one covering hypothesis is open [I] (the
-Regge window of the near-gap large-spin hypothesis for $J\ge34$), so we headline
-$\Delta_g=1000$.}
-% (v6: shortened from the v5 wording; same content.)
-\newcommand{\HLJstatus}{\ifHLJclosed\HLJstatusA\else\HLJstatusB\fi}
-% v7: plain-prose version for the Letter's main text (no grade tags, no internal labels).
-\newcommand{\HLJstatusLetter}{\ifHLJclosed At $\Delta_g=300$ the remaining hypothesis on
-near-gap states of large spin has been settled (\HLJsource), which is why we headline
-$\Delta_g=300$.\else At $\Delta_g=300$ one hypothesis on near-gap states of large spin is
-still open, which is why we headline $\Delta_g=1000$.\fi}
-
-\newcommand{\HLJweakest}{\ifHLJclosed
-at $\Delta_g=300$ the window of $H_{\rm LJ}(300)$ is \HLJgrade%
-\else
-at $\Delta_g=300$ the window of $H_{\rm LJ}(300)$ for $J\ge34$ is open [I]%
-\fi}
-
-% --- notation ---
-\newcommand{\gt}{\tilde g_4}
-\newcommand{\ghat}{\hat g_3}
-\newcommand{\OEE}{\Omega^{EE}}
-\newcommand{\Qup}{\Omega^{Q}_{\rm up}}
-\newcommand{\Qlow}{\Omega^{Q}_{\rm low}}
-\newcommand{\Dg}{\Delta_g}
-\newcommand{\grade}[1]{\textrm{[#1]}}
-% EE step of LRC*: closed by EESTEP_CLOSE.md / HK_RESIDUAL.md (H_K [D]); the old
-% \EESTEP placeholder macro has been removed.
-%
-% --- HIGHSPIN placeholders ---------------------------------------------------
-% v4 marked every place that awaited ads4/HIGHSPIN.md with "% HIGHSPIN:" and the visible marker \HS.
-% v5 (23 Nov 2026): all places filled from HIGHSPIN.md, SMALLNU_WINDOW.md, DIRCV.md (Sec. 8),
-% LARGESPIN_ANALYTIC.md and LARGESPIN_L.md (list in CHANGES_v5.md); the marker is switched off.
-% The macro is kept so that a future recomputation can mark places again (\HSdrafttrue).
-\newif\ifHSdraft
-\HSdraftfalse
-\newcommand{\HS}{\ifHSdraft\textsuperscript{\textsf{HS}}\fi}
-%
-% --- conformal-collider comparison (follows the H_LJ(300) switch; v6: no longer printed in the Letter, which now says
-%     that most of the ~1e8 is the Lambda^-4 scaling; kept for the record) ---
-% tau_0 / 4 (energy-flux disk radius 4): 2.89e-8/4 = 7.2e-9 < 1e-8 (1000); 3.13e-6/4 = 7.8e-7 < 1e-6 (300).
-\newcommand{\CollFrac}{\ifHLJclosed 10^{-6}\else 10^{-8}\fi}
+\newcommand{\HLJstatusLetter}{\ifHLJclosed The near-gap large-spin states at $\Delta_g=300$ are
+covered at grade \HLJgrade\ (\HLJsource), so we quote $\Delta_g=300$.\else We quote $\Delta_g=1000$
+because at $\Delta_g=300$ positivity on near-gap states of large spin is an open hypothesis.\fi}
