@@ -8,6 +8,8 @@ p4win/p4w_L.ROWS mapped to the same (beta, mu) at Dg (m = mu Lam, J = round(m si
 attribute p4w_common.L, which this process sets per gap (read-only imports; nothing of theirs is written).
 Premise forms transported with Dg-INDEPENDENT constants in AdS units [M]: Lam_amp = 3 x the scalar CHMRS O(1/m^2) beyond-hybrid term,
 the scalar-calibrated edge envelope e_sc (+- transferred, hel = -2) with its AdS-unit coefficients (a0, a_bulk, a_edge) = (10, 4, 5).
+Rectangle height T = (25 + TOPLOG ln(Lam/Lam0))/(theta Lam beta) (TOPLOG = 4 default; 0 reproduces AG_PROOF): with a fixed
+height the top side is e^{-25}-suppressed but NOT Lam-suppressed, so against the Lam^-2 floor it would grow ~Lam^2 (an artefact).
 Budget: half floor F/2 with F = (i) LRINF_TIGHT's F_cert (Dg = 1000 only: reproduces AG_PROOF's 0.133 / 18.9), (ii) the certified
 Dg-uniform floor f_U(beta)/Lam^2 (gl2).
 Output: cache/gl6_p4w.{txt,json}
@@ -32,6 +34,8 @@ def pr(s=''):
 G2 = json.load(open(os.path.join(HERE, 'cache', 'gl2_allgaps.json')))
 FL = [(float(Fr(f['a'])), float(Fr(f['b'])), f['fU']) for f in G2['floor']]
 TH = 0.97
+L0G = np.sqrt(998.0*999.0)
+TOPLOG = float(os.environ.get('GL6_TOPLOG', '4'))   # 0 = AG_PROOF's fixed height 25/(theta Lam beta)
 
 
 def fU(beta):
@@ -57,7 +61,7 @@ def contour_U(beta, mfl, pw, Mw, Mfun, k=2, u=1.0, Aunif=0.0):
     bd, _, _ = K.contour_bound(beta, mfl, pw, Mw, Mfun, 'local', k=k, u=u, Aunif=Aunif)
     w = 2.0 if k == 2 else u
     k0 = 0.97*beta*L; kl = k0/np.sqrt(1 - (1/mfl)**2)
-    T = 25.0/(TH*beta*L)
+    T = (25.0 + TOPLOG*np.log(L/L0G))/(TH*beta*L)     # top suppression e^{-25} (Lam/Lam0)^{-TOPLOG}: keeps pace with the Lam^-2 floor
     ys, wy = _yrule(kl, T)
     ps = np.abs(K.psi_c(k, 1 + 1j*ys))
     Vp = float((ps*np.exp(-TH*beta*L*ys)*wy).sum())
@@ -104,13 +108,13 @@ def main():
         mfl = PL.mfl_exact(lab, J, mtab)
         base.append((lab, J, 2*np.arcsinh((J + 0.5)/(mfl*L0)), mfl, Fc))
     res = {}
-    for Dg in (1000, 2000, 5000):
+    for Dg in [int(v) for v in os.environ.get('GL6_DGS', '1000,2000,5000').split(',')]:
         C.L = np.sqrt((Dg - 2.0)*(Dg - 1.0))
         rows = []
         pr(f'\n## Dg = {Dg}, Lam = {C.L:.3f}   (state | J | m/Lam | beta | d/(F/2) [window, boundary, edge+top] | edge tolerance '
            f'(multiple of the transferred scalar envelope) ; unif-cert floor' + (' ; and with LRINF F_cert' if Dg == 1000 else '') + ')')
         for lab, J0, beta0, mfl, Fc in base:
-            if Dg != 1000 and beta0 > 3.1:
+            if (Dg != 1000 and beta0 > 3.1) or (Dg >= 5000 and beta0 > 2.0):
                 continue                       # Mehler node count ~ 1.5 Lam beta: too costly / memory (J1000 = 1e5, 1e6 at 1000 only)
             J = int(round(mfl*C.L*np.sinh(beta0/2) - 0.5))
             c = state_cost(J, mfl)
@@ -129,6 +133,10 @@ def main():
         pr(f'   max d/(F_U/2) = {max(r["d_u"] for r in rows):.4f};  min edge tolerance = {min(r["tol_u"] for r in rows):.3g}'
            + (f';  with LRINF F_cert: max d = {max(r["d_c"] for r in rows):.3f}, min tol = {min(r["tol_c"] for r in rows):.3g} '
               f'(AG_PROOF §6.2: 0.133 / 18.9)' if Dg == 1000 else ''))
+    if 1000 not in res or 2000 not in res or 5000 not in res:
+        json.dump({str(k): v for k, v in res.items()}, open(os.path.join(HERE, 'cache', 'gl6_p4w_part.json'), 'w'), default=float, indent=0)
+        open(os.path.join(HERE, 'cache', 'gl6_p4w_part.txt'), 'w').write('\n'.join(OUT) + '\n')
+        return
     def get(Dg, r0):
         return next((r for r in res[Dg] if r['label'] == r0['label'] and r['J0'] == r0['J0']), None)
     pr('\n## ratio d(1000)/d(Dg) at the same (beta, mu) [unif floor]: ' + '; '.join(

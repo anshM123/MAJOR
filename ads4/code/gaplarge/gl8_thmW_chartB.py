@@ -15,6 +15,7 @@ pc_run.run_state / pc_ksh_run.main take only beta and the parity of J]; they are
 COSTS (psi2(nu/Lam'), D(Lam'), 1/m'^2) and the floors H' (ls_core.hyb_fast at Dg') are recomputed.
 Per state: d_chi/H (everything but the edge integral E_chi, Lam_AG = 1, plain / +- transferred), the tolerated |E_chi| in units of S_E
 (plain / transferred), the transfer factor (1 - x1^2)^-2, and the Lemma P4W ('local' AG') tolerances of p4w_states.analyse.
+Env GL8_TEXT=1: ag_chi's rectangle-height grid T/T0 in {0.5..1} is extended by {1.15, 1.3, 1.6} (premise AG_U then needed up to 1.6 T0).
 Usage: python3 gl8_thmW_chartB.py Dg [J1,J2,...]   -> cache/gl8_W_<Dg>.{txt,json}
 """
 import os, sys, json, time
@@ -72,6 +73,8 @@ def image(s, L):
 
 def main():
     Dg = int(sys.argv[1])
+    if os.environ.get('GL8_TEXT'):
+        AGC.GRID_T = (1.6, 1.3, 1.15) + tuple(AGC.GRID_T)   # taller rectangles allowed (top side e^{-25 T/T0}; see GAP_LARGESPIN §4)
     only = [int(v) for v in sys.argv[2].split(',')] if len(sys.argv) > 2 else None
     t0 = time.time()
     pr(__doc__.split('Usage')[0])
