@@ -1,11 +1,12 @@
 # AG_PROOF: the premise (AG′) of Lemma P4W — what can be proved, a weaker premise that suffices, and why (AG′) itself cannot be proved by the suggested routes
 
 *23–24 Nov 2026. Unreviewed, not committed. No existing file was edited.*
-* *New code:* `ads4/code/agproof/` (`run_all.sh`; ≈ 1.6 CPU-h, at most 2 processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`). Caches in
+* *New code:* `ads4/code/agproof/` (`run_all.sh`; ≈ 1.2 CPU-h, at most 2 processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`). Caches in
   `code/agproof/cache/`, whose `.gitignore` ignores everything except itself.
   * `ag_flat.py`: Lemma F (the flat partial wave as an exact pair of analytic travelling waves) and Proposition N1 (AG′'s majorant against it).
   * `ag_unif.py`: the uniform-rate and amplitude bounds of Lemma F on Lemma P4W's rectangle.
   * `ag_exact.py`: the **exact** scalar (Δφ = 3) k = 2 heavy moment at **complex ν** (first computation; Arb, entire Laplace/Barnes series).
+  * `ag_growth.py`: growth rates of the exact correction on vertical lines (§3.2).
   * `ag_lock.py`: test of a "flat-locked" two-wave model for exact − flat near the edge (negative, §3.3).
   * `ag_edge.py`, `ag_edge2.py`: the exact scalar's **edge contribution**, measured on the real axis with an entire cutoff (§4, §5.3).
   * `ag_chi.py`: **Lemma P4W-χ** (§5) on Theorem W's 47 states.
@@ -31,10 +32,11 @@ leading image; flat = E₂(x)P_J(1 − 2x²)/2; g := exact − flat; G := exact 
 | **N2** | **The plane-wave (spin-Gamma) route cannot prove a near-edge statement.** A positive ν-independent average of AG-class functions is AG-class with the *worst* rate of its support (Lemma R, [P]), but for J ≤ 50 near the gap **14–35 %** of the moment-weighted positive plane-wave measure has \|p\| < Λ, i.e. lies *beyond its own twist edge* inside [p_w, 1]. Those terms have no travelling-wave form there; the state's edge behaviour comes from cancellations between terms (the N-L1 mechanism). | Lemma R [P]; fraction [DV] (MC, 4·10⁵ samples) | table §7.1 | J ≤ 64 near the gap; harmless for J ≥ 100 (≤ 0.6 %) |
 | **F** | **Lemma F: the flat partial wave is an exact pair of analytic travelling waves.** flat = flat₊ + flat₋, flat_± = E₂W_±(θ(ν))/2, with W₊(θ) = (2/πi)C_J e^{i(J+1)θ}₂F₁(½, J+1; J+3/2; e^{2iθ}), and **\|W₊(θ)\| ≤ (2/π)C_J e^{−(J+1)Im θ} min{2/\|sin Re θ\|, (1−e^{−2Im θ})^{−½}}**. It satisfies the uniform-rate premise on the whole rectangle (ratio ≥ 1.013 at every state) and has the local rate (J+½)·2/(m√(1−x²)) at y → 0. | **[P]** (DLMF 14.13.1 + Abel summation); checks [DV] to 3·10⁻²⁹ | §1 | all J, m > Λ |
 | **χ** | **Lemma P4W-χ: (AG′) ∧ (EDGE) can be replaced by (AG_U) ∧ (EDGE-R).** An entire cutoff χ(p) = ½erfc((p_e − p)/σ) splits the complement cost into a **real-axis edge integral** E_χ[G] = ∫_{p_w}^1ψ₂χG (premise EDGE-R) and a Cauchy part with weight ψ₂(1−χ), which needs only **the uniform rate κ₀ — no local rate, no threshold, anywhere**. The edge amplitude enters that part suppressed by ½erfc((1−p_e)/σ). | **[P]** (Cauchy + \|erfc(a+ib)\| ≤ e^{b²}erfc(a)); constants [DV] | §5 | every state |
-| **E** | **The exact scalar's true edge cost is 6–100× below what (AG′) + e_sc charges for it.** First evaluation of the exact scalar moment at complex ν (Arb; real axis reproduces sm_exact exactly). The edge contribution, isolated on the real axis by an entire cutoff (method validated on the flat wave against Lemma F's exact contour integral, ≤ 0.3 %), is **0.11 / 0.09 / 0.15 / 0.010** of P4W's edge term at J = 40 / 48 / 64 / 100 (x₁ = 0.962–0.913), i.e. **0.17 / 0.14 / 0.22 / 0.014 S_E** (S_E = the cost of a flat-profile wave of amplitude e_sc(1)). With Lemma P4W-χ's own cutoffs: {{EDGE2}}. | [DV] (Arb values, float quadrature; stable to ±5 % over 5 cutoffs) | §4, §5.3 | scalar, x₁ = 0.91–0.96 — **the near-gap edge where (AG′) was [M]** |
-| **W-χ** | **Theorem W with (AG_U) ∧ (EDGE-R) instead of (AG′) ∧ (EDGE):** plain envelope, everything except E_χ uses **≤ {{DCHI_P}} H** and the tolerated edge cost is **≥ {{TOLE_P}} S_E** at every sampled state (exact scalar ≤ 0.22 S_E): **sampled J\* = 26**. With the Ω^U +− transfer: {{WCHI_TR}}. | [P given P0, P1′, W, AG_U, EDGE-R] + [DV] | §5.2 | 47 sampled states |
-| **L-U** | **Theorem L′ needs only the uniform rate.** {{LU}} | [D given P_L′(i), AG_U, EDGE] + [DV] | §6.2 | 16 sampled L′ states |
-| **θ** | **Weakest rate that still closes Lemma P4W (AG′'s shape, rate θβ/√(1−x²) without threshold):** {{THETA}} | [DV] | §6.1 | 47 W states |
+| **G** | **(AG′)'s local rate is [NE]-contradicted at the near-gap edge for the exact scalar** (first complex-ν data): the mean growth of the exact correction's growing wave over y ∈ [5, 15]/κ_loc on the edge line p = 1 is **0.64 / 0.73 / 0.86 κ_loc** at x₁ = 0.962 / 0.955 / 0.942 (0.99 at 0.913), against AG′'s 0.97; in the bulk (x ≤ 0.86) it is 0.98–1.06 κ_loc (AG′ confirmed there). The **uniform** rate holds with margin: ≥ 1.11κ₀ on every line, ≥ 2.3κ₀ at the edge. | [NE] (two-wave reading of exact Arb data) | §3.2 | J = 40, 48, 64, 100 at the gap |
+| **E** | **The exact scalar's true edge cost is 7–100× below what (AG′) + e_sc charges for it.** First evaluation of the exact scalar moment at complex ν (Arb; real axis reproduces sm_exact exactly). The edge contribution, isolated on the real axis by an entire cutoff (method validated on the flat wave against Lemma F's exact contour integral, ≤ 0.3 %), is **0.11 / 0.09 / 0.15 / 0.010** of P4W's edge term at J = 40 / 48 / 64 / 100 (x₁ = 0.962–0.913), i.e. **0.17 / 0.14 / 0.22 / 0.014 S_E** (S_E = the cost of a flat-profile wave of amplitude e_sc(1)). With Lemma P4W-χ's own cutoffs: **≤ 0.17 / 0.14 / 0.30 / 0.025 S_E over all 36–38 cutoffs of the χ-grid**. | [DV] (Arb values, float quadrature; stable to ±5 % over 5 cutoffs) | §4, §5.3 | scalar, x₁ = 0.91–0.96 — **the near-gap edge where (AG′) was [M]** |
+| **W-χ** | **Theorem W with (AG_U) ∧ (EDGE-R) instead of (AG′) ∧ (EDGE):** plain envelope, everything except E_χ uses **≤ 0.489 H** and the tolerated edge cost is **≥ 158 S_E** at every sampled state (exact scalar ≤ 0.30 S_E over all cutoffs): **sampled J\* = 26**. With the Ω^U +− transfer: the tolerated edge integral is ≥ 0.406 S_E,t (26, 1.026Λ), 0.63, 0.89 at (30, 34) × 1.03Λ and ≥ 1.2 elsewhere; **a scalar-like +− edge (≤ 0.30, the exact scalar's worst) passes at all 47 states: J\* = 26 also with the transfer** (was 42 under AG′ ∧ EDGE). | [P given P0, P1′, W, AG_U, EDGE-R] + [DV] | §5.2 | 47 sampled states |
+| **L-U** | **Theorem L′ needs only the uniform rate.** With the uniform rate 0.97Λβ in place of AG′'s local rate, P4 + window O(1/m²) use **≤ 0.133 of the certified half-floor** (0.086 with AG′) at all 16 sampled L′ states, and the (+− transferred) edge amplitude is tolerated up to **18.9×** the scalar envelope (J = 223, gap). | [D given P_L′(i), AG_U, EDGE] + [DV] | §6.2 | 16 sampled L′ states |
+| **θ** | **Weakest rate that still closes Lemma P4W (AG′'s shape, rate θβ/√(1−x²) without threshold):** in the sharp lemma the plain-envelope J\* = 26 survives down to θ ≈ 0.5–0.6 (tolerance 5.05 at θ = 0.6, 0.65 at 0.45); the +− transfer needs θ ≥ 0.97 for J\* = 42. **The uniform rate alone fails** (tolerance 0.009, J\* = 100). Lemma P4W-χ removes this dependence. | [DV] | §6.1 | 47 W states |
 
 ### 0.2 Bottom line
 * **(AG′) is not proved, and in its stated pointwise form it is not even true for the function it was modelled on** (N1): the flat partial
@@ -45,14 +47,15 @@ leading image; flat = E₂(x)P_J(1 − 2x²)/2; g := exact − flat; G := exact 
 * **What replaces it is weaker and better founded** (Lemma P4W-χ, [P]):
   * **(AG_U)** the uniform rate κ₀ = 0.97Λβ on the complement. Every explicit piece satisfies it [P] (flat waves: Lemma F, ratio ≥ 1.013;
     curvature waves: Harish-Chandra / Hankel, rates Λβ and b̂). For the exact correction it is [D] to all orders of the saddle expansion
-    (HLJ: ≥ 1.002β) and [A] beyond all orders. It no longer contains any statement about the near-gap edge.
+    (HLJ: ≥ 1.002β) and [A] beyond all orders. Near the edge it asks only that the split *exist* with the uniform rate; the exact
+    scalar's correction grows at ≥ 2.3κ₀ on the edge line p = 1 (§3.2) [NE].
   * **(EDGE-R)** one real-axis number per entry: the edge integral E_χ[G_e]. It replaces both the [M] local rate at x₁ > 0.94 and the
     [M] amplitude premise (EDGE). It is **directly computable from real-axis data** (no continuation, no rate), and it is [DV] for the
-    scalar analogue with margin ≥ {{MARGIN}}.
+    scalar analogue with margin ≥ 520 (plain envelope; 1.35 for the +− transfer if the graviton is scalar-like in its own units).
 * **Coverage after this note:**
   * Theorem W, plain envelope: sampled J\* = 26 under (P0, P1′, W, AG_U, EDGE-R).
-  * Theorem W, Ω^U +− transfer: {{WTR_SHORT}}
-  * Theorem L′ (J ≥ ⌈(0.37211m − 1)/2⌉): {{LSHORT}}
+  * Theorem W, Ω^U +− transfer: sampled J\* = 26 if the graviton +− edge integral is ≤ 0.406 of its transferred flat-profile scale (the exact scalar: ≤ 0.30); J\* = 38 if ≤ 1.2.
+  * Theorem L′ (J ≥ ⌈(0.37211m − 1)/2⌉): premise P_L′(ii) holds with ε_R ≤ 0.133 given (W), (AG_U) and (EDGE) with tolerance ≥ 18.9× the transferred scalar envelope (no local rate).
 * **What remains:** (AG_U) beyond all orders [A]; (EDGE-R) for the graviton [M] (scalar [DV]); the rest of Theorem W/L′'s premises
   unchanged (P0, P1′, W, the boundary factor 2 [D-sketch], sampled states, float).
 
@@ -273,10 +276,56 @@ Per state, (p_e, σ = sT, T = tT₀) is chosen on a grid (p_e ∈ {0.2, 0.25, 0.
 0.45, 0.6}, subject to κ(p_e)σ ≥ 10) to minimise the total at Λ_AG = 1. d_χ = window + boundary + right side + top at Λ_AG = 1 (i.e.
 everything except E_χ); ε_E tol = H − d_χ, in units of S_E = (2·2V_flat,2 + u·2V_flat,3)·e_sc(1) (plain) or its +−-transferred version.
 
-{{CHITABLE}}
+| J | m/Λ | p_e | σ | T/T₀ | κ(p_e)σ | χ(p_w) | d_χ/H plain / tr | ε_E tol / S_E plain / tr |
+|---|---|---|---|---|---|---|---|---|
+| 26 | 1.026 | 0.25 | 0.195 | 0.65 | 10 | 8e-2 | 0.077 / 0.079 | 166 / **0.406** |
+| 26 | 1.128 | 0.30 | 0.214 | 0.65 | 10 | 6e-2 | 0.055 / 0.055 | 162 / 7.45 |
+| 26 | 1.231 | 0.40 | 0.233 | 0.65 | 11 | 2e-2 | 0.040 / 0.041 | **158** / 18.3 |
+| 30 | 1.030 | 0.40 | 0.157 | 0.80 | 10 | 8e-4 | 0.080 / 0.082 | 196 / **0.629** |
+| 34 | 1.033 | 0.40 | 0.139 | 0.80 | 10 | 2e-4 | 0.092 / 0.092 | 218 / **0.886** |
+| 38 | 1.037 | 0.40 | 0.156 | 1.00 | 13 | 6e-4 | 0.101 / 0.101 | 243 / 1.22 |
+| 42 | 1.041 | 0.40 | 0.142 | 1.00 | 13 | 2e-4 | 0.111 / 0.111 | 265 / 1.59 |
+| 46 | 1.045 | 0.40 | 0.130 | 1.00 | 13 | 4e-5 | 0.121 / 0.121 | 288 / 2.05 |
+| 50 | 1.049 | 0.40 | 0.120 | 1.00 | 13 | 7e-6 | 0.131 / 0.131 | 311 / 2.57 |
+| 33 | 1.033 | 0.40 | 0.143 | 0.80 | 10 | 2e-4 | 0.040 / 0.040 | 461 / 1.77 |
+| 51 | 1.050 | 0.40 | 0.118 | 1.00 | 13 | 5e-6 | 0.062 / 0.062 | 686 / 5.89 |
+| 64 | 1.062 | 0.40 | 0.127 | 1.00 | 17 | 2e-5 | 0.163 / 0.163 | 389 / 5.02 |
+| 100 | 1.096 | 0.30 | 0.084 | 1.00 | 16 | 1e-6 | 0.234 / 0.234 | 582 / 16.2 |
+| 150 | 1.140 | 0.20 | 0.059 | 1.00 | 16 | 3e-6 | 0.313 / 0.313 | 831 / 44.3 |
+| 200 | 1.183 | 0.20 | 0.046 | 1.00 | 16 | 2e-9 | 0.375 / 0.375 | 1.06e3 / 86.9 |
+| 344 | 1.299 | 0.20 | 0.030 | 1.00 | 16 | 6e-21 | **0.489 / 0.489** | 1.69e3 / 280 |
+| 301 | 1.266 | 0.20 | 0.033 | 1.00 | 16 | 3e-17 | 0.215 / 0.215 | 4.39e3 / 621 |
+
+(all 47 rows in `cache/chi.txt`; the rows not shown lie between their neighbours.)
+
+**Reading.**
+* **Everything except the real-axis edge integral uses ≤ 0.489 H at every state** (plain and transferred alike), i.e. no more than
+  P4_WINDOW's computed part (window + boundary, max 0.49 H at J = 344): the uniform-rate Cauchy part with the cutoff costs at most
+  ~2·10⁻² H. **The local rate is not needed anywhere.**
+* **Plain envelope:** the tolerated edge integral is ≥ **158 S_E** at every state; the exact scalar has ≤ 0.30 S_E (§5.3): margin ≥ 520.
+* **+− transferred envelope** (S_E,t = S_E·(1−x₁²)⁻²): tolerance ≥ **0.406 S_E,t** (26, 1.026Λ), 0.63 (30, 1.030Λ), 0.89 (34, 1.033Λ), ≥ 1.2
+  elsewhere. If the graviton's +− edge integral, in its own transferred flat-profile units, is as small as the exact scalar's
+  (≤ 0.30, §5.3), **all 47 states pass, J\* = 26 also with the Ω^U transfer.** Under (AG′) ∧ (EDGE) with the same transfer, four states
+  failed (P4_WINDOW W4′). The gain comes entirely from keeping the edge integral's cancellations instead of bounding it by
+  amplitude × V.
+* χ(p_w) is ≤ 8·10⁻² (≤ 10⁻³ for J ≥ 34): the cutoff reaches into the window only at the smallest J. E_χ is defined on [p_w, 1], so this is
+  part of the premise, not an error term.
 
 ### 5.3 The exact scalar's (EDGE-R) quantity with these cutoffs (`ag_edge2.py`, `cache/edge2.txt`) [DV]
-{{EDGE2TABLE}}
+|E_χ[G]| (k = 2) of the exact scalar for **every** cutoff of §5.2's grid (36–38 cutoffs per state), in units of S_E2 = 2V_flat,2(1)e_sc(1):
+
+| J (x₁) | min | median | **max** | (for comparison) the full complement ∫_{p_w}^1ψ₂G |
+|---|---|---|---|---|
+| 40 (0.962) | 0.021 | 0.165 | **0.166** | 1.61 S_E2 |
+| 48 (0.955) | 0.033 | 0.129 | **0.143** | 2.40 S_E2 |
+| 64 (0.942) | 0.213 | 0.214 | **0.302** | 4.62 S_E2 |
+| 100 (0.913) | 0.007 | 0.013 | **0.025** | 10.3 S_E2 |
+
+* **The exact scalar's (EDGE-R) quantity is ≤ 0.30 S_E for every cutoff in the grid.** Against the plain tolerance ≥ 158 S_E this is a
+  margin ≥ 520; against the transferred tolerance ≥ 0.406 S_E,t (if the graviton's +− edge is scalar-like in its own units), ≥ 1.35.
+* The edge integral is a small part of the complement (the complement itself is dominated by the boundary piece at p_w, which is
+  computed): 0.2–10 % of it.
+* Caveat: no exact scalar exists at the J = 26–38, m ≈ 1.03Λ states (x₁ = 0.964–0.975); the scalar data stop at x₁ = 0.962.
 
 ---
 
@@ -289,10 +338,38 @@ stays e^{−25}-suppressed):
 * **U(θ):** the uniform rate θΛβ.
 
 ### 6.1 Theorem W, 47 states
-{{FAMTABLE}}
+Minimal tolerated edge multiple Λ_AG over the 47 states (plain / +− transferred) and the sampled J\* at Λ_AG = 1:
+
+| family | θ = 0.97 | 0.80 | 0.60 | 0.45 |
+|---|---|---|---|---|
+| Lt (AG′'s rate, no threshold) | 128 / 0.33; J\* 26 / 42 | 35.8 / 0.10; 26 / 51 | 5.05 / 0.017; **26** / 101 | 0.65 / 0.002; 33 / 201 |
+| Fa (exact flat profile) | 129 / 0.33; 26 / 42 | 30.1 / 0.074; 26 / 51 | 2.12 / 0.005; **26** / 101 | 0.07 / 2e-4; 46 / 201 |
+| U (uniform rate) | **0.009** / 2e-5; J\* 100 / 200 | 0.002; 101 / 201 | 3e-4; 200 / — | 3e-5; — / — |
+
+(P4_WINDOW's AG′ with threshold T1 = 15: 114 / 0.29; J\* 26 / 42.)
+
+**Reading.**
+* **Within the sharp Lemma P4W, the plain-envelope J\* = 26 needs a local rate ≥ ≈ 0.5 κ_loc/0.97** (Lt: θ between 0.45 and 0.6; Fa:
+  ≈ 0.55). The exact scalar's averaged edge rate is 0.64 κ_loc at x₁ = 0.962 (§3.2), so this weakened (AG′) is consistent with the scalar
+  data, but only just, and at x₁ = 0.975 (J = 26) nothing is measured. The +− transferred version needs essentially the full rate.
+* **With the uniform rate alone the sharp lemma fails for every near-gap state up to J ≈ 100** (tolerance 0.009): the κ_loc⁻⁶
+  suppression of the edge is load-bearing *in the sharp lemma*. This is why Lemma P4W-χ is needed: it moves the edge to the real axis and
+  then lives with the uniform rate (§5.2: d_χ ≤ 0.489 H).
+* Fa and Lt agree to ≤ 15 % at θ ≥ 0.8: the exact flat profile and AG′'s linear local rate have the same integrated effect (N1).
+* Scaling the rectangle with θ (T = 25/(θΛβ)) matters: with T fixed at T₀ the top term alone makes Lt(0.6) fail at J = 300, 344.
 
 ### 6.2 Theorem L′, 16 states
-{{LTABLE}}
+Λ_amp = 3, +− transferred envelope, certified half-floor F_cert/2; "edge tol" = tolerated multiple of the transferred e_sc at the edge.
+
+| family | θ = 0.97 | 0.60 | 0.40 |
+|---|---|---|---|
+| Lt | max d = 0.086; edge tol ≥ 642 | 0.109; ≥ 36 | 0.379; ≥ 3.1 |
+| Fa | 0.086; ≥ 664 | 0.109; ≥ 37 | 0.371; ≥ 3.2 |
+| **U (uniform)** | **0.133; ≥ 18.9** (J = 223, gap) | 0.981; ≥ 1.02 | 11.0; 0.08 |
+
+**Reading.** On Theorem L′'s range (x₁ ≤ 0.83) **the uniform rate 0.97Λβ suffices in the sharp Lemma P4W**: P4 + window O(1/m²) use
+≤ 13.3 % of the certified half-floor (8.6 % with AG′), and the edge amplitude is tolerated up to 18.9× the transferred scalar envelope (642×
+with AG′). No local rate, no near-edge content, no χ-cutoff needed. The binding state is J\* = 223 at the gap, as before.
 
 ---
 
@@ -347,7 +424,7 @@ where §3.3 shows the exact correction is not a simple deformation of the flat w
 ### 7.4 What would close (AG_U) and (EDGE-R)
 * **(EDGE-R) for the graviton:** real-axis values of the exact graviton correction G_e on p ∈ [p_e − 3σ, 1] (p_e ≈ 0.2–0.75) at the near-gap
   states (J ≤ 51, m ≤ 1.05Λ). One integral per entry decides it. No complex continuation is needed.
-* **(AG_U):** the uniform rate only. It is a statement about the bulk saddle structure, with no edge content. It is [D] to all orders
+* **(AG_U):** the uniform rate only. Near the edge it asks only for the split to exist at rate κ₀ (exact scalar: ≥ 2.3κ₀, §3.2), not for the local rate. It is [D] to all orders
   (HLJ: ≥ 1.002β > 0.97β). Beyond all orders it is the irreducible form of H_AG.
 
 ---
@@ -361,27 +438,31 @@ where §3.3 shows the exact correction is not a simple deformation of the flat w
 * **(EDGE-R)** for every entry: |cost of E_χ[G_e]| ≤ ε_E tol (table §5.2), with the per-state cutoff of §5.2.
 
 Then M_Ω(O) ⪰ 0 for every coupling vector, at every sampled state with J ≥ 26 (m ≤ 1.3Λ), plain envelope Λ_AG = 1.
-{{WSTATEMENT}}
+With the Ω^U +− transfer (EDGE-R read in transferred units, tolerance ≥ 0.406 S_E,t): every sampled state with J ≥ 26 as well; J ≥ 38 with tolerance ≥ 1.2. Margin of everything except E_χ: d_χ ≤ 0.489 H.
 
 **Grade.** [P given P0, P1′, W, AG_U, EDGE-R] (Lemma P4W-χ + the 2×2 criterion) + [DV] (sampled constants). Between sampled states: [NE].
 
 **Changes relative to P4_WINDOW §7.**
 * (AG′) → (AG_U): the local rate and its threshold are gone; nothing is assumed about the near-gap edge in complex directions.
 * (EDGE) → (EDGE-R): an amplitude bound at one point becomes one real-axis integral, which keeps the cancellations. The exact scalar
-  satisfies it with margin ≥ {{MARGIN}}.
+  satisfies it with margin ≥ 520 (plain envelope; 1.35 for the +− transfer if the graviton is scalar-like in its own units).
 * The old statement (with (AG′) ∧ (EDGE)) remains valid as a corollary, but its premise (AG′) is now known to be pointwise false for the
   flat wave at x₁ ≥ 0.95 (N1), so it should not be quoted in that form.
 
-**Theorem L′ (unchanged threshold J ≥ ⌈(0.37211m − 1)/2⌉).** {{LSTATEMENT}}
+**Theorem L′ (unchanged threshold J ≥ ⌈(0.37211m − 1)/2⌉).** Premises: **P_L′(i)** (O(1/m²) magnitudes, window part, Λ_amp ≤ 181), **(AG_U)** (uniform rate only), **(EDGE)** with tolerance ≥ 18.9 ×
+the +− transferred scalar envelope at the edge (x₁ ≤ 0.83, ≥ 600× with AG′). Then P_L′(ii) holds with ε_R ≤ 0.133 (Λ_amp = 3) at every
+sampled L′ state. **Grade:** [D given P_L′(i), AG_U, EDGE] + [DV]; the floor is [P + certified]. (Lemma P4W-χ could also replace (EDGE) by
+(EDGE-R) here; not needed.)
 
 ---
 
 ## 9. Honest residual
-1. **(AG_U) beyond all orders is assumed [A].** It is now the only analytic hypothesis, and it is uniform (no edge content). To all orders
+1. **(AG_U) beyond all orders is assumed [A].** It is now the only analytic hypothesis, and it is uniform (near the edge only existence of the split at rate κ₀; exact scalar ≥ 2.3κ₀ there [NE]; N2: the plane-wave route
+   cannot supply even this at J ≤ 50). To all orders
    [D] (HLJ), with margin 1.002/0.97. Every explicit piece satisfies it [P] (Lemma F, Harish-Chandra, Hankel).
 2. **(EDGE-R) for the graviton is [M].** For the scalar analogue it is [DV] with the margins of §5.3, at x₁ = 0.91–0.96 only (no exact
    scalar exists at J = 26–38, m ≈ 1.03Λ).
-3. The +− helicity transfer (Ω^U convention) is still a convention [M]. {{RESID_TR}}
+3. The +− helicity transfer (Ω^U convention) is still a convention [M]. With (EDGE-R) the transfer costs a factor (1−x₁²)⁻² in S_E only; the margin of a scalar-like +− edge at (26, 1.026Λ) is 1.35, the thinnest in the note.
 4. (W), the window O(1/m⁴) coefficients, the boundary amplitude factor 2 [D-sketch], P0's [NE] part, sampled states only, float
    quadrature: all unchanged from P4_WINDOW §8.
 5. The (EDGE-R) quantity depends on the cutoff (p_e, σ). The premise is stated per state for the tabulated cutoff. The exact scalar's value
@@ -401,13 +482,13 @@ Then M_Ω(O) ⪰ 0 for every coupling vector, at every sampled state with J ≥ 
 
 ## 11. Reproduce
 
-    cd ads4/code/agproof && bash run_all.sh        # ≈ 1.6 CPU-h, ≤ 2 processes
+    cd ads4/code/agproof && bash run_all.sh        # ≈ 1.2 CPU-h, ≤ 2 processes
 
 | file | content | grade |
 |---|---|---|
 | `cache/flat.txt` | Lemma F checks; flat profile vs AG′ at 67 states (§1–2) | [P] + [DV] |
 | `cache/unif.txt` | uniform-rate and Abel amplitude bounds for the flat waves (§1.1) | [DV] |
-| `cache/exact_lines_<J>.pkl` | exact scalar on vertical lines (§3.2) | [DV] |
+| `cache/exact_lines_<J>.pkl`, `cache/growth.txt` | exact scalar on vertical lines; growth rates (§3.2) | [DV] / [NE] reading |
 | `cache/lock.txt` | flat-locked fit (negative, §3.3) | [NE] |
 | `cache/edge.txt`, `cache/edge2.txt` | edge contribution on the real axis (§4, §5.3) | [DV] |
 | `cache/chi.txt` | Lemma P4W-χ on the 47 W states (§5.2) | [DV] |

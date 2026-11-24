@@ -127,6 +127,24 @@ Grades are as in UNIFIED_THEOREM_v3 §0. **"c₂ units"**: a coefficient κ of a
 >
 >   Sensitivity: with threshold 10/κ the edge multiple tolerated drops from 114 to 18.7.
 
+> **Update (AG_PROOF.md, unreviewed): (AG′) is NOT proved, and in its literal local-rate form it is false near the gap edge. It is replaced by a strictly weaker pair of premises, (AG_U) + (EDGE-R), that suffices. With them Theorem W's sampled J\* = 26 (no longer 42 under the old premises), and Theorem L′ holds on the uniform rate alone.**
+> * **Negatives:**
+>   * **N1 [P + DV]:** the flat partial wave itself violates (AG′)'s pointwise bound near the edge (branch point at ν = m; ×4.1 excess at J = 26). The edge integral the lemma actually needs still holds (0.72–0.82 of (AG′)'s). P4_WINDOW's 15/κ-vs-10/κ sensitivity is an artefact.
+>   * **G [NE]:** the exact scalar continued to complex ν (Arb, entire series) has an effective edge rate of 0.64–0.86 κ_loc at x₁ = 0.94–0.96, against the assumed 0.97. In the bulk it is 0.98–1.06. The uniform rate holds everywhere with margin (≥ 1.11κ₀; ≥ 2.3κ₀ at the edge).
+>   * **N2 [P + DV]:** the plane-wave route cannot reach the near-gap edge. A positive average keeps only the worst rate, and at J ≤ 50, 14–35 % of the measure has |p| < Λ. It is harmless for J ≥ 100.
+> * **Proved [P]:**
+>   * **Lemma F:** an exact flat-wave split W₊ = (2/πi)C_J e^{i(J+1)θ}₂F₁(½, J+1; J+3/2; e^{2iθ}) with an explicit bound, so the uniform rate 0.97β holds for every explicit piece of the hybrid.
+>   * **Lemma P4W-χ:** an entire erfc cutoff splits the complement cost into (EDGE-R), one real-axis integral E_χ[G] = ∫_{p_w}^1 ψ₂χG with no continuation and no rate, and (AG_U), a Cauchy part needing only the uniform rate 0.97Λβ. (AG′)+(EDGE) ⇒ (AG_U)+(EDGE-R).
+> * **Constants [DV]:**
+>   * The exact scalar edge integral is ≤ 0.30 S_E, 7–100× below (AG′)'s charge.
+>   * Theorem W (47 states): everything except the edge integral uses ≤ 0.489 H. With the plain envelope the tolerated edge integral is ≥ 158 S_E, so **sampled J\* = 26**. With the Ω^U +− transfer the tolerance is ≥ 0.406 S_E at (26, 1.026Λ); J\* = 26 if the graviton +− edge is scalar-like, 38 if tolerance ≥ 1.2 is demanded.
+>   * Theorem L′: the uniform rate alone suffices (ε_R ≤ 0.133; edge tolerated to 18.9× the scalar envelope).
+> * **Remaining premises:**
+>   * **(AG_U) beyond all orders [A]:** [D] to all orders; near the edge it only asks for the split at rate κ₀.
+>   * **(EDGE-R) for the graviton [M]:** decided by real-axis graviton values near the edge at J ≤ 51.
+>   * The exact scalar data stop at x₁ = 0.962.
+>   * Unchanged: P0, P1′, W, the boundary factor 2 [D-sketch], the +− transfer convention [M]; sampled states only, float only.
+
 ## 0. Summary
 
 | # | claim | grade | explicit constants / J\* | residual |
