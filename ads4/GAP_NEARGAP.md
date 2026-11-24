@@ -27,6 +27,21 @@ conclusion surviving it), **[NE]**, **[NE + M]**, **[M]**, **[I]**. `L = value /
 
 ---
 
+> **Update (GAP_SEAM.md, unreviewed): every state run at Δ_g = 2000 is positive.**
+> * **Sign-free [NE±] at 2000** (Δ_ref = 5·10⁴): seam J = 9 (L = 8–9), 10 (1.8–2.0), 11 (2.6), 13 (1.03, thin). Parity-odd OO J = 4, 6, 8, 10 (L = 5.7–167); the OO value comes from Γ_OO = Γ_++, checked to ≤ 0.044 c₂.
+> * **λ-level only at 2000:** J = 14, 15, 16, 17, 19 and the J = 21 rerun (λ-level L ≥ 1.7–5.2); sign-free fails for J ≥ 14.
+> * **Δ_ref artefact:** confirmed for the λ-level truncation and fixed by Δ_ref = 5·10⁴ (J = 21's λ-step falls ×2.5–2.7, toward the direct values). It is not the cause of the J ≥ 17 sign-free inflation, which comes from the extra x = 0.025 node in the a-fit; use the same x grid at both gaps.
+> * **Chart A holds:** budget ratios 0.23–0.29 (predicted 0.25), small-ν term 0.059–0.065; leverages grow ×4–14.
+> * **Cautionary:**
+>   * The seam strip holds the lowest values of J = 11, 13, 15, 17 at 2000 (+0.30 to +0.53; hybrid dips, still ≥ ×1.5 the binding state). Chart A cannot supply these states.
+>   * At 1000 the OO J = 4 twist edge (+0.2059) is below the previously quoted minimum (+0.2150).
+>   * GAP_NEARGAP's printed J = 21 value (+0.967) should read +1.0009.
+> * **Remaining:**
+>   * J = 18, 20, 22–26, 28, 30–32 not run;
+>   * J = 27 and 29 should be rerun with Δ_ref = 5·10⁴;
+>   * sign-free closure for J ≥ 14 needs direct rows (batch 4);
+>   * there is no direct check at 2000.
+
 ## 0. Table and verdict
 
 **Same protocol at every gap:** own-mass K₂ row at the state's twist edge `Δ = Δ_g + J` (light J = 0, 2: `Δ_L = 0.99Δ_g`), dense
