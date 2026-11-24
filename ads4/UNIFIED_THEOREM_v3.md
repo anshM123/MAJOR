@@ -294,6 +294,17 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 >   * LS6 (ε = 0.040) is positive iff μ² > −692.5 / −7748.7, against a natural |δ| ≈ 21 [M]. ε\* is expected to fail for Δ_L ≲ 6, so 0.040 is necessary.
 > * **Caution (unchecked):** weights reaching ν above a near-gap state's mass (e.g. de-shift tails to Λ+100) may meet the same exponential growth. This needs a re-check.
 
+> **Update (EDGE_R.md, unreviewed): (EDGE-R) for the graviton is NOT closed; it stays [M] at all 30 Theorem W states with J ≤ 51. No violation was found, but no graviton E_χ was computed at any W state. External compute is the route.**
+> * **What decides it:** at the gap-mass states the value comes from x ∈ [0.94, x₁]. For the exact scalar the parts above and below ν = 0.94Δ cancel to a net 0.11–0.29 S_E2, so sign-free covers cost 4–10× the tolerance and the oscillating values are needed.
+> * **Why n1 fails at ν/Δ ≳ 0.94:** the spin prefactor grows at complex angle and puts a second hump on the real contour (e^{14} above the saddle). Re-centring cannot fix it.
+> * **n3:**
+>   * scalar: works to the edge (within 1.6σ of the exact Arb scalar up to ν/Δ = 0.970);
+>   * graviton k = 2 (EE): agrees with n1 where both work, and gives values beyond 0.94;
+>   * **graviton k = 3 (C3H): broken in n3** (state values ×200–1000 too small, cause not found).
+> * **Exact scalar at J = 26–38 (new):** 0.285 / 0.201 / 0.108 / 0.151 S_E2 at the states' own cutoffs. **Correction to AG_PROOF: "exact scalar ≤ 0.30 S_E over all cutoffs" is wrong.** At J = 26 the grid maximum is 0.405, essentially at the tolerance of 0.406. At the tabulated cutoff a scalar-like graviton passes with margin 1.42.
+> * **Units correction:** the plain tolerance (≥ 158 S_E) and the transferred tolerance (≥ 0.406 S_E,t) are the same number. AG_PROOF's "plain margin ≥ 520" compares with the scalar edge, not the graviton.
+> * **External route:** ext/jobs_batch3.txt (1586 n1 + 150 n3 jobs, about 90 CPU-h); ext/jobs_batch3_n1.txt holds the n1 part only. The 20 states with m ≥ 1.13Λ need only n1 and could reach [NE±]. The gap-mass states also need the n3 C3H fix and 2–4× less bulk MC noise.
+
 ## 0. Grades
 
 | grade | meaning |

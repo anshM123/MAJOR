@@ -72,7 +72,11 @@ def main():
     lines = ['# ext/jobs_batch3.txt -- EDGE_R.md §6: real-axis graviton rows for (EDGE-R) at Theorem W\'s sampled states with J <= 51',
              '# format as jobs.txt: TAG METHOD J DELTA SEED nu1,nu2,...  (one job per nu).  n1 seeds are irrelevant (fixed Sobol seeds);',
              '# n3 seeds: every n3 node twice (seeds 6000 + 8k and 6000 + 8k + 4096), independent streams (README_EXT note: spacing >= 8).',
-             '# Priority: P1 (thinnest tolerances) first, then P2, then P3.  Estimated cost: n1 ~3-6 min, n3 ~15-40 min per node (one core).']
+             '# Priority: P1 (thinnest tolerances) first, then P2, then P3.  Measured cost (one core, EDGE_R.md §6): n1 (M = 11) 2.5 min/node',
+             '# at J = 26; n3 (M = 10) 8-10 min/node.  P3 (m >= 1.13 Lam, x1 <= 0.887) is n1-only: it needs no edge method.',
+             '# CAUTION (EDGE_R.md §2.4): n3 is validated for the scalar and the EE (k = 2) kind only; its C3H (k = 3) STATE values are wrong',
+             '# (x200-1000 too small, 30-600 % errors) at nu/Delta >= 0.93 for both parities.  The *_n3 jobs give the k = 2 edge; the k = 3',
+             '# edge needs a fixed C3H evaluator first (run P3 and the *_n1 jobs of P1/P2 now; the *_n3 jobs only after that fix, or for k = 2).']
     summ = []
     seed = 6000
     order = sorted(rows, key=lambda r: (0 if (r['J'], round(r['mfl'], 2)) in ((26, 1.03), (30, 1.03), (34, 1.03)) else

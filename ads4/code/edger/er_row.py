@@ -40,7 +40,7 @@ def merge(J, D, use_n3_overlap=False):
         f = 'hc_pts_%s_J%d_D%g.pkl' % (kind, J, D)
         a = pickle.load(open(os.path.join(R.CODE, 'highspin', 'cache', f), 'rb'))
         bp = os.path.join(R.CACHE, f)
-        b = pickle.load(open(bp, 'rb')) if os.path.exists(bp) else {}
+        b = pickle.load(open(bp, 'rb')) if os.path.exists(bp) and not os.environ.get('ER_NO_N3') else {}   # ER_NO_N3=1: n1 only
         out = dict(a)
         for (DD, nu), r in b.items():
             if DD != D or (20000.0, nu) not in b:
@@ -48,6 +48,8 @@ def merge(J, D, use_n3_overlap=False):
             old = a.get((DD, nu)); oldr = a.get((20000.0, nu))
             n1bad = old is None or oldr is None or relerr(old) > 0.2 or relerr(oldr) > 0.2
             if n1bad or use_n3_overlap:
+                for kk in [k for k in out if abs(k[1]/m - nu/m) < 5e-6 and k[1] != nu]:   # n1 record at the same (rounded) x
+                    del out[kk]
                 out[(DD, nu)] = r; out[(20000.0, nu)] = b[(20000.0, nu)]
                 info[round(nu/m, 6)] = 'n3' + ('' if n1bad else ' (overlap)')
         pickle.dump(out, open(os.path.join(MERGED, f), 'wb'))

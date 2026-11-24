@@ -22,7 +22,8 @@ if __name__ == '__main__':
     al = D - J - 2.0; m = np.sqrt(al*(al + 2*J + 1))
     nus = [x*m for x in HSP.parse_x(spec)]
     meth = os.environ.get('ER_METHOD', 'n3')
-    os.environ['HC_CACHE'] = os.path.join(HERE, 'cache')
+    os.environ['HC_CACHE'] = os.path.join(HERE, 'cache', os.environ.get('ER_SUB', ''))     # ER_SUB: separate point file set
+    os.makedirs(os.environ['HC_CACHE'], exist_ok=True)
     os.environ['HC_METHOD'] = meth
     os.environ['HC_M'] = os.environ.get('ER_M', '10'); os.environ['HC_MREF'] = os.environ.get('ER_MREF', os.environ['HC_M'])
     os.environ['HC_R'] = os.environ.get('ER_R', '8')
