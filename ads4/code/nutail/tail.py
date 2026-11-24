@@ -17,7 +17,7 @@ Weights (prl/data, read-only), each times the published cutoff theta(nu) = (erf(
 For every (weight, state): A_psi = int_0^Lam psi Gamma (psi-form action, the form all per-state evidence uses),
 A_X = Re sum_{nu<=Lam} dnu X theta Gamma, and the tails beyond Lam and beyond m (signed, and with |X|).
 usage: python3 -B tail.py Dg [hi]   -> cache/tail_<Dg>[_hi].txt
-  'hi': the large-J / higher-mass states at Dg = 1000 with coarser sampling (A_psi then only indicative for J > 0: 400 nodes)
+  'hi': the higher-mass J = 0 states at Dg = 1000 (m = Lam+150, Lam+250), coarser tail sampling
 """
 import os, sys, json, time, warnings
 sys.dont_write_bytecode = True
@@ -110,7 +110,7 @@ for name, (nu, X, psi) in W.items():
 # ---------------- exact heavy images ----------------
 def states(Dg):
     if HI:
-        return [(1060.0, 60), (1100.0, 100), (1150.0, 0), (1250.0, 0)]
+        return [(1150.0, 0), (1250.0, 0)]      # J = 60 was run in this mode first (cache/tail_1000_J60.txt; numerically unvalidated, see md)
     if Dg == 1000:
         return [(1000.0, 0), (1002.0, 2), (1010.0, 10), (1030.0, 30)]
     return [(300.0, 0), (302.0, 2), (310.0, 10), (330.0, 30), (350.0, 0)]
