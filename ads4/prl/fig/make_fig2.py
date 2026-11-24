@@ -1,4 +1,5 @@
-"""make_fig2.py -- Fig. 2 of the Letter (v8; v7 layout): coverage of positivity for Omega^EE at Delta_g = 1000 in the (J, m/Lambda) plane,
+"""make_fig2.py -- Fig. 2 of the Letter (v9; v7 layout; v9: Theorem W drawn as its 47 sampled states over a hatched
+"interpolated" band, J = 29 twist edge pale (signed window only), REFEREE_REPORT_4 M4.4, m8): coverage of positivity for Omega^EE at Delta_g = 1000 in the (J, m/Lambda) plane,
 shaded by strength of evidence. No computation of physics: every boundary below is transcribed from the deliverables named here.
 
 Plane.  x = J + 1/2 (log scale; J = 0 sits at x = 1/2), y = m/Lambda, m^2 = (Delta-J-2)(Delta+J-1),
@@ -65,8 +66,17 @@ XMIN, XMAX = 0.4, 4.0e6
 JL_MAX = 1.0e6 + 0.5
 
 NEPM = [(0, None, 1.2), (2, None, 1.2), (4, None, 1.05), (5, None, 1.05), (6, None, 1.05), (7, None, 1.05), (8, None, 1.05),
-        (12, None, 1.05), (16, None, 1.05), (21, None, 1.10), (23, 1.03, 1.10), (27, None, 1.10), (29, None, 1.10),
+        (12, None, 1.05), (16, None, 1.05), (21, None, 1.10), (23, 1.03, 1.10), (27, None, 1.10), (29, 1.04, 1.10),
         (31, 1.05, 1.10)]          # (J, lowest budgeted mass or None = twist edge, highest)
+NE_SIGNED = [(29, 1.04)]           # J = 29: twist edge to 1.04 only with the signed window (sign-free L = 0.94; SMALLNU_WINDOW)
+# Theorem W's 47 sampled states (J, m/Lambda), from code/agproof/cache/chi.txt (AG_PROOF Sec. 5.2)
+W_STATES = [(J, m) for J, ms in [(26, (1.026, 1.128, 1.231)), (30, (1.030, 1.133, 1.236)), (34, (1.033, 1.137, 1.240)),
+            (38, (1.037, 1.141, 1.245)), (42, (1.041, 1.145, 1.249)), (46, (1.045, 1.150, 1.254)),
+            (50, (1.049, 1.154, 1.259)), (64, (1.062, 1.168, 1.275)), (80, (1.077, 1.185, 1.293)), (100, (1.096, 1.205)),
+            (120, (1.114, 1.225)), (150, (1.140, 1.254)), (200, (1.183,)), (250, (1.225,)), (300, (1.265,)), (344, (1.299,)),
+            (33, (1.033, 1.136, 1.239)), (51, (1.050, 1.155, 1.260)), (101, (1.096, 1.206)), (201, (1.184,)), (301, (1.266,))]
+            for m in ms]
+assert len(W_STATES) == 47
 JW_LO = 26                         # Theorem W: sampled J* given (EDGE-R) (AG_PROOF Sec. 5.2; v7's alternative 42 superseded)
 NEM_TICKS = [36, 40, 48]
 
@@ -99,14 +109,14 @@ for s in ('top', 'right', 'left', 'bottom'):
     axS.spines[s].set_visible(False)
 
 
-def fbx(ax, y, xl, xr, color, hatch=None, z=1):
+def fbx(ax, y, xl, xr, color, hatch=None, z=1, hc=C_HATCH):
     xl = np.broadcast_to(xl, y.shape).astype(float); xr = np.broadcast_to(xr, y.shape).astype(float)
     ok = xr > xl
     if not ok.any():
         return
     kw = dict(color=color, lw=0, zorder=z, where=ok, interpolate=False)
     if hatch:
-        ax.fill_betweenx(y, xl, np.where(ok, xr, xl), facecolor=color, edgecolor=C_HATCH, hatch=hatch, lw=0, zorder=z)
+        ax.fill_betweenx(y, xl, np.where(ok, xr, xl), facecolor=color, edgecolor=hc, hatch=hatch, lw=0, zorder=z)
     else:
         ax.fill_betweenx(y, xl, np.where(ok, xr, xl), **kw)
 
@@ -129,7 +139,7 @@ YD0, YD1 = 1.0, 1.3
 yd = np.linspace(YD0, YD1, 1200)
 xed = np.minimum(x_edge(yd), XMAX)
 fbx(axD, yd, XMIN, np.minimum(xed, 33.0), C_NEM, z=2)                               # near-gap J <= 32
-fbx(axD, yd, JW_LO, np.minimum(xed, 345.0), C_THM, z=2.5)                            # Theorem W (sampled 26-344)
+fbx(axD, yd, JW_LO, np.minimum(xed, 345.0), SURF, hatch='\\\\\\', z=2.4, hc=C_NEM)                  # Theorem W: between samples, interpolated
 fbx(axD, yd, XL_COEF * yd, xed, C_THM, z=2.5)                                        # Theorem L' (J >= 223 at the gap)
 axD.set_ylim(YD0, YD1); axD.set_yticks([1.0, 1.1, 1.2]); axD.set_yticklabels(['1.0', '1.1', '1.2'])
 for J in NEM_TICKS:                                                                # same spins, chain masses to 5 Lambda
@@ -137,6 +147,9 @@ for J in NEM_TICKS:                                                             
 for J, ybot, ytop in NEPM:                                                         # [NE+-] near-gap budgets
     y0 = max(y_gap(J + 0.5), YD0) if ybot is None else ybot
     axD.plot([J + 0.5] * 2, [y0, ytop], color=C_NEPM, lw=1.6, solid_capstyle='butt', zorder=4)
+for J, ytop in NE_SIGNED:                                                          # signed window only
+    axD.plot([J + 0.5] * 2, [y_gap(J + 0.5), ytop], color=C_NEM, lw=1.6, solid_capstyle='butt', zorder=4)
+axD.scatter([J + 0.5 for J, m in W_STATES], [m for J, m in W_STATES], s=3.0, color=C_THM, edgecolors='none', zorder=4.5)
 # Theorem L' boundary in the near-gap panel
 yl = np.linspace(y_gap(223.5), YD1, 50)
 axD.plot(XL_COEF * yl, yl, color='white', lw=0.7, ls=(0, (0.8, 1.0)), zorder=5)
@@ -164,7 +177,8 @@ fig.text(0.018, 0.60, r'mass $m/\Lambda$', rotation=90, va='center', ha='center'
 
 # ---------------------------------------------------------------- direct labels
 kw = dict(fontsize=6.2, ha='center', va='center', zorder=8)
-axD.text(76, 1.2, 'theorem\n1', color='white', fontsize=5.8, ha='center', va='center', zorder=8)
+axD.text(76, 1.2, 'theorem 1\n(sampled\nstates)', color=INK, fontsize=5.4, ha='center', va='center', zorder=8,
+         bbox=dict(boxstyle='round,pad=0.12', fc=SURF, ec='none'))
 axD.text(9.0e4, 1.20, r'no states ($\Delta-J<\Delta_g$)', color=INK2, fontsize=6.0, ha='center', va='center', zorder=8)
 axU.text(2.0, 7.0, r'$b<5$', color='white', rotation=0, **kw)
 axU.text(3.0e4, 14.0, 'theorem 2', color='white', **kw)
@@ -175,6 +189,7 @@ axU.text(330.0, 9.0, r'hypothesis' '\n' r'only', color=INK, fontsize=6.0, ha='ce
 handles = [Patch(fc=C_CERT, ec='none', label='certified (flat limit)'),
            Patch(fc=C_NEPM, ec='none', label='numerics with error control'),
            Patch(fc=C_THM, ec='none', label='conditional theorem'),
+           Patch(fc=SURF, ec=C_NEM, hatch='\\\\\\', lw=0.0, label='between theorem-1 samples'),
            Patch(fc=C_NEM, ec='none', label='model / interpolated'),
            Patch(fc=C_HYP, ec=C_HATCH, hatch='//////', lw=0.0, label='hypothesis only')]
 fig.legend(handles=handles, loc='lower center', ncol=2, fontsize=6.0, frameon=False, bbox_to_anchor=(0.53, 0.0),

@@ -1,4 +1,7 @@
 % supplement.tex -- Supplemental Material for letter.tex.
+% prl/CHANGES_v9.md (v8 -> v9, after prl/REFEREE_REPORT_4.md): new title; version narrative removed from the main flow (kept in the
+% final section "Corrections to earlier drafts"); light-single-trace representations made explicit (Sec. S5.F); k = 2 tail bump and
+% the status of the truncated grids (Sec. S2.B-C); headline item (1) stated without light single traces.
 % Source of truth: ads4/UNIFIED_THEOREM_v3.md (UT3); numbers traced in UT3 Sec. 12, UT2 Sec. 12 and NOTES.md.
 % Changes: prl/CHANGES_v3.md (v2 -> v3), prl/CHANGES_v4.md (v3 -> v4: material moved here from the narrowed Letter,
 % grade fixes after prl/REFEREE_REPORT_2.md, notation tau, K_0, r_pm, c_Q, varrho).
@@ -35,7 +38,7 @@
 
 \begin{document}
 
-\title{Supplemental Material for ``Einstein Gravity from Conformal Field Theory''}
+\title{Supplemental Material for ``How Close to Einstein Must Holographic Gravity Be?''}
 
 % Front matter supplied by the authors (v5): both are independent researchers.
 \author{Ansh Mishra}
@@ -65,33 +68,32 @@ check adds confidence but does not raise the grade); ``[X; DV]'' is X with a num
 is derived from inputs X; ``[D, one step D-sketch]'' is net [D-sketch]. A chain carries the grade of its weakest link, ordered
 [P]\,$=$\,[certified]\,$>$\,[DV]\,$>$\,[D]\,$>$\,[D-sketch]\,$>$\,[NE$\pm$]\,$>$\,[NE]\,$>$\,[NE\,+\,M]\,$>$\,[M]\,$>$\,[A]\,$>$\,[I].
 
-\textbf{The Letter's wording (v7, v8).} The Letter's main text carries no grade tags. Its words map to the grades as
+\textbf{The Letter's wording.} The Letter's main text carries no grade tags. Its words map to the grades as
 follows: ``we prove'' = [P]; ``certified'' = [certified]; ``we derive'' = [D] or [DV]; ``derived and checked numerically'' =
 [DV]; ``sketched'', ``we sketch the argument'', ``we argue'' = [D-sketch]; ``with error control'' = [NE$\pm$]; ``computed'',
 ``measured'' (of a value) = [NE] or [DV]; ``computed inside models'', ``in a model'', ``interpolated'' = [NE\,+\,M] or [M];
 ``we assume'', ``assumption'' = [A]; ``open'' = [I]. Its assumptions (i) and (ii) are A1$'$ and A2 below; ``the two
-conditional theorems'' are Theorems W and L$'$ of Sec.~\ref{sec:largespin}; ``one technical assumption'' (heavy-state
-contributions split into two analytic waves decaying at a uniform rate beyond the Regge regime) is (AG$_U$) of
-Sec.~\ref{sec:largespin}.D, [A] beyond all orders; ``one integral of the graviton's contribution near the light-cone edge'' is
+conditional theorems'' are Theorems W and L$'$ of Sec.~\ref{sec:largespin}; ``an assumption on the decay of heavy-state
+contributions beyond the Regge regime'' (they split into two analytic waves decaying at a uniform rate) is (AG$_U$) of
+Sec.~\ref{sec:largespin}.D, [A] beyond all orders; ``one edge integral of the graviton'' (``one integral of the graviton's
+contribution near the light-cone edge'') is
 (EDGE-R) of the same subsection, [M], and ``a scalar analogue meets it, narrowly at the lowest spins'' is Table~\ref{tab:jstarW}
 (the exact scalar, read in the graviton's transferred units: margin $1.42$ at $(J,m)=(26,1.026\Lambda)$ at the tabulated cutoff,
 $0.405$ against $0.406$ at the worst cutoff of the lemma's grid); ``the other magnitudes \dots\ estimated in models'' are the spinning $O(1/m^4)$ window
 coefficients (premise W), the $+-$ helicity transfer, Theorem L$'$'s edge amplitude (EDGE) and its $O(1/m^2)$ coefficients above
 $J=344$; ``a hypothesis supported by a sketched argument'' is $H_R'$. ``We derive that $c_1$ is a single universal number'' is row
-L3 of Table~\ref{tab:inputs} ([D] since v8); the light single traces' ``contribution fixed by their Regge behaviour up to a small
-AdS mass shift; we sketch the argument'' is row LS4 ([D given (E$'$)], (E$'$) [D-sketch]).
+L3 of Table~\ref{tab:inputs} ([D]); the light single traces' ``contribution fixed by their Regge behaviour up to an AdS mass
+shift we have not computed; we only sketch this step'' is row LS4 ([D given (E$'$)], (E$'$) [D-sketch]). The Letter's Result is
+stated without light single traces in $T\times T$, where implication (1) is [D]; light single traces are its extension, which
+rests on (E$'$). ``The remainder was checked on sampled states up to mass $5\Lambda$'' is $\varepsilon_R$ of Theorem L$'$
+(Table~\ref{tab:thmL}).
 
-\textbf{What moved here from the Letter.} The Letter (v4) states items (1) and (2a)/(2b) and the evidence
-in prose. The full statement with the lower end, the exact $c_1$ forms and thresholds, the H17 remark and the
+\textbf{What is here.} The full statement with the lower end, the exact $c_1$ forms and thresholds, the H17 remark and the
 inputs list I1--I6 (Sec.~\ref{sec:full}), the $\Lambda$-forms (Sec.~\ref{sec:lambda}), the conditional remark on
-$\Delta_g\ge300$ (Sec.~\ref{sec:cor}) and the reproduction summary (Sec.~\ref{sec:repro}) are here. Notation
-changed in v4: $\tau:=\sqrt{t_4^2+\alpha_T^2}$ (was $R$), $K_0$ (was $k(0)$), $\mathcal N_D$ (was $k_0$),
-$r_\pm$ (Abel coefficients, were $a$, $b$), $c_Q$ (was $c$ in Q3), $\varrho(\nu)$ (was $c(\nu)$). New in v5:
-Sec.~\ref{sec:largespin}; Tables~\ref{tab:computed}--\ref{tab:cover} updated; Table~\ref{tab:dircv}. In v6 the Letter's two positivity paragraphs were condensed to one, with a coverage map (its Fig.~2, which
-follows Table~\ref{tab:coverLS}); every state list, leverage value and premise is here (Tables~\ref{tab:computed},
-\ref{tab:cover}, \ref{tab:dircv}, \ref{tab:coverLS}; Sec.~\ref{sec:largespin}), and the order of limits is stated
-(Table~\ref{tab:inputs}, rows A2, R1, $H_K$; end of Sec.~\ref{sec:HK}). In
-Sec.~\ref{sec:largespin}, ``Theorem W'' and ``Theorem L$'$'' (Theorem L of v5--v6, with a lower threshold) name two routes (weight-shifting, large impact
+$\Delta_g\ge300$ (Sec.~\ref{sec:cor}) and the reproduction summary (Sec.~\ref{sec:repro}). Every state list, leverage value and
+premise behind the Letter's Fig.~2 is in Tables~\ref{tab:computed}, \ref{tab:cover}, \ref{tab:dircv}, \ref{tab:coverLS} and
+Sec.~\ref{sec:largespin}; the order of limits is in Table~\ref{tab:inputs} (rows A2, R1, $H_K$) and at the end of
+Sec.~\ref{sec:HK}. In Sec.~\ref{sec:largespin}, ``Theorem W'' and ``Theorem L$'$'' name two routes (weight-shifting, large impact
 parameter); they are unrelated to Lemma W of Sec.~\ref{sec:Cprime}.
 
 \textbf{Three layers.} (i) the setting A1$'$, A2; (ii) the \emph{inputs} of the implication
@@ -101,21 +103,12 @@ Sec.~\ref{sec:pos} gives the \emph{evidence}. Evidence is never used as an input
 \textbf{Provenance.} Every statement is quoted from the project's consolidated statement and the analyses
 it cites; none of these is externally refereed. Two analyses are independent reproductions with fresh code
 (Sec.~\ref{sec:repro}); a third reproduced the $EE$-kernel reduction and Lemma Y from the written
-statements alone. The near-gap high-spin states of $\Omega^{EE}$ at $\Delta_g=1000$ ($J\ge12$, the $J=29$
-light-cone edge), the low-frequency window and the large-spin hypothesis $H_{\rm LJ}(1000)$ were recomputed
-after the previous draft; Sec.~\ref{sec:pos} gives the new values and grades, and Sec.~\ref{sec:largespin}
-the two conditional large-spin theorems. The order-of-limits argument (end of Sec.~\ref{sec:HK}) and the
-premise updates of Theorem W (Sec.~\ref{sec:largespin}) were added in v6. In v7, Sec.~\ref{sec:largespin} was rewritten from
-four further analyses, all unreviewed: a certification of Lemma LR$_\infty$ with tight constants, the exact three-channel
-computation of the spinning $O(1/m^2)$ corrections, a window reformulation of the higher-order premise, and external direct
-points for near-gap $J=7$, $23$, $27$, $31$ (Tables~\ref{tab:computed}, \ref{tab:Dstates}). A second independent check
-(Sec.~\ref{sec:repro}) reproduced the de-shift identity, the monopole constant, Lemma LR$_\infty$, the algebra of Theorem W and
-the $\langle TT\mathcal O\rangle$ structure counts. In v8 four further analyses, all unreviewed, were folded in: a study of the
-large-spin assumption (AG$'$), which shows it false in its pointwise form near the gap edge and replaces it by a strictly weaker pair
-of premises (Sec.~\ref{sec:largespin}.D); a direct attempt at the graviton's edge integral, which is not closed
-(Sec.~\ref{sec:largespin}.E); upgrades of the $c_1$ universality step and of the light-single-trace step (Secs.~\ref{sec:c1},
-\ref{sec:light}); and a check of the $k=2$ weights beyond $\Lambda$, which fixes how the $k=2$ pieces are defined
-(Sec.~\ref{sec:defs}.B--C).
+statements alone, and a second check (Sec.~\ref{sec:repro}) reproduced the de-shift identity, the monopole constant,
+Lemma LR$_\infty$, the algebra of Theorem W and the $\langle TT\mathcal O\rangle$ structure counts. Not independently checked,
+and unreviewed: the certified constants of Lemma LR$_\infty$, the three-channel $O(1/m^2)$ computation and Lemmas P4W, F and
+P4W-$\chi$ of Sec.~\ref{sec:largespin}; the attempt at the graviton's edge integral (Sec.~\ref{sec:largespin}.E); the $c_1$
+universality step and the light-single-trace step (Secs.~\ref{sec:c1}, \ref{sec:light}); and the check of the $k=2$ weights beyond
+$\Lambda$ (Sec.~\ref{sec:defs}.B--C). Corrections to earlier drafts are collected at the end (Sec.~\ref{sec:corr}).
 
 \section{Definitions and published data}
 \label{sec:defs}
