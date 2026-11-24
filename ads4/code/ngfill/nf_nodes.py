@@ -19,12 +19,16 @@ if __name__ == '__main__':
     keys = ['C2', 'C3H'] if J % 2 else [(kd, h) for kd in ('C2', 'C3H') for h in ('++', '+-')]
     lines = [f"# nf_nodes J={J} row {D:g} (m = {C.mphys(D, J):.3f}): Gamma (c2) K2 vs direct +- jk; K2 nodes {len(gK['xs'])}, direct-row nodes {len(gD['xs'])}"]
     dd, zz, mx = [], [], 0.0
+    bad = H.failed_x(J, D)
     for i, x in enumerate(gD['xs']):
         s = f"   x={x:.4f} nu={x*gD['m']:7.1f}"
         j0 = int(np.argmin(np.abs(gK['xs'] - x))); on = abs(gK['xs'][j0] - x) < 1e-6
         for k in keys:
             vj = np.array([r[k][int(np.argmin(np.abs(r['xs'] - x)))] for r in reps]); e = float(np.sqrt(7/8*((vj - vj.mean())**2).sum()))
-            v = float(gD[k][i]); mx = max(mx, abs(v))
+            v = float(gD[k][i])
+            if round(float(x), 6) in bad:
+                s += f" | {k}: dir FAILED (rel. err > 0.2; not used)"; continue
+            mx = max(mx, abs(v))
             if on:
                 d = v - float(gK[k][j0]); dd.append(abs(d)); zz.append(abs(d)/max(e, 1e-9))
                 s += f" | {k}: K2 {gK[k][j0]:+8.1f} dir {v:+8.1f} +- {e:5.1f}"

@@ -28,6 +28,12 @@ Grades follow UNIFIED_THEOREM_v2 §0, POS_ERRORS, NEARGAP2, HIGHSPIN and SMALLNU
 
 ---
 
+> **Update (NEARGAP_FILL.md, unreviewed): at Δ_g = 1000 every near-gap spin J ≤ 16 is now [NE±] (twist edge and 1.02–1.05Λ). J = 23's twist edge → [NE±], thin (L = 1.18). J = 31's twist edge stays [NE+M]. Nothing negative.**
+> * **Method:** full direct n1 rows (38 nodes) on own-mass rows plus the NEARGAP2 budget and a 3σ MC term. J = 9: L = 38; 10: 5.6; 11: 16; 13: 6.8; 14: 2.07; 15: 1.75 at the twist edge (thinnest 1.52, J = 14 at 1.05Λ). The K₂ error is 0.4–7 % of the last Laplace step, always favourable. The Δ_ref zero lies outside every row for J ≤ 16.
+> * **J = 23/31:** a consistency correction (the representation term evaluated on the same windowed λ as the leverage; the window had been counted twice) lifts J = 23's twist edge to L = 1.18 and J = 27 from 1.64 to 1.81. J = 31's twist edge stays at L = 0.76: genuine half-grid under-resolution plus window and edge terms. J = 31 at 1.04Λ → [NE±].
+> * **Batch 5** (`ext/jobs_batch5.txt`): 666 n1 jobs for J = 17–20, 22, 24–26, 28, 30, 32 plus J = 23/31 mid-points; ≈ 1.8 h on 16 workers. J = 26 and 30 need even shadows computed locally first.
+> * **Cautions:** for J ≥ 13 the base is the hybrid quadrature (the certified floor does not close). The 10⁴ c₂ small-ν convention (~100× the measured values) is still the largest or second-largest budget term at J ≤ 14.
+
 ## 0. Verdict
 
 | state (Δ_g = 1000) | value `λ/N_s` (old → new) | budget (new) | `L` old → new | grade old → new |
