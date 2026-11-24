@@ -9,6 +9,8 @@ Per gap Dg in {1000, 2000, 5000}:
     with deshift/d_abel.Abel (read-only import, its main() not called) on dnu = 0.04, nu_max = Lam + 40;  checked against PW4's D(1000);
   * floors: 'num' = min_sigma F_LR(beta, u, sigma) (lsl_core.LR_action, read-only, at this Dg);
             'unif' = f_U(beta-cell)/Lam^2, the CERTIFIED Dg-uniform gap-unit floor of gl2 (valid for every Dg >= 1000);
+  * P_{-1/2+i nu}(cosh beta) by Mehler with nphi = max(600 + 600 beta, 1.5 Lam beta + 200) (lrt5's 600 + 600 beta under-resolves
+    nu beta at Lam = 5000); states with beta > 3.1 (J1000 = 1e5, 1e6) only at Dg = 1000 (cost);
   * Q_tol = F/(4|D|);  Lam_amp (monopole) = Q_tol/[c2 (|kA| + |kB|/4) eta/m^2];  Lam_amp (scalar-shaped vector, c-ratio form R1');
     K_tol for sh+-1 and C2 (R1'), exactly as lrt5.
 States: the LRINF_TIGHT §5 rows mapped to the same (beta, mu): m = mu Lam, J = round(mu Lam sinh(beta/2) - 1/2) (beta recomputed),
@@ -77,7 +79,7 @@ class Gap:
         self.info = f'Abel solve N = {A.N}, CGLS its {it}, residual {res:.1e}, {time.time() - t0:.0f}s'
 
     def Pd(self, beta, s=0.0):
-        return N.Pnu(beta, self.NU - 1j*s, nphi=int(600 + 600*beta))
+        return N.Pnu(beta, self.NU - 1j*s, nphi=int(max(600 + 600*beta, 1.5*self.L*beta + 200)))   # Mehler nodes resolve nu*beta up to Lam*beta
 
     def tol(self, J, m, F):
         L, NU, PS, D = self.L, self.NU, self.PS, self.D
@@ -132,7 +134,7 @@ def main():
         pr('   state (1000 label, J1000) | J | m/Lam | beta | F num | F unif-cert (F_cert@1000) | Q_tol num/unif | Lam_amp mono num/unif | '
            'Lam_amp vec R1\' num/unif | K_tol sh1 unif | K_tol C2 unif')
         rows = []
-        states = list(base) + [('twist edge J*(Dg)', None, None, None)]
+        states = [s for s in base if Dg == 1000 or s[2] < 3.1] + [('twist edge J*(Dg)', None, None, None)]   # beta > 3.1: 1000 only (cost)
         for lab, J0, beta0, mu in states:
             if J0 is None:
                 J = jstar_edge(Dg); m = np.sqrt((Dg - 2.0)*(Dg - 1.0 + 2*J))
@@ -145,19 +147,22 @@ def main():
             Fu = fu/g.L**2 if fu is not None else None
             tn = g.tol(J, m, Fn); tu = g.tol(J, m, Fu)
             fc = Fcert1000(beta) if Dg == 1000 else None
-            rows.append(dict(label=lab, J=J, mu=m/g.L, beta=beta, Fn=Fn, Fu=Fu, num=tn, unif=tu))
+            rows.append(dict(label=lab, J0=J0, J=J, mu=m/g.L, beta=beta, Fn=Fn, Fu=Fu, num=tn, unif=tu))
             pr(f"   {lab:9s} {str(J0):>8s} | {J:8d} | {m/g.L:6.3f} | {beta:6.3f} | {Fn:.3e} | {Fu:.3e}"
                + (f" ({fc:.3e})" if fc else '') + f" | {tn['Qtol']:.2e}/{tu['Qtol']:.2e} | {tn['Lam_mono']:.0f}/{tu['Lam_mono']:.0f} | "
                f"{tn['Lam_vec']:.0f}/{tu['Lam_vec']:.0f} | {tu['Ksh1']:.2e} | {tu['KC2']:.2e}")
         res[Dg] = dict(Lam=g.L, D=g.D, rows=rows)
     pr('\n## scaling: tolerance(Dg)/tolerance(1000) at the same (beta, mu), unif-cert floor; (Lam/Lam0)^2 = '
        + ', '.join(f'{Dg}: {(res[Dg]["Lam"]/res[1000]["Lam"])**2:.3f}' for Dg in (2000, 5000)))
-    for i, (lab, J0, _, _) in enumerate(base):
-        r0 = res[1000]['rows'][i]['unif']
+    for (lab, J0, b0_, _) in base:
+        if b0_ >= 3.1:
+            continue
+        get = lambda Dg: next(r['unif'] for r in res[Dg]['rows'] if r['label'] == lab and r['J0'] == J0)
+        r0 = get(1000)
         pr(f'   {lab:9s} {J0:>8d}: ' + '; '.join(
-            f"Dg={Dg}: Q_tol x{res[Dg]['rows'][i]['unif']['Qtol']/r0['Qtol']:.3f}, mono x{res[Dg]['rows'][i]['unif']['Lam_mono']/r0['Lam_mono']:.2f}, "
-            f"vec x{res[Dg]['rows'][i]['unif']['Lam_vec']/r0['Lam_vec']:.2f}, sh1 x{res[Dg]['rows'][i]['unif']['Ksh1']/r0['Ksh1']:.2f}, "
-            f"C2 x{res[Dg]['rows'][i]['unif']['KC2']/r0['KC2']:.2f}" for Dg in (2000, 5000)))
+            f"Dg={Dg}: Q_tol x{get(Dg)['Qtol']/r0['Qtol']:.3f}, mono x{get(Dg)['Lam_mono']/r0['Lam_mono']:.2f}, "
+            f"vec x{get(Dg)['Lam_vec']/r0['Lam_vec']:.2f}, sh1 x{get(Dg)['Ksh1']/r0['Ksh1']:.2f}, "
+            f"C2 x{get(Dg)['KC2']/r0['KC2']:.2f}" for Dg in (2000, 5000)))
     json.dump({str(k): v for k, v in res.items()}, open(os.path.join(HERE, 'cache', 'gl4_tol.json'), 'w'), default=float, indent=0)
     open(os.path.join(HERE, 'cache', 'gl4_tol.txt'), 'w').write('\n'.join(OUT) + '\n')
 

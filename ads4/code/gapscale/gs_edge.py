@@ -9,7 +9,8 @@ and the edge integral with a fixed erfc cutoff chi(p) = erfc((p_e - p)/sigma)/2 
 (26, 1.026 Lam)), E = int_{p_lo}^1 psi2 chi G dp, relative to the state's leading-Regge k = 2 action Omega_2 = int psi2 P dp.
 Comparisons: chart A (same J, same m/Lam up to the twist-edge shift): (26, 1026) vs (26, 2026);
              chart B (same beta, same m/Lam): (26, 1026) vs (52, 2052).
-Usage: python3 gs_edge.py "1000:26,2000:26,2000:52" -> cache/edge.txt
+Usage: [GS_PLO=0.002] [GS_TAG=_full] python3 gs_edge.py "1000:26,2000:26,2000:52,2000:26:1.0257" -> cache/edge<TAG>.txt
+With GS_PLO ~ 0 the integral E is (half) the exact scalar's whole k = 2 cost beyond the hybrid, int_0^1 psi2 chi G (chi ~ 1 above p_e).
 """
 import os, sys, time, json, builtins
 sys.dont_write_bytecode = True
@@ -43,9 +44,14 @@ OUT = []
 pr = lambda s='': (print(s, flush=True), OUT.append(s))
 
 
-def run(Dg, J, pe=0.25, sg=0.195):
+def run(Dg, J, pe=0.25, sg=0.195, mfl_target=None):
     Lam = np.sqrt((Dg - 2.0)*(Dg - 1.0))
     Delta = Dg + J
+    if mfl_target is not None:                    # chart A at fixed u: Delta (in Z/64) with m/Lam ~ mfl_target, above the twist edge
+        mt = mfl_target*Lam
+        al = (-(2*J + 1) + np.sqrt((2*J + 1)**2 + 4*mt*mt))/2
+        Delta = round((al + J + 2)*64)/64
+        assert Delta >= Dg + J
     al = Delta - J - 2.0; ab = al + 2*J + 1
     m = np.sqrt(al*ab); eta = (al*al + ab*ab)/(2*al*ab); beta = float(np.arccosh(eta)); mfl = m/Lam
     st = dict(J=J, Delta=float(Delta), m=m, m2=m*m, eta=eta, beta=beta, mfl=mfl)
@@ -54,7 +60,7 @@ def run(Dg, J, pe=0.25, sg=0.195):
     tb = time.time() - t0
     x1 = 1/mfl
     # Gauss-Legendre on [p_lo, 1] in segments (oscillation ~ (2J+1)/m per unit nu)
-    plo = 0.5*x1*0 + 0.2
+    plo = float(os.environ.get('GS_PLO', '0.2'))      # lower end of the p-range (0.2: edge study; ~0: full k = 2 cost)
     kmax = (2*J + 1)/mfl/np.sqrt(max(1 - (1/mfl)**2, 1e-12))
     nseg = int(np.ceil((1 - plo)*1.2*kmax/np.pi*2)) + 40
     xs, ws = np.polynomial.legendre.leggauss(16)
@@ -72,6 +78,7 @@ def run(Dg, J, pe=0.25, sg=0.195):
     ps = psi2(p)
     E = float(np.sum(wp*ps*ch*G))
     Eabs = float(np.sum(wp*np.abs(ps*ch*G)))
+    Sfull = float(np.sum(wp*ps*G))                    # no cutoff: the whole k = 2 cost on [p_lo, 1]
     # leading-Regge k = 2 action of the state (full p range)
     pf, wf = np.polynomial.legendre.leggauss(400)
     pf = (pf + 1)/2; wf = wf/2
@@ -80,19 +87,19 @@ def run(Dg, J, pe=0.25, sg=0.195):
     pr(f"\n## Dg = {Dg}, J = {J}, Delta = {Delta}: m/Lam = {mfl:.5f}, x1 = {x1:.5f}, beta = {beta:.5f}, b = {(2*J+1)/mfl:.2f}; "
        f"build {tb:.0f}s, {len(p)} nodes on p in [{plo}, 1]")
     pr(f"   edge integral E = int psi2 chi G = {E:+.4e} (sign-free {Eabs:.4e}); Omega_2 (LR k=2 action) = {Om2:+.4e}; "
-       f"E/Omega_2 = {E/Om2:+.3e}; Lam^2 E = {Lam**2*E:+.4e}")
+       f"E/Omega_2 = {E/Om2:+.3e}; Lam^2 E = {Lam**2*E:+.4e}; no-cutoff S = int psi2 G = {Sfull:+.4e}, S/Omega_2 = {Sfull/Om2:+.3e}")
     for xx in (0.3, 0.5, 0.7, 0.8, 0.85, 0.9, 0.93, 0.95, 0.96, 0.97):
         if xx < x[0] or xx > x[-1]:
             continue
         i = int(np.argmin(np.abs(x - xx)))
         pr(f"   x = {x[i]:.4f}: Gamma = m^2 G/E2h = {Gam[i]:+.4e} c2;  G/E2h = {G[i]/E2h[i]:+.3e}")
-    return dict(Dg=Dg, J=J, mfl=mfl, beta=beta, E=E, Eabs=Eabs, Om2=Om2, x=x.tolist(), Gam=Gam.tolist())
+    return dict(Dg=Dg, J=J, mfl=mfl, beta=beta, E=E, Eabs=Eabs, S=Sfull, plo=plo, Om2=Om2, x=x.tolist(), Gam=Gam.tolist())
 
 
 if __name__ == '__main__':
     res = []
     for spec in sys.argv[1].split(','):
-        Dg, J = (int(v) for v in spec.split(':'))
-        res.append(run(Dg, J))
-        open(os.path.join(HERE, 'cache', 'edge.txt'), 'w').write("\n".join(OUT) + "\n")
-    json.dump(res, open(os.path.join(HERE, 'cache', 'edge.json'), 'w'))
+        f = spec.split(':')                       # Dg:J  (twist edge)  or  Dg:J:m/Lam  (fixed u)
+        res.append(run(int(f[0]), int(f[1]), mfl_target=float(f[2]) if len(f) > 2 else None))
+        open(os.path.join(HERE, 'cache', 'edge%s.txt' % os.environ.get('GS_TAG', '')), 'w').write("\n".join(OUT) + "\n")
+    json.dump(res, open(os.path.join(HERE, 'cache', 'edge%s.json' % os.environ.get('GS_TAG', '')), 'w'))

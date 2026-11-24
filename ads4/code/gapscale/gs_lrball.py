@@ -5,7 +5,7 @@ min-selection in lrt_common.Weight.R compares upper endpoints, so it stays an up
 Per ball we record sup_{beta >= B} r(beta) for B in BETAS (certified cells of lrt3 to beta = 64 plus its tail majorant), and the
 smallest certified beta0 with r < 1 / rtilde < 1.  The ball width adapts: it grows x2 (ratio up to RMAX) while sup r(beta >= 0.37) < 0.5.
 Inputs copied read-only (Lam-independent): lrtight/cache/lrt1_constants.json, lrt2_m1.json.  Writes only gapscale/cache/lrball/.
-Usage: python3 gs_lrball.py [Lam_hi=1e6] -> cache/lrball.txt, cache/lrball.json
+Usage: python3 gs_lrball.py [Lam_hi=1e6] [Lam_start (resume)] -> cache/lrball.txt, cache/lrball.json
 """
 import os, sys, json, shutil, time
 from fractions import Fraction as Fr
@@ -26,7 +26,8 @@ L3.pr = lambda s='': None                      # silence the per-run report
 BETAS = ('0.245', '0.3', '0.37', '0.5', '1')
 LAM_LO = Fr(998*999)                           # Lam^2 at Delta_g = 1000
 LAM_HI = float(sys.argv[1]) if len(sys.argv) > 1 else 1e6
-RMAX = 2.0
+LAM_START = float(sys.argv[2]) if len(sys.argv) > 2 else None   # resume: first ball starts here (Lam)
+RMAX = 1.05                                    # wider balls lose all precision (Arb powers of wide balls contain 0)
 
 
 def run_ball(L2a, L2b):
@@ -51,7 +52,8 @@ def main():
         print(s, flush=True); lines.append(s)
     pr("# gs_lrball: certified Lemma LR-inf remainder ratio r(beta) on Lam-BALLS covering [998.4999, %.3g]" % LAM_HI)
     pr("# Lam_a  Lam_b | sup r (beta >= 0.245 / 0.3 / 0.37 / 0.5 / 1) | beta0 (r<1) | beta0 (rtilde<1, F_LR>0)")
-    L2a = LAM_LO; q = Fr(1001, 1000)
+    L2a = LAM_LO if LAM_START is None else Fr(LAM_START*LAM_START).limit_denominator(10**6)
+    q = Fr(1001, 1000) if LAM_START is None else Fr(RMAX)
     allres = []
     worst = {B: 0.0 for B in BETAS}
     while True:
@@ -72,11 +74,12 @@ def main():
         L2a = L2b
         if r['sup_r_0.37'] < 0.5 and q < RMAX:
             q = min(Fr(RMAX), q*q)
+        assert all(r['sup_r_' + B] == r['sup_r_' + B] for B in BETAS), 'nan: ball too wide'
     pr("# worst sup r over all balls: " + ", ".join(f"beta>={B}: {worst[B]:.4e}" for B in BETAS))
     pr("# => Lemma LR-inf holds with r < 1 at beta >= 0.37 for EVERY Lam in [998.4999, %.3g] iff the beta>=0.37 entry is < 1. [%.0fs]"
        % (LAM_HI, time.time() - t0))
-    json.dump(allres, open(os.path.join(HERE, 'cache', 'lrball.json'), 'w'), indent=0)
-    open(os.path.join(HERE, 'cache', 'lrball.txt'), 'w').write("\n".join(lines) + "\n")
+    json.dump(allres, open(os.path.join(HERE, 'cache', 'lrball%s.json' % ('' if LAM_START is None else '_resume')), 'w'), indent=0)
+    open(os.path.join(HERE, 'cache', 'lrball%s.txt' % ('' if LAM_START is None else '_resume')), 'w').write("\n".join(lines) + "\n")
 
 
 if __name__ == '__main__':

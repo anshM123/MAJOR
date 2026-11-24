@@ -12,6 +12,27 @@ Grades: **[P]** proved; **[D]** derived; **[D-sketch]**; **[DV]** derived and ch
 
 ---
 
+> **Update (GAP_SCALING.md, unreviewed): extending positivity to all Δ_g ≥ 1000 by scaling is PARTIALLY viable. The certified layers carry to every larger gap; the beyond-leading-Regge corrections carry over only under tested scaling hypotheses.**
+> * **Weights:** the flat weights ψ_k are exactly Λ-independent in gap units. The k=2 de-shift weight is ψ₂ + Λ⁻²·(explicit symbol) for p ≥ 0.1 [DV]. The leading-Regge action is exactly ∫ψP at every Λ.
+> * **Certified layers:**
+>   * The curvature is g(J, m/Λ)/Λ² [DV].
+>   * The **Lemma C bound is monotone decreasing in Λ [P]**, so "certified flat floor − Lemma C" only improves with the gap; it is positive near the twist edge up to J = 13 / 17 / 23 / 35 / 61 at Δ_g = 1000 / 2000 / 5000 / 2·10⁴ / 10⁵.
+>   * **Lemma LR∞ is certified uniformly for 998.5 ≤ Λ ≤ 10⁶** (454 Arb Λ-balls, remainder ratio ≤ 0.9988), so the Theorem L′ floor and J\*(m) hold for every gap in that range [certified].
+> * **Binding state at Δ_g = 2000 [NE±]:** own-mass row Δ = 2005 gives λ/N_s = +0.20041, budget 6.3·10⁻⁴, L = 320 (it was 78 at 1000). The truncation scales like Λ⁻² and the window like Λ⁻⁴; the graviton correction profile converges (|Γ| ≤ 41 c₂).
+> * **What does not carry over automatically:**
+>   * Sign-free budgets at fixed β do not improve (pointwise corrections do not shrink).
+>   * EDGE-R's +− transfer factor grows like (Δ_g/J)², so at fixed spin it gets harder.
+>   * The graviton edge integral is uncomputed at every gap.
+>   * There is a seam strip between the 1000 and new twist edges with no 1000 counterpart (J up to ≈ 344 / 424 / 552 at Δ_g = 2000 / 3000 / 5000).
+>   * The structural premises (AG_U, EDGE-R, P1′, W) carry over as premises.
+> * **Plan (3–5 days):**
+>   1. Write up Lemma C monotonicity and uniform LR∞.
+>   2. Own-mass K₂ rows at Δ_g = 2000, 5000 for every error-budgeted spin.
+>   3. Direct n1/n3 nodes at 2000 for J = 12, 16, 21, 27, 29 (external machine).
+>   4. Parameterise Δ_g in the large-spin code and re-run the P2/P4W-χ costs at the chart-B images.
+>
+>   Target: error-controlled positivity at Δ_g = 1000, 2000 and 5000, plus a transfer to all Δ_g ≥ 1000 under named, tested scaling hypotheses.
+
 ## 0. Summary
 
 1. **The bound values are explicit functions of `Λ` [DV].** With the functionals fixed (NF02 for `Ω^EE`; `Q3-full-delta0.2` for `Ω^Q_up`)
