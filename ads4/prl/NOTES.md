@@ -403,3 +403,8 @@ IR-log-dominated g₄ window's upper end, in which ABJM sits at 2.6 %); the refe
 **If HIGHSPIN closes positively** (J ≥ 12 at [NE±], J = 29 positive with a resolved edge, H_LJ(1000) upgraded): fill the `\HS` places,
 set `\HSdraftfalse`, and remove weak points (i)–(iii) from the Letter's list accordingly; nothing else changes.
 **If it comes back weak but not negative** (budget still not closed): the Letter stands as written; the weak points stay listed.
+
+## AI-use disclosure (authors, 24 Nov)
+The Letter ends with an acknowledgments block containing only the authors' AI-use disclosure, verbatim:
+"AI (Claude) assisted with the formulation and drafting of this manuscript. The authors take full responsibility for the work presented, and have thoroughly reviewed all output."
+No other acknowledgments. Keep this sentence in every future version (and in the arXiv version).
