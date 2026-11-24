@@ -1,3 +1,16 @@
+*Revised 24 Nov 2026, **v9** (cheap fixes after `REFEREE_REPORT_4.md`; no new physics): title "How Close to Einstein Must
+Holographic Gravity Be?"; abstract leads with the assumption and |ĝ₃|Λ⁴ ≤ 120 (τ ≤ 2.89·10⁻⁸ as "i.e."), "proved in the flat-space
+limit for the cubic bound and supported numerically in AdS", "numbers are for c₁ = 0"; Introduction lists the large-spin premises
+(decay assumption + uncomputed graviton edge integral) instead of "one technical assumption"; Result stated without light single
+traces in T×T (implication (1) [D]), light single traces as a one-sentence extension resting on (E′), (2b) moved there; M6 wording
+(J = 29 twist edge only with the measured sign; "to about one part in 10⁶"; "we derive"; "separate code … EE-kernel reduction and
+the counting lemma"); Theorem L′ "remainder checked on sampled states up to 5Λ"; identity "prove through eighth order, check to
+fortieth"; Fig. 2: Theorem W drawn as its 47 sampled states (dots) over a hatched "between samples" band, J = 29 twist edge pale.
+Supplement: new title; version narrative removed from the main flow (S1 "What is here", provenance, S2–S7 inline "v7/v8"
+remarks) and collected in a final section "Corrections to earlier drafts" (`sec:corr`); S5.F states which representation each
+light-state statement refers to; S2.B mentions the ×100 bump of the continuum k = 2 weight at Λ+30–33; S2.C says the grids are
+tabulations, not functionals. Change log: **`CHANGES_v9.md`**.*
+
 *Revised 24 Nov 2026, **v8** (writing pass after AG_PROOF, DSKETCH_UP, EDGE_R, NU_TAIL_CHECK and the J = 31 addendum of EXT_FOLD;
 title/abstract of commit 65c1a44 kept): (i) **large spin**: (AG′) is replaced by the strictly weaker pair (AG_U) (uniform decay rate,
 [A] beyond all orders) + (EDGE-R) (one real-axis edge integral of the graviton, [M], not closed) via Lemma F and Lemma P4W-χ [P];
@@ -58,7 +71,7 @@ Files in `ads4/prl/`:
 | `data/` | published functional data; v4 adds `q3star_factored.json` + `make_q3star.py`, README errata §5, MANIFEST lines |
 | `build/` | all build outputs (git-ignored) |
 
-| `CHANGES_v3.md` … `CHANGES_v8.md` | change logs v2 → v3, v3 → v4 (referee 2), v4 → v5 (HIGHSPIN filled, large spin), v5 → v6 (referee 3), v6 → v7 (plain prose, large-spin theorems), v7 → v8 (AG_U + EDGE-R, c₁ [D], light single traces, k = 2 definition) |
+| `CHANGES_v3.md` … `CHANGES_v9.md` | change logs v2 → v3, v3 → v4 (referee 2), v4 → v5 (HIGHSPIN filled, large spin), v5 → v6 (referee 3), v6 → v7 (plain prose, large-spin theorems), v7 → v8 (AG_U + EDGE-R, c₁ [D], light single traces, k = 2 definition), v8 → v9 (referee 4 cheap fixes) |
 | `data/truncate_grids.py`, `data/*_trunc.txt`, `data/k2/*_trunc.txt`, `data/TRUNC_SHA256SUMS` | v8: the k = 2 grids cut at ν ≤ Λ + 10 (the reading the Supplement now prescribes); published grids unchanged |
 
 (v5: the stale v3 copy of this table that followed here was removed; `letter.tex` is v5, `supplement.tex` has the new §S7,
@@ -105,6 +118,11 @@ In v5 the figure environment was moved to just before "Functionals" (it had beco
 Figure: `cd fig && python3 make_fig.py` (needs mpmath, matplotlib) before compiling the Letter.
 
 ## 2. Length
+
+**v9** (`scratchpad/tools/wc_prl7.py letter.tex 3 0.9375 1.0385`): abstract **580** rendered characters (pdftotext, whitespace
+normalised); prose 2850 words, 215 inline formulas (conservative 268), 3 display rows (48), Fig. 1 180, Fig. 2 164;
+**TOTAL ≈ 3457 (≈ 3510 conservative)**; limit 3750. Letter 5 pages, Supplement 25 pages; 0 errors, 0 undefined references,
+0 overfull boxes.
 
 **v8** (same tool, `scratchpad/tools/wc_prl7.py letter.tex 3 0.9375 1.0385`): abstract **588** rendered characters (the new abstract
 of 65c1a44, unchanged); prose 2733 words, 209 inline formulas (conservative 261), 3 display rows (48), Fig. 1 180, Fig. 2 164;
