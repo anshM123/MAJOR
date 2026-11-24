@@ -15,7 +15,7 @@ with:
     3 max(|lam - lam_lin|, |lam - lam_sub0,1|) on the full lam, while L uses lam_c (windows nu < 50 and x > x_last removed: they are
     bounded separately); E_interp_c = the same probes on lam_c.
 Budget (NEARGAP2 §1.2 sign-free, x3 on model terms) + E_mc = 3 x jackknife sigma (8 replicas).  The nu < 50 window is then replaced by
-the measured window (smallnu/sn_even.main, unchanged, FULL normalisation = the grid with all direct points; b5_evensum.py).
+the measured window (smallnu/sn_even.main, unchanged, FULL normalisation = the grid with all direct points; b5_window.py).
 Env B5_SET: point set (default 'fix' = batch-5 even records mapped to the local structure basis, b5_basis.py; 'all' = unmapped).
 Usage: python3 b5_state.py J [mfl,...]   -> cache/state/hs_even_J<J>.json (nf_state / hs_even format), cache/state/b5_state_J<J>.{txt,json}
 """

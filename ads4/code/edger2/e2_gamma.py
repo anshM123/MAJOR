@@ -363,8 +363,8 @@ def main(J, KB=6, rtol=0.2):
                f"sum |K15 w chi w_k| = {w1:.3e} per c2; A = {e['A']:.3g} c2 (last 3 valid, x_l = {e['xl']:.4f}); "
                f"x1 sign-free with G = A ((1-x_l)/(1-x))^2: {sum(q[1]*e['A']*max(1, ((1 - e['xl'])/(1 - q[0]))**2) for q in e['miss'])/SEt:.4f} S_E,t")
     res['offnan'] = OFFNAN[:3]
-    res['a'] = {str(k): float(v) for k, v in r0['a'].items()} if isinstance(r0['a'], dict) else float(r0['a'])
-    pr(f"  normalisation a_h: {res['a']}; off-diagonal finite values (of n) in the chain's grid: {OFFNAN[:1]}")
+    res['a_h'] = {str(k): float(v) for k, v in r0['a'].items()} if isinstance(r0['a'], dict) else float(r0['a'])
+    pr(f"  normalisation a_h: {res['a_h']}; off-diagonal finite values (of n) in the chain's grid: {OFFNAN[:1]}")
     res['t'] = time.time() - t0
     pr(f'[{res["t"]:.0f}s]')
     json.dump(res, open(os.path.join(CACHE, 'gamma_J%d.json' % J), 'w'), default=float, indent=1)
