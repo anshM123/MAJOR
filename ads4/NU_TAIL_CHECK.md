@@ -1,11 +1,11 @@
 # NU_TAIL_CHECK: do the published weights reach ν above a near-gap heavy state's mass, and does the exponential growth of the exact per-ν image matter?
 
-*24 Nov 2026, checker. Unreviewed, not committed. No existing file was edited. New code: `ads4/code/nutail/` (`probe.py`,
+*24 Nov 2026, checker. Unreviewed; not committed by this agent. No existing file was edited. New code: `ads4/code/nutail/` (`probe.py`,
 `arbprobe.py`, `tail.py`, `altcut.py`); outputs in `ads4/code/nutail/cache/` (git-ignored by its own `.gitignore`). Read-only
 imports: `exactskel/exactmom.py` (double-precision contour), `exactskel/skelexact3.py` (contour-free Arb Laplace/Barnes series),
 `uniform/skel.py`. Data read: `prl/data/d_abel_X_{300,1000}.txt`, `prl/data/k2/xq_abel_X_{300,1000}.txt`,
 `prl/data/k2/k2_continuum_{D,Q}_{300,1000}.json` (+ tables), `prl/data/kernels.json`, `prl/data/q_deshift_xp_*.txt`.
-Compute ≈ 2 CPU-h, ≤ 2 processes, 1 thread, `ulimit -v 3000000`. The caution checked is DSKETCH_UP §0 (iii) / UT3 "Caution (unchecked)".*
+Compute ≈ 3 CPU-h (most of it in the large-J runs), ≤ 2 processes, 1 thread, `ulimit -v 3000000`. The caution checked is DSKETCH_UP §0 (iii) / UT3 "Caution (unchecked)".*
 
 Grades: [P] proved, [D] derived, [DV] derived and checked numerically, [NE] numerical evidence, [M] model, [I] open.
 
@@ -20,13 +20,13 @@ Grades: [P] proved, [D] derived, [DV] derived and checked numerically, [NE] nume
 | **Every published per-state number** (Ω^EE, Ω^Q_up, Ω^Q_low evidence: crystal/D′ integrals, K₂ rows, direct n1/n3 points, GK15 edge nodes, LR/hybrid floors, EDGE-R, Theorems W/L/L′) | **(a) no effect** [P] (by inspection of the definitions) | all are evaluated in the ψ-form on `ν ≤ Λ ≤ m` (`x ≤ x₁ = Λ/m ≤ 1`); the exact image is never sampled above the mass |
 | **Published light-side constants** (`R₀`, `L_A`, `2L_AdS`, `K`, the (2a)/(2b) numbers) | **(a) no effect** | light images are polynomial/pole-type; the heavy growth does not enter |
 | **Q's C4/C5 pieces** (Ω^Q_low, Ω^Q_up), **all k = 3 pieces** | **(a) no effect** [P] | supports `ν ≤ 123` (C4), `≤ 82` (C5), `≤ Λ` (ψ₃); heavy `m ≥ Λ ≥ 298.5`, so `x ≤ 0.41` |
-| **k = 2 de-shift pieces realised by the continuum weights** (`k2_continuum_{D,Q}_*.json`) **or by the exact min-norm X** | **(a) no effect** [DV, scalar proxy] / [M] for EE | tail beyond `m` ≤ **2·10⁻¹⁰** (D) / **1.2·10⁻⁶** (Q) of the state's own action; margin ≥ 10⁵ |
-| **k = 2 de-shift pieces realised by the stored grid files at Δ_g = 1000** (`d_abel_X_1000.txt`, `k2/xq_abel_X_1000.txt`, which run to ν = 1310.72 = Λ + 312) **with the published cutoff θ(Λ+100, 10)** | **(c) REAL PROBLEM (definitional)** [DV, scalar proxy] / [M] for EE | the double-precision floor of the grid (`|X| ≈ 2–13·10⁻¹⁵` D, `2–10·10⁻¹⁶` Q) times the exact image (`10¹⁶–10²⁶` at ν = Λ+100…Λ+150) gives a tail ≈ **1.0× (D) / 0.5× (Q) the whole k = 2 action of the J = 0 gap state**, and ≥ 2× (J = 2) to ≥ 50× (J = 10) the scalar-proxy action of higher-J near-gap states (see §3.3) |
-| same, **Δ_g = 300** grids (end at ν = 327.68 = Λ + 29) | **(a) no effect** | tail ≤ 1.6·10⁻⁹ (D), ≤ 1.1·10⁻⁵ (Q) of the state's action |
+| **k = 2 de-shift pieces realised by the continuum weights** (`k2_continuum_{D,Q}_*.json`) **or by the exact min-norm X** | **(a) no effect** [DV, scalar proxy] / [M] for EE | tail beyond `m` ≤ **4.4·10⁻⁷** (D) / **1.6·10⁻⁴** (Q) of the state's own (proxy) action, ≤ **2.3·10⁻⁵** of `S_ψ = ∫|ψ|dν`; the Q entries come from X^Q's own exact tail just past Λ, not from growth |
+| **k = 2 de-shift pieces realised by the stored grid files at Δ_g = 1000** (`d_abel_X_1000.txt`, `k2/xq_abel_X_1000.txt`, which run to ν = 1310.72 = Λ + 312) **with the published cutoff θ(Λ+100, 10)** | **(c) REAL PROBLEM (definitional)** [DV, scalar proxy] / [M] for EE | the double-precision floor of the grid (`|X| ≈ 2–13·10⁻¹⁵` D, `2–10·10⁻¹⁶` Q) times the exact image (`10¹⁶–10²⁶` at ν = Λ+100…Λ+150) gives a tail ≈ **1.2× (D) / 0.7× (Q) the whole k = 2 action of the J = 0 gap state** (1.7 / 1.4 `S_ψ`); 2.9× / 22× at J = 2, 68× / 94× at J = 10, 650× / 1300× at J = 30 (0.16 / 0.13 `S_ψ`); it dies out between `m = Λ + 60` and `Λ + 150` (§3.2) |
+| same, **Δ_g = 300** grids (end at ν = 327.68 = Λ + 29) | **(a) no effect** | tail ≤ 1.6·10⁻⁹ (D), ≤ 8.6·10⁻⁵ (Q) of the state's action; ≤ 2.2·10⁻⁵ `S_ψ` |
 
 **What the real problem is, precisely.** No number in the project is wrong. But if `Ω^EE_θ` / `Ω^Q_up` at Δ_g = 1000 are *defined* by the
 stored grid weights (as `prl/data/README.md` §4 "Functional. `Re Σ_k dν X_k Ψ̂_{EE,ν_k}/(h₋+h₊)(ν_k)`" and UT3 §2.2(a) read), then
-the functional's action on near-gap heavy states with `m ≲ Λ + 120` contains a term that no computation evaluated, of the same size
+the functional's action on near-gap heavy states with `m − Λ ≲ 60–100` (computed: O(1)–O(10³)× the proxy action for `m − Λ ≤ 30`) contains a term that no computation evaluated, of the same size
 as (or larger than) the action itself, whose sign is set by double-precision round-off in the grid near ν ≈ Λ + 120. (Pos) for that
 object is then untested on those states, and HK_CLOSE §5's "every computed per-state value is unchanged to ≲ 10⁻⁴¹ (D)" and §6's "D
 cutoff (Λ+100, 10): none" are false for it (HK §6's flat model has no growth at J = 0; the AdS growth is J-independent).
@@ -34,7 +34,7 @@ cutoff (Λ+100, 10): none" are false for it (HK §6's flat model has no growth a
 **The fix is free and changes no number:** state that the k = 2 de-shift weights are the continuum weights (`k2_continuum_*.json`,
 already "the JSON formula is the definition"), *or* keep the grids but cut them at `(ν_c, a) = (Λ + 60, 6)` or tighter (tail ≤ 5·10⁻⁹
 (D) / 4.6·10⁻⁷ (Q) of the action; the cutoff's leakage `½erfc(10) ≈ 10⁻⁴⁵` at ν = Λ is the same as HK's), or set the grid to zero beyond
-`Λ + 10`. With any of these, the answer to the caution is **(a) no effect**, with ≥ 10⁵ margin.
+`Λ + 10`. With any of these, the answer to the caution is **(a) no effect**: every tail ≤ 2.3·10⁻⁵ `S_ψ`.
 
 ---
 
@@ -118,14 +118,14 @@ Arb, N0 = 240, nq = 320:
 
 **Values** (`cache/tail_{300,1000}.txt`, `arbprobe.py`):
 
-| state (Δ, J), m | Γ(0.9m) | Γ(m) | Γ(Λ+30) | Γ(Λ+100) | Γ(Λ+150) | Γ(grid end) |
+| state (Δ, J), m | Γ(0.9m) (flat 16.48) | Γ(m) | Γ(Λ+30) | Γ(Λ+100) | Γ(Λ+150) | Γ(grid end) |
 |---|---|---|---|---|---|---|
-| (300, 0), m = Λ | 33.6·½… = 7.2ᵃ | 347 | 3.6·10⁶ | 2.2·10²⁴ | 1.4·10⁴¹ | 1.8·10⁶ (Λ+29) |
-| (1000, 0), m = Λ | 16.8 | 1.80·10³ | 5.1·10⁵ | 1.59·10¹⁶ | 2.8·10²⁶ | 5.8·10⁶⁹ (Λ+312) |
+| (300, 0), m = Λ | 15.74 | 347 | 3.6·10⁶ | 2.2·10²⁴ | 1.4·10⁴¹ | ≈ 3·10⁶ (Λ+29) |
+| (1000, 0), m = Λ | 16.41 | 1.80·10³ | 5.1·10⁵ | 1.59·10¹⁶ | 2.8·10²⁶ | 5.8·10⁶⁹ (Λ+312) |
 | (1002, 2), m = Λ+2 | — | 1.63·10³ | 3.3·10⁵ | 8.6·10¹⁵ | 1.4·10²⁶ | 2.6·10⁶⁹ |
 | (1010, 10), m = Λ+10 | — | −480 | 6.6·10⁴ | 3.4·10¹⁵ | 6.0·10²⁵ | 1.2·10⁶⁹ |
-
-ᵃ Γ = m⁴C/2; the flat bulk-point form at 0.9m is 16.9 (1000).
+| (1030, 30), m = Λ+30 | — | 1.81·10³ | 2.5·10³ | 1.2·10¹⁵ | 3.0·10²⁵ | 7.9·10⁶⁸ |
+| (1150, 0), m = Λ+150 | — | 2.18·10³ | 15 | 72 | 2.2·10³ | 5.2·10²⁷ |
 
 **Growth rate `d ln Γ/dν` as a function of `x = ν/m`** (J = 0): 0.185 / 0.129 at `x = 1` (300 / 1000), 0.235 / 0.208 at 1.02,
 0.31 / 0.31 at 1.05, 0.42 / 0.43 at 1.1, 0.58 at 1.2, 0.69 at 1.3 (1000); J = 2, 10 agree to ±0.03 beyond `x = 1.05`. So
@@ -138,25 +138,33 @@ Per state and weight: `A_ψ = ∫₀^Λ ψ Γ dν` (the ψ-form action: what the
 beyond the mass), `|T_m| = Σ_{ν>m} dν |X| θ |Γ|`; `S_ψ = ∫|ψ|dν` (action of a state with Γ ≡ 1: 3.10·10³ D / 303 Q at 300;
 1.04·10⁴ D / 1.01·10³ Q at 1000).
 
-**Δ_g = 1000** (`cache/tail_1000.txt`, `tail_1000_hi.txt`):
+**Δ_g = 1000** (`cache/tail_1000.txt`; `cache/tail_1000_hi.txt` for m = Λ+150, Λ+250; J = 60 in `cache/tail_1000_J60.txt`, see the
+caveat below). Entries: signed `T_m`, then `|T_m|/S_ψ` and `|T_m|/|A_ψ|`.
 
-| state (Δ, J) | m − Λ | A_ψ (D) | **D grid**: T_m (\|T_m\|/\|A_ψ\|; /S_ψ) | **Q grid**: T_m (/\|A_ψ\|) | D cont | Q cont | D exact-tail |
-|---|---|---|---|---|---|---|---|
-| (1000, 0) | 0 | 1.42·10⁴ | **+1.41·10⁴ (1.2; 1.7)** | **+1.03·10³ (0.68)** | 1.8·10⁻¹⁰ | 4.6·10⁻⁷ | 1.3·10⁻¹¹ |
-| (1002, 2) | 2.0 | 3.16·10³ | **+7.39·10³ (2.9; 0.87)** | **+5.40·10² (22)** | 5·10⁻¹⁰ | 1.2·10⁻⁶ | 3.5·10⁻¹² |
-| (1010, 10) | 9.9 | 55.2 | **+3.07·10³ (68; 0.36)** | **+2.24·10² (94)** | 6.5·10⁻⁹ | 2·10⁻⁸ | 10⁻¹⁵ |
-| (1030, 30) | ⟦J30⟧ | | | | | | |
-| (1060, 60) | ⟦J60⟧ | | | | | | |
-| (1100, 100) | ⟦J100⟧ | | | | | | |
-| (1150, 0) | ⟦1150⟧ | | | | | | |
-| (1250, 0) | ⟦1250⟧ | | | | | | |
+| state (Δ, J) | m − Λ | Γ(ν_c = Λ+100) | A_ψ (D) | **D grid** T_m (/S_ψ; /\|A_ψ\|) | **Q grid** T_m (/S_ψ; /\|A_ψ\|) | D cont | Q cont | D exact-tail |
+|---|---|---|---|---|---|---|---|---|
+| (1000, 0) | 0 | 1.6·10¹⁶ | 1.42·10⁴ | **+1.41·10⁴ (1.7; 1.2)** | **+1.03·10³ (1.4; 0.68)** | 1.8·10⁻¹⁰ | 4.6·10⁻⁷ | 1.3·10⁻¹¹ |
+| (1002, 2) | 2.0 | 8.6·10¹⁵ | 3.16·10³ | **+7.39·10³ (0.87; 2.9)** | **+5.40·10² (0.71; 22)** | 5·10⁻¹⁰ | 1.2·10⁻⁶ | 3.5·10⁻¹² |
+| (1010, 10) | 9.9 | 3.4·10¹⁵ | 55.2 | **+3.07·10³ (0.36; 68)** | **+2.24·10² (0.30; 94)** | 6.5·10⁻⁹ | 2·10⁻⁸ | 10⁻¹⁵ |
+| (1030, 30) | 29.6 | 1.2·10¹⁵ | 2.54 | **+1.35·10³ (0.16; 650)** | **+97.8 (0.13; 1300)** | 7.8·10⁻⁹ | 3.3·10⁻⁸ | 4·10⁻²⁵ |
+| (1060, 60)ᵇ | 58.3 | −1.9·10¹¹ | 37.6 | +78 (0.011; 3.1) | +5.2 (0.0087; 0.006) | — (no point > m) | — | 6·10⁻³⁹ |
+| (1150, 0) | 150 | 72 (x = 0.956) | 1.28·10⁴ | 4·10⁻²⁴ (4·10⁻²⁸) | 3·10⁻²⁵ | — | — | 10⁻¹¹² |
+| (1250, 0) | 250 | 12 (x = 0.880) | 1.23·10⁴ | 0 (no ν > m within θ) | 0 | — | — | 0 |
 
-(cont / exact-tail columns: `|T_m|/|A_ψ|`.) The grid tail peaks at **ν ≈ Λ + 121–124** (θ's Gaussian against the growth) and is
-positive in every case computed (the floor's local pattern there is fixed; the sign is not controlled).
+(cont / exact-tail columns: `|T_m|/|A_ψ|`. `S_ψ` = 1.037·10⁴ (D), 1.015·10³ (Q).) The grid tail peaks at **ν ≈ Λ + 121–128** (θ's
+Gaussian against the growth) and is positive in every case computed (the floor's local pattern there is fixed; the sign is not
+controlled). Including the weight's own exact tail on `Λ < ν < m` (`T_L`) changes none of the cont/exact entries by more than
+`5·10⁻⁵ |A_ψ|`.
 
-**Δ_g = 300** (`cache/tail_300.txt`; grids end at Λ + 29.2):
+ᵇ **J = 60 is numerically unvalidated** [I]: below the mass the Arb series gives Γ = −28.9 at x = 0.85 and 2.5·10⁵ at x = 0.946
+against the flat −1.83 / 2.85, which is implausible at β = 0.115 (P4_WINDOW: `|G| ≲ 4(νβ)²/m²` ≈ 0.04 there); J ≤ 30 passes the same
+test (x = 0.58 / 0.85 / 0.92: 0.5048 / 0.191 / −4.69 against flat 0.5046 / 0.158 / −3.84, converged in N0/nq to 10⁻⁸). The J = 60
+row is shown only as an indication that the effect falls off with `m − Λ`; nothing depends on it. (A convergence/contour check of the
+J = 60 series at Δ = 360 was started and stopped unfinished at the CPU budget.)
 
-| state (Δ, J) | m − Λ | A_ψ (D) | D grid \|T_m\|/\|A_ψ\| | Q grid | D cont | Q cont | D exact-tail |
+**Δ_g = 300** (`cache/tail_300.txt`; the grids end at Λ + 29.2). Entries: `|T_m|/|A_ψ|`.
+
+| state (Δ, J) | m − Λ | A_ψ (D) | D grid | Q grid | D cont | Q cont | D exact-tail |
 |---|---|---|---|---|---|---|---|
 | (300, 0) | 0 | 4.25·10³ | 1.6·10⁻⁹ | 1.1·10⁻⁵ | 1.5·10⁻⁸ | 1.2·10⁻⁵ | 1.6·10⁻⁹ |
 | (302, 2) | 2.0 | 967 | 3.2·10⁻¹⁰ | 8.6·10⁻⁵ | 3.2·10⁻⁸ | 1.6·10⁻⁴ | 2.8·10⁻¹⁰ |
@@ -164,9 +172,9 @@ positive in every case computed (the floor's local pattern there is fixed; the s
 | (330, 30) | 28.6 | 0.93 | 5·10⁻¹¹ | 1.5·10⁻¹⁰ | 2.4·10⁻⁷ | 8.5·10⁻⁵ | 7·10⁻²⁴ |
 | (350, 0) | 50.0 | 3.80·10³ | 0 (no ν > m) | 0 | 0 | 0 | 0 |
 
-(Against `S_ψ` every Δ_g = 300 entry is ≤ 1.6·10⁻⁶. The Q entries are dominated by the exact X^Q tail just past Λ, whose relative size
-at 300 is 10⁻⁵, not by growth.) The scalar proxy's `A_ψ` is small at J ≥ 10 only because `P_J(1−2x²)` oscillates; relative to `S_ψ`
-the numbers are smaller still.
+Against `S_ψ` (3.10·10³ D, 303 Q) every Δ_g = 300 entry is ≤ 2.3·10⁻⁵ (largest: the Q weights on the J = 0 gap state, from X^Q's own exact
+tail just past Λ, `|X^Q| ≤ 2.6·10⁻⁵` there, times Γ ≈ 350–5·10³: not growth). The scalar proxy's `A_ψ` is small at J ≥ 10 only because
+`P_J(1−2x²)` oscillates; `S_ψ` is the more meaningful normalisation there.
 
 ### 3.3 Alternative cutoffs for the grid weights (`altcut.py`, J = 0 gap state, Δ_g = 1000)
 
@@ -187,16 +195,17 @@ leakage `erfc(10)` (HK §4.4); `(Λ+60, 6)` has the same leakage and removes the
 **(a) No effect** on: every computed per-state value, every published constant, Q's C4/C5 pieces, all k = 3 pieces, and the k = 2 pieces
 whenever they are realised by the continuum weights or the exact X. Reason: the ψ-form weights vanish for `ν ≥ Λ ≤ m`; the exact and
 continuum de-shift weights decay beyond Λ at ≈ π/2 (or super-Gaussianly beyond Λ + 30), faster than the exact image grows at
-`x ≤ 1.3` (rate ≤ 0.7); the resulting tails are ≤ 2·10⁻¹⁰ (D) / 1.2·10⁻⁶ (Q) of the state's action [DV scalar; M for EE].
+`x ≤ 1.3` (rate ≤ 0.7); the resulting tails are ≤ 4.4·10⁻⁷ (D) / 1.6·10⁻⁴ (Q) of the state's proxy action and ≤ 2.3·10⁻⁵ of `S_ψ`
+[DV scalar; M for EE].
 
 **(c) Real problem, definitional, Δ_g = 1000 only:** the stored grids `d_abel_X_1000.txt` and `k2/xq_abel_X_1000.txt` as the definition of
 the k = 2 pieces of `Ω^EE_θ` and `Ω^Q_up` (with θ(Λ+100, 10)). Affected statements:
 1. UT3 §2.2(a) / README §4 ("Functional. `Re Σ_k dν X_k Ψ̂…`" on the stored grid) and UT3 §2.3 (X^Q "now published" as a grid): at
-   Δ_g = 1000 these define a functional whose near-gap actions (states with `m ≲ Λ + 120`: J ≲ 120 at the twist edge, and heavy J = 0, 2
-   states up to that mass) differ from the computed ones by a round-off-controlled term of the size of the action [DV scalar; M EE].
+   Δ_g = 1000 these define a functional whose near-gap actions (states with `m − Λ ≲ 60–100`: J ≲ 60–100 at the twist edge, and heavy
+   J = 0, 2 states up to that mass) differ from the computed ones by a round-off-controlled term of the size of the action [DV scalar; M EE].
 2. HK_CLOSE §5 "Every computed per-state value is therefore unchanged to ≲ e^{−180} (Q) and ≲ 10⁻⁴¹ (D) relative" — true for the computed
    values, false as a statement about the stored-grid functional on near-gap states; HK §6's table row "D cutoff (Λ+100, 10): none; worst
-   −19.6 at J = 0" — its flat model has no growth at J = 0; with the AdS growth the stored 1000 grid gives `+ln(1.7·10⁴) ≈ +9.8`.
+   −19.6 at J = 0" — its flat model has no growth at J = 0; with the AdS growth the stored 1000 grid's tail integral on the J = 0 gap state is `1.7·10⁴` (`ln ≈ +9.8`, against `−19.6`).
 3. UT2/UT3 §2.1's claim "Relative effect on any computed number `≲ 10⁻⁴¹` (k = 2)" stands for computed numbers; it should not be read as
    "the stored grid and the cutoff weight are the same functional".
 4. Not affected: (Pos) as *assumed* in the theorem is unaffected if the functional is the continuum one; the theorem's constants are
@@ -206,7 +215,7 @@ the k = 2 pieces of `Ω^EE_θ` and `Ω^Q_up` (with θ(Λ+100, 10)). Affected sta
 > The k = 2 de-shift weights are the continuum weights `k2_continuum_{D,Q}_Δ_g.json` (the JSON formula is the definition); the stored
 > grids `d_abel_X_*`, `xq_abel_X_*` tabulate them on `ν ≤ Λ` (beyond Λ the grids carry a double-precision floor and must be read as 0).
 > Above a heavy state's mass the exact per-ν image grows like `e^{mG(ν/m)}` (`G′ ≈ 0.13` at `x = 1`, 0.43 at `x = 1.1`); the exact and
-> continuum weights decay at ≈ π/2 beyond Λ, so the tail is ≤ 10⁻⁶ of any state's action. (Equivalently: use the cutoff `(Λ+60, 6)`
+> continuum weights decay at ≈ π/2 beyond Λ, so the tail is ≤ 2·10⁻⁵ of `∫|ψ|` on every state. (Equivalently: use the cutoff `(Λ+60, 6)`
 > for the k = 2 pieces; its leakage is the same `½erfc(10)`.)
 
 **Open [I], not needed:** whether the *uncut* exact functional is per-state finite (exact weight decays at π/2, image rate → π/2 from below
@@ -224,8 +233,9 @@ profile itself is [M].
 | exact scalar per-ν image above the mass: smooth through `x = 1`, `ln Γ ≈ mG(x)`, rates 0.13–0.69 on `x ∈ [1, 1.3]` | **[DV]** (Arb series, converged; cross-checked against DSKETCH and the contour) |
 | same growth for the EE rows | [M] (shared normalisation; no EE data above `x ≈ 0.95`) |
 | exact X / X^Q tails decay at ≈ π/2 beyond Λ | [NE] (fits on the grids before the floor) |
-| continuum / exact-tail weights: tail ≤ 2·10⁻¹⁰ (D), 1.2·10⁻⁶ (Q) of the action | [DV] scalar proxy; [M] EE |
-| **stored Δ_g = 1000 grids × θ(Λ+100, 10): tail ≈ 1× the action (J = 0) and more at J > 0** | **[DV] scalar proxy; [M] EE** |
+| continuum / exact-tail weights: tail ≤ 4.4·10⁻⁷ (D), 1.6·10⁻⁴ (Q) of the proxy action, ≤ 2.3·10⁻⁵ `S_ψ` | [DV] scalar proxy; [M] EE |
+| **stored Δ_g = 1000 grids × θ(Λ+100, 10): tail ≈ 1× the action (J = 0) and more at J > 0** | **[DV] scalar proxy (J ≤ 30); [M] EE** |
+| extent in `m − Λ` (J = 60 row) | [I] (Arb series not validated at J = 60) |
 | cutoff (Λ+60, 6) or tighter removes it | [DV] scalar proxy |
 
 ---
@@ -237,7 +247,7 @@ cd ads4/code/nutail; ulimit -v 3000000; export OMP_NUM_THREADS=1
 python3 -B arbprobe.py 1000 0 2 998.5,1098.5,1310 400 240 320    # exact image above the mass (seconds)
 python3 -B probe.py 100 0 2 90,100,110,130,150 0,-15              # double-precision contour, for comparison
 python3 -B tail.py 300          # ~1.5 min   -> cache/tail_300.txt
-python3 -B tail.py 1000         # ~45 min    -> cache/tail_1000.txt (J = 0, 2, 10, 30)
-python3 -B tail.py 1000 hi      # ~90 min    -> cache/tail_1000_hi.txt (J = 60, 100; m = Λ+150, Λ+250)
+python3 -B tail.py 1000         # ~5 min     -> cache/tail_1000.txt (J = 0, 2, 10, 30; the stored file also has J = 60, ~20 min)
+python3 -B tail.py 1000 hi      # ~15 s      -> cache/tail_1000_hi.txt (m = Λ+150, Λ+250)
 python3 -B altcut.py 1000       # ~1 min     -> cache/altcut_1000.txt
 ```

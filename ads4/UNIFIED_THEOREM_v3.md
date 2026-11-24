@@ -305,6 +305,12 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 > * **Units correction:** the plain tolerance (≥ 158 S_E) and the transferred tolerance (≥ 0.406 S_E,t) are the same number. AG_PROOF's "plain margin ≥ 520" compares with the scalar edge, not the graviton.
 > * **External route:** ext/jobs_batch3.txt (1586 n1 + 150 n3 jobs, about 90 CPU-h); ext/jobs_batch3_n1.txt holds the n1 part only. The 20 states with m ≥ 1.13Λ need only n1 and could reach [NE±]. The gap-mass states also need the n3 C3H fix and 2–4× less bulk MC noise.
 
+> **Update (NU_TAIL_CHECK.md, unreviewed): the exponential growth above a state's mass affects NO computed number, but the published grid-weight DEFINITION at Δ_g = 1000 is defective, and the fix is free.**
+> * **No effect on computed numbers [P, by inspection]:** every computed per-state number (crystal/D′, K₂ rows, direct n1/n3, GK edge nodes, windows, EDGE-R, hybrid floors) uses ν ≤ Λ ≤ m. The light-side constants are unaffected, and so is everything built from the continuum weights or the exact min-norm X: X and X^Q decay like e^{−(π/2)(ν−Λ)} beyond Λ, and tails beyond m are ≤ 4.4·10⁻⁷ (D) and ≤ 1.6·10⁻⁴ (Q) of a state's action.
+> * **Problem (c):** the stored grids `prl/data/d_abel_X_1000.txt` and `prl/data/k2/xq_abel_X_1000.txt` run to Λ+312 and carry a non-decaying double-precision floor (|X| ≈ 10⁻¹⁵–10⁻¹⁶) beyond Λ. Read literally with θ(Λ+100, 10), that floor times the exact image growth (Γ ≈ 10¹⁶ at Λ+100) gives tails up to 650× (D) and 1300× (Q) a near-gap state's action. The sign is set by round-off, so (Pos) for that grid-defined object is untested at m − Λ ≲ 60–100. HK_CLOSE §5 and §6 claims are false for that object, though true for the computed values. Δ_g = 300 grids are unaffected (they end at Λ+29).
+> * **Fix (changes no number):** define the functional by the continuum weights; or read the grids as zero beyond Λ+10; or use the cutoff (Λ+60, 6) for the k = 2 pieces (same leakage, tail 5·10⁻⁹ / 4.6·10⁻⁷).
+> * **Growth numbers [DV]:** exact scalar Arb series. Γ(m) = 1.8·10³ and Γ(Λ+100) = 1.6·10¹⁶ at Δ_g = 1000, J = 0; the rate per unit ν is 0.13–0.19 at x = 1, rising to π/2 only as x → ∞.
+
 ## 0. Grades
 
 | grade | meaning |
