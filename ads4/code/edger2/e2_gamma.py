@@ -79,12 +79,28 @@ def _records(kind, J, D, jk=None, **kw):
 
 
 HN.records = _records
+_clean0 = V._clean
+
+
+def _clean(g, J):
+    """the off-diagonal Gamma_off of these rows is NaN in the chain (l9 grid: sqrt(a_++ a_+-) with a_++ a_+- < 0 -- the helicity basis
+    signs of l8 basis' realvec are arbitrary), which would make ng_val._clean drop EVERY node; the off keys are removed first (the
+    off-diagonal entry is not evaluated here, as in EDGE_R §1) and the diagonal entries are cleaned as published."""
+    for D, r in g.items():
+        for k in [k for k in r if isinstance(k, tuple) and len(k) >= 2 and k[1] == 'off']:
+            OFFNAN.append((J, D, int(np.isfinite(np.asarray(r[k], complex)).sum())))
+            r.pop(k)
+    return _clean0(g, J)
+
+
+OFFNAN = []
+V._clean = _clean
 Dg = 1000
 TAGS = {26: 1.026, 30: 1.030, 34: 1.033, 33: 1.033, 38: 1.037, 42: 1.041, 46: 1.045, 50: 1.049}
 
 
 def keys(J):
-    return [('C2', '+-'), ('C3H', '+-')] if J % 2 else [(kd, h) for h in ('++', '+-', 'off') for kd in ('C2', 'C3H')]
+    return [('C2', '+-'), ('C3H', '+-')] if J % 2 else [(kd, h) for h in ('++', '+-') for kd in ('C2', 'C3H')]
 
 
 def gkey(J, key):
@@ -213,7 +229,7 @@ def main(J, KB=6, rtol=0.2):
         res['nodes'][str(key)] = dict(x=M.xs.tolist(), G=ys.tolist(), jk=sj.tolist())
         sel = M.xs >= 0.85
         pr(f"  {key}: Gamma at x >= 0.85: " + ", ".join(f"{x:.4f}: {y:+.3g}+-{e:.2g}" for x, y, e in zip(M.xs[sel], ys[sel], sj[sel])))
-    for h in (('+-',) if J % 2 else ('++', '+-', 'off')):
+    for h in (('+-',) if J % 2 else ('++', '+-')):
         ent = {}
         for kd in ('C2', 'C3H'):
             key = (kd, h); c = c0[key]
@@ -245,6 +261,9 @@ def main(J, KB=6, rtol=0.2):
             pr(f"      {kd}: missing edge nodes {len(e['miss'])} (x {', '.join(f'{q[0]:.4f}' for q in e['miss'])}); "
                f"sum |K15 w chi w_k| = {w1:.3e} per c2; A = {e['A']:.3g} c2 (last 3 valid, x_l = {e['xl']:.4f}); "
                f"x1 sign-free with G = A ((1-x_l)/(1-x))^2: {sum(q[1]*e['A']*max(1, ((1 - e['xl'])/(1 - q[0]))**2) for q in e['miss'])/SEt:.4f} S_E,t")
+    res['offnan'] = OFFNAN[:3]
+    res['a'] = {str(k): float(v) for k, v in r0['a'].items()} if isinstance(r0['a'], dict) else float(r0['a'])
+    pr(f"  normalisation a_h: {res['a']}; off-diagonal finite values (of n) in the chain's grid: {OFFNAN[:1]}")
     res['t'] = time.time() - t0
     pr(f'[{res["t"]:.0f}s]')
     json.dump(res, open(os.path.join(CACHE, 'gamma_J%d.json' % J), 'w'), default=float, indent=1)
