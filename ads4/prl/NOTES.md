@@ -1,3 +1,15 @@
+*Revised 24 Nov 2026, **v8** (writing pass after AG_PROOF, DSKETCH_UP, EDGE_R, NU_TAIL_CHECK and the J = 31 addendum of EXT_FOLD;
+title/abstract of commit 65c1a44 kept): (i) **large spin**: (AG′) is replaced by the strictly weaker pair (AG_U) (uniform decay rate,
+[A] beyond all orders) + (EDGE-R) (one real-axis edge integral of the graviton, [M], not closed) via Lemma F and Lemma P4W-χ [P];
+Theorem W: sampled J\* = 26 given (EDGE-R) (v7's "42" superseded; Table S9 rewritten with the EDGE_R corrections: exact scalar at
+(26, 1.026Λ) 0.285 at the tabulated cutoff, margin 1.42, grid maximum 0.405 vs tolerance 0.406; "plain margin ≥ 520" not a graviton
+statement); Theorem L′ on the uniform rate alone (ε_R ≤ 0.133, EDGE tolerance 18.9×); Fig. 2's dashed J = 42 line removed; every
+`% AGPROOF` mark resolved. (ii) **c₁** universality and ν-independence [D] (L3, §S5.E). (iii) **light single traces**: the
+leading-Regge "AdS image" is refuted; light value = Regge polynomial given (E′) [D-sketch]; LS6 ⇔ μ² > −692.5 / −7748.7; ε\* expected
+to fail. (iv) **functional definition**: k = 2 pieces defined by the continuum weights; k = 2 grids read as zero beyond Λ + 10
+(`data/truncate_grids.py` writes `*_trunc.txt` copies; published files unchanged; data/README §4, §7; MANIFEST). Change log:
+**`CHANGES_v8.md`** (incl. inconsistencies §3).*
+
 # PRL draft: notes, build, length, provenance, referee responses, fallback plan, open items
 
 *Revised 23 Nov 2026, **v7** (writing pass after INDEP_CHECK2, LRINF_TIGHT, P2_CONTRACT, P4_WINDOW, EXT_FOLD incl. its J = 31 addendum,
@@ -46,7 +58,8 @@ Files in `ads4/prl/`:
 | `data/` | published functional data; v4 adds `q3star_factored.json` + `make_q3star.py`, README errata §5, MANIFEST lines |
 | `build/` | all build outputs (git-ignored) |
 
-| `CHANGES_v3.md` … `CHANGES_v7.md` | change logs v2 → v3, v3 → v4 (referee 2), v4 → v5 (HIGHSPIN filled, large spin), v5 → v6 (referee 3), v6 → v7 (plain prose, large-spin theorems) |
+| `CHANGES_v3.md` … `CHANGES_v8.md` | change logs v2 → v3, v3 → v4 (referee 2), v4 → v5 (HIGHSPIN filled, large spin), v5 → v6 (referee 3), v6 → v7 (plain prose, large-spin theorems), v7 → v8 (AG_U + EDGE-R, c₁ [D], light single traces, k = 2 definition) |
+| `data/truncate_grids.py`, `data/*_trunc.txt`, `data/k2/*_trunc.txt`, `data/TRUNC_SHA256SUMS` | v8: the k = 2 grids cut at ν ≤ Λ + 10 (the reading the Supplement now prescribes); published grids unchanged |
 
 (v5: the stale v3 copy of this table that followed here was removed; `letter.tex` is v5, `supplement.tex` has the new §S7,
 `macros.tex` has `\HSdraftfalse` and `\CollFrac`, `refs_verified.bib` adds CPPR 1109.6321.)
@@ -69,6 +82,11 @@ for f in letter supplement; do
 done
 ```
 
+Status (24 Nov, **v8**): both compile with no errors, no undefined references or citations, no overfull boxes, no stuck or oversized
+floats (Letter: 7 underfull-box notices; Supplement: hyperref "token not allowed" for math in section titles). `build/letter.pdf` 5
+pages, text ends ≈ 0.45 down the right column of page 4; `build/supplement.pdf` 25 pages. Optional data step (v8):
+`(cd data && python3 truncate_grids.py)` rewrites the four `*_trunc.txt` copies and `TRUNC_SHA256SUMS` (deterministic; < 1 s).
+
 Status (23 Nov, **v7**): both compile with no errors, no undefined references or citations, no overfull boxes, no stuck floats
 (Letter: 7 underfull-box notices; Supplement: hyperref "token not allowed" for math in section titles). `build/letter.pdf` 5 pages,
 text ends ≈ 0.55 down the right column of page 4; `build/supplement.pdf` 23 pages. `make_fig2.py` prints Theorem L′'s twist-edge J\*
@@ -87,6 +105,10 @@ In v5 the figure environment was moved to just before "Functionals" (it had beco
 Figure: `cd fig && python3 make_fig.py` (needs mpmath, matplotlib) before compiling the Letter.
 
 ## 2. Length
+
+**v8** (same tool, `scratchpad/tools/wc_prl7.py letter.tex 3 0.9375 1.0385`): abstract **588** rendered characters (the new abstract
+of 65c1a44, unchanged); prose 2733 words, 209 inline formulas (conservative 261), 3 display rows (48), Fig. 1 180, Fig. 2 164;
+**TOTAL ≈ 3334 (≈ 3386 conservative)**; limit 3750, aim ≤ 3350 met.
 
 **v7** (tool `scratchpad/tools/wc_prl7.py letter.tex 3 0.9375 1.0385`: wc_prl6 plus expansion of `\HLJstatusLetter`): abstract
 **563** characters (unchanged); prose 2715 words, 212 inline formulas (conservative 264), 3 display rows (48), Fig. 1 180, Fig. 2 164;
@@ -228,9 +250,13 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
 
 1. ~~HIGHSPIN~~ **done in v5**: places filled, `\HSdraftfalse`; no state negative, so §8's fallback was not triggered.
 2. ~~Front matter~~ **done in v5**: affiliations "Independent researcher", e-mails in both files; acknowledgments removed (none).
-2b. **v7: (AG′)** (beyond-all-orders analytic structure of exact − flat on ν ≥ 3/β; Supplement §S7.D) is the one structural
-   assumption of both large-spin theorems; a proof is being attempted (`ads4/AG_PROOF.md`). Update every `% AGPROOF` place
-   (CHANGES_v7 §3). The magnitude premises (W: spinning O(1/m⁴) window coefficients [M]; EDGE: graviton edge amplitude [M], +− factor;
+2c. **v8: (AG_U) + (EDGE-R)** replace (AG′) (AG_PROOF: (AG′) not proved and pointwise false near the gap edge; `% AGPROOF` marks
+   resolved, CHANGES_v8 §1). Open: (AG_U) beyond all orders [A]; (EDGE-R) for the graviton [M] — needs real-axis graviton values on
+   x ∈ [0.94, x₁] at the J ≤ 51 gap-mass states (external job list `ads4/ext/jobs_batch3.txt`; the n3 C3H evaluator is broken, EDGE_R
+   §2.4); the 20 states with m ≥ 1.13Λ need only n1. If a graviton E_χ exceeds Table S9's tolerance at (26, 1.026Λ), the sampled J\*
+   rises (38 if ≤ 1.2 S_E,t). Also open (v8): (E′) for light single traces (DSKETCH_UP §3.3) and the spinning δ(Δ_L) for LS6.
+2b. (superseded by 2c) **v7: (AG′)** (beyond-all-orders analytic structure of exact − flat on ν ≥ 3/β; Supplement §S7.D) was the one structural
+   assumption of both large-spin theorems; a proof was attempted (`ads4/AG_PROOF.md`). The magnitude premises (W: spinning O(1/m⁴) window coefficients [M]; EDGE: graviton edge amplitude [M], +− factor;
    P_L′(i) above J = 344 [M]) and W's P0 below b = 245 [NE] remain. Also open: the J = 23 and 31 twist edges (noise-aware representation
    term), J = 29 sign-free (resolve the ν = 20 node), certification (Arb) of Lemma P4W's constants, the J = 0 engine comparison.
 2a. ~~**P2 follow-up**~~ (done: P2_CONTRACT, P4_WINDOW; v6's `% P2CONTRACT` marks resolved in v7) (running when v5 was written): K₄ to O(1/m⁴), the (S) check against 1809.05111, and the O(1/m⁴) hybrid
@@ -247,10 +273,14 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
    LR∞'s constants (now floating point). **v7:** INDEP_CHECK2 reproduced the identity, D, LR∞ and W's algebra; LR∞'s constants are
    now certified (LRINF_TIGHT); LRINF_TIGHT, P2_CONTRACT, P4_WINDOW, EXT_FOLD are unreviewed.
 7. `refs.bib` (unused legacy) still has the old JHEP fields; delete it or mirror `refs_verified.bib` before submission.
-8. UT3 still carries the stale "natural size 10⁻³–10⁻¹" for c₁ (§3) and "universality [D]" (L3d); the paper now uses [D-sketch] and no
-   size estimate. UT3 was not edited (outside this task's files).
+8. UT3 still carries the stale "natural size 10⁻³–10⁻¹" for c₁ (§3); the paper uses no size estimate. (v8: universality is [D] again,
+   now with the explicit ASD solution of DSKETCH_UP, so UT3's "universality [D]" agrees with the paper.) UT3 was not edited.
 
 ## 7. Source inconsistencies
+
+**v8**: listed in `CHANGES_v8.md` §3 (AG_PROOF's "exact scalar ≤ 0.30 S_E over all cutoffs" and "plain margin ≥ 520" corrected by
+EDGE_R; the 1.35 vs 1.42 margin; UT box for DSKETCH_UP vs its §0 table; HK_CLOSE §5/§6 vs NU_TAIL_CHECK; k2/README "θ changes nothing
+computed"; NOTES' own v7 open item 8).
 
 **v7**: eleven items, listed in `CHANGES_v7.md` §4 (J\*(1.3Λ) = 242 not 241 in LRINF_TIGHT §6; 40 vs 47 W states; the J\* = 64
 vs 26/42 lineage; EXT_FOLD verdict vs addendum for J = 31; magic-identity residual normalisations; Theorem L tolerance 43 (numerical
@@ -302,6 +332,8 @@ writes "[D, one step D-sketch]".
 
 ## 8. Fallback plan if HIGHSPIN returns a negative state (referee 2, M1(d))
 
+**Status v8: not triggered** (no new state values; AG_PROOF found (AG′) false in its pointwise form, but its replacement (AG_U) +
+(EDGE-R) keeps J\* = 26 given (EDGE-R); the live trigger is now a graviton edge integral above Table S9's tolerance).
 **Status v7: not triggered** (EXT_FOLD: no state negative; the lowest new value is J = 7's twist edge, +0.268). The P2 trigger in
 the next paragraph is obsolete: the O(1/m²) corrections are computed and use ≤ 0.41 H. A new trigger: a proof that (AG′) fails, or a
 graviton edge amplitude above Theorem W's tolerance (Table S9), would remove large-spin support without making a state negative.

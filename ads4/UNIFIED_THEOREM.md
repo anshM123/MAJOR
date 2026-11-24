@@ -531,8 +531,8 @@ A chain carries the grade of its weakest link.
 >   * **Lemma P4W-χ:** an entire erfc cutoff splits the complement cost into (EDGE-R), one real-axis integral E_χ[G] = ∫_{p_w}^1 ψ₂χG with no continuation and no rate, and (AG_U), a Cauchy part needing only the uniform rate 0.97Λβ. (AG′)+(EDGE) ⇒ (AG_U)+(EDGE-R).
 > * **Constants [DV]:**
 >   * The exact scalar edge integral is ≤ 0.30 S_E, 7–100× below (AG′)'s charge.
->   * Theorem W (47 states): everything except the edge integral uses ≤ 0.489 H. With the plain envelope the tolerated edge integral is ≥ 158 S_E, so **sampled J\* = 26**. With the Ω^U +− transfer the tolerance is ≥ 0.406 S_E at (26, 1.026Λ); J\* = 26 if the graviton +− edge is scalar-like, 38 if tolerance ≥ 1.2 is demanded.
->   * Theorem L′: the uniform rate alone suffices (ε_R ≤ 0.133; edge tolerated to 18.9× the scalar envelope).
+>   * Theorem W (47 states): everything except the edge integral uses ≤ 0.489 H. With the plain envelope the tolerated edge integral is ≥ 158 S_E, so **sampled J\* = 26**. With the Ω^U +− transfer the tolerance is ≥ 0.406 S_E,t at (26, 1.026Λ); J\* = 26 if the graviton +− edge is scalar-like, 38 if tolerance ≥ 1.2 is demanded.
+>   * Theorem L′: the uniform rate alone suffices (ε_R ≤ 0.133; edge tolerated to 18.9× the transferred scalar envelope).
 > * **Remaining premises:**
 >   * **(AG_U) beyond all orders [A]:** [D] to all orders; near the edge it only asks for the split at rate κ₀.
 >   * **(EDGE-R) for the graviton [M]:** decided by real-axis graviton values near the edge at J ≤ 51.

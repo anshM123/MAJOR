@@ -105,7 +105,7 @@ The files are left byte-identical so that the hashes quoted in the Supplement an
   cutoff `(Λ+60, 6)`, which has the same leakage `½erfc(10)` at Λ, removes the floor; not used here.)
 * **Truncated copies (new files; the published grids are unchanged).** `python3 truncate_grids.py` (standard library only, < 1 s) writes
 
-  | file | rows kept (`ν_k ≤ Λ + 10`) / dropped | max `|X|` dropped | dropped `Σ|X|dν` (relative to kept) |
+  | file | rows kept (ν_k ≤ Λ + 10) / dropped | max \|X\| dropped | dropped Σ\|X\|dν (relative to kept) |
   |---|---|---|---|
   | `d_abel_X_300_trunc.txt` | 15425 / 959 | `6.8·10⁻¹⁴` | `2.4·10⁻¹³` (`8·10⁻¹⁷`) |
   | `d_abel_X_1000_trunc.txt` | 25212 / 7556 | `1.3·10⁻¹⁴` | `1.0·10⁻¹²` (`1·10⁻¹⁶`) |

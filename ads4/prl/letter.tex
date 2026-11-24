@@ -1,11 +1,11 @@
-% letter.tex -- PRL draft, v7 (v6 rewritten after the large-spin results INDEP_CHECK2, LRINF_TIGHT, P2_CONTRACT, P4_WINDOW,
-% EXT_FOLD (update boxes of ads4/UNIFIED_THEOREM.md) and an outside critique: grade tags removed from the main text (one
-% pointer to the Supplement's legend, Sec. S1), positivity paragraph cut to five sentences around Fig. 2, large-spin paragraph
-% rewritten (Theorem W window form, Theorem L' with J* = 223 at the gap). Changes in prl/CHANGES_v7.md; earlier logs CHANGES_v3-v6.md.
+% letter.tex -- PRL draft, v8 (v7 + new title/abstract, updated after AG_PROOF, DSKETCH_UP, EDGE_R, NU_TAIL_CHECK and the J = 31
+% addendum of EXT_FOLD: the large-spin assumption is now the uniform decay rate (AG_U), plus the graviton edge integral (EDGE-R)
+% for the first theorem; c1 universality derived; light single traces enter through their Regge polynomial). v7: plain prose, no
+% grade tags (one pointer to the Supplement's legend, Sec. S1). Changes in prl/CHANGES_v8.md; earlier logs CHANGES_v3-v7.md.
 % Source of truth: ads4/UNIFIED_THEOREM_v3.md (UT3) and the update boxes of ads4/UNIFIED_THEOREM.md; numbers traced in UT3 Sec. 12,
 % UT2 Sec. 12 and NOTES.md Sec. 4. The H_LJ(300) switch lives in macros.tex.
-% "% AGPROOF" marks every place that changes if the assumption (AG') (beyond-all-orders analytic structure on nu >= 3/beta;
-% P4_WINDOW Sec. 6) is proved (ads4/AG_PROOF.md, in progress). The v6 "% P2CONTRACT" marks are resolved (P2_CONTRACT.md).
+% The v7 "% AGPROOF" marks are resolved in v8 (AG_PROOF.md: (AG') not proved, replaced by the weaker (AG_U) + (EDGE-R)).
+% The v6 "% P2CONTRACT" marks are resolved (P2_CONTRACT.md).
 \documentclass[aps,prl,twocolumn,superscriptaddress,nofootinbib,floatfix]{revtex4-2}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
@@ -73,8 +73,8 @@ knowledge neither has been derived before from $\langle TTTT\rangle$. Both are i
 they hold if fixed linear functionals are positive on every heavy state. For the functional of
 the cubic bound, that positivity is certified in the flat-space limit. In AdS we establish it numerically, with error control, for
 the low-lying heavy states, and for states of large spin we reduce it to two conditional
-theorems that rest on one technical assumption about how heavy-state contributions decay
-beyond the Regge regime (Fig.~\ref{fig:coverage}). % AGPROOF: the last clause changes if the assumption is proved
+theorems that rest on one technical assumption, a uniform decay rate of heavy-state
+contributions beyond the Regge regime (Fig.~\ref{fig:coverage}).
 Throughout, ``we prove'' means a written proof, ``certified'' a computer-assisted proof in
 interval arithmetic, ``with error control'' a computation in which every modelled term carries
 a threefold safety factor (an estimate, not a bound), and ``in a model'' a computation whose
@@ -187,9 +187,9 @@ this.
 
 On the light side, $\Omega^{EE}$ sees the graviton pole $16\pi G/(\nu^2+9/4)$ at celestial
 frequency $\nu$, a term $K|\hat g_3|^2$ with $K=1+O(\Lambda^{-2})$, and a term $16\pi Gc_1t_4$.
-Here $c_1$ is a single universal number fixed by $\langle TT\rangle$ and $\langle TTT\rangle$.
-We argue, without a complete derivation, that it vanishes under one further assumption; we
-have not computed it, and we carry it as a free parameter. For $\Omega^Q_{\rm up}$ the $R^4$
+We derive that $c_1$ is a single universal number fixed by $\langle TT\rangle$ and
+$\langle TTT\rangle$, and argue, without a complete derivation, that it vanishes under one
+further assumption; we have not computed it, and we carry it as a free parameter. For $\Omega^Q_{\rm up}$ the $R^4$
 arc is an integral over celestial angles, and an analytic counting lemma shows that it
 converges; a direct numerical scan follows the predicted trend but has not yet reached the
 asymptotic regime. We identify $\tilde g_4:=-\frac12\mathcal A_4[\text{light}]$ with $g_4$ up to
@@ -197,7 +197,8 @@ $O(\Lambda^{-2})$ by assuming, as CHMRS and CLS-D do~\cite{CHMRS,CLSD}, that lig
 double-trace data are those of a tree-level bulk effective theory.
 
 Light single traces of spin 0 and 2, allowed by (i), enter the $k=2,3$ sum rules like heavy
-states; we sketch the argument. We prove that $\Omega^{EE}$ is positive on them at every mass
+states, with a contribution fixed by their Regge behaviour up to a small AdS mass shift; we
+sketch the argument. We prove that $\Omega^{EE}$ is positive on them at every mass
 in the flat limit, so the cubic bound is unaffected and bounds their couplings
 too~\cite{CHLPS}. By contrast, $\Omega^Q_{\rm up}$ is negative on scalars lighter than
 $0.46\Lambda$, which couple to $TT$ through $\phi W^2$ (cf.\ Ref.~\cite{CMT}). This is the origin
@@ -236,10 +237,9 @@ The dependence on $c_1$ is exact~\cite{SM}; at $\Delta_g=1000$ it moves the boun
 $1\%$ unless $|c_1|$ exceeds about $60$ (cubic) or $1300$ (quartic). Item (2a) uses only
 $\Omega^Q_{\rm up}$, so it does not need positivity of $\Omega^{EE}$; a scalar lighter than
 $0.46\Lambda$ does not invalidate it, but adds a term proportional to its squared
-coupling~\cite{SM}. The implication is derived, but some steps are only sketched: the frequency
-independence of the $c_1$ term and the action of light single traces, and for the quartic bound
-also a subleading $g_5$ term, the repair in (2b) and, when $\tau\ne0$, the sign of $\kappa$, which
-also rests on a model. Independent code reproduces every constant, and a third check rebuilt the
+coupling~\cite{SM}. Without light single traces the cubic implication is derived; their action
+is only sketched, as are, for the quartic bound, a subleading $g_5$ term, the repair in
+(2b) and, when $\tau\ne0$, the sign of $\kappa$, which also rests on a model. Independent code reproduces every constant, and a third check rebuilt the
 two most delicate analytic steps from the written statements alone. We claim no lower bound on
 $\tilde g_4$: the functional that would give one has no positivity evidence beyond leading Regge
 order. The constants are explicit functions of $\Lambda$ (Fig.~\ref{fig:bounds}), but since we
@@ -263,7 +263,9 @@ models or interpolated, but no error control; no computed state is negative, alt
 the functionals only after earlier versions had failed on some states~\cite{SM}. \HLJstatusLetter
 
 % v7: large spin. Sources: PW_IMAGES; INDEP_CHECK2 Sec. 1; P2_CONTRACT Sec. 0, 1.7, 4; P4_WINDOW Sec. 0, 4.2, 5-7;
-% LRINF_TIGHT Sec. 0, 3, 5, 6. Theorem names (W, L'), thresholds and premises are in Supplement Sec. S7.
+% LRINF_TIGHT Sec. 0, 3, 5, 6. v8: AG_PROOF Sec. 0, 5, 8 ((AG_U), Lemma P4W-chi, J* = 26; L' on the uniform rate); EDGE_R Sec. 0
+% (graviton edge integral not computed; exact scalar at J = 26: 0.285 / grid max 0.405 vs tolerance 0.406). Theorem names (W, L'),
+% thresholds and premises are in Supplement Sec. S7.
 \paragraph*{Large spin.}
 States of large spin are where curvature bites hardest, because the margin of the functional
 shrinks as the impact parameter grows. Two facts make them tractable. An exact identity, which
@@ -275,15 +277,15 @@ the margin. With a contour argument for the higher orders, this gives two condit
 positivity on every sampled near-gap state of spin $J\ge26$, and on every state of spin below
 $10^6$ whose impact parameter exceeds about a third of the AdS radius, where the leading margin
 is certified. Both rest on one technical assumption: beyond the Regge regime, the difference
-between a heavy state's contribution and its flat-space value behaves like a pair of decaying
-waves, analytic in the frequency. This holds to all orders of the saddle-point expansion and
-agrees with our numerics wherever we tested it, but we have not proved it beyond all
-orders. % AGPROOF: this sentence (and "Both rest on one technical assumption") changes if (AG') is proved
-The theorems also use three magnitudes that we estimated only in models, with large
-margins~\cite{SM}; if the least certain of them is as large as one model suggests, the first
-theorem starts at $J=42$, and its leading margin is certified only at its larger spins. No
-theorem covers the near-gap states between the samples, or heavier states at intermediate impact
-parameter; there we rely on a hypothesis supported by a sketched argument.
+between a heavy state's contribution and its flat-space value splits into two waves, analytic in
+the frequency, that decay at a uniform rate. Every explicit piece of the calculation has this
+property and it holds to all orders of the saddle-point expansion, but we have not proved it
+beyond all orders. The first theorem also needs a bound on one integral of the graviton's
+contribution near the light-cone edge, which we could not compute; a scalar analogue meets it,
+narrowly at the lowest spins. The other magnitudes the theorems use were estimated in models,
+with large margins, and the first theorem's leading margin is certified only at its larger
+spins~\cite{SM}. No theorem covers the near-gap states between the samples, or heavier states at
+intermediate impact parameter; there we rely on a hypothesis supported by a sketched argument.
 
 \begin{figure}[tb]
 \includegraphics[width=\columnwidth]{fig/fig2_coverage}
@@ -291,12 +293,11 @@ parameter; there we rely on a hypothesis supported by a sketched argument.
 $\Delta_g=1000$, in the plane of spin $J$ (log scale) and bulk mass $m$. The lower panel is the
 near-gap region $m\le1.3\Lambda$; the black curve is its edge, $\Delta-J=\Delta_g$. The flat-space
 limit is certified. Bars mark near-gap spins with error-controlled numerics, over the masses
-covered. The two conditional theorems cover the sampled near-gap states from $J=26$ (dashed:
-$J=42$ under the helicity caveat of the text) and all states of large impact parameter
-(dotted boundary) up to $J=10^6$, off scale; both rest on the technical assumption stated in
-the text. Lighter shading: values computed in models or interpolated; hatched: only a
+covered. The two conditional theorems cover the sampled near-gap states from $J=26$ and all
+states of large impact parameter (dotted boundary) up to $J=10^6$, off scale; both rest on the
+assumptions stated in the text. Lighter shading: values computed in models or interpolated; hatched: only a
 hypothesis. Grades and sources: Supplemental Material, Sec.~S7; script
-\texttt{fig/make\_fig2.py}.} % AGPROOF: caption ("both rest on the technical assumption")
+\texttt{fig/make\_fig2.py}.}
 \end{figure}
 
 % ---------------------------------------------------------------------------
@@ -327,9 +328,8 @@ on a graviton $R^4$ coefficient (which localisation determines in ABJ(M)
 theory~\cite{BCP,BCJP}). We do not claim an unconditional bound,
 unconditional positivity at large spin, results at other gaps, the size of the $1/c_T$
 corrections, a lower bound, or bounds on $g_5$ or on the all-plus $R^4$ coefficient. The most
-useful next steps are a proof of the technical assumption on heavy-state decay beyond the Regge
-regime, % AGPROOF: remove this item if the assumption is proved
-error control for the remaining near-gap states, positivity over a range of gaps, the value of
+useful next steps are a proof of the uniform-decay assumption, the graviton's light-cone-edge
+integral, error control for the remaining near-gap states, positivity over a range of gaps, the value of
 $c_1$, and a quartic functional built to be positive on light scalars. Whether the flat-space
 core of the argument has a de Sitter analogue is open; it would need a positivity principle
 there, which is not established.

@@ -1,4 +1,4 @@
-"""make_fig2.py -- Fig. 2 of the Letter (v7): coverage of positivity for Omega^EE at Delta_g = 1000 in the (J, m/Lambda) plane,
+"""make_fig2.py -- Fig. 2 of the Letter (v8; v7 layout): coverage of positivity for Omega^EE at Delta_g = 1000 in the (J, m/Lambda) plane,
 shaded by strength of evidence. No computation of physics: every boundary below is transcribed from the deliverables named here.
 
 Plane.  x = J + 1/2 (log scale; J = 0 sits at x = 1/2), y = m/Lambda, m^2 = (Delta-J-2)(Delta+J-1),
@@ -15,11 +15,13 @@ Grades (ordinal, strongest first), with sources:
                 J = 27 (twist edge to 1.10; EXT_FOLD), J = 23 (1.03-1.10 only) and J = 31 (1.05-1.10 only; EXT_FOLD incl. its
                 batch-2 addendum: their twist edges stay [NE+M]); strip m >= 1.3 Lambda, b < 5 (POS_ERRORS Sec. 2.4; one bulk model input tolerated x76;
                 computed to 20 Lambda)
-  theorem     conditional theorems (implications whose premises include the assumption (AG') [A]; P4_WINDOW Sec. 6-7):
-                W (window form): near gap, m <= 1.3 Lambda, sampled states with 26 <= J <= 344 (47 sampled (J, m) states, even
-                   J = 26-50, 64, 80, 100, 120, 150, 200, 250, 300, 344, odd 33, 51, 101, 201, 301; P2_CONTRACT Sec. 4,
-                   P4_WINDOW Sec. 4.2: J* = 26 with the plain edge envelope, 42 with the Omega^U +- helicity transfer: dashed line)
-                L' : b >= 0.37211 Lambda (J + 1/2 >= 0.186055 m), J <= 10^6 (LRINF_TIGHT Sec. 3, 5; P4_WINDOW Sec. 5);
+  theorem     conditional theorems (implications whose premises include the uniform-rate assumption (AG_U) [A] and, for W,
+              the graviton edge integral (EDGE-R) [M]; AG_PROOF Sec. 5, 8; EDGE_R Sec. 0):
+                W (chi-form, Lemma P4W-chi): near gap, m <= 1.3 Lambda, sampled states with 26 <= J <= 344 (47 sampled (J, m)
+                   states, even J = 26-50, 64, 80, 100, 120, 150, 200, 250, 300, 344, odd 33, 51, 101, 201, 301; P2_CONTRACT Sec. 4,
+                   AG_PROOF Sec. 5.2: sampled J* = 26 given (EDGE-R). v8: the v7 dashed line at J = 42 (Omega^U +- transfer under
+                   the v7 premise (AG')) is removed: that alternative is superseded)
+                L' : b >= 0.37211 Lambda (J + 1/2 >= 0.186055 m), J <= 10^6 (LRINF_TIGHT Sec. 3, 5; AG_PROOF Sec. 6.2: uniform rate);
                    J*(m) = ceil((0.37211 m - 1)/2) = 223 at the twist edge; overlaps W at the gap on 223 <= J <= 344
   [NE+M]/[M]  computed inside models or interpolated: near-gap J <= 25 not error-budgeted (chain spins, masses to 5 Lambda)
                 and J = 26-32 at masses outside W's samples (drawn under W), even J = 36, 40, 48 above 1.3 Lambda;
@@ -65,7 +67,7 @@ JL_MAX = 1.0e6 + 0.5
 NEPM = [(0, None, 1.2), (2, None, 1.2), (4, None, 1.05), (5, None, 1.05), (6, None, 1.05), (7, None, 1.05), (8, None, 1.05),
         (12, None, 1.05), (16, None, 1.05), (21, None, 1.10), (23, 1.03, 1.10), (27, None, 1.10), (29, None, 1.10),
         (31, 1.05, 1.10)]          # (J, lowest budgeted mass or None = twist edge, highest)
-JW_LO, JW_ALT = 26, 42             # Theorem W: sampled J* (plain edge envelope / Omega^U +- transfer)
+JW_LO = 26                         # Theorem W: sampled J* given (EDGE-R) (AG_PROOF Sec. 5.2; v7's alternative 42 superseded)
 NEM_TICKS = [36, 40, 48]
 
 # ---------------------------------------------------------------- style
@@ -135,8 +137,7 @@ for J in NEM_TICKS:                                                             
 for J, ybot, ytop in NEPM:                                                         # [NE+-] near-gap budgets
     y0 = max(y_gap(J + 0.5), YD0) if ybot is None else ybot
     axD.plot([J + 0.5] * 2, [y0, ytop], color=C_NEPM, lw=1.6, solid_capstyle='butt', zorder=4)
-# Theorem W threshold under the helicity caveat (J* = 42) and Theorem L' boundary in the near-gap panel
-axD.plot([JW_ALT, JW_ALT], [y_gap(JW_ALT), YD1], color='white', lw=0.7, ls=(0, (2.2, 1.4)), zorder=5)
+# Theorem L' boundary in the near-gap panel
 yl = np.linspace(y_gap(223.5), YD1, 50)
 axD.plot(XL_COEF * yl, yl, color='white', lw=0.7, ls=(0, (0.8, 1.0)), zorder=5)
 
@@ -163,8 +164,7 @@ fig.text(0.018, 0.60, r'mass $m/\Lambda$', rotation=90, va='center', ha='center'
 
 # ---------------------------------------------------------------- direct labels
 kw = dict(fontsize=6.2, ha='center', va='center', zorder=8)
-axD.text(95, 1.2, 'theorem\n1', color='white', fontsize=5.8, ha='center', va='center', zorder=8)
-axD.text(JW_ALT * 1.07, 1.275, '42', color='white', fontsize=5.6, ha='left', va='center', zorder=8)
+axD.text(76, 1.2, 'theorem\n1', color='white', fontsize=5.8, ha='center', va='center', zorder=8)
 axD.text(9.0e4, 1.20, r'no states ($\Delta-J<\Delta_g$)', color=INK2, fontsize=6.0, ha='center', va='center', zorder=8)
 axU.text(2.0, 7.0, r'$b<5$', color='white', rotation=0, **kw)
 axU.text(3.0e4, 14.0, 'theorem 2', color='white', **kw)
