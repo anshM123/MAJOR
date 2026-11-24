@@ -143,15 +143,18 @@ leakage. Without the cutoff the interchange cannot be proved under $J_0\le1$ (Se
 \emph{Beyond $\Lambda$} [DV, scalar proxy; M for $EE$]. Above a heavy state's mass $m\,(\ge\Lambda)$ its exact per-$\nu$ image grows
 exponentially ($\ln\Gamma\approx m\,G(\nu/m)$, $G'\approx0.13$--$0.19$ at $\nu=m$, rising to $\pi/2$ only as $\nu/m\to\infty$; for the
 $J=0$ gap state at $\Delta_g=1000$ it is $1.6\times10^{16}$ times its $\nu\to0$ value at $\nu=\Lambda+100$). The continuum $k=2$ weights
-decay like $e^{-(\pi/2)(\nu-\Lambda)}$ beyond $\Lambda$ and super-Gaussianly beyond $\Lambda+30$, so the tail beyond a state's mass is
+decay roughly like $e^{-(\pi/2)(\nu-\Lambda)}$ beyond $\Lambda$, with one local bump of about $\times100$ at $\Lambda+30$--$33$ (the
+last Gaussians of the basis, centred near $\Lambda+30$; at $\Delta_g=1000$, ${\rm Re}\,\chi$ falls to $2\times10^{-22}$ at $\Lambda+28$ and rises to
+$2.4\times10^{-20}$ at $\Lambda+32$), and super-Gaussianly beyond it. The bump is harmless and is included in the tail bound: the
+tail beyond a state's mass is
 $\le2.3\times10^{-5}$ of $\int|\psi|\,d\nu$ on every state tested ($\le4.4\times10^{-7}$ ($\Omega^{EE}$) / $1.6\times10^{-4}$
 ($\Omega^Q_{\rm up}$) of the state's own proxy action). The published $\Delta_g=1000$ \emph{grid} files, by contrast, run to
 $\Lambda+312$ and carry a non-decaying double-precision floor ($|X|\approx10^{-16}$--$10^{-14}$) beyond $\approx\Lambda+10$; read
 literally with $\theta(\Lambda+100,10)$, that floor would add to near-gap states with $m-\Lambda\lesssim60$--$100$ a tail of the size
 of their action or larger, with a sign set by round-off. This is why the grids are read as zero beyond $\Lambda+10$ (next
-subsection). (The earlier statements ``every per-state value is unchanged to $\lesssim10^{-41}$'' and ``no growth issue for the
-$k=2$ cutoff'' hold for the computed values and for the continuum-defined functional, not for the literal grid object; equivalently,
-the cutoff $(\Lambda+60,6)$, with the same leakage $\tfrac12{\rm erfc}(10)$ at $\Lambda$, would remove the floor.)
+subsection). The $\lesssim10^{-41}$ statement above holds for the computed values and for the continuum-defined functional, not for
+the literal grid object; equivalently, the cutoff $(\Lambda+60,6)$, with the same leakage $\tfrac12{\rm erfc}(10)$ at $\Lambda$,
+would remove the floor.
 
 \subsection{The functionals}
 All pieces are built from CLS-D's per-$\nu$ functional $\Psi_{k,\nu,j'}$ on $\langle TTTT\rangle$
@@ -176,14 +179,16 @@ two-dimensional) of the generalised Abel equation
 $\mathcal C[f]=\int_0^\infty f\cos\nu t$, $\mathcal S[f]=\int_0^\infty f\sin\nu t$,
 $r_\pm=(R_-\pm R_+)/n$, $n=(|R_-|+|R_+|)n_q/|n_q|$, with $R_\mp$ the EE leading-Regge
 coefficients ($h_-=g\,\varrho(\nu+i)$, $h_+=\tilde g\,\varrho(\nu-i)$,
-$\varrho(\nu)=32(4\nu^2+1)(4\nu^2+9)/((4\nu^2+25)(4\nu^2+81))$). \emph{Definition (v8).} The $k=2$ weight is the explicit
+$\varrho(\nu)=32(4\nu^2+1)(4\nu^2+9)/((4\nu^2+25)(4\nu^2+81))$). \emph{Definition.} The $k=2$ weight is the explicit
 continuum weight
 $\chi=Q(\nu)B(\nu)+\sum_{j\le2}y_j\nu^{2j}(\nu^2+1)\log(\nu^2+1)e^{-\nu^2/2}$, $Q=\nu^2/(\nu^2+\tfrac14)^2$,
 $B$ a Gaussian basis ($X=\chi(R_-+R_+)$; file \texttt{k2/k2\_continuum\_D\_}$\Delta_g$\texttt{.json}), times $\theta$; it equals the
 exact minimal-norm solution to $\le4\times10^{-7}$ of $\max\psi_2$. The published grid of that solution tabulates it on
 $\nu\le\Lambda+10$ and is to be read as \emph{zero} for $\nu>\Lambda+10$, where the file holds only round-off
-(Sec.~\ref{sec:cutoff}; truncated copies \texttt{*\_trunc.txt}, Table~\ref{tab:data}). Both give the same $|\hat g_3|^2$ light
-coefficient and hence the same bound, and no computed number uses either beyond $\Lambda$. The $k=3$ part is
+(Sec.~\ref{sec:cutoff}; truncated copies \texttt{*\_trunc.txt}, Table~\ref{tab:data}). The grids, truncated or not, are
+numerical tabulations of the continuum weight, not separate functionals: a weight of compact $\nu$-support fails $H_K$ by the
+no-go of Sec.~\ref{sec:HK}, so only the continuum weight is the definition. On $\nu\le\Lambda$ the tabulation gives the same
+$|\hat g_3|^2$ light coefficient, and no computed number uses either beyond $\Lambda$. The $k=3$ part is
 $\hat C_3={\rm Re}[\Psi_{3,\nu}[o_H\,q]/\hat N_3(\nu)]$, $j'=1$, unsubtracted, not de-shifted.
 
 \emph{$\Omega^Q_{\rm up}$ (item 2, upper).} The flat target Q3$^*$ acts on a flat heavy state as
@@ -234,7 +239,7 @@ parity-odd coupling is [I]; it is not used, because positivity is quoted per blo
 \caption{\label{tab:data}Published data (directory \texttt{data/} of the Supplemental
 Material; SHA-256 prefixes in \texttt{MANIFEST.txt}, \texttt{k2/SHA256SUMS} and \texttt{TRUNC\_SHA256SUMS}). The continuum weights are
 the definitions; grid files are numerical realisations, and the $k=2$ grids are read as zero beyond $\nu=\Lambda+10$
-(Sec.~\ref{sec:cutoff}); the \texttt{*\_trunc.txt} copies, written by \texttt{truncate\_grids.py} (v8), are that reading, and the
+(Sec.~\ref{sec:cutoff}); the \texttt{*\_trunc.txt} copies, written by \texttt{truncate\_grids.py}, are that reading, and the
 published grids are unchanged. The Q3$^*$ factored coefficients (the definition of $\Omega^Q_{\rm up}$'s
 flat target) are \texttt{q3star\_factored.json}, derived from \texttt{q3\_full\_delta0.2.json} by exact
 polynomial division (Sec.~\ref{sec:defs}). The \texttt{note} field of \texttt{nf02\_psi.json} and the $\varepsilon_W$
@@ -254,7 +259,7 @@ file & content & check\\\hline
 \texttt{k2/xq\_abel\_X\_}\allowbreak\texttt{300/1000.txt} & $\Omega^Q_{\rm up}$'s $k=2$ weight $X^Q$ on the same grids & \texttt{8a0cbec1\dots}, \texttt{1c623171\dots}\\
 \texttt{k2/k2\_continuum\_}\allowbreak\texttt{D\_300/1000.json} & $\Omega^{EE}$ continuum $k=2$ weights & \texttt{74830220\dots}, \texttt{314db16a\dots}\\
 \texttt{k2/k2\_continuum\_}\allowbreak\texttt{Q\_300/1000.json} & $\Omega^Q_{\rm up}$ continuum $k=2$ weights & \texttt{7966e0a5\dots}, \texttt{70af2f70\dots}\\
-\texttt{d\_abel\_X\_300/1000\_trunc.txt}, \texttt{k2/xq\_abel\_X\_}\allowbreak\texttt{300/1000\_trunc.txt} & v8: the four $k=2$ grids cut at $\nu\le\Lambda+10$ (dropped: $|X|\le5.7\times10^{-12}$, $\sum|X|d\nu\le4\times10^{-12}$) & \texttt{2c192c5d\dots}, \texttt{a8982609\dots}, \texttt{b5576cc2\dots}, \texttt{6d4eef83\dots}\\
+\texttt{d\_abel\_X\_300/1000\_trunc.txt}, \texttt{k2/xq\_abel\_X\_}\allowbreak\texttt{300/1000\_trunc.txt} & the four $k=2$ grids cut at $\nu\le\Lambda+10$ (dropped: $|X|\le5.7\times10^{-12}$, $\sum|X|d\nu\le4\times10^{-12}$) & \texttt{2c192c5d\dots}, \texttt{a8982609\dots}, \texttt{b5576cc2\dots}, \texttt{6d4eef83\dots}\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
@@ -301,19 +306,13 @@ LS6 & $\Omega^Q_{\rm up}+0.040\,\Omega^{EE}$ positive on light scalars iff $\mu^
 \end{ruledtabular}
 \end{table}
 
-\textbf{Net grades} (repeated in Sec.~\ref{sec:full}). Item (1): [D] if no light single trace couples to $TT$ (v8: L3 is [D]);
+\textbf{Net grades} (repeated in Sec.~\ref{sec:full}). Item (1): [D] if no light single trace couples to $TT$ (the Letter's headline);
 otherwise [D-sketch] through (E$'$) (LS4); the H17 band, which moves the constant by $\pm0.24\%$ / $\pm0.021\%$, is
 [D-sketch\,+\,M]. Item (2), upper end: [D-sketch] (L8's $g_5$ reading; LS rows if light states are present;
 LS6 if a scalar below $0.46\Lambda$ couples), [D-sketch\,+\,M] in L9 if $\hat g_3\ne0$, [A] through L7(b) for
 $\tilde g_4=g_4$. Lower end (Sec.~\ref{sec:lower}): same, plus $c_L>0$ if $\hat g_3\ne0$, and no constant; no positivity evidence for
 $\Omega^Q_{\rm low}$ beyond leading Regge. No input is open.
 
-\textbf{What changed since the previous draft.} A1 (full gap) $\to$ A1$'$ (higher-spin gap), with rows LS.
-$H_K$: [D-sketch] $\to$ [D] (the $EE$ kernel reduction is now exact; $f_{\rm pos}(\pm3i/2)=0$ for Q's weights,
-so the $k=4$ criterion is $J_0<\tfrac52$, not $2$). R1$'$: [D] $\to$ [D\,+\,DV]. LRC-a for $EE$ at $k=4$:
-[D-sketch] $\to$ [D\,+\,DV]. L6$'$: [I] $\to$ [D]. L7(a): [D-sketch] spinning $\to$ [D]. L8 ($g_5$): deciding
-test run. L3: universal, shock part zero, zero given F$_2$. Values of the $k=4$ de-shift: $\varepsilon_W$
-certified. $k=2$ continuum weights published.
 
 \section{Full statement of the result}
 \label{sec:full}
@@ -348,14 +347,14 @@ light coefficients (H17, modelled as a $\pm0.24\%$ / $\pm0.021\%$ band [M]) woul
 norm.
 
 \textbf{Net grades.} Implication (1): [D] if no light single trace couples to $TT$ (the $c_1$ form, universality and
-$\nu$-independence are [D] since v8); with light single traces, [D-sketch] through their $k=2,3$ light value (LS4, input (E$'$));
+$\nu$-independence are [D]); with light single traces, [D-sketch] through their $k=2,3$ light value (LS4, input (E$'$));
 the H17 band [D-sketch\,+\,M]; constants [DV]. Implication (2a): [D-sketch] in the $g_5$ term (I4) and the
 light single traces; [D-sketch\,+\,M] in the sign of $\kappa$ (I6) if $\hat g_3\ne0$; [A] through $H_{\rm EFT}$(b) for
 $\tilde g_4=g_4$. (2b) adds the $0.040\,\Omega^{EE}$ repair [D-sketch] and (Pos) for $\Omega^{EE}$. No input is open.
 Positivity: not established (Sec.~\ref{sec:pos}). \emph{Dependence:} (1) uses only $\Omega^{EE}$; (2a) only
 $\Omega^Q_{\rm up}$; (2b) both.
 
-\textbf{Inputs I1--I6} (the v3 Letter's summary of Table~\ref{tab:inputs}).
+\textbf{Inputs I1--I6} (a summary of Table~\ref{tab:inputs}).
 I1 \emph{Regge}: $J_0\le1$ for $\langle TTTT\rangle$~\cite[Sec.~4.2.4]{KKSDZ} [Q], made uniform on the Regge box,
 $|{\rm dDisc}\,\mathcal G|\le2B(c)$ for $\rho,1/\bar\rho\le c<1$, by Rindler positivity and Cauchy--Schwarz [D; DV on
 free-field $\langle TTTT\rangle$]; KKSDZ's caveat (Sec.~4.2.6 there: the light-cone step at the first/second-sheet
@@ -754,7 +753,7 @@ formula~\cite{CHMRS} carried to the spinning $k=2,3$ functionals for Regge spins
 \emph{Signs [P].} With the light-matter sum rules of Ref.~\cite{CHLPS} (code validated against their printed
 $F_{g_3}$ exactly), per unit coupling and as exact polynomials in $m^2$ ($\Lambda=1$):
 $F_D^{(0)}=11.317027+20.771893m^2$, $F_D^{(2)}=3-6.766265m^2-6.905463m^4+20.771893m^6$ (min $0.448$ at
-$m=0.675\Lambda$) for $\Omega^{EE}$; $F_Q^{(2)}=2.637798+0.480850m^2-3.156162m^4+2.032073m^6$ (min $1.988$ at $m=0.976\Lambda$; v7: $1.97$) and
+$m=0.675\Lambda$) for $\Omega^{EE}$; $F_Q^{(2)}=2.637798+0.480850m^2-3.156162m^4+2.032073m^6$ (min $1.988$ at $m=0.976\Lambda$) and
 $F_Q^{(0)}=-0.430430+2.032073m^2$ for $\Omega^Q_{\rm up}$, negative for $m<0.460237\Lambda$. Root isolation shows the
 others have no zero on $0<m\le\Lambda$. The $m\to0$ spin-2 limits are $3K_0$ and $24\kappa$: a massless $++$
 spin 2 is the $W^3$ exchange, so it enters with the sign of the $|\hat g_3|^2$ term.
@@ -787,7 +786,7 @@ lower-coefficient shift up to $K=3.2\times10^3$ / $3.5\times10^4$ (AdS units): $
 
 \subsection{\texorpdfstring{$\Lambda$}{Lambda}-forms (dependence on the gap)}
 \label{sec:lambda}
-With the functionals fixed, the light side is an exact function of $\Lambda$ [DV] (moved here from the v3 Letter):
+With the functionals fixed, the light side is an exact function of $\Lambda$ [DV]:
 \begin{align}
 \tau_0&=\frac{1.3194\times10^4}{\Lambda^4}\sqrt{\ln\frac{\Lambda}{8.7415}+\frac{6.384}{\Lambda}+O\Big(\frac{\ln\Lambda}{\Lambda^2}\Big)},
 \label{eq:cubicL}\\
