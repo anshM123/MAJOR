@@ -66,7 +66,7 @@ def main(Js):
         kmax = (2*J + 1)/mfl/np.sqrt(1 - (1/mfl)**2)
         nseg = int(np.ceil((1 - pw)*1.2*kmax/np.pi*2)) + 40
         gx, gw = np.polynomial.legendre.leggauss(16)
-        br = np.linspace(pw, 1.0, nseg + 1)
+        br = np.unique(np.concatenate([np.linspace(pw, 1.0, nseg + 1), [a*mfl, xm*mfl]]))   # panel edges at the window ends
         p = np.concatenate([u + (v - u)*(gx + 1)/2 for u, v in zip(br[:-1], br[1:])])
         wp = np.concatenate([gw*(v - u)/2 for u, v in zip(br[:-1], br[1:])])
         x = p*L/m
@@ -78,11 +78,11 @@ def main(Js):
         SE2 = 2*fl['VF2']*esc1
         f = wp*ps*ch*G
         E_full = float(f.sum())
-        E_below_a = float(f[x < a].sum())
+        E_below_a = float(f[x < a - 1e-12].sum())
         up = (x >= xm)
         E_up_dense = float(f[up].sum())
         # GK windows (weights in x -> dp = mfl dx)
-        dets, remw, allup = 0.0, [], 0.0
+        dets, remw, allup, alllo = 0.0, [], 0.0, 0.0
         Gn = {}
         for (lo, hi) in ((a, xm), (xm, x1)):
             xe, wk, wg = HC.gk15_nodes(lo, hi)
@@ -97,9 +97,12 @@ def main(Js):
                     remw.append((float(xi), float(wi), float(gi), float(e2i)))
                 if lo == xm:
                     allup += wi*gi
+                else:
+                    alllo += wi*gi
         E_det = E_below_a + dets
         E_rem = E_full - E_det
         quad_up = allup - E_up_dense
+        quad_lo = alllo - float(f[(x >= a) & (x < xm)].sum())
         # envelope: Gamma = m^2 G / E2h at the last three measured GK / grid nodes (<= x_l)
         cand = sorted([xx for xx in Gn if xx <= xl + 1e-9] + [float(v) for v in s['n1'] if v >= 0.8 and v <= xl + 1e-9])
         last = sorted(set(round(v, 7) for v in cand))[-3:]
@@ -122,11 +125,11 @@ def main(Js):
         e2 = np.linspace(xl, x1 - 1e-4, 6); mx2 = [Gam2[(xg2 >= u) & (xg2 <= v)].max() for u, v in zip(e2[:-1], e2[1:])]
         expo2 = float(-np.polyfit(np.log(1 - 0.5*(e2[:-1] + e2[1:])), np.log(mx2), 1)[0])
         r = dict(J=J, mfl=mfl, x1=x1, xl=xl, a=a, xm=xm, SE2=SE2, E_full=E_full/SE2, E_det=E_det/SE2, E_rem=E_rem/SE2,
-                 quad_up=quad_up/SE2, env_sf=den/SE2, true_sf=num/SE2, c_pt=cpt, c_int=num/den if den else 0.0,
+                 quad_up=quad_up/SE2, quad_lo=quad_lo/SE2, env_sf=den/SE2, true_sf=num/SE2, c_pt=cpt, c_int=num/den if den else 0.0,
                  c_rem=abs(E_rem)/den if den else 0.0, A=A, nmiss=len(remw), expo_meas=expo, expo_beyond=expo2)
         res[J] = r
         pr(f"J = {J} (m/L = {mfl:.4f}, x1 = {x1:.4f}, x_l = {xl:.4f}, {len(remw)} missing GK nodes): E_full = {r['E_full']:+.3f}, "
-           f"E_det = {r['E_det']:+.3f}, E_rem = {r['E_rem']:+.3f} S_E2 (GK15 error of the upper window {r['quad_up']:+.4f}); "
+           f"E_det = {r['E_det']:+.3f}, E_rem = {r['E_rem']:+.3f} S_E2 (GK15 error: lower window {r['quad_lo']:+.4f}, upper {r['quad_up']:+.4f}); "
            f"envelope A((1-x_l)/(1-x))^2 sign-free {r['env_sf']:.3f}, true sign-free {r['true_sf']:.3f} S_E2; c_pt = {cpt:.2f}, "
            f"c_int = {r['c_int']:.2f}, c_rem = |E_rem|/env = {r['c_rem']:.2f}; |Gamma| growth exponent on [0.8, x_l] {expo:.2f}, "
            f"beyond x_l {expo2:.2f}  [{time.time() - t0:.0f}s]")
