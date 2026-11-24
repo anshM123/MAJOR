@@ -1,4 +1,8 @@
-% letter.tex -- PRL draft, v11 (v10 + REFEREE_REPORT_5 cheap fixes: all-gap wording brought to Supplement Sec. S8's strength,
+% letter.tex -- PRL draft, v12 (v11 + NEARGAP_FILL, GAP_SEAM, GAP_SEAM2: every near-gap spin J <= 16 and the J = 23 twist edge
+% error-controlled at Delta_g = 1000; seam spins and the parity-odd OO block at 2000; changes in prl/CHANGES_v12.md). Marks: "% BATCH4"
+% (external direct rows at 2000) and "% BATCH5" (external direct rows for J = 17-20, 22, 24-26, 28, 30, 32 and the J = 31 twist edge
+% at 1000, ads4/ext/jobs_batch5.txt). The v10 "% SEAM" marks are resolved.
+% v11 (v10 + REFEREE_REPORT_5 cheap fixes: all-gap wording brought to Supplement Sec. S8's strength,
 % Large spin cut to ~200 words, kappa in abstract/Discussion, x value, Fig. 1 markers, five references; changes in prl/CHANGES_v11.md).
 % v10 (v9 + positivity at every gap Delta_g >= 1000: GAP_SCALING, GAP_LARGESPIN, GAP_UNIFORM, GAP_C3,
 % GAP_NEARGAP, GAP_MORSE; new paragraph "Larger gaps", Result's last paragraph, intro and Discussion scope, Fig. 1 solid cubic
@@ -257,17 +261,21 @@ $\Delta_g=300$ and $1000$.
 
 % ---------------------------------------------------------------------------
 % v7: five sentences; every state list, budget and leverage is in the Supplement (Tables S5-S7, S11; Sec. S7).
-% Sources: CERT_CLOSE; POS_ERRORS Sec. 2.4, 3.1; NEARGAP2; HIGHSPIN; SMALLNU_WINDOW; EXT_FOLD Sec. 0; LRINF_TIGHT Sec. 2-3.
+% Sources: CERT_CLOSE; POS_ERRORS Sec. 2.4, 3.1; NEARGAP2; HIGHSPIN; SMALLNU_WINDOW; EXT_FOLD Sec. 0; LRINF_TIGHT Sec. 2-3;
+% v12: NEARGAP_FILL Sec. 0, 2.4, 3 (J = 9-11, 13-15 direct own rows; J = 23 twist edge L = 1.18 thin; J = 31 at 1.04).
 \paragraph*{Is the functional positive?}
 Figure~\ref{fig:coverage} maps the evidence for $\Omega^{EE}$ at $\Delta_g=1000$. Two statements
 are certified: positivity on every heavy state in the flat-space limit (for $\Omega^Q_{\rm up}$
 too, outside two asymptotic corners where it is only computed), and, in AdS, positivity of the
 leading Regge part of $\Omega^{EE}$ on every state whose impact parameter exceeds about a third of
 the AdS radius. With error control, $\Omega^{EE}$ is positive on its most constraining state, spin
-5 at the gap, on thirteen further near-gap spins up to $J=31$, and on heavier states at small
-impact parameter. Spins 23 and 31 are covered only above their lowest mass, and at $J=29$ the
-lowest mass is within error control only with the measured sign of one low-frequency
-contribution. Elsewhere,
+5 at the gap, near the gap on every other spin up to 16 and on spins 21, 23, 27, 29 and 31, and
+on heavier states at small impact parameter. Spin 31 is covered only above its lowest mass, spin 23
+at its lowest mass only narrowly, and at $J=29$ the lowest mass is within error control only with
+the measured sign of one low-frequency contribution.
+% BATCH5: direct rows for J = 17-20, 22, 24-26, 28, 30, 32 and the J = 31 twist edge at 1000 (ads4/ext/jobs_batch5.txt) update
+% the two sentences above, Fig. 2 (make_fig2.py NEPM) and Supplement Tables S5-S7, S11.
+Elsewhere,
 including $\Omega^Q_{\rm up}$ outside masses $1.3$--$3\Lambda$, we have values computed inside
 models or interpolated, but no error control; no computed state is negative, although we fixed
 the functionals only after earlier versions had failed on some states~\cite{SM}. \HLJstatusLetter
@@ -295,18 +303,21 @@ samples, and at intermediate impact parameter, we rely on a hypothesis supported
 argument.
 
 % v10: positivity at every gap. Sources: GAP_SCALING Sec. 0, 2-4; GAP_LARGESPIN Sec. 0 (U1-U6, Table 0.2); GAP_UNIFORM Sec. 0, 3
-% (Lemma T, U7, B_F); GAP_NEARGAP Sec. 0, 5; GAP_C3 Sec. 0; GAP_MORSE Sec. 0 (Delta_1*(J)). Grades: Supplement Sec. S8.
+% (Lemma T, U7, B_F); GAP_NEARGAP Sec. 0, 5; GAP_C3 Sec. 0; GAP_MORSE Sec. 0 (Delta_1*(J));
+% v12: GAP_SEAM Sec. 0, GAP_SEAM2 Sec. 0-1. Grades: Supplement Sec. S8.
 \paragraph*{Larger gaps.}
 Above $\Delta_g=1000$ the evidence for $\Omega^{EE}$ is at best as strong as at $1000$ and needs
 further premises~\cite{SM}. The certified statements carry over to every gap, the leading-Regge ones
 wherever the de-shifted weight exists (we constructed it up to $5000$). At $\Delta_g=2000$ we
-repeated the error-controlled near-gap checks. No state is negative, and up to spin 16 the checks
-close, with error budgets that shrink like $\Delta_g^{-2}$, as the approach to flat space predicts. Spins 21, 27 and 29 are
-not yet error-controlled at their lowest mass (at $1000$ this needed direct evaluations), and the
-other near-gap spins have not been recomputed.
-% BATCH4: external direct rows for J = 12, 16, 21, 27, 29 at Delta_g = 2000 (ext/jobs_batch4.txt) update the sentence above.
-% SEAM: seam spins J = 9-11, 13-15, 17-20 (and 22-26, 28, 30-32) and the parity-odd OO states J = 4-10 at 2000 have no rows yet
-% (ads4/GAP_SEAM.md, when it exists); "the other near-gap spins have not been recomputed" then changes.
+repeated the error-controlled near-gap checks for every spin up to 21 except 18 and 20, and for 27
+and 29. No state is negative. Up to spin 21 the checks close, for spin 12 and from 14 on only with a
+signed estimate of the truncation error, and up to spin 16 the error budgets shrink like
+$\Delta_g^{-2}$, as the approach to flat space predicts. Spins 27 and 29 are not yet error-controlled
+at their lowest mass (at $1000$ this needed direct evaluations), and the other near-gap spins have
+not been recomputed. Several spins have their lowest values just above the new gap, with no
+counterpart at $1000$.
+% BATCH4: external direct rows for J = 12, 16, 21, 27, 29 at Delta_g = 2000 (ext/jobs_batch4.txt) update the sentences above
+% (J = 27, 29 twist edges; sign-free closure for J >= 12). Not yet run at 2000: J = 18, 20, 22-26, 28, 30-32 (GAP_SEAM2 Sec. 3).
 Between and beyond the computed gaps we assume that a near-gap state's correction, relative to its
 flat value, does not grow with the gap. At $2000$ and $5000$ we tested this only on the
 saddle-point evaluations used for the checks, and up to $10^4$ on an exactly computable scalar

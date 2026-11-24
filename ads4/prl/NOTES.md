@@ -1,3 +1,14 @@
+*Revised 24 Nov 2026, **v12** (writing pass after NEARGAP_FILL, GAP_SEAM, GAP_SEAM2; all unreviewed; no physics recomputed): at
+Δ_g = 1000 every near-gap spin J ≤ 16 is now [NE±] (J = 9–11, 13–15 on own direct rows, twist edge and 1.02–1.05Λ; thinnest J = 14, 15,
+L ≥ 1.52 / 1.75), the J = 23 twist edge [NE±] thin (L = 1.18, after the consistency correction that evaluates the odd-J representation
+term on the windowed λ_c), J = 27 L 1.64 → 1.81, J = 31 at 1.04Λ [NE±] (twist edge still [NE + M]), OO J = 4–10 error-budgeted (OO J = 4
+minimum +0.2059 at its twist edge, was +0.2150). Letter: positivity paragraph names "every other spin up to 16 and spins 21, 23, 27, 29
+and 31" (referee-5 M1); "Larger gaps" gives the 2000 seam results (J ≤ 21 except 18, 20, and 27, 29 computed; λ-level only for 12 and
+14+; 27, 29 twist edges open; seam-strip lows). Fig. 2 bars J = 9–15, J = 23 from the twist edge, J = 31 from 1.04. Supplement: Table S5
+split (new rows J = 9–15, OO; J = 23/27/31 rewritten), S6, S7, S11, S13 (seam spins, OO, Δ_ref = 5·10⁴ reruns), S17, S8 summary (2) (and
+a v11 bug: item (3)'s first words were inside a `%` comment), S1 legend, S13 corrections. `% SEAM` resolved; `% BATCH4` kept; `% BATCH5`
+added. Length 3638 APS words (headroom 112). Acknowledgments untouched. Change log: **`CHANGES_v12.md`**.*
+
 *Revised 24 Nov 2026, **v11** (cheap fixes after `REFEREE_REPORT_5.md`; no new physics): every all-gap statement in the Letter
 brought down to §S8's strength (Intro "the evidence extends to larger gaps, at no better strength, if …"; "Larger gaps" opens with
 "at best as strong as at 1000 and needs further premises", says which spins close at 2000 (≤ 16) and which do not (21/27/29; others
@@ -117,6 +128,11 @@ for f in letter supplement; do
 done
 ```
 
+Status (24 Nov, **v12**): both compile with no errors, no undefined references or citations, no overfull boxes, no "float too large"
+(Letter: 8 underfull-box notices). `build/letter.pdf` 6 pages: the text ends two lines into page 5's left column, followed by the
+acknowledgments and references. `build/supplement.pdf` 32 pages; Table S5 is split over two floats ("(continued)", one number) and
+Table S7's new entries were kept short so that it fits a page. Regenerate Fig. 2 with `(cd fig && python3 make_fig2.py)`.
+
 Status (24 Nov, **v11**): both compile with no errors, no undefined references or citations, no overfull boxes (Letter: 8
 underfull-box notices). `build/letter.pdf` 6 pages: the text, acknowledgments included, ends at the bottom of page 4; references fill
 pages 5–6. `build/supplement.pdf` 31 pages. Optional data step (v11): `(cd data && python3 export_gap_weights.py)` rewrites `data/gap/`
@@ -150,6 +166,11 @@ In v5 the figure environment was moved to just before "Functionals" (it had beco
 Figure: `cd fig && python3 make_fig.py` (needs mpmath, matplotlib) before compiling the Letter.
 
 ## 2. Length
+
+**v12** (same tool and basis, acknowledgments excluded): abstract **599** rendered characters (unchanged; not edited); prose 3006
+words, 240 inline formulas (conservative 302), 3 display rows (48), figures 344; **TOTAL 3638 (3700 conservative)**, headroom **112**
+(50 conservative). The positivity paragraph (+15) and "Larger gaps" (+50) grew; nothing was cut. The text and the acknowledgments now run
+two lines onto page 5.
 
 **v11** (same tool, run on a copy of `letter.tex` without the acknowledgments environment, as APS counts): abstract **599**
 rendered characters (≈ 593 without pdftotext's inserted spaces; limit 600, tight); prose 2940 words, 240 inline formulas
@@ -287,6 +308,9 @@ no continuum ε_W fit there), m1, m2, m4 (κ), m5, m7–m9, m11, m12. **Relayed 
 disclosure says "formulation and drafting" and "thoroughly reviewed all output", while the record shows AI-run computations and the
 Supplement labels analyses "unreviewed"; the referee suggests a broader disclosure, repeated in the Supplement) — the acknowledgments
 are unchanged. Open by computation: M1, M4, the M3 band rows, BATCH4, SEAM, continuum weights at 2000/5000.
+**v12 (M1, partly by computation):** NEARGAP_FILL closes the referee's near-gap list J = 9–11, 13–15 and the J = 23 twist edge at 1000
+(J = 31 at 1.04Λ); still model-level at 1000: J = 17–20, 22, 24–26, 28, 30, 32 and the J = 31 twist edge (batch 5, 666 jobs prepared,
+`ads4/ext/jobs_batch5.txt`), masses 1.05/1.1–1.3Λ (H_cont), 5 ≤ b < b_A, Ω^Q_up binding states, EDGE-R. SEAM done (GAP_SEAM, GAP_SEAM2).
 
 **Second report (`REFEREE_REPORT_2.md`, reject for PRL as written).** Point-by-point response with file:line: `CHANGES_v4.md`. Summary:
 §6 items 1 (narrow/rewrite + figure), 4 (positioning), 5 (lower end dropped from abstract/discussion), 8 (housekeeping) done; M4 grade
@@ -345,6 +369,11 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
 8. UT3 still carries the stale "natural size 10⁻³–10⁻¹" for c₁ (§3); the paper uses no size estimate. (v8: universality is [D] again,
    now with the explicit ASD solution of DSKETCH_UP, so UT3's "universality [D]" agrees with the paper.) UT3 was not edited.
 
+10. **v12:** batch 5 (external, `% BATCH5`: J = 17–20, 22, 24–26, 28, 30, 32 and the J = 31 twist edge at 1000; J = 26, 30 need even
+   shadows computed locally first); batch 4 (`% BATCH4`: J = 27, 29 twist edges at 2000, sign-free closure for J ≥ 12 at 2000); rows at
+   2000 for J = 18, 20, 22–26, 28, 30–32 (GAP_SEAM2 §3 resume commands; J = 23, 31 never run at 2000); the seam strip needs its own rows
+   at every larger gap (chart A does not reach it); the J = 23 twist edge closure (L = 1.18) rests on the λ_c correction — a sceptical
+   reader may still call it [NE + M] until batch 5's mid-points come back.
 9. **v10 (all gaps):** open for the all-gap statement: the seam spins J = 9–11, 13–15, 17–20, 22–26, 28, 30–32 and the parity-odd
    OO states J = 4–10 at Δ_g = 2000 (`% SEAM`, GAP_SEAM.md); the batch-4 direct rows for J = 12, 16, 21, 27, 29 at 2000 (`% BATCH4`;
    J = 21, 27, 29 are [NE + M] at their 2000 twist edges until then); a proof of the no-growth premise B_F / H_mono-A on
@@ -353,6 +382,10 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
    authors; GAP_* analyses unreviewed.
 
 ## 7. Source inconsistencies
+
+**v12**: listed in `CHANGES_v12.md` §4 (GAP_NEARGAP prints K₂ own-row values, GAP_SEAM/SEAM2 windowed central values; the J = 21 "+0.967"
+misprint; OO J = 4 minimum; J = 27/29 grades depend on the x grid; v11 Supplement comment swallowing words; UNIFIED_THEOREM boxes
+already present).
 
 **v10**: listed in `CHANGES_v10.md` §6 (gap-unit constants grow, not shrink; "certified above 10⁵" only under premises and for the
 graviton only at J = 0, 2; Lemma T vs B_F wording; J = 8 L = 5.2 vs 3.9; budgets ∝ Λ⁻² only to J = 16; L′ tolerances recomputed in
