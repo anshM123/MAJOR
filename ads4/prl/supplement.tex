@@ -14,7 +14,12 @@
 % certified to beta >= 0.37, Theorem L' with J* = ceil((0.37211 m - 1)/2), computed O(1/m^2) corrections, window Lemma P4W and the
 % assumption (AG'), Theorem W in window form (sampled J* = 26 / 42); near-gap tables updated from EXT_FOLD (J = 7, 27; J = 23, 31
 % above their twist edges); Sec. S1 maps the Letter's plain wording to the grades; citation fixes (INDEP_CHECK2 D5).
-% "% AGPROOF" marks every place that changes if (AG') is proved (ads4/AG_PROOF.md, in progress).
+% prl/CHANGES_v8.md (v7 -> v8): AG_PROOF (assumption (AG') replaced by the weaker pair (AG_U) [A] + (EDGE-R) [M] via Lemma P4W-chi
+% and Lemma F [P]; Theorem W sampled J* = 26, the "42" alternative superseded; Theorem L' on the uniform rate alone), EDGE_R
+% ((EDGE-R) for the graviton not closed; exact-scalar corrections), DSKETCH_UP (c1 universality and nu-independence [D]; light
+% single traces: leading-Regge "AdS image" refuted, light value = Regge polynomial given (E') [D-sketch]; LS6 reduced to one
+% inequality; eps* expected to fail), NU_TAIL_CHECK (k = 2 pieces defined by the continuum weights; grids read as zero beyond
+% Lambda + 10; HK statements restricted to computed values). The v7 "% AGPROOF" marks are resolved.
 \documentclass[aps,prl,onecolumn,superscriptaddress,nofootinbib]{revtex4-2}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
@@ -60,15 +65,19 @@ check adds confidence but does not raise the grade); ``[X; DV]'' is X with a num
 is derived from inputs X; ``[D, one step D-sketch]'' is net [D-sketch]. A chain carries the grade of its weakest link, ordered
 [P]\,$=$\,[certified]\,$>$\,[DV]\,$>$\,[D]\,$>$\,[D-sketch]\,$>$\,[NE$\pm$]\,$>$\,[NE]\,$>$\,[NE\,+\,M]\,$>$\,[M]\,$>$\,[A]\,$>$\,[I].
 
-\textbf{The Letter's wording (v7).} The Letter's main text carries no grade tags. Its words map to the grades as
+\textbf{The Letter's wording (v7, v8).} The Letter's main text carries no grade tags. Its words map to the grades as
 follows: ``we prove'' = [P]; ``certified'' = [certified]; ``we derive'' = [D] or [DV]; ``derived and checked numerically'' =
 [DV]; ``sketched'', ``we sketch the argument'', ``we argue'' = [D-sketch]; ``with error control'' = [NE$\pm$]; ``computed'',
 ``measured'' (of a value) = [NE] or [DV]; ``computed inside models'', ``in a model'', ``interpolated'' = [NE\,+\,M] or [M];
 ``we assume'', ``assumption'' = [A]; ``open'' = [I]. Its assumptions (i) and (ii) are A1$'$ and A2 below; ``the two
-conditional theorems'' are Theorems W and L$'$ of Sec.~\ref{sec:largespin}; ``the technical assumption about how heavy-state
-contributions decay beyond the Regge regime'' is (AG$'$) of Sec.~\ref{sec:largespin}.D; ``the three magnitudes estimated in
-models'' are the spinning $O(1/m^4)$ window coefficients and the edge amplitude (premises W and EDGE) and, for Theorem L$'$, the
-$O(1/m^2)$ coefficients above $J=344$; ``a hypothesis supported by a sketched argument'' is $H_R'$. % AGPROOF
+conditional theorems'' are Theorems W and L$'$ of Sec.~\ref{sec:largespin}; ``one technical assumption'' (heavy-state
+contributions split into two analytic waves decaying at a uniform rate beyond the Regge regime) is (AG$_U$) of
+Sec.~\ref{sec:largespin}.D, [A] beyond all orders; ``one integral of the graviton's contribution near the light-cone edge'' is
+(EDGE-R) of the same subsection, [M]; ``the other magnitudes \dots\ estimated in models'' are the spinning $O(1/m^4)$ window
+coefficients (premise W), the $+-$ helicity transfer, Theorem L$'$'s edge amplitude (EDGE) and its $O(1/m^2)$ coefficients above
+$J=344$; ``a hypothesis supported by a sketched argument'' is $H_R'$. ``We derive that $c_1$ is a single universal number'' is row
+L3 of Table~\ref{tab:inputs} ([D] since v8); the light single traces' ``contribution fixed by their Regge behaviour up to a small
+AdS mass shift; we sketch the argument'' is row LS4 ([D given (E$'$)], (E$'$) [D-sketch]).
 
 \textbf{What moved here from the Letter.} The Letter (v4) states items (1) and (2a)/(2b) and the evidence
 in prose. The full statement with the lower end, the exact $c_1$ forms and thresholds, the H17 remark and the
@@ -99,7 +108,12 @@ four further analyses, all unreviewed: a certification of Lemma LR$_\infty$ with
 computation of the spinning $O(1/m^2)$ corrections, a window reformulation of the higher-order premise, and external direct
 points for near-gap $J=7$, $23$, $27$, $31$ (Tables~\ref{tab:computed}, \ref{tab:Dstates}). A second independent check
 (Sec.~\ref{sec:repro}) reproduced the de-shift identity, the monopole constant, Lemma LR$_\infty$, the algebra of Theorem W and
-the $\langle TT\mathcal O\rangle$ structure counts.
+the $\langle TT\mathcal O\rangle$ structure counts. In v8 four further analyses, all unreviewed, were folded in: a study of the
+large-spin assumption (AG$'$), which shows it false in its pointwise form near the gap edge and replaces it by a strictly weaker pair
+of premises (Sec.~\ref{sec:largespin}.D); a direct attempt at the graviton's edge integral, which is not closed
+(Sec.~\ref{sec:largespin}.E); upgrades of the $c_1$ universality step and of the light-single-trace step (Secs.~\ref{sec:c1},
+\ref{sec:light}); and a check of the $k=2$ weights beyond $\Lambda$, which fixes how the $k=2$ pieces are defined
+(Sec.~\ref{sec:defs}.B--C).
 
 \section{Definitions and published data}
 \label{sec:defs}
@@ -122,13 +136,27 @@ all-plus eight-derivative coefficient $\hat g_4$ (complex) is not bounded. Unit 
 corrections: $c_2:=m^2\times$(relative correction).
 
 \subsection{Cutoff}
+\label{sec:cutoff}
 $\theta(\nu)=\tfrac12[{\rm erf}((\nu+\nu_c)/a)-{\rm erf}((\nu-\nu_c)/a)]$, even and entire,
 bounded on horizontal strips, super-Gaussian decay. Every de-shift weight $\chi$ is replaced by
 $\chi\theta$, with $(\nu_c,a)=(\Lambda+100,10)$ ($a$ is the cutoff width here only) for both $k=2$ pieces ($\Omega^{EE}$ and the smeared
 $k=2$ piece of $\Omega^Q_{\rm up}$, whose weight extends to $\nu\approx\Lambda$) and $(150,6)$ for the
-$k=4,5$ pieces of $\Omega^Q$. The relative effect on any computed number is $\lesssim e^{-180}$ ($k=4,5$)
-and $\lesssim10^{-41}$ ($k=2$) [D\,+\,NE]. Without it the interchange cannot be proved under $J_0\le1$
-(Sec.~\ref{sec:HK}).
+$k=4,5$ pieces of $\Omega^Q$, the $k=2$ weights being the continuum weights (next subsection). On every
+\emph{computed} number the cutoff's relative effect is $\lesssim e^{-180}$ ($k=4,5$) and $\lesssim10^{-41}$ ($k=2$) [D\,+\,NE]: these
+are evaluated on $\nu\le\Lambda$ (or, for leading-Regge images, against kernels bounded in $\nu$), where $\theta=1$ to within its
+leakage. Without the cutoff the interchange cannot be proved under $J_0\le1$ (Sec.~\ref{sec:HK}).
+\emph{Beyond $\Lambda$} [DV, scalar proxy; M for $EE$]. Above a heavy state's mass $m\,(\ge\Lambda)$ its exact per-$\nu$ image grows
+exponentially ($\ln\Gamma\approx m\,G(\nu/m)$, $G'\approx0.13$--$0.19$ at $\nu=m$, rising to $\pi/2$ only as $\nu/m\to\infty$; for the
+$J=0$ gap state at $\Delta_g=1000$ it is $1.6\times10^{16}$ times its $\nu\to0$ value at $\nu=\Lambda+100$). The continuum $k=2$ weights
+decay like $e^{-(\pi/2)(\nu-\Lambda)}$ beyond $\Lambda$ and super-Gaussianly beyond $\Lambda+30$, so the tail beyond a state's mass is
+$\le2.3\times10^{-5}$ of $\int|\psi|\,d\nu$ on every state tested ($\le4.4\times10^{-7}$ ($\Omega^{EE}$) / $1.6\times10^{-4}$
+($\Omega^Q_{\rm up}$) of the state's own proxy action). The published $\Delta_g=1000$ \emph{grid} files, by contrast, run to
+$\Lambda+312$ and carry a non-decaying double-precision floor ($|X|\approx10^{-16}$--$10^{-14}$) beyond $\approx\Lambda+10$; read
+literally with $\theta(\Lambda+100,10)$, that floor would add to near-gap states with $m-\Lambda\lesssim60$--$100$ a tail of the size
+of their action or larger, with a sign set by round-off. This is why the grids are read as zero beyond $\Lambda+10$ (next
+subsection). (The earlier statements ``every per-state value is unchanged to $\lesssim10^{-41}$'' and ``no growth issue for the
+$k=2$ cutoff'' hold for the computed values and for the continuum-defined functional, not for the literal grid object; equivalently,
+the cutoff $(\Lambda+60,6)$, with the same leakage $\tfrac12{\rm erfc}(10)$ at $\Lambda$, would remove the floor.)
 
 \subsection{The functionals}
 All pieces are built from CLS-D's per-$\nu$ functional $\Psi_{k,\nu,j'}$ on $\langle TTTT\rangle$
@@ -153,11 +181,14 @@ two-dimensional) of the generalised Abel equation
 $\mathcal C[f]=\int_0^\infty f\cos\nu t$, $\mathcal S[f]=\int_0^\infty f\sin\nu t$,
 $r_\pm=(R_-\pm R_+)/n$, $n=(|R_-|+|R_+|)n_q/|n_q|$, with $R_\mp$ the EE leading-Regge
 coefficients ($h_-=g\,\varrho(\nu+i)$, $h_+=\tilde g\,\varrho(\nu-i)$,
-$\varrho(\nu)=32(4\nu^2+1)(4\nu^2+9)/((4\nu^2+25)(4\nu^2+81))$). Two realisations are published: the exact
-minimal-norm solution on a grid, and an explicit continuum weight
+$\varrho(\nu)=32(4\nu^2+1)(4\nu^2+9)/((4\nu^2+25)(4\nu^2+81))$). \emph{Definition (v8).} The $k=2$ weight is the explicit
+continuum weight
 $\chi=Q(\nu)B(\nu)+\sum_{j\le2}y_j\nu^{2j}(\nu^2+1)\log(\nu^2+1)e^{-\nu^2/2}$, $Q=\nu^2/(\nu^2+\tfrac14)^2$,
-$B$ a Gaussian basis ($X=\chi(R_-+R_+)$), equal to the grid solution to $\le4\times10^{-7}$ of $\max\psi_2$;
-both give the same $|\hat g_3|^2$ light coefficient and hence the same bound. The $k=3$ part is
+$B$ a Gaussian basis ($X=\chi(R_-+R_+)$; file \texttt{k2/k2\_continuum\_D\_}$\Delta_g$\texttt{.json}), times $\theta$; it equals the
+exact minimal-norm solution to $\le4\times10^{-7}$ of $\max\psi_2$. The published grid of that solution tabulates it on
+$\nu\le\Lambda+10$ and is to be read as \emph{zero} for $\nu>\Lambda+10$, where the file holds only round-off
+(Sec.~\ref{sec:cutoff}; truncated copies \texttt{*\_trunc.txt}, Table~\ref{tab:data}). Both give the same $|\hat g_3|^2$ light
+coefficient and hence the same bound, and no computed number uses either beyond $\Lambda$. The $k=3$ part is
 $\hat C_3={\rm Re}[\Psi_{3,\nu}[o_H\,q]/\hat N_3(\nu)]$, $j'=1$, unsubtracted, not de-shifted.
 
 \emph{$\Omega^Q_{\rm up}$ (item 2, upper).} The flat target Q3$^*$ acts on a flat heavy state as
@@ -177,8 +208,9 @@ with $Q=\nu^2(\nu^2+1)(\nu^2+4)/[(\nu^2+9)^p(4\nu^2+1)(4\nu^2+25)(4\nu^2+(3+2\sq
 $B$ a 401-term Gaussian basis (spacing $0.15$, width $0.45$; 60-digit coefficients); $\hat C_5^{ds}$
 (C5), weight $c/\hat N_5=Q_5B_5$ with poles at the zeros of the crossed $R_{\mp2}$; and the smeared
 $k=2,3$ parts $\int\psi_2^Q\hat C'_{EE}$, $\int\psi_3^Q\hat C_3$, the $k=2$ part de-shifted by the
-minimal-norm solution $X^Q$ of Eq.~\eqref{eq:abel} with $\psi_2\to\psi_2^Q$ (published on its grid and as
-a continuum weight of the same form as $\Omega^{EE}$'s).
+minimal-norm solution $X^Q$ of Eq.~\eqref{eq:abel} with $\psi_2\to\psi_2^Q$, defined, as for $\Omega^{EE}$, by its continuum
+weight of the same form (\texttt{k2/k2\_continuum\_Q\_}$\Delta_g$\texttt{.json}) times $\theta(\Lambda+100,10)$; its grid is read as
+zero beyond $\Lambda+10$.
 
 \emph{$\Omega^Q_{\rm low}$ (item 2, lower).} $\hat C_4^{ds}$ with the C4-value weight alone:
 leading-Regge heavy image $P_{-1/2}(\cosh\beta)>0$, flat image $2(|c^{++}|^2+|c^{+-}|^2)/m^8$, light
@@ -205,8 +237,10 @@ parity-odd coupling is [I]; it is not used, because positivity is quoted per blo
 
 \begin{table}[!htbp]
 \caption{\label{tab:data}Published data (directory \texttt{data/} of the Supplemental
-Material; SHA-256 prefixes in \texttt{MANIFEST.txt} and \texttt{k2/SHA256SUMS}). The continuum weights are
-the definitions; grid files are numerical realisations. The Q3$^*$ factored coefficients (the definition of $\Omega^Q_{\rm up}$'s
+Material; SHA-256 prefixes in \texttt{MANIFEST.txt}, \texttt{k2/SHA256SUMS} and \texttt{TRUNC\_SHA256SUMS}). The continuum weights are
+the definitions; grid files are numerical realisations, and the $k=2$ grids are read as zero beyond $\nu=\Lambda+10$
+(Sec.~\ref{sec:cutoff}); the \texttt{*\_trunc.txt} copies, written by \texttt{truncate\_grids.py} (v8), are that reading, and the
+published grids are unchanged. The Q3$^*$ factored coefficients (the definition of $\Omega^Q_{\rm up}$'s
 flat target) are \texttt{q3star\_factored.json}, derived from \texttt{q3\_full\_delta0.2.json} by exact
 polynomial division (Sec.~\ref{sec:defs}). The \texttt{note} field of \texttt{nf02\_psi.json} and the $\varepsilon_W$
 values inside the continuum C4 files are superseded (\texttt{README.md}, errata); the file contents are
@@ -225,6 +259,7 @@ file & content & check\\\hline
 \texttt{k2/xq\_abel\_X\_}\allowbreak\texttt{300/1000.txt} & $\Omega^Q_{\rm up}$'s $k=2$ weight $X^Q$ on the same grids & \texttt{8a0cbec1\dots}, \texttt{1c623171\dots}\\
 \texttt{k2/k2\_continuum\_}\allowbreak\texttt{D\_300/1000.json} & $\Omega^{EE}$ continuum $k=2$ weights & \texttt{74830220\dots}, \texttt{314db16a\dots}\\
 \texttt{k2/k2\_continuum\_}\allowbreak\texttt{Q\_300/1000.json} & $\Omega^Q_{\rm up}$ continuum $k=2$ weights & \texttt{7966e0a5\dots}, \texttt{70af2f70\dots}\\
+\texttt{d\_abel\_X\_300/1000\_trunc.txt}, \texttt{k2/xq\_abel\_X\_}\allowbreak\texttt{300/1000\_trunc.txt} & v8: the four $k=2$ grids cut at $\nu\le\Lambda+10$ (dropped: $|X|\le5.7\times10^{-12}$, $\sum|X|d\nu\le4\times10^{-12}$) & \texttt{2c192c5d\dots}, \texttt{a8982609\dots}, \texttt{b5576cc2\dots}, \texttt{6d4eef83\dots}\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
@@ -253,7 +288,7 @@ $f_{\rm pos}$ & Q's $k=4$ weights have no pole at $\nu=\pm3i/2$ & Q & [P] (conti
 $H_K$ & $\sum_{\mathcal O}{\rm Tr}[P_{\mathcal O}\hat C_\theta[G_{\mathcal O}]]=-\hat C_\theta[{\rm light}]$, absolutely convergent, for each cut-off piece; criteria $J_0<\tfrac32$ ($k=2,3,5$), $J_0<\tfrac52$ ($k=4$, Q's weights; $J_0<2$ for generic weights); at every finite $c_T$ (order of limits: Sec.~\ref{sec:HK}) & D, Q & [D]; order of limits [D given A2]\\
 L1 & $EE$ admissible; $[TT]$ at double zeros, contacts drop ($k=2,3$ unsubtracted); $-\hat C'_{EE,\nu}|_E=16\pi G/(\nu^2+\tfrac94)$, $\hat C_3|_E=0$; H7's value is the Regge arc at $n=k=2$ & D & [D]\\
 L2 & $|\hat g_3|^2$ light coefficient $K=K_0(1+\delta_3)$, $\delta_3=\delta K_0+$H17; $\delta K_0=-7.666\times10^{-4}$ / $-6.830\times10^{-5}$ & D & $\delta K_0$ [D\,+\,DV]; H17 [D-sketch\,+\,M]\\
-L3 & $O(t_4)$ light term $=16\pi Gc_1t_4$, $c_1$ universal (fixed by $\langle TT\rangle$, $\langle TTT\rangle$); shock ($u$-channel) and $k=3$ parts $=0$; $c_1=0$ given premise F$_2$ & D, Q & form [D given $J_0(E\times W^3)=2$ (D-sketch)]; universality [D-sketch] (ASD closure [D] with one [D-sketch] input); shock part [P]; $c_1=0$ [D-sketch given F$_2$], F$_2$ [A]; value otherwise [I], carried exactly\\
+L3 & $O(t_4)$ light term $=16\pi Gc_1t_4$, $c_1$ universal (fixed by $\langle TT\rangle$, $\langle TTT\rangle$); shock ($u$-channel) and $k=3$ parts $=0$; $c_1=0$ given premise F$_2$ & D, Q & form [D] (inputs: Mellin analytic structure [Q]; Barnes map [P\,+\,DV]; no preserved $u$-pole [P\,+\,DV]); universality [D] (ASD closure; the regular second-order ASD solution is explicit and checked exactly [DV]); shock part [P]; $c_1=0$ [D-sketch given F$_2$], F$_2$ [A]; value otherwise [I], carried exactly\\
 L4 & $\Omega_k[X]=D_{\rm LR}[X]+\mathcal A_k[X]$ on every tree term; $\mathcal A_k=0$ for Regge spin $n_X<k$; at $n_X=k$ a linear functional of the top Regge coefficient & Q & [D given C$'$\,+\,Mellin convergence]; [DV] on a Witten family, incl.\ $k=4$\\
 L5 & Lemma C$'$ (Sec.~\ref{sec:Cprime}); Lemma A: $D_{\rm LR}=0$ on tree terms with $J_0<4$ & Q & [D] (Einstein instance not evaluated)\\
 L6 & $-\mathcal A_4[R^4]=-\hat C_4^{ds}|_{R^4}=2g_4$; $\hat g_4\to0$ & Q & [D given L5, L7(a), heavy dictionary]\\
@@ -264,15 +299,16 @@ L9 & $\kappa>0$, $c_L>0$ (only if $\hat g_3\ne0$) & Q & [D-sketch\,+\,M]\\
 LS1 & light scalar: Regge spin 3; light spin 2: Regge spin 4 in the helicity-preserving sector; the crossed spin-2 pole is double-flip, annihilated by $EE$ & D, Q & flat [Q]\,+\,[D]; AdS count [D-sketch]\\
 LS2 & drop-out: light $J=0$ at $k=4,5$, light $J=2$ at $k=5$, single-trace block included & Q & [D]; toy [DV]\\
 LS3 & light $J=2$ at $k=4$: borderline arc, favourable $+12a|g_2|^2/m^4$ in the derivative piece & Q & structure [D\,+\,DV]; AdS normalisation [D-sketch]\\
-LS4 & at $k=2,3$ a light $J\le2$ state contributes its block action & D, Q & [D-sketch] (flat [P])\\
+LS4 & at $k=2,3$ the light value of a light $J\le2$ exchange is a polynomial in $\nu^2$ of degree $n-k$ (Regge data): top coefficients flat, lower ones shifted by $O(1)$ in AdS units ($J=0$: $m^2\to\mu^2/\Lambda^2$); it equals the block action given $[TT]$ double zeros & D, Q & form [D given (E$'$)]; (E$'$) (CHMRS's light-side formula for spinning $n=3,4>k$) [D-sketch]; flat signs [P]\\
 LS5 & flat signs: $\Omega^{EE}$ positive on light $J=0,2$ at every mass; $\Omega^Q_{\rm up}$ positive on light $J=2$, negative on $J=0$ below $0.4602\Lambda$ & D, Q & [P]\\
-LS6 & $\Omega^Q_{\rm up}+0.040\,\Omega^{EE}$ is positive on every light state (flat margin $0.022N$ at $m\to0$) & Q & [D-sketch]\\
+LS6 & $\Omega^Q_{\rm up}+0.040\,\Omega^{EE}$ is positive on every light scalar iff $\mu^2>-692.5$ ($300$) / $-7748.7$ ($1000$) (AdS units; flat margin $0.022N$ at $m\to0$); $\Omega^{EE}$ iff $\mu^2>-0.545\Lambda^2$; light spin 2: for every lower-coefficient shift up to $K=4.3\times10^4$ / $4.8\times10^5$ & Q & [D-sketch]: the AdS shift of $\mu^2$ is not computed (natural size $\approx21$ [M])\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
 
-\textbf{Net grades} (repeated in Sec.~\ref{sec:full}). Item (1): [D-sketch] (L3's $\nu$-independence; LS4 if light states are present); the
-H17 band is [M]. Item (2), upper end: [D-sketch] (L8's $g_5$ reading; LS rows if light states are present;
+\textbf{Net grades} (repeated in Sec.~\ref{sec:full}). Item (1): [D] if no light single trace couples to $TT$ (v8: L3 is [D]);
+otherwise [D-sketch] through (E$'$) (LS4); the H17 band, which moves the constant by $\pm0.24\%$ / $\pm0.021\%$, is
+[D-sketch\,+\,M]. Item (2), upper end: [D-sketch] (L8's $g_5$ reading; LS rows if light states are present;
 LS6 if a scalar below $0.46\Lambda$ couples), [D-sketch\,+\,M] in L9 if $\hat g_3\ne0$, [A] through L7(b) for
 $\tilde g_4=g_4$. Lower end (Sec.~\ref{sec:lower}): same, plus $c_L>0$ if $\hat g_3\ne0$, and no constant; no positivity evidence for
 $\Omega^Q_{\rm low}$ beyond leading Regge. No input is open.
@@ -287,7 +323,7 @@ certified. $k=2$ continuum weights published.
 \section{Full statement of the result}
 \label{sec:full}
 
-\textbf{Result (conditional; implication [D-sketch]).} \emph{Assume A1$'$, A2, the inputs of
+\textbf{Result (conditional; implication (1) [D] without light single traces, otherwise [D-sketch]; (2) [D-sketch]).} \emph{Assume A1$'$, A2, the inputs of
 Table~\ref{tab:inputs} (summarised as I1--I6 below), and (Pos$_\Omega$) for $\Omega^{EE}$ [item (1)] or for
 $\Omega^Q_{\rm up}$ [item (2), upper end], on heavy states and on light spin-$0,2$ states at the $k$ where they
 enter. Then, at leading order in $1/c_T$ (the $c_T\to\infty$ limit of the finite-$c_T$ inequality, end of
@@ -316,8 +352,9 @@ $<99$ / $1262$ (2b) (Sec.~\ref{sec:c1}). A possible $O(\Lambda^{-2})$ difference
 light coefficients (H17, modelled as a $\pm0.24\%$ / $\pm0.021\%$ band [M]) would make (1) a bound on a weighted
 norm.
 
-\textbf{Net grades.} Implication (1): [D-sketch], through the $\nu$-independence of the $c_1$ term and, for light
-single traces, their $k=2,3$ action; constants [DV]. Implication (2a): [D-sketch] in the $g_5$ term (I4) and the
+\textbf{Net grades.} Implication (1): [D] if no light single trace couples to $TT$ (the $c_1$ form, universality and
+$\nu$-independence are [D] since v8); with light single traces, [D-sketch] through their $k=2,3$ light value (LS4, input (E$'$));
+the H17 band [D-sketch\,+\,M]; constants [DV]. Implication (2a): [D-sketch] in the $g_5$ term (I4) and the
 light single traces; [D-sketch\,+\,M] in the sign of $\kappa$ (I6) if $\hat g_3\ne0$; [A] through $H_{\rm EFT}$(b) for
 $\tilde g_4=g_4$. (2b) adds the $0.040\,\Omega^{EE}$ repair [D-sketch] and (Pos) for $\Omega^{EE}$. No input is open.
 Positivity: not established (Sec.~\ref{sec:pos}). \emph{Dependence:} (1) uses only $\Omega^{EE}$; (2a) only
@@ -607,13 +644,18 @@ see a $\nu$-independent term at all (it is a $\delta$-function at zero impact pa
 part vanishes [P given the kernel reading]. (c) \emph{ASD closure [D].} With legs 1, 2 self-dual and 3, 4
 anti-self-dual, the whole $O(\hat g_3)$ tree ($s$-, $t$-channel $E\times W^3$ exchanges plus the quartic
 seagull) collapses at integrand level to $3\hat g_3\int\sqrt{\bar g}\,{\rm Tr}\,\Psi_1\Psi_2\Phi_{34}$ with
-$\Phi_{34}$ a free self-dual field (one input, a regular second-order solution, [D-sketch]): an energy-channel
+$\Phi_{34}$ a free self-dual field (the regular second-order ASD solution exists for all momenta and is elementary,
+$\Gamma_{ij}=P_{ij}(z)e^{iK\cdot x-(|k_3|+|k_4|)z}/z^2$ with quadratic $P_{ij}$, unique in that class, with vanishing second-order
+self-dual Weyl tensor; checked exactly at two kinematic points [DV]; the remnant is $\Phi_{34}=-b_+W_+$ with $b_+\ne0$): an energy-channel
 stress-tensor exchange
 $\langle T^+T^+T^+\rangle_{W_+}[\langle T^+T^-T^-\rangle_E-\kappa\langle T^+T^-T^-\rangle_{\rm CS}]/\langle TT\rangle$,
 with no independent seagull; its boundary relation agrees with Ref.~\cite{JJMNS} [Q\,+\,DV]. Hence $c_1$ is
-fixed by $\langle TT\rangle$ and $\langle TTT\rangle$ data alone [D-sketch, by the weakest-link rule]. The remainder is polynomial in $\nu^2$; flat
-power counting forbids $\nu^{2n}$, $n\ge2$, and the $\nu^2$ coefficient is the vanishing flat $O(\hat g_3)$ MHV
-term, so the light term is exactly $16\pi Gc_1t_4$ [D given $J_0(E\times W^3)=2$, D-sketch]. (d) \emph{Value.}
+fixed by $\langle TT\rangle$ and $\langle TTT\rangle$ data alone [D]. The remainder is polynomial in $\nu^2$: $J_0(E\times W^3)=2$
+in the preserved sector [D] (Mellin degree $\le3$, top degree the flat amplitude whose preserved part vanishes [P], no preserved
+$u$-channel pole [P\,+\,DV]; the spinning Mellin analytic structure is quoted [Q]), and a polynomial top-Regge coefficient in the
+Mellin variable $T$ is a polynomial in $\nu^2$ of the same degree, exactly, by Barnes' first lemma ($T\mapsto(A^2+\nu^2)/2A$, checked to
+$10^{-30}$) [P\,+\,DV]; flat power counting forbids $\nu^{2n}$, $n\ge2$, and the $\nu^2$ coefficient is the vanishing flat $O(\hat
+g_3)$ MHV term, so the light term is exactly $16\pi Gc_1t_4$ [D]. (d) \emph{Value.}
 Premise F$_2$ [A]: the $s$-channel $T$-family term of the $k=2$ functional factorises through light-ray one-point
 matrices, diagonal for Einstein and purely helicity-flipping at $O(t_4)$ (the $k=3$ analogue is derived). Given
 F$_2$ the $O(t_4)$ term is a dual-line flip, which $EE$ annihilates, so $c_1=0$ [D-sketch given F$_2$]. Without

@@ -16,3 +16,12 @@ q3star_factored.json  3718 bytes  sha256[:16] f7dbbb8b80876fd5   (v4: Q3* exact 
 make_q3star.py  4290 bytes  sha256[:16] 3883498056f917d7   (v4: script; reproduces the Q3* fingerprint 80e0834a...33f2)
 k2/  see k2/SHA256SUMS (full SHA-256 of the k = 2 weights)
 # v4 note: files above the q3star line are unchanged since 23 Nov (hashes valid); stale fields inside them: README.md Sec. 5.
+truncate_grids.py  5560 bytes  sha256[:16] 302b88ebed42c7ba   (v8)
+d_abel_X_300_trunc.txt  1985203 bytes  sha256[:16] 2c192c5dd4a85782   (v8)
+d_abel_X_1000_trunc.txt  3247688 bytes  sha256[:16] a8982609be99e7d3   (v8)
+k2/xq_abel_X_300_trunc.txt  1978558 bytes  sha256[:16] b5576cc2e7cf5c56   (v8)
+k2/xq_abel_X_1000_trunc.txt  3238783 bytes  sha256[:16] 6d4eef8344d2ee7b   (v8)
+TRUNC_SHA256SUMS  366 bytes  sha256[:16] 1afce90361990ec5   (v8)
+# v8 note: the k = 2 pieces are defined by the continuum weights (k2/); the stored k = 2 grids d_abel_X_*.txt and k2/xq_abel_X_*.txt
+#   are read as zero beyond nu = Lambda + 10 (README.md Sec. 4, 7); the *_trunc.txt copies (truncate_grids.py) are that reading.
+#   All files listed above the v8 lines are unchanged (hashes valid).

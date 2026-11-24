@@ -4,7 +4,9 @@ Written by `ads4/code/deshift/export_data.py` (23 Nov 2026) from the stored, fix
 for stale values (§5), the Q3\* file (§1), pointers to `k2/` and to the figure script (§6). Nothing here is new physics: it is the
 data that defines `Ω^EE` (Result D) and `Ω^Q_up` (Result Q), in plain text / JSON, plus the continuum (cut-off) de-shift weights of
 `DESHIFT_CLOSE.md`. `MANIFEST.txt` lists sizes and SHA-256 prefixes. Existing data files were **not** modified in v4 (their hashes are
-quoted in the Supplement); where a field inside a file is out of date, §5 says so.
+quoted in the Supplement); where a field inside a file is out of date, §5 says so. **v8 (24 Nov 2026): §4 and §7 — the k = 2
+pieces are *defined* by the continuum weights of `k2/`; the stored k = 2 grids are read as zero beyond ν = Λ + 10; truncated copies
+(`*_trunc.txt`, script `truncate_grids.py`) are added. No published file was changed.**
 
 Conventions: `Λ = √((Δ_g−2)(Δ_g−1))` (298.4996 / 998.4999); `p = ν/Λ`; `P(μ) := P_{−1/2+iμ}(cosh β)`; heavy images are leading-Regge
 (LR); `C[f](t) = ∫₀^∞ f cos(νt) dν`, `S[f](t) = ∫₀^∞ f sin(νt) dν`.
@@ -57,7 +59,11 @@ satisfy `W = Φ` to `4·10⁻¹⁵` for `t ≤ 30` and fail at `t ≈ 41`; the C
   * `n = (|R₋|+|R₊|)·n_q/|n_q|`, `n_q = R₋^{q²}+R₊^{q²}`.
 * **Gauge.** The min-norm gauge is `Y − ψ₂` of minimal `L²(dν)` norm (2-dimensional null space). The choice of `n`, including its phase,
   is part of the definition of the gauge.
-* **Functional.** `Re Σ_k dν X_k Ψ̂_{EE,ν_k}/(h₋+h₊)(ν_k)`.
+* **Functional (v8: what it means).** The k = 2 piece of `Ω^EE` is **defined** by the continuum weight `k2/k2_continuum_D_Δg.json`
+  times the cutoff θ(Λ+100, 10) (Supplement §S2.B–C); its smeared X-form is `Re∫dν X_θ Ψ̂_{EE,ν}/(h₋+h₊)(ν)`. These grids tabulate the
+  same minimal-norm weight (to `≤ 4·10⁻⁷` of `max ψ₂`) on `ν ≤ Λ + 10` and **must be read as zero for `ν > Λ + 10`**, so that the grid
+  form is `Re Σ_{ν_k ≤ Λ+10} dν X_k Ψ̂_{EE,ν_k}/(h₋+h₊)(ν_k)`. Reason (§7): beyond Λ + 10 the files hold only a double-precision
+  floor, not the weight. The truncated copies `d_abel_X_{300,1000}_trunc.txt` (§7) are this reading.
 * **Independent reproduction.** The weights were re-solved independently (`d_abel.py`): they agree to `≤ 1.5·10⁻⁶` (ν < 2) and
   `≤ 3·10⁻¹¹` (ν > 25) of max ψ₂, and `dk₀` to `10⁻¹⁰`.
 
@@ -75,5 +81,37 @@ The files are left byte-identical so that the hashes quoted in the Supplement an
 ## 6. Other published material
 
 * `k2/`: Result Q's k = 2 Abel weight `X^Q` and the continuum k = 2 weights of both functionals (own `README.md`, `SHA256SUMS`).
+  (v8: `k2/README.md` is left byte-identical because `k2/SHA256SUMS` lists it; its "Cutoff" bullet is correct for the continuum
+  weights, and the grids `k2/xq_abel_X_*.txt` are to be read with §7 here: zero beyond `Λ + 10`.)
 * `../fig/make_fig.py`: Fig. 1 of the Letter, computed from `nf02_psi.json` and `q3star_factored.json` only (exact term-by-term
   integrals in mpmath); it prints the headline constants (`τ₀ = 2.89126·10⁻⁸`, `2L_AdS = 92.8135` at Δ_g = 1000) as a check.
+
+## 7. The k = 2 grids beyond Λ (v8; `ads4/NU_TAIL_CHECK.md`, problem (c))
+
+* **What the grids contain beyond Λ.** The exact minimal-norm weights decay like `e^{−(π/2)(ν−Λ)}` beyond Λ (fitted rates 1.36–1.56);
+  by `ν = Λ + 10` they are at the `10⁻¹⁵` level. The stored grids, however, run to `ν = 327.68 = Λ + 29` (300) and
+  `1310.72 = Λ + 312` (1000), and beyond `≈ Λ + 10` they carry a **non-decaying double-precision floor** (`|X| ≤ 1.3·10⁻¹⁴`, median
+  `3·10⁻¹⁵` for `d_abel_X_1000`; `≤ 1·10⁻¹⁵` for `xq_abel_X_1000`).
+* **Why it matters for the definition, not for any number.** Above a heavy state's mass the exact per-ν image grows exponentially
+  (scalar proxy: `ln Γ ≈ m G(ν/m)`, `G′ ≈ 0.13–0.19` at `ν = m`, `Γ(Λ+100) ≈ 1.6·10¹⁶` for the J = 0 gap state at Δ_g = 1000). Read
+  literally with θ(Λ+100, 10), the floor of the Δ_g = 1000 grids times that growth would add a tail of the size of the action, or larger,
+  on near-gap states with `m − Λ ≲ 60–100` (≈ 1.2× (D) / 0.7× (Q) at J = 0; up to 650× / 1300× at J = 30), with a sign set by round-off.
+  No published number is affected: every per-state evaluation uses the ψ-form on `ν ≤ Λ ≤ m`, the leading-Regge images are bounded in ν,
+  and the light-side constants do not see the heavy tail. The Δ_g = 300 grids end at Λ + 29, before any harm.
+* **The definition (Supplement v8).** The k = 2 pieces of `Ω^EE` and `Ω^Q_up` are defined by the continuum weights
+  `k2/k2_continuum_{D,Q}_Δg.json` times θ(Λ+100, 10). These decay super-Gaussianly beyond `Λ + 30`, faster than any heavy image grows;
+  the tail beyond a state's mass is `≤ 4.4·10⁻⁷` (D) / `1.6·10⁻⁴` (Q) of its own (scalar-proxy) action and `≤ 2.3·10⁻⁵` of `∫|ψ|dν` on
+  every state tested. The grids are their tabulation on `ν ≤ Λ + 10` and are read as **zero beyond `Λ + 10`**. (Equivalently, the
+  cutoff `(Λ+60, 6)`, which has the same leakage `½erfc(10)` at Λ, removes the floor; not used here.)
+* **Truncated copies (new files; the published grids are unchanged).** `python3 truncate_grids.py` (standard library only, < 1 s) writes
+
+  | file | rows kept (`ν_k ≤ Λ + 10`) / dropped | max `|X|` dropped | dropped `Σ|X|dν` (relative to kept) |
+  |---|---|---|---|
+  | `d_abel_X_300_trunc.txt` | 15425 / 959 | `6.8·10⁻¹⁴` | `2.4·10⁻¹³` (`8·10⁻¹⁷`) |
+  | `d_abel_X_1000_trunc.txt` | 25212 / 7556 | `1.3·10⁻¹⁴` | `1.0·10⁻¹²` (`1·10⁻¹⁶`) |
+  | `k2/xq_abel_X_300_trunc.txt` | 15425 / 959 | `5.7·10⁻¹²` | `3.8·10⁻¹²` (`1·10⁻¹⁴`) |
+  | `k2/xq_abel_X_1000_trunc.txt` | 25212 / 7556 | `1.2·10⁻¹³` | `1.5·10⁻¹³` (`2·10⁻¹⁶`) |
+
+  Each copy keeps the original header plus one provenance line (source file and its full SHA-256). On `(Λ, Λ + 10]` the kept rows agree
+  with the continuum tables to `≤ 2.6·10⁻¹⁰` absolute. Full SHA-256 of the copies: `TRUNC_SHA256SUMS`.
+
