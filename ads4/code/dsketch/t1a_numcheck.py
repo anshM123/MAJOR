@@ -14,7 +14,7 @@ from asd_alg import Alg, z, N, christoffel, riemann_up, ricci, inverse_conformal
 tag = sys.argv[1]
 kk = [int(v) for v in tag.split('_')]; k3, k4 = kk[:3], kk[3:]
 Kv = [k3[i] + k4[i] for i in range(3)]
-log_ = open(os.path.join(HERE, 'cache', 't1a_solve2_run2.log' if tag != '0_0_3_4_0_0' else f't1a_solve2_{tag}.txt')).read()
+log_ = open(os.path.join(HERE, 'cache', f't1a_solve2_{tag}.txt')).read()
 GamP = sp.zeros(4, 4)
 for m in re.finditer(r'Gam_p\[(\d)(\d)\] = (.*) \* exp\(-(\d+) z\)', log_):
     i, j = int(m.group(1)), int(m.group(2))

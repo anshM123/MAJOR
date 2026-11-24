@@ -2,11 +2,11 @@
 
 *24 Nov 2026, research agent. Unreviewed, not committed. No existing file was edited; `AG_PROOF.md` and `code/agproof/` were not
 touched. New code: `ads4/code/dsketch/` (`asd_alg.py`, `t1a_einstein2.py`, `t1a_solve2.py`, `t1a_lemmaM.py`, `t1a_boundary.py`,
-`t1b_barnes.py`, `t2_block_growth.py`, `t2_tolerance.py`); outputs in `ads4/code/dsketch/cache/` (git-ignored by its own
+`t1a_numcheck.py`, `t1b_barnes.py`, `t2_block_growth.py`, `t2_tolerance.py`); outputs in `ads4/code/dsketch/cache/` (git-ignored by its own
 `.gitignore`). Read-only imports: `exactskel/exactmom.py`, `uniform/skel.py`; data read: `prl/data/nf02_psi.json`,
 `prl/data/q3_full_delta0.2.json`. Literature: CHMRS 2106.10274 (LaTeX source: eqs. `BMellinDefinition`, `CfromBMellin`, `Bkt action`,
 `eftformula`, `moregeneralformula`, §`sec_light`); abstracts checked for GPT 1410.4185, Sleight–Taronna 1804.09334, CGP 1209.4355.
-Compute ≈ 0.6 CPU-h, ≤ 2 processes, 1 thread, `ulimit -v 3000000`.*
+Compute ≈ 2 CPU-h, ≤ 2 processes, 1 thread, `ulimit -v 3000000`.*
 
 Grades as in UNIFIED_THEOREM_v3 §0: [P] > [certified] > [DV] > [D] > [D-sketch] > [NE±] > [NE] > [NE + M] > [M] > [A] > [I]; [Q] quoted.
 
@@ -99,7 +99,7 @@ second-order SD part to be background-SD, so "W₊^{(ab)} = 0" is the frame-inde
 ### 1.5 The near-boundary premise [DV] (`t1a_boundary.py`)
 C1V §3.1 used that `I_± = ∫√g TrW_±³` needs no boundary counterterm because the orthonormal-frame Weyl tensor is `O(z³)` [D-sketch].
 Orthonormal components are `z²W̃_μνρσ[g̃]`. On the explicit configuration every component of `W̃` vanishes at `z = 0` at orders `a`, `b`,
-`ab`, and has a non-zero `O(z)` term (72/72/178 components; 64/64/144 with `O(z)`): `W = O(z³)`, sharp. (General statement: Fefferman–
+`ab`, and has a non-zero `O(z)` term (72/72/178 components; 64/64/144 with `O(z)`); the same at the second point (162/162/186; 144/144/144): `W = O(z³)`, sharp. (General statement: Fefferman–
 Graham, `W ~ z³(Cotton[g₀], T)`, [D].)
 
 ### 1.6 Consequence for L3d / universality

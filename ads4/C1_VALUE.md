@@ -13,6 +13,19 @@ other two are not.*
 
 ---
 
+> **Update (DSKETCH_UP.md, unreviewed):**
+> * **c₁: universality and ν-independence → [D].**
+>   * The regular second-order ASD solution is explicit [DV] (exact sympy at two kinematic points), and exists for all momenta [D].
+>   * The remnant is Φ₃₄ = −b₊W₊ with b₊ ≠ 0, which agrees with the JJ21 check.
+>   * J₀(E×W³) = 2 and polynomiality are [D]; the Mellin → ν map T ↦ (A²+ν²)/2A is exact by Barnes' first lemma [P+DV].
+>   * So "(Pos) ⇒ (1)" is [D] when no light single trace couples to TT.
+> * **Light single traces: NEGATIVE finding.** In CHMRS's exact Mellin representation, the per-ν action of a single light block grows like e^{cν} (c → π/2) above the block's mass. **The leading-Regge/hybrid "image" of a light block is not its AdS image: the UT3 §5.5 row "LR form = true AdS image" is refuted as stated.**
+>   * Its light value is the arc at infinity: a polynomial in ν² of degree n − k, [D given (E′)]. (E′) is CHMRS's light-side formula carried to the spinning k = 2, 3 functionals, and is [D-sketch].
+>   * For J = 0 the AdS effect is m² → μ² = (Δ_L−2)(Δ_L−1) + δ.
+>   * Ω^EE on light states is robust: J = 0 positive iff μ² > −0.545Λ².
+>   * LS6 (ε = 0.040) is positive iff μ² > −692.5 / −7748.7, against a natural |δ| ≈ 21 [M]. ε\* is expected to fail for Δ_L ≲ 6, so 0.040 is necessary.
+> * **Caution (unchecked):** weights reaching ν above a near-gap state's mass (e.g. de-shift tails to Λ+100) may meet the same exponential growth. This needs a re-check.
+
 ## 0. Summary
 
 | item | result | grade |
