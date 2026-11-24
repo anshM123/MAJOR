@@ -135,7 +135,13 @@ def _apply_refbad(J, g):
     out = {}
     for D, r in g.items():
         mine = D > 1990 or (J % 2 and J >= 17 and abs(D - (1000 + J)) < 1e-6)
-        xb = refbad(J, D) if mine else set()
+        xb = set(refbad(J, D)) if mine else set()
+        if mine:            # a node with a non-finite entry at this Laplace order (K = 1 at a reference zero, row 5012) is dropped too
+            n = len(r['xs'])
+            for k, v in r.items():
+                if isinstance(v, np.ndarray) and v.shape[:1] == (n,) and np.issubdtype(v.dtype, np.number):
+                    bad = ~np.isfinite(v.reshape(n, -1)).all(1)
+                    xb |= {round(float(x), 6) for x in np.asarray(r['xs'])[bad]}
         if xb:
             DROPLOG[(J, D)] = sorted(x for x in xb if round(x, 6) in {round(float(v), 6) for v in r['xs']})
         out[D] = _drop(r, xb) if xb else r

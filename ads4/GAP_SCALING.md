@@ -47,6 +47,20 @@ Notation as in the Supplement: `Λ = √((Δ_g−2)(Δ_g−1))`, `u = Λ²/m²`,
 >   * J ≥ 12: the sign-free form fails already at 1000.
 > * **Main missing step:** explicit Laplace remainder constants C₃(ξ, J). They need interval sup-norm bounds of the spinning amplitudes on a fixed complex polydisc (checked once at Δ₀, valid for all Δ ≥ Δ₀), which needs a pointwise complex evaluator the project lacks.
 
+> **Update (GAP_NEARGAP.md, unreviewed): near-gap states at Δ_g = 2000 (and partly 5000), on own-mass K₂ rows. Nothing came out negative. Chart A (same J, same m/Λ) scaling holds exactly for J ≤ 16, and leverages grow 4–9× at 2000.**
+> * **[NE±] at 2000:**
+>   * light J = 0, 2: L = 40612 / 5712.
+>   * J = 4: L = 106 (twist edge 103).
+>   * J = 5 (binding): +0.2004, L = 320–334; at 5000, L = 1922–2066.
+>   * J = 6: L = 22.
+>   * J = 7: L = 27.5.
+>   * **J = 8 sign-free: L = 5.2** (was λ-level only at 1000).
+>   * J = 12, 16: λ-level L = 8.0 / 4.4 (J = 12 at 5000: sign-free 6.4).
+> * **[NE+M] at the 2000 twist edges for J = 21, 27, 29:** λ-level L = 0.4–1.1. This is an artefact: the Δ_ref = 2·10⁴ reference's partial-wave zero falls inside the 2000 rows for J ≥ 16. Use Δ_ref ≥ 5·10⁴ at 2000 and ≳ 1.3·10⁵ at 5000.
+> * **H_mono-A confirmed numerically:** Γ(x) is Λ-independent at fixed (J, x) to 30 c₂ (J ≤ 6) and ≤ 330 c₂ (J ≤ 29) from 1000 to 2000, and 9 / 248 c₂ (J = 5 / 12) from 1000 to 5000. Budget terms scale by 0.25 ± 0.01 at 2000 and 0.040–0.043 at 5000, as Λ⁻² predicts.
+> * **Batch 4** (`ext/jobs_batch4.txt`): 345 n1 jobs (247 main for J = 12, 16, 21, 27, 29 at 2000 + J; 98 optional seam jobs). About 1–2 h on 16 workers; pilot validated.
+> * **Still open:** seam spins J = 9–11, 13–15, 17–20, 22–26, 28, 30–32; the parity-odd OO states J = 4–10 at 2000.
+
 ## 0. Verdict: (b) partially viable
 
 **In one sentence.** Every *certified or proved* layer of the Δ_g = 1000 positivity evidence carries over to every Δ_g ≥ 1000, by

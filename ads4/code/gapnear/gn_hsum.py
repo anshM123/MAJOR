@@ -7,7 +7,7 @@ import os, glob, json
 import numpy as np
 C = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cache')
 H = {}
-for fn in sorted(glob.glob(os.path.join(C, 'gn_hmono_*.json'))):
+for fn in sorted(glob.glob(os.path.join(C, 'gn_hmono_*.json')), key=os.path.getmtime):   # newest last
     H.update(json.load(open(fn)))
 print(f"{'J':>3} {'rows':>24} | {'max|G_hi|':>9} {'max|G_hi-G_1000|':>16} {'(x<=0.8)':>9} {'max|G_hi-G_1600|':>16} | {'step_1000':>9} {'step_hi':>8}")
 for J in sorted(H, key=int):

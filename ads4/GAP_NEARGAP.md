@@ -1,8 +1,10 @@
 # GAP_NEARGAP: the error-budgeted near-gap states of Ω^EE at Δ_g = 2000 (and 5000) on own-mass K₂ rows; chart-A test; batch 4
 
-*24 Nov 2026, gap-near agent. Unreviewed, not committed by this agent. GAP_SCALING.md §6.1, plan item 2 (and the preparation of item 3). No
+*24 Nov 2026, gap-near agent. Unreviewed, not committed by this agent (other agents' commits, e.g. e5e2325, swept in intermediate snapshots
+of this file and of `code/gapnear/`; the working tree holds the final versions). GAP_SCALING.md §6.1, plan item 2 (and the preparation of item 3). No
 existing file was edited; the one new file outside `code/gapnear/` is `ext/jobs_batch4.txt`. `GAP_LARGESPIN.md` / `code/gaplarge/` were
 not touched.*
+*One write escaped the guard: Python's bytecode cache `code/gapnear/__pycache__/` (from one `python3 -c "import gn_batch4"`); it was deleted.*
 * *New code:* `ads4/code/gapnear/`.
   * `gn_guard.py`: process-local write guard (every write outside `gapnear/cache/` raises; it registers itself as `ng_guard`, `hs_guard`,
     `sn_guard`, `ef_guard`).
@@ -17,7 +19,7 @@ not touched.*
 * *Read-only imports:* `neargap2/` (`ng_chain`, `ng_bind`), `spinfunc/` (`w1_rows`, `p3_odd_action`, `p2_shadow_odd`, `l9_points`,
   `l5_shadow_matrix`, `w0_ee_common`, `ee1000_common` → `w2_chain`, `q3_analysis`, `p4_odd_analysis`), `ext/point.py` → `hc_points`.
   Read-only data: the K₂ rows of `spinfunc/cache`, `neargap2/cache`, `gapscale/cache/rows`, and `gapscale/cache/weights_{2000,5000}.npz`.
-* *Compute:* ≈ 7.8 CPU-h (two lanes, 04:28–≈08:00), `ulimit -v 3000000`, one thread, no bytecode written.
+* *Compute:* ≈ 6.6 CPU-h (two lanes: 04:28–07:56 and 04:28–07:31, plus ≈ 0.1 h of analyses with one lane SIGSTOPped), `ulimit -v 3000000`, one thread, no bytecode written.
 
 Grades: **[P]**, **[certified]**, **[D]**, **[DV]**, **[NE±]** (explicit error budget, every model input with a stated safety factor,
 conclusion surviving it), **[NE]**, **[NE + M]**, **[M]**, **[I]**. `L = value / budget`. "Sign-free" and "λ-level" budgets as NEARGAP2
@@ -41,7 +43,7 @@ digit, §1.3), which is the like-for-like reference for chart A.
 | 4, 1.00200 (2000 twist edge) | — (seam) | — | **+0.2021 / 103** (853) | — | **[NE±]** |
 | 4, 1.00400 (1000 twist edge) / 1.01 / 1.02 | +0.2041 / 22 (λ 80) [NE±] | +0.2041 / 21.9 (79.9); 23.2; 25.4 | +0.2041 / **105.5** (925); 112; 123 | — | [NE±] |
 | 5, 1.00250 (2000 twist edge) | — (seam) | — | **+0.2004 / 320** (565) (GAP_SCALING) | — | **[NE±]** |
-| 5, 1.00499 / 1.01 / 1.02 / 1.05 | +0.2009 / 78 (λ 130) [NE±] | +0.2009 / 77.7 (130); 81; 85; 89 | +0.2009 / **334** (608); 352; 370; 394 | PENDING5000 | [NE±] |
+| 5, 1.00499 / 1.01 / 1.02 / 1.05 | +0.2009 / 78 (λ 130) [NE±] | +0.2009 / 77.7 (130); 81; 85; 89 | +0.2009 / **334** (608); 352; 370; 394 | +0.2009 / **2066** (3684); 2170; 2277; 2420 | [NE±] |
 | 6, 1.00300 (2000 twist edge) | — (seam) | — | **+0.2144 / 20.1** (236) | — | **[NE±]** |
 | 6, 1.00599 / 1.01 / 1.02 | +0.2295 / 5.0 (λ 28) [NE±] | +0.2295 / 5.0 (27.8); 5.6; 7.3 | +0.2295 / **22.0** (279); 24.7; 32.5 | — | [NE±] |
 | 7, 1.00350 (2000 twist edge) | — (seam) | — | **+0.2298 / 26.0** (93) | — | **[NE±]** |
@@ -49,35 +51,42 @@ digit, §1.3), which is the like-for-like reference for chart A.
 | 8, 1.00399 (2000 twist edge) | — (seam) | — | **+0.2849 / 3.9** (19.3) | — | **[NE±]** (sign-free) |
 | 8, 1.00798 / 1.02 / 1.05 | +0.4297 / 1.2 (λ 4.6) [NE±, λ-level only] | +0.4297 / 1.2 (4.6); 1.1 (4.3); 1.8 (8.4) | +0.4292 / **5.2** (24.1); 4.5 (22.4); 7.9 (51) | — | **[NE±] sign-free** (was λ-level only) |
 | 12, 1.00599 (2000 twist edge) | — (seam) | — | **+0.4094 / 0.7 (λ 5.4)** | — | **[NE±] λ-level** |
-| 12, 1.01194 / 1.02 / 1.05 | +0.8528 / 7.4 [NE±] (direct row) | +0.8497 / 0.3 (1.6); 0.3 (2.2); 0.4 (3.1) | +0.8496 / 1.1 (**8.0**); 1.3 (11.6); 1.6 (18.2) | PENDING5012 | [NE±] λ-level (K₂ alone; 1000 needed a direct row) |
+| 12, 1.01194 / 1.02 / 1.05 | +0.8528 / 7.4 [NE±] (direct row) | +0.8497 / 0.3 (1.6); 0.3 (2.2); 0.4 (3.1) | +0.8496 / 1.1 (**8.0**); 1.3 (11.6); 1.6 (18.2) | +0.8482 / **6.4** (47); 7.8 (61); 9.5 (120) | [NE±] λ-level (K₂ alone; 1000 needed a direct row) |
 | 16, 1.00797 (2000 twist edge) | — (seam) | — | **+0.9993 / 0.4 (λ 3.7)** | — | **[NE±] λ-level** |
 | 16, 1.01589 / 1.02 / 1.03 / 1.05 | +0.9402 / 4.4 [NE±] (direct row) | +0.9342 / 0.1 (1.0); 0.1 (1.0); 0.1 (1.1); 0.1 (1.3) | +0.9422 / 0.4 (**4.4**); 0.4 (4.6); 0.5 (5.1); 0.6 (6.4) | — | [NE±] λ-level |
 | 21, 1.01045 (2000 twist edge) | — (seam) | — | **+1.0043 / 0.1 (λ 0.9)** | — | **[NE + M]** (calibrated L 3.0) |
 | 21, 1.02080 / 1.03 / 1.05 / 1.075 / 1.10 | +0.998 ± 0.020 / 1.20 [NE±] (direct bulk) | +0.967 / 0.07 (0.17); … (0.24–0.75) | +1.0047 / 0.2 (**1.1**); 0.2 (1.2); 0.2 (1.4); 0.3 (1.7); 0.3 (2.0) | — | [NE±] λ-level, thin (L 1.1–2.0) |
 | 27, 1.01342 (2000 twist edge) | — (seam) | — | **+1.0121 / 0.0 (λ 0.4)** | — | **[NE + M]** (calibrated L 0.7) |
 | 27, 1.02667 / 1.03 / 1.04 / 1.05 / 1.075 / 1.10 | +0.976 ± 0.019 / 1.64 [NE±] (direct bulk) | +0.996 / 0.02 (0.09); … (0.10–0.41) | +1.0305 / 0.1 (**0.6**); 0.7; 0.8; 1.0; 1.2; 1.3 | — | [NE + M] to 1.05Λ; [NE±] λ-level at 1.075–1.10Λ (thin) |
-| 29, 2000 twist edge / 1.02862 / 1.04–1.10 | +0.972 ± 0.018 / 1.24 signed (×3: 0.94) [NE±, thin] | +0.912 / 0.01 (0.05) (x = 0.8 reference-zero node dropped) | PENDING29 | — | PENDING29G |
+| 29, 1.01440 (2000 twist edge) | — (seam) | — | **+0.9430 / 0.0 (λ 0.6)** | — | **[NE + M]** (calibrated L 1.5) |
+| 29, 1.02862 / 1.04 / 1.05 / 1.06 / 1.075 / 1.10 | +0.972 ± 0.018 / 1.24 signed (×3: 0.94) [NE±, thin] | +0.912 / 0.01 (0.05) (x = 0.8 reference-zero node dropped) | +1.0252 / 0.0 (**0.8**); 1.0; 1.0; 1.1; 1.2; 1.3 | — | [NE + M] to 1.05Λ; [NE±] λ-level at 1.06–1.10Λ (thin) |
+| 5, 1.00100 / 1.00250 (5000 twist edge / 2000 twist edge) | — | — | — / +0.2004 / 320 | **+0.2002 / 1922** (3272); +0.2004 / 1977 (3426) | **[NE±]** at 5000 |
+| 12, 1.00240 / 1.00599 (5000 / 2000 twist edges) | — | — | — / +0.4094 / 0.7 (5.4) | **+0.2856 / 3.4** (25); +0.4086 / 4.4 (31) | **[NE±] sign-free** at 5000 |
 
 (Masses other than the twist edges at 1000 also have graded values: e.g. J = 12 at 1.02 / 1.05Λ L = 7.5 / 3.6, J = 16 at
 1.02–1.05Λ L = 3.7 / 2.6 / 1.7, J = 21 at 1.03–1.10Λ L = 1.7–6.2, J = 27 at 1.03–1.10Λ L = 1.93–3.21, J = 29 at 1.04–1.10Λ L = 2.27–5.86;
 SMALLNU_WINDOW, EXT_FOLD.)
 
 **Verdict.**
-1. **No state is negative at Δ_g = 2000 (or 5000).** The lowest value is the binding state, `+0.2004` at its 2000 twist edge. The lowest
-   at J ≥ 8 is J = 12 at its 2000 twist edge, `+0.409` (a dip of the hybrid itself, `+0.409`, not a correction; λ-level `L = 5.4`).
+1. **No state is negative at Δ_g = 2000 (or 5000).** The lowest value is the binding state, `+0.2004` at its 2000 twist edge (`+0.2002` at
+   5000). The lowest at J ≥ 8 are J = 8 at its 2000 twist edge, `+0.285` (`L = 3.9`), and J = 12 at its 5000 / 2000 twist edges,
+   `+0.286` / `+0.409` (`L = 3.4` / λ-level 5.4) — dips of the hybrid itself (`+0.285`, `+0.286`, `+0.409`), not of the corrections.
 2. **J ≤ 8 and the light states: [NE±] at 2000 with ×4–9 larger leverage than at 1000**, on K₂ alone (sign-free `L = 3.9 … 4·10⁴`).
    J = 8 is now sign-free [NE±] (`L = 3.9–7.9`; it was λ-level only at 1000). J = 7 needs no direct row any more (`L = 26–53` on its K₂ row,
    against 4.3 / 6.7 at 1000).
-3. **J = 12, 16: [NE±] on the λ-level budget from K₂ alone** (`L = 4.4–18`), as J = 8 was at 1000; sign-free they do not close
+3. **J = 12, 16: [NE±] on the λ-level budget from K₂ alone** (`L = 3.7–18`), as J = 8 was at 1000; sign-free they do not close
    (`L = 0.4–1.6`). At 1000 they needed a direct row for any budget. The direct rows of batch 4 would make them sign-free [NE±].
-4. **J = 21, 27 (and 29): K₂ alone does not close at the twist edges** (λ-level `L = 0.4–1.1`), as at 1000; these stay **[NE + M]** until
+4. **J = 21, 27, 29: K₂ alone does not close at the twist edges** (λ-level `L = 0.4–1.1`), as at 1000; these stay **[NE + M]** until
    the batch-4 direct rows are folded in (at 1000 they were [NE±] only through direct rows). J = 21 at ≥ 1.02Λ and J = 27 at ≥ 1.075Λ
-   close thinly on λ-level (`L = 1.1–2.0`).
+   and J = 29 at ≥ 1.06Λ close thinly on λ-level (`L = 1.1–2.0`). Values: `+0.94 … +1.03`, all above the hybrid.
+   **At 5000** (rows J = 5, 12 only): the binding state has `L = 1922–2420` and J = 12 is sign-free [NE±] from K₂ alone (`L = 3.4–9.5`),
+   with every budget term ×0.040–0.043 of 1000 (expected 0.0399).
 5. **Chart A holds on every budget term for J ≤ 16, exactly**: `E_trunc`, the λ-level K₂ step and `E_edge` scale by `0.25 ± 0.01`
    (`(Λ₁₀₀₀/Λ₂₀₀₀)² = 0.2496`), `E_low` by `0.065` (≈ Λ⁻⁴). **It fails for J = 21, 27 (×0.43–0.70)** — a K₁-order artefact of the
    heavy reference, not a physics trend: the reference's leading partial wave has its first zero *inside* every 2000 row with
    J ≥ 16 (x₀ = 0.72 / 0.56 / 0.44 / 0.41 at J = 16 / 21 / 27 / 29), and the K = 1 ratio degrades around it (§2.4). The K₂ values Γ(x)
-   themselves satisfy H_mono-A to `≤ 30 c₂` (J ≤ 6), `≤ 110` (J = 8, 12), `≤ 170 / 300 / 330` (J = 21 / 27 / 16, x ≤ 0.8).
+   themselves satisfy H_mono-A to `≤ 30 c₂` (J ≤ 6), `≤ 110` (J = 8, 12), `≤ 170 / 300 / 310 / 330` (J = 21 / 27 / 29 / 16, x ≤ 0.8);
+   1000 → 5000: `≤ 9 c₂` (J = 5), `≤ 250 c₂` (J = 12, reference zero at x₀ = 0.38 inside the 5012 row).
 6. **The seam** (2000 states between the 2000 and 1000 twist edges) is closed by direct computation for every J of the set (the 2000
    twist edges in the table). The other seam spins (J = 9–11, 13–15, 17–20, 22–26, 28, 30–32) need rows; §5 lists them, and batch 4 carries
    an optional seam group for J = 20, 23.
@@ -87,17 +96,19 @@ SMALLNU_WINDOW, EXT_FOLD.)
 
 **Negative findings (reported prominently).**
 * **N1. The Δ_ref = 2·10⁴ reference is too close at Δ_g = 2000 for J ≥ 16.** Its leading partial wave vanishes at
-  `x₀ = 2.405…·m_ref/((2J+1) m_row)`, inside the row for J ≥ 16 at 2000 (J ≥ 5 at 5000: x₀ = 0.874 on the 5005 row). The K₂ nodes nearest
+  `x₀ = 2.405…·m_ref/((2J+1) m_row)`, inside the row for J ≥ 16 at 2000 and for J ≥ 6 at 5000 (J = 12: x₀ = 0.383 on the 5012 row; J = 5: 1.26, outside). The K₂ nodes nearest
   x₀ are flagged by HIGHSPIN's reference-excess rule (`refbad`, applied here) or removed by the even chain's Hampel filter (J = 16: x = 0.725),
   and the K = 1 truncation of the ratio is visibly worse over a band around x₀ (§2.4). Consequence: at J = 21, 27 the K₂ step — the
   protocol's truncation estimate — *does not shrink* like Λ⁻², and the K₂-only budgets at 2000 are pessimistic by a factor ≈ 2.
-  Remedy for any further 2000 / 5000 rows: `Δ_ref ≥ 5·10⁴` (x₀ > 1 for J ≤ 29 at 2000); it needs the module constant `DREF` of
+  Remedy for any further rows: `Δ_ref ≥ 5·10⁴` at 2000 (x₀ = 1.81 / 1.41 / 1.09 / 1.01 at J = 16 / 21 / 27 / 29), `≳ 1.3·10⁵` at 5000; it needs the module constant `DREF` of
   `p4_odd_analysis` / `l9_analysis` / `hc_points` made a parameter. **Batch 4 keeps Δ_ref = 2·10⁴** (the direct rows divide by the
   reference without expanding it; only the node nearest x₀ is unusable, and two flanking nodes are added).
 * **N2. The δ = λ_K2 − λ_hyb test of chart A is not decisive beyond J = 8**: at J = 12–27 the beyond-hybrid shift of the K₂ chain is
   smaller than its own K₁ → K₂ step at both gaps (e.g. J = 16: `δ = −4.6·10⁻³ → +3.3·10⁻³` with steps `0.16 → 0.05`), so its "ratio" is
   noise. Chart A is tested on the budget terms and on Γ(x), not on δ, for J ≥ 12.
-* **N3.** J = 21, 27 (and J = 29) twist edges are **not** error-bounded at 2000 by this note: K₂ alone does not close, as at 1000.
+* **N3.** The J = 21, 27, 29 twist edges are **not** error-bounded at 2000 by this note: K₂ alone does not close, as at 1000.
+* **N4.** One K₂ node of the 5012 row has a non-finite K = 1 entry (x = 0.9); `gn_bind` drops non-finite nodes of the new rows (logged in
+  `cache/gn_bind_J12k.json`). This is the only node removed on any 2000 / 5000 row.
 
 ---
 
@@ -140,7 +151,7 @@ As NEARGAP2 / HIGHSPIN: [NE±] if the sign-free budget closes, "[NE±] λ-level"
 
 ### 2.1 J ≤ 8 and the light states
 All close sign-free with large margins (table). Per state the change from 1000 is a pure scaling of the budget (§3); the values move by
-`≤ 5·10⁻⁴` at fixed m/Λ (J = 8: `+0.42973 → +0.42921`). At the 2000 twist edges (the seam, §5) every state is [NE±]: J = 4 / 5 / 6 / 7 / 8
+`≤ 6·10⁻⁴` at fixed m/Λ (J = 8: `+0.42973 → +0.42921`). At the 2000 twist edges (the seam, §5) every state is [NE±]: J = 4 / 5 / 6 / 7 / 8
 `L = 103 / 320 / 20 / 26 / 3.9`. Certified-floor route at the 2000 twist edges (`(N_f/5 − Lemma C)/N_s`): `+0.19993 … +0.19999` (J = 4–7).
 
 ### 2.2 J = 12, 16
@@ -157,9 +168,13 @@ All close sign-free with large margins (table). Per state the change from 1000 i
 * J = 27 (row 2027, `J²/m = 0.36`): twist edge of 1000 `+1.0305`, `L = 0.6` (λ-level `0.97 + E_edge 0.52`); 1.03–1.10Λ `L = 0.7–1.3`;
   2000 twist edge `+1.0121`, `L = 0.4` (`E_edge = 1.22`: the last four nodes reach `|Γ| ≈ 1.1·10⁴ c₂`, so `G_edge = 1.1·10⁵`). Calibrated
   `L = 0.7–11`.
-* J = 29: PENDING29TEXT
+* J = 29 (row 2029, `J²/m = 0.41`): twist edge of 1000 `+1.0252` (hybrid `+1.0000`, published-row model `+0.978`), λ-level budget
+  `1.25` (`E_trunc^λ 0.94`, `E_edge 0.22`, `E_low 0.06`), `L = 0.8`; 1.04 / 1.05 / 1.06 / 1.075 / 1.10Λ `L = 1.0 / 1.0 / 1.1 / 1.2 / 1.3`;
+  2000 twist edge `+0.9430` (hybrid `+0.9199`), `L = 0.6`. Calibrated `L = 1.5–11`. No node flagged by `refbad` (x₀ = 0.406 lies between
+  the nodes 0.4 and 0.425 … the excess stays below 0.1); the K₂ step is inflated as at J = 21, 27 (C3H renormalisation `c = +12942` vs
+  `−4319 c₂` on 1029).
 * Compared with the published-row model (the 1000 + J row held): the own row moves the states by `+0.013` (J = 21) / `+0.031` (J = 27) at
-  the 1000 twist-edge mass — favourable, as every direct-vs-K₂ shift at 1000 was.
+  the 1000 twist-edge mass, `+0.047` (J = 29) — favourable, as every direct-vs-K₂ shift at 1000 was.
 
 ### 2.4 Why the K₂ step does not shrink at J ≥ 21 (`gn_refdiag.py`, `gn_stepnorm.py`)
 * The raw K = 2 term of the ratio (`a₂ + a₁e₂ + a₀e₄`, c₂ units) is the same on the 1021 and 2021 rows node by node (e.g. EE x = 0.4:
@@ -191,12 +206,14 @@ small-ν window, whose weight per c₂ falls as Λ⁻⁴)
 | 16 | 0.247–0.251 | 0.28–0.31 | 0.065 | 0.280 | not resolved (N2) | 0.1 → 0.4 (1.0 → 4.4) |
 | 21 | 0.61–0.70 | 0.48–0.64 | 0.065 | (1000 row ends at 0.8) | not resolved | 0.07 → 0.2 (0.17 → 1.1) |
 | 27 | 0.43–0.49 | 0.43–0.50 | 0.065 | — | not resolved | 0.02 → 0.1 (0.09 → 0.6) |
-| 29 | PENDING29CA | | | | | |
+| 29 | 0.47–0.49 | 0.38–0.43 | 0.059–0.068 | (1000 row ends at 0.775) | not resolved | 0.01 → 0.0 (0.05 → 0.8) |
+| 5 at **5000** | 0.042 | 0.042 | 0.010 (window to ν = 125) | 0.040 | 0.010 | 78 → 2066 (130 → 3684) |
+| 12 at **5000** | 0.041 | 0.030–0.039 | 0.010 | 0.043–0.055 | not resolved | 0.3 → 6.4 (1.6 → 47) |
 
-**Verdict on chart A.** For J ≤ 16 every budget term scales exactly as predicted: the c₂-type terms by 0.25 (to ±0.01; J = 16's step
+**Verdict on chart A.** For J ≤ 16 every budget term scales exactly as predicted (at 5000: `0.040–0.043` against `0.0399`, J = 5, 12): the c₂-type terms by 0.25 (to ±0.01; J = 16's step
 0.28–0.31 shows the next O(J²/m) term), the small-ν window by 0.065 ≈ Λ⁻⁴, and where δ is resolved (J ≤ 8) δ by 0.19–0.29. Leverages
-therefore grow ×4–9. **[NE] for chart A at J ≤ 16, on the graviton, Δ_g = 1000 → 2000.** For J = 21, 27 the K₂ budget terms scale only
-by 0.43–0.70 (N1, §2.4): the protocol's own error estimate violates chart A through the reference, while the quantity it bounds (Γ)
+therefore grow ×4–9. **[NE] for chart A at J ≤ 16, on the graviton, Δ_g = 1000 → 2000.** For J = 21, 27, 29 the K₂ budget terms scale only
+by 0.38–0.70 (N1, §2.4): the protocol's own error estimate violates chart A through the reference, while the quantity it bounds (Γ)
 satisfies it (§3.2). Chart A for the *values* at J ≥ 21 awaits the direct rows (batch 4).
 
 ### 3.2 H_mono-A on the rows: Γ(x) in c₂ at fixed (J, x), K₂ (`cache/gn_hmono_*.txt`)
@@ -213,7 +230,9 @@ satisfies it (§3.2). Chart A for the *values* at J ≥ 21 awaits the direct row
 | 16 | 1016, 1600, 2016 | 1998 | 328 (1931 incl. x = 0.85–0.9) | 389 | 4251 / 4642 |
 | 21 | 1021, 2021 | 2786 | 167 | — | 7218 / 5821 |
 | 27 | 1027, 2027 | 10816 | 297 | — | 6904 / 10210 |
-| 29 | PENDING29HM | | | | |
+| 29 | 1029, 2029 | 4012 | 306 | — | 6106 / 10061 |
+| 5 (5000) | 1005, 1600, 5005 | 37 | 9.3 | 9.6 | 350 / 355 |
+| 12 (5000) | 1012, 1600, 5012 | 1029 | 248 | 286 | 3761 / 3625 |
 
 * **Γ converges to an m-independent profile at fixed (J, x)** — H_mono-A [NE] at every computed spin. The 1000 → 2000 differences are
   O(J²/m) (they are ≤ 5 % of max|Γ| at J ≤ 12 and the 1600 → 2000 differences are ×2–15 smaller), and the K₂ step per node in c₂ is the
@@ -221,11 +240,19 @@ satisfies it (§3.2). Chart A for the *values* at J ≥ 21 awaits the direct row
 * At J = 16 the two edge nodes x = 0.85, 0.9 differ by up to 1.9·10³ c₂ between 1016 and 2016 (a sign change at x = 0.85, both rows with
   K₂ steps ≥ 10³): the K₂ edge is not resolved on either row, so this is not a test of H_mono-A there; the direct rows of batch 4 reach
   x = 0.95.
-* At J = 21, 27 the K₂ *values* agree to ≤ 170 / 300 c₂ over x ≤ 0.8 (e.g. J = 21 C3H, x = 0.8: `−1758 / −1741`), while the K₂ − K₁ step
+* At J = 21, 27, 29 the K₂ *values* agree to ≤ 170 / 300 / 310 c₂ over x ≤ 0.8 (e.g. J = 21 C3H, x = 0.8: `−1758 / −1741`), while the K₂ − K₁ step
   grows (§2.4).
 
-### 3.3 5000
-PENDING5000TEXT
+### 3.3 5000 (rows 5005, 5012)
+* **Binding state:** `+0.20015` at the 5000 twist edge (`1.0010Λ`), `L = 1922` (λ-level 3272); at the chart-A images of the 1000 / 2000
+  twist edges `+0.20090 / +0.20041`, `L = 2066 / 1977`. Certified-floor route `+0.20000`. Every budget term is ×0.040–0.042 of 1000
+  (`E_trunc 7.9·10⁻⁵`, `E_edge 1.5·10⁻⁵`); the small-ν window extends to the row's first node (ν = 125 at x = 0.025), `3·10⁻⁶`.
+  δ = λ_K2 − λ_hyb falls faster than Λ⁻² from 2000 to 5000 (`−4.55·10⁻⁶ → −2.3·10⁻⁷`, ×0.05 for an expected ×0.16): consistent with
+  H_mono-A, which is a bound.
+* **J = 12** (row 5012, `J²/m = 0.029`): sign-free [NE±] from K₂ alone: `L = 6.4 / 7.8 / 9.5` at 1.01194 / 1.02 / 1.05Λ (λ-level 47–120),
+  `3.4` at its 5000 twist edge (`+0.2856`, hybrid `+0.2860`) and `4.4` at the 2000 twist-edge mass. Γ(x) on 5012 agrees with 1012 to
+  `≤ 248 c₂` (the reference zero is at x₀ = 0.383 inside the row) while the K₂ step stays the same in c₂, so `E_trunc` falls ×0.041.
+* So at 5000 the K₂ route reaches sign-free [NE±] up to at least J = 12, against J ≤ 8 at 2000 and J ≤ 6 at 1000 (J = 8 marginal there, `L = 1.2`).
 
 ---
 
@@ -246,8 +273,8 @@ can be rerun unchanged once Δ_g is parametrised (they hard-code `Dg = 1000` and
 | **optional seam group S** | J = 20: 38 + 2 (rz, x₀ = 0.581) + 5 = 45 | J = 23: 34 + 2 + 10 + 2 (x₀ = 0.513) + 5 = 53 | **98** (§5) |
 
 * **n1 only.** No n3 jobs: the n3 C3H evaluator is broken (EDGE_R finding 4), and the small-ν window, where SMALLNU used n3 at
-  ν = 10–17.5, matters ×16 less at 2000 (`E_low ∝ Λ⁻⁴`, §3.1): below ν = 20 the 10⁴ c₂ convention costs `≤ 0.006 N_s` (J = 21) to
-  `0.01` (J = 27) — `≈ 18 %` of `E_low`, table — so n3 nodes are not needed. n1 seeds are irrelevant (fixed Sobol seeds; `4242` kept for the
+  ν = 10–17.5, matters ×16 less at 2000 (`E_low ∝ Λ⁻⁴`, §3.1): below ν = 20 the 10⁴ c₂ convention costs `≈ 0.004 N_s` (J = 21) to
+  `≈ 0.011` (J = 29) — `≈ 18 %` of `E_low` (§2.3) — so n3 nodes are not needed. n1 seeds are irrelevant (fixed Sobol seeds; `4242` kept for the
   format). Settings: `ext/point.py` defaults (`HC_ADAPT = 1`, `HC_M = HC_MREF = 11`, `L1_DEG = 6`), as batches 1–3.
 * **Pilot here** (`gn_pilot.py`, `cache/pilot/`, two J = 29 jobs on the 2029 row, exactly as `run_ext.py` runs them):
   * ν = 20 (`N4_J29_lo`): 214 s; replica errors 0.31 % (EE) / 0.60 % (C3H) on the state, 0.31 / 0.60 % on the reference, the same as the
@@ -277,8 +304,8 @@ At Δ_g = 2000 the twist edge of spin J is `m/Λ = 1 + J/1999 + …`; chart A ha
 `[tw₂₀₀₀(J), tw₁₀₀₀(J))` has width `≈ J/2000` (0.005 at J = 10, 0.016 at J = 32).
 
 **Closed here** (a state on its own 2000 row at the 2000 twist edge, plus the chart-A image at the 1000 twist edge; between them the own
-row is held, H_cont as everywhere): J = 4, 5, 6, 7, 8 [NE±] sign-free; J = 12, 16 [NE±] λ-level; J = 21, 27 [NE + M] (K₂ alone; batch 4
-makes them direct); J = 29 PENDING29SEAM. The values at the 2000 twist edges are in the table (`+0.2021 … +1.0121`).
+row is held, H_cont as everywhere): J = 4, 5, 6, 7, 8 [NE±] sign-free; J = 12, 16 [NE±] λ-level; J = 21, 27, 29 [NE + M] (K₂ alone; batch 4
+makes them direct). The values at the 2000 twist edges are in the table (`+0.2021 … +1.0121`).
 
 **Open** (no 2000 row; at 2000 these states sit on the 1600 row held, an H_M extrapolation):
 
@@ -322,7 +349,7 @@ python3 gn_bind.py J6J8 2000:6:2006:tw,tw1000,1.01,1.02 2000:8:2008:tw,tw1000,1.
 python3 gn_bind.py J12J16 2000:12:2012:tw,tw1000,1.02,1.05 2000:16:2016:tw,tw1000,1.02,1.03,1.05
 python3 gn_bind.py J21 2000:21:2021:tw,tw1000,1.03,1.05,1.075,1.1;  python3 gn_bind.py J27 2000:27:2027:tw,tw1000,1.03,1.04,1.05,1.075,1.1
 python3 gn_bind.py J29 2000:29:2029:tw,tw1000,1.04,1.05,1.06,1.075,1.1
-python3 gn_bind.py J5k 5000:5:5005:tw,2000tw,tw1000,1.01,1.02,1.05;  python3 gn_bind.py J12k 5000:12:5012:tw,tw1000,1.02,1.05
+python3 gn_bind.py J5k 5000:5:5005:tw,1.0024981,tw1000,1.01,1.02,1.05;  python3 gn_bind.py J12k 5000:12:5012:tw,1.0059876,tw1000,1.02,1.05
 python3 gn_bind.py --hmono 0,2 (likewise 4; 5,6,7,8,12,16; 21; 27; 29);  python3 gn_hsum.py > cache/hsum.txt
 python3 gn_chartA.py light,J4,J5,J6J8,J7,J12J16,J21,J27,J29,J5k,J12k > cache/chartA.txt;  python3 gn_table.py <same tags> > cache/table.txt
 python3 gn_refdiag.py 21 1021,2021; python3 gn_stepnorm.py 21 1021,2021 (and 16, 27)

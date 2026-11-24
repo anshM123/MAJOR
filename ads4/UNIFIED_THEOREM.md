@@ -628,6 +628,20 @@ A chain carries the grade of its weakest link.
 > * **The obstruction is the method:** the genuine cubic size of Φ_ξ (S₃ ≈ 10–12) caps the radius at ~0.04 against a Gaussian width of 0.032 at Δ = 1000. Ideal sup norms give the same Δ₁. The true next Laplace term is ~2·10⁻⁵ relative at Δ = 1000, so K₂ is accurate and the certificate is pessimistic by ~10¹⁰.
 > * **Next lever:** a certified holomorphic Morse chart (rough estimate Δ₁ ≈ 3·10³–1.3·10⁴), ξ as a Taylor-model variable, and the J ≥ 4 two-structure / odd-J graviton amplitudes.
 
+> **Update (GAP_NEARGAP.md, unreviewed): near-gap states at Δ_g = 2000 (and partly 5000), on own-mass K₂ rows. Nothing came out negative. Chart A (same J, same m/Λ) scaling holds exactly for J ≤ 16, and leverages grow 4–9× at 2000.**
+> * **[NE±] at 2000:**
+>   * light J = 0, 2: L = 40612 / 5712.
+>   * J = 4: L = 106 (twist edge 103).
+>   * J = 5 (binding): +0.2004, L = 320–334; at 5000, L = 1922–2066.
+>   * J = 6: L = 22.
+>   * J = 7: L = 27.5.
+>   * **J = 8 sign-free: L = 5.2** (was λ-level only at 1000).
+>   * J = 12, 16: λ-level L = 8.0 / 4.4 (J = 12 at 5000: sign-free 6.4).
+> * **[NE+M] at the 2000 twist edges for J = 21, 27, 29:** λ-level L = 0.4–1.1. This is an artefact: the Δ_ref = 2·10⁴ reference's partial-wave zero falls inside the 2000 rows for J ≥ 16. Use Δ_ref ≥ 5·10⁴ at 2000 and ≳ 1.3·10⁵ at 5000.
+> * **H_mono-A confirmed numerically:** Γ(x) is Λ-independent at fixed (J, x) to 30 c₂ (J ≤ 6) and ≤ 330 c₂ (J ≤ 29) from 1000 to 2000, and 9 / 248 c₂ (J = 5 / 12) from 1000 to 5000. Budget terms scale by 0.25 ± 0.01 at 2000 and 0.040–0.043 at 5000, as Λ⁻² predicts.
+> * **Batch 4** (`ext/jobs_batch4.txt`): 345 n1 jobs (247 main for J = 12, 16, 21, 27, 29 at 2000 + J; 98 optional seam jobs). About 1–2 h on 16 workers; pilot validated.
+> * **Still open:** seam spins J = 9–11, 13–15, 17–20, 22–26, 28, 30–32; the parity-odd OO states J = 4–10 at 2000.
+
 ## 1. Setup and normalisations
 
 | item | definition |
