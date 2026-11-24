@@ -110,11 +110,13 @@ def main():
         pr(f'\n## Dg = {Dg}, Lam = {C.L:.3f}   (state | J | m/Lam | beta | d/(F/2) [window, boundary, edge+top] | edge tolerance '
            f'(multiple of the transferred scalar envelope) ; unif-cert floor' + (' ; and with LRINF F_cert' if Dg == 1000 else '') + ')')
         for lab, J0, beta0, mfl, Fc in base:
+            if Dg != 1000 and beta0 > 3.1:
+                continue                       # Mehler node count ~ 1.5 Lam beta: too costly / memory (J1000 = 1e5, 1e6 at 1000 only)
             J = int(round(mfl*C.L*np.sinh(beta0/2) - 0.5))
             c = state_cost(J, mfl)
             Fu = fU(c['beta'])/C.L**2
             d_u = c['d']/(Fu/2); tol_u = (Fu/2 - (c['d'] - c['edge']))/c['edge']
-            row = dict(label=lab, J=J, mfl=mfl, beta=c['beta'], Fu=Fu, d_u=d_u, tol_u=tol_u,
+            row = dict(label=lab, J0=J0, J=J, mfl=mfl, beta=c['beta'], Fu=Fu, d_u=d_u, tol_u=tol_u,
                        parts=[c['win']/(Fu/2), c['bd']/(Fu/2), c['edge']/(Fu/2)])
             s = (f'   {lab:10s} {J:8d} {mfl:6.3f} {c["beta"]:6.3f} | d/(F_U/2) = {d_u:.3e} [{row["parts"][0]:.1e}, {row["parts"][1]:.1e}, '
                  f'{row["parts"][2]:.1e}] | tol {tol_u:.3g}')
@@ -127,9 +129,11 @@ def main():
         pr(f'   max d/(F_U/2) = {max(r["d_u"] for r in rows):.4f};  min edge tolerance = {min(r["tol_u"] for r in rows):.3g}'
            + (f';  with LRINF F_cert: max d = {max(r["d_c"] for r in rows):.3f}, min tol = {min(r["tol_c"] for r in rows):.3g} '
               f'(AG_PROOF §6.2: 0.133 / 18.9)' if Dg == 1000 else ''))
+    def get(Dg, r0):
+        return next((r for r in res[Dg] if r['label'] == r0['label'] and r['J0'] == r0['J0']), None)
     pr('\n## ratio d(1000)/d(Dg) at the same (beta, mu) [unif floor]: ' + '; '.join(
-        f'{r0["label"]} J1000={r0["J"]}: ' + ', '.join(f'{Dg}: {r0["d_u"]/res[Dg][i]["d_u"]:.2f}' for Dg in (2000, 5000))
-        for i, r0 in enumerate(res[1000])))
+        f'{r0["label"]} J1000={r0["J"]}: ' + ', '.join(f'{Dg}: {r0["d_u"]/get(Dg, r0)["d_u"]:.2f}' for Dg in (2000, 5000))
+        for r0 in res[1000] if get(2000, r0) is not None))
     json.dump({str(k): v for k, v in res.items()}, open(os.path.join(HERE, 'cache', 'gl6_p4w.json'), 'w'), default=float, indent=0)
     open(os.path.join(HERE, 'cache', 'gl6_p4w.txt'), 'w').write('\n'.join(OUT) + '\n')
 
