@@ -69,9 +69,9 @@ solution and `Φ₃₄ = W₊[χ]`, which fixes the remnant through the boundary
 | `O(ab)` Einstein equations (all 10 components), exact | ✓ | ✓ |
 | `W₊` at orders `a`, `b` (ASD legs) | 0 | 0 |
 | `W₋` at orders `a`, `b` | 64 non-zero comps | 144 |
-| **`W₊` at order `ab`, projected with the full metric's Hodge star** | **0 (all 256)** | see `t1a_solve2_1_2_2_2_-1_2.txt` |
-| `W₋` at order `ab` | 144 non-zero | — |
-| control: `Γ + (regular label-(+) mode at K)` (still a solution) | `W₊^{(ab)}` 144 non-zero | — |
+| **`W₊` at order `ab`, projected with the full metric's Hodge star** | **0 (all 256)** | **0 (all 256)** |
+| `W₋` at order `ab` | 144 non-zero | 144 non-zero |
+| control: `Γ + (regular label-(+) mode at K)` (still a solution) | `W₊^{(ab)}` 144 non-zero | 144 non-zero |
 
 The Hodge star of the **full** metric is used (`√g`, `g^{-1}` to `O(ab)`): with ASD legs, `P₊[g]W₊ = W₊` at `O(ab)` forces the
 second-order SD part to be background-SD, so "W₊^{(ab)} = 0" is the frame-independent statement `Ψ^{(2)} = 0`.
@@ -93,7 +93,7 @@ second-order SD part to be background-SD, so "W₊^{(ab)} = 0" is the frame-inde
 4. **Explicit remnant.** For the normalisable solution `δh^W = δh^{ASD} + χ`, `χ` is the regular linear solution whose boundary value
    cancels that of `δh^{ASD}` (TT part plus boundary diffeomorphism/Weyl parts, which carry no Weyl tensor). Hence, exactly,
    `Φ₃₄ = −b₊·W₊[h^{reg,+}_K]`, `b₊ :=` label-(+) TT projection of `Γ(z = 0)`; gauge-invariant under boundary diffeomorphisms and Weyl
-   rescalings. At the first point **`b₊ = 7/300 ≠ 0`** (`b₋ = 126/25`), confirming C1V's JJ21-based "the remnant is generically
+   rescalings. At the first point **`b₊ = 7/300 ≠ 0`** (`b₋ = 126/25`); at the second, `b₊ = (3−4i)(−34224 − 7919i + √26(6708 + 1557i))/40500 ≈ 5.27·10⁻⁴ + 3.45·10⁻³i ≠ 0` (`|b₋| = 8.67`), confirming C1V's JJ21-based "the remnant is generically
    non-zero" by an independent route.
 
 ### 1.5 The near-boundary premise [DV] (`t1a_boundary.py`)
@@ -306,9 +306,10 @@ All on one core, `ulimit -v 3000000; export OMP_NUM_THREADS=1`; outputs in `ads4
 cd ads4/code/dsketch
 python3 -B t1a_einstein2.py 0 0 3 4 0 0      # O(ab) Einstein equations (seconds)
 python3 -B t1a_solve2.py 0_0_3_4_0_0          # explicit ASD solution + W+ checks (~1 min)  -> t1a_solve2_0_0_3_4_0_0.txt
-python3 -B t1a_einstein2.py 1 2 2 2 -1 2; python3 -B t1a_solve2.py 1_2_2_2_-1_2     # second point (~20-30 min, sqrt(26) basis)
+python3 -B t1a_einstein2.py 1 2 2 2 -1 2; python3 -B t1a_solve2.py 1_2_2_2_-1_2     # second point (~45 min, sqrt(26) basis)
 python3 -B t1a_lemmaM.py                      # Lemma M, mode identification, b_+ (~5 min)        -> t1a_lemmaM.txt
-python3 -B t1a_boundary.py 0_0_3_4_0_0        # Weyl = O(z^3) orthonormal (~2 min)                -> t1a_boundary_*.txt
+python3 -B t1a_boundary.py 0_0_3_4_0_0        # Weyl = O(z^3) orthonormal (~2 min; second point: same with 1_2_2_2_-1_2) -> t1a_boundary_*.txt
+python3 -B t1a_numcheck.py 0_0_3_4_0_0        # optional fast numerical re-check of the W+- statements (~5 min)
 python3 -B t1b_barnes.py                      # Barnes map, numerical + symbolic (~3 min)          -> t1b_barnes.txt
 python3 -B t2_block_growth.py                 # exact per-nu block action above the mass (~2 min) -> t2_block_growth.txt
 python3 -B t2_tolerance.py                    # positivity tolerances (seconds)                    -> t2_tolerance.txt
