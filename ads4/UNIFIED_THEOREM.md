@@ -618,6 +618,16 @@ A chain carries the grade of its weakest link.
 >   * J ≥ 12: the sign-free form fails already at 1000.
 > * **Main missing step:** explicit Laplace remainder constants C₃(ξ, J). They need interval sup-norm bounds of the spinning amplitudes on a fixed complex polydisc (checked once at Δ₀, valid for all Δ ≥ Δ₀), which needs a pointwise complex evaluator the project lacks.
 
+> **Update (GAP_C3.md, unreviewed): the Laplace remainder constant C₃ is explicit and certified (Arb Taylor-model evaluator on a complex polydisc around the crystal; Lemma L3 [P]), but it is ~10⁸–10¹² too large to use at Δ_g = 1000. It gives a certified threshold Δ₁ ≈ 5·10⁵–10⁷ above which K₂ truncation is accurate enough. The premise B_F is still needed on 1000 ≤ Δ_g ≲ 10⁶.**
+> * **Certified:** the scalar k=2 integrand with Q_J at J ∈ {0, 2, 4–8} × ξ ∈ {0.1 … 0.85} (35 nodes), giving Δ₁ = 4.7·10⁵ … 10⁷; graviton EE and C3H at J = 0, 2, giving Δ₁ = 1.0–1.8·10⁶.
+> * **Eventual positivity:** GAP_UNIFORM's Λ\* is now explicit, Δ_g\* ≲ Δ₁, at the certified nodes. This holds given:
+>   * Lemma R (contour) [D-sketch];
+>   * the chain propagation factor Π ≤ 3 [M];
+>   * the K₂ part of Γ for all m [NE];
+>   * continuity in ξ [D-sketch].
+> * **The obstruction is the method:** the genuine cubic size of Φ_ξ (S₃ ≈ 10–12) caps the radius at ~0.04 against a Gaussian width of 0.032 at Δ = 1000. Ideal sup norms give the same Δ₁. The true next Laplace term is ~2·10⁻⁵ relative at Δ = 1000, so K₂ is accurate and the certificate is pessimistic by ~10¹⁰.
+> * **Next lever:** a certified holomorphic Morse chart (rough estimate Δ₁ ≈ 3·10³–1.3·10⁴), ξ as a Taylor-model variable, and the J ≥ 4 two-structure / odd-J graviton amplitudes.
+
 ## 1. Setup and normalisations
 
 | item | definition |
