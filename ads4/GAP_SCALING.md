@@ -31,6 +31,22 @@ Notation as in the Supplement: `Λ = √((Δ_g−2)(Δ_g−1))`, `u = Λ²/m²`,
 >   * Caveat: the 5000 C2/vector tolerance entries are not numerically converged (finite-difference β-derivative).
 > * **Remaining:** the premises (P_L′ magnitudes, AG_U, EDGE-R, P1′, W) carry over only under the hypothesis of Δ_g-independent AdS-unit constants. The trend between computed gaps is [D-sketch]. The small-J twist-edge seam and β₀ < 0.10 are not addressed.
 
+> **Update (GAP_UNIFORM.md, unreviewed): there is no uniform-in-gap proof for the near-gap corrections, and the literature has none either. The needed inequality is pinned down, and J ≤ 7 is positive at every gap given one explicit "no-growth" premise with large safety factors.**
+> * **Literature [Q]:** no explicit uniform-in-Δ_gap bound exists.
+>   * 2205.01495: the uplift is one sentence, with an unquantified O(1/Δ_gap⁴) in eq. (30).
+>   * CHMRS §5: non-effective ("sufficiently large M", (5.7), (5.11), (5.26)–(5.29)).
+>   * Knop–Mazáč AdS₂: their uniformity comes from pointwise kernel positivity against dDisc ((3.25)–(4.9)), which does not transfer to Ω^EE.
+>   * CLS-D: leading order only.
+>   * van Rees–Zhao 2210.15683: uniformity "not immediate".
+> * **Lemma T [P]:** in chart A the node coefficients, the flat parts and N_f are exactly Λ-independent and the Lemma-C bound decreases, so positivity at a larger gap needs only that Γ/m² does not grow. Checked on 366 states at 1000/2000/5000.
+> * **Prop. S [D]:** at fixed ξ = ν/Δ the crystal integral is ∫e^{ΔΦ_ξ}g_J with Φ_ξ exactly Δ-independent, so H_mono-A is ordinary fixed-phase Laplace asymptotics.
+> * **Lemma R [D-sketch]:** the D′ thimble coefficients are Δ-independent in chart A (removes the finite-Δ Stokes worry). **Theorem E [D-sketch]:** each fixed near-gap state is positive for all Λ ≥ Λ\*(J, μ). Prop. D′ controls only ξ < 0.107.
+> * **Coverage:**
+>   * **J ∈ {0, 2, 4, 5, 6, 7} positive at every Δ_g ≥ 1000** [P given B_F + windows]. Premise B_F: sup|Γ_Δg| ≤ F_J·(sup|Γ| at 1000), with F_J = 11.8 (J=7), 14.9 (6), 43 (4), 743 (5), 799 (2), 3.4·10⁴ (0). B_F is [NE]: graviton 1000 → 2000 ratio 0.97–1.06; exact scalar 1000 → 10⁴ drifts −2.6 % to +1.2 %.
+>   * J = 8 fails with the certified floor (F = 0.85).
+>   * J ≥ 12: the sign-free form fails already at 1000.
+> * **Main missing step:** explicit Laplace remainder constants C₃(ξ, J). They need interval sup-norm bounds of the spinning amplitudes on a fixed complex polydisc (checked once at Δ₀, valid for all Δ ≥ Δ₀), which needs a pointwise complex evaluator the project lacks.
+
 ## 0. Verdict: (b) partially viable
 
 **In one sentence.** Every *certified or proved* layer of the Δ_g = 1000 positivity evidence carries over to every Δ_g ≥ 1000, by
