@@ -44,6 +44,7 @@ CS = {(1, 1): lambda v: 32*(16*v**4 + 120*v**2 + 119)/((4*v**2 + 49)*(4*v**2 + 1
       (0, 2): lambda v: 32*(4*v**2 + 9)*(4*v**2 + 49)/((4*v**2 + 81)*(4*v**2 + 169))}      # pw4_theoremW.CS (copied)
 KA, KB = 86.75/6 - 8.0, 11/6                                                                   # pw5_theoremL (copied)
 DNU = 0.04
+NPM = float(os.environ.get('GL4_NPHI_MULT', '1'))     # Mehler node multiplier (resolution check)
 G2 = json.load(open(os.path.join(HERE, 'cache', 'gl2_allgaps.json')))
 FL = [(Fr(f['a']), Fr(f['b']), f['fU']) for f in G2['floor']]
 LRT3 = json.load(open(os.path.join(CODE, 'lrtight', 'cache', 'lrt3_rcert.json')))['rows']
@@ -79,7 +80,7 @@ class Gap:
         self.info = f'Abel solve N = {A.N}, CGLS its {it}, residual {res:.1e}, {time.time() - t0:.0f}s'
 
     def Pd(self, beta, s=0.0):
-        return N.Pnu(beta, self.NU - 1j*s, nphi=int(max(600 + 600*beta, 1.5*self.L*beta + 200)))   # Mehler nodes resolve nu*beta up to Lam*beta
+        return N.Pnu(beta, self.NU - 1j*s, nphi=int(NPM*max(600 + 600*beta, 1.5*self.L*beta + 200)))   # Mehler nodes resolve nu*beta up to Lam*beta
 
     def tol(self, J, m, F):
         L, NU, PS, D = self.L, self.NU, self.PS, self.D
@@ -126,7 +127,7 @@ def main():
             m = float(lab.split()[0])*L0
         base.append((lab, J, C.beta_of(J, m), m/L0))
     res = {}
-    for Dg in (1000, 2000, 5000):
+    for Dg in [int(v) for v in os.environ.get('GL4_DGS', '1000,2000,5000').split(',')]:
         g = Gap(Dg)
         pr(f'\n## Dg = {Dg}: Lam = {g.L:.4f}; D = {g.D:+.7e}; Lam^2 D = {g.L**2*g.D:+.3f}  ({g.info})')
         if Dg == 1000:
@@ -134,7 +135,7 @@ def main():
         pr('   state (1000 label, J1000) | J | m/Lam | beta | F num | F unif-cert (F_cert@1000) | Q_tol num/unif | Lam_amp mono num/unif | '
            'Lam_amp vec R1\' num/unif | K_tol sh1 unif | K_tol C2 unif')
         rows = []
-        states = [s for s in base if Dg == 1000 or s[2] < 3.1] + [('twist edge J*(Dg)', None, None, None)]   # beta > 3.1: 1000 only (cost)
+        states = [s for s in base if Dg == 1000 or (s[2] < 3.1 and (Dg < 5000 or s[2] < 2.0))] + [('twist edge J*(Dg)', None, None, None)]   # beta > 3.1: 1000 only (cost)
         for lab, J0, beta0, mu in states:
             if J0 is None:
                 J = jstar_edge(Dg); m = np.sqrt((Dg - 2.0)*(Dg - 1.0 + 2*J))
@@ -152,12 +153,18 @@ def main():
                + (f" ({fc:.3e})" if fc else '') + f" | {tn['Qtol']:.2e}/{tu['Qtol']:.2e} | {tn['Lam_mono']:.0f}/{tu['Lam_mono']:.0f} | "
                f"{tn['Lam_vec']:.0f}/{tu['Lam_vec']:.0f} | {tu['Ksh1']:.2e} | {tu['KC2']:.2e}")
         res[Dg] = dict(Lam=g.L, D=g.D, rows=rows)
+        json.dump(res[Dg], open(os.path.join(HERE, 'cache', 'gl4_tol_%d%s.json' % (Dg, '' if NPM == 1 else '_npm%g' % NPM)), 'w'), default=float, indent=0)
+    if not all(d in res for d in (1000, 2000, 5000)):
+        open(os.path.join(HERE, 'cache', 'gl4_tol_part.txt'), 'w').write('\n'.join(OUT) + '\n')
+        return
     pr('\n## scaling: tolerance(Dg)/tolerance(1000) at the same (beta, mu), unif-cert floor; (Lam/Lam0)^2 = '
        + ', '.join(f'{Dg}: {(res[Dg]["Lam"]/res[1000]["Lam"])**2:.3f}' for Dg in (2000, 5000)))
     for (lab, J0, b0_, _) in base:
         if b0_ >= 3.1:
             continue
-        get = lambda Dg: next(r['unif'] for r in res[Dg]['rows'] if r['label'] == lab and r['J0'] == J0)
+        get = lambda Dg: next((r['unif'] for r in res[Dg]['rows'] if r['label'] == lab and r['J0'] == J0), None)
+        if get(5000) is None:
+            continue
         r0 = get(1000)
         pr(f'   {lab:9s} {J0:>8d}: ' + '; '.join(
             f"Dg={Dg}: Q_tol x{get(Dg)['Qtol']/r0['Qtol']:.3f}, mono x{get(Dg)['Lam_mono']/r0['Lam_mono']:.2f}, "

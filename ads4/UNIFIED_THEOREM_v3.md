@@ -332,6 +332,18 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 >
 >   Target: error-controlled positivity at Δ_g = 1000, 2000 and 5000, plus a transfer to all Δ_g ≥ 1000 under named, tested scaling hypotheses.
 
+> **Update (GAP_LARGESPIN.md, unreviewed): the large-spin floor is now certified for EVERY Δ_g ≥ 1000 (no upper limit), and the large-spin theorems' margins grow with the gap.**
+> * **Lemma LR∞ for all Δ_g ≥ 1000 [P + certified]:** a scaling lemma makes Λ⁴·(each bound piece) non-increasing in Λ (envelope R̂ = min(R_∞, V/s⁴), V₂ ≤ 684625, V₃ ≤ 789636), plus a 13-step monotone Λ-grid below 2604.28. Thus r < 1 on β ≥ 0.37 and F_LR > 0 on β ≥ 0.245; J\*(m) = ⌈(0.37211m−1)/2⌉, with J\*/Λ → 0.22387 as Δ_g → ∞. This closes the tail above Λ = 10⁶.
+>   * Thresholds improve with the gap: β₀ = 0.2375 / 0.1675 / 0.1175 for Δ_g ≥ 2606 / 5000 / 10⁴.
+>   * Gap-unit floor: Λ²F_LR ≥ f_U(β) for all Δ_g ≥ 1000 [certified].
+> * **ROUTEA curvature window uniform in the gap [D + certified]:** curv > 0 on b̂ ∈ [114.06, 2Λ] for m ≥ Λ (new exact identity ∫₀^{s₁}g₁ = −s₁³r(s₁)/24). **Lemma C′ is monotone in Λ [P]**, so b̂ ≤ 119 carries to every gap. **For m ≥ 1.3Λ the hybrid floor is rigorous on every b̂ ≤ 2Λ at every gap**, which closes the old (119, 245) hole for m in [1.3, 1.5)Λ.
+> * **Theorems L′ / W at Δ_g = 1000 / 2000 / 5000 [DV, premises carried with Δ_g-independent AdS-unit constants]:**
+>   * Λ²D = −995.3 / −999.1 / −1001.3.
+>   * L′ remainder: max d/(F/2) = 0.19 / 0.035 / 0.005; edge tolerance 12.6 / 228 / 9050.
+>   * **Theorem W: d_χ/H = 0.489 / 0.246 / 0.100; the tolerated graviton edge integral at the binding state is 0.406 / 3.45 / 57 S_E,t (∝ Λ^3.1).** So the EDGE-R premise gets much easier with the gap.
+>   * Caveat: the 5000 C2/vector tolerance entries are not numerically converged (finite-difference β-derivative).
+> * **Remaining:** the premises (P_L′ magnitudes, AG_U, EDGE-R, P1′, W) carry over only under the hypothesis of Δ_g-independent AdS-unit constants. The trend between computed gaps is [D-sketch]. The small-J twist-edge seam and β₀ < 0.10 are not addressed.
+
 ## 0. Grades
 
 | grade | meaning |

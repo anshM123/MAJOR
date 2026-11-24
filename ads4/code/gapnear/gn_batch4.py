@@ -78,14 +78,18 @@ if __name__ == '__main__':
          "# n1 seed irrelevant (fixed Sobol seeds).  Default settings of point.py (HC_ADAPT=1, HC_M=HC_MREF=11, L1_DEG=6).",
          "# Expect failures (replica error > 20 %) for nu/Delta >~ 0.94 (x = 0.95 on the even rows) and possibly at nu = 20 (crystal fold);",
          "# the node nearest a reference zero (rz groups) is noisy by construction -- its flanking nodes are included."]
-    tot = 0
-    for J in (12, 16, 21, 27, 29):
+    tot = 0; tot_main = 0
+    for J in (12, 16, 21, 27, 29, 20, 23):
+        if J == 20:
+            tot_main = tot
+            L.append("# ---- OPTIONAL seam group S (GAP_NEARGAP.md §5): the two weakest Delta_g = 1000 near-gap states, J = 20 (no budget at 1000)")
+            L.append("# ---- and J = 23 (twist edge [NE + M] at 1000), whose Delta_g = 2000 twist edges lie in the 1000/2000 seam strip.  Same layout.")
         D, m, x0, groups = nodes(J)
         L.append(f"# J = {J}: Delta = {D}, m = {m:.4f}, Lam/m = {lam(2000)/m:.6f}, J^2/m = {J*J/m:.3f}, reference zero x0 = {x0:.4f}")
         for tag, txt, nus in groups:
             L.append(f"#   {tag}: {txt} -- {len(nus)} jobs")
-            L.append(f"N4_J{J}_{tag}  n1  {J}  {D}  4242  " + ",".join(f"{v:.6f}" for v in nus))
+            L.append(f"N4{'S' if J in (20, 23) else ''}_J{J}_{tag}  n1  {J}  {D}  4242  " + ",".join(f"{v:.6f}" for v in nus))
             tot += len(nus)
-    L.insert(6, f"# {tot} jobs in all.")
+    L.insert(6, f"# {tot} jobs in all: {tot_main} main (J = 12, 16, 21, 27, 29) + {tot - tot_main} optional seam group S (J = 20, 23, at the end).")
     open(out, 'w').write("\n".join(L) + "\n")
-    print("\n".join(L)); print(tot)
+    print("\n".join(L)); print(tot_main, tot)

@@ -140,7 +140,7 @@ def main():
     def get(Dg, r0):
         return next((r for r in res[Dg] if r['label'] == r0['label'] and r['J0'] == r0['J0']), None)
     pr('\n## ratio d(1000)/d(Dg) at the same (beta, mu) [unif floor]: ' + '; '.join(
-        f'{r0["label"]} J1000={r0["J"]}: ' + ', '.join(f'{Dg}: {r0["d_u"]/get(Dg, r0)["d_u"]:.2f}' for Dg in (2000, 5000))
+        f'{r0["label"]} J1000={r0["J"]}: ' + ', '.join(f'{Dg}: {r0["d_u"]/get(Dg, r0)["d_u"]:.2f}' for Dg in (2000, 5000) if get(Dg, r0) is not None)
         for r0 in res[1000] if get(2000, r0) is not None))
     json.dump({str(k): v for k, v in res.items()}, open(os.path.join(HERE, 'cache', 'gl6_p4w.json'), 'w'), default=float, indent=0)
     open(os.path.join(HERE, 'cache', 'gl6_p4w.txt'), 'w').write('\n'.join(OUT) + '\n')
