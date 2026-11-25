@@ -23,6 +23,7 @@ import flint
 from flint import arb, acb, arb_poly, acb_series, ctx
 
 ctx.prec = 192
+ctx.cap = 160                                   # power-series truncation cap (python-flint default 10!)
 HERE = os.path.dirname(os.path.abspath(__file__))
 ADS4 = os.path.abspath(os.path.join(HERE, '..', '..'))
 DATA = os.path.join(ADS4, 'prl', 'data')
@@ -204,7 +205,7 @@ def gauss_sum_series(near, S):
         D = S - ca
         t = (-(D*D)*inv2s2).exp()*xa
         out = t if out is None else out + t
-    return out
+    return out if out is not None else S*0
 
 
 def Y_series(W, S):
@@ -228,27 +229,30 @@ def f_series(W, m, N):
     return [f[n] for n in range(N)]
 
 
-def disc_box(m, rho):
-    """acb box containing {z - i : |z - m| <= rho} (m float, rho float)."""
-    return acb(arb(m, rho), arb(-1, rho))
+def ring_boxes(m, rho, nb=48):
+    """acb boxes nu = z - i covering the circle |z - m| = rho (m, rho floats or arbs)."""
+    out = []
+    two_pi = 2*arb.pi()
+    for k in range(nb):
+        th = two_pi*(arb(k) + arb(0.5, 0.5))/nb
+        out.append(acb(arb(m) + rho*th.cos(), rho*th.sin() - 1))
+    return out
 
 
-def qr_sup(m, rho):
-    box = disc_box(m, rho)
-    return abs(horner(QRN, box)/horner(QRD, box)).upper()
-
-
-def f_disc_sup(W, m, rho):
-    """(M, F): M >= sup_{|z-m|<=rho} |f(z)| (explicit RBF bound times box enclosure of |Q R_-|, plus box enclosure of |Y l R_-|);
-    F >= sup of the far-RBF part |Q R_- B_far| on the same disc.  Requires m - rho > 0 (Log analytic)."""
-    assert m - rho > 0.05
-    box = disc_box(m, rho)
-    qr = abs(horner(QRN, box)/horner(QRD, box)).upper()
-    nu2 = box*box
-    ybox = (W.y[0] + W.y[1]*nu2 + W.y[2]*nu2*nu2)*((-nu2/2).exp())
-    L1 = nu2 + 1
-    yl = abs(ybox*L1*L1.log()*horner(RMN, box)/horner(RMD, box))
-    return (qr*W.B_disc_bound(m, rho)).upper() + yl.upper(), (qr*W.far_bound(rho)).upper()
+def f_disc_sup(W, m, rho, nb=48):
+    """(M, F): M >= sup_{|z-m|<=rho} |f(z)|,  F >= sup of the far-RBF part |Q R_- B_far| on the same disc.
+    |f| <= |Q R_-| |B| + |Y l R_-|; |B| by the explicit disc bound (W.B_disc_bound); |Q R_-| and |Y l R_-| are analytic on the
+    closed disc (m - rho > 0.05: Log analytic; poles of Q R_-, R_- at nu = i/2, 3i/2, 7i/2, -7i/2, 0 outside), so their sups are
+    attained on the circle (maximum modulus) and enclosed by a ring of nb boxes."""
+    assert m - rho > 0.05 and abs(complex(m, -1)) > rho + 0.05
+    qr = arb(0); yl = arb(0)
+    for nu in ring_boxes(m, rho, nb):
+        qr = amax(qr, abs(horner(QRN, nu)/horner(QRD, nu)).upper())
+        nu2 = nu*nu
+        Y = (W.y[0] + W.y[1]*nu2 + W.y[2]*nu2*nu2)*((-nu2/2).exp())
+        L1 = nu2 + 1
+        yl = amax(yl, abs(Y*L1*L1.log()*horner(RMN, nu)/horner(RMD, nu)).upper())
+    return (qr*W.B_disc_bound(m, rho)).upper() + yl, (qr*W.far_bound(rho)).upper()
 
 
 # ---------------------------------------------------------------- near mu = 0: f = F1 + F2 log mu
