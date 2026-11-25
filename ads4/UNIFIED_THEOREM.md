@@ -775,6 +775,16 @@ A chain carries the grade of its weakest link.
 > * **LF4:** K(L) is exact via the Q₆ identity. The e^{πν}-weighted tail forces L ≲ 0.05–0.06Λ, giving a best estimate of τ ≈ 0.8–1.6e-4. 10⁻⁶ needs Δ_g ≈ 3000.
 > * **Angular route (ANGULAR_ROUTE.md):** the celestial kernels are continuous dual Hahn polynomials (verified exactly), so completely monotone smearing is positive on every harmonic. The decisive check is whether cubic sensitivity survives (the LP's sensitivity comes from a ψ₃ with opposite helicity signs). Heavy positivity remains conditional unless that check or the plane-wave image check succeeds (estimate < 25% by Thursday).
 
+> **Update (T0_CERT.md, 25 Nov; unreviewed): T0 proved and certified. The leading-Regge (hybrid) action of Ω^EE is ≥ 0.1999·N_s on every heavy state for Δ_g ≥ 1000 (≥ 0.199·N_s for Δ_g ≥ 300).**
+> * **Coverage:** ++ for all even J, +− for all J ≥ 4 (odd J included), every m ≥ Λ, every b̂ > 0, every real Δ_g ≥ 300. The 2×2 matrix has λ_min ≥ c·N_s for even J. No physics input is used; OO is [certified given helicity lemma (A)].
+> * **Method:** an algebraic reduction to four sign-pattern conditions, each "flat margin + signed curvature ≥ 0". A new curvature lemma [P] in gap units replaces ROUTEA's [D] derivation. The certificate has three parts, using Arb/exact Descartes with proved inter-cell bounds:
+>   * curvature > 0 on 16 ≤ b̂ ≤ 2Λ, with min 4.92/Λ²;
+>   * b̂ > 2Λ via LR∞ plus a new flat-Regge remainder lemma [P] (≤ 4.6% of the floor);
+>   * b̂ ≤ 16, where the flat action exceeds the possible negative curvature T = 2.9e-5.
+>
+>   Reproduces in about 20 CPU-min (`code/t0cert/run_all.sh`).
+> * **Open:** M20, i.e. the realised published weights. For those there is only a corollary at Δ_g = 300/1000, resting on ε_W [DV] and limited to β ≲ 200. The flat certificate's corner code is unreviewed (inherited). The beyond-leading-Regge correction δ is untouched.
+
 ## 1. Setup and normalisations
 
 | item | definition |
