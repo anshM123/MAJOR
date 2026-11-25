@@ -714,6 +714,15 @@ A chain carries the grade of its weakest link.
 >   * Nothing negative.
 > * **Corollary (energy-flux isotropy) [D from the cubic bound; CDP 1707.03007 kinematics [Q], angular algebra [DV]]:** ⟨𝓔(θ)⟩ = (E/2π)[1 + A cos(4θ−φ)] with **A ≤ τ/4 ≤ 7.23·10⁻⁹** at Δ_g = 1000 (ANEC allows A ≤ 1, saturated by free fields). Equivalently |n_s − n_f| ≤ 7.23·10⁻⁹ c_T and |p_T| ≤ 1.11·10⁻¹⁰ c_T. No κ or light-scalar condition is needed. Literature note: Buchel et al. 0911.4257 eq. (3.8) prints the d=3 constant as 1/8; it should be 1/4.
 
+> **Update (INDEP_CHECK3.md, independent): c₁ = 0 partly reproduced and not refuted; batch 5 reproduced.**
+> * **c₁ steps:**
+>   * (i) the affine k=2 weight is reproduced [P], with the finite-r error ∝ 1/r.
+>   * (ii) the first-moment helicity pattern is reproduced with an independent 30-digit free boson/fermion engine [D+DV]: the momentum Ward identity holds to 3e-30, the flip part of M is exactly 0, and M = −½{Γ,H} to 3e-25. The parity-odd α_T Ward argument re-derives cleanly but is [D] only.
+>   * (iii) the EE contraction is helicity-diagonal [P]; the d=3 orientation reversal is checked harmless.
+>   * The Route-B zero is reproduced to 6.9e-24, with controls O(0.1–4).
+> * **c₁ grade refinement:** "[D] given the [TT] double-zero statement (parity-odd odd-twist [TT] double zeros [D-sketch], H0 §15.1)", the same caveat as the Einstein term. Route B is not independent of Route A.
+> * **Batch 5:** the basis repair is re-derived independently (J = 18, 26). The unfitted node agrees to 2.6e-7 against MC 3.6e-4, and the mapped records match to 1e-11. Values, budgets and L for J = 18, 23, 25 are bit-identical on re-run. "25 of 31" is confirmed, and so are the stricter counts 23 / 18 / 16. Minor: BATCH5 §1.1's failed-node list omits J = 18 x = 0.9447 and J = 20 x = 0.9432 (the chain drops them correctly).
+
 ## 1. Setup and normalisations
 
 | item | definition |

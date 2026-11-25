@@ -1,8 +1,8 @@
 # INDEP_CHECK3: independent check of `c₁ = 0` (C1_FINAL) and of the Batch-5 fold at Δ_g = 1000 (BATCH5_FOLD)
 
-*25 Nov 2026, independent checker. Unreviewed, not committed. No existing file was edited. New code: `ads4/code/indep3/`
+*25 Nov 2026, independent checker. Unreviewed. Not committed by this agent (an intermediate draft of this file and of `code/indep3/` was swept into another agent's snapshot commit a674d31; the working tree holds the final version). No existing file was edited. New code: `ads4/code/indep3/`
 (`i3_affine.py`, `i3_freefield.py`, `i3_basis.py`, `i3_basis2.py`, `i3_diag.py`, `i3_mkset.py`); outputs in `ads4/code/indep3/cache/`
-(git-ignored by its own `.gitignore`). Compute ≈ 0.6 CPU-h, ≤ 2 processes, one thread, `ulimit -v 3000000`.*
+(git-ignored by its own `.gitignore`). Compute ≈ 0.7 CPU-h, ≤ 2 processes, one thread, `ulimit -v 3000000`.*
 
 **Independence statement.** C1_FINAL's code (`code/c1final/`) was **not read** at any point; the free-field engine, the
 phase-space bookkeeping, the frames and the end-to-end contraction were written from scratch (mpmath, 30 digits). For Batch 5, the
@@ -29,9 +29,9 @@ env-var lines of `b5_core.py`/`b5_state.py` only to set the sandbox up. Physics 
 | **`c₁ = 0`** (whole `O(t₄)` light term of `Ĉ′_EE`) | the three local links and the zero of the `T`-block cross term are reproduced. The conclusion additionally needs two **inherited** links that I did not (and could not) re-derive: (DZ) only the `T` block survives at `O(1/c_T)` — true for parity-even `[TT]` because `f⁺_{2;2}` is a polynomial (no `1/(u′v′)` shift of the even-twist zeros), but for the **parity-odd `[TT]` (odd twist) H0 §15.1 grades the double zeros [D-sketch]**; and `Ω_OPE = Lemma R` on tree terms (LIGHTSIDE_DIST, [D]). Route B is the same computation as Route A's pointwise statement, so it is not an independent route to `c₁` | **partly** (not refuted) | **[D] given (DZ) and LIGHTSIDE_DIST; the parity-odd-`[TT]` part of (DZ) is [D-sketch]** — the same caveat as the Einstein term |
 | **2** even-J basis repair (BATCH5 §1.2), J = 18 | my constrained fit (one O(2) angle + reflection bit per basis, colmax normalisation, re-derived): `θ_G = 3.117435`, refl 0; `θ_H = 4.711468`, refl 1 — **identical** to b5_basis; reference: same up to the trivial `(A,B) → (−A,−B)` gauge. Residual `9.1·10⁻⁸` (state) / `7.9·10⁻⁹` (ref); C3H at the anchor with the EE map `5·10⁻⁹`; **my own unfitted node `x = 0.6`: `2.6·10⁻⁷` (EE), `1.5·10⁻⁷` (C3H)** against MC `3.6·10⁻⁴`. All 108 + 108 mapped records = BATCH5's set `fix` to `≤ 1.0·10⁻¹¹` | **yes** | [DV] |
 | 2 basis repair, J = 26 (extra) | same: `≤ 9.8·10⁻¹²` vs `fix`; C3H at anchor `2.7·10⁻⁷` | yes | [DV] |
-| **2** J = 18 values/budgets/L (twist edge + 1.02/1.03/1.05) | BATCH5 chain re-run on **my** mapped records: _RERUN18_ | _AGREE18_ | [NE±] |
-| **2** J = 23 (twist edge + 4 masses) | re-run of `b5_odd.py 23 main`: _RERUN23_ | _AGREE23_ | [NE±] |
-| **2** J = 25 (twist edge + 3 masses) | re-run of `b5_odd.py 25 main`: _RERUN25_ | _AGREE25_ | [NE±] |
+| **2** J = 18 values/budgets/L (twist edge + 1.02/1.03/1.05) | BATCH5 chain re-run on **my** mapped records: twist edge λ +0.7462 (λ_c +0.7437 ± 0.0017), budget 0.407, **L 1.83** (λ-level 1.83); 1.02/1.03/1.05: λ_c +0.7465/+0.9132/+0.9991, budgets 0.413/0.499/0.824, L 1.81/1.83/1.21 (λ-level 2.03/4.01/5.63). Every number of the state output agrees with BATCH5's `fix` run (1559 numbers; only near-zero off-diagonal entries differ, by ≤ 4·10⁻⁴ c₂ absolute); after my mapping `|c_off| ≤ 7.3 c₂` at all 50 valid nodes below x = 0.92 (doc: ≤ 10) | **yes** (identical to stated precision) | [NE±] |
+| **2** J = 23 (twist edge + 4 masses) | re-run of `b5_odd.py 23 main`: twist edge full λ +0.9256 (λ_c +0.9036 ± 0.0116), budget 0.557, **L 1.62**, signed 1.79, unchanged protocol 1.45; 1.03/1.05/1.075/1.10: L 2.92/5.18/5.85/6.37 — `b5_sum` lines bit-identical to BATCH5's | **yes** | [NE±] |
+| **2** J = 25 (twist edge + 3 masses) | re-run of `b5_odd.py 25 main`: twist edge full λ +0.9600 (λ_c +0.9301 ± 0.0181), budget 0.564, **L 1.65**, signed 1.91; 1.03/1.04/1.05: full λ +1.028/…, L 2.44/3.26/3.53 — bit-identical | **yes** | [NE±] |
 | 2 failed-node sets | from raw replicas (`err = √(Σ|R−R̄|²/(7·8))`, re-derived and checked on raw records): J = 18 fails **x = 0.9447 and 0.95** (same on my mapping and on `fix`, and the chain drops both); J = 25 rz flank 0.9453 fails; J = 23 batch-5 nodes none | yes; doc omission (§2.4) | — |
 | **2** "25 of 31" | recounted from the table: 0, 2, 4–21, 23, 25, 27, 29, 31 = 25; 33 spins J ≤ 32 minus J = 1, 3 = 31. Stricter: 23 / 18 / 16 — all reproduced | **yes** | — |
 
@@ -123,7 +123,19 @@ Local anchor nodes computed here with `ext/point.py` (unchanged physics, ≈ 100
 `ext/unpacked/out/N5_J{18,26}_*`.
 
 ### 2.3 Downstream (re-run)
-_DOWNSTREAM_
+* J = 18: point set `mine` = BATCH5's `fix` with all 216 N5 J = 18 records replaced by **my** mapped records (E, replicas and
+  `err` recomputed from my map; other fields from the raw records). `B5_SET=mine b5_state.py 18 1.02,1.03,1.05` writes
+  `state_mine/`; its output agrees with the original `fix` run in every reported number (twist edge hybrid +0.74581, own-row chain
+  +0.74621, central/λ_c +0.74368; error lines identical; failed `[0.944695, 0.95]`). `b5_window.py 18` + `b5_sum.py` reproduce
+  budget 0.407 and L 1.83 (and the three masses) exactly.
+* J = 23, 25: `b5_odd.py {23,25} main …` re-run from the merged raw set `all`; `b5_sum.py` lines for J = 23 and 25 are
+  **bit-identical** to `b5fold/cache/b5_sum.txt`, and the full-λ "new" column of the table (+0.926, +0.960, +1.028) is the `MAIN
+  dir/gk` value of the logs.
+* Arithmetic: L = λ_c/budget (0.744/0.407 = 1.83, 0.904/0.557 = 1.62, 0.930/0.564 = 1.65) and the table's budgets/λ-level entries
+  match `b5_sum`.
+* Caveat on independence: this confirms that the committed code reproduces the stated numbers from the raw data with an
+  independently re-derived basis repair; it is not an independent re-implementation of the fold protocol (windows, edge term,
+  hold rules), which I did not audit.
 
 ### 2.4 Discrepancies (claim 2)
 1. **Documentation omission, no effect.** BATCH5 §1.1 lists the failed nodes as "x = 0.95 on every even row, and GK nodes 0.9439
@@ -147,6 +159,6 @@ python3 -B i3_basis2.py 26 $PWD/cache/loc/J26_x03
 python3 -B i3_mkset.py 18 $PWD/cache/loc/J18_x03  # writes set 'mine' into the sandbox copy cache/sbx/ads4/code/b5fold
 cd cache/sbx/ads4/code/b5fold && bash lane.sh i3_rerun_A.log B5_SET=mine python3 b5_state.py 18 1.02,1.03,1.05 ';;' python3 b5_window.py 18
 bash lane.sh i3_rerun_B.log python3 b5_odd.py 25 main 1.03,1.04,1.05 ';;' python3 b5_odd.py 23 main 1.03,1.05,1.075,1.1
-bash lane.sh i3_rerun_C.log python3 b5_sum.py
+bash lane.sh i3_rerun_C.log python3 b5_sum.py    # set-'mine' J = 18 state output: cache/state_mine/
 ```
 (`i3_basis.py` is the unconstrained-fit diagnostic of §2.1.)
