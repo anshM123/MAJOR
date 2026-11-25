@@ -872,3 +872,17 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Truncation multipliers (author).** 0 ≤ δ_M(k) ≤ m_M(k)·min(1, A₁x_k^M/(1−x_k)). The correction formula is −(1/2π)∫F_{3,ν}(ce^{it})D_M(t)dt.
 * **Counterexample (author; 1100-digit directed arithmetic).** At J = 768, Δ = 1768, b = 0 (inside the open strip), d³R₁ ≈ 1e27 and d³R₂ ≈ 2e17 at ν = 998, against an exact value of 0.054. **Truncating the ladder symbol at cubic or quintic order fails at ν ~ a.** The saddle scale grows like ν/a^{2/3}, and the quintic term becomes O(a).
 * **Next reference.** It must keep the full logarithmic ladder symbol at the complex saddle: the §47 joint WKB, S(y) = ∫log((ℓ²−t²)/(h²−t²)) + iΘ_ν.
+
+## 53. Full-ladder saddle: exact two-dimensional contour, phase and Hessian (author, 26 Nov)
+
+* **Contour identity (author; not re-checked).**
+  * 𝒦_p(ν) = (𝒞/2πi)∫₀^∞∮_Γ (du/u)(dv/v)·z^{s/2}·exp[ℓ log(u/v) − H log((1+u)/(1+v))]·F_{p,ν}(z), with z = uv/((1+u)(1+v)).
+  * Parameters: ℓ = J + ½, H = ℓ + a, 𝒞 = aΓ(n+1)Γ(N+s)/(Γ(n+s)Γ(N+1)).
+  * Exact, and valid for real N.
+* **Saddle (author). Verified here** at 40 digits on 4 states (both channels, a = 998 to 5000, ν = 300 to 1000):
+  * the saddle point u_* = (ℓ+iy)/a, v_* = (ℓ−iy)/a, where the gradient of Ψ₊ vanishes;
+  * z_* = (ℓ²+y²)/(H²+y²), y = ν√z_*/(1−z_*), and the saddle equation ν²(ℓ²+y²)(H²+y²) = (H²−ℓ²)²y²;
+  * Ψ₊(saddle) = iΦ(ν), with Φ = 2ℓ·arctan(y/ℓ) − 2H·arctan(y/H) + 2ν·atanh√z_*, and Φ′(ν) = β(z_*);
+  * det D²Ψ₊ = −a²(ℓ²H² − y⁴)/(H² + y²)²;
+  * the saddles coalesce at y² = ℓH, i.e. ν = a.
+* **Open.** The global contour deformation with explicit error, uniform through the coalescence at ν = a (Airy/Chester–Friedman–Ursell), and the transport amplitude, all with constants.
