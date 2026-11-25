@@ -125,8 +125,8 @@ ext/point.py's code path, 16–28 s per point here), G and H fitted on the 8 rep
 
 ### 2.2 Choices made here (all fixed before grading; none changes a sign)
 1. **Bulk lower end x = 0.025 for hs_odd** (hs_odd: 0.05). At 1000, x = 0.05 is ν = 50, where the separately bounded window starts; at 2000
-   it is ν = 100, so batch 4 added the 'blo' nodes x = 0.025, 0.0375 (GAP_NEARGAP §4). With XB = 0.05 the K6 condition numbers and twist-edge
-   values are within 2 % (`cache/b4_cond.txt`; J = 27: +1.004 vs +0.984).
+   it is ν = 100, so batch 4 added the 'blo' nodes x = 0.025, 0.0375 (GAP_NEARGAP §4). With XB = 0.05 (`odd_xb05`) the twist-edge values
+   move by ≤ 0.011 and L by ≤ 0.06 (J = 27: 1.14 vs 1.20; J = 29: 0.71 vs 0.71; J = 21 stays ill-conditioned, 0.39).
 2. **Reference-zero rule** (BATCH5 §2.2 item 3) on the even rows and on the odd own row: direct nodes with |x − x₀(Δ_ref = 2·10⁴)| < 0.012
    dropped (J = 12: 0.95; 16: 0.725; 20: 0.575; 21: 0.575), **and the K₂ node at the same x is not allowed to fall back into the injected row**
    (`b4_core._drop_own`; without this the J = 16 row carried a non-finite K₂ node at x₀). hs_odd keeps its ZWIN = 0.002 rule on the GK nodes
@@ -153,7 +153,16 @@ The window ν < 50 costs ≤ 0.025 everywhere (×1/16 of 1000, chart A: E_low �
   J = 29 3.3·10³ … 2.8·10⁷, +0.964 / +0.957 / +0.941 / +0.958 / +1.03. (The protocol's probes are K4, K5, K7 and two half-samples; K8 is
   diagnostic only.)
 * hs_odd at J = 21 for the record (not graded): twist edge +1.041, L = 0.40 (E_repr 2.32); 1.05 / 1.075 / 1.10Λ L = 1.35 / 3.26 / 9.34.
-* VARIANTS_PLACEHOLDER
+* **Reference-zero rule applied to the odd bulk too** (`B4_RZODD=1`, diagnostic; drops x = 0.575 / 0.525 / 0.425 / 0.40 at J = 21 / 23 /
+  27 / 29): twist-edge L = 0.44 (J = 21, hs_odd) / 1.10 (27) / 0.68 (29), against 0.40 / 1.20 / 0.71; above the twist edges L moves by
+  ≤ 15 %. No grade changes. (J = 23's variant ran with the default GKMIN, i.e. on the espl edge: 6.22 vs 4.95.)
+* **Bulk from x = 0.05** (`B4_XB=0.05`): §2.2 item 1.
+* **Own-row route at J = 29** (cross-check, `state/b4_state_J29`): twist edge λ_c +0.965 (hs_odd +0.941), but L = 0.26: the flat edge term
+  (G = 2.3·10⁵ beyond x = 0.931) is 1.85 and the K₂ truncation on the own row's K₂ nodes 0.825–0.9 is 1.82. At 1.0286Λ L = 0.69 (λ-level 1.77)
+  against hs_odd's 3.08. The hs_odd route is the designated one for J = 29 and the better one; neither closes the twist edge.
+* The published-rows-only chain (no 2000 + J row; ng_bind's `lam_model`, printed in the state logs) gives −0.91 … −0.16 for J = 29 at 2000:
+  the rows below 2000 do not represent the 2000 states at this spin. It is a diagnostic of the old H_M hold, not a state value; every graded
+  value uses the own row.
 
 ## 4. K₂ against direct at Δ_g = 2000 (`b4_k2cmp.py` → `cache/b4_k2cmp.txt`)
 | J | masses | λ_dir − λ_K₂ | K₂ charge 3\|K₂ − K₁\| | ratio |
