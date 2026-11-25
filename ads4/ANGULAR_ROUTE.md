@@ -270,3 +270,21 @@ Coordinator checks are in `code/angular/verify_s13.py`.
 * *𝒟 = 0* follows from the single tail estimate ‖1_{K⁰>R}E₂ψ_T‖² = o(R^{−3/2}).
 * *𝓛_g → 0* follows from fixed-window planar suppression, now reduced to Vv₀ = 0 and K(Δ_*)v₁ = 0.
 * *Also open:* existence and separated vanishing of the physical mixed commutator, and the order of limits (c_T vs Regge, light cone).
+
+## 14. Subcritical-twist sectors contribute no spectral defect (author-supplied, 25 Nov)
+
+**Theorem.**
+* *Hypotheses:* the ladder (§8, audited), normalised ANEC boundedness, and a sector with τ = Δ − J ≤ A(1+J)^α, 0 ≤ α < ½.
+* *Statement:* N⁻⁴Σ_sector C\|a_N\|² = O(N^{−(2−4α)/(1−α)}) → 0.
+* *Refinement:* limsup N⁻⁴Σ_{τ≤ε√J}C\|a_N\|² ≲ ε⁴. So any sector with τ = o(√J) has vanishing defect; this includes bounded twist and logarithmic trajectories.
+
+**Coordinator check of the proof [P]:**
+* **Per shell.** On a dyadic shell L ≤ J < 2L with τ ≤ g_L ≤ J, T − C = (τ−2)(2J+τ−1) ≤ 3g_L J. For k < M_L = ⌊L/(12g_L)⌋ each ladder ratio is ≥ ((k+4)/(k+1))²(1+6g_L/L)^{−1}. So for N ≤ M_L, \|a_{M_L}\|² ≥ (D_{M_L}/D_N)²·exp(−(M_L−N)·6g_L/L)\|a_N\|² ≥ e^{−1/2}(D_{M_L}/D_N)²\|a_N\|².
+* **ANEC at the higher harmonic** (Σ\|a_M\|² ≤ 1) gives Σ_shell C\|a_N\|² ≲ L²·min{1, (Ng_L/L)⁶}.
+* **Dyadic sum.** With g_L ~ L^α, split at L_* ~ N^{1/(1−α)}. Below L_*: ΣL² ~ N^{2/(1−α)}. Above: N⁶ΣL^{6α−4} ~ N^{2/(1−α)} (convergent since 6α − 4 < 0). Dividing by N⁴ gives the stated rate, negative for α < ½.
+* **Refinement.** With g = ε√(2L), L_* ~ ε²N², and both parts are ~ε⁴N⁴.
+* **Finitely many shells.** They contribute nothing for large N, since a_N = 0 for N > J − b.
+
+**Correct.**
+
+**Effect.** All states at bounded twist, in particular every heavy state near the gap at any spin, are excluded as a source of 𝒟. The defect question is confined to τ ≳ √J.
