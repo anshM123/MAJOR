@@ -1988,16 +1988,26 @@ t_4^2+\alpha_T^2\le\frac{16(3+\mathcal D)}{K(\Delta_g)}+16\mathcal L_g ,
 with $\mathcal L_g$ the fourth-harmonic weight of states below the gap. Hence $\tau\le0.0178$ at $\Delta_g=1000$ when
 $\mathcal D=\mathcal L_g=0$, falling as $(160/9)/\Delta_g$.
 
-\emph{What the two corrections need.} $\mathcal D=0$ is equivalent to the absence of a critical $L^{-2}$ tail of the spin-weighted
-endpoint measure in the band $\sqrt J\lesssim\Delta-J\ll J$; bounded-, slowly-growing- and comparable-twist sectors provably
-contribute nothing. It follows from one regulated null-plane commutator bound at finite $c_T$; the order of limits is finite $c_T$
-first, as for the main result (Sec.~\ref{sec:HK}), so the planar Regge intercept $J_0=2$ never enters, and the mixed commutator needs
-$J_0<2$ in the Regge corner~\cite{KKSDZ} plus light-cone convergence (Ref.~\cite{KKSDZ}, Eq.~(4.66)). A proof of the null-plane bound
-from reflection-positive crossing and a Casimir domain estimate is being independently checked. $\mathcal L_g\to0$ follows from
+\emph{The two corrections.} $\mathcal D=0$ is equivalent to the absence of a critical $L^{-2}$ tail of the spin-weighted endpoint
+measure in the band $\sqrt J\lesssim\Delta-J\ll J$; bounded-, slowly-growing- and comparable-twist sectors provably contribute nothing.
+The band is closed by crossing at each finite $c_T$: collinear projections of the conserved $\langle TTO\rangle$ structures,
+$F_{-2,-2}=p(h)(h-4)(\lambda_{+-}-2\lambda_{++})$, $F_{-1,-1}=-16p(h)[2(s-1)\lambda_{++}+s\lambda_{+-}]$,
+$F_{-2,-1}=-2(2h-7)(2h-5)(2h-3)\lambda_{\rm odd}$ ($s,h=\frac{\Delta\pm J}2$, $p(h)=(h-1)(h-2)(h-3)$; exact in $s$, checked for
+$J\le30$), together with reflection positivity of $\langle TTTT\rangle$ in the mirror ordering and the factorised two-variable
+global blocks, give $\sum_{s\sim S,h\sim U}4^\Delta2^{-J}|F_{m_1m_2}|^2\lesssim S^{11/2+M}U^{11/2-M}$; with the detector kernels
+(closed forms, checked to 30 digits for $J\le30$) this yields $\sum_{s\sim S,h\sim U}\sum_b|a_{\mathcal O,b,0}|^2\lesssim S^{-5}U^2$,
+hence $\mu((L,\infty))=O(L^{-3})$ ($O(L^{-4})$ in the band), $B_N=O(1/N)$ and $\mathcal D=0$. The constants may depend on the CFT;
+the order of limits is finite $c_T$ first, as for the main result (Sec.~\ref{sec:HK}), so the planar Regge intercept $J_0=2$ never
+enters. The mixed commutator needs $J_0<2$ in the Regge corner~\cite{KKSDZ} and light-cone convergence (Ref.~\cite{KKSDZ},
+Eq.~(4.66)). An independent hostile audit confirmed this chain (links graded [DV]/[D]/[P] as stated). $\mathcal L_g\to0$ follows from
 planar factorisation: transitions from $T$ to multi-trace states are $O(c_T^{-1/2})$, and $\Delta_T$ is protected, so degenerate
 multi-trace clusters have no $O(c_T^{-1/2})$ splitting [D]. The contact term of the mixed commutator is $c_0\delta$ if no scalar with
-$\Delta\le1$ appears in $T\times T$, and $Q(0)=0$ removes it. Derivations, audits and check scripts: \texttt{ANGULAR\_ROUTE.md},
-\texttt{LADDER\_ALLJ.md}, \texttt{ANGULAR\_MATCH.md}, \texttt{code/angular/}, \texttt{code/ladder/}, \texttt{code/angmatch/}.
+$\Delta\le1$ appears in $T\times T$, and $Q(0)=0$ removes it.
+
+\emph{Inputs.} (1) the first-moment and ladder identities as physical operator identities (algebra [P], pipeline-checked); (2) the
+contact coefficient (finite-frequency light-ray algebra, $\Delta_\phi>1$); (3) fixed-window planar regularity; (4) light-cone
+convergence and existence of the mixed commutator. Derivations, audits and check scripts: \texttt{ANGULAR\_ROUTE.md},
+\texttt{LADDER\_ALLJ.md}, \texttt{ANGULAR\_MATCH.md}, \texttt{ANGULAR\_AUDIT.md}, \texttt{code/angular/}, \texttt{code/ladder/}, \texttt{code/angmatch/}.
 
 \section{ABJM consistency check}
 Dictionary: $M^2=4/\alpha'$, $L^2/\alpha'=\pi\sqrt{2\lambda}$, so

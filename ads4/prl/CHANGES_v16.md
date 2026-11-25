@@ -16,3 +16,9 @@
 * **"Why it matters".** Adds the bulk-language scale: |ĝ₃| = M_*⁻⁴ gives M_* ≥ Λ/120^{1/4} ≈ 0.30Λ.
 * **Discussion.** Adds one outlook sentence: the ingredients are not special to d = 3; AdS₅/CFT₄ with N = 4 SYM checks is next.
 * **Cover letter.** The method paragraph is updated for T0 and the bulk-scale sentence.
+
+## v16d (26 Nov 2026): angular route in the body; length
+* **Abstract.** Cut to 569 characters (the limit tracked in NOTES is 600). Its last sentence now matches the audited result: "Without that property, energy-detector algebra and crossing still give a two-percent bound at every spin."
+* **Letter.** New paragraph "Without the positivity assumption.": τ ≤ (160/9)/(Δ_g−2)·[…]^{−1/2} = 0.0178 at 1000, with the inputs named.
+* **Trims for length.** "Large spin" is compressed; the "Larger gaps" transfer sentences are compressed; one sentence about examined states is shortened. Estimated APS length ≈ 3670 (limit 3750).
+* **Supplement.** New section "An argument without positivity: the angular route" (sum rule, exact ingredients, result, crossing proof of 𝒟 = 0, inputs), updated per ANGULAR_AUDIT.

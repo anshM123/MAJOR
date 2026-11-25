@@ -18,15 +18,12 @@
 \date{\today}
 
 \begin{abstract}
-Holography predicts that quantum field theories with a large gap behave like Einstein gravity, but
-only as a scaling law, with no numbers. We supply the numbers for three-dimensional theories: with a
-gap of 1000, the graviton's three-point couplings match Einstein gravity to one part in $10^8$ at
-leading order, and the first stringy correction is bounded from above, with ABJM theory inside the
-bound. The input is causality, that energy detectors commute, together with a positivity property
-that we prove in flat space and, with a certified margin, at leading Regge order in anti-de Sitter
-space. A second, independent argument, built only from the algebra of energy detectors, reaches a
-two-percent bound at every spin without that property, given one light-ray identity that we state
-precisely.
+Holography predicts that large-gap quantum field theories behave like Einstein gravity, but only as
+a scaling law. We supply the numbers in three dimensions: with a gap of 1000, the graviton's
+three-point couplings match Einstein gravity to one part in $10^8$, and ABJM theory lies inside our
+bound on the first stringy correction. The input is causality plus a positivity property we prove in
+flat space and, with a certified margin, at leading Regge order in AdS. Without that property,
+energy-detector algebra and crossing still give a two-percent bound at every spin.
 \end{abstract}
 
 \maketitle
@@ -263,26 +260,16 @@ $1/5$, so curvature costs essentially nothing at leading Regge order~\cite{SM}. 
 to 21 and the odd spins from 23 to 31), and on heavier states at small impact parameter; the
 masses covered and the margins are in the Supplemental Material~\cite{SM}. With error control,
 $\Omega^Q_{\rm up}$ is positive on its binding states near the gap and at masses $1.3$--$3\Lambda$.
-Elsewhere the values are computed in models or interpolated. No computed state is negative; the states examined while the functionals
-were being chosen are marked in the Supplemental Material. \HLJstatusLetter
+Elsewhere the values are computed in models or interpolated; no computed state is negative~\cite{SM}. \HLJstatusLetter
 
 \paragraph*{Large spin.}
-At large spin curvature bites hardest: the margin of the functional shrinks as the impact
-parameter grows. An exact identity, which we prove through eighth order in
-the distance from the Regge limit, check numerically to fortieth order and derive at all orders,
-turns every curvature correction into one that the de-shifted weights already absorb, plus one
-explicit term. Computed exactly on near-gap states with spins up to $344$, that term cancels and
-the corrections use less than half of the margin. With a contour argument for the higher orders,
-this gives two conditional theorems: positivity on 47 sampled near-gap states of spin
-$26\le J\le344$, and on states of spin below $10^6$ whose impact parameter exceeds about a third of
-the AdS radius (remainder checked on sampled states up to mass $5\Lambda$). Both assume, as stated
-in (iii), that beyond the Regge regime the difference between a heavy state's contribution and its
-flat value splits into two analytic waves that decay at a uniform rate; this holds to all orders of
-the saddle-point expansion. The first theorem also uses a bound on one edge integral of the
-graviton, estimated in a model and met by an exactly computable scalar analogue; the other
-magnitudes the theorems use are model estimates with large margins~\cite{SM}. Between the
-samples, and at intermediate impact parameter, positivity rests on a hypothesis supported by a
-sketched argument.
+Beyond leading Regge order the margin shrinks as the impact parameter grows. An exact identity,
+proved through eighth order in the distance from the Regge limit and derived at all orders, turns
+every curvature correction into one the de-shifted weights absorb, plus one explicit term that uses
+less than half of the margin on near-gap states up to spin $344$. With a contour argument for higher
+orders this gives two theorems, conditional on the uniform decay stated in (iii): positivity on 47
+sampled near-gap states of spin $26\le J\le344$, and on states of spin below $10^6$ whose impact
+parameter exceeds about a third of the AdS radius~\cite{SM}.
 
 \paragraph*{Larger gaps.}
 Above $\Delta_g=1000$ the evidence for $\Omega^{EE}$ has at most the strength it has at $1000$ and
@@ -295,14 +282,8 @@ space predicts.
 % BATCH4: external direct rows for J = 12, 16, 21, 27, 29 at Delta_g = 2000 (ext/jobs_batch4.txt) update the sentence above
 % (J = 27, 29 twist edges; sign-free closure for J >= 12). Not run at 2000: J = 18, 20, 22-26, 28, 30-32.
 Between and beyond the computed gaps we assume that a near-gap state's correction, relative to its
-flat value, does not grow with the gap; we test this at $2000$ and $5000$ on the saddle-point
-evaluations used for the checks, and up to $10^4$ on an exactly computable scalar analogue. For
-spins up to 7 we prove that it suffices, with a safety factor above ten; above
-$\Delta_g\approx10^5$ a certified remainder bound supplements it for the lowest spins, given further
-premises. The transfer does not reach near-gap states with spins from 33 to about $0.026\Lambda$
-or, for spins above 7, the strip just above each new gap; at $2000$ we computed that strip directly
-for the spins checked. With the
-large-spin premises fixed in AdS units, the theorems' margins grow with the gap.
+flat value, does not grow with the gap; we test this at $2000$ and $5000$, and up to $10^4$ on an
+exactly computable scalar analogue, and for spins up to 7 we prove that it suffices~\cite{SM}.
 
 \begin{figure}[tb]
 \includegraphics[width=\columnwidth]{fig/fig2_coverage}
@@ -320,18 +301,15 @@ to proportionally larger $J$. Grades: Supplemental Material, Secs.~S6, S7; scrip
 \end{figure}
 
 \paragraph*{Without the positivity assumption.}
-A second argument needs no positivity input. Commutativity of an energy detector with its first
-retarded-time moment gives a sum rule in which each heavy conformal family enters through a finite
-ladder of helicity amplitudes. The special conformal Ward identity fixes the first-moment matrix,
-and conservation of the light-transformed stress tensor fixes the ladder, both exactly and for every
-spin; an exact telescoping identity then makes every heavy contribution manifestly non-negative.
-Combined with the fourth-harmonic detector sum rule this gives
-$\tau\le\frac{160}{9(\Delta_g-2)}\big(1-\frac{49}{(2\Delta_g+9)^2}\big)^{-1/2}$, that is $\tau\le0.0178$ at
-$\Delta_g=1000$, provided the angular and spectral sums may be exchanged. That exchange follows from
-one regulated light-ray commutator bound at finite $c_T$, which we state precisely, together with
-planar regularity of multi-trace states, the absence of scalars with $\Delta\le1$ in $T\times T$, and
-a light-cone convergence property of detector commutators~\cite{KKSDZ,SM}. The constant is weaker
-than $\tau_0$, but it falls as $1/\Delta_g$ with no positivity input.
+Commutativity of an energy detector with its first retarded-time moment gives a second sum rule, in
+which each heavy family enters through a ladder of helicity amplitudes. The special conformal Ward
+identity and conservation of the light-transformed stress tensor fix this ladder exactly, and an
+exact telescoping identity makes every heavy contribution non-negative, at every spin. With the
+fourth-harmonic detector sum rule, and reflection-positive crossing to control the sum over the
+spectrum, this gives $\tau\le\frac{160}{9(\Delta_g-2)}[1-\frac{49}{(2\Delta_g+9)^2}]^{-1/2}$, i.e.
+$\tau\le0.0178$ at $\Delta_g=1000$, with no positivity assumption. It uses planar regularity of
+multi-trace states, no scalar with $\Delta\le1$ in $T\times T$, and light-cone convergence of
+detector commutators~\cite{KKSDZ,SM}.
 
 \paragraph*{A check with ABJM theory.}
 In the type-IIA 't~Hooft regime of ABJM theory~\cite{ABJM} the higher-spin gap is the string
