@@ -93,3 +93,26 @@ Coordinator checks are in `code/angular/verify_sp4.py`.
   * the ν = i/2 contact subtraction, if the ladder-free SP4 route is used;
   * the K_B2A4 normalisation of the 303/5120 coefficient;
   * convergence, plus double-trace and contact terms for the new weight.
+
+## 6. Generating function, contact regularity, angular light side, and the all-spin conditional bound (author-supplied, 25 Nov)
+
+Coordinator checks are in `code/angular/verify_s6.py`.
+
+| claim | check |
+|---|---|
+| S(z) = Σf_m z^m = 4[1 − √(1−z) + log((1+√(1−z))/2)], with f₀ = −8(1 − log 2) | **series verified** (m < 12) |
+| 𝓕(φ) = 2Re[S(e^{iφ}) − S(1)] has 𝓕(0) = 𝓕′(0) = 0 and 𝓕 ≈ −(4√2/3)\|φ\|^{3/2} | **verified numerically** (ratio → 1 as φ → 0). The reduced Z and Y kernels sum to 0 ⇒ they annihilate δ(φ) and δ′(φ) contact terms (argument not re-checked) |
+| Y₀ = 6f₀ + 13f₁ + 2f₂ = −139/4 + 48 log 2 = −(Einstein integral of §5) | **verified exactly**. The angular recurrence reproduces the rational-kernel Einstein term |
+| Y₄ = 303/5120, the \|c\|² light coefficient of §5 | **verified exactly** |
+| y_m/f_m = 3(48m⁵−176m⁴+303m³−376m²+297m−480)/(16(m−1)(m+1)²(2m−5)(2m−3)), y_m > 0 | **verified** for 3 ≤ m < 80. The numerator at m = n+3 is 48n⁵+544n⁴+2511n³+5807n²+6654n+2616 (all positive), so y_m > 0 for all m ≥ 3; y₂ = 41/64 |
+| Heavy form 𝓗 = Σy_{k+2}\|a_k\|² − (1/6)Σz_{k+2}Re[ā_k(Aa)_k] (raw z < 0), so both terms are ≥ 0 given the ladder and the rest-frame reduction | structure consistent with the verified signs; **conditional** |
+| b = 4 ladder: 𝓗 ≥ (5/48)[(Δ−1)(Δ−2) − 12]\|a₀\|²; fourth-harmonic W₂⁴ = 100(J−5)(J−4)(J+5)(J+6)/((Δ−7)(Δ−6)(Δ+3)(Δ+4)). Uniform bound > 47266 for twist ≥ 1000, J ≥ 6, via min_x (x+998)⁶/x⁴ = (729/16)·998² | **min and constant verified** (47266.56, argmin x = 1996). The inequality chain from W₂⁴ to y⁶/x⁴ is not re-checked |
+| Conditional bound: 47266\|c\|² ≤ 139/4 − 48 log 2 − (303/5120)\|c\|² ⇒ √(t₄²+α_T²) < 0.022375 at twist gap 1000 | **arithmetic verified** (0.0223748). **Conditional** on the all-spin ladder and first-moment identities and on physical matching |
+| J = 0: 𝓗 = [41/64 + (5/48)(Δ−1)(Δ−2)]\|a₀\|² ≥ (59/96)\|a₀\|², so light scalars have the safe sign | arithmetic consistent; relies on the §5 scalar first moment (pipeline reproduction pending) |
+| ν = i/2 shortcut fails: the finite-part light budget is −14 − (31/15)\|c\|² < 0. Keep the real-frequency route | not re-checked; recommendation adopted |
+
+**Open for an unconditional statement:**
+1. the all-J transition ladder (the b = 0 and b = 4 amplitude ratios);
+2. the all-J first-moment identity (the tridiagonal A);
+3. physical matching of the rest-frame heavy form to the sum rule, with convergence, contact and double-trace terms;
+4. the pipeline reproduction of the scalar first moment.
