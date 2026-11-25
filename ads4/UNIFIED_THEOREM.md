@@ -795,6 +795,18 @@ A chain carries the grade of its weakest link.
 >   * The b=0, 4 ladder ratios (pipeline data to J≈30, then WZ proof; ~40% by Thursday).
 >   * Physical matching: the rest-frame reduction for spinning heavy states, k=3 flip entries at the |m|=4 projection, the shared |c|² normalisation in 47266, swap and convergence, double-trace and contact terms, and the parity-odd α_T piece.
 
+> **Update (INDEP_CHECK_T0.md, 25 Nov; independent): T0 confirmed, with minor documentary fixes. No number, constant or [certified] grade changes.**
+> * **Reproduction:** byte-identical outputs from all 9 logs.
+> * **Algebra:** the reduction is verified. Part F and the hybrid share the same ψ, and the flat part agrees to 5e-11.
+> * **Curvature lemma:** re-derived. An independent ₂F₁ test gives h_eff ≤ 191, against the certified H_k ≈ 1.2e4.
+> * **Rigour:** every inter-cell bound is proved, the domains are complete, the 584 polynomials are exact, and the LR∞ anchoring is valid for all larger Λ.
+> * **Hostile scan:** 1534 random states per gap. min H/N_s = 0.19999969 (300), 0.19999998 (1000), 0.20000001 (5000). The true margin over c = 0.1999 is about 1e-4.
+> * **Issues:**
+>   * **I1:** the OO block also needs M17 (EO cancellation), κ > 0 at every Δ ([DV] per row), and the N_s normalisation, so OO is conditional; ++ and +− are unaffected.
+>   * **I2:** Part L uses LR∞ / R̂ for 300 ≤ Δ_g < 1000, outside GAP_LARGESPIN's stated range. Valid, but say so.
+>   * **I3:** the cached t0_checks.txt says c = 199/1000, a stale run.
+> * **Unchanged scope:** M20 (the realised weight, only at 300 and 1000) and beyond-leading-Regge δ are not covered.
+
 ## 1. Setup and normalisations
 
 | item | definition |
