@@ -3,7 +3,7 @@ b4_sum (BATCH4_FOLD.md §0): the per-state table at Delta_g = 2000.  b5fold/b5_s
 Lambda = Lambda(2000); grading rules unchanged (BATCH5_FOLD §0):
   even J (own-row route, J = 12, 16, 20): state/b4_state_J<J>.json + state/sn_even_J<J>.json.  Sign-free L = lam_c / (E_trunc +
      E_interp[lam_c] + E_edge + E_mc + window x3 envelope); lambda-level: E_trunc -> 3|lam_K2 - lam_K1|.
-  odd J, hs_odd route (J = 23, 27, 29; J = 21 diagnostic): odd_<tag>/b4_odd_J<J>.json (L x3 / signed, E_repr on lam_c).
+  odd J, hs_odd route (J = 23 [tag gk9], 27, 29; J = 21 diagnostic): odd_<tag>/b4_odd_J<J>.json (L x3 / signed, E_repr on lam_c).
   odd J, own-row route (J = 21; 23, 27, 29 cross-checks): state/b4_state_J<J>.json + state/b4_window_J<J>.json.
 'held': the mass exceeds every row of its J (at Delta_g = 2000 every mass above the 2000 twist edge: no row above 2000 + J exists;
 the K2-only entries of GAP_NEARGAP / GAP_SEAM / GAP_SEAM2 held the same own row).  The hs_odd route holds the own row by construction and
@@ -139,10 +139,12 @@ if __name__ == '__main__':
     rows = []
     for J in (12, 16, 20):
         rows += even(J)
-    for J in (23, 27, 29):
+    rows += odd_hs(23, 'gk9')                 # J = 23: one GK node failed (x = 0.9139): GK edge with it in E_miss (B5_GKMIN = 9)
+    for J in (27, 29):
         rows += odd_hs(J)
     rows += odd_own(21)
     extra = {f'{J}:hs': odd_hs(J) for J in (21,)}
+    extra['23:espl (hs_odd default: < 10 valid GK nodes)'] = odd_hs(23)
     extra.update({f'{J}:own': odd_own(J) for J in (23, 27, 29)})
     for t in ('xb05', 'rzodd'):
         extra.update({f'{J}:{t}': odd_hs(J, t) for J in (21, 23, 27, 29)})
