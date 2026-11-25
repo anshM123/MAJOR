@@ -470,3 +470,24 @@ No large-Δ, large-J or large-ν approximation is used.
 * *Y.* 𝒴_n = A k_n + (A/2 − 7(n−1)/2)k_{n−1} + (A/2 + 7(n+1)/2)k_{n+1}, with A = 6 − s/2 and s = ν² + ¼. Using the d = 0, ℓ = 0 recurrence (m+1)²k_{m+1} + (s − 2m²)k_m + (m−1)²k_{m−1} = 0 at m−1, m and m+1, this equals §3's five-term Y_m coefficient by coefficient (k_m: 6−m²; k_{m∓1}: (m∓1)²/2 − s/4 + (13∓7m)/2).
 
 **Significance.** The angular-route coefficients are exactly the k = 2 kernels of the original Ω^EE at finite mass. This is the physical-matching step for the full-positivity route, given the I_j identities and the continuation from −1 < Re δ < 0.
+
+## 27. Finite-mass positivity programme for Ω^EE (author-supplied, 26 Nov)
+
+| claim | check |
+|---|---|
+| Finite-mass k = 2 action ∝ Σ_k W_{b,k}(y_{k+2} + d_{b,k}z_{k+2}/6). It is diagonal in the ladder basis: no b = 0/4 cross terms (disjoint supports, A tridiagonal), plus the k = 3 flip cancellation | consistent with §§3, 25, 26. Absolute normalisation vs T0's N_s still open |
+| Numerical cross-check: (H_ang − H_hyb)/N_s ≤ 0.0026 on 39 states (13 spin/channel pairs, twists 1000/1300/2000; half-step quadrature) | not re-run [NE]; uses the old weight and endpoint normalisation |
+| d_{b,k}/3 = T(1/(k+3) − r/(k+1)) + V_{b,k}, with V_{0,k} = 4k/(k+3) and V_{4,k} = 4 + 12/(k+1) | **verified** by hand (u_k/(k+1) − u_{k−1}/(k+3)) |
+| Every mass at fixed J reduces to a polynomial 𝒫_{J,b}(w) > 0 on 0 ≤ w ≤ Λ²/((J+998)(J+999)). Bernstein/interval certificate passes for J ≤ 13 (moment uncertainty 1e-8), J ≤ 15 (1e-10), J ≤ 16 (1e-12) | polynomial tests rigorous per author; **moments not certified** (old weight) |
+| 0 ≤ r^k − U_{b,k} ≤ r^{k−1}S_{b,k}/T, giving \|H_ang − H_LR^realised\| ≤ 𝒦_b(r₀)/T uniformly in spin for r ≤ r₀ | proof elementary and correct (ratio ≤ r; telescoping); constant not evaluated |
+| Large-r limit (repaired weight with χ_re(i) = 0 and the target slope): Z_k ~ z_*k^{−5/2}/log k, Y_k/Z_k → 1/4, Q_k = O(k^{−7/2}); ladder U → e^{−γ atanh(x/γ)} | [D], contour argument not re-checked |
+| Step C: ∫₀^γ x^{7/2}U_γ[1/x − 2/x² + 9/(2γ²)]dx = ½∫₀^γ x^{3/2}U_γ dx | **verified numerically** (γ = 3, 10, 50, 1996; 12 digits) |
+| 𝔑(γ) = Γ(5/2)⁻¹∫x^{3/2}U_γ, with 1 − 105/(8γ²) ≤ 𝔑 ≤ 1; at γ ≥ 1996, 1 − 𝔑 < 3.3e-6 | **verified**: 𝔑(1996) = 0.999996705605 against a lower bound of 0.999996705586 (tight); 𝔑(50) = 0.99480 ≥ 0.99475 |
+
+**Programme status.**
+* *Covered by methods:* fixed J at every mass (polynomial certificate); bounded impact parameter uniformly in spin (comparison lemma); unbounded impact parameter (positive gamma integral).
+* *Open:*
+  * certified angular moments for the repaired weight;
+  * explicit thresholds for the two asymptotic regions;
+  * certification of the finite transition region;
+  * the absolute finite-mass normalisation against T0.
