@@ -1,6 +1,6 @@
 # LADDER_ALLJ: audit of the all-J first-moment operator (ANGULAR_ROUTE §7) and the all-J helicity ladder (§8)
 
-*25 Nov 2026. Research agent, about 3.5 h. Unreviewed and not committed. No existing file was edited. INDEP_CHECK_T0.md and
+*25 Nov 2026. Research agent, about 3 h. Unreviewed and not committed. No existing file was edited. INDEP_CHECK_T0.md and
 `code/t0check/` were not touched.*
 
 * **Code.** New code is in `ads4/code/ladder/`:
@@ -12,7 +12,7 @@
 * **Outputs.** They go to `code/ladder/cache/`, which ignores everything but its own `.gitignore`.
 * **Imports.** `code/kernels/{pipeline,structures,kernels_lib}.py` are imported read-only, with `KERNELS_CACHE` redirected to
   `ladder/cache`.
-* **Compute.** About 1.3 CPU-h, at most 2 processes, `ulimit -v 3000000`.
+* **Compute.** About 1.2 CPU-h, at most 2 processes, `ulimit -v 3000000`.
 
 **Grades.**
 
@@ -55,7 +55,7 @@
   * the standard K action.
 * **(B) The ladder: pipeline agrees with the closed forms.** The test used two rational Δ per J (near unitarity, Δ = J + 10/3, and
   Δ = J + 1001 + 1/7), exact rational arithmetic, and source helicities ±2.
-  * For every conserved structure, J = 2 … 40, both parities, these hold **exactly**:
+  * For every conserved structure, J = 0 … 40 (158 cases), both parities, these hold **exactly**:
     * the §8 closed forms F_{−k} = F₀C(J,k)(4)_k/(Δ−1−k)_k and F_{4+k} = F₄C(J−4,k)(4)_k/(Δ−5−k)_k, with F₁ = F₂ = F₃ = 0;
     * the §8 recurrence, at every m;
     * the vanishing of the other sector, where appropriate [DV].
@@ -229,7 +229,13 @@ touch the T_Δ-enhancement. This is consistent with ANGULAR_GO's scaling ceiling
 3. the §8 recurrence at every m ∈ [−J, J];
 4. h = −2: F^{(−2)}_m = σF^{(+2)}_{−m} at every m.
 
-**Result: RESULT_LINE**
+**Result.** All **158** (J, parity, structure, Δ) cases with J = 0 … 40 pass all four checks exactly (`cache/ladder_J*.txt`). There are no failures. J = 1 and J = 3 have no structures.
+
+| J | cases |
+|---|---|
+| even J ≥ 4 | 2 even structures + 1 odd structure, × 2 Δ |
+| odd J ≥ 5 | 1 odd structure, × 2 Δ |
+| J = 0, 2 | 1 + 1, × 2 Δ |
 
 The sector content (which ladder each structure carries) is exactly as in §1.
 
@@ -260,7 +266,7 @@ Audit, item by item:
 | endpoint terms | not derived analytically beyond the decay argument: the α-integrand is O(\|α\|^{−2}) at both ends, which is the pipeline's convergence condition nfac ≥ 0. Settled empirically: the pipeline's exact α-integrals satisfy the recurrence through J = 40, both parities, both helicities, two Δ |
 | boundary conditions | F₁ = F₂ = F₃ = 0 is the momentum Ward identity, which is rigorous. In the recurrence, rows 0 and 4 have zero diagonal weight, so the sectors decouple |
 | uniqueness | for Δ > J+1 the pivots m(m−1)(Δ+m−2)(J−m+1) (m ≤ −1) and (m−3)(m−4)(Δ−m−2)(J+m+1) (5 ≤ m ≤ J−1) are nonzero, so each sector has a one-dimensional solution space [P] |
-| h = −2 | `ward_symbolic.py --minus` gives the mirror recurrence (m → −m). The pipeline mirror relation holds for J ≤ 40 |
+| h = −2 | `ward_symbolic.py --minus` gives **−½ × the mirror recurrence** (m → −m, f_{m±1} → f_{m∓1}) for symbolic J, m, Δ. For h = −2 the origin first moment is again (i/6)(W−18) with the same W. The pipeline mirror relation holds for J ≤ 40 |
 
 ## 7. Reproduce (`ads4/code/ladder/`; `ulimit -v 3000000; export OMP_NUM_THREADS=1`)
 
@@ -268,8 +274,8 @@ Audit, item by item:
 python3 -B fm_check.py 0 2 4 5        # ~5 min    (A) pipeline: origin (W-18), midpoint translation piece
 python3 -B fm_check.py 6 7 8          # ~15 min
 python3 -B ward_engine.py 2 4 5       # ~1 min    first-principles K-hat: -K_z = W-18 ; D.K -> recurrence (fixed J)
-python3 -B ward_symbolic.py           # symbolic J, m, Delta, helicity +2
+python3 -B ward_symbolic.py           # ~10 min, symbolic J, m, Delta, helicity +2
 python3 -B ward_symbolic.py --minus   # helicity -2 (mirror)
-python3 -B ladder_data.py 2 23        # ~35 min   (B) pipeline vs closed forms / recurrence / h=-2 mirror
-python3 -B ladder_data.py 24 40       # ~40 min
+python3 -B ladder_data.py 0 23        # ~20 min   (B) pipeline vs closed forms / recurrence / h=-2 mirror
+python3 -B ladder_data.py 24 40       # ~20 min
 ```

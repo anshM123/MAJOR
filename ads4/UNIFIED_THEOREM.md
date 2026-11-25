@@ -807,6 +807,13 @@ A chain carries the grade of its weakest link.
 >   * **I3:** the cached t0_checks.txt says c = 199/1000, a stale run.
 > * **Unchanged scope:** M20 (the realised weight, only at 300 and 1000) and beyond-leading-Regge δ are not covered.
 
+> **Update (LADDER_ALLJ.md, 25 Nov; independent audit): the §7 first-moment operator and the §8 all-J ladder pass every pipeline test, and both were re-derived independently.**
+> * **First moment.** M^orig = (i/6)(W−18)H holds exactly for J = 0, 2, 4–8, both parities, symbolic Δ, all m. The +18 = 3(Δ+3) translation − 3(Δ−3) normalisation; the authors' −i(Δ−3)/2 sign is confirmed from first principles. In Wigner-normalised midpoint form the operator is (i/6)W, tridiagonal with off-diagonal −b_m, for all J. −K̂_z = W − 18 is re-derived for symbolic J, m, Δ [P given the standard K action].
+> * **Ladder.** All 158 cases pass exactly (J ≤ 40, both parities, Δ = J+10/3 and J+1001+1/7): F₁ = F₂ = F₃ = 0, the closed forms, and the recurrence at every m. h = −2 is the mirror image F^(−2)_m = σF^(+2)_{−m}.
+> * **Conservation step.** The Todorov contraction (spin −2) with K̂ gives exactly −½ × the recurrence for symbolic J, m, Δ. The endpoint terms decay as O(\|α\|⁻²).
+> * **Grade.** Both are [P] given the two operator identities [z·K, E] = 6iE⁽¹⁾ and D_z^μ[K_μ, E] = 0 (authors' [D]), with consequences checked exactly against the pipeline.
+> * **Note.** The commutator sum rule needs the translation term (structure of Ỹ_m), which §9 includes.
+
 ## 1. Setup and normalisations
 
 | item | definition |
