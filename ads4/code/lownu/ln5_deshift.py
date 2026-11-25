@@ -55,7 +55,10 @@ def tail_log10(nt):
     with np.errstate(over='ignore', divide='ignore'):
         lg = np.log(np.abs(chir[m]) * Rr[m] + 1e-320) + np.pi * nr[m]
     mx = lg.max(); return float((mx + np.log(np.sum(np.exp(lg - mx)) * (nr[1]-nr[0]))) / np.log(10))
-res = dict(L=L, q=q, dmu=dmu, s=s, ridge=lam, n=len(mus), relint=float(relint), maxc=float(np.abs(cc).max()),
+# reviewer's tail-lemma constants for r = E - T: A = int|r|, B = |r'''(0)| + int|r''''| (finite differences on the 0.01 grid)
+d4 = np.diff(R, 4) / 0.01**4; d3_0 = (R[3] - 3*R[2] + 3*R[1] - R[0]) / 0.01**3
+A_r = float(np.sum(wq * np.abs(R))); B_r = float(abs(d3_0) + np.sum(np.abs(d4)) * 0.01)
+res = dict(A_r=A_r, B_r=B_r, L=L, q=q, dmu=dmu, s=s, ridge=lam, n=len(mus), relint=float(relint), maxc=float(np.abs(cc).max()),
            slope=float(sl), kappa=float(kappa), Srel=[(b, float(r)) for b, _, _, r in rows],
            S_err_over_floor=[(b, float(abs(sR) / (2 * kappa * np.exp(-b / 2) / (np.pi * b)))) for b, sT, sR, _ in rows],
            S_T_over_floor=[(b, float(sT / (2 * kappa * np.exp(-b / 2) / (np.pi * b)))) for b, sT, sR, _ in rows],
