@@ -205,8 +205,14 @@ def _norm_major(m, R, cb, s, eta):
 
 # ---------------------------------------------------------------- far remainder
 def far_remainder(cb, hmax, nmin, M, b, tau, d_lo):
-    """upper bound of |R_M| = |sum_{k<=n} c^k g_k rho_M(k) - sum_{k>n} c^k g_k T_M(k)|  (FULLPOS3 §4.4).
-    Blocks [k0, k1) up to K_T = max(nmin+1, 6(2M+10)/d), then the analytic geometric tail."""
+    """upper bound of |R_M| = |sum_k g_k (U_k - T_M(k))| (FULLPOS3 §4.4, author's §61 lemma, fixed for c-cells).
+    U_k(h; c) = prod_{j<k} (c - h u_j)/(1 - h u_j) is analytic in |h| < 1/u_{k-1} (also past termination: exact zero at j = n), and
+    T_M(k) is its Taylor polynomial in h.  On |h| = rho (x_j = rho u_j < 1), uniformly over c in [c-, c+]:
+      M_k(rho) = prod_{j<k} max{(c+ + x_j)/(1 + x_j), |c- - x_j|/(1 - x_j), |c+ - x_j|/(1 - x_j)}   (Moebius extremes on the real axis)
+      |U_k - T_M(k)| <= M_k(rho) (h/rho)^{M+1}/(1 - h/rho)        (h <= hmax < rho)
+      |U_k - T_M(k)| <= c+^k + M_k(rho) sum_{m<=M} (h/rho)^m           (any admissible rho)
+    Blocks [k0, k1): each factor is quasi-convex in x, so its max over a block is at an end point; B_k increasing; then a geometric tail
+    with rho = theta/u_k, theta = 3/4."""
     s = 2*b + 1
     kap = A(abs(Fr(9, 2) - b*(b - 1)))
     KcA = (PI/2)*(2*PSI2.absexp(PI/2, 2000) + (2/LAM)*D.Rint(PI/2)[0])
@@ -216,52 +222,66 @@ def far_remainder(cb, hmax, nmin, M, b, tau, d_lo):
         return KcA*e3*arb(k + 3)**3/27
     def Bk(k):
         return BA(k) + tau*(arb(k + 1)**2/2*BA(k + 1) + (arb(k)**2/2 + 4*k + kap)*BA(k)) + tau*KcD*e4*arb(k + 4)**4/256
-    c = arb(cb.upper()); h = arb(hmax); dd = arb(d_lo.lower())
-    ts = [arb(10)**(arb(i)/4) for i in range(-16, 40)]
-    rhos = [h*t for t in ts]
-    logInvE = [arb(0) for _ in rhos]
-    valid = [True]*len(rhos)
-    tot = arb(0); k0 = 0; logc = c.log()
-    KT = max(nmin + 1, int(6*(2*M + 10)/float(dd.lower())) + 1)
-    while k0 < KT:
-        blk = max(1, k0//500)
-        k1 = min(k0 + blk, KT); blk = k1 - k0
-        uj = arb((k1 - 1)*(k1 - 1 + s))
-        for i, r in enumerate(rhos):
-            if not valid[i]:
-                continue
-            if not (r*uj < c*0.999):
-                valid[i] = False; continue
-            phi = (1 - r*uj).log() - (1 - r*uj/c).log()
-            logInvE[i] = logInvE[i] + blk*up(phi)
+    cm = arb(cb.lower()); cp = arb(cb.upper()); h = arb(hmax)
+    def logfac(x):
+        v = (cp + x)/(1 + x)
+        v2 = abs(cm - x)/(1 - x); v3 = abs(cp - x)/(1 - x)
+        m = v
+        if v2 > m: m = v2
+        if v3 > m: m = v3
+        return up(m.log()) if m > 0 else arb(-10**6)
+    rhos = [arb(10)**(arb(i)/4) for i in range(-80, 1)]          # 1e-20 .. 1
+    LM = [arb(0) for _ in rhos]; valid = [True]*len(rhos)
+    tot = arb(0); k0 = 0; logcp = cp.log()
+    th = arb(3)/4
+    KT = None
+    while True:
+        blk = max(1, k0//400)
+        k1 = k0 + blk
+        ua = arb(k0*(k0 + s)); ub = arb((k1 - 1)*(k1 - 1 + s))
         best = None
         for i, r in enumerate(rhos):
             if not valid[i]:
                 continue
-            q = h/r; IE = logInvE[i].exp()
-            TM = (M + 1)*IE if q < 1 else (M + 1)*q**M*IE
-            cand = 1 + TM
-            if k1 - 1 <= nmin and r >= h:
-                cand2 = q**(M + 1)*IE
-                if cand2 < cand:
-                    cand = cand2
+            if not (r*ub < 1):
+                valid[i] = False; continue
+            lf = logfac(r*ua); lf2 = logfac(r*ub)
+            if lf2 > lf: lf = lf2
+            LMblk = LM[i] + (blk*lf if lf > 0 else arb(0))        # bound of log M_k for k in [k0, k1]
+            Mk = LMblk.exp()
+            q = h/r
+            fb = cp**k0 + Mk*((M + 1) if q <= 1 else (M + 1)*q**M)
+            cand = fb
+            if q < 1:
+                tr = Mk*q**(M + 1)/(1 - q)
+                if tr < cand:
+                    cand = tr
             if best is None or cand < best:
                 best = arb(cand.upper())
+            LM[i] = LM[i] + blk*lf                                  # log M_{k1} <= log M_{k0} + sum over the block
         if best is None:
-            raise RuntimeError('no valid rho at k=%d' % k1)
-        tot += up(arb(blk)*(logc*k0).exp()*Bk(k1)*best)
+            raise RuntimeError('no admissible rho at k=%d' % k1)
+        tot += up(arb(blk)*Bk(k1)*best)
         k0 = k1
-    # analytic tail k >= KT: rho_k = theta c/u_k, theta = d/2: 1/E_k(rho_k) <= exp(theta (k/3 + b + 1)/(1 - theta)),
-    #   f(k) = c^k B_k (1 + (M+1) max(1, h u_k/(theta c))^M exp(theta (k/3+b+1)/(1-theta)));
-    #   f(k+1)/f(k) <= c e^{theta/(3(1-theta))} (1 + 1/k)^{2M+5} * (B_{k+1}/B_k (1+1/k)^{-5} <= 1)  =: r < 1  ->  tail <= f(KT)/(1-r)
-    th = dd/2; K = arb(KT)
-    uK = K*(K + s)
-    q = h*uK/(th*c); qM = q**M if q > 1 else arb(1)
-    fK = (logc*K).exp()*Bk(KT)*(1 + (M + 1)*qM*(th*(K/3 + b + 1)/(1 - th)).exp())
-    rr = c*(th/(3*(1 - th))).exp()*(1 + 1/K)**(2*M + 5)
-    assert rr < 1, ('tail ratio', rr)
-    tail = fK/(1 - rr)
-    return up(tot + tail), KT
+        # switch to the analytic tail once its ratio bound is < 1 and terms are negligible
+        if k0 > 1000:
+            K = arb(k0)
+            q_th = (cp + th)/(1 + th)
+            for v in (cp, abs(cm - th)/(1 - th), abs(cp - th)/(1 - th)):
+                if v > q_th: q_th = v
+            hu = h*K*(K + s)/th
+            rr = q_th*(1 + 1/K)**(2*M + 8)
+            rr2 = cp*(1 + 1/K)**8
+            if rr < 1 and rr2 < 1:
+                fK = Bk(k0)*(cp**k0 + (M + 1)*q_th**k0*(hu**M if hu > 1 else arb(1)))
+                if fK < arb(10)**(-400):
+                    rmax = rr if rr > rr2 else rr2
+                    tot += up(2*fK/(1 - rmax))
+                    KT = k0
+                    break
+        if k0 > 5*10**8:
+            raise RuntimeError('far remainder did not converge')
+    return up(tot), KT
 
 
 def state_params(cb_lo, a0, s):
