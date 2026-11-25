@@ -191,3 +191,24 @@ Coordinator checks are in `code/angular/verify_s9.py`.
 | Spectral-tail obstruction: truncation at harmonic N+2 leaves B_N = q_{N+2}Σ_{O,b}X_N\|a_{O,b,N}\|²/(N+1). This vanishes per representation, but the infinite sum needs Σ J(J+1)\|a_{O,b,N}\|² = o(N⁴) | **genuine open problem** (author-identified). A positive limit of B_N would enlarge the RHS and break the bound |
 
 **Coordinator's note — the main physics risk.** The gap applies to single traces only. At leading order in 1/c_T, multi-trace states (e.g. [TT]_{n,J}, twist ≈ 2Δ_T + 2n) also enter the heavy sum with **low** T_Δ. They are positive, but they could supply fourth-harmonic weight cheaply, and the bound's W₂⁴ estimate assumes twist ≥ 1000. The original Ω^EE handles them with the [TT] double zeros of the de-shift weight; this direct angular sum rule has no such mechanism visibly. The open list must include either their exclusion at the relevant order or explicit control. Same for contact terms in the mixed E, E⁽¹⁾ commutator and the uniform large-c_T limit.
+
+## 10. Spectral boundary reduced to a two-norm condition; ANEC fourth-harmonic rule; contact kernel (author-supplied, 25 Nov)
+
+Coordinator checks are in `code/angular/verify_s10.py`.
+
+| claim | check |
+|---|---|
+| Fourth-harmonic rule from [E₄, E₋₄] = 0 in a normalised \|T,+2⟩: Σ_{O,J≥6}\|a_{O,4,2}\|² = \|c\|² + Σ_{O≠T}\|a_{O,0,2}\|² ≥ (t₄²+α_T²)/16 | **argument not re-checked.** Caveat: the Fourier modes of E(n) involve coincident directions. KKSZ commutativity holds at separated n, so [E₄, E₋₄] = 0 also needs the absence of a contact term in [E(n), E(n′)] at n = n′, or its cancellation in this combination |
+| Bounded-twist tail lemma: Σ_{J≥L, Δ−J≤g}\|a_{O,b,2}\|² = O(g⁶/L⁶), uniform in c_T, from the ladder plus Σ_O\|a_{O,b,M}\|² ≤ 1 | argument plausible, not re-checked. Multi-trace large-spin escape is controlled. **Fixed-window planar suppression of multi-trace weights is still assumed** |
+| On ladders: d₀ = (Aa)₀/a₀ = T − 3C + 2b² + 4b, d₁ = (3/4)T − (3/2)C + (3/4)(b+1)(b+4) | **verified** (rel. err. 6e-16, 2000 random b, J, twist) |
+| Coercivity C²\|a₀\|² ≤ (25/4)(\|(Aa)₀\|² + \|(Aa)₁\|²) for twist > 2 | **verified numerically**: the minimum ratio over 2000 random cases is 4.63 (claim ≥ 1) |
+| Theorem: if Σ_{O,b}(\|(Aa)₀\|² + \|(Aa)₁\|²) < ∞, then B_N → 0 (twist ≥ 2 part via coercivity; bounded-twist part via the dyadic ladder comparison, O(g²/N²)) | logic follows from the verified pieces; bounded-twist part not re-checked |
+| Abstract counterexample (L_n = 2ⁿ, J_n = L_n³, Δ_n = J_n + L_n² + 2) with B_{L_n}⁽ⁿ⁾ → e⁻²/6: ladder plus bounded harmonic norms do not imply convergence | not re-checked; plausible. It shows the two-norm condition is genuinely needed |
+| Contact kernel Q(θ) = Σq_m e^{imθ} = (1 − cos θ)[12 log(2\|sin θ/2\|) − 9]; Q(0) = Q′(0) = 0, not C² | **verified** (series vs closed form, three angles, 15 digits). It annihilates δ and δ′ contacts but not higher-derivative ones |
+| K(g) = (729/4800)(g−2)²(1 − 49/(2g+9)²); bound √(t₄²+α_T²) ≤ 4√(3/K(g)) → (160/9)/g | **verified**: K(1000) = 151266, bound 0.017814, asymptotic 0.017778. Min of (v+g−2)⁶/v⁴ checked numerically |
+
+**Open (author's list, plus the coordinator's caveat on [E₄, E₋₄]):**
+1. **Physical finiteness of the two first-moment norms** Σ(\|(Aa)₀\|² + \|(Aa)₁\|²). Weighted light-ray commutativity is known to fail in some perturbative holographic limits, so this cannot be taken from ANEC alone.
+2. **The endpoint sum rule:** normalisation and contact matching (higher-derivative contacts).
+3. **Fixed-window planar suppression** of multi-trace transition weights.
+4. **The coincident-direction contact term** in [E₄, E₋₄].
