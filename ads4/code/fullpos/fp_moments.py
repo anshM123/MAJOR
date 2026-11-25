@@ -117,7 +117,7 @@ class Moments:
         E = [E0]
         for n in range(NK + 1):
             E.append(G[n] - E[n])
-        K0 = self._integral(lambda z: (1 + z*z).log()*(-(z*z)/2).exp())
+        K0 = self._integral(lambda z, an: (1 + z*z).log(analytic=an)*(-(z*z)/2).exp())
         Kn = [K0]
         for n in range(NK):
             Kn.append((2*n + 1)*Kn[n] + 2*E[n + 1])
@@ -126,10 +126,10 @@ class Moments:
         self.LF = {}
         for a in (9, 49):
             ya = self.y
-            def fL(z, a=a):
+            def fL(z, an, a=a):
                 x = z*z
                 pol = ya[0] + ya[1]*x + ya[2]*x*x
-                return pol*(x + 1)*(1 + x).log()*(-x/2).exp()/(4*x + a)
+                return pol*(x + 1)*(1 + x).log(analytic=an)*(-x/2).exp()/(4*x + a)
             self.LF[a] = self._integral(fL)
         if verbose:
             print(f'  log part: {time.time()-t0:.1f}s', flush=True)
@@ -142,7 +142,7 @@ class Moments:
     def _integral(self, f):
         """int_0^oo f, f even-ish analytic near [0, 64], |f| <= nu^8 e^{-nu^2/2} * 10 beyond 64 (all uses): rigorous."""
         def F(z, analytic):
-            return f(z)
+            return f(z, analytic)                 # f must use log(..., analytic=analytic): holomorphy is checked (Arb contract)
         v = acb.integral(F, 0, 64).real
         tail = arb(10)**4*(-arb(64)**2/2 + 40).exp()        # crude, ~ e^{-2000}
         return v + arb(0, tail.upper())
@@ -333,7 +333,7 @@ def main():
             print(f'k={k:4d} Z={Zk.str(12)} rel.rad {float((Zk.rad()/abs(Zk.mid()))):.2e}  Y={Yk.str(12)} rel.rad '
                   f'{float((Yk.rad()/abs(Yk.mid()))):.2e}  Y/Z={(Yk/Zk).str(8)}  t={time.time()-t0:.0f}s', flush=True)
     out['time'] = time.time() - t0
-    json.dump(out, open(os.path.join(FC.CACHE, f'moments_{Dg}_K{K}.json'), 'w'))
+    json.dump(out, open(os.path.join(FC.CACHE, f'moments_{Dg}_K{K}' + os.environ.get('FP_TAG', '') + '.json'), 'w'))
     print(f'done {time.time()-t0:.1f}s')
 
 

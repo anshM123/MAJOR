@@ -1,4 +1,4 @@
-# FULLPOS_CERT: certified angular moments and every-mass positivity of Ω^EE at fixed spin (Δ_g = 1000)
+# FULLPOS_CERT: certified angular moments, and every-mass positivity of Ω^EE for J ≤ J1MAX and for all J ≥ 240 at bounded impact parameter (Δ_g = 1000)
 
 *26 Nov 2026. Research agent, about 5 h. Unreviewed, not committed. No existing file was edited, and nothing under `prl/` was touched.*
 * *New code:* `ads4/code/fullpos/`:
@@ -8,12 +8,15 @@
   * `fp_norm.py` (fixed-r normalisation identities);
   * `fp_compare.py` and `fp_ratio.py` (H_ang vs T0's hybrid);
   * `fp_regions.py` (coefficient profile, comparison constant);
-  * `fp_kernel.py` (finite-mass frequency kernel, §31 identity).
+  * `fp_kernel.py` (finite-mass frequency kernel, §31 identity);
+  * `fp_tail.py` (§§29–32 envelopes, prefix constants, majorants, §32 form);
+  * `fp_pivot.py` (§29 signed-remainder majorant);
+  * `fp_rect.py` (§34 bivariate certificate).
 * *Outputs:* `fullpos/cache/` (its `.gitignore` ignores everything but itself).
 * *Read-only inputs:*
   * data: `prl/data/k2/k2_continuum_D_1000_rep.json`, `prl/data/nf02_psi.json`, `prl/data/kernels.json`;
   * code: `largespin/ls_core.py`, which reaches `spinfunc/` (T0's hybrid). It is used only in the comparisons.
-* *Compute:* about 1.5 CPU-h in total, ≤ 2 processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`.
+* *Compute:* about 4 CPU-h in total, ≤ 2 processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`.
 
 **Grades.**
 
@@ -53,8 +56,8 @@
 | J ≥ 240, b̂ ≤ 100 (x = b̂²/4 ≤ 2500) | bivariate (x, v = (J+½)⁻²) Bernstein certificate, exact denominators, K = 230 harmonics plus a certified tail (`fp_rect.py`) | **[certified]** |
 | J ≥ 420, b̂ ≤ 282.8 (x ≤ 2·10⁴) | the same, K = 410 | **[certified]** |
 | J ≥ 651, b̂ ≤ 400 (x ≤ 4·10⁴) | the same, K = 640 | **[certified]** |
-| J ≥ 240, b̂ ≤ 22 | ⊂ the above. The authors' |H_ang − H_hyb| ≤ 0.05 H_hyb is **not** reproduced as such; positivity is | [certified] (positivity) |
-| J ≤ 26, all masses | the authors' |H_ang/H_hyb − 1| ≤ 0.01 confirmed on samples: max 4.7·10⁻³, min H_ang/N_s = 0.2009 | [DV] |
+| J ≥ 240, b̂ ≤ 22 | ⊂ the above. The authors' \|H_ang − H_hyb\| ≤ 0.05 H_hyb is **not** reproduced as such; positivity is | [certified] (positivity) |
+| J ≤ 26, all masses | the authors' \|H_ang/H_hyb − 1\| ≤ 0.01 confirmed on samples: max 4.7·10⁻³, min H_ang/N_s = 0.2009 | [DV] |
 | **open** | J > J1MAX and b̂_rect(J) < b̂ ≤ b̂_max(J) ≈ (2J+1)Λ/√(1996J + 997002), i.e. near-edge masses at large spin, including r → 1 | — |
 
 | item | result | grade |
@@ -255,15 +258,17 @@ Since H_ang,b = (1−r)³·𝒫·Tⁿ/∏_{j<n}(T−u_j), and the factor is > 0 
 | Δ_g | moments | channels certified | first failure (cause) |
 |---|---|---|---|
 | 1000 | K = 300, 3000 bits | **every physical channel with J ≤ 239** (356 polynomials, ≤ 15 cells each, ≈ 2 s each at J ≈ 240) | J = 240: balls too wide, from moment precision, not a sign |
-| 1000 | K = 1000, 7000 bits | **POLY1000_RESULT** | |
+| 1000 | K = 1000, 7000 bits | **every physical channel with 240 ≤ J ≤ J1MAX** (617 polynomials for 240–650 plus POLYEXTRA; 15 cells each; 2 s at J = 240, 12 s at J = 650) | none (runs stopped by the time box) |
 | 300 | K = 300, 3000 bits | **every physical channel with J ≤ 285** (426 polynomials) | J = 286, b = 0: precision |
 
 Further details:
 * **Margins.** The minimum Bernstein lower bound is smallest at the twist edge. It decreases with J: 𝒫(w_max) ≈ 0.52 (J = 4, `++`),
   2.2·10⁻³ (J = 40), 2·10⁻⁶ (J = 238). That decrease comes from the normalising factor ∏(1 − u_j w/λ); H_ang itself is ≈ H_hyb > 0.
-* **Cancellation.** The terms of 𝒫 cancel by a factor ≈ e^{1.3J} (§1.4). So certifying spin J needs moments with relative radius
-  ≲ 10^{−0.57J}. This, not the Bernstein step, is the cost driver. The cost is polynomial: moments to precision e^{−1.3J} cost Õ(J²) at
-  O(J) digits.
+* **Cancellation.** The terms of 𝒫 cancel by a large factor. With the K = 300 moments (radius ~10⁻¹³⁷ at k ≈ 240) the certificate stops
+  at J = 240, which suggests ~e^{1.3J}. With the K = 1000 moments (radius ≤ 10⁻³³⁸ for k ≤ 750) J ≈ 690 still passes, so the
+  cancellation saturates once the moments reach their plateau.
+* **Cost.** Moment precision, not the Bernstein step, drives the cost, and it is polynomial: k ≤ 1000 moments took 20 min. Each
+  polynomial takes ≤ 15 s at J ≈ 700.
 
 ### 3.2 All spins J ≥ J₀ at bounded impact parameter: the bivariate certificate (ANGULAR_ROUTE §34; own implementation) [certified]
 `fp_rect.py`. Variables x = b̂²/4 = Λ²(J+½)²/m² and v = (J+½)⁻². Exactly:
@@ -448,4 +453,8 @@ python3 fp_rect.py 1000 1000 651 40000 640 3500     #                 J >= 651, 
    only its sign matters.
 3. **Hybrid side.** The hybrid comparisons use T0's float `hyb_fast` with the target ψ, not the repaired realised weight; the difference is
    ≤ 5.4·10⁻⁹. They are sampled, so [DV].
-4. **K = 1000 moments.** K1000_NOTE
+4. **K = 1000 moment run settings.** Edge width W = 300, 1200 Gauss–Legendre nodes per panel, and quadrature precision 3300 bits inside
+   the 7000-bit run. A first attempt with W = 100 had a 10⁻¹⁶⁰ θ-bound floor and was discarded. The `rel.rad 0.00e+00` entries in
+   the log are float underflows (radius < 10⁻³⁰⁸), not zero radii.
+5. **Bivariate certificate.** The self-check line in `fp_rect.py` is evaluated after the tail constant is subtracted. For the passing
+   boxes that constant is ≤ 10⁻⁵³ and invisible.

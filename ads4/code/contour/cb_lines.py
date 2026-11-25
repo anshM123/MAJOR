@@ -86,11 +86,11 @@ def run_horiz(W, Y, pr):
     t = arb(1)/4
     edgesA = (arb(1)/4, arb(45))
     hA = arb(1)/50; NA = 40; rhoA = 0.2
-    nA = int(((edgesA[1] - edgesA[0])/(2*hA)).upper()) + 1
+    nA = int(float(((edgesA[1] - edgesA[0])/(2*hA)).upper())) + 1
     hA = (edgesA[1] - edgesA[0])/(2*nA)
     t0s = [(edgesA[0] + (2*p + 1)*hA, hA, rhoA, NA) for p in range(nA)]
     hB = arb(1)/10; NB = 40; rhoB = 0.5
-    nB = int(((T_END - 45)/(2*hB)).upper()) + 1
+    nB = int(float(((T_END - 45)/(2*hB)).upper())) + 1
     hB = (arb(T_END) - 45)/(2*nB)
     t0s += [(arb(45) + (2*p + 1)*hB, hB, rhoB, NB) for p in range(nB)]
     tt = time.time()

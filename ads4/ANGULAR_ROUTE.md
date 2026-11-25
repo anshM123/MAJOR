@@ -672,3 +672,13 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * J ≥ 651 with b̂ ≤ 400 (L ≈ 0.0393).
 * *Derived (to reproduce):* L ≥ 28 (b̂ ≳ 2.4·10⁹).
 * ***Open:*** **L ∈ (0.039, 28)**, i.e. 400 ≲ b̂ ≲ 2.4·10⁹, at large spin.
+
+## 41. Local Taylor remainder constants, polynomial in Λ (author-supplied, 26 Nov)
+
+* **Expansion centre.** c = z_c = ρμ = (C − b(b+1))/(T − b(b+1)) = U_{b,1}. **Verified exactly** on 200 random states. So c = r for b = 0, and r − c = 20(1−r)/(T−20) for b = 4. In the band 0.039 < L < 28: c > 0.038 and d = 1 − c > e^{−28}.
+* **Local constants.** On \|z − c\| ≤ R_c/2, with R_c = √c·d/1200:
+  * M_{2,m} = (116/d³)P_{−1/2}((1+c)/(1−c))(1200/(√c d))^m;
+  * M_{3,m} = (68/d⁴)P_{−1/2}((1+c)/(1−c))(1200/(√c d))^m.
+
+  These are of order Λ^m, not e^{O(Λ)}. Not re-checked.
+* **Qualification (author).** The bound is local. The beta-contour remainder estimate also needs control of F outside \|z − c\| ≤ R_c/2, and analyticity alone gives no polynomial bound there. **Open.**
