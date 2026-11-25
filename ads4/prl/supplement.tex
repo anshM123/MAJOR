@@ -93,8 +93,8 @@ have no near-gap state, and $J=22$, $24$, $26$, $28$, $30$, $32$ are [NE\,+\,M] 
 $\Omega^Q_{\rm up}$ is positive on its binding states near the gap and at masses $1.3$--$3\Lambda$'' is the $\Omega^Q$ row of
 Table~\ref{tab:computed} ([NE$\pm$], $L\ge58$ at the binding pair; the $+-$ gap states $J=4$--$6$ given the saddle-point rows on the
 last $4\%$ of the $\nu$ range). ``The leading-Regge floor of (iii)'' and its scope are T0 as above; ``a second evaluator and an
-independent re-derivation of the curvature lemma confirmed it'' is the check described in Sec.~\ref{sec:T0} (a re-run of the
-certificate, a separately written evaluator agreeing to $10^{-10}$ on 1534 random states per gap, and a re-derivation of the curvature
+independent re-derivation of the curvature lemma confirmed it'' is the check described in Sec.~\ref{sec:T0} and Sec.~\ref{sec:repro}, run (e) (a re-run of the
+certificate code, which shows reproducibility only, a separately written evaluator agreeing to $10^{-10}$ on 1534 random states per gap, and a re-derivation of the curvature
 lemma by a different method). ``Elsewhere the values are computed in models or interpolated'' are the [NE\,+\,M] and [M] entries of
 Tables~\ref{tab:computed}, \ref{tab:cover}, \ref{tab:coverLS}, and $H_R'$ [D-sketch\,+\,M].
 
@@ -1950,9 +1950,11 @@ gap where the method closes'' holds only with the refinement. It is not a proof.
 \label{sec:repro}
 
 \textbf{Who performed the checks, and what ``independent'' means here.} Every check in this section was a separate run of the AI
-system acknowledged in the Letter, made after the computation it checks; no check was made by a person outside the project. A check is called \emph{independent} (``fully'', ``from statements only'', ``own code'' in the last
-column of Table~\ref{tab:repro}) only when that run wrote its own code from the written definitions and the published data
-(Table~\ref{tab:data}), without importing or running project scripts; the exceptions are named below. Such a check catches coding
+system acknowledged in the Letter, made after the computation it checks; no check was made by a person outside the project. A check is called
+\emph{independent} (``fully'', ``independent code'', ``from statements only'', ``own code'', ``own fit'' in the last column of Table~\ref{tab:repro}) only when that run wrote its own code from the written definitions
+and the published data (Table~\ref{tab:data}), without importing or running project scripts; the exceptions are named below.
+``Independent route'' means a different numerical method for the same quantity; ``partly'' names what was shared. Such a check
+catches coding
 errors and unstated steps, but not an error in a definition both runs take from the same text. When a check ran our own code again,
 it is called a \emph{re-run}: matching outputs (even byte for byte) show that the computation is reproducible, not that it is right.
 
@@ -1965,7 +1967,8 @@ running any project code (the four rows from the $EE$ kernel on). (c) The ``seco
 the monopole constant, Lemma LR$_\infty$, the algebra of Theorem W and the structure counts, with its own code; it read the
 Theorem-W floors as data from our output, and read our Lemma-LR$_\infty$ routine only after its own result was fixed. (d) $c_1=0$,
 with its own free-field code and without reading ours; and the structure-basis repair of the even-$J$ direct rows at
-$\Delta_g=1000$, re-derived and fitted with its own code. The values, budgets and $L$ of $J=18$, $23$, $25$ (last row of the table)
+$\Delta_g=1000$, re-derived and fitted with its own code (our routines for the local nodes and structure bases were used
+read-only). The values, budgets and $L$ of $J=18$, $23$, $25$ (last row of the table)
 are a re-run of our code on its own mapped records, not a re-implementation. (e) The T0 certificate (Sec.~\ref{sec:T0}): a re-run
 of the certificate code (identical outputs), a re-derivation of its lemmas by hand and a separately written evaluator. (f) The
 angular route (Sec.~\ref{sec:angular}): re-derived in a separate run that imported our structure and kernel code read-only, so its
