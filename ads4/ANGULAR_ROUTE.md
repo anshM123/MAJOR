@@ -752,3 +752,21 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * H = w³[(2/Λ)∫f𝒦₂ + (σ_bΛ²/T)∫ψ₃𝒦₃(Λp)dp].
   * Not yet matched against fp_kernel.kfin.
 * **Open.** A non-exponential per-frequency envelope, perhaps from a discrete energy estimate for the five-point equation.
+
+## 46. Weight conversion, Darboux expansion with 1/M correction (author, 26 Nov); cancellation size (coordinator)
+
+* **Weight conversion (author).**
+  * f(ν) = 2Re[χ_re(ν−i)θ(ν−i)R₋(ν−i)].
+  * H^{(2)} = ∫g K_raw dν = (2/Λ)∫f Φ₂ dν, with Φ₂ = w³𝒱_b(F_{3,ν}).
+  * K_raw = −((4ν²+9)(4ν²+49)/(4608(4ν²+1)))·Re[R₋(ν)Φ₂(ν+i) + R₊(ν)Φ₂(ν−i)].
+* **Coordinator scan** (raw g paired with fp_kernel.kfin; the c_k = 0 Gaussian is not doubled; k = 3 piece omitted), at J = 200, Δ = 1200, b = 0:
+  * H^{(2)} = 1.800e-4 and the Legendre-kernel H_LR^{(2)} = 1.762e-4, against N_s = 4.34e-5.
+  * But ∫\|g\|·\|K_fin − K_LR\| dν = 2.0·10⁴ N_s. It comes almost entirely from ν = 50…1200: 9.6e2, 1.55e4 and 3.9e3 N_s in the bands [50,200], [200,500] and [500,1200].
+  * **Consequence:** the ν-integrand cancels down to about 10⁻⁵ of its absolute size. Any per-frequency envelope must therefore either keep the oscillation (a signed ν-integral) or match the kernel to a relative accuracy of about 10⁻⁵ at ν ~ 10², which a C(ν)/T envelope cannot do. [DV]
+* **Darboux expansion (author; diagnostic numerics only).**
+  * Variables: M = J + ½ + a/2, α = p − ½ + iν, and 𝔑_a(α) = Γ(α)⁻¹∫₀^{2a}x^{α−1}e^{−2a·atanh(x/2a)}dx.
+  * Expansion: 𝒦_p(ν) = 2Re{B(ν)d^{−α}[𝔑_a(α) + ℭ/M]} + O(d^{−Re α}M^{−min(2,Re α)}).
+  * First correction: ℭ = a[(2b−α)𝔑_a(α) + (p−2b)𝔑_a(α−1)].
+  * The centred index k + p/2 cancels the first-order coefficient correction.
+  * Ladder expansion: U_k = ((1−x)/(1+x))^a[1 + (2a/M)(b − (b−p/2)/(1−x²)) + O(M⁻²)], with x = (k + p/2)/M.
+  * Not yet checked here.
