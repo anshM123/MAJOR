@@ -572,3 +572,21 @@ No large-Δ, large-J or large-ν approximation is used.
 **Coordinator assessment.**
 * *The cutoff is intrinsic.* The weight lives at ν ≲ Λ ≈ 10³. The coefficient asymptotics are an expansion in e^{iν log k}, so the 1/log k regime only sets in for log k ≳ Λ, i.e. k ≳ e^{~1000} or beyond. Coefficient-wise envelopes cannot be checked computationally up to K.
 * *Proposed pivot.* For the middle region (J ≥ 27, b̂ > 1), work in the impact-parameter variable instead of per harmonic. §29's exact signed remainder writes H_ang − H_LR through the finite ladder weights U_{b,j} and the tail generating functions F_j(r), G_j(r). Those are leading-Regge-type integrals at fixed r (F_j = (w⁻³H_LR^{(2)}(r) − Σ_{k≤j}P_kr^k)/r^{j+1}), which T0's machinery already certifies as functions of r. Combined with U_{b,j} ≤ e^{−j/R} and the improved ladder bound (§29), this avoids enumerating harmonics.
+
+## 34. Bivariate (x, v) certificate for J ≥ 240 and the collective Mellin transform (author-supplied, 26 Nov)
+
+**Context.** The FULLPOS_CERT checkpoint certifies H_ang,b > 0 at every mass for every channel with J ≤ 239 (gap 1000) and J ≤ 285 (gap 300) [certified]. Its finding: separate \|F_j(r)\| tails are useless (majorant ~10⁶² against an action of ~10⁻⁴ at J = 100).
+
+| claim | check |
+|---|---|
+| With x = b̂²/4, v = (J+½)⁻², λ = Λ²: λ^kU_{b,k} = x^kA_{b,k}(v)/∏_{j<k}[1 + (x/λ)(1−(b+j+½)²v)], where A_{b,k} = ∏_{j<k}[1−(b+j+½)²v]; r_β = x/(λ+x) | **verified exactly** (30 random states; uses m² = T − C) |
+| T0's flat partial wave D_b(1−2up²) = Σ_k(−xp²)^kA_{b,k}(v)/(k!)², with u = xv | b = 0 follows from P_J(1−2y) = ₂F₁(−J,J+1;1;y) with (−J)_k(J+1)_k = (−1)^k(J+½)^{2k}A_{0,k}; b = 4 not re-checked |
+| J ≥ 240 ⇔ 0 ≤ v ≤ 4/481². A bivariate certificate on (x,v) ∈ [0,121]×[0,4/481²] (b̂ ≤ 22) passes for both channels: \|H_ang − H_hyb^rep\| ≤ 0.05H_hyb^rep (1% for b̂ ≤ 16), so H_ang ≥ 0.1899N_s. Degree-(66,66) Bernstein, 240-digit outward rounding, ideal-density moments via exact NF02 rationals; repaired-weight residual < 0.002537 within a 0.003 allowance | not reproduced (author computation) |
+| Beta-mixture identity: Σ_k U_{b,k}p_k = E_B[[z^n](1−z)^{−a−1}F(Bz)]/C(n+a,n), with B ~ Beta(n+2b+1, a), n = J−b, a = Δ−J−2 | plausible (beta moments); not re-checked |
+| Mellin multiplier 𝖴_b(s) (Γ-ratio interpolation of U_{b,k}); \|𝖴₀(iξ)\| = 1; \|𝖴_b(iξ) − r_β^{iξ}\| ≤ M_b[(b²+1)\|ξ\| + bξ² + \|ξ\|³/3](1/n² − 1/N²) | not re-checked; boundary term at r = 1 is unresolved (author) |
+
+**Coverage at gap 1000:**
+* J ≤ 239: every mass [certified];
+* J ≥ 240 with b̂ ≤ 22: author's bivariate certificate (to reproduce);
+* J ≥ 240 with b̂ > 22: open (the Mellin route has an unresolved boundary term);
+* the extreme large-β limit: analytic (§27).
