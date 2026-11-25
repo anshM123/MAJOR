@@ -323,3 +323,20 @@ Checks are in `code/angular/verify_s15.py`.
 * **Reading.** The last spectral question is now sharp: exclude a critical L⁻² tail, ~3𝒟/L², of the spin-weighted endpoint measure in the intermediate band.
 
 **Order of limits (author).** Establish the spectral identity in each exact finite-c_T CFT (where J₀ ≤ 1 < 2), and only then take c_T → ∞. This is consistent with the coordinator's §12 note; the matching agent is checking the M2 analogue.
+
+## 17. Null-plane Ward route to the spectral estimate; M2 transfer; trace-changing multi-traces; light scalars (author-supplied, 26 Nov)
+
+| claim | check / comment |
+|---|---|
+| **Double commutator.** From the light-ray algebra [N(g), A(f)] = iA(gf′) (Córdova–Shao) and conservation [H, A(f)] = (i/2)N(f′), with H the positive null-translation generator: [A(f), [H, A(f)]] = ½A((f′)²) | **algebra verified**. The inputs are the formal identities |
+| **Quadratic-form identity.** [A,[H,A]] = 2AHA − A²H − HA², hence 2‖H^{1/2}Aψ‖² = 2Re⟨Aψ, AHψ⟩ + ½⟨ψ, A((f′)²)ψ⟩. Domain via a regulated time-average with ρ̂_η ≥ 0 and Fatou, so no circular assumption of H-regularity | expansion verified symbolically; the regulated-limit/Fatou argument is plausible. **Needs the Ward identity as a regulated quadratic-form statement — open** |
+| **Harmonic profiles.** f_m = (1+y²)e^{imθ}, y = tan(θ/2): \|f_m′\|² = 4(y²+m²) ≤ 4(1+m²)(1+y²), so the RHS is controlled by total energy | **verified** (sympy). Note A(f_m) is not Hermitian; use the cos/sin parts separately |
+| **K⁰ estimate.** Two stereographic charts give ‖(K⁰)^{1/2}A_mψ_m‖² = O((1+\|m\|)²), with ψ_m localised within O(1/\|m\|) of unit rest momentum | plausible. **Caveat:** passing from wavepackets to fixed-momentum normalised amplitudes a_{O,b,N} needs their smoothness on the 1/m momentum scale |
+| **Family bound.** ⟨P⁰⟩⟨K⁰⟩ ≥ Δ²‖w‖⁴ (conformal Hamiltonian ≥ Δ, dilatation conjugation), and E commutes with P, so Σ_{O,b}Δ²\|a_N\|² = O(N²) ⇒ ΣC\|a_N\|² = O(N²), B_N = O(N⁻²), μ((L,∞)) = O(L⁻⁴) | logic correct given the K⁰ estimate. **Strictly stronger than the o(L⁻²) needed (§16)** |
+| **M2 transfer.** The letter already uses the exact finite-c_T sum rule, expanding only the light side and keeping the heavy side by positivity. For the angular rule: lim_{c_T→∞}[lim_N 𝒫_N(c_T)], with J₀ ≤ 1 < 2 at finite c_T. The spectral estimate also gives absolute convergence: \|(Aa)_N/a_N\| ≲ Δ²/(N+1) and q_{N+2} = O(N⁻³) | consistent; matching agent's independent check pending |
+| **Trace-changing multi-traces.** With ε = c_T^{−1/2} and E = ε⁻¹𝕃[t]: at O(ε⁰) the detector sits in a 2-pt contraction (vacuum annihilation). At O(ε¹) the three cases vanish by vacuum annihilation or Wick ordering. So ‖Π_multi E_m\|T⟩‖² = O(1/c_T), basis-independently. With the bounded-twist tail, 𝓛_g → 0 | argument plausible [D], given differentiable fixed-window planar expansion under spectral projection and light transform |
+| **Light scalars.** The KZ finite-frequency algebra needs Δ_φ > 1 for every scalar in T×T (d = 3), plus the higher-spin-current restrictions. A higher-spin gap alone does not imply this, so it must be **stated as an assumption** | adopted |
+
+**Result if the regulated null-plane identity holds** (plus physical matching, fixed-window planar regularity and Δ_φ > 1): t₄² + α_T² ≤ 48/K(g), i.e. √(t₄²+α_T²) < 0.01782 at g = 1000.
+
+**Single remaining operator-algebra target:** the regulated quadratic-form version of [A(f), [H, A(f)]] = ½A((f′)²) at finite c_T.
