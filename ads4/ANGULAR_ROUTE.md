@@ -425,3 +425,18 @@ Checks are in `code/angular/verify_s15.py`.
 * **Correction to §17/§18's quadratic-form statement.** The limit is lim I_η = ½⟨A(f′²)⟩ = 2‖H^{1/2}Aψ‖² − 2Re⟨Aψ, AHψ⟩, i.e. 2‖H^{1/2}Aψ‖² = 2Re⟨Aψ, AHψ⟩ + ½⟨A(f′²)⟩. Consistent with §17.
 * **Endpoint rule.** It holds exactly (3/2 + 3/2 = 3), with 𝒟 = 0. The O(N²) family bound is sharp (saturated).
 * **Cutoffs.** C¹ cutoffs are needed for f_{m,R}.
+
+## 24. Citation check: all-J helicity norms (Gillioz, arXiv:2112.12540, JHEP 03 (2022) 170)
+
+**Verified from the paper text** (coordinator, 26 Nov):
+* Eq. (2.35): ⟨⟨O_{j,−m}(−p)O_{j,m}(p)⟩⟩ = (p²)^{Δ−j−3/2}C_{Δ,j,m}.
+* Eq. (2.37): the special conformal Ward identity gives the recursion (j+m+1)(Δ−m−2)C_{Δ,j,m+1} = (j−m)(Δ+m−1)C_{Δ,j,m}.
+* Eq. (2.38): C_{Δ,j,m} = (2j)!/((j−m)!(j+m)!)·Γ(Δ+m−1)Γ(Δ−m−1)/(Γ(Δ+j−1)Γ(Δ−j−1))·C_{Δ,j}.
+* Eq. (2.39): the equivalent Pochhammer form.
+* Eq. (2.40): unitarity Δ ≥ j+1.
+
+This is exactly §4's N_m/N_J and the ratio used in §8 and KERNELS_D3 §3.3, in d = 3 momentum-space helicity components.
+
+**Effect.** The all-m helicity norm moves from [DV] (J ≤ 30) to **[Q]**, quoted with the derivation from the special conformal Ward identity. The all-J ladder normalisation is then [P given the operator identities] with no finite-J extrapolation.
+
+**To do:** update the Supplement's angular section and the S1 legend ("all-m helicity norm [DV] for J ≤ 30" → "[Q], Ref. Gillioz eqs. (2.37)–(2.38)"), add the bib entry, and drop the "(checked for J ≤ 30)" qualifier. This waits until the jargon-cleanup agent releases supplement.tex.
