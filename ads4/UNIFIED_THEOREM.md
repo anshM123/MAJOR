@@ -858,6 +858,11 @@ A chain carries the grade of its weakest link.
 > * **Data and paper.** The repaired weights are in `prl/data/k2/*_rep.json` (they define Ω^EE). The Supplement and the Letter scope are updated.
 > * **Not done.** Δ_g = 2000/5000 continuum weights (≈2.5 CPU-h per gap). Kink matching is rejected: it makes ε_W 7600× worse.
 
+> **Update (PARITY_ODD_DZ.md, 26 Nov): L1's parity-odd step is proved, [D-sketch] → [D]. The cubic implication (1), including α_T, is [D] for parity-violating theories too.**
+> * **Closed form.** ⟨O|𝓔|T⟩ ∝ cos(πh)Γ(h−½), with h = (Δ−J)/2. Simple zeros sit exactly at the parity-odd [TT] dimensions J+3+2n (J ≥ 4) and 7+2n (J = 0, 2), so \|K\|² ∝ cos²(πτ/2).
+> * **Grades.** [P] for all J for the extreme components; all m, both external helicities and first moments [P] for J ≤ 30 and J = 40, otherwise given the ladder. Parity-violating admixtures enter at O(c_T⁻²) [D].
+> * **Paper.** Supplement rows L1, L3, the net grades, the S1 legend and the derivation sketches are updated; so is the Letter sentence.
+
 ## 1. Setup and normalisations
 
 | item | definition |

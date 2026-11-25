@@ -7,7 +7,7 @@ and the Supplement were not touched.*
   `.gitignore`. `code/kernels/{pipeline,kernels_lib,structures}.py` are imported read-only (`KERNELS_CACHE` redirected to
   `oddz/cache`). `code/angproofs/` is used read-only: its symbolic-J structure vectors (`cache/symbolic_structures.pkl`) and a
   re-run of `ap5_kernels.py` whose output is captured in `oddz/cache/oz1_out.txt`.
-* **Compute.** About 45 CPU-min, at most 2 processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`.
+* **Compute.** About 1 CPU-h, at most 2 processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`.
 
 **Grades.**
 
@@ -34,7 +34,7 @@ CLS-D's double-commutator factor, which the caveat said had not been derived for
 |---|---|
 | (Z0) **Which dimensions.** At `c_T = ∞` every parity-odd `[TT]` primary has odd twist, `Δ = J+3+2n` (`J ≥ 4`, and odd `J ≥ 5`) or `Δ = 7+2n` (`J = 0, 2`); every parity-even one has even twist | **[P]** (index counting, §1.4) |
 | (Z1) **Extreme components, all `J`, all `n`.** `M_{−J}[S^odd] ∝ cos(πh)Γ(h−½)/(Γ(s+½)Γ(Δ+3))` and `M_{+J}[S^oddJ] ∝ cos(πh)Γ(h−½)/(Γ(s+½)Γ(Δ−1))`, with `h = (Δ−J)/2`. For `h > ½` they vanish **exactly** at `h = 3/2 + n`, i.e. at `Δ = J+3+2n`, and the zeros are **simple**; the derivative is given in closed form | **[P]** (symbolic `J`: ANGULAR_PROOFS §3 closed forms, re-run here, plus the reflection formula; §2) |
-| (Z2) **All components `m`, both source helicities `h = ±2`.** Every component has a simple zero at the same points | **[P]** for every `J ≤ 30` and every `n` (exact symbolic-`Δ` computation per `J`, §3.2); **[P \| ladder (L)]** for all `J` (§3.1); (L) is [P given light-transform conservation, D], with an exact pipeline check for `J ≤ 40` (LADDER_ALLJ) |
+| (Z2) **All components `m`, both source helicities `h = ±2`.** Every component has a simple zero at the same points | **[P]** for every `J ≤ 31` (and `J = 40`, `S^odd`) and every `n` (exact symbolic-`Δ` computation per `J`, §3.2, §3.4); **[P \| ladder (L)]** for all `J` (§3.1); (L) is [P given light-transform conservation, D], with an exact pipeline check for `J ≤ 40` (LADDER_ALLJ) |
 | (Z3) **First moments `E⁽¹⁾`** (the `k = 2` weight is affine in the light-ray times). Every component has a zero of order ≥ 1 at the same points | **[P]** for every `J ≤ 30` and every `n` (§3.2); **[P \| (L), [z·K, E] = 6iE⁽¹⁾]** for all `J` (§3.1) |
 | (Z4) **`J = 0, 2`.** Simple zeros exactly at `Δ = 7+2n`, all components, both helicities, both moments; **no** zero at `Δ = 5` | **[P]** (exact, symbolic `Δ`; §4) |
 | (Z5) **Basis regularity.** The canonical odd structures are nonzero at every `Δ₀`, so the GFF OPE coefficients in this basis are finite and the zero is not a basis artefact | **[P]** symbolic `J` for `S^odd`; per `J ≤ 31` for `S^oddJ` (§3.3) |
@@ -246,7 +246,7 @@ order beyond it.
 
 | sector | `J` | components | zeroth moment | first moments |
 |---|---|---|---|---|
-| `S^odd` | 4, 6, …, 30 (and 40: §3.4) | `m = −J…0` (`h = +2`), `0…J` (`h = −2`) | simple zero at every `Δ = J+3+2n`, all `n` | order ≥ 1 at every `Δ = J+3+2n`; order 2 at isolated points (`J = 6`: `m = 0`, `n = 0`, origin moment) |
+| `S^odd` | 4, 6, …, 30, and 40 (§3.4) | `m = −J…0` (`h = +2`), `0…J` (`h = −2`) | simple zero at every `Δ = J+3+2n`, all `n` | order ≥ 1 at every `Δ = J+3+2n`; order 2 at isolated points (`J = 6`: `m = 0`, `n = 0`, origin moment) |
 | `S^oddJ` | 5, 7, …, 31 | `m = 4…J` / `−J…−4` (first moments: from `m = 3` / `−3`) | simple zero at every `Δ = J+3+2n` | order ≥ 1; order 2 at isolated points (`J = 17`: `m = ±5`, `n = 1`) |
 | odd, `J = 0` | 0 | `m = 0` | simple zero at every `Δ = 7+2n` | simple |
 | odd, `J = 2` | 2 | `m = −2…0` / `0…2` | simple zero at every `Δ = 7+2n` | simple |
@@ -254,10 +254,10 @@ order beyond it.
 
 The extra order at isolated points only strengthens the double zero. Per-file detail is in `cache/oz2_<name>_J<J>.txt`.
 
-**Grade.** For each `J ≤ 30` (`≤ 31` for odd `J`) this is exact computer algebra in `Δ`, covering every `n`. So (Z2), (Z3) are
-**[P] for `J ≤ 30`**. The only input is the structure count (St) ([S], [C] for `J ≤ 30`), which identifies the canonical vector
-as the unique odd structure. It also upgrades the ladder (L) for the odd structures from rational-`Δ` checks to identities in `Δ`,
-for `J ≤ 30`.
+**Grade.** For each `J ≤ 30` (`≤ 31` for odd `J`), and for `J = 40`, this is exact computer algebra in `Δ`, covering every `n`.
+So (Z2), (Z3) are **[P] for these `J`**. The only input is the structure count (St) ([S]; [C] for `J ≤ 30`), which identifies
+the canonical vector as the unique odd structure. The computation also upgrades the ladder (L) for the odd structures, from
+rational-`Δ` checks to identities in `Δ`, at these `J`.
 
 ### 3.3 (Z5) Regularity of the basis [P]
 
@@ -274,7 +274,14 @@ coefficient is finite. (PARITY_ODD_ROUTEA §12.5 warns that CHL's `X^O` basis ca
 
 ### 3.4 `J = 40`
 
-See the hand-over note at the end of §8 for the status of the `J = 40` run.
+The same exact analysis at `J = 40` for `S^odd` (`cache/oz2_odd_J40.txt`; about 11 CPU-min) passes every check:
+* simple zeros of all 41 zeroth-moment components at every `Δ = 43+2n`, for both sources;
+* order ≥ 1 for both first moments;
+* the closed-form × ladder identity, exactly in `Δ`, for all `m`;
+* the `h = −2` mirror.
+
+This is the largest `J` checked in this file. Together with LADDER_ALLJ's rational-`Δ` checks to `J = 40`, the ladder used in
+§3.1 is tested exactly through `J = 40`.
 
 ---
 
@@ -417,8 +424,8 @@ In each place the parenthetical "(parity-odd, odd-twist … [D-sketch])" can be 
 ```
 cd ads4/code/oddz;  ulimit -v 3000000; export OMP_NUM_THREADS=1
 python3 -B oz1_extreme.py                         # §2: ap5 re-run (read-only), reflection, zeros, derivatives, ladder factors  ~30 s
-python3 -B oz2_zeros.py odd 0 2 4 6 ... 30        # §3.2, §4: exact zero orders, all m, h = ±2, both moments, closed-form identity
-python3 -B oz2_zeros.py oddJ 5 7 ... 31           #   (per J: ~1 min at J = 20, ~3-4 min at J = 28-31, ~15 min at J = 40)
+python3 -B oz2_zeros.py odd 0 2 4 6 ... 30 40     # §3.2, §4: exact zero orders, all m, h = ±2, both moments, closed-form identity
+python3 -B oz2_zeros.py oddJ 5 7 ... 31           #   (per J: ~1 min at J = 20, ~3-4 min at J = 28-31, ~11 min at J = 40)
 python3 -B oz2_zeros.py pp 0 2 4 ... 12; python3 -B oz2_zeros.py pm 4 6 ... 12     # controls (parity-even, even twist)
 python3 -B oz3_light.py                           # §5.1: parity-odd <TTT> at Delta = 3; J = 2 family limit
 ```
