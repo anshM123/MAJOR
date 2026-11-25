@@ -279,7 +279,7 @@ def R_taylor_cells(k, x0, x1, h):
     return cells
 
 
-def H_sup(k, xT0=Fr(1, 2), xT1=Fr(48), hT=Fr(1, 100), xbig=Fr(4000)):
+def H_sup(k, xT0=Fr(1, 2), xT1=Fr(80), hT=Fr(1, 100), xbig=Fr(4000)):
     """certified H_k >= sup_{x > 0} hbar_k(x).  (0, 1e-3]: crude closed form (every term increasing in x -> value at 1e-3);
     [1e-3, xT0]: crude/asymptotic majorants on geometric cells; [xT0, xT1]: Taylor cells of r (R_taylor_cells) for r, r' and r''
     (the r'' sup over [5x/6, x] is the max over the covering Taylor cells, or the R-majorant below xT0); [xT1, xbig]: R-majorants;
