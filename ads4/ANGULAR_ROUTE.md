@@ -729,3 +729,26 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Strip scan (uncertified).** L ≤ 0.29 only, because n ≤ 1000. Min H_ang/N_s = 0.893 over 18 states, and agreement with the hybrid is ≤ 1.3e-4.
 * **Rigour patch.** acb.integral was re-run with the holomorphy flag; every certificate stands.
 * **Agent's suggested route for J → ∞ at the edge.** Bound the finite-mass frequency kernel per ν; it is O(ν²/T) from Legendre, with no exponential sizes. Alternatively, close the §34 Mellin boundary term at r = 1.
+
+## 45. Exact finite-mass kernel: dual-Hahn convolution and a five-point equation (author-supplied, 26 Nov)
+
+* **Notation.** n = J−b, N = Δ−b−2, a = N−n, d_b = 2b+1. U_k = (−n)_k(n+d_b)_k/((−N)_k(N+d_b)_k). Bare kernel 𝒦_p(ν) = ℒ(F_{p,ν}), with F_{p,ν} = (1−z)^{−p}P_{−1/2+iν}((1+z)/(1−z)).
+* **Coefficients.** [z^k]F_{p,ν} = ((p)_k/k!)²·₃F₂(−k, A±iν; p, p; 1), with A = p − ½.
+* **Closed form (author).**
+  * 𝒦_p(ν) = U_n((p)_n/n!)·Σ_j (−n)_j(½±iν)_j/((p)_j(j!)²)·R_{n−j}, with R_m = ₃F₂(−m, a+1, −2n−a−2b; −2n−2b, 1−p−n; 1).
+  * R_m is a dual-Hahn family with M = n+p−1, γ = −2n−2b−1, δ = 1, x = −a−1. This is outside the positive-orthogonality range.
+  * Three-term recurrence in m.
+  * **Verified here exactly** (Fractions, 40 random states, p ∈ {2,3,4}, b ∈ {0,4}, rational ν²): `code/angular/verify_s45_dualhahn.py`.
+* **Not a single Wilson polynomial (author).**
+  * The exact residual at (J,Δ) = (5,30) is 1586490242224566444/25787514494155770625.
+  * The Wilson difference-equation determinant is nonzero mod 1000003 at four states in the open region.
+  * Not re-checked.
+* **Five-point equation (author).** [ν² + (p−½)²]K = m²[(∇_N − ∇_n)K + p²K/(N(N+d_b))], with m² = (N−n)(N+n+d_b) and the positive coefficients A_±(n), B_±(N) given by the author.
+  * **Verified here exactly** on 40 random states.
+  * It is not a maximum principle: ∇_N and ∇_n enter with opposite signs.
+* **Dressing (author).**
+  * 𝒦₂^{phys} = (1 + (9−b(b−1))/T)𝒦₃ − ((ν²+25/4)/(2T))𝒦₄ + ((7−2b)/T)[(3+ℓ)𝒦₄ − (3+ℓ/2)𝒦₃ − (ℓ/2)𝒦₃(ν+i)], with ℓ = −½+iν.
+  * 𝒦₃^{phys} = 𝒦₄.
+  * H = w³[(2/Λ)∫f𝒦₂ + (σ_bΛ²/T)∫ψ₃𝒦₃(Λp)dp].
+  * Not yet matched against fp_kernel.kfin.
+* **Open.** A non-exponential per-frequency envelope, perhaps from a discrete energy estimate for the five-point equation.
