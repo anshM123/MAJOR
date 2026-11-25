@@ -162,7 +162,7 @@ def _logA_vec(m, rho, s, cl, logeta):
     l = np.arange(1, m + 1, dtype=float)
     yb = (2*l + 1)/rho
     Bh = 2 + yb/2 - (yb/2)/np.tan(yb/2)
-    base = np.log(cl**(-l) - 1) - np.log(l) + np.log(Bh) + (l + 1)*np.log(rho) + l*np.log(rho + s) - np.log(l + 1)
+    base = -l*np.log(cl) + np.log1p(-cl**l) - np.log(l) + np.log(Bh) + (l + 1)*np.log(rho) + l*np.log(rho + s) - np.log(l + 1)
     lt = base[None, :] + np.outer(logeta, l)
     mx = lt.max(axis=1)
     return mx + np.log(np.exp(lt - mx[:, None]).sum(axis=1))
@@ -180,7 +180,15 @@ def norm_major_float(m, R, cl, s):
     lf = math.lgamma(3*m + 1) - 3*m*math.log(R*rho)
     return v[i] + max(0.0, lf), math.exp(logeta[i])
 
+_NMC = {}
 def norm_major(m, R, cb, s, eta):
+    key = (m, R, s, float(cb.lower()), float(cb.upper()))
+    if key not in _NMC:
+        _NMC[key] = _norm_major(m, R, cb, s, eta)
+    return _NMC[key]
+
+
+def _norm_major(m, R, cb, s, eta):
     """Arb upper bound of ||P_m||_R at the given eta (FULLPOS3 §4.3, (M1)-(M3))."""
     cl = arb(cb.lower())
     rhoA = arb(3*m)/(arb(1).exp()*arb(R)); etaA = arb(eta); tot = arb(0)
@@ -349,7 +357,21 @@ def run(b, ba, bb, a0, M=None, m1=30, verbose=True, geo=None):
         if verbose:
             print(f'      exact m={m}: {float(tot.upper()):.3e}', flush=True)
     # choose M: needs the far remainder; try list
-    Ms = [M] if M else [150, 300, 600, 1000, 1500]
+    if M:
+        Ms = [M]
+    else:
+        Ms = []
+        for MM in [100, 200, 300, 450, 650, 900, 1200, 1600]:
+            try:
+                fr, _k = far_remainder(cb, hmax, int(float(nmin.lower())), MM, b, tau, d_lo)
+            except (RuntimeError, AssertionError):
+                continue
+            if w3*fr < arb(Fcert)*1e-3:
+                Ms = [MM]; break
+        if not Ms:
+            out = dict(b=b, ba=str(ba), bb=str(bb), a0=a0, Fcert=Fcert, ok=False, err=float('inf'), why='far remainder',
+                       nmin=float(nmin.lower()), hmax=float(hmax.upper()), secs=time.time() - t0)
+            return out
     best_total = None
     for MM in Ms:
         tail_loc = arb(0); mm_detail = []

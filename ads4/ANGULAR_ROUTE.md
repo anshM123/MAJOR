@@ -979,3 +979,27 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * 𝒟_bF_{3,ν} = (1−z)^{−4}[(6 − b(b−1) + (12 − 6b + b(b−1))z − (ν²+¼)/2)P_ν + (7−2b)ξ∂_βP_ν], with z = tanh²(β/2);
   * it holds for each outgoing solution separately.
 * **Consequence.** The dressed contour amplitude needs only 𝒫_f⁺, ∂_β𝒫_f⁺, 𝒫_{ν²f}⁺ and 𝒫_{ψ₃}⁺, precomputed once on the relevant β-region. Each state-cell then costs one two-dimensional contour integral, not ~1000.
+
+## 59. Global localisation of both contour angles; complete cell-certificate recipe (author, 26 Nov)
+
+* **Radial-soft representation (author). Verified here** at n = 10, N = 20.5, b = 0, ν = 1.2, p = 3, against the terminating sum: 1.357403299075 both ways, with imaginary part 3e-24.
+  * 𝒦_p = −(i𝒞/2π)∫_{−π/2−iε}^{π/2−iε}(e^{iBα}/sin α)∫₀^∞e^{−av}ξ^{s−1}F_{p,ν}(ξ²)dv dα, where ξ = sinh(v/2)/sinh(v/2+iα) and B = 2J+1.
+  * It uses the complete conical function, so there is no ξ = 0 logarithm.
+* **Hard localisation (author).** A₀ = min(π/2, 8V/B) and Y = 250/B, with V = 1100. The outer hard intervals move to Im α = Y and the vertical connectors are kept.
+  * The \|Re α\| = π/2 boundaries cancel because B is odd.
+  * Damping is e^{−0.8By}, with no positive power of spin.
+* **Soft localisation (author).** C₀ = min(π/2, max(3A₀, 8V/a)), T = 250/a, lower ray cut at 500/a.
+  * Budget: w^p\|𝒦_p − 𝒦_p^trunc\| < e^{−70} for cells of relative half-width ≤ 1%.
+* **Retained-contour majorant (author).** < 10⁶⁶, normalised, with no growing power of J.
+* **Spectral side (author).**
+  * The ν > 1100 tail is < e^{−1200}.
+  * Degree-250 Taylor panels for f, with \|f − f̃\|_{L¹} < 1e-110, give a physical error < 1e-43.
+  * Exact Fourier integrals of the polynomial panels; a coth expansion to 48 terms.
+  * A Mehler form of the frequency-integrated full conical function.
+* **Diagonal logarithm (author).** A zero-balanced ₂F₁ expansion in ω = 1 − e^{−2β}, with exact log moments ∫₀^ℓ d^j log d = ℓ^{j+1}[log ℓ/(j+1) − 1/(j+1)²].
+* **Parameter cells (author).**
+  * The retained variables satisfy \|α\| ≤ 9100/B₀ and \|γ−α\| ≤ 64000/a₀.
+  * Carrier Taylor remainder: E ≤ 10⁶⁶e^Z Z^m/m!, with Z = 9100r_B/B₀ + 64000r_a/a₀.
+  * Example: 0.1% relative cells need order 512 for 1e-114.
+* **Final test.** min_cell H_ref > E_contour + E_spectral + E_parameter + E_quadrature, checked with Bernstein coefficients in (B, a).
+* **Status.** The recipe is complete on paper. Not executed: the certified spectral panels, the cell evaluations, the a ≥ 125000 polynomial certificate. No constant in §§55–59 has been independently reproduced. Cost is undetermined; with the conservative 10⁶⁶ majorant the worst-case orders are high.
