@@ -380,3 +380,25 @@ Checks are in `code/angular/verify_s15.py`.
 | **Transverse cancellation.** Q = A(1) = P_v commutes with H and with every 𝓔_t(z), since 𝓔 is a v-integral, invariant under v-translations. So C_t(y,z) = (1/i)⟨ψ,[𝓔₀(y), 𝓔_t(z)]ψ⟩ has vanishing marginals, and ∫∫f(y)f(z)C_t = −½∫∫[f(y)−f(z)]²C_t, exactly, at finite regulator | **correct [P]**: the marginals follow from [P_v, 𝓔_t(z)] = 0, and the identity is f(y)f(z) = ½(f(y)²+f(z)²) − ½(f(y)−f(z))². This buys two powers of \|y−z\| at coincidence. **Note:** ‖f′‖_∞ is infinite for f_m (\|f_m′\|² = 4(y²+m²)), so use the cutoff profiles f_{m,R} of §18, with a uniform bound on \|f′\|²/(1+y²) |
 | **All-spin collinear identities.** With s = (Δ+J)/2, h = (Δ−J)/2, p(h) = (h−1)(h−2)(h−3): F_{−2,−2} = p(h)(h−4)(λ₊₋ − 2λ₊₊) and F_{−1,−1} = −16p(h)[2(s−1)λ₊₊ + sλ₊₋], for h ≥ 5, J ≥ 4. Conservation equations were checked for symbolic J, Δ; extreme-helicity detector amplitudes summed by Vandermonde | **not re-checked.** Can be tested against `code/kernels/` structures (KERNELS_D3 conventions) |
 | **Crossing estimate.** Reflection positivity plus the crossed-channel OPE give the dyadic bound Σ_{s~S, h~U}4^Δ2^{−J}\|F_{m₁m₂}\|² ≲ S^{11/2+M}U^{11/2−M}, using the lower bound k_{2s}^{(δ)}(1−S⁻²) ≳ 4^sS^{1/2+2δ}. Inverting gives Σ4^Δ2^{−J}(\|λ₊₊\|²+\|λ₊₋\|²) ≲ S^{3/2}U^{3/2}, with constants allowed to depend on the finite-c_T CFT | **not re-checked; in progress.** Still needed: conversion of the OPE-coefficient bound into a bound on the detector amplitudes a_{O,b,0} (kernel normalisation, including the 4^Δ factors), and hence on the intermediate-band tail μ((L,∞)) = o(L⁻²) |
+
+## 21. Claimed proof of the finite-c_T bound via crossing + Casimir (author-supplied, 26 Nov) — UNDER AUDIT
+
+**Claimed chain:**
+1. **Collinear all-spin identities** (h = (Δ−J)/2, s = (Δ+J)/2, p(h) = (h−1)(h−2)(h−3); h ≥ 5, J ≥ 4):
+   * F_{−2,−2} = p(h)(h−4)(λ₊₋ − 2λ₊₊);
+   * F_{−1,−1} = −16p(h)[2(s−1)λ₊₊ + sλ₊₋];
+   * F_{−2,−1} = −2(2h−7)(2h−5)(2h−3)λ_odd.
+
+   Checked by the author with symbolic J, Δ.
+2. **Reflection-positive crossing (dyadic).** Σ_{s∈[S,2S], h∈[U,2U]} 4^Δ2^{−J}\|F_{m₁m₂}\|² ≲ S^{11/2+M}U^{11/2−M}, with M = m₁+m₂, via the collinear block lower bound k^{(δ)}_{2s}(1−S⁻²) ≳ 4^sS^{1/2+2δ}. Inverting the identities gives Σ4^Δ2^{−J}(\|λ₊₊\|²+\|λ₊₋\|²) ≲ S^{3/2}U^{3/2} and Σ4^Δ2^{−J}\|λ_odd\|² ≲ S^{5/2}U^{5/2}. The constants may depend on the finite-c_T CFT.
+3. **Kernel bounds (Stirling).** \|K_even\|² ≲ 4^Δ2^{−J}√(J+1)√(sh)/Δ^{15/2} and \|K_odd\|² ≲ 4^Δ2^{−J}√(J+1)/(√(sh)Δ^{15/2}). Hence Σ_{shell}Σ_b\|a_{O,b,0}\|² ≲ S^{−5}U², and Σ_{τ≥10}Δ²\|a₀\|² < ∞. Low-spin exceptional sectors are handled separately: kernel O(4^ΔΔ^{−29/2}) against a budget Δ^{11}.
+4. **Tails.** μ((L,∞)) ≲ Σ_{S≳L}S⁻¹L⁻² ~ L⁻³; in the intermediate band (S ≳ L²), O(L⁻⁴). Together with the bounded-twist ladder estimate: ΣΔ²\|a_N\|² = O(N³), B_N = O(1/N), so 𝒟 = 0.
+5. **Casimir domain estimate.** ‖(K⁰)^{1/2}w_O‖² ≲ ‖∇_p w_O‖² + (1+Δ²+J²)‖w_O‖² for wavefunctions on a compact timelike patch. Then E(F)ψ_T ∈ Dom((K⁰)^{1/2}), so A(f)ψ ∈ Dom(H^{1/2}), so lim I_η < ∞ by dominated convergence. **This bypasses the Córdova–Shao closure for finiteness.**
+
+**Coordinator arithmetic check:**
+* Item 3: \|a\|² = \|λ\|²\|K\|² with J ~ Δ ~ S (U ≪ S) gives S^{3/2}U^{3/2}·S^{−13/2}U^{1/2} = S^{−5}U² ✓.
+* Item 4: the shell sum of C\|a₀\|² is ~S^{−3}U². Summing U ≤ S/L gives S^{−1}L^{−2}, and summing S ≳ L gives L^{−3} ✓; with S ≳ L², L^{−4} ✓.
+
+**Not checked:** items 1, 2, 3 (as derivations), 5, and the O(N³) step. An independent audit has been launched (→ `ANGULAR_AUDIT.md`).
+
+**Retained inputs:** physical matching (all-J ladder and first moment), contact matching (exact BMS coefficient), fixed-window planar regularity, Δ_φ > 1, and KKSZ (4.66) at the light-cone edge.
