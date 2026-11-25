@@ -309,7 +309,7 @@ def geometry(ba, bb, verbose=False):
     ba = Fr(ba); bb = Fr(bb)
     c_lo = (A(ba)/2).tanh()**2; c_hi = (A(bb)/2).tanh()**2
     Rmax = 0.92*float(lo(-(arb(c_hi.upper()).log())).lower())
-    Rs = [Rmax*(1e-5)**(1 - i/40) for i in range(41)]
+    Rs = [Rmax*(1e-3)**(1 - i/80) for i in range(81)]
     sups = []
     for R in Rs:
         S = circle_sups(lo(c_lo), up(c_hi), R, 0)

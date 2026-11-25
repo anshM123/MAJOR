@@ -1059,3 +1059,12 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Remaining for full positivity.** The local signed terms must pass at a₀ = 998:
   * F_cert > E_residual + E_dressing + Σ_{m≤600}E_m + e^{−74};
   * plus Arb reproduction of this cover and an independent audit.
+
+## 64. Local terms: factor out the endpoint oscillation before differentiating (author, 26 Nov)
+
+* **Problem.** The current local certificate takes absolute values of the coefficients of P_m(ϑ) before applying them to G. That loses the frequency cancellation and the cancellation between orders.
+* **Exact split (author).** Ω_ψ(β) = S_ψ(β) + e^{iΛβ}A_{ψ,+}(β) + e^{−iΛβ}A_{ψ,−}(β).
+  * S_ψ holds the p = 0 endpoint terms and the damped coth correction.
+  * A_{ψ,±} = (±√2/(2πi))∫₀^∞K(β,u)e^{±iΛu}Σ_{j=5}^{14}(−1)^jψ^{(j)}(1)/(±iΛ(β+u))^{j+1}du, with K = [2 sinh(β+u/2) sinh(u/2)]^{−1/2}. The sum starts at j = 5 because of the fifth-order zero at p = 1.
+  * Bounds: \|A_{ψ,±}(β)\| ≤ (√2/2π)J_e(β₀−R) on \|β−β₀\| ≤ R, with **no e^{ΛR}**. Derivatives follow by Cauchy, using the J_e tables in fp3_htdata.
+* **Use.** Apply P_m(ϑ) to S_ψ and to e^{±iΛβ}A_± separately. On the oscillatory part, the operator acts on the exponential exactly (powers of Λ times the chain rule in β(z)). Combine orders before taking absolute values. Not yet implemented.
