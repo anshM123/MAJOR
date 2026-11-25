@@ -372,3 +372,11 @@ Checks are in `code/angular/verify_s15.py`.
   * TT-built multi-traces, in the strong form (no O(c_T^{−1/2}) splittings).
 * **Add to assumptions:** separated-direction vanishing of the mixed [E, E⁽¹⁾] at the light-cone edge. This uses KKSZ's light-cone expansion (4.66), which they leave unproved; with Rindler positivity alone the mixed product is exactly marginal. With (4.66) the margin is ≥ ½, or 1 when Δ_φ > 1. KKSZ (4.87) is confirmed verbatim.
 * 𝒟(c_T) = 0 at finite c_T remains §18 assumption 2 (the regulated null-plane bound). It does not follow from J₀ ≤ 1.
+
+## 20. Attacks on the finite-c_T null-plane bound (author-supplied, 26 Nov; in progress)
+
+| claim | check / comment |
+|---|---|
+| **Transverse cancellation.** Q = A(1) = P_v commutes with H and with every 𝓔_t(z), since 𝓔 is a v-integral, invariant under v-translations. So C_t(y,z) = (1/i)⟨ψ,[𝓔₀(y), 𝓔_t(z)]ψ⟩ has vanishing marginals, and ∫∫f(y)f(z)C_t = −½∫∫[f(y)−f(z)]²C_t, exactly, at finite regulator | **correct [P]**: the marginals follow from [P_v, 𝓔_t(z)] = 0, and the identity is f(y)f(z) = ½(f(y)²+f(z)²) − ½(f(y)−f(z))². This buys two powers of \|y−z\| at coincidence. **Note:** ‖f′‖_∞ is infinite for f_m (\|f_m′\|² = 4(y²+m²)), so use the cutoff profiles f_{m,R} of §18, with a uniform bound on \|f′\|²/(1+y²) |
+| **All-spin collinear identities.** With s = (Δ+J)/2, h = (Δ−J)/2, p(h) = (h−1)(h−2)(h−3): F_{−2,−2} = p(h)(h−4)(λ₊₋ − 2λ₊₊) and F_{−1,−1} = −16p(h)[2(s−1)λ₊₊ + sλ₊₋], for h ≥ 5, J ≥ 4. Conservation equations were checked for symbolic J, Δ; extreme-helicity detector amplitudes summed by Vandermonde | **not re-checked.** Can be tested against `code/kernels/` structures (KERNELS_D3 conventions) |
+| **Crossing estimate.** Reflection positivity plus the crossed-channel OPE give the dyadic bound Σ_{s~S, h~U}4^Δ2^{−J}\|F_{m₁m₂}\|² ≲ S^{11/2+M}U^{11/2−M}, using the lower bound k_{2s}^{(δ)}(1−S⁻²) ≳ 4^sS^{1/2+2δ}. Inverting gives Σ4^Δ2^{−J}(\|λ₊₊\|²+\|λ₊₋\|²) ≲ S^{3/2}U^{3/2}, with constants allowed to depend on the finite-c_T CFT | **not re-checked; in progress.** Still needed: conversion of the OPE-coefficient bound into a bound on the detector amplitudes a_{O,b,0} (kernel normalisation, including the 4^Δ factors), and hence on the intermediate-band tail μ((L,∞)) = o(L⁻²) |
