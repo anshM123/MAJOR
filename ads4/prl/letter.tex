@@ -60,10 +60,14 @@ the steps still missing before graviton bounds can be derived in AdS~\cite{CLSD}
 We carry out those steps for AdS$_4$/CFT$_3$. Our main result bounds the parity-even and
 parity-odd deviations $t_4$, $\alpha_T$ of $\langle TTT\rangle$ from its Einstein value with an
 explicit constant; a second result bounds one $R^4$ graviton coefficient from above. To our
-knowledge neither has been derived before from $\langle TTTT\rangle$. Both follow from
+knowledge neither has been derived before from $\langle TTTT\rangle$. Physically, the cubic bound says
+that the energy flux created by the stress tensor is isotropic to one part in $10^8$, where
+causality alone allows order-one anisotropy. Both bounds follow from
 positivity of fixed linear functionals on heavy states. For the cubic bound we prove this positivity
-in the flat-space limit, establish it numerically in AdS on the most constraining states, and prove
-it at large spin given a decay assumption and model estimates (Fig.~\ref{fig:coverage}). We work at
+in the flat-space limit, prove with certified bounds that in AdS its leading Regge part keeps one
+fifth of the flat margin on every heavy state, establish the full action with error control on the
+most constraining states, and prove it at large spin given a decay assumption and model estimates
+(Fig.~\ref{fig:coverage}). We work at
 $\Delta_g=1000$ and extend the evidence to larger gaps under a no-growth assumption.
 Throughout, ``we prove'' means a written proof, ``certified'' a computer-assisted proof in
 interval arithmetic, ``with error control'' a computation in which every modelled term carries
@@ -120,7 +124,9 @@ of equal numbers $n_s$, $n_f$ of free real scalars and free Majorana fermions, t
 Most of the factor $10^8$ between the two bounds is
 the $\Lambda^{-4}$ scaling already implied by causality~\cite{CEMZ,AKT}; what is new is the
 coefficient. In units of the gap the cubic graviton coupling obeys
-$|\hat g_3|\Lambda^4\le\GthreeHead$, a number rather than a scaling law.
+$|\hat g_3|\Lambda^4\le\GthreeHead$, a number rather than a scaling law. Defining a scale by
+$|\hat g_3|=M_*^{-4}$, this reads $M_*\ge\Lambda/120^{1/4}\approx0.30\,\Lambda$: whatever generates
+the $R^3$ coupling cannot set in below about a third of the gap.
 
 \paragraph*{Mechanism.}
 Light-transformed stress tensors~\cite{KSDlight}, which are energy detectors at null infinity, commute when
@@ -337,7 +343,10 @@ Refs.~\cite{KKSDZ,BHM,AKT} and the flat-space and higher-dimensional
 precedents~\cite{CHLPS,CHLPSpw}, the new elements are explicit constants derived from
 $\langle TTTT\rangle$ in three dimensions, the parity-odd coupling $\alpha_T$, and an AdS bound
 on a graviton $R^4$ coefficient (which localisation determines in ABJ(M)
-theory~\cite{BCP,BCJP}).
+theory~\cite{BCP,BCJP}). None of the ingredients, de-shifted functionals, a certified floor at
+leading Regge order and the algebra of energy detectors, is special to three dimensions;
+AdS$_5$/CFT$_4$, where $\mathcal N=4$ super-Yang--Mills theory supplies exact checks, is the
+natural next case.
 
 \begin{acknowledgments}
 AI (Claude) assisted with the formulation and drafting of this manuscript. The authors take full

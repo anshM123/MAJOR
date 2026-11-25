@@ -26,11 +26,14 @@ R⁴ coefficient is known from localisation, sits at 2.6% of that bound, a consi
 
 The method uses causality in its sharpest CFT form: energy detectors (light-transformed stress tensors) commute at spacelike
 separation, which gives sum rules on the four-point function ⟨TTTT⟩. The bounds follow once fixed linear functionals are
-positive on every heavy state. We prove this positivity in the flat-space limit, where it is certified by computer-assisted
-interval arithmetic. In anti-de Sitter space we establish it with error-controlled numerics on the most constraining states, and
-at large spin we prove it given a stated decay assumption and model estimates of a few magnitudes. Two new ingredients make the AdS problem tractable: a dual tensor
-structure in which curvature causes no helicity mixing at leading Regge order, and "de-shifted" weights for which every heavy
-state contributes its flat-space value at that order. The Letter states its assumptions once and does not hide which parts are
+positive on every heavy state. We prove this positivity in the flat-space limit, certified by computer-assisted interval
+arithmetic. In anti-de Sitter space we prove, again with certified bounds and independently reproduced, that the leading Regge
+part of the cubic functional keeps one fifth of its flat-space margin on every heavy state at every gap above 300. The full action
+is established with error-controlled numerics on the most constraining states, and at large spin under a stated decay
+assumption. Two new ingredients make the AdS problem tractable: a dual tensor structure in which curvature causes no helicity
+mixing at leading Regge order, and "de-shifted" weights for which every heavy state contributes its flat-space value at that
+order. In bulk language the cubic bound reads |ĝ₃|Λ⁴ ≤ 120: defining a scale by |ĝ₃| = M_*⁻⁴, whatever generates the R³
+coupling cannot set in below about 0.3 of the gap. The Letter states its assumptions once and does not hide which parts are
 proved, which are certified, and which are numerical or conditional; the Supplemental Material grades every statement against a
 stated legend.
 

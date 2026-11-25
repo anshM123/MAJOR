@@ -10,3 +10,9 @@
 * **Abstract rewritten for impact.** It adds "with a certified margin" (T0) and one closing sentence on the angular route ("two-percent bound at every spin ... given one light-ray identity"). **The letter body does not yet contain the angular-route paragraph**; it must be added before submission (pending ANGULAR_MATCH).
 * **Cover letter.** The "why PRL" paragraph is rewritten (COVER_LETTER.md/.txt).
 * **Length.** The abstract is 800 characters; check the PRL length limit (a 560-character variant is in the chat log).
+
+## v16c (26 Nov 2026): scope edits
+* **Introduction.** Adds the physical observable up front: stress-tensor energy flux isotropic to 1e-8, where causality allows O(1). The positivity sentence is updated for T0: the certified leading-Regge floor of one fifth of the flat margin.
+* **"Why it matters".** Adds the bulk-language scale: |ĝ₃| = M_*⁻⁴ gives M_* ≥ Λ/120^{1/4} ≈ 0.30Λ.
+* **Discussion.** Adds one outlook sentence: the ingredients are not special to d = 3; AdS₅/CFT₄ with N = 4 SYM checks is next.
+* **Cover letter.** The method paragraph is updated for T0 and the bulk-scale sentence.
