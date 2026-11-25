@@ -11,8 +11,8 @@
   * `np4_k0.py`: the author's K⁰ estimate in the original (celestial) frame;
   * `np5_spectral.py`: endpoint measure, endpoint rule and family bound.
 * **Outputs.** They go to `code/freenp/cache/`, which ignores everything but its own `.gitignore`.
-* **Compute.** One or two processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`. Wall times: np1 4 s, np2 21 min, np2b about 15 min,
-  np3 8 min, np3b about 10 min, np4 11 s, np5 under 1 s.
+* **Compute.** One or two processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`. Wall times: np1 4 s, np2 21 min, np2b about 25 min,
+  np3 8 min, np3b about 4 min, np4 11 s, np5 under 1 s.
 
 Grades are as in ANGULAR_MATCH: [P] exact or proved; [DV] derived and checked numerically; [NE] numerical evidence; [D] derived by hand.
 
@@ -152,6 +152,7 @@ displaced to y₀ = 1.5. There are 48 K-nodes, N_y = 16384 and dy ≈ 0.015.
 * **The author's spectral form** 2∫λρ̂(ηλ)dν_v − 2Re⟨v, AHψ⟩ tracks I_η to O(η²) and has the same limit, confirming §18's
   regulator theorem.
 * **m = 0, ±1.** I_η is **exactly η-independent**: G(t) is exactly linear in t (§3.3).
+* **m = 8** (np2b): I − W = −1.08e-2 (S1) and −4.30e-2 (S2) at η = 1/1280; the S1 η² coefficient is −1.77e4.
 * **Onset scale.** For |m| ≥ 2 the approach sets in only for η ≲ η_* ~ K/m², because Aψ carries transverse momenta ~ m and so
   h ~ m²/K. The limit is **not uniform in m**. This is harmless for the author's argument, which takes η → 0 at fixed m, but any
   attempt to take m → ∞ jointly must respect it.
@@ -185,7 +186,18 @@ displaced to y₀ = 1.5. There are 48 K-nodes, N_y = 16384 and dy ≈ 0.015.
 | Re f₄ | 353.0778 | 322.5332 | 30.5445657 | 30.5445657 | 30.5445657 | 29.0577, 29.7466, 30.2162 |
 | Im f₄ | 156.1131 | 137.7897 | 18.3233980 | 18.3233980 | 18.3233980 | 16.8346, 17.5249, 17.9949 |
 
-* Smaller η (np3b; `cache/np3b_small_eta.txt`): NP3B_PLACEHOLDER
+* Smaller η (np3b; `cache/np3b_small_eta.txt`):
+
+  | F | I − W at η = 1/80 | at η = 1/160 | at η = 1/320 |
+  |---|---|---|---|
+  | Re f₂ | −2.11e-3 | −6.21e-4 | −1.80e-4 |
+  | Re f₄ | −1.136e-1 | −3.60e-2 | −1.10e-2 |
+  | Im f₄ | −1.136e-1 | −3.60e-2 | −1.10e-2 |
+
+  * The successive ratios 3.40 and 3.45 (m = 2) and 3.15 and 3.28 (m = 4) mean I − W ≈ −c·η^{1.7–1.8}, slower than the clean η² of
+    the compact-K packets (S1 and S2 approach η² cleanly; S2 Re f₈ is still pre-asymptotic at η = 1/1280).
+  * The cause is the forward (K → 0) particles, where h ~ q²/K is unbounded. The limit is unaffected: I_η → W monotonically from
+    below.
 * ⟨P_K⟩ = ⟨A(1)⟩ = 0.54504, ⟨A(y²)⟩ = 15.713.
 * **Conclusion.** Every term is finite, the identity holds to ≤ 1e-8 relative, and liminf I_η = lim I_η = W < ∞ in ψ_T.
 
@@ -206,7 +218,8 @@ I_{0.0125} = 3.0305.
 
 **Sharp cutoff** f₂·1_{\|y\|<2}: Aψ has a jump, so Aψ ∉ Dom(H^{1/2}).
 * I_η = 0.257, 0.340, 0.389, 0.431, 0.480, 0.545 at η = 0.1 … 0.003; it grows without bound.
-* The spectral form at very small η: SHARP_PLACEHOLDER
+* The spectral form at very small η (dy = 0.005), η = 3.2e-3, 8e-4, 2e-4, 5e-5, 1.25e-5: 0.540, 0.748, 1.159, 1.988, 3.724.
+  Successive ratios for η → η/4: 1.385, 1.550, 1.716, 1.873, tending to 2 = 4^{½}.
 * Expected asymptotics I_η ~ η^{−½}: \|v̂(q)\|² ~ q⁻² up to q ~ (K/η)^{½}.
 * **The regulator detects exactly the failure mode the author's Fatou argument is designed to exclude.** The cutoff f_{m,R} of
   §18 must be at least C¹; its uniform bound \|f′\|²/(1+y²) ≤ C(1+m²) presupposes that.
