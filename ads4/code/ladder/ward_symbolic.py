@@ -23,7 +23,7 @@ def row(expr):
     e = expr.subs({a: 0 if minus else 1, b: 1 if minus else 0}).subs({z0: 1, z1: 1, z2: 0})
     e = sp.expand(sp.powsimp(sp.expand(e*A**(m - J)*B**(-J - m)), force=True))
     e = sp.expand(sp.powsimp(e.subs(B, 1), force=True))
-    return sp.expand(sp.Poly(e, A, 1/A).as_expr().coeff(A, 0)) if e.has(A) else e
+    return e
 
 def row0(expr):
     e = row(expr)

@@ -248,3 +248,25 @@ Coordinator checks are in `code/angular/verify_s12.py`; everything else is reaso
 * *Reduced to the spectral condition:* the contact terms.
 * *Controlled modulo degenerate mixing:* multi-traces.
 * *Single remaining physical estimate:* ΣC^{3/2}\|a₀\|² < ∞ (or the fractional K⁰ regularity), together with the c_T-vs-Regge order of limits for the mixed commutator.
+
+## 13. Contact terms under a weaker condition, the exact defect theorem, the critical tail criterion, and degenerate mixing (author-supplied, 25 Nov)
+
+Coordinator checks are in `code/angular/verify_s13.py`.
+
+| claim | check / comment |
+|---|---|
+| Contacts need only ΣC\|a₀\|² < ∞. Then S_C(k) = o(k⁶), Σ(T−C)\|a_k\|² = o(k⁵), Σ\|ā_k(Aa)_k\| = o(k⁴), so Ĉ(m) = o(m⁴), leaving c₀δ + c₂δ″. The Ward relation Ĉ(0) = Ĉ(1) (heavy harmonics start at \|m\| = 2; the 2→1 coefficient is 1 − 2/2 = 0) forces c₂ = 0 | growth chain consistent with the verified d_k (§12). **The Ĉ(0) = Ĉ(1) step is not re-checked** |
+| Truncated kernel: Q_N(0) = −6/((N+2)(N+3)) | **verified exactly** (N < 60, by telescoping) |
+| Truncated first moment: (1/3)Σ_{k≤N} ā_k(Aa)_k/D_k = [(T−b(b−1))/3]\|a₀\|² − B_N, B_N = X_N\|a_N\|²/((N+1)D_N) | **verified numerically** on ladders (rel. err. 7e-10) |
+| **Defect theorem.** Given only a δ contact and finite 𝒫: 𝒫 − 3 − B_N = O(N⁻²), so 𝒟 = lim B_N = 𝒫 − 3 ≥ 0 exists and 𝒫 = 3 + 𝒟. Gravitational inequality: t₄² + α_T² ≤ 16(3+𝒟)/K(g) + 16𝓛_g | structure follows from the verified pieces. **This turns the convergence question into an explicit, signed correction** |
+| Critical tail criterion: L·F(L) → 0, with F(L) = Σ_{J>L, twist≥2} C\|a₀\|², implies S_C(N) = o(N⁴), hence 𝒟 = 0. Strictly weaker than ΣC^{3/2}\|a₀\|² < ∞ | proof follows §11's split; correct |
+| Physical sufficient condition: ‖1_{K⁰>R}v‖² = o(R^{−3/2}), or ‖(e^{isK⁰} − I)v‖² = o(\|s\|^{3/2}), for v = E₂ψ_T | formal reduction plausible; **open: the central physical estimate** |
+| **Counterexample.** J_ℓ = 2^ℓ, Δ_ℓ = J_ℓ + ⌈J_ℓ/ℓ⌉ + 2, \|a_{ℓ,0}\|² = 1/(J_ℓ(J_ℓ+1)ℓ³). Its harmonic norms decay faster than any polynomial, yet lim B_N = (1/6)∫x⁻³e^{−2/x}dx = 1/24 | **integral verified** (= 1/24); construction not re-checked. Smoothness of ordinary energy correlators cannot close the gap: CFT dynamics must enter |
+| **Degenerate mixing.** a_ε = ε⁻¹K(D_ε)v_ε gives O(1) terms K(Δ_*)v₁ + K′(Δ_*)Vv₀. Basis-independent sufficient conditions: Vv₀ = 0 and K(Δ_*)v₁ = 0, which give \|a\|² = O(1/c_T) even with O(c_T^{−1/2}) splittings. Factorisation route: at first order, the only surviving one-detector transition to a Wick-ordered multi-particle bra is a single 3-pt function (detector, external T, one constituent); the rest vanish by ANEC vacuum annihilation | perturbative algebra correct. Factorisation argument plausible; **analytic justification (differentiable spectral projections, light transform vs projected expansion) open** |
+| **Literature (author).** KKSZ give J₀ ≤ 1 nonperturbatively, and their eq. (4.87) puts the mixed first-moment product in the J₀ < 2 range. Weighted light-cone convergence and momentum eigenstates remain to be justified. Córdova–Shao's contact algebra uses an extra closure hypothesis | citations to be checked before use |
+
+**Status of the angular route.**
+* *Bound:* √(t₄²+α_T²) ≤ 4√((3+𝒟)/K(g) + 𝓛_g), which is 0.01782 at g = 1000 when 𝒟 = 𝓛_g = 0.
+* *𝒟 = 0* follows from the single tail estimate ‖1_{K⁰>R}E₂ψ_T‖² = o(R^{−3/2}).
+* *𝓛_g → 0* follows from fixed-window planar suppression, now reduced to Vv₀ = 0 and K(Δ_*)v₁ = 0.
+* *Also open:* existence and separated vanishing of the physical mixed commutator, and the order of limits (c_T vs Regge, light cone).
