@@ -212,7 +212,7 @@ def far_remainder(cb, hmax, nmin, M, b, tau, d_lo):
       |U_k - T_M(k)| <= M_k(rho) (h/rho)^{M+1}/(1 - h/rho)        (h <= hmax < rho)
       |U_k - T_M(k)| <= c+^k + M_k(rho) sum_{m<=M} (h/rho)^m           (any admissible rho)
     Blocks [k0, k1): each factor is quasi-convex in x, so its max over a block is at an end point; B_k increasing; then a geometric tail
-    with rho = theta/u_k, theta = 3/4."""
+    with rho = theta/u_k, theta = min(3/4, 0.45(1 + c-))."""
     s = 2*b + 1
     kap = A(abs(Fr(9, 2) - b*(b - 1)))
     KcA = (PI/2)*(2*PSI2.absexp(PI/2, 2000) + (2/LAM)*D.Rint(PI/2)[0])
@@ -234,6 +234,9 @@ def far_remainder(cb, hmax, nmin, M, b, tau, d_lo):
     LM = [arb(0) for _ in rhos]; valid = [True]*len(rhos)
     tot = arb(0); k0 = 0; logcp = cp.log()
     th = arb(3)/4
+    th2 = (1 + cm)/2*arb(0.9)
+    if th2 < th:
+        th = th2
     KT = None
     while True:
         blk = max(1, k0//400)
