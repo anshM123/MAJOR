@@ -1,0 +1,19 @@
+
+reproduce.py (quick mode), 2026-11-25 12:58 UTC, total 120s
+
+PASS  tau0            4s  Result (1): tau_0 at K=1 from the published weights; Fig. 1
+PASS  fig2            1s  Fig. 2 (coverage map)
+PASS  K              41s  Result (1): certified K = 1 - 32.4/Lambda^2 inputs (delta K0, grid, bounds, self-test)
+PASS  H17            20s  Result (1): closed-form H17, certified K and tau_0 <= 2.8914e-8
+PASS  ang-cdh         1s  Angular route: celestial recurrence = continuous dual Hahn; K_B2A4 polynomial
+PASS  ang-ward        1s  Angular route: all-J first-moment operator (rest-frame Ward algebra)
+PASS  ang-ladder      4s  Angular route: all-J helicity ladder (closed forms, normalised ratio)
+PASS  ang-sp3        44s  Angular route: SP3 positivity of the first-moment operator; smeared coefficients
+PASS  ang-s6          1s  Angular route: generating function, Y0 = -Einstein, Y4 = 303/5120, gap constant
+PASS  ang-s9          1s  Angular route: telescoping and exact endpoint identity
+PASS  ang-s10         0s  Angular route: coercivity, contact kernel Q(theta), K(g) and tau <= 0.0178
+PASS  ang-s13         0s  Angular route: truncation identities of the defect theorem
+PASS  ang-const       1s  Angular route: uniform constant K(g), fourth-harmonic ratio (independent)
+PASS  ang-ward2       1s  Angular route: Ward step C(0) = C(1) (independent)
+
+14/14 stages passed; logs in <dir>/cache/reproduce_<stage>.log
