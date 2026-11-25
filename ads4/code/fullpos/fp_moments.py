@@ -159,7 +159,8 @@ class Moments:
         nu_c = self.Lam + 100; a = arb(10)
         self.nu_c = nu_c
         Lam = self.Lam
-        cut = Lam - 100
+        CUTW = int(os.environ.get('FP_CUT', '100'))
+        cut = Lam - CUTW
         edge = []; rest = {}; twins = {}
         for c, s, x in self.sc:
             ca, sa, xa = A(c), A(s), A(x)
@@ -185,12 +186,13 @@ class Moments:
         # ---- panels
         NGL = self.NGL
         nodes = [arb.legendre_p_root(NGL, k, weight=True) for k in range(NGL)]
-        lo = Lam - 150; Lp = arb(30); half = Lp/2
+        lo = Lam - (CUTW + 50); Lp = arb(30); half = Lp/2
+        NP = -(-(CUTW + 50 + 180)//30)          # panels cover [Lam-CUTW-50, >= Lam+180]
         rho = (arb(4)/3 + (arb(16)/9 + 4).sqrt())/2            # b = (L/2)(rho - 1/rho)/2 = 10
         nmax = self.nmax
         T = [arb(0)]*(nmax + 1); Err = [arb(0)]*(nmax + 1)
         prec0 = ctx.prec
-        for P in range(11):
+        for P in range(NP):
             mid = lo + half*(2*P + 1)
             # sup |h| on the ellipse boundary (low precision boxes)
             ctx.prec = 128
