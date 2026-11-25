@@ -79,7 +79,7 @@ def main():
         tot = arb(0)
         for k in range(n + 2):
             Uk = U[k]; Ukm = U[k - 1] if k > 0 else arb(0)
-            um = u(k - 1) if k > 0 else 0
+            um = u(k - 1)                         # u_{-1} = (b-1)b (= 12 for b = 4) at k = 0
             Vk = Uk*(1 + (arb((k + 3)**2)/2 - um)/Ta) + arb(k*k)/(2*Ta)*Ukm
             tot += Vk*P[k]
         h32 = (1 - r)**3*tot
