@@ -182,8 +182,118 @@ This is consistent with the authors' 0.0026 on 39 states; it is slightly larger,
 * Claim checked: max over u of |H_ang/H_hyb − 1| ≤ 0.01 for J ≤ 26.
 * Sampling: 24 masses per channel, uniform near the twist edge plus geometric to u = 10⁻⁴·u_max.
 
-**RATIO_RESULT**
+**Result: confirmed on every sample.**
+* All 37 physical channels with J ≤ 26 satisfy max_u |H_ang/H_hyb − 1| ≤ 0.01.
+* The worst case is **4.71·10⁻³** (J = 17, `+−`, at the twist edge u = 0.967). Every `+−` channel with 5 ≤ J ≤ 26 peaks at the edge with
+  1–4.7·10⁻³. The `++` channels are ≤ 6·10⁻⁵.
+* min_u H_ang/N_s = **0.20087** (J = 5, `+−`), consistent with the authors' H_ang ≥ 0.1979 N_s.
 
 This is a sampled check, not a reproduction of their Bernstein certificate. I did not build the u-polynomial hybrid (exact Weyl shift
 plus conical-function enclosure of cv). My own certified statement for these spins is the stronger-in-sign but weaker-in-margin
 H_ang,b > 0 of §3.
+
+## 3. Every-mass certificates at fixed J (task 3) [certified]
+
+`fp_poly.py`. 𝒫_{J,b}(w) is assembled in Arb from the moment balls and the exact Q_k. Positivity on [0, w_max], w_max = λ/((J+Δ_g−2)(J+Δ_g−1)),
+is proved from the Bernstein coefficients (all > 0), with de Casteljau bisection where needed. Channels:
+* b = 0: even J (`++` and the even-J parity-odd structure);
+* b = 4: J ≥ 4 (`+−`; the single parity-odd structure for odd J).
+
+Since H_ang,b = (1−r)³·𝒫·Tⁿ/∏_{j<n}(T−u_j), and the factor is > 0 on the heavy range, 𝒫 > 0 means **H_ang,b > 0 for every mass m ≥ m_gap(J)**.
+
+| Δ_g | moments | channels certified | first failure (cause) |
+|---|---|---|---|
+| 1000 | K = 300, 3000 bits | **every physical channel with J ≤ 239** (356 polynomials, ≤ 15 cells each, ≈ 2 s each at J ≈ 240) | J = 240: balls too wide, from moment precision, not a sign |
+| 1000 | K = 1000, 7000 bits | **POLY1000_RESULT** | |
+| 300 | K = 300, 3000 bits | **every physical channel with J ≤ 285** (426 polynomials) | J = 286, b = 0: precision |
+
+Further details:
+* **Margins.** The minimum Bernstein lower bound is smallest at the twist edge. It decreases with J: 𝒫(w_max) ≈ 0.52 (J = 4, `++`),
+  2.2·10⁻³ (J = 40), 2·10⁻⁶ (J = 238). That decrease comes from the normalising factor ∏(1 − u_j w/λ); H_ang itself is ≈ H_hyb > 0.
+* **Cancellation.** The terms of 𝒫 cancel by a factor ≈ e^{1.3J} (§1.4). So certifying spin J needs moments with relative radius
+  ≲ 10^{−0.57J}. This, not the Bernstein step, is the cost driver. The cost is polynomial: moments to precision e^{−1.3J} cost Õ(J²) at
+  O(J) digits.
+
+## 4. Asymptotic regions (task 4)
+
+### 4.1 Coefficient-envelope (tail) certificate of §§29, 31, 32: it cannot apply at any accessible K [certified numbers + D]
+`fp_tail.py`, `cache/fp_tail_1000_K*.txt`, with P_k = D_k²L_k and P*_k = ((5/2)_k/k!)(A + B/log(k+2)).
+
+| k | 0 | 10 | 100 | 200 | 300 | TAILK1 |
+|---|---|---|---|---|---|---|
+| log₁₀\|P_k\| | 1.32 | 44.28 | 275.80 | 438.96 | 556.55 | TAILK2 |
+| log₁₀ P*_k | −3.76 | −2.86 | −1.70 | −1.31 | −1.08 | TAILK3 |
+| log₁₀\|D_k²Q_k\| | 1.11 | 44.13 | 275.48 | 437.64 | 550.96 | TAILK4 |
+
+* **Envelopes.** |P_k − P*_k| ≤ P*_k/4 holds for **no** k ≤ TAILKMAX. Neither does |D_k²Q_k| ≤ (k+1)P*_k.
+* **Prefix constants** (k < 300, certified): log₁₀D₀ = 555.6, log₁₀D₁ = 562.6, log₁₀D₂ = 560.6, log₁₀D₃ = 550.1. With the K = 1000 data:
+  TAILD.
+* **Hypothetical cutoff.** If the envelopes held from K = 300 on, §32's cutoff would be w_* = 10^{−229}, i.e. β_* ≈ 528 and
+  1 − r ≤ 10^{−229}. They do not hold.
+* **Why.** §1.4: P_k ~ e^{O(Λ)} up to k ≈ Λ/2. After that comes an oscillating plateau of size ~ e^{(π/2)Λ}k^{3/2} × (Fourier decay
+  k^{−1/2}).
+  * At Δ_g = 300 the plateau is directly visible in the certified moments: |Z_k| ≈ 10^{198} for k = 200, 250, 300, with sign changes
+    and Y/Z changing sign. Compare e^{(π/2)·298.5} = 10^{203.6}.
+  * So the envelope can hold only once the k^{−1/2} Fourier decay has eaten e^{(π/2)Λ}/(A + B/log k), i.e. **K ≳ e^{πΛ}·10⁸
+    ≈ 10^{1370}** at Δ_g = 1000 [D, heuristic]. The prefix constants up to such K are ≥ 10^{670} (certified lower bound: the k ≈ 500
+    peak).
+* **Verdict on the tail certificate.** As formulated (|P_k − P*_k| ≤ P*_k/4 for k ≥ K, plus absolute prefix sums), it cannot be made to
+  work for the repaired weight. Asymptotically it is true, but its threshold is astronomically far away, and the prefix sums are
+  ≥ 10^{670}, which forces w_* ≤ 10^{−270} even in principle. The Cauchy-majorant inputs of the forward strip do hold for k ≤ 300:
+  max_k |P_k|/Λ^{2k} = 10^{1.32} ≤ 200 and max_k |D_k²Q_k|/Λ^{2k} = 10^{1.11} ≤ 120 [certified]. I did not reproduce the strip
+  argument itself (b̂ ≤ 1, J ≥ 27, error < 0.06 N_s).
+
+### 4.2 Bounded impact parameter, comparison constant 𝒦_b(r₀) [certified partial sums; a lower bound on 𝒦]
+`fp_regions.py`. Define
+𝒦_b(r₀) ≥ sup_{r≤r₀}(1−r)³Σ_{k≤300}D_k²[r^{k−1}S_{b,k}|Z_k||1/(k+3) − r/(k+1)| + r^k(|2Y_k + V_{b,k}Z_k| + Λ²|Q_k|)].
+
+The truncated sum is already a lower bound. For r₀ ≤ 10⁻³ it is also essentially the full value: the terms peak at k ≈ Λ√r₀ ≤ 32.
+
+| r₀ | b̂₀ | 𝒦₀(r₀) ≥ | H_LR(r₀) | covered only for T ≥ 𝒦/H_LR (b = 0; b = 4 similar) |
+|---|---|---|---|---|
+| 10⁻⁶ | 2.0 | 1.8·10⁷ | 17.9 | 9.9·10⁵ (≈ the gap: Δ ≳ 1000) |
+| 10⁻⁵ | 6.3 | 8.7·10⁷ | 4.50 | 1.9·10⁷ (Δ ≳ 4400) |
+| 10⁻⁴ | 20.0 | 7.0·10¹¹ | 0.120 | 5.8·10¹² (Δ ≳ 2.4·10⁶) |
+| 10⁻³ | 63.2 | 1.8·10²⁷ | 4.1·10⁻³ | 4.4·10²⁹ |
+| 10⁻² | 201 | 3.9·10⁸⁴ | 1.4·10⁻⁴ | 2.7·10⁸⁸ |
+| 10⁻¹ | 666 | 3.5·10²⁶⁵ | 1.9·10⁻⁵ | 1.9·10²⁷⁰ |
+
+So the absolute-value majorant 𝒦_b(r₀)/T is useful only for b̂ ≲ 20, i.e. for spins J ≲ 10⁻²√T. There it covers states that are
+already inside T0's Part F/T region b̂ ≤ 16. **𝒦 grows like e^{2b̂}**, and region (a) contributes nothing beyond the fixed-J certificates.
+§29's signed remainder is the same sum before taking absolute values; its terms carry the same e^{2b̂}, so it needs the same precision
+as a direct certificate.
+
+### 4.3 Large impact parameter, r → 1: no explicit threshold obtainable from coefficients [D]
+* The limit 𝔑(γ) ≥ 1 − 105/(8γ²) presupposes Z_k ≈ z_*k^{−5/2}/log k for k ~ x/(1−r).
+* By §§1.4 and 4.1 that holds only for k ≳ 10^{1370}. A coefficient-based threshold would therefore be R₀ = 1/(1−r₀) ≳ 10^{1370},
+  i.e. β₀ ≳ 3200. Even then, the e^{(π/2)Λ}-size oscillatory part of all k below it must be controlled with its cancellation.
+* That cancellation is real. It is the Mellin-type suppression of Σ_kU_k k^{iΛ}… by the smoothness of U_{b,k} in k. But no absolute
+  envelope sees it.
+* I did not produce a certified threshold. The Step-C identity and the 𝔑 bound are fine as calculus; the input asymptotics are what fails.
+
+### 4.4 What does work for large J: the frequency kernel [DV]
+`fp_kernel.py`. Swap the k-sum and the ν-integral: H_ang^{(2)} = ∫g(ν)𝒦_fin(ν; J, T, b)dν, where
+𝒦_fin = (1−r)³Σ_k D_k²U_{b,k}[z_{k+2}(ν)(…) + (2y_{k+2}(ν) + V z_{k+2}(ν))/T]. This finite sum of polynomials is the exact finite-mass
+analogue of the shifted Legendre kernel 𝒦_LR (identity I2).
+
+Measured at J = 40 … 2000, Δ = J + 1000 (b = 0), ν = 0.5 … 1000:
+* the individual terms reach 10⁵¹⁴, yet 𝒦_fin is of the same polynomial size as 𝒦_LR;
+* (𝒦_fin − 𝒦_LR)·T/(1+ν²) = O(10) for ν ≤ 5 and O(10⁴–10⁵) at ν = 50;
+* the deviation becomes O(1) relative only at ν ≳ 300, where ν² ~ T/10.
+
+So **the exponential sizes live only in the moment basis**: per frequency the finite-mass kernel is tame. A large-J proof should bound
+𝒦_fin − 𝒦_LR (or 𝒦_fin minus the hybrid's flat-plus-curvature kernel) per frequency, with an explicit O(ν²/T) or O(ν²/m²) error.
+That error must then be integrated against |g|, exploiting (1−p)⁵ near ν = Λ. Do not try to bound moments. A closed form for 𝒦_fin
+(the double sum is hypergeometric; U_{0,k} = (−J)_k(J+1)_k/((2−Δ)_k(Δ−1)_k)) would make this analytic. **This is the recommended route
+for the J > J_max region.**
+
+### 4.5 The remaining region
+* **Certified:** every physical state with J ≤ J_max (= REGION_JMAX at Δ_g = 1000; 285 at Δ_g = 300), at every mass: H_ang,b > 0.
+* **Not certified:** every J > J_max, at every mass. Region (a) adds only b̂ ≲ 20 at T ≥ 10⁷–10¹³, which is not a new spin range. Region (b)
+  has no usable threshold. The authors' forward strip (b̂ ≤ 1, J ≥ 27) is not reproduced.
+* **Cost of extending the direct certificate.** Spin J needs moments with relative radius ≲ 10^{−0.57J} for k ≤ J. In practice:
+  * ≈ 2J + 500 decimal digits of working precision;
+  * edge panels widened so the θ-bound is below that, e^{−(c_cut)²/101.6};
+  * O(J²) ball operations for the moments and O(J²)–O(J³) per polynomial.
+  * J ~ 10³ is a few CPU-hours (§3). J ~ 10⁴ would need ~2·10⁴ digits and is impractical. No finite computation reaches J = ∞, so the
+    large-J region needs §4.4's kernel route (or T0's hybrid plus a per-frequency comparison).

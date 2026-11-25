@@ -560,3 +560,15 @@ No large-Δ, large-J or large-ν approximation is used.
 * evaluating w_* and β_*;
 * certifying the finite middle region (J ≥ 27, b̂ > 1, β < β_*), with error O(1/T) by the Cauchy bounds;
 * reproducing the J ≤ 26 and forward-strip certificates.
+
+## 33. Effective P_k remainder (author-supplied, 26 Nov)
+
+**Claim** (pen-and-paper, conservative constants):
+* \|k!P_k/(5/2)_k − A − B/log(k+2)\| ≤ 0.02/log²(k+2) for k ≥ ⌈e^{100000}⌉.
+* \|D_k²Q_k\| ≤ (k+1)P_k^* for k ≥ ⌈exp(exp(900))⌉.
+* **Method.** Effective Darboux transfer with remainder e^{10000}k^{−1/2}, then a contour shift to Im ν = 1/8. On that segment only the logarithmic basis contributes to the imaginary part (exact formula), with \|W_α′\| < 6.
+* **Result.** The explicit remainder is (2/Λ)[6/L² + \|f₁\|e^{−L/8}/(πL) + e^{8100−L/8} + e^{10000−L/2}], with L = log k. Not re-derived.
+
+**Coordinator assessment.**
+* *The cutoff is intrinsic.* The weight lives at ν ≲ Λ ≈ 10³. The coefficient asymptotics are an expansion in e^{iν log k}, so the 1/log k regime only sets in for log k ≳ Λ, i.e. k ≳ e^{~1000} or beyond. Coefficient-wise envelopes cannot be checked computationally up to K.
+* *Proposed pivot.* For the middle region (J ≥ 27, b̂ > 1), work in the impact-parameter variable instead of per harmonic. §29's exact signed remainder writes H_ang − H_LR through the finite ladder weights U_{b,j} and the tail generating functions F_j(r), G_j(r). Those are leading-Regge-type integrals at fixed r (F_j = (w⁻³H_LR^{(2)}(r) − Σ_{k≤j}P_kr^k)/r^{j+1}), which T0's machinery already certifies as functions of r. Combined with U_{b,j} ≤ e^{−j/R} and the improved ladder bound (§29), this avoids enumerating harmonics.
