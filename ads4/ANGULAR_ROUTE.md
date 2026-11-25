@@ -839,3 +839,21 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   1. The region 998 ≤ a < 3·10⁸ with 0.04 < L < 7 (J from 767 to about 6.6·10¹¹).
   2. A uniform bound on the residual extension's Jacobi norm. Its β_j are built from Taylor coefficients h_k, which are e^{O(Λ)} in size; whether they cancel is unknown.
   3. Physical Δ is real, so N is generically not an integer. The Racah orthogonality as proved needs integer N.
+
+## 51. Racah route resolved structurally; high-twist threshold lowered to a ≥ 2.2·10⁷ (author, 26 Nov)
+
+* **Helicity-adapted extension basis.** E_j = z^j₂F₁(j+1−N, j+N+s+1; 2j+s+1; z), weight z^{s−1}(1−z).
+  * ℒ_{n,N}((1−z)E_j) = δ_{nj}d_nŨ_n. **Checked here exactly:** 80 random states (s = 1, 9; integer N), with no off-diagonal nonzeros.
+  * Hence ‖P_min‖² = Σ_{j≤n}\|ℒ_{j,N}(R)\|²/A_{j,N,s}. **The minimum-norm certificate is circular:** it re-encodes exactly the lower-spin residuals that we need to bound.
+* **Real-mass obstruction (author).** For non-integer N, Saalschütz gives ℒ((1−z)E_j^{M,δ}) ∝ (1+δ−m)_m, which no longer vanishes.
+  * Counterexample at b = 0, J = 1000, N = 2000.5, with a polynomial of L²((1−z)dz) norm ≤ 1/√2: \|ℒ((1−z)P)\| ≈ 10^{217.87}. **Checked here:** the formula's log₁₀ is 217.99 + log₁₀ d_n.
+  * So no uniform polynomial-space bound can extend the integer isometry to real masses.
+* **High-twist closure (author, sharper rerun).**
+  * Claim: H_ang,b > 1.6e-7·P_∘ > 0 for a ≥ 2.2·10⁷ throughout 0.04 < L < 7, both channels, all real masses.
+  * Inputs:
+    * moments of \|ψ_i\| (1024 dyadic Bernstein cells);
+    * ∫\|f − ψ₂\| < 2.68e-6;
+    * M₁/P_∘ > 0.0064 on 0.5 ≤ β ≤ 8.5;
+    * floor 1.50e-6·P_∘.
+  * Budget: first-order term 1.116e-6, higher orders 2.175e-7, ℛ₅₀₀ < e^{−650}. **Not reproduced here.**
+* **Open.** 998 ≤ a < 2.2·10⁷ with 767 ≤ J < 4.83·10¹⁰ and 0.04 < L < 7. This needs a tame reference specialised to the physical generating function; generic norm arguments are excluded.
