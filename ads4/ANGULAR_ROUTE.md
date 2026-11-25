@@ -791,3 +791,13 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Dispersion relation: cos ϑ = 1 − ν²/(2y²).
   * Action: S(y) = ∫₀^y log((ℓ²−t²)/(h²−t²))dt + iΘ_ν(y).
 * **Consistency checks (author).** At fixed c the result reduces to F_{p,ν}(c) with the first-order profile. At ν = 0 it gives 𝔑_a(p − ½). Both pass.
+
+## 48. Airy-window bound on the Darboux multiplier and weighted edge integrals (author, 26 Nov)
+
+* **Window.** ν₁(a) = a − a^{1/3}/2; at a = 998, ν₁ ≈ 993.003.
+* **Bound (author, proof sketched).**
+  * Statement: \|B(ν)𝔑_a(5/2+iν)\| ≤ 8a^{−1/3}e^{G_a(ν)} and \|B(ν)𝔑_a(7/2+iν)\| ≤ 16a^{−1/3}e^{G_a(ν)} for a ≥ 998 and ν ≥ ν₁. Here G_a = ν·arccos(a/ν) − a·arcosh(ν/a) for ν > a, and 0 otherwise.
+  * Proof outline: deform the contour; integrate by parts on y ≤ 1 − 2a^{−1/3}; use the cubic curvature bound h ≤ G − (a/6)\|v − v_*\|³.
+  * **Checked here numerically** (mpmath, ₂F₁ form) at a = 998, 1050 and 1500 over ν from ν₁ to 1.12a. The largest ratio to the bound is 0.19, for both p.
+* **Weighted edge integrals (author, stated as certified).** ∫_{993}^∞\|f\|e^{G_{998}} < 5.65e-8; the derivative integral is < 1.62e-7. Not re-checked.
+* **Caveat (author and coordinator).** This bounds the limiting multiplier, not the finite-spin kernel. FULLPOS2 §3 finds the j = 0 Darboux reference accurate only when ν·d ≪ 1 (L ≳ 7). So the bound controls the turning-point sliver only in the large-L part of the open region.
