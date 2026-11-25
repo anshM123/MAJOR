@@ -801,3 +801,18 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * **Checked here numerically** (mpmath, ₂F₁ form) at a = 998, 1050 and 1500 over ν from ν₁ to 1.12a. The largest ratio to the bound is 0.19, for both p.
 * **Weighted edge integrals (author, stated as certified).** ∫_{993}^∞\|f\|e^{G_{998}} < 5.65e-8; the derivative integral is < 1.62e-7. Not re-checked.
 * **Caveat (author and coordinator).** This bounds the limiting multiplier, not the finite-spin kernel. FULLPOS2 §3 finds the j = 0 Darboux reference accurate only when ν·d ≪ 1 (L ≳ 7). So the bound controls the turning-point sliver only in the large-L part of the open region.
+
+## 49. Edge lemma: high-frequency part ν ≥ ν₁ = a − a^{1/3}/2 (author, 26 Nov)
+
+* **NF02 edge (author, exact rationals).** \|ψ₂\| ≤ 9700(1−p)⁵ and \|ψ₃\| ≤ 9500(1−p)⁵ on [0.994, 1]. Not re-checked.
+* **Weighted density enclosures (author, outward-rounded Taylor panels).**
+  * ∫_{993}^∞\|f\|e^{G₉₉₈} < 5.65e-8;
+  * ∫\|f′\|e^{G₉₉₈} < 1.62e-7;
+  * sup\|f\|e^{G₉₉₈} < 4.1e-8;
+  * these hold for all a ≥ 998, since G decreases in a. Not re-checked.
+* **Signed limiting-Darboux edge contribution (author).** \|H^D_edge\| < 0.002·N_s^rep.
+* **Exact finite-state tail (author).** For a ≥ 1145, \|(2/Λ)∫_{ν≥ν₁} f·𝒦_phys\| < 0.01·N_s^rep at every spin.
+  * Method: a crude coefficient bound e^{2πν}, beaten by the Gaussian decay of f above 1139.
+  * **Coordinator check:** the weight's largest Gaussian centre is 1028.7 and its widths are σ ∈ {0.45, 0.9}. So f ≤ 10¹⁰e^{−(ν−1030)²/1.62} has the right centre and width.
+* **Remaining for the edge.** For 998 ≤ a < 1145 and ν₁ ≤ ν ≤ 1139, the finite-kernel envelope \|𝒦_phys(ν)\| ≤ 10√w·e^{G_a(ν)} would give \|H_edge\| < 0.0067·N_s^rep.
+* **Still open (main gap).** The bulk ν < ν₁ at 0.04 < L < 7 (see FULLPOS2 §§2–3).
