@@ -886,3 +886,12 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * det D²Ψ₊ = −a²(ℓ²H² − y⁴)/(H² + y²)²;
   * the saddles coalesce at y² = ℓH, i.e. ν = a.
 * **Open.** The global contour deformation with explicit error, uniform through the coalescence at ν = a (Airy/Chester–Friedman–Ursell), and the transport amplitude, all with constants.
+
+## 53a. Correction to the coordinator's exponentiated-ladder table (§51 discussion)
+
+* The Airy evaluation of R₁ gives:
+  * J = 800, Δ = 1800: ν = 300 → 0.069456 (consistent with the k-sum); ν = 500 → −5.9e4; ν = 700 → 1.36e15;
+  * J = 2000, Δ = 3000, ν = 700 → 8.5e16;
+  * J = 800, Δ = 3800, ν = 700 → 0.02994 (consistent).
+* The earlier k-sum test truncated the non-terminating sum near k ≈ n + 90. At ν ≥ 500 with c ≈ 0.2–0.45 that cutoff is too early. Its ν = 700 entries at J = 800/Δ = 1800 and J = 2000/Δ = 3000 (relative errors 0.34/0.14 and 1.9/0.5) are therefore **wrong**. R₁ actually blows up there, in agreement with the author's §52 counterexample.
+* Airy-envelope amplification ∫\|integrand\|/\|R₁\|: 43 at ν = 300 and 27 at ν = 500 (J = 800, Δ = 1800); 51 at J = 800, Δ = 3800, ν = 700.
