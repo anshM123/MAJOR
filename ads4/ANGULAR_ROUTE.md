@@ -491,3 +491,17 @@ No large-Δ, large-J or large-ν approximation is used.
   * explicit thresholds for the two asymptotic regions;
   * certification of the finite transition region;
   * the absolute finite-mass normalisation against T0.
+
+## 28. Absolute normalisation of the angular action against T0 (author-supplied, 26 Nov)
+
+| claim | check |
+|---|---|
+| y₀ = 6f₀ + 13f₁ + 2f₂ with f₀ = −8/(4x+1), f₁ = 1, f₂ = (7−4x)/16 gives y₀ = −(16x²−440x+273)/(8(4x+1)); with F(x) = −9216(4x+1)/((4x+9)(4x+49)), F·y₀ = −36ℰ(ν), where ℰ is K_B2A4's exact Einstein light function | **verified exactly** (sympy) |
+| The k = 2 physical prefactor is 𝒜₂ = 16πG/36 = 4πG/9; y₄/y₀ = 16Θ(ν) (K_B2A4), consistent with \|c\|² = (t₄²+α_T²)/16 | first part follows; y₄/y₀ not re-checked |
+| k = 3 prefactor: 𝒜₃ = 4πG/9 = 𝒜₂, from the published ½Λ⁶∫ψ₃Ĉ₃ and \|c\|² = 3600\|ĝ₃\|² | not re-checked |
+| Ω^EE_O = ℬ(Δ,J)Σ_b\|a_{b,0}\|²H_ang,b, with ℬ = (2πGΛ⁴/9)T⁴/(T−C)³ > 0 and H_ang,b = ((1−r)³/T)Σ_k W_{b,k}[2Y_k + (d_{b,k}/3)Z_k + σ_bΛ²Q_k] | **algebra verified** (sympy); same H_ang as §27 |
+| OPE basis: 𝔠_h ∝ K_h(Δ,J)λ_h, with the exact kernels of ANGULAR_PROOFS. Ω^EE_O = H_ang,0(\|𝔠₊₊\|² + \|𝔠_odd\|²) + H_ang,4\|𝔠₊₋\|². Double-trace zeros are handled automatically | consistent |
+| **Congruence lift of T0.** Define Ω_hyb,O = ℬΣ\|a\|²H_hyb,b and N_s,O^phys = ℬΣ\|a\|²N_s,b. Then the scalar per-channel estimate \|H_ang,b − H_hyb,b\| ≤ (0.1999−ε)N_s,b implies Ω^EE_O ≥ εN_s,O^phys ≥ 0; the normalisation cancels | **logic correct**. What remains to verify is that H_ang,b and T0's H_hyb,b are the same scalar function in the leading-Regge limit, with no relative factor (the matching the FULLPOS agent checks numerically) |
+| Impact-parameter correction: r_β = tanh²(β/2) = (C+¼)/(T+¼) ≠ r; cosh β = (1+r)/(1−r) + 1/(2m²); ℬ_β/ℬ = (1 + 1/(4T))⁴, with excess < 1.004e-6 at gap 1000 | consistent (arithmetic) |
+
+**Status of item 4.** Resolved by the congruence argument, given the retained physical identities, once H_ang,b → H_hyb,b with unit relative normalisation is confirmed (FULLPOS_CERT task 2).
