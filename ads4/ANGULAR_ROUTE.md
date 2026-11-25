@@ -402,3 +402,19 @@ Checks are in `code/angular/verify_s15.py`.
 **Not checked:** items 1, 2, 3 (as derivations), 5, and the O(N³) step. An independent audit has been launched (→ `ANGULAR_AUDIT.md`).
 
 **Retained inputs:** physical matching (all-J ladder and first moment), contact matching (exact BMS coefficient), fixed-window planar regularity, Δ_φ > 1, and KKSZ (4.66) at the light-cone edge.
+
+## 22. Audit of §21 (ANGULAR_AUDIT.md): confirmed with fixes
+
+* **Proved, given standard CFT axioms and two finite-J extrapolations** (verified exactly for J ≤ 30): 𝒟(c_T) = 0 at each finite c_T, via reflection-positive two-scale crossing (mirror ordering) and the kernel bounds.
+* **Corrections:**
+  * B_N = O(1/N), not O(N⁻²) (§18 overstated). The "absolute angular swapping" sum diverges logarithmically; 𝒟 = 0 is unaffected.
+  * The low-spin sectors need the collinear growth of F (DV).
+  * The Casimir/K⁰ domain step (§21 item 5) is [D] and unnecessary.
+* **To write out:** the symbolic-J collinear identities and the crossing lemma with the ordering stated.
+* **Final input list of the angular theorem:**
+  1. physical ladder and first-moment matching (LADDER_ALLJ);
+  2. the contact coefficient (KZ algebra; Δ_φ > 1);
+  3. fixed-window planar regularity;
+  4. KKSZ light-cone convergence (4.66) and existence of the mixed commutator.
+
+  **The regulated null-plane bound is no longer an assumption.**

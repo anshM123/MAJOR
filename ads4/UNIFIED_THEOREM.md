@@ -823,6 +823,14 @@ A chain carries the grade of its weakest link.
 > * **Ward step Ĉ(0) = Ĉ(1) = 1 [P].** It also proves that the first moment vanishes within the T family.
 > * **Multi-traces [D].** In TT-built clusters, Δ_T is protected, so Vv₀ = 0 holds in strong form. The conditions are equivalent to tree-level ⟨TTTT⟩ statements (no log²u, no block off the double-trace zeros), which AdS₄ gravity satisfies.
 
+> **Update (ANGULAR_AUDIT.md, 26 Nov; independent hostile audit): §21 is confirmed with fixes. 𝒟(c_T) = 0 at each finite c_T follows from items 1–4 (crossing). Item 5 (the Casimir step) is not needed.**
+> * **Collinear identities [DV].** Exact in s for even J = 4–20, 24, 30 and odd J = 5–15, 21, using the repo's conserved structures. The weight 4^Δ2^{−J} is confirmed. The symbolic-J derivation still needs writing out.
+> * **Two-scale crossing [D].** Legitimate, because the 2d global blocks factorise. It needs the mirror ordering ⟨A B B†A†⟩. The exponents are calibrated on generalised free fields.
+> * **Kernels.** [DV] to 30 digits for J ≤ 30; [P] given the closed forms. The F → λ inversion is well conditioned.
+> * **Tails [P] given 1–3.** The rate is **B_N = O(1/N)**: §18's O(N⁻²) and its "absolute swapping" claim are wrong (log-divergent), but the R-tail criterion still gives 𝒟 = 0.
+> * **Low spin.** Odd J = 0 and J = 2 close only because their collinear F grows (Δ, Δ³, Δ²); every sector then contributes Δ^{−3/2} per shell [DV].
+> * **Angular theorem now rests on:** physical ladder and first-moment matching (audited), the contact coefficient (KZ, Δ_φ > 1), fixed-window planar regularity, and KKSZ (4.66) plus existence of the mixed commutator. **§18 assumption 2 is removed.**
+
 ## 1. Setup and normalisations
 
 | item | definition |

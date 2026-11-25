@@ -1961,6 +1961,44 @@ $k=2$ tails beyond $\Lambda$; the direct own rows of $J=9$--$11$, $13$--$15$ at 
 re-ran but did not re-implement. The third checker found no substantive discrepancy, the second check (the five rows from
 identity~\eqref{eq:magic} on) no load-bearing error, and the fourth checker no numerical discrepancy.
 
+\section{An argument without positivity: the angular route}
+\label{sec:angular}
+\emph{Sum rule.} For a stress-tensor state at rest, the detector $E(n)$ and its first retarded-time moment
+$E^{(1)}(n)=\int du\,u\,T(u,n)$ commute at separated directions. Projecting the commutator on the angular weights
+$q_0=-3$, $q_{\pm1}=0$, $q_m=6/((m-1)m(m+1))$ ($|m|\ge2$), whose generating function is
+$Q(\theta)=(1-\cos\theta)[12\log(2|\sin\frac\theta2|)-9]$ with $Q(0)=Q'(0)=0$, gives the endpoint rule
+$\sum_{\mathcal O\ne T,b}\big[\frac{T_\Delta-b(b-1)}3+\frac32\big]|a_{\mathcal O,b,0}|^2=3+\mathcal D$, $T_\Delta=(\Delta-1)(\Delta-2)$,
+where $a_{\mathcal O,b,k}$ are the normalised rest-frame detector amplitudes on the two helicity ladders $b=0,4$ and
+$\mathcal D\ge0$ is an exactly defined spectral defect (the failure of the angular/spectral exchange).
+
+\emph{Exact ingredients} [P given the two operator identities below; checked against the detector pipeline for $J\le40$, both
+parities, exact rational arithmetic]. (a) The special conformal Ward identity $[\mathsf K_n,E]=-6E^{(1)}$ gives the first-moment
+matrix $M=\frac i6AH$ with $A$ tridiagonal, diagonal $T_\Delta+J(J+1)-2m^2$, off-diagonal $-\sqrt{(J(J+1)-m(m+1))(T_\Delta-m(m+1))}$,
+and $A\succeq(\sqrt{T_\Delta}-\sqrt{J(J+1)})^2$. (b) Conservation of the light-transformed stress tensor gives, for every $J$,
+$a_{k+1}/a_k=\frac{k+4}{k+1}\sqrt{(J(J+1)-s(s+1))/(T_\Delta-s(s+1))}$, $s=b+k$, using the all-$J$ momentum-space helicity norms.
+(c) Telescoping: on every ladder $\sum_kq_{k+2}{\rm Re}[\bar a_k(Aa)_k]=[T_\Delta-b(b-1)]|a_0|^2$ exactly. (d) The fourth-harmonic
+ANEC rule $\sum_{\mathcal O,J\ge6}|a_{\mathcal O,4,2}|^2\ge(t_4^2+\alpha_T^2)/16$ follows from $[E_4,E_{-4}]=0$ (commuting angular POVM),
+with $|a_2|^2/|a_0|^2=100\frac{(C-20)(C-30)}{(T_\Delta-20)(T_\Delta-30)}$, $C=J(J+1)$.
+
+\emph{Result.} With $K(g)=\frac{729}{4800}(g-2)^2\big(1-\frac{49}{(2g+9)^2}\big)$, a uniform lower bound on the endpoint weight per unit
+fourth-harmonic weight for twist $\ge g$, $J\ge6$ [P],
+\[
+t_4^2+\alpha_T^2\le\frac{16(3+\mathcal D)}{K(\Delta_g)}+16\mathcal L_g ,
+\]
+with $\mathcal L_g$ the fourth-harmonic weight of states below the gap. Hence $\tau\le0.0178$ at $\Delta_g=1000$ when
+$\mathcal D=\mathcal L_g=0$, falling as $(160/9)/\Delta_g$.
+
+\emph{What the two corrections need.} $\mathcal D=0$ is equivalent to the absence of a critical $L^{-2}$ tail of the spin-weighted
+endpoint measure in the band $\sqrt J\lesssim\Delta-J\ll J$; bounded-, slowly-growing- and comparable-twist sectors provably
+contribute nothing. It follows from one regulated null-plane commutator bound at finite $c_T$; the order of limits is finite $c_T$
+first, as for the main result (Sec.~\ref{sec:HK}), so the planar Regge intercept $J_0=2$ never enters, and the mixed commutator needs
+$J_0<2$ in the Regge corner~\cite{KKSDZ} plus light-cone convergence (Ref.~\cite{KKSDZ}, Eq.~(4.66)). A proof of the null-plane bound
+from reflection-positive crossing and a Casimir domain estimate is being independently checked. $\mathcal L_g\to0$ follows from
+planar factorisation: transitions from $T$ to multi-trace states are $O(c_T^{-1/2})$, and $\Delta_T$ is protected, so degenerate
+multi-trace clusters have no $O(c_T^{-1/2})$ splitting [D]. The contact term of the mixed commutator is $c_0\delta$ if no scalar with
+$\Delta\le1$ appears in $T\times T$, and $Q(0)=0$ removes it. Derivations, audits and check scripts: \texttt{ANGULAR\_ROUTE.md},
+\texttt{LADDER\_ALLJ.md}, \texttt{ANGULAR\_MATCH.md}, \texttt{code/angular/}, \texttt{code/ladder/}, \texttt{code/angmatch/}.
+
 \section{ABJM consistency check}
 Dictionary: $M^2=4/\alpha'$, $L^2/\alpha'=\pi\sqrt{2\lambda}$, so
 $\Lambda\leftrightarrow ML=2^{5/4}\pi^{1/2}\lambda^{1/4}\approx4.2156\,\lambda^{1/4}$, at leading order in $1/(ML)$.
