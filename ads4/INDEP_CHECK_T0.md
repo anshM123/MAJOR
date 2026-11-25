@@ -3,7 +3,7 @@
 *25 Nov 2026. Independent verifier. No existing file was edited; nothing was committed by me. Scratch code: `ads4/code/t0check/`
 (`chk_*.py` are mine; `t0_common.py, t1_curv.py, t2_lrinf.py, t3_flat.py, t0_checks.py, run_all.sh` are byte-identical copies of
 `code/t0cert/`, run there so that `t0cert/cache/` was not overwritten). Logs in `t0check/cache/` (its `.gitignore` ignores all but itself).
-Compute ≈ 0.8 CPU-h, ≤ 2 processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`.
+Compute ≈ 1.5 CPU-h, ≤ 2 processes, `ulimit -v 3000000`, `OMP_NUM_THREADS=1`.
 (Note: a periodic "WIP: agent snapshots" commit by another process swept the new `t0check/*.py` files into git; I did not commit.)*
 
 ---
@@ -151,9 +151,9 @@ and 6 random masses (m/Λ ≤ 200); 150 near-forward states (b̂ ∈ [10⁻³, 2
 | 1000 | **0.1999999834** (`+−`, J=4, m=Λ) | 0.20090 (`+−`, J=5) | 0.9898 | 0.8010 | 0.9999998 | **0** | 0 |
 | 5000 | 0.2000000110 (`+−`, J=4, m=Λ) | 0.20016 (`+−`, J=5) | 0.9942 | 0.7945 | 0.9999997 | **0** | 0 |
 
-(At 300 the only state below 0.1999 is `+−`, J = 4, m = Λ at 0.19999969, which is ≥ 0.199 as claimed.) The ten lowest states at
-every gap are `+−`/`++` J = 4–19 at m = Λ, where 𝔉/N = 0.20000001–0.20000006; H/N_s → 𝔉/N as Λ grows, consistent with sharpness.
-The c = 0.1999 statement at Δ_g = 1000 has a real margin of only 8·10⁻⁵ at its worst state, but it is certified, not sampled.
+(The only sub-0.2 values are `+−`, J = 4, m = Λ: 0.19999969 at 300 and 0.19999998 at 1000.) The eight lowest states at every gap
+are `+−`/`++` J = 4–19 at m = Λ, where 𝔉/N = 0.20000001–0.20000006; H/N_s → 𝔉/N as Λ grows, consistent with sharpness. The
+c = 0.1999 statement at Δ_g = 1000 has a true margin of only 1.0·10⁻⁴ at its worst state, but it is certified, not sampled.
 
 ## 6. Scope: what T0 does NOT cover
 
