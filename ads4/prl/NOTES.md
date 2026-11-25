@@ -1,3 +1,20 @@
+*Revised 25 Nov 2026, **v14** (writing pass after C1_FINAL, BATCH5_FOLD, QBIND_COROLLARY and INDEP_CHECK3; all deliverables
+unreviewed except as independently checked in INDEP_CHECK3, which reproduces c₁ = 0 and batch 5 and refutes nothing): **c₁ = 0** —
+removed from the Letter's assumptions, the Result ("for every value of c₁", the x-term, the c₁² term) and the threshold sentence; the
+Functionals paragraph now states the derivation in one sentence (affine k = 2 weight, energy flux and first moment helicity-diagonal
+for Einstein and flipping at O(t₄), EE annihilates flips; numerical zero to 10⁻¹¹). Supplement §S5.E rewritten (chain, three steps,
+numerical form, consistency statements, bounds as exact numbers, one-line remark on a hypothetical c₁), Table S3 is now the grade
+table of the chain; grade **[D] given L1's [TT] double zeros (parity-odd, odd-twist part [D-sketch])**, the INDEP_CHECK3 refinement,
+also added to row L1 and the net grades. **Batch 5** — "25 of the 31 spins up to 32 that have near-gap states (all of them up to 21
+and the odd spins from 23 to 31)"; Tables S5 (new row J = 17–20, 22, 24–26, 28, 30, 32; J = 23/27/31 row rewritten), S6, S7 (new
+H_hold row), S11, S17, S1 legend, §S6 protocol paragraph (structure-basis repair etc.); Fig. 2 bars J = 17–20, 25, J = 31 twist edge
+pale; every `% BATCH5` marker resolved. **QBIND** — Letter: Ω^Q_up error-controlled on its binding states and at 1.3–3Λ; Supplement
+Table S5 new Ω^Q_up row (L = 62 binding; +− J = 4 gap state [NE + M] under the strict protocol, Supplement only). **Energy-flux
+corollary** — three sentences in "Why it matters" (A ≤ τ/4 ≤ 7.2·10⁻⁹, |n_s − n_f| ≤ 7.2·10⁻⁹ c_T; CDPrakash, already in the bib,
+verified on arXiv and doi.org) and new §S5.F. Independent-check rows added to Table S18. `% BATCH4` kept (Letter 1, Supplement 4).
+Abstract and acknowledgments byte-identical. Length 3562 APS words (conservative 3625), headroom 188 (125). Change log:
+**`CHANGES_v14.md`**.*
+
 *Revised 24 Nov 2026, **v13** (confident-tone cleanup; no physics, no grade or claim changed): the Letter states its assumptions
 once, in "Setting and assumptions" ((i) higher-spin gap, (ii) weak coupling / leading order in 1/c_T, (iii) positivity with its evidence
 summary; c₁ = 0 for the numbers, κ > 0 or τ = 0 for the quartic bound, the light-scalar condition for 92.8) and refers back to them;
@@ -181,6 +198,10 @@ Figure: `cd fig && python3 make_fig.py` (needs mpmath, matplotlib) before compil
 
 ## 2. Length
 
+**v14** (`wc_prl8.py letter.tex 3 0.9375 1.03846`, acknowledgments excluded): abstract unchanged (585 characters); prose 2938
+words, 232 inline formulas (conservative 295), 3 display rows (48), figures 344; **TOTAL 3562 (3625 conservative)**, headroom **188**
+(125 conservative). Text ends on page 4; references run to page 6. Supplement 34 pages.
+
 **v13** (`wc_prl8.py letter.tex 3 0.9375 1.0385`, acknowledgments excluded): abstract **585** rendered characters; prose 2836
 words, 233 inline formulas (conservative 295), 3 display rows (48), figures 344; **TOTAL 3461 (3523 conservative)**, headroom **289**
 (227 conservative).
@@ -347,7 +368,7 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
 | M2 hypotheses as labels | addressed (v2); v3 adds the [NE±] grade with explicit leverage, and Table S5 separates error-bounded from model-only states. |
 | M3 k = 4 light side | addressed; **remaining items closed in v3**: a = b integrability (L6′ [D]) and spinning H_EFT(a) ([D] for dispersive terms). |
 | M4 lower end | addressed (no constant). |
-| M5 c₁ | addressed; v3: universal, shock route identically zero, zero given F₂ [A]; sensitivity thresholds stated. **Remaining:** F₂ or a direct value. |
+| M5 c₁ | **closed in v14**: c₁ = 0 [D] given L1's double zeros (C1_FINAL: F₂ proved; INDEP_CHECK3 reproduced the three steps and the zero). Earlier: v3 universal, shock route identically zero, zero given F₂ [A]. |
 | M6 de-shift, weights | **fully addressed in v3**: X^Q published; continuum k = 2 weights for both functionals; C4 ε_W interval-certified. Remaining minor: C5 ε_W not certified (not load-bearing); Q3\* factored coefficients not a separate data file. |
 | M7 Lemma C / Einstein instance | addressed (v2). |
 | M8 H_K | **closed in v3**: H_K [D] (EE step derived; f_pos(±3i/2) = 0; criteria 3/2, 5/2). |
@@ -391,7 +412,9 @@ positivity at one Δ_g), 3 (auditable derivations, independent reproduction of t
 8. UT3 still carries the stale "natural size 10⁻³–10⁻¹" for c₁ (§3); the paper uses no size estimate. (v8: universality is [D] again,
    now with the explicit ASD solution of DSKETCH_UP, so UT3's "universality [D]" agrees with the paper.) UT3 was not edited.
 
-10. **v12:** batch 5 (external, `% BATCH5`: J = 17–20, 22, 24–26, 28, 30, 32 and the J = 31 twist edge at 1000; J = 26, 30 need even
+10. **v14: batch 5 folded (BATCH5_FOLD); `% BATCH5` resolved.** Still open at 1000: the even twist edges J = 22–32 ([NE + M], flat
+   sign-free edge term beyond x ≈ 0.94 where n1 fails), J = 32 above its twist edge (K₂ rows only), the hold model for J = 17, 19, 22,
+   26, 30. **v12 text follows:** batch 5 (external, `% BATCH5`: J = 17–20, 22, 24–26, 28, 30, 32 and the J = 31 twist edge at 1000; J = 26, 30 need even
    shadows computed locally first); batch 4 (`% BATCH4`: J = 27, 29 twist edges at 2000, sign-free closure for J ≥ 12 at 2000); rows at
    2000 for J = 18, 20, 22–26, 28, 30–32 (GAP_SEAM2 §3 resume commands; J = 23, 31 never run at 2000); the seam strip needs its own rows
    at every larger gap (chart A does not reach it); the J = 23 twist edge closure (L = 1.18) rests on the λ_c correction — a sceptical

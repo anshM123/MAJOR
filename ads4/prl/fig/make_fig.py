@@ -2,7 +2,7 @@
 
 Reads only the published functional data in ../data/ (nf02_psi.json: Omega^EE weights, exact rationals; q3star_factored.json:
 Omega^Q_up flat target Q3*), and evaluates the exact light-side integrals
-    16 L_A(Lam)  = 16 int_0^1 psi2^D(p) dp / (p^2 + 9/(4 Lam^2))        (Result D; K = 1, c1 = 0)
+    16 L_A(Lam)  = 16 int_0^1 psi2^D(p) dp / (p^2 + 9/(4 Lam^2))        (Result D; K = 1; c1 = 0 exactly, C1_FINAL)
     2 L_AdS(Lam) =  2 int_0^1 psi2^Q(p) dp / (p^2 + 9/(4 Lam^2))        (Result Q, published constants (2a))
 term by term in mpmath (recursion I_n = 1/(n-1) - a^2 I_{n-2}, a = 3/(2 Lam)), as ads4/code/repro/bounds.py does.
 Plotted:
@@ -13,7 +13,7 @@ Plotted:
 Values between and beyond Delta_g = 300, 1000 are values of the implication with the functionals fixed; positivity was
 examined only at 300 and 1000. Nothing below 300 is claimed.
 v6 (referee 3, m14): 300 markers are open diamonds (one positivity hypothesis open); a key says the faded lines are values
-of the implication only; the annotation carries c1 = 0, K = 1.
+of the implication only; the annotation carries K = 1 (v14: c1 = 0 is derived, C1_FINAL, so the annotation no longer states it).
 v10 (GAP_SCALING, GAP_LARGESPIN, GAP_UNIFORM, GAP_NEARGAP, GAP_C3, GAP_MORSE): the cubic curve of panel (a) is drawn solid for
 Delta_g >= 1000, where positivity of Omega^EE carries over from 1000 given the no-growth premise B_F / H_mono-A (Supplement
 Sec. S8); small open circles mark 2000 and 5000, where near-gap states were recomputed. Panel (b) is unchanged (Omega^Q_up was
@@ -111,7 +111,7 @@ series(ax1, 'g3', C1, '-', r'this work: $\sqrt{16L_A}$', (1150, 92), solid_from=
 series(ax1, 'chlps', C2, (0, (4, 2)), r'flat $D{=}4$ optimum, transplanted', (330, 23), status=False)
 ax1.set_ylim(0, 160); ax1.set_yticks([0, 50, 100, 150])
 ax1.set_ylabel(r'upper bound on $|\hat{g}_3|\,\Lambda^4$')
-ax1.annotate(r'$\sqrt{t_4^2+\alpha_T^2}\leq 2.89\times10^{-8}$ ($c_1{=}0$, $K{=}1$)', xy=(1000, V[1000]['g3']), xytext=(700, 145),
+ax1.annotate(r'$\sqrt{t_4^2+\alpha_T^2}\leq 2.89\times10^{-8}$ ($K{=}1$)', xy=(1000, V[1000]['g3']), xytext=(700, 145),
              fontsize=6.8, color=INK, arrowprops=dict(arrowstyle='-', color=MUTED, lw=0.5))
 ax1.text(0.015, 0.97, '(a)', transform=ax1.transAxes, va='top', fontsize=7.5)
 # v6 (referee 3, m14): key for the marker shapes; faded lines are values of the implication only

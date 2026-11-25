@@ -1,4 +1,8 @@
-"""make_fig2.py -- Fig. 2 of the Letter (v12: J = 9, 10, 11, 13, 14, 15 error-controlled from the twist edge to 1.05 Lambda on
+"""make_fig2.py -- Fig. 2 of the Letter (v14: BATCH5_FOLD Sec. 0 -- J = 17, 18, 19, 20 (twist edge to 1.05; 17, 19 held above the
+twist edge, 20 at 1.05 on the lambda-level budget) and J = 25 (twist edge to 1.05) error-controlled; J = 31 twist edge on the signed
+window only (pale, like J = 29). The even J = 22-32 twist edges stay [NE+M]; the partial [NE+-] mass ranges of J = 22, 24, 26, 28, 30
+(held or lambda-level, Supplement Table S11) are deliberately NOT drawn, so the dense bars at J >= 17 do not suggest coverage of
+those twist edges. v12: J = 9, 10, 11, 13, 14, 15 error-controlled from the twist edge to 1.05 Lambda on
 own direct rows, J = 23 from its twist edge (thin, L = 1.18), J = 31 from 1.04 Lambda; NEARGAP_FILL Sec. 0, 2.4, 3. v9; v7 layout; v9: Theorem W drawn as its 47 sampled states over a hatched
 "interpolated" band, J = 29 twist edge pale (signed window only), REFEREE_REPORT_4 M4.4, m8): coverage of positivity for Omega^EE at Delta_g = 1000 in the (J, m/Lambda) plane,
 shaded by strength of evidence. No computation of physics: every boundary below is transcribed from the deliverables named here.
@@ -28,7 +32,7 @@ Grades (ordinal, strongest first), with sources:
                 L' : b >= 0.37211 Lambda (J + 1/2 >= 0.186055 m), J <= 10^6 (LRINF_TIGHT Sec. 3, 5; AG_PROOF Sec. 6.2: uniform rate);
                    J*(m) = ceil((0.37211 m - 1)/2) = 223 at the twist edge; overlaps W at the gap on 223 <= J <= 344
   [NE+M]/[M]  computed inside models or interpolated: near-gap J <= 25 not error-budgeted (chain spins, masses to 5 Lambda;
-                v12: J = 17-20, 22, 24, 25 and the J = 31 twist edge -- BATCH5, ads4/ext/jobs_batch5.txt, will update NEPM)
+                v14: the twist edges of even J = 22-32, J = 28 at 1.03, J = 30 at 1.03-1.04 and J = 32 above its twist edge)
                 and J = 26-32 at masses outside W's samples (drawn under W), even J = 36, 40, 48 above 1.3 Lambda;
                 m >= 1.3 Lambda, 5 <= b < b_A(m) (POS_ERRORS Sec. 2.4: b_A = 8.5, 8.7, 10.5, 13, 15, 15.3, 13.8
                 at m/Lambda = 1.3, 1.5, 2, 3, 5, 10, 20)
@@ -71,9 +75,10 @@ JL_MAX = 1.0e6 + 0.5
 
 NEPM = [(0, None, 1.2), (2, None, 1.2), (4, None, 1.05), (5, None, 1.05), (6, None, 1.05), (7, None, 1.05), (8, None, 1.05),
         (9, None, 1.05), (10, None, 1.05), (11, None, 1.05), (12, None, 1.05), (13, None, 1.05), (14, None, 1.05),
-        (15, None, 1.05), (16, None, 1.05), (21, None, 1.10), (23, None, 1.10), (27, None, 1.10), (29, 1.04, 1.10),
-        (31, 1.04, 1.10)]  # BATCH5: add J = 17-20, 22, 24-26, 28, 30, 32 and the J = 31 twist edge when the direct rows close          # (J, lowest budgeted mass or None = twist edge, highest)
-NE_SIGNED = [(29, 1.04)]           # J = 29: twist edge to 1.04 only with the signed window (sign-free L = 0.94; SMALLNU_WINDOW)
+        (15, None, 1.05), (16, None, 1.05), (17, None, 1.05), (18, None, 1.05), (19, None, 1.05), (20, None, 1.05),
+        (21, None, 1.10), (23, None, 1.10), (25, None, 1.05), (27, None, 1.10), (29, 1.04, 1.10),
+        (31, 1.04, 1.10)]  # (J, lowest budgeted mass or None = twist edge, highest); v14: BATCH5_FOLD adds J = 17-20, 25 and the J = 31 twist edge (signed)
+NE_SIGNED = [(29, 1.04), (31, 1.04)]  # J = 29, 31: twist edge to 1.04 only with the signed window (sign-free L = 0.94 / 0.90; SMALLNU_WINDOW, BATCH5_FOLD)
 # Theorem W's 47 sampled states (J, m/Lambda), from code/agproof/cache/chi.txt (AG_PROOF Sec. 5.2)
 W_STATES = [(J, m) for J, ms in [(26, (1.026, 1.128, 1.231)), (30, (1.030, 1.133, 1.236)), (34, (1.033, 1.137, 1.240)),
             (38, (1.037, 1.141, 1.245)), (42, (1.041, 1.145, 1.249)), (46, (1.045, 1.150, 1.254)),
