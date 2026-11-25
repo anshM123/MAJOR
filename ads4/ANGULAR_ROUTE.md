@@ -770,3 +770,24 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * The centred index k + p/2 cancels the first-order coefficient correction.
   * Ladder expansion: U_k = ((1−x)/(1+x))^a[1 + (2a/M)(b − (b−p/2)/(1−x²)) + O(M⁻²)], with x = (k + p/2)/M.
   * Not yet checked here.
+
+## 47. Darboux dressing, saddles, turning point, scales (author, 26 Nov)
+
+* **k = 2 dressing.** ℭ̃_{a,b,3} = ℭ_{a,b,3} + (αA_b(α)/(2a))𝔑_a(α+1), with A_b = (9+α)/2 − 2b. The k = 3 piece uses the bare p = 4 expansion.
+* **Darboux multiplier.**
+  * The ₂F₁ form (2a)^α B(α, a+1)₂F₁(a, α; a+α+1; −1)/Γ(α) equals the atanh integral.
+  * Large-a expansion: 𝔑_a = 1 − (α)₃/(12a²) + [(α)₆/288 − (α)₅/80]/a⁴ + O(a⁻⁶). This gives 𝔑_a(5/2) = 1 − 105/(32a²), as in §27.
+  * **Verified here** (mpmath, a = 50 and 200, α = 5/2, 5/2 + 3i, 7/2 + 10i): the ₂F₁ form agrees to 1e-31. The expansion residual is 1e-8 to 3e-5 at a = 50 and 3e-12 to 7e-9 at a = 200, consistent with O(a⁻⁶). \|𝔑\| > 1 at α = 7/2 + 10i.
+* **Saddle at fixed κ = ν/a (author).**
+  * Saddle point: x_* = i(1 − √(1−κ²))/κ.
+  * Amplitude: (2/(1+s))^σ s^{−1/2}, with s = √(1−κ²).
+  * Phase: a[κ log(2/(1+s)) + κ − arcsin κ].
+  * Above κ = 1 the multiplier grows like e^{aG(κ)}, with G = κ·arccos(1/κ) − arcosh κ.
+  * Airy variable ζ = 2^{1/3}a^{2/3}(κ−1).
+* **Phase scale (author).** log 𝔑 ≈ (σ+1)ν²/(4a²) + iν³/(12a²). Comparison with Legendre fails once ν ~ a^{2/3}. This is consistent with the coordinator's measured cancellation at ν ≳ 50 (§46).
+* **Joint saddle (author, formal WKB).**
+  * Equation: κ²[(1+τ)² − z²][(1−τ)² − z²] + 4z² = 0, with τ = a/(2M).
+  * Turning points at κ = 1 and κ = 1/τ.
+  * Dispersion relation: cos ϑ = 1 − ν²/(2y²).
+  * Action: S(y) = ∫₀^y log((ℓ²−t²)/(h²−t²))dt + iΘ_ν(y).
+* **Consistency checks (author).** At fixed c the result reduces to F_{p,ν}(c) with the first-order profile. At ν = 0 it gives 𝔑_a(p − ½). Both pass.
