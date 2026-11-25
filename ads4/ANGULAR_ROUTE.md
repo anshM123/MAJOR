@@ -590,3 +590,18 @@ No large-Δ, large-J or large-ν approximation is used.
 * J ≥ 240 with b̂ ≤ 22: author's bivariate certificate (to reproduce);
 * J ≥ 240 with b̂ > 22: open (the Mellin route has an unresolved boundary term);
 * the extreme large-β limit: analytic (§27).
+
+## 35. Mellin boundary correction, uniform singular-power theorem, and explicit tails (author-supplied, 26 Nov)
+
+| claim | check |
+|---|---|
+| Correction to §34: the rational Mellin interpolant vanishes only at k = n+1…N, so ℒ(F) = 𝖴_b(𝒟)F(1) − Σ_{k>N}𝖴_b(k)p_k. The extra tail cannot be dropped | correct (the earlier Mellin argument was incomplete) |
+| **Uniform singular-power theorem.** For 0 ≤ α ≤ 4, r ≥ ½ and every heavy state at gap 1000: \|𝒱_b((1−z)^{−α})w^α − 1\| ≤ 94/a² < 9.44e-5. It extends to every nonnegative mixture of such powers | **tested numerically**: 40 states with r ≥ ½ (a = 998–3000, J = 3a–30a, α ∈ {0.75, 1.5, 2.5, 4}); the worst \|ratio−1\|·a² is 14.8 ≤ 94 |
+| Positive part S₂ of the repaired generating function. With the contour at height ¾, W(y) = −2B(iy)Im f(iy) ≥ 0 on [0, ¾] (sign reversals of B and R₊ at y = ½ cancel). The resulting mixture of powers w^{−5/2+y+j} has nonnegative weights, and its floor is w³S₂ ≥ A√w | sign structure not re-checked |
+| Extreme tail 1−r ≤ e^{−5000}: \|H_ang − H_hyb^rep\| < 1e-4·N_s, with no harmonic cutoff (coefficient bounds e^{2600}c_{7/4,k} + e^{7100}) | not re-checked; conservative constants |
+| Large T: \|H_ang − H_hyb^rep\| < 0.01N_s for T ≥ e^{30000} and w ≥ e^{−5000}; the flat correction is \|D_b − J₀\| ≤ 5Ju + 2057√u | not re-checked |
+| **Remaining region:** 240 ≤ J < e^{15000}, T < e^{30000}, b̂ > 22, 1−r > e^{−5000}. Bounded but astronomically large; exhaustive certification is infeasible (author) | agreed |
+
+**Assessment.**
+* *Unbounded directions:* all three now have explicit (if crude) certificates.
+* *What is left:* a bounded but astronomically large transition region. The constants e^{~7000} come from the e^{2πν} growth of the Legendre functions against a weight supported up to ν ≈ Λ. Closing the region needs a collective remainder estimate with constants polynomial in Λ, not exponential. That is a research problem beyond this submission's window.
