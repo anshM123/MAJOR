@@ -145,3 +145,33 @@ Coordinator checks are in `code/angular/verify_s6.py`.
   * double-trace and contact terms;
   * parity-odd α_T;
   * recomputing 47266.
+
+## 8. All-J helicity ladder from light-transform conservation (author-supplied, 25 Nov)
+
+**Derivation (author):**
+* 𝕃[T](x,z) = ∫dα(−α)^{−5} T(x − z/α, z) has transformed spin −2. Conservation and tracelessness of T give ∂_x·D_z 𝕃[T] = −½∫dα ∂_α[(−α)^{−5}□T(...)] = 0, with no endpoint terms in separated, regulated 3-pt matrix elements.
+* Mapping the base point to infinity turns translations into K, giving D_z·K̂^𝒪 H = 0.
+* With the §7 generators this becomes, for the source helicity +2 unnormalised coefficients F_m:
+  m(m−4)(T+C−2m²)F_m = (m−3)(m−4)(Δ−m−2)(J+m+1)F_{m+1} + m(m−1)(Δ+m−2)(J−m+1)F_{m−1}.
+  These are exactly the §7 diagonal and neighbour coefficients, weighted.
+* The momentum Ward identity gives F₁ = F₂ = F₃ = 0, and the recurrence decouples at m = 0 and m = 4. With endpoints F_{±(J+1)} = 0:
+  F_{−k} = F₀·C(J,k)(4)_k/(Δ−1−k)_k and F_{4+k} = F₄·C(J−4,k)(4)_k/(Δ−5−k)_k.
+* The author checked 11,244 exact recurrence identities for J ≤ 250.
+
+**Checks** (`code/angular/verify_ladder.py`):
+
+| step | check |
+|---|---|
+| Both closed forms satisfy the recurrence at every m, with F₁ = F₂ = F₃ = 0 and F_{±(J+1)} = 0 | **verified exactly**, J = 4..10, symbolic Δ |
+| Normalised a = F/√N_m (§4 norms, symmetric in m) gives a_{k+1}/a_k = ((k+4)/(k+1))√((C−s(s+1))/(T−s(s+1))), s = b+k, for b = 0, 4 | **verified**, J ≤ 40, two Δ each (Δ near unitarity and Δ = J+1000). a = F/√N is the same convention as §7's normalised operator |
+| Uniqueness by solving from the endpoints (coefficients nonzero for long unitary reps) | argument fine |
+| Light-transform conservation ⇒ D_z·K̂H = 0, and that this produces exactly the m(m−4), (m−3)(m−4), m(m−1) weights | **not independently re-derived.** The repository's symbolic ladder through J = 12 (KERNELS_D3) agrees with these closed forms. The ladder agent is extending the pipeline comparison to J ≈ 30 and auditing this step |
+
+**Status.**
+* *All-J ladder:* [D] with its solution [P].
+* *Remaining for the unconditional 0.0224:*
+  1. audit of the conservation/chart step;
+  2. the Y and Z kernels for rectangular H;
+  3. interchange, convergence, double-trace and contact terms;
+  4. parity-odd α_T;
+  5. recompute 47266.
