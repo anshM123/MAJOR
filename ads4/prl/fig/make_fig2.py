@@ -102,7 +102,7 @@ NEM_TICKS = [36, 40, 48]
 
 # ---------------------------------------------------------------- style
 INK, INK2, MUTED = '#0b0b0b', '#52514e', '#8a8984'
-C_CERT, C_NEPM, C_THM, C_WEAK = '#0d366b', '#1c5cab', '#3987e5', '#cfe0f5'
+C_CERT, C_NEPM, C_THM, C_WEAK = '#0d366b', '#1c5cab', '#3987e5', '#86b6ef'
 SURF = '#ffffff'
 FS = 7.0
 plt.rcParams.update({'font.family': 'serif', 'font.serif': ['DejaVu Serif'], 'mathtext.fontset': 'dejavuserif',
@@ -157,7 +157,7 @@ fbx(axD, yd, XL_COEF * yd, xed, C_THM, z=2.5)                                   
 xb = np.geomspace(XMIN, 21.5 * 1.03, 400)
 top = np.where(xb < 3.4, 1.2, 1.05)
 axD.fill_between(xb, np.maximum(y_gap(np.maximum(xb, 0.5)), YD0), top, color=C_NEPM, lw=0, zorder=3)
-axD.scatter([J + 0.5 for J, m in W_STATES], [m for J, m in W_STATES], s=5.0, color=C_THM, edgecolors='none', zorder=4.5)
+axD.scatter([J + 0.5 for J, m in W_STATES], [m for J, m in W_STATES], s=7.0, color=C_THM, edgecolors='white', linewidths=0.35, zorder=4.5)
 axD.set_ylim(YD0, YD1); axD.set_yticks([1.0, 1.1, 1.2]); axD.set_yticklabels(['1.0', '1.1', '1.2'])
 
 # twist edge (edge of the spectrum), Theorem-L end, panel seam
