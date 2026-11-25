@@ -951,3 +951,20 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Coordinator cautions.**
   1. The retained coefficients P_m(ϑ)G(c₀) involve derivatives of G up to order ~3900 at c₀. They may be individually large and cancel across m; that needs high-precision Taylor models in τ, not naive interval enclosures.
   2. The §50 majorant (e^{3.1m}[B_m³/a²]^m) does not converge at a = 125000. Only the new global-radius argument does; reproduce it before relying on it.
+
+## 57. Local saddle majorants (no positive power of S); tails removed; nonstationary complement open (author, 26 Nov)
+
+* **Saddle widths.** h_A = √ν/(S√cos A_*) and h_C = √ν/(a√cos C_*), with sin A_* = τκ and sin C_* = κ.
+* **Local amplitude majorant 𝓜_loc.** Built from ρ(x), θ(x), q±, y± and the bound on P⁺. It replaces the global ε^{−6}(4/ε²)^p.
+  * It is sandwiched against the saddle value: (1−δ_*)𝓜_* ≤ \|𝒲\| ≤ 𝓜_*, with δ_* < 0.216/ν.
+  * h_Ah_C𝓜_* = O(√τ/(√ν(1−κ²)^{1/4})), with no positive power of S.
+  * Diagnostic: integrated local bound 0.0088 at J = 10⁶, against ~1e77 before.
+  * q_* = tan(A_*/2)/tan(C_*/2) = τ(1+cos C_*)/(1+cos A_*). Checked.
+* **Parameter cells (author).** Centring the carrier at the saddle angles gives \|∂_S^j∂_a^k I_cent\| ≤ 𝓛_loc R_A^j R_C^k. The cell remainder is 𝓛_loc(r_S R_A + r_a R_C)^m/m!, so cells of width r_S = O(S/√ν) and r_a = O(a√cos C_*/√ν) are possible.
+* **Tails (author).**
+  * Vertical: h(t) ≥ (a−ν)t + νt³/9 (1 − sech t ≥ t²/3 on [0,1]; checked at the endpoints). Uniformly E_{T,all} < 1e-28 for 998 ≤ a ≤ 125000.
+  * Lower ray cut at v = 300/a: omitted part < 1e-84.
+* **Open.**
+  1. The finite nonstationary complement of the contour. The plan is integration by parts with \|B_m\| ≤ M(m/(RD))^m and panel-specific gaps D from 𝓕′_S(α) = S(sin α − sin A_*)/sin α.
+  2. The endpoint and diagonal neighbourhoods, including the logarithmic singularity of P⁺ at ξ = 0.
+  3. The final signed positivity grid.
