@@ -1098,3 +1098,15 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Scan.** 60 cells × 2 channels, bisection in a₀; about 4 h; expected a* ≈ 3000 at low L.
 * **Per-J certificates complete:** every channel with J ≤ 1000, plus b = 4 to J = 1004. **All PASS** at every mass. [certified]
 * **Remaining.** 998 ≤ a < a*(L) ≈ 3000 with J ≥ 1005, 0.04 < L < 7. Fix: §64b carrier-shifted or grouped 𝒬_M bounds for the endpoint and high-residual components, plus §63 vertical lines for the far remainder below a ≈ 1500.
+
+## 66. Grouping in h is decisive: frozen-symbol test (agent, 26 Nov) [DV]
+
+* **Test.** At the carrier k = iλ (b = 0, h = h_max): per-order max_m\|h^mP_m(iλ)\| versus grouped \|𝒬_M(iλ) − 1\| → \|e^{−A(iλ)} − 1\|.
+  * c = 0.042, λ = 210/222, a₀ = 3200: per-order 16/32, grouped 1.66/1.12.
+  * a₀ = 2000: per-order 9.8e3/7.0e4, grouped 1.58/0.064.
+  * a₀ = 1400: per-order 9.7e8/6.2e10, grouped 1.72/0.65.
+  * a₀ = 998: per-order 8.1e18/4.6e22, grouped 0.34/0.18.
+  * c = 0.58, λ = 1810, a₀ = 998: per-order 5.6e34, grouped 1.67.
+* **Conclusion.** Per-order absolute bounds lose e^{\|A\|}-type factors. The resummed multiplier stays O(1), at most ≈ 2.7 in modulus (the Darboux-multiplier size).
+* **Estimate.** The derivative sum Σ_i\|𝒬^{(i)}(iλ)\|R^{−i} is controlled if λR ≳ 3\|A\|. That holds down to a ≈ 1500–2000 at low c. At a = 998 it needs R ≈ 0.6, where the nonlinear-phase factor is about e^{30}: marginal.
+* **Certified (scan).** β ∈ [0.39, 0.44]: a* = 3200 in both channels (err/F = 0.096 and 0.117). The scan continues.
