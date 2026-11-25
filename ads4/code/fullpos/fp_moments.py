@@ -64,7 +64,7 @@ def A(q):
 
 
 class Moments:
-    NGL = 300
+    NGL = int(os.environ.get("FP_NGL", "300"))
 
     def __init__(self, Dg, nmax, verbose=True):
         W = FC.load_weight(Dg)

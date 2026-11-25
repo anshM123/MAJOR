@@ -533,3 +533,12 @@ No large-Δ, large-J or large-ν approximation is used.
 * *Follow-up:* the agent is asked to confirm every cache was regenerated after the fix.
 
 **Status.** The author's computation is outside the repository. FULLPOS agent asked to reproduce it independently, extend in J, and find the tail threshold.
+
+## 31. Exact elimination of Y_k (author-supplied, 26 Nov)
+
+| claim | check |
+|---|---|
+| 2Y_k = ((k+3)²/2)L_k + ((k+4)²/2)L_{k+1}, for an arbitrary harmonic sequence f_m (any smearing weight) | **verified symbolically** with free symbols f₀…f₁₅, k = 1…5 |
+| M_{b,k} = D_k²(2Y_k − u_{k−1}L_k) = [(5−2b)k + 5 − b(b−1)]P_k + ((k+1)²/2)(P_{k+1} − P_k); M_{0,k} = 5(k+1)P_k + …, M_{4,k} = −(3k+7)P_k + … | **verified symbolically**, b = 0, 4, k = 1…5 |
+
+**Consequence.** The finite-T correction is a fixed linear combination of P_k and ΔP_k. Only the P_k (the differenced Z moments) need envelopes; no separate Y_k asymptotics are needed. The §29 tail certificate reduces to one coefficient sequence.
