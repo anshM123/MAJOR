@@ -1068,3 +1068,21 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * A_{ψ,±} = (±√2/(2πi))∫₀^∞K(β,u)e^{±iΛu}Σ_{j=5}^{14}(−1)^jψ^{(j)}(1)/(±iΛ(β+u))^{j+1}du, with K = [2 sinh(β+u/2) sinh(u/2)]^{−1/2}. The sum starts at j = 5 because of the fifth-order zero at p = 1.
   * Bounds: \|A_{ψ,±}(β)\| ≤ (√2/2π)J_e(β₀−R) on \|β−β₀\| ≤ R, with **no e^{ΛR}**. Derivatives follow by Cauchy, using the J_e tables in fp3_htdata.
 * **Use.** Apply P_m(ϑ) to S_ψ and to e^{±iΛβ}A_± separately. On the oscillatory part, the operator acts on the exponential exactly (powers of Λ times the chain rule in β(z)). Combine orders before taking absolute values. Not yet implemented.
+
+## 64b. Local terms, continued (author, 26 Nov)
+
+* **Smooth high orders (author).** (1−c)³Σ_{m=20}^{600}h^m\|P_m(ϑ)G_sm(c)\| < e^{−55} on the whole strip.
+  * Method: a closed Faulhaber/Bernoulli majorant with F, H, Q; 283 cells; outward-padded elementary arithmetic.
+  * Exact rationals: Σ\|coefficients of ψ₂\| < 9,163,906 and Σ\|coefficients of ψ₃\| < 18,937,299.
+  * (1−c)³ sup\|G_sm\| < e^{75}.
+  * 𝒟_b in t = log(z/c): ((1−z)/(2z))∂_t² + (4−2b)∂_t + 9/2 − b(b−1).
+  * Not reproduced.
+* **Endpoint carrier (author).** G_end(ce^t) = e^{iωt}A(t) with ω = Λ√c/(1−c). The remaining phase grows only quadratically in R.
+  * Shifted-operator identity: P_m(∂_t)[e^{iωt}A]₀ = P_m(∂_t + iω)A(0).
+  * E_m^end ≤ S_A(R)Σ_j\|h^mP_m^{(j)}(iω)\|R^{−j}.
+* **Warning (author, diagnostic).** At J = 1996, a = 998, b = 0, the frozen-symbol size \|h^mP_m(1198i)\| reaches 10^{34} around m ~ 80. Individual-order bounds may fail; cancellation across m may be needed.
+* **Grouped fallback (author).** 𝒬_M = Σ_{m≤M}h^mP_m.
+  * Recurrence A_m(k+1) = A_m(k) + u_k[cA_{m−1}(k+1) − A_{m−1}(k)], with A_m = c^mP_m. **Checked here by hand** from (1−hu_k)E_{k+1} = (1−hu_k/c)E_k.
+  * Newton form: 𝒬_M(ϑ)G(c) = Σ_j Δ^j𝒬_M(0)·c^jG^{(j)}(c)/j!, which is exact for polynomial 𝒬. Checked.
+  * A Taylor-cell remainder is given explicitly.
+* **Residual r = f − ψ₂ (author).** Frequency-bin carriers e^{±iν_Iβ} with an amplitude growth of only e^{Δ_I\|Im β\|}.
