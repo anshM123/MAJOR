@@ -1019,3 +1019,14 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * R_M scan: I₄ ≈ 4e-4 N_s at a ≥ 3000.
   * Per-J certificates 767 ≤ J ≤ 1004 (running): all PASS so far.
 * **Consequence.** The residual region becomes compact in a: 998 ≤ a < a*(L) ~ few·10³ to 10⁴, with 0.04 < L < 7, J ≥ 1005. It is still unbounded-ish in J (J ≲ a*·2e^L). This is the region for the §§55–59 contour cells, which is now far smaller than 998 ≤ a < 125000.
+
+## 61. Sharper far remainder via the rational ladder function; a cell-endpoint bug in fp3_ht.far_remainder (author, 26 Nov)
+
+* **Lemma (author).** 𝒰_k(h; c) = ∏_{j<k}(c − hu_j)/(1 − hu_j) is analytic for \|h\| < 1/u_{k−1}, a larger region than the log-series radius c/u_{k−1}.
+  * Exact sup on \|h\| = ρ: max{(c+x)/(1+x), \|c−x\|/(1−x)}, with x = ρu_j.
+  * Cell majorant M_k(ρ) uses c₋ and c₊ jointly.
+  * Cauchy remainder M_k(ρ)(h/ρ)^{M+1}/(1 − h/ρ). It stays valid past termination, since the numerator vanishes at j = n.
+* **First cell (author).** β_c ∈ [2, 2.05], both channels, a ≥ 1250, M = 850: \|ℛ₈₅₀\| < e^{−51}.
+  * Inputs: ρ_k = 3/(4k(k+s)), M_k ≤ e·0.6768^k, \|g_k\| ≤ e^{1650}(k+5)⁵, split at k = 4500.
+  * Diagnostic at M = 600: log(far bound) at a = 1500 improves from +220 to −253.
+* **Bug (author; confirmed by the coordinator on reading the code).** fp3_ht.py line 219 sets c = cb.upper() and uses φ = log(1 − ru) − log(1 − ru/c) for log(1/E_k). But 1/E_k decreases in c, so the upper endpoint gives a LOWER bound on that factor, not an upper bound. With c^k, the combination c²/(c−x) is not monotone in c. **Cell certificates that used far_remainder() are not valid until this is fixed.** The joint majorant M_k(ρ) fixes it.
