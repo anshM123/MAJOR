@@ -1040,3 +1040,22 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * k ≤ n, θ > c: U_k(h) − T_M = (h^{M+1}/2πi)∫_{Re v=ρ_k} U_k(v)/(v^{M+1}(v−h))dv.
   * k > n: −T_M = −(h^M/2πi)∫ V_k/v^{M+1}dv, which needs no ρ_k > h.
   * Closing to the left is justified because U_k is bounded at ∞. Structure checked; the bound along the line (not yet received) and the e^{−95} numerics are not reproduced.
+
+## 63. Far remainder < e^{−74} uniformly over the whole strip at a ≥ 998 (author, 26 Nov)
+
+* **Coefficient envelope (author).** Binning the repaired Gaussians gives ∫\|f\|e^{πν/2} < e^{1624}, hence \|g_k\| ≤ e^{1625}(k+5)⁵.
+* **Vertical-line product majorant (author).**
+  * v = ρ_k(1+ix), with ρ_k = θ/u_k and θ = (1+c₋)/2 > c₊.
+  * Squared modulus of each factor: R(c, z, q) = [q(c−z)² + (1−q)z²]/[q(1−z)² + (1−q)z²], with q = 1/(1+x²) and z_j = θu_j/u_k.
+  * **Checked here:** R ≤ 1, since numerator − denominator = q(c−1)(c+1−2z) ≤ 0 for z ≤ (1+c)/2.
+  * The maximum over a (c, z, q) box sits at its corners (author's convexity and monotonicity argument). Not re-checked.
+* **Bound (author).** \|U_k − T_M\| ≤ (100/(1−θ))(hu_k/θ)^M sup_q q^{(M−1)/2}∏max{0.01, √R_j}.
+  * For k ≥ 200 the product is grouped into 128 bins with a lattice-discrepancy correction, giving Σlog ≤ kA + V.
+  * The k-dependence is concave, with maximum at k_* = (2M+5)/(−A) − 5.
+  * Physical bound h ≤ h_* = min{(1−√c₋)²/998², c₊/1001²}.
+* **Cover (author; outward-padded elementary arithmetic, not Arb).** 283 c-cells on [0.038, 0.9991], 662 q-panels, M = 600, both channels.
+  * Contributions: k < 200 gives e^{−659}; middle e^{−76.4}; tail e^{−4472}.
+  * **Total \|ℛ₆₀₀\| < e^{−74} for all a ≥ 998, J ≥ 1005, 0.04 < L < 7.** M = 650 gives < e^{−120}.
+* **Remaining for full positivity.** The local signed terms must pass at a₀ = 998:
+  * F_cert > E_residual + E_dressing + Σ_{m≤600}E_m + e^{−74};
+  * plus Arb reproduction of this cover and an independent audit.
