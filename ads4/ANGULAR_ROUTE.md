@@ -519,3 +519,17 @@ No large-Δ, large-J or large-ν approximation is used.
 | Tail certificate: if, for k ≥ K, \|P_k − P_k^*\| ≤ P_k^*/4 and \|M_{b,k}\| ≤ (k+b+1)²P_k^*/4 (P_k^* = ((5/2)_k/k!)ℓ_k, ℓ_k nonincreasing), plus three prefix conditions, then the relative k = 2 error is < 80.625/a² ≤ 8.2e-5 at gap 1000 | conditional; logic plausible (negative-binomial moments) |
 | Repaired weight needs a two-scale reference: ℓ_k = A + B/log(k+2), A = E_eff(0)/Λ ≈ 9.7e-17, B = 2E_eff′(0⁺)/(πΛ) ≈ 1.21e-4; 𝒮(r) ≥ w^{−5/2}[A + B/log(2 + 5r/(2w))] | candidate; to be certified |
 | Full comparison: H_ang − H_hyb^rep = [H_ang − H_LR(r)] + [H_LR(r) − H_LR(r_β)] − [H_flat − H_Bessel]. The last two terms (the Weyl-shift and finite-spin flat corrections) must be kept in the transition region | noted |
+
+## 30. Direct certificate of the finite middle region through J = 26 (author-supplied, 26 Nov; awaiting reproduction)
+
+**Claim.** For every physical channel with J ≤ 26 and every mass (u = Λ²/m² ∈ [0, 999/(999+2J)]) at gap 1000, with the repaired weight:
+* \|H_ang,b − H_hyb,b^rep\| ≤ 0.01·H_hyb,b^rep, hence H_ang,b ≥ 0.99·0.1999·N_s,b = 0.1979·N_s,b, keeping the exact Weyl shift and the finite-spin flat polynomials;
+* the certificate consists of 74 Bernstein-certified polynomial inequalities after multiplying by 𝒟_{J,b}(u) = (1+Cu/Λ²)⁴∏(1+(C−u_j)u/Λ²);
+* curvature integral enclosed by a conical Legendre expansion to degree 110 (truncation < 1.8e-45); de-shift residual < 5.38e-9;
+* the cutoff is handled exactly by the Gaussian-convolution recurrence M_{n+1} = cM_n + ns²M_{n−1} + s²∫ν^nG_c(1−θ)′, with an erfc initial value.
+
+**Bug report.** The d = 1 CDH recurrence must divide by (n+4)², not (n+3)², so that Q₁ = (15−4x)/64.
+* *Coordinator check:* the committed snapshot 8d6af34 of `code/fullpos/fp_common.py` had (n+3)²; the agent's working copy already has (n+4)² in both files.
+* *Follow-up:* the agent is asked to confirm every cache was regenerated after the fix.
+
+**Status.** The author's computation is outside the repository. FULLPOS agent asked to reproduce it independently, extend in J, and find the tail threshold.

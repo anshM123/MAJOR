@@ -7,7 +7,7 @@ Weight (read-only): prl/data/k2/k2_continuum_D_<Dg>_rep.json (endpoint-repaired;
   g(nu)      = -9216 (4nu^2+1)/((4nu^2+9)(4nu^2+49)) chi_re(nu) theta(nu) / Lam
 CDH polynomials (verify_cdh.py): x = nu^2, s = x + 1/4
   d = 0:  f_0 = 0, f_1 = 1, (m+1)^2 f_{m+1} = -(s - 2m^2) f_m - (m-1)^2 f_{m-1}           (f_m = Q^{(0)}_{m-1})
-  d = 1:  q_0 = 1, q_{-1} = 0, (n+3)^2 q_{n+1} = -(s + 4 - 2(n+2)^2) q_n - n^2 q_{n-1}       (q_n = Q^{(1)}_n)
+  d = 1:  q_0 = 1, q_{-1} = 0, (n+4)^2 q_{n+1} = -(s + 4 - 2(n+2)^2) q_n - n^2 q_{n-1}       (q_n = Q^{(1)}_n)
   z_m = 12 f_m - (m-1) f_{m-1} + (m+1) f_{m+1}
   y_m = ((12-m^2)/2) f_m + ((13-7m)/2) f_{m-1} + ((13+7m)/2) f_{m+1} + ((m-2)^2/4) f_{m-2} + ((m+2)^2/4) f_{m+2}
 Moments: Y_k = int g y_{k+2}, Z_k = int g z_{k+2}, Q_k = int_0^1 psi3(p) q_k(Lam^2 p^2) dp (exact rational).
@@ -75,7 +75,7 @@ def cdh1(N):
     for n in range(0, N):
         t = padd(pmulx(q[n]), pscale(q[n], Fr(1, 4) + 4 - 2*(n + 2)**2))
         t = padd(pscale(t, -1), pscale(q[n - 1] if n >= 1 else prev, -(n*n)))
-        q.append(pscale(t, Fr(1, (n + 3)**2)))
+        q.append(pscale(t, Fr(1, (n + 4)**2)))
     return q
 
 
