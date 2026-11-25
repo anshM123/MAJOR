@@ -1003,3 +1003,19 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Example: 0.1% relative cells need order 512 for 1e-114.
 * **Final test.** min_cell H_ref > E_contour + E_spectral + E_parameter + E_quadrature, checked with Bernstein coefficients in (B, a).
 * **Status.** The recipe is complete on paper. Not executed: the certified spectral panels, the cell evaluations, the a ≥ 125000 polynomial certificate. No constant in §§55–59 has been independently reproduced. Cost is undetermined; with the conservative 10⁶⁶ majorant the worst-case orders are high.
+
+## 60. FULLPOS3 interim: the signed h-expansion closes high twist down to a ≈ 5000 (first cell) (agent, 26 Nov)
+
+* **Key finding [DV and exact].** The signed finite-mass correction is tiny even at a = 998.
+  * Exact Σ_k U_kM_k (with \|M_k\| up to 6e627) equals G(c) to a relative 4.5e-7 to 3.6e-6.
+  * The Legendre kernel at c has signed integrated error ≤ 3e-6·N_s at a = 998, J = 800 to 5000, even though its absolute error is ~3e4·N_s.
+  * Mechanism [P]: ψ₂ vanishes at p = 0 and has a (1−p)⁵ zero at p = 1. Integrating by parts, the e^{Λ Im ξ} growth sits only in the p = 1 endpoint term, which is ~\|ψ⁽⁵⁾(1)\|/(Λβ)⁶ ~ 1e-11. The smooth part is of leading-Regge size.
+  * So per-frequency accuracy is not needed: endpoint-aware sup bounds make the h-expansion terms signed-safe.
+* **Rigorous h-expansion certificate** (code/fullpos3/fp3_ht.py, Arb). Ingredients: Lemma A, the EPSW residual by panels, exact P_m for m ≤ 30 plus a majorant up to M ~ 300–1600, stadium c-cells, and a far remainder.
+  * First cell (β ∈ [2, 2.05], L ≈ 1.06, b = 0): **a₀ = 5000 passes** (error / F_cert = 0.0019). a₀ = 1500 fails, because the far remainder needs d·n ≳ 2300.
+  * Full scan running: 60 β-cells × 2 channels.
+* **Other results.**
+  * §53 contour identity: proved termwise, and checked to 15 digits at non-integer N.
+  * R_M scan: I₄ ≈ 4e-4 N_s at a ≥ 3000.
+  * Per-J certificates 767 ≤ J ≤ 1004 (running): all PASS so far.
+* **Consequence.** The residual region becomes compact in a: 998 ≤ a < a*(L) ~ few·10³ to 10⁴, with 0.04 < L < 7, J ≥ 1005. It is still unbounded-ish in J (J ≲ a*·2e^L). This is the region for the §§55–59 contour cells, which is now far smaller than 998 ≤ a < 125000.

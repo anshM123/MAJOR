@@ -422,8 +422,8 @@ def run(b, ba, bb, a0, M=None, m1=30, verbose=True, geo=None):
     return out
 
 
-A0LIST = [1000, 1250, 1500, 1750, 2000, 2500, 3000, 3500, 4000, 5000, 6000, 7000, 8500, 10000, 12500, 15000, 20000, 25000,
-          30000, 40000, 50000, 70000, 100000, 200000, 500000, 2200000]
+A0LIST = [998, 1100, 1250, 1400, 1600, 1800, 2000, 2250, 2500, 2800, 3200, 3600, 4000, 4500, 5000, 6000, 7000, 8500, 10000, 12500,
+          15000, 20000, 25000, 30000, 40000, 50000, 70000, 100000, 200000, 500000, 2200000]
 
 
 def scan_cell(ba, bb, out):
@@ -433,11 +433,19 @@ def scan_cell(ba, bb, out):
     geo = geometry(ba, bb)
     res = {}
     for b in (0, 4):
-        res[b] = None
-        for a0 in A0LIST:
-            r = run(b, ba, bb, a0, verbose=False, geo=geo)
+        lo_i, hi_i = -1, len(A0LIST) - 1
+        rec = {}
+        r = run(b, ba, bb, A0LIST[hi_i], verbose=False, geo=geo); rec[hi_i] = r
+        if not r['ok']:
+            res[b] = None; continue
+        while hi_i - lo_i > 1:
+            mid = (lo_i + hi_i)//2
+            r = run(b, ba, bb, A0LIST[mid], verbose=False, geo=geo); rec[mid] = r
             if r['ok']:
-                res[b] = r; break
+                hi_i = mid
+            else:
+                lo_i = mid
+        res[b] = rec[hi_i]
     line = dict(ba=str(ba), bb=str(bb), a0_b0=res[0]['a0'] if res[0] else None, a0_b4=res[4]['a0'] if res[4] else None,
                 rec0=res[0], rec4=res[4], secs=time.time() - t0)
     print(f"cell [{ba},{bb}]: a0(b=0) = {line['a0_b0']}, a0(b=4) = {line['a0_b4']}  "
