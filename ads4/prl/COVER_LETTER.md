@@ -47,9 +47,8 @@ three-dimensional holographic CFT with a higher-spin gap of 1000 the graviton's 
 most 2.9 × 10⁻⁸; equivalently, the energy flux of the stress tensor is isotropic to one part in 10⁸, where causality alone allows
 order one. The first stringy correction is capped too, with ABJM theory inside the cap. The positivity that drives such bounds has
 long been the soft spot of bootstrap arguments in anti-de Sitter space. Here it is proved at leading Regge order, with a
-computer-certified margin of 20% on every heavy state at every gap above 300, and independently reproduced. Separately, we show
-that the algebra of energy detectors alone, meaning conservation, conformal symmetry and causality, gives a two-percent bound at
-every spin, reducing what remains to a single light-ray identity. The results answer, with numbers, how much of Einstein gravity
+computer-certified margin of 20% on every heavy state at every gap above 300, and independently reproduced. Separately, without any positivity assumption, the algebra of energy detectors (conservation, conformal symmetry and causality) together
+with crossing symmetry gives a two-percent bound at every spin, falling as the inverse gap. The results answer, with numbers, how much of Einstein gravity
 quantum mechanics and causality force on a holographic theory. That question matters across holography and quantum gravity, the
 conformal and S-matrix bootstraps, string theory, and the fast-growing study of energy correlators. The main text is written for that
 broad readership; the technical detail is in the Supplemental Material.
