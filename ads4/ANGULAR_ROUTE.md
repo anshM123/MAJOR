@@ -66,3 +66,30 @@ The global claim is that the exact rest-frame transition-matrix representation w
 * *Coordinator check.* The closed form solves the recurrence. It equals the m-dependence of KERNELS_D3 §3.3, C(2J,J+m)(Δ−J−1)_{J−|m|}(Δ−1)_{|m|}, using (Δ−J−1)_{J−|m|}(Δ−1)_{|m|} = Γ(Δ−|m|−1)Γ(Δ+|m|−1)/(Γ(Δ−J−1)Γ(Δ−1)). Identical [P].
 * *Effect.* KERNELS_D3 §3.3 (previously "derived for J ≤ 5, used as a formula above") becomes all-J, **once the citation is checked against the paper**: the equation numbers and conventions must match before it goes in the supplement.
 * *Remaining.* The ladder problem is now only about the unnormalised energy-detector transition amplitudes.
+
+## 5. Exact smeared coefficients, SP4 (ladder-free) at ν = i/2, and the sign calibration (author-supplied, 25 Nov)
+
+Coordinator checks are in `code/angular/verify_sp4.py`.
+
+| claim | check |
+|---|---|
+| f_m = (½)_{m−1}/((m−1)!m²) proved analytically (moments of w, plus an arcsine × uniform × uniform product density with h(x) + h(1−x) = 4ρ(x) − 2) | equals §3's formula; values verified by quadrature (m ≤ 6). The proof steps are not re-checked |
+| z_{m+1}/z_m − (m−1)/(m+2) = (12m³−17m²+43m−48)/(2(m+1)(m+2)(12m²−7m−24)) > 0 for all m ≥ 2; the numerator at m = n+2 is 12n³+55n²+119n+66 | **verified** (exact, m < 60; the polynomial shift is symbolic). This proves the telescoping weight inequality for all m |
+| Sign convention: z_m^raw < 0 and y_m^raw > 0. The positive z used in telescoping is −Z_m | consistent with my §3 finding |
+| At ν = i/2: f_m = 1/m and z_m = 12/m (m ≥ 2; z₁ = 13) | **verified** |
+| **SP4**: with Z = diag(12/(k+2)) on the helicity sectors b = 0, 4, B = (ZA+AZ)/2 ⪰ (√T−√C)² Z for ANY amplitude vector (no ladder needed). Proof by a positive test vector with nonpositive off-diagonals | **verified numerically**: generalised λ_min(B,Z) ≥ (√T−√C)² on 400 random (b, J ≤ 300, Δ) |
+| Real-frequency weights do NOT give arbitrary-amplitude positivity (counterexample at J = 10⁶, Δ = J+1000) | **reproduced**: λ_min(B,Z)/C = −3.7e-3 at J = 10⁶ on the first 25 helicities (+5.9e-3 at J = 10⁴). With real frequencies the physical ladder identities are needed |
+| ν = i/2 caveat: the celestial dimension δ = ½+iν = 0, so coincident-direction contact terms are not suppressed. A contact-subtracted, admissible functional is needed, with a finite Einstein light value | **open** |
+| R₋+R₊ = −8(4ν²+1)(16ν⁴−728ν²+969)/((4ν²+9)(4ν²+49)) | **verified** (sympy) |
+| For χ = −ν²(4ν²+9)(4ν²+49)/(32(4ν²+1)cosh πν): ∫χ(R₋+R₊) = 15/4; Einstein ∫χ·[R₋D(ν+i) + R₊D(ν−i)], D = 1/(ν²+9/4), equals 139/4 − 48 log 2; ∫χP = −13635/8 | **all three verified** to 25 digits (kc_grid V3 convention for the Einstein term) |
+| −Ω_light^red = 139/4 − 48 log 2 − (303/5120)\|c\|², \|c\|² = (t₄²+α_T²)/16 | the K_B2A4 normalisation of the \|c\|² coefficient is not re-checked. **The signs are right: cubic coupling reduces the positive budget, and the forward heavy normalisation is positive** |
+| Scalar (J = 0) first moment from the Wightman pipeline: M_mid/H = i(Δ²−7)/6; normalisation shift −i(Δ−3)/2 gives M/H = i(Δ−1)(Δ−2)/6 in both parities. This reproduces the J = 0 case of the tridiagonal A. The physical combination is −T_Δ Z₂/6 | not re-run. The algebra (Δ²−7)/6 − (Δ−3)/2·... is consistent: (Δ²−7 − 3Δ + 9)/6 = (Δ−1)(Δ−2)/6 ✓ |
+| −2048/((4x+9)(4x+49))·Z₂/k₀ = (R₋+R₊)/6 with Z₂/k₀ = (4x+1)(16x²−728x+969)/1536 | consistent with the verified R₋+R₊ (the identity reduces to it) |
+
+**Where this leaves the route:**
+* The sign chain is calibrated in one convention at J = 0: heavy first-moment term, forward Regge kernel and Einstein light term.
+* Open:
+  * the spinning transition operator for all J (physical matching), or the ladder identities;
+  * the ν = i/2 contact subtraction, if the ladder-free SP4 route is used;
+  * the K_B2A4 normalisation of the 303/5120 coefficient;
+  * convergence, plus double-trace and contact terms for the new weight.
