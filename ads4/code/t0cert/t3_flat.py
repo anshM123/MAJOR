@@ -120,7 +120,8 @@ def main():
         Tabs = Fr(sys.argv[1])
     else:
         d = json.load(open(os.path.join(HERE, 'cache', f't1_curv_{tag}.json')))
-        Tabs = Fr(d['Tabs_upper'])
+        tx = d['Tabs_upper'].strip('[]').split('+/-')         # arb string 'mid +/- rad' -> rational upper bound
+        Tabs = Fr(tx[0].strip()) + (Fr(tx[1].strip()) if len(tx) > 1 else 0) + Fr(1, 10**15)
     shift = Fr(K0*Tabs).limit_denominator(10**12)
     if shift < K0*Tabs:
         shift += Fr(1, 10**12)
