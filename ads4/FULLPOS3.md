@@ -82,6 +82,12 @@ reason the h-expansion's signed low-order terms are tiny.
 
 ---
 
+## 2a. Contour identity of ANGULAR_ROUTE §53 [P + DV]
+Termwise: with z = uv/((1+u)(1+v)), ∫₀^∞u^{n+s+k−1}(1+u)^{−N−s−k}du = B(n+s+k, a) and (1/2πi)∮v^{k−n−1}(1+v)^{N−k}dv = C(N−k, n−k)
+(generalised binomial, real N); multiplied by 𝒞 these give exactly U_k. Dominated convergence (|q| = q₀ < 1 on the v-circle, u/(1+u) < 1)
+allows summing over k. Numerically (mpmath, 30 digits, `scratchpad` script): exact vs contour 0.867139188498088 vs 0.867139188498088
+at (J,b,Δ,ν) = (3,0,9.3,1.7); 1.30533893267044 vs 1.30533893267044 at (6,4,15.25,0.8). Both have non-integer N.
+
 ## 4. High-twist closure (task 0): an h-expansion bound with endpoint-aware sup norms
 
 ### 4.1 Exact set-up [P]
@@ -93,8 +99,9 @@ equals ϑG_A, ϑ = z∂_z: by (X²−1)P′_μ = μ(XP_μ − P_{μ−1}) with �
 F₃ (§0 of `fp3_common.py`; s_ν = ν²+¼): (ν² + 25/4)F₄/2 = −z(1−z)F₃″/2 − (1−7z)F₃′/2 + 9F₃/2. Hence, per frequency and for any weight,
   **H/w³ = ℒ(G_A + τ𝒟_bG_A + τσ_bG_D),  𝒟_b = z(1−z)∂²/2 + [(7/2 − 2b)z + ½]∂ + 9/2 − b(b−1),**
   G_A = (2/Λ)∫f(ν)F_{3,ν}dν (realised f), G_D = Λ²∫₀¹ψ₃(p)F_{4,Λp}dp,
-which is the author's §42 first-moment operator. (Checked numerically against the dressed profiles: agreement to all printed digits
-at 12 values of c, `fp3_profile_dv.py`.)
+which is the author's §42 first-moment operator. (Also checked numerically: the operator form and the brief's dressed form agree to all
+printed digits at 11 values of c in `fp3_profile_dv.py`; the 12th run, c = 0.632, had an Arb precision failure in the DV quadrature
+and is discarded.)
 
 **(b) Ladder factorisation [P].** U_k = c^kE_k, E_k = Π_{j<k}(1 − hu_j/c)/(1 − hu_j), u_j = j(j+s), so E_k ∈ [0,1] and E_k = 0 for
 k > n. For k ≤ n, −log E_k(η) = Σ_ℓ η^ℓa_ℓ(k), a_ℓ(k) = ((c^{−ℓ}−1)/ℓ)S_ℓ(k), S_ℓ(k) = Σ_{j<k}u_j^ℓ, a power series in η with

@@ -19,7 +19,7 @@ PSI2 = D.Psi(2); PSI3 = D.Psi(3)
 NARC = 96
 
 # ---------------------------------------------------------------- J tables (decreasing in beta): grid
-BGRID = [Fr(1, 4)*Fr(103, 100)**i for i in range(0, 125)]          # 0.25 .. ~9.7
+BGRID = [Fr(1, 200)*Fr(103, 100)**i for i in range(0, 258)]         # 0.005 .. ~9.9
 _JT = {}
 def jt(k):
     if k not in _JT:
@@ -28,8 +28,10 @@ def jt(k):
 
 def jval(k, beta_lo):
     """J_s, J_C, J_e at the largest grid point <= beta_lo (upper bounds, decreasing in beta)."""
-    i = max(i for i, g in enumerate(BGRID) if A(g) <= beta_lo)
-    return jt(k)[i]
+    ok = [i for i, g in enumerate(BGRID) if A(g) <= beta_lo]
+    if not ok:
+        inf = arb('inf'); return (inf, inf, inf)
+    return jt(k)[max(ok)]
 
 _RI = {}
 def rint(eta_hi):
