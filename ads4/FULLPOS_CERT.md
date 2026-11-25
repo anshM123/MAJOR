@@ -38,7 +38,7 @@
 **Δ_g = 1000: full AdS positivity of Ω^EE (in the form H_ang,b > 0, modulo item 4 and the retained physical identities) is now
 [certified] on the region below; it is not a theorem.**
 * **Certified:** every spin J ≤ J1MAX at every mass; and every spin J ≥ 240 at impact parameter b̂ ≤ 100, extended to b̂ ≤ 282.8 for
-  J ≥ 420 RECT651SHORT.
+  J ≥ 420, and to b̂ ≤ 400 for J ≥ 651.
 * **Open:** large spin near the twist edge, J > J1MAX with b̂ above the rectangle reach. There b̂ runs up to ≈ Λ√(2J/Δ_g) → ∞ and
   r → 1. This region is infinite.
 * **Why the proposed asymptotic routes fail:** the coefficient-envelope / tail route (§§29–33), the comparison constant 𝒦(r₀) and the
@@ -52,7 +52,7 @@
 | J ≤ J1MAX, every mass m ≥ m_gap(J) | per-J univariate Bernstein certificate in w = Λ²/T (`fp_poly.py`) | **[certified]** |
 | J ≥ 240, b̂ ≤ 100 (x = b̂²/4 ≤ 2500) | bivariate (x, v = (J+½)⁻²) Bernstein certificate, exact denominators, K = 230 harmonics plus a certified tail (`fp_rect.py`) | **[certified]** |
 | J ≥ 420, b̂ ≤ 282.8 (x ≤ 2·10⁴) | the same, K = 410 | **[certified]** |
-| RECT651ROW |
+| J ≥ 651, b̂ ≤ 400 (x ≤ 4·10⁴) | the same, K = 640 | **[certified]** |
 | J ≥ 240, b̂ ≤ 22 | ⊂ the above. The authors' |H_ang − H_hyb| ≤ 0.05 H_hyb is **not** reproduced as such; positivity is | [certified] (positivity) |
 | J ≤ 26, all masses | the authors' |H_ang/H_hyb − 1| ≤ 0.01 confirmed on samples: max 4.7·10⁻³, min H_ang/N_s = 0.2009 | [DV] |
 | **open** | J > J1MAX and b̂_rect(J) < b̂ ≤ b̂_max(J) ≈ (2J+1)Λ/√(1996J + 997002), i.e. near-edge masses at large spin, including r → 1 | — |
@@ -67,7 +67,7 @@
 | **4a. 𝒦_b(r₀)** | ≥ 1.8·10⁷, 7·10¹¹, 1.8·10²⁷, 3.9·10⁸⁴ at r₀ = 10⁻⁶, 10⁻⁴, 10⁻³, 10⁻². It grows like e^{2b̂}, so it is useless beyond b̂ ≈ 20 | [certified] partial sums |
 | **4b. Tail envelopes and r → 1** (§§29–33) | \|P_k − P*_k\| ≤ P*_k/4 holds for **no** k ≤ 1000; \|P_k\|/P*_k ~ 10^{558–680}. The threshold is intrinsic (log K ≳ Λ; §33's K ≈ e^{10⁵}). No explicit R₀ | [certified] numbers + [D] |
 | **4c. Signed remainder in r** (§29 pivot) | Exact rewriting with the same cancellation. The triangle majorant is 6·10¹⁶ / 2.6·10⁶² / 1.9·10¹²¹ (J = 30 / 100 / 200) against a true remainder ~10⁻⁶. **Does not close the middle region** | [certified] numbers |
-| **4d. §34 bivariate route** | **Works.** Reproduced as a positivity certificate and pushed from b̂ ≤ 22 to b̂ ≤ 100 (J ≥ 240), b̂ ≤ 283 (J ≥ 420)RECT651TXT. The denominators are kept exact (multiplied through by Π_K), so nothing degrades as x/λ grows. The real limit is the harmonic truncation K < J₀ − b: b̂_max ≈ 0.7 J₀ | **[certified]** |
+| **4d. §34 bivariate route** | **Works.** Reproduced as a positivity certificate and pushed from b̂ ≤ 22 to b̂ ≤ 100 (J ≥ 240), b̂ ≤ 283 (J ≥ 420), b̂ ≤ 400 (J ≥ 651). The denominators are kept exact (multiplied through by Π_K), so nothing degrades as x/λ grows. The real limit is the harmonic truncation K < J₀ − b: b̂_max ≈ 0.7 J₀ | **[certified]** |
 | §31/§32 identities | 2Y_k = ((k+3)²/2)L_k + ((k+4)²/2)L_{k+1}: exact. §32's V-form: exact **only with u_{−1} = (b−1)b at k = 0** (12 for b = 4); with 0 it is 10 % off for b = 4 | [certified] |
 
 **What remains, and the best route.** The open set is near-edge masses at large spin: J > J1MAX, b̂ > b̂_rect.
@@ -285,7 +285,7 @@ certified Z_k, Y_k and exact Q_k, k ≤ K. **No denominator is expanded:** the c
 | 240 | 121 (22) | 70 | 7.0·10⁻⁶⁴ | 1 | 1.057·10⁵ (b = 0), 1.058·10⁵ (b = 4) | **PASS** both |
 | 240 | 2500 (100) | 230 | 9.3·10⁻¹²² | 3 | 1.563·10³, 1.548·10³ | **PASS** both |
 | 420 | 2·10⁴ (282.8) | 410 | 7.3·10⁻⁵⁴ | 5 | 1.561·10³, 1.530·10³ | **PASS** both |
-| RECT651TABLE |
+| 651 | 4·10⁴ (400) | 640 | 9.8·10⁻⁹⁰ | 5 | 2.929·10³, 2.891·10³ | **PASS** both (13 min) |
 
 * **Comparison with the authors (§34).** They certified |H_ang − H_hyb^rep| ≤ 0.05 H_hyb^rep on b̂ ≤ 22 (J ≥ 240), using ideal-density
   moments plus a residual. I certified **positivity** H_ang,b > 0 on the same box and on larger ones, with the realised (repaired)
@@ -302,17 +302,17 @@ certified Z_k, Y_k and exact Q_k, k ≤ K. **No denominator is expanded:** the c
 ### 4.1 Coefficient-envelope (tail) certificate of §§29, 31, 32: it cannot apply at any accessible K [certified numbers + D]
 `fp_tail.py`, `cache/fp_tail_1000_K*.txt`, with P_k = D_k²L_k and P*_k = ((5/2)_k/k!)(A + B/log(k+2)).
 
-| k | 0 | 10 | 100 | 200 | 300 | TAILK1 |
-|---|---|---|---|---|---|---|
-| log₁₀\|P_k\| | 1.32 | 44.28 | 275.80 | 438.96 | 556.55 | TAILK2 |
-| log₁₀ P*_k | −3.76 | −2.86 | −1.70 | −1.31 | −1.08 | TAILK3 |
-| log₁₀\|D_k²Q_k\| | 1.11 | 44.13 | 275.48 | 437.64 | 550.96 | TAILK4 |
+| k | 0 | 10 | 100 | 300 | 500 | 700 | 1000 |
+|---|---|---|---|---|---|---|---|
+| log₁₀\|P_k\| | 1.32 | 44.28 | 275.80 | 556.55 | 682.59 | 685.37 | 684.78 |
+| log₁₀ P*_k | −3.76 | −2.86 | −1.70 | −1.08 | −0.78 | −0.59 | −0.38 |
+| log₁₀\|D_k²Q_k\| | 1.11 | 44.13 | 275.48 | 550.96 | 663.99 | 663.11 | 661.84 |
 
-* **Envelopes.** |P_k − P*_k| ≤ P*_k/4 holds for **no** k ≤ TAILKMAX. Neither does |D_k²Q_k| ≤ (k+1)P*_k.
-* **Prefix constants** (k < 300, certified): log₁₀D₀ = 555.6, log₁₀D₁ = 562.6, log₁₀D₂ = 560.6, log₁₀D₃ = 550.1. With the K = 1000 data:
-  TAILD.
-* **Hypothetical cutoff.** If the envelopes held from K = 300 on, §32's cutoff would be w_* = 10^{−229}, i.e. β_* ≈ 528 and
-  1 − r ≤ 10^{−229}. They do not hold.
+* **Envelopes.** |P_k − P*_k| ≤ P*_k/4 holds for **no** k ≤ 1000. Neither does |D_k²Q_k| ≤ (k+1)P*_k.
+* **Prefix constants over k < 1000** [certified balls]: log₁₀D₀ = 688.0, log₁₀D₁ = 696.3, log₁₀D₂ = 693.8, log₁₀D₃ = 666.2.
+* **Hypothetical cutoff.** If the envelopes held from K = 1000 on, §32's cutoff would be w_* = 10^{−282}, i.e. β_* ≈ 650. They do not hold, and
+  the plateau shows they cannot hold before log k ≳ Λ.
+* **§32 representation.** The single-sequence form agrees with the direct ladder sum to 10⁻⁵³⁶ (J = 10, 40, 100), with u_{−1} = (b−1)b.
 * **Why.** §1.4: P_k ~ e^{O(Λ)} up to k ≈ Λ/2. After that comes an oscillating plateau of size ~ e^{(π/2)Λ}k^{3/2} × (Fourier decay
   k^{−1/2}).
   * At Δ_g = 300 the plateau is directly visible in the certified moments: |Z_k| ≈ 10^{198} for k = 200, 250, 300, with sign changes
@@ -392,7 +392,7 @@ again.
 ### 4.6 The remaining region (Δ_g = 1000)
 * **Certified (H_ang,b > 0, both channels):**
   * J ≤ J1MAX at every mass (§3.1);
-  * J ≥ 240 with b̂ ≤ 100, and J ≥ 420 with b̂ ≤ 282.8RECT651TXT (§3.2).
+  * J ≥ 240 with b̂ ≤ 100, and J ≥ 420 with b̂ ≤ 282.8, b̂ ≤ 400 (J ≥ 651) (§3.2).
 * **Not certified:** J > J1MAX with b̂ between the rectangle reach and the twist edge b̂_max(J) ≈ (2J+1)Λ/√(1996J + 997002), which is
   ≈ 860 at J = 650 and ≈ 44.7√J for large J. Equivalently, near-edge masses at large spin, including the limit J → ∞ at fixed
   γ = m²/J ≥ 1996 (r → 1).
@@ -416,8 +416,13 @@ python3 fp_moments.py 300 300 3000                  # Dg = 300 (~70 s)
 python3 fp_poly.py 1000 300 0-239                   # §3 certificates (~10 min) ; fp_poly.py 300 300 0-285
 python3 fp_compare.py 1000 300                      # §2.1-2.2 vs T0 hybrid (largespin read-only, ~10 min)
 python3 fp_ratio.py 1000 300 26 24                  # §2.3 J <= 26 check (~15 min)
-python3 fp_regions.py 1000 300; python3 fp_tail.py 1000 300 300; python3 fp_pivot.py 1000 300; python3 fp_kernel.py   # §4
-FP_NGL=1200 FP_CUT=300 FP_QPREC=3300 python3 fp_moments.py 1000 1000 7000      # higher-J moments (edge widened; see §1.2)
+python3 fp_regions.py 1000 300; python3 fp_tail.py 1000 1000 1000; python3 fp_pivot.py 1000 300; python3 fp_kernel.py   # §4
+FP_NGL=1200 FP_CUT=300 FP_QPREC=3300 python3 fp_moments.py 1000 1000 7000      # k <= 1000 moments (20 min) -> moments_1000_K1000.json
+python3 fp_poly.py 1000 1000 240-650                # per-J certificates with the K = 1000 moments (~1 h; 2-15 s per channel)
+python3 fp_rect.py 1000 1000 240 121 70 1500        # §3.2 bivariate: J >= 240, bhat <= 22   (2 min, mostly loading)
+python3 fp_rect.py 1000 1000 240 2500 230 2000      #                 J >= 240, bhat <= 100  (5 min)
+python3 fp_rect.py 1000 1000 420 20000 410 2500     #                 J >= 420, bhat <= 283  (5 min)
+python3 fp_rect.py 1000 1000 651 40000 640 3500     #                 J >= 651, bhat <= 400  (13 min)
 ```
 
 | file | content | grade |
@@ -428,6 +433,7 @@ FP_NGL=1200 FP_CUT=300 FP_QPREC=3300 python3 fp_moments.py 1000 1000 7000      #
 | `fp_compare.py`, `fp_ratio.py` | H_ang vs T0's hybrid | [DV] |
 | `fp_regions.py`, `fp_tail.py`, `fp_pivot.py` | coefficient profile, 𝒦(r₀), envelopes, prefix constants, majorants, pivot | [certified] numbers |
 | `fp_kernel.py` | finite-mass kernel (DV), §31 identity (exact) | [DV] / exact |
+| `fp_rect.py` | bivariate (x, v) certificate for J ≥ J₀, b̂ ≤ b̂₀ (§3.2) | [certified] given the moment balls |
 
 ## 6. Caveats
 1. **Rigour of the moments.**
