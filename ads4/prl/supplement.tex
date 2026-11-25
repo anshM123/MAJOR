@@ -1204,6 +1204,23 @@ acting on scalar seeds~\cite{CPPR} [Q\,+\,D]. A Weyl reflection,
 $T(-x,-y;\Delta,J)=T(x,y;3-\Delta,-1-J)$, which is $m\to-m$ at fixed $\beta$ [D\,+\,DV, to $10^{-40}$], makes the
 symmetric-frame integrand even in $1/m$, so $O(1/m)$ effects are of this congruence type.
 
+\subsection{T0: a certified leading-Regge floor on every heavy state}
+The leading-Regge (hybrid) action of $\Omega^{EE}$ satisfies $H\ge c\,N_s$ on every heavy state, with $c=0.1999$ for every
+$\Delta_g\ge1000$ and $c=0.199$ for every $\Delta_g\ge300$ [certified]: the $++$ kernel for every even $J$, the $+-$ kernel for every
+$J\ge4$ (including the parity-odd odd-$J$ sector), every $m\ge\Lambda$ and every $\hat b>0$; for even $J$ the hybrid
+off-diagonals vanish, so $\lambda_{\min}\ge c\,N_s$. An algebraic reduction turns $H\ge cN_s$ into four sign-pattern conditions of
+the form ``flat robust margin $+$ signed curvature $\ge0$''; the flat part is non-negative for $c\le1/5$ by the flat
+certificate. A new lemma [P] writes the curvature in gap units as $\Lambda^2C_k=a_1M_1(\beta)+\frac1{24}\int\chi_k''J_0(\hat bp)\,dp
++\Lambda^{-2}h$, $\chi=2\psi-p\psi'$, with an explicit bound on $h$. The certificate has three parts, all in ball arithmetic or exact
+Descartes counts with proved inter-cell bounds, valid for every $\Lambda\ge\Lambda_{\min}$: curvature positive on $16\le\hat b\le2\Lambda$
+(2840 cells, minimum $4.92/\Lambda^2$); $\hat b>2\Lambda$ by LR$_\infty$ plus a flat-Regge remainder lemma (remainders $\le4.6\%$ of the
+floor); and $\hat b\le16$, where the curvature can be negative by at most $2.9\times10^{-5}$ and the flat action exceeds this (584 exact
+polynomials for $J<100$, 672 cells for $J\ge100$). An independent reproduction matched every output byte for byte, re-derived the
+curvature lemma, and found no state below $0.1999$ in 1534 random states per gap (minimum $0.19999998$ at $\Delta_g=1000$). Scope:
+the target (de-shifted) weights; the realised published weights are covered at $\Delta_g=300$ and $1000$ for $\beta\lesssim200$ only;
+the $OO$ block additionally needs the $EO$ cancellation and $\kappa>0$; corrections beyond leading Regge are not covered.
+Code: \texttt{code/t0cert/} (about 20 CPU-min).
+
 \subsection{Leading-Regge floor at every impact parameter}
 \emph{Lemma LR$_\infty$} [P\,+\,certified]. With $a_1=\psi_k'(0)$, $a_2=\psi_k''(0)$ ($\psi_2$: $188.896$, $-1023.546$; exact
 rationals) and the function $M_1$ below, which is positive for all $\beta$ [certified],

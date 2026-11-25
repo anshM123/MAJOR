@@ -23,7 +23,8 @@ only as a scaling law, with no numbers. We supply the numbers for three-dimensio
 gap of 1000 or more, the graviton's three-point couplings match Einstein gravity to one part in
 $10^8$ at leading order, and the first stringy correction is bounded from above, with ABJM theory
 inside the bound. The key input is causality, that energy detectors commute, together with a
-positivity property we prove in flat space and check numerically in anti-de Sitter space.
+positivity property that we prove in flat space and, at leading order in the Regge expansion,
+in anti-de Sitter space.
 \end{abstract}
 
 \maketitle
@@ -84,7 +85,10 @@ $c_T\to\infty$ at fixed $\Delta_g$, and the OPE data of states with $\Delta-J<\D
 than light single traces) are those of a tree-level bulk effective theory up to $o(1/c_T)$,
 uniformly in spin; all bounds hold at leading order in $1/c_T$.
 (iii)~\emph{Positivity}: the fixed functionals defined below are positive on every heavy state.
-For the functional of the cubic bound we prove this in the flat-space limit; in AdS we establish
+For the functional of the cubic bound we prove this in the flat-space limit, and we prove with
+computer-certified bounds that in AdS its leading Regge part is at least one fifth of its natural
+normalisation on every heavy state, at every gap $\Delta_g\ge300$; for this functional (iii) therefore
+asks only that the corrections beyond the Regge regime stay within that margin. We further establish
 it with error control on the most constraining near-gap states, and at large spin, on sampled
 near-gap states and at large impact parameter, we prove it given a uniform decay of heavy-state
 contributions beyond the Regge regime and model estimates of a few magnitudes; elsewhere the
@@ -241,9 +245,12 @@ $\Delta_g=1000$, where positivity of $\Omega^Q_{\rm up}$ was examined.
 \paragraph*{Is the functional positive?}
 Figure~\ref{fig:coverage} maps the evidence for $\Omega^{EE}$ at $\Delta_g=1000$. Two statements
 are certified: positivity on every heavy state in the flat-space limit (for $\Omega^Q_{\rm up}$
-too, outside two asymptotic corners where it is computed), and, in AdS, positivity of the
-leading Regge part of $\Omega^{EE}$ on every state whose impact parameter exceeds about a third of
-the AdS radius. With error control, $\Omega^{EE}$ is positive on its most constraining state, spin
+too, outside two asymptotic corners where it is computed), and, in AdS, a uniform floor for the
+leading Regge part of $\Omega^{EE}$: it is at least $0.1999$ of its normalisation on every heavy
+state of every spin, mass and impact parameter, for every gap $\Delta_g\ge1000$ ($0.199$ for
+$\Delta_g\ge300$). The proof reduces the curvature correction to an explicit integral, certified on
+a finite grid with interval arithmetic, and was reproduced independently; the flat-space floor is
+$1/5$, so curvature costs essentially nothing at leading Regge order~\cite{SM}. With error control, $\Omega^{EE}$ is positive on its most constraining state, spin
 5 at the gap, near the gap on 25 of the 31 spins up to 32 that have near-gap states (all of them up
 to 21 and the odd spins from 23 to 31), and on heavier states at small impact parameter; the
 masses covered and the margins are in the Supplemental Material~\cite{SM}. With error control,
