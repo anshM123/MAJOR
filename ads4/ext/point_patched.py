@@ -20,8 +20,9 @@ if sys.argv[1] == 'run':
     _src = open(os.path.join(_H, 'run_ext.py')).read()
     assert _src.count("'point.py'") == 1
     sys.argv = [os.path.join(_H, 'run_ext.py')] + sys.argv[2:]
-    exec(compile(_src.replace("'point.py'", "'point_patched.py'"), 'run_ext_patched', 'exec'),
-         {'__name__': '__main__', '__file__': os.path.join(_H, 'run_ext.py')})
+    _g = sys.modules['__main__'].__dict__             # into __main__ itself: Pool pickles `one` by reference to __main__
+    _g['__file__'] = os.path.join(_H, 'run_ext.py')
+    exec(compile(_src.replace("'point.py'", "'point_patched.py'"), 'run_ext_patched', 'exec'), _g)
     sys.exit(0)
 meth, J, D, nus, seed, out = (sys.argv[1], int(sys.argv[2]), float(sys.argv[3]), [float(v) for v in sys.argv[4].split(',')],
                               int(sys.argv[5]), sys.argv[6])
