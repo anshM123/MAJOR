@@ -26,12 +26,18 @@ def cov_gauss(p0, sig, y0=0.0):
         return np.exp(-((px - p0[0])**2 + (py - p0[1])**2)/(2*sig**2))/np.sqrt(2*K)*np.exp(-1j*q*y0)
     return chi_q
 
-def build_state(chi_q, nK=48, dy=0.02, L0=120.0, tailtol=1e-26):
+def lf_bump(K0, sK, q0, sq, y0=0.0):
+    """state defined directly in LF variables: Gaussian bump in K (support well inside K > 0) times Gaussian in q."""
+    def chi_q(K, q):
+        return np.exp(-(K - K0)**2/(2*sK**2) - (q - q0)**2/(2*sq**2) - 1j*q*y0)
+    return chi_q
+
+def build_state(chi_q, nK=48, dy=0.02, L0=120.0, tailtol=1e-22, masstol=1e-12):
     # K-support scan
     Ks = np.geomspace(1e-7, 5, 4000)
     qs = np.linspace(-4, 4, 4001)
-    mx = np.array([np.max(np.abs(chi_q(K, qs))**2) for K in Ks])
-    keep = Ks[mx > 1e-30*mx.max()]
+    mx = np.array([np.sum(np.abs(chi_q(K, qs))**2) for K in Ks])*(qs[1] - qs[0])   # slice mass int dq |chi|^2
+    keep = Ks[mx > masstol*mx.max()]
     Klo, Khi = keep.min(), keep.max()
     Kn, wK = gauss_legendre(Klo, Khi, nK)
     slices = []
@@ -85,9 +91,9 @@ if __name__ == '__main__':
     t0 = time.time()
     etas = (0.4, 0.2, 0.1, 0.05, 0.025, 0.0125)
     states = {
-        'S1 backward packet p0=(-0.6,0.3) sig=0.12': cov_gauss((-0.6, 0.3), 0.12),
-        'S2 packet p0=(0.2,0.5) sig=0.10 (reaches small K)': cov_gauss((0.2, 0.5), 0.10),
-        'S3 = S1 displaced to y0=1.5': cov_gauss((-0.6, 0.3), 0.12, y0=1.5),
+        'S1 LF bump K0=0.6 sK=0.06, q0=0.3 sq=0.15': lf_bump(0.6, 0.06, 0.3, 0.15),
+        'S2 LF bump K0=0.2 sK=0.025, q0=0.4 sq=0.2 (light: fast transverse motion)': lf_bump(0.2, 0.025, 0.4, 0.2),
+        'S3 = S1 displaced to y0=1.5': lf_bump(0.6, 0.06, 0.3, 0.15, y0=1.5),
     }
     built = {}
     for name, cq in states.items():
@@ -111,7 +117,7 @@ if __name__ == '__main__':
 
     # ---------------- m-scaling (complex A_m and its Re / Im parts), state S1 and S3
     P("\n##### m-scaling of ||H^{1/2} A_m psi||^2 (A_m = A(f_m), complex), and of W_re + W_im = 2<A(y^2 + m^2)>")
-    for name in ('S1 backward packet p0=(-0.6,0.3) sig=0.12', 'S3 = S1 displaced to y0=1.5'):
+    for name in ('S1 LF bump K0=0.6 sK=0.06, q0=0.3 sq=0.15', 'S3 = S1 displaced to y0=1.5'):
         sl = built[name]
         PK = sum(s.w*s.K*np.real(s.ip(s.chi, s.chi)) for s in sl)
         Ay2 = sum(s.w*s.K*np.real(np.sum(s.y**2*np.abs(s.chi)**2))*s.dy for s in sl)
@@ -131,8 +137,8 @@ if __name__ == '__main__':
           f" m^2<A(1)> + m<(1+y^2)K j> + const; max fit residual {np.max(np.abs(np.polyval(cfit, ms) - Hs)):.1e})")
 
     # ---------------- cutoff profiles: smooth (C^inf) vs sharp
-    P("\n##### cutoff profiles on S2 (the state reaching small K), m = 2, Re part")
-    sl = built['S2 packet p0=(0.2,0.5) sig=0.10 (reaches small K)']
+    P("\n##### cutoff profiles on S2, m = 2, Re part")
+    sl = built['S2 LF bump K0=0.2 sK=0.025, q0=0.4 sq=0.2 (light: fast transverse motion)']
     r_full = quantities(sl, lambda y: profile(y, 2, 're'), etas)
     P(f"  uncut: W = {r_full['W']:.10f}, I(eta=0.0125) = {r_full['I'][0.0125]:.10f}")
     for R in (1.0, 2.0, 4.0, 8.0):
