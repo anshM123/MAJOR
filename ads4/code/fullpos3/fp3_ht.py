@@ -273,7 +273,7 @@ def geometry(ba, bb, verbose=False):
     for R in Rs:
         S = circle_sups(lo(c_lo), up(c_hi), R, 0)
         for kk in list(S):
-            if (not S[kk].is_finite()) or S[kk] > arb(10)**300:
+            if not S[kk].is_finite():
                 S[kk] = arb('inf')
         sups.append((R, S))
     if verbose:
@@ -305,15 +305,20 @@ def run(b, ba, bb, a0, M=None, m1=30, verbose=True, geo=None):
                 return R, S
         return sups[-1]
     comp = {k: [] for k in keysA + keysD}
-    for (R, S) in sups:
-        R2, S2_ = at_least(min(2*R, Rmax))
-        dl = arb(R2 - R); zinv = S['zinv']
-        Dfac = arb('inf') if R2 - R <= 0 else (1 + zinv)/2*(2/dl**2 + 1/dl) + (abs(A(Fr(7, 2) - 2*b)) + zinv/2)/dl + abs(A(kap))
+    for i, (R, S) in enumerate(sups):
         for k in keysA:
-            v = S[k] + tau*Dfac*S2_[k]
-            comp[k].append((R, up(v) if v.is_finite() else arb('inf')))
+            best = None
+            for (R2, S2_) in sups[i + 1:]:
+                if not S2_[k].is_finite():
+                    break
+                dl = arb(R2 - R); zinv = S2_['zinv']
+                Dfac = (1 + zinv)/2*(2/dl**2 + 1/dl) + (abs(A(Fr(7, 2) - 2*b)) + zinv/2)/dl + abs(A(kap))
+                v = S[k] + tau*Dfac*S2_[k]
+                if best is None or v < best:
+                    best = v
+            comp[k].append((R, up(best) if (best is not None and best.is_finite()) else arb('inf')))
         for k in keysD:
-            comp[k].append((R, up(tau*S[k])))
+            comp[k].append((R, up(tau*S[k]) if S[k].is_finite() else arb('inf')))
     # m = 0 extras: G^r(c) and tau D_b G_A(c)
     beta_lo = A(ba)
     Gr = (2/LAM)*(1 - cb.upper())**(-3)*D.P_mhalf(beta_lo)*rint(arb(0))
@@ -360,7 +365,7 @@ def run(b, ba, bb, a0, M=None, m1=30, verbose=True, geo=None):
                     nm[R] = (lv, eta)
             bm_tot = arb(0); percomp = {}
             for k, lst in comp.items():
-                cand = [(nm[R][0] + math.log(float(St.upper())), R) for (R, St) in lst if R in nm and St.is_finite() and St > 0]
+                cand = [(nm[R][0] + float(St.log().upper()), R) for (R, St) in lst if R in nm and St.is_finite() and St > 0]
                 if not cand:
                     continue
                 lvb, R = min(cand)
@@ -389,7 +394,7 @@ def run(b, ba, bb, a0, M=None, m1=30, verbose=True, geo=None):
             break
     err, res = best_total
     ok = err < arb(Fcert)
-    out = dict(b=b, ba=str(ba), bb=str(bb), a0=a0, Fcert=Fcert, ok=bool(ok), err=float(err.upper()),
+    out = dict(b=b, ba=str(ba), bb=str(bb), a0=a0, Fcert=Fcert, ok=bool(ok),
                Gr=float((w3*Gr).upper()), tD=float((w3*best_tD).upper()), loc=[float((w3*x).upper()) for x in loc],
                nmin=float(nmin.lower()), hmax=float(hmax.upper()), secs=time.time() - t0, **res)
     return out

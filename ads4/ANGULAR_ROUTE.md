@@ -968,3 +968,14 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   1. The finite nonstationary complement of the contour. The plan is integration by parts with \|B_m\| ≤ M(m/(RD))^m and panel-specific gaps D from 𝓕′_S(α) = S(sin α − sin A_*)/sin α.
   2. The endpoint and diagonal neighbourhoods, including the logarithmic singularity of P⁺ at ξ = 0.
   3. The final signed positivity grid.
+
+## 58. Frequency integration done once: universal rapidity transforms; dressing without shifted frequencies (author, 26 Nov)
+
+* **Universal transforms (author).**
+  * 𝒫_h⁺(β) = ∫h(ν)P_ν⁺(β)dν = −(ie^{−β/2}/π)∫₀^∞e^{−u/2}W_h(β+u)/√((1−e^{−u})(1−e^{−2β−u}))du, with W_h(v) = ∫h·coth(πν)·e^{iνv}dν.
+  * These are functions of one complex rapidity, independent of (J, a, b). Needed for h = f, ν²f and ψ₃(ν/Λ); 0 ≤ ν ≤ 1 is handled with the full conical function.
+  * **Checked here:** the Euler representation of P⁺ against the ₂F₁ form (3e-16 at ν = 2.3, 1.5e-6 at ν = 9.1, the latter limited by oscillatory quadrature), and P⁺ + c.c. = P to 1e-31.
+* **First-moment operator without shifts (author). Verified here** to 1e-30 at three (ν, z, b):
+  * 𝒟_bF_{3,ν} = (1−z)^{−4}[(6 − b(b−1) + (12 − 6b + b(b−1))z − (ν²+¼)/2)P_ν + (7−2b)ξ∂_βP_ν], with z = tanh²(β/2);
+  * it holds for each outgoing solution separately.
+* **Consequence.** The dressed contour amplitude needs only 𝒫_f⁺, ∂_β𝒫_f⁺, 𝒫_{ν²f}⁺ and 𝒫_{ψ₃}⁺, precomputed once on the relevant β-region. Each state-cell then costs one two-dimensional contour integral, not ~1000.
