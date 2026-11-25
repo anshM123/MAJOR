@@ -212,12 +212,14 @@ class Moments:
             xp = arb(1)
             for i in range(nmax + 1):
                 Err[i] += fac*xp; xp *= Xm
+            ctx.prec = min(prec0, int(os.environ.get('FP_QPREC', '100000')))     # quadrature precision (balls stay rigorous)
             for (t, w) in nodes:
                 nu = mid + half*t
                 v = self._h(nu, edge, nu_c, a)*w*half
                 x = nu*nu
                 for i in range(nmax + 1):
                     T[i] += v; v *= x
+            ctx.prec = prec0
         self.T = T; self.TErr = Err
         # log part: on [0, 550] 1-theta <= exp(-((nu_c-550)/10)^2); beyond 550 the Gaussian e^{-nu^2/2} with nu^{2n} is < e^{-100000}
         self.theta_log = (-((nu_c - 550)/10)**2).exp() + (-arb(100000)).exp()
