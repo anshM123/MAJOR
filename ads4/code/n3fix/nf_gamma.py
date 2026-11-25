@@ -14,6 +14,7 @@ Variants (argv[1]):
   n3val : + local patched n3 at the same nodes                            (compare with n1val, node by node, in c2)
   ovl   : batch-3 n1 at x = 0.9198, 0.9276 REPLACED by local patched n3   (n3 vs external n1 at the same nu)
   edge  : + the patched-n3 GK edge nodes (x = 0.9357 ... 0.9746)          (the k = 2 AND k = 3 edge filled; single seed, M = 10)
+  p1/p3 : + x = 0.92 at higher precision: n1 M = 13 (p1) / patched n3 M = 12, independent seed 7000 (p3)
 Usage: python3 nf_gamma.py VARIANT  -> stdout, cache/gamma/<variant>/gamma_J26.{json,txt}
 """
 import nf_guard  # noqa: F401  (first)
@@ -35,7 +36,7 @@ G.CACHE = OUTD
 G.FIX = os.path.join(OUTD, 'ptsfix')
 EB = G.EB
 ANCH = (942.006243, 877.94542)
-SRC = {'n1val': ['val_n1'], 'n3val': ['val_n3'], 'ovl': ['ovl'], 'edge': ['edge', 'edge2', 'edge3']}[VAR]
+SRC = {'n1val': ['val_n1'], 'n3val': ['val_n3'], 'ovl': ['ovl'], 'edge': ['edge', 'edge2', 'edge3'], 'p1': ['prec_n1'], 'p3': ['prec_n3']}[VAR]
 
 
 def lp(sub, kind):

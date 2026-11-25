@@ -1,6 +1,6 @@
 """n3fix/nf_jobs.py (N3C3H_FIX.md §5): the batch-6 external job list -> cache/jobs_batch6.txt (copied to ads4/ext/ by hand).
   G1  the n3 edge + overlap nodes of EDGE_R2's 8 gap-mass states (batch-3 *_n3a / *_n3b lines, same nu, same independent seeds), now with
-      the patched evaluator (both kinds, EE and C3H; method n3m<M3>);
+      the patched evaluator (both kinds, EE and C3H; method n3m<M3>; the two GK nodes next to x1 at M3 + 2, jobs *_top);
   G2  the J = 46, 50 ++ dense-grid recheck (EDGE_R2 §4 (d), ‡): n1 at the midpoints x = 0.3125, 0.3375, ..., < a = 0.8 of the 0.025 bulk
       grid (completing a 0.0125 grid on [0.3, 0.8)), at M + 2 = 13 (method n1m13); kept >= 0.004 from the reference zero.
 Usage: python3 nf_jobs.py [M3]"""
@@ -25,14 +25,18 @@ out = ["# ext/jobs_batch6.txt -- N3C3H_FIX.md §5: EDGE-R edge completion with t
        "# structure basis), so no BATCH5_FOLD §1.2 fit is needed for these records (exact map: N3C3H_FIX.md §5).",
        "# format as jobs.txt: TAG METHOD J DELTA SEED nu1,nu2,...; METHOD n3m<K> / n1m<K> = n3 / n1 with HC_M = HC_MREF = K.",
        "# n3 seeds as batch 3 (two independent streams per node: 6000 + 8k and + 4096)."]
-nG1 = nG2 = 0
+nG1 = nG2 = 0; nG1t = [0]
 for st in STATES:
     out.append(f"# G1 {st}: {hdr.get(st, '')}")
     for ln in lines:
         f = ln.split()
         if f and f[0] in (st + '_n3a', st + '_n3b'):
-            f[0] = 'B6_' + f[0]; f[1] = 'n3m%d' % M3
-            out.append('  '.join(f)); nG1 += len(f[5].split(','))
+            nus = f[5].split(',')
+            top = sorted(nus, key=float)[-2:]                   # the two GK nodes next to x1: M3 + 2 (single-seed M = 10 error 7-16 %)
+            lo = [v for v in nus if v not in top]
+            out.append('  '.join(['B6_' + f[0], 'n3m%d' % M3] + f[2:5] + [','.join(lo)]))
+            out.append('  '.join(['B6_' + f[0] + '_top', 'n3m%d' % (M3 + 2)] + f[2:5] + [','.join(top)]))
+            nG1 += len(lo); nG1t[0] += len(top)
 for st, J, D in (('P2_J46_m1.045', 46, 1046.0), ('P2_J50_m1.049', 50, 1050.0)):
     al = D - J - 2.0; m = np.sqrt(al*(al + 2*J + 1))
     x0 = float(re.search(r'reference zero x0 = ([\d.]+)', hdr[st]).group(1))
@@ -42,6 +46,6 @@ for st, J, D in (('P2_J46_m1.045', 46, 1046.0), ('P2_J50_m1.049', 50, 1050.0)):
                f"m = {m:.6f}")
     out.append('  '.join(['B6_%s_pp_n1' % st, 'n1m13', str(J), '%.6f' % D, '4242', ','.join('%.6f' % (x*m) for x in xs)]))
     nG2 += len(xs)
-out.append(f"# totals: G1 {nG1} n3 jobs, G2 {nG2} n1 jobs")
+out.append(f"# totals: G1 {nG1} n3 (M = {M3}) + {nG1t[0]} n3 (M = {M3 + 2}, top GK nodes) jobs, G2 {nG2} n1 (M = 13) jobs")
 open(os.path.join(HERE, 'cache', 'jobs_batch6.txt'), 'w').write('\n'.join(out) + '\n')
-print(f"G1 {nG1} n3 jobs, G2 {nG2} n1 jobs -> cache/jobs_batch6.txt")
+print(f"G1 {nG1} + {nG1t[0]} (top) n3 jobs, G2 {nG2} n1 jobs -> cache/jobs_batch6.txt")
