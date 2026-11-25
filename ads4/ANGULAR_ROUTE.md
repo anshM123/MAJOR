@@ -444,7 +444,7 @@ This is exactly §4's N_m/N_J and the ratio used in §8 and KERNELS_D3 §3.3, in
 ## 25. Full-positivity attempt via the angular route (author-supplied, 26 Nov): flip cancellation, CDH resummation, and a published-weight endpoint obstruction
 
 * **k = 3 flip cancellation (author).** On the physical ladders, Σ_λ H̄_{λ,−2}H_{λ,+2}sin(λ(θ₃−θ₁)) = 0. For even J this follows from the mirror identity of LADDER_ALLJ; for odd J the supports are disjoint. This closes ANGULAR_GO §1.2's open flip item for the physical ladder. Not re-checked.
-* **CDH resummation (author).** Σ_n ((2d+2)_n/n!)² rⁿ Q_n^{(d)}(ν²) = P_{−1/2+iν}((1+r)/(1−r))/(1−r)^{2d+2}, with d = 0, 1. Proof: the recurrence becomes an ODE that reduces to the Legendre equation. Numerical check pending (coordinator).
+* **CDH resummation (author).** Σ_n ((2d+2)_n/n!)² rⁿ Q_n^{(d)}(ν²) = P_{−1/2+iν}((1+r)/(1−r))/(1−r)^{2d+2}, with d = 0, 1. Proof: the recurrence becomes an ODE that reduces to the Legendre equation. **Verified numerically** (coordinator): d = 0, 1 at (r,ν) = (0.3,0.7), (0.5,2.0), (0.2,0), 12 digits, sum to n = 400.
 * **Consequences (author).**
   * At fixed impact parameter, C/T → tanh²(β/2) and the k = 3 ladder sum tends to P_{−1/2+iν}(cosh β)/(1−r)⁴.
   * The k = 2 first-moment sum Z(r,x) gives 576(1−r)³Z = (16x²−728x+969)((1+r)/(1−r))L + (1896−352x)rL′.

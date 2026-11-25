@@ -42,10 +42,8 @@ for nm, M, Jt in (('S^odd', Modd, 'even'), ('S^oddJ', ModdJ, 'odd')):
             expr = M(Jn, s0 + eps/2, D0 + eps, h0 + eps/2)
             val0 = sp.simplify(expr.subs(eps, 0))
             der = sp.simplify(sp.diff(expr, eps).subs(eps, 0))
-            pred = sp.simplify((M(Jn, s0, D0, h0)/(-sp.cos(sp.pi*h0)) if False else 0))
             if nn == 0 or nn == 7:
-                pr(f'    {nm:6s} J={Jn:2d} n={nn}: M(Delta0) = {val0},  dM/dDelta(Delta0) = {sp.nsimplify(der) if der.is_number else der}'
-                   .replace('\n', ' ')[:220])
+                pr(f'    {nm:6s} J={Jn:2d} n={nn}: M(Delta0) = {val0},  dM/dDelta(Delta0) = pi^3 x ({sp.N(der/sp.pi**3, 8)})')
             assert val0 == 0 and der != 0
 pr('    (asserted for J in {4,6,10,30}/{5,7,11,31}, n in {0,1,2,7}: value 0, derivative nonzero)')
 # symbolic-J statement of the derivative
