@@ -816,3 +816,26 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * **Coordinator check:** the weight's largest Gaussian centre is 1028.7 and its widths are σ ∈ {0.45, 0.9}. So f ≤ 10¹⁰e^{−(ν−1030)²/1.62} has the right centre and width.
 * **Remaining for the edge.** For 998 ≤ a < 1145 and ν₁ ≤ ν ≤ 1139, the finite-kernel envelope \|𝒦_phys(ν)\| ≤ 10√w·e^{G_a(ν)} would give \|H_edge\| < 0.0067·N_s^rep.
 * **Still open (main gap).** The bulk ν < ν₁ at 0.04 < L < 7 (see FULLPOS2 §§2–3).
+
+## 50. High-twist closure (a ≥ 3·10⁸) and the Jacobi–Racah structure (author, 26 Nov)
+
+* **Signed differential expansion (author).**
+  * U_k/c^k = exp[−Σ_ℓ h^ℓ L_ℓ(k)], with h = 1/(T − u₀).
+  * H = Σ_{m≤M} h^m P_m(ϑ)G(c) + ℛ_M, where deg P_m ≤ 3m and ϑ = z∂_z, acting on the full integrated generating function G.
+  * Majorant: h^mQ_m(k) ≤ [h·k(k+9)(1+dk)/c]^m.
+* **Positivity for a ≥ 3·10⁸ (author).**
+  * The claim: H_ang,b > 4e-8 on 0.04 < L < 7, uniformly in J and in both channels.
+  * Error budget: first-order term 1.035e-7, orders 2 to 1500 1.16e-8, ℛ < e^{−1000}, against a floor of 1.59e-7.
+  * It uses LRINF_TIGHT's M₁ floor (> 7e-4 on 0.5 ≤ β ≤ 8.5).
+  * **Constants not reproduced here.**
+* **Jacobi → Racah (author). Verified here exactly** (`code/angular/verify_s50_racah.py`):
+  * U_k − U_{k+1} = (1−c)(−n)_k(n+s)_k/((1−N)_k(N+s+1)_k), with s = 2b+1;
+  * ℒ((1−z)Q_j) = (1−c)R_j(n), where Q_j = ₂F₁(−j, j+2; 1; z) and R_j = ₄F₃(−j, j+2, −n, n+s; 1, 1−N, N+s+1; 1), a balanced Racah polynomial;
+  * orthogonality over n = 0..N−1 with ω_n = (1−c_n)(2n+s)/s > 0, plus the author's norm formula, for s = 1, 9 and N = 6, 11, 17.
+
+  So for b = 0 and integer N: Σ_n(1−c_n)(2n+1)\|ℒ_n((1−z)P)/(1−c_n)\|² = N(N+1)∫₀¹(1−z)\|P\|²dz, an exact discrete–continuous isometry.
+* **Minimum-norm extension (author).** P_min = Σβ_jE_j, with E_k = z^k₂F₁(−ℓ_k, ℓ_k+2k+3; 2k+2; z). Not re-checked.
+* **Open.**
+  1. The region 998 ≤ a < 3·10⁸ with 0.04 < L < 7 (J from 767 to about 6.6·10¹¹).
+  2. A uniform bound on the residual extension's Jacobi norm. Its β_j are built from Taylor coefficients h_k, which are e^{O(Λ)} in size; whether they cancel is unknown.
+  3. Physical Δ is real, so N is generically not an integer. The Racah orthogonality as proved needs integer N.
