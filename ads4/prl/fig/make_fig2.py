@@ -1,4 +1,15 @@
-"""make_fig2.py -- Fig. 2 of the Letter (v14: BATCH5_FOLD Sec. 0 -- J = 17, 18, 19, 20 (twist edge to 1.05; 17, 19 held above the
+"""make_fig2.py -- Fig. 2 of the Letter.
+v15 (presentation pass, no physics, no boundary changed): simplified for readability at single-column width. Four evidence tiers
+instead of six: "computed in models", "interpolated between samples" and "hypothesis only" are merged into one lightest tier,
+"models, interpolation or hypothesis" (the weakest of the three describes the merged tier, so nothing is upgraded). Near the gap
+the 25 individual error-control bars are replaced by one block over J = 0-21 (every spin present there is error-controlled from
+the twist edge to 1.05 Lambda, J = 0, 2 to 1.2 Lambda; spins 1 and 3 are absent from T x T); the error-controlled odd spins
+23-31, J = 21 between 1.05 and 1.10 Lambda, and the model bars at J = 36, 40, 48 above 1.3 Lambda are NOT drawn (understated, named
+in the caption or left to the Supplement / the detailed version make_fig2_detail.py). Theorem 1 is still drawn as its 47 sampled
+states. No legend: every tier is labelled directly; all text >= 7 pt at final size.
+The v14 docstring follows; the boundaries it lists are unchanged.
+
+make_fig2.py -- Fig. 2 of the Letter (v14: BATCH5_FOLD Sec. 0 -- J = 17, 18, 19, 20 (twist edge to 1.05; 17, 19 held above the
 twist edge, 20 at 1.05 on the lambda-level budget) and J = 25 (twist edge to 1.05) error-controlled; J = 31 twist edge on the signed
 window only (pale, like J = 29). The even J = 22-32 twist edges stay [NE+M]; the partial [NE+-] mass ranges of J = 22, 24, 26, 28, 30
 (held or lambda-level, Supplement Table S11) are deliberately NOT drawn, so the dense bars at J >= 17 do not suggest coverage of
@@ -49,7 +60,6 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.patches import Patch
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DG = 1000
@@ -91,19 +101,19 @@ JW_LO = 26                         # Theorem W: sampled J* given (EDGE-R) (AG_PR
 NEM_TICKS = [36, 40, 48]
 
 # ---------------------------------------------------------------- style
-INK, INK2, MUTED, GRID = '#0b0b0b', '#52514e', '#8a8984', '#e4e3df'
-C_CERT, C_NEPM, C_THM, C_NEM = '#0d366b', '#1c5cab', '#3987e5', '#86b6ef'
-C_HYP, C_HATCH, SURF = '#ecebe7', '#a9a8a2', '#ffffff'
+INK, INK2, MUTED = '#0b0b0b', '#52514e', '#8a8984'
+C_CERT, C_NEPM, C_THM, C_WEAK = '#0d366b', '#1c5cab', '#3987e5', '#cfe0f5'
+SURF = '#ffffff'
+FS = 7.0
 plt.rcParams.update({'font.family': 'serif', 'font.serif': ['DejaVu Serif'], 'mathtext.fontset': 'dejavuserif',
-                     'font.size': 7.0, 'axes.labelsize': 7.2, 'xtick.labelsize': 6.6, 'ytick.labelsize': 6.6,
+                     'font.size': FS, 'axes.labelsize': 7.5, 'xtick.labelsize': 7, 'ytick.labelsize': 7,
                      'axes.edgecolor': INK2, 'axes.linewidth': 0.6, 'xtick.color': INK2, 'ytick.color': INK2,
                      'xtick.major.width': 0.5, 'ytick.major.width': 0.5, 'xtick.minor.width': 0.35,
-                     'ytick.minor.width': 0.35, 'text.color': INK, 'axes.labelcolor': INK, 'pdf.fonttype': 42,
-                     'hatch.linewidth': 0.45})
+                     'ytick.minor.width': 0.35, 'text.color': INK, 'axes.labelcolor': INK, 'pdf.fonttype': 42})
 
-W_IN, H_IN = 3.375, 3.25
+W_IN, H_IN = 3.375, 3.0
 fig = plt.figure(figsize=(W_IN, H_IN))
-gs = fig.add_gridspec(3, 1, height_ratios=[0.11, 1.0, 0.82], hspace=0.0, left=0.13, right=0.985, top=0.985, bottom=0.235)
+gs = fig.add_gridspec(3, 1, height_ratios=[0.12, 1.0, 0.9], hspace=0.0, left=0.135, right=0.975, top=0.985, bottom=0.115)
 axS = fig.add_subplot(gs[0]); axU = fig.add_subplot(gs[1], sharex=axS); axD = fig.add_subplot(gs[2], sharex=axS)
 for ax in (axS, axU, axD):
     ax.set_xscale('log'); ax.set_xlim(XMIN, XMAX); ax.set_facecolor(SURF)
@@ -112,98 +122,71 @@ for ax in (axS, axU, axD):
 # ---------------------------------------------------------------- top strip: flat limit
 axS.axvspan(XMIN, XMAX, color=C_CERT, lw=0)
 axS.set_ylim(0, 1); axS.set_yticks([])
-axS.text(np.sqrt(XMIN * XMAX), 0.5, r'flat limit $m\to\infty$: certified', color='white', ha='center', va='center',
-         fontsize=6.6)
+axS.text(np.sqrt(XMIN * XMAX), 0.5, r'flat-space limit $m\to\infty$: certified', color='white', ha='center', va='center',
+         fontsize=FS)
 axS.tick_params(axis='x', which='both', bottom=False, labelbottom=False)
 for s in ('top', 'right', 'left', 'bottom'):
     axS.spines[s].set_visible(False)
 
 
-def fbx(ax, y, xl, xr, color, hatch=None, z=1, hc=C_HATCH):
+def fbx(ax, y, xl, xr, color, z=1):
     xl = np.broadcast_to(xl, y.shape).astype(float); xr = np.broadcast_to(xr, y.shape).astype(float)
     ok = xr > xl
-    if not ok.any():
-        return
-    kw = dict(color=color, lw=0, zorder=z, where=ok, interpolate=False)
-    if hatch:
-        ax.fill_betweenx(y, xl, np.where(ok, xr, xl), facecolor=color, edgecolor=hc, hatch=hatch, lw=0, zorder=z)
-    else:
-        ax.fill_betweenx(y, xl, np.where(ok, xr, xl), **kw)
+    if ok.any():
+        ax.fill_betweenx(y, xl, np.where(ok, xr, xl), color=color, lw=0, zorder=z)
 
 
 # ---------------------------------------------------------------- upper panel: 1.3 <= m/Lambda <= 20 (log)
 YU0, YU1 = 1.3, 20.0
 yu = np.geomspace(YU0, YU1, 1500)
 xe = np.minimum(x_edge(yu), XMAX)
-fbx(axU, yu, XMIN, xe, C_HYP, hatch='//////', z=1)                                   # hypothesis only (H_R')
-fbx(axU, yu, XMIN, np.minimum(xe, np.where(yu <= 5.0, 33.0, XMIN)), C_NEM, z=2)    # chain spins J <= 32 to 5 Lambda
-fbx(axU, yu, 2.5 * yu, np.minimum(xe, b_A(yu) / 2 * yu), C_NEM, z=2)               # 5 <= b < b_A(m)
-fbx(axU, yu, XMIN, np.minimum(xe, 2.5 * yu), C_NEPM, z=3)                          # b < 5 strip
-fbx(axU, yu, XL_COEF * yu, np.minimum(xe, JL_MAX), C_THM, z=3)                     # Theorem L
+fbx(axU, yu, XMIN, xe, C_WEAK, z=1)                                                 # models / hypothesis (merged)
+fbx(axU, yu, XMIN, np.minimum(xe, 2.5 * yu), C_NEPM, z=3)                          # b < 5 strip, error control
+fbx(axU, yu, XL_COEF * yu, np.minimum(xe, JL_MAX), C_THM, z=3)                     # Theorem L' (theorem 2)
 axU.set_yscale('log'); axU.set_ylim(YU0, YU1)
 axU.set_yticks([1.3, 2, 5, 10, 20]); axU.set_yticklabels(['1.3', '2', '5', '10', '20'])
-axU.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+axU.yaxis.set_minor_locator(matplotlib.ticker.NullLocator())
 
 # ---------------------------------------------------------------- lower panel: 1 <= m/Lambda <= 1.3 (linear)
 YD0, YD1 = 1.0, 1.3
 yd = np.linspace(YD0, YD1, 1200)
 xed = np.minimum(x_edge(yd), XMAX)
-fbx(axD, yd, XMIN, np.minimum(xed, 33.0), C_NEM, z=2)                               # near-gap J <= 32
-fbx(axD, yd, JW_LO, np.minimum(xed, 345.0), SURF, hatch='\\\\\\', z=2.4, hc=C_NEM)                  # Theorem W: between samples, interpolated
-fbx(axD, yd, XL_COEF * yd, xed, C_THM, z=2.5)                                        # Theorem L' (J >= 223 at the gap)
+fbx(axD, yd, XMIN, np.minimum(xed, 345.0), C_WEAK, z=1)                             # models / interpolation (J <= 344)
+fbx(axD, yd, XL_COEF * yd, xed, C_THM, z=2.5)                                       # Theorem L' (J >= 223 at the gap)
+# error control near the gap: every spin J = 0, 2, 4-21 from the twist edge (J = 0, 2 to 1.2, J = 4-21 to 1.05 Lambda)
+xb = np.geomspace(XMIN, 21.5 * 1.03, 400)
+top = np.where(xb < 3.4, 1.2, 1.05)
+axD.fill_between(xb, np.maximum(y_gap(np.maximum(xb, 0.5)), YD0), top, color=C_NEPM, lw=0, zorder=3)
+axD.scatter([J + 0.5 for J, m in W_STATES], [m for J, m in W_STATES], s=5.0, color=C_THM, edgecolors='none', zorder=4.5)
 axD.set_ylim(YD0, YD1); axD.set_yticks([1.0, 1.1, 1.2]); axD.set_yticklabels(['1.0', '1.1', '1.2'])
-for J in NEM_TICKS:                                                                # same spins, chain masses to 5 Lambda
-    axU.plot([J + 0.5] * 2, [YU0, 5.0], color=C_NEM, lw=1.1, solid_capstyle='butt', zorder=3)
-for J, ybot, ytop in NEPM:                                                         # [NE+-] near-gap budgets
-    y0 = max(y_gap(J + 0.5), YD0) if ybot is None else ybot
-    axD.plot([J + 0.5] * 2, [y0, ytop], color=C_NEPM, lw=1.6, solid_capstyle='butt', zorder=4)
-for J, ytop in NE_SIGNED:                                                          # signed window only
-    axD.plot([J + 0.5] * 2, [y_gap(J + 0.5), ytop], color=C_NEM, lw=1.6, solid_capstyle='butt', zorder=4)
-axD.scatter([J + 0.5 for J, m in W_STATES], [m for J, m in W_STATES], s=3.0, color=C_THM, edgecolors='none', zorder=4.5)
-# Theorem L' boundary in the near-gap panel
-yl = np.linspace(y_gap(223.5), YD1, 50)
-axD.plot(XL_COEF * yl, yl, color='white', lw=0.7, ls=(0, (0.8, 1.0)), zorder=5)
 
-
-# twist edge, Theorem-L end, panel seam
+# twist edge (edge of the spectrum), Theorem-L end, panel seam
 for ax, y in ((axU, yu), (axD, yd)):
-    ax.plot(x_edge(y), y, color=INK, lw=0.8, zorder=6)
+    ax.plot(x_edge(y), y, color=INK, lw=0.9, zorder=6)
 axU.plot([JL_MAX, JL_MAX], [y_gap(JL_MAX), YU1], color=INK2, lw=0.5, ls=(0, (2, 1.5)), zorder=6)
-for s in ('right',):
-    axU.spines[s].set_visible(False); axD.spines[s].set_visible(False)
-axU.spines['top'].set_visible(False)
+for ax in (axU, axD):
+    ax.spines['right'].set_visible(False); ax.spines['top'].set_visible(False)
 axU.spines['bottom'].set_color(INK2); axU.spines['bottom'].set_linewidth(0.6); axU.spines['bottom'].set_linestyle((0, (1, 1.5)))
-axD.spines['top'].set_visible(False)
 axU.tick_params(axis='x', which='both', bottom=False, labelbottom=False)
 
-# x ticks at J + 1/2
 JT = [0, 10, 100, 1000, 10**4, 10**5, 10**6]
 axD.set_xticks([j + 0.5 for j in JT])
 axD.set_xticklabels(['0', '10', r'$10^2$', r'$10^3$', r'$10^4$', r'$10^5$', r'$10^6$'])
 axD.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
-axD.set_xlabel(r'spin $J$ (log scale)', labelpad=1.5)
-fig.text(0.018, 0.60, r'mass $m/\Lambda$', rotation=90, va='center', ha='center', fontsize=7.2)
+axD.set_xlabel(r'spin $J$', labelpad=1.5)
+fig.text(0.025, 0.47, r'bulk mass $m/\Lambda$', rotation=90, va='center', ha='center', fontsize=7.5)
 
-
-# ---------------------------------------------------------------- direct labels
-kw = dict(fontsize=6.2, ha='center', va='center', zorder=8)
-axD.text(76, 1.2, 'theorem 1\n(sampled\nstates)', color=INK, fontsize=5.4, ha='center', va='center', zorder=8,
-         bbox=dict(boxstyle='round,pad=0.12', fc=SURF, ec='none'))
-axD.text(9.0e4, 1.20, r'no states ($\Delta-J<\Delta_g$)', color=INK2, fontsize=6.0, ha='center', va='center', zorder=8)
-axU.text(2.0, 7.0, r'$b<5$', color='white', rotation=0, **kw)
-axU.text(3.0e4, 14.0, 'theorem 2', color='white', **kw)
-axU.text(5.0e5, 1.75, 'no states', color=INK2, fontsize=6.0, ha='center', va='center', zorder=8)
-axU.text(330.0, 9.0, r'hypothesis' '\n' r'only', color=INK, fontsize=6.0, ha='center',
-         va='center', zorder=8, bbox=dict(boxstyle='round,pad=0.15', fc=C_HYP, ec='none'))
-# ---------------------------------------------------------------- legend (ordinal, strongest first)
-handles = [Patch(fc=C_CERT, ec='none', label='certified (flat limit)'),
-           Patch(fc=C_NEPM, ec='none', label='numerics with error control'),
-           Patch(fc=C_THM, ec='none', label='conditional theorem'),
-           Patch(fc=SURF, ec=C_NEM, hatch='\\\\\\', lw=0.0, label='between theorem-1 samples'),
-           Patch(fc=C_NEM, ec='none', label='model / interpolated'),
-           Patch(fc=C_HYP, ec=C_HATCH, hatch='//////', lw=0.0, label='hypothesis only')]
-fig.legend(handles=handles, loc='lower center', ncol=2, fontsize=6.0, frameon=False, bbox_to_anchor=(0.53, 0.0),
-           handlelength=1.6, handleheight=0.9, columnspacing=0.9, labelspacing=0.3, borderaxespad=0.15)
+# ---------------------------------------------------------------- direct labels (no legend)
+axU.text(2.2, 4.0, 'error\ncontrol', color='white', fontsize=FS, ha='center', va='center', zorder=8, linespacing=1.1)
+axU.text(90, 4.0, 'models,\ninterpolation\nor hypothesis', color=INK, fontsize=FS, ha='center', va='center', zorder=8, linespacing=1.1)
+axU.text(9.0e3, 9.0, 'theorem 2', color='white', fontsize=FS, ha='center', va='center', zorder=8)
+axU.text(1.5e5, 1.8, 'no states', color=INK2, fontsize=FS, ha='center', va='center', zorder=8)
+axD.text(0.62, 1.265, 'error control', color=INK, fontsize=FS, ha='left', va='center', zorder=8)
+axD.annotate('', xy=(6.0, 1.052), xytext=(6.0, 1.245), zorder=8,
+             arrowprops=dict(arrowstyle='-|>', color=INK2, lw=0.6, mutation_scale=6, shrinkA=0, shrinkB=0))
+axD.text(600, 1.06, 'theorem 1:\n47 sampled\nstates (dots)', color=INK, fontsize=FS, ha='left', va='bottom', zorder=8,
+         linespacing=1.1)
+axD.text(8.0e4, 1.15, r'no states ($\Delta-J<\Delta_g$)', color=INK2, fontsize=FS, ha='center', va='center', zorder=8)
 
 out = os.path.join(HERE, 'fig2_coverage.pdf')
 fig.savefig(out)

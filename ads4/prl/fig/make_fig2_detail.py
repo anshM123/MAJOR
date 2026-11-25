@@ -40,7 +40,7 @@ Grades (ordinal, strongest first), with sources:
                 b_A(m) <= b < 0.37211 Lambda, and J > 10^6 (off scale) (LARGESPIN_ANALYTIC Sec. 5.2; Table S11)
   v7: the v6 bracket "345 <= J < 857: no theorem" is removed (that band lies inside Theorem L', LRINF_TIGHT Sec. 6), and the
   v6 star at (1100, 100) is removed (the O(1/m^2) premise is now computed at all 47 W states, P2_CONTRACT).
-Usage (from ads4/prl/fig):  python3 make_fig2.py  -> fig2_coverage_detail.pdf, fig2_coverage_detail_preview.png
+Usage (from ads4/prl/fig):  python3 make_fig2_detail.py  -> fig2_coverage_detail.pdf, fig2_coverage_detail_preview.png
 Colours: one-hue ordinal blue ramp (dataviz reference sequential steps 700/550/400/250; validated with
 validate_palette.js --ordinal), neutral grey + hatch for "hypothesis only"; every region also carries a direct label.
 """
