@@ -99,37 +99,58 @@ def near_zero(W, pr, part):
     pA, pP2, pA2, pP2d2 = (arb_poly(x) for x in (A, P2, A2, P2d2))
     rho = arb(RHO0)
     I1 = arb(0); I2 = arb(0); sup = arb(0)
-    ncell = int(A0/H0)
-    for k in range(ncell):
-        u = fa(Fr(k)*H0); v = fa(Fr(k + 1)*H0); c = (u + v)/2; hc = (v - u)/2
+    # cells: [0, U0], geometric [U0 2^j, U0 2^(j+1)] up to H0, then uniform width H0 to A0; on every cell [u, v] with u > 0 the
+    # centre c and half-width hc satisfy hc/c <= 1/3, and log mu = log c + log(1 + s/c) is replaced by its degree-KL Taylor
+    # polynomial (|remainder| <= x^(KL+1)/((KL+1)(1-x)), x = hc/c) so that the cancellation between A and P2 log mu is kept.
+    U0 = Fr(H0, 2**31)
+    edges = [Fr(0), U0]
+    while edges[-1] < H0:
+        edges.append(edges[-1]*2)
+    assert edges[-1] == H0
+    k = 1
+    while Fr(k + 1)*H0 <= A0:
+        edges.append(Fr(k + 1)*H0); k += 1
+    assert edges[-1] == A0
+    KL = 48
+    for i in range(len(edges) - 1):
+        u = fa(edges[i]); v = fa(edges[i + 1]); c = (u + v)/2; hc = (v - u)/2
         x = v/rho
-        tr1 = 2*M1*x**N0/(1 - x)                                         # |T1| (2 Re), T1 = F1 tail
+        tr1 = 2*M1*x**N0/(1 - x)                                         # |T1|, T1 = (2 Re) F1 tail
         tr2 = 2*M2*x**N0/(1 - x)                                         # |T2|
-        g2 = N0*(N0 - 1)*x**(N0 - 2)*(1 + x)/(1 - x)**3/rho**2           # sum_{n>=N0} n(n-1) mu^(n-2)/rho^n factor
-        logv = -(v.log())                                                # |log v| (v <= 1/5)
-        logmax = logv if k > 0 else None
-        # r = A + P2 log mu + T1 + T2 log mu
-        sA, iA = abs_poly_bounds(coeffs(shift(pA, c), N0), hc)
-        if k == 0:
-            # |P2(mu) log mu| <= mu^2 |log mu| sum_{n>=2} |P2_n| v^(n-2) <= v^2 |log v| sum ...  (mu^2|log mu| increasing on (0, e^-1/2))
+        g2 = N0*(N0 - 1)*x**(N0 - 2)*(1 + x)/(1 - x)**3/rho**2           # sum_{n>=N0} n(n-1) mu^(n-2)/rho^n
+        logv = -(v.log())
+        if i == 0:
+            # [0, U0]: |P2(mu) log mu| <= v^2 |log v| sum_{n>=2} |P2_n| v^(n-2)   (mu^2 |log mu| increasing on (0, e^-1/2))
+            sA, iA = abs_poly_bounds(coeffs(shift(pA, c), N0), hc)
             s2 = sum((abs(P2[n]).upper()*v**(n - 2) for n in range(2, N0)), arb(0))
             sL = v*v*logv*s2
             eT = tr1 + tr2*logv                                          # mu^N0 |log mu| increasing on (0, e^(-1/N0))
+            supc = sA + sL + eT
+            I1 += iA + 2*hc*(sL + eT)
+            sA2, iA2 = abs_poly_bounds(coeffs(shift(pA2, c), N0), hc)
+            sPd, _ = abs_poly_bounds(coeffs(shift(pP2d2, c), N0), hc)
+            intlog = v - v*v.log()                                       # int_0^v |log mu|
+            e2 = 2*M1*g2 + 2*M2*2*(logv + 2)*g2
+            I2 += iA2 + sPd*intlog + 2*hc*e2
         else:
-            sP2, _ = abs_poly_bounds(coeffs(shift(pP2, c), N0), hc)
+            xl = hc/c
+            assert xl <= arb(1)/3 + arb('1e-30')
+            L = arb_poly([c.log()] + [(-1)**(j + 1)/(arb(j)*c**j) for j in range(1, KL + 1)])
+            el = xl**(KL + 1)/((KL + 1)*(1 - xl))
             lu = -(u.log())
-            sL = sP2*lu
-            eT = tr1 + tr2*lu
-        supc = sA + sL + eT
-        I1 += iA + 2*hc*(sL + eT)
+            sP2, _ = abs_poly_bounds(coeffs(shift(pP2, c), N0), hc)
+            sPd, _ = abs_poly_bounds(coeffs(shift(pP2d2, c), N0), hc)
+            rp = shift(pA, c) + shift(pP2, c)*L
+            r2p = shift(pA2, c) + shift(pP2d2, c)*L
+            s1, i1 = abs_poly_bounds(coeffs(rp, rp.degree() + 1), hc)
+            s2_, i2 = abs_poly_bounds(coeffs(r2p, r2p.degree() + 1), hc)
+            eT = tr1 + tr2*lu + sP2*el
+            e2 = 2*M1*g2 + 2*M2*2*(lu + 2)*g2 + sPd*el
+            supc = s1 + eT
+            I1 += i1 + 2*hc*eT
+            I2 += i2 + 2*hc*e2
         sup = C.amax(sup, supc.upper())
-        # r'' = A2 + P2'' log mu + T1'' + (T2 log)''
-        sA2, iA2 = abs_poly_bounds(coeffs(shift(pA2, c), N0), hc)
-        sPd, _ = abs_poly_bounds(coeffs(shift(pP2d2, c), N0), hc)
-        intlog = (v - v*v.log()) - ((u - u*u.log()) if k > 0 else arb(0))   # int_u^v |log mu|
-        lmax = logv if k == 0 else -(u.log())
-        e2 = 2*M1*g2 + 2*M2*2*(lmax + 2)*g2                                   # (T2 log)'' <= |t_n| mu^(n-2)(n^2|log| + 2n), n^2 <= 2n(n-1)
-        I2 += iA2 + sPd*intlog + 2*hc*e2
+    ncell = len(edges) - 1
     pr(f'  [0, {float(A0)}]: int|r| <= {up(I1):.4e}, int|r\'\'| <= {up(I2):.4e}, sup|r| <= {up(sup):.4e}  ({ncell} cells)')
     return r0, r1, I1, I2, sup
 
@@ -172,7 +193,7 @@ def tail(W, mu_end, part):
     ysum = sum((abs(y) for y in W.y), arb(0))
     m2 = fa(mu_end) + 2
     Pb = ysum*m2**4*(m2*m2 + 1)*((m2*m2 + 1).log() + arb.pi())*2*(2*m2 + 11)**6/(R0*(2*R0 - 7)**3)
-    assert Pb < (R0*R0/4).exp()
+    assert Pb*(arb(9)/8).exp() < (R0*R0/4).exp()        # and log P grows only logarithmically: holds for all mu >= mu_end
     ytail = 2/R0*(-(R0*R0)/4).exp()
     I1 = 2*(rbf + ytail); I2 = 16*(rbf + ytail)
     return I1, I2

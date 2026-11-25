@@ -440,3 +440,19 @@ This is exactly §4's N_m/N_J and the ratio used in §8 and KERNELS_D3 §3.3, in
 **Effect.** The all-m helicity norm moves from [DV] (J ≤ 30) to **[Q]**, quoted with the derivation from the special conformal Ward identity. The all-J ladder normalisation is then [P given the operator identities] with no finite-J extrapolation.
 
 **To do:** update the Supplement's angular section and the S1 legend ("all-m helicity norm [DV] for J ≤ 30" → "[Q], Ref. Gillioz eqs. (2.37)–(2.38)"), add the bib entry, and drop the "(checked for J ≤ 30)" qualifier. This waits until the jargon-cleanup agent releases supplement.tex.
+
+## 25. Full-positivity attempt via the angular route (author-supplied, 26 Nov): flip cancellation, CDH resummation, and a published-weight endpoint obstruction
+
+* **k = 3 flip cancellation (author).** On the physical ladders, Σ_λ H̄_{λ,−2}H_{λ,+2}sin(λ(θ₃−θ₁)) = 0. For even J this follows from the mirror identity of LADDER_ALLJ; for odd J the supports are disjoint. This closes ANGULAR_GO §1.2's open flip item for the physical ladder. Not re-checked.
+* **CDH resummation (author).** Σ_n ((2d+2)_n/n!)² rⁿ Q_n^{(d)}(ν²) = P_{−1/2+iν}((1+r)/(1−r))/(1−r)^{2d+2}, with d = 0, 1. Proof: the recurrence becomes an ODE that reduces to the Legendre equation. Numerical check pending (coordinator).
+* **Consequences (author).**
+  * At fixed impact parameter, C/T → tanh²(β/2) and the k = 3 ladder sum tends to P_{−1/2+iν}(cosh β)/(1−r)⁴.
+  * The k = 2 first-moment sum Z(r,x) gives 576(1−r)³Z = (16x²−728x+969)((1+r)/(1−r))L + (1896−352x)rL′.
+  * Together with R₋P_{ℓ−1} + R₊P_{ℓ+1} = −4608(4x+1)/((4x+9)(4x+49))·(1−r)³Z, the shifted EE kernel of Ω^EE is recovered from the angular ladder.
+* **OBSTRUCTION (author; verification in progress).**
+  * *Finding.* The published k = 2 continuum weight at Δ_g = 1000 has E_eff(0) = 2Re[χR₋](−i) ∈ (−3.924105, −3.924103)·10⁻⁶ < 0.
+  * *Consequence.* The realised leading-Regge image then ~ e^{−β/2}E_eff(0) at large β, below the target floor ~ e^{−β/2}/β. So the published functional's leading-Regge action is negative for β ≳ 3·10⁴ (spins ~ e^{15000} m). This is consistent with T0's realised corollary stopping at β ≲ 200.
+  * *Effect on (iii).* (iii) is false for the published weight on those states; T0 for the target weights is unaffected.
+  * *Proposed repair.* δx₀ ≈ −1.297683·10⁻⁷ sets E_eff(0) = 0; an adjustment of the first log coefficient matches E_eff′(0⁺) = 0.18978 to the target ψ′(0⁺) = 0.18918.
+  * *Assigned.* The ε_W agent (→ EPSW_CERT.md) is verifying, repairing, recertifying T0 for the repaired weight at all β, and recomputing τ₀/K.
+* **Exact finite-(Δ,J) form (author).** H_b/|a₀|² = Σ_k W_{b,k}(y_k^Ω + z_k^Ω d_{b,k}/6 + σ_b q_k^Ω), a rational function of T at fixed J. This is a route to certifying every mass at fixed spin by polynomial positivity. Physical matching for Ω^EE at finite (Δ,J) is still open.
