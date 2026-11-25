@@ -240,7 +240,7 @@ $A=2\psi_2'(0)=17.240713$, $\kappa=0.109908$, $a=0.169405$, $c_Q=\tfrac12$ (\tex
 Q3$^*$ is the stored linear-programming solution with margin $\delta=0.2$ (\texttt{q3\_full\_delta0.2.json}) with its weights stated in factored form, $\psi_2=p(1-p)^3X(p)$,
 $\psi_3=(1-p)^3Y(p)$, $X,Y$ the exact quotients of the stored coefficients (coefficients change by
 $\le1.7\times10^{-8}$; $A$, $\kappa$ unchanged to $10^{-10}$), published as \texttt{q3star\_factored.json} (exact rationals; script
-\texttt{make\_q3star.py}, which reproduces the hash $\texttt{80e0834a}\dots\texttt{33f2}$ of these coefficients, by which the flat certificate identifies its input). This is definitional: the stored binary weights carry the
+\texttt{make\_q3star.py}, which reproduces the fingerprint $\texttt{80e0834a}\dots\texttt{33f2}$, a hash of these coefficients by which the flat certificate identifies its input). This is definitional: the stored binary weights carry the
 factor $(1-p)^3$ only to rounding ($\psi_2(1)=1.8\times10^{-11}$), which the backward peak
 $\tilde d^J_{44}(-1)=\binom{J+4}{8}$ amplifies until the flat action is negative at $+-$, $m=M$, $J\ge1990$
 [NE]; Q3$^*$ has minimum $+0.2000$ there. The true flat minimum of Q3$^*$ is $0.1835$ ($++$, $J\approx3600$,
@@ -718,7 +718,7 @@ flip-sensitive contraction and the $|\hat g_3|^2$ term are $O(1)$; this is the d
 $W_+\times(E-\kappa\,{\rm CS})$, the numerical form of the same pointwise statement. A separate run with its own code (Sec.~\ref{sec:repro}) reproduces
 the three steps and the zero, to $6.9\times10^{-24}$.
 
-\emph{Consistency statements} (no longer links). (a) \emph{Shock part.} In $d=3$ the helicity-preserving elements of the
+\emph{Consistency statements} (not links of the argument). (a) \emph{Shock part.} In $d=3$ the helicity-preserving elements of the
 impact-parameter operators of Ref.~\cite{CHP} are $\tfrac14\Box(\Box+\nu^2+\tfrac14)$ ($t_4$-type) and $\tfrac12(\Box+\nu^2+\tfrac14)$
 ($t_2$-type); both vanish on every $H_2$ eigenfunction [P], so the $u$-channel (shock) part is zero. (b) The $k=3$ part vanishes [P
 given the kernel reading]. (c) \emph{ASD closure [D].} With legs 1, 2 self-dual and 3, 4 anti-self-dual, the whole $O(\hat g_3)$
@@ -1622,7 +1622,7 @@ agreement at one gap excludes a competing saddle at every gap (barring an accide
 The error budget is that of Sec.~\ref{sec:pos} (same code, $\times3$ on every model term), on own $K_2$ rows at
 $\Delta=\Delta_g+J$ (light $J=0,2$ at $\Delta_L=0.99\Delta_g$), with the gauge factor of the gap's own minimal-norm weight (published
 in \texttt{data/gap/}). The reference row is at $\Delta_{\rm ref}=2\times10^4$ for $J\le8$, $12$ and OO $J=4$--$8$, and at
-$5\times10^4$ for $J=9$--$11$, $13$--$21$, $27$, $29$ and OO $J=10$ (reading (iv)). Run at $\Delta_g=1000$, it reproduces the near-gap values of Sec.~\ref{sec:pos} to every printed digit. Table~\ref{tab:gap2000} lists the results.
+$5\times10^4$ for $J=9$--$11$, $13$--$21$, $27$, $29$ and OO $J=10$ (reading (iv)). Run at $\Delta_g=1000$, the same code reproduces the near-gap values of Sec.~\ref{sec:pos} to every printed digit. Table~\ref{tab:gap2000} lists the results.
 
 \begin{table}[!htbp]
 \caption{\label{tab:gap2000}$\Omega^{EE}$ near gap at $\Delta_g=2000$ and $5000$: $\lambda/N_s$ / sign-free leverage $L$
@@ -1738,7 +1738,7 @@ $x\le0.8$), $\le110\,c_2$ ($J=8$, $12$), $\le45\,c_2$ ($J=21$, $0.1\le x\le0.8$,
 $\le80$--$330\,c_2$ elsewhere ($J=15$--$29$, $x\le0.8$) from $1000$ to $2000$, and to $\le9\,c_2$ ($J=5$) and $\le250\,c_2$ ($J=12$) to $5000$.
 (vi) \emph{Seam.} The strip between the twist edges of $\Delta_g$ and of $1000$ (width $\approx J/2000$ in $m/\Lambda$ at $2000$) has no
 chart-A counterpart and is computed on its own rows: [NE$\pm$] for $J\le16$, $17$, $19$, $21$ and the OO states, [NE\,+\,M] for $27$,
-$29$. It holds the lowest $2000$ values of $J=11$, $13$, $15$, $17$, $27$ ($+0.30$ to $+0.53$ for $J\le17$, below their $1000$ twist-edge
+$29$. It contains the lowest $2000$ values of $J=11$, $13$, $15$, $17$, $27$ ($+0.30$ to $+0.53$ for $J\le17$, below their $1000$ twist-edge
 values $+0.35$ to $+1.00$; $J=27$: $+0.910$ at $1.0175\Lambda$), where the $K_2$ corrections are small ($\le6\times10^{-4}$); chart A
 cannot supply these states, so every larger gap needs its own seam rows. Spins $18$, $20$, $22$--$26$, $28$, $30$--$32$ are not computed at $2000$; at $1000$ they carry the grades of Table~\ref{tab:coverLS}.
 In the tolerance form of Lemma T the seam is the $x\to1$ edge window of chart-A states: for $J\le16$ the seam tolerances are
