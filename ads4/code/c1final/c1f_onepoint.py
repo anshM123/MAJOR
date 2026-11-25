@@ -11,6 +11,7 @@ Checks (all at several P, rest frame and boosted, several directions phi):
  (3) Ward identities: int dphi nb^mu Hh_hh = P^mu (momentum flux),  int dphi Mh_hh = 0 (dilatation flux with scale-invariant frames),
      int dphi nb^mu Hh_flip = 0.
  (4) the mechanism: d_w psi_h = (i Gamma_h + 1/w) psi_h with Gamma_{-h} = -Gamma_h (no admixture), both theories.
+ (5) closed form M = (1/2){Gamma, H}: E1 acts on the T family as (1/2){E, -i nb.D}, D = frame-covariant derivative.
 Output: cache/c1f_onepoint.txt
 """
 import numpy as np, os, sys
@@ -90,6 +91,18 @@ for th in ('B', 'F'):
             r = dv/v
             P_(f"  {th} P={P} phi={phi:+.2f}: w*Re = {w*r[0].real:.10f} {w*r[1].real:.10f};  Im(+)+Im(-) = {r[0].imag + r[1].imag:.2e}")
             ok &= abs(w*r[0].real - 1) < 1e-7 and abs(w*r[1].real - 1) < 1e-7 and abs(r[0].imag + r[1].imag)*w < 1e-7
+# (5) closed form: M = (1/2){Gamma, H}, Gamma = diag(Im d_w log psi_h)  =>  E1|_T = (1/2){E|_T, -i nb.D}, D = d + i Gamma
+P_("\n(5) M = (1/2){Gamma,H} (time-of-arrival symmetrisation): max |M - (1/2){Gamma,H}| / |H_diag|")
+w5 = 0.0
+for th in ('B', 'F'):
+    for P in Ps:
+        for phi in phis:
+            parts = [ff._HM_one(th, P, phi, 1)] + ([ff._HM_one(th, P, phi, 2)] if th == 'F' else [])
+            for (Hx, Mx, v, dv, w) in parts:
+                G = np.diag((dv/v).imag)
+                w5 = max(w5, np.abs(Mx - 0.5*(G @ Hx + Hx @ G)).max()/abs(Hx[0, 0]))
+P_(f"  worst = {w5:.2e}")
+ok &= w5 < 1e-7
 P_("\nALL CHECKS PASS:", ok)
 os.makedirs(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cache'), exist_ok=True)
 open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cache', 'c1f_onepoint.txt'), 'w').write("\n".join(out) + "\n")

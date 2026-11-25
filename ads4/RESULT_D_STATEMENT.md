@@ -170,6 +170,17 @@ A chain of inputs carries the grade of its weakest link.
 >   * Held states (J = 17, 19, 22, 26, 30 above the twist) rest on the own-row hold.
 > * **Count variants:** 25 (as stated); 23 without the signed-window-only J = 29, 31; 18 excluding held masses; 16 if every mass must close sign-free with the ×3 envelope.
 
+> **Update (C1_FINAL.md, unreviewed): c₁ = 0 EXACTLY [D] (same grade as the implication it feeds; was [D-sketch given F₂ [A]]). The headline numbers are unchanged, and the c₁ caveat and every c₁ error term are removed.**
+> * **Route A, F₂ proved [D + DV]:**
+>   1. With light rays based at x₀ = ∞, the k = 2 weight f = v′−u′ is affine [P], so the functional contains only E₃E₁, E₃E₁⁽¹⁾ and E₃⁽¹⁾E₁.
+>   2. The first moment E⁽¹⁾ = ½{E, −i n̄·D} has the same helicity pattern as E on the T family, for every parity-even ⟨TTT⟩ (free boson and free fermion span the structures). Ward identities exclude a diagonal O(t₄) or O(α_T) element.
+>   3. The EE (2,4) contraction is helicity-diagonal through first order [P].
+>
+>   So the O(t₄) T-block term vanishes pointwise for every ν, after the de-shift. The Euclidean-vs-Lorentzian helicity point is resolved [D-sketch, not load-bearing].
+> * **Route B (direct):** the k = 2 EE action on the explicit energy-channel exchange is zero to ≤ 1.75·10⁻¹¹ at 8 points × 3 structures; the controls (flip-sensitive contraction, Einstein term, W×W term) are O(1).
+> * **Consequences:** Result D is √(t₄²+α_T²) ≤ 2.89126·10⁻⁸ (1000) / 3.13206·10⁻⁶ (300), with a symmetric t₄ interval. Result Q's upper end is 92.8135 / 72.0406 with no c₁² term. Referee M5 / RU issue 14 are closed. The whole O(t₄) light term of Ĉ′_EE vanishes, not just the constant, and an O(α_T) constant vanishes too.
+> * **Inherited links:** Ω_OPE = Lemma R on tree terms [D]; the [TT] double zeros at the borderline n = k; and the choice of the EE dual structure (Ω^EE and Ω^Q_up both use EE at k = 2). An independent Lemma-R evaluation of the Witten diagrams and the 2106.00016 cross-check were not done.
+
 ## 0. Headline
 
 1. **Implication [D]; constants [DV].** Let `𝒯` satisfy A1 and A2 and the analytic inputs of §4. Suppose the fixed functional `Ω^EE`
