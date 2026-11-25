@@ -116,3 +116,32 @@ Coordinator checks are in `code/angular/verify_s6.py`.
 2. the all-J first-moment identity (the tridiagonal A);
 3. physical matching of the rest-frame heavy form to the sum rule, with convergence, contact and double-trace terms;
 4. the pipeline reproduction of the scalar first moment.
+
+## 7. All-J first-moment operator from the special-conformal Ward identity (author-supplied, 25 Nov)
+
+**Derivation (author):**
+* E(n) = 2∫T(Z − αX_∞, −X_∞)dα with α = 2u. The special conformal transformation along n acts by X_∞ → X_∞ − εZ, so the integrand picks up (1+εα)^{−5}, where 5 = Δ_T + J_T. This gives δ_K E = −6E⁽¹⁾; the boundary term is O(\|α\|^{−5}).
+* K annihilates the primary T at the origin, so G_{E⁽¹⁾} = (1/6)K_n^𝒪 G, with the explicit position-space generator.
+* Fourier transform, then go to the rest frame with spinor polarisations ζ(a,b) and generators B₁, B₂, R. This gives K̂/i = Δ²−3Δ−16 + B₁²+B₂²+R² + (4−2Δ)B₁ − 2RB₂.
+* Normalisation of the momentum states and the translation part of E⁽¹⁾ supply +18. So M = (i/6)[T + B₁²+B₂²+R² + (4−2Δ)B₁ − 2RB₂]·H.
+
+**Checks** (`code/angular/verify_ward.py`, exact sympy):
+
+| step | check |
+|---|---|
+| The rest-frame operator T + B₁²+B₂²+R² + (4−2Δ)B₁ − 2RB₂ on e_m = a^{J+m}b^{J−m} is tridiagonal with diagonal T + C − 2m² | **verified exactly**, J = 0..6. The diagonal holds for all J: B₁²+B₂²−R² is the Casimir C and R² = −m² |
+| Unnormalised neighbour coefficients: coef(e_m in We_{m+1}) = −(Δ−m−2)(J+m+1) and coef(e_m in We_{m−1}) = −(Δ+m−2)(J−m+1) | **verified**, J ≤ 3 printed (pattern exact); general J follows from the first-order action of B₁, B₂ on monomials |
+| With the all-J norm ratio (§4), the matrix elements between normalised states are exactly −b_m = −√((C−m(m+1))(T−m(m+1))) | **verified exactly**, J = 0..6, at a rational Δ |
+| The origin-centred constant Δ²−3Δ−16 | **matches** ANGULAR_GO's independent J=0 origin-centred value i(Δ²−3Δ−16)/6 |
+| (1+εα)^{−5} weight, hence the −6 coefficient | consistent with weight Δ_T + J_T = 5 |
+| Fourier transform plus rest-frame reduction of K_n^𝒪 to the B/R form, and the +18 from normalisation and translation | **not independently re-derived**; the J = 0 normalised value iT/6 agrees (ANGULAR_GO, with the normalisation sign [D-sketch]). The ladder agent is checking it against the pipeline for J = 1..8 |
+
+**Status.**
+* *All-J first-moment identity:* [D] with its algebraic core [P].
+* *Still open:*
+  * the all-J ladder ratios (b = 0, 4);
+  * the Y and Z kernels for general rectangular H (author has it; details to come);
+  * interchange and convergence;
+  * double-trace and contact terms;
+  * parity-odd α_T;
+  * recomputing 47266.
