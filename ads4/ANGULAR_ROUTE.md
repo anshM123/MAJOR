@@ -618,3 +618,13 @@ No large-Δ, large-J or large-ν approximation is used.
 | **Obstruction:** absolute-value frequency integration over 5 ≤ ν ≤ 10 alone costs > 7e-8·√w at a = 998, against an available margin of < 9.5e-9·√w at states with 1−r ~ e^{−4000}. So the absolute route cannot certify the middle region, even with polynomial constants | logic sound (lower bounds from a Taylor-remainder argument); numbers not re-checked |
 
 **Remaining target (author).** A signed estimate of ℰ₂ = (4/Λ)√w Re∫f(ν)B(ν)e^{iν log(1/w)}[w^α𝒱_b(F_α) − 1]dν (α = 5/2+iν), keeping the oscillatory factor, with the origin residue isolated, by contour deformation or integration by parts. **Status: full AdS positivity remains open; this is the precise missing estimate.**
+
+## 37. Finite-state complex beta-kernel bound (author-supplied, 26 Nov; part 1 of a signed estimate)
+
+| claim | check |
+|---|---|
+| Euler representation K_{n,a,b}(q) = ₂F₁(−n,a;n+a+2b+1;q) = B(a,n+2b+1)⁻¹∫₀^∞x^{a−1}(1+(1−q)x)^n(1+x)^{−2n−a−2b−1}dx | **verified** (n = 50, complex q, 12 digits vs mpmath hyp2f1) |
+| Global R(t) = \|1+ct\|/\|1+dt\|² ≤ (1+t/4)⁻¹ (d = 1/(1+q), c = 2d−1, q in the first-quadrant unit disk) via the polynomial (1+pt+st²)² − (1+t/4)²[1+2(p−1)t+(4s−2p+1)t²] having coefficients ≥ 0 on 1 ≤ p ≤ 2, ¼ ≤ s ≤ p/2 | **coefficients computed**: 0, 3/2, (16p²+16p−32s−1)/16, (16ps+7p−16s−3)/8, (2p+16s²−4s−1)/16. Nonnegativity checked on 20,000 samples (no failures) |
+| **\|K_{n,a,b}(q)\| ≤ 2\|1+q\|^{−a}** for n ≥ 1024a², a ≥ 998, q in the closed first-quadrant unit disk | proof structure sound; **numerically** max \|K\|·\|1+q\|^a = 1.002 at a = 2, 3, 5 with n = 1024a² (the theorem is stated for a ≥ 998; the small-a test is a sanity check of the mechanism) |
+
+**Status.** This is the finite-state replacement for K ~ (1+q)^{−a}. The author reports an explicit relative error of 1.01e-4 for the leading connection term ℰ₂ in an enlarged large-impact region (details to follow). The remaining connection-function terms and the lower-impact transition region are still open.
