@@ -723,6 +723,22 @@ A chain carries the grade of its weakest link.
 > * **c₁ grade refinement:** "[D] given the [TT] double-zero statement (parity-odd odd-twist [TT] double zeros [D-sketch], H0 §15.1)", the same caveat as the Einstein term. Route B is not independent of Route A.
 > * **Batch 5:** the basis repair is re-derived independently (J = 18, 26). The unfitted node agrees to 2.6e-7 against MC 3.6e-4, and the mapped records match to 1e-11. Values, budgets and L for J = 18, 23, 25 are bit-identical on re-run. "25 of 31" is confirmed, and so are the stricter counts 23 / 18 / 16. Minor: BATCH5 §1.1's failed-node list omits J = 18 x = 0.9447 and J = 20 x = 0.9432 (the chain drops them correctly).
 
+> **Update (K_CERT.md, unreviewed): δK₀, the Einstein light value and τ₀(K) are certified (Arb); the H17 remainder is NOT proved (stays [D-sketch + M]), so there is no certified K_min yet. The 2.89×10⁻⁸ headline needs only a weak lower bound on H17.**
+> * **Certified:**
+>   * K₀ = 1 + 3.16e-11.
+>   * δK₀ = −7.666324482972e-4 (300) and −6.830149983909e-5 (1000).
+>   * K_c = 0.999233 / 0.999932.
+>   * τ₀(K_c) = 3.133256e-6 / 2.891361e-8.
+>   * The Einstein light value of the actual weight is 16L_A(1 ± 1e-9).
+>   * At 2000 / 5000: τ₀(K_c) = 1.928332e-9 / 5.326183e-11.
+> * **Conditions on H17 for the headline:**
+>   * at 1000, τ₀ ≤ 2.90e-8 needs H17 ≥ −5.95e-3 (14× the model band), and |ĝ₃|Λ⁴ ≤ 120 needs H17 ≥ −4.1e-3 (9.7×);
+>   * at 300, ≤ 3.15e-6 needs 2.2×, and ≤ 3.14e-6 is not robust.
+>
+>   The quartic upper end does not involve K.
+> * **H17 reduced:** Λ²·H17 = −0.8106·a₄ + 4.6867·b₂ exactly (certified weights), where a₄, b₂ are the |ĝ₃|² light-function coefficients of the two functional pieces. b₂ (the Ĉ₃ piece) carries 79 % of the band. The headline ≤ 2.90e-8 holds while |b₂| ≤ 1247. **Computing b₂ (and a₄) gives a certified K_min directly.**
+> * δK₀ is convention-dependent: it is 0 in the Ĉ′-primary convention, so the tables cover both ends.
+
 ## 1. Setup and normalisations
 
 | item | definition |
