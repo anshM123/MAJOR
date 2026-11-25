@@ -785,6 +785,16 @@ A chain carries the grade of its weakest link.
 >   Reproduces in about 20 CPU-min (`code/t0cert/run_all.sh`).
 > * **Open:** M20, i.e. the realised published weights. For those there is only a corollary at Δ_g = 300/1000, resting on ε_W [DV] and limited to β ≲ 200. The flat certificate's corner code is unreviewed (inherited). The beyond-leading-Regge correction δ is untouched.
 
+> **Update (ANGULAR_GO.md, 25 Nov; unreviewed): the angular route is a GO, conditional and with a ceiling τ ∝ 1/Δ_g.**
+> * **Sensitivity.** Cubic sensitivity survives through the fourth-harmonic k=3 sum rule: \|ĝ₃\|² sits in heavy slot \|m\|=4. Einstein sits at harmonic 0, which no heavy state populates. The k=3 functional alone is forced to zero.
+> * **Sign and light side.** The global sign is fixed physically: heavy must sit opposite Einstein. 303/5120 is confirmed against K_B2A4.
+> * **Scalar first moment.** M_mid/H = i(Δ²−7)/6 is reproduced in both parities. The literal monomial rule is the retarded-time u = α/2 moment. The normalisation step to iT_Δ/6 is [D-sketch].
+> * **Ceiling.** Δ-free harmonic positivity cannot depend on the gap. The gap enters only through T_Δ, giving τ ≈ 22/Δ_g (0.0224 at 1000). Bandwidth is capped at ν = O(1), because the CDH kernels alternate beyond ν ≈ 1.9m: the authors' weight works, stretched by 1.5 it fails. The route needs no LF3 remainder and no de-shift tail bound.
+> * **Open.**
+>   * The all-J tridiagonal identity (~1 day).
+>   * The b=0, 4 ladder ratios (pipeline data to J≈30, then WZ proof; ~40% by Thursday).
+>   * Physical matching: the rest-frame reduction for spinning heavy states, k=3 flip entries at the |m|=4 projection, the shared |c|² normalisation in 47266, swap and convergence, double-trace and contact terms, and the parity-odd α_T piece.
+
 ## 1. Setup and normalisations
 
 | item | definition |
