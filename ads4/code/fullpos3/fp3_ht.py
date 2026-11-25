@@ -187,7 +187,7 @@ def far_remainder(cb, hmax, nmin, M, b, tau, d_lo):
     """upper bound of |R_M| = |sum_{k<=n} c^k g_k rho_M(k) - sum_{k>n} c^k g_k T_M(k)|  (FULLPOS3 §4.4).
     Blocks [k0, k1) up to K_T = max(nmin+1, 6(2M+10)/d), then the analytic geometric tail."""
     s = 2*b + 1
-    kap = abs(Fr(9, 2) - b*(b - 1))
+    kap = A(abs(Fr(9, 2) - b*(b - 1)))
     KcA = (PI/2)*(2*PSI2.absexp(PI/2, 2000) + (2/LAM)*D.Rint(PI/2)[0])
     KcD = LAM**2*(PI/2)*PSI3.absexp(PI/2, 2000)
     e3 = arb(3).exp(); e4 = arb(4).exp()
