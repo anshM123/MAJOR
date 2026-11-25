@@ -30,20 +30,7 @@ NC = H.NC; W = NC.W
 C.SET[0] = os.environ.get('B5_SET', 'fix')
 OUT = os.path.join(C.B5C, 'state' if C.SET[0] == 'fix' else 'state_' + C.SET[0]); os.makedirs(OUT, exist_ok=True)
 H.HSC = OUT; C.S.HSC = OUT; C.S.SNC = OUT
-RZW = 0.0125
-_pk0 = W._pk
-
-
-def _pk(pats):
-    R = _pk0(pats)
-    for p in pats:
-        for fn in sorted(glob.glob(os.path.join(C.B5C, p))):
-            R.update(pickle.load(open(fn, 'rb')))
-    return R
-
-
-W._pk = _pk
-NC._pk = _pk
+RZW = 0.012          # strictly closer than the flanking rz nodes (placed at x0 -+ 0.0125, rounded to 4 decimals)
 
 
 def interp_c(Dg, J, Down, mfl, npn=256):

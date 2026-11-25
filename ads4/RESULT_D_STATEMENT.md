@@ -159,6 +159,17 @@ A chain of inputs carries the grade of its weakest link.
 > * **Batch 5** (`ext/jobs_batch5.txt`): 666 n1 jobs for J = 17–20, 22, 24–26, 28, 30, 32 plus J = 23/31 mid-points; ≈ 1.8 h on 16 workers. J = 26 and 30 need even shadows computed locally first.
 > * **Cautions:** for J ≥ 13 the base is the hybrid quadrature (the certified floor does not close). The 10⁴ c₂ small-ν convention (~100× the measured values) is still the largest or second-largest budget term at J ≤ 14.
 
+> **Update (BATCH5_FOLD.md, unreviewed): batch 5 is folded in at Δ_g = 1000. 25 of 31 near-gap spins J ≤ 32 are now error-controlled at the twist edge and every computed mass up to 1.05Λ (was 19). Nothing negative.**
+> * **New [NE±]:** J = 17 (L 1.53), 18 (1.83), 19 (1.84), 20 (1.41), 25 (1.65); **J = 23 no longer thin** (L 1.62; the new mid-points drop the representation term from 0.258 to 0.020); J = 31 on the signed window only (1.14, like J = 29).
+> * **Twist edges still [NE+M]:** even J = 22 (0.73), 24 (0.76), 26 (0.95), 28 (0.66), 30 (0.47), 32 (0.41), limited by the flat sign-free edge term beyond the last valid node plus the ×3 window. With the odd-J edge envelope J = 22–28 would reach L ≈ 1.0–1.4 (a protocol change; diagnostic only).
+> * **Basis repair** of even-J external records: per-row rotation/reflection solved exactly, fit residual 2e-12–2e-5, held-out nodes ≤ 7e-5, Γ vs local recomputation ≤ 0.34 c₂. (EDGE_R2's e2_basis fails for J = 18, 20, 24, 28 because of a per-helicity sign.)
+> * **Cautions:**
+>   * J = 20 drops +0.965 → +0.835 (it matches HIGHSPIN's +0.83 ± 0.14 and still closes); J = 28 drops 0.04.
+>   * The hs_odd shape fit is ill-conditioned at J = 17 and 19 (folded with the own-row method instead).
+>   * `ng_bind` was despiking real injected direct edge nodes (exempted; values move ≤ 0.001).
+>   * Held states (J = 17, 19, 22, 26, 30 above the twist) rest on the own-row hold.
+> * **Count variants:** 25 (as stated); 23 without the signed-window-only J = 29, 31; 18 excluding held masses; 16 if every mass must close sign-free with the ×3 envelope.
+
 ## 0. Headline
 
 1. **Implication [D]; constants [DV].** Let `𝒯` satisfy A1 and A2 and the analytic inputs of §4. Suppose the fixed functional `Ω^EE`
