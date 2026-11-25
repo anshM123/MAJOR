@@ -492,7 +492,13 @@ if __name__ == '__main__':
     if sys.argv[1] == 'scan':
         cells = [l.split(',') for l in sys.argv[2].split(';')]
         out = os.path.join(HERE, 'cache', sys.argv[3])
+        done = set()
+        if os.path.exists(out):
+            for l in open(out):
+                r = json.loads(l); done.add((r['ba'], r['bb']))
         for ba, bb in cells:
+            if (str(Fr(ba)), str(Fr(bb))) in done:
+                continue
             scan_cell(ba, bb, out)
     else:
         b = int(sys.argv[1]); ba = sys.argv[2]; bb = sys.argv[3]; a0 = int(sys.argv[4])
