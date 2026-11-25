@@ -175,3 +175,19 @@ Coordinator checks are in `code/angular/verify_s6.py`.
   3. interchange, convergence, double-trace and contact terms;
   4. parity-odd α_T;
   5. recompute 47266.
+
+## 9. All-spin positivity of the angular form, a direct endpoint sum rule, and the spectral-tail obstruction (author-supplied, 25 Nov)
+
+Coordinator checks are in `code/angular/verify_s9.py`.
+
+| claim | check |
+|---|---|
+| On ladder vectors (§8): Σw_k Re[ā_k(Aa)_k] = w₀[T−b(b−1)]\|a₀\|² + Σ_{k<J−b}(ρ_k−1)(ρ_k w_{k+1} − w_k)X_k\|a_k\|², with ρ_k = (k+4)/(k+1) | **verified numerically** for random weights (max rel. err. 2e-14, 300 random b, J, Δ) |
+| With w_k = −z^raw_{k+2}: each summand ≥ 0 by §5's ratio inequality, so 𝓗 ≥ (5/48)[T−b(b−1)]\|a₀\|² for all J | follows (all pieces verified) — **all-spin positivity of the reduced form** |
+| q_m = 6/((m−1)m(m+1)) (m ≥ 2), q₀ = −3, q₁ = 0, q_{−m} = q_m: q_{k+3}/q_{k+2} = (k+1)/(k+4), so the interior telescopes away: Σq_{k+2}Re[ā(Aa)] = [T−b(b−1)]\|a₀\|² **exactly** | **verified** (identity numerically, ratio by inspection) |
+| Ỹ_m = q_m + (1−m/2)q_{m−1} + (1+m/2)q_{m+1}: Ỹ₀ = −3, Ỹ₂ = 3/2, Ỹ_m = 0 for m ≥ 3 | **verified exactly** (symbolic m ≥ 3); also Ỹ₁ = 0 |
+| Candidate direct sum rule from [E(n₃), E⁽¹⁾(n₁)] = 0: Σ_{O≠T,b}[(T_Δ − b(b−1))/3 + 3/2]\|a_{O,b}\|² = 3 | **derivation not checked**: the physical normalisation (the /3, the RHS 3 from Ỹ₀) is the author's |
+| Combined with the fourth-harmonic rule: (T−12)/3/W₂⁴ > 151250 for twist ≥ 1000, J ≥ 6 ⇒ √(t₄²+α_T²) < 0.01782 | **constant and arithmetic verified** (151252.98; 0.017814). **Conditional** |
+| Spectral-tail obstruction: truncation at harmonic N+2 leaves B_N = q_{N+2}Σ_{O,b}X_N\|a_{O,b,N}\|²/(N+1). This vanishes per representation, but the infinite sum needs Σ J(J+1)\|a_{O,b,N}\|² = o(N⁴) | **genuine open problem** (author-identified). A positive limit of B_N would enlarge the RHS and break the bound |
+
+**Coordinator's note — the main physics risk.** The gap applies to single traces only. At leading order in 1/c_T, multi-trace states (e.g. [TT]_{n,J}, twist ≈ 2Δ_T + 2n) also enter the heavy sum with **low** T_Δ. They are positive, but they could supply fourth-harmonic weight cheaply, and the bound's W₂⁴ estimate assumes twist ≥ 1000. The original Ω^EE handles them with the [TT] double zeros of the de-shift weight; this direct angular sum rule has no such mechanism visibly. The open list must include either their exclusion at the relevant order or explicit control. Same for contact terms in the mixed E, E⁽¹⁾ commutator and the uniform large-c_T limit.
