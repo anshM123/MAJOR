@@ -288,3 +288,17 @@ Coordinator checks are in `code/angular/verify_s13.py`.
 **Correct.**
 
 **Effect.** All states at bounded twist, in particular every heavy state near the gap at any spin, are excluded as a source of 𝒟. The defect question is confined to τ ≳ √J.
+
+## 15. Finite-harmonic obstruction, the comparable-twist sector, the R-tail criterion, the KZ contact, and no-log mixing (author-supplied, 25 Nov)
+
+Checks are in `code/angular/verify_s15.py`.
+
+| claim | check / comment |
+|---|---|
+| **Finite-harmonic obstruction.** For finitely supported weights w, on large-spin ladders with C/T → x ∈ (0,1): P_w(x) = 3Σw_k D_k²[x^k/(k+3) − x^{k+1}/(k+1)] satisfies ∫₀¹(1−x)P_w = 0. So P_w ≥ 0 forces w = 0. The endpoint weights w_k = 1/D_k give P_w ≡ 1, a telescoping series that converges non-uniformly at x → 1 | **verified** (termwise integrals vanish exactly; telescoping exact). **The slowly decaying endpoint kernel is essential: no smoother certificate exists in this construction** |
+| **Comparable twist.** For T > C, \|a_N\|² ≤ D_N²(C/T)^N\|a₀\|², since (C−y)/(T−y) ≤ C/T. So B_N ≤ ((N+2)(N+3)/6)ΣC\|a₀\|²e^{−N/R}, with R = T/(T−C). If τ ≥ δJ then R = O(1): exponential decay, given a finite endpoint budget (which bounds ΣC\|a₀\|²/3) | **verified** (inequality symbolic; the rest is direct) |
+| **R-tail criterion.** For μ = ΣC\|a₀\|²δ_R: N²∫e^{−N/R}dμ = ∫e^{−u}N²μ((N/u,∞))du, so μ((L,∞)) = o(L⁻²) implies 𝒟 = 0 (dominated convergence, given sup L²μ((L,∞)) < ∞) | **correct** [P] |
+| **Contact.** Korchemsky–Zhiboedov's finite-frequency algebra (eqs. 1.13–1.15) at ω → 0 gives [E₀(n), E_ω(n′)] = ωδ(n,n′)E_ω(n). Hence [E₀(n), E⁽¹⁾(n′)] = iδ(n,n′)E₀(n), which Q(0) = 0 annihilates | consistent with §§12–13. It assumes their algebra holds and that no relevant light scalars appear (an extra restriction). **Citation to be checked** |
+| **No-log mixing.** With D_ε = E_*I + εV, r^{D_ε} = r^{E_*}[I + εV log r + …]. First-order factorised correlators of single-trace products have no radial logs if constituent dimensions do not shift at first order, so V = 0. With the kernel zero, \|a_{[TT]}\|² = O(1/c_T) | plausible [D]; trace-changing directions are still to be verified |
+
+**Remaining spectral target, now narrow.** Σ_{τ ≳ √J, T/(T−C) > L} C\|a₀\|² = o(L⁻²). The bounded-twist, subcritical-twist (§14) and comparable-twist sectors are all done.
