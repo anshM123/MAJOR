@@ -653,3 +653,22 @@ No large-Δ, large-J or large-ν approximation is used.
 L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000 the rectangle edge b̂ = 282.84 is **L ≈ 0.0199**; L = 10 ↔ b̂ ≈ 2.96·10⁵ (coordinator recomputed). The coordinator's "L ≈ −4" in the §38 summary was wrong.
 
 **The open band** is therefore L ∈ (≈0.02, L_signed), where L_signed is the signed estimate's threshold (64 now; CONTOUR_BOUNDS pending). Tightening the contour threshold alone cannot close it: a separate moderate-impact estimate is required.
+
+## 40. Full-tail positivity for L ≥ 28, including all connection terms and k = 3 (author-supplied, 26 Nov; to reproduce)
+
+**Claims.**
+* *Off-axis bounds.* With the cancellation between Gaussian families kept: \|f(t+¾i)\| < 4.1 (old: 10⁷), and a vertical-segment table rising from 13 to 2.7·10¹³; the horizontal integral is < 10²¹ (old: 4·10³¹). The CONTOUR_BOUNDS agent is computing the same independently.
+* *Connection terms, j < 600.* Integration by parts in the beta formula, S_b(α−j) = ((−1)^jΓ(N+1+α−j)/(Γ(N+1)Γ(α)))∫q^{α−1}∂_q^j[(1−q)^aK(q)]dq, plus the differentiated-kernel bound \|∂^j[(1−q)^aK]\| ≤ 2(2a+j)^j\|1−q\|^{a−j}\|1+q\|^{−a}, give a collective bound on terms j = 1…599.
+* *Connection terms, j ≥ 600.* A localisation theorem: if \|F(z)\| ≤ K\|1−z\|^m (1 ≤ m ≤ 597), then \|ℒ(F)\| ≤ 50K(4w)^m. So the e^{9400}-size remainder is multiplied by (4w)^{595} < e^{−6400·…} at L ≥ 28.
+* *k = 3.* Fully included: \|H_ang^{(3)}\| < 4·10⁵ w√w < 0.529·𝓜(L).
+* **Result.** H_ang,b > 0.45·𝓜(L) > 0 for L ≥ 28, i.e. b̂ ≳ 2.4·10⁹, every spin and mass, both channels. The k = 2 error budget at L = 28 is < 0.0035·𝓜.
+* *Centred-Taylor bridge.* For the middle region, expand about z_c = ρμ, ρ = n/(n+a), μ = (n+2b+1)/(n+a+2b+1). Monomials transform exactly: ℒ((z−z_c)^ℓ) = Σ_k C(ℓ,k)(−z_c)^{ℓ−k}U_{b,k} (linearity). The remainder is bounded through centred beta moments. A uniform bound M on the Taylor remainder over the region is still open.
+
+**Coverage at gap 1000.**
+* *Certified:*
+  * J ≤ 239, every mass;
+  * J ≥ 240 with b̂ ≤ 100;
+  * J ≥ 420 with b̂ ≤ 282.84;
+  * J ≥ 651 with b̂ ≤ 400 (L ≈ 0.0393).
+* *Derived (to reproduce):* L ≥ 28 (b̂ ≳ 2.4·10⁹).
+* ***Open:*** **L ∈ (0.039, 28)**, i.e. 400 ≲ b̂ ≲ 2.4·10⁹, at large spin.
