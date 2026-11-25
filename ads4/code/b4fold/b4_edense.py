@@ -86,6 +86,26 @@ def do_map(J):
 def do_gamma(J):
     sys.path.insert(0, E2)
     import e2_gamma as G               # read-only import; e2_guard / er_guard resolve to b4_guard
+    EB = G.EB
+    _joint = EB.joint
+
+    def joint_multi(Es):
+        """e2_basis.joint's start heuristic picks node pairs by index; on the merged (external + dense) J = 50 set it lands in a worse
+        optimum (median off/||C|| 5.5e-3 vs 3.2e-4 on the external nodes alone).  Same fit, restarted from several node subsets (all,
+        every 2nd/3rd, each half); the U, V with the smallest median off-diagonal over ALL nodes is kept (diagnostic in edense/joint_J<J>.txt)."""
+        n = len(Es); subs = [list(range(n)), list(range(0, n, 2)), list(range(1, n, 2)), list(range(0, n, 3)), list(range(n//2)), list(range(n//2, n))]
+        best = None; log = []
+        for sb in subs:
+            try:
+                U, V = _joint([Es[i] for i in sb])
+            except Exception as e:                    # noqa: BLE001
+                log.append(f'subset {len(sb)}: failed {e}'); continue
+            med = float(np.median(EB.offrel(Es, U, V))); log.append(f'subset of {len(sb)} nodes: median off/||C|| over all {n}: {med:.2e}')
+            if best is None or med < best[0]:
+                best = (med, U, V)
+        open(os.path.join(OUT, 'joint_J%d.txt' % J), 'a').write('\n'.join(log) + '\n')
+        return best[1], best[2]
+    EB.joint = joint_multi
     res = {}
     for tag, sub, KB in (('dense', 'pts', 6), ('grid025', 'pts025', 6), ('dense_spl', 'pts', -1), ('grid025_spl', 'pts025', -1)):
         od = os.path.join(OUT, tag); os.makedirs(od, exist_ok=True)

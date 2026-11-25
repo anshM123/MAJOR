@@ -846,6 +846,10 @@ A chain carries the grade of its weakest link.
 > * **Remaining [DV].** The structure count (literature; J ≤ 30) and the all-m helicity norm (J ≤ 30).
 > * **Supplement.** The text is pasted as Sec. "The finite-c_T spectral estimate".
 
+> **Update (BATCH4_FOLD.md, 26 Nov): batch 4 folded at Δ_g = 2000, and pasted into the supplement and letter (v16e).**
+> * **Coverage.** 22 spins are computed. 17 are sign-free [NE±] at every computed mass (J = 0, 2, 4–13, 16, 20, 21, 23, 27); J = 14, 15, 17, 19 are λ-level only; J = 29's twist edge and hybrid minimum remain [NE+M] (L = 0.71, 0.77). Direct minus K₂ is −0.0003 to +0.026. No state is negative.
+> * **J = 46/50 ++ EDGE-R warning: aliasing.** On a dense grid the values are 0.64 (J = 46) and 1.11 (J = 50, 17/20 nodes), against tolerances 2.05 and 2.57. These entries are not yet closed, because the 3σ MC error still exceeds the tolerance.
+
 ## 1. Setup and normalisations
 
 | item | definition |

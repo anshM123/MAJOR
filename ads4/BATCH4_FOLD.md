@@ -1,10 +1,11 @@
 # BATCH4_FOLD: the batch-4 external direct rows folded into the Δ_g = 2000 near-gap budgets (J = 12, 16, 21, 27, 29; seam J = 20, 23)
 
-*25 Nov 2026, batch-4 fold agent. Unreviewed, not committed. No existing file was edited; `prl/` was only read (§6 gives the replacement
+*25 Nov 2026, batch-4 fold agent. Unreviewed, not committed by this agent (other agents' snapshot commits, e.g. f47e8fe / b828d77, swept in
+intermediate versions of this file and of `code/b4fold/`; the working tree holds the final ones). No existing file was edited; `prl/` was only read (§6 gives the replacement
 texts for the `% BATCH4` markers, to paste by hand). `LADDER_ALLJ.md` / `code/ladder/` were not touched.*
 * *New code:* `ads4/code/b4fold/` (write guard `b4_guard.py`: every write outside `b4fold/cache/` raises). *Caches:* `b4fold/cache/`, with a
   `.gitignore` that ignores everything but itself.
-* *Compute:* ≈ 1.5 CPU-h for the fold, ≈ 3.5 CPU-h for the optional dense-grid recheck (§5), at most two computing processes, `ulimit -v 3000000`, one thread, no bytecode written.
+* *Compute:* ≈ 1.5 CPU-h for the fold, ≈ 3 CPU-h for the optional dense-grid recheck (§5), at most two computing processes, `ulimit -v 3000000`, one thread, no bytecode written.
 * *Input:* `ext/results/ext_results_batch4.json` (3380 records; the 690 batch-4 records `N4_*`, `N4S_*` were decoded with `ext/unpack.dec`
   into `b4fold/cache/unpacked/`, the rest of the file — earlier batches — was not used). **All 345 jobs (247 main + 98 seam) are present.**
 
@@ -190,15 +191,24 @@ tolerance, from a K = 6 shape fit of a bulk on the 0.025 grid, which at J ≥ 46
 |---|---|---|---|---|---|
 | (46, 1.045) | ++ | 4.01 (−3.86; −0.15) ± 3.23 / 3.87; 2.38 / 3.35 | **0.64** (−0.55; −0.09) ± 1.99 / 1.60; 1.76 / 2.18 | 0.84 (−0.69; −0.15) | 2.05 |
 | (46, 1.045) | +− | 32.2 (+0.48; −31.7) ± 19.4 / 83.7; 17.7 / 36.7 | 43.1 (+16.6; −26.6) ± 10.6 / 9.1; 8.7 / 5.9 | 58.7 | 2.05 |
-| (50, 1.049) | ++ | 6.60 (+6.57; +0.03) ± 6.91 / 2.39 (EDGE_R2) | J = 50 dense nodes still running at hand-back (`cache/lane_E1.log`, `lane_E2.log`; `b4_edense.py map 50; gamma 50` completes it) | — | 2.57 |
+| (50, 1.049) | ++ | 6.60 (+6.57; +0.03) ± 3.33 / 1.31; 3.58 / 1.08 | **1.11** (+1.01; +0.10) ± 2.50 / 0.21; 2.30 / 0.43 (17 of 20 mid-points) | 2.33 (+1.81; +0.52) | 2.57 |
+| (50, 1.049) | +− | 16.8 (+15.5; −1.30) ± 11.7 / 32.3; 12.2 / 19.2 | 52.3 (+25.6; −26.7) ± 12.4 / 53.0; 11.2 / 37.1 | 135.7 | 2.57 |
 **Verdict.**
 * **(46, 1.045Λ), ++: the warning was aliasing.** On the dense grid the ++ central value is 0.64 S_E,t = 0.31 × the tolerance (was 2.0 ×);
   the dense K = 6 fit and a natural spline through the dense nodes agree (0.64 / 0.84), while on the 0.025 grid both gave ≈ 3.8–4.0. The
   bulk part of D₂ falls from −4.13 to −0.82. The entry is **not closed**: its 3σ MC (1.99 + 1.76) and representation (1.60 + 2.18) terms
   still exceed the tolerance; closing it needs M + 2 or more seeds on the bulk (MC) — the representation term halved with the dense grid.
   Grade of the ++ entry: [NE] central value below tolerance, budget OPEN (was: central value 2.0 × tolerance).
-* The +− entry (the binding one, EDGE_R2) stays OPEN; its MC and representation terms shrink ×2 and ×9 with the dense grid, its central
-  value moves (+0.48 → +16.6 in D₂), i.e. it was not resolved on the 0.025 grid either.
+* **(50, 1.049Λ), ++: likewise aliasing.** With 17 of the 20 mid-points (0.6875, 0.7375, 0.7875 were not finished when the run was stopped for
+  time; they are resumable from `cache/loc`) the ++ central value is 1.11 S_E,t = 0.43 × the tolerance (K = 6) or 2.33 = 0.91 × (spline),
+  against 6.60 = 2.6 × on the 0.025 grid. Budget still OPEN (3σ MC 2.5 + 2.3). The J = 50 merged set needed a restart of e2_basis' joint
+  diagonalisation (its start heuristic landed in a worse optimum, median off/‖C‖ 5.5·10⁻³, which dropped every edge node through the 2 %
+  off-diagonal rule); `b4_edense` restarts the same fit from six node subsets and keeps the best (J = 46 reproduced to every digit;
+  the 0.025-grid runs reproduce EDGE_R2's numbers in both cases).
+* So **EDGE_R2's ‡ warning is withdrawn as a warning about the central value**: on a 0.0125 grid neither ++ central value exceeds its
+  tolerance. It is not replaced by a closure (MC-limited).
+* The +− entry (the binding one, EDGE_R2) stays OPEN at both states; its central value moves a lot with the grid (J = 46: 32 → 43;
+  J = 50: 17 → 52 S_E,t, spline 59 / 136), i.e. it is not resolved on either grid — far above tolerance in every variant.
 
 ## 6. Replacement texts for the `% BATCH4` markers
 Line numbers refer to the current `prl/supplement.tex` / `prl/letter.tex`. Every `% BATCH4` comment line is deleted together with its replacement.
