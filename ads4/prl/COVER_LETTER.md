@@ -38,12 +38,18 @@ Every number is reproducible. The functional weights are published as exact rati
 constant from them, and an independent check rebuilt the key reductions from the written statements alone. Data and code are
 available at [URL].
 
-We believe the Letter suits *Physical Review Letters* because it turns a qualitative expectation that is central to holography
-into explicit inequalities: to our knowledge, the first bounds with explicit constants on the graviton cubic couplings and on an
-R⁴ coefficient derived from ⟨TTTT⟩ in AdS₄/CFT₃. It should interest readers in holography and quantum gravity, string theory (the R⁴ coefficient and the
-ABJM check), the conformal bootstrap and analytic S-matrix programmes (dispersive and light-ray sum rules), and the study of
-causality and positivity constraints on gravitational effective field theories and energy correlators. The main text is written
-for this broad readership; the technical detail is in the Supplemental Material.
+**Why *Physical Review Letters*.** That a large gap forces Einstein gravity is one of the load-bearing beams of holography, and until now
+it has been a statement about exponents. This Letter turns it into a number. Under assumptions we state once, in any
+three-dimensional holographic CFT with a higher-spin gap of 1000 the graviton's cubic couplings deviate from Einstein gravity by at
+most 2.9 × 10⁻⁸; equivalently, the energy flux of the stress tensor is isotropic to one part in 10⁸, where causality alone allows
+order one. The first stringy correction is capped too, with ABJM theory inside the cap. The positivity that drives such bounds has
+long been the soft spot of bootstrap arguments in anti-de Sitter space. Here it is proved at leading Regge order, with a
+computer-certified margin of 20% on every heavy state at every gap above 300, and independently reproduced. Separately, we show
+that the algebra of energy detectors alone, meaning conservation, conformal symmetry and causality, gives a two-percent bound at
+every spin, reducing what remains to a single light-ray identity. The results answer, with numbers, how much of Einstein gravity
+quantum mechanics and causality force on a holographic theory. That question matters across holography and quantum gravity, the
+conformal and S-matrix bootstraps, string theory, and the fast-growing study of energy correlators. The main text is written for that
+broad readership; the technical detail is in the Supplemental Material.
 
 The manuscript is not published or under consideration for publication elsewhere. It has been posted to the arXiv as
 arXiv:[XXXX.XXXXX]. As stated in the acknowledgments, an AI system (Claude) assisted with the formulation and drafting of the
