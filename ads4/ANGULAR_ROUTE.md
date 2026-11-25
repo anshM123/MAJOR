@@ -212,3 +212,17 @@ Coordinator checks are in `code/angular/verify_s10.py`.
 2. **The endpoint sum rule:** normalisation and contact matching (higher-derivative contacts).
 3. **Fixed-window planar suppression** of multi-trace transition weights.
 4. **The coincident-direction contact term** in [E₄, E₋₄].
+
+## 11. Weaker spectral-convergence condition (author-supplied, 25 Nov)
+
+**Theorem (twist ≥ 2 sector).**
+* *Hypotheses:* the ladder holds (§8) and the normalised ANEC harmonics are bounded, Σ_O\|a_{O,b,N}\|² ≤ 1.
+* *Statement:* if Σ_{O,b}C^{3/2}\|a₀\|² < ∞, then Σ_{O,b}C\|a_N\|² = o(N⁴), hence B_N → 0 (§10, using X_N ≤ C and q_{N+2}/(N+1) = 1/(D_N(N+1)) ~ 6/N⁴).
+* *Corollary:* with §10's coercivity, it suffices that Σ(\|(Aa)₀\|² + \|(Aa)₁\|²)/√(1+C) < ∞.
+
+**Coordinator check of the proof [P]:**
+* T ≥ C, so each ladder ratio is ≤ ((k+4)/(k+1))². The product gives \|a_N\|² ≤ D_N²\|a₀\|², with D_N = (N+1)(N+2)(N+3)/6.
+* Split at J = εN². Below the split, C ≤ ε²N⁴(1 + O(N⁻²)) and the ANEC bound give ≤ ε²N⁴. Above it, C\|a₀\|² ≤ C^{3/2}\|a₀\|²/(εN²), so the region contributes ≤ (D_N²/(εN²))·(tail of a convergent sum) = o(N⁴).
+* Then ε → 0. The corollary follows from C²\|a₀\|² ≤ (25/4)(\|(Aa)₀\|² + \|(Aa)₁\|²). **Correct.**
+
+**Effect.** The unweighted first-moment norm is no longer needed. The open physical input is now a spin-weighted moment of the zeroth-harmonic (endpoint) amplitudes, Σ C^{3/2}\|a₀\|² < ∞.
