@@ -302,3 +302,24 @@ Checks are in `code/angular/verify_s15.py`.
 | **No-log mixing.** With D_ε = E_*I + εV, r^{D_ε} = r^{E_*}[I + εV log r + …]. First-order factorised correlators of single-trace products have no radial logs if constituent dimensions do not shift at first order, so V = 0. With the kernel zero, \|a_{[TT]}\|² = O(1/c_T) | plausible [D]; trace-changing directions are still to be verified |
 
 **Remaining spectral target, now narrow.** Σ_{τ ≳ √J, T/(T−C) > L} C\|a₀\|² = o(L⁻²). The bounded-twist, subcritical-twist (§14) and comparable-twist sectors are all done.
+
+## 16. The intermediate band as an exact Tauberian problem (author-supplied, 25–26 Nov)
+
+**Setting.**
+* *Band:* τ ≥ κ√J and τ/J → 0. Here R = T/(T−C) ≍ J/(2τ), so J ≳ R².
+* *Measure:* dμ(R) = ΣC\|a₀\|²δ_R.
+* *Boundary:* B_N = ((N+2)(N+3)/6)ΣC\|a₀\|²𝓡_N, with 𝓡_N = (X_N/C)∏_{k<N}(C−s(s+1))/(T−s(s+1)), where s = b + k.
+
+**Claims.**
+* 𝓡_N = e^{−N/R}(1 + O(1/N)) uniformly for R/N in compacts.
+* B_N → 0 ⇔ μ((L,∞)) = o(L⁻²).
+* L²μ((L,∞)) ≲_κ B_{⌊L⌋}.
+* If the finite-cutoff commutator gives a finite defect 𝒟, then L²μ((L,∞)) → 3𝒟.
+
+**Coordinator check [P].**
+* **Uniform asymptotics.** ∏(C/T) = (1 − 1/R)^N = e^{−N/R}(1 + O(N/R²)). The finite-s corrections total ~Σs²/(RC) ~ N³/(RJ²) ≲ N²/J², which is negligible since J ≳ R² ~ N². X_N/C = 1 − O(N²/J²).
+* **Necessity.** For R ≥ N, 𝓡_N ≥ e⁻¹(1 − o(1)). Then B_N ≥ (N²/6)·c·μ((N,∞)).
+* **Factor 3.** B_N ≈ (N²/6)∫e^{−N/R}dμ = (N²/6)∫e^{−u}μ((N/u,∞))du. With tail A/L², ∫e^{−u}Au²/N²du = 2A/N², so B_N → A/3. Hence A = 3𝒟 (verified symbolically).
+* **Reading.** The last spectral question is now sharp: exclude a critical L⁻² tail, ~3𝒟/L², of the spin-weighted endpoint measure in the intermediate band.
+
+**Order of limits (author).** Establish the spectral identity in each exact finite-c_T CFT (where J₀ ≤ 1 < 2), and only then take c_T → ∞. This is consistent with the coordinator's §12 note; the matching agent is checking the M2 analogue.
