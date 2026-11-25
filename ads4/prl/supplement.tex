@@ -125,8 +125,7 @@ closed-form H17 value [D], arithmetic [certified]. The energy-flux statement is 
 quoted kinematics [Q] checked [DV]. The light single traces' ``step we sketch'' is row LS4 ([D given (E$'$)], (E$'$) [D-sketch]).
 ``Separate code reproduces every constant'' is Sec.~\ref{sec:repro}. Item (3) and the paragraph ``Without assumption (iii)'' are
 Sec.~\ref{sec:angular}: the ladder, first-moment and telescoping algebra [P] given the special conformal Ward identity and
-light-transform conservation as operator identities (ladder checked exactly for $J\le40$; the all-$m$ helicity norm [DV] for
-$J\le30$); the spectral exchange ($\mathcal D=0$) [P] given unitarity, reflection positivity, OPE convergence and the count of
+light-transform conservation as operator identities (ladder checked exactly for $J\le40$; the all-$m$ helicity norm [Q], Ref.~\cite{GilliozSpinors}, Eqs.~(2.37)--(2.38)); the spectral exchange ($\mathcal D=0$) [P] given unitarity, reflection positivity, OPE convergence and the count of
 conserved structures; $\mathcal L_g\to0$ [D] from planar factorisation; the contact term [D] given the finite-frequency light-ray
 algebra and no scalar with $\Delta\le1$; light-cone convergence of the mixed commutator is an input (Ref.~[KKSDZ], Eq.~(4.66), where it
 is not proved). ``At $\Delta_g=300$ positivity on near-gap states of large spin is an open hypothesis'' is the window of $H_{\rm
@@ -948,8 +947,8 @@ Sec.~\ref{sec:grades}): on $K_2$ rows, i.e.\ by the saddle-point (Laplace) serie
 direct quasi-Monte-Carlo nodes, and at small $\nu$ by an analytic $1/\Delta$ expansion of the same integrals. Per spin, the rows are
 interpolated in mass near the gap (the chain); elsewhere the hybrid model is used. For $J=7$ and $9$--$32$ at $\Delta_g=1000$, direct rows
 at the state's own mass replace the Laplace series, so no truncation term enters there; for $J=21$, $23$, $25$, $27$, $29$, $31$ the
-light-cone edges are integrated by Gauss--Kronrod quadrature of direct nodes, with no interpolation. Values so obtained are [NE\,+\,M];
-where every model term is multiplied by $3$ and counted sign-free and the conclusion survives (the error budget), [NE$\pm$]. An
+light-cone edges are integrated by Gauss--Kronrod quadrature of direct nodes, with no interpolation. Values so obtained are [NE\,+\,M].
+Where the conclusion survives an error budget (every model term multiplied by $3$ and counted sign-free), they are [NE$\pm$]. An
 error budget is not a bound: only the flat floor and the Lemma-C curvature term are bounds; the beyond-Regge
 part of the budget is an estimate with a safety factor.
 
@@ -1496,7 +1495,7 @@ positivity does not by itself give sign-free control.
 \subsection{Coverage at $\Delta_g=1000$}
 \begin{table}[!htbp]
 \caption{\label{tab:coverLS}Status of (Pos) for $\Omega^{EE}$ at $\Delta_g=1000$ by region. Fig.~2 of the Letter draws
-these regions in the $(J,m/\Lambda)$ plane (drawn by the reproduction code, \texttt{reproduce.py} and the scripts it calls).}
+these regions in the $(J,m/\Lambda)$ plane; the figure is made by the reproduction code (\texttt{reproduce.py} and the scripts it calls).}
 \footnotesize
 \begin{ruledtabular}
 \begin{tabular}{L{6.2cm}L{10.2cm}}
@@ -2110,7 +2109,8 @@ $\sum4^\Delta2^{-J}|\lambda_{\rm odd}|^2\lesssim S^{5/2}U^{5/2}$ per shell, henc
 \lesssim S^{-5}U^2$, $\sum_{\tau\ge10}\Delta^2|a_0|^2<\infty$, $\mu((L,\infty))=O(L^{-3})$ ($O(L^{-4})$ in the band),
 $B_N=O(1/N)$ (sharp for this input) and $\mathcal D=0$. The sectors $J=0,2$ close because $F$ grows like $\Delta^0,\Delta,
 \Delta^3,\Delta^2$ (even/odd $J=0$, even/odd $J=2$), giving $\Delta_0^{-3/2}$ per dyadic shell. The ladder ratios rest on
-light-transform conservation and the all-$m$ helicity norms (checked for $J\le30$); everything else is exact for symbolic
+light-transform conservation and the all-$m$ helicity norms of Ref.~\cite{GilliozSpinors} (Eqs.~(2.37)--(2.38), derived there from the
+special conformal Ward identity); everything else is exact for symbolic
 $J$. The symbolic checks are part of the reproduction code (\texttt{reproduce.py} and the scripts it calls).
 
 \section{ABJM consistency check}
