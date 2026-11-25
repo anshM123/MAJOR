@@ -542,3 +542,21 @@ No large-Δ, large-J or large-ν approximation is used.
 | M_{b,k} = D_k²(2Y_k − u_{k−1}L_k) = [(5−2b)k + 5 − b(b−1)]P_k + ((k+1)²/2)(P_{k+1} − P_k); M_{0,k} = 5(k+1)P_k + …, M_{4,k} = −(3k+7)P_k + … | **verified symbolically**, b = 0, 4, k = 1…5 |
 
 **Consequence.** The finite-T correction is a fixed linear combination of P_k and ΔP_k. Only the P_k (the differenced Z moments) need envelopes; no separate Y_k asymptotics are needed. The §29 tail certificate reduces to one coefficient sequence.
+
+## 32. Single-sequence positive representation, forward-strip certificate, cutoff formula (author-supplied, 26 Nov)
+
+| claim | check |
+|---|---|
+| H_ang,b^{(2)} = (1−r)³Σ_{k=0}^{J−b+1}V_{b,k}P_k, with V_{b,k} = U_{b,k}[1 + ((k+3)²/2 − u_{k−1})/T] + (k²/2T)U_{b,k−1} ≥ 0 | **verified exactly** (40 random exact-rational cases, random harmonic sequences; identity and V ≥ 0) |
+| Σ P_k z^k = (2/(Λ(1−z)³))∫E_eff,θ(ν)P_{−1/2+iν}((1+z)/(1−z))dν | consistent with §§25, 29; not re-checked |
+| Forward strip b̂ ≤ 1, J ≥ 27, Δ−J ≥ 1000: Cauchy majorants \|P_k\| ≤ 200s^{−k}, \|D_k²Q_k\| ≤ 120s^{−k} (s = Λ⁻²); tight P₀, P₁, P₂; total error < 0.06N_s, giving H_ang,b > 0.1399N_s,b | not re-checked; needs reproduction |
+| Tail certificate simplified: \|P_k − P_k^*\| ≤ P_k^*/4 and \|D_k²Q_k\| ≤ (k+1)P_k^* for k ≥ K, plus four prefix constants D₀…D₃; then the relative k = 2 error is < 106/a² < 1.1e-4, and the k = 3 error is ≤ 7Λ²(1−r)/(4a²r) | conditional |
+| Asymptotics (repaired weight, A > 0): P_k = ((5/2)_k/k!)[A + B/log(k+2) + O(log log k/log²k)]; D_k²Q_k = ((7/2)_k/k!)[B₃/log(k+2) + …]. So the envelopes hold beyond some finite K | [D]; effective K open |
+| Extreme tail: \|H_flat − H_Bessel\| ≤ 10¹³/b̂² (Jacobi ODE, two integrations by parts) and Weyl ≤ 3·10⁶e^{−3β/2} (β ≥ 100); relative < 1e-8 for β ≥ 100 | not re-checked |
+| Cutoff: w_* = min{sech²(50), (A/4D₀)^{2/5}, (A/4D₁)^{2/11}, (A/4D₂)^{2/9}, (A/D₃)^{2/7}} and β_* = 2 arcosh(w_*^{−1/2}); for 1 − r ≤ w_* the tail certificate applies | formula given; needs certified D_i and K |
+
+**Remaining.**
+* an effective harmonic cutoff K, from certified P_k, Q_k;
+* evaluating w_* and β_*;
+* certifying the finite middle region (J ≥ 27, b̂ > 1, β < β_*), with error O(1/T) by the Cauchy bounds;
+* reproducing the J ≤ 26 and forward-strip certificates.

@@ -35,7 +35,6 @@ def main():
     pr('# (ii) truncated comparison constant (lower bound on K_b(r0)) and H_LR(r0)')
     import ls_core as L
     for b in (0, 4):
-        Lb = FC.ladder(10**9 if b == 0 else 10**9, b, T=1)
         for r0 in (1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 0.1, 0.5):
             best = None
             for r in (r0, r0/2, r0/4):

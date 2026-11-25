@@ -87,13 +87,19 @@ class Action:
 
 
 def bernstein(p, a, b):
-    """Bernstein coefficients of arb_poly p on [a, b]."""
+    """Bernstein coefficients of arb_poly p on [a, b]:  b_i = sum_{j<=i} C(i,j)/C(n,j) c_j,  c = Taylor coefficients of p(a+(b-a)t);
+    computed as b_i = i! [ (sum_j c_j/(C(n,j) j!) t^j) * e^t ]_i  (one arb_poly product)."""
     n = p.degree()
-    # q(t) = p(a + (b-a) t)
     q = p(arb_poly([a, b - a]))
     c = [q[i] if i <= q.degree() else arb(0) for i in range(n + 1)]
-    from math import comb
-    return [sum((arb(comb(i, j))/comb(n, j)*c[j] for j in range(i + 1)), arb(0)) for i in range(n + 1)]
+    fac = [arb(1)]
+    for i in range(1, n + 1):
+        fac.append(fac[-1]*i)
+    # c_j/(C(n,j) j!) = c_j (n-j)!/n!
+    A_ = arb_poly([c[j]*fac[n - j]/fac[n] for j in range(n + 1)])
+    E = arb_poly([1/fac[m] for m in range(n + 1)])
+    prod = A_*E
+    return [prod[i]*fac[i] for i in range(n + 1)]
 
 
 def certify_pos(p, a, b, depth=0, maxdepth=30):
