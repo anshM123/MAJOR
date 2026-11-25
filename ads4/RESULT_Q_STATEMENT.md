@@ -225,6 +225,17 @@ Note: HRS, OG and FH are later than RU and refine three of its items. Each such 
 > * **Consequences:** Result D is √(t₄²+α_T²) ≤ 2.89126·10⁻⁸ (1000) / 3.13206·10⁻⁶ (300), with a symmetric t₄ interval. Result Q's upper end is 92.8135 / 72.0406 with no c₁² term. Referee M5 / RU issue 14 are closed. The whole O(t₄) light term of Ĉ′_EE vanishes, not just the constant, and an O(α_T) constant vanishes too.
 > * **Inherited links:** Ω_OPE = Lemma R on tree terms [D]; the [TT] double zeros at the borderline n = k; and the choice of the EE dual structure (Ω^EE and Ω^Q_up both use EE at k = 2). An independent Lemma-R evaluation of the Witten diagrams and the 2106.00016 cross-check were not done.
 
+> **Update (QBIND_COROLLARY.md, unreviewed):**
+> * **The quartic functional Ω^Q_up's binding states are error-controlled at Δ_g = 1000.**
+>   * The binding state ++ J=0 (m = Λ): +0.14282, lower bound +0.1405, **L = 62 [NE±]** (was [NE+M] given H_RS). Its five direct nodes agree within 1.1σ.
+>   * OO J=0: L = 58.
+>   * ++/OO J=2 channel minimum: L = 114.
+>   * +− J=5 channel minimum: L = 90.
+>   * +− gap states J = 4, 5, 6: [NE±] given K₂ edge rows (L ≥ 71). With strict charging of x > 0.955 they fall to L = 0.4 / 1.2 / 1.1, so **+− J=4 at the gap is [NE+M] under the strict protocol** (a channel minimum at 0.259, not the binding state).
+>   * The largest budget term is the C5 convention (10⁴ c₂ vs measured 10–330 c₂).
+>   * Nothing negative.
+> * **Corollary (energy-flux isotropy) [D from the cubic bound; CDP 1707.03007 kinematics [Q], angular algebra [DV]]:** ⟨𝓔(θ)⟩ = (E/2π)[1 + A cos(4θ−φ)] with **A ≤ τ/4 ≤ 7.23·10⁻⁹** at Δ_g = 1000 (ANEC allows A ≤ 1, saturated by free fields). Equivalently |n_s − n_f| ≤ 7.23·10⁻⁹ c_T and |p_T| ≤ 1.11·10⁻¹⁰ c_T. No κ or light-scalar condition is needed. Literature note: Buchel et al. 0911.4257 eq. (3.8) prints the d=3 constant as 1/8; it should be 1/4.
+
 ## 0. Headline
 
 **Theorem-form statement (conditional).** Assume A1 and A2 at `Δ_g ∈ {300, 1000}`, the analytic inputs of §4, and per-state positivity of the upper

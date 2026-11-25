@@ -24,7 +24,10 @@ Error budget (sign-free; x3 on truncation / interpolation / measured forward ter
   E_OO     (OO states) 0.12 c2 x W_Q(all nodes) + a 2u^3 x 5e-6 / N  (PARITY_ODD_CLOSE §1 (F), RESULT_Q_FWD_CLOSE §2.3)
   E_off    (even J >= 4) the forward off-diagonal |s_off| (measured bound) enters the 2x2 as a 2u^3 |s_off|; included in the matrix
   Base     flat value (polynomial quadrature) and LR curvature (tables); Lemma C bound on the curvature printed separately.
-Usage: python3 qb_bind.py tag J:h:mfl[,mfl...]:sd:dsd[:soff] ...    (h = ++, +-, OO)   -> cache/qb_bind_<tag>.{txt,json}
+Direct n1 nodes (qb_points.py) are injected with QB_INJ="J:D;..." (qb_val's loader wrappers; RQMC-failed nodes, rel. err > 0.2,
+left out as in HIGHSPIN); then E_stat = 3 x jackknife over the 8 replicas, and x_max = the last (direct) node of the own row.
+QB_XCAP=x: variant in which the own row is used only up to x (the rest of the edge sign-free with G_edge).
+Usage: [QB_INJ=...] [QB_XCAP=...] python3 qb_bind.py tag J:h:mfl[,mfl...]:sd:dsd[:soff] ...    (h = ++, +-, OO)   -> cache/qb_bind_<tag>.{txt,json}
 """
 import os, sys, json, pickle, time
 sys.dont_write_bytecode = True
@@ -148,6 +151,35 @@ def gauge_factor(nu):
 
 
 # ---------------------------------------------------------------------------------------------------------------- chain helpers (ng_bind copies)
+INJ = {}                                                # QB_INJ="J:D[,D];J:D": direct n1 nodes of qbind/cache injected (qb_val machinery)
+_V = [None]
+
+
+def setup_inj():
+    spec = os.environ.get('QB_INJ', '')
+    if not spec:
+        return
+    import qb_val as V                                  # installs the loader wrappers (ng_val/hc_chain HC_INJ protocol)
+    _V[0] = V
+    rtol = 0.2
+    _rec0 = V.HN.records
+
+    def _records(kind, J_, D, jk=None, **kw):           # leave out RQMC-failed nodes (HIGHSPIN hs_core.failed_x rule, rtol 0.2)
+        out = _rec0(kind, J_, D, jk, **kw)
+        m = V.HN.mphys(D, J_); bad = set()
+        for kd in ('EE', 'C3H'):
+            for (DD, nu), r in V.HN.pts(kd, J_, D).items():
+                e = float(np.max(np.abs(r['err'])/np.maximum(np.abs(r['E']), 1e-300)))
+                if e > rtol or not np.all(np.isfinite(r['E'])):
+                    bad.add(round(nu/m, 6))
+        return {k: v for k, v in out.items() if round(k[1]/m, 6) not in bad}
+    V.HN.records = _records
+    for part in spec.split(';'):
+        J, Ds = part.split(':')
+        V.INJ[int(J)] = [float(d) for d in Ds.split(',')]
+        INJ[int(J)] = V.INJ[int(J)]
+
+
 def grid_for(J, K, noown):
     NC.NOOWN = noown
     if J % 2:
@@ -268,6 +300,11 @@ def run_state(st, pr, npn=256):
     # own row = the row nearest the state's mass (it is AT the mass for every state run here)
     Ds = sorted(g2); ms = np.array([g2[D]['m'] for D in Ds]); Down = Ds[int(np.argmin(np.abs(ms - m)))]
     own = g2[Down]; x0, xmax = own['xs'][0], own['xs'][-1]
+    XCAP = float(os.environ.get('QB_XCAP', '9'))            # variant: treat x > XCAP as uncovered (sign-free edge window)
+    if xmax > XCAP:
+        keep = own['xs'] <= XCAP + 1e-9
+        xmax = float(own['xs'][keep][-1])
+        own = {k: (np.asarray(v)[keep] if isinstance(v, np.ndarray) and np.shape(v) == np.shape(own['xs']) else v) for k, v in own.items()}
     zero = np.zeros((len(hs), len(hs)))
     lam_hyb, FFh, Nh = lam_matrix(J, mfl, hs, [0.0]*len(hs), zero)               # K = 0 (HYB) value
     lam_sd, _, _ = lam_matrix(J, mfl, hs, sds, zero, st.soff)                    # + measured forward s_d (published level)
@@ -337,7 +374,16 @@ def run_state(st, pr, npn=256):
     if oo:
         allsel = np.ones_like(nu, bool)
         E_OO = errmat(ab, hs, Nh, allsel, 0.12) + AQ*2*u**3*5e-6/Nh[ii]
-    tot = E_trunc + E_interp + E_low + E_edge + E_sd + E_sv + E_C5['XP'] + E_OO
+    E_stat = 0.0
+    if J in INJ:                                         # 3 x jackknife (8 RQMC replicas) of the windowed value, direct nodes
+        V = _V[0]; lj = []
+        for jk in range(8):
+            V.JK[0] = jk
+            gj, _ = grid_for(J, 2, False)
+            lj.append(lam_matrix(J, mfl, hs, sds, dF_of(qdens(J, mfl, model_of(J, gj), npn), ~(lowsel | edsel)), st.soff)[0])
+        V.JK[0] = None
+        lj = np.array(lj); E_stat = 3*float(np.sqrt(7/8*((lj - lj.mean())**2).sum()))
+    tot = E_trunc + E_interp + E_low + E_edge + E_sd + E_sv + E_C5['XP'] + E_OO + E_stat
     tot_w = tot - E_C5['XP'] + E_C5['worst']
     # base
     lc = {h: lemmaC(J, mfl, h, npn) for h in hs}
@@ -349,7 +395,7 @@ def run_state(st, pr, npn=256):
     out = dict(J=J, h=st.hq, mfl=mfl, Down=float(Down), rows=[float(D) for D in Ds], rows_model=sorted(float(D) for D in g0m),
                sd=st.sd, dsd=st.dsd, soff=st.soff, lam_hyb=lam_hyb, lam_sd=lam_sd, lam_model=lamm, lam_K2=lam2, lam_K1=lamK1,
                lam_central=lamc, lam_lin=laml, lam_sub=lsub, E_trunc=E_trunc, E_trunc_lam=E_tl, E_interp=E_interp, E_low=E_low,
-               E_edge=E_edge, G_edge=float(gedge), E_sd=E_sd, E_sv=E_sv, E_C5=E_C5, E_OO=E_OO, E_tot=tot, lower=lamc - tot,
+               E_edge=E_edge, G_edge=float(gedge), E_stat=E_stat, inj=INJ.get(J), E_sd=E_sd, E_sv=E_sv, E_C5=E_C5, E_OO=E_OO, E_tot=tot, lower=lamc - tot,
                L=lamc/tot, E_tot_worstC5=tot_w, L_worstC5=lamc/tot_w, base=base, despike=dsp2, x0=float(x0), xmax=float(xmax),
                dF_K2=dF_of(d2).tolist(), dF_model=dF_of(dm).tolist(), N=Nh.tolist(), FF=FFh.tolist())
     pr(f"  {st.hq} J={J} m/Lam={mfl:.5f} own row {Down:g} (rows {out['rows']}; published {out['rows_model']}): "
@@ -359,7 +405,7 @@ def run_state(st, pr, npn=256):
        + (f"  |s_off| {st.soff}" if n == 2 else ''))
     pr(f"        errors: trunc {E_trunc:.2e}  interp {E_interp:.2e}  low(nu<{max(NU_LOW, x0*m):.0f}, G=1e4 x gauge<= {gf[lowsel].max():.2f}) "
        f"{E_low:.2e}  edge(x>{xmax:.3f}, G={gedge:.2e}) {E_edge:.2e}  s_d {E_sd:.2e}  s_v {E_sv:.2e}  C5(G=1e4, A5=1.80) "
-       f"{E_C5['XP']:.2e}" + (f"  OO {E_OO:.2e}" if oo else '') +
+       f"{E_C5['XP']:.2e}" + (f"  OO {E_OO:.2e}" if oo else '') + (f"  stat(3 jk) {E_stat:.2e}" if J in INJ else '') +
        f"  -> total {tot:.2e}; lower bound {lamc - tot:+.5f}; L = {lamc/tot:.1f}  [worst-gauge C5 (A5=7.66): total {tot_w:.2e}, L = {lamc/tot_w:.1f}]")
     pr(f"        lambda-level K2 truncation 3|K2-K1| = {E_tl:.2e} (node-wise used above: {E_trunc:.2e})")
     for h, b in base.items():
@@ -377,6 +423,7 @@ if __name__ == '__main__':
     def pr(s=""):
         print(s, flush=True); lines.append(s)
     t0 = time.time()
+    setup_inj()
     pr(f"# qb_bind Dg={DG:g} functional {QNAME} (a = {AQ:.4f}, c = {CQc}): per state HYB -> +s_d -> +smeared K2 (own row); error budget")
     res = []
     for spec in sys.argv[2:]:
