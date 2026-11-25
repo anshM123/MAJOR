@@ -831,6 +831,13 @@ A chain carries the grade of its weakest link.
 > * **Low spin.** Odd J = 0 and J = 2 close only because their collinear F grows (Δ, Δ³, Δ²); every sector then contributes Δ^{−3/2} per shell [DV].
 > * **Angular theorem now rests on:** physical ladder and first-moment matching (audited), the contact coefficient (KZ, Δ_φ > 1), fixed-window planar regularity, and KKSZ (4.66) plus existence of the mixed commutator. **§18 assumption 2 is removed.**
 
+> **Update (FREE_NULLPLANE.md, 26 Nov): in the free scalar and Dirac fermion (CFT₃) the null-plane algebra and the angular endpoint rule hold exactly.**
+> * **Contact terms.** [𝓝, 𝓔] equals Córdova–Shao exactly; there is no δ‴, δ″ or Schwinger term (the residual R ≡ 0).
+> * **Limit of I_η.** lim I_η = ½⟨A(f′²)⟩ = 2‖H^{1/2}Aψ‖² − 2Re⟨Aψ, AHψ⟩, holding to 1e-14 in one-particle states and 1e-8 in a T state. The limit is approached monotonically from below. A C¹ cutoff is needed; a sharp cutoff diverges.
+> * **Global charges.** m = 0, ±1 are global charges in any CFT.
+> * **Endpoint rule.** It holds exactly, 3/2 (J₄) + 3/2 (φ² or ψ̄ψ) = 3, which checks the 1/3 and the RHS 3. 𝒟 = 0, and the family bound Σ Δ²\|a_N\|² = (N+3)² is saturated.
+> * **Limitation.** Free theories cannot test interacting [N, A] for \|m\| ≥ 2. That is no longer needed, since 𝒟 = 0 now follows from crossing (ANGULAR_AUDIT).
+
 ## 1. Setup and normalisations
 
 | item | definition |

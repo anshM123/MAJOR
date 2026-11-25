@@ -418,3 +418,10 @@ Checks are in `code/angular/verify_s15.py`.
   4. KKSZ light-cone convergence (4.66) and existence of the mixed commutator.
 
   **The regulated null-plane bound is no longer an assumption.**
+
+## 23. Free-field test (FREE_NULLPLANE.md)
+
+* **Null-plane algebra.** It is exact in the free scalar and Dirac fermion, with no extra contacts.
+* **Correction to §17/§18's quadratic-form statement.** The limit is lim I_η = ½⟨A(f′²)⟩ = 2‖H^{1/2}Aψ‖² − 2Re⟨Aψ, AHψ⟩, i.e. 2‖H^{1/2}Aψ‖² = 2Re⟨Aψ, AHψ⟩ + ½⟨A(f′²)⟩. Consistent with §17.
+* **Endpoint rule.** It holds exactly (3/2 + 3/2 = 3), with 𝒟 = 0. The O(N²) family bound is sharp (saturated).
+* **Cutoffs.** C¹ cutoffs are needed for f_{m,R}.
