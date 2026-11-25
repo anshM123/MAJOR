@@ -1,6 +1,6 @@
-# FULLPOS_CERT: certified angular moments, and every-mass positivity of Ω^EE for J ≤ J1MAX and for all J ≥ 240 at bounded impact parameter (Δ_g = 1000)
+# FULLPOS_CERT: certified angular moments, and every-mass positivity of Ω^EE for J ≤ 766 and for all J ≥ 240 at bounded impact parameter (Δ_g = 1000)
 
-*26 Nov 2026. Research agent, about 5 h. Unreviewed, not committed. No existing file was edited, and nothing under `prl/` was touched.*
+*26 Nov 2026. Research agent, about 3 h wall-clock. Unreviewed, not committed. No existing file was edited, and nothing under `prl/` was touched.*
 * *New code:* `ads4/code/fullpos/`:
   * `fp_common.py` (data, CDH polynomials, ladder data);
   * `fp_moments.py` (certified moments, closed form);
@@ -40,9 +40,9 @@
 
 **Δ_g = 1000: full AdS positivity of Ω^EE (in the form H_ang,b > 0, modulo item 4 and the retained physical identities) is now
 [certified] on the region below; it is not a theorem.**
-* **Certified:** every spin J ≤ J1MAX at every mass; and every spin J ≥ 240 at impact parameter b̂ ≤ 100, extended to b̂ ≤ 282.8 for
+* **Certified:** every spin J ≤ 766 at every mass; and every spin J ≥ 240 at impact parameter b̂ ≤ 100, extended to b̂ ≤ 282.8 for
   J ≥ 420, and to b̂ ≤ 400 for J ≥ 651.
-* **Open:** large spin near the twist edge, J > J1MAX with b̂ above the rectangle reach. There b̂ runs up to ≈ Λ√(2J/Δ_g) → ∞ and
+* **Open:** large spin near the twist edge, J > 766 with b̂ above the rectangle reach. There b̂ runs up to ≈ Λ√(2J/Δ_g) → ∞ and
   r → 1. This region is infinite.
 * **Why the proposed asymptotic routes fail:** the coefficient-envelope / tail route (§§29–33), the comparison constant 𝒦(r₀) and the
   signed-remainder pivot all fail, for one structural reason. The angular moments are exponentially large (a certified plateau
@@ -52,13 +52,13 @@
 
 | region | how | grade |
 |---|---|---|
-| J ≤ J1MAX, every mass m ≥ m_gap(J) | per-J univariate Bernstein certificate in w = Λ²/T (`fp_poly.py`) | **[certified]** |
+| J ≤ 766, every mass m ≥ m_gap(J) | per-J univariate Bernstein certificate in w = Λ²/T (`fp_poly.py`) | **[certified]** |
 | J ≥ 240, b̂ ≤ 100 (x = b̂²/4 ≤ 2500) | bivariate (x, v = (J+½)⁻²) Bernstein certificate, exact denominators, K = 230 harmonics plus a certified tail (`fp_rect.py`) | **[certified]** |
 | J ≥ 420, b̂ ≤ 282.8 (x ≤ 2·10⁴) | the same, K = 410 | **[certified]** |
 | J ≥ 651, b̂ ≤ 400 (x ≤ 4·10⁴) | the same, K = 640 | **[certified]** |
 | J ≥ 240, b̂ ≤ 22 | ⊂ the above. The authors' \|H_ang − H_hyb\| ≤ 0.05 H_hyb is **not** reproduced as such; positivity is | [certified] (positivity) |
 | J ≤ 26, all masses | the authors' \|H_ang/H_hyb − 1\| ≤ 0.01 confirmed on samples: max 4.7·10⁻³, min H_ang/N_s = 0.2009 | [DV] |
-| **open** | J > J1MAX and b̂_rect(J) < b̂ ≤ b̂_max(J) ≈ (2J+1)Λ/√(1996J + 997002), i.e. near-edge masses at large spin, including r → 1 | — |
+| **open** | J ≥ 767 and 400 < b̂ ≤ b̂_max(J) ≈ (2J+1)Λ/√(1996J + 997002) (≈ 965 at J = 767, ~44.7√J), i.e. m_gap ≤ m < 5.0(J+½): near-edge masses at large spin, including r → 1 | — |
 
 | item | result | grade |
 |---|---|---|
@@ -66,14 +66,14 @@
 | profile of the moments | \|Z_k\| grows like (Λ^k/k!)² to k ≈ Λ/2, then an oscillating **plateau**: 10^{672.5} (Δ_g = 1000, k = 550 … 1000) and 10^{198.5} (Δ_g = 300, k = 160 … 300). Prediction: e^{(π/2)Λ} = 10^{681}, 10^{204} | [certified] numbers |
 | **2. Normalisation** | Fixed-r identities I2/I3 to 10⁻³⁹ (I3 with the fixed d = 1 recurrence). Hence H_ang → 2∫ψ₂P + σu∫ψ₃P, i.e. T0's (B₂+cv₂) + (B₃+cv₃) limit, **with relative factor exactly 1**; 9216/4608 = 2 is B₂'s factor 2. Z₀/3 = 2∫ψ₂ = 20.77189… [certified]. Finite-T deviation ∝ 1/T | identities [DV, 40 digits] |
 | finite mass vs hybrid | max \|H_ang − H_hyb\|/N_s = 4.1·10⁻³ on 75 states | [DV] |
-| **3. Fixed J, every mass** | J ≤ J1MAX (Δ_g = 1000) and J ≤ 285 (Δ_g = 300): every channel passes; there are no sign failures. Bivariate extension as in the coverage map | **[certified]** |
+| **3. Fixed J, every mass** | J ≤ 766 (Δ_g = 1000) and J ≤ 285 (Δ_g = 300): every channel passes; there are no sign failures. Bivariate extension as in the coverage map | **[certified]** |
 | **4a. 𝒦_b(r₀)** | ≥ 1.8·10⁷, 7·10¹¹, 1.8·10²⁷, 3.9·10⁸⁴ at r₀ = 10⁻⁶, 10⁻⁴, 10⁻³, 10⁻². It grows like e^{2b̂}, so it is useless beyond b̂ ≈ 20 | [certified] partial sums |
 | **4b. Tail envelopes and r → 1** (§§29–33) | \|P_k − P*_k\| ≤ P*_k/4 holds for **no** k ≤ 1000; \|P_k\|/P*_k ~ 10^{558–680}. The threshold is intrinsic (log K ≳ Λ; §33's K ≈ e^{10⁵}). No explicit R₀ | [certified] numbers + [D] |
 | **4c. Signed remainder in r** (§29 pivot) | Exact rewriting with the same cancellation. The triangle majorant is 6·10¹⁶ / 2.6·10⁶² / 1.9·10¹²¹ (J = 30 / 100 / 200) against a true remainder ~10⁻⁶. **Does not close the middle region** | [certified] numbers |
 | **4d. §34 bivariate route** | **Works.** Reproduced as a positivity certificate and pushed from b̂ ≤ 22 to b̂ ≤ 100 (J ≥ 240), b̂ ≤ 283 (J ≥ 420), b̂ ≤ 400 (J ≥ 651). The denominators are kept exact (multiplied through by Π_K), so nothing degrades as x/λ grows. The real limit is the harmonic truncation K < J₀ − b: b̂_max ≈ 0.7 J₀ | **[certified]** |
 | §31/§32 identities | 2Y_k = ((k+3)²/2)L_k + ((k+4)²/2)L_{k+1}: exact. §32's V-form: exact **only with u_{−1} = (b−1)b at k = 0** (12 for b = 4); with 0 it is 10 % off for b = 4 | [certified] |
 
-**What remains, and the best route.** The open set is near-edge masses at large spin: J > J1MAX, b̂ > b̂_rect.
+**What remains, and the best route.** The open set is near-edge masses at large spin: J > 766, b̂ > b̂_rect.
 
 *Brute-force cost.*
 * Every finite piece is reachable at polynomial cost: moments to k ~ J with ~J/2 + 300 digits, the per-J certificate, and the
@@ -258,7 +258,7 @@ Since H_ang,b = (1−r)³·𝒫·Tⁿ/∏_{j<n}(T−u_j), and the factor is > 0 
 | Δ_g | moments | channels certified | first failure (cause) |
 |---|---|---|---|
 | 1000 | K = 300, 3000 bits | **every physical channel with J ≤ 239** (356 polynomials, ≤ 15 cells each, ≈ 2 s each at J ≈ 240) | J = 240: balls too wide, from moment precision, not a sign |
-| 1000 | K = 1000, 7000 bits | **every physical channel with 240 ≤ J ≤ J1MAX** (617 polynomials for 240–650 plus POLYEXTRA; 15 cells each; 2 s at J = 240, 12 s at J = 650) | none (runs stopped by the time box) |
+| 1000 | K = 1000, 7000 bits | **every physical channel with 240 ≤ J ≤ 766** (791 polynomials: 617 for J = 240–650 and 174 for J = 651–766; 15 cells each; 2 s at J = 240, 12 s at J = 650) | none (runs stopped by the time box) |
 | 300 | K = 300, 3000 bits | **every physical channel with J ≤ 285** (426 polynomials) | J = 286, b = 0: precision |
 
 Further details:
@@ -323,11 +323,11 @@ certified Z_k, Y_k and exact Q_k, k ≤ K. **No denominator is expanded:** the c
   * At Δ_g = 300 the plateau is directly visible in the certified moments: |Z_k| ≈ 10^{198} for k = 200, 250, 300, with sign changes
     and Y/Z changing sign. Compare e^{(π/2)·298.5} = 10^{203.6}.
   * So the envelope can hold only once the k^{−1/2} Fourier decay has eaten e^{(π/2)Λ}/(A + B/log k), i.e. **K ≳ e^{πΛ}·10⁸
-    ≈ 10^{1370}** at Δ_g = 1000 [D, heuristic]. The prefix constants up to such K are ≥ 10^{670} (certified lower bound: the k ≈ 500
+    ≈ 10^{1370}** at Δ_g = 1000 [D, heuristic]. The authors' effective version (§33) needs K ≈ e^{100000}; same conclusion. The prefix constants up to such K are ≥ 10^{670} (certified lower bound: the k ≈ 500
     peak).
 * **Verdict on the tail certificate.** As formulated (|P_k − P*_k| ≤ P*_k/4 for k ≥ K, plus absolute prefix sums), it cannot be made to
   work for the repaired weight. Asymptotically it is true, but its threshold is astronomically far away, and the prefix sums are
-  ≥ 10^{670}, which forces w_* ≤ 10^{−270} even in principle. The Cauchy-majorant inputs of the forward strip do hold for k ≤ 300:
+  ≥ 10^{670}, which forces w_* ≤ 10^{−270} even in principle. The Cauchy-majorant inputs of the forward strip do hold for k ≤ 1000:
   max_k |P_k|/Λ^{2k} = 10^{1.32} ≤ 200 and max_k |D_k²Q_k|/Λ^{2k} = 10^{1.11} ≤ 120 [certified]. I did not reproduce the strip
   argument itself (b̂ ≤ 1, J ≥ 27, error < 0.06 N_s).
 
@@ -396,10 +396,10 @@ again.
 
 ### 4.6 The remaining region (Δ_g = 1000)
 * **Certified (H_ang,b > 0, both channels):**
-  * J ≤ J1MAX at every mass (§3.1);
+  * J ≤ 766 at every mass (§3.1);
   * J ≥ 240 with b̂ ≤ 100, and J ≥ 420 with b̂ ≤ 282.8, b̂ ≤ 400 (J ≥ 651) (§3.2).
-* **Not certified:** J > J1MAX with b̂ between the rectangle reach and the twist edge b̂_max(J) ≈ (2J+1)Λ/√(1996J + 997002), which is
-  ≈ 860 at J = 650 and ≈ 44.7√J for large J. Equivalently, near-edge masses at large spin, including the limit J → ∞ at fixed
+* **Not certified, concretely:** J ≥ 767 with 400 < b̂ ≤ b̂_max(J), i.e. masses m_gap(J) ≤ m < (2J+1)Λ/400 ≈ 5.0(J+½). Here
+  b̂_max(J) ≈ (2J+1)Λ/√(1996J + 997002): ≈ 965 at J = 767, and ≈ 44.7√J for large J. Equivalently, near-edge masses at large spin, including the limit J → ∞ at fixed
   γ = m²/J ≥ 1996 (r → 1).
 * **What does not help:**
   * Region (a), the 𝒦(r₀) majorant, adds nothing beyond b̂ ≈ 20.
@@ -410,7 +410,9 @@ again.
      Every finite J range closes at polynomial cost, but the edge needs an infinite family of rectangles.
   2. For J → ∞ at the edge, an analytic statement is needed: either a per-frequency kernel bound (§4.4), or the §34 Mellin transform with
      its r = 1 boundary term resolved.
-  3. Reproducing the authors' forward strip (b̂ ≤ 1, J ≥ 27) is not needed: it is contained in §3.2 for J ≥ 240 and in §3.1 for J ≤ J1MAX.
+  3. Reproducing the authors' forward strip (b̂ ≤ 1, J ≥ 27) is not needed: it is contained in §3.2 for J ≥ 240 and in §3.1 for J ≤ 766.
+  4. The uncertified bridge-strip scan is in FULLPOS_STRIPSCAN.md. It only reaches L = −log(1−r) ≤ 0.29 (n ≤ 1000); min H_ang/N_s there
+     is 0.893.
 
 ## 5. Reproduce (`ads4/code/fullpos/`; `ulimit -v 3000000; export OMP_NUM_THREADS=1`; ≤ 2 processes)
 
@@ -423,7 +425,8 @@ python3 fp_compare.py 1000 300                      # §2.1-2.2 vs T0 hybrid (la
 python3 fp_ratio.py 1000 300 26 24                  # §2.3 J <= 26 check (~15 min)
 python3 fp_regions.py 1000 300; python3 fp_tail.py 1000 1000 1000; python3 fp_pivot.py 1000 300; python3 fp_kernel.py   # §4
 FP_NGL=1200 FP_CUT=300 FP_QPREC=3300 python3 fp_moments.py 1000 1000 7000      # k <= 1000 moments (20 min) -> moments_1000_K1000.json
-python3 fp_poly.py 1000 1000 240-650                # per-J certificates with the K = 1000 moments (~1 h; 2-15 s per channel)
+python3 fp_poly.py 1000 1000 240-766                # per-J certificates with the K = 1000 moments (~1.5 h; 2-15 s per channel)
+python3 fp_stripscan.py 1000                        # FULLPOS_STRIPSCAN.md (uncertified)
 python3 fp_rect.py 1000 1000 240 121 70 1500        # §3.2 bivariate: J >= 240, bhat <= 22   (2 min, mostly loading)
 python3 fp_rect.py 1000 1000 240 2500 230 2000      #                 J >= 240, bhat <= 100  (5 min)
 python3 fp_rect.py 1000 1000 420 20000 410 2500     #                 J >= 420, bhat <= 283  (5 min)
@@ -456,5 +459,12 @@ python3 fp_rect.py 1000 1000 651 40000 640 3500     #                 J >= 651, 
 4. **K = 1000 moment run settings.** Edge width W = 300, 1200 Gauss–Legendre nodes per panel, and quadrature precision 3300 bits inside
    the 7000-bit run. A first attempt with W = 100 had a 10⁻¹⁶⁰ θ-bound floor and was discarded. The `rel.rad 0.00e+00` entries in
    the log are float underflows (radius < 10⁻³⁰⁸), not zero radii.
-5. **Bivariate certificate.** The self-check line in `fp_rect.py` is evaluated after the tail constant is subtracted. For the passing
+5. **Holomorphy check in `acb.integral` (patched).**
+   * The original runs evaluated log(1+z²) without Arb's `analytic` flag inside `acb.integral` (K₀ and the two log-piece integrals), so
+     the holomorphy check that Arb's error bound requires was not enforced.
+   * Patched (`log(..., analytic=True)`) and re-run, as `moments_*_an.json`.
+   * `fp_contain.py`: **every patched ball is contained in the ball used by the certificates.** That is 2002/2002 for K = 1000, 602/602
+     for K = 300 (Δ_g = 1000) and 602/602 for Δ_g = 300.
+   * Hence all certificates stand as run.
+6. **Bivariate certificate.** The self-check line in `fp_rect.py` is evaluated after the tail constant is subtracted. For the passing
    boxes that constant is ≤ 10⁻⁵³ and invisible.

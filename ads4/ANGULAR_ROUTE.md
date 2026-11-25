@@ -713,3 +713,19 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * **D-profile 200(1+t)^{5/4}e^{a g(t/a)}** (§38 line 636, not re-checked): L ≥ 20.27 for 1%, 19.22 for 10%. §40's ∫\|fBD\| < 10²¹ rests on this profile; the uniform bound gives 2.65·10²⁴.
 * **Bottleneck.** About 99% of the bound comes from the horizontal leg at Y = 9/4. The transform bound D is now the limiting input, not f.
 * **Open.** Prove the complex-exponent D-profile. That is the complex-α version of the §35 singular-power theorem, D = w^α𝒱_b(F_α) − 1 on α = t + 9i/4. Also still open: the other connection terms and k = 3 at the new threshold.
+
+## 44. FULLPOS results (agent; FULLPOS_CERT.md, FULLPOS_STRIPSCAN.md, code/fullpos/)
+
+* **Certified at gap 1000, H_ang,b > 0 in both channels:**
+  * J ≤ 766 at every mass: one Bernstein certificate per J, 1147 polynomials, no failures;
+  * J ≥ 240 with b̂ ≤ 100; J ≥ 420 with b̂ ≤ 282.8; J ≥ 651 with b̂ ≤ 400, all via the §34 (x, v) certificate with exact denominators.
+* **Gap 300.** J ≤ 285 is certified at every mass.
+* **Open.** J ≥ 767 with 400 < b̂ ≤ 44.7√J, i.e. m_gap ≤ m < 5(J+½), including r → 1.
+* **Moments.**
+  * Y_k and Z_k are certified for k ≤ 1000. There is a certified plateau \|Z_k\| ≈ 10^{672.5} ≈ e^{(π/2)Λ}.
+  * The §§29–33 tail envelopes fail for every k ≤ 1000, with an intrinsic threshold. The §29 pivot's triangle bound overshoots by 10^{22} to 10^{127}.
+  * §32 is exact only with u₋₁ = (b−1)b.
+* **Normalisation.** H_ang → T0's limit with factor exactly 1 (the I2/I3 identities hold to 1e-39). On 75 states, \|H_ang − H_hyb\|/N_s ≤ 4.1e-3.
+* **Strip scan (uncertified).** L ≤ 0.29 only, because n ≤ 1000. Min H_ang/N_s = 0.893 over 18 states, and agreement with the hybrid is ≤ 1.3e-4.
+* **Rigour patch.** acb.integral was re-run with the holomorphy flag; every certificate stands.
+* **Agent's suggested route for J → ∞ at the edge.** Bound the finite-mass frequency kernel per ν; it is O(ν²/T) from Legendre, with no exponential sizes. Alternatively, close the §34 Mellin boundary term at r = 1.
