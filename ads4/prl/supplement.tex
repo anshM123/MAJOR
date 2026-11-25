@@ -1497,12 +1497,13 @@ $(\beta,m/\Lambda)$, i.e.\ $J+\tfrac12\propto\Lambda$. $\Gamma$ is the beyond-hy
 correction relative to the flat envelope), $x=\nu/m$, $\xi=\nu/\Delta$. 
 
 \textbf{Summary.} (1) The certified layers hold at every $\Delta_g\ge1000$ [P; certified] (Sec.~\ref{sec:allgap}.B).
-(2) At $\Delta_g=2000$ every near-gap spin $J\le21$ except $18$ and $20$, the parity-odd OO states $J=4$--$10$, and $J=27$, $29$
-were computed on own-mass $K_2$ rows, including the seam strip (two spins also at $5000$); nothing is negative; $J\le11$, $J=13$ and
-the OO states close [NE$\pm$] sign-free, $J=12$, $14$--$17$, $19$, $21$ on the $\lambda$-level budget only, and for $J\le16$ every budget
-term scales like $\Lambda^{-2}$ or faster; $J=27$, $29$ are [NE\,+\,M] at their $2000$ twist edges; $J=18$, $20$, $22$--$26$, $28$,
-$30$--$32$ are not computed at $2000$ (Sec.~\ref{sec:allgap}.C).
-% BATCH4: update summary item (2) when the external direct rows at 2000 are in (J = 27, 29 twist edges; sign-free closure for J >= 12).
+(2) At $\Delta_g=2000$ every near-gap spin $J\le21$ except $18$, $J=23$, $27$, $29$ and the parity-odd OO states $J=4$--$10$
+were computed on own-mass rows, for $J=12$, $16$, $20$, $21$, $23$, $27$, $29$ with direct (Monte Carlo) evaluations of the crystal
+integral, including the seam strip (two spins also at $5000$); nothing is negative; $J\le13$, $J=16$, $20$, $21$, $23$, $27$ and the OO
+states close [NE$\pm$] sign-free at every computed mass, $J=14$, $15$, $17$, $19$ on the $\lambda$-level budget only, and $J=29$ from
+$1.03\Lambda$ on ([NE\,+\,M] at its $2000$ twist edge and hybrid minimum, $L=0.71$, $0.77$); the direct values differ from the $K_2$ values on the
+same rows by at most $0.026$, $\le3\%$ of the $K_2$ truncation charge; for $J\le16$ every budget term scales like $\Lambda^{-2}$ or
+faster; $J=18$, $22$, $24$--$26$, $28$, $30$--$32$ are not computed at $2000$ (Sec.~\ref{sec:allgap}.C).
 (3) Between and beyond the computed gaps the
 transfer rests on a no-growth premise: for $J\le7$ the implication is proved, [P given B$_F$ + windows] with B$_F$ [NE]; for the other
 near-gap states it is [D-sketch given $H_{\rm mono\text{-}A}$], and near-gap large spin is taken in chart B under $H_{\rm mono\text{-}B}$ [M]
@@ -1597,11 +1598,11 @@ $5\times10^4$ for $J=9$--$11$, $13$--$21$, $27$, $29$ and OO $J=10$ (reading (iv
 (in brackets: $L$ on the $\lambda$-level budget). Masses in units of $\Lambda$ of each column's gap; tw$_{\Delta}$ is the twist edge at
 gap $\Delta$ (tw$_{1000}$ is the state graded at $1000$; at the larger gaps it is its chart-A image); ``min'': the hybrid minimum over
 masses at $2000$. The $1000$ column is the graded value of Table~\ref{tab:computed} (for $J\ge7$ from direct rows; ``(model)'': not
-error-budgeted at $1000$); ``---'': below that gap's twist edge, or not computed. OO: parity-odd even-$J$ block. Values at $2000$ for $J\ge9$ and OO are the
-windowed central values of Sec.~\ref{sec:pos} ($\nu<50$ cut and budgeted separately), for $J\le8$ and $12$ the own-row $K_2$ values;
-the two differ by $\le0.001$ for $J\le16$ and by $\le0.03$ at $J=21$--$29$.}
-% BATCH4: the J = 12-29 entries at 2000 are K2-only; external direct rows (ext/jobs_batch4.txt, 247 main jobs for J = 12, 16, 21, 27, 29
-% plus 98 optional seam jobs) replace them. Not run at 2000: J = 18, 20, 22-26, 28, 30-32 (GAP_SEAM2 Sec. 3 has the resume commands).
+error-budgeted at $1000$); ``---'': below that gap's twist edge, or not computed. OO: parity-odd even-$J$ block. Values at $2000$ for $J\ge9$ and OO are the windowed central values of Sec.~\ref{sec:pos} ($\nu<50$ cut and budgeted separately), for
+$J\le8$ the own-row $K_2$ values; the two differ by $\le0.001$ for $J\le16$. For $J=12$, $16$, $20$, $21$, $23$, $27$, $29$ the $2000$
+entries come from direct own rows ($\Delta_{\rm ref}=2\times10^4$; even $J$ repaired into the local structure basis), with the protocol
+of Sec.~\ref{sec:pos} for direct rows (sign-free budget, measured $\times3$ window; odd $J\ge23$ with the direct bulk and the
+Gauss--Kronrod edge); there no bracket is given (no truncation term); mass entries above each $2000$ twist edge hold the own row.}
 \footnotesize
 \begin{ruledtabular}
 \begin{tabular}{rlllll}
@@ -1628,8 +1629,8 @@ $J$ & $m/\Lambda$ & $\Delta_g=1000$ & $2000$ & $5000$ & grade at $2000$\\\hline
 11 & tw$_{2000}=1.0055$ & --- & $+0.3349$ / $2.6$ ($19$) & --- & [NE$\pm$]\\
 11 & tw$_{1000}=1.0110$ & $+0.3485$ / $16$ & $+0.3490$ / $2.6$ ($21$) & --- & [NE$\pm$]\\
 12 & tw$_{5000}=1.0024$ & --- & --- & $+0.2856$ / $3.4$ ($25$) & ([NE$\pm$] at $5000$)\\
-12 & tw$_{2000}=1.0060$ & --- & $+0.4094$ / $0.7$ ($5.4$) & $+0.4086$ / $4.4$ ($31$) & [NE$\pm$] $\lambda$-level\\
-12 & tw$_{1000}=1.0119$ & $+0.8528$ / $7.4$ & $+0.8496$ / $1.1$ ($8.0$) & $+0.8482$ / $6.4$ ($47$) & [NE$\pm$] $\lambda$-level\\
+12 & tw$_{2000}=1.0060$ & --- & $+0.4095$ / $15.9$ & $+0.4086$ / $4.4$ ($31$) & [NE$\pm$]\\
+12 & tw$_{1000}=1.0119$ & $+0.8528$ / $7.4$ & $+0.8499$ / $31.8$ & $+0.8482$ / $6.4$ ($47$) & [NE$\pm$]\\
 13 & tw$_{2000}=1.0065$ & --- & $+0.3027$ / $1.03$ ($7.4$) & --- & [NE$\pm$] (thin)\\
 13 & tw$_{1000}=1.0129$ & $+0.4076$ / $6.8$ & $+0.4084$ / $1.03$ ($9.0$) & --- & [NE$\pm$] (thin)\\
 14 & tw$_{2000}=1.0070$ & --- & $+0.6842$ / $0.5$ ($5.2$) & --- & [NE$\pm$] $\lambda$-level\\
@@ -1637,22 +1638,31 @@ $J$ & $m/\Lambda$ & $\Delta_g=1000$ & $2000$ & $5000$ & grade at $2000$\\\hline
 14 & $1.035$ (min) & (model) & $+0.6992$ / $0.7$ ($10.1$) & --- & [NE$\pm$] $\lambda$-level\\
 15 & tw$_{2000}=1.0075$ & --- & $+0.3659$ / $0.6$ ($5.0$) & --- & [NE$\pm$] $\lambda$-level\\
 15 & tw$_{1000}=1.0149$ & $+0.6943$ / $1.75$ & $+0.6946$ / $0.6$ ($5.9$) & --- & [NE$\pm$] $\lambda$-level\\
-16 & tw$_{2000}=1.0080$ & --- & $+0.9997$ / $0.4$ ($4.1$) & --- & [NE$\pm$] $\lambda$-level\\
-16 & tw$_{1000}=1.0159$ & $+0.9402$ / $4.4$ & $+0.9399$ / $0.4$ ($5.1$) & --- & [NE$\pm$] $\lambda$-level\\
+16 & tw$_{2000}=1.0080$ & --- & $+0.9996$ / $4.7$ & --- & [NE$\pm$]\\
+16 & tw$_{1000}=1.0159$ & $+0.9402$ / $4.4$ & $+0.9448$ / $13.0$ & --- & [NE$\pm$]\\
+16 & $1.025$ (min) & (model) & $+0.7271$ / $27.7$ & --- & [NE$\pm$]\\
 17 & tw$_{2000}=1.0085$ & --- & $+0.5329$ / $0.4$ ($3.3$) & --- & [NE$\pm$] $\lambda$-level\\
 17 & tw$_{1000}=1.0169$ & $+0.999$ (model) & $+1.0000$ / $0.4$ ($4.1$) & --- & [NE$\pm$] $\lambda$-level\\
 19 & tw$_{2000}=1.0095$ & --- & $+0.8552$ / $0.2$ ($1.7$) & --- & [NE$\pm$] $\lambda$-level, thin\\
 19 & tw$_{1000}=1.0188$ & $+0.992$ (model) & $+0.9989$ / $0.2$ ($2.5$) & --- & [NE$\pm$] $\lambda$-level\\
-21 & tw$_{2000}=1.0105$ & --- & $+0.9973$ / $0.1$ ($1.7$) & --- & [NE$\pm$] $\lambda$-level, thin\\
-21 & tw$_{1000}=1.0208$ & $+0.998$ / $1.20$ & $+0.9979$ / $0.2$ ($2.3$) & --- & [NE$\pm$] $\lambda$-level\\
-21 & $1.03$--$1.10$ & $L=1.7$--$6.2$ & ($2.7$--$3.9$) & --- & [NE$\pm$] $\lambda$-level\\
-27 & tw$_{2000}=1.0134$ & --- & $+0.9670$ / $0.06$ ($0.46$) & --- & [NE\,+\,M]\\
-27 & $1.0175$ (min) & --- & $+0.9098$ / $0.07$ ($0.56$) & --- & [NE\,+\,M]\\
-27 & tw$_{1000}=1.0267$ & $+0.976$ / $1.81$ & $+0.9983$ / $0.08$ ($0.77$) & --- & [NE\,+\,M] (to $1.03$)\\
-27 & $1.04$--$1.10$ & $L=2.9$--$3.9$ & ($1.07$--$1.79$) & --- & [NE$\pm$] $\lambda$-level, thin\\
-29 & tw$_{2000}=1.0144$ & --- & $+0.9143$ / $0.05$ ($0.16$) & --- & [NE\,+\,M]\\
-29 & tw$_{1000}=1.0286$ & $+0.972$ / $1.24$ (signed) & $+0.9960$ / $0.06$ ($0.25$) & --- & [NE\,+\,M] (to $1.06$)\\
-29 & $1.075$--$1.10$ & $L=4.3$--$5.7$ & ($1.0$--$1.4$) & --- & [NE$\pm$] $\lambda$-level, thin\\
+20 & tw$_{2000}=1.0100$ & --- & $+0.9651$ / $1.35$ & --- & [NE$\pm$]\\
+20 & $1.015$ (min) & --- & $+0.8179$ / $2.2$ & --- & [NE$\pm$]\\
+20 & tw$_{1000}=1.0198$ & $+0.835$ / $1.41$ & $+0.8948$ / $3.3$ & --- & [NE$\pm$]\\
+21 & tw$_{2000}=1.0105$ & --- & $+1.0118$ / $1.31$ & --- & [NE$\pm$]\\
+21 & tw$_{1000}=1.0208$ & $+0.998$ / $1.20$ & $+1.0101$ / $2.5$ & --- & [NE$\pm$]\\
+21 & $1.03$ (min)--$1.10$ & $L=1.7$--$6.2$ & $+0.8909$ / $4.1$; $L\le28$ & --- & [NE$\pm$]\\
+23 & tw$_{2000}=1.0114$ & --- & $+1.0446$ / $1.41$ & --- & [NE$\pm$]\\
+23 & tw$_{1000}=1.0228$ & $+0.926$ / $1.62$ & $+0.9322$ / $4.2$ & --- & [NE$\pm$]\\
+23 & $1.025$ (min) & --- & $+0.9237$ / $4.9$ & --- & [NE$\pm$]\\
+23 & $1.03$--$1.10$ & $L=2.9$--$6.4$ & $L=6.2$--$27$ & --- & [NE$\pm$]\\
+27 & tw$_{2000}=1.0134$ & --- & $+1.0028$ / $1.20$ & --- & [NE$\pm$]\\
+27 & $1.0175$ (min) & --- & $+0.9443$ / $2.1$ & --- & [NE$\pm$]\\
+27 & tw$_{1000}=1.0267$ & $+0.976$ / $1.81$ & $+1.0365$ / $6.1$ & --- & [NE$\pm$]\\
+27 & $1.03$--$1.10$ & $L=2.9$--$3.9$ (from $1.04$) & $L=8.0$--$19$ & --- & [NE$\pm$]\\
+29 & tw$_{2000}=1.0144$ & --- & $+0.9407$ / $0.71$ & --- & [NE\,+\,M]\\
+29 & $1.015$ (min) & --- & $+0.9404$ / $0.77$ & --- & [NE\,+\,M]\\
+29 & tw$_{1000}=1.0286$ & $+0.972$ / $1.24$ (signed) & $+1.0357$ / $3.1$ & --- & [NE$\pm$]\\
+29 & $1.04$--$1.10$ & $L=4.3$--$5.7$ (from $1.075$) & $L=5.8$--$15$ & --- & [NE$\pm$]\\
 OO 4 & tw$_{2000}=1.0020$ & --- & $+0.2029$ / $106$ ($172$) & --- & [NE$\pm$]\\
 OO 4 & tw$_{1000}=1.0040$ & $+0.2059$ / $22.7$ & $+0.2059$ / $108$ ($175$) & --- & [NE$\pm$]\\
 OO 6 & tw$_{2000}$; tw$_{1000}$ & $+0.3551$ / $8.0$ & $+0.3548$ / $34.8$; $+0.3552$ / $35.5$ & --- & [NE$\pm$]\\
@@ -1746,9 +1756,10 @@ holds: at fixed $(J,x)$, $\Gamma(J,x;m)$ is bounded uniformly in $m$ [M]. This i
 graviton at $J=5$ on seven rows $\Delta=200$--$2005$ ($|\Gamma|\le64\,c_2$, change $\le6\,c_2$ from $1005$ to $2005$), on the rows of
 Table~\ref{tab:gap2000}, and on the exact scalar at $J=26$, $48$ from $1000$ to $5000$, including the light-cone edge $x=0.90$--$0.97$.
 Fitting $\Gamma_m=g_0+g_1/m$ on the $1000$ and $2000$ rows, every $1000$ state with $J\le8$ keeps a margin $\ge+0.07$ on the sign-free
-budget, and with $J\le12$ $\ge+0.38$ on the $\lambda$-level budget, at every larger gap [NE/M]. For $J\ge14$ the sign-free $K_2$ budget
-alone exceeds the margin at $1000$ and $2000$ (at $2000$ only the $\lambda$-level budget closes, Table~\ref{tab:gap2000}), so a sign-free
-transfer needs direct rows there, as at $1000$. % BATCH4
+budget, and with $J\le12$ $\ge+0.38$ on the $\lambda$-level budget, at every larger gap [NE/M]. For $J\ge14$ the sign-free $K_2$ budget alone exceeds the margin at $1000$ and $2000$. With direct rows at $2000$ ($J=12$, $16$, $20$,
+$21$, $23$, $27$, $29$) the sign-free budget closes at every computed mass except the $J=29$ twist edge and hybrid minimum
+(Table~\ref{tab:gap2000}), and the direct values lie within $3\%$ of the $K_2$ truncation charge of the $K_2$ values, so at $2000$ the
+$K_2$ rows are checked directly; beyond $2000$ a sign-free transfer for $J\ge14$ still needs direct rows, as at $1000$.
 
 \emph{Near-gap large spin} [M]. The strip between the $2000$ and $1000$ twist edges has no chart-A counterpart for $J\le344$
 ($424$ at $3000$, $552$ at $5000$). It is taken in chart B under $H_{\rm mono\text{-}B}$: at fixed $(\beta,m/\Lambda)$ the signed
@@ -1847,15 +1858,17 @@ near gap $J=8$ & [NE$\pm$] ($\lambda$-level at $1000$, sign-free at $2000$); tra
 $\Delta_g\ge4.2\times10^5$: as above, scalar data\\
 near gap $J=9$--$11$, $13$; OO $J=4$--$10$ & [NE$\pm$] at $1000$ (direct rows; OO on $K_2$ rows given $H_{\rm OO}$) and sign-free at $2000$
 ($K_2$ only, seam included; $J=13$ thin); transfer [D-sketch given $H_{\rm mono\text{-}A}$]\\
-near gap $J=12$, $14$--$16$ & [NE$\pm$] at $1000$ (direct rows), $\lambda$-level at $2000$ ($K_2$ only, seam included); $J=12$ sign-free at
+near gap $J=12$, $16$ & [NE$\pm$] at $1000$ and sign-free at $2000$ (direct rows, seam included; $L\ge4.7$); $J=12$ sign-free at
 $5000$; transfer as above\\
+near gap $J=14$, $15$ & [NE$\pm$] at $1000$ (direct rows), $\lambda$-level at $2000$ ($K_2$ only, seam included); transfer as above\\
 near gap $J=17$, $19$ & [NE$\pm$] at $1000$ (direct own rows; held above the twist edge), [NE$\pm$] $\lambda$-level at $2000$; transfer as above\\
-near gap $J=21$ & [NE$\pm$] thin at $1000$ (direct rows); $\lambda$-level at $2000$ at every computed mass ($\Delta_{\rm ref}=5\times10^4$);
-transfer as above\\
+near gap $J=20$, $21$ & [NE$\pm$] at $1000$ ($J=21$ thin) and sign-free at $2000$ at every computed mass (direct own rows, seam
+included; $L=1.35$, $1.31$ at the $2000$ twist edges); transfer as above\\
 near gap $J=23$, $27$, $29$, $31$ & at $1000$ as in Table~\ref{tab:coverLS} (direct rows; $29$, $31$ signed at the twist edge);
-at $2000$ $J=27$, $29$ [NE\,+\,M] at the twist edges and at $1.0175\Lambda$ ($J=27$), thin $\lambda$-level from $1.04$/$1.075\Lambda$; $23$, $31$ not computed at $2000$; transfer as above\\
-other near-gap states, $J\le32$ ($J=18$, $20$, $22$, $24$--$26$, $28$, $30$, $32$) & the grade of Table~\ref{tab:coverLS} at $1000$
-([NE$\pm$] for $J=18$, $20$, $25$; [NE\,+\,M] at the twist edges of the even $J\ge22$, partly [NE$\pm$] above), transferred under
+at $2000$ (direct rows) $J=23$, $27$ [NE$\pm$] at every computed mass ($L=1.41$, $1.20$ at the twist edges), $J=29$ [NE\,+\,M] at its
+twist edge and at $1.015\Lambda$ ($L=0.71$, $0.77$) and [NE$\pm$] from $1.03\Lambda$; $31$ not computed at $2000$; transfer as above\\
+other near-gap states, $J\le32$ ($J=18$, $22$, $24$--$26$, $28$, $30$, $32$) & the grade of Table~\ref{tab:coverLS} at $1000$
+([NE$\pm$] for $J=18$, $25$; [NE\,+\,M] at the twist edges of the even $J\ge22$, partly [NE$\pm$] above), transferred under
 $H_{\rm mono\text{-}A}$; no rows at $2000$; seam strip not covered by chart A\\
 near gap above the seam, $33\le J<J_W$ ($\le51$ at $2000$, $\le131$ at $5000$; $J_W\approx26.5\,\Lambda/\Lambda_0$) & no transfer route
 (chart A: EDGE-R transfer $\propto(\Delta_g/J)^2$; chart B: $1000$ images at $J\approx16$--$25$, mostly [NE\,+\,M]); no grade (hypothesis only)\\
@@ -1867,7 +1880,6 @@ $m\ge1.3\Lambda$, $b_A(m)\le b<0.37211\Lambda$ & $H_R'$ [D-sketch\,+\,M], as at 
 \end{tabular}
 \end{ruledtabular}
 \end{table}
-% BATCH4: the rows "J = 12, 14-16", "J = 21", "J = 23, 27, 29, 31" change when the direct rows at 2000 are in.
 
 \emph{Scope.} Positivity at $\Delta_g>1000$ has at most its $1000$ grade and, below $\Delta_1^*$, rests on the no-growth premise (B$_F$ or $H_{\rm mono\text{-}A}$, $H_{\rm mono\text{-}B}$), itself [NE]; the band $33\le J<J_W$ near the gap carries no grade; the large-spin margins assume premise constants carried in AdS units; eventual positivity is certified with graviton amplitudes at $J=0,2$, for $J\le8$, at the certified $\xi$ nodes; the graviton's edge integral is a model premise at every gap; below $\Delta_g=1000$ Sec.~\ref{sec:cor} is a conditional remark; positivity of $\Omega^Q_{\rm up}$ is examined at $300$ and $1000$.
 

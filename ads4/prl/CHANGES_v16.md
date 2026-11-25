@@ -22,3 +22,8 @@
 * **Letter.** New paragraph "Without the positivity assumption.": τ ≤ (160/9)/(Δ_g−2)·[…]^{−1/2} = 0.0178 at 1000, with the inputs named.
 * **Trims for length.** "Large spin" is compressed; the "Larger gaps" transfer sentences are compressed; one sentence about examined states is shortened. Estimated APS length ≈ 3670 (limit 3750).
 * **Supplement.** New section "An argument without positivity: the angular route" (sum rule, exact ingredients, result, crossing proof of 𝒟 = 0, inputs), updated per ANGULAR_AUDIT.
+
+## v16e (26 Nov 2026): batch 4, free-field check, all-J proofs
+* **Batch 4 (BATCH4_FOLD.md).** All `% BATCH4` markers are resolved: supplement summary item (2), Table `tab:gap2000` (J = 12, 16, 20, 21, 23, 27, 29 from direct rows), the *Other near-gap states* paragraph and the coverage-table rows; the letter's "Larger gaps" sentence (22 spins, 7 direct, every computed state closes except the two lightest of J = 29).
+* **Supplement, angular section.** Adds the free-field check (endpoint rule 3/2 + 3/2 = 3 exactly) and a new subsection "The finite-c_T spectral estimate" (ANGULAR_PROOFS: all-J collinear identities, kernel envelopes, two-scale crossing lemma). The duplicate formula statement is replaced by a cross-reference.
+* **Length.** Estimated APS length ≈ 3670.
