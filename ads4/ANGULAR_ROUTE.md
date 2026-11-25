@@ -226,3 +226,25 @@ Coordinator checks are in `code/angular/verify_s10.py`.
 * Then ε → 0. The corollary follows from C²\|a₀\|² ≤ (25/4)(\|(Aa)₀\|² + \|(Aa)₁\|²). **Correct.**
 
 **Effect.** The unweighted first-moment norm is no longer needed. The open physical input is now a spin-weighted moment of the zeroth-harmonic (endpoint) amplitudes, Σ C^{3/2}\|a₀\|² < ∞.
+
+## 12. Endpoint normalisation, contact terms, multi-traces, and the Regge-convergence obstruction (author-supplied, 25 Nov)
+
+Coordinator checks are in `code/angular/verify_s12.py`; everything else is reasoning, with comments.
+
+| claim | check / comment |
+|---|---|
+| **Sharpness of the C^{3/2} condition.** Abstract ladder family J_L = L², Δ_L = L²+L+2, \|a_{L,0}\|² = L⁻⁶ (L = 2ⁿ): ΣC^p\|a₀\|² < ∞ for all p < 3/2, but limsup N⁻⁴ΣC\|a_N\|² ≥ e⁻²/36 | not re-checked; plausible. It makes the exponent 3/2 sharp for ladder + ANEC alone |
+| **Endpoint rule.** With E⁽¹⁾ = −(i/2){H, n·∂_p} + M and M = (i/6)AH, [H₁, E⁽¹⁾₂] = (i/2){H₂, D₂H₁} + [H₁, M₂]. Boost weight 2 gives D₂H₁ = (1+2cos θ)H₁ + sin θ ∂_θH₁. Per harmonic: \|a_m\|²[(1+2cos θ)cos mθ − m sin θ sin mθ] + (1/3)Re(ā(Aa))cos mθ. With q_m: Y₀ = −3, Y₂ = 3/2, Y_{m≠0,±2} = 0 (verified §9); the interior telescopes (verified §9); the stress-tensor term is −3 and the cubic term is absent (Y₄ = 0). So Σ[(T−b(b−1))/3 + 3/2]\|a₀\|² = 3 | derivation consistent with the verified pieces; the 1/3 and the RHS 3 are now derived, not normalised by hand. **Not independently re-derived** (especially the "reduced first moment vanishes within the T family" step) |
+| **[E₄, E₋₄] = 0.** The normalised ANEC is a POVM, 0 ⪯ E(A) ⪯ I. Separated-direction commutativity gives commutativity for disjoint Borel sets (disjoint compacts are separated, then inner regularity). For general A, B, write E(A) = E(A∩B) + E(A∖B) and E(B) = E(A∩B) + E(B∖A); every cross pair is identical or disjoint. So all E(A) commute, and so do their Fourier integrals | **correct** (standard; it needs E to be a genuine bounded POVM on the fixed-energy fibre). This **resolves** the coincidence caveat of §10 |
+| d_k = (Aa)_k/a_k = 3[T−(b+k−1)(b+k)]/(k+3) − 3[C−(b+k)(b+k+1)]/(k+1) on ladders | **verified** (rel. err. 6e-16) |
+| **Contact terms.** Under the C^{3/2} condition, Σ\|d_k\|\|a_k\|² = o(k²), so the Fourier coefficients of the even mixed commutator are o(m²). A distribution supported at coincidence is Σc_rδ^{(2r)} with polynomial-in-m² coefficients, so only c₀δ survives, and Q(0) = 0 kills it | argument plausible (not re-checked in detail). Higher-derivative contacts are then excluded **by the same spectral condition** — no separate classification needed |
+| **Fixed-window multi-traces.** a_{O,m} = √c_T λ_{ttO}K_m(Δ,J) with K_m(Δ_*,J) = 0 at GFF dimensions, γ = O(1/c_T) and λ = O(1), so \|a_{[TT]}\|² = O(1/c_T). Combined with the bounded-twist tail (§10), the whole low-twist fourth-harmonic contribution 𝓛_g(c_T) → 0 | **consistent** with KERNELS_D3 §5.7 double-trace zeros. **Caveat (author):** degenerate multi-trace mixing with γ ~ c_T^{−1/2} would break the Taylor estimate. That needs checking for TT-built multi-traces |
+| **Fractional regularity.** The C^{3/2} condition follows from E₂ψ_T ∈ Dom((K⁰)^{3/4}), via H_c = (P⁰+K⁰)/2 ≥ Δ, dilatation conjugation and spectral Jensen; sufficient: ‖(e^{isK⁰} − I)E₂ψ_T‖² = O(s^{3/2+ε}) | formal reduction plausible; **open** — this is now the central physical estimate |
+| **Regge convergence (KKSZ 1904.05905 §4.6).** Weighted light rays commute in the Regge limit if J₁+J₂ > J₀+3+n+m (author's reading). For T detectors: EE needs J₀ < 3, EE⁽¹⁾ needs J₀ < 2, E⁽¹⁾E⁽¹⁾ needs J₀ < 1 | **coordinator note:** the citation needs checking. If the table is right, the mixed commutator [E, E⁽¹⁾] that this route uses needs only J₀ < 2. The nonperturbative CFT bound J₀ ≤ 1 satisfies it with room; at tree level in 1/c_T the graviton gives J₀ = 2, exactly marginal. So the issue is the order of limits (c_T → ∞ vs Regge). The k=2 Ω^EE also uses a first light-ray moment (the affine weight), and its order-of-limits question (M2) was resolved in the existing record — **that resolution should be checked for transfer to the angular sum rule** |
+
+**Status.**
+* *Derived algebraically:* the endpoint normalisation 3.
+* *Resolved:* the ANEC coincidence.
+* *Reduced to the spectral condition:* the contact terms.
+* *Controlled modulo degenerate mixing:* multi-traces.
+* *Single remaining physical estimate:* ΣC^{3/2}\|a₀\|² < ∞ (or the fractional K⁰ regularity), together with the c_T-vs-Regge order of limits for the mixed commutator.
