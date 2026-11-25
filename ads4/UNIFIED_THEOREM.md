@@ -769,6 +769,12 @@ A chain carries the grade of its weakest link.
 >   * Phase 2 (T1) only on go.
 >   * Cheap extras: the M19 implication-side [D-sketch] links and the M18 A1′ wording.
 
+> **Update (LOWNU_SCOPE.md, ANGULAR_ROUTE.md, 25 Nov; unreviewed): low-ν unconditional functional is partially viable.**
+> * **LF1/LF2 (flat):** the dilation identity is exact [P]. Dilated NF02 is certified flat-positive (margin 3/20) for a ≤ 0.612. A new LP that only needs positivity for u′ ≤ a² gains about 19× and passes a dense check [NE], but is not certified. τ at Δ_g=1000 with K(L): LP 1.56e-4 (a=0.05), 1.11e-5 (a=0.1); dilated NF02 2.9e-3 / 2.1e-4.
+> * **LF3 (AdS remainder): blocked on the contour route.** Prop. D′ is a far-region absolute bound only. The near-region constant is not explicit. The usable ξ_max is ≈ 0.088 at Δ=1000 (≤ 0.118 from polydisc analyticity). The prefactor grows with spin, so J-uniformity fails.
+> * **LF4:** K(L) is exact via the Q₆ identity. The e^{πν}-weighted tail forces L ≲ 0.05–0.06Λ, giving a best estimate of τ ≈ 0.8–1.6e-4. 10⁻⁶ needs Δ_g ≈ 3000.
+> * **Angular route (ANGULAR_ROUTE.md):** the celestial kernels are continuous dual Hahn polynomials (verified exactly), so completely monotone smearing is positive on every harmonic. The decisive check is whether cubic sensitivity survives (the LP's sensitivity comes from a ψ₃ with opposite helicity signs). Heavy positivity remains conditional unless that check or the plane-wave image check succeeds (estimate < 25% by Thursday).
+
 ## 1. Setup and normalisations
 
 | item | definition |
