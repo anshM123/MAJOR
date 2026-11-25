@@ -682,3 +682,19 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 
   These are of order Λ^m, not e^{O(Λ)}. Not re-checked.
 * **Qualification (author).** The bound is local. The beta-contour remainder estimate also needs control of F outside \|z − c\| ≤ R_c/2, and analyticity alone gives no polynomial bound there. **Open.**
+
+## 42. Explicit local remainder, first-moment operator, global obstruction, weighted outer bound (author-supplied, 26 Nov)
+
+* **Inputs (author).** The exponential moments ∫|f|e^{ν/1100} < 28Λ and ∫|ψ₃|e^{Λp/1100} < 33 come from NF02 norms, EPSW_CERT and the Gaussian coefficients. They give sup over |z−c| ≤ R_c of |F₂| ≤ S₂ = 58 d⁻³P_{−1/2}, and of |F₃| ≤ S₃ = 34 d⁻⁴P_{−1/2}. Then M_{i,m} = 2S_i R_c^{−m}.
+* **First-moment operator.** 𝒱_b(F) = ℒ(F + 𝒟_bF/T), with 𝒟_b = z(1−z)/2 ∂² + [(7/2−2b)z + 1/2]∂ + [9/2 − b(b−1)]. The constant M̃₂ is valid for \|z−c\| ≤ R_c/4. Since ℒ(z−c) = 0 (because c = U_{b,1}), the bridge starts at the second centred moment.
+* **Checked here:**
+  * \|QR₋(t−i)\| ≤ 16, exact: it reduces to 0 ≤ 180t² + 621, and the sup is 16 as t → ∞.
+  * The β-disk bound: R_c/(√(c−R_c)(d−R_c)) · 1100 ≤ 0.919 < 1 for all c in [0.038, 1).
+  * The weighted-exponent maximum N·arctan(N/A) − (A/2)log(1 + N²/A²) with A = a + ½, and its bound N²/(2A). The bound follows from g(x) = x·arctan x − ½log(1+x²) with g′ = arctan x ≤ x.
+  * The table matches to all quoted digits: 475.22, 54.50, 0.547, 5.47e-4.
+* **Global obstruction (author).** At J = a = 998, b = 0, the contour samples z = −0.49, where \|F₃\| > e^{1137}. Any unweighted global M must exceed e^{1136}. So absolute-value remainders on the whole contour cannot work at low twist.
+* **Weighted outer bound (author).** K_a\|F_i\| ≤ A_i δ^{−p_i} exp[N_i·arctan s − ((a+½)/2)·log(1+s²)], with (A,p,N) = (22,3,1045) for F₂ and (13,4,999) for F₃. The peak sits at s = N/(a+½), far from the local disk.
+* **Status (coordinator).** Combined local + outer inequality **not closed**:
+  * The outer exponent is ≤ 1 only for a ≳ 5.5×10⁵, ≤ 5 for a ≳ 1.1×10⁵, and ≤ 20 for a ≳ 2.7×10⁴.
+  * At a ≈ 998 to 10⁴ it is e^{475} to e^{54}. This must be beaten by cancellation, consistent with the obstruction above.
+  * The low-twist strip 998 ≤ a ≲ 10⁵, inside 0.039 < L < 28, needs a signed or optimised-contour treatment, or direct certification.

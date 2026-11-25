@@ -1,7 +1,7 @@
 """
 contour/cb_lines.py (CONTOUR_BOUNDS.md §§1-3, 5): certified sup / integral bounds of |f|, |B| and |f B| on the contour pieces of §38.
   short : nu = t + 3i/4, 0 <= t <= 1/4                         (5 panels, 5 subcells each)
-  vert  : nu = 1/4 + iy, 3/4 <= y <= 9/4                         (75 panels of width 0.02, 5 subcells each: 375 cells of width 0.004)
+  vert  : nu = 1/4 + iy, 3/4 <= y <= 9/4                         (120 panels of width 1/80, 200 subcells each: cells of 1/16000)
   horiz Y : nu = t + iY, t >= 1/4, Y in {1, 1.25, 1.5, 1.75, 2, 2.25}: panels to T_END = c_max + 25, analytic tail beyond.
 Method (cb_common.line_panel): Taylor polynomial of order N of f (and B) at the panel centre computed exactly in ball arithmetic
 (power-series arithmetic: the cancellations among the RBF terms happen in the coefficients), truncation by Cauchy with a disc sup
@@ -41,10 +41,10 @@ def run_short(W, pr):
 
 def run_vert(W, pr):
     rows = []
-    N = 32; h = arb(1)/100; rho = 0.2
-    for p in range(75):
+    N = 32; h = arb(1)/160; rho = 0.2          # 120 panels of width 1/80 (aligned with the 1/8 grid), 200 subcells each
+    for p in range(120):
         y0 = arb(3)/4 + (2*p + 1)*h
-        out = K.line_panel(W, acb(arb(1)/4, y0), acb(0, 1), h, rho, N, 5)
+        out = K.line_panel(W, acb(arb(1)/4, y0), acb(0, 1), h, rho, N, 200)
         for r in out:
             r['y0'] = float((y0 + r['s0']).mid()); r['y1'] = float((y0 + r['s1']).mid())
         rows += out

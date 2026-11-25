@@ -37,7 +37,9 @@ class Data:
         self.w = w
         self.short = json.load(open(os.path.join(CACHE, 'cb_short.json')))['summary']
         v = json.load(open(os.path.join(CACHE, 'cb_vert.json')))
-        self.vrows = v['rows']
+        r = v['rows']                                    # merge 40 subcells (max of the sups) for speed: cells of width 1/400
+        self.vrows = [dict(y0=r[i]['y0'], y1=r[i + 39]['y1'], **{k: max(x[k] for x in r[i:i + 40]) for k in ('supf', 'supB', 'supfB')})
+                      for i in range(0, len(r), 40)]
         self.h = {}; self.hprof = {}
         for Y in YS:
             p = os.path.join(CACHE, f'cb_horiz_{Y}.json')
