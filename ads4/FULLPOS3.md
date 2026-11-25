@@ -17,12 +17,18 @@ Grades: **[certified]** Arb balls or exact rationals with every remainder proved
 
 ---
 
-## 1. Coverage extension, per-J certificates 767 ≤ J ≤ 1004 (task 3) [certified, in progress]
+## 1. Coverage extension: per-J certificates 767 ≤ J ≤ 1004 (task 3) [certified]
 
-`fp3_polyext.py` continues FULLPOS2's route D (FULLPOS_CERT's per-J Bernstein certificate, `fullpos/fp_poly.py` imported read-only,
-patched K = 1000 moment balls `moments_1000_K1000_an.json`). FULLPOS2 had done odd J 767–849 (b = 4) and even J 768–810 (b = 0, 4),
-all PASS (`fullpos2/cache/f2_polyext_*`). This run: odd J 851–1003, then even J 812–1004. Log: `fullpos3/cache/polyext.log`,
-results `fullpos3/cache/fp3_polyext_*.txt`. (Status at the end of the document.)
+`fp3_polyext.py` continues FULLPOS2's route D. That is FULLPOS_CERT's per-J Bernstein every-mass certificate (`fullpos/fp_poly.py`,
+imported read-only), run with the patched K = 1000 moment balls `moments_1000_K1000_an.json`.
+* **Earlier runs (FULLPOS2):** odd J 767–849 (b = 4) and even J 768–810 (b = 0, 4), `fullpos2/cache/f2_polyext_*`.
+* **This run:** odd J 851–1003 (b = 4) and even J 812–1004 (b = 0, 4), `fullpos3/cache/fp3_polyext_*`.
+
+**Result: every channel with n = J − b ≤ 1000 PASSES.** There are 0 FAIL lines in the four files, and a script check finds no (J, b) missing.
+Each polynomial needs 15 cells. The smallest Bernstein lower bound is 7.0·10⁻⁴⁵ (J = 1004, b = 4), with a ball radius ~10⁻⁵¹.
+
+**Certified: H_ang,b > 0 at every mass for every J ≤ 1000 (both channels), and for b = 4 up to J = 1004.** This extends FULLPOS_CERT's
+J ≤ 766. Going further needs moments beyond k = 1000.
 
 ---
 
