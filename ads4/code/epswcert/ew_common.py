@@ -114,9 +114,10 @@ def horner(coeffs, z):
 
 # ---------------------------------------------------------------- the published weight
 class Weight:
-    def __init__(self, Dg):
+    def __init__(self, Dg, path=None):
         self.Dg = Dg
-        d = json.load(open(os.path.join(DATA, 'k2', f'k2_continuum_D_{Dg}.json')))
+        self.path = path or os.path.join(DATA, 'k2', f'k2_continuum_D_{Dg}.json')
+        d = json.load(open(self.path))
         assert d['Delta_g'] == Dg
         self.json = d
         self.LAM2 = Fr((Dg - 2)*(Dg - 1))

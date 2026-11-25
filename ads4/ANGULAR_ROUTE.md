@@ -456,3 +456,17 @@ This is exactly §4's N_m/N_J and the ratio used in §8 and KERNELS_D3 §3.3, in
   * *Proposed repair.* δx₀ ≈ −1.297683·10⁻⁷ sets E_eff(0) = 0; an adjustment of the first log coefficient matches E_eff′(0⁺) = 0.18978 to the target ψ′(0⁺) = 0.18918.
   * *Assigned.* The ε_W agent (→ EPSW_CERT.md) is verifying, repairing, recertifying T0 for the repaired weight at all β, and recomputing τ₀/K.
 * **Exact finite-(Δ,J) form (author).** H_b/|a₀|² = Σ_k W_{b,k}(y_k^Ω + z_k^Ω d_{b,k}/6 + σ_b q_k^Ω), a rational function of T at fixed J. This is a route to certifying every mass at fixed spin by polynomial positivity. Physical matching for Ω^EE at finite (Δ,J) is still open.
+
+## 26. Exact finite-mass k = 2 angular coefficients of Ω^EE (author-supplied, 26 Nov)
+
+**Derivation (author).** In the x₀ = ∞ gauge, with δ = ½+iν, the celestial factor is W_δ = e^{δ/2}(e₁e₃)^{−δ/2}, and K_δ(φ) is its integral over the mean detector angle. Integrating I_j(c) = ∫(cos t − c)^j\|cos t − c\|^{−δ}dt by parts gives the exact insertions. Substituting them into K_B2A4 §4's momentum-space EE expression gives:
+* 𝒵 = 12K_δ − 2 sin φ K_δ′;
+* 𝒴 = (6 − (ν²+¼)/2)(1+cos φ)K_δ − 7 sin φ K_δ′.
+
+No large-Δ, large-J or large-ν approximation is used.
+
+**Coordinator check [P] (Fourier algebra).**
+* *Z.* The Fourier coefficients of 𝒵 are 12k_n − (n−1)k_{n−1} + (n+1)k_{n+1}. This is §3's Z_m up to the overall sign convention (raw z < 0).
+* *Y.* 𝒴_n = A k_n + (A/2 − 7(n−1)/2)k_{n−1} + (A/2 + 7(n+1)/2)k_{n+1}, with A = 6 − s/2 and s = ν² + ¼. Using the d = 0, ℓ = 0 recurrence (m+1)²k_{m+1} + (s − 2m²)k_m + (m−1)²k_{m−1} = 0 at m−1, m and m+1, this equals §3's five-term Y_m coefficient by coefficient (k_m: 6−m²; k_{m∓1}: (m∓1)²/2 − s/4 + (13∓7m)/2).
+
+**Significance.** The angular-route coefficients are exactly the k = 2 kernels of the original Ω^EE at finite mass. This is the physical-matching step for the full-positivity route, given the I_j identities and the continuation from −1 < Re δ < 0.

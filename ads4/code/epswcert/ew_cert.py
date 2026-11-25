@@ -18,7 +18,7 @@ Method (nothing sampled):
     f_near to order N at the panel centre (exact series arithmetic), truncation by Cauchy (radius rho, disc sup M by explicit RBF
     bounds x box enclosures), far RBF terms bounded on the disc (F), subcells (5 per panel) by polynomial Taylor shift.
   * (mu_end, oo): explicit Gaussian tail (erfc) and Cauchy for r''.
-Usage: python3 ew_cert.py DG [re|im]     -> cache/ew_cert_<DG>_<part>.{txt,json}
+Usage: python3 ew_cert.py DG [re|im] [pub|<wtag>]    -> cache/ew_cert_<DG>_<part>[_<wtag>].{txt,json}
 """
 import os, sys, json, time
 sys.dont_write_bytecode = True
@@ -201,11 +201,14 @@ def tail(W, mu_end, part):
 
 def main():
     Dg = int(sys.argv[1]); part = sys.argv[2] if len(sys.argv) > 2 else 're'
+    wtag = sys.argv[3] if len(sys.argv) > 3 else 'pub'          # 'pub' = prl/data/k2 (published); else cache/k2_continuum_D_<Dg>_<wtag>.json
+    path = None if wtag == 'pub' else os.path.join(C.CACHE, f'k2_continuum_D_{Dg}_{wtag}.json')
     t0 = time.time()
     lines = []; pr = C.pr_to(lines)
     pr(__doc__.split('Usage')[0])
     assert C.check_kernels()
-    W = C.Weight(Dg)
+    W = C.Weight(Dg, path)
+    pr(f'weight file: {os.path.relpath(W.path, C.ADS4)}')
     if part == 'im':
         d = W.json
         xs = [float(s) for s in d['x_im']]
@@ -273,7 +276,7 @@ def main():
     out = dict(Dg=Dg, part=part, r0_mid=float(r0.mid()), r0_rad=float(r0.rad()), r0_lo=float(r0.lower()), r0_hi=float(r0.upper()),
                r1_lo=float(r1.lower()), r1_hi=float(r1.upper()), epsW=up(eps), D2=up(D2), B=up(Bc), supr=up(supr),
                kappa=float(W.kappa.mid()), Lam=float(W.Lam.mid()))
-    tag = f'{Dg}_{part}'
+    tag = f'{Dg}_{part}' + ('' if wtag == 'pub' else '_' + wtag)
     json.dump(out, open(os.path.join(C.CACHE, f'ew_cert_{tag}.json'), 'w'), indent=1)
     open(os.path.join(C.CACHE, f'ew_cert_{tag}.txt'), 'w').write('\n'.join(lines) + '\n')
 
