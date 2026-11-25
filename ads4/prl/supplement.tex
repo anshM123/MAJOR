@@ -42,6 +42,20 @@ check adds confidence but does not raise the grade); ``[X; DV]'' is X with a num
 is derived from inputs X; ``[D, one step D-sketch]'' is net [D-sketch]. A chain carries the grade of its weakest link, ordered
 [P]\,$=$\,[certified]\,$>$\,[DV]\,$>$\,[D]\,$>$\,[D-sketch]\,$>$\,[NE$\pm$]\,$>$\,[NE]\,$>$\,[NE\,+\,M]\,$>$\,[M]\,$>$\,[A]\,$>$\,[I].
 
+\textbf{Glossary} (labels used mainly in Secs.~\ref{sec:pos}--\ref{sec:allgap}).
+\emph{NF02, Q3$^*$}: names of the flat weights of $\Omega^{EE}$ and of the flat target of $\Omega^Q_{\rm up}$ (Sec.~\ref{sec:defs}.C); their certified flat lower bounds are the \emph{flat floors}.
+\emph{Twist edge}: the lightest heavy state of spin $J$, $\Delta-J=\Delta_g$; tw$_{\Delta}$ is the twist edge at gap $\Delta$, and tw$_{1000}$ at a larger gap is the state with the same $(J,m/\Lambda)$ as the $\Delta_g=1000$ twist edge. \emph{Binding state}: the state with the smallest margin.
+\emph{Hybrid action} (hybrid floor): flat action plus the exact leading-Regge AdS curvature, i.e.\ all beyond-leading-Regge corrections dropped; \emph{hybrid model}: the hybrid action plus a scalar-skeleton estimate of those corrections; $\Gamma$: the beyond-hybrid correction in $c_2$ units.
+\emph{Node, row}: a state's corrections are evaluated at points (nodes) $x=\nu/m$; the nodes at one $(\Delta,J)$ form a row. A \emph{$K_2$ row} evaluates each node by the saddle-point (Laplace) series of the light-ray integral through second order; a \emph{direct row} by direct quasi-Monte-Carlo integration, with no truncation; an \emph{own row} (own-mass row) is computed at the state's own $\Delta$.
+\emph{Chain}: per spin, the interpolation in mass between a few computed rows, used where no own row exists. \emph{Held}: a mass above the twist edge without an own row takes the twist-edge own row's correction (hypothesis $H_{\rm hold}$, Table~\ref{tab:cover}).
+\emph{Error budget, leverage $L$}: the sum of all error terms, every model term multiplied by $3$ and counted sign-free; $L=$ margin$\,\div\,$budget, so $L>1$ means the sign survives the budget (in Table~\ref{tab:cover}, margin$\,\div\,$plausible model error).
+\emph{$\lambda$-level budget}: the same, except that the truncation of the Laplace series is charged as the change of the lowest eigenvalue $\lambda$ under its last order (signed, so cancellations between nodes count) instead of node by node.
+\emph{Window, signed window}: the window is $\nu<50$, charged sign-free (a convention $|\Gamma|\le10^4c_2$ below the lowest measured node, $\times3$ the measured values above it); the signed window integrates the measured values there with their signs.
+\emph{H17}: the $O(\Lambda^{-2})$ part of the light coefficient $K$ from the $|\hat g_3|^2$ light functions, beyond $\delta K_0$ (row L2, item I3).
+\emph{Edge term}: the sign-free charge for the light-cone edge $x\to\Lambda/m$ beyond the last valid node.
+\emph{Reference row}: every $K_2$ or chain row is a ratio to a much heavier reference state at the same $\nu$; a node near a zero of the reference's leading partial wave is unreliable (``reference zero'').
+\emph{Chart A, chart B}: two ways to match a state at gap $\Delta_g$ to one at $\Delta_g=1000$, by equal $(J,m/\Lambda,{\rm helicity})$ (A) or equal $(\beta,m/\Lambda)$, i.e.\ $J+\tfrac12\propto\Lambda$ (B). \emph{Seam}: the near-gap masses between the twist edge at $\Delta_g$ and the chart-A image of the $1000$ twist edge, which have no chart-A counterpart.
+
 \textbf{The Letter's wording.} The Letter's main text carries no grade tags. Its words map to the grades as
 follows: ``we prove'' = [P]; ``certified'' = [certified]; ``we derive'' = [D] or [DV]; ``sketched'', ``we sketch'', ``a step we
 sketch'', ``sketch an argument'' = [D-sketch]; ``with error control'' = [NE$\pm$]; a ``signed estimate of the truncation error'' is
@@ -85,8 +99,8 @@ Table~\ref{tab:allgapU}. ``Twenty-two spins up to $29$, seven of them on direct 
 the two lightest of spin $29$'' is Table~\ref{tab:gap2000}: [NE$\pm$] sign-free for $J\le13$, $16$, $20$, $21$, $23$, $27$ and OO, on the
 $\lambda$-level budget for $J=14$, $15$, $17$, $19$, and [NE\,+\,M] at the $2000$ twist edge and hybrid minimum of $J=29$; ``up to spin
 16 the error budgets shrink like $\Delta_g^{-2}$'' is reading (v) there. The no-growth assumption is B$_F$ (and $H_{\rm
-mono\text{-}A}$), [NE]; its tests at $2000$, $5000$ on own-mass $K_2$ rows are partly structural (chart-A gap independence of those
-rows), and the independent evidence is the exact scalar analogue and the direct rows at $2000$; ``for spins up to 7 we prove that it
+mono\text{-}A}$), [NE]; its tests at $2000$, $5000$ on own-mass $K_2$ rows are partly structural (in chart A those rows are
+gap-independent by construction), and the evidence that does not rest on this is the exact scalar analogue and the direct rows at $2000$; ``for spins up to 7 we prove that it
 suffices'' is the Proposition of Sec.~\ref{sec:allgap}.D, [P given B$_F$ and the window conventions]; ``one near-gap band
 ($33\le J\lesssim0.026\Lambda$) is reached by no transfer'' is the band of Table~\ref{tab:coverGap} [I]; ``a theory with a larger gap
 also has a gap of 1000'' is the Remark of Sec.~\ref{sec:allgap}.A, [D].
@@ -119,12 +133,12 @@ parameter); they are unrelated to Lemma W of Sec.~\ref{sec:Cprime}.
 (Table~\ref{tab:inputs}); (iii) per-state positivity, which the result assumes and for which
 Sec.~\ref{sec:pos} gives the \emph{evidence}. Evidence is never used as an input.
 
-\textbf{Independent checks.} Two analyses are independent reproductions with fresh code
-(Sec.~\ref{sec:repro}); a third reproduced the $EE$-kernel reduction and Lemma Y from the written statements alone, and a second check
-reproduced the de-shift identity, the monopole constant, Lemma LR$_\infty$, the algebra of Theorem W and the $\langle TT\mathcal
-O\rangle$ structure counts. A further independent check reproduced $c_1=0$ (its three local steps with its own free-field code, and
-the pointwise zero) and the direct-row fold of $J=17$--$32$ at $\Delta_g=1000$ ($J=18$ with its own structure-basis repair, $J=23$,
-$25$, and the count). Sec.~\ref{sec:repro} lists the analyses not reproduced independently.
+\textbf{Checks by separate code.} Sec.~\ref{sec:repro} states who performed each check and in what sense it is independent. Separate
+runs, with their own code written from the definitions, reproduced the headline constants; the $EE$-kernel reduction and Lemma Y (from
+the written statements alone); the de-shift identity, the monopole constant, Lemma LR$_\infty$, the algebra of Theorem W and the
+$\langle TT\mathcal O\rangle$ structure counts; and $c_1=0$ (its three local steps with its own free-field code, and the pointwise
+zero). For the direct rows of $J=17$--$32$ at $\Delta_g=1000$ only the structure-basis repair was redone with separate code; the
+values of $J=18$, $23$, $25$, and the count, come from a re-run of our own code. Sec.~\ref{sec:repro} also lists what was not reproduced.
 
 \section{Definitions and published data}
 \label{sec:defs}
@@ -211,10 +225,10 @@ $\hat C_3={\rm Re}[\Psi_{3,\nu}[o_H\,q]/\hat N_3(\nu)]$, $j'=1$, unsubtracted, n
 $\mathcal F=\int\psi_2(2-y)D_h+su\int\psi_3D_h+a(2J(J+1)-c_4+s)u^3-2c_Qu^2$ ($u=m^{-2}$, $y=up^2$,
 $D_{++}=P_J(1-2y)$, $D_{+-}=P^{(0,8)}_{J-4}(1-2y)$, $(s,c_4)=(1,1)$, $(-1,41)$), with
 $A=2\psi_2'(0)=17.240713$, $\kappa=0.109908$, $a=0.169405$, $c_Q=\tfrac12$ (\texttt{c} in the data file), nominal LP margin $\delta=0.2$.
-Q3$^*$ is \texttt{Q3-full-delta0.2} with its weights stated in factored form, $\psi_2=p(1-p)^3X(p)$,
+Q3$^*$ is the stored linear-programming solution with margin $\delta=0.2$ (\texttt{q3\_full\_delta0.2.json}) with its weights stated in factored form, $\psi_2=p(1-p)^3X(p)$,
 $\psi_3=(1-p)^3Y(p)$, $X,Y$ the exact quotients of the stored coefficients (coefficients change by
 $\le1.7\times10^{-8}$; $A$, $\kappa$ unchanged to $10^{-10}$), published as \texttt{q3star\_factored.json} (exact rationals; script
-\texttt{make\_q3star.py}, which reproduces the fingerprint $\texttt{80e0834a}\dots\texttt{33f2}$ used by the certificate). This is definitional: the stored binary weights carry the
+\texttt{make\_q3star.py}, which reproduces the hash $\texttt{80e0834a}\dots\texttt{33f2}$ of these coefficients, by which the flat certificate identifies its input). This is definitional: the stored binary weights carry the
 factor $(1-p)^3$ only to rounding ($\psi_2(1)=1.8\times10^{-11}$), which the backward peak
 $\tilde d^J_{44}(-1)=\binom{J+4}{8}$ amplifies until the flat action is negative at $+-$, $m=M$, $J\ge1990$
 [NE]; Q3$^*$ has minimum $+0.2000$ there. The true flat minimum of Q3$^*$ is $0.1835$ ($++$, $J\approx3600$,
@@ -258,9 +272,9 @@ the definitions; grid files are numerical realisations, and the $k=2$ grids are 
 (Sec.~\ref{sec:cutoff}); the \texttt{*\_trunc.txt} copies, written by \texttt{truncate\_grids.py}, are that reading, and the
 published grids are unchanged. The Q3$^*$ factored coefficients (the definition of $\Omega^Q_{\rm up}$'s
 flat target) are \texttt{q3star\_factored.json}, derived from \texttt{q3\_full\_delta0.2.json} by exact
-polynomial division (Sec.~\ref{sec:defs}). The \texttt{note} field of \texttt{nf02\_psi.json} and the $\varepsilon_W$
-values inside the continuum C4 files are superseded (\texttt{README.md}, errata); the file contents are
-unchanged so that their hashes stay valid.}
+polynomial division (Sec.~\ref{sec:defs}). The \texttt{note} field of \texttt{nf02\_psi.json} (an older flat margin) and the
+$\varepsilon_W$ values stored inside the continuum C4 files (older estimates) are superseded by the values stated in this
+Supplement; the files are left unchanged so that their hashes stay valid.}
 \footnotesize
 \begin{ruledtabular}
 \begin{tabular}{L{4.4cm}L{8.4cm}L{3.2cm}}
@@ -270,7 +284,7 @@ file & content & check\\\hline
 \texttt{q3star\_factored.json} & Q3$^*$: exact $X$, $Y$ of $\psi_2=p(1-p)^3X$, $\psi_3=(1-p)^3Y$; expanded $\psi_{2,3}$; fingerprint & \texttt{f7dbbb8b80876fd5}\\
 \texttt{kernels.json} & EE3 $R_j$ ($j=\pm1,\pm3$), C5 $R_j$ ($j=0,\pm2$), D's $R_\mp$, $q^2$ kernels & \texttt{4562e60af6c39b9b}\\
 \texttt{q\_deshift\_continuum\_}\allowbreak\texttt{c4v/c4d/c5.json} & $k=4,5$ continuum weights: formula, coefficients, $\varepsilon_W$ & \texttt{bedd3a04\dots}, \texttt{baaf3cfc\dots}, \texttt{0a32b28e\dots}\\
-\texttt{q\_deshift\_xp\_*.txt} & Stage-7 grid weights (64 digits), equal to the continuum C4 weights to $10^{-16}$ & ---\\
+\texttt{q\_deshift\_xp\_*.txt} & $k=4,5$ grid weights (64 digits), equal to the continuum C4 weights to $10^{-16}$ & ---\\
 \texttt{d\_abel\_X\_300/1000.txt} & $\Omega^{EE}$: $X$, $Y$, $\psi_2$ on $d\nu=0.02$ / $0.04$ & \texttt{76c31c3f\dots}, \texttt{98d42b28\dots}\\
 \texttt{k2/xq\_abel\_X\_}\allowbreak\texttt{300/1000.txt} & $\Omega^Q_{\rm up}$'s $k=2$ weight $X^Q$ on the same grids & \texttt{8a0cbec1\dots}, \texttt{1c623171\dots}\\
 \texttt{k2/k2\_continuum\_}\allowbreak\texttt{D\_300/1000.json} & $\Omega^{EE}$ continuum $k=2$ weights & \texttt{74830220\dots}, \texttt{314db16a\dots}\\
@@ -404,7 +418,7 @@ $\tilde g_4\ge-O(\Lambda^{-2})$. \emph{Status.} (i) No constant: the $O(\Lambda^
 positivity evidence for $\Omega^Q_{\rm low}$ beyond leading Regge, where its heavy image is $P_{-1/2}(\cosh\beta)>0$; this
 margin decays like $\beta e^{-\beta/2}$ at large $\beta$ (large $J$ at fixed $m$), exactly where beyond-Regge corrections
 are least controlled. (iii) The $c_L$ slope ($0.255$ or $0.49$, Sec.~\ref{sec:F}) was not reproduced
-independently. The Letter therefore states no lower end; supporting one requires $\Omega^Q_{\rm low}$ at its binding states and at large $\beta$, at the [NE\,+\,M] level of $\Omega^Q_{\rm up}$.
+by separate code. The Letter therefore states no lower end; supporting one requires $\Omega^Q_{\rm low}$ at its binding states and at large $\beta$, at the [NE\,+\,M] level of $\Omega^Q_{\rm up}$.
 
 \section{Derivation sketches}
 \label{sec:deriv}
@@ -598,7 +612,7 @@ against direct integration to $1.6\times10^{-7}$--$1.5\times10^{-6}$ (cancellati
 $10^7$). The $b$-shifted edge factors have poles only at ${\rm Im}\,\nu=\tfrac32+2p$ [P], so LRC$^*$
 transfers: the growth exponent of (exact $-$ leading Regge) is $-0.50$ ($k=2$), and $-0.50$ / $+1.00$ ($k=4$,
 weight regular / with a pole at $3i/2$), as for the scalar [DV]. The heavy image of the $k=4$ $EE$ position
-kernel reproduces the stored coefficients $R_j^{EE3}$ to $1.1\times10^{-11}$ by an independent numerical
+kernel reproduces the stored coefficients $R_j^{EE3}$ to $1.1\times10^{-11}$ by a different numerical
 transform, with the scalar's $\nu$-independent normalisation [DV].
 
 \emph{$f_{\rm pos}(\pm3i/2)=0$ for Q's weights.} The position weight is $\chi\times{\rm const}/N_{\rm com}$, and
@@ -689,7 +703,7 @@ $(P,n_1,n_3,x_2,x_4)$: for every $\nu$, every scalar kernel and after the de-shi
 vanishes too. \emph{Numerical form [DV].} With free-field one-point matrices (eight random timelike $P$, random external wave packets,
 the three structures) the $O(t_4)$ term is $\le1.75\times10^{-11}$ of the Einstein term (finite-difference floor), while a
 flip-sensitive contraction and the $|\hat g_3|^2$ term are $O(1)$; this is the direct action on the energy-channel exchange
-$W_+\times(E-\kappa\,{\rm CS})$, the numerical form of the same pointwise statement. An independent re-implementation reproduces
+$W_+\times(E-\kappa\,{\rm CS})$, the numerical form of the same pointwise statement. A separate run with its own code (Sec.~\ref{sec:repro}) reproduces
 the three steps and the zero, to $6.9\times10^{-24}$.
 
 \emph{Consistency statements} (no longer links). (a) \emph{Shock part.} In $d=3$ the helicity-preserving elements of the
@@ -702,7 +716,7 @@ second-order anti-self-dual solution is elementary and unique in its class [DV];
 [Q\,+\,DV]), and the remainder is polynomial in $\nu^2$ (Barnes' first lemma [P\,+\,DV]). The remnant $b_+\ne0$ has a non-zero
 Euclidean value, but read in Lorentzian state helicities its $s$-channel $T$ cut is flip\,$\times$\,diagonal, so its $EE$-projected
 light value vanishes, in agreement with the chain [D-sketch, not load-bearing]. The zero is specific to $EE$: a $q^2$-type structure,
-which sees $(2,4)$ flips, would keep the $O(t_4)$ term. \emph{Not done:} an independent Regge-limit (Lemma-R) evaluation of the
+which sees $(2,4)$ flips, would keep the $O(t_4)$ term. \emph{Not done:} a separate Regge-limit (Lemma-R) evaluation of the
 $O(\hat g_3)$ Witten diagrams; $c_1$ could re-enter only through a failure of L4 at the borderline $n=k=2$, which would also affect the
 Einstein term.
 
@@ -788,7 +802,7 @@ $\varepsilon_W=3.3\times10^{-6}$ / $1.1\times10^{-6}$ ($\Omega^{EE}$, i.e.\ $1.1
 $\int|\psi|$) and $1.9\times10^{-7}$ / $7.4\times10^{-8}$ ($\Omega^Q_{\rm up}$) [DV]; the grid weights hold the identity
 only to $t\approx22$. Every bound moves by $\le6\times10^{-11}$ on the per-state margins and $\le10^{-12}$
 (C4) / $<10^{-6}$ (C5) on the light side. The upper end is exactly independent of the C5 weight [D].
-Independent re-solution: $\Omega^{EE}$'s Abel weights to $\le1.5\times10^{-6}$ ($\nu<2$) of $\max\psi_2$, $X^Q$
+Re-solution with separate code (Sec.~\ref{sec:repro}): $\Omega^{EE}$'s Abel weights to $\le1.5\times10^{-6}$ ($\nu<2$) of $\max\psi_2$, $X^Q$
 to $\le8.3\times10^{-7}$; Q's C4 weights by a different method to $10^{-16}$ [DV].
 
 \subsection{Light single traces under A1\texorpdfstring{$'$}{'}}
@@ -917,24 +931,23 @@ AdS curvature plus beyond-leading-Regge corrections. The flat part is certified 
 explicit special-function integral, bounded where needed by Lemma C [P]: for real $\nu$, $\beta$,
 $|P_{-1/2+i\nu}(\cosh\beta)-J_0(\nu B)|\le(1-{\rm sech}(\beta/2))+\min(2,\nu(B-\beta))$, $B=2\sinh(\beta/2)$, from the
 Mehler--Dirichlet formula (worst ratio $0.73$ on a 30-digit check [DV]); since $\nu B=bp$ exactly, it compares the
-two functions of the hybrid curvature directly. The corrections are computed from direct numerical evaluations
-of the light-ray integrals at their bulk-point saddle (a Laplace series, ``$K_2$ rows''), checked against direct
-quasi-Monte-Carlo nodes, and at small $\nu$ from an analytic $1/\Delta$ expansion of the same integrals; per spin
-they are assembled along the mass direction by a near-gap interpolation (the ``chain''), with leading Regge plus a
-scalar skeleton elsewhere (the ``hybrid model''). For $J=7$ and $9$--$32$ at $\Delta_g=1000$ full direct rows
-replace the Laplace series on the state's own row, so no truncation term enters there, and for $J=21$, $23$, $25$, $27$, $29$, $31$ the
-light-cone edges are integrated by Gauss--Kronrod quadrature of direct nodes, with no interpolation. Values so obtained are [NE\,+\,M]; where every model input carries
-an explicit safety factor ($\times3$ on each model term, sign-free) and the conclusion survives, [NE$\pm$]. Such an
+two functions of the hybrid curvature directly. The corrections beyond leading Regge are evaluated node by node (glossary,
+Sec.~S1): on $K_2$ rows, i.e.\ by the saddle-point (Laplace) series of the light-ray integrals around their bulk point, checked against
+direct quasi-Monte-Carlo nodes, and at small $\nu$ by an analytic $1/\Delta$ expansion of the same integrals. Per spin, the rows are
+interpolated in mass near the gap (the chain); elsewhere the hybrid model is used. For $J=7$ and $9$--$32$ at $\Delta_g=1000$, direct rows
+at the state's own mass replace the Laplace series, so no truncation term enters there; for $J=21$, $23$, $25$, $27$, $29$, $31$ the
+light-cone edges are integrated by Gauss--Kronrod quadrature of direct nodes, with no interpolation. Values so obtained are [NE\,+\,M];
+where every model term is multiplied by $3$ and counted sign-free and the conclusion survives (the error budget), [NE$\pm$]. An
 error budget is not a bound: only the flat floor and the Lemma-C curvature term are bounds; the beyond-Regge
 part of the budget is an estimate with a safety factor.
 
 \textbf{Remarks.} (i) \emph{Choice of the functionals.} The structure ($q^2\to EE$) and the Abel gauge
-(canonical $\to$ minimal norm) were chosen after heavy-state failures were seen; $\Omega^{EE}$ has
-been fixed before the states below were examined. $J=18$, $20$, $24$, $28$ at $\Delta_g=300$ are
-in-sample. In the canonical gauge the $J=24$ state at $300$ fails ($n=1.55$ by spline; $-22$ to $-40$
+(canonical $\to$ minimal norm) were chosen after heavy-state failures were seen; $\Omega^{EE}$ was
+fixed before the states below were examined, except $J=18$, $20$, $24$, $28$ at $\Delta_g=300$, which are
+in-sample (seen before it was fixed). In the canonical gauge the $J=24$ state at $300$ fails ($n=1.55$ by spline; $-22$ to $-40$
 from direct data). The statement concerns the minimal-norm functional. (ii) \emph{Finite sets.} The
 heavy spectrum is infinite in $J$ and $m$; Table~\ref{tab:cover} lists what covers the rest. There is no mass
-$m_*$ above which all spins are covered. (iii) \emph{Flat certificates.} NF02: $\mathcal F\ge\tfrac15N$ on
+$m_*$ above which all spins are covered. (iii) \emph{Flat certificates} (the flat floors). NF02: $\mathcal F\ge\tfrac15N$ on
 every flat heavy state, both channels, all $J$ and $m\ge M$ [certified]; the corner ($+-$,
 $J\ge400$, $M\le m<1.633M$) is covered by a backward-endpoint lemma for the Jacobi operator; the constant is sharp
 (ratio $0.2000000103$ at $+-$, $J=5$, $m=M$). Q3$^*$: $\mathcal F\ge\tfrac{9}{50}N$ [certified] on all $J<400$, on $J\ge400$
