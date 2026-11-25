@@ -481,6 +481,21 @@ current as of this writing (NG2, PE). Nothing here anticipates its result.
 > * **H17 reduced:** Λ²·H17 = −0.8106·a₄ + 4.6867·b₂ exactly (certified weights), where a₄, b₂ are the |ĝ₃|² light-function coefficients of the two functional pieces. b₂ (the Ĉ₃ piece) carries 79 % of the band. The headline ≤ 2.90e-8 holds while |b₂| ≤ 1247. **Computing b₂ (and a₄) gives a certified K_min directly.**
 > * δK₀ is convention-dependent: it is 0 in the Ĉ′-primary convention, so the tables cover both ends.
 
+> **Update (K_B2A4.md, unreviewed): H17 computed in closed form, so the model band is no longer needed. b₂ = −35/2, a₄ = −581/4 (leading), Λ²H17 = +35.7 at every gap [D]; the arithmetic to K and τ₀ is [certified]. K = 1 − 32.38/Λ².**
+> * **Method:** at x₀ = ∞ the light-ray factorisation (C1_FINAL F₂, H7 F) plus a Fourier transform to the s-channel rest frame makes each piece's T-block light value an exact celestial-circle integral, evaluated in closed form. No Regge expansion and no Witten diagram are used.
+>   * k = 3: −2πG|ĝ₃|²p⁴[1 − (35/2)ν⁻² + (569/16)ν⁻⁴] exactly.
+>   * k = 2: rational, with poles at the zeros of R₋+R₊ that X_θ cancels; H17 is integrated from the exact function.
+> * **Checks:** the same reduction reproduces exactly the Lemma-R Einstein function, including 16ν⁴ − 440ν² + 273. The flat top coefficient is exactly 1/(8·240²) (= K₀). Kernels match direct quadrature to 1e-10–1e-12. The value agrees with K_CERT's linear form to 3e-3. The physical shifted Einstein value settles δK₀ as physical.
+> * **Certified K and headline:**
+>   * K = 0.99963650 (300), 0.99996752 (1000), 0.99999189 (2000), 0.99999870 (5000).
+>   * **τ₀ = 2.89131·10⁻⁸ (≤ 2.8914·10⁻⁸) at 1000** and 3.13262·10⁻⁶ at 300.
+>   * τ₀ ≤ 2.90·10⁻⁸ holds with margin +5966/Λ² in K, and |ĝ₃|Λ⁴ ≤ 120 holds.
+> * **Caveats:**
+>   * Inherited [D] links: light-ray factorisation, the [TT] double zeros (parity-odd [D-sketch]), and Ω_OPE = Lemma R.
+>   * k = 3 has two steps without end-to-end checks: the j′ = 1 structure sign, and N̂₃ = the J = 0 heavy action.
+>   * The k = 2 α_T² part is [D-sketch].
+>   * A factor-10 error in b₂ would still keep the headline.
+
 ## 0. Grades
 
 | grade | meaning |

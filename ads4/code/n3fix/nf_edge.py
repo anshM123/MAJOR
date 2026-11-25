@@ -10,7 +10,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 J, Ds = 26, 1026.0
 al = Ds - J - 2.0; m = np.sqrt(al*(al + 2*J + 1))
 recs = {}
-for sub in ('val_n3', 'edge'):
+for sub in ('val_n3', 'edge', 'edge2'):
     for kind in ('EE', 'C3H'):
         f = os.path.join(HERE, 'cache', sub, 'hc_pts_%s_J%d_D%g.pkl' % (kind, J, Ds))
         if os.path.exists(f):
