@@ -13,7 +13,17 @@ Grades: **[certified]** Arb balls or exact rationals with every remainder proved
 
 ## 0. Verdict (running)
 
-* Not closed yet. See §§1–4.
+* **Not closed.** The open band shrinks to a compact family. Certified so far:
+  1. every J ≤ 1000 at every mass, both channels, and b = 4 up to J = 1004 (§1);
+  2. **a high-twist theorem with certified constants:** H_ang,b > 0 for all heavy states with β_c in a cell and twist a ≥ a*(cell). The
+     scan over 60 β-cells covering 0.39 ≤ β_c ≤ 8.4 (⊃ 0.04 < L < 7) is running (§4.6). The first cell, β ∈ [0.39, 0.44] (L ≈ 0.04),
+     gives **a* = 3200** (both channels), against the author's 2.2·10⁷.
+* **Every factor of 10:** 2.2·10⁷ → ~3·10³. The method is new: endpoint-aware sup norms (§3.2, §4.2). It needs no signed profile
+  evaluation and no per-frequency kernel accuracy.
+* **What remains** is 998 ≤ a < a*(L), J ≥ 1001, with J ≲ a*·√c/(1−√c). That is a compact (a, L) family.
+* **Obstruction to going lower.** The per-order absolute local majorants for the oscillatory components grow like e^{|A|}: the ψ₂ p = 1
+  endpoint, and the residual weight at ν ≈ 1000–1060. The grouped (resummed) multiplier is O(1) even at a = 998 (§5). The remaining
+  step is to implement that grouping rigorously.
 
 ---
 
@@ -176,3 +186,58 @@ For m ≥ 1, P_m(ϑ)G(c) = Σ_jp_{m,j}ϑ^jG(c) and Cauchy in t = log(z/c) gives 
 ### 4.5 The certificate
 For channel b, β-cell and a₀: **F_cert(cell) > (1−c)³[ |G^r(c)| + τ|𝒟_bG_A(c)| + Σ_{m=1}^{M}h^m‖P_m‖_RS(R) + |ℛ_M| ]** ⇒ H_ang,b > 0
 for all heavy states with β_c in the cell and twist a ≥ a₀ (`fp3_ht.py`).
+
+### 4.6 Scan results (certified; `fp3_ht.py scan`, results `cache/ht_scanA.jsonl`, `cache/ht_scanB.jsonl`) — in progress
+Settings:
+* β-cells of width 0.05 (β < 1), 0.1 (β < 3) and 0.2 (up to 8.4);
+* bisection in a₀ over {998, 1100, …, 2.2·10⁶};
+* 81 radii in [10⁻³, 1]·R_max, adaptive stadium arcs (tolerance 2·10⁻⁴ on Im ξ);
+* exact P_m for m ≤ 70, majorant beyond, M chosen as the smallest of {100, …, 1600} with far remainder < 10⁻³F_cert.
+
+A PASS at a₀ certifies every a ≥ a₀ in the cell, because all bounds are monotone in h_max. Bisection may miss a smaller passing a₀; that
+costs sharpness, not rigour.
+
+| β-cell | a*(b = 0) | err/F_cert | a*(b = 4) | err/F_cert |
+|---|---|---|---|---|
+| [0.39, 0.44] | 3200 | 0.096 | 3200 | 0.117 |
+
+(Table continued in §7 when the scan finishes.)
+
+What binds at a₀ < a*:
+* the local orders, not the far remainder. Example: β ∈ [0.39, 0.44], a₀ = 2000, where per-order bounds reach 10¹⁵⁸ at m ~ 300;
+* the dominant components are the ψ₂ endpoint (J_e·e^{Λη}) and the residual cells at ν ≈ 1000–1130 (EPSW cells plus θ/tail).
+
+Each order gets an e^{A/e} amplification, A ∝ (Λ√c/d)³h.
+
+## 5. Grouped (resummed) multiplier [DV]: why the h-expansion can reach a ≈ 998
+For an oscillatory component G_X(ce^t) = e^{iλt}B(t) (carrier λ = Λ√c/(1−c) for the ψ₂ endpoint; ν√c/(1−c) for residual cells at
+frequency ν), (𝒬_M(ϑ) − 1)G_X(c) = Σ_i (𝒬_M − 1)^{(i)}(iλ)B^{(i)}(0)/i!, with 𝒬_M(k) = Σ_{m≤M}h^mP_m(k).
+
+The per-order bounds use Σ_m|h^mP_m(iλ)|. The grouped quantity is |𝒬_M(iλ) − 1| → |e^{−A(iλ)} − 1|, A = Σ_ℓh^ℓa_ℓ(iλ)
+(scratch script `symbol.py`, 1500–3000 bits):
+
+| c | λ | a₀ | \|A\| | max_m\|h^mP_m(iλ)\| | \|e^{−A} − 1\| |
+|---|---|---|---|---|---|
+| 0.042 | 210 | 3200 | 4.3 | 16 | 1.66 |
+| 0.042 | 222 | 3200 | 5.1 | 32 | 1.12 |
+| 0.042 | 210 | 2000 | 10.8 | 9.8·10³ | 1.58 |
+| 0.042 | 222 | 2000 | 12.6 | 7.0·10⁴ | 0.064 |
+| 0.042 | 210 | 1400 | 20.9 | 9.7·10⁸ | 1.72 |
+| 0.042 | 222 | 1400 | 24.5 | 6.2·10¹⁰ | 0.65 |
+| 0.042 | 210 | 998 | 38 | 8.1·10¹⁸ | 0.34 |
+| 0.042 | 222 | 998 | 44 | 4.6·10²² | 0.18 |
+| 0.58 | 1810 | 998 | 71 | 5.6·10³⁴ | 1.67 |
+
+At a₀ = 3200 and 2000 the grouped value is reached by M ≈ 20–50; per-order terms are < 10⁻¹¹ by m = 50. Below 2000 only the converged
+limit was computed, not the convergence in M.
+
+The resummed multiplier is O(1) (it is the Darboux multiplier), while the per-order majorant loses up to 10³⁴. A rigorous grouped bound
+needs:
+* (i) an exact carrier split of the oscillatory components with sup bounds on B free of e^{ΛR}. For the ψ₂ endpoint this is the author's
+  §64 A_±; for residual cells, the outgoing-wave split P = P⁺ + P⁻, with |P^±e^{∓iνβ}| bounded uniformly in ν by the Euler-integral
+  form of §55;
+* (ii) bounds on |(𝒬_M − 1)^{(i)}(iλ)| uniform over (c, h) boxes, via Cauchy in k on E = e^{−A} plus the h-truncation tail.
+
+Estimate: Σ_i|Q^{(i)}(iλ)|R^{−i} ≈ |E|Σ_i(3|A|/(λR))^i. This needs λR ≳ 3|A|, limited by the nonlinear-phase factor
+exp[(ΛR²/2)·√(ce^R)(1+ce^R)/(2(1−ce^R)²)] (author's §64b). That suggests a ≈ 1500–2000 at low L is reachable, and a = 998 only
+marginally there.
