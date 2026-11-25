@@ -106,18 +106,19 @@ def run(Dg, c, wtags):
     res = {}
     for wt in wtags:
         ew = json.load(open(os.path.join(HERE, 'cache', f'ew_cert_{Dg}_re' + ('' if wt == 'pub' else '_' + wt) + '.json')))
-        eps = arb(ew['epsW']); Bc = arb(ew['B']); r0lo = arb(ew['r0_lo']); r0hi = arb(ew['r0_hi'])
+        eps = arb(ew['epsW'])*(1 + arb('1e-12')); Bc = arb(ew['B'])*(1 + arb('1e-12'))      # floats of upper bounds: widen by 1e-12 rel.
+        r0lo = arb(ew['r0_lo']) - arb('1e-18'); r0hi = arb(ew['r0_hi']) + arb('1e-18')
         LamU = arb(Lam.upper())
         pr(f'--- Dg = {Dg}, c = {c}, weight = {wt}: eps_W <= {ew["epsW"]:.4e}, B <= {ew["B"]:.4e}, r(0) in [{ew["r0_lo"]:.6e}, {ew["r0_hi"]:.6e}]')
         # Part F/T (bhat <= 16): slack of the Part-F shift over T_abs must absorb (1+c) 2 eps_W / Lam
         need = (1 + cA)*2*eps/La
         slack = shiftA - Tabs
         okF = bool(slack > need)
-        pr(f'  Part F/T (bhat <= 16): shift used ({src3}) - T_abs >= {slack.str(4)}  vs  (1+c) 2 eps_W/Lam <= {up(need):.3e}: {"PASS" if okF else "FAIL"}')
+        pr(f'  Part F/T (bhat <= 16): shift used ({src3}) - T_abs >= {slack.str(4)}  vs  (1+c) 2 eps_W/Lam <= {float(up(need)):.3e}: {"PASS" if okF else "FAIL"}')
         # Part K (16 <= bhat <= 2 Lam)
         needK = (1 + cA)*2*LamU*eps
         okK = bool(Kmin > needK and Ktail > needK)
-        pr(f'  Part K (16 <= bhat <= 2Lam): min K_g >= {Kmin.str(5)} (tail {Ktail.str(5)})  vs  (1+c) 2 Lam eps_W <= {up(needK):.3e}: '
+        pr(f'  Part K (16 <= bhat <= 2Lam): min K_g >= {Kmin.str(5)} (tail {Ktail.str(5)})  vs  (1+c) 2 Lam eps_W <= {float(up(needK)):.3e}: '
            f'{"PASS" if okK else "FAIL"}')
         # Part L cells (2 asinh 1 < beta <= 64)
         okL = True; worst = None
