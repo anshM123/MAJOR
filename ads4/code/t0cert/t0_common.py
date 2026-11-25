@@ -226,7 +226,7 @@ def hbar_cell(rb, xa, xb, asym_only=False):
 PSIMOM = {}
 
 
-def r_derivs_point(k, x, nmax=3):
+def r_derivs_point(k, x, nmax=4):
     """enclosures of r^(n)(x), n = 0..nmax, at a rational point x > 0: Phi(x) = sum_m (-1)^m mu_2m x^2m/(2m)! (exact moments of psi;
     tail |mu_j| <= int|psi|), r = Phi + a1/x^2."""
     x = Fr(x)
@@ -273,7 +273,7 @@ def R_taylor_cells(k, x0, x1, h):
     while a < x1:
         b = min(Fr(x1), a + h); c = (a + b)/2; hh = A((b - a)/2)
         d = r_derivs_point(k, c, 4)
-        R = [up(abs(d[n]) + hh*abs(d[n + 1]) + hh*hh/2*D_bound(k, n + 2, a)) for n in range(3)]
+        R = [up(abs(d[n]) + hh*abs(d[n + 1]) + hh*hh/2*abs(d[n + 2]) + hh**3/6*D_bound(k, n + 3, a)) for n in range(3)]
         cells.append((a, b, R))
         a = b
     return cells
@@ -321,6 +321,9 @@ def H_sup(k, xT0=Fr(1, 2), xT1=Fr(80), hT=Fr(1, 100), xbig=Fr(4000)):
             for (a2, b2, Rb) in TC:
                 if b2 > Fr(5, 6)*a and Rb[2].upper() > R2.upper():
                     R2 = Rb[2]
+            Rm = up(rb.R(A(Fr(5, 6)*a), 2))
+            if Rm.upper() < R2.upper():
+                R2 = Rm
             xb = A(b)
             upd(up((3*xb**5/640 + xb**5/192)*rb.R(A(a), 1) + 3*xb**4/128*rb.R(A(a), 0) + xb**6/1152*R2), ('maj', float(a)))
         else:
