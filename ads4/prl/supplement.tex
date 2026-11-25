@@ -1990,16 +1990,12 @@ $\mathcal D=\mathcal L_g=0$, falling as $(160/9)/\Delta_g$.
 
 \emph{The two corrections.} $\mathcal D=0$ is equivalent to the absence of a critical $L^{-2}$ tail of the spin-weighted endpoint
 measure in the band $\sqrt J\lesssim\Delta-J\ll J$; bounded-, slowly-growing- and comparable-twist sectors provably contribute nothing.
-The band is closed by crossing at each finite $c_T$: collinear projections of the conserved $\langle TTO\rangle$ structures,
-$F_{-2,-2}=p(h)(h-4)(\lambda_{+-}-2\lambda_{++})$, $F_{-1,-1}=-16p(h)[2(s-1)\lambda_{++}+s\lambda_{+-}]$,
-$F_{-2,-1}=-2(2h-7)(2h-5)(2h-3)\lambda_{\rm odd}$ ($s,h=\frac{\Delta\pm J}2$, $p(h)=(h-1)(h-2)(h-3)$; exact in $s$, checked for
-$J\le30$), together with reflection positivity of $\langle TTTT\rangle$ in the mirror ordering and the factorised two-variable
-global blocks, give $\sum_{s\sim S,h\sim U}4^\Delta2^{-J}|F_{m_1m_2}|^2\lesssim S^{11/2+M}U^{11/2-M}$; with the detector kernels
-(closed forms, checked to 30 digits for $J\le30$) this yields $\sum_{s\sim S,h\sim U}\sum_b|a_{\mathcal O,b,0}|^2\lesssim S^{-5}U^2$,
+The band is closed by crossing at each finite $c_T$ (Sec.~\ref{sec:angcross}): all-$J$ collinear identities for the conserved
+$\langle TTO\rangle$ structures, a reflection-positive two-scale crossing bound in the mirror ordering, and explicit kernel envelopes give
 hence $\mu((L,\infty))=O(L^{-3})$ ($O(L^{-4})$ in the band), $B_N=O(1/N)$ and $\mathcal D=0$. The constants may depend on the CFT;
 the order of limits is finite $c_T$ first, as for the main result (Sec.~\ref{sec:HK}), so the planar Regge intercept $J_0=2$ never
 enters. The mixed commutator needs $J_0<2$ in the Regge corner~\cite{KKSDZ} and light-cone convergence (Ref.~\cite{KKSDZ},
-Eq.~(4.66)). An independent hostile audit confirmed this chain (links graded [DV]/[D]/[P] as stated). $\mathcal L_g\to0$ follows from
+Eq.~(4.66)). An independent hostile audit confirmed this chain; the all-$J$ proofs are in Sec.~\ref{sec:angcross}. $\mathcal L_g\to0$ follows from
 planar factorisation: transitions from $T$ to multi-trace states are $O(c_T^{-1/2})$, and $\Delta_T$ is protected, so degenerate
 multi-trace clusters have no $O(c_T^{-1/2})$ splitting [D]. The contact term of the mixed commutator is $c_0\delta$ if no scalar with
 $\Delta\le1$ appears in $T\times T$, and $Q(0)=0$ removes it.
@@ -2012,6 +2008,50 @@ endpoint rule holds exactly, $\frac32$ (from the spin-4 current) $+\frac32$ (fro
 contact coefficient (finite-frequency light-ray algebra, $\Delta_\phi>1$); (3) fixed-window planar regularity; (4) light-cone
 convergence and existence of the mixed commutator. Derivations, audits and check scripts: \texttt{ANGULAR\_ROUTE.md},
 \texttt{LADDER\_ALLJ.md}, \texttt{ANGULAR\_MATCH.md}, \texttt{ANGULAR\_AUDIT.md}, \texttt{code/angular/}, \texttt{code/ladder/}, \texttt{code/angmatch/}.
+
+\subsection{The finite-$c_T$ spectral estimate: collinear identities and two-scale crossing}
+\label{sec:angcross}
+\emph{Collinear identities} [P, all $J$]. Place $x_1=(0,-1,0)$, $x_4=0$, $x_3=(0,1,0)$ on a line of the plane $t=0$,
+polarise $\mathcal O$ by $e_+=(0,1,i)$ (a 2d quasi-primary of weights $(h,s)=(\frac{\Delta-J}2,\frac{\Delta+J}2)$) and let
+$F_{m_1m_3}$ be the coefficient of the 2d three-point structure in the planar-spin components $T_{m_1}$, $T_{m_3}$.
+There $V_4=-\frac12$, $H_{14}\propto a_1^2$, $H_{34}\propto a_3^2$, $\epsilon_{14}\propto a_1b_1$, so only the $V_4^J$
+monomials reach $m_1,m_3\le-1$. The canonical structures are explicit polynomial vectors in $(s,J)$, conserved and Bose
+symmetric for symbolic $J$ (checked as rational-function identities at one conformal frame, which suffices by
+covariance), and their extreme detector amplitudes $M_{\mp J}$ follow in closed form by expanding $V_4^{J-k}$
+binomially and summing with Chu--Vandermonde; $S^{++}$, $S^{\rm odd}$ have $M_{+J}=0$ and $S^{+-}$, $S^{\rm odd}_J$ have
+$M_{-J}=0$. Hence, for all $J$ and in the canonical normalisation of the structures,
+$16F_{-2,-2}=p(h)(h-4)(\lambda_{+-}-2\lambda_{++})$, $16F_{-1,-1}=-16p(h)[2(s-1)\lambda_{++}+s\lambda_{+-}]$,
+$\pm16iF_{-2,-1}=-2(2h-7)(2h-5)(2h-3)\lambda_{\rm odd}$, $p(h)=(h-1)(h-2)(h-3)$. With the ladder ratios, the absolute
+kernels are, e.g., $|K^{++}_0|^2=864\pi^{3/2}\sin^2(\pi h)\,4^\Delta\frac{2^J}{\binom{2J}J}\frac{\Gamma(s+\frac12)}{\Gamma(s)}
+\frac{\Gamma(h)}{\Gamma(h-\frac12)}\frac{\Gamma(\Delta-1)\Gamma(\Delta-\frac12)}{\Gamma(\Delta+3)^2}$, and Wendel's inequality gives,
+for all $J\ge4$, $h\ge5$, $|K_{\rm even}|^2\le c\,4^\Delta2^{-J}\sqrt{J+1}\sqrt{sh}\,\Delta^{-15/2}$ and
+$|K_{\rm odd}|^2\le c\,4^\Delta2^{-J}\sqrt{J+1}\,\Delta^{-15/2}/\sqrt{sh}$ with explicit $c$ ($c_{++}<10^4$).
+
+\emph{Two-scale crossing} [P given unitarity, OPE convergence with $s$--$t$ crossing, a unique $T$ with finite $c_T$, and
+the count of conserved structures]. Let $A=T_{m_1}$, $B=T_{m_2}$ and take the mirror ordering
+$G(z,\bar z)=\langle A^\dagger(\infty)B^\dagger(1)B(z,\bar z)A(0)\rangle$. Decomposing the 3d Hilbert space into
+$sl(2)\times sl(2)$ representations of the plane, $G=z^{-h_A-h_B}\bar z^{-\bar h_A-\bar h_B}\sum_p\frac{|C_{ABp}|^2}{N_p}
+k^{(\delta)}_{2h_p}(z)k^{(\bar\delta)}_{2\bar h_p}(\bar z)$ with $k^{(\delta)}_{2h}=z^h{}_2F_1(h+\delta,h+\delta;2h;z)$,
+$\delta=h_B-h_A$: every term is $\ge0$ at independent real $z,\bar z\in(0,1)$ (the ordering $\langle ABA^\dagger B^\dagger\rangle$
+would give $(h+\delta,h-\delta)$ and indefinite signs). In the crossed channel the identity gives
+$N_AN_B(1-z)^{-2h_B}(1-\bar z)^{-2\bar h_B}$, and Cauchy--Schwarz bounds the rest by the identity-subtracted mirror
+correlators $\langle BB^\dagger BB^\dagger\rangle$, $\langle A^\dagger AA^\dagger A\rangle$, monotone in each variable
+(all non-vacuum weights are $\ge\frac14$) and finite at the Euclidean point $\frac14$. Euler's integral gives
+$k^{(\delta)}_{2h}(1-S^{-2})\ge c(\delta)4^hS^{1/2+2\delta}$ for $h\in[S,2S]$, $S\ge4$, $|\delta|\le1$, with explicit
+$c(\delta)$. Taking $z=1-U^{-2}$, $\bar z=1-S^{-2}$ and $|C_{AB\,\mathcal O(e_+)}|^2/N=\kappa_02^{-J}|F_{m_1m_2}|^2$:
+\[
+\sum_{s\in[S,2S],\,h\in[U,2U]}4^\Delta2^{-J}|F_{m_1m_2}|^2\le\mathcal K\,S^{11/2+M}U^{11/2-M},\qquad M=m_1+m_2 ,
+\]
+with $\mathcal K$ depending on the CFT only through $T$-component norms and two Euclidean four-point values.
+
+\emph{Consequences} [P given the above and the ladder]. Inverting the identities ($p(h)(h-4)\ge0.038h^4$ for $h\ge5$)
+gives $\sum4^\Delta2^{-J}(|\lambda_{++}|^2+|\lambda_{+-}|^2)\lesssim S^{3/2}U^{3/2}$ and
+$\sum4^\Delta2^{-J}|\lambda_{\rm odd}|^2\lesssim S^{5/2}U^{5/2}$ per shell, hence $\sum_{\rm shell}\sum_b|a_{\mathcal O,b,0}|^2
+\lesssim S^{-5}U^2$, $\sum_{\tau\ge10}\Delta^2|a_0|^2<\infty$, $\mu((L,\infty))=O(L^{-3})$ ($O(L^{-4})$ in the band),
+$B_N=O(1/N)$ (sharp for this input) and $\mathcal D=0$. The sectors $J=0,2$ close because $F$ grows like $\Delta^0,\Delta,
+\Delta^3,\Delta^2$ (even/odd $J=0$, even/odd $J=2$), giving $\Delta_0^{-3/2}$ per dyadic shell. The ladder ratios rest on
+light-transform conservation and the all-$m$ helicity norms (checked for $J\le30$); everything else is exact for symbolic
+$J$. Derivations and scripts: \texttt{ANGULAR\_PROOFS.md}, \texttt{code/angproofs/}.
 
 \section{ABJM consistency check}
 Dictionary: $M^2=4/\alpha'$, $L^2/\alpha'=\pi\sqrt{2\lambda}$, so

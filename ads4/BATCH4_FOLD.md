@@ -4,7 +4,7 @@
 texts for the `% BATCH4` markers, to paste by hand). `LADDER_ALLJ.md` / `code/ladder/` were not touched.*
 * *New code:* `ads4/code/b4fold/` (write guard `b4_guard.py`: every write outside `b4fold/cache/` raises). *Caches:* `b4fold/cache/`, with a
   `.gitignore` that ignores everything but itself.
-* *Compute:* ≈ 1.4 CPU-h, at most two computing processes, `ulimit -v 3000000`, one thread, no bytecode written.
+* *Compute:* ≈ 1.5 CPU-h for the fold, ≈ 3.5 CPU-h for the optional dense-grid recheck (§5), at most two computing processes, `ulimit -v 3000000`, one thread, no bytecode written.
 * *Input:* `ext/results/ext_results_batch4.json` (3380 records; the 690 batch-4 records `N4_*`, `N4S_*` were decoded with `ext/unpack.dec`
   into `b4fold/cache/unpacked/`, the rest of the file — earlier batches — was not used). **All 345 jobs (247 main + 98 seam) are present.**
 
@@ -172,12 +172,33 @@ The window ν < 50 costs ≤ 0.025 everywhere (×1/16 of 1000, chart A: E_low �
 | 21 (own row) | tw … 1.10 | +0.0019 … +0.0068 | 0.44–0.86 | ≤ 0.008 |
 | 21 / 27 / 29 (hs_odd bulk, same edge) | tw … 1.10 | +0.003 … +0.017 / +0.012 … +0.019 / +0.018 … +0.026 | 0.43–1.03 | ≤ 0.025 |
 
-So the K₂-only entries at 2000 were right in value (they are all within 0.04 of the direct values, the K₂ chain with Δ_ref = 5·10⁴ included),
-and their truncation charge was ×30–200 too pessimistic: "calibrated" L (SMALLNU's 5–15 % of the step) was itself conservative. Chart A holds
-for the direct values: Γ on 2000 + J agrees with 1000 + J to O(100 c₂) in the bulk (node tables in `cache/state/`, `cache/odd_main/`).
+So the K₂-only entries at 2000 were right in value (every one of them lies within 0.045 of the direct value, the GAP_SEAM / GAP_SEAM2 K₂
+chains with Δ_ref = 5·10⁴ included; all but J = 16's twist edge, by 0.0001, are lower), and their truncation charge exceeds the actual K₂ error by a factor ≥ 40: even the
+"calibrated" L (5–15 % of the step, SMALLNU / GAP_NEARGAP) was conservative. Pointwise the K₂ error is visible (§0 item 7).
 
 ## 5. Dense-grid recheck of the J = 46 / 50 ++ EDGE-R warning (optional)
-DENSE_PLACEHOLDER
+EDGE_R / EDGE_R2 flagged the ++ entry of (EDGE-R) at (46, 1.045Λ) and (50, 1.049Λ): central |D₂| + |D₃| = 4.01 / 6.60 S_E,t, 2.0 / 2.6 × the
+tolerance, from a K = 6 shape fit of a bulk on the 0.025 grid, which at J ≥ 46 is about one oscillation of D_h at x ≈ 0.6.
+* **Recheck** (`b4_edense.py`): 20 LOCAL n1 nodes per state at the mid-points x = 0.3125 … 0.7875 (EE + C3H, ext/point.py's code path,
+  ≈ 5 min per node) and one local anchor node at x = 0.6. The external batch-3 records (EDGE_R2's merged set, read-only) were mapped into the
+  local structure basis with the anchored O(2) fit of §1.2 (J = 46: residual 1.7·10⁻⁵ / 3.6·10⁻¹⁰, anchor reproduced to 2.4·10⁻⁶; raw
+  mismatch 0.15 / 0.027), merged with the dense nodes, and `edger2/e2_gamma.main` was run **unchanged** on the result (its own
+  joint-diagonalisation repair then acts on an all-local set: off/‖C‖ median 3.5·10⁻⁵ over 75 nodes, as on the 55 external ones).
+  `grid025` = the same run on the 0.025-grid nodes only (reproduces EDGE_R2's table: D₂ = −3.861, D₃ = −0.146).
+
+| state | entry | 0.025 grid (EDGE_R2): \|D₂\| + \|D₃\| (D₂; D₃) ± mc, repr | **0.0125 grid on [0.3, 0.8)**: \|D₂\| + \|D₃\| (D₂; D₃) ± mc, repr | spline bulk (dense) | tolerance |
+|---|---|---|---|---|---|
+| (46, 1.045) | ++ | 4.01 (−3.86; −0.15) ± 3.23 / 3.87; 2.38 / 3.35 | **0.64** (−0.55; −0.09) ± 1.99 / 1.60; 1.76 / 2.18 | 0.84 (−0.69; −0.15) | 2.05 |
+| (46, 1.045) | +− | 32.2 (+0.48; −31.7) ± 19.4 / 83.7; 17.7 / 36.7 | 43.1 (+16.6; −26.6) ± 10.6 / 9.1; 8.7 / 5.9 | 58.7 | 2.05 |
+| (50, 1.049) | ++ | 6.60 (+6.57; +0.03) ± 6.91 / 2.39 (EDGE_R2) | J = 50 dense nodes still running at hand-back (`cache/lane_E1.log`, `lane_E2.log`; `b4_edense.py map 50; gamma 50` completes it) | — | 2.57 |
+**Verdict.**
+* **(46, 1.045Λ), ++: the warning was aliasing.** On the dense grid the ++ central value is 0.64 S_E,t = 0.31 × the tolerance (was 2.0 ×);
+  the dense K = 6 fit and a natural spline through the dense nodes agree (0.64 / 0.84), while on the 0.025 grid both gave ≈ 3.8–4.0. The
+  bulk part of D₂ falls from −4.13 to −0.82. The entry is **not closed**: its 3σ MC (1.99 + 1.76) and representation (1.60 + 2.18) terms
+  still exceed the tolerance; closing it needs M + 2 or more seeds on the bulk (MC) — the representation term halved with the dense grid.
+  Grade of the ++ entry: [NE] central value below tolerance, budget OPEN (was: central value 2.0 × tolerance).
+* The +− entry (the binding one, EDGE_R2) stays OPEN; its MC and representation terms shrink ×2 and ×9 with the dense grid, its central
+  value moves (+0.48 → +16.6 in D₂), i.e. it was not resolved on the 0.025 grid either.
 
 ## 6. Replacement texts for the `% BATCH4` markers
 Line numbers refer to the current `prl/supplement.tex` / `prl/letter.tex`. Every `% BATCH4` comment line is deleted together with its replacement.
@@ -298,6 +319,9 @@ python3 b4_state.py 21 1.0208046,1.03,1.05,1.075,1.1; python3 b4_window.py 21
 python3 b4_odd.py 27 main 1.0175,1.0266713,1.03,1.04,1.05,1.075,1.1; python3 b4_odd.py 29 main 1.015,1.0286195,1.04,1.05,1.06,1.075,1.1
 B5_GKMIN=9 python3 b4_odd.py 23 gk9 1.0227639,1.025,1.03,1.05,1.075,1.1;  python3 b4_odd.py 21 main 1.0208046,1.03,1.05,1.075,1.1  (diagnostic)
 python3 b4_cond.py 21,23,27,29; python3 b4_sum.py; python3 b4_k2cmp.py     # -> cache/b4_sum.txt (every number in §0), cache/b4_k2cmp.txt
+B4_RZODD=1 python3 b4_odd.py J rzodd; B4_XB=0.05 python3 b4_odd.py J xb05 (J = 21, 23, 27, 29); python3 b4_state.py 29 1.015,1.0286195; python3 b4_window.py 29
+# §5 (optional): python3 b4_points.py 46 1046 626.078653; B4_KINDS=EE,C3H python3 b4_points.py 46 1046 <x = 0.3125 ... 0.7875 times m>  (likewise 50 1050 628.369891)
+python3 b4_edense.py map 46; python3 b4_edense.py gamma 46     # (and 50) -> cache/edense/edense_J<J>.txt
 ```
 
 ## 8. Caveats

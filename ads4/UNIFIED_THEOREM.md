@@ -838,6 +838,14 @@ A chain carries the grade of its weakest link.
 > * **Endpoint rule.** It holds exactly, 3/2 (J₄) + 3/2 (φ² or ψ̄ψ) = 3, which checks the 1/3 and the RHS 3. 𝒟 = 0, and the family bound Σ Δ²\|a_N\|² = (N+3)² is saturated.
 > * **Limitation.** Free theories cannot test interacting [N, A] for \|m\| ≥ 2. That is no longer needed, since 𝒟 = 0 now follows from crossing (ANGULAR_AUDIT).
 
+> **Update (ANGULAR_PROOFS.md, 26 Nov): the audit's two write-up items are done. 𝒟(c_T) = 0 moves to [P], given the standard CFT axioms and the named inputs.**
+> * **Collinear identities.** [P] for all J: explicit canonical structure vectors are proved conserved and Bose-symmetric for symbolic J.
+> * **Extreme amplitudes.** Closed forms via Chu–Vandermonde and Gauss.
+> * **Kernel envelopes.** Proved with explicit constants via Wendel's inequality, for J ≥ 4, h ≥ 5.
+> * **Two-scale crossing lemma.** [P] in the mirror ordering, with an explicit Euler block lower bound.
+> * **Remaining [DV].** The structure count (literature; J ≤ 30) and the all-m helicity norm (J ≤ 30).
+> * **Supplement.** The text is pasted as Sec. "The finite-c_T spectral estimate".
+
 ## 1. Setup and normalisations
 
 | item | definition |
