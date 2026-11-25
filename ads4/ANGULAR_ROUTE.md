@@ -340,3 +340,22 @@ Checks are in `code/angular/verify_s15.py`.
 **Result if the regulated null-plane identity holds** (plus physical matching, fixed-window planar regularity and Δ_φ > 1): t₄² + α_T² ≤ 48/K(g), i.e. √(t₄²+α_T²) < 0.01782 at g = 1000.
 
 **Single remaining operator-algebra target:** the regulated quadratic-form version of [A(f), [H, A(f)]] = ½A((f′)²) at finite c_T.
+
+## 18. Final audit: null-plane sign, d=3 contact uniqueness, regulator theorem, wavepacket → fixed momentum (author-supplied, 26 Nov)
+
+| claim | check / comment |
+|---|---|
+| **Sign and normalisation.** ds² = −du dv + dy². Conservation gives ∂_u𝓔 = ½∂_y𝓝, so [H, A(f)] = (i/2)N(f′). Córdova–Shao (3.24): (1/i)[𝓝(y), 𝓔(z)] = −δ∂_z𝓔 + δ′𝓔, so [N(g), A(f)] = iA(gf′). Hence [A, [H, A]] = +½A((f′)²) | algebra consistent (§17). Citation equation number to be confirmed |
+| **d = 3 contact uniqueness.** R = physical − canonical commutator, supported at y = z, R = Σa_r∂^rδ. The H-Jacobi gives ∂_yR(y,z) = ∂_zR(z,y), so r_max is odd. The null-rotation Ward identity gives [4 − (r_max+1)]a_{r_max} = 0, so r_max = 3. Translation gives ∫R dy = 0, leaving R = aδ‴ − 2a′δ″ + a″δ′, i.e. R(g,f) = −⟨a, g′f″⟩. The dilatation and transverse SCT Ward identities (g = y, y²) give a″ = 0 and (ya)″ = 0, so a′ = 0. Locality plus boost charge gives a = 0 | **Step C/D algebra verified** (sympy: the smeared form, and g = 1, y, y² giving a″ = 0, (ya)″ = 0 ⇒ a′ = 0). Steps A/B (Jacobi + null rotation) and the boost-charge step are plausible, not re-derived. **This removes the local-operator closure assumption of Córdova–Shao**, but needs the regulated commutators to exist as local distributions satisfying the Ward/Jacobi identities |
+| **Regulator theorem.** I_η = −∫ρ_η′⟨ψ,[A, A_t]ψ⟩/i = 2∫λρ̂(ηλ)dν_v − 2Re⟨v, AHψ⟩ + o(1). With ρ̂ ≥ 0, Fatou gives: liminf I_η < ∞ ⇒ Aψ ∈ Dom(H^{1/2}). An **upper bound** suffices for convergence; exact equality is not needed | correct [P] (spectral theorem + Fatou) |
+| **Wavepacket → fixed momentum.** Cutoff f_{m,R}, uniform bound \|f′\|²/(1+y²) ≤ C(1+m²); no atoms in the angular POVM; two charts give K⁰. Packets of width δ_m = ε/(1+\|m\|) give ‖K⁰ψ_m‖ = O(m²). The Doppler/aberration errors are O(\|m\|δ_m) = O(ε), so the target Fourier coefficient stays ≥ ½. Coercivity ⟨P⁰⟩⟨K⁰⟩ ≥ Δ²‖w‖⁴ gives Σ_OΔ²\|a_{O,m}\|² = O(m²) | argument sound. It resolves §17 caveat 2 |
+| **Consequences.** ΣC\|a_N\|² = O(N²), B_N = O(N⁻²), 𝒟 = 0, and absolute angular swapping (Σ_k q_{k+2}Σ\|ā(Aa)\| < ∞). Endpoint rule with RHS 3 | follows |
+| **Theorem.** limsup_{c_T→∞}√(t₄²+α_T²) ≤ (160/9)/(g−2)·(1 − 49/(2g+9)²)^{−1/2} | **verified**: 0.017814 at g = 1000; same as 4√(3/K(g)) |
+
+**Assumptions of the angular theorem** (final list):
+1. *Physical matching:* the ladder, the first-moment matrix and the mixed-commutator normalisation are the physical ones. The algebra is audited (LADDER_ALLJ); it rests on the operator identities [z·K, E] = 6iE⁽¹⁾ and D_z·[K, E] = 0.
+2. *The regulated null-plane identity at finite c_T:* specifically liminf_η I_η < ∞ with the profile bound, plus Ward/Jacobi compatibility for the contact uniqueness. **This is the single open nonperturbative statement.**
+3. *Fixed-window planar regularity* for multi-traces.
+4. *Light scalars:* Δ_φ > 1 for scalars in T×T; conserved higher-spin sectors excluded.
+
+**Order of limits:** finite c_T first, then the planar limit.
