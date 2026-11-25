@@ -605,3 +605,16 @@ No large-Δ, large-J or large-ν approximation is used.
 **Assessment.**
 * *Unbounded directions:* all three now have explicit (if crude) certificates.
 * *What is left:* a bounded but astronomically large transition region. The constants e^{~7000} come from the e^{2πν} growth of the Legendre functions against a weight supported up to ν ≈ Λ. Closing the region needs a collective remainder estimate with constants polynomial in Λ, not exponential. That is a research problem beyond this submission's window.
+
+## 36. The complex-power route: exact beta reduction, obstructions, and the remaining signed estimate (author-supplied, 26 Nov)
+
+| claim | check |
+|---|---|
+| No uniform polynomial bound in \|ξ\|: 𝒱_b((1−z)^{−σ−iξ}) has degree exactly n+1 in α (V_{b,n+1} > 0) | correct (elementary) |
+| Exact first-moment reduction: 𝒱_b((1−z)^{−α}) = (1 + B_b/T)S_b(α) + (αA_b/T)[S_b(α+1) − S_b(α)], with A_b = (9+α)/2 − 2b, B_b = (9+α)/2 − b(b−1), S_b(α) = Σ_k U_{b,k}(α)_k/k! | **verified numerically** (30 random states, complex α; rel. err. 6e-41) |
+| Beta-integral form of S_b(α) for Re α > 0 | not re-checked |
+| Fixed-twist limit 𝔑_a(α) = Γ(α)⁻¹∫₀^{2a}x^{α−1}e^{−2a atanh(x/2a)}dx; turning point at \|ξ\| = a, with exponential growth e^{a g(ξ/a)} above it | not re-checked; consistent with §27 at real α |
+| Restricted band: \|𝔑_a(5/2+iξ) − 1\| ≤ 10⁸(1+\|ξ\|)⁴/a² for \|ξ\| ≤ a+60 | not re-checked |
+| **Obstruction:** absolute-value frequency integration over 5 ≤ ν ≤ 10 alone costs > 7e-8·√w at a = 998, against an available margin of < 9.5e-9·√w at states with 1−r ~ e^{−4000}. So the absolute route cannot certify the middle region, even with polynomial constants | logic sound (lower bounds from a Taylor-remainder argument); numbers not re-checked |
+
+**Remaining target (author).** A signed estimate of ℰ₂ = (4/Λ)√w Re∫f(ν)B(ν)e^{iν log(1/w)}[w^α𝒱_b(F_α) − 1]dν (α = 5/2+iν), keeping the oscillatory factor, with the origin residue isolated, by contour deformation or integration by parts. **Status: full AdS positivity remains open; this is the precise missing estimate.**

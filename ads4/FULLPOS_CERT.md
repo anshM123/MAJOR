@@ -290,6 +290,9 @@ certified Z_k, Y_k and exact Q_k, k ≤ K. **No denominator is expanded:** the c
 * **Comparison with the authors (§34).** They certified |H_ang − H_hyb^rep| ≤ 0.05 H_hyb^rep on b̂ ≤ 22 (J ≥ 240), using ideal-density
   moments plus a residual. I certified **positivity** H_ang,b > 0 on the same box and on larger ones, with the realised (repaired)
   moments directly. I did not reproduce their 5 % hybrid comparison; that would need T0's curvature in (x, v).
+* **A failed attempt, recorded.** J₀ = 651, x_max = 6·10⁴ (b̂ ≤ 490), K = 640 failed. The cause is the crude all-k tail bound for k > 1000,
+  ~(3x/λ)^{1000}·∫|g|e^{1.81ν} ≈ 10^{87}, not N: the self-check line, which includes the subtracted tail constant, shows exactly that
+  constant. The fix is either x_max ≤ 5·10⁴ or more certified moments (K_mom > 1000). The rerun at x_max = 4·10⁴ is in the table.
 * **Where the method stops.** Not at the denominators, which are exact here. It stops at the harmonic truncation: K < J₀ − b, and the tail
   x^K|Z_K|/λ^K must be small. With |Z_k| ≤ 10^{673}, that gives b̂ ≲ 0.7J₀. The cost is degree K ≈ J₀ in both variables, O(K²)
   polynomial operations, and ~1.2b̂ decimal digits for the e^{2b̂} cancellation. That is 2–6 min for K ≤ 410.
