@@ -82,4 +82,75 @@ reason the h-expansion's signed low-order terms are tiny.
 
 ---
 
-## 4. High-twist closure (task 0) — in progress
+## 4. High-twist closure (task 0): an h-expansion bound with endpoint-aware sup norms
+
+### 4.1 Exact set-up [P]
+Notation of the brief; s = 2b+1, C′ = n(n+s) = C − b(b+1), T′ = N(N+s) = T − b(b+1), h = 1/T′, c = C′/T′ = U₁, τ = 1/T ≤ h.
+
+**(a) Dressing as a differential operator [P].** The brief's dressing term G_C (weight Re[(3+ℓ)F₄ − (3+ℓ/2)F₃ − (ℓ/2)F_{3,ν+i}])
+equals ϑG_A, ϑ = z∂_z: by (X²−1)P′_μ = μ(XP_μ − P_{μ−1}) with μ = ℓ, Re[(ℓ/2)P_{ℓ−1}] = −XP/4 − (X²−1)P′/2, and with X² − 1 =
+4z/(1−z)² every P- and P′-coefficient matches z∂_zF₃ = 3z(1−z)^{−4}P + 2z(1−z)^{−5}P′. The ν²-weighted term follows from the ODE of
+F₃ (§0 of `fp3_common.py`; s_ν = ν²+¼): (ν² + 25/4)F₄/2 = −z(1−z)F₃″/2 − (1−7z)F₃′/2 + 9F₃/2. Hence, per frequency and for any weight,
+  **H/w³ = ℒ(G_A + τ𝒟_bG_A + τσ_bG_D),  𝒟_b = z(1−z)∂²/2 + [(7/2 − 2b)z + ½]∂ + 9/2 − b(b−1),**
+  G_A = (2/Λ)∫f(ν)F_{3,ν}dν (realised f), G_D = Λ²∫₀¹ψ₃(p)F_{4,Λp}dp,
+which is the author's §42 first-moment operator. (Checked numerically against the dressed profiles: agreement to all printed digits
+at 12 values of c, `fp3_profile_dv.py`.)
+
+**(b) Ladder factorisation [P].** U_k = c^kE_k, E_k = Π_{j<k}(1 − hu_j/c)/(1 − hu_j), u_j = j(j+s), so E_k ∈ [0,1] and E_k = 0 for
+k > n. For k ≤ n, −log E_k(η) = Σ_ℓ η^ℓa_ℓ(k), a_ℓ(k) = ((c^{−ℓ}−1)/ℓ)S_ℓ(k), S_ℓ(k) = Σ_{j<k}u_j^ℓ, a power series in η with
+nonnegative coefficients, convergent for |η| < c/u_{k−1}. P_m(k) := [h^m]E_k is a polynomial in k of degree 3m (P₁ = −(d/c)S₁,
+S₁(k) = (k)₃/3 + (b+1)(k)₂, which gives the author's first-order profile −(d/X)[(b+1)cG″ + (c²/3)G‴]).
+With T_M(k) = Σ_{m≤M}h^mP_m(k) and ρ_M = E_k − T_M,
+  **Ĥ := H/w³ = Σ_{m=0}^{M}h^mP_m(ϑ)G(c) + ℛ_M,  ℛ_M = Σ_{k≤n}c^kg_kρ_M(k) − Σ_{k>n}c^kg_kT_M(k),**
+G = G_A + τ𝒟_bG_A + τσ_bG_D = Σg_kz^k (all series absolutely convergent since c < 1).
+
+**(c) Main term.** (1−c)³[G^ψ_A(c) + τσ_bG^ψ_D(c)] = 2Ω₂(β_c) + σ_bu_cΩ₃(β_c), cosh β_c = (1+c)/(1−c), with
+u_c = Λ²τ/(1−c) ≤ Λ²/m² ≤ 1 on heavy states (b = 0: equality; b = 4: T(1−c) = T(T−C)/(T−20) > m²). So the main term is bounded
+below by LRINF_TIGHT's certified **F_cert(β)** (min over u ≤ 1 and σ = ±1, `lrtight/cache/lrt3_rcert.json`).
+
+### 4.2 Endpoint-aware bounds on |G| off the real axis [P]
+**Lemma A (Mehler with coth).** For Re ξ > 0, |Im ξ| < π/2 and real ν > 0,
+P_{−½+iν}(cosh ξ) = (√2/π)coth(πν)∫₀^∞sin(ν(ξ+u))(2sinh(ξ+u/2)sinh(u/2))^{−½}du
+(analytic continuation from real ξ: the integrand is analytic in ξ, sinh(ξ+u/2) has positive real part, |sin(ν(ξ+u))| ≤ e^{ν|Im ξ|}).
+For the polynomial weight ψ_k (degree 14, ψ_k(0) = 0, (1−p)⁵ | ψ_k) write coth(πΛp) = 1 + 2/(e^{2πΛp}−1) and integrate the
+sine part by parts exactly: ∫₀¹ψ(p)e^{iωp}dp = Σ_{j≤14}(−1)^j[ψ^{(j)}(1)e^{iω} − ψ^{(j)}(0)]/(iω)^{j+1}. In the sine combination the
+p = 0 terms with odd j cancel identically, so with t = ξ + u, ω = Λt, |ω| ≥ Λ(Re ξ + u):
+|∫₀¹ψ(p)coth(πΛp)sin(Λpt)dp| ≤ A_s(Re t) + C_cor(|Im ξ|) + e^{Λ|Im ξ|}A_e(Re t),
+A_s(x) = Σ_{j even ≥ 2}|ψ^{(j)}(0)|/(Λx)^{j+1}, A_e(x) = Σ_{j≥5}|ψ^{(j)}(1)|/(Λx)^{j+1},
+C_cor(η) = ∫₀¹|ψ|·2cosh(Λpη)/(e^{2πΛp}−1)dp ≤ Σ_n|ψ_n|Λ^{−n−1}2n!Σ_{m≥1}(2πm − η)^{−n−1}.
+With |2sinh(ξ+u/2)sinh(u/2)| ≥ 2sinh(β+u/2)sinh(u/2) (|sinh w| ≥ sinh Re w), β = Re ξ:
+  **|∫₀¹ψ_k(p)P_{−½+iΛp}(cosh ξ)dp| ≤ (√2/π)[J_s(β) + C_cor(η)J_C(β) + e^{Λη}J_e(β)],**
+J_X(β) = ∫₀^∞A_X(β+u)(2sinh(β+u/2)sinh(u/2))^{−½}du (A_C ≡ 1), all decreasing in β; certified upper bounds on a β-grid
+(`fp3_htdata.jtable`: head ∫₀^{u₀} ≤ A(β)·2√u₀/√sinh β, monotone upper sums, exponential tail).
+The e^{Λη} growth carries only the p = 1 endpoint coefficients, |ψ^{(5)}(1)| ≈ 10⁶ over (Λβ)⁶: J_e/J_C ~ 10⁻¹¹ at β = 0.6. The
+dominant smooth part is the coth correction, ψ′(0)/(12Λ²) ≈ 1.9·10⁻⁵ — i.e. the bound is of the size of the leading-Regge
+function itself, not of ∫|ψ||P| (which is 3·10⁴ times larger). This is §3.2 made rigorous.
+
+**Lemma B (crude).** For Re ξ > 0, |Im ξ| < π/2: |P_{−½+iν}(cosh ξ)| ≤ e^{ν|Im ξ|}(|ξ|/Re ξ)P_{−½}(cosh Re ξ) and ≤ (π/2)e^{ν|Im ξ|}
+(Mehler–cos along t = sξ; |cosh ξ − cosh sξ| ≥ cosh β − cosh sβ, resp. ≥ (2/π²)(1−s²)|ξ|² from |sinh w| ≥ (2/π)|w| for |Im w| ≤ π/2).
+Used for the realised-weight residual r_θ = f_θ − ψ₂(ν/Λ) (with ∫|r_θ|e^{ην} from EPSW_CERT's certified panel sums, a θ-correction and
+a Gaussian tail; `fp3_htdata.Rint`), and for the global Taylor-coefficient bound |g_k| ≤ B_k (circle |z| = 1 − 3/(k+3)).
+
+### 4.3 Local terms [P]
+For m ≥ 1, P_m(ϑ)G(c) = Σ_jp_{m,j}ϑ^jG(c) and Cauchy in t = log(z/c) gives |ϑ^jG(c)| ≤ j!R^{−j}S(R), S(R) = sup_{|t|=R}|G(ce^t)|, so
+|h^mP_m(ϑ)G(c)| ≤ h^m‖P_m‖_R S(R), ‖P‖_R := Σ_j|p_j|j!R^{−j}.
+* m ≤ m₁ (= 8): P_m computed exactly as arb polynomials (Faulhaber/Bernoulli for S_ℓ, exponential recursion mP_m = −Σ_i i a_iP_{m−i}).
+* m > m₁: with |Q|_ρ = Σ|q_j|ρ^j (submultiplicative): (M1) |F_q|_ρ ≤ ρ^{q+1}B̂((q+1)/ρ)/(q+1), F_q(k) = Σ_{j<k}j^q,
+  B̂(y) = Σ|B_r|y^r/r! = 2 + y/2 − (y/2)cot(y/2) (y < 2π); (M2) |P_m|_ρ ≤ η^{−m}exp(Σ_{ℓ≤m}η^ℓ|a_ℓ|_ρ) for every η > 0;
+  (M3) ‖P_m‖_R ≤ max(1, (3m)!/(Rρ)^{3m})|P_m|_ρ (j!/x^j is log-convex in j); ρ = 3m/(eR).
+* S(R) uses Lemma A for the ψ parts and Lemma B for r_θ; τ𝒟_bG_A on the circle by Cauchy from a larger circle. For a cell of c the
+  geometry is computed at the cell centre c₀ on the radius R + δ_c (δ_c ≥ |log(c/c₀)|; maximum principle), with adaptive arcs and
+  Arb enclosures of ξ = arccosh((1+z)/(1−z)).
+
+### 4.4 Far remainder [P]
+|ℛ_M| ≤ Σ_k c^kB_k·b_k with, for every admissible ρ (ρu_{k−1} < c):
+* k ≤ n_min (then hu_{k−1} < c, so E_k(h) is its own Taylor series): |ρ_M(k)| ≤ (h/ρ)^{M+1}/E_k(ρ) (ρ ≥ h), because 1/E_k = exp(A_k)
+  has nonnegative Taylor coefficients dominating those of E_k = exp(−A_k);
+* all k: |ρ_M(k)| or |T_M(k)| ≤ 1 + Σ_{m≤M}(h/ρ)^m/E_k(ρ).
+Evaluated on blocks of k (all factors monotone in k) up to K_T = max(n_min+1, 6(2M+10)/d), then a geometric tail with ρ_k = (d/2)c/u_k.
+Every bound is increasing in h and decreasing in n, so a state set {c ∈ cell, a ≥ a₀} is covered by h_max = h(c_lo, a₀),
+n_min = n(c_lo, a₀).
+
+### 4.5 The certificate
+For channel b, β-cell and a₀: **F_cert(cell) > (1−c)³[ |G^r(c)| + τ|𝒟_bG_A(c)| + Σ_{m=1}^{M}h^m‖P_m‖_RS(R) + |ℛ_M| ]** ⇒ H_ang,b > 0
+for all heavy states with β_c in the cell and twist a ≥ a₀ (`fp3_ht.py`).

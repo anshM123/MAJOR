@@ -184,15 +184,19 @@ def Rint(eta):
     # theta correction: |f_theta - f| <= |1 - theta(nu - i)| |f|; for nu <= Lam+30, |1-theta| <= erfc-type <= e^{-40};
     # int|f| <= Lam int|psi2| + epsW <= 1.1e4;  for nu > Lam + 30 the realised |f| <= int_{>Lam}|r| (EPSW range > Lam) <= 3.2e-10,
     # with |1 - theta| <= 2.1.  Weighted: e^{eta (Lam+130)} for the Gaussian-supported part (centres <= 1028.7, theta cut at 1098.5).
-    thc = (arb(1.1e4)*arb(-40).exp() + arb(2.1)*arb(3.2e-10))*(eta*arb(1130)).exp()
-    return up(tot + tail + thc), epsW
+    # theta correction (r_theta - r = f_theta - f = 2 Re[chi R_- (theta - 1)](nu - i)):
+    #  nu <= Lam + 30: |1 - theta(nu - i)| <= e^{0.01} erfc(7)/... <= e^{-49}  (theta: centre Lam+100, width 10), and
+    #     int 2|chi R_-|(nu - i) dnu <= 1e10 (crude: 32 S e^{1/(2 smin^2)} sqrt(2 pi) smax ~ 1e9 for the RBF part, plus log terms);
+    #  nu > Lam: r = f (psi = 0) and int_{>Lam} |r| <= 3.2e-10 (EPSW range > Lam), |theta| <= 1.1 -> |f_theta - f| <= 2.1|f|.
+    thc = arb(1e10)*arb(-49).exp()*(eta*(LAM + 30)).exp() + arb(2.1)*arb(3.2e-10)*(eta*arb(1059)).exp()
+    return up(2.1*tail + tot + thc), epsW
 
 
 def P_mhalf(beta):
     """P_{-1/2}(cosh beta) = 2F1(1/2, 1/2; 1; -sinh^2(beta/2)) (ball)."""
     b = arb(beta)
-    return arb(0.5).hypgeom_2f1(arb(0.5), arb(1), -(b/2).sinh()**2) if hasattr(arb, 'hypgeom_2f1') else \
-        acb(-(b/2).sinh()**2).hypgeom_2f1(acb(0.5), acb(0.5), acb(1)).real
+    z = -(b/2).sinh()**2
+    return z.hypgeom_2f1(arb(1)/2, arb(1)/2, arb(1))
 
 
 def fcert_cells():

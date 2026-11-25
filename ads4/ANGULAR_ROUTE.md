@@ -895,3 +895,21 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * J = 800, Δ = 3800, ν = 700 → 0.02994 (consistent).
 * The earlier k-sum test truncated the non-terminating sum near k ≈ n + 90. At ν ≥ 500 with c ≈ 0.2–0.45 that cutoff is too early. Its ν = 700 entries at J = 800/Δ = 1800 and J = 2000/Δ = 3000 (relative errors 0.34/0.14 and 1.9/0.5) are therefore **wrong**. R₁ actually blows up there, in agreement with the author's §52 counterexample.
 * Airy-envelope amplification ∫\|integrand\|/\|R₁\|: 43 at ν = 300 and 27 at ν = 500 (J = 800, Δ = 1800); 51 at J = 800, Δ = 3800, ν = 700.
+
+## 54. Exact separation of the saddle variables; exact global contour (author, 26 Nov)
+
+* **Angles.** x = e^{iα} = √(B/q), y = e^{iγ} = x(1−q)/(1−B), ξ = √z = sin((γ−α)/2)/sin((γ+α)/2), and e^β = cot(α/2)/cot(γ/2).
+* **Separated phase.** Ψ₊ = i[𝓕_S(α) − 𝓕_a(γ)], with 𝓕_m(t) = mt + ν log cot(t/2) and S = H + ℓ = 2J + 1 + a.
+  * Saddle points: sin α_* = ν/S (hard, nondegenerate) and sin γ_* = ν/a (soft, coalescing at κ = 1).
+* **Checked here (40 digits, 5 states including J = 5·10⁶, a = 2·10⁴):**
+  * the saddle phase 𝔉(S,ν) − 𝔉(a,ν), with 𝔉(m,ν) = ν·arcosh(m/ν) + m·arcsin(ν/m), equals the §53 phase Φ(ν) exactly;
+  * ξ_*² = z_*;
+  * the e^β identity holds at the saddle.
+* **Airy variable.** ζ = {(3a/2)[arccos κ − κ·arcosh(1/κ)]}^{2/3}. It depends on a and κ only, not on τ. Checked against 2^{1/3}a^{2/3}(1−κ) at κ = 0.999.
+* **Exact global contour (author; diagnostics only).**
+  * 𝒦_p = (𝒞/π)Re(I_U − iI_T − iI_L), built from the outgoing Legendre solution.
+  * Pieces: a bounded oscillatory arc, a damped vertical tail and a lower ray, with \|ξ\| < 1 and Re ξ ≥ 0 throughout.
+  * Not re-checked.
+* **Structural consequence (coordinator).** The phase is a hard factor in (S, α), with large parameter S ≥ 2J + 1 + a ≥ 2535, times a soft factor in (a, γ) that depends only on (a, ν).
+  * Only the amplitude, through P⁺(β(α, γ)), couples them.
+  * So the leading uniform approximation should be: a nondegenerate Gaussian in α with O(1/S) corrections, times an exact one-dimensional soft integral in γ. The latter is a Darboux-multiplier-type special function of (a, ν) that can be evaluated in Arb uniformly through the turning point.
