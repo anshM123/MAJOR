@@ -1,0 +1,8 @@
+Delta_g =  300: tau0 = 3.13206e-06  |g3|Lam^4 <= 103.61  2L_AdS = 72.0406  (2b) 125.71  CHLPS-transplant 10.21  ratio 10.1  ABJM 2zeta(3)/2L_AdS = 3.34 %
+Delta_g = 1000: tau0 = 2.89126e-08  |g3|Lam^4 <= 119.75  2L_AdS = 92.8135  (2b) 164.51  CHLPS-transplant 11.59  ratio 10.3  ABJM 2zeta(3)/2L_AdS = 2.59 %
+Delta_g = 2000: tau0 = 1.92831e-09  |g3|Lam^4 <= 128.17  2L_AdS = 104.7694  (2b) 186.91  CHLPS-transplant 12.31  ratio 10.4  ABJM 2zeta(3)/2L_AdS = 2.29 %
+Delta_g = 5000: tau0 = 5.32616e-11  |g3|Lam^4 <= 138.54  2L_AdS = 120.5709  (2b) 216.53  CHLPS-transplant 13.21  ratio 10.5  ABJM 2zeta(3)/2L_AdS = 1.99 %
+Delta_g = 10000: tau0 = 3.50360e-12  |g3|Lam^4 <= 145.90  2L_AdS = 132.5226  (2b) 238.95  CHLPS-transplant 13.84  ratio 10.5  ABJM 2zeta(3)/2L_AdS = 1.81 %
+Delta_g = 100000: tau0 = 4.03363e-16  |g3|Lam^4 <= 168.06  2L_AdS = 172.2222  (2b) 313.44  CHLPS-transplant 15.78  ratio 10.7  ABJM 2zeta(3)/2L_AdS = 1.40 %
+collider bound tau <= 4 over tau0(1000) = 1.383e+08;  A = tau0/4 <= 7.228e-09 at 1000
+wrote /home/user/MAJOR/ads4/prl/fig/fig1_bounds.pdf
