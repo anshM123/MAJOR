@@ -505,3 +505,17 @@ No large-Δ, large-J or large-ν approximation is used.
 | Impact-parameter correction: r_β = tanh²(β/2) = (C+¼)/(T+¼) ≠ r; cosh β = (1+r)/(1−r) + 1/(2m²); ℬ_β/ℬ = (1 + 1/(4T))⁴, with excess < 1.004e-6 at gap 1000 | consistent (arithmetic) |
 
 **Status of item 4.** Resolved by the congruence argument, given the retained physical identities, once H_ang,b → H_hyb,b with unit relative normalisation is confirmed (FULLPOS_CERT task 2).
+
+## 29. No-stray-factor check and exact finite-T cancellation (author-supplied, 26 Nov)
+
+| claim | check |
+|---|---|
+| Leading-Regge limit at fixed r: H_ang^{(2)} → 2∫ψ₂P_ℓ(η)dp (factor 2 = 9216/4608) and H_ang^{(3)}/(σ_b u) → ∫ψ₃P_ℓ(η)dp. T0's B₂ + cv₂ and (B₃ + cv₃)/(σ_b u) have the same limits (Mehler–Heine D_b → J₀; cv terms are part of the action). **No stray factor**, with unit relative k = 2/3 normalisation | consistent with §§25, 28; not independently re-derived. FULLPOS agent checking numerically |
+| Repaired weight: the limit statement is H_ang,b − H_hyb,b^repaired → 0. Against the ideal target the residual is the certified de-shift error | correct distinction |
+| **Summation by parts**, with L_k = (Z_k − (k/(k+3))Z_{k−1})/(k+3): H_ang^{(2)} = w³Σ D_k²U_{b,k}[L_k + (2Y_k − u_{k−1}L_k)/T] exactly | **verified** in exact rationals on 40 random (b, J, Δ) with random moments |
+| r^k − U_{b,k} = wΣ_{j≤min(k−1,J−b)} u_jU_{b,j}r^{k−1−j}/(T−u_j), including beyond termination | **verified**, same test |
+| Signed finite remainder: H_ang − H_LR = (w³/T)Σ_j U_{b,j}[M_{b,j} − (wu_j/(1−u_j/T))(F_j + σ_bΛ²G_j/T)], with tail generating functions F_j, G_j from the CDH resummation | follows from the two identities |
+| Improved ladder bound: for r ≥ ½, 0 ≤ r^k − U_{b,k} ≤ (2(1−r)/C)S_{b,k}r^k; Cw² ≥ 4a²r², Tw² ≥ 4a²r | **verified** on the random heavy-ish cases with r ≥ ½ (no failures). The heavy-state inequalities are not re-checked |
+| Tail certificate: if, for k ≥ K, \|P_k − P_k^*\| ≤ P_k^*/4 and \|M_{b,k}\| ≤ (k+b+1)²P_k^*/4 (P_k^* = ((5/2)_k/k!)ℓ_k, ℓ_k nonincreasing), plus three prefix conditions, then the relative k = 2 error is < 80.625/a² ≤ 8.2e-5 at gap 1000 | conditional; logic plausible (negative-binomial moments) |
+| Repaired weight needs a two-scale reference: ℓ_k = A + B/log(k+2), A = E_eff(0)/Λ ≈ 9.7e-17, B = 2E_eff′(0⁺)/(πΛ) ≈ 1.21e-4; 𝒮(r) ≥ w^{−5/2}[A + B/log(2 + 5r/(2w))] | candidate; to be certified |
+| Full comparison: H_ang − H_hyb^rep = [H_ang − H_LR(r)] + [H_LR(r) − H_LR(r_β)] − [H_flat − H_Bessel]. The last two terms (the Weyl-shift and finite-spin flat corrections) must be kept in the transition region | noted |
