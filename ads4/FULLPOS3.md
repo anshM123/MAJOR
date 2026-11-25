@@ -155,14 +155,23 @@ For m ≥ 1, P_m(ϑ)G(c) = Σ_jp_{m,j}ϑ^jG(c) and Cauchy in t = log(z/c) gives 
   geometry is computed at the cell centre c₀ on the radius R + δ_c (δ_c ≥ |log(c/c₀)|; maximum principle), with adaptive arcs and
   Arb enclosures of ξ = arccosh((1+z)/(1−z)).
 
-### 4.4 Far remainder [P]
-|ℛ_M| ≤ Σ_k c^kB_k·b_k with, for every admissible ρ (ρu_{k−1} < c):
-* k ≤ n_min (then hu_{k−1} < c, so E_k(h) is its own Taylor series): |ρ_M(k)| ≤ (h/ρ)^{M+1}/E_k(ρ) (ρ ≥ h), because 1/E_k = exp(A_k)
-  has nonnegative Taylor coefficients dominating those of E_k = exp(−A_k);
-* all k: |ρ_M(k)| or |T_M(k)| ≤ 1 + Σ_{m≤M}(h/ρ)^m/E_k(ρ).
-Evaluated on blocks of k (all factors monotone in k) up to K_T = max(n_min+1, 6(2M+10)/d), then a geometric tail with ρ_k = (d/2)c/u_k.
-Every bound is increasing in h and decreasing in n, so a state set {c ∈ cell, a ≥ a₀} is covered by h_max = h(c_lo, a₀),
-n_min = n(c_lo, a₀).
+### 4.4 Far remainder [P] (author's §61 lemma; my first version had a cell-monotonicity bug, see below)
+ℛ_M = Σ_k g_k(U_k − T_M(k)), with U_k = 𝒰_k(h; c) = Π_{j<k}(c − hu_j)/(1 − hu_j) and T_M(k) its Taylor polynomial in h (= Σ_{m≤M}h^mc^kP_m(k)).
+* **Analyticity.** 𝒰_k is analytic in |h| < 1/u_{k−1}. This holds also past termination: for k > n the numerator has the exact zero
+  j = n, so 𝒰_k(h_phys) = 0 = U_k.
+* **Sup over the cell.** On |h| = ρ (x_j = ρu_j < 1), uniformly in c ∈ [c₋, c₊]: the Möbius map w ↦ (c − w)/(1 − w) takes its extreme
+  moduli on |w| = x at w = ±x. Hence sup|𝒰_k| ≤ M_k(ρ) = Π_{j<k}max{(c₊+x_j)/(1+x_j), |c₋−x_j|/(1−x_j), |c₊−x_j|/(1−x_j)}.
+* **Two bounds.** Cauchy gives (i) |U_k − T_M(k)| ≤ M_k(ρ)(h/ρ)^{M+1}/(1 − h/ρ) for h ≤ h_max < ρ, and (ii) |U_k − T_M(k)| ≤ c₊^k +
+  M_k(ρ)Σ_{m≤M}(h/ρ)^m for any admissible ρ.
+* **Coefficient bound.** |g_k| ≤ B_k: Cauchy on |z| = 1 − 3/(k+3) with Lemma B (|P| ≤ (π/2)e^{ν|Im ξ|}); B_k = O(e^{1573}k⁵).
+* **Evaluation.** On blocks of k (each factor is quasi-convex in x, so its block maximum is at an end point; B_k is increasing); then a
+  geometric tail with ρ = θ/u_k, θ = min(¾, 0.45(1+c₋)), where M_k ≤ q^k with q < 1.
+* **Bug in my first version (found by the coordinator, ANGULAR_ROUTE §61).** It used log(1/E_k(ρ; c)) at c = c₊, but that is decreasing in
+  c, so it is not an upper bound over a cell; the validity test ρu < c also used c₊. All scan results produced before the fix were
+  discarded, and the scan was rerun with the lemma above.
+* **Effect of the radius.** Since 𝒰_k is analytic up to 1/u_{k−1} rather than c/u_{k−1}, the "termination barrier" d·n ≳ 2300 of my
+  first version disappears. At β ∈ [2, 2.05] the far bound at a₀ = 1500, M = 600 is 2·10⁻⁵⁸ (it was 10²³⁰). At β ∈ [0.39, 0.44] it is
+  2·10⁻⁵⁵ at a₀ = 1250, M = 600. At β ∈ [8, 8.2] it still fails at a₀ = 1500 for M ≤ 850, and needs larger M.
 
 ### 4.5 The certificate
 For channel b, β-cell and a₀: **F_cert(cell) > (1−c)³[ |G^r(c)| + τ|𝒟_bG_A(c)| + Σ_{m=1}^{M}h^m‖P_m‖_RS(R) + |ℛ_M| ]** ⇒ H_ang,b > 0

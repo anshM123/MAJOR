@@ -129,7 +129,15 @@ def S_poly(l, s):
         out += math.comb(l, i)*fmpq(s)**(l - i)*faulhaber(l + i)
     return out
 
+_PMC = {}
 def Pm_exact(cb, s, m1):
+    key = (float(cb.lower()), float(cb.upper()), s, m1)
+    if key not in _PMC:
+        _PMC[key] = _Pm_exact(cb, s, m1)
+    return _PMC[key]
+
+
+def _Pm_exact(cb, s, m1):
     a = []
     for l in range(1, m1 + 1):
         Sl = S_poly(l, s)
@@ -314,7 +322,7 @@ def geometry(ba, bb, verbose=False):
     return sups, Rmax
 
 
-def run(b, ba, bb, a0, M=None, m1=30, verbose=True, geo=None):
+def run(b, ba, bb, a0, M=None, m1=70, verbose=True, geo=None):
     t0 = time.time()
     s = 2*b + 1; sig = 1 if b == 0 else -1; kap = Fr(9, 2) - b*(b - 1)
     ba = Fr(ba); bb = Fr(bb)
@@ -369,12 +377,13 @@ def run(b, ba, bb, a0, M=None, m1=30, verbose=True, geo=None):
     loc = []
     for m in range(1, m1 + 1):
         tot = arb(0)
+        nr = {R: normR(Pex[m], R) for (R, _S) in sups}
         for k, lst in comp.items():
             bm = None
             for (R, St) in lst:
                 if not St.is_finite():
                     continue
-                v = hmax**m*normR(Pex[m], R)*St
+                v = hmax**m*nr[R]*St
                 if bm is None or v < bm:
                     bm = up(v)
             tot += bm

@@ -1030,3 +1030,13 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Inputs: ρ_k = 3/(4k(k+s)), M_k ≤ e·0.6768^k, \|g_k\| ≤ e^{1650}(k+5)⁵, split at k = 4500.
   * Diagnostic at M = 600: log(far bound) at a = 1500 improves from +220 to −253.
 * **Bug (author; confirmed by the coordinator on reading the code).** fp3_ht.py line 219 sets c = cb.upper() and uses φ = log(1 − ru) − log(1 − ru/c) for log(1/E_k). But 1/E_k decreases in c, so the upper endpoint gives a LOWER bound on that factor, not an upper bound. With c^k, the combination c²/(c−x) is not monotone in c. **Cell certificates that used far_remainder() are not valid until this is fixed.** The joint majorant M_k(ρ) fixes it.
+
+## 62. Far remainder at the true floor a = 998 (first cell): vertical-line Cauchy contour plus the termination zero (author, 26 Nov)
+
+* **Claim (author).** \|ℛ₇₀₀\| < e^{−95} for β_c ∈ [2, 2.05], all a ≥ 998, b ∈ {0, 4}. Previously the bound was e^{+238}.
+* **Telescoping (author).** For k > n, U_k(v) = (1 − v/h)V_k(v), because c = hu_n. Hence T_M(k, h) = h^M[v^M]V_k(v).
+  * **Checked here:** [v^m]U = V_m − V_{m−1}/h, and the h^m-weighted sum telescopes.
+* **Vertical-line remainders (author).** ρ_k = θ/u_k with 0 < θ < 1, which lies left of all the poles 1/u_j, j < k.
+  * k ≤ n, θ > c: U_k(h) − T_M = (h^{M+1}/2πi)∫_{Re v=ρ_k} U_k(v)/(v^{M+1}(v−h))dv.
+  * k > n: −T_M = −(h^M/2πi)∫ V_k/v^{M+1}dv, which needs no ρ_k > h.
+  * Closing to the left is justified because U_k is bounded at ∞. Structure checked; the bound along the line (not yet received) and the e^{−95} numerics are not reproduced.
