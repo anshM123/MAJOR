@@ -47,37 +47,44 @@ def ccor(k, eta_hi):
     return _CC[(k, e)]
 
 # ---------------------------------------------------------------- sup bounds on circles z = c e^t, |t| = R
-def _arc_geom(c0, R, pa, pb):
-    """ball enclosures on the arc t = R e^{i phi}, phi in [pa, pb], z = c0 e^t."""
-    phb = arb((pa + pb)/2, (pb - pa)/2)
-    t = acb(R*phb.cos(), R*phb.sin())
-    z = acb(c0)*t.exp()
+def _piece_geom(cl, Dl, R, kind, pa, pb):
+    """ball enclosures on a piece of the stadium boundary (upper half), z = cl e^t:
+       kind 0: left quarter circle t = R e^{i phi}, phi in [pa, pb] subset [pi/2, pi];
+       kind 1: segment t = x + iR, x in [pa, pb] subset [0, Dl];
+       kind 2: right quarter circle t = Dl + R e^{i phi}, phi in [pa, pb] subset [0, pi/2]."""
+    pb_ = arb((pa + pb)/2, (pb - pa)/2)
+    if kind == 1:
+        t = acb(pb_, R)
+    elif kind == 0:
+        t = acb(R*pb_.cos(), R*pb_.sin())
+    else:
+        t = acb(Dl + R*pb_.cos(), R*pb_.sin())
+    z = acb(cl)*t.exp()
     X = (1 + z)/(1 - z)
     xi = X.acosh()
     return z, xi
 
 
-def circle_sups(c0, R, b, tol=2e-4):
-    """(S_A, S_D, max|1/z|): S_A >= sup|G_A|, S_D >= sup|G_D| on the circle z = c0 e^t, |t| = R (adaptive arcs, tolerance tol on
-    the enclosure width of Im xi so that e^{Lam eta} is not inflated by more than e^{Lam tol})."""
+def circle_sups(cl, ch, R, b, tol=2e-4):
+    """(S_A, S_D, max|1/z|): upper bounds of sup|G_A|, sup|G_D| over the union of the circles |log(z/c)| = R, c in [cl, ch]
+    (= sup over the boundary of the stadium, maximum principle); by conjugation symmetry only the upper half is scanned.
+    Adaptive pieces until the enclosure of Im xi is narrower than tol."""
     SA = arb(0); SD = arb(0); zinv = arb(0)
-    R = arb(R); c0 = arb(c0)
-    stack = [(arb(0), PI)]                    # symmetric: conj(z) gives conj(xi); |G| symmetric -> phi in [0, pi]
-    nseg = 0
+    R = arb(R); cl = arb(cl); Dl = up((arb(ch)/cl).log())
+    stack = [(0, PI/2, PI), (1, arb(0), Dl), (2, arb(0), PI/2)]
     while stack:
-        pa, pb = stack.pop()
-        z, xi = _arc_geom(c0, R, pa, pb)
+        kind, pa, pb = stack.pop()
+        z, xi = _piece_geom(cl, Dl, R, kind, pa, pb)
         ok = xi.real.is_finite() and xi.imag.is_finite()
         if ok:
             beta = lo(xi.real); eta = up(abs(xi.imag))
             ok = beta > 0 and eta < PI/2 and float(xi.imag.rad()) < tol and float(xi.real.rad()) < 0.01*float(beta.lower())
         if not ok:
-            if float((pb - pa).upper()) < 1e-9:
-                raise RuntimeError('arc geometry failed at R=%s' % R)
+            if float((pb - pa).upper()) < 1e-12:
+                raise RuntimeError('stadium geometry failed at R=%s' % R)
             m = (pa + pb)/2
-            stack.append((pa, m)); stack.append((m, pb))
+            stack.append((kind, pa, m)); stack.append((kind, m, pb))
             continue
-        nseg += 1
         axi = up(abs(xi)); om = lo(abs(1 - z))
         Js, Jc, Je = jval(2, beta)
         psi_part = 2*om**(-3)*(2**0.5/PI)*(Js + ccor(2, eta)*Jc + (LAM*eta).exp()*Je)
@@ -257,16 +264,16 @@ def run(b, ba, bb, a0, M=None, m1=8, verbose=True):
     Fcert = min(fc)
     nmin, hmax = state_params(c_lo, a0, s)
     tau = hmax                                            # tau = 1/T <= h
-    c0 = ((A(ba) + A(bb))/4).tanh()**2                   # centre: c at the mid beta
-    c0 = arb(c0.mid())
-    dlc = up(max(abs((c0/lo(c_lo)).log()), abs((up(c_hi)/c0).log())))   # delta_c >= |log(c/c0)| on the cell
-    Rlim = 0.92*float(lo(-(arb(c_hi.upper()).log())).lower())
-    Rmax = Rlim - float(dlc.upper())
-    Rs = [Rmax*(1e-4)**(1 - i/40) for i in range(41)]
+    Rmax = 0.92*float(lo(-(arb(c_hi.upper()).log())).lower())
+    Rs = [Rmax*(1e-5)**(1 - i/30) for i in range(31)]
     sups = []
     for R in Rs:
-        SA, SD, zinv = circle_sups(c0, R + float(dlc.upper()), b)
+        SA, SD, zinv = circle_sups(lo(c_lo), up(c_hi), R, b)
         sups.append((R, SA, SD, zinv))
+        if verbose:
+            print(f'   R={R:.3e}: S_A<={float(SA.upper()):.3e} S_D<={float(SD.upper()):.3e}  [{time.time()-t0:.0f}s]', flush=True)
+        if not SA.is_finite() or SA > arb(10)**300:
+            break
     # S_2(R) = S_A(R) + tau D(R) S_A(R+delta), S_3 = tau S_D ; delta: next grid radius >= 2R (or Rmax)
     def SA_at_least(Rq):
         for (R, SA, SD, zi) in sups:
@@ -281,7 +288,7 @@ def run(b, ba, bb, a0, M=None, m1=8, verbose=True):
         if R2 - R <= 0:
             Dfac = arb('inf')
         else:
-            Dfac = (1 + zinv)/2*(2/dl**2 + 1/dl) + (abs(arb(Fr(7, 2) - 2*b)) + zinv/2)/dl + abs(A(kap))
+            Dfac = (1 + zinv)/2*(2/dl**2 + 1/dl) + (abs(A(Fr(7, 2) - 2*b)) + zinv/2)/dl + abs(A(kap))
         S2 = SA + tau*Dfac*SA2
         S3 = tau*SD
         Stot.append((R, up(S2 + S3), SA, Dfac, SA2))
@@ -291,7 +298,7 @@ def run(b, ba, bb, a0, M=None, m1=8, verbose=True):
     best_tD = None
     for (R, SA, SD, zinv) in sups:
         Rr = arb(R)
-        v = tau*((1 - lo(c_lo))/(2*lo(c_lo))*(2/Rr**2 + 1/Rr) + (abs(arb(Fr(7, 2) - 2*b)) + 1/(2*lo(c_lo)))/Rr + abs(A(kap)))*SA
+        v = tau*((1 - lo(c_lo))/(2*lo(c_lo))*(2/Rr**2 + 1/Rr) + (abs(A(Fr(7, 2) - 2*b)) + 1/(2*lo(c_lo)))/Rr + abs(A(kap)))*SA
         if best_tD is None or v < best_tD:
             best_tD = up(v)
     # local orders

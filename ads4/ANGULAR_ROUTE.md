@@ -913,3 +913,20 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Structural consequence (coordinator).** The phase is a hard factor in (S, α), with large parameter S ≥ 2J + 1 + a ≥ 2535, times a soft factor in (a, γ) that depends only on (a, ν).
   * Only the amplitude, through P⁺(β(α, γ)), couples them.
   * So the leading uniform approximation should be: a nondegenerate Gaussian in α with O(1/S) corrections, times an exact one-dimensional soft integral in γ. The latter is a Darboux-multiplier-type special function of (a, ν) that can be evaluated in Arb uniformly through the turning point.
+
+## 55. Exact non-amplifying contour and a certified reference-kernel construction (author, 26 Nov)
+
+* **Global bound (author).**
+  * Building blocks: the outgoing Legendre solution P⁺ with \|P⁺\| ≤ e^{−ν Im β}/√(2ν·sinh(Re β)), and Im β ≥ 0 on all three contour pieces.
+  * The vertical tail is damped by e^{−(a−ν)t}, the lower ray by e^{−av}.
+  * Consequence: \|𝒦_p(μ)\| ≤ (𝒞D_p/π)[3π²/4 + 2π/(a−ν) + 6π/√(aε)] for 1 ≤ ν ≤ a − a^{1/3}/2 and μ ∈ {ν, ν±i}, with D_p = 16e(2/ε)^{p+1}/(ε√ν) and ε = 1/S.
+  * **No e^{O(ν)} or e^{O(a)} factors** (the prefactor is polynomial in S).
+* **Certified reference (author).** Truncate the contour at δ, T±; use Taylor panels of radius R_an = (ε/100)·min(εδ²/20, 1/(1+ν)); truncate the P⁺ series at K terms.
+  * Explicit total error: E_cut + PV·M_an[e^{−Kρ}/(1−e^{−ρ}) + 2(m+3)2^{−m}] + E_round.
+  * Efficient form: integrate the carriers e^{iSA−iaC} etc. exactly per panel, with an Euler-integral evaluator for P⁺.
+* **Leading saddle (author, diagnostic).** At J = 768, Δ = 1768, b = 0, the absolute error in d³𝒦₃ is 1.4e-5, 5.8e-5, 2.2e-4 and 9.3e-3 at ν = 300, 700, 950 and 993. The transport correction 𝒯_f is given.
+* **Transfer to the action (author).** \|H − H_ref\| < 55η when w^p\|𝒦_p − 𝒦_p^ref\| ≤ η.
+* **Open (coordinator).**
+  1. Numerically verify the contour identity.
+  2. An efficient certified evaluator.
+  3. **Uniformity over the infinite family** (J up to ~4.8e10, a from 998 to 2.2e7). This needs either Lipschitz control in (a, 1/S) on a grid, or certified asymptotics: the hard α-integral in 1/S, and the soft γ-integral at large a (the 𝔑_a expansion). Each state's reference is a finite computation; the family is not.

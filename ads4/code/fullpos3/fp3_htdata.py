@@ -141,7 +141,16 @@ def jtable(psi, betas, u0=Fr(1, 10**6), U=60, ng=600):
 
 
 # ------------------------------------------------------------------ realised-weight residual r = f_theta - psi(nu/Lam)
+_EPSC = None
 def eps_cells():
+    global _EPSC
+    if _EPSC is not None:
+        return _EPSC
+    _EPSC = _eps_cells()
+    return _EPSC
+
+
+def _eps_cells():
     """certified cells (mu_lo, mu_hi, upper bound of int_cell |r|) from the EPSW log (cumulative sums of panel bounds; each printed
     cumulative value rounded to 5 significant digits -> +2e-10 per cell; cell edges widened by one panel (0.1) for misalignment)."""
     txt = open(os.path.join(ADS4, 'code', 'epswcert', 'cache', 'ew_cert_1000_re_rep.txt')).read()
@@ -157,7 +166,15 @@ def eps_cells():
     return cells, epsW
 
 
+_GTP = None
 def gauss_tail_params():
+    global _GTP
+    if _GTP is None:
+        _GTP = _gauss_tail_params()
+    return _GTP
+
+
+def _gauss_tail_params():
     d = json.load(open(os.path.join(ADS4, 'prl', 'data', 'k2', 'k2_continuum_D_1000_rep.json')))
     cs = d['centres_sigma']; xs = d['x_re']
     S = sum(abs(Fr(float(x))) for x in xs)
