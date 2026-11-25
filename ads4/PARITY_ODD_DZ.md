@@ -418,7 +418,7 @@ In each place the parenthetical "(parity-odd, odd-twist … [D-sketch])" can be 
 cd ads4/code/oddz;  ulimit -v 3000000; export OMP_NUM_THREADS=1
 python3 -B oz1_extreme.py                         # §2: ap5 re-run (read-only), reflection, zeros, derivatives, ladder factors  ~30 s
 python3 -B oz2_zeros.py odd 0 2 4 6 ... 30        # §3.2, §4: exact zero orders, all m, h = ±2, both moments, closed-form identity
-python3 -B oz2_zeros.py oddJ 5 7 ... 31           #   (cost grows like J^2.5: J = 20 ~ 1 min, J = 30 ~ 4 min)
+python3 -B oz2_zeros.py oddJ 5 7 ... 31           #   (per J: ~1 min at J = 20, ~3-4 min at J = 28-31, ~15 min at J = 40)
 python3 -B oz2_zeros.py pp 0 2 4 ... 12; python3 -B oz2_zeros.py pm 4 6 ... 12     # controls (parity-even, even twist)
 python3 -B oz3_light.py                           # §5.1: parity-odd <TTT> at Delta = 3; J = 2 family limit
 ```
