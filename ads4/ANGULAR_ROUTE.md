@@ -857,3 +857,18 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
     * floor 1.50e-6·P_∘.
   * Budget: first-order term 1.116e-6, higher orders 2.175e-7, ℛ₅₀₀ < e^{−650}. **Not reproduced here.**
 * **Open.** 998 ≤ a < 2.2·10⁷ with 767 ≤ J < 4.83·10¹⁰ and 0.04 < L < 7. This needs a tame reference specialised to the physical generating function; generic norm arguments are excluded.
+
+## 52. Airy representation of the cubic-resummed ladder; perturbative references disproved (author, 26 Nov)
+
+* **Exact Airy form (author).**
+  * Definitions: η = (1−c)/(C−b(b+1)), λ = η^{1/3}, r_* = c·e^{η(b²+b+1/3)}.
+  * R₁ = e^{ηb³/3}∫₀^∞[Ai(u)e^{−bλu}F_{3,ν}(r_*e^{−λu}) + 2Re{e^{iπ/6}Ai(e^{iπ/6}u)e^{ibλu}F_{3,ν}(r_*e^{iλu})}]du.
+  * **Verified here numerically** (`code/angular/verify_s52_airy.py`):
+    * at J = 800, Δ = 1800 it matches the k-sum R₁ to 1e-18 to 1e-20 at ν = 5 and 50, in both channels;
+    * at ν = 300 it matches the R₁ value implied by the exponentiated-ladder test.
+    * There, ∫\|integrand\|/\|R₁\| ≈ 1.05 for ν ≤ 50.
+* **Arc growth (author).** q_* = √r_*·λ/d_* ≤ 1.001/(4a²)^{1/3}. Hence d_*³\|F_{3,ν}\| ≤ e^{νq_*u} on the arc. The Airy envelope's amplification is exp(ν³/(6a²)).
+* **No exact short-arc measure (author).** The moments c^k e^{−hL₁(k)} decay superexponentially, which forces an essential singularity in the Cauchy transform.
+* **Truncation multipliers (author).** 0 ≤ δ_M(k) ≤ m_M(k)·min(1, A₁x_k^M/(1−x_k)). The correction formula is −(1/2π)∫F_{3,ν}(ce^{it})D_M(t)dt.
+* **Counterexample (author; 1100-digit directed arithmetic).** At J = 768, Δ = 1768, b = 0 (inside the open strip), d³R₁ ≈ 1e27 and d³R₂ ≈ 2e17 at ν = 998, against an exact value of 0.054. **Truncating the ladder symbol at cubic or quintic order fails at ν ~ a.** The saddle scale grows like ν/a^{2/3}, and the quintic term becomes O(a).
+* **Next reference.** It must keep the full logarithmic ladder symbol at the complex saddle: the §47 joint WKB, S(y) = ∫log((ℓ²−t²)/(h²−t²)) + iΘ_ν.
