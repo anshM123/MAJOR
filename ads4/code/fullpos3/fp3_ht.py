@@ -65,11 +65,23 @@ def _piece_geom(cl, Dl, R, kind, pa, pb):
     return z, xi
 
 
+_RC = {}
+def rcomp(eta_hi):
+    e = math.ceil(float(eta_hi.upper())*1e4 + 1e-9)/1e4
+    if e not in _RC:
+        _RC[e] = [v for (_k, v) in D.rint_components(arb(e))]
+    return _RC[e]
+
+
 def circle_sups(cl, ch, R, b, tol=2e-4):
-    """(S_A, S_D, max|1/z|): upper bounds of sup|G_A|, sup|G_D| over the union of the circles |log(z/c)| = R, c in [cl, ch]
-    (= sup over the boundary of the stadium, maximum principle); by conjugation symmetry only the upper half is scanned.
-    Adaptive pieces until the enclosure of Im xi is narrower than tol."""
-    SA = arb(0); SD = arb(0); zinv = arb(0)
+    """component-wise upper bounds of sup|.| over the union of the circles |log(z/c)| = R, c in [cl, ch] (boundary of the stadium,
+    maximum principle; upper half by conjugation symmetry).  Components (each an analytic function, FULLPOS3 §4.3):
+      'As': psi2 smooth (p=0 + coth) part of G_A;  'Ae': psi2 p=1 endpoint part;  'r<i>': residual cells of G^r;
+      'Ds', 'De': the same split of G_D;  'zinv': max |1/z|."""
+    out = {}
+    def mx(key, v):
+        if key not in out or v > out[key]:
+            out[key] = v
     R = arb(R); cl = arb(cl); Dl = up((arb(ch)/cl).log())
     stack = [(0, PI/2, PI), (1, arb(0), Dl), (2, arb(0), PI/2)]
     while stack:
@@ -87,19 +99,18 @@ def circle_sups(cl, ch, R, b, tol=2e-4):
             continue
         axi = up(abs(xi)); om = lo(abs(1 - z))
         Js, Jc, Je = jval(2, beta)
-        psi_part = 2*om**(-3)*(2**0.5/PI)*(Js + ccor(2, eta)*Jc + (LAM*eta).exp()*Je)
-        r_part = (2/LAM)*om**(-3)*(axi/beta)*D.P_mhalf(beta)*rint(eta)
-        v = up(psi_part + r_part)
-        if v > SA:
-            SA = v
+        k2 = 2*om**(-3)*(2**0.5/PI)
+        mx('As', up(k2*(Js + ccor(2, eta)*Jc)))
+        mx('Ae', up(k2*(LAM*eta).exp()*Je))
+        kr = up((2/LAM)*om**(-3)*(axi/beta)*D.P_mhalf(beta))
+        for i, v in enumerate(rcomp(eta)):
+            mx('r%d' % i, up(kr*v))
         Js3, Jc3, Je3 = jval(3, beta)
-        dpart = up(LAM**2*om**(-4)*(2**0.5/PI)*(Js3 + ccor(3, eta)*Jc3 + (LAM*eta).exp()*Je3))
-        if dpart > SD:
-            SD = dpart
-        zi = up(1/abs(z))
-        if zi > zinv:
-            zinv = zi
-    return SA, SD, zinv
+        k3 = LAM**2*om**(-4)*(2**0.5/PI)
+        mx('Ds', up(k3*(Js3 + ccor(3, eta)*Jc3)))
+        mx('De', up(k3*(LAM*eta).exp()*Je3))
+        mx('zinv', up(1/abs(z)))
+    return out
 
 
 # ---------------------------------------------------------------- exact P_m (m <= m1) as arb_poly in k
@@ -252,7 +263,25 @@ def state_params(cb_lo, a0, s):
     return lo(n), up(1/(N*(N + s)))
 
 
-def run(b, ba, bb, a0, M=None, m1=8, verbose=True):
+def geometry(ba, bb, verbose=False):
+    t0 = time.time()
+    ba = Fr(ba); bb = Fr(bb)
+    c_lo = (A(ba)/2).tanh()**2; c_hi = (A(bb)/2).tanh()**2
+    Rmax = 0.92*float(lo(-(arb(c_hi.upper()).log())).lower())
+    Rs = [Rmax*(1e-5)**(1 - i/40) for i in range(41)]
+    sups = []
+    for R in Rs:
+        S = circle_sups(lo(c_lo), up(c_hi), R, 0)
+        for kk in list(S):
+            if (not S[kk].is_finite()) or S[kk] > arb(10)**300:
+                S[kk] = arb('inf')
+        sups.append((R, S))
+    if verbose:
+        print(f'   geometry [{time.time()-t0:.0f}s]', flush=True)
+    return sups, Rmax
+
+
+def run(b, ba, bb, a0, M=None, m1=30, verbose=True, geo=None):
     t0 = time.time()
     s = 2*b + 1; sig = 1 if b == 0 else -1; kap = Fr(9, 2) - b*(b - 1)
     ba = Fr(ba); bb = Fr(bb)
@@ -264,74 +293,86 @@ def run(b, ba, bb, a0, M=None, m1=8, verbose=True):
     Fcert = min(fc)
     nmin, hmax = state_params(c_lo, a0, s)
     tau = hmax                                            # tau = 1/T <= h
-    Rmax = 0.92*float(lo(-(arb(c_hi.upper()).log())).lower())
-    Rs = [Rmax*(1e-5)**(1 - i/30) for i in range(31)]
-    sups = []
-    for R in Rs:
-        SA, SD, zinv = circle_sups(lo(c_lo), up(c_hi), R, b)
-        sups.append((R, SA, SD, zinv))
-        if verbose:
-            print(f'   R={R:.3e}: S_A<={float(SA.upper()):.3e} S_D<={float(SD.upper()):.3e}  [{time.time()-t0:.0f}s]', flush=True)
-        if not SA.is_finite() or SA > arb(10)**300:
-            break
-    # S_2(R) = S_A(R) + tau D(R) S_A(R+delta), S_3 = tau S_D ; delta: next grid radius >= 2R (or Rmax)
-    def SA_at_least(Rq):
-        for (R, SA, SD, zi) in sups:
+    if geo is None:
+        geo = geometry(ba, bb, verbose)
+    sups, Rmax = geo
+    keysA = [k for k in sups[0][1] if k == 'As' or k == 'Ae' or k[0] == 'r']
+    keysD = ['Ds', 'De']
+    # per component: S2(R) = S(R) + tau Dfac(R) S(R2) for G_A components; tau S(R) for D components
+    def at_least(Rq):
+        for (R, S) in sups:
             if R >= Rq:
-                return R, SA
-        return sups[-1][0], sups[-1][1]
-    Stot = []
-    cmaxA = arb(c_hi.upper())
-    for (R, SA, SD, zinv) in sups:
-        R2, SA2 = SA_at_least(min(2*R, Rmax))
-        dl = arb(R2 - R)
-        if R2 - R <= 0:
-            Dfac = arb('inf')
-        else:
-            Dfac = (1 + zinv)/2*(2/dl**2 + 1/dl) + (abs(A(Fr(7, 2) - 2*b)) + zinv/2)/dl + abs(A(kap))
-        S2 = SA + tau*Dfac*SA2
-        S3 = tau*SD
-        Stot.append((R, up(S2 + S3), SA, Dfac, SA2))
+                return R, S
+        return sups[-1]
+    comp = {k: [] for k in keysA + keysD}
+    for (R, S) in sups:
+        R2, S2_ = at_least(min(2*R, Rmax))
+        dl = arb(R2 - R); zinv = S['zinv']
+        Dfac = arb('inf') if R2 - R <= 0 else (1 + zinv)/2*(2/dl**2 + 1/dl) + (abs(A(Fr(7, 2) - 2*b)) + zinv/2)/dl + abs(A(kap))
+        for k in keysA:
+            v = S[k] + tau*Dfac*S2_[k]
+            comp[k].append((R, up(v) if v.is_finite() else arb('inf')))
+        for k in keysD:
+            comp[k].append((R, up(tau*S[k])))
     # m = 0 extras: G^r(c) and tau D_b G_A(c)
     beta_lo = A(ba)
     Gr = (2/LAM)*(1 - cb.upper())**(-3)*D.P_mhalf(beta_lo)*rint(arb(0))
-    best_tD = None
-    for (R, SA, SD, zinv) in sups:
-        Rr = arb(R)
-        v = tau*((1 - lo(c_lo))/(2*lo(c_lo))*(2/Rr**2 + 1/Rr) + (abs(A(Fr(7, 2) - 2*b)) + 1/(2*lo(c_lo)))/Rr + abs(A(kap)))*SA
-        if best_tD is None or v < best_tD:
-            best_tD = up(v)
-    # local orders
+    best_tD = arb(0)
+    for k in keysA:
+        bk = None
+        for (R, S) in sups:
+            Rr = arb(R)
+            v = tau*((1 - lo(c_lo))/(2*lo(c_lo))*(2/Rr**2 + 1/Rr) + (abs(A(Fr(7, 2) - 2*b)) + 1/(2*lo(c_lo)))/Rr + abs(A(kap)))*S[k]
+            if bk is None or v < bk:
+                bk = up(v)
+        best_tD += bk
+    # local orders, exact P_m for m <= m1: sum over components of min over R
     Pex = Pm_exact(cb, s, m1)
     loc = []
     for m in range(1, m1 + 1):
-        bm = None
-        for (R, St, *_r) in Stot:
-            v = hmax**m*normR(Pex[m], R)*St
-            if bm is None or v < bm:
-                bm = up(v)
-        loc.append(bm)
+        tot = arb(0)
+        for k, lst in comp.items():
+            bm = None
+            for (R, St) in lst:
+                if not St.is_finite():
+                    continue
+                v = hmax**m*normR(Pex[m], R)*St
+                if bm is None or v < bm:
+                    bm = up(v)
+            tot += bm
+        loc.append(up(tot))
+        if verbose:
+            print(f'      exact m={m}: {float(tot.upper()):.3e}', flush=True)
     # choose M: needs the far remainder; try list
-    Ms = [M] if M else [60, 120, 250, 500, 900, 1400]
+    Ms = [M] if M else [150, 300, 600, 1000, 1500]
     best_total = None
     for MM in Ms:
         tail_loc = arb(0); mm_detail = []
         cl = float(cb.lower())
         for m in range(m1 + 1, MM + 1):
-            cand = []
-            for (R, St, *_r) in Stot:
+            # float log-majorant per radius (shared by components)
+            nm = {}
+            for (R, _S) in sups:
                 if R > 3:
                     continue
                 lv, eta = norm_major_float(m, R, cl, s)
-                if eta is None:
+                if eta is not None:
+                    nm[R] = (lv, eta)
+            bm_tot = arb(0); percomp = {}
+            for k, lst in comp.items():
+                cand = [(nm[R][0] + math.log(float(St.upper())), R) for (R, St) in lst if R in nm and St.is_finite() and St > 0]
+                if not cand:
                     continue
-                cand.append((lv + m*math.log(float(hmax.upper())) + math.log(float(St.upper())), R, St, eta))
-            lvb, R, St, eta = min(cand)
-            if lvb < -800:                                  # negligible: still bounded rigorously below via Arb
-                pass
-            bm = up(hmax**m*norm_major(m, R, cb, s, eta)*St)
+                lvb, R = min(cand)
+                St = dict(lst)[R]
+                vv = hmax**m*norm_major(m, R, cb, s, nm[R][1])*St
+                bm_tot += vv; percomp[k] = (float(vv.upper()), R)
+            bm = up(bm_tot)
+            if verbose and (m <= m1 + 2 or m % 100 == 0):
+                worst = max(percomp.items(), key=lambda kv: kv[1][0])
+                print(f'      m={m}: {float(bm.upper()):.3e}  worst component {worst[0]} {worst[1][0]:.2e} at R={worst[1][1]:.2e}', flush=True)
             tail_loc += bm
-            if m <= m1 + 3 or m % 100 == 0:
+            if m <= m1 + 3 or m % 50 == 0:
                 mm_detail.append((m, float(bm.upper())))
         try:
             far, kend = far_remainder(cb, hmax, int(float(nmin.lower())), MM, b, tau, d_lo)
@@ -344,7 +385,7 @@ def run(b, ba, bb, a0, M=None, m1=8, verbose=True):
             best_total = (err, res)
         if verbose:
             print(f'   M={MM}: err<={float(err.upper()):.3e}  far<={res["far"]:.3e}  higher local<={res["tail_loc"]:.3e}  kend={kend}', flush=True)
-        if err < A(Fr(Fcert))*Fr(1, 2):
+        if err < arb(Fcert)/2:
             break
     err, res = best_total
     ok = err < arb(Fcert)
@@ -354,8 +395,38 @@ def run(b, ba, bb, a0, M=None, m1=8, verbose=True):
     return out
 
 
+A0LIST = [1000, 1250, 1500, 1750, 2000, 2500, 3000, 3500, 4000, 5000, 6000, 7000, 8500, 10000, 12500, 15000, 20000, 25000,
+          30000, 40000, 50000, 70000, 100000, 200000, 500000, 2200000]
+
+
+def scan_cell(ba, bb, out):
+    """smallest a0 in A0LIST certified for each channel on the beta-cell [ba, bb] (monotone in a0: every bound increases with h_max
+    and decreases with n_min)."""
+    t0 = time.time()
+    geo = geometry(ba, bb)
+    res = {}
+    for b in (0, 4):
+        res[b] = None
+        for a0 in A0LIST:
+            r = run(b, ba, bb, a0, verbose=False, geo=geo)
+            if r['ok']:
+                res[b] = r; break
+    line = dict(ba=str(ba), bb=str(bb), a0_b0=res[0]['a0'] if res[0] else None, a0_b4=res[4]['a0'] if res[4] else None,
+                rec0=res[0], rec4=res[4], secs=time.time() - t0)
+    print(f"cell [{ba},{bb}]: a0(b=0) = {line['a0_b0']}, a0(b=4) = {line['a0_b4']}  "
+          f"(err/Fcert = {res[0]['err']/res[0]['Fcert'] if res[0] else None}, {res[4]['err']/res[4]['Fcert'] if res[4] else None})  [{line['secs']:.0f}s]", flush=True)
+    open(out, 'a').write(json.dumps(line) + '\n')
+    return line
+
+
 if __name__ == '__main__':
-    b = int(sys.argv[1]); ba = sys.argv[2]; bb = sys.argv[3]; a0 = int(sys.argv[4])
-    M = int(sys.argv[5]) if len(sys.argv) > 5 else None
-    r = run(b, ba, bb, a0, M)
-    print(json.dumps(r))
+    if sys.argv[1] == 'scan':
+        cells = [l.split(',') for l in sys.argv[2].split(';')]
+        out = os.path.join(HERE, 'cache', sys.argv[3])
+        for ba, bb in cells:
+            scan_cell(ba, bb, out)
+    else:
+        b = int(sys.argv[1]); ba = sys.argv[2]; bb = sys.argv[3]; a0 = int(sys.argv[4])
+        M = int(sys.argv[5]) if len(sys.argv) > 5 else None
+        r = run(b, ba, bb, a0, M)
+        print(json.dumps(r))

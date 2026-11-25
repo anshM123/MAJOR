@@ -930,3 +930,24 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   1. Numerically verify the contour identity.
   2. An efficient certified evaluator.
   3. **Uniformity over the infinite family** (J up to ~4.8e10, a from 998 to 2.2e7). This needs either Lipschitz control in (a, 1/S) on a grid, or certified asymptotics: the hard α-integral in 1/S, and the soft γ-integral at large a (the 𝔑_a expansion). Each state's reference is a finite computation; the family is not.
+
+## 56. Joint compactification (τ, t) = (a/S, 1/S²); uniform large-twist theorem; parameter Lipschitz/Taylor cells (author, 26 Nov)
+
+* **Contour identity (author, numerical).** Matches the terminating kernel at three states, including non-integer N (N = 7.5, 10.25), to 1e-12 (one case 8e-9). The identities u/v = xy and (1+u)/(1+v) = y/x give the carrier e^{iSα−iaγ}.
+* **Exact relations. Checked here by hand:**
+  * r = ((1−τ)² − t)/((1+τ)² − t);
+  * w = 4τ/D and 1/T = 4t/D, with D = (1+τ)² − t;
+  * U_k = ∏_{j<k}((1−τ)² − (s+2j)²t)/((1+τ)² − (s+2j)²t).
+
+  These follow from C = ℓ² − ¼, T = H² − ¼ and C − u_j = ℓ² − (s+2j)²/4. The moderate strip is 0.00022 < τ < 0.68.
+* **Uniform theorem (author).** \|H − Σ_{m≤1300} t^m P_m(ϑ; τ)G(c₀)\| < e^{−55} for all states with a ≥ 125000, both channels and real masses.
+  * Inputs: sup_{\|z\|=(1+c₀)/2}\|G\| < e^{1710}, and an analytic ladder in complex t.
+  * Consequence: H_ref is a degree-1301 polynomial in y = (125000/a)² ∈ [0,1], with τ-dependent coefficients. A Bernstein certificate in y plus enclosures in τ would cover the whole unbounded family.
+  * A per-frequency version holds for a ≥ 150000.
+* **Compact remainder region (author).** 998 ≤ a < 125000, 767 ≤ J < 2.85·10⁸, 0.04 < L < 7.
+  * Exact parameter derivatives: ∂_S^j∂_a^k I = ∫(iα)^j(−iγ)^k𝒲_p.
+  * Conservative bounds with e^{G₉₉₇(ν)}; ∫(1+ν²)\|f\|e^{G₉₉₇} < 1e14.
+  * Signed parameter-Taylor cells with explicit remainder.
+* **Coordinator cautions.**
+  1. The retained coefficients P_m(ϑ)G(c₀) involve derivatives of G up to order ~3900 at c₀. They may be individually large and cancel across m; that needs high-precision Taylor models in τ, not naive interval enclosures.
+  2. The §50 majorant (e^{3.1m}[B_m³/a²]^m) does not converge at a = 125000. Only the new global-radius argument does; reproduce it before relying on it.

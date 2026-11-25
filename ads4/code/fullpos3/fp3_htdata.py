@@ -209,6 +209,21 @@ def Rint(eta):
     return up(2.1*tail + tot + thc), epsW
 
 
+def rint_components(eta):
+    """the summands of Rint(eta) separately: [(nu_hi, w e^{eta nu_hi}) for the EPSW cells] + [('rest', tail + theta part)]."""
+    eta = arb(eta)
+    cells, epsW = eps_cells()
+    out = [(b, up(arb(w)*(eta*arb(b)).exp())) for (a, b, w) in cells]
+    S, cmax, smin, smax = gauss_tail_params()
+    pref = 16*2*A(S)*(1/(2*A(smin)**2)).exp()
+    s = A(smax); x0 = arb(1059) - A(cmax) - eta*s*s
+    assert x0 > 20
+    tail = pref*(2*PI).sqrt()*s*(eta*A(cmax) + eta*eta*s*s/2).exp()*(-(x0*x0)/(2*s*s)).exp()
+    thc = arb(1e10)*arb(-49).exp()*(eta*(LAM + 30)).exp() + arb(2.1)*arb(3.2e-10)*(eta*arb(1059)).exp()
+    out.append(('rest', up(2.1*tail + thc)))
+    return out
+
+
 def P_mhalf(beta):
     """P_{-1/2}(cosh beta) = 2F1(1/2, 1/2; 1; -sinh^2(beta/2)) (ball)."""
     b = arb(beta)
