@@ -754,6 +754,21 @@ A chain carries the grade of its weakest link.
 >   * The k = 2 α_T² part is [D-sketch].
 >   * A factor-10 error in b₂ would still keep the headline.
 
+> **Update (UNCOND_INVENTORY.md, analysis only): no finite Δ\* makes "Ω^EE ⪰ 0 on every heavy state" unconditional with known methods. The fully rigorous reachable layer is T0: the leading-Regge (hybrid) action ≥ c·N_s on every heavy state at Δ\* = 1000 (≈ 14–24 agent-hours, ≈ 85 %).**
+> * **Obstructions to the full action:**
+>   * (O1) a contour theorem (TAIL / Lemma R) needed by every Laplace certificate;
+>   * (O2) AG_U beyond all orders at large b̂, where the value comes from cancellation;
+>   * (O3) uniformity across J ~ √Δ_g;
+>   * (O4) the light-cone fold, removable by redefining the weights to support p ≤ p_max < 1.
+> * **Targets:**
+>   * T1: the full action for J ≤ 8 at Δ\* ≈ 10⁶, given CT; 35–60 h; 30–40 % given CT, with CT itself ≲ 20 %.
+>   * T∞: every heavy state at Δ\* ≈ 10⁶–10⁷, given CT; 120–200 h; ≲ 20–25 %.
+> * **Infeasible:** any certified statement about the beyond-leading-Regge correction δ below Δ_g ≈ 2·10⁴. The optimal-truncation accuracy at Δ = 1000 (7e-3–1e-5) is comparable to the tolerances (3.5e-2–5.6e-5), and no exact non-asymptotic spinning representation exists. So 1000 ≤ Δ_g < 10⁵–10⁶ stays at the B_F premise. Below Δ_g ≈ 140–300 positivity is expected to be false (DG_SCAN model).
+> * **Plan:**
+>   * Phase 1: T0 (M1 + a continuum functional at every Δ_g, M20) in parallel with a capped CT probe (8–10 h; go/no-go).
+>   * Phase 2 (T1) only on go.
+>   * Cheap extras: the M19 implication-side [D-sketch] links and the M18 A1′ wording.
+
 ## 1. Setup and normalisations
 
 | item | definition |
