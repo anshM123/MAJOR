@@ -1086,3 +1086,15 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Newton form: 𝒬_M(ϑ)G(c) = Σ_j Δ^j𝒬_M(0)·c^jG^{(j)}(c)/j!, which is exact for polynomial 𝒬. Checked.
   * A Taylor-cell remainder is given explicitly.
 * **Residual r = f − ψ₂ (author).** Frequency-bin carriers e^{±iν_Iβ} with an amplitude growth of only e^{Δ_I\|Im β\|}.
+
+## 65. FULLPOS3 progress (2): bug fixed; local terms bind below a ≈ 3000 (agent, 26 Nov)
+
+* **far_remainder() replaced** with the §61 joint-cell circles. The old scan is discarded.
+  * Far bounds: β ∈ [2, 2.05] gives 2e-58 at a₀ = 1500 but 8e156 at a₀ = 998; β ∈ [0.39, 0.44] gives 2e-55 at a₀ = 1250.
+  * The §62/§63 vertical lines (e^{−74} at a = 998) are **not yet implemented or reproduced**.
+* **Local terms bind.** At β ∈ [0.39, 0.44], b = 0:
+  * a₀ = 3200 **passes** (err/F_cert = 0.097, exact P_m to m = 70, 81 radii);
+  * a₀ = 2000 **fails**: per-order absolute bounds reach 1e158 near m ~ 300, from the ψ₂ p = 1 endpoint and the residual cells at ν ≈ 1000–1060. This matches the author's §64b warning.
+* **Scan.** 60 cells × 2 channels, bisection in a₀; about 4 h; expected a* ≈ 3000 at low L.
+* **Per-J certificates complete:** every channel with J ≤ 1000, plus b = 4 to J = 1004. **All PASS** at every mass. [certified]
+* **Remaining.** 998 ≤ a < a*(L) ≈ 3000 with J ≥ 1005, 0.04 < L < 7. Fix: §64b carrier-shifted or grouped 𝒬_M bounds for the endpoint and high-residual components, plus §63 vertical lines for the far remainder below a ≈ 1500.
