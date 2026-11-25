@@ -49,7 +49,7 @@ Grades and conventions are BATCH5_FOLD's: **[NE±]**, [NE + M], [M], [I]; `L = v
 **Count at Δ_g = 2000** (near-gap spins computed at 2000; a spin counts as error-controlled when its 2000 twist edge and every computed mass are
 [NE±], any suffix, as in BATCH5_FOLD):
 * *Before:* 20 spins computed (J = 0, 2, 4–17, 19, 21, 27, 29); sign-free [NE±] at every mass: J = 0, 2, 4–11, 13 (**11**); λ-level only:
-  J = 12, 14–17, 19, 21 (8); [NE + M] at the twist edge: J = 27, 29.
+  J = 12, 14–17, 19, 21 (7); [NE + M] at the twist edge: J = 27, 29.
 * **Now:** 22 spins computed (+ J = 20, 23). **Sign-free [NE±] at every computed mass: J = 0, 2, 4–13, 16, 20, 21, 23, 27 (17)**; λ-level only:
   J = 14, 15, 17, 19 (4, unchanged K₂ entries); **[NE + M]: J = 29 at its 2000 twist edge and hybrid minimum only** (L = 0.71 / 0.77;
   [NE±] from 1.0286Λ up). Error-controlled spins (any suffix): 18 → **21 of 22**.
@@ -59,7 +59,7 @@ Grades and conventions are BATCH5_FOLD's: **[NE±]**, [NE + M], [M], [I]; `L = v
 **Negative findings and cautions (stated first).**
 1. **No state is negative.** Lowest new values: J = 12 at its twist edge +0.4095 (the hybrid's own dip, +0.4090), J = 16 at its hybrid minimum 1.025Λ +0.727 (hybrid +0.724), J = 20 at its hybrid
    minimum +0.818 (hybrid +0.763), J = 21 at 1.03Λ +0.891 (hybrid +0.883), J = 23 at 1.025Λ +0.924, J = 29 at its twist edge +0.941.
-2. **J = 29's 2000 twist edge (and its hybrid minimum 1.015Λ) stays [NE + M]**, L = 0.71 / 0.77 (×14 / ×5 better than K₂-only). Binding
+2. **J = 29's 2000 twist edge (and its hybrid minimum 1.015Λ) stays [NE + M]**, L = 0.71 / 0.77 (K₂-only: sign-free 0.05, λ-level 0.16). Binding
    term: the five GK nodes x > 0.945 that n1 cannot reach, covered by the light-cone envelope 3A((1 − x_l)/(1 − x))² (E_miss = 0.97), then
    representation 0.15 and quadrature 0.15. The signed window does not help (the window is 0.025 at 2000). Under EDGE_R2's calibrated
    pointwise factor c = 1.21–2.06 in place of 3 (protocol change, not used for the grade), L = 0.93–1.27.
@@ -76,8 +76,8 @@ Grades and conventions are BATCH5_FOLD's: **[NE±]**, [NE + M], [M], [I]; `L = v
    node and the five unreachable ones in E_miss (B5_GKMIN = 9, the switch BATCH5 introduced): L = 1.41. The more conservative value is graded.
 6. **Every 2000 mass above the twist edge is held on the own row** (no row above Δ = 2000 + J exists at these J); the K₂-only entries held the
    same row. For the hs_odd masses this is the protocol, as at 1000.
-7. **K₂ against direct at 2000 (GAP_NEARGAP caveat 1):** the direct values are higher than the K₂ values on the same rows by +0.0002 … +0.026
-   (every shift favourable), ≤ 3 % of the K₂ λ-level truncation charge 3|K₂ − K₁|. Pointwise, Γ_dir − Γ_K₂ has rms 70–137 c₂ on x ≤ 0.775
+7. **K₂ against direct at 2000 (GAP_NEARGAP caveat 1):** the direct values differ from the K₂ values on the same rows by −0.0003 … +0.026
+   (all but one shift ≥ 0, i.e. favourable), ≤ 3 % of the K₂ λ-level truncation charge 3|K₂ − K₁|. Pointwise, Γ_dir − Γ_K₂ has rms 70–137 c₂ on x ≤ 0.775
    with χ²/n = 2.2–3.0 against the jackknife: the K₂ truncation is visible node by node but averages out in λ (§4).
 
 ---
@@ -189,7 +189,7 @@ Replace from `(2) At $\Delta_g=2000$ every near-gap spin` through `(Sec.~\ref{se
 were computed on own-mass rows, for $J=12$, $16$, $20$, $21$, $23$, $27$, $29$ with direct (Monte Carlo) evaluations of the crystal
 integral, including the seam strip (two spins also at $5000$); nothing is negative; $J\le13$, $J=16$, $20$, $21$, $23$, $27$ and the OO
 states close [NE$\pm$] sign-free at every computed mass, $J=14$, $15$, $17$, $19$ on the $\lambda$-level budget only, and $J=29$ from
-$1.03\Lambda$ on ([NE\,+\,M] at its $2000$ twist edge and hybrid minimum, $L=0.71$, $0.77$); the direct values exceed the $K_2$ values on the
+$1.03\Lambda$ on ([NE\,+\,M] at its $2000$ twist edge and hybrid minimum, $L=0.71$, $0.77$); the direct values differ from the $K_2$ values on the
 same rows by at most $0.026$, $\le3\%$ of the $K_2$ truncation charge; for $J\le16$ every budget term scales like $\Lambda^{-2}$ or
 faster; $J=18$, $22$, $24$--$26$, $28$, $30$--$32$ are not computed at $2000$ (Sec.~\ref{sec:allgap}.C).
 ```
@@ -242,8 +242,8 @@ Replace the J = 21, 27 and 29 rows (from `21 & tw$_{2000}=1.0105$` through `29 &
 ```
 (d) Optional, in the protocol paragraph before the table, after `… ($\Delta_{\rm ref}=5\times10^4$ … (reading (iv)).`, add:
 ```latex
-For $J=12$, $16$, $20$, $21$, $23$, $27$, $29$ the own row at $2000$ is a direct (Monte Carlo) row, as at $1000$; its values exceed the
-$K_2$ values by $+0.0002$ to $+0.026$.
+For $J=12$, $16$, $20$, $21$, $23$, $27$, $29$ the own row at $2000$ is a direct (Monte Carlo) row, as at $1000$; its values differ from the
+$K_2$ values by $-0.0003$ to $+0.026$.
 ```
 
 ### 6.3 `supplement.tex` ≈ 1731–1734, end of *Other near-gap states*
