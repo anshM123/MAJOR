@@ -35,40 +35,54 @@
 
 ## 0. Verdict
 
-**Short answer: not close to a theorem for all spins.** It is certified spin by spin up to J ≈ 240, and the routes proposed for large spin
-do not work as formulated. Every-mass positivity is proved for every spin up to a computable J_max. Beyond that, no proposed asymptotic route
-closes. The obstruction is structural: the angular moments are exponentially large and cancel.
+**Δ_g = 1000: full AdS positivity of Ω^EE (in the form H_ang,b > 0, modulo item 4 and the retained physical identities) is now
+[certified] on the region below; it is not a theorem.**
+* **Certified:** every spin J ≤ J1MAX at every mass; and every spin J ≥ 240 at impact parameter b̂ ≤ 100, extended to b̂ ≤ 282.8 for
+  J ≥ 420 RECT651SHORT.
+* **Open:** large spin near the twist edge, J > J1MAX with b̂ above the rectangle reach. There b̂ runs up to ≈ Λ√(2J/Δ_g) → ∞ and
+  r → 1. This region is infinite.
+* **Why the proposed asymptotic routes fail:** the coefficient-envelope / tail route (§§29–33), the comparison constant 𝒦(r₀) and the
+  signed-remainder pivot all fail, for one structural reason. The angular moments are exponentially large (a certified plateau
+  |Z_k| ≈ 10^{672.5} ≈ e^{(π/2)Λ} for k ≥ Λ/2) and cancel.
+
+**Coverage map at Δ_g = 1000 (H_ang,b > 0, both channels):**
+
+| region | how | grade |
+|---|---|---|
+| J ≤ J1MAX, every mass m ≥ m_gap(J) | per-J univariate Bernstein certificate in w = Λ²/T (`fp_poly.py`) | **[certified]** |
+| J ≥ 240, b̂ ≤ 100 (x = b̂²/4 ≤ 2500) | bivariate (x, v = (J+½)⁻²) Bernstein certificate, exact denominators, K = 230 harmonics plus a certified tail (`fp_rect.py`) | **[certified]** |
+| J ≥ 420, b̂ ≤ 282.8 (x ≤ 2·10⁴) | the same, K = 410 | **[certified]** |
+| RECT651ROW |
+| J ≥ 240, b̂ ≤ 22 | ⊂ the above. The authors' |H_ang − H_hyb| ≤ 0.05 H_hyb is **not** reproduced as such; positivity is | [certified] (positivity) |
+| J ≤ 26, all masses | the authors' |H_ang/H_hyb − 1| ≤ 0.01 confirmed on samples: max 4.7·10⁻³, min H_ang/N_s = 0.2009 | [DV] |
+| **open** | J > J1MAX and b̂_rect(J) < b̂ ≤ b̂_max(J) ≈ (2J+1)Λ/√(1996J + 997002), i.e. near-edge masses at large spin, including r → 1 | — |
 
 | item | result | grade |
 |---|---|---|
-| **1. Moments** Y_k, Z_k (repaired weight, Δ_g = 1000 and 300), Q_k | Closed form (exact Gaussian moments, Faddeeva, an integration-by-parts recurrence for the log terms) plus a rigorous θ treatment. Δ_g = 1000: k ≤ 300 at relative radius ≤ 2·10⁻¹³⁴ (75 s). Δ_g = 300: k ≤ 300. Q_k exact rationals | **[certified]** |
-| profile of the moments | \|Z_k\| grows to ~10⁶⁷⁰ at k ≈ Λ/2 (Δ_g = 1000). At Δ_g = 300 the certified moments show the predicted **oscillating plateau** \|Z_k\| ≈ 10^{198.5} ≈ e^{(π/2)Λ} for 160 ≤ k ≤ 300 | [certified] numbers |
-| **2. Normalisation** | Fixed-r identities I2/I3 hold to 10⁻³⁹ (I3 with the fixed d = 1 recurrence). Hence H_ang → 2∫ψ₂P + σu∫ψ₃P = T0's B₂+cv₂ + B₃+cv₃ limit, **relative factor exactly 1** (9216/4608 = 2 is the factor 2 of B₂). Z₀/3 = 2∫ψ₂ = 20.77189… [certified]. The finite-T deviation scales as 1/T | identities [DV, 40 digits]; ℬ itself not re-derived |
-| finite mass vs hybrid | max \|H_ang − H_hyb\|/N_s = 4.1·10⁻³ on 75 states. J ≤ 26, sampled over all masses (37 channels): \|H_ang/H_hyb − 1\| ≤ **4.7·10⁻³ < 0.01**, min H_ang/N_s = 0.2009. **This independently confirms the authors' J ≤ 26 claim**, sampled, not certified | [DV] |
-| **3. Every mass at fixed J** | **H_ang,b > 0 at every mass m ≥ m_gap for every physical channel with J ≤ 239 (Δ_g = 1000) and J ≤ 285 (Δ_g = 300)**. Bernstein/bisection on 𝒫_{J,b}(w), 356 + 426 polynomials. The limit is moment precision; no sign failure was seen. POLY_EXT | **[certified]** |
-| **4a. Bounded b̂** | 𝒦_b(r₀) ≥ 1.8·10⁷, 7·10¹¹, 1.8·10²⁷, 3.9·10⁸⁴ at r₀ = 10⁻⁶, 10⁻⁴, 10⁻³, 10⁻². It grows like e^{2b̂}, so it is useful only for b̂ ≲ 20 at T ≥ 10⁶–10¹³: nothing beyond T0 Part F/T territory and the fixed-J certificates | [certified] partial sums |
-| **4b. r → 1 / tail envelopes** (§§29, 31–33) | The envelopes hold for **no** k ≤ 300; \|P_k\|/P*_k up to 10⁵⁵⁸ (10²¹⁰ at Δ_g = 300). The threshold is intrinsic, log K ≳ Λ (coordinator and §33 agree: K ≈ e^{10⁵}). No explicit R₀ obtainable from coefficients | [certified] numbers + [D] |
-| **4c. Pivot** to §29's signed remainder in r | **Does not close the middle region.** F_j(r) is a tail of the same huge series: \|F_j\| ~ \|P_{j+1}\|. The triangle majorant of H_ang − H_LR is 6·10¹⁶ (J = 30), 2.6·10⁶² (J = 100), 1.9·10¹²¹ (J = 200), against the true remainder 10⁻⁵–10⁻⁸ (`fp_pivot.py`). At r ≳ 0.03 even H_LR cannot be summed from coefficients at K = 300. The same e^{2b̂} cancellation as in 4a | [certified] numbers |
-| §31/§32 identities | 2Y_k = ((k+3)²/2)L_k + ((k+4)²/2)L_{k+1}: exact (fmpq, k ≤ 60). §32's V-representation: exact to 10⁻¹⁵³ **provided u_{−1} = (b−1)b (= 12 for b = 4) is used at k = 0**. With u_{−1} = 0 it is wrong for b = 4 by 10 % | [certified] |
-| forward strip (b̂ ≤ 1, J ≥ 27) | Its inputs \|P_k\| ≤ 200Λ^{2k} and \|D_k²Q_k\| ≤ 120Λ^{2k} hold for k ≤ 300 (maxima 10^{1.32}, 10^{1.11}). The strip argument itself was not reproduced | [certified] inputs only |
+| **1. Moments** Y_k, Z_k (repaired weight), Q_k | Closed form: exact Gaussian moments, Faddeeva, an exact integration-by-parts recurrence for the log terms, and a rigorous θ treatment. Δ_g = 1000: **k ≤ 1000**, relative radius ≤ 10⁻⁵⁰⁰ (k ≤ 500), ≤ 10⁻²¹⁶ (k ≤ 1000); 20 min. Δ_g = 300: k ≤ 300. Q_k exact rationals | **[certified]** |
+| profile of the moments | \|Z_k\| grows like (Λ^k/k!)² to k ≈ Λ/2, then an oscillating **plateau**: 10^{672.5} (Δ_g = 1000, k = 550 … 1000) and 10^{198.5} (Δ_g = 300, k = 160 … 300). Prediction: e^{(π/2)Λ} = 10^{681}, 10^{204} | [certified] numbers |
+| **2. Normalisation** | Fixed-r identities I2/I3 to 10⁻³⁹ (I3 with the fixed d = 1 recurrence). Hence H_ang → 2∫ψ₂P + σu∫ψ₃P, i.e. T0's (B₂+cv₂) + (B₃+cv₃) limit, **with relative factor exactly 1**; 9216/4608 = 2 is B₂'s factor 2. Z₀/3 = 2∫ψ₂ = 20.77189… [certified]. Finite-T deviation ∝ 1/T | identities [DV, 40 digits] |
+| finite mass vs hybrid | max \|H_ang − H_hyb\|/N_s = 4.1·10⁻³ on 75 states | [DV] |
+| **3. Fixed J, every mass** | J ≤ J1MAX (Δ_g = 1000) and J ≤ 285 (Δ_g = 300): every channel passes; there are no sign failures. Bivariate extension as in the coverage map | **[certified]** |
+| **4a. 𝒦_b(r₀)** | ≥ 1.8·10⁷, 7·10¹¹, 1.8·10²⁷, 3.9·10⁸⁴ at r₀ = 10⁻⁶, 10⁻⁴, 10⁻³, 10⁻². It grows like e^{2b̂}, so it is useless beyond b̂ ≈ 20 | [certified] partial sums |
+| **4b. Tail envelopes and r → 1** (§§29–33) | \|P_k − P*_k\| ≤ P*_k/4 holds for **no** k ≤ 1000; \|P_k\|/P*_k ~ 10^{558–680}. The threshold is intrinsic (log K ≳ Λ; §33's K ≈ e^{10⁵}). No explicit R₀ | [certified] numbers + [D] |
+| **4c. Signed remainder in r** (§29 pivot) | Exact rewriting with the same cancellation. The triangle majorant is 6·10¹⁶ / 2.6·10⁶² / 1.9·10¹²¹ (J = 30 / 100 / 200) against a true remainder ~10⁻⁶. **Does not close the middle region** | [certified] numbers |
+| **4d. §34 bivariate route** | **Works.** Reproduced as a positivity certificate and pushed from b̂ ≤ 22 to b̂ ≤ 100 (J ≥ 240), b̂ ≤ 283 (J ≥ 420)RECT651TXT. The denominators are kept exact (multiplied through by Π_K), so nothing degrades as x/λ grows. The real limit is the harmonic truncation K < J₀ − b: b̂_max ≈ 0.7 J₀ | **[certified]** |
+| §31/§32 identities | 2Y_k = ((k+3)²/2)L_k + ((k+4)²/2)L_{k+1}: exact. §32's V-form: exact **only with u_{−1} = (b−1)b at k = 0** (12 for b = 4); with 0 it is 10 % off for b = 4 | [certified] |
 
-**How close "full AdS positivity of Ω^EE at Δ_g = 1000" is to a certified theorem (modulo item 4).**
+**What remains, and the best route.** The open set is near-edge masses at large spin: J > J1MAX, b̂ > b̂_rect.
 
-*Certified:*
-* every state with J ≤ 239, at every mass (H_ang,b > 0);
-* T0 for the hybrid (all states), with the hybrid agreeing with H_ang to ≤ 4.7·10⁻³ (sampled) where tested.
+*Brute-force cost.*
+* Every finite piece is reachable at polynomial cost: moments to k ~ J with ~J/2 + 300 digits, the per-J certificate, and the
+  bivariate certificate with K ≈ J₀.
+* At the twist edge, b̂_max(J) ≈ (2J+1)Λ/√(1996J + 997002) ≈ 44.7√J for J ≫ Λ.
+* A rectangle anchored at J₀ reaches b̂ ≈ 0.7J₀. That exceeds b̂_max(J₀) once J₀ ≳ 4·10³, but **not uniformly in J ≥ J₀**: b̂_max(J)
+  keeps growing like √J.
+* So closing the edge needs an infinite family of rectangles [J_i, ∞) × [0, x_i] with K_i ≈ J_i harmonics. Its limit J → ∞ at the edge
+  is the r → 1, fixed-γ = m²/J ≥ 1996 regime, which no finite computation reaches.
 
-*Missing:* every J ≥ 240 at finite b̂. That is an infinite region, so no finite extension of the per-J certificate closes it.
-
-*Cost of extending the per-J certificate:*
-* moments with ≈ 0.57J + 200 correct digits (polynomial cost, Õ(J²) ball operations at O(J) digits);
-* J = 10³ is a few CPU-hours;
-* J = 10⁴ is impractical.
-
-*What I recommend for large J:* bound the **frequency kernel** 𝒦_fin(ν; J, T) of §4.4 against the hybrid's kernel per ν. Measured at
-J ≤ 2000, it is O(ν²/T)-close to the Legendre kernel for ν ≪ √T, with no exponential sizes. Integrate that error against |g|. Do not
-manipulate moments: every moment- or coefficient-based estimate (4a, 4b, the 4c pivot) loses e^{2b̂} or e^{(π/2)Λ} to the triangle
-inequality.
+*Analytic route (needed for J → ∞ at the edge).* Bound the finite-mass **frequency kernel** 𝒦_fin(ν; J, T) per ν against the hybrid's kernel (§4.4; measured
+O(ν²/T)-close for ν ≪ √T, no exponential sizes), or close the §34 Mellin boundary term at r = 1. Both avoid moments.
 
 ---
 
@@ -105,13 +119,15 @@ For a polynomial p (exact `fmpq_poly`), the two pieces are handled separately.
 * Three one-dimensional integrals: K₀ and ∫L/(4ν²+a), a = 9, 49. These use Arb's rigorous `acb.integral` on [0, 64], plus an e^{−2000} tail.
 
 **θ (the cutoff).** θ is not negligible for high moments: per moment, its effect is ~10⁻²⁴ × (1.03)^{2k} of ∫|g p|. It is included as follows.
-* **Edge centres** (c ∈ [Λ−100, Λ+30]). The exact integral ∫x^iR B_edge(1−θ) over [Λ−150, Λ+180] uses Gauss–Legendre on 11 panels of
-  width 30, 700 nodes each (300 in the K = 300 run). The error is rigorous: (64/15)Mρ^{−2n}/(ρ²−1)(L/2), Trefethen, ATAP Thm 19.3, with
+* **Edge centres** (c ∈ [Λ−W, Λ+30], W = 100 in the K = 300 runs and 300 in the K = 1000 run). The exact integral
+  ∫x^iR B_edge(1−θ) over [Λ−W−50, ≥ Λ+180] uses Gauss–Legendre on panels of width 30, with 300 nodes (K = 300) or 1200 nodes
+  (K = 1000) each. The error is rigorous: (64/15)Mρ^{−2n}/(ρ²−1)(L/2), Trefethen, ATAP Thm 19.3, with
   * ρ = 1.868;
   * M = sup|h| on the Bernstein ellipse, from 256 Arb boxes covering its boundary;
   * times Xmax^i.
 * **All other centres, twins and the region outside the panels.** Bounded by completing the square with 1−θ ≤ e^{−(ν_c−ν)²/100}:
-  * centres c ≤ Λ−100: e^{−394};
+  * centres c ≤ Λ−W: e^{−394} (W = 100) or e^{−1575} (W = 300). This bound sets the 10⁻¹⁶⁰ floor of the first K = 1000 attempt, hence
+    W = 300;
   * twins: e^{−2750};
   * outside the panels: e^{−625}.
 
@@ -123,7 +139,7 @@ For a polynomial p (exact `fmpq_poly`), the two pieces are handled separately.
 | run | k range | precision | relative radius of Z_k, Y_k | time |
 |---|---|---|---|---|
 | K = 300 (NGL 300) | 0–300 | 3000 bits | ≤ 1·10⁻¹⁵⁶ (k ≤ 40); 6·10⁻¹⁴² (k = 240); 1.9·10⁻¹³⁴ (k = 300) | 75 s |
-| K = 1000 (NGL 700) | 0–1000 | 7000 bits | **K1000_RADII** | **K1000_TIME** |
+| K = 1000 (NGL 1200, edge Λ−300) | 0–1000 | 7000 bits (quadrature 3300) | ≤ 10⁻⁵⁸⁰ (k ≤ 100), 10⁻⁵⁰⁰ (k ≤ 500), 10⁻³³⁸ (k ≤ 750), 10⁻²¹⁶ (k ≤ 1000) | 20 min |
 
 Low moments (balls exact to the digits shown):
 * Z₀ = 62.31567904599110749883…; Y₀ = −756933.09038494103655…;
@@ -139,7 +155,9 @@ Q_k are exact rationals.
 | log₁₀\|Z_k\| | 1.8 | 40.5 | 157.5 | 267.3 | 429.0 | 545.7 | 626.2 | 670.4 |
 | Y_k/Z_k | −1.2·10⁴ | −1.2·10⁴ | −4.3·10³ | −2.2·10³ | −1.19·10³ | −710 | −411 | −116 |
 
-(`cache/fp_regions_1000_K300.txt`; k = 400 and 500 from the K = 1000 run.)
+(`cache/fp_regions_1000_K300.txt` and `moments_1000_K1000.json`.) For k = 550 … 1000, log₁₀|Z_k| = 672.6, 671.7, 672.4, 672.5,
+672.5, 672.4, 671.9, 672.0, 671.7, 672.2 (every 50): **the plateau** [certified]. At Δ_g = 300: log₁₀|Z_k| = 198.0 … 198.8 for
+160 ≤ k ≤ 300, with sign changes.
 
 The signs of Z_k alternate in blocks; |Z_k| grows like (Λ^k/k!)². This is not a defect of the weight. It is forced by the CDH polynomials:
 * For fixed ν, the recurrence is non-oscillatory for m < ν/2. There f_m(ν) grows to about e^{(π/2)ν}: ∫₀¹acosh(1/s)ds = π/2.
@@ -247,6 +265,35 @@ Further details:
   ≲ 10^{−0.57J}. This, not the Bernstein step, is the cost driver. The cost is polynomial: moments to precision e^{−1.3J} cost Õ(J²) at
   O(J) digits.
 
+### 3.2 All spins J ≥ J₀ at bounded impact parameter: the bivariate certificate (ANGULAR_ROUTE §34; own implementation) [certified]
+`fp_rect.py`. Variables x = b̂²/4 = Λ²(J+½)²/m² and v = (J+½)⁻². Exactly:
+* C = 1/v − ¼, 1/T = xv/E with E = λ + x − xv/4, and r = (1 − v/4)x/E;
+* U_{b,k} = x^kA_k(v)/(λ^kΠ_k), with A_k = ∏_{j<k}(1 − (b+j+½)²v) and Π_k = ∏_{j<k}(1 + (x/λ)(1 − (b+j+½)²v)).
+
+Hence H_ang,b/(1−r)³ = N(x,v)/(EΠ_K) + tail, where N is an exact bivariate polynomial (degree K+1 in each variable) built from the
+certified Z_k, Y_k and exact Q_k, k ≤ K. **No denominator is expanded:** the certificate multiplies through by EΠ_K > 0.
+* **Every k ≤ K is a genuine ladder term for every J ≥ J₀ when J₀ > K + b.** Termination of the ladder is automatic (A_k = 0 for k > J − b).
+* **Tail.** For K < k ≤ 1000 the bound uses the certified moments, with 0 ≤ A_k ≤ 1, Π_k ≥ 1, 1/T ≤ xv/λ and r ≤ x/λ. For k > 1000 it uses
+  the crude all-k bound |f_m(ν)| ≤ 3^{m−1}e^{(π/√3)(ν+½)} (the three-term recurrence's growth factor ≤ 3 + s/(m+1)², and
+  ∏(1 + a/j²) ≤ e^{π√a}) and |q_n| ≤ 3ⁿe^{(π/√3)√(ν²+17/4)}, integrated against Gaussian exponential moments in closed form.
+* **Positivity.** N − TB·E_max·Π_max > 0 on [0, x_max] × [0, v_max], by tensor Bernstein coefficients with bisection in x.
+* **Self-check.** At a physical state inside each box (J = J₀ + 7, x = x_max/3), N/(EΠ_K) equals the direct ladder sum H_ang/(1−r)³
+  to all printed digits, e.g. 0.005342722333 (b = 0) and 0.005343196067 (b = 4) at J = 247.
+
+| J ≥ J₀ | x_max (b̂_max) | K | tail bound TB | cells | min Bernstein coefficient of N (N(0,0) = 2.07·10⁷) | result |
+|---|---|---|---|---|---|---|
+| 240 | 121 (22) | 70 | 7.0·10⁻⁶⁴ | 1 | 1.057·10⁵ (b = 0), 1.058·10⁵ (b = 4) | **PASS** both |
+| 240 | 2500 (100) | 230 | 9.3·10⁻¹²² | 3 | 1.563·10³, 1.548·10³ | **PASS** both |
+| 420 | 2·10⁴ (282.8) | 410 | 7.3·10⁻⁵⁴ | 5 | 1.561·10³, 1.530·10³ | **PASS** both |
+| RECT651TABLE |
+
+* **Comparison with the authors (§34).** They certified |H_ang − H_hyb^rep| ≤ 0.05 H_hyb^rep on b̂ ≤ 22 (J ≥ 240), using ideal-density
+  moments plus a residual. I certified **positivity** H_ang,b > 0 on the same box and on larger ones, with the realised (repaired)
+  moments directly. I did not reproduce their 5 % hybrid comparison; that would need T0's curvature in (x, v).
+* **Where the method stops.** Not at the denominators, which are exact here. It stops at the harmonic truncation: K < J₀ − b, and the tail
+  x^K|Z_K|/λ^K must be small. With |Z_k| ≤ 10^{673}, that gives b̂ ≲ 0.7J₀. The cost is degree K ≈ J₀ in both variables, O(K²)
+  polynomial operations, and ~1.2b̂ decimal digits for the e^{2b̂} cancellation. That is 2–6 min for K ≤ 410.
+
 ## 4. Asymptotic regions (task 4)
 
 ### 4.1 Coefficient-envelope (tail) certificate of §§29, 31, 32: it cannot apply at any accessible K [certified numbers + D]
@@ -339,16 +386,23 @@ again.
 * **Cost.** Making the pivot rigorous at fixed (J, T) is the same as evaluating H_ang exactly, which §3 already does for all masses at once.
   Uniformly in J it would need a new analytic lemma, essentially §4.4's kernel bound.
 
-### 4.6 The remaining region
-* **Certified:** every physical state with J ≤ J_max (= 239 at Δ_g = 1000; 285 at Δ_g = 300), at every mass: H_ang,b > 0.
-* **Not certified:** every J > J_max, at every mass. Region (a) adds only b̂ ≲ 20 at T ≥ 10⁷–10¹³, which is not a new spin range. Region (b)
-  has no usable threshold. The authors' forward strip (b̂ ≤ 1, J ≥ 27) is not reproduced.
-* **Cost of extending the direct certificate.** Spin J needs moments with relative radius ≲ 10^{−0.57J} for k ≤ J. In practice:
-  * ≈ 2J + 500 decimal digits of working precision;
-  * edge panels widened so the θ-bound is below that, e^{−(c_cut)²/101.6};
-  * O(J²) ball operations for the moments and O(J²)–O(J³) per polynomial.
-  * J ~ 10³ is a few CPU-hours (§3). J ~ 10⁴ would need ~2·10⁴ digits and is impractical. No finite computation reaches J = ∞, so the
-    large-J region needs §4.4's kernel route (or T0's hybrid plus a per-frequency comparison).
+### 4.6 The remaining region (Δ_g = 1000)
+* **Certified (H_ang,b > 0, both channels):**
+  * J ≤ J1MAX at every mass (§3.1);
+  * J ≥ 240 with b̂ ≤ 100, and J ≥ 420 with b̂ ≤ 282.8RECT651TXT (§3.2).
+* **Not certified:** J > J1MAX with b̂ between the rectangle reach and the twist edge b̂_max(J) ≈ (2J+1)Λ/√(1996J + 997002), which is
+  ≈ 860 at J = 650 and ≈ 44.7√J for large J. Equivalently, near-edge masses at large spin, including the limit J → ∞ at fixed
+  γ = m²/J ≥ 1996 (r → 1).
+* **What does not help:**
+  * Region (a), the 𝒦(r₀) majorant, adds nothing beyond b̂ ≈ 20.
+  * Region (b), coefficient asymptotics, has threshold log K ≳ Λ.
+  * The §29 pivot carries the same cancellation.
+* **What would help:**
+  1. Push the per-J certificate (cheap per J: ~10 s at J ≈ 650 with the K = 1000 moments) and the bivariate rectangles (K ≈ J₀) jointly.
+     Every finite J range closes at polynomial cost, but the edge needs an infinite family of rectangles.
+  2. For J → ∞ at the edge, an analytic statement is needed: either a per-frequency kernel bound (§4.4), or the §34 Mellin transform with
+     its r = 1 boundary term resolved.
+  3. Reproducing the authors' forward strip (b̂ ≤ 1, J ≥ 27) is not needed: it is contained in §3.2 for J ≥ 240 and in §3.1 for J ≤ J1MAX.
 
 ## 5. Reproduce (`ads4/code/fullpos/`; `ulimit -v 3000000; export OMP_NUM_THREADS=1`; ≤ 2 processes)
 
