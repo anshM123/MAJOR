@@ -698,3 +698,18 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * The outer exponent is ≤ 1 only for a ≳ 5.5×10⁵, ≤ 5 for a ≳ 1.1×10⁵, and ≤ 20 for a ≳ 2.7×10⁴.
   * At a ≈ 998 to 10⁴ it is e^{475} to e^{54}. This must be beaten by cancellation, consistent with the obstruction above.
   * The low-twist strip 998 ≤ a ≲ 10⁵, inside 0.039 < L < 28, needs a signed or optimised-contour treatment, or direct certification.
+
+## 43. Contour bounds certified (CONTOUR agent; see CONTOUR_BOUNDS.md, code/contour/)
+
+* **All five §38 inputs certified with Arb.** Each is far sharper than §38 assumed:
+  * sup\|f(t+¾i)\| ≤ 3.924, against 10⁷ in §38;
+  * the vertical leg weighted by e^{−17(y−¾)} ≤ 227, against 2·10⁹;
+  * ∫\|f(t+9i/4)\| ≤ 9.01·10¹³ and ∫\|fB\| ≤ 5.30·10¹¹, against 3·10¹⁷;
+  * W = (½−y)²V(y) with V > 0, so W ≥ 0 exactly, and ∫W e^{−Ly} ≥ 0.0545/L at L = 28;
+  * \|B\| ≤ 0.104 on the detour and ≤ 0.017 on the leg, against 20.
+* **§40 cross-checks.** \|f(t+¾i)\| < 4.1 agrees. All twelve entries of the ⅛-interval table agree.
+* **Thresholds for ℰ₂, by the transform bound D used:**
+  * **Uniform \|D\| ≤ 5·10¹²** (the §38 number): L ≥ 30.16 for 1%, L ≥ 29.12 for 10%. ρ(28) ≤ 1.19, so **L ≥ 28 is NOT supported on this bound**.
+  * **D-profile 200(1+t)^{5/4}e^{a g(t/a)}** (§38 line 636, not re-checked): L ≥ 20.27 for 1%, 19.22 for 10%. §40's ∫\|fBD\| < 10²¹ rests on this profile; the uniform bound gives 2.65·10²⁴.
+* **Bottleneck.** About 99% of the bound comes from the horizontal leg at Y = 9/4. The transform bound D is now the limiting input, not f.
+* **Open.** Prove the complex-exponent D-profile. That is the complex-α version of the §35 singular-power theorem, D = w^α𝒱_b(F_α) − 1 on α = t + 9i/4. Also still open: the other connection terms and k = 3 at the new threshold.
