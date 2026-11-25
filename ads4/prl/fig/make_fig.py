@@ -122,6 +122,10 @@ ax1.text(1250, TAU_COLL * 2.0, r'every unitary CFT$_3$: $\tau\leq4$', fontsize=F
 series(ax1, 'chlps_tau', C2, (0, (4, 2)), status=False)
 series(ax1, 'tau', C1, '-', solid_from=1000)
 t1000 = V[1000]['tau']
+# bound (3) of the Letter: no positivity assumption (angular route), tau <= (160/9)/(Dg-2) [1-49/(2Dg+9)^2]^(-1/2)
+ang = [160.0 / 9.0 / (x - 2) * (1 - 49.0 / (2 * x + 9) ** 2) ** -0.5 for x in xs]
+ax1.plot(xs, ang, color=C3, ls=(0, (1, 1.4)), lw=1.3, zorder=3)
+ax1.text(2300, 0.035, 'without (iii)', fontsize=FS, color=INK, ha='left', va='bottom')
 ax1.annotate('', xy=(1000, t1000 * 2.2), xytext=(1000, TAU_COLL / 1.5),
              arrowprops=dict(arrowstyle='-|>', color=INK2, lw=0.8, mutation_scale=7, shrinkA=0, shrinkB=0), zorder=4)
 ax1.text(1110, 10 ** float((mp.log10(TAU_COLL) + mp.log10(t1000)) / 2), r'$1.4\times10^{8}$ times' + '\ntighter',
