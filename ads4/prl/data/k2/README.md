@@ -61,3 +61,17 @@ changed. Checksums: `SHA256SUMS` (full SHA-256, `sha256sum -c SHA256SUMS`). Conv
 * **Cutoff.** Multiply by the erf plateau `θ` of UNIFIED_THEOREM_v2 §2.1 with **D's** parameters (`ν_c = Λ + 100`, `a = 10`) for both D's
   and Q's k = 2 piece (these weights extend to `ν ≈ Λ`; Q's `ν_c = 150` is meant for the C4/C5 weights and would truncate `X^Q`). The
   weights are `< 10⁻¹⁴` of their maximum beyond `Λ + 25` and decay super-Gaussianly beyond `Λ + 30`, so `θ` changes nothing computed.
+
+## 3. Endpoint-repaired continuum weights for Ω^EE (these define the Letter's Ω^EE at Δ_g = 300, 1000)
+
+| file | change |
+|---|---|
+| `k2_continuum_D_300_rep.json` | `x_re[0]`: 135.99298935715314 → 135.99298894091532 |
+| `k2_continuum_D_1000_rep.json` | `x_re[0]`: 44.7154942909411 → 44.71549416117283 (−1.2977·10⁻⁷) |
+
+All other fields are identical to `k2_continuum_D_*.json`. **Why.** The shifted effective density E(μ) = 2Re[χR₋](μ−i) of the §2 weights has a negative endpoint
+(certified: E(0) − ψ(0) = −1.2587·10⁻⁵ / −3.9241·10⁻⁶ at 300 / 1000). By Mehler–Dirichlet this makes the leading-Regge image
+negative at very large impact parameter (certified failure for β ≥ 3.7·10⁴ / 3.6·10⁴). The repaired weights have E(0) − ψ(0) > 0 (+3.1·10⁻¹³ / +9.7·10⁻¹⁴, certified),
+ε_W ≤ 8.34·10⁻⁶ / 2.68·10⁻⁶ and |W − Φ|(t) ≤ min(ε_W, B/t²), B ≤ 6.008·10⁻³ / 1.900·10⁻³ [certified]; with them T0 holds for the realised
+functional on every heavy state at every impact parameter (c = 0.199 / 0.1999). The light-side values change by ≤ 3.5·10⁻⁷ relative; no number
+quoted in the Letter or Supplement changes at its stated precision. Certification code: `ads4/code/epswcert/` (`run_all.sh`).

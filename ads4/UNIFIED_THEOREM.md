@@ -850,6 +850,14 @@ A chain carries the grade of its weakest link.
 > * **Coverage.** 22 spins are computed. 17 are sign-free [NE±] at every computed mass (J = 0, 2, 4–13, 16, 20, 21, 23, 27); J = 14, 15, 17, 19 are λ-level only; J = 29's twist edge and hybrid minimum remain [NE+M] (L = 0.71, 0.77). Direct minus K₂ is −0.0003 to +0.026. No state is negative.
 > * **J = 46/50 ++ EDGE-R warning: aliasing.** On a dense grid the values are 0.64 (J = 46) and 1.11 (J = 50, 17/20 nodes), against tolerances 2.05 and 2.57. These entries are not yet closed, because the 3σ MC error still exceeds the tolerance.
 
+> **Update (EPSW_CERT.md, 26 Nov): M20 is closed for the endpoint-repaired weight, which is now the published defining weight.**
+> * **Published weights fail at large β [certified].** Their shifted endpoint is negative: r(0) = −1.2587e-5 (300) and −3.9241e-6 (1000). The realised leading-Regge action is < 0 for β ≥ 3.7e4 / 3.6e4.
+> * **Repair.** One coefficient changes (x_re[0], −1.3e-7 at 1000), giving r(0) > 0.
+> * **Repaired weights [certified].** ε_W ≤ 8.34e-6 / 2.68e-6, and |W−Φ| ≤ min(ε_W, B/t²). T0 holds for the realised functional on every heavy state at every β, with c = 0.199 (300) and 0.1999 (1000).
+> * **Light side.** It changes by ≤ 3.5e-7 relative; no quoted number changes.
+> * **Data and paper.** The repaired weights are in `prl/data/k2/*_rep.json` (they define Ω^EE). The Supplement and the Letter scope are updated.
+> * **Not done.** Δ_g = 2000/5000 continuum weights (≈2.5 CPU-h per gap). Kink matching is rejected: it makes ε_W 7600× worse.
+
 ## 1. Setup and normalisations
 
 | item | definition |

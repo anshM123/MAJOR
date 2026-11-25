@@ -80,8 +80,8 @@ evidence, which is never used as an input. In (iii): ``we prove this in flat spa
 certificate NF02 [certified] (Sec.~\ref{sec:pos}); ``in AdS we certify that its leading Regge part is at least $0.1999\,N_s$ \dots''
 is T0 (Sec.~\ref{sec:T0}) [certified], for the exact de-shifted (target) weights: $++$ for every even $J$, $+-$ for every $J\ge4$,
 every $m\ge\Lambda$, every $\hat b$, every $\Delta_g\ge1000$ ($\ge300$ with $0.199$); the parity-odd even-$J$ (OO) block needs in addition
-the cancellation of its EO entries and $\kappa_{\rm OO}>0$ (row values [DV]); for the published tabulated weights at $\Delta_g=300$,
-$1000$ it holds for $\beta\lesssim200$ given $\varepsilon_W$ [DV]. ``Curvature costs less than $0.1\%$'': flat floor $0.2$ vs $0.1999$.
+the cancellation of its EO entries and $\kappa_{\rm OO}>0$ (row values [DV]); for the published (endpoint-repaired, Table~\ref{tab:data}) continuum weights at $\Delta_g=300$, $1000$ it holds on every heavy state at every
+impact parameter [certified]. ``Curvature costs less than $0.1\%$'': flat floor $0.2$ vs $0.1999$.
 The standard inputs ``graded in the Supplemental Material'' are Table~\ref{tab:inputs}; ``light double-trace data contain no
 conspiracy'' is L7(b) [A], used only for $\tilde g_4=g_4$.
 
@@ -223,7 +223,7 @@ coefficients ($h_-=g\,\varrho(\nu+i)$, $h_+=\tilde g\,\varrho(\nu-i)$,
 $\varrho(\nu)=32(4\nu^2+1)(4\nu^2+9)/((4\nu^2+25)(4\nu^2+81))$). \emph{Definition.} The $k=2$ weight is the explicit
 continuum weight
 $\chi=Q(\nu)B(\nu)+\sum_{j\le2}y_j\nu^{2j}(\nu^2+1)\log(\nu^2+1)e^{-\nu^2/2}$, $Q=\nu^2/(\nu^2+\tfrac14)^2$,
-$B$ a Gaussian basis ($X=\chi(R_-+R_+)$; file \texttt{k2/k2\_continuum\_D\_}$\Delta_g$\texttt{.json}), times $\theta$; it equals the
+$B$ a Gaussian basis ($X=\chi(R_-+R_+)$; file \texttt{k2/k2\_continuum\_D\_}$\Delta_g$\texttt{\_rep.json}, whose first coefficient is fixed so that the shifted endpoint is non-negative, Sec.~\ref{sec:T0}), times $\theta$; it equals the
 exact minimal-norm solution to $\le4\times10^{-7}$ of $\max\psi_2$. The published grid of that solution tabulates it on
 $\nu\le\Lambda+10$ and is to be read as \emph{zero} for $\nu>\Lambda+10$, where the file holds only round-off
 (Sec.~\ref{sec:cutoff}; truncated copies \texttt{*\_trunc.txt}, Table~\ref{tab:data}). The grids, truncated or not, are
@@ -298,7 +298,8 @@ file & content & check\\\hline
 \texttt{q\_deshift\_xp\_*.txt} & $k=4,5$ grid weights (64 digits), equal to the continuum C4 weights to $10^{-16}$ & ---\\
 \texttt{d\_abel\_X\_300/1000.txt} & $\Omega^{EE}$: $X$, $Y$, $\psi_2$ on $d\nu=0.02$ / $0.04$ & \texttt{76c31c3f\dots}, \texttt{98d42b28\dots}\\
 \texttt{k2/xq\_abel\_X\_}\allowbreak\texttt{300/1000.txt} & $\Omega^Q_{\rm up}$'s $k=2$ weight $X^Q$ on the same grids & \texttt{8a0cbec1\dots}, \texttt{1c623171\dots}\\
-\texttt{k2/k2\_continuum\_}\allowbreak\texttt{D\_300/1000.json} & $\Omega^{EE}$ continuum $k=2$ weights & \texttt{74830220\dots}, \texttt{314db16a\dots}\\
+\texttt{k2/k2\_continuum\_}\allowbreak\texttt{D\_300/1000.json} & $\Omega^{EE}$ continuum $k=2$ weights (as first fitted) & \texttt{74830220\dots}, \texttt{314db16a\dots}\\
+\texttt{k2/k2\_continuum\_}\allowbreak\texttt{D\_300/1000\_rep.json} & the same with the endpoint fixed, $E(0)\ge\psi(0)$ (\emph{defines} $\Omega^{EE}$ at $300$, $1000$) & \texttt{63a08b57\dots}, \texttt{dd003bd9\dots}\\
 \texttt{k2/k2\_continuum\_}\allowbreak\texttt{Q\_300/1000.json} & $\Omega^Q_{\rm up}$ continuum $k=2$ weights & \texttt{7966e0a5\dots}, \texttt{70af2f70\dots}\\
 \texttt{d\_abel\_X\_300/1000\_trunc.txt}, \texttt{k2/xq\_abel\_X\_}\allowbreak\texttt{300/1000\_trunc.txt} & the four $k=2$ grids cut at $\nu\le\Lambda+10$ (dropped: $|X|\le5.7\times10^{-12}$, $\sum|X|d\nu\le4\times10^{-12}$) & \texttt{2c192c5d\dots}, \texttt{a8982609\dots}, \texttt{b5576cc2\dots}, \texttt{6d4eef83\dots}\\
 \texttt{gap/d\_abel\_X\_}\allowbreak\texttt{2000/5000\_trunc.txt.gz} & $\Omega^{EE}$'s $k=2$ grid weights used at $\Delta_g=2000$, $5000$ ($d\nu=0.05$, $\nu\le\Lambda+10$); checks in \texttt{gap/gap\_weights\_checks.txt}; script \texttt{export\_gap\_weights.py} (Sec.~\ref{sec:allgap}.B) & \texttt{e9c65212\dots}, \texttt{fec502ea\dots}\\
@@ -1248,8 +1249,13 @@ floor); and $\hat b\le16$, where the curvature can be negative by at most $2.9\t
 polynomials for $J<100$, 672 cells for $J\ge100$). A separate check (Sec.~\ref{sec:repro}) re-ran the certificate code
 (identical outputs: a re-run, which shows reproducibility, not correctness), re-derived the curvature lemma by hand, tested it against a
 separately written evaluator, and found no state below $0.1999$ in 1534 random states per gap (minimum $0.19999998$ at $\Delta_g=1000$). Scope:
-the target (de-shifted) weights; the realised published weights are covered at $\Delta_g=300$ and $1000$ for $\beta\lesssim200$ only;
-the $OO$ block additionally needs the $EO$ cancellation and $\kappa>0$; corrections beyond leading Regge are not covered.
+T0 is proved for the target (de-shifted) weights at every $\Delta_g\ge300$. For the published functional it holds at $\Delta_g=300$ and
+$1000$ on every heavy state and at every impact parameter, with $c=0.199$ and $0.1999$ [certified]: the published $k=2$ continuum weight
+has a non-negative shifted endpoint $E(0)\ge\psi(0)$, and its de-shift error obeys $|W-\Phi|(t)\le\min(\varepsilon_W,B/t^2)$ with
+$\varepsilon_W\le2.68\times10^{-6}$, $B\le1.90\times10^{-3}$ at $1000$ ($8.34\times10^{-6}$, $6.01\times10^{-3}$ at $300$) [certified]. The endpoint
+condition is necessary: a weight with $E(0)<\psi(0)$ makes the leading-Regge image negative at very large impact parameter, which is why the
+first coefficient of the continuum weight is fixed accordingly (a $3\times10^{-9}$ relative change, invisible in every quoted number).
+At $\Delta_g\ge2000$ the realised statement needs continuum weights there. The $OO$ block additionally needs the $EO$ cancellation and $\kappa>0$; corrections beyond leading Regge are not covered.
 Code: the reproduction code (\texttt{reproduce.py} and the scripts it calls; the certificate takes about 20 CPU-min).
 
 \subsection{Leading-Regge floor at every impact parameter}
