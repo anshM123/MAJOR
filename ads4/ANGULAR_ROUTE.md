@@ -628,3 +628,22 @@ No large-Δ, large-J or large-ν approximation is used.
 | **\|K_{n,a,b}(q)\| ≤ 2\|1+q\|^{−a}** for n ≥ 1024a², a ≥ 998, q in the closed first-quadrant unit disk | proof structure sound; **numerically** max \|K\|·\|1+q\|^a = 1.002 at a = 2, 3, 5 with n = 1024a² (the theorem is stated for a ≥ 998; the small-a test is a sanity check of the mechanism) |
 
 **Status.** This is the finite-state replacement for K ~ (1+q)^{−a}. The author reports an explicit relative error of 1.01e-4 for the leading connection term ℰ₂ in an enlarged large-impact region (details to follow). The remaining connection-function terms and the lower-impact transition region are still open.
+
+## 38. Signed estimate of the leading connection term (author-supplied, 26 Nov)
+
+**Claims (not re-checked; constants conservative).**
+* *Second beta-kernel regime.* For n < 1024a² and L = log(1/(1−r)) ≥ 40, a beta-expectation representation K = (1+q)^{−a}E[((1−2eS)/(1−eS)²)^n(1−eS)^{−a−2b−1}] gives \|K\| ≤ 2\|1+q\|^{−a} on a smaller quarter disk. Together with §37 this covers every heavy state with L ≥ 40.
+* *Polynomial transform bound.* \|D(t+9i/4)\| ≤ 200(1+t)^{5/4}e^{a g(t/a)} < 5·10¹² on the band, a finite-state polynomial bound, where D = w^α𝒱_b(F_α) − 1.
+* *Contour.* The frequency contour runs 0 → ¾i → ¼+¾i → ¼+(9/4)i → ∞+(9/4)i. The local piece uses W ≥ 0 and \|D(iy)\| ≤ 100/a², giving \|ℰ₂,local\| ≤ (100/a²)𝓜(L), with 𝓜(L) = √w[A + (2/Λ)∫₀^{3/4}W e^{−Ly}].
+* *Detour.* It costs ≤ (e^{−3L/4}/a²)(1.5·10¹⁰ + 1.2·10¹³/(L−17)) · 4√w/Λ.
+* *Horizontal leg.* It costs ≤ 4·10³¹e^{−9L/4} · 4√w/Λ.
+* *Coefficient sums.* The Gaussian coefficient sums were certified from the repaired JSON (906 and 1.22·10⁶ for the two widths).
+* *Result.* \|ℰ₂\| < 0.001𝓜(L) for L ≥ 40, and < 1.01e-4𝓜 for L ≥ 64. With 𝓜 < 10N_s^rep, \|ℰ₂\| < 0.00101N_s^rep for every spin and mass with 1−r ≤ e^{−64}.
+
+**Coordinator note.** The large-impact threshold improves from 1−r ≤ e^{−5000} (§35) to e^{−64} for the leading connection term.
+
+**Open.**
+1. The leading term for L < 64.
+2. The remaining hypergeometric connection terms: j ≥ 1 of ₂F₁(a,a;2a;w) and the second branch.
+3. The bounded transition region J ≥ 240, b̂ > 22, 1−r > e^{−64}.
+4. Reproduction of §§30, 32, 34, 37 and 38.
