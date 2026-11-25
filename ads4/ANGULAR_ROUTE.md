@@ -647,3 +647,9 @@ No large-Δ, large-J or large-ν approximation is used.
 2. The remaining hypergeometric connection terms: j ≥ 1 of ₂F₁(a,a;2a;w) and the second branch.
 3. The bounded transition region J ≥ 240, b̂ > 22, 1−r > e^{−64}.
 4. Reproduction of §§30, 32, 34, 37 and 38.
+
+## 39. Coordinate correction (author, 26 Nov)
+
+L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000 the rectangle edge b̂ = 282.84 is **L ≈ 0.0199**; L = 10 ↔ b̂ ≈ 2.96·10⁵ (coordinator recomputed). The coordinator's "L ≈ −4" in the §38 summary was wrong.
+
+**The open band** is therefore L ∈ (≈0.02, L_signed), where L_signed is the signed estimate's threshold (64 now; CONTOUR_BOUNDS pending). Tightening the contour threshold alone cannot close it: a separate moderate-impact estimate is required.
