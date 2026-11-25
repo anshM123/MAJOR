@@ -359,3 +359,16 @@ Checks are in `code/angular/verify_s15.py`.
 4. *Light scalars:* Δ_φ > 1 for scalars in T×T; conserved higher-spin sectors excluded.
 
 **Order of limits:** finite c_T first, then the planar limit.
+
+## 19. Matching audit (ANGULAR_MATCH.md, 26 Nov) — amendments to §18's assumption list
+
+* *Resolved [P]:*
+  * the constant 0.0178135;
+  * Ĉ(0) = Ĉ(1);
+  * the endpoint 1/3;
+  * the first moment vanishing within the T family.
+* *Resolved [D]:*
+  * the M2 transfer;
+  * TT-built multi-traces, in the strong form (no O(c_T^{−1/2}) splittings).
+* **Add to assumptions:** separated-direction vanishing of the mixed [E, E⁽¹⁾] at the light-cone edge. This uses KKSZ's light-cone expansion (4.66), which they leave unproved; with Rindler positivity alone the mixed product is exactly marginal. With (4.66) the margin is ≥ ½, or 1 when Δ_φ > 1. KKSZ (4.87) is confirmed verbatim.
+* 𝒟(c_T) = 0 at finite c_T remains §18 assumption 2 (the regulated null-plane bound). It does not follow from J₀ ≤ 1.

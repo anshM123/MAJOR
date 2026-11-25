@@ -814,6 +814,15 @@ A chain carries the grade of its weakest link.
 > * **Grade.** Both are [P] given the two operator identities [z·K, E] = 6iE⁽¹⁾ and D_z^μ[K_μ, E] = 0 (authors' [D]), with consequences checked exactly against the pipeline.
 > * **Note.** The commutator sum rule needs the translation term (structure of Ỹ_m), which §9 includes.
 
+> **Update (ANGULAR_MATCH.md, 26 Nov; unreviewed): physical matching for the angular route. Items 2–4 resolved, item 1 partially resolved.**
+> * **M2 transfers [D].** Route N (the exact finite-c_T sum rule, expanding only the light side) carries over, so the planar J₀ = 2 never enters.
+> * **KKSZ (4.87) checked verbatim.** The condition is J₁+J₂ > J₀+3+n+m, giving J₀ < 3, 2, 1 for EE, EE⁽¹⁾, E⁽¹⁾E⁽¹⁾.
+> * **New caveat [D-sketch].** At the light-cone edge, the mixed [E, E⁽¹⁾] is exactly marginal using Rindler positivity alone. It needs KKSZ's unproved light-cone expansion (4.66); with it, the margin is ≥ ½, or 1 if Δ_φ > 1.
+> * **𝒟 does not follow from J₀ ≤ 1.** It needs 𝒟(c_T) = 0 at each finite c_T, which is §18's assumption 2.
+> * **Constant [P].** W = 100(C−20)(C−30)/((T−20)(T−30)) (a₂ = helicity 6), and K(g) is proved for all J ≥ 6 and twist ≥ g, giving 0.0178135. The shared normalisation is consistent, and the 1/3 is forced.
+> * **Ward step Ĉ(0) = Ĉ(1) = 1 [P].** It also proves that the first moment vanishes within the T family.
+> * **Multi-traces [D].** In TT-built clusters, Δ_T is protected, so Vv₀ = 0 holds in strong form. The conditions are equivalent to tree-level ⟨TTTT⟩ statements (no log²u, no block off the double-trace zeros), which AdS₄ gravity satisfies.
+
 ## 1. Setup and normalisations
 
 | item | definition |
