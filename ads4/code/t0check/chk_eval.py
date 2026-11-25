@@ -31,8 +31,13 @@ def gl(n, a=0.0, b=1.0):
     x, w = _GL[n]
     return (b - a)/2*x + (a + b)/2, w*(b - a)/2
 
+import json as _json
+_d = _json.load(open(os.path.join(HERE, '..', '..', 'prl', 'data', 'nf02_psi.json')))
+_K0 = float(eval(str(_d['k0'])) if not isinstance(_d['k0'], str) else float(_d['k0']))
+XY = {2: np.array([float(eval(c)) for c in _d['X']]), 3: np.array([float(eval(c)) for c in _d['Y']])}
 def psi(k, p):
-    return np.polyval(PSI[k][::-1], p)
+    # factored form (1-p)^5 p X_k(p)/k0: no cancellation near p = 1 (the +- backward peak ~ J^8 amplifies any round-off there)
+    return (1 - p)**5*p*np.polyval(XY[k][::-1], p)/_K0
 
 PG, WG = gl(240)
 PSG = {k: psi(k, PG)*WG for k in (2, 3)}
