@@ -126,23 +126,23 @@ ax1.annotate('', xy=(1000, t1000 * 2.2), xytext=(1000, TAU_COLL / 1.5),
              arrowprops=dict(arrowstyle='-|>', color=INK2, lw=0.8, mutation_scale=7, shrinkA=0, shrinkB=0), zorder=4)
 ax1.text(1110, 10 ** float((mp.log10(TAU_COLL) + mp.log10(t1000)) / 2), r'$1.4\times10^{8}$ times' + '\ntighter',
          fontsize=FS, color=INK, ha='left', va='center', linespacing=1.15)
-ax1.text(1110, t1000 * 1.6, r'$\tau\leq2.9\times10^{-8}$', fontsize=FS, color=INK, ha='left', va='bottom')
+ax1.text(1110, t1000 * 1.6, r'$\tau\leq2.89\times10^{-8}$', fontsize=FS, color=INK, ha='left', va='bottom')
 ax1.text(345, 7.5e-6, 'this work', fontsize=FS, color=C1 if False else INK, ha='left', va='bottom')
-ax1.text(330, 1.5e-8, 'flat-space optimum,\ntransplanted', fontsize=FS, color=INK2, ha='left', va='top',
+ax1.text(330, 6e-10, 'flat-space optimum,\ntransplanted', fontsize=FS, color=INK2, ha='left', va='top',
          linespacing=1.1)
-ax1.set_ylim(1e-11, 1e3)
-ax1.set_yticks([1e-10, 1e-7, 1e-4, 1e-1, 1e2])
+ax1.set_ylim(1e-12, 1e3)
+ax1.set_yticks([1e-12, 1e-9, 1e-6, 1e-3, 1e0])
 ax1.yaxis.set_minor_locator(matplotlib.ticker.NullLocator())
 ax1.set_ylabel(r'bound on $\tau=\sqrt{t_4^2+\alpha_T^2}$')
 ax1.text(0.02, 0.985, '(a)', transform=ax1.transAxes, va='top', fontsize=7.5, color=INK, fontweight='bold')
-ax1.text(265, 1e-4, 'nothing claimed', rotation=90, fontsize=FS, color=INK2, ha='center', va='center')
+ax1.text(265, 1e-5, 'nothing claimed', rotation=90, fontsize=FS, color=INK2, ha='center', va='center')
 
 # ------------------------------------------------------------------ (b) the R^4 upper end
 # three elements: (2b), (2a), the string / ABJM value
 series(ax2, 'q2b', C3, (0, (1.2, 1.4)))
 series(ax2, 'q2a', C1, '-')
 ax2.axhline(ZETA3x2, color=INK2, lw=0.9, ls=(0, (6, 2, 1, 2)), zorder=2)
-ax2.text(1250, ZETA3x2 * 1.3, r'ABJM: $2\zeta(3)$', fontsize=FS, color=INK, ha='left', va='bottom')
+ax2.text(345, ZETA3x2 * 1.3, r'ABJM (type IIA strings): $2\zeta(3)$', fontsize=FS, color=INK, ha='left', va='bottom')
 ax2.text(345, 300, '(2b) light scalars allowed,\nneeds both functionals', fontsize=FS, color=INK, ha='left', va='bottom',
          linespacing=1.1)
 ax2.text(345, 50, r'(2a) no scalar with $m<0.46\Lambda$', fontsize=FS, color=INK, ha='left', va='top')
