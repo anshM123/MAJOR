@@ -30,15 +30,15 @@ Bm = 2*np.real((Rm(z)*P(z))[:, None] * Gm(z)); Bm[0] = 0.0
 wq = np.full(len(nu), 0.01); wq[0] = wq[-1] = 0.005
 # weighted ridge LS: minimise int (E - T)^2 + lam |c|^2
 Aw = Bm * np.sqrt(wq)[:, None]; bw = (T(nu) - Es) * np.sqrt(wq)
-cc = np.linalg.solve(Aw.T @ Aw + lam * np.eye(len(mus)), Aw.T @ bw)
+cc = np.linalg.solve(Aw.T @ Aw + lam * np.eye(len(mus)), Aw.T @ bw)   # E'(0) = kappa holds exactly: the Gaussian part is even in nu (Hermitian symmetry)
 E = Es + Bm @ cc; R = E - T(nu)
 relint = np.sum(wq * np.abs(R)) / np.sum(wq * np.abs(T(nu)))
 # slope at 0 (finite difference) vs kappa
-sl = (E[1] - E[0]) / 0.01
+sl = float((E[1] - E[0]) / 0.01)
 # S transform via Mehler-Dirichlet: S[g](b) = (sqrt2/pi) int_0^b ghat(t)/sqrt(cosh b - cosh t) dt, t = b - y^2
 def ghat(g, t):
     return (np.cos(np.outer(t, nu)) * (wq * g)[None, :]).sum(axis=1)
-def S(g, b, ny=400):
+def S(g, b, ny=int(sys.argv[6]) if len(sys.argv) > 6 else 400):
     y, wy = np.polynomial.legendre.leggauss(ny); y = (y + 1) / 2 * np.sqrt(b); wy = wy / 2 * np.sqrt(b)
     t = b - y*y; jac = 2*y
     den = np.sqrt(np.maximum(np.cosh(b) - np.cosh(t), 1e-300))
@@ -47,7 +47,7 @@ rows = []
 for b in (0.1, 0.5, 1, 2, 4, 8, 16, 32):
     sT = S(T(nu), b); sR = S(R, b); rows.append((b, sT, sR, abs(sR / sT)))
 # real-axis concentration of chi and the e^{pi nu} tail
-nr = np.linspace(0, 200, 200001); zr = nr.astype(complex)
+nr = np.linspace(0, 2 * L + 40, int((2 * L + 40) / 0.005) + 1); zr = nr.astype(complex)
 chir = np.real(chi_sing(zr) + P(zr) * (Gm(zr) @ cc))
 Rr = np.abs(Rm(zr + 1e-30)) + np.abs(Rm(-zr + 1e-30))
 def tail_log10(nt):
@@ -57,7 +57,9 @@ def tail_log10(nt):
     mx = lg.max(); return float((mx + np.log(np.sum(np.exp(lg - mx)) * (nr[1]-nr[0]))) / np.log(10))
 res = dict(L=L, q=q, dmu=dmu, s=s, ridge=lam, n=len(mus), relint=float(relint), maxc=float(np.abs(cc).max()),
            slope=float(sl), kappa=float(kappa), Srel=[(b, float(r)) for b, _, _, r in rows],
-           chi_max=float(np.abs(chir).max()), chi_at=[(x, float(np.abs(chir[int(x*1000)]))) for x in (L, L+5, L+10, L+20, L+30)],
+           S_err_over_floor=[(b, float(abs(sR) / (2 * kappa * np.exp(-b / 2) / (np.pi * b)))) for b, sT, sR, _ in rows],
+           S_T_over_floor=[(b, float(sT / (2 * kappa * np.exp(-b / 2) / (np.pi * b)))) for b, sT, sR, _ in rows],
+           chi_max=float(np.abs(chir).max()), chi_at=[(x, float(np.abs(chir[int(round(x / (nr[1] - nr[0])))]))) for x in (L, L+5, L+10, L+20, L+30)],
            tail_log10={str(t): tail_log10(t) for t in (L+10, L+20, L+30, 1.6*L)})
 print(json.dumps(res))
 json.dump(res, open(guard('cache/ln5_L%.2f_q%d_s%.2f.json' % (L, q, s)), 'w'))
