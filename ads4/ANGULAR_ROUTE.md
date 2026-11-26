@@ -1330,3 +1330,19 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Finite mass: the extracted endpoint gives r(0)/Λ·w³𝒱_b((1−z)^{−5/2}) > 0 exactly, since the coefficients and V_{b,k} are nonnegative.
   * The zeroth-order dressing is < 2e-9 of the floor.
 * **Open.** The higher-order finite-mass transfer for r̃, i.e. w³\|(ℒ_b − ev_c)(G_{r̃} + T^{−1}𝒟_bG_{r̃})\|, and the higher-frequency residual terms whose FULLPOS5 bounds grow like β.
+
+## 82. Lemma R′: finite-mass signed tail transfer (author, 26 Nov)
+
+* **Dressed multiplier.** D_dr(α) = (1 + (B_b − αA_b)/T)D₀(α) + (αA_b/(Td))D₀(α+1), with D₀ = d^αS_b(α) − 1.
+* **Beta representation.** S_b(α) = Γ(N+1+α)/(Γ(N+1)Γ(α))·∫₀¹q^{α−1}(1−q)^aK(q)dq, where K(q) = B(a, n+s)^{−1}∫t^{a−1}(1−t)^{n+s−1}(1−qt)^n dt. **Verified here** (mpmath, two states with non-integer N, both channels): agrees with Σ_kU_k(α)_k/k! to 15 digits.
+* **Bounds (author).**
+  * Low frequencies: \|D_dr\| < 12/a² on the detour, using the telescoping 0 ≤ c^k − U_k ≤ (2hd/c)c^k[(k)₃/3 + ((s+1)/2)(k)₂]. This proves the multiplier input that the contour certificate had assumed.
+  * Kernel: \|K(q)\| ≤ 2\|1+q\|^{−a} (direct proof), with a small-disc variant for a > 1e8.
+  * Horizontal line: \|D_dr(5/2 + i(t + 9i/4))\| ≤ 4e4·e^{G₉₉₈(t)}, **replacing the unproven 5e12 / D-profile**.
+* **Leading connection term.** \|ℰ₀\| < 6e-4·F_* for β ≥ 30, a ≥ 998.
+* **All connection terms (author).**
+  * Mellin–Barnes: F_{3,ν} = 2Re Σ_{j≤500}BC_j(1−z)^{−5/2−iν+j} + ℛ_MB, with C_j = (½−iν)_j²/(j!(1−2iν)_j).
+  * Derivative beta representation for S_b(α−j).
+  * Contributions: Σ_{j≥1} < 2e-6·F_*; \|ℛ_MB\| < e^{−2800}F_*; endpoint matching 3e-8.
+* **Result (author).** w³\|(ℒ_b − ev_c)(G_{r̃} + T^{−1}𝒟_bG_{r̃})\| < 0.001F_*(β) for β ≥ 30, all a ≥ 998, both channels. Combined with Lemma R: H_r > −0.029F_*.
+* **Not covered.** The ideal-weight finite-mass contribution and the k = 3 piece; the same machinery is said to apply. The CONTOUR_BOUNDS Arb tables are used as inputs; the rest is not reproduced.
