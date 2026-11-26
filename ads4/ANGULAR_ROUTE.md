@@ -2120,3 +2120,22 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * A 102-rectangle plan for [0.56, 0.777] is predicted to pass (L1/centre ≤ 0.053).
   * Route ranking: (A) G1-capped cells — the cheapest; ≈ 15–20 CPU-h for the whole band, ≈ 10 on [0.56, 0.777]. (B) The author's termination-preserving split, a fallback at similar cost. Not recommended: the conformal route, since \|Ã_j\| plateaus at 1e1390; and the monomial twist polynomial or dominant-term idea, which hides 40–90 orders of cancellation, so the right twist basis is Chebyshev in y.
 * **Status.** The band c ∈ (0.268, 0.28) is covered by the author's claimed cell (§123), whose package is still pending. Open on the low side: c ∈ (0.56, 0.777), i.e. L ∈ (0.821, 1.5), which is being executed with the designer's plan. The laptop covers [1.5, 2.3].
+
+## 127. FULL SLIVER COVERAGE: c ∈ [0.258, 0.9] both b by coupled-cap norming (author, 27 Nov); fast checks reproduced
+
+* **Package** (author): code/sliver_fullcov/; the proof is in sliver_merge/PROOF.md and the ledger in sliver_merge/FULL_COVERAGE_LEDGER.json. coeff_compact60.txt is committed xz-compressed. The *.in inputs, old_coefficients.txt and the long-table prefix are not committed; their SHA-256 sums are in LARGE_FILES_SHA256.txt.
+* **Method.**
+  * Coupled coordinate y = h/H(c) ∈ [0, 1], where H(c) is the affine secant of the convex physical twist cap (1−√c)²/998². The secant lies above the cap, so the rectangle contains every physical state, and its overshoot is small: under 2% even on the widest cell. This resolves the non-physical obstruction of §122 and §124.
+  * The pole and ratio checks are done at the corners.
+  * Approximation error in y comes from the partial-fraction residues of the rational ladder; in c, from a Möbius-disk product majorant.
+  * Degree-matched trigonometric norming: Lebesgue constant Λ_m = 1 + 2Σ1/(2k−1), with Markov control of node perturbations. Grouped c-norming uses a self-consistent bound, requiring λ < 0.1.
+  * Directed scaled-integer scalar recurrences, with SIMD exact division; a portable GMP twin is included.
+  * Shortened group prefixes carry an explicit tail term.
+* **Result** (FULL_SLIVER_PASS_CONDITIONAL). 18 cells; the 11 new ones use 5,669,470 scalar evaluations. Each cell is a single rectangle covering all physical J ≥ 1001 and a ≥ 998. The union is c ∈ [129/500, 9/10] for both b, i.e. L ∈ [0.29841, 2.30259], which also covers the w-convention. Common lower bound on the normalised action: **5.14e-6** (b = 0: 5.166e-6, b = 4: 5.148e-6).
+* **Reproduced by the coordinator.**
+  * check_ledgers.py (111 s): every cell is verified (analytic error sums, rational nodes, pole gaps, coefficient transfers, scaling schedules, node counts, reference Bernstein coefficients, final inequalities). The exact union is c ∈ [0.258, 0.9] for both b.
+  * authenticate_original.py against the §125 coeff_long_17200.txt: the original SHA and the exact retained prefix match, and all 17201 compact pairs are enclosed.
+* **Still to do.**
+  1. The full portable-GMP replay (replay_scalar.py), comparing every archived scalar shard byte for byte. The author's laptop is running it.
+  2. An independent referee of PROOF.md's new mathematics: the residue bound behind E_y, the Möbius majorant behind E_c, the norming constants, and the self-consistent grouped norming of §3b.
+* **Status.** If items 1 and 2 pass, the sliver is fully certified: together with L ≤ 0.298 (§118, §120, §125) and L ≥ 2.3 (§§100–121), this covers every L. That makes assumption (iii), full AdS positivity at Δ_g = 1000, hold, conditional only on the retained global inputs: the angular-action identity, the EPSW spectral data and cutoff, the LRINF floors, and the §73 high-twist scan.

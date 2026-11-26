@@ -1,0 +1,3 @@
+PASS exact per-node integers cell_7596_7929_s0_0_cross.in
+PASS exact per-node integers cell_7929_8204_s3_0_cross.in
+PASS exact per-node integers cell_8204_8434_s3_0_cross.in
