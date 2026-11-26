@@ -2068,3 +2068,9 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   Direct coverage now reaches c = 0.263, i.e. L ≈ 0.305.
 * **Limitation.** The drivers bound h by c_hi/((1001−b)(1002+b)), which uses only J ≥ 1001. Above c ≈ 0.251 the physical constraint a ≥ 998, h ≤ (1−√c)²/998², is tighter. The rectangle therefore contains non-physical (c, h) points where the prefix numerator is genuinely negative or huge, whatever K is (b = 0 corner probe: −1.5e-5 at c = 0.266). That is why cells above 0.264 come out inconclusive.
 * **Proposed fix (not applied; needs the author's decision).** In the driver, use h ≤ min(c_hi/((1001−b)(1002+b)), (1−√c_lo)²/998²). This is a valid superset of the physical states, since (1−√c)² decreases in c. The C++ is unchanged. Non-rigorous probes with this cap show a smooth positive numerator of about 1.1–1.5e-5 up to c = 0.56 (b = 0). Estimated cost to c ≈ 0.51 is 2–8 CPU-h. Above about 0.51, the smallest h-radius option (2) hits the pole (1.5hK² ≥ 1), so a smaller radius option or a smaller K is needed.
+
+## 123. Direct cell c ∈ [0.268, 0.28] (author claim, 27 Nov; package not yet received)
+
+* **Claim** (author): PASS in both channels on c ∈ [0.268, 0.28]: b = 0 lower bound 1.3553e-5, b = 4 lower bound 1.2991e-5. This is L ∈ [0.3120, 0.3285].
+* **Coverage gap to close.** The reproduced coverage ends at c = 0.264 for b = 0 and c = 0.263 for b = 4 (§122). The strip c ∈ [0.263, 0.268] (b = 4) and [0.264, 0.268] (b = 0) is not covered unless the author's package contains cells for it.
+* **New idea** (author, not yet received): a partial-fraction representation of the angular ladder with explicit control of its rational poles. It would replace the two-variable Taylor certificates by one-variable polynomial certificates plus a controlled approximation in the twist direction.
