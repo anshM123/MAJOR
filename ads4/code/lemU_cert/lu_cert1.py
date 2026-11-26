@@ -317,15 +317,16 @@ def _build(c, prec, pr, rbudget, tgt):
                 YA[jj] += f*y[jj]
     tE = time.time() - t
     pr(f'jets: A {NA} nodes {tA:.0f}s, D {ND} nodes {tD:.0f}s, E {NE} nodes {tE:.0f}s')
-    ctx.prec = prec
-    YA = [+v for v in YA]; YD = [+v for v in YD]
+    # NOTE: no rounding back to prec.  The R recursion must run at (at least) the jet precision: R entries span a huge dynamic
+    # range and their absolute rounding radii get multiplied by the jet hump (|Y_j| ~ e^{1000}); at 1500 bits this produced
+    # radii ~1e439 at L = 2 in the first run (LEMU_CERT §2.5).
     if not NOJ:
         pr(f'  max rel radius of jets: A {max(float((v.rad()/abs(v).upper()).log()) for v in YA if v.rad() > 0)/math.log(10):.1f} (log10)')
     # add the error radii
     for jj in range(K + 1):
         YA[jj] += arb(0, arb(float(radA[jj])).exp().upper())
         YD[jj] += arb(0, arb(float(radD[jj])).exp().upper())
-    meta = dict(F=F, nu_cut=float(nu_cut), NA=NA, ND=ND, NE=NE, env=env)
+    meta = dict(F=F, nu_cut=float(nu_cut), NA=NA, ND=ND, NE=NE, env=env, pj=pj)
     return YA, YD, meta
 
 
@@ -344,7 +345,20 @@ def run(L=None, cval=None, prec=1500, out=None, rbudget=0.05, tgt=1e-15):
     F = fcert_at(beta)
     LAM = C.lam()
     pr(f'c = {c.mid().str(20)}  L = {Lf:.6f}  beta_c = {beta:.6f}  F_cert = {F}  prec = {prec}')
-    YA, YD, meta = build(c, prec, pr, rbudget, tgt)
+    import pickle
+    fn = os.path.join(HERE, 'cache', f'point_{c.mid().str(18, radius=False)}_{prec}.pkl')
+    if os.path.exists(fn):
+        import lu_cell as LC
+        d_ = pickle.load(open(fn, 'rb')); ctx.prec = d_['meta']['pj']
+        YA = [LC._des(t) for t in d_['YA']]; YD = [LC._des(t) for t in d_['YD']]; meta = d_['meta']
+        pr('jets loaded from cache')
+    else:
+        YA, YD, meta = build(c, prec, pr, rbudget, tgt)
+        import lu_cell as LC
+        ctx.prec = meta['pj']
+        pickle.dump(dict(YA=[LC._ser(v) for v in YA], YD=[LC._ser(v) for v in YD], meta={k: v for k, v in meta.items() if k != 'env'}), open(fn, 'wb'))
+    ctx.prec = meta['pj']
+    pr(f'contraction precision {ctx.prec} bits')
     nu_cut, NA, ND, NE = meta["nu_cut"], meta["NA"], meta["ND"], meta["NE"]
     # ---- pass 2: contraction, both channels
     res = {}

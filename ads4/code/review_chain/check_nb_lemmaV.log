@@ -1,0 +1,17 @@
+lemmaV 30 40 0 (0.3 + 0.25j) defect 1.27e-81 scale 1.48e-5
+lemmaV 30 40 0 (-7.75 + 0.25j) defect 8.76e-81 scale 0.00149
+lemmaV 30 40 0 (2.5 + 900.0j) defect 1.51e-50 scale 1.53e+30
+lemmaV 25 13 4 (0.3 + 0.25j) defect 6.44e-81 scale 0.000797
+lemmaV 25 13 4 (-7.75 + 0.25j) defect 3.79e-78 scale 0.09
+lemmaV 25 13 4 (2.5 + 900.0j) defect 1.45e-42 scale 2.62e+38
+lemmaV 997 998 4 (0.3 + 0.25j) defect 6.04e-81 scale 1.25e-7
+lemmaV 997 998 4 (-7.75 + 0.25j) defect 3.4e-80 scale 2.41e-5
+lemmaV 997 998 4 (2.5 + 900.0j) defect 1.06e+16 scale 5.8e+15
+nb 2.6 998 0 25367 0.25 0.25 exact 8.404e-8 bound 2.5099225757511185e-07 ratio 0.3348
+nb 2.6 998 4 25363 0.25 0.25 exact 1.162e-7 bound 3.414562753843736e-07 ratio 0.3405
+nb 2.9 998 0 34772 0.25 0.25 exact 8.442e-8 bound 2.426625598713371e-07 ratio 0.3479
+nb 2.9 998 4 34768 0.25 0.25 exact 1.085e-7 bound 3.090047191987113e-07 ratio 0.3512
+nb 3.65 998 0 75295 0.25 0.25 exact 8.494e-8 bound 2.3043549557928666e-07 ratio 0.3686
+nb 3.65 998 4 75291 0.25 0.25 exact 9.649e-8 bound 2.6130828229455017e-07 ratio 0.3693
+nb worst exact/bound 0.47622 PASS
+
