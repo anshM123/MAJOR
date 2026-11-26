@@ -1,0 +1,9 @@
+M=998  I3=2.205831635e-11  bound=3.550128337e-11 (ratio 0.621339; Beta form 3.432949898e-11)
+      eps*I1=4.54218e-30  K*Lam^6(strict)=36.0
+      tau bound: non-strict sqrt(12800 I)=0.00053136282  strict=0.00053136282  claimed 280 sqrt(log)/(M+1)^2=0.00067632861  (ratios 0.785658, 0.785658)
+M=2000  I3=1.628055979e-12  bound=2.463729567e-12 (ratio 0.66081; Beta form 2.396781818e-12)
+      eps*I1=5.03868e-33  K*Lam^6(strict)=36.0
+      tau bound: non-strict sqrt(12800 I)=0.0001443576  strict=0.0001443576  claimed 280 sqrt(log)/(M+1)^2=0.00017834615  (ratios 0.809424, 0.809424)
+M=10000  I3=3.571565576e-15  bound=4.916439937e-15 (ratio 0.726454; Beta form 4.818060841e-15)
+      eps*I1=6.7824e-40  K*Lam^6(strict)=36.0
+      tau bound: non-strict sqrt(12800 I)=6.7613637e-6  strict=6.7613637e-6  claimed 280 sqrt(log)/(M+1)^2=7.9733086e-6  (ratios 0.848, 0.848)

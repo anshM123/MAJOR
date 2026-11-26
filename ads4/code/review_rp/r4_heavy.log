@@ -14,3 +14,147 @@
    b=4 n=    2 a=999.0    k=   2 m0= 997  L=2.58284e-10  rel.diff=0.0
    b=0 n=    1 a=998.37   k=   1 m0= 997  L=2.00052e-6  rel.diff=0.0
    b=4 n=  998 a=100998.0 k=  10 m0= 998  L=6.41793e-41  rel.diff=3.0e-800
+   b=0 n= 4000 a=100998.0 k=   1 m0= 999  L=0.000340088  rel.diff=2.61e-801
+   b=4 n=  997 a=998.0    k=   3 m0= 998  L=2.26988e-124  rel.diff=3.75e-586
+   b=0 n=  998 a=998.0    k=   1 m0= 997  L=1.87521e-122  rel.diff=6.22e-586
+   b=0 n=    1 a=998.0    k=   1 m0= 998  L=2.002e-6  rel.diff=0.0
+   b=0 n= 1500 a=998.37   k=  10 m0= 999  L=4.0887e-193  rel.diff=4.96e-482
+   b=0 n=    5 a=1000.5   k=   5 m0= 997  L=3.41823e-24  rel.diff=0.0
+   b=4 n=  998 a=998.37   k=   0 m0= 998  L=1.44487e-122  rel.diff=4.31e-585
+   b=4 n=    1 a=998.37   k=   1 m0= 998  L=9.92325e-6  rel.diff=0.0
+   b=0 n=    1 a=998.37   k=   1 m0= 998  L=2.00052e-6  rel.diff=0.0
+   smallest normalised value L/U_k: 6.19309e-189
+(B) full action, building F to degree 1502
+   b=0 J=    0 a=998.0       T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=0 J=    0 a=998.37      T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=0 J=    0 a=1000.0      T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=0 J=    0 a=2500.0      T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=0 J=    0 a=100000.0    T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=0 J=    0 a=1.0e+9      T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=0 J=    1 a=998.0       T*V(F_strict)=2.51608e-24    T*V(F_nonstrict)=0.0
+   b=0 J=    1 a=998.37      T*V(F_strict)=2.51608e-24    T*V(F_nonstrict)=0.0
+   b=0 J=    1 a=1000.0      T*V(F_strict)=2.51609e-24    T*V(F_nonstrict)=0.0
+   b=0 J=    1 a=2500.0      T*V(F_strict)=2.51945e-24    T*V(F_nonstrict)=0.0
+   b=0 J=    1 a=100000.0    T*V(F_strict)=2.52009e-24    T*V(F_nonstrict)=0.0
+   b=0 J=    1 a=1.0e+9      T*V(F_strict)=2.52009e-24    T*V(F_nonstrict)=0.0
+   b=0 J=    2 a=998.0       T*V(F_strict)=1.07785e-10    T*V(F_nonstrict)=1.07785e-10
+   b=0 J=    2 a=998.37      T*V(F_strict)=1.07625e-10    T*V(F_nonstrict)=1.07625e-10
+   b=0 J=    2 a=1000.0      T*V(F_strict)=1.06927e-10    T*V(F_nonstrict)=1.06927e-10
+   b=0 J=    2 a=2500.0      T*V(F_strict)=2.75377e-12    T*V(F_nonstrict)=2.75377e-12
+   b=0 J=    2 a=100000.0    T*V(F_strict)=1.0799e-18     T*V(F_nonstrict)=1.07989e-18
+   b=0 J=    2 a=1.0e+9      T*V(F_strict)=6.55223e-24    T*V(F_nonstrict)=1.08e-34
+   b=0 J=    3 a=998.0       T*V(F_strict)=1.24679e-9     T*V(F_nonstrict)=1.24679e-9
+   b=0 J=    3 a=998.37      T*V(F_strict)=1.24495e-9     T*V(F_nonstrict)=1.24495e-9
+   b=0 J=    3 a=1000.0      T*V(F_strict)=1.2369e-9      T*V(F_nonstrict)=1.2369e-9
+   b=0 J=    3 a=2500.0      T*V(F_strict)=3.20527e-11    T*V(F_nonstrict)=3.20527e-11
+   b=0 J=    3 a=100000.0    T*V(F_strict)=1.25982e-17    T*V(F_nonstrict)=1.25982e-17
+   b=0 J=    3 a=1.0e+9      T*V(F_strict)=1.26005e-23    T*V(F_nonstrict)=1.26e-33
+   b=0 J=   10 a=998.0       T*V(F_strict)=1.12747e-6     T*V(F_nonstrict)=1.12747e-6
+   b=0 J=   10 a=998.37      T*V(F_strict)=1.1259e-6      T*V(F_nonstrict)=1.1259e-6
+   b=0 J=   10 a=1000.0      T*V(F_strict)=1.11902e-6     T*V(F_nonstrict)=1.11902e-6
+   b=0 J=   10 a=2500.0      T*V(F_strict)=3.19312e-8     T*V(F_nonstrict)=3.19312e-8
+   b=0 J=   10 a=100000.0    T*V(F_strict)=1.28843e-14    T*V(F_nonstrict)=1.28843e-14
+   b=0 J=   10 a=1.0e+9      T*V(F_strict)=1.11388e-22    T*V(F_nonstrict)=1.28898e-30
+   b=0 J=   50 a=998.0       T*V(F_strict)=0.00135238     T*V(F_nonstrict)=0.00135238
+   b=0 J=   50 a=998.37      T*V(F_strict)=0.00135268     T*V(F_nonstrict)=0.00135268
+   b=0 J=   50 a=1000.0      T*V(F_strict)=0.00135402     T*V(F_nonstrict)=0.00135402
+   b=0 J=   50 a=2500.0      T*V(F_strict)=0.00026489     T*V(F_nonstrict)=0.00026489
+   b=0 J=   50 a=100000.0    T*V(F_strict)=1.6521e-10     T*V(F_nonstrict)=1.6521e-10
+   b=0 J=   50 a=1.0e+9      T*V(F_strict)=2.57101e-21    T*V(F_nonstrict)=1.65586e-26
+   b=0 J=  200 a=998.0       T*V(F_strict)=1.77407e-11    T*V(F_nonstrict)=1.77407e-11
+   b=0 J=  200 a=998.37      T*V(F_strict)=1.80311e-11    T*V(F_nonstrict)=1.80311e-11
+   b=0 J=  200 a=1000.0      T*V(F_strict)=1.9364e-11     T*V(F_nonstrict)=1.9364e-11
+   b=0 J=  200 a=2500.0      T*V(F_strict)=0.00490937     T*V(F_nonstrict)=0.00490937
+   b=0 J=  200 a=100000.0    T*V(F_strict)=6.41838e-7     T*V(F_nonstrict)=6.41838e-7
+   b=0 J=  200 a=1.0e+9      T*V(F_strict)=4.05885e-20    T*V(F_nonstrict)=6.49591e-23
+   b=0 J=  500 a=998.0       T*V(F_strict)=1.23559e-47    T*V(F_nonstrict)=1.23559e-47
+   b=0 J=  500 a=998.37      T*V(F_strict)=1.309e-47      T*V(F_nonstrict)=1.309e-47
+   b=0 J=  500 a=1000.0      T*V(F_strict)=1.68709e-47    T*V(F_nonstrict)=1.68709e-47
+   b=0 J=  500 a=2500.0      T*V(F_strict)=1.16333e-10    T*V(F_nonstrict)=1.16333e-10
+   b=0 J=  500 a=100000.0    T*V(F_strict)=0.000150312    T*V(F_nonstrict)=0.000150312
+   b=0 J=  500 a=1.0e+9      T*V(F_strict)=2.68232e-19    T*V(F_nonstrict)=1.57187e-20
+   b=0 J=  997 a=998.0       T*V(F_strict)=4.42437e-117   T*V(F_nonstrict)=4.42437e-117
+   b=0 J=  997 a=998.37      T*V(F_strict)=4.95014e-117   T*V(F_nonstrict)=4.95014e-117
+   b=0 J=  997 a=1000.0      T*V(F_strict)=8.11138e-117   T*V(F_nonstrict)=8.11138e-117
+   b=0 J=  997 a=2500.0      T*V(F_strict)=1.34019e-33    T*V(F_nonstrict)=1.34019e-33
+   b=0 J=  997 a=100000.0    T*V(F_strict)=0.00858921     T*V(F_nonstrict)=0.00858921
+   b=0 J=  997 a=1.0e+9      T*V(F_strict)=1.98809e-18    T*V(F_nonstrict)=9.85085e-19
+   b=0 J= 1001 a=998.0       T*V(F_strict)=1.24978e-117   T*V(F_nonstrict)=1.24978e-117
+   b=0 J= 1001 a=998.37      T*V(F_strict)=1.3988e-117    T*V(F_nonstrict)=1.3988e-117
+   b=0 J= 1001 a=1000.0      T*V(F_strict)=2.29571e-117   T*V(F_nonstrict)=2.29571e-117
+   b=0 J= 1001 a=2500.0      T*V(F_strict)=8.24843e-34    T*V(F_nonstrict)=8.24843e-34
+   b=0 J= 1001 a=100000.0    T*V(F_strict)=0.00878974     T*V(F_nonstrict)=0.00878974
+   b=0 J= 1001 a=1.0e+9      T*V(F_strict)=2.02009e-18    T*V(F_nonstrict)=1.00903e-18
+   b=0 J= 1500 a=998.0       T*V(F_strict)=7.33997e-183   T*V(F_nonstrict)=7.33997e-183
+   b=0 J= 1500 a=998.37      T*V(F_strict)=8.52622e-183   T*V(F_nonstrict)=8.52622e-183
+   b=0 J= 1500 a=1000.0      T*V(F_strict)=1.64804e-182   T*V(F_nonstrict)=1.64804e-182
+   b=0 J= 1500 a=2500.0      T*V(F_strict)=1.43263e-61    T*V(F_nonstrict)=1.43263e-61
+   b=0 J= 1500 a=100000.0    T*V(F_strict)=0.0864592      T*V(F_nonstrict)=0.0864592
+   b=0 J= 1500 a=1.0e+9      T*V(F_strict)=1.36829e-17    T*V(F_nonstrict)=1.14133e-17
+   b=4 J=    4 a=998.0       T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=4 J=    4 a=998.37      T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=4 J=    4 a=1000.0      T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=4 J=    4 a=2500.0      T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=4 J=    4 a=100000.0    T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=4 J=    4 a=1.0e+9      T*V(F_strict)=5.04018e-25    T*V(F_nonstrict)=0.0
+   b=4 J=    5 a=998.0       T*V(F_strict)=1.05645e-23    T*V(F_nonstrict)=0.0
+   b=4 J=    5 a=998.37      T*V(F_strict)=1.05645e-23    T*V(F_nonstrict)=0.0
+   b=4 J=    5 a=1000.0      T*V(F_strict)=1.05646e-23    T*V(F_nonstrict)=0.0
+   b=4 J=    5 a=2500.0      T*V(F_strict)=1.05812e-23    T*V(F_nonstrict)=0.0
+   b=4 J=    5 a=100000.0    T*V(F_strict)=1.05844e-23    T*V(F_nonstrict)=0.0
+   b=4 J=    5 a=1.0e+9      T*V(F_strict)=1.05844e-23    T*V(F_nonstrict)=0.0
+   b=4 J=    6 a=998.0       T*V(F_strict)=1.16691e-9     T*V(F_nonstrict)=1.16691e-9
+   b=4 J=    6 a=998.37      T*V(F_strict)=1.1652e-9      T*V(F_nonstrict)=1.1652e-9
+   b=4 J=    6 a=1000.0      T*V(F_strict)=1.15767e-9     T*V(F_nonstrict)=1.15767e-9
+   b=4 J=    6 a=2500.0      T*V(F_strict)=3.00988e-11    T*V(F_nonstrict)=3.00988e-11
+   b=4 J=    6 a=100000.0    T*V(F_strict)=1.18769e-17    T*V(F_nonstrict)=1.18769e-17
+   b=4 J=    6 a=1.0e+9      T*V(F_strict)=2.26808e-23    T*V(F_nonstrict)=1.188e-33
+   b=4 J=    7 a=998.0       T*V(F_strict)=1.68401e-8     T*V(F_nonstrict)=1.68401e-8
+   b=4 J=    7 a=998.37      T*V(F_strict)=1.68154e-8     T*V(F_nonstrict)=1.68154e-8
+   b=4 J=    7 a=1000.0      T*V(F_strict)=1.67071e-8     T*V(F_nonstrict)=1.67071e-8
+   b=4 J=    7 a=2500.0      T*V(F_strict)=4.37593e-10    T*V(F_nonstrict)=4.37593e-10
+   b=4 J=    7 a=100000.0    T*V(F_strict)=1.73108e-16    T*V(F_nonstrict)=1.73108e-16
+   b=4 J=    7 a=1.0e+9      T*V(F_strict)=3.67933e-23    T*V(F_nonstrict)=1.7316e-32
+   b=4 J=   10 a=998.0       T*V(F_strict)=4.76474e-7     T*V(F_nonstrict)=4.76474e-7
+   b=4 J=   10 a=998.37      T*V(F_strict)=4.75795e-7     T*V(F_nonstrict)=4.75795e-7
+   b=4 J=   10 a=1000.0      T*V(F_strict)=4.72821e-7     T*V(F_nonstrict)=4.72821e-7
+   b=4 J=   10 a=2500.0      T*V(F_strict)=1.30206e-8     T*V(F_nonstrict)=1.30206e-8
+   b=4 J=   10 a=100000.0    T*V(F_strict)=5.21778e-15    T*V(F_nonstrict)=5.21778e-15
+   b=4 J=   10 a=1.0e+9      T*V(F_strict)=9.12273e-23    T*V(F_nonstrict)=5.22e-31
+   b=4 J=   50 a=998.0       T*V(F_strict)=0.00135047     T*V(F_nonstrict)=0.00135047
+   b=4 J=   50 a=998.37      T*V(F_strict)=0.00135075     T*V(F_nonstrict)=0.00135075
+   b=4 J=   50 a=1000.0      T*V(F_strict)=0.00135199     T*V(F_nonstrict)=0.00135199
+   b=4 J=   50 a=2500.0      T*V(F_strict)=0.00025793     T*V(F_nonstrict)=0.00025793
+   b=4 J=   50 a=100000.0    T*V(F_strict)=1.59824e-10    T*V(F_nonstrict)=1.59824e-10
+   b=4 J=   50 a=1.0e+9      T*V(F_strict)=2.55085e-21    T*V(F_nonstrict)=1.60187e-26
+   b=4 J=  200 a=998.0       T*V(F_strict)=1.68783e-11    T*V(F_nonstrict)=1.68783e-11
+   b=4 J=  200 a=998.37      T*V(F_strict)=1.71559e-11    T*V(F_nonstrict)=1.71559e-11
+   b=4 J=  200 a=1000.0      T*V(F_strict)=1.84304e-11    T*V(F_nonstrict)=1.84304e-11
+   b=4 J=  200 a=2500.0      T*V(F_strict)=0.00491389     T*V(F_nonstrict)=0.00491389
+   b=4 J=  200 a=100000.0    T*V(F_strict)=6.40501e-7     T*V(F_nonstrict)=6.40501e-7
+   b=4 J=  200 a=1.0e+9      T*V(F_strict)=4.05682e-20    T*V(F_nonstrict)=6.48235e-23
+   b=4 J=  500 a=998.0       T*V(F_strict)=1.02471e-47    T*V(F_nonstrict)=1.02471e-47
+   b=4 J=  500 a=998.37      T*V(F_strict)=1.0858e-47     T*V(F_nonstrict)=1.0858e-47
+   b=4 J=  500 a=1000.0      T*V(F_strict)=1.40059e-47    T*V(F_nonstrict)=1.40059e-47
+   b=4 J=  500 a=2500.0      T*V(F_strict)=1.15401e-10    T*V(F_nonstrict)=1.15401e-10
+   b=4 J=  500 a=100000.0    T*V(F_strict)=0.000150263    T*V(F_nonstrict)=0.000150263
+   b=4 J=  500 a=1.0e+9      T*V(F_strict)=2.68207e-19    T*V(F_nonstrict)=1.57134e-20
+   b=4 J=  997 a=998.0       T*V(F_strict)=3.33803e-117   T*V(F_nonstrict)=3.33803e-117
+   b=4 J=  997 a=998.37      T*V(F_strict)=3.73551e-117   T*V(F_nonstrict)=3.73551e-117
+   b=4 J=  997 a=1000.0      T*V(F_strict)=6.12692e-117   T*V(F_nonstrict)=6.12692e-117
+   b=4 J=  997 a=2500.0      T*V(F_strict)=1.30714e-33    T*V(F_nonstrict)=1.30714e-33
+   b=4 J=  997 a=100000.0    T*V(F_strict)=0.00858852     T*V(F_nonstrict)=0.00858852
+   b=4 J=  997 a=1.0e+9      T*V(F_strict)=1.98798e-18    T*V(F_nonstrict)=9.85002e-19
+   b=4 J= 1001 a=998.0       T*V(F_strict)=9.42586e-118   T*V(F_nonstrict)=9.42586e-118
+   b=4 J= 1001 a=998.37      T*V(F_strict)=1.0552e-117    T*V(F_nonstrict)=1.0552e-117
+   b=4 J= 1001 a=1000.0      T*V(F_strict)=1.73346e-117   T*V(F_nonstrict)=1.73346e-117
+   b=4 J= 1001 a=2500.0      T*V(F_strict)=8.04406e-34    T*V(F_nonstrict)=8.04406e-34
+   b=4 J= 1001 a=100000.0    T*V(F_strict)=0.00878904     T*V(F_nonstrict)=0.00878904
+   b=4 J= 1001 a=1.0e+9      T*V(F_strict)=2.01998e-18    T*V(F_nonstrict)=1.00894e-18
+   b=4 J= 1500 a=998.0       T*V(F_strict)=5.43098e-183   T*V(F_nonstrict)=5.43098e-183
+   b=4 J= 1500 a=998.37      T*V(F_strict)=6.30994e-183   T*V(F_nonstrict)=6.30994e-183
+   b=4 J= 1500 a=1000.0      T*V(F_strict)=1.22071e-182   T*V(F_nonstrict)=1.22071e-182
+   b=4 J= 1500 a=2500.0      T*V(F_strict)=1.38016e-61    T*V(F_nonstrict)=1.38016e-61
+   b=4 J= 1500 a=100000.0    T*V(F_strict)=0.0864563      T*V(F_nonstrict)=0.0864563
+   b=4 J= 1500 a=1.0e+9      T*V(F_strict)=1.36825e-17    T*V(F_nonstrict)=1.14129e-17
+   all strict values > 0: True ; all non-strict >= 0: True ; non-strict zero exactly for n<=1: True

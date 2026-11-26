@@ -1,0 +1,4 @@
+PASS exact constants; squared rigidity coefficient <= 170103.33019552982
+PASS 960 exact dressing and mixed-action regression tests; sampled minimum ratio 0.30088499188604384
+PASS low-spin reduction and sign constants
+PASS quadratic-degree basis counterexample: -741509/503496
