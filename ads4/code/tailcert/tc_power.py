@@ -71,6 +71,32 @@ def inc_gamma_upper(sigma, X):
     return arb(acb(X).gamma_upper(acb(s)).real.upper())
 
 
+_ETAB = None
+ETAB_U0, ETAB_DU, ETAB_N = 0.5, 0.0005, 5001          # u in [0.5, 3.0]
+
+
+def Ehat_table():
+    """certified Ehat(u, 0.92) at u = u_i (grid); Ehat is nondecreasing in u (d/du = pi/2 - phi >= 0), so Ehat(u) <= table[ceil]."""
+    global _ETAB
+    if _ETAB is None:
+        fn = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cache', 'ehat_table.json')
+        if os.path.exists(fn):
+            _ETAB = json.load(open(fn))
+        else:
+            _ETAB = [Ehat(ETAB_U0 + ETAB_DU*i, 0.92, 400) for i in range(ETAB_N)]
+            json.dump(_ETAB, open(fn, 'w'))
+    return _ETAB
+
+
+def Ehat_up(u):
+    T = Ehat_table()
+    if u <= ETAB_U0:
+        return T[0]
+    i = int(math.ceil((u - ETAB_U0)/ETAB_DU))
+    assert i < len(T), u
+    return T[i]
+
+
 def K_osc(sigma, t1, t2, L0, a_cells=None):
     """certified upper bound of |S^(sigma + i tau)| for tau in [t1, t2] (t2 >= t1 >= 0), all tail states (a >= 998, w <= e^{-L0}).
     Returns (bound, info)."""
@@ -101,7 +127,7 @@ def K_osc(sigma, t1, t2, L0, a_cells=None):
             edges.append(min(amax, edges[-1]*1.02))
         for a1, a2 in zip(edges[:-1], edges[1:]):
             uhi = t2/a1
-            E = Ehat(uhi, rho, 800)
+            E = Ehat_up(uhi)
             Y1 = 2*a2*rho
             c1 = 3*dlam*Y1*Y1/(8*a1)
             c2 = a2*dlam*rho/(1 - rho)
