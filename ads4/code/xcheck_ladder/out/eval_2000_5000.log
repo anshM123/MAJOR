@@ -1,0 +1,60 @@
+Dg=2000 J= 4     tw min m/L=1.0019990  exact=+0.20207 (+-)  direct=+0.20210  diff=-0.00003  diff/budget=-0.018  hyb=+0.20207  spread=nan tail=8.3e-15 Nschk=nan
+Dg=2000 J= 4    img min m/L=1.0039960  exact=+0.20412 (+-)  direct=+0.20410  diff=+0.00002  diff/budget=+0.012  hyb=+0.20413  spread=nan tail=7.6e-15 Nschk=nan
+Dg=2000 J= 5     tw  +- m/L=1.0024981  exact=+0.20040 (+-)  direct=+0.20040  diff=+0.00000  diff/budget=+0.005  hyb=+0.20041  spread=nan tail=1.1e-14 Nschk=nan
+Dg=2000 J= 5    img  +- m/L=1.0049925  exact=+0.20089 (+-)  direct=+0.20090  diff=-0.00001  diff/budget=-0.014  hyb=+0.20090  spread=nan tail=1.2e-14 Nschk=nan
+Dg=2000 J= 6     tw min m/L=1.0029970  exact=+0.21444 (+-)  direct=+0.21440  diff=+0.00004  diff/budget=+0.004  hyb=+0.21443  spread=nan tail=1.1e-13 Nschk=nan
+Dg=2000 J= 6    img min m/L=1.0059880  exact=+0.22947 (+-)  direct=+0.22950  diff=-0.00003  diff/budget=-0.003  hyb=+0.22946  spread=nan tail=1.2e-13 Nschk=nan
+Dg=2000 J= 7     tw  +- m/L=1.0034956  exact=+0.22979 (+-)  direct=+0.22980  diff=-0.00001  diff/budget=-0.001  hyb=+0.22984  spread=nan tail=1.4e-12 Nschk=nan
+Dg=2000 J= 7    img  +- m/L=1.0069826  exact=+0.26840 (+-)  direct=+0.26840  diff=+0.00000  diff/budget=+0.000  hyb=+0.26845  spread=nan tail=1.6e-12 Nschk=nan
+Dg=2000 J= 8     tw min m/L=1.0039940  exact=+0.28490 (+-)  direct=+0.28490  diff=-0.00000  diff/budget=-0.000  hyb=+0.28474  spread=nan tail=1.5e-11 Nschk=nan
+Dg=2000 J= 8    img min m/L=1.0079761  exact=+0.42920 (+-)  direct=+0.42920  diff=-0.00000  diff/budget=-0.000  hyb=+0.42901  spread=nan tail=2.1e-11 Nschk=nan
+Dg=2000 J= 9     tw  +- m/L=1.0044921  exact=+0.92755 (+-)  direct=+0.92750  diff=+0.00005  diff/budget=+0.000  hyb=+0.92790  spread=nan tail=9.3e-11 Nschk=nan
+Dg=2000 J= 9    img  +- m/L=1.0089687  exact=+0.67634 (+-)  direct=+0.67630  diff=+0.00004  diff/budget=+0.000  hyb=+0.67655  spread=nan tail=6.5e-11 Nschk=nan
+Dg=2000 J= 9   1.03  +- m/L=1.03  exact=+0.45442 (+-)  direct=+0.45440  diff=+0.00002  diff/budget=+0.000  hyb=+0.45447  spread=nan tail=3.3e-11 Nschk=nan
+Dg=2000 J=10     tw min m/L=1.0049900  exact=+0.58207 (+-)  direct=+0.58200  diff=+0.00007  diff/budget=+0.000  hyb=+0.58145  spread=nan tail=4.2e-10 Nschk=nan
+Dg=2000 J=10    img min m/L=1.0099604  exact=+0.58799 (+-)  direct=+0.58790  diff=+0.00009  diff/budget=+0.000  hyb=+0.58757  spread=nan tail=3.5e-10 Nschk=nan
+Dg=2000 J=10 1.0075 min m/L=1.0075  exact=+0.57600 (+-)  direct=+0.57590  diff=+0.00010  diff/budget=+0.000  hyb=+0.57549  spread=nan tail=3.8e-10 Nschk=nan
+Dg=2000 J=11     tw  +- m/L=1.0054876  exact=+0.33489 (+-)  direct=+0.33490  diff=-0.00001  diff/budget=-0.000  hyb=+0.33512  spread=nan tail=3.4e-10 Nschk=nan
+Dg=2000 J=11    img  +- m/L=1.0109510  exact=+0.34899 (+-)  direct=+0.34900  diff=-0.00001  diff/budget=-0.000  hyb=+0.34916  spread=nan tail=3.3e-10 Nschk=nan
+Dg=2000 J=12     tw min m/L=1.0059850  exact=+0.40953 (+-)  direct=+0.40950  diff=+0.00003  diff/budget=+0.001  hyb=+0.40898  spread=nan tail=1.8e-09 Nschk=nan
+Dg=2000 J=12    img min m/L=1.0119407  exact=+0.84982 (+-)  direct=+0.84990  diff=-0.00008  diff/budget=-0.003  hyb=+0.84915  spread=nan tail=2.7e-09 Nschk=nan
+Dg=2000 J=13     tw  +- m/L=1.0064822  exact=+0.30252 (+-)  direct=+0.30270  diff=-0.00018  diff/budget=-0.001  hyb=+0.30285  spread=nan tail=2.0e-09 Nschk=nan
+Dg=2000 J=13    img  +- m/L=1.0129294  exact=+0.40827 (+-)  direct=+0.40840  diff=-0.00013  diff/budget=-0.000  hyb=+0.40857  spread=nan tail=2.3e-09 Nschk=nan
+Dg=2000 J=14     tw min m/L=1.0069791  exact=+0.68625 (+-)  direct=+0.68420  diff=+0.00205  diff/budget=+0.001  hyb=+0.68511  spread=nan tail=1.3e-08 Nschk=nan
+Dg=2000 J=14    img min m/L=1.0139171  exact=+1.00000 (++)  direct=+0.99910  diff=+0.00090  diff/budget=+0.001  hyb=+1.00000  spread=nan tail=1.2e-08 Nschk=nan
+Dg=2000 J=14  1.035 min m/L=1.035  exact=+0.69962 (+-)  direct=+0.69920  diff=+0.00042  diff/budget=+0.000  hyb=+0.69946  spread=nan tail=2.9e-09 Nschk=nan
+Dg=2000 J=15     tw  +- m/L=1.0074758  exact=+0.36521 (+-)  direct=+0.36590  diff=-0.00069  diff/budget=-0.001  hyb=+0.36582  spread=nan tail=1.1e-08 Nschk=nan
+Dg=2000 J=15    img  +- m/L=1.0149039  exact=+0.69383 (+-)  direct=+0.69460  diff=-0.00077  diff/budget=-0.001  hyb=+0.69456  spread=nan tail=1.5e-08 Nschk=nan
+Dg=2000 J=16     tw min m/L=1.0079722  exact=+1.00000 (++)  direct=+0.99960  diff=+0.00040  diff/budget=+0.002  hyb=+1.00000  spread=nan tail=6.3e-08 Nschk=nan
+Dg=2000 J=16    img min m/L=1.0158897  exact=+0.93991 (+-)  direct=+0.94480  diff=-0.00489  diff/budget=-0.067  hyb=+0.93888  spread=nan tail=3.4e-08 Nschk=nan
+Dg=2000 J=16  1.025 min m/L=1.025  exact=+0.72397 (+-)  direct=+0.72710  diff=-0.00313  diff/budget=-0.119  hyb=+0.72362  spread=nan tail=1.5e-08 Nschk=nan
+Dg=2000 J=17     tw  +- m/L=1.0084683  exact=+0.53143 (+-)  direct=+0.53290  diff=-0.00147  diff/budget=-0.001  hyb=+0.53269  spread=nan tail=5.6e-08 Nschk=nan
+Dg=2000 J=17    img  +- m/L=1.0168746  exact=+0.99881 (+-)  direct=+1.00000  diff=-0.00119  diff/budget=-0.000  hyb=+1.00000  spread=nan tail=6.1e-08 Nschk=nan
+Dg=2000 J=19     tw  +- m/L=1.0094600  exact=+0.85405 (+-)  direct=+0.85520  diff=-0.00115  diff/budget=-0.000  hyb=+0.85662  spread=nan tail=2.4e-07 Nschk=nan
+Dg=2000 J=19    img  +- m/L=1.0188415  exact=+0.99909 (+-)  direct=+0.99890  diff=+0.00019  diff/budget=+0.000  hyb=+1.00000  spread=nan tail=1.2e-07 Nschk=nan
+Dg=2000 J=20     tw min m/L=1.0099554  exact=+0.89974 (+-)  direct=+0.96510  diff=-0.06536  diff/budget=-0.091  hyb=+0.89698  spread=nan tail=3.8e-07 Nschk=nan
+Dg=2000 J=20    img min m/L=1.0198235  exact=+0.83746 (+-)  direct=+0.89480  diff=-0.05734  diff/budget=-0.211  hyb=+0.83697  spread=nan tail=1.3e-07 Nschk=nan
+Dg=2000 J=20  1.015 min m/L=1.015  exact=+0.76419 (+-)  direct=+0.81790  diff=-0.05371  diff/budget=-0.144  hyb=+0.76304  spread=nan tail=1.9e-07 Nschk=nan
+Dg=2000 J=21     tw  +- m/L=1.0104506  exact=+0.99680 (+-)  direct=+1.01180  diff=-0.01500  diff/budget=-0.019  hyb=+1.00000  spread=nan tail=6.3e-07 Nschk=nan
+Dg=2000 J=21    img  +- m/L=1.0208046  exact=+0.99975 (+-)  direct=+1.01010  diff=-0.01035  diff/budget=-0.026  hyb=+1.00000  spread=nan tail=1.8e-07 Nschk=nan
+Dg=2000 J=21   1.03  +- m/L=1.03  exact=+0.88305 (+-)  direct=+0.89090  diff=-0.00785  diff/budget=-0.036  hyb=+0.88281  spread=nan tail=4.1e-08 Nschk=nan
+Dg=2000 J=23     tw  +- m/L=1.0114403  exact=+0.99735 (+-)  direct=+1.04460  diff=-0.04725  diff/budget=-0.064  hyb=+1.00000  spread=nan tail=1.2e-06 Nschk=nan
+Dg=2000 J=23    img  +- m/L=1.0227639  exact=+0.90220 (+-)  direct=+0.93220  diff=-0.03000  diff/budget=-0.135  hyb=+0.90186  spread=nan tail=1.7e-07 Nschk=nan
+Dg=2000 J=23  1.025  +- m/L=1.025  exact=+0.89539 (+-)  direct=+0.92370  diff=-0.02831  diff/budget=-0.150  hyb=+0.89501  spread=nan tail=1.1e-07 Nschk=nan
+Dg=2000 J=27     tw  +- m/L=1.0134167  exact=+0.97040 (+-)  direct=+1.00280  diff=-0.03240  diff/budget=-0.039  hyb=+0.97023  spread=nan tail=2.1e-06 Nschk=nan
+Dg=2000 J=27    img  +- m/L=1.0266713  exact=+1.00005 (+-)  direct=+1.03650  diff=-0.03645  diff/budget=-0.215  hyb=+1.00000  spread=nan tail=4.5e-08 Nschk=nan
+Dg=2000 J=27 1.0175  +- m/L=1.0175  exact=+0.91338 (+-)  direct=+0.94430  diff=-0.03092  diff/budget=-0.069  hyb=+0.91255  spread=nan tail=7.0e-07 Nschk=nan
+Dg=2000 J=29     tw  +- m/L=1.0144035  exact=+0.92111 (+-)  direct=+0.94070  diff=-0.01959  diff/budget=-0.015  hyb=+0.91992  spread=nan tail=1.9e-06 Nschk=nan
+Dg=2000 J=29    img  +- m/L=1.0286194  exact=+0.99966 (+-)  direct=+1.03570  diff=-0.03604  diff/budget=-0.108  hyb=+1.00000  spread=nan tail=1.3e-07 Nschk=nan
+Dg=2000 J=29  1.015  +- m/L=1.015  exact=+0.92016 (+-)  direct=+0.94040  diff=-0.02024  diff/budget=-0.017  hyb=+0.91896  spread=nan tail=1.5e-06 Nschk=nan
+Dg=2000 J= 4     tw  OO m/L=1.0019990  exact=+0.20293 (++)  direct=+0.20290  diff=+0.00003  diff/budget=+0.015  hyb=+0.20293  spread=nan tail=8.3e-15 Nschk=nan
+Dg=2000 J= 4    img  OO m/L=1.0039960  exact=+0.20590 (++)  direct=+0.20590  diff=-0.00000  diff/budget=-0.002  hyb=+0.20590  spread=nan tail=7.6e-15 Nschk=nan
+Dg=2000 J= 6    img  OO m/L=1.0059880  exact=+0.35522 (++)  direct=+0.35520  diff=+0.00002  diff/budget=+0.002  hyb=+0.35522  spread=nan tail=1.5e-14 Nschk=nan
+Dg=2000 J= 8    img  OO m/L=1.0079761  exact=+0.58875 (++)  direct=+0.58870  diff=+0.00005  diff/budget=+0.001  hyb=+0.58876  spread=nan tail=1.4e-14 Nschk=nan
+Dg=2000 J=10    img  OO m/L=1.0099604  exact=+0.93916 (++)  direct=+0.93910  diff=+0.00006  diff/budget=+0.000  hyb=+0.93915  spread=nan tail=4.6e-14 Nschk=nan
+written /home/user/MAJOR/ads4/code/xcheck_ladder/out/xcheck_2000.csv
+Dg=5000 J= 5     tw  +- m/L=1.0009997  exact=+0.20015 (+-)  direct=+0.20020  diff=-0.00005  diff/budget=-0.442  hyb=+0.20016  spread=nan tail=5.6e-15 Nschk=nan
+Dg=5000 J= 5    img  +- m/L=1.0049925  exact=+0.20090 (+-)  direct=+0.20090  diff=-0.00000  diff/budget=-0.020  hyb=+0.20090  spread=nan tail=5.7e-15 Nschk=nan
+Dg=5000 J=12     tw min m/L=1.0023976  exact=+0.28608 (+-)  direct=+0.28560  diff=+0.00048  diff/budget=+0.006  hyb=+0.28599  spread=nan tail=7.5e-10 Nschk=nan
+Dg=5000 J=12    img min m/L=1.0119407  exact=+0.84917 (+-)  direct=+0.84820  diff=+0.00097  diff/budget=+0.007  hyb=+0.84907  spread=nan tail=1.3e-09 Nschk=nan
+written /home/user/MAJOR/ads4/code/xcheck_ladder/out/xcheck_5000.csv
