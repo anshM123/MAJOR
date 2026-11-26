@@ -354,3 +354,54 @@ All 102 (cell, h-piece, b) rectangles of code/gap_design/plan_highc_056_0777.jso
 (validate_plan.py → logs/validate_highc.log): predicted L1/centre ∈ [0.004, 0.053], i.e. no cell of the plan is expected to fail.
 The prover's staircase driver (bottom pieces + thin top strips, seen in its run directory) is an improvement over the uniform
 h-pieces here and is consistent with this lemma; either can be used. Designer processes: none left running.
+
+---
+### G1/G2/G4 — cells: final prover ledger for c ∈ [0.28, 0.67], both b (prover agent, 26 Nov, ~20:55)
+
+Per the coordinator split, I covered [0.56, 0.67] above 0.56; the second executor (code/gap_exec2/) covers [0.67, 0.777]. My cells above 0.56
+are long-table staircase cells (gap_stair_long.py; the K = 17,201 vector; K is the least K with tail < 1e−7; allowance 1e−7 + 1e−14 from
+G2; D = 450–826 from the growth rule; reported roundoff ≤ 1e−73).
+
+| c-cell | b | kind | K | pieces | lower | CPU s |
+|---|---|---|---|---|---|---|
+| [0.5600, 0.5850] | 0 | long | 3087 | 2+2 | 9.0956e-06 | 520 |
+| [0.5850, 0.6150] | 0 | long | 3409 | 2+2 | 8.1517e-06 | 906 |
+| [0.6150, 0.6400] | 0 | long | 3717 | 2+2 | 8.2822e-06 | 1201 |
+| [0.6400, 0.6700] | 0 | long | 4148 | 2+2 | 4.4073e-06 | 2106 |
+| [0.5600, 0.5850] | 4 | long | 3087 | 2+2 | 8.9047e-06 | 517 |
+| [0.5850, 0.6100] | 4 | long | 3352 | 2+2 | 8.5483e-06 | 759 |
+| [0.6100, 0.6400] | 4 | long | 3717 | 2+2 | 5.8830e-06 | 1322 |
+| [0.6400, 0.6550] | 4 | long | 3923 | 2+2 | 8.5433e-06 | 1182 |
+| [0.6550, 0.6700] | 4 | long | 4148 | 2+2 | 8.3207e-06 | 1455 |
+
+**Failed and inconclusive runs.** None of these is a counterexample; each concerned non-physical overshoot, and each was split or reshaped.
+* b = 0, b = 4 on [0.31, 0.34] (plain): centre 4e−5, L1 6e−4 / 6.5e−3.
+* b = 4 on [0.462, 0.484] (plain m = 2): −6.4e−5. It passed as a staircase.
+* b = 4 on [0.64, 0.67] (staircase): −2.8e−6, in the first strip piece. It passed when split at 0.655.
+* b = 0 on [0.484, 0.506]: an earlier plain run was killed mid-way by me (not a result).
+
+**Final verification.** `python3 code/gap_prove/verify_gap_cells.py RUNDIR direct_coefficients.txt coeff_long_17200.txt` gives PASS on 35
+channel cells, the log is in `code/gap_prove/verify_gap_cells.log`, and `code/gap_prove/ledger.json` has the exact rational lower bounds.
+The rows for [0.28, 0.56] are in the interim table above.
+* Contiguous coverage in both channels: **c ∈ [0.28, 0.67]**, i.e. **L ∈ [0.3285, 1.1087]**.
+* Smallest lower bound: 9.23e−7 (b = 4, [0.44, 0.462], plain rectangle). All others are ≥ 3.6e−6.
+* Total CPU about 7.5 h.
+
+**What the verifier checks for every piece:**
+* the exact interval transfer from the source table;
+* the prefix condition: need_k (2^2700 rule) for c ≤ 0.56, or the exact tail(c_i, K) < 1e−7 (envelope 2^2337) above;
+* the G1 caps, recomputed with an independent rounding bracket;
+* the exact tiling of [0, hcap] and the staircase inequality c_i ≥ (1 − 998√h_i)², through an exact rational bracket r ≤ √h_i;
+* real and complex pole gaps at the chosen radii;
+* the Cauchy majorant and the triangle tail;
+* LOWER = CENTRE − L1 − ERROR;
+* the physical lower bound lb·(1−c_i)³/(1+q·h_hi)⁴ − allowance > 0.
+
+It does not re-execute the C++ Horner runs. The .in/.out files are kept in the session scratchpad, like the author's packages.
+
+**Status updates.**
+* **G4: PROVED (+ check PASS) on c ∈ [0.28, 0.67] for both b**, executed with the staircase variant (see the PROVER NOTE). [0.67, 0.777]
+  belongs to the second executor; [0.268, 0.28] is the author's.
+* Conditional on the retained inputs of the direct method (§§115–120) and SPECTRAL_DEGREE.md (G2).
+
+* PROVER erratum: the CPU total for the 35 passing channel cells is 4.3 h (from ledger.json). "About 7.5 h" above also counted failed runs and was only an estimate.
