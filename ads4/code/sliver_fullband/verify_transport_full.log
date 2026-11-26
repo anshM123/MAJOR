@@ -1,0 +1,4 @@
+PASS 236 exact transport checks, including both channels and active spectral truncation
+PASS ideal L1 bound psi2_exact 21.923774791363694
+PASS ideal L1 bound psi3_exact 13358376.661718285
+PASS old/new ideal enclosure overlaps 1253 raw max absolute center difference <1e-107

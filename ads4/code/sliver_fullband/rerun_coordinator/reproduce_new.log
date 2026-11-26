@@ -1,0 +1,35 @@
+PASS Gaussian M0 coherent error b 0 <1e-45; real bound 9.001156039227461e-53 pole bound log10 -765.545252431064
+PASS Gaussian M0 coherent error b 4 <1e-45; real bound 9.001156039227461e-53 pole bound log10 -765.5454839932431
+PASS all 3564 seeds and fixed-point constants; 12 shards
+exponent 2337 old 2417
+PASS_SPECTRAL_DEGREE 6000 raw operator bound 1.0070178417769726e+22 log2 error upper -1910.22165890201 ordinary K 17199 ordinary tail log2 -140.46238684415584
+exponent 2337 old 2417
+PASS finite reduction of whole remaining band: 21 contiguous rectangles, Kmax 16989 min pole gap 0.14469739893886
+b 0 raw kernel constant 43927874206847.37 correlated log seed action error 8.180684448190687e-22
+b 4 raw kernel constant 43927874206847.37 correlated log seed action error 8.180684413941407e-22
+Log cutoff total action error <1e-400
+PASS 1030 groups; exact upper 354780830158939783183851081399976780463661690920413700601/50000000000000000000000000000000000000000000000000000000000000000000000000000000 decimal 7.095616603178796e-24
+k 1200
+k 1000
+k 800
+k 600
+k 400
+k 200
+k 0
+k 1200
+k 1000
+k 800
+k 600
+k 400
+k 200
+k 0
+exponent 2337 old 2417
+PASS 129/500 67/250 0 1.3804379875357308e-05
+PASS 129/500 67/250 4 1.3220353908447914e-05
+PASS executed sign ledger; upper endpoint 67/250
+PASS 236 exact transport checks, including both channels and active spectral truncation
+PASS ideal L1 bound psi2_exact 21.923774791363694
+PASS ideal L1 bound psi3_exact 13358376.661718285
+PASS old/new ideal enclosure overlaps 1253 raw max absolute center difference <1e-107
+PASS exact negative NONPHYSICAL rational extension witness: -5.910519600557081e+18 -5.910519600557081e+18
+PASS termination-preserving split: 42 channel rectangles, 10214 finite-spin interval checks; distinct n: {'0': 4801, '4': 4841}

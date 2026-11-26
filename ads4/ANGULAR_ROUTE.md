@@ -2084,3 +2084,18 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Termination-preserving coordinate.** Use x = h/c = 1/(n(n+s)), so U_k = c^k Π_{j<k}(1 − x·j(j+s))/(1 − c·x·j(j+s)). The physical domain is x ≤ min(1/((1001−b)(1002+b)), (1−√c)²/(998²c)).
 * **Residue checker** (exact arithmetic, PASS on 21/21 rectangles, both b). A degree-600 polynomial in the twist variable approximates the prefix with uniform error ≤ 5.31e-23, continuously in x.
 * **Open.** The sign of the degree-600 approximating polynomial on the physical domain. Since 27 Nov the coordinator's agents have been working on it in GAP_LEMMAS.md: the designer on the sign certificate, the prover on G1-capped direct cells from c = 0.28 upward.
+
+## 125. Full-band reduction package: reproduced (fast path) by coordinator (27 Nov)
+
+* **Package** (author): code/sliver_fullband/. Received in 5 split parts, joined (121 MB zip, integrity OK) and unpacked to 254 MB. Large data files are not committed (coeff_long_17200.txt 192 MB, S_6000_3000.txt, coeff_long_1800.txt, old_coefficients.txt, *.in, *.seeds); their SHA-256 sums are in LARGE_FILES_SHA256.txt. Rerun log: rerun_coordinator/reproduce_new.log.
+* **Reproduced (fast path, reproduce_new.sh, 86 s, all PASS).**
+  * Seeds: Gaussian M0 coherent seed error < 1e-45 for both b, and all 3564 seeds and fixed-point constants (12 shards).
+  * Spectral-degree reduction: spectral degree 6000 with error < 2^{−1910}; ordinary K = 17199 with tail < 2^{−140}.
+  * Finite reduction of the whole remaining band: 21 contiguous rectangles, K_max = 16989, minimum pole gap 0.14470.
+  * Correlated log-seed action error 8.2e-22; inventory cutoff < 7.1e-24.
+  * Sign cell c ∈ [0.258, 0.268]: the direct_sign_triangle outputs for both b are **byte-identical** to the archived ones. b = 0 > 1.38044e-5, b = 4 > 1.32204e-5. The executed sign ledger reaches c = 0.268.
+  * Transport: 236 exact transport checks (both channels, active spectral truncation); ideal L1 bounds; all 1253 old ideal enclosures overlap the corrected ones (centre difference < 1e-107).
+  * Non-physical witness: an exact negative value of the rational extension, −5.91e18, at a point outside the physical domain.
+  * Termination-preserving split: 42 channel rectangles and 10214 finite-spin interval checks (distinct n: 4801 for b = 0, 4841 for b = 4). This is a cover only; nothing on it is sign-certified.
+* **Not done here.** The full data regeneration (`--regenerate`: 6000-order moments at 3000 digits, long transform); the archived 17,201-pair vector is checked only by verify_long_transport. The [0.268, 0.28] cell (§123) and the degree-600 twist residue checker are not in this package.
+* **Status.** Direct coverage of c ≤ 0.268 (L ≤ 0.31197) is reproduced. Open: 0.312 < L < 2.3; the laptop launcher is running [1.5, 2.3], and the gap agents are on the low side.

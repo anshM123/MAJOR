@@ -13,4 +13,4 @@ for m in range(n):
     co.append(s)
 print('c',c,'b',b,'Y',Y,'K',K)
 for m in range(n):
-    if m<12 or m%10==0:print(m,'%.3e'%float(co[m].mid()))
+    if m<6 or m%25==0 or m==n-1:print(m,'%.3e'%float(co[m].mid()))

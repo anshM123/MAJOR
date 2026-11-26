@@ -1,0 +1,8 @@
+{
+  "M": 6000,
+  "ordinary_K": 17199,
+  "Craw": "2507484496203079585920000000/249001",
+  "Cideal": "25000000/1633695561",
+  "spectral_error_upper_log2_rounded_up": -1910,
+  "status": "PASS_CONDITIONAL_SPECTRAL_DEGREE_ONLY"
+}
