@@ -43,7 +43,7 @@ def floor_for(La, Lb):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('La'); ap.add_argument('Lb'); ap.add_argument('--jobs', type=int, default=3)
-    ap.add_argument('--floor'); ap.add_argument('--preflight', action='store_true'); ap.add_argument('--max-nodes', type=int, default=400000)
+    ap.add_argument('--floor'); ap.add_argument('--preflight', action='store_true'); ap.add_argument('--max-nodes', type=int, default=100000000)
     A = ap.parse_args()
     La, Lb = A.La, A.Lb; tag = f'{float(La)}_{float(Lb)}'
     od = HERE / 'cache' / 'ext' / tag; od.mkdir(parents=True, exist_ok=True)
