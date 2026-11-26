@@ -289,14 +289,15 @@ def _build(c, prec, pr, rbudget, tgt):
     pr(f'jet precision {pj} bits')
     t = time.time()
     YA = [arb(0)]*(K + 1); YD = [arb(0)]*(K + 1)
-    for (p, w) in gl_nodes(NA, arb(0), pcut):
+    NOJ = bool(os.environ.get('LU_NOJETS'))   # debug only: radii without jets
+    for (p, w) in ([] if NOJ else gl_nodes(NA, arb(0), pcut)):
         f = 2*C.polyval(C.PSI2, p)*w
         y = C.jets(3, LAM*p, c, K)
         for jj in range(K + 1):
             YA[jj] += f*y[jj]
     tA = time.time() - t
     t = time.time()
-    for (p, w) in gl_nodes(ND, arb(0), arb(1)):
+    for (p, w) in ([] if NOJ else gl_nodes(ND, arb(0), arb(1))):
         f = LAM*LAM*C.polyval(C.PSI3, p)*w/d
         y = C.jets(4, LAM*p, c, K)
         for jj in range(K + 1):
@@ -304,7 +305,7 @@ def _build(c, prec, pr, rbudget, tgt):
     tD = time.time() - t
     t = time.time()
     cache = {}
-    for (a_, b_, n) in panels:
+    for (a_, b_, n) in ([] if NOJ else panels):
         if n not in cache:
             cache[n] = [arb.legendre_p_root(n, k, weight=True) for k in range(n)]
         h = (C.A(b_) - C.A(a_))/2; mm = (C.A(b_) + C.A(a_))/2
@@ -318,7 +319,8 @@ def _build(c, prec, pr, rbudget, tgt):
     pr(f'jets: A {NA} nodes {tA:.0f}s, D {ND} nodes {tD:.0f}s, E {NE} nodes {tE:.0f}s')
     ctx.prec = prec
     YA = [+v for v in YA]; YD = [+v for v in YD]
-    pr(f'  max rel radius of jets: A {max(float((v.rad()/abs(v).upper()).log()) for v in YA if v.rad() > 0)/math.log(10):.1f} (log10)')
+    if not NOJ:
+        pr(f'  max rel radius of jets: A {max(float((v.rad()/abs(v).upper()).log()) for v in YA if v.rad() > 0)/math.log(10):.1f} (log10)')
     # add the error radii
     for jj in range(K + 1):
         YA[jj] += arb(0, arb(float(radA[jj])).exp().upper())
