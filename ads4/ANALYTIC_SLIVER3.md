@@ -1,4 +1,4 @@
-# ANALYTIC_SLIVER3: below L = 3.65 — the remainder is dead, the hump is what is left (Δ_g = 1000)
+# ANALYTIC_SLIVER3: below L = 3.65 — remainder removed, hump identified, transfer/norming cells to L = 2.6 (Δ_g = 1000)
 
 *27 Nov 2026. Research agent. Running document; unreviewed, not committed. No existing file edited; nothing under `prl/` touched.*
 *New code: `ads4/code/analytic3/` (imports `code/analytic/`, `code/analytic2/` read-only; outputs in `cache/`, logs in `logs/`).*
@@ -10,7 +10,20 @@
 
 ## 0. Verdict
 
-__VERDICT__
+**Session outcome (four phases; the plan changed three times on coordinator instructions).**
+1. **Remainder (obstruction 1) removed** by Lemma Loc‴ (§2): log E_ρ2 ≤ −2063 on [3.55, 3.65], −1453 on [3, 3.1], −437 on [2, 2.1]
+   (old Loc″: +26 on [3.58, 3.65]). Independent of, and consistent with, the author's Loc-Joint (ANGULAR_ROUTE §104–105, < e^{−46} on
+   [0.8, 3.65]), which is what the later certificates use.
+2. **Contour (obstructions 2, 3) fixed** (§3): right edge 0.32·F → 1.8·10⁻⁵·F (Lemma F + Lemma B over a-boxes), top-line j-tails with the
+   actual growth constant; the J = 1500 / growth-constant obstruction dissolves (Loc‴ needs no REC hypothesis).
+3. **The hump (obstruction 4) is the real floor of the termwise route** (§4, §6): measured loss e^{13–30} between the true kernel and
+   the exact termwise sum; termwise + sharpened per-power bounds end at L ≈ 3.4. The drift-resummation design of §6 (expansion parameter
+   ξ = ν³d²/(4a²)) is what the author then implemented as the signed connection transfer (ANGULAR_ROUTE §106–109).
+4. **With the signed transfer / norming** (§9–§11): my independent end-to-end cell **[3.4, 3.55] PASS, E/F = 0.142 (b = 0), 0.160 (b = 4)**
+   (norming package + complete complex top-line tiling + right edge by imaginary-axis boxes + near-real pieces with exact state
+   constants), cross-checking the author's [3.35, 3.5]/[3.5, 3.65]. On top of the author's sliver_extension package: launcher and two
+   **new pilot cells below 2.9: [2.75, 2.9] PASS E/F = 0.122 / 0.176, [2.6, 2.75] PASS E/F = 0.059 / 0.068** (conditional on the same
+   retained inputs as the author's package). **Lowest L reached here: 2.6.** Below: launcher + measured cost model (§11).
 
 ---
 
@@ -168,7 +181,11 @@ the narrower cell [3.55, 3.65].
 
 ## 5. Certificate
 
-__CERT__
+**[3.55, 3.65], termwise (Route T‴ without the transfer)** — not completed. The termwise residual run (`resid3.py`, refined turning boxes)
+was stopped at ν ≈ 1025 when the coordinator switched to the norming route; its partial sum was 0.218·F (ν < 800: 0.027, [800, 900): 0.028,
+[900, 998): 0.067, [998, 1025): 0.096), contour E₂/F = 3.15·10⁻³, E₃/F = 2.3·10⁻⁷, log E_ρ = −2063. The remaining band [1025, 1059] would
+have added ≈ 0.2–0.3 (sampled), so ρ ≈ 0.5–0.6 was likely but **is not certified here**. The cell is certified by the author's
+norming assemble.py (ratio 0.103 / 0.108, using this session's `contour3_3.55_3.65_k4.json`) and by the sliver_extension ledger.
 
 ---
 
@@ -202,6 +219,9 @@ and Loc‴ itself fails at L ≈ 1.6 with J = 1500).
 ---
 
 ## 7. Which side is cheaper to finish (meet in the middle)
+
+*Written before the signed transfer existed; superseded by §9–§11: with the transfer/norming the large-L route is now the cheaper one down
+to L ≈ 1.5 (≈ 300 core-h), and the Lemma U route (code/lemU_cert/, another agent) is needed only below ≈ 1.2–1.5.*
 
 **Analytic (large-L) side.** After this session: remainder solved down to L ≈ 1.7 (§2), contour solved (§3); the single obstruction
 is the termwise hump in the real-axis residual (and, later, on the top line). Termwise it ends at L ≈ 3.4–3.5 even with sharper per-power
@@ -252,7 +272,59 @@ h ∈ [0, h_cap] ⊇ every a ≥ 998, ν in a real or complex box). I use `check
 * jobs: one checker process per (d-slab, frequency box, channel pair); `tr_jobs.py run` is resumable (JSONL, skip-PASS, retries),
   `tr_jobs.py summary` reports counts, failures and CPU time.
 
-__TR__
+**Measured** (L ≈ 3.2, one d-slab of 3.75 %, full twist, ν ∈ [880, 900.1], m = 28, both b): |P| ≤ 4.56, |Q| ≤ 1.62 (41 s), and
+d^{1/2}|κ_J| ≤ 0.47–0.56 per unit cell, against the termwise 5·10¹⁰·d^{1/2}: a gain of ~10¹⁰; M₀ = 37–43 (Theorem E′ at a = 998) then
+dominates. Top line: a 10-wide box at t = 900, Y = 6.25 passes at m = 26 (43 s); 20-wide fails at m = 28. The end-to-end run on [3.2, 3.35]
+(352 boxes, ≈ 3 core-h) was stopped after 25 boxes when the author's Chebyshev-norming checker (ANGULAR_ROUTE §109, ~10× cheaper) arrived;
+`transfer_kernel.py` / `tr_jobs.py` / `tr_assemble.py` / `tr_launch.py` remain as a Taylor-model alternative (pluggable bound source:
+any producer of {id, status, P, Q} rows for the same boxes).
+
+## 10. Independent norming cell [3.4, 3.55] (`norm_cell.py`, `norm_extra.py`, `nearreal3.py`, `norm_run.py`)
+
+Uses the author's norming package unchanged (check_norm.py, base_bounds.py, assemble_top.py, assemble.py; scalar.cpp compiled into
+`analytic3/bin/`, SHA256-identical), but **its own contour**: (i) ψ₂ and ψ₃ top lines tiled completely by complex norming boxes
+(x ∈ [¼, 999]; width 1 below 20, where wider boxes hit the c_j poles, then 20/10/5), (ii) right edge at Re ν = 998.4998 by imaginary-axis
+boxes plus the real segment [998.4998, Λ], (iii) bottom/left by rt_cert's near-real pieces with the **exact state constants**
+g = 1/(998²(1+√(1−d_hi))²) ≥ h/d² and d²D ≥ 998²(1+√(1−d_hi))² (from h/d² = 1/[a²(1+c+√(4c+s²d²/a²))]), valid at every L (the old
+3.9a² and N ≥ 40a fail near L ≈ 3.0–3.05). Residual: one real d-box for the whole cell, five ν-bands, 16 EPSW sub-bands.
+| piece (b = 0 / b = 4) | value |
+|---|---|
+| low frequency [0, 160] | 1.46e-7 |
+| residual [159, 1040.1] | 1.52e-7 / 1.89e-7 |
+| cutoff, Gaussian [1040, 1150], far | 7e-10, 5e-11, < 1e-100 |
+| ψ₂ top / ψ₃ top / ψ₂ right / ψ₃ right | 1.8e-11 / 9e-16 / 1.2e-12 / 9e-15 (b = 0) |
+| near-real (bottom + left, both ψ) / segment | 4.8e-11 / 8e-36 |
+| **total / F_lower (2.100e-6)** | **0.142 / 0.160 — PASS** |
+Cost: 5 + 197 + 54 norming boxes, ≈ 15 min wall on 2–3 workers.
+
+## 11. Below 2.9: launcher on the author's sliver_extension package (`ext_cell.py`, `ext_shim.py`, `ext_launch.py`)
+
+`ext_cell.py La Lb` runs the package's own scripts unchanged and in its config format (make_resid.py → check_norm.py with the coupled
+coordinate x = h/d² on the bands ≥ 700 → resid_budget.py → ellipse_extend.py for (p, b) ∈ {3,4}×{0,4} → the assemble_full.py ledger
+comparison), resumable per step, outputs in `cache/ext/La_Lb/`. One addition: p = 4 real transfer rows on **all** bands (the package had
+p = 4 only on [950, 1040.1]; without them the ψ₃ top line falls back to the absolute majorant, which carried 0.11·F at [2.75, 2.9]).
+`ext_launch.py {plan, preflight, estimate, run, summary}` drives all cells (0.15 wide down to 2.3, 0.1 to 1.9, 0.05 below), cell-level
+parallelism, skip-done.
+
+**Pilot cells** (F_lower = LRINF F_cert minimum × 0.9999; all comparisons exact rational):
+| cell | b = 0 E/F | b = 4 E/F | wall (3 workers, shared machine) | scalar evaluations |
+|---|---|---|---|---|
+| [2.75, 2.9] | 0.1220 | 0.1756 (ψ₃ top 3.2e-7 via the absolute majorant; before the p = 4 rows were added) | 377 s | 523,324 |
+| [2.6, 2.75] | 0.0588 | 0.0677 | 1028 s | 1,215,108 |
+
+**Cost model** (measured: 9.5·10⁻⁶ core-s per node × K on this machine; 1.5·10⁻⁵ used below for margin; preflight node counts):
+| cell | scalar evaluations | Σ nodes·K | core-h |
+|---|---|---|---|
+| [2.45, 2.6] / [2.3, 2.45] / [2.2, 2.3] | 1.9e6 / 3.1e6 / 3.7e6 | 3.2e8 / 6.0e8 / 8.0e8 | 1.3 / 2.5 / 3.3 |
+| [2.1, 2.2] / [2.0, 2.1] / [1.9, 2.0] | 5.1e6 / 7.1e6 / 9.8e6 | 1.2e9 / 1.9e9 / 3.0e9 | 5.2 / 8.0 / 12.3 |
+| [1.85, 1.9] … [1.75, 1.8] (0.05 cells) | 9.5e6 … 1.3e7 | 3.0e9 … 4.8e9 | 13 … 20 |
+| [1.7, 1.75] … [1.5, 1.55] | 1.6e7 … 3.3e7 | 6.0e9 … 1.6e10 | 25 … 67 |
+| [1.2, 1.25] | 1.1e8 | 8.3e10 | ≈ 350 |
+| [1.0, 1.05] | preflight not finished in 10 min; the transfer truncation K reaches 1000–1240 (cap 1500) | | ≳ 10³ |
+Totals: **[1.8, 2.9] ≈ 60 core-h; [1.5, 1.8] ≈ 240 core-h; i.e. ≈ 300 core-h ≈ 13 h on a 24-core laptop for [1.5, 2.9]**, plus ≈ 2–3
+min of contour (ellipse extension) per cell. **Laptop-feasible down to L ≈ 1.5 (one night); 1.3–1.5 takes days; below ≈ 1.2 it is not
+laptop-feasible** (≈ 350 core-h per 0.05-cell at 1.2, and K → 1500 near L ≈ 1.0, where the method as built stops). The PASS margins
+below 2.6 are untested; a FAIL is not a counterexample (split the cell or the bands and rerun).
 
 ## 8. Grades, inputs, files
 
@@ -272,4 +344,9 @@ Files (all new, `ads4/code/analytic3/`):
 * assembly: `locrun3.py` (E_ρ), `contour3.py`, `resid3.py`, `cert3.py`;
 * checks / probes [DV]: `check_loc5.py` (weights vs exact), `probe_loss.py` (exact vs termwise vs bound), `dv_resum.py` (frozen resummation),
   `proto_loc5.py` (float prototype), `probe_resid.py`, `probe_resid3.py`, `probe_ranges.py`, `probe_solframe.py`, `probe_contour.py`;
+* signed transfer (Taylor models, superseded): `transfer_kernel.py`, `tr_jobs.py`, `tr_assemble.py`, `tr_launch.py`;
+* norming cell [3.4, 3.55]: `norm_cell.py`, `norm_extra.py`, `nearreal3.py`, `norm_run.py`, `bin/scalar` (compiled norming/scalar.cpp);
+  outputs `cache/norm/3.4_3.55/` (assembly.json);
+* launcher on sliver_extension: `ext_cell.py`, `ext_shim.py`, `ext_launch.py`; outputs `cache/ext/La_Lb/ledger.json`, `cache/ext/preflight.jsonl`;
+  the package path is `code/sliver_ext/` (env SLIVER_EXT), falling back to the coordinator's scratchpad copy;
 * outputs: `cache/loc3_*.json`, `cache/contour3_*.json`, `cache/resid3_*.json`, `cache/cert3_*.txt`; logs in `logs/`.

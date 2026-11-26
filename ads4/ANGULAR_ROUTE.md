@@ -1853,3 +1853,19 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Certified, conditional on retained inputs: L ≥ 2.6.
   * Reduced to a rational sign problem, not yet certified: L ∈ [0.051, 0.82].
   * Open: L ∈ [0.82, 2.6], plus the sign problem above.
+
+## 112. Agent ANALYTIC_SLIVER3 final: independent cells [2.6, 2.75] and [2.75, 2.9], cross-check cell [3.4, 3.55], laptop launcher (agent, 27 Nov; unreviewed)
+
+* **Cells run on the author's sliver_ext scripts (called unchanged).** Both are conditional on the same retained inputs as §110–111.
+  * [2.75, 2.9]: E/F = 0.122 (b = 0) and 0.176 (b = 4); 523,324 scalar evaluations, 377 s on 3 workers.
+  * [2.6, 2.75]: E/F = 0.059 and 0.068; 1,215,108 evaluations, 1028 s.
+
+  These independently re-cover the author's [2.6, 2.9] cell (§111) on a different cell split.
+* **Independent cross-check cell [3.4, 3.55].** It uses the agent's own contour: a complex tiling of the whole top line, the right edge by imaginary-axis boxes, and near-real pieces with exact state constants. Result: E/F = 0.142 / 0.160, PASS. It agrees in size with the author's [3.35, 3.5] and [3.5, 3.65] cells.
+* **Lemma Loc‴** (cellwise remainder, Chernoff weights, phase-aware): log E_ρ = −2063 on [3.55, 3.65], −1453 at L = 3, −437 at L = 2; it fails near 1.6. This partially reproduces §104 independently for L ≥ 2.
+* **The exact state relations matter.** The old 3.9a² and N ≥ 40a relations fail near L ≈ 3.0–3.05. The near-real pieces use g = 1/(998²(1+√(1−d_hi))²).
+* **Launcher.** code/analytic3/ext_launch.py (plan / preflight / estimate / run / summary) wraps ext_cell.py, which calls the sliver_ext pipeline (SLIVER_EXT defaults to code/sliver_ext). It is resumable, and results go to cache/ext/<cell>/ledger.json.
+  * Measured rate: 9.5e-6 core-s per node·K (1.5e-5 used for margin).
+  * Estimates: [1.8, 2.9] ≈ 60 core-h; [1.5, 1.8] ≈ 240 core-h. [1.2, 1.25] alone is ≈ 350 core-h, and K reaches 1000–1240 near L ≈ 1.0.
+  * So the launcher is laptop-feasible down to L ≈ 1.5; [1.3, 1.5] takes days; below ≈ 1.2 it is not feasible.
+  * PASS margins below 2.6 are untested; a FAIL means split the cell and rerun.
