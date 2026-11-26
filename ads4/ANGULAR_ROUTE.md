@@ -1676,3 +1676,22 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * endpoint maximality of the coefficient ratio;
   * the L→t translation: t = 0.2580 at L = 0.8 and 0.01308 at L = 3.65.
 * **Status.** Author-executed; the standalone checker still needs to be committed and independently reproduced. This settles the localisation remainder only. **Still open:** the main signed connection sum on [0.8, 3.65] (contour right edge, top line, termwise hump below L ≈ 3), and everything below L = 0.8 down to the certified corner L ≲ 0.06.
+
+## 105. Loc-Joint certificate (§104) reproduced (coordinator, 27 Nov)
+
+* **Package** (author): code/locjoint/ contains check_joint.js (Node, BigInt, scale 1e16), verify_cell_list.py, verify_spectral_inputs.py, README (with the analytic bridge), run.log and summary.json. The 70 MB cell CSVs are not committed; they regenerate in 6 s.
+* **Reproduced here.**
+  * The source was read in full before running (it writes only to its output directory).
+  * `node check_joint.js` on Node v22.23 gives PASS, 190,031 cells. cells_A/B/C.csv are byte-identical to the author's archive, and summary.json is identical apart from elapsed time.
+  * verify_cell_list.py on the fresh output: PASS (complete partition, maxima agree).
+  * verify_spectral_inputs.py on this checkout: PASS. Repaired-inventory coefficient ceiling 1,212,961; ψ₂/k₀ and ψ₃/k₀ l1 ceilings 9.16e6 and 1.89e7.
+  * Log: code/locjoint/rerun_coordinator.log.
+* **Source audit** (coordinator reading, not a second implementation):
+  * The beta upper and lower tails take safe endpoints (I decreasing in m above the mean and increasing below it; m ∈ [t_lo/(1+9t_hi/998), t_hi]), with a = 998 in the exponent.
+  * The angular tail uses x_lo and t_hi in the decay and t_lo in the prefactor; it is monotone in a once k ≥ 1/998.
+  * The bounds on q, A and \|Im β\| are outward.
+  * The coefficient ratio is bounded at its endpoints and the cumulative log includes c₁₅₀₀. The tail-ratio inequality is checked exactly at X = 1501.
+  * The tail budgets e¹⁵ and e²⁰ hold (≈ e^{10.6} and e^{12.9}).
+  * log(a+b) ≤ 1 + max is used for F + T_J; the cell sum uses log(max cells per slab) + log 1.6 for K₀.
+* **Retained (not reproduced).** The angular-action identity, the EPSW residual and cutoff integral certificates, the small-ν paired-branch constant 208, and the K₀ < 1.6 Stirling argument (both written out in the README, not independently re-derived).
+* **Status.** The localisation remainder E_ρ,2 + E_ρ,3 < e⁻⁴⁶ on L ∈ [0.8, 3.65] is reproduced. The main signed connection sum on this range is still open.

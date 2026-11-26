@@ -1,0 +1,4 @@
+PASS A: 22,279 cells, no missing cells, maxima agree
+PASS B: 68,367 cells, no missing cells, maxima agree
+PASS C: 99,385 cells, no missing cells, maxima agree
+PASS: complete archived partition (190,031 joint cells)

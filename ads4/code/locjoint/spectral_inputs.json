@@ -1,0 +1,19 @@
+{
+  "repository": "anshM123/MAJOR",
+  "method": "Connected GitHub read; exact binary64 dyadic sums for Gaussian coefficients and rational polynomial coefficient sums (upper bounds). Original weight JSON files are not bundled; optional verifier accepts repository checkout.",
+  "repaired_weight": "ads4/prl/data/k2/k2_continuum_D_1000_rep.json",
+  "gaussian_count": 3564,
+  "gaussian_abs_sum_integer_ceiling": 1212961,
+  "all_centers_nonnegative_and_below_1029": true,
+  "maximum_center_display": 1028.7,
+  "all_widths_in_open_interval_0.449_0.901": true,
+  "all_three_log_coefficients_abs_below_1": true,
+  "polynomial_input": "ads4/prl/data/nf02_psi.json",
+  "k0": "27.48509817",
+  "psi2_raw_coefficient_abs_sum_upper_numerator_over_1000": "251870848350",
+  "psi3_raw_coefficient_abs_sum_upper_numerator_over_1000": "520493521744",
+  "both_normalized_coefficient_abs_sums_below_30000000": true,
+  "retained_EPSW_unweighted_L1_error_upper": "2.681358e-6",
+  "retained_cutoff_weighted_L1_upper": "1.333e-14",
+  "note": "Retained EPSW and cutoff integral certificates not rerun. These are inputs, not output of the joint checker."
+}
