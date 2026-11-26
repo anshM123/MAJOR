@@ -1494,3 +1494,18 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   1. Rigorous jet enclosures of the integrated G, with the realised EPSW-repaired weight.
   2. An Arb reproduction of the §78 E_ref.
   3. The c-direction: ~1.4e3 c-points × 15–30 min, i.e. several nights on 22 cores, before certification overhead.
+
+## 94. Full-kernel recurrence and principal-phase control (author, 26 Nov)
+
+* **Exact annihilator for the complete conical kernel.** [z(𝒟−p)² + 𝒟 − p + λ]F_{p,ν} = 0, with 𝒟 = (1−z)∂_z.
+  * Combined with the ladder identity: 𝒫(t) = R₀Q(t−1)Q(t) + R₁QP + R₂P(t+1)P(t), degree 4 after exact cancellation (t⁴ coefficient 16 − 4s − C₀).
+  * [𝒫(𝒜_n)K_p]_n = 0, a nine-point lattice equation, with explicit boundary terms for the finite prefix.
+  * Author: 60 + 60 + 600 + 3900 modular checks.
+* **Principal symbol.** m²t⁴ + ν²(M²+m²−ν²)t² + M²ν⁴, with discriminant ν⁴(a²−ν²)(S²−ν²). **Checked here by hand.**
+  * Phases θ_n, θ_N = ±arcsin(ν/a) + arcsin(ν/S), so θ_n + θ_N = 2 arcsin(ν/S).
+  * This reproduces the §54 separated phase algebraically.
+* **Principal complex-phase bound.** \|e^{±iΦ}\| ≤ exp[G_{a₀}(ν) + (1.15η + 0.00032)ν], i.e. e^{G + 0.0234ν} at η = 0.02.
+* **Nonstationarity.** Re ∂_νΦ > 0.31 on the strip, so there are no stationary frequencies. This enables signed integration by parts against the fifth-order NF02 zero.
+* **Spectral tail.** ν > 1100 contributes < e^{−1200} to the prefix action.
+* **Observation.** At u = 0.39, ν = 998, a single connection term \|C₂₀₀\|d^{200} > e^{366}. So the connection expansion cannot be bounded termwise; the full-kernel recurrence avoids it.
+* **Open.** A uniform amplitude estimate for the physical solution of the lattice equation, including the Airy transition near ν = a; then the practical K bound for H_M.
