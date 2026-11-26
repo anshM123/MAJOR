@@ -1144,3 +1144,20 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * So \|G⁺\| should be a few × floor and ∫\|·\| ≈ (log B)·few·F. Not built.
   * Uniformity: parameter cells in B need relative width ~1/8800 before carrier extraction.
 * **Scan (restarted after the container restart).** a* = 3200 on β ∈ [0.39, 0.74] (4 cells), 4500 on [7.84, 8.04], 4000 on [8.24, 8.40]. Both channels.
+
+## 70. FULLPOS3 final report (agent hand-back, 26 Nov)
+
+* **Verdict: not closed.** The open band is reduced to a compact family.
+* **Certified.**
+  * Per-J certificates: every channel with J ≤ 1000, and b = 4 up to J = 1004, at every mass.
+  * High-twist theorem (Arb, fp3_ht.py), both channels:
+    * a* = 3200 on 0.39 ≤ β_c ≤ 1.04;
+    * a* = 4500 on 7.44 ≤ β_c ≤ 8.04;
+    * a* = 4000 on 8.24 ≤ β_c ≤ 8.40;
+    * 1.04 < β_c < 7.44 still running (nohup; ~13 min per cell; rerun skips finished cells).
+  * Low-L corner (L ≲ 0.058) closed.
+* **Remaining.** 998 ≤ a < a*(L), J ≥ 1001, up to ~1e7 at L = 7.
+* **Not done.**
+  * The outgoing-split, frequency-integrated contour (spec in FULLPOS3 §5.2).
+  * Reproduction of the §§62–63 vertical-line far remainder.
+  * The §54 global contour as literally written gives NaN at a test state; it needs the author's diagonal and branch conventions.

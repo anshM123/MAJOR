@@ -11,19 +11,31 @@ Grades: **[certified]** Arb balls or exact rationals with every remainder proved
 
 ---
 
-## 0. Verdict (running)
+## 0. Verdict
 
-* **Not closed.** The open band shrinks to a compact family. Certified so far:
-  1. every J ≤ 1000 at every mass, both channels, and b = 4 up to J = 1004 (§1);
-  2. **a high-twist theorem with certified constants:** H_ang,b > 0 for all heavy states with β_c in a cell and twist a ≥ a*(cell). The
-     scan over 60 β-cells covering 0.39 ≤ β_c ≤ 8.4 (⊃ 0.04 < L < 7) is running (§4.6). The first cell, β ∈ [0.39, 0.44] (L ≈ 0.04),
-     gives **a* = 3200** (both channels), against the author's 2.2·10⁷.
-* **Every factor of 10:** 2.2·10⁷ → ~3·10³. The method is new: endpoint-aware sup norms (§3.2, §4.2). It needs no signed profile
-  evaluation and no per-frequency kernel accuracy.
-* **What remains** is 998 ≤ a < a*(L), J ≥ 1001, with J ≲ a*·√c/(1−√c). That is a compact (a, L) family.
-* **Obstruction to going lower.** The per-order absolute local majorants for the oscillatory components grow like e^{|A|}: the ψ₂ p = 1
-  endpoint, and the residual weight at ν ≈ 1000–1060. The grouped (resummed) multiplier is O(1) even at a = 998 (§5). The remaining
-  step is to implement that grouping rigorously.
+**Not closed.** The infinite open band is reduced to a compact family. What is certified, at Δ_g = 1000, H_ang,b > 0:
+1. **Per-J certificates (§1).** Every J ≤ 1000 at every mass, both channels; b = 4 up to J = 1004. Previously J ≤ 766.
+2. **High-twist theorem (§4), certified cell by cell.** For every heavy state with β_c in a scanned cell and twist a ≥ a*(cell), both channels:
+   * **a* = 3200 for 0.39 ≤ β_c ≤ 1.04 (L ≈ 0.04–0.25), with margins err/F_cert ≤ 0.16;**
+   * a* = 4500 for β_c ∈ [7.44, 8.04];
+   * a* = 4000 for β_c ∈ [8.24, 8.40] (L ≈ 7), with err/F_cert = 0.91.
+   * The other cells (β_c from 1.04 to 7.44) were still being computed at hand-back (§4.6). The author's threshold was a ≥ 2.2·10⁷.
+3. **Consequence (low L).** With n ≈ a√c/(1−√c), every state with a < 3200 and L ≲ 0.058 has J ≤ 1000, so items 1 and 2 cover the band
+   0.04 < L ≲ 0.058 completely.
+4. **What remains (when the scan is complete):** 998 ≤ a < a*(L) (≈ 3200–4500), J ≥ 1001, J ≲ a*·√c/(1−√c) (≤ ~10⁷ at L = 7). This is a compact
+   two-parameter family.
+
+**Key new structure (§3, §4.2).** For the polynomial target weight ψ₂ (degree 14, (1−p)⁵ | ψ₂), the Mehler–sin representation with coth and an
+exact integration by parts give
+|∫ψ₂P_{−½+iΛp}(cosh ξ)dp| ≤ (√2/π)[J_s + C_cor·J_C + e^{Λ|Im ξ|}J_e].
+Only the p = 1 endpoint, of relative size ~10⁻⁶, carries the e^{Λ|Im ξ|} growth. The signed finite-mass correction is therefore tiny: exact
+ℒ(G) agrees with G(c) to 4·10⁻⁷ at a = 998. This makes the h-expansion's local terms certifiable with plain Cauchy bounds, with no signed
+profile evaluation.
+
+**Obstruction below a*.** Per-order absolute local bounds on the two oscillatory components (the ψ₂ endpoint, and the residual weight at
+ν ≈ 1000–1130) lose e^{|A|}, while the grouped multiplier is O(1) (§5). The naive grouped Taylor-shift bound fails by 10⁵ at a = 2000 (§5.1).
+The integrated radial contour with the full conical function samples |G| ~ 10²⁰⁰ (§5.2). What is needed is an outgoing-wave (Im β ≥ 0)
+integral-operator treatment of those two components.
 
 ---
 
@@ -197,11 +209,31 @@ Settings:
 A PASS at a₀ certifies every a ≥ a₀ in the cell, because all bounds are monotone in h_max. Bisection may miss a smaller passing a₀; that
 costs sharpness, not rigour.
 
-| β-cell | a*(b = 0) | err/F_cert | a*(b = 4) | err/F_cert |
-|---|---|---|---|---|
-| [0.39, 0.44] | 3200 | 0.096 | 3200 | 0.117 |
+| β-cell | L (b = 0) | a*(b = 0) | err/F_cert | a*(b = 4) | err/F_cert |
+|---|---|---|---|---|---|
+| [0.39, 0.44] | 0.038–0.048 | 3200 | 0.096 | 3200 | 0.117 |
+| [0.49, 0.54] | 0.060–0.072 | 3200 | 0.067 | 3200 | 0.075 |
+| [0.59, 0.64] | 0.086–0.10 | 3200 | 0.063 | 3200 | 0.067 |
+| [0.69, 0.74] | 0.12–0.13 | 3200 | 0.078 | 3200 | 0.081 |
+| [0.79, 0.84] | 0.15–0.17 | 3200 | 0.097 | 3200 | 0.097 |
+| [0.89, 0.94] | 0.19–0.21 | 3200 | 0.125 | 3200 | 0.123 |
+| [0.99, 1.04] | 0.23–0.25 | 3200 | 0.164 | 3200 | 0.159 |
+| [7.44, 7.64] | 6.1–6.3 | 4500 | 0.291 | 4500 | 0.291 |
+| [7.84, 8.04] | 6.5–6.7 | 4500 | 0.306 | 4500 | 0.306 |
+| [8.24, 8.40] | 6.9–7.0 | 4000 | 0.907 | 4000 | 0.907 |
 
-(Table continued in §7 when the scan finishes.)
+* The bisection is not monotone between neighbouring cells (4500 vs 4000 at the top). Each entry is a certificate for its own a₀; the
+  smallest certified value is not necessarily found.
+* **The scan was still running at hand-back.** There are two nohup processes over the 60 cells, odd cells ascending and even cells
+  descending. Results are appended to `code/fullpos3/cache/ht_scanA.jsonl` and `ht_scanB.jsonl` (one JSON line per cell with the full
+  error budget). At ~13 min per cell per process, completion needs about 5 more hours.
+* To resume after an interruption, rerun the same two commands: done cells are skipped.
+  ```
+  SP=<scratch>; python3 fp3_ht.py scan "<cells A>" ht_scanA.jsonl ; python3 fp3_ht.py scan "<cells B reversed>" ht_scanB.jsonl
+  ```
+  Cells: [0.39, 1.0) step 0.05, [1.0, 3.0) step 0.1, [3.0, 8.4] step 0.2 (the last cell [8.24, 8.4]). A takes cells 0, 2, 4, …; B takes
+  cells 1, 3, … in reverse order.
+
 
 What binds at a₀ < a*:
 * the local orders, not the far remainder. Example: β ∈ [0.39, 0.44], a₀ = 2000, where per-order bounds reach 10¹⁵⁸ at m ~ 300;
@@ -305,6 +337,11 @@ e^{ΛR²|ξ″|/2} (e⁹–e³³). Grouping in m alone is therefore not enough: 
 * Uniformity over the compact family (a ≤ 4000, J ≤ 9·10⁶) then needs parameter cells in (B, a). The carrier e^{iBα} with |α| ≲ min(π/2, 8800/B)
   gives relative cell widths ~ 1/(B·A₀) ~ 1/8800 in B, so of order 10⁴ cells per decade of B for each a-cell, before using the extracted-carrier
   trick of §57. I did not build this (time).
+
+### 5.3 §54 global contour, literal reading [DV, failed]
+A direct mpmath evaluation of (𝒞/π)Re(I_U − iI_T − iI_L) with 𝒲_p as transcribed in ANGULAR_ROUTE §54 (scratch `c54.py`) returns NaN at
+(J, b, Δ, ν, p) = (2, 0, 7.5, 0.8, 3), where the exact value is 1.41545100. The likely cause is the diagonal C = A (ξ = 0, β → ∞) and the branch
+choices. It needs the author's precise conventions; not pursued further.
 
 ## 6. Obstructions and dead ends recorded here
 1. **Coordinator's truncated-exponent kernel R_M per frequency (§2).** It fails at a = 998: R₁ ~ 10²² N_s, from the k > n region at ν ≈ a. It works at
