@@ -1133,3 +1133,14 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Cause.** Grouping fixes the value at the carrier but not the high k-derivatives. A degree-D polynomial approximating e^{−αk³} forces R ≳ α^{1/3}D^{2/3} ≈ 0.4, and there the carrier's nonlinear phase costs e^{ΛR²\|ξ″\|/2}. **Taylor-expanding the amplitude at t = 0 is the lossy step.**
 * **What is needed (agent's view).** Treat the ladder multiplier as an integral (Airy-convolution) operator acting on e^{iλt}B(t). It samples B only on \|t\| ≲ few·α^{1/3} ≈ 0.05. That is the §52 Airy form, but with the endpoint carrier factored out and the full ladder symbol, not the cubic truncation. Not attempted.
 * **Scan.** 5/60 cells done (a* = 3200 at low L, 4000 at L ≈ 7); continuing.
+
+## 69. §59 contour on the integrated G: full conical function unusable; outgoing split needed (agent, 26 Nov) [DV, Arb]
+
+* **Full-conical form fails.** The near-diagonal contour points (small v, \|x\| ~ ε) land at complex z with Im arccosh X ≈ 0.3–0.7, carrying weight O(1).
+  * G at z = 0.0865 + 0.162i is ≈ 5e201 (Σ\|terms\| = 1.4e203), against G(0.3) = 4e-5.
+  * ∫\|integrand\|/\|ℒ(G)\| ≳ 1e200.
+* **What should work (agent).** The outgoing split G⁺ = ∫ψP⁺ (author §58 𝒫⁺) on the Im β ≥ 0 contour (§55).
+  * Its endpoint structure matches Lemma A: the p = 0 terms are floor-sized, and the p = 1 terms e^{iΛβ}/Λ⁶ decay for Im β ≥ 0.
+  * So \|G⁺\| should be a few × floor and ∫\|·\| ≈ (log B)·few·F. Not built.
+  * Uniformity: parameter cells in B need relative width ~1/8800 before carrier extraction.
+* **Scan (restarted after the container restart).** a* = 3200 on β ∈ [0.39, 0.74] (4 cells), 4500 on [7.84, 8.04], 4000 on [8.24, 8.40]. Both channels.

@@ -523,7 +523,7 @@ if __name__ == '__main__':
             for l in open(out):
                 r = json.loads(l); done.add((r['ba'], r['bb']))
         for ba, bb in cells:
-            if (str(Fr(ba)), str(Fr(bb))) in done:
+            if (str(ba), str(bb)) in done or (str(Fr(ba)), str(Fr(bb))) in done:
                 continue
             scan_cell(ba, bb, out)
     else:

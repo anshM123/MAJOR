@@ -287,6 +287,17 @@ e^{ΛR²|ξ″|/2} (e⁹–e³³). Grouping in m alone is therefore not enough: 
   the disk, including the negative half-axis region. For B = 2J+1 ~ 10³ the localisation |α| ≤ 8800/B is void.
   * There |G^ψ| ~ Λ^{−6}e^{Λ|Im arccosh X|} (e.g. ~e^{1190} at z = −½), so ∫|·| ≫ |∫|.
   * The per-frequency non-amplification of §55 rests on the OUTGOING split P = P⁺ + P⁻ with Im β ≥ 0 on each piece's contour.
+* **Measured [DV, Arb, 4096-node Gauss–Legendre in p].** The sample points come from the exact map
+  ξ = sinh(v/2)/sinh(v/2 + iα), α = x − iε, ε = 10⁻³: for example (v, x) = (2·10⁻³, −1.2·10⁻³) gives z = 0.0865 + 0.162i and Im arccosh X = 0.50. Values:
+
+  | z | G^ψ(z) | Σ\|terms\| |
+  |---|---|---|
+  | 0.0865 + 0.162i | (4.8 + 2.5i)·10²⁰¹ | 1.4·10²⁰³ |
+  | 0.3 + 0.02i | (−1.59 + 0.23i)·10⁹ | 2.2·10¹⁶ |
+  | 0.3 | 4.07·10⁻⁵ | 1.6 |
+
+  These points carry O(1) contour weight (e^{−av} with v = 2ε). Hence, with the full conical function, ∫|integrand|/|ℒ(G)| ≳ 10²⁰⁰. The integrated radial
+  contour is usable only after the outgoing split.
 * Integrated version: G⁺(z) = 2∫ψ₂P⁺_{Λp}dp, the author's §58 𝒫⁺. Its ψ-integral has the same endpoint structure as Lemma A:
   * the p = 0 terms are non-oscillatory, of size ψ′(0)/(Λβ)² ~ the floor;
   * the p = 1 terms are e^{iΛβ}/Λ⁶ and decay for Im β ≥ 0.
