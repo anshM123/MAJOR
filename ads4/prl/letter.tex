@@ -22,8 +22,8 @@ Holography predicts that CFTs with large central charge and a large gap behave l
 gravity, with corrections that fall as powers of the gap. For three-dimensional CFTs we determine the
 constants. A gap of 1000 forces the graviton's three-point couplings to agree with their Einstein values
 to one part in $10^8$ at leading order in $1/c_T$. The bound rests on a positivity property, which we establish by computer-assisted proofs in flat space and, at that gap, on every heavy state in AdS.
-Under a further positivity assumption we also bound the first stringy correction. Without any positivity input, commutativity of energy detectors and crossing still bound the deviation by $0.018$. Read in
-reverse, the bounds locate the string scale: a deviation $\tau$ requires a higher-spin state below twist about $2+17.8/\tau$.
+Under a further positivity assumption we also bound the first stringy correction. Without any positivity input, commutativity of energy detectors and crossing still bound the deviation by $0.018$. Together the bounds give an Einstein-rigidity theorem valid at every gap; read in reverse, a deviation $\tau$ requires a
+higher-spin state below twist about $2+17.8/\tau$.
 \end{abstract}
 
 \maketitle
@@ -148,20 +148,25 @@ by the special conformal Ward identity. An exact telescoping identity makes ever
 and reflection positivity in the crossed channel controls the sum over the spectrum. Together with a
 detector sum rule for the fourth angular harmonic, this gives
 \begin{equation}
-\tau\le0.0178\quad\text{at }\Delta_g=1000,
+\tau\le\tau_*(\Delta_g):=\frac{160}{9(\Delta_g-2)}\Big[1-\frac{49}{(2\Delta_g+9)^2}\Big]^{-1/2}
 \label{eq:angular}
 \end{equation}
-decreasing like $17.8/\Delta_g$ at large gap~\cite{SM}. Besides (i) and (ii), this requires that the detector
+at every gap, so $\tau\le0.0178$ at $\Delta_g=1000$~\cite{SM}. Besides (i) and (ii), this requires that the detector
 identities hold as operator identities (the ladder is checked exactly for spins up to 30 and at spin 40), that the mixed detector
 commutator exists and converges in the light-cone limit, as assumed in Ref.~\cite{KKSDZ}, and that $T\times T$ contains no scalar of
 dimension at most one. Its $1/\Delta_g$ scaling is far from optimal.
 
-\textit{Locating the string scale}---Both bounds can be read the other way [Fig.~\ref{fig:bounds}(a)]. A large-$c_T$
-CFT$_3$ that obeys (ii), and whose stress tensor deviates from Einstein gravity by $\tau$, must contain a single trace of
-spin four or more in $T\times T$ with twist below $g_*(\tau)\approx2+17.8/\tau$, by Eq.~\eqref{eq:angular}; the approximation is good to $1\%$ for $\tau\le1$, and the exact $g_*$ is given in the Supplemental Material~\cite{SM}. Under the assumptions of Eq.~\eqref{eq:cubic}, any $\tau>2.9\times10^{-8}$ requires such a
-state below twist 1000. A measurement of the three-point function of the stress tensor thus bounds the mass of the lightest
-higher-spin state, the string scale of the bulk, from above. Large-$N$ Chern--Simons-matter theories, in which $\tau$ is of
-order one and higher-spin currents have twist close to one~\cite{GPY}, satisfy this comfortably.
+\textit{Einstein rigidity}---Equations~\eqref{eq:cubic} and \eqref{eq:angular} combine into one statement that holds at
+every gap [Fig.~\ref{fig:bounds}(a)]. \emph{Theorem.} Assume (i), (ii) and the inputs listed with Eq.~\eqref{eq:angular}. At
+leading order in $1/c_T$, every CFT$_3$ with higher-spin gap $\Delta_g$ has $\tau\le\tau_*(\Delta_g)$. If, in addition, no light
+single trace appears in $T\times T$ and $\Delta_g\ge1000$, then $\tau\le2.89\times10^{-8}$. Equivalently, a deviation $\tau$
+requires a single trace of spin four or more in $T\times T$ with twist below $g_*(\tau)$, the inverse of $\tau_*$, and, under the
+additional assumptions, below 1000 whenever $\tau>2.9\times10^{-8}$.
+
+Here $g_*(\tau)\approx2+17.8/\tau$, to within $1\%$ for $\tau\le1$~\cite{SM}. A measurement of the three-point function of the
+stress tensor thus bounds the mass of the lightest higher-spin state, the string scale of the bulk, from above. Large-$N$
+Chern--Simons-matter theories, in which $\tau$ is of order one and higher-spin currents have twist close to one~\cite{GPY},
+satisfy this comfortably.
 
 \textit{How the bounds arise}---Light-transformed stress tensors~\cite{KSDlight} act as energy detectors at
 null infinity, and two detectors commute when they are spacelike separated. Integrating the expectation
@@ -207,7 +212,9 @@ channels, with spectral data of the published weight as coefficients. We cover t
 in interval or directed-rounding arithmetic (Fig.~\ref{fig:coverage}). Spins up to 1000 are certified one by one,
 and high twist by an expansion about the leading-Regge value. For larger spins near the twist edge we use a
 localized bound at large impact parameter, an exact resummation at intermediate impact parameter, and a direct
-evaluation at small impact parameter. The main obstacle is cancellation. The ladder sum lies between about $10^{-5}$ and $10$, while its individual terms reach $10^{685}$, and the finite-mass correction has no favorable sign. The certificates for large spin near the twist edge were rerun from source on separate hardware with identical output, and the main new lemmas behind them were rederived independently; the spin-by-spin and high-twist certificates were run once~\cite{SM}.
+evaluation at small impact parameter. The main obstacle is cancellation. The ladder sum lies between about $10^{-5}$ and $10$, while its individual terms reach $10^{685}$, and the finite-mass correction has no favorable sign. The argument is a framework that applies at any gap. The exact rewriting and the kernels do not depend on the gap, which enters
+only through the spectral data of the weight, the twist edge and the leading-Regge floor; positivity at another gap therefore
+reduces to a weight with the same analytic properties and a new certificate cover~\cite{SM}. The certificates for large spin near the twist edge were rerun from source on separate hardware with identical output, and the main new lemmas behind them were rederived independently; the spin-by-spin and high-twist certificates were run once~\cite{SM}.
 
 For the quartic functional positivity remains an assumption. With error control it holds on its binding states
 near the gap and at masses $1.3$--$3\Lambda$; elsewhere its values are computed in models or interpolated, and no
@@ -237,7 +244,7 @@ the size of higher-derivative terms. The cubic bound is about ten times weaker i
 optimum transplanted to AdS~\cite{CHLPS}, which uses sum rules not available here. The quartic bound is
 dominated by an infrared logarithm. Relative to the parametric statements of Refs.~\cite{KKSDZ,BHM,AKT} and the
 flat-space and higher-dimensional precedents~\cite{CHLPS,CHLPSpw}, we give explicit constants derived from $\langle TTTT\rangle$, a computer-assisted proof that a dispersive functional is positive on the entire heavy spectrum of AdS at
-finite gap, a bound on the parity-odd coupling $\alpha_T$, an upper bound on the string scale in terms of the measured deviation, and, assuming positivity of the quartic functional, an
+finite gap, a bound on the parity-odd coupling $\alpha_T$, an Einstein-rigidity theorem that bounds the string scale by the measured deviation at every gap, a positivity framework that applies at any finite gap, and, assuming positivity of the quartic functional, an
 AdS bound on a graviton $R^4$ coefficient, which localization determines in ABJ(M) theory~\cite{BCP,BCJP}. Because the constants are explicit, the bounds can be compared directly with string theory, as the ABJM check
 shows, and used as inputs in constraints on gravitational effective theories. The method should carry over to other gaps, where positivity has to be established anew, and to higher dimensions; AdS$_5$/CFT$_4$, where $\mathcal N=4$ super-Yang--Mills theory supplies exact checks, is the natural
 next case.

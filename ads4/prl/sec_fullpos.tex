@@ -308,6 +308,35 @@ $1+2\sum_{k\le m}(2k-1)^{-1}$, Markov control of rounded nodes, a self-consisten
 evaluations at $5.67\times10^6$ nodes into a continuum bound. Eighteen cells cover $c\in[0.258,0.9]$, i.e.\ $L\in[0.2984,2.3026]$, in
 both channels, with normalised action $\ge5.166\times10^{-6}$ ($b=0$) and $\ge5.148\times10^{-6}$ ($b=4$) [certified].
 
+\subsection{A finite-gap positivity framework}
+\label{sec:fpframe}
+Nothing in Secs.~\ref{sec:fullpos}.A--B depends on the gap except through a short list of inputs. The identity~\eqref{eq:fp-target},
+the kernels~\eqref{eq:fp-kernels}, the CDH recurrences and generating function~\eqref{eq:fp-cdh}, the action~\eqref{eq:fp-H} as a
+function of $(T,C)$ and of the moments, its single-sequence form, and the lift~\eqref{eq:fp-lift} are identities in $\Delta$, $J$
+and $\nu$. The gap enters only through (G1) $\Lambda$; (G2) the $k=2$ continuum weight $\chi$ and hence the moments $Z_k$, $Y_k$
+of Eq.~\eqref{eq:fp-moments} (the $Q_k$ are exact rationals for every $\Lambda$); (G3) the twist edge $\Delta-J\ge\Delta_g$; and
+(G4), where the lift is used, the leading-Regge floor $F_{\rm cert}$ at that gap. This gives the following reduction.
+
+\textbf{Proposition FG} [P given Eq.~\eqref{eq:fp-target}]. \emph{Fix $\Delta_g>2$. Suppose (W1) the $k=2$ weight $\chi$ solves the
+de-shift equation~\eqref{eq:abel} at this gap and has the analytic structure of Sec.~\ref{sec:HK} (strip analyticity, the
+double poles at $\pm i/2$ cancelled by $R_\mp$, and the beyond-leading-Regge bound that gives $J_0<\tfrac32$), so that the sum rule
+holds and the OPE sum may be exchanged with the integrals; (W2) its moments $Z_k$, $Y_k$ are known with rigorous error bounds
+for all $k$ used; and (W3) finitely many sets $\mathcal C_i$ of states $(\Delta,J)$, with certificates in interval or
+directed-rounding arithmetic that $H_{{\rm ang},b}>0$ on $\mathcal C_i$ for the relevant $b$, cover $\{\Delta-J\ge\Delta_g\}$.
+Then (Pos$_\Omega$) holds for $\Omega^{EE}$ on every heavy state at $\Delta_g$, and item (1) of the Result holds at $\Delta_g$ with
+$\tau_0(\Delta_g)$ and no positivity assumption.}
+
+\emph{Proof.} By Eq.~\eqref{eq:fp-target}, $\mathcal B>0$ and the diagonal structure, (Pos$_\Omega$) on $\mathcal O$ is the sign of
+$H_{{\rm ang},b}$ on the structures of $\mathcal O$; (W3) gives it on every heavy state, and (W1) is what item (1) needs besides
+(Pos$_\Omega$). $\square$
+
+Theorem FP is the instance $\Delta_g=1000$, with the published repaired weight for (W1), the certified moments for (W2) and the
+cover of Table~\ref{tab:fpcover} for (W3). At another gap the algebra above is unchanged; what has to be redone is (W1)--(W3). A
+family of weights defined on a continuum of gaps supplies (W1) at every gap of that range; positivity at a given gap then reduces to
+(W2) and a cover. The numerical inputs of every certificate in Table~\ref{tab:fpcover} are evaluated at $\Delta_g=1000$, and we do
+not claim here that the analytic parts of the lemmas of Secs.~\ref{sec:fullpos}.D--H hold uniformly in $\Lambda$; a cover valid for a
+range of gaps must in particular treat the near-gap band of Table~\ref{tab:coverGap}, which grows with the gap.
+
 \subsection{Inputs, reproduction and code}
 \emph{Retained inputs.} (R1) the identity~\eqref{eq:fp-target}, [D given the ladder and first-moment identities of
 Sec.~\ref{sec:angular} as operator identities], the same inputs as item (3) of the Result; (R2) the certified repaired spectral data

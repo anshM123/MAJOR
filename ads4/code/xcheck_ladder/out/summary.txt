@@ -1,0 +1,22 @@
+116 comparisons
+max |diff|/budget: 0.442
+exact values <= 0: 0  min exact: 0.200154
+Dg=1000: |diff| > 2 stat (where a stat error is quoted): J=15 tw +- -0.00264 (-4.40 stat), J=16 tw min +0.00268 (+2.23 stat), J=30 tw min +0.07587 (+4.22 stat), J=31 tw +- +0.06950 (+2.17 stat), J=32 tw min +0.04498 (+2.50 stat)
+   largest |diff|/budget: J=31 1.04 +- +0.084, J=31 1.05 +- +0.079, J=17 1.05 +- -0.073, J=31 tw +- +0.068, J=25 tw +- -0.047
+   max |diff| for J<=13: 0.00138; J>=14: 0.07587
+Dg=2000: |diff| > 2 stat (where a stat error is quoted): 
+   largest |diff|/budget: J=27 img +- -0.215, J=20 img min -0.211, J=23 1.025 +- -0.150, J=20 1.015 min -0.144, J=23 img +- -0.135
+   max |diff| for J<=13: 0.00018; J>=14: 0.06536
+Dg=5000: |diff| > 2 stat (where a stat error is quoted): 
+   largest |diff|/budget: J=5 tw +- -0.442, J=5 img +- -0.020, J=12 img min +0.007, J=12 tw min +0.006
+
+artefacts (exact at the same state):
+  Dg=1000 J=18 tw: chain/variant -0.120 (unmapped structure basis (S6, "basis artefact"))  vs exact +0.74889, direct 0.746
+  Dg=1000 J=29 tw: chain/variant -3.620 (w2 odd chain with reference-zero node ("chain artefact"))  vs exact +0.99839, direct 0.972
+  Dg=1000 J=29 tw: chain/variant +1.390 (spline through 5 direct edge nodes (aliasing))  vs exact +0.99839, direct 0.972
+  Dg=1000 J=29 tw: chain/variant +0.948 (published chain (node dropped))  vs exact +0.99839, direct 0.972
+  Dg=1000 J=31 tw: chain/variant +1.200 (published chain with reference-zero node)  vs exact +0.98950, direct 0.92
+  Dg=1000 J=31 tw: chain/variant +1.020 (chain without that node)  vs exact +0.98950, direct 0.92
+  Dg=1000 J=32 tw: chain/variant +0.904 (published chain with reference-zero node)  vs exact +0.99998, direct 0.955
+  Dg=1000 J=32 tw: chain/variant +0.997 (chain without that node)  vs exact +0.99998, direct 0.955
+  Dg=1000 J=20 tw: chain/variant +0.965 (chain value before the direct row)  vs exact +0.83882, direct 0.835

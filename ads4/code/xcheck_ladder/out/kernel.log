@@ -1,0 +1,10 @@
+(Delta,J,b)=(1005,5,4) m=1003.485: H2 (route B) = -6.827797387628e+00; int|gK| = 1.8269e+01 (ratio 2.68e+00); max|K| nu<=m: 1.267e+11, nu>m: 1.621e+11 at nu_max=1068.5; contribution of nu>m: 2.31e-14
+(Delta,J,b)=(1018,18,4) m=1016.332: H2 (route B) = 2.738587877417e-02; int|gK| = 7.4347e+00 (ratio 2.71e+02); max|K| nu<=m: 4.616e+15, nu>m: 1.169e+17 at nu_max=1068.5; contribution of nu>m: -2.15e-09
+(Delta,J,b)=(1029,29,4) m=1027.076: H2 (route B) = 5.350447967847e-03; int|gK| = 5.6678e+00 (ratio 1.06e+03); max|K| nu<=m: 1.606e+17, nu>m: 7.629e+19 at nu_max=1068.5; contribution of nu>m: 5.65e-08
+(Delta,J,b)=(1032,32,0) m=1029.987: H2 (route B) = 4.114761755898e-03; int|gK| = 2.5974e+00 (ratio 6.31e+02); max|K| nu<=m: 3.126e+11, nu>m: 4.310e+16 at nu_max=1068.5; contribution of nu>m: -2.15e-14
+(Delta,J,b)=(1100,100,4) m=1093.893: H2 (route B) = 1.817468058810e-04; int|gK| = 2.7787e+00 (ratio 1.53e+04); max|K| nu<=m: 5.946e+20, nu>m: 0.000e+00 at nu_max=1068.5; contribution of nu>m: 0.00e+00
+1005 5 4 -6.827797387628
+1018 18 4 0.02738587876024
+1029 29 4 0.005350447946418
+1032 32 0 0.004114761756052
+1100 100 4 0.0001817468062322
