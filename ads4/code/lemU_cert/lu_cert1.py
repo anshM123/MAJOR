@@ -27,6 +27,7 @@ import lu_bounds as B
 M = 1000
 K = 3*M + 3
 NU_E = 1059
+SHIFT = 0.0       # c0 delta_w/d0 of a cell (lu_cell): jets beyond 3M+3 enter only through the Taylor shift
 SLACK = 1e-6          # additive slack (nats) on every float log-bound (float64 rounding of O(1e3) quantities is < 1e-10)
 
 
@@ -133,16 +134,19 @@ def choose_gl(logw_vec, env, p, nu_scale, len_half, sup_w_fn, target, Ns=None):
     return N, rho, lv - 2*N*math.log(rho)
 
 
-def build(c, prec, pr, rbudget=0.05, tgt=1e-15, Kj=None):
+def build(c, prec, pr, rbudget=0.05, tgt=1e-15, Kj=None, shift=0.0, nu_e=None):
     """integrated jets Y^A, Y^D (j <= Kj) at the exact real point c, every truncation as a ball radius; returns (YA, YD, meta)."""
-    global K
-    K0_ = K
+    global K, SHIFT, NU_E
+    K0_, S0_, N0_ = K, SHIFT, NU_E
     if Kj is not None:
         K = Kj
+    SHIFT = shift
+    if nu_e is not None:
+        NU_E = nu_e
     try:
         return _build(c, prec, pr, rbudget, tgt)
     finally:
-        K = K0_
+        K, SHIFT, NU_E = K0_, S0_, N0_
 
 
 def _build(c, prec, pr, rbudget, tgt):
@@ -158,7 +162,16 @@ def _build(c, prec, pr, rbudget, tgt):
     om = {b: omegas(c, lrho[b], b) for b in (0, 4)}
     oA = np.maximum(om[0][0], om[4][0]); oD = np.maximum(om[0][1], om[4][1])
     if K > 3*M + 3:
-        oA[3*M + 1:] = np.max(oA[:3*M + 1]); oD[3*M + 1:] = np.max(oD[:3*M + 1])
+        # jets with j > 3M enter the cell model only through the shift sum C(j, k) tau^k Y_j, |tau| ~ SHIFT per unit w-order:
+        # weight omega_pad(j) = max_{j' <= 3M} omega_{j'} C(j, j - j') SHIFT^{j - j'}  (a choice of budget, not a rigour input)
+        ls = math.log(max(SHIFT, 1e-300))
+        for arr in (oA, oD):
+            base = arr[:3*M + 1].copy()
+            jp = np.arange(3*M + 1)
+            for j in range(3*M + 1, K + 1):
+                k = j - jp
+                lc = np.array([math.lgamma(j + 1) - math.lgamma(kk + 1) - math.lgamma(j - kk + 1) for kk in k])
+                arr[j] = np.max(base + lc + k*ls) + 1.0
     pr(f'pass 1 (|R| column sums): {time.time() - t:.0f}s; max log10 rho_j = {max(max(lrho[0]), max(lrho[4]))/math.log(10):.1f}')
     # ---- residual cells and nu_cut (R1 bound)
     sys.path.insert(0, os.path.join(C.ADS4, 'code', 'fullpos3'))
@@ -240,7 +253,7 @@ def _build(c, prec, pr, rbudget, tgt):
             R = h*(rho + 1/rho)/2
             if m - R < 0.15:
                 continue
-            se = math.log(float(RW.E_disc_sup(m, R*(1 + 1e-9)).upper()))
+            se = float(RW.E_disc_sup(m, R*(1 + 1e-9)).upper().log().upper())
             ly = log_ybar_np(env, K, 3, m + R, h*(rho - 1/rho)/2)
             base = math.log(2/lam_f) + math.log(h*64/15/(rho*rho - 1)) + se + 1e-6
             tot = lse(oA + ly) + base
@@ -271,7 +284,7 @@ def _build(c, prec, pr, rbudget, tgt):
     radA = np.logaddexp.reduce(np.vstack([errA, rlog, errE, tl]), axis=0)
     radD = errD
     # ---- jets (ball recurrence wraps like the majorant: extra working precision, lu_core.wrap_bits)
-    pj = prec + C.wrap_bits(c, K)
+    pj = prec + C.wrap_bits(c, K)     # a-priori majorant estimate; checked against measured losses (LEMU_CERT §2.4)
     ctx.prec = pj
     pr(f'jet precision {pj} bits')
     t = time.time()

@@ -76,7 +76,7 @@ def _des(t):
 def anchor(c0, prec, pr, Kj):
     """anchor jets with on-disk cache (cache/anchor_*.pkl); the cache stores midpoints to full precision and radii."""
     import pickle, lu_bounds as B
-    key = f"anchor_{c0.mid().str(18, radius=False)}_{Kj}_{prec}_{C1.M}.pkl".replace(' ', '')
+    key = f"anchor_{c0.mid().str(18, radius=False)}_{Kj}_{prec}_{C1.M}_{SHIFT_:.3e}.pkl".replace(' ', '')
     fn = os.path.join(HERE, 'cache', key)
     if os.path.exists(fn):
         d = pickle.load(open(fn, 'rb'))
@@ -85,7 +85,7 @@ def anchor(c0, prec, pr, Kj):
         meta = d['meta']; meta['env'] = C1.env_floats(B.Envelope(c0))
         pr(f'anchor jets loaded from {key}')
         return YA, YD, meta
-    YA, YD, meta = C1.build(c0, prec, pr, Kj=Kj)
+    YA, YD, meta = C1.build(c0, prec, pr, Kj=Kj, shift=SHIFT_, nu_e=1100)
     ctx.prec = prec
     m2 = {k: v for k, v in meta.items() if k != 'env'}
     pickle.dump(dict(prec=prec, YA=[_ser(v) for v in YA], YD=[_ser(v) for v in YD], meta=m2), open(fn + '.tmp', 'wb'))
@@ -113,6 +113,8 @@ def cell(u_lo, u_hi, prec, I1, I0, D, out=None, rho_fac=6.0, precC=None, KC=40, 
     assert float((c0*rho).upper()) < 0.5
     # ---------------- anchor jets
     Kj = 3*M + 3 + D + Jextra
+    global SHIFT_
+    SHIFT_ = float((c0*delta_a/d0).upper())*1.01
     YA, YD, meta = anchor(c0, prec, pr, Kj)
     env = meta['env']; F = meta['F']
     tj = time.time() - T0
@@ -239,17 +241,27 @@ def cell(u_lo, u_hi, prec, I1, I0, D, out=None, rho_fac=6.0, precC=None, KC=40, 
         lqmax = 0.0
         for m in range(1, M + 1):
             top = len(prev) - 1
-            Bv = [(prev[jj + 1] - (vpol*prev[jj]).truncate(I1 + 1)) for jj in range(top)] + [-(vpol*prev[top]).truncate(I1 + 1)]
-            BQ = [prevQ[jj + 1] + vhat*prevQ[jj] for jj in range(top)] + [vhat*prevQ[top]]
-            cur = [arb_poly([0])]*(3*m + 1); curQ = [arb(0)]*(3*m + 1)
+            # streaming: Bv[jj] needs prev[jj], prev[jj+1]; cur[jj+1] needs Bv[jj-2..jj]; prev[jj] is released after use
+            zero = arb_poly([0])
+            win = [zero, zero, zero]; winQ = [arb(0), arb(0), arb(0)]      # Bv[jj-2], Bv[jj-1], Bv[jj]
+            cur = [zero]*(3*m + 1); curQ = [arb(0)]*(3*m + 1)
             for jj in range(3*m):
-                acc = Bv[jj]*(jj*(jj + s)) if jj <= top else arb_poly([0])
-                accQ = BQ[jj]*(jj*(jj + s)) if jj <= top else arb(0)
-                if 1 <= jj <= top + 1:
-                    acc = acc + Bv[jj - 1]*(jj*(2*jj + s - 1)); accQ += BQ[jj - 1]*(jj*(2*jj + s - 1))
-                if 2 <= jj <= top + 2:
-                    acc = acc + Bv[jj - 2]*(jj*(jj - 1)); accQ += BQ[jj - 2]*(jj*(jj - 1))
+                if jj < top:
+                    bv = prev[jj + 1] - (vpol*prev[jj]).truncate(I1 + 1); bq = prevQ[jj + 1] + vhat*prevQ[jj]
+                elif jj == top:
+                    bv = -(vpol*prev[top]).truncate(I1 + 1); bq = vhat*prevQ[top]
+                else:
+                    bv = zero; bq = arb(0)
+                if jj <= top:
+                    prev[jj] = None
+                win = [win[1], win[2], bv]; winQ = [winQ[1], winQ[2], bq]
+                acc = win[2]*(jj*(jj + s)); accQ = winQ[2]*(jj*(jj + s))
+                if jj >= 1:
+                    acc = acc + win[1]*(jj*(2*jj + s - 1)); accQ += winQ[1]*(jj*(2*jj + s - 1))
+                if jj >= 2:
+                    acc = acc + win[0]*(jj*(jj - 1)); accQ += winQ[0]*(jj*(jj - 1))
                 cur[jj + 1] = acc; curQ[jj + 1] = accQ
+            prev = None
             lch = chernoff_log(m, pbin, I1 + 1)
             ctx.prec = precC
             A_ = arb_poly([0]); B_ = arb_poly([0])
