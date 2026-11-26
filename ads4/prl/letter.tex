@@ -22,8 +22,8 @@ Holography predicts that CFTs with large central charge and a large gap behave l
 gravity, with corrections that fall as powers of the gap. For three-dimensional CFTs we determine the
 constants. A gap of 1000 forces the graviton's three-point couplings to agree with their Einstein values
 to one part in $10^8$ at leading order in $1/c_T$. The bound rests on a positivity property, which we establish by computer-assisted proofs in flat space and, at that gap, on every heavy state in AdS.
-Under a further positivity assumption we also bound the first stringy correction. Without any positivity
-input, commutativity of energy detectors and crossing still bound the deviation by $0.018$.
+Under a further positivity assumption we also bound the first stringy correction. Without any positivity input, commutativity of energy detectors and crossing still bound the deviation by $0.018$. Read in
+reverse, the bounds locate the string scale: a deviation $\tau$ requires a higher-spin state below twist about $2+17.8/\tau$.
 \end{abstract}
 
 \maketitle
@@ -65,8 +65,8 @@ Here we take those steps for AdS$_4$/CFT$_3$. We show that a gap of 1000 forces 
 of the stress tensor to agree with its Einstein form to one part in $10^8$ [Fig.~\ref{fig:concept}(a)], and we bound the leading stringy
 ($R^4$) correction to graviton scattering from above. Both bounds follow from positivity of fixed
 linear functionals on the heavy spectrum [Fig.~\ref{fig:concept}(b)]. For the cubic bound we establish this positivity at $\Delta_g=1000$,
-on every heavy state, with a computer-assisted proof (Fig.~\ref{fig:coverage}). Without any positivity
-input, the algebra of energy detectors together with crossing still gives a weaker bound. We say ``we prove'' for a written proof and ``certified'' for a computer-assisted proof in
+on every heavy state, with a computer-assisted proof (Fig.~\ref{fig:coverage}). Without any positivity input, the algebra of energy detectors together with crossing still gives a weaker bound, valid at
+any gap. Read in reverse, it bounds the string scale of any such theory from above in terms of its measured deviation from Einstein gravity. We say ``we prove'' for a written proof and ``certified'' for a computer-assisted proof in
 interval or directed-rounding arithmetic. ``With error control'' marks a computation in which every modeled term
 carries a threefold safety factor, ``in a model'' one whose accuracy is itself a hypothesis, and ``we sketch'' an
 argument whose details are not complete. The Supplemental Material~\cite{SM} grades every
@@ -156,6 +156,13 @@ identities hold as operator identities (the ladder is checked exactly for spins 
 commutator exists and converges in the light-cone limit, as assumed in Ref.~\cite{KKSDZ}, and that $T\times T$ contains no scalar of
 dimension at most one. Its $1/\Delta_g$ scaling is far from optimal.
 
+\textit{Locating the string scale}---Both bounds can be read the other way [Fig.~\ref{fig:bounds}(a)]. A large-$c_T$
+CFT$_3$ that obeys (ii), and whose stress tensor deviates from Einstein gravity by $\tau$, must contain a single trace of
+spin four or more in $T\times T$ with twist below $g_*(\tau)\approx2+17.8/\tau$, by Eq.~\eqref{eq:angular}; the approximation is good to $1\%$ for $\tau\le1$, and the exact $g_*$ is given in the Supplemental Material~\cite{SM}. Under the assumptions of Eq.~\eqref{eq:cubic}, any $\tau>2.9\times10^{-8}$ requires such a
+state below twist 1000. A measurement of the three-point function of the stress tensor thus bounds the mass of the lightest
+higher-spin state, the string scale of the bulk, from above. Large-$N$ Chern--Simons-matter theories, in which $\tau$ is of
+order one and higher-spin currents have twist close to one~\cite{GPY}, satisfy this comfortably.
+
 \textit{How the bounds arise}---Light-transformed stress tensors~\cite{KSDlight} act as energy detectors at
 null infinity, and two detectors commute when they are spacelike separated. Integrating the expectation
 value of their double commutator against a weight gives a sum rule~\cite{KKSDZ,CLSD}. If the weight decays
@@ -230,7 +237,7 @@ the size of higher-derivative terms. The cubic bound is about ten times weaker i
 optimum transplanted to AdS~\cite{CHLPS}, which uses sum rules not available here. The quartic bound is
 dominated by an infrared logarithm. Relative to the parametric statements of Refs.~\cite{KKSDZ,BHM,AKT} and the
 flat-space and higher-dimensional precedents~\cite{CHLPS,CHLPSpw}, we give explicit constants derived from $\langle TTTT\rangle$, a computer-assisted proof that a dispersive functional is positive on the entire heavy spectrum of AdS at
-finite gap, a bound on the parity-odd coupling $\alpha_T$, and, assuming positivity of the quartic functional, an
+finite gap, a bound on the parity-odd coupling $\alpha_T$, an upper bound on the string scale in terms of the measured deviation, and, assuming positivity of the quartic functional, an
 AdS bound on a graviton $R^4$ coefficient, which localization determines in ABJ(M) theory~\cite{BCP,BCJP}. Because the constants are explicit, the bounds can be compared directly with string theory, as the ABJM check
 shows, and used as inputs in constraints on gravitational effective theories. The method should carry over to other gaps, where positivity has to be established anew, and to higher dimensions; AdS$_5$/CFT$_4$, where $\mathcal N=4$ super-Yang--Mills theory supplies exact checks, is the natural
 next case.

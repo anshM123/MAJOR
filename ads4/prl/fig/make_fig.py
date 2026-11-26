@@ -94,7 +94,7 @@ plt.rcParams.update({'font.family': 'serif', 'font.serif': ['cmr10'], 'mathtext.
                      'text.color': INK, 'axes.labelcolor': INK, 'pdf.fonttype': 42})
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(3.375, 3.5), sharex=True,
                                gridspec_kw=dict(hspace=0.08, height_ratios=[1.25, 1]))
-XMIN, XMAX = 900, 5600
+XMIN, XMAX = 4, 5600
 for ax in (ax1, ax2):
     ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlim(XMIN, XMAX)
     ax.grid(True, which='major', color=GRID, lw=0.5, zorder=0)
@@ -104,24 +104,32 @@ LAB = dict(fontsize=FS, color=INK)
 
 # ------------------------------------------------------------------ (a) how close to Einstein
 ax1.axhline(TAU_COLL, color=INK2, lw=0.9, ls=(0, (6, 2, 1, 2)), zorder=2)
-ax1.text(1500, TAU_COLL * 1.8, r'collider bound, every CFT$_3$', ha='left', va='bottom', **LAB)
+ax1.text(5, TAU_COLL * 1.8, r'collider bound, every CFT$_3$', ha='left', va='bottom', **LAB)
 ax1.plot(xs, [V[x]['chlps_tau'] for x in xs], color=C2, ls=(0, (4, 2)), lw=1.0, zorder=3)
 ax1.plot(xs, [V[x]['tau'] for x in xs], color=C1, lw=1.4, alpha=0.45, zorder=3)   # beyond 1000: assumes positivity at own gap
 ax1.plot([2000, 5000], [V[2000]['tau'], V[5000]['tau']], 'o', ms=3.2, mfc='white', mec=C1, mew=0.9, zorder=4)
 t1000 = V[1000]['tau']
 ax1.plot([1000], [t1000], 'o', ms=4.8, mfc=C1, mec='white', mew=0.8, zorder=5, clip_on=False)
-ang = [160.0 / 9.0 / (x - 2) * (1 - 49.0 / (2 * x + 9) ** 2) ** -0.5 for x in xs]
-ax1.plot(xs, ang, color=C3, ls=(0, (1, 1.4)), lw=1.4, zorder=3)
+import numpy as _np
+def angb(x): return 160.0 / 9.0 / (x - 2) * (1 - 49.0 / (2 * x + 9) ** 2) ** -0.5
+xa = list(_np.logspace(_np.log10(3.0), _np.log10(5000.0), 400))
+ax1.plot(xa, [angb(x) for x in xa], color=C3, ls=(0, (1, 1.4)), lw=1.4, zorder=3)
+# excluded region: above the collider bound, above the positivity-free bound (any gap), and for gaps >= 1000 above the
+# certified cubic bound (a theory with a larger gap also has a gap of 1000)
+xe = list(_np.logspace(_np.log10(XMIN), _np.log10(XMAX), 800))
+low = [min(TAU_COLL, angb(x) if x > 2.5 else 1e9, V[1000]['tau'] if x >= 1000 else 1e9) for x in xe]
+ax1.fill_between(xe, low, 1e3, color='#ededed', lw=0, zorder=0.5)
+ax1.text(2300, 1.5e-5, 'excluded', ha='center', va='center', fontsize=FS, color=INK2, style='italic')
 # direct labels, each in empty space next to its own line
 v26 = vals(2600)
 ang26 = 160.0 / 9.0 / (2600 - 2) * (1 - 49.0 / (2 * 2600 + 9) ** 2) ** -0.5
-ax1.text(2600, ang26 * 2.2, 'without positivity', ha='left', va='bottom', **LAB)
-ax1.text(1080, t1000 * 2.0, r'this work, $\tau\leq2.89\times10^{-8}$', ha='left', va='bottom', **LAB)
-ax1.text(1080, vals(2300)['chlps_tau'] / 1.8, 'flat-space optimum', ha='left', va='top', color=INK2, fontsize=FS)
+ax1.text(9, angb(30) / 6.0, 'without positivity', ha='left', va='top', **LAB)
+ax1.text(850, t1000, r'this work, $\tau\leq2.89\times10^{-8}$', ha='right', va='center', **LAB)
+ax1.text(850, vals(1000)['chlps_tau'] / 4, 'flat-space optimum', ha='right', va='center', color=INK2, fontsize=FS)
 # the factor between the collider bound and this work, as an arrow at Delta_g = 1000
 ax1.annotate('', xy=(1000, t1000 * 2.4), xytext=(1000, TAU_COLL / 1.6),
              arrowprops=dict(arrowstyle='-|>', color=INK2, lw=0.7, mutation_scale=6, shrinkA=0, shrinkB=0), zorder=4)
-ax1.text(1080, 1e-4, r'$1.4\times10^{8}$ times' + '\nsmaller', ha='left', va='center', linespacing=1.15, **LAB)
+ax1.text(850, 3e-5, r'$1.4\times10^{8}$ times smaller', ha='right', va='center', **LAB)
 ax1.set_ylim(1e-12, 1e3)
 ax1.set_yticks([1e-12, 1e-9, 1e-6, 1e-3, 1e0])
 ax1.yaxis.set_minor_locator(matplotlib.ticker.NullLocator())
@@ -133,15 +141,15 @@ for key, col, ls in (('q2b', C3, (0, (1.2, 1.4))), ('q2a', C1, '-')):
     ax2.plot(xs, [V[x][key] for x in xs], color=col, ls=ls, lw=1.2, alpha=0.45, zorder=3)
     ax2.plot([1000], [V[1000][key]], 'o', ms=4.8, mfc=col, mec='white', mew=0.8, zorder=5, clip_on=False)
 ax2.axhline(ZETA3x2, color=INK2, lw=0.9, ls=(0, (6, 2, 1, 2)), zorder=2)
-ax2.text(1500, ZETA3x2 * 1.35, r'ABJM, $2\zeta(3)$', ha='left', va='bottom', **LAB)
-ax2.text(1500, vals(1500)['q2b'] * 1.45, 'light scalars allowed', ha='left', va='bottom', **LAB)
-ax2.text(1500, vals(1500)['q2a'] / 1.5, 'no light scalar', ha='left', va='top', **LAB)
+ax2.text(850, ZETA3x2 * 1.3, r'ABJM, $2\zeta(3)$', ha='right', va='bottom', **LAB)
+ax2.text(850, vals(1000)['q2b'] * 1.15, 'light scalars allowed', ha='right', va='bottom', **LAB)
+ax2.text(850, vals(1000)['q2a'] / 1.15, 'no light scalar', ha='right', va='top', **LAB)
 ax2.set_ylim(1, 3000)
 ax2.set_yticks([1, 10, 100, 1000]); ax2.set_yticklabels(['1', '10', '100', '1000'])
 ax2.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
 ax2.set_ylabel(r'bound on $\tilde{g}_4\Lambda^6/8\pi G$')
 ax2.set_xlabel(r'higher-spin gap $\Delta_g$')
-ax2.set_xticks([1000, 2000, 3000, 5000]); ax2.set_xticklabels(['1000', '2000', '3000', '5000'])
+ax2.set_xticks([10, 100, 1000, 5000]); ax2.set_xticklabels(['10', '100', '1000', '5000'])
 ax2.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
 ax2.text(0.97, 0.97, '(b)', transform=ax2.transAxes, ha='right', va='top', **LAB)
 
