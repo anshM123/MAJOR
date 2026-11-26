@@ -89,6 +89,13 @@ Chernoff moment instead of a fixed B-range, and the remainder's own size (|c_J|h
 optimised jointly per cell, as the coordinator's caveat (b) asks. The coordinator's caveat (a) (the δ-enlargement destroys the phase
 near the saddle) does not bite here: on the cells where A ≈ π/2 because of the enlargement, the tail series has hi ≤ 3t and hi^J ≈ e^{−6000}.
 
+**Relation to ANGULAR_ROUTE §104** (author, 27 Nov, received mid-session): the author certifies E_ρ2 + E_ρ3 < e^{−46} on all of
+L ∈ [0.8, 3.65] with the same J₀ = 1500, by the same three ideas (phase-aware arg bounds, two-sided Beta Chernoff, joint (t, v, θ, ν) cells)
+plus termwise exact dressing (which avoids the enlargement and is what lets it go below L ≈ 1.7). Loc‴ is an **independent**
+implementation (Arb, different cell geometry, enlargement-based dressing) that agrees wherever both apply (L ≥ 2: e^{−437} … e^{−2063}),
+so it can serve as a partial reproduction of §104 on [2, 3.65]. Per the coordinator, §104 is the input used below 2; no further work on
+the remainder was done.
+
 **Numbers [certified]** (J = 1500; log of the bound of |𝒱_bℒ(R_J)| per unit ν-cell, L-cell [L, L + 0.15]):
 | L | ν = 1 | 300 | 600 | 900 | 1029 | 1149 |
 |---|---|---|---|---|---|---|
