@@ -29,3 +29,4 @@ TypeError: cannot unpack non-iterable NoneType object
   prep mb 2 D 100 cost K*terms 7764837848 terms [631126, 739557, 143916, 115026]
   prep mb 3 D 100 cost K*terms 8978734436 terms [481636, 567762, 575664, 143916, 115026]
   prep mb 4 D 100 cost K*terms 7892674956 terms [305256, 328329, 364212, 399675, 143916, 115026]
+  prep mb 5 D 100 cost K*terms 8104422912 terms [288369, 288369, 288369, 288369, 288369, 143916, 115026]
