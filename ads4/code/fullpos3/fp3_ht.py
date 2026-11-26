@@ -466,12 +466,8 @@ def scan_cell(ba, bb, out):
     t0 = time.time()
     geo = geometry(ba, bb)
     res = {}
-    for b in (0, 4):
-        lo_i, hi_i = -1, len(A0LIST) - 1
-        rec = {}
-        r = run(b, ba, bb, A0LIST[hi_i], verbose=False, geo=geo); rec[hi_i] = r
-        if not r['ok']:
-            res[b] = None; continue
+    # b = 0: bisection over A0LIST (first check index of 12500, then the top of the list if needed)
+    def bisect(b, lo_i, hi_i, rec):
         while hi_i - lo_i > 1:
             mid = (lo_i + hi_i)//2
             r = run(b, ba, bb, A0LIST[mid], verbose=False, geo=geo); rec[mid] = r
@@ -479,7 +475,37 @@ def scan_cell(ba, bb, out):
                 hi_i = mid
             else:
                 lo_i = mid
-        res[b] = rec[hi_i]
+        return hi_i
+    rec = {}
+    i125 = A0LIST.index(12500)
+    r = run(0, ba, bb, A0LIST[i125], verbose=False, geo=geo); rec[i125] = r
+    if r['ok']:
+        hi0 = bisect(0, -1, i125, rec)
+    else:
+        r = run(0, ba, bb, A0LIST[-1], verbose=False, geo=geo); rec[len(A0LIST) - 1] = r
+        hi0 = bisect(0, i125, len(A0LIST) - 1, rec) if r['ok'] else None
+    res[0] = rec[hi0] if hi0 is not None else None
+    # b = 4: start at the b = 0 answer, step down while passing, up while failing
+    rec4 = {}
+    if hi0 is None:
+        res[4] = None
+    else:
+        i = hi0
+        r = run(4, ba, bb, A0LIST[i], verbose=False, geo=geo); rec4[i] = r
+        if r['ok']:
+            while i > 0:
+                r2 = run(4, ba, bb, A0LIST[i - 1], verbose=False, geo=geo); rec4[i - 1] = r2
+                if not r2['ok']:
+                    break
+                i -= 1
+            res[4] = rec4[i]
+        else:
+            while i < len(A0LIST) - 1:
+                i += 1
+                r2 = run(4, ba, bb, A0LIST[i], verbose=False, geo=geo); rec4[i] = r2
+                if r2['ok']:
+                    break
+            res[4] = rec4[i] if rec4[i]['ok'] else None
     line = dict(ba=str(ba), bb=str(bb), a0_b0=res[0]['a0'] if res[0] else None, a0_b4=res[4]['a0'] if res[4] else None,
                 rec0=res[0], rec4=res[4], secs=time.time() - t0)
     print(f"cell [{ba},{bb}]: a0(b=0) = {line['a0_b0']}, a0(b=4) = {line['a0_b4']}  "

@@ -272,6 +272,28 @@ approximating e^{−A(k)}, A ≈ αk³, force R ≳ α^{1/3}D^{2/3} (≈ 0.4 her
 e^{ΛR²|ξ″|/2} (e⁹–e³³). Grouping in m alone is therefore not enough: Taylor-expanding the amplitude B at t = 0 is the lossy step.
 * **Needed instead:** treat the multiplier as an integral operator. For the cubic part, e^{−α∂_t³} acting on e^{iλt}B is an Airy
   convolution of width ~α^{1/3} (cf. the author's §52 Airy form). Then only B on |t| ≲ few·α^{1/3} enters. This is not attempted here.
+* **But absolute Airy integrals re-amplify.** ∫Ai(u)e^{pu}du = e^{p³/3} along real or fixed-ray contours samples e^{iλt} at complex shifts
+  and again costs e^{O(|A|)} (the author's §52 envelope factor exp(ν³/(6a²))). Only a steepest-descent contour through the saddle of
+  Ai(u)e^{iλ(3κ)^{1/3}u}, κ = hd/(3c), avoids it.
+  * The saddle shift is t_* ≈ 3κλ² ≈ hdλ²/c (≈ 0.16 at c = 0.042, a = 2000). There the quadratic carrier phase costs only
+    e^{Λt_*²|ξ″|/2} ≈ e^{1.4}.
+  * For the cubic part this is feasible. The quintic and higher ladder terms are not small at ν ~ a (author §52), so the full-ladder
+    symbol is needed, i.e. the author's §53/§59 contour with steepest descent, applied only to the two oscillatory components (ψ₂
+    endpoint and residual cells at ν ≳ 900). Their weight relative to the floor is ~10⁻⁵, so a crude O(1)·a^{1/6} bound on their
+    finite-ladder transform would suffice.
+
+### 5.2 The §59 radial contour applied to the integrated G: what it needs [analysis, not executed]
+* Applied to the full conical G, the radial contour ℒ(G) = −(i𝒞/2π)∫(e^{iBα}/sin α)∫e^{−av}ξ^{s−1}G(ξ²)dv dα samples z = ξ² over much of
+  the disk, including the negative half-axis region. For B = 2J+1 ~ 10³ the localisation |α| ≤ 8800/B is void.
+  * There |G^ψ| ~ Λ^{−6}e^{Λ|Im arccosh X|} (e.g. ~e^{1190} at z = −½), so ∫|·| ≫ |∫|.
+  * The per-frequency non-amplification of §55 rests on the OUTGOING split P = P⁺ + P⁻ with Im β ≥ 0 on each piece's contour.
+* Integrated version: G⁺(z) = 2∫ψ₂P⁺_{Λp}dp, the author's §58 𝒫⁺. Its ψ-integral has the same endpoint structure as Lemma A:
+  * the p = 0 terms are non-oscillatory, of size ψ′(0)/(Λβ)² ~ the floor;
+  * the p = 1 terms are e^{iΛβ}/Λ⁶ and decay for Im β ≥ 0.
+  * So on the outgoing contour |G⁺| ≲ few × floor, and ∫|·| ≈ (log B)·few·F_cert. That is the favourable case for a certified 2D quadrature.
+* Uniformity over the compact family (a ≤ 4000, J ≤ 9·10⁶) then needs parameter cells in (B, a). The carrier e^{iBα} with |α| ≲ min(π/2, 8800/B)
+  gives relative cell widths ~ 1/(B·A₀) ~ 1/8800 in B, so of order 10⁴ cells per decade of B for each a-cell, before using the extracted-carrier
+  trick of §57. I did not build this (time).
 
 ## 6. Obstructions and dead ends recorded here
 1. **Coordinator's truncated-exponent kernel R_M per frequency (§2).** It fails at a = 998: R₁ ~ 10²² N_s, from the k > n region at ν ≈ a. It works at
