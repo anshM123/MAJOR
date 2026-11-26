@@ -20,18 +20,18 @@ affiliations appear only in the PDF.)
 A plain-text version of the Letter's abstract, written for listings (`10^8` instead of `$10^8$`; arXiv also renders `$...$`).
 
 ```
-Holography predicts that conformal field theories with a large central charge c_T and a large gap behave like Einstein gravity, with corrections that fall as powers of the gap. For three-dimensional theories we determine the constants. With a gap of 1000 or more, the graviton's three-point couplings agree with Einstein gravity to one part in 10^8 at leading order in 1/c_T. The bounds follow from the commutativity of energy detectors, a consequence of causality, together with a positivity property. We prove it in flat space and, at a gap of 1000, establish it in anti-de Sitter space on every heavy state by a computer-assisted proof. Under a further positivity assumption the first stringy correction is bounded from above, and the ABJM value lies below the bound. Without positivity, energy-detector commutativity and crossing still bound the deviation tau by about 17.8/Delta_g at any gap; together the bounds form an Einstein-rigidity theorem valid at every gap, and, read in reverse, a measured deviation tau places a higher-spin state, and so the bulk string scale, below twist about 2 + 17.8/tau.
+Holography predicts that conformal field theories with a large central charge c_T and a large gap behave like Einstein gravity, with corrections that fall as powers of the gap. For three-dimensional theories we determine the constants. With a gap of 1000 or more, the graviton's three-point couplings agree with Einstein gravity to one part in 10^8 at leading order in 1/c_T. The bounds follow from the commutativity of energy detectors, a consequence of causality, together with a positivity property. We prove it in flat space and, at a gap of 1000, establish it in anti-de Sitter space on every heavy state by a computer-assisted proof. Under a further positivity assumption the first stringy correction is bounded from above, and the ABJM value lies below the bound. Without positivity, energy-detector commutativity and crossing still bound the deviation tau by about 17.8/Delta_g at any gap; for a family of simpler functionals positivity is proved analytically at every gap above 1000, so the bound falls to zero as the gap grows (as (log gap)^(1/2)/gap^2); together the bounds form an Einstein-rigidity theorem valid at every gap, and, read in reverse, a measured deviation tau places a higher-spin state, and so the bulk string scale, below twist about 2 + 17.8/tau.
 ```
 
 ## Comments
 
 ```
-4 pages + references, 3 figures; 45 pages of Supplemental Material. Code and data: https://doi.org/10.5281/zenodo.24571131
+4.5 pages + references, 3 figures; 46 pages of Supplemental Material. Code and data: https://doi.org/10.5281/zenodo.24571131
 ```
 
-* The Letter PDF is 6 pages in total: the text, acknowledgments and data-availability statement end on page 4, and the references fill pages 4 to 6 (REVTeX
-  `prl` style, build of 26 Nov 2026). The Supplement is 45 pages (build of 26 Nov 2026). If you would rather count the whole PDF, write
-  "6 pages, 3 figures, 45 pages of Supplemental Material".
+* The Letter PDF is 6 pages in total: the text, acknowledgments and data-availability statement end near the top of page 5, and the references fill the rest (REVTeX
+  `prl` style, build of 26 Nov 2026). The Supplement is 46 pages (build of 26 Nov 2026). If you would rather count the whole PDF, write
+  "6 pages, 3 figures, 46 pages of Supplemental Material".
 * Code and data: Zenodo, DOI 10.5281/zenodo.24571131 (filled in).
 * If the Supplement goes into the same arXiv submission (recommended: append it to the Letter PDF or upload it as an ancillary
   file), say so: "Supplemental Material included".

@@ -21,7 +21,7 @@
 Holography predicts that CFTs with large central charge and a large gap behave like Einstein
 gravity, with corrections that fall as powers of the gap. For three-dimensional CFTs we determine the
 constants. A gap of 1000 forces the graviton's three-point couplings to agree with their Einstein values
-to one part in $10^8$ at leading order in $1/c_T$. The bound rests on a positivity property, which we establish by computer-assisted proofs in flat space and, at that gap, on every heavy state in AdS.
+to one part in $10^8$ at leading order in $1/c_T$. The bound rests on a positivity property, which we establish by computer-assisted proofs in flat space and, at that gap, on every heavy state in AdS; for a family of simpler functionals we prove positivity analytically at every larger gap, so the bound falls to zero as the gap grows.
 Under a further positivity assumption we also bound the first stringy correction. Without any positivity input, commutativity of energy detectors and crossing still bound the deviation by $0.018$. Together the bounds give an Einstein-rigidity theorem valid at every gap; read in reverse, a deviation $\tau$ requires a
 higher-spin state below twist about $2+17.8/\tau$.
 \end{abstract}
@@ -125,7 +125,7 @@ band of near-gap spins~\cite{SM}.
 $\tau$ from Einstein gravity, compared with the conformal-collider bound $\tau\le4$ and with the bound
 obtained without positivity. Dashed: the flat-space optimum of Ref.~\cite{CHLPS} transplanted to AdS, shown
 for comparison; it is not an AdS bound. (b)~The upper bound on the $R^4$ coefficient with and without light
-scalars, and the type~IIA string value $2\zeta(3)$ of ABJM theory. Filled circles: $\Delta_g=1000$. Faded lines: values that assume positivity at their own gap, which is established only at 1000; open circles mark gaps at which near-gap states were recomputed.}
+scalars, and the type~IIA string value $2\zeta(3)$ of ABJM theory. Filled circles: $\Delta_g=1000$. Faded lines: values that assume positivity of the same functional at its own gap, which is established only at 1000; open circles mark gaps at which near-gap states were recomputed. Purple: the analytic all-gap bounds (dashed: with a further $k=3$ input).}
 \end{figure}
 
 \textit{The stringy correction}---If the quartic functional is positive on every heavy state, and either
@@ -162,6 +162,14 @@ leading order in $1/c_T$, every CFT$_3$ with higher-spin gap $\Delta_g$ has $\ta
 single trace appears in $T\times T$ and $\Delta_g\ge1000$, then $\tau\le2.89\times10^{-8}$. Equivalently, a deviation $\tau$
 requires a single trace of spin four or more in $T\times T$ with twist below $g_*(\tau)$, the inverse of $\tau_*$, and, under the
 additional assumptions, below 1000 whenever $\tau>2.9\times10^{-8}$.
+
+At larger gaps a second, computer-free argument takes over. For explicit rational generating functions, a positive-basis lemma
+for the helicity ladders makes the action strictly positive on every heavy state at every gap $\Delta_g\ge1000$ at once~\cite{SM}.
+These functionals are not the one of Eq.~\eqref{eq:cubic}, and they bound $\tau$ less tightly, but at every gap. Given one further
+technical input on the convergence of the sum rule they give $\tau\le280\,[\log\frac{\Delta_g+2}3]^{1/2}(\Delta_g-2)^{-2}$, and, with a
+second such input for their $k=3$ part, $\tau\le420\,(\log\Delta_g)^{1/2}(\Delta_g-2)^{-5/2}$. They improve on
+$2.89\times10^{-8}$ above $\Delta_g\approx2\times10^5$ and $2\times10^4$ respectively, so the bound on $\tau$ tends to zero as the gap grows
+[Fig.~\ref{fig:bounds}(a)].
 
 Here $g_*(\tau)\approx2+17.8/\tau$, to within $1\%$ for $\tau\le1$~\cite{SM}. A measurement of the three-point function of the
 stress tensor thus bounds the mass of the lightest higher-spin state, the string scale of the bulk, from above. Large-$N$
@@ -245,8 +253,7 @@ single traces of $T\times T$ are, in units of the gap, at most of order a hundre
 the size of higher-derivative terms. The cubic bound is about ten times weaker in $|\hat g_3|$ than the flat-space
 optimum transplanted to AdS~\cite{CHLPS}, which uses sum rules not available here. The quartic bound is
 dominated by an infrared logarithm. Relative to the parametric statements of Refs.~\cite{KKSDZ,BHM,AKT} and the
-flat-space and higher-dimensional precedents~\cite{CHLPS,CHLPSpw}, we give explicit constants derived from $\langle TTTT\rangle$, a computer-assisted proof that a dispersive functional is positive on the entire heavy spectrum of AdS at
-finite gap, a bound on the parity-odd coupling $\alpha_T$, an Einstein-rigidity theorem that bounds the string scale by the measured deviation at every gap, a positivity framework that applies at any finite gap, and, assuming positivity of the quartic functional, an
+flat-space and higher-dimensional precedents~\cite{CHLPS,CHLPSpw}, we give explicit constants derived from $\langle TTTT\rangle$, a computer-assisted proof that a dispersive functional is positive on the entire heavy spectrum of AdS at finite gap, an analytic proof of such positivity at every gap above 1000 for a family of functionals, a bound on the parity-odd coupling $\alpha_T$, an Einstein-rigidity theorem that bounds the string scale by the measured deviation at every gap, a positivity framework that applies at any finite gap, and, assuming positivity of the quartic functional, an
 AdS bound on a graviton $R^4$ coefficient, which localization determines in ABJ(M) theory~\cite{BCP,BCJP}. Because the constants are explicit, the bounds can be compared directly with string theory, as the ABJM check
 shows, and used as inputs in constraints on gravitational effective theories. The method should carry over to other gaps, where positivity has to be established anew, and to higher dimensions; AdS$_5$/CFT$_4$, where $\mathcal N=4$ super-Yang--Mills theory supplies exact checks, is the natural
 next case.

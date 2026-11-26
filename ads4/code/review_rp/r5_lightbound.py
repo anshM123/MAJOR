@@ -29,7 +29,7 @@ def run(M):
     print('      tau bound: non-strict sqrt(12800 I)=%s  strict=%s  claimed 280 sqrt(log)/(M+1)^2=%s  (ratios %s, %s)' %
           (mp.nstr(tau_ns, 8), mp.nstr(tau_s, 8), mp.nstr(claim, 8), mp.nstr(tau_ns/claim, 6), mp.nstr(tau_s/claim, 6)))
     return claim
-for M in [998, 2000, 10**4, 10**5]:
+for M in [998, 2000, 10**4]:
     run(M)
 # crossover with tau_0(1000)=2.8914e-8 (certified upper end), valid at every Delta_g>=1000 by the monotonicity Remark
 f = lambda Dg: 280*mp.sqrt(mp.log((Dg+2)/3))/(Dg-2)**2-mp.mpf('2.8914e-8')

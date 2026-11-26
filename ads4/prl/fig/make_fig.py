@@ -94,7 +94,7 @@ plt.rcParams.update({'font.family': 'serif', 'font.serif': ['cmr10'], 'mathtext.
                      'text.color': INK, 'axes.labelcolor': INK, 'pdf.fonttype': 42})
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(3.375, 3.5), sharex=True,
                                gridspec_kw=dict(hspace=0.08, height_ratios=[1.25, 1]))
-XMIN, XMAX = 4, 5600
+XMIN, XMAX = 4, 1.5e6
 for ax in (ax1, ax2):
     ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlim(XMIN, XMAX)
     ax.grid(True, which='major', color=GRID, lw=0.5, zorder=0)
@@ -112,14 +112,20 @@ t1000 = V[1000]['tau']
 ax1.plot([1000], [t1000], 'o', ms=4.8, mfc=C1, mec='white', mew=0.8, zorder=5, clip_on=False)
 import numpy as _np
 def angb(x): return 160.0 / 9.0 / (x - 2) * (1 - 49.0 / (2 * x + 9) ** 2) ** -0.5
-xa = list(_np.logspace(_np.log10(3.0), _np.log10(5000.0), 400))
+xa = list(_np.logspace(_np.log10(3.0), _np.log10(1.5e6), 600))
 ax1.plot(xa, [angb(x) for x in xa], color=C3, ls=(0, (1, 1.4)), lw=1.4, zorder=3)
 # excluded region: above the collider bound, above the positivity-free bound (any gap), and for gaps >= 1000 above the
 # certified cubic bound (a theory with a larger gap also has a gap of 1000)
 xe = list(_np.logspace(_np.log10(XMIN), _np.log10(XMAX), 800))
-low = [min(TAU_COLL, angb(x) if x > 2.5 else 1e9, V[1000]['tau'] if x >= 1000 else 1e9) for x in xe]
+def tauRP(x): return 280 * _np.sqrt(_np.log((x + 2) / 3)) / (x - 2) ** 2          # Theorem RP (SM S11.K)
+def tauMP(x): return 420 * _np.sqrt(_np.log(x)) / (x - 2) ** 2.5                  # Theorem MP, needs the extra k=3 input
+low = [min(TAU_COLL, angb(x) if x > 2.5 else 1e9, min(V[1000]['tau'], tauRP(x)) if x >= 1000 else 1e9) for x in xe]
 ax1.fill_between(xe, low, 1e3, color='#ededed', lw=0, zorder=0.5)
-ax1.text(2300, 1.5e-5, 'excluded', ha='center', va='center', fontsize=FS, color=INK2, style='italic')
+C4 = '#7d3c98'
+xr = list(_np.logspace(3, _np.log10(1.5e6), 300))
+ax1.plot(xr, [tauRP(x) for x in xr], color=C4, lw=1.3, zorder=3)
+ax1.plot(xr, [tauMP(x) for x in xr], color=C4, lw=1.1, ls=(0, (5, 2)), zorder=3)
+ax1.text(1.2e5, 3e-1, 'excluded', ha='center', va='center', fontsize=FS, color=INK2, style='italic')
 # direct labels, each in empty space next to its own line
 v26 = vals(2600)
 ang26 = 160.0 / 9.0 / (2600 - 2) * (1 - 49.0 / (2 * 2600 + 9) ** 2) ** -0.5
@@ -149,12 +155,20 @@ ax2.set_yticks([1, 10, 100, 1000]); ax2.set_yticklabels(['1', '10', '100', '1000
 ax2.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
 ax2.set_ylabel(r'bound on $\tilde{g}_4\Lambda^6/8\pi G$')
 ax2.set_xlabel(r'higher-spin gap $\Delta_g$')
-ax2.set_xticks([10, 100, 1000, 5000]); ax2.set_xticklabels(['10', '100', '1000', '5000'])
+ax2.set_xticks([10, 100, 1000, 1e4, 1e5, 1e6]); ax2.set_xticklabels(['10', '100', r'$10^3$', r'$10^4$', r'$10^5$', r'$10^6$'])
 ax2.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
 ax2.text(0.97, 0.97, '(b)', transform=ax2.transAxes, ha='right', va='top', **LAB)
 
 fig.align_ylabels((ax1, ax2))
 fig.subplots_adjust(left=0.15, right=0.975, top=0.985, bottom=0.10)
+def along(f, x0, text, fac, va):
+    # label written along the curve y=f(x) at x0, rotated to its on-screen slope, offset by the factor fac
+    p1 = ax1.transData.transform((x0, f(x0))); p2 = ax1.transData.transform((x0 * 1.5, f(x0 * 1.5)))
+    ang = _np.degrees(_np.arctan2(p2[1] - p1[1], p2[0] - p1[0]))
+    ax1.text(x0, f(x0) * fac, text, rotation=ang, rotation_mode='anchor', ha='left', va=va, fontsize=FS, color=INK)
+along(tauRP, 2.0e3, 'analytic, every gap', 2.2, 'bottom')
+along(tauMP, 2.0e3, r'with a $k{=}3$ input', 1 / 2.2, 'top')
+along(angb, 2.0e3, '', 1, 'bottom')
 out = os.path.join(HERE, 'fig1_bounds.pdf')
 fig.savefig(out)
 fig.savefig(os.path.join(HERE, 'fig1_bounds_preview.png'), dpi=220)

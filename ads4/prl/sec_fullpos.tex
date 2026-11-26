@@ -377,3 +377,76 @@ family of weights defined on a continuum of gaps supplies (W1) at every gap of t
 (W2) and a cover. The numerical inputs of every certificate in Table~\ref{tab:fpcover} are evaluated at $\Delta_g=1000$, and we do
 not claim here that the analytic parts of the lemmas of Secs.~\ref{sec:fullpos}.D--H hold uniformly in $\Lambda$; a cover valid for a
 range of gaps must in particular treat the near-gap band of Table~\ref{tab:coverGap}, which grows with the gap.
+
+\subsection{Positivity at every gap \texorpdfstring{$\Delta_g\ge1000$}{>= 1000} for analytic profiles}
+\label{sec:fpanalytic}
+Proposition FG reduces positivity at a given gap to a weight and a cover. For suitably chosen generating functions the cover can be
+replaced by a single analytic argument valid at every gap. These functionals differ from $\Omega^{EE}$ (their weights are not NF02),
+and they give weaker bounds; their role is to make the rigidity statement decay with the gap. Code and checks:
+\texttt{code/uniform\_gap/}, independent review \texttt{code/review\_rp/}.
+
+\emph{Setting.} Let $M=\lfloor\Delta_g-2\rfloor\ge998$. By Eq.~\eqref{eq:fp-V} the $k=2$ action is $(1-r)^3\mathcal V_b(F)$ with $F$ the
+generating function of the weight, and by Eq.~\eqref{eq:fp-H} the $k=3$ part adds $(1-r)^3\sigma_b\mathcal L(G)/T$, with
+$G(z)=\Lambda^2\sum_kD_k^2Q_kz^k$ the generating function of the $k=3$ weight (via Eq.~\eqref{eq:fp-cdh} at $d=1$). In the notation of
+Sec.~\ref{sec:fullpos}.A put $n=J-b$, $a=\Delta-J-2\ge M$, $N=n+a$, $s=2b+1$; then $U_{b,k}=(n)_{\downarrow k}(n+s)_{\uparrow k}/
+[(N)_{\downarrow k}(N+s)_{\uparrow k}]$.
+
+\textbf{Positive-basis lemma} [P]. \emph{For integers $k\ge0$ and $0\le d\le M+1$, $\mathcal L[z^k(1-z)^d]\ge0$ on every heavy state,
+strictly if $k\le n$.} Proof: for $k\le n$ divide by $U_{b,k}>0$ and shift $n'=n-k$, $N'=N-k$, $s'=s+2k$. The numbers
+$p_j=\binom dj(n')_{\downarrow j}(a)_{\downarrow(d-j)}/(N')_{\downarrow d}$ are non-negative because $a\ge M\ge d-1$, and sum to one by
+Vandermonde's identity (a polynomial identity, valid for real $a$); with $X$ distributed by $p_j$ and an independent
+$B\sim{\rm Beta}(n'+s',a)$, the normalised value is $\mathbb E(1-B)^X>0$. The lemma fails for twists well below $M$, and also if the
+exponent $d$ is allowed to grow like $M^2$: at $a=998$, $b=4$, $J=5$, $d=998^2/4$ the value is $-741509/503496$.
+
+\textbf{Dressing} [P]. For $P_{k,M}=z^k(1-z)^M$,
+$\mathcal D_bP_{k,M}=\tfrac{k(k-1)}2P_{k-1,M+1}+\tfrac k2P_{k-1,M}+C_{k,M,b}P_{k,M}+\tfrac{M(M-9+4b)}2P_{k+1,M-1}$ with
+$C_{k,M,b}=k(\tfrac72-2b-M)+\tfrac92-b(b-1)-\tfrac M2$. The off-diagonal terms are non-negative by the lemma, and for $k\le n$,
+with $x=J+a\ge998$, $-C_{k,M,b}\le JM+\tfrac92J+\tfrac M2+\tfrac{15}2<(\tfrac14+\tfrac1{100})x^2<\tfrac{13}{50}T$. Hence
+$\mathcal V_b(F)\ge\tfrac{37}{50}\mathcal L(F)$ for any $F=\sum_k c_kP_{k,M}$ with $c_k\ge0$.
+
+\textbf{Theorem RP} [P given Eq.~\eqref{eq:fp-target}]. \emph{Let $R(z)=\prod_{j=1}^{M+6}(1-\rho_jz)^{-1}$, $\rho_j=j/(100(M+6)^2)$,
+$\epsilon=(M+1)^{-8}$, and $F=(z^3+\epsilon z)(1-z)^MR$, with no $k=3$ part. At every real $\Delta_g\ge1000$ the action is strictly
+positive on every heavy state, in both channels, at every spin, twist and impact parameter.}
+
+\textbf{Theorem MP} [P given Eq.~\eqref{eq:fp-target}; the $k=3$ prefactor of Eq.~\eqref{eq:fp-target} is [D]]. \emph{With $R$ an average
+of such products over a smooth bump in $\rho_j\to\rho_j(t)$, $F=(z^2+\epsilon z)(1-z)^MR$ and $G=\tfrac{7M^2}{10}z^2(1-z)^MR$, the action
+is at least $\tfrac1{25}(1-r)^3\mathcal L(F)>0$ on every heavy state with $n\ge1$, and $(1-r)^3\epsilon/(2T)>0$ for $n=0$, at every real
+$\Delta_g\ge1000$, in both channels.} Proof: $F-G/A=\epsilon z(1-z)^MR$ is in the positive cone, so $\mathcal L(G)\le A\mathcal L(F)$
+with $A/T\le7/10$; subtract from $\tfrac{37}{50}\mathcal L(F)$.
+
+\emph{Realisation.} $f(x)=(1-z)^3F(z)$, $x=(1+z)/(1-z)$, is a proper rational function with simple poles at $x=-A_j<-1$, and the
+Mehler--Fock identity $1/(x+A)=\pi\int_0^\infty\frac{\nu\tanh\pi\nu}{\cosh\pi\nu}P_{-1/2+i\nu}(x)P_{-1/2+i\nu}(A)d\nu$ gives an exact
+shifted density $E=O((1+\nu)e^{-\pi\nu})$ (faster for the averaged $R$). The de-shift equation is then inverted exactly by
+$\chi=Bq$, $q(z)=\tfrac14\int(E/\Phi)(v)\,{\rm sech}\frac{\pi(z-v)}2dv$, $B(z)=\Phi(z+i)/R_-(z)$, $\Phi(z)=P(z)\cosh(\tfrac{\pi z}2)
+\Gamma(\tfrac54+\tfrac{iz}2)\Gamma(\tfrac54-\tfrac{iz}2)/\cosh\pi z$, $P(z)=(z^2+\tfrac14)^2(z^2+\tfrac94)(z^2+\tfrac{25}4)(z^2+\tfrac{81}4)$,
+using $\Phi(z+i)/\Phi(z-i)=R_-(z)/R_+(z)$, $R_+(z)=R_-(-z)$. $B$ has a double zero at $0$, simple poles only at $\pm i/2$ (cancelled by
+$R_\mp$), and $|B|\sim x^{19/2}e^{-\pi|x|}$ on the strip. No cutoff is used. Checked end to end at $M=3$ to 12 digits (weight, its
+leading-Regge image, the light integrals, and the moment route of Eq.~\eqref{eq:fp-single}). The realised weights are exact but very
+large (partial-fraction coefficients of order $10^{5700}$ at $M=998$), so they give no information on how large $c_T$ must be.
+
+\emph{Inputs beyond those of item (1).} (U1) Without a cutoff the weight decays at exactly the rate of the heavy normalisation, so the
+interchange needs the sharp form of K2$\nu$ (zero growth exponent in the position normalisation), whose evidence is a numerical
+sign check of the dual bases to $\beta=16$ [A]. (U2) For Theorem MP, the $k=3$ weight is no longer supported on $p\le1$, and its
+interchange needs a bound on the $j'=1$ kernel with $\int|E_3|/|\hat N_3|<\infty$ [A]. The linear term in $t_4$, $\alpha_T$ vanishes for any
+weight, since the zero of Sec.~\ref{sec:c1} is pointwise in $\nu$ [D].
+
+\textbf{All-gap rigidity} [D at leading order in $1/c_T$, given item (1)'s inputs and U1; for the second bound also U2, D-sketch].
+With $Q=-100g_{2,3}-36g_{3,3}$ and $4g_{2,4}=\nu^4-\frac{35}2\nu^2+\frac{569}{16}$, the light coefficient is
+$K\Lambda^6=100F_2+36F_3+8G_2$ (only the flat-calibrated top coefficients enter), and the Einstein term is $8\Lambda^2\int_1^\infty f\,Q_1$
+with $\int_1^\infty Q_1P_{-1/2+i\nu}=1/(\nu^2+\frac94)$, $Q_1(x)=\frac x2\log\frac{x+1}{x-1}-1$. The sum rule then gives, for every real
+$\Delta_g\ge1000$,
+\begin{equation}
+\tau\le\frac{280\sqrt{\log\frac{\Delta_g+2}3}}{(\Delta_g-2)^2}\ \ \text{(Theorem RP)},\qquad
+\tau\le\frac{420\sqrt{\log\Delta_g}}{(\Delta_g-2)^{5/2}}\ \ \text{(Theorem MP)}.
+\label{eq:fp-allgap}
+\end{equation}
+The computed values are $0.79$ and $0.74$ of these bounds at $\Delta_g=1000$. Both are weaker than $\tau\le\tau_0(1000)=2.89\times10^{-8}$,
+which holds at every $\Delta_g\ge1000$ by the Remark of Sec.~\ref{sec:allgap}.A, unless $\Delta_g\gtrsim1.8\times10^5$ (RP) or
+$\Delta_g\gtrsim1.8\times10^4$ (MP); together they give $\tau\le\min\{\tau_0(1000),\text{Eq.~\eqref{eq:fp-allgap}}\}\to0$. Neither reaches the
+$\sqrt{\log\Delta_g}/\Delta_g^4$ rate that $\Omega^{EE}$ would give at its own gap (Sec.~\ref{sec:lambda}); for $\Omega^{EE}$ itself, positivity at
+gaps above 1000 is not established here (partial all-gap certificates for an uncut realisation of NF02 are in
+\texttt{code/uniform\_gap/} and are not used).
+
+\emph{Light single traces.} Continued to $J=0$ the heavy formula reproduces the flat NF02 light-scalar values of Sec.~\ref{sec:pos}
+exactly. For the profiles above $F_0=0$, so the AdS mass shift multiplies zero, and the long spin-0 and spin-2 actions are
+non-negative ($\epsilon/2$ at $J=0$; at $J=2$ the $k=3$ term $G_2=\frac7{10}M^2$ dominates) [D-sketch, given E$'$].

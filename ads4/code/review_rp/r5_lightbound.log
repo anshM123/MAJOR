@@ -7,3 +7,9 @@ M=2000  I3=1.628055979e-12  bound=2.463729567e-12 (ratio 0.66081; Beta form 2.39
 M=10000  I3=3.571565576e-15  bound=4.916439937e-15 (ratio 0.726454; Beta form 4.818060841e-15)
       eps*I1=6.7824e-40  K*Lam^6(strict)=36.0
       tau bound: non-strict sqrt(12800 I)=6.7613637e-6  strict=6.7613637e-6  claimed 280 sqrt(log)/(M+1)^2=7.9733086e-6  (ratios 0.848, 0.848)
+RP bound 280 sqrt(log((Dg+2)/3))/(Dg-2)^2 equals tau_0(1000)=2.8914e-8 at Delta_g = 179207.1
+  Delta_g=1000.0   RP=0.000677685  tau_*=0.0178135  tau_0(1000)=2.8914e-8
+  Delta_g=10000.0  RP=7.978e-6  tau_*=0.00177813  tau_0(1000)=2.8914e-8
+  Delta_g=100000.0 RP=9.03631e-8  tau_*=0.000177781  tau_0(1000)=2.8914e-8
+  Delta_g=200000.0 RP=2.333e-8  tau_*=8.88898e-5  tau_0(1000)=2.8914e-8
+  Delta_g=1000000.0 RP=9.98505e-10  tau_*=1.77778e-5  tau_0(1000)=2.8914e-8
