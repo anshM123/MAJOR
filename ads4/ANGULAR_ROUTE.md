@@ -1826,3 +1826,30 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Sliver status.**
   * Certified, conditional on retained inputs: L ≥ 2.9 (L ≥ 5 reviewed; [3.65, 5] under review; [2.9, 3.65] here).
   * Open: 998 ≤ a < a*(L), J ≥ 1001, 0.06 ≲ L < 2.9.
+
+## 111. Positivity on L ∈ [2.6, 2.9]; direct low-L prefix truncation; global moment transform (author; reproduced by coordinator, 27 Nov)
+
+* **Package** (author): code/sliver_next/. The coordinator's rerun is in code/sliver_next/rerun_coordinator/.
+* **Cell [2.6, 2.9]** (same machinery as §110: coupled norming, ellipse extension, direct contours). It uses 12 channel boxes and 1,057,106 scalar evaluations. The p = 4 top line is at height 20.25. Contour totals are < 9.80e-10 (b = 0) and < 1.487e-9 (b = 4).
+  * b = 0: E/F < 0.091148, action > 2.272e-6.
+  * b = 4: E/F < 0.112364, action > 2.219e-6.
+  * Floor 2.5e-6. Rerun here (732 s): results, contours, budget, ledger and low_prefix outputs are all **identical** apart from timing.
+* **Floors checked** against code/lrtight/cache/lrt3_rcert.json, with β = 2 acosh(e^{L/2}); every cell's β-range is covered by contiguous rows:
+
+  | L-cell | β-range | rows | min F_cert | floor used |
+  |---|---|---|---|---|
+  | [2.6, 2.9] | [3.948, 4.258] | 14 | 2.994e-6 | 2.5e-6 |
+  | [2.9, 3.2] | [4.258, 4.566] | 13 | 2.547e-6 | 2.5e-6 |
+  | [3.2, 3.35] | — | — | 2.346e-6 | 1.87e-6 |
+  | [3.35, 3.5] | — | — | 2.160e-6 | 1.87e-6 |
+  | [3.5, 3.65] | — | — | 1.98662e-6 | 1.98e-6 |
+* **Low-L direct prefix theorem** (low_prefix.py, PASS; rerun identical).
+  * Statement: for c = 1 − e^{−L} ∈ [0.05, 0.56] (L ≈ 0.051–0.821), all a ≥ 998 and both b, |H_ang − H_prefix| < 2^{−110}. Here H_prefix uses the exact rational ladder Π_{j<k}(c − hj(j+s))/(1 − hj(j+s)), with K = 1193–3248 on six c-cells and pole gap ≥ 0.1135.
+  * Proof: the Mehler bound on \|z\| ≤ 0.995 gives \|F_{p,ν}\| ≤ (π/2)·200^p·e^{πν/2}. Cauchy on \|z\| = 0.99 then bounds the global Taylor coefficients of the integrated G (≤ 2^2554), using U_k ≤ c^k; the ν > 1100 Gaussian tail is handled separately.
+  * Consequence: the sign problem becomes one bivariate rational numerator in (c, h) with GLOBAL coefficients A_k, B_k, D_k. Its sign is NOT yet certified.
+* **Global moment transform** (moment_transform.cpp): 4(k+1)²I_{k+1,j} = (8k² + 8pk + 4p − 1)I_{k,j} − 4Λ²I_{k,j+1} − 4(k−1+p)²I_{k−1,j}, with directed errors. For ideal weights, 3250 entries at 2500 digits give error < 1e-463 (rerun: PASS; 10 pointwise ideal-action checks positive). The realised-weight moments (Gaussian × erf cutoff; the README sketches an exact recurrence) are not done yet.
+* **Not independently reviewed.** The low_prefix constants (2^2554, dressing factor < 2, the h-cap formula (1−√c)²/998²), the moment-transform derivation, and the items listed in §110.
+* **Sliver status.**
+  * Certified, conditional on retained inputs: L ≥ 2.6.
+  * Reduced to a rational sign problem, not yet certified: L ∈ [0.051, 0.82].
+  * Open: L ∈ [0.82, 2.6], plus the sign problem above.

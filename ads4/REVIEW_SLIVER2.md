@@ -267,7 +267,28 @@ L = 3.65.
 
 ## 7. Reruns from source (item 7)
 
-RERUN_TABLE_PLACEHOLDER
+**Setup.**
+* All runs use the private copy under `code/review_s2/ws/`, starting from an empty `analytic2/cache`.
+* `rmass3` was rerun first (1–40 and 40–898). Both outputs are **bit-identical** to the cached ones.
+* The settings are those stated in the document:
+  - [4.5, 5]: coarse bands, k₀ = 2;
+  - [4, 4.5]: `RT2_FINE=1`, k₀ = 2;
+  - [3.75, 4] and [3.65, 3.75]: `RT2_FINE=1 RT2_JP=2200`, `rt2_loc2 … 1500 2200`, k₀ = 4.
+
+| cell | contour | loc (E_ρ) | residual parts | rt2_cert | cached ρ | rerun ρ |
+|---|---|---|---|---|---|---|
+| [3.65, 3.75] | identical | identical | identical (531 + 531 cells) | **identical file** | 0.54472 | **0.54472** |
+| [3.75, 4] | identical | identical | identical | **identical file** | 0.22261 | **0.22261** |
+| [4, 4.5] (fine) | RR40C | RR40L | RR40R | RR40X | 0.089364 | RR40 |
+| [4.5, 5] | identical | identical | **differ** (new ≤ old in every cell, down to ×0.049) | differs | 0.026737 | **0.017727** |
+
+**[4.5, 5] (provenance remark).**
+* The cached [4.5, 5] certificate was produced before `rt2_kernel.K_cell` switched to the multi-frame `chain_bounds_multi`. §6 says it
+  "used `chain_bounds`", but the current source always calls `chain_bounds_multi`.
+* So the cached 0.0267 is **not reproducible from the current source**. The current source gives the sharper ρ = 0.0177.
+* I confirmed that the cached number is the single-family value: monkey-patching `chain_bounds_multi = chain_bounds` reproduces the cached
+  K of cells [1001, 1002.1] and [1031, 1032.1] exactly. Both versions are rigorous.
+* The document should either quote 0.0177 or record the code version that produced 0.0267.
 
 ## 8. Per-cell survival
 

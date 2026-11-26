@@ -1,0 +1,13 @@
+p=3 K=3249: seconds 8.293; max error < 1e-463
+p=4 K=3249: seconds 8.725; max error < 1e-463
+{"n": 1002, "b": 0, "a": 3000, "L": 0.06478861473668467, "ideal_mid": 2.2916449060459325e-05, "error_lt": 0.0, "positive_ideal": true}
+{"n": 1002, "b": 4, "a": 3000, "L": 0.0651879959999814, "ideal_mid": 2.2570149612483832e-05, "error_lt": 0.0, "positive_ideal": true}
+{"n": 1200, "b": 0, "a": 2400, "L": 0.11785246322609932, "ideal_mid": 1.8090657748819885e-05, "error_lt": 0.0, "positive_ideal": true}
+{"n": 1200, "b": 4, "a": 2400, "L": 0.11840667147329034, "ideal_mid": 1.7717447797954526e-05, "error_lt": 0.0, "positive_ideal": true}
+{"n": 1600, "b": 0, "a": 1600, "L": 0.287786211998868, "ideal_mid": 1.4846829521906063e-05, "error_lt": 0.0, "positive_ideal": true}
+{"n": 1600, "b": 4, "a": 1600, "L": 0.2886173803921395, "ideal_mid": 1.4353798921012821e-05, "error_lt": 0.0, "positive_ideal": true}
+{"n": 2870, "b": 0, "a": 998, "L": 0.7998241100160169, "ideal_mid": 1.1347140546966042e-05, "error_lt": 0.0, "positive_ideal": true}
+{"n": 2870, "b": 4, "a": 998, "L": 0.8007032773052247, "ideal_mid": 1.0904107202506445e-05, "error_lt": 0.0, "positive_ideal": true}
+{"n": 3500, "b": 0, "a": 1600, "L": 0.6367950338559916, "ideal_mid": 1.2172455295839575e-05, "error_lt": 7.703719777548943e-34, "positive_ideal": true}
+{"n": 3500, "b": 4, "a": 1600, "L": 0.6374324331573878, "ideal_mid": 1.1937516449406475e-05, "error_lt": 7.703719777548943e-34, "positive_ideal": true}
+IDEAL ONLY: signed coefficient transport passed; no realized-weight sign claim.
