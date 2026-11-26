@@ -14,38 +14,39 @@ Grades: **[certified]** Arb balls or exact rationals with every remainder proved
 ## 0. Verdict
 
 **Not closed. No new certified coverage.** The sliver 998 ≤ a < a*(L) (a* = 3200–3600 after ANGULAR_ROUTE §73 and FULLPOS5),
-J ≥ 1001, 0.04 < L ≲ 30 is still open. What this run established:
+J ≥ 1001, 0.04 < L ≲ 30 is still open. But the session ends with a concrete, numerically validated route (item 6), and quantified
+obstructions for the others.
 
 1. **The §55 outgoing contour works per frequency [DV].**
-   * Literal recipe (coordinator's message): reproduced at the benchmark state; every piece matches the author's values to 8 digits.
+   * Author's recipe reproduced at the benchmark state; every piece matches to 8 digits.
    * 12-state sweep against the exact ladder sum: p = 3, 4; b = 0, 4; ν = 0.3–12; non-integer N. Rel. err 1e-14 to 2e-7.
-   * The outgoing split also holds for ν ≤ 1 (rel. err 1e-12), so the complete-conical treatment is optional.
-   * FULLPOS3's NaN state is fine (1.415451002331); the NaN came from its literal diagonal/branch reading.
-   * Numerical trap: mpmath `fp.hyp2f1` is wrong by 1e-4 near e^{−2β} → 1.
-2. **Frequency integration first works [DV].** 𝒫⁺_h(β) = −(i/π)∫W_h(β+u)(4 sinh(β+u/2)sinh(u/2))^{−½}du (= §58/§71).
-   * Checked against Mehler to 1e-7–1e-10, and against direct p-quadrature at complex β to 1e-8.
-   * End-to-end with the §74 diagonal extraction, against exact ladder sums: rel. err 6e-11 (λ = 8), and 1.5e-7 at a state whose ladder
-     cancels by 4e7 (λ = 30, n = 40).
-3. **Norms [DV].** Units are |G(c)| = |ℒ(G^ψ)|; N_s/w³ ≈ |G(c)| (0.99 at (2000, 1500)).
-   * The fully absolute contour norm is hopeless: 2.2e10 at (2000, 1500, 0), L = 0.20 (Lemma-A⁺-type majorant: 3.1e10); 1.2e10 at
-     (998, 20000, 0), L = 2.38.
-   * Signed soft γ-integral (the corner and large-β mass cancel exactly): 2.6e6 and 1.3e4.
-   * **After the author's §74 diagonal extraction**, the remaining norm falls like ξ₀^{−2}:
-     * (2000, 1500, 0): 1.6e4 at ξ₀ = 0.02, 198 at 0.2, **61 at ξ₀ = 0.35**;
-     * (998, 20000, 0), L = 2.38: 97 at ξ₀ = 0.02, ~16 after hard localisation.
-   * The diagonal block itself is a 1D real integral (norm ≈ 855) and costs only precision.
-4. **The author's §78 quadrature-free reference is exact pointwise [ball arithmetic + DV].**
-   * At (1001, 998), (1500, 2000) and (20000, 998), M = 1000, it agrees with the exact ladder to 1e-77 … 0, including the turning point
-     ν = 993.
-   * Integrated with ψ₂ at (1500, 2000): H_ref = H_direct = 1.5669176627e-5 (and w³G(c) to 4e-7).
-   * Internal |R_{m,j}| reaches 1e571. Cost: 5–40 s per state plus 0.04–0.4 s per ν.
-5. **Why it does not close tonight (decisive).** Both routes evaluate single states well; the obstruction is **uniformity over the continuum**.
-   * Contour: ~1–2e7 amplitude evaluations per state (≈ 3000 α × 4a soft nodes; ~4–7 core-h in DV, more in balls), times ≥ 1e3–1e5
-     parameter cells. Estimate ~1.5e4 to ≥ 1e6 core-h, against the ~176 available.
-   * §78: naive interval cells lose the sign unless δa ≲ 1e-550 (measured: radius 4e-58 at δ = 1e-600, 4e242 at δ = 1e-300). Even at
-     J = 20000, where max|R| ≈ 1, ball wrapping in the M-step recurrence gives 1e379 at δ = 1e-300.
-   * J ranges to ~1e7 (L = 7) and ~1e12 (L ≈ 20), so it must be a continuous cell parameter.
-   * A certificate needs an a priori uniform derivative bound for H_ref (or for the contour integral) in (a, 1/J). None is available.
+   * The outgoing split also holds for ν ≤ 1 (rel. err 1e-12).
+   * FULLPOS3's NaN state is fine (1.415451002331).
+   * Trap: mpmath `fp.hyp2f1` is wrong by 1e-4 near e^{−2β} → 1.
+2. **Frequency integration first works [DV].** 𝒫⁺_h = −(i/π)∫W_h(β+u)(4 sinh(β+u/2)sinh(u/2))^{−½}du is checked to 1e-7–1e-10.
+   End-to-end, with the author's §74 diagonal extraction, against exact ladder sums: 6e-11, and 1.5e-7 at a ladder cancelling by 4e7.
+3. **Contour norms [DV]** (units |G(c)| = |ℒ(G^ψ)| ≈ N_s/w³):
+   * fully absolute: 2.2e10 (L = 0.2), 1.2e10 (L = 2.4), Lemma-A⁺-type majorant 3.1e10;
+   * soft-signed: 2.6e6 and 1.3e4;
+   * after the §74 diagonal extraction, falling like ξ₀^{−2}: 61 at ξ₀ = 0.35 (L = 0.2), 97 → ~16 at L = 2.4.
+   * **Brute-force contour certification does not fit:** ~1e7 amplitude evaluations per state, ≥ 1e3–1e5 cells.
+4. **§78 quadrature-free reference: exact pointwise** [ball arithmetic + DV], to 1e-77 … 0 at three states including the turning point
+   ν = 993. Integrated with ψ₂ at (1500, 2000): H_ref = H_direct to all double digits.
+   * Naive interval cells in a fail unless δa ≲ 1e-550 (ball wrapping in the M-step recurrence).
+5. **b = 4:** 𝒞_{s=9} = a/U_{0,4}, so the helicity shift does not change the integrand (checked).
+6. **Lemma U (author §80) twist test: PASSES at every L tested, both channels [DV, ideal NF02 weights, M = 1000].**
+   At fixed c, a single degree-1001 polynomial in y covers all a ≥ 998:
+   * margin (P̂₀ − Σ_{ℓ≥1}|P̂_ℓ|)/P̂₀ = 0.972 / 0.971 (L = 0.1), 0.985 / 0.985 (L = 0.5), 0.9976 / 0.9976 (L = 2), 0.99999 / 0.99998 (L = 7),
+     for b = 0 / 4.
+   * The h-series at a = 998 has a 1e11–1e18 transient in A_m (m ≈ 40–100), then converges: partial sums are constant from M′ = 300.
+   * Complex impact parameter (Lemma C test): max_y|H_M(β_c + iη, y)|/F_cert = 1.26 (L = 2, η = 0.02) and 1.27–1.40 (L = 0.5, η = 0.02).
+     Low L is in progress (§8.1).
+7. **What is missing for a certificate (honest):**
+   1. rigorous jet enclosures (GL error on an ellipse, plus ≥ 6000–8000 bits against recurrence wrapping);
+   2. the realised EPSW-repaired weight instead of the ideal NF02 one;
+   3. an Arb reproduction of the §78 truncation error;
+   4. the c-direction: ~1.4e3 c-points × 15–30 min, i.e. several hundred core-hours DV and more certified (§8.2). The strip constant
+      K = sup|H_M|/F_cert is ~1.3–1.4 at L ≥ 0.5, so cells there can be ~η wide; at low L the author measured a transfer > 463.
 
 **b = 4.** The coordinator's identity ℒ₄(F) = ℒ₀(z⁴F)/U_{0,4} is correct, but 𝒞_{s=9} = a/U_{0,4} exactly (checked to 1e-12 at 3 states).
 So the shifted s = 1 integrand equals the s = 9 integrand pointwise and the norm is unchanged (author §72 agrees). The cancellation is the
@@ -302,7 +303,10 @@ w³Σ_{k≤n}U_kg_k, with midpoint propagation in the g_k recurrence; ball wrapp
 * The reference is exact for practical purposes at all three states, including the turning point ν = 993 at a = 998.
 * Cost: W_j takes 5 s at 1600 bits and 40 s at 8000 bits per state. Each frequency then costs 0.04–0.4 s.
 * At 1600 bits the rigorous radii blow up (1e65 at ν = 300, 1e686 at ν = 950) while the midpoints are right; ~8000 bits gives tight balls.
-* (The integrated comparison, H_ref = 2∫ψ₂w³𝒦_ref vs the direct ladder, is in §5.3.)
+* **Integrated (`fp4_ref_int.py`)** at (1500, 2000, 0), 1600 GL nodes in p, 4000 bits:
+  * H_ref = 2∫ψ₂w³𝒦_ref = 1.566917662696e-5 = H_direct (same nodes) to all double digits;
+  * w³G(c) = 1.566918295e-5 (rel. 4e-7);
+  * 2∫|ψ₂||w³𝒦| = 0.66 (the 4e4 ν-cancellation).
 
 ### 5.2 Uniformity over the continuum: naive interval cells fail [ball arithmetic]
 `fp4_ref_cell.py`: a ∈ [a₀, a₀+δ] at fixed integer J, all of c, d, h, w as balls, ν = 300, M = 1000, 8000 bits.
@@ -348,6 +352,8 @@ w³Σ_{k≤n}U_kg_k, with midpoint propagation in the g_k recurrence; ball wrapp
 | `fp4_soft.py` | soft-signed / hard-absolute norm | DV |
 | `fp4_diag.py` | §74 diagonal extraction + remaining contour (D, R, norms); `fp4_toy.py`, `fp4_toy2.py` exact end-to-end checks | DV |
 | `fp4_ref.py`, `fp4_ref_cell.py`, `fp4_ref_int.py` | §78 reference (python-flint balls), cell enclosure test, integrated comparison | DV + balls |
+| `fp4_lemU.py` | Lemma U twist polynomial at fixed real c, both channels, Chebyshev test, M-convergence → `cache/fp4_lemU.jsonl` | DV |
+| `fp4_lemU_c.py` | the same at complex u (Lemma C strip test) → `cache/fp4_lemU_c.jsonl` | DV |
 
 Results: `cache/fp4_abs*.jsonl`, `fp4_soft.jsonl`, `fp4_diag.jsonl`, `fp4_toy2.jsonl`, `fp4_ref*.jsonl`, `*.log`.
 ```
@@ -358,11 +364,13 @@ python3 fp4_toy2.py 30 40 85.5 0 0.3 16          # strong-cancellation end-to-en
 python3 fp4_ref.py 1001 998 0 300,950,993 1000 8000
 python3 fp4_ref_cell.py 1001 998 0 300 1000 8000 1e-600,1e-300
 python3 fp4_ref_int.py 1500 2000 0 1600 1000 4000
+python3 fp4_lemU.py 2.0 1000 8000 1500           # twist test at L = 2, both channels (~11 min)
+python3 fp4_lemU_c.py 3.314908908306154 0.02 500 8000 1500   # complex-u strip test
 ```
 
 ---
 
-## 6. Lemma U (author, ANGULAR_ROUTE §80): the twist direction as one polynomial per c [DV]
+## 8. Lemma U (author, ANGULAR_ROUTE §80): the twist direction as one polynomial per c [DV]
 `fp4_lemU.py`. At fixed c (u = β_c), every state with a ≥ 998 has x = h/d² = y·x_* with y ∈ (0, 1], and R_{m,j}(c, x) = y^mR_{m,j}(c, x_*).
 So H_M = P(c, y)/D⁴ with
 * P = ΣA_my^m + d²x_*yΣ(q_bA_m + B_m)y^m and D = 1 + q_bd²x_*y;
@@ -386,6 +394,8 @@ Implementation:
 **Twist-positivity test, all a ≥ 998 at fixed c:**
 | L (c) | b | A₀ = H(a = ∞) | H_M(a = 998) | \|P̂₁\| | \|P̂₂\| | noise floor of \|P̂_ℓ\| | margin (P̂₀ − Σ\|P̂_ℓ\|)/P̂₀ |
 |---|---|---|---|---|---|---|---|
+| 0.1 (0.0952) | 0 | 1.8895e-5 | 1.9968e-5 | 5.4e-7 | 2.3e-13 | ~1e-13; < 1e-33 (ℓ ≥ 100) | **0.97240 PASS** |
+| 0.1 (0.0952) | 4 | 1.8895e-5 | 1.7822e-5 | 5.4e-7 | 2.8e-13 | ~1e-13 | **0.97078 PASS** |
 | 0.5 (0.3935) | 0 | 1.2919e-5 | 1.3309e-5 | 1.9e-7 | 1.6e-13 | ~3e-16; < 2e-30 (ℓ ≥ 100) | **0.98515 PASS** |
 | 0.5 (0.3935) | 4 | 1.2919e-5 | 1.2529e-5 | 1.9e-7 | 4.4e-13 | ~5e-16 | **0.98469 PASS** |
 | 2 (0.8647) | 0 | 6.0674e-6 | 6.0969e-6 | 1.5e-8 | 2.3e-14 | ~1e-17 (ℓ = 5–50); < 4e-32 (ℓ ≥ 100) | **0.99757 PASS** |
@@ -393,12 +403,14 @@ Implementation:
 | 7 (0.99909) | 0 | 3.4905e-7 | 3.4906e-7 | 4.8e-12 | 1.0e-17 | ~1e-18; < 5e-35 (ℓ ≥ 100) | **0.999986 PASS** |
 | 7 (0.99909) | 4 | 3.4905e-7 | 3.4904e-7 | 5.9e-12 | 8.3e-18 | ~1e-18 | **0.999983 PASS** |
 
-(F_cert(β_c = 1.47) = 1.12e-5; F_cert(3.31) = 4.86e-6; F_cert(8.39) = 2.66e-7. At L = 0.5: max|R_{m,j}| = 1e213, |A_m| peaks at 2e18,
-constant partial sums from M′ = 300, 3000 bits, N_p = 6000, 17 min.)
+(F_cert(β_c = 0.64) = 1.54e-5; F_cert(1.47) = 1.12e-5; F_cert(3.31) = 4.86e-6; F_cert(8.39) = 2.66e-7. At L = 0.5: max|R_{m,j}| = 1e213, |A_m| peaks at 2e18,
+constant partial sums from M′ = 300, 3000 bits, N_p = 6000, 17 min.
+At L = 0.1: max|R| = 1e1204, A_m transient ≤ 1e11, 3000 bits, N_p = 5000, 10 min. The P̂ noise floor (1e-13 ≈ 5e-9 relative) is
+higher there, consistent with 3000 bits against |R| ~ 1e1204; lower L needs ≥ 6000 bits.)
 * At L = 7, |A_m| peaks at 1e14 (m ≈ 100), and the partial sums are constant from M′ = 300 on.
 * Cost: 11 min per c at L = 2 (N_p = 8000) and 28 min at L = 7 (N_p = 15000), on one core; both channels share the jets.
 
-### 6.1 Complex impact parameter (Lemma C test) [DV]
+### 8.1 Complex impact parameter (Lemma C test) [DV]
 `fp4_lemU_c.py`: the same construction in complex arithmetic at u = β_c + iη. Here c = tanh²(u/2), x_* is analytically continued, and the seeds are
 P_ν(cosh u), ∂_βP_ν. Reported:
 * max_{y∈[0,1]}|H_M(u, y)|/F_cert(Re u);
@@ -408,6 +420,8 @@ P_ν(cosh u), ∂_βP_ν. Reported:
 transient; a 1500-bit recheck is queued.)
 | L | u | η | b | \|H_M(u, 0)\|/F_cert | max_y\|H_M(u, y)\|/F_cert | max_y\|H_M(u, y) − H_M(u, 0)\|/F_cert |
 |---|---|---|---|---|---|---|
+| 0.5 | 1.4738 | 0.02 | 0 | 1.216 | **1.275** | 0.154 |
+| 0.5 | 1.4738 | 0.02 | 4 | 1.216 | **1.397** | 0.455 |
 | 2 | 3.3149 | 0.02 | 0 | 1.249 | **1.258** | 0.0090 |
 | 2 | 3.3149 | 0.02 | 4 | 1.249 | **1.249** | 0.0083 |
 | 2 | 3.3149 | 0.01 | 0 | 1.249 | 1.255 | 0.0061 |
@@ -417,7 +431,7 @@ The author's own measurement (§87, coordinator's message) is at low L: c = 0.03
 |H_M(u, y) − H_M(u, 0)| > 463F_cert. At L = 2 the strip transfer is ~1e-2 F_cert. So the strip bound is strongly L-dependent; low-L points
 are queued (`cache/lemUc_L0.04.log`).
 
-### 6.2 Cost of the c-direction (estimate)
+### 8.2 Cost of the c-direction (estimate)
 * **Per c (twist test, DV):** 11 min (L = 2) to 28 min (L = 7). It is dominated by the ν-quadrature for the jets, with N_p ≈ 3000 + 1.4Λβ_c
   (up to ~4e4 at L = 30). A certified version needs rigorous jet enclosures (GL error bound on a Bernstein ellipse in p, plus ≥ 8000 bits
   against the (1+√2)^{3M} wrapping of the jet recurrence): perhaps 3–10× the cost.

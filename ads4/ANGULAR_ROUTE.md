@@ -1456,3 +1456,18 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Signed low-frequency multiplier theorem (author, proof given).** \|d^αS_L(α) − 1\| ≤ e^{0.02\|τ\|}(Γ(σ)/\|Γ(σ+iτ)\|)(C_σ y + e^{−46}) for σ ∈ {5/2, 7/2} on the whole complex strip, with C_{5/2} = 5.9e-5 and C_{7/2} = 1.1e-4. So the error is < 0.004 for \|τ\| ≤ 5. Proof by telescoping plus negative-binomial factorial moments.
 * **Regularised three-term recurrence (author).** [D − α(α−s)]S_L(α−1) = [dD + α(s−2α−1)]S_L(α) + α(α+1)S_L(α+1) + (cD − p_L)U_L(α)_L/L!, with D = 1/h.
 * **Open.** A uniform SIGNED high-frequency multiplier bound (τ up to ~1100) on the complex strip, and hence Lemma C.
+
+## 92. High-frequency signed multiplier via an exact spin recurrence (author, 26 Nov)
+
+* **Genuine turning-point growth.** At b = 0, n = 8000, a = 998, α = 5/2 + 1100i: \|d^αS(α)\| ∈ (4220, 4221). **Checked here** with a 1300-digit ladder sum: 4220.389.
+  * This is consistent with e^{G_a(τ)}, G₉₉₈(1100) ≈ 30. So the target is a weighted bound with e^{G_a(τ)}, not a constant.
+* **Exact spin recurrence at fixed N, s, α.**
+  * A_n[S(n+1) − S(n)] + C_n[S(n−1) − S(n)] = αS(n) − (α+L)U_L(α)_L/L!, with an explicit regularisation defect.
+  * For b = 0: S(n+1) = S(n−1) + (2(2n+1)/(D − n(n+1)))[αS(n) − defect].
+  * **Checked here** (full ladder, defect zero): relative error 1e-61 at N = 57, α = 2.5 + 7.3i, n = 5, 12, 30.
+* **Real-state bound (author).** \|d^αS\| < 21000e^{G_a(τ)} for all integer n, real a ≥ 998, σ ≤ 3.5, \|τ\| ≤ 1100, and < 400 for \|τ\| ≤ a.
+  * Method: a quadratic energy for the transfer matrix; the Σq_j ≤ −log d cancellation; turning-point growth ≤ G_a.
+* **Theorem C-HF, complex strip (author).** \|d^αS_{0,L}\| ≤ e^{12 + 0.043\|τ\| + G₉₉₇.₈(τ)} and \|d^αS_{4,L}\| ≤ e^{29 + …}, uniform in spin and including y → 0.
+  * The defect is < e^{−120} (scalar integer-arithmetic enclosures over 410 cells). The complex perturbation sum is < 0.023. b = 4 follows by the helicity shift.
+  * Not reproduced in Arb.
+* **Open.** The constants are too large for K ≲ 1000. Track the physically selected recurrence branch rather than bounding all solutions; combine with the fifth-order endpoint zero and the signed spectral integration; then an audited uniform truncation.
