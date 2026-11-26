@@ -1573,5 +1573,5 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Reproduced here.**
   * check_wide 1002 0 rebuilt from source and rerun (45 s): output identical to the author's log, action_lower = 2.4032e-5, PASS.
   * The hard-coded NF02 weight coefficients (X, Y, k₀) match prl/data/nf02_psi.json exactly (psi2 and psi3, exact rationals).
-  * The remaining runs (wide b = 4, the gap bands) are being rerun.
+  * All remaining runs (wide b = 4; gap, gap_low, gap_mid for both spins) rebuilt and rerun; logs identical to the author's. verify_gap_bands.py on the fresh logs: both near-gap certificates PASS (3.5714e-5 and 2.9787e-5).
 * **Scope.** Two spins (J = 1002, b = 0; J = 1005, b = 4) × twist intervals [998, 1002] and [2951, 3049]. Not a continuum in spin.
