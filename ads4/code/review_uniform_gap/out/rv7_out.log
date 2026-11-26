@@ -1,0 +1,5 @@
+J=65 done 0.8s; running min {'Dg': 'inf', 'J': 65, 'b': 4, 'bhat': 130.0, 'S': 0.0004679283732950596, 'pos': True, 'trunc_rel': 1.0351995099732806e+42, 'rad': 0.0}
+J=80 done 3.4s; running min {'Dg': 'inf', 'J': 80, 'b': 4, 'bhat': 161.0, 'S': 0.00024124338961795393, 'pos': True, 'trunc_rel': 5.22312352458543e+52, 'rad': 0.0}
+J=100 done 7.4s; running min {'Dg': 'inf', 'J': 100, 'b': 4, 'bhat': 201.0, 'S': 0.00012438736243054112, 'pos': True, 'trunc_rel': 1.3992667957290182e+66, 'rad': 0.0}
+J=130 done 13.5s; running min {'Dg': 'inf', 'J': 130, 'b': 4, 'bhat': 261.0, 'S': 5.6981654775019186e-05, 'pos': True, 'trunc_rel': 5.492008959519507e+85, 'rad': 0.0}
+J=160 done 21.6s; running min {'Dg': 'inf', 'J': 160, 'b': 4, 'bhat': 321.0, 'S': 3.0686492207090573e-05, 'pos': True, 'trunc_rel': 9.139608190168636e+104, 'rad': 0.0}

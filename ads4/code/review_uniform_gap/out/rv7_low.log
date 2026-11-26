@@ -1,0 +1,8 @@
+A,G table built 0.1s
+Dg=1000: done 5.8s; running min {'Dg': 1000, 'J': 64, 'b': 4, 'Smin': 0.0005939913922458964, 'zeta_at_min': 1.0, 'S_edge': 0.0005939913922458964, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=1001: done 11.3s; running min {'Dg': 1001, 'J': 64, 'b': 4, 'Smin': 0.0005938499808286178, 'zeta_at_min': 1.0, 'S_edge': 0.0005938499808286178, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=1100: done 15.6s; running min {'Dg': 1100, 'J': 64, 'b': 4, 'Smin': 0.000581551453132947, 'zeta_at_min': 1.0, 'S_edge': 0.000581551453132947, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=1500: done 19.5s; running min {'Dg': 1500, 'J': 64, 'b': 0, 'Smin': 0.0005500916478519699, 'zeta_at_min': 1.0, 'S_edge': 0.0005500916478519699, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=2000: done 23.4s; running min {'Dg': 2000, 'J': 64, 'b': 0, 'Smin': 0.0005295570597356269, 'zeta_at_min': 1.0, 'S_edge': 0.0005295570597356269, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=3000: done 27.2s; running min {'Dg': 3000, 'J': 64, 'b': 0, 'Smin': 0.0005105418118539047, 'zeta_at_min': 1.0, 'S_edge': 0.0005105418118539047, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=5000: done 31.0s; running min {'Dg': 5000, 'J': 64, 'b': 0, 'Smin': 0.000496414479350134, 'zeta_at_min': 1.0, 'S_edge': 0.000496414479350134, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}

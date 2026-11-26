@@ -1,0 +1,11 @@
+J=65 done 0.6s; running min {'Dg': 'inf', 'J': 65, 'b': 4, 'bhat': 40.0, 'S': 0.016001965963967454, 'pos': True, 'trunc_rel': 2.6110033365795153e-06, 'rad': 2.8775139184482047e-100}
+J=100 done 2.8s; running min {'Dg': 'inf', 'J': 100, 'b': 4, 'bhat': 40.0, 'S': 0.015943920888533317, 'pos': True, 'trunc_rel': 6.3646945194212324e-49, 'rad': 4.722851738502266e-100}
+J=300 done 6.7s; running min {'Dg': 'inf', 'J': 300, 'b': 4, 'bhat': 40.0, 'S': 0.01591038941773503, 'pos': True, 'trunc_rel': 1.2761180236036964e-112, 'rad': 6.592146275548679e-100}
+J=1000 done 11.0s; running min {'Dg': 'inf', 'J': 1000, 'b': 4, 'bhat': 40.0, 'S': 0.0159068036068234, 'pos': True, 'trunc_rel': 1.27640569409028e-112, 'rad': 6.118669657259453e-100}
+GLOBAL MIN: {'Dg': 'inf', 'J': 1000, 'b': 4, 'bhat': 40.0, 'S': 0.0159068036068234, 'pos': True, 'trunc_rel': 1.27640569409028e-112, 'rad': 6.118669657259453e-100}
+non-positive points: 0 []
+max truncation rel: 2.6110033365795153e-06  max ball radius: 1.3458616927723764e-99
+
+real	0m11.197s
+user	0m8.328s
+sys	0m0.028s
