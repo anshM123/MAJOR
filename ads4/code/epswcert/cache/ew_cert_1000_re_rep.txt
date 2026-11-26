@@ -1,0 +1,58 @@
+
+epswcert/ew_cert.py (EPSW_CERT.md §2): ball-arithmetic certificate for the published k = 2 continuum weight of Omega^EE at one gap.
+
+Certifies, for r(mu) = E(mu) - psi(mu) (ew_common), the numbers that control W[chi] - Phi = int_0^oo r(mu) cos(mu t) dmu:
+  r(0)                     (ball)                          -> int_0^oo (W - Phi) dt = (pi/2) r(0)
+  r'(0+)                   (ball)
+  eps_W  >= int_0^oo |r|                                   -> |W - Phi|(t) <= eps_W                for all t >= 0
+  D2     >= int_0^oo |r''|  (r'' in L^1: log singularity at 0)
+  B := |r'(0+)| + D2                                       -> |W - Phi|(t) <= B/t^2              for all t > 0
+     (two integrations by parts: W - Phi = -[r'(0+) + int_0^oo r'' cos(mu t) dmu]/t^2; r, r' -> 0 at infinity)
+  sup |r|.
+Method (nothing sampled):
+  * [0, A0], A0 = 1/5: f = F1 + F2 log mu with F1, F2 analytic in |mu| < 1 (ew_common); their Taylor coefficients at 0 to order N0
+    are computed exactly in ball arithmetic (power-series arithmetic), the truncation is bounded by Cauchy with a maximum-modulus
+    enclosure on |mu| = RHO0 (ring of boxes).  2 Re F2 has no mu^0, mu^1 terms (F2(0) = 0; F2'(0) = -2i Y(-i) R_-(-i), with
+    Y(-i), R_-(-i) = 18/25 real) [P].  Cells of width 1/500, polynomial Taylor shifts, explicit log factors.
+  * [A0, mu_end], mu_end = ceil(Lam) + 60: panels (width 1/40 .. 1/10; split at Lam where psi stops) with Taylor series of
+    f_near to order N at the panel centre (exact series arithmetic), truncation by Cauchy (radius rho, disc sup M by explicit RBF
+    bounds x box enclosures), far RBF terms bounded on the disc (F), subcells (5 per panel) by polynomial Taylor shift.
+  * (mu_end, oo): explicit Gaussian tail (erfc) and Cauchy for r''.
+
+weight file: code/epswcert/cache/k2_continuum_D_1000_rep.json
+Dg = 1000, part = re: Lam = [998.49987481221047973 +/- 1.74e-18], 7127 signed RBF terms, y = [-0.08921286915472208, -0.1014561801912735, -0.03768761549721663]
+  near 0: F1, F2 to order 64; disc sups on |mu| = 0.8: M1 <= [4.4198e+5 +/- 1.63], M2 <= [6.8782 +/- 4.55e-5]
+  r(0) = [9.69249391210718e-14 +/- 3.56e-29];  r'(0+) = [0.000599990561969395 +/- 1.22e-19]  (kappa = psi'(0) = [0.189179898900450 +/- 3.03e-16])
+  [0, 0.2]: int|r| <= 7.8938e-07, int|r''| <= 8.9477e-04, sup|r| <= 5.5559e-06  (131 cells)
+  panels on [0.2, 1059.0]: 10602 (N = 40, 5 subcells each)
+    panel 0/10602 at mu = 0.212: int|r| so far 8.8511e-07, int|r''| so far 9.0044e-04 [3s]
+    panel 500/10602 at mu = 48.850: int|r| so far 2.5640e-06, int|r''| so far 1.2870e-03 [6s]
+    panel 1000/10602 at mu = 98.850: int|r| so far 2.6108e-06, int|r''| so far 1.2921e-03 [9s]
+    panel 1500/10602 at mu = 148.850: int|r| so far 2.6128e-06, int|r''| so far 1.2923e-03 [12s]
+    panel 2000/10602 at mu = 198.850: int|r| so far 2.6216e-06, int|r''| so far 1.2933e-03 [14s]
+    panel 2500/10602 at mu = 248.850: int|r| so far 2.6246e-06, int|r''| so far 1.2936e-03 [17s]
+    panel 3000/10602 at mu = 298.850: int|r| so far 2.6288e-06, int|r''| so far 1.2941e-03 [20s]
+    panel 3500/10602 at mu = 348.850: int|r| so far 2.6307e-06, int|r''| so far 1.2943e-03 [22s]
+    panel 4000/10602 at mu = 398.850: int|r| so far 2.6333e-06, int|r''| so far 1.2945e-03 [25s]
+    panel 4500/10602 at mu = 448.850: int|r| so far 2.6371e-06, int|r''| so far 1.2950e-03 [27s]
+    panel 5000/10602 at mu = 498.850: int|r| so far 2.6404e-06, int|r''| so far 1.2953e-03 [30s]
+    panel 5500/10602 at mu = 548.850: int|r| so far 2.6416e-06, int|r''| so far 1.2955e-03 [32s]
+    panel 6000/10602 at mu = 598.850: int|r| so far 2.6433e-06, int|r''| so far 1.2956e-03 [35s]
+    panel 6500/10602 at mu = 648.850: int|r| so far 2.6517e-06, int|r''| so far 1.2965e-03 [38s]
+    panel 7000/10602 at mu = 698.850: int|r| so far 2.6661e-06, int|r''| so far 1.2981e-03 [41s]
+    panel 7500/10602 at mu = 748.850: int|r| so far 2.6688e-06, int|r''| so far 1.2984e-03 [43s]
+    panel 8000/10602 at mu = 798.850: int|r| so far 2.6738e-06, int|r''| so far 1.2989e-03 [46s]
+    panel 8500/10602 at mu = 848.850: int|r| so far 2.6762e-06, int|r''| so far 1.2992e-03 [48s]
+    panel 9000/10602 at mu = 898.850: int|r| so far 2.6781e-06, int|r''| so far 1.2994e-03 [50s]
+    panel 9500/10602 at mu = 948.850: int|r| so far 2.6796e-06, int|r''| so far 1.2995e-03 [53s]
+    panel 10000/10602 at mu = 998.850: int|r| so far 2.6811e-06, int|r''| so far 1.2997e-03 [55s]
+    panel 10500/10602 at mu = 1048.850: int|r| so far 2.6814e-06, int|r''| so far 1.2997e-03 [57s]
+  panels: max h/rho = 0.200, max disc sup M = 7.937e+06, max truncation+far error per point <= 7.47e-24
+    range    1-40: int|r| <= 6.0850e-07, int|r''| <= 2.2492e-04
+    range  40-Lam: int|r| <= 1.7690e-07, int|r''| <= 2.1568e-05
+    range    >Lam: int|r| <= 3.1175e-10, int|r''| <= 3.1315e-08
+    range    mu<1: int|r| <= 1.1063e-06, int|r''| <= 1.5843e-04
+  tail mu > 1059.0: int|r| <= 5.896e-247, int|r''| <= 4.717e-246
+
+RESULT Dg = 1000 (re):  r(0) = [9.69249391211e-14 +/- 2.83e-26],  r'(0+) = [0.000599990561969 +/- 3.96e-16]
+RESULT Dg = 1000 (re):  eps_W = int|r| <= 2.681358e-06;  int|r''| <= 1.299716e-03;  B = |r'(0+)| + int|r''| <= 1.899707e-03;  sup|r| <= 5.5559e-06   [57s]
