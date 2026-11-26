@@ -1398,3 +1398,17 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * The §85 θ-inequality was redone correctly: δE ≤ 1.7e-23 and ∫e^{0.02ν}\|f_θ − f\| ≤ 1.3e-14. No conclusion changes.
 * **Consequence.** β → ∞ is closed at every twist. The sliver reduces to 998 ≤ a < a*(L), J ≥ 1001, 0.04 < L < 20. The laptop cells for β > 21.4 are now only overlap.
 * **Caveats.** Some paper-bounded steps (terms ≲ 1e-30, a Binet bound, contour-shift justifications) are not ball-evaluated. The shifted-density generating-function identity is checked only on a toy weight.
+
+## 87. Lemma C sublemma (transfer ≤ 190) is false at η = 0.02 (author counterexample, 26 Nov)
+
+* **Counterexample.** b = 0, M = 1000, c = 37/1000 + 37i/10000 (u ≈ 0.39002 + 0.01995i), y = 1/20.
+  * \|H_M(u, y) − H_M(u, 0)\| > 0.008899, against F_cert = 1.907e-5: **ratio > 463**.
+  * Evaluated at 1100 digits from exact spectral moments, with the signed kernel assembled in a Chebyshev frequency coordinate before integration.
+  * Errors: EPSW residual 4.5e-4, cutoff 1.6e-4, ladder replacement e^{−190}.
+* **Complex ladder truncation (author).** On \|v\| = 0.04/(k(k+1)), \|U_k\| ≤ 0.055^k, which gives an e^{−190} remainder at this point.
+* **Consequence.** The split "face K = 810 plus transfer ≤ 190" fails. The full \|H_M\| ≤ K·F with a moderate K may still hold; it needs a cancellation-preserving proof over the complex strip.
+* **Options.**
+  1. Certify the full signed H_M on the strip directly.
+  2. Narrow η to ~0.015.
+  3. Accept a larger K (doubling K costs one more Taylor order).
+* **Unsolved in every option:** a rigorous sup over a two-dimensional complex region without cells.
