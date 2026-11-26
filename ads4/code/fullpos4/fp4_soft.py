@@ -71,9 +71,10 @@ def run(a, J, b, nA=8, p=3):
     import ls_core as LSC
     beta_c = math.acosh((1 + c)/(1 - c))
     Gc = (1 - c)**(-3)*2*LSC.OmLR(2, [beta_c])[0]
-    m_ = math.sqrt(T - C); Ns = LSC.hyb_fast(1000, J, m_/I.LAM, '++' if b == 0 else '+-')['Ns']
+    m_ = math.sqrt(T - C)
+    Ns = LSC.hyb_fast(1000, J, m_/I.LAM, '++' if b == 0 else '+-')['Ns'] if J <= 4000 else float('nan')   # memory: (2J)xJ arrays
     return dict(a=a, J=J, b=b, S=S, c=c, L=-math.log(1 - c), C=Cc, Gc=Gc, Ns=Ns, w3=w**3, N_soft=Nsoft, N_raw=Nraw,
-                soft_over_Gc=Nsoft/abs(Gc), raw_over_Gc=Nraw/abs(Gc), w3soft_over_Ns=w**3*Nsoft/Ns, bands=bands,
+                soft_over_Gc=Nsoft/abs(Gc), raw_over_Gc=Nraw/abs(Gc), w3soft_over_Ns=w**3*Nsoft/Ns, w3soft_over_w3Gc=Nsoft/abs(Gc), bands=bands,
                 nalpha=len(As), secs=time.time() - t0)
 
 

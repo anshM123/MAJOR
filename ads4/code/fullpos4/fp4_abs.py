@@ -93,8 +93,8 @@ def run(a, J, b, amp=None, p=3, kappa=None, toy=False):
     import ls_core as LSC
     beta_c = math.acosh((1 + c)/(1 - c))
     Gc = (1 - c)**(-3)*2*LSC.OmLR(2, [beta_c])[0]
-    m = math.sqrt(T - C); hy = LSC.hyb_fast(1000, J, m/I.LAM, '++' if b == 0 else '+-')
-    Ns = hy['Ns']
+    m = math.sqrt(T - C)
+    Ns = LSC.hyb_fast(1000, J, m/I.LAM, '++' if b == 0 else '+-')['Ns'] if J <= 4000 else float('nan')
     out = dict(a=a, J=J, b=b, S=S, c=c, L=-math.log(1 - c), beta_c=beta_c, C=Cc, Gc=Gc, Ns=Ns, w3=w**3,
                Nabs=Nabs, Nmaj=(Cc/math.pi*sum(totm.values()) if MAJ else None), signed_quad=Hsig, signed_over_Gc=Hsig/Gc, pieces={k: Cc/math.pi*v for k, v in tot.items()},
                bands={f'{BANDS[i]}-{BANDS[i+1]}': Cc/math.pi*band_abs[i] for i in range(len(BANDS) - 1)},
