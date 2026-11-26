@@ -1614,3 +1614,32 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Loc′ also silently needs F/den ≤ 1 (holds: 0.93).
 * **Text correction (E1).** The 0.94·F at L = 5 is the whole band ν ∈ [898, ∞), not the single cell [1031, 1032], which contributes 0.22. The bulk is spread over ν ≈ [1000, 1033].
 * **Status.** L ≥ 5 is certified, reviewed, and reproduced, modulo writing out G1–G4. The open sliver is 998 ≤ a < a*(L), J ≥ 1001, 0.06 ≲ L < 5.
+
+## 102. Analytic sliver: L ∈ [3.65, 5] closed (agent, 27 Nov; pending review)
+
+* **Claim** (ANALYTIC_SLIVER2.md). H_ang,b > 0 for every sliver state with L ≥ 3.65 (β_c ≥ 5.02): all a ≥ 998, J ≥ 1001, b ∈ {0, 4}. Together with §100–101 this covers L ≥ 3.65.
+* **ρ per cell.** In every cell E_ρ ≤ e⁻²⁸ against F ≈ e⁻¹³.
+
+  | L-cell | ρ |
+  |---|---|
+  | [4.5, 5] | 0.0267 |
+  | [4, 4.5] | 0.0894 |
+  | [3.75, 4] | 0.223 |
+  | [3.65, 3.75] | 0.545 |
+* **New and unreviewed ingredients.**
+  1. Lemma F (turning point): Theorem E′ stopped K = 200 steps before the end; the last steps are bounded with Riccati frames affine in (τ, a, 1/N, σ) plus a second-order defect bound. It is sharp to e^{2–4}, against e^{10–11} for Lemma X, and lies above the exact value at 30 random states.
+  2. Lemma B (β-chain over j): chained similarity transforms, minimised over frame families. It captures the true decay of about 0.52 per step past the turning point (the old absolute-value chain grew by 1.22 per step), and is within e^{0.4–1.8} of exact.
+  3. Lemma Loc″: a proved tail ratio \|c_{j+1}/c_j\| < 1 for j ≥ J, with J′ = 2200 for ν ≥ 999.
+  4. Per-unit-cell EPSW residual masses on [1, 898); totals match EPSW's band totals.
+  5. Top line raised to Y = 6.25 below L = 4; state relations checked for L ≥ 3.75.
+* **Referee items handled.** G1 is included. G2 is replaced by a proved full-kernel bound with an e^{πν/2}-weighted CONTOUR tail. F/den ≤ 1 is asserted. E1 is confirmed.
+* **Still open: 0.06 ≲ L < 3.65.**
+  1. Loc″ remainder now binds: log E_ρ = +26 on [3.58, 3.65]. It uses the worst case e^{πν/2} on the Cauchy circle; going lower needs a phase-keeping (steepest-descent) remainder bound or the remainder-free κ^M representation.
+  2. The contour right edge (0.32·F at 3.65) and the top-line j-sum tail (assertion fails near L ≈ 3.58) still use the old code; they should be upgraded with Lemmas F and B.
+  3. The contour truncation J = 1500 runs out near L ≈ 3.5 (growth constant 1.983 against 1.99).
+  4. Below L ≈ 3, termwise e^{νd/2} growth at large twist needs resummation (₂F₁ form plus corrections).
+* **Code.** code/analytic2/:
+  * lemmas: tpf3.py, tpframes.py, bchain.py, loc4.py;
+  * pipeline: rt2_*.py, rmass3.py;
+  * checks: check_F.py, check_B.py, check_state.py;
+  * outputs: cache/rt2_cert_*.txt.

@@ -43,42 +43,41 @@ def _dM(dw):
 
 
 def build_frames(sig, tau, a, io, K, i_s):
-    """F0[i], F1[i][l] (l = 0: tau, 1: a, 2: iota) for i = 0..K, plus P0 = P_{k_A}(p0)."""
+    """Riccati frames: columns (R, 1).  F0[i], F1[i][l] (l = 0: tau, 1: a, 2: iota), i = 0..K.
+    Segment 1 (i < i_s): two forward Riccati ratios R_{i+1} = 2 w_i + 1/R_i started at the eigenvalues lam+-(M_{k_A}) (fixed);
+    segment 2 (i >= i_s): forward R^1 continued, and the backward ratio R_i = 1/(R_{i+1} - 2 w_i) from a fixed end value."""
     al = complex(sig, tau)
-    Ms = []; dMs = []
+    w = []; dw = []
     for i in range(K):
         m = a + K - i
         e = _eps(m, io)
-        w = e*al/2
-        Ms.append(_M(w))
-        dMs.append([_dM(e*1j/2), _dM(_deps_dm(m, io)*al/2), _dM(_deps_dio(m, io)*al/2)])
+        w.append(e*al/2)
+        dw.append([e*1j/2, _deps_dm(m, io)*al/2, _deps_dio(m, io)*al/2])
     w0 = _eps(a + K, io)*al/2; r0 = np.sqrt(1 + w0*w0)
     P0 = np.array([[w0 + r0, w0 - r0], [1, 1]], dtype=complex)
-    Phi = [P0.copy()]; dPhi = [[np.zeros((2, 2), complex) for _ in range(3)]]
+    R = [[w0 + r0, w0 - r0]]; dR = [[[0j]*3, [0j]*3]]
     for i in range(K):
-        Phi.append(Ms[i] @ Phi[i])
-        dPhi.append([dMs[i][l] @ Phi[i] + Ms[i] @ dPhi[i][l] for l in range(3)])
-    # backward decaying solution from a fixed end vector
-    wl = _eps(a + 1, io)*al/2; rl = np.sqrt(1 + wl*wl)
+        Rn = []; dRn = []
+        for c in range(2):
+            Rc = R[i][c]
+            Rn.append(2*w[i] + 1/Rc)
+            dRn.append([2*dw[i][l] - dR[i][c][l]/Rc**2 for l in range(3)])
+        R.append(Rn); dR.append(dRn)
+    wl = w[K - 1]; rl = np.sqrt(1 + wl*wl)
     lp, lm = wl + rl, wl - rl
-    e_ = np.array([lm if abs(lm) < abs(lp) else lp, 1], dtype=complex); e_ = e_/np.linalg.norm(e_)
-    Psi = [None]*(K + 1); dPsi = [None]*(K + 1)
-    Psi[K] = e_; dPsi[K] = [np.zeros(2, complex) for _ in range(3)]
+    Rd = [None]*(K + 1); dRd = [None]*(K + 1)
+    Rd[K] = lm if abs(lm) < abs(lp) else lp; dRd[K] = [0j]*3
     for i in range(K - 1, -1, -1):
-        Mi = np.linalg.inv(Ms[i])
-        Psi[i] = Mi @ Psi[i + 1]
-        dPsi[i] = [Mi @ (dPsi[i + 1][l] - dMs[i][l] @ Psi[i]) for l in range(3)]
-    # normalise (constants, chosen at p0)
+        Rd[i] = 1/(Rd[i + 1] - 2*w[i])
+        dRd[i] = [-Rd[i]**2*(dRd[i + 1][l] - 2*dw[i][l]) for l in range(3)]
     F0 = []; F1 = []
-    cg = 0 if np.linalg.norm(Phi[K][:, 0]) >= np.linalg.norm(Phi[K][:, 1]) else 1
     for i in range(K + 1):
         if i < i_s:
-            mu = np.max(np.linalg.norm(Phi[i], axis=0))
-            F0.append(Phi[i]/mu); F1.append([dPhi[i][l]/mu for l in range(3)])
+            c1, c2, d1, d2 = R[i][0], R[i][1], dR[i][0], dR[i][1]
         else:
-            ng = np.linalg.norm(Phi[i][:, cg]); nd = np.linalg.norm(Psi[i])
-            F0.append(np.column_stack([Phi[i][:, cg]/ng, Psi[i]/nd]))
-            F1.append([np.column_stack([dPhi[i][l][:, cg]/ng, dPsi[i][l]/nd]) for l in range(3)])
+            c1, c2, d1, d2 = R[i][0], Rd[i], dR[i][0], dRd[i]
+        F0.append(np.array([[c1, c2], [1, 1]], dtype=complex))
+        F1.append([np.array([[d1[l], d2[l]], [0, 0]], dtype=complex) for l in range(3)])
     return F0, F1, P0
 
 

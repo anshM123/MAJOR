@@ -7,7 +7,7 @@ Recurrence (dual Hahn, s = 1): v_{k+1} = M_k v_k, v_k = (S_k, S_{k-1}), M_k = [[
 eps_k = 2(2k+1)/((N-k)(N+k+1)).  In the variable m = N - k:
     eps = 2(2 - (2m-1) iota)/(m (2 - (m-1) iota)),     d_{k+1}/d_k = 1 - 2(1 - (m-1) iota)/(m (2 - (m-1) iota))   (d_k = 1 - k(k+1)/(N(N+1))).
 Phase I (k < k_A := n - K, i.e. m > a + K): Theorem E' (ANALYTIC_SLIVER §5.2) stopped at k_A, with a' = a + K:
-    d_{k_A}^sigma |c_{k_A}|_inf <= Phi_I := c0 (2/(1+sqrt(1-k'^2)))^sigma exp(q[asin k' + (q/2) log(1/(1-k'^2))]),  k' = tau/(a+K),
+    d_{k_A}^sigma |c_{k_A}|_inf <= Phi_I := c0 (2/(1+sqrt(1-k'^2)))^sigma exp(q[asin k' + (q/2) log(1/(1-k'^2))]),  k' = tau/(a+K-1),
     c_k = P_k^{-1} v_k eigen-coordinates, P_k = [[lam+, lam-], [1, 1]], q = |alpha|/tau, c0 = max(|1-lam-|, |lam+-1|)/(2|r|) at k = 0.
 Last segment (k = k_A .. n-1, m = a+K .. a+1): any point frames F_k (k = k_A..n), Q_k = F_k^{-1} (Arb):
     |S^_n| <= Phi_I ||Q_{k_A} P_{k_A}||_inf  prod_k [ (d_{k+1}/d_k)^sigma ||Q_{k+1} M_k F_k||_inf ]  ||row_1 F_n||_1,
@@ -37,7 +37,7 @@ def _inf_norm(Mm):
 def phase1_log(s_hi, t_lo, t_hi, a_lo, K):
     """log Phi_I (Arb upper bound), monotone: kappa' = t_hi/(a_lo+K), q = |alpha|/tau <= sqrt(s_hi^2 + t_lo^2)/t_lo ... use max."""
     s = arb(s_hi); th = arb(t_hi); tl = arb(t_lo)
-    kp = th/(arb(a_lo) + K)
+    kp = th/(arb(a_lo) + K - 1)          # y_{k_A+1} <= tau/(N - k_A - 1) = tau/(a + K - 1) bounds every y entering phase I
     assert kp < 1
     q = (s*s + tl*tl).sqrt()/tl          # |alpha|/tau decreasing in tau
     sq = (1 - kp*kp).sqrt()

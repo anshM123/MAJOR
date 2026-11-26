@@ -1,0 +1,6 @@
+Route T'' certificate, L in [4.5, 5.0] (beta_c in [5.881, 6.383]): F_cert >= 8.5569e-07
+   psi2: bottom 1.35e-05  left 1.34e-05  top 2.07e-04  right 2.03e-05  (Y = 4.25)
+   psi3: bottom 1.12e-08  left 1.13e-08  top 1.21e-09  right 6.42e-08
+   residual E_r/F = 2.6483e-02  (small-nu 2.0e-03+5.8e-03, G1 5.0e-17, far nu>=1150 7.0e-303); worst cells: [40.0,898.0] 5.05e-03, [0.4,40.0] 1.26e-03, [1001.0,1002.1] 8.25e-04, [1002.0,1003.1] 8.09e-04, [1003.0,1004.1] 7.35e-04
+   Loc'' remainders (J = 1500): log E_rho2 = -421.2, log E_rho3 = -496.5
+   rho <= 2.6737e-02   PASS

@@ -115,6 +115,49 @@ def chain_bounds(sig0, t_lo, t_hi, M0, M1, J, d_lo, d_hi, a_lo, a_hi, s_list=(1,
     return out
 
 
+def _schur_frame(Mmid, eta):
+    """unitary Schur basis (larger eigenvalue first) with the second column scaled by eta."""
+    w, V = np.linalg.eig(Mmid)
+    v = V[:, np.argmax(np.abs(w))]; v = v/np.linalg.norm(v)
+    q = np.array([-np.conj(v[1]), np.conj(v[0])])
+    return np.column_stack([v, q]) @ np.diag([1.0, eta])
+
+
+def chain_core(Ms, Ts, M0, M1, J):
+    Ta = [_to_acb(T) for T in Ts]
+    Tinv = [T.inv() for T in Ta]
+    c = max(up(abs(Tinv[0][r, 0])*M0 + abs(Tinv[0][r, 1])*M1) for r in range(2))
+    out = [M1, M0]
+    for j in range(J):
+        E = Tinv[j + 1]*Ms[j]*Ta[j]
+        c = c*_inf_norm(E)
+        row = up(abs(Ta[j + 1][0, 0]) + abs(Ta[j + 1][0, 1]))
+        out.append(min(row*c, 1e300))
+    return out
+
+
+def chain_bounds_multi(sig0, t_lo, t_hi, M0, M1, J, d_lo, d_hi, a_lo, a_hi, s_list=(1, 9)):
+    """elementwise minimum of Lemma B bounds over several frame families (each one rigorous): the default family of chain_bounds,
+    and scaled Schur bases T_j = U_j diag(1, eta_j) with eta_0 = 1, eta_{j+1} = max(eta_min, q eta_j) (no initial conversion cost)."""
+    d, g, s = state_box(a_lo, a_hi, d_lo, d_hi, s_list)
+    tau = arb_iv(t_lo, t_hi)
+    Ms = []; Mm = []
+    for j in range(J):
+        beta = acb(arb(sig0 - j), tau)
+        A, B = coef(beta, d, g, s)
+        Ms.append(acb_mat([[A, B], [acb(1), acb(0)]]))
+        Mm.append(np.array([[_mid(A), _mid(B)], [1, 0]], dtype=complex))
+    best = chain_core(Ms, [_frame(Mm[min(j, J - 1)]) for j in range(J + 1)], M0, M1, J)
+    for q in (0.5, 0.7):
+        for emin in (0.03, 0.15):
+            eta = 1.0; Ts = []
+            for j in range(J + 1):
+                Ts.append(_schur_frame(Mm[min(j, J - 1)], eta)); eta = max(emin, q*eta)
+            b = chain_core(Ms, Ts, M0, M1, J)
+            best = [min(x, y) for x, y in zip(best, b)]
+    return best
+
+
 if __name__ == '__main__':
     # sanity vs exact (probe3 numbers): a = 998, L = 4.5, tau = 1031.5: |S^_j| = 1546, 808, 420, 218, 112, 57.8, 29.6, ..., 3.87 (j=9)
     d = math.exp(-4.5)

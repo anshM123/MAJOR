@@ -1,0 +1,16 @@
+L 3.5 F 1.6086064073766163e-06 per unit (K*mass): 0.06857567993012208
+  nu in [40,42]: K <= 1.982e+03 at a (998.0, 1000.0)  -> per 1e-9 mass: 1.359e-07   [0s]
+  nu in [200,202]: K <= 1.433e+04 at a (1000.0, 1150.0)  -> per 1e-9 mass: 9.830e-07   [0s]
+  nu in [400,402]: K <= 2.983e+05 at a (1000.0, 1150.0)  -> per 1e-9 mass: 2.045e-05   [0s]
+  nu in [600,602]: K <= 7.545e+06 at a (1000.0, 1150.0)  -> per 1e-9 mass: 5.174e-04   [0s]
+  nu in [800,802]: K <= 2.510e+08 at a (1000.0, 1150.0)  -> per 1e-9 mass: 1.721e-02   [1s]
+Traceback (most recent call last):
+  File "/home/user/MAJOR/ads4/code/analytic2/probe_hump.py", line 12, in <module>
+    r = R.K_cell(T0, T1, La, Lb)
+  File "/home/user/MAJOR/ads4/code/analytic2/rt2_kernel.py", line 107, in K_cell
+    v = Bv*jsum(nu_box, xs, d_hi, float(g.upper()))
+           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/MAJOR/ads4/code/analytic2/rt2_kernel.py", line 77, in jsum
+    assert rb < 0.5, rb
+           ^^^^^^^^
+AssertionError: 0.508122800486441
