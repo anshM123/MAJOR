@@ -1654,3 +1654,25 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Thresholds.** a* = 3100 on [8.4, 11.9] (35 cells), 3200 on [11.9, 23.6] (117 cells), 3400 on [23.6, 64] (404 cells).
 * **Margins.** Maximum err/F = 0.99888, at β ∈ [23.5, 23.6]. Four records exceed 0.99: [11.8, 11.9] and [23.5, 23.6] for both b. At the next cell the threshold steps up (3200, respectively 3400) and err/F drops to 0.39, respectively 0.21. Rerunning these two cells at a* + 100 would widen the margin; this is optional.
 * **Status.** High twist a ≥ a*(β) is certified on β ∈ [8.4, 64], at every spin, in both channels. Together with the earlier small-β scan (60 cells, β ∈ [0.39, 8.4]) and TAIL_CERT, this closes the a ≥ a* side.
+
+## 104. Phase-keeping localisation remainder certified on L ∈ [0.8, 3.65] (author, 27 Nov; checker not yet in repo)
+
+* **Claim.** E_ρ,2 + E_ρ,3 < e⁻⁴⁶ for 0.8 ≤ L ≤ 3.65 (t = a/N ∈ (0.012, 0.26)). It holds for both helicity channels, all spins, all real a ≥ 998, the exact dressing and the repaired density, with J₀ = 1500 kept. This removes the Loc″ obstruction of §102.
+* **Ingredients.**
+  1. **Termwise exact dressing** (no enlargement): \|(1+τ𝒟_b)(1−z)^{μ_j}\| ≤ q^{j−p+½}e^{νA}D_j, with D_j = 1 + τ[rM_j(M_j+1)/(2q) + (4.5r+0.5)M_j/q + 8] and M_j = j+p+ν. The geometric tail is resummed with S₀, S₁, S₂ (ratio ≤ 1 for j ≥ 1500, ν ≤ 1150).
+  2. **Phase from the coordinator's Lemma PK.** A = \|arg(1−z)\| = arctan(2rx√(1−x²)/(1−r+2rx²)) and q² = (1−r)² + 4rx², with x = sin(\|θ\|/2), are used on the tail. The full conical function uses \|Im β(z)\| = arctan(√(2(\|z\|−Re z))/(1−\|z\|)), with Cauchy radius δ = t_lo/100 (τ/δ² < 0.013).
+  3. **Two-sided beta Chernoff bound**: P(V ≷ v) ≤ e^{−aI(v;m)}, where m = a/(N+s) and I = log(m/v) + (1/m − 1)log((1−m)/(1−v)). It is combined cellwise with the angular mass, giving E_C ≤ P_B·P_W·min{M_tail, M_{F+T}}.
+  4. **Coefficient bounds.** The ratio \|c_{j+1}/c_j\| is maximised over ν ∈ [0, V] at an endpoint (quasi-convex in ν²); log\|c_j\| ≤ 547 / 570 / 630 for j ≤ 1500 at V = 999 / 1040 / 1150.
+* **Execution.**
+  * 190,031 joint (t, v, θ, ν) cells in directed fixed-point integer arithmetic (scale 1e16), with 0 failures.
+  * Worst weighted cell bound: −93.0 on t ∈ [0.012, 0.12], −104.8 on [0.12, 0.20], and −177.3 / −129.6 / −2.27 on [0.20, 0.26] for ν ≤ 999 / 1040 / 1150.
+  * Kernel remainders on the last t-range: e⁻¹⁶⁸, e⁻¹²⁰ and e⁷. The last band is multiplied by ∫_{1040}^∞\|f_θ\| < e⁻⁵⁵ (Gaussian inventory Σ\|x_j\| < 1.22e6, centres < 1029, widths < 0.901). Total < e⁻⁴⁶.
+  * The F₄/G_D piece is covered by the common q⁻⁴ envelope (e₀ = 7/2), with τΛ² ≤ 1 and ∫\|ψ₃\| < 3e7.
+* **Checked here** (numerical spot checks, not a reproduction of the certificate):
+  * the q², A and \|Im β\| identities (errors 1e-16 and 1e-199);
+  * the beta Chernoff bound against scipy's exact tails (400 states × 10 points; worst slack e⁻¹·⁶);
+  * the dressing formula and the D_j envelope constants (\|9/2 − b(b−1)\| ≤ 8 and \|(7/2−2b)z + ½\| ≤ 4.5r + 0.5 for b ∈ {0, 4});
+  * the S₀, S₁, S₂ resummation;
+  * endpoint maximality of the coefficient ratio;
+  * the L→t translation: t = 0.2580 at L = 0.8 and 0.01308 at L = 3.65.
+* **Status.** Author-executed; the standalone checker still needs to be committed and independently reproduced. This settles the localisation remainder only. **Still open:** the main signed connection sum on [0.8, 3.65] (contour right edge, top line, termwise hump below L ≈ 3), and everything below L = 0.8 down to the certified corner L ≲ 0.06.
