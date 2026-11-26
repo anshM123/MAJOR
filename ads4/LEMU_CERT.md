@@ -9,7 +9,33 @@
 Grades: **[certified]** Arb balls / exact rationals with every truncation carried as a ball radius; **[P]** proved here on paper;
 **[DV]** numerical; **[retained]** an input proved elsewhere (author or other agent) and not re-derived here.
 
-__VERDICT__
+## 0. Verdict (status report; the session ended before the first certified pass)
+
+**Nothing is certified yet.** The pipeline is built and its pieces are validated, but the end-to-end single-c runs (L = 2 and
+L = 0.5, both b, realised weight) **FAILED: the final balls were uninformative** (rad P̂₀ ≈ 1e439 at L = 2 and ≈ 1e116 at L = 0.5,
+with Ŷ_0 = A₀ correct to 0.7 % (6.1e-6 ± 7.6e-8) and the residual radius as budgeted). The blow-up is in the ball contraction, and its cause is
+**not yet located** (§2.5 lists the hypotheses that were tested and excluded). No margin is claimed.
+
+What does stand:
+1. **Design measurements [DV]** (§2.3): the contraction cancellation κ is e^{238} for the integrated G at L = 2 and e^{70} at L = 0.5.
+   Per frequency, κ ≈ 1 for ν ≤ 300 and 1e110–1e140 near ν ≈ 1000. So the EPSW residual can be bounded absolutely only below
+   ν ≈ 350, and above that the realised weight has to be integrated exactly.
+2. **Rigorous ingredients [P + Arb], implemented and checked:**
+   * Lemma J, a complex-frequency jet envelope via Laplace's integral, 2–47 nats above the true jets;
+   * GL errors on Bernstein ellipses, with rigorous nodes;
+   * exact evaluation of the realised weight f_θ and its disc sups (reusing EPSW's code);
+   * the residual-cell bound and the Gaussian tail;
+   * the precision rule for ball jets (a measured loss of ~3400 bits at j = 3003).
+3. **c-direction [P, validated DV]** (§3):
+   * Exact identity R_{m,j} = x^m d^{2m−j}R'_{m,j}(v), v = d/c, where R' is a polynomial of degree ≤ m whose coefficients in −v are ≥ 0.
+   * On top of it, a rigorous Taylor model on real cells with every remainder carried as a ball radius.
+   * Validation: it reproduces direct evaluation to all 15 printed digits (`lu_cell_check.py`).
+   * Rigorous status: the cell certificate is rigorous as coded (no Lemma C). Its only crude inputs are the Q-majorant tail, which
+     enters × a Chernoff binomial tail, and the Cauchy remainder of the jet shift.
+   * Not yet run end to end: the test cell was stopped behind the point failure.
+4. **Launcher** (`run_lemU_scan.py`): resumable, one process per cell, `--summary`. Its parameter table is provisional until one
+   cell passes.
+5. **Low L (coordinator's update)**: the global-coefficient route beats per-c jets for L ≲ 0.82 (§4a, DV evidence).
 
 ---
 
@@ -71,7 +97,28 @@ Ball jets wrap like the majorant of the jet recurrence, ≈ e^{0.76 j} over the 
 At low L the wrap grows: 6600 bits at L = 0.2, 12100 bits at L = 0.06 (cost of batch 2, §5).
 
 ### 2.5 Results
-__RESULTS_POINT__
+| run | nodes (A / D / E) | jet prec | CPU (jets) | outcome |
+|---|---|---|---|---|
+| L = 2, prec 1500 | 362 / 1806 / 9762, ν_cut = 348.85 | 4959 | 5600 s | **FAIL**: P̂₀ = [± 2.4e439] (b = 0), [± 1.8e439] (b = 4) |
+| L = 0.5, prec 3000 | 181 / 847 / 6380, ν_cut = 348.85 | 5937 | 4700 s | **FAIL**: P̂₀ = [± 6.7e115] (b = 0), [± 4.7e116] (b = 4) |
+
+Common to both runs:
+* A₀ = 6.1e-6 ± 7.6e-8 (L = 2) and 1.29e-5 ± 3.4e-8 (L = 0.5). The radius is the budgeted residual: 2.7 % and 0.4 % of F_cert.
+* The budgeted quadrature errors are ≤ 1e-15 in P.
+* An earlier L = 2 run at jet precision 1500 failed for a different reason: ball jets lose ~3400 bits. That was fixed (§2.4).
+
+**Excluded causes of the blow-up.** The debug scripts are in the package.
+1. *Budgeted radii alone* (`LU_NOJETS=1`): contracted radii ≤ 1e-3 in B₀ and ≤ 4e-8 in A₀ (tiny in P).
+2. *Rounding in the contraction*: with DV midpoints plus the budgeted radii, the result has radius 3e-7 at both 1500 and 4959 bits.
+3. *Per-node jet precision*: the windowed loss is 2690–3400 bits at both 4959 and 9000 bits.
+4. *Seeds*: they lose ≤ 126 bits.
+5. *Node-sum rounding (a priori)*: it needs ≤ 631 bits, against 1559 available.
+
+The L = 2 log reports "max rel radius of jets A = 10⁰", so **some summed jet Y_j has lost all precision**, and the mechanism is not
+one of 1–5. The next step is `lu_debug_radius.py 2.0 1500 1e5`, which prints the first m where |R|rad(Y) or rad(R)|Y| explodes and
+the j responsible. It needs ~1.3 CPU-h. The run here was stopped at 17 CPU-min to report.
+`lu_cert1.run` now caches the jets (`cache/point_*.pkl`) and contracts at the jet precision, so the next attempt can iterate on the
+contraction without recomputing jets.
 
 ## 3. The c-direction: an exact Taylor model on real cells (`lu_cell.py`)
 
@@ -110,16 +157,85 @@ coefficients of R' (no majorant). The price is I₁ ≈ 200–300, I₀ ≈ 80�
 Lemma C (|H_M| ≤ K·F on a complex strip, K ≈ 1.3 measured) would reduce this to a ~10th-order Taylor step; it is not used.
 
 ### 3.4 Test cell
-__RESULTS_CELL__
+Not completed. The anchor-jet stage of a b = 0 test cell (u ∈ [3.3144, 3.3154], I₁ = 200, I₀ = 80, D = 90, ρ = 20δ) was stopped:
+the same contraction problem as §2.5 would hit it, and CPU was needed for the point runs.
+
+Measured component costs (wall, box at load ≈ 9; CPU ≈ 0.4 × wall), per channel and per cell:
+* R' recursion: ~280–440 µs per (m, j) entry;
+* contraction: ~0.5–1.4 ms per entry, at (I₀, D) = (80, 90) … (150, 135);
+* total ⇒ 1400–2700 s per channel.
 
 ## 4. Laptop launcher (`run_lemU_scan.py`)
-__LAUNCHER__
+Command, to be run only after one cell passes (§2.5):
+```
+cd ads4/code/lemU_cert
+python3 run_lemU_scan.py --plan                      # writes scan_plan.json
+python3 run_lemU_scan.py 20 --batch 1 --mem 1500     # beta in [1.47, 5.1]
+python3 run_lemU_scan.py --summary
+```
+How it runs:
+* Each cell is one single-threaded process with its own JSONL/log in `cache/scan/`.
+* Cells that already have both channel records are skipped.
+* `--split-failed` halves failed cells.
+
+Provisional sizing:
+* the defaults are width 0.004 in u and (I₁, I₀, D) = (260, 60, 60);
+* §5 says D and I₀ must be larger (D ≈ 150–200, I₀ ≈ 100–160);
+* edit `params()` once the test cell has passed.
 
 ## 5. Cost model and core-hour estimate
-__COST__
+Estimates, not measurements of a passing run. Per anchor at L = 2:
+* rigorous jets: ~1 CPU-h at ~5000–5500 bits, 12–13k nodes;
+* Y' polynomials: minutes;
+* per channel: R' recursion + contraction at 1.5e6 entries, 0.3–1 CPU-h each at L = 2.
+
+Sizing for (I₁, I₀, D) (§3.3):
+* I₁ ln(I₁/(mp)) − I₁ ≳ 960, with mp ≈ 1000·coth(u/2)·δ_u;
+* I₀ from (mp)^{I₀}/I₀! ≲ e^{−260};
+* D·ln(ρ/δ) ≳ ln κ + Λρ_u + 20.
+
+With these, the cost per unit of u is roughly constant in δ_u ∈ [0.002, 0.02] at ≈ 150–300 core-h (L = 2, κ = e^{238}).
+
+Totals:
+* **batch 1 (β ∈ [1.47, 5.1]): ~600–1100 core-h**, i.e. ~1.5–2 days on 22 cores. It could drop if κ falls at larger L, which is not
+  measured.
+* **Batch 2 (β ∈ [0.486, 1.47])**: jets need 6600–12100 extra bits, which is prohibitive per c. Use the global-coefficient route
+  (§4a) instead.
+* Per-process memory: ~400–700 MB at I₁ ≈ 260–360. That exceeds the 500 MB target at the upper end; the R' row is now streamed
+  (one row in memory).
+
+## 4a. Low L: global coefficients instead of per-c jets (coordinator / author sliver_next) [DV]
+
+`lu_hybrid_dv.py 0.5 3249 3000 2000`:
+* A_k = [z^k]G_A (ideal) come from the author's triangular moment recurrence: 38 s in python, midpoint.
+* The jets at c follow by an exact Taylor shift, Y_j(c) = d³(cd)^jΣ_k C(k,j)A_kc^{k−j}: 27 s.
+* The DV per-c quadrature jets took 535 s; a certified per-c run takes ~1.3 CPU-h.
+* The two agree to 1e-10 at j = 0, ≥ 7 digits at j = 100, and 11 digits at j = 500 and 1000. The j = 1–10 differences of
+  1e-8–1e-4 are attributed to the coarse DV quadrature (Np = 2000).
+* **They disagree completely at j = 2000 and 3000. Reason: K = 3249 global coefficients are too few for the high jets.** The shift
+  tail Σ_{k>K}C(k,j)A_kc^{k−j} converges only for k ≳ j/(1 − c/0.99). With j = 3003, c ≤ 0.56, one needs K ≈ 7000–8000
+  (≈ 2.3·3003).
+
+Recommendation for L ≲ 0.82:
+* Use global A_k, D_k (and realised A_k from the author's sliver_L23 tools; not duplicated here) with K ≈ 8000.
+* Take the jets at each c, and the cell polynomials Y'_j(w), from the exact shift. Y'_j(w) is then an exact polynomial in c, so the
+  D-remainder (the κ-driven crude piece of §3.2) disappears.
+* Keep the Lemma U contraction and the cell model of §3.
+* This removes both the per-c quadrature and the 6600–12100-bit jet precision. The remaining crude input is the R'-tail.
+* The author's bivariate prefix numerator is an alternative. Its h-degree is K ≈ 1200–3250, against M + 1 = 1001 for Lemma U.
 
 ## 6. What is rigorous, what is retained, what is DV
-__LEDGER__
+| item | status |
+|---|---|
+| Lemma J, GL ellipse errors, Taylor-model remainders, R' identity and Q ≥ 0, binomial tail | [P], implemented in Arb |
+| Realised weight f_θ: formula, repaired coefficients | read from EPSW (`ew_common`, repaired JSON) [certified there] |
+| EPSW residual masses ∫\|r\| on cells (log-parsed, +2e-10 per cell), Gaussian-tail parameters, ∫\|ψ\|e^{κΛp}, Rint | [retained] (EPSW_CERT, FULLPOS3 `fp3_htdata`) |
+| Bound \|QR₋(μ−i)\| ≤ 16.3, \|θ\| ≤ 1.01 for μ ≥ 1000 | [P] (stated in code comment; elementary) |
+| Action identity H/w³ = ℒ(G_A + τ𝒟_bG_A + τσ_bG_D); the R recursion and the x_* parametrisation (FULLPOS4/author) | [retained] |
+| Truncation \|H_ang − H_M\| < e^{−84} (M = 1000) | **[retained, author §97, directed floating point, not Arb]**; not reproduced here |
+| End-to-end single-c certificate | **not achieved** (§2.5) |
+| c-direction cells | implemented and validated (DV); not yet run end to end |
+| Ideal G_D (not realised) | as instructed |
 
 ## 7. Files and reproduction (`ads4/code/lemU_cert/`; `ulimit -v 3000000; export OMP_NUM_THREADS=1`)
 | file | content |

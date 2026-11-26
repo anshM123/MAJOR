@@ -284,7 +284,14 @@ def _build(c, prec, pr, rbudget, tgt):
     radA = np.logaddexp.reduce(np.vstack([errA, rlog, errE, tl]), axis=0)
     radD = errD
     # ---- jets (ball recurrence wraps like the majorant: extra working precision, lu_core.wrap_bits)
-    pj = prec + C.wrap_bits(c, K)     # a-priori majorant estimate; checked against measured losses (LEMU_CERT §2.4)
+    # Jet precision.  (a) the ball recurrence loses wrap_bits (majorant, checked against measured losses, LEMU_CERT §2.4);
+    # (b) the per-node jets are summed over nodes with a cancellation up to max_nu|y_j(nu)|/|Y_j| ~ e^{1400} (L = 2), so their
+    # rounding radii, 2^{-(pj - wrap)} max_nu|y_j(nu)|, must be small after contraction with omega_j.  Rule:
+    #   2^{-(pj - wrap)} * sum_j omega_j Ybar_j(nu = NU_E) * (sum of |node weights| <= 1e4) <= 1e-17.
+    lwmax = lse(np.maximum(oA, oD) + np.maximum(log_ybar_np(env, K, 3, NU_E, 0.0), log_ybar_np(env, K, 4, NU_E, 0.0))) + math.log(1e4*lam_f**2)
+    wrap = C.wrap_bits(c, K)
+    pj = max(prec + wrap, wrap + int((lwmax + 17*math.log(10))/math.log(2)) + 64)
+    pr(f'  jet precision rule: wrap {wrap} bits, node-sum cancellation needs {int((lwmax + 17*math.log(10))/math.log(2))} bits')
     ctx.prec = pj
     pr(f'jet precision {pj} bits')
     t = time.time()

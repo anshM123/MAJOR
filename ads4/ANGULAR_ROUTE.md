@@ -1929,3 +1929,16 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Also claimed.** The prefix truncation (< 2^{−110}) is proved on 22 continuous cells covering the rest of the low-L interval.
 * **Status.** The uploaded file was byte-identical to the §115 package (same SHA-256), so the direct-certificate package (110 files) still has to be received and reproduced.
 * **Open after this claim:** L ∈ [0.0943, 2.3].
+
+## 117. Lemma U certification agent final report: pipeline built, no certificate (agent, 27 Nov)
+
+* **Verdict.** Nothing certified. Write-up: LEMU_CERT.md; code: code/lemU_cert/.
+* **Single-c check.** Run with the repaired weight at L = 2 and L = 0.5, both b. It fails with useless ball radii: P̂₀ = ±2.4e439 at L = 2 and ±6.7e115 at L = 0.5.
+  * A₀ is correct (6.1e-6 ± 7.6e-8 at L = 2), and the residual and quadrature budgets are as planned.
+  * The blow-up is in the ball contraction against R_{m,j}; the cause is not yet located. code/lemU_cert/lu_debug_radius.py locates it.
+  * Measured cancellation of the integrated G: e^238 at L = 2, e^70 at L = 0.5.
+* **Rigorous pieces built.** Complex-frequency jet bounds via a Laplace integral; Gauss–Legendre on Bernstein ellipses with rigorous nodes; the realised weight via EPSW's code; residual cells.
+* **c-direction.** A new exact identity R_{m,j} = x^m d^{2m−j} R′_{m,j}(v), with v = d/c and R′ a polynomial whose coefficients in −v are all nonnegative. On it, a Taylor-model cell in w = v − v₀ that reproduces direct evaluation to 15 digits. Not run end to end.
+* **Cost** (untested on a passing cell): ≈ 600–1100 core-h for β ∈ [1.47, 5.1].
+* **Low L.** Rebuilding the jets from global A_k is about 50× cheaper than per-c quadrature and matches to 7–11 digits for j ≤ 1000, but needs K ≈ 7000–8000 coefficients for j ≥ 2000 when c ≤ 0.56. The recommendation for L ≲ 0.82 is global realised A_k with K ≈ 8000 (author's tools, §115), then contraction plus a cell model.
+* **Assessment (coordinator).** For low L, the author's direct prefix method (§111, §116), which does a Chebyshev sign test on the bivariate numerator, avoids the R-contraction cancellation altogether and has already produced claimed PASS cells. It is the route to pursue. The Lemma U route is parked.
