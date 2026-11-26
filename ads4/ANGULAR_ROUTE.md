@@ -1319,3 +1319,14 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   2. Running the signed polynomial checks.
   3. Arb reproduction of the §78 reference error.
   4. Cost of the c-cell construction.
+
+## 81. Lemma R: signed low-frequency residual in the β → ∞ tail (author, 26 Nov)
+
+* **Correction.** The repaired weight has r(0) ≈ +9.69e-14 > 0, not 0; EPSW rejected the slope repair. So a two-sided bound is false asymptotically, since I_r ~ r(0)/(2 sinh(β/2)). It is positive, though.
+* **Exact subtraction.** ∫sech(πν)P_{−½+iν}(cosh β)dν = 1/(2cosh(β/2)). **Verified here** (mpmath, β = 0.5, 2, 6, 15 digits).
+  * r̃ = r − r(0)sech(πν) has r̃(0) = 0, so ∫W = 0, where W(t) = ∫r̃ cos(νt).
+  * Mehler then gives \|I_{r̃}\| ≤ (√2/π)(K₀/β)[B + 8B log 2/β + Eβe^{−β/2}], with E < 2.683e-6 and B < 1.901e-3 (EPSW inputs plus the cutoff correction).
+* **Result.** (2/Λ)I_r > −0.027F_*(β) for all β ≥ 30, and > −0.015F_cert for β ≥ 64. The extracted endpoint is positive.
+  * Finite mass: the extracted endpoint gives r(0)/Λ·w³𝒱_b((1−z)^{−5/2}) > 0 exactly, since the coefficients and V_{b,k} are nonnegative.
+  * The zeroth-order dressing is < 2e-9 of the floor.
+* **Open.** The higher-order finite-mass transfer for r̃, i.e. w³\|(ℒ_b − ev_c)(G_{r̃} + T^{−1}𝒟_bG_{r̃})\|, and the higher-frequency residual terms whose FULLPOS5 bounds grow like β.
