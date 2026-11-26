@@ -71,13 +71,16 @@ def run(a, J, b, amp=None, p=3, kappa=None, toy=False):
         al = np.concatenate(ALs); ga = np.concatenate(GAs); wt = np.concatenate(WTs)
         xi, beta = geom(al, ga)
         ok = np.abs(xi) > 1e-13
-        P = np.zeros(len(al), complex)
-        P[ok] = amp(beta[ok])
-        Wv = xi**(s - 1)*(1 - xi*xi)**(-p)*P*np.exp(1j*S*al - 1j*a*ga)/np.sin(al)
+        Pr = np.zeros(len(al), complex); Et = np.zeros(len(al), complex)
+        Pr[ok], Et[ok] = amp(beta[ok], factored=True)
+        car = 1j*S*al - 1j*a*ga
+        pre = xi**(s - 1)*(1 - xi*xi)**(-p)/np.sin(al)
+        Wv = pre*(Pr*np.exp(car) + Et*np.exp(car + 1j*amp.lam*beta))      # e^{i Lam beta} combined with the carrier (no overflow)
         ab = np.abs(Wv)*wt
         if MAJ:
-            Mj = np.zeros(len(al)); Mj[ok] = amp.majorant(beta[ok])
-            abm = np.abs(xi**(s - 1)*(1 - xi*xi)**(-p)*np.exp(1j*S*al - 1j*a*ga)/np.sin(al))*Mj*wt
+            Mr = np.zeros(len(al)); ME = np.zeros(len(al))
+            Mr[ok], ME[ok] = amp.majorant(beta[ok], factored=True)
+            abm = np.abs(pre)*(np.exp(car.real)*Mr + np.exp(car.real - amp.lam*beta.imag)*ME)*wt
             totm[piece] = float(abm.sum())
         tot[piece] = float(ab.sum()); sig[piece] = complex((Wv*wt).sum())
         bb = np.abs(beta)

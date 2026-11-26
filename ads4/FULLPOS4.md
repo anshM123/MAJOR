@@ -101,3 +101,47 @@ This equals the author's §58/§71 form (−(i/√2π)∫K W_h).
 * The outgoing amplitude is **not** floor-sized for β ≲ 1. Its imaginary part ≈ ψ₂′(0)/(Λβ)²-type (the odd-j p = 0 terms, which cancel in
   P = P⁺ + P⁻ but not in P⁺ alone) is 25× the floor at β = 0.3 and 7× at β = 1.
 * At β ≲ 1/Λ, |𝒫⁺_h| → O(∫|ψ₂|) (log-singular).
+
+### 2.1 The outgoing split also holds for ν ≤ 1 on the author's contour [DV]
+With P⁺ forced at ν ≤ 1 on the §55 contour, (𝒞/π)Re(I_U − iI_T − iI_L) reproduces the exact kernel:
+* (n, N, b, p, ν) = (2, 7.5, 0, 3, 0.8): rel. err 1.3e-12;
+* (2, 5.5, 0, 3, 0.5): 6e-13;
+* (9, 31.1, 0, 4, 0.95): 1.1e-11.
+
+The complete-conical treatment below ν = 1 is therefore optional. The integrated amplitude can use P⁺ at every frequency, since h(ν) ∝ ν cancels
+the 1/ν of coth(πν).
+
+---
+
+## 3. The norm of the frequency-integrated contour: structure [P-level analysis] and measurements [DV]
+
+### 3.1 Two regions where the integrated outgoing amplitude is not floor-sized [P-level]
+Write the contour integrand as W = (𝒞/π)ξ^{s−1}(1−ξ²)^{−p}𝒫⁺_h(β)e^{iSα−iaγ}/sin α.
+
+**(i) The diagonal γ = α (β = 0, z = 0) is a forced boundary of every §53/§55/§59 contour.** It is the image of the corner u = v = 0.
+* Near it, dγ = sin γ dβ ≈ sin α dβ. So per unit A the diagonal strip contributes (𝒞/π)e^{1−aε}∫|𝒫⁺_h(β)||ξ|^{s−1}dβ, independent of α.
+* For b = 0 (ξ⁰), measured (`fp4_int`): ∫₀^{0.04}|𝒫⁺_h|dβ ≈ 0.075, of which 0.044 comes from β ∈ [10⁻³, 10⁻²]. The β ≤ 10⁻⁴ part is 0.003, and
+  ∫_{0.04}^{∞} ≈ 0.003.
+* Reason: at β ≲ 1/ν, P⁺_ν = −(i/π)coth(πν)Q_{−½−iν} ~ (i/π)log(νβ) carries the full weight. At 1/Λ ≲ β ≲ 1 the odd-j p = 0 endpoint terms
+  ψ^{(j)}(0)/(iΛt)^{j+1} survive: they cancel only in P = P⁺ + P⁻ (Lemma A), not in P⁺ alone.
+* **Consequence.** Diagonal norm ≈ (𝒞/π)·(retained A-range)·0.075·e^{1−aε}.
+  * On the author's contour the A-range is π, giving ≈ 0.2𝒞. That is ~400 for b = 0, a = 2000, against |ℒ(G^ψ)| ~ 4·10⁻⁵.
+  * With the §59 hard localisation, |A| ≤ A₀ = κΛ/S, it is ≈ 0.13κΛτ (τ = a/S ≈ (1−c)/4).
+    The α-contour can be lifted (Im α = Y, damping e^{−SY}) only where the outgoing growth e^{νY/|A|} is beaten, i.e. |A| ≳ ν/S, for every
+    frequency present (ν up to Λ).
+  * Splitting h into frequency bands with their own A₀ ~ ν_I/S does not help: each band's diagonal mass is ~∫|h_I|/ν_I, so the total is
+    ~(4κτ/π)∫|h| with ∫|h| = 2∫|ψ₂| ≥ 2|g₀| = 41.6.
+* **The diagonal norm is therefore ≳ τ∫|h| ~ (1−c)·O(10) in any variant, against H/w³ ~ F_cert(1−c)^{−3}.** The ratio scales as
+  (1−c)⁴/F_cert. It is ~10⁵–10⁶ at L ≲ 0.5, and drops to O(10²) only around L ≈ 3. (Measured values in §3.2.)
+* For b = 4 the factor |ξ|⁸ removes the diagonal. But 𝒞 ≈ a(N/n)⁸ ≈ a c^{−4} then amplifies every contour region with |ξ|² ≫ c by (|ξ|²/c)⁴.
+  This is the I_U ≈ iI_T cancellation seen at small states (§1.2): it is intrinsic at small c, not an artefact of small n.
+
+**(ii) Large β (z → 1) on I_U.** On I_U, Im γ = −ε, so the carrier gives no damping. β = log(tan(C/2)/tan(A/2)) reaches log(2S) at A ~ ε,
+and (1−ξ²)^{−p} = cosh^{2p}(β/2) ~ e^{pβ}.
+* Per frequency, P⁺_ν decays like e^{−ν Im β}, with Im β ≈ atan(ε/A) − atan(ε/C) > 0. This kills A ≲ νε, so the amplitude stays at the
+  physical scale (S/ν)^{p−½}… only for ν ≳ a.
+* For low frequencies the per-frequency amplification on the author's contour (fixed tail at γ₁ = π/2) is ~(πa/(2ν))^{p−½}. Small states:
+  ∫|W|/|𝒦| = 20–900 at ν = 1–12, n ≤ 10 (§1.2).
+* The integrated amplitude's low-frequency content does not decay in Im β: it is the p = 0 endpoint, power-law ψ′(0)/(Λβ)². So
+  |𝒫⁺_h(β ≈ 8)| ≈ 2·10⁻⁷ multiplies e^{3β}/64 ≈ 10⁹.
+* A per-frequency-optimal tail sits at the soft saddle, γ₁(ν) = arcsin(ν/a). No single contour serves all ν; only band-dependent contours can.

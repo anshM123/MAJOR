@@ -1175,3 +1175,18 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Diagonal.** 𝒫⁺_h = (i/π)[M_h log(2β) − D_h] + E_h, with explicit \|E_h\| and \|E_h′\| bounds for \|β\| ≤ 1/(32·1101). ξ∂_β𝒫⁺ is finite at the diagonal.
 * **Closed majorants.** 𝓑_x[g] ≤ e^{−x/2}g(x)/√(1−e^{−2x}) for decreasing g. Leading size (2/Λ)\|𝒫⁺\| = O(e^{−x/2}/(Λ²x)), the leading-Regge floor scale.
 * **Not yet evaluated:** the resulting full contour-integrand norm relative to N_s over the cells.
+
+## 72. Lemma B4: helicity reduction; the corner cancellation and how to remove it (author, 26 Nov)
+
+* **Exact.** H₄ = (w³/U_{0,4})ℒ₀(z⁴G₄), with U_{4,k} = U_{0,k+4}/U_{0,4}; coordinator-verified on 50 random states.
+  * 𝒞₉ = a/U_{0,4}. **Checked here by hand** from the Γ-ratio with N = N₀ − 4.
+  * So the s = 9 and reduced s = 1 contour integrands are identical pointwise. **The shift alone does not remove the cancellation.**
+  * r⁴(1 − 20/C) ≤ U_{0,4} ≤ r⁴.
+* **A⁺ transfer.** G₄⁺ = A/(1−z)³ − [(49/8)A + B/2 + ξA′ + Λ²D]/(T(1−z)⁴), with the Lemma A⁺ majorants. The helicity factor is \|ξ\|⁸/U_{0,4} ≤ 1.000021(\|ξ\|²/r)⁴.
+  * At saddles: ≤ 1.000023/(1−κ²)⁴, which is < 3.161 for ν ≤ a/2.
+* **The cancellation.** I_U ≈ iI_T near the shared corner γ = π/2 − iε at small A, where \|ξ\|⁸/U_{0,4} → r^{−4} (up to 4.2e5 for r > 0.0392).
+* **The fix.**
+  * The diagonal zero is of order 8: ξ⁸G₄⁺ = O(δ⁸ log δ), so derivatives of order ≤ 7 vanish at γ = α.
+  * Eight boundary-free integrations by parts along the combined soft path give a factor (ia)^{−8}; the corner terms cancel between the arc and the tail.
+  * Practical version: Taylor-expand F_α at the corner and integrate e^{−iaγ}P(γ) exactly with the SAME polynomial on both sides, so the shared endpoint cancels exactly.
+* **Not yet certified:** the global contour norm relative to N_s.

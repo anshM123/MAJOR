@@ -44,7 +44,7 @@ class Weight:
         self.cf = np.array([float(x) for x in self.c])
         self.d0 = derivs(self.c, 0); self.d1 = derivs(self.c, 1)
         assert all(abs(self.d1[j]) == 0 for j in range(5))
-        xg, wg = np.polynomial.legendre.leggauss(200)
+        xg, wg = np.polynomial.legendre.leggauss(200 if LAMl > 100 else 48)
         self.pg = (xg + 1)/2; self.wg = wg/2
         self.psig = np.polyval(self.cf[::-1], self.pg)
         self.cothg = 1/np.tanh(math.pi*LAMl*self.pg)
@@ -132,48 +132,56 @@ class Amp:
         tf = b + self.uf[None, :]
         sc = ((self.w.W_S(tf) + self.w.W_C(tf))*kern(b, self.uf[None, :])*self.wuf).sum(1)
         te = b + self.ue[None, :]
-        e = (np.exp(1j*self.lam*te)*self.w.W_Eamp(te)*kern(b, self.ue[None, :])*self.wue).sum(1)
-        return near + sc + e, sc, e
+        e = (np.exp(1j*self.lam*self.ue[None, :])*self.w.W_Eamp(te)*kern(b, self.ue[None, :])*self.wue).sum(1)
+        return near + sc, sc, e
 
     def _large(self, b):
         tf = b + self.ua[None, :]
         sc = ((self.w.W_S(tf) + self.w.W_C(tf))*kern(b, self.ua[None, :])*self.wua).sum(1)
         te = b + self.uea[None, :]
-        e = (np.exp(1j*self.lam*te)*self.w.W_Eamp(te)*kern(b, self.uea[None, :])*self.wuea).sum(1)
-        return sc + e, sc, e
+        e = (np.exp(1j*self.lam*self.uea[None, :])*self.w.W_Eamp(te)*kern(b, self.uea[None, :])*self.wuea).sum(1)
+        return sc, sc, e
 
 
-    def majorant(self, beta):
+    def majorant(self, beta, factored=False):
         """Lemma-A+-type majorant (FULLPOS4 §3): (1/pi) int_0^oo |K| (|W_S| + |W_C| + e^{-Lam Im t}|W_E e^{-i Lam t}|) du on the real
         u-axis for |beta| >= B0; for |beta| < B0 the part u < u0 uses |W_h| (direct).  Not certified (quadrature), DV only."""
-        beta = np.atleast_1d(np.asarray(beta, complex)); out = np.zeros(len(beta))
+        beta = np.atleast_1d(np.asarray(beta, complex)); out = np.zeros(len(beta)); outE = np.zeros(len(beta))
         sm = np.abs(beta) < self.B0
         for i0 in range(0, len(beta), 64):
             b = beta[i0:i0 + 64][:, None]; m = sm[i0:i0 + 64]
             tf = b + self.ua[None, :]
-            v = (np.abs(self.w.W_S(tf)) + np.abs(self.w.W_C(tf)) + np.exp(-self.lam*tf.imag)*np.abs(self.w.W_Eamp(tf)))
-            big = (v*np.abs(kern(b, self.ua[None, :]))*self.wua).sum(1)
+            kk = np.abs(kern(b, self.ua[None, :]))*self.wua
+            big = ((np.abs(self.w.W_S(tf)) + np.abs(self.w.W_C(tf)))*kk).sum(1)
+            bigE = (np.exp(-self.lam*self.ua[None, :].imag)*np.abs(self.w.W_Eamp(tf))*kk).sum(1)
             if m.any():
                 bs = b[m]
                 near = (np.abs(self.w.W_direct(bs + self.un[None, :]))*np.abs(kern(bs, self.un[None, :]))*self.wun).sum(1)
                 tf2 = bs + self.uf[None, :]
-                v2 = (np.abs(self.w.W_S(tf2)) + np.abs(self.w.W_C(tf2)) + np.exp(-self.lam*tf2.imag)*np.abs(self.w.W_Eamp(tf2)))
-                far = (v2*np.abs(kern(bs, self.uf[None, :]))*self.wuf).sum(1)
-                big[m] = near + far
-            out[i0:i0 + 64] = big/math.pi
-        return out
+                k2 = np.abs(kern(bs, self.uf[None, :]))*self.wuf
+                far = ((np.abs(self.w.W_S(tf2)) + np.abs(self.w.W_C(tf2)))*k2).sum(1)
+                farE = (np.abs(self.w.W_Eamp(tf2))*k2).sum(1)
+                big[m] = near + far; bigE[m] = farE
+            out[i0:i0 + 64] = big/math.pi; outE[i0:i0 + 64] = bigE/math.pi
+        if factored:
+            return out, outE                  # majorant = out + e^{-Lam Im beta} outE
+        return out + np.exp(-self.lam*beta.imag)*outE
 
-    def __call__(self, beta, split=False):
+    def __call__(self, beta, split=False, factored=False):
+        """P+_h(beta).  factored=True returns (P_rest, Etil) with P+_h = P_rest + e^{i Lam beta} Etil (overflow-safe)."""
         beta = np.atleast_1d(np.asarray(beta, complex))
-        out = np.zeros_like(beta); oS = np.zeros_like(beta); oE = np.zeros_like(beta)
+        rest = np.zeros_like(beta); oS = np.zeros_like(beta); oE = np.zeros_like(beta)
         sm = np.abs(beta) < self.B0
         for mask, fn in ((sm, self._small), (~sm, self._large)):
             idx = np.nonzero(mask)[0]
             for i0 in range(0, len(idx), 64):
                 ii = idx[i0:i0 + 64]
                 t, sc, e = fn(beta[ii][:, None])
-                out[ii] = -1j/math.pi*t; oS[ii] = -1j/math.pi*sc; oE[ii] = -1j/math.pi*e
-        return (out, oS, oE) if split else out
+                rest[ii] = -1j/math.pi*t; oS[ii] = -1j/math.pi*sc; oE[ii] = -1j/math.pi*e
+        if factored:
+            return rest, oE
+        tot = rest + np.exp(1j*self.lam*beta)*oE
+        return (tot, oS, np.exp(1j*self.lam*beta)*oE) if split else tot
 
 
 if __name__ == '__main__':
