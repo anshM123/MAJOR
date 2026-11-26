@@ -1916,3 +1916,16 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Sliver status.**
   * Certified (conditional on retained inputs): L ≥ 2.3. The chain §104–111 has been refereed with no errors (§114).
   * Open: L ∈ [0.82, 2.3] (the laptop launcher covers [1.5, 2.6]) and the low-L sign problem on [0.051, 0.82].
+
+## 116. First direct low-L positivity cells, c ∈ [0.05, 0.09] (author claim, 27 Nov; package NOT yet received)
+
+* **Claim** (author). The full realised repaired weight (all 3,564 Gaussian centres, binary64 coefficients, directed arithmetic at 1600 digits) gives 1,253 enclosed integrated coefficients A_k, with widths < 1e-375. The widths apply to the seed-substituted vector; the correlated seed discrepancy is charged at the action level (§113, §115).
+* **Direct prefix sign certificates** (§111 numerator), continuous in c, all twists and spins, both b:
+  * c ∈ [0.05, 0.065]: normalised action > 2.20970e-5 (b = 0) and 2.19548e-5 (b = 4);
+  * c ∈ [0.065, 0.09]: > 1.90522e-5 and 1.88525e-5.
+
+  Together these cover L ∈ [0.0513, 0.0943] and overlap the earlier certified corner L ≲ 0.058.
+* **Key step** (author). The signed rational Taylor enclosure is converted to a tensor Chebyshev basis before the coefficients are bounded. This takes the first channel's absolute remainder from ≈ 22,240 down to 1.785e-6.
+* **Also claimed.** The prefix truncation (< 2^{−110}) is proved on 22 continuous cells covering the rest of the low-L interval.
+* **Status.** The uploaded file was byte-identical to the §115 package (same SHA-256), so the direct-certificate package (110 files) still has to be received and reproduced.
+* **Open after this claim:** L ∈ [0.0943, 2.3].
