@@ -1695,3 +1695,18 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * log(a+b) ≤ 1 + max is used for F + T_J; the cell sum uses log(max cells per slab) + log 1.6 for K₀.
 * **Retained (not reproduced).** The angular-action identity, the EPSW residual and cutoff integral certificates, the small-ν paired-branch constant 208, and the K₀ < 1.6 Stirling argument (both written out in the README, not independently re-derived).
 * **Status.** The localisation remainder E_ρ,2 + E_ρ,3 < e⁻⁴⁶ on L ∈ [0.8, 3.65] is reproduced. The main signed connection sum on this range is still open.
+
+## 106. Signed connection-transfer lemma; low-frequency residual theorem (author, 27 Nov; code not yet in repo)
+
+* **Signed transfer.** Let X_j = d^{α−j}S(α−j) and Z_j = c_j d^j X_j, with r_j = c_{j+1}/c_j and D_j = 1 − hβ_j(β_j − s). Then exactly
+
+  D_jZ_{j+1} = r_j[d + hβ_j(s−2β_j−1)]Z_j + r_jr_{j−1}hβ_j(β_j+1)Z_{j−1},
+
+  so Σ_{j<1500}Z_j = P(d,h,ν)X₀ + Q(d,h,ν)X₋₁. The whole varying recurrence is resummed: this is the drift resummation that ANALYTIC_SLIVER3 §6 left open, done by Taylor models instead of a matrix drift calculus.
+* **Certificate method.** Taylor models in (d, h, ν) over a box (3 normalised variables), 65-digit integer arithmetic, total degree m, Cauchy remainder on a polydisk of radius R = 32 against an absolute recurrence majorant M_R. The dressing is contracted in, and the omitted indices are bounded separately. The method is independent of spin.
+* **Executed boxes.**
+  * L ≈ 3.2, a ≈ 1061 (d ∈ [0.04072, 0.04080], ν ∈ [899.75, 900.25]): \|P\| ≤ 1.94–1.97 and \|Q\| ≤ 0.67–0.68 for dressed F₃ and F₄, b = 0 and 4. The termwise transfer is > 2e9. Taylor remainder < 2.2e-8.
+  * L ≈ 2.5, a ≈ 1500, ν ≈ 800, b = 4: \|P\| ≤ 1.28–1.29 and \|Q\| ≤ 0.17–0.18. Remainder < 1.2e-7.
+* **Low-frequency residual theorem.** d³\|𝒱_b F_{3,ν}\| ≤ 14 exp(0.0065ν + ν²/4200) for ν ≤ 200 and 0.8 ≤ L ≤ 3.65, at all spins and a ≥ 998. It uses no connection expansion: beta–Cauchy with 1−r ≥ 1.555t on v ≥ 0.75t, \|Im β\| ≤ arctan(X/1.555), P(v < 0.75t) < e⁻³⁶, Cauchy radius t/200 for the dressing, and log(1+X²) ≥ (7/8)X². Against the resid3 per-cell masses this gives E_{r,[0,160]} < 0.08·F_cert, cutoff correction included.
+* **Remaining for 0.8 < L < 3.65.** E_ψ₂ + E_ψ₃ + E_{r,ν>160} < 0.92·F_cert − e⁻⁴⁶, needing continuum coverage of the signed transfer in (d, h, ν) and assembly of the contour pieces.
+* **Status.** Author-executed on two boxes; the code has not yet been received or reproduced. The low-frequency theorem has not been independently checked.
