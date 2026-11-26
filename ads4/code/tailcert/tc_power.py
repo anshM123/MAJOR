@@ -62,6 +62,21 @@ def Ehat(u, rho, nphi=4000):
     return best
 
 
+def Ehat_d(u, rho, delta, n1=300, n2=1500):
+    """certified upper bound of max_phi u(pi/2-phi) + log((|1-q| + delta)/|1+q|), q = rho e^{i phi}, phi in [0, pi/2]
+    (the lambda-perturbed arc exponent: |1 - lam q| <= |1-q| + |lam-1| rho, delta >= |lam-1| rho).  Two-level phi grid."""
+    u = arb(u); rho = arb(rho); de = arb(delta)
+    best = -1e300
+    cut = PI/2 - arb('0.05')
+    for (lo, hi, n) in ((arb(0), cut, n1), (cut, PI/2, n2)):
+        for k in range(n):
+            ph = lo + (hi - lo)*(arb(k) + arb(0.5, 0.5))/n
+            c = ph.cos()
+            f = u*(PI/2 - ph) + ((1 - 2*rho*c + rho*rho).sqrt() + de).log() - (1 + 2*rho*c + rho*rho).log()/2
+            best = max(best, up(f))
+    return best
+
+
 def inc_gamma_upper(sigma, X):
     """Gamma(sigma, X) for sigma <= 1, X > 0: <= X^{sigma-1} e^{-X} (since t^{sigma-1} <= X^{sigma-1} on [X, oo)); for sigma > 1 use
     Arb's exact incomplete gamma (upper)."""
@@ -72,18 +87,20 @@ def inc_gamma_upper(sigma, X):
 
 
 _ETAB = None
-ETAB_U0, ETAB_DU, ETAB_N = 0.5, 0.0005, 5301          # u in [0.5, 3.15]
+ETAB_U0, ETAB_DU, ETAB_N = 0.5, 0.001, 700            # u in [0.5, 1.2]  (tau <= 1146, a >= 998)
+ETAB_L0 = float(os.environ.get('TC_L0TAB', '20'))
+ETAB_DELTA = 7*math.exp(-ETAB_L0/2)*0.92               # >= |lam - 1| rho for every tail state with L >= ETAB_L0
 
 
 def Ehat_table():
     """certified Ehat(u, 0.92) at u = u_i (grid); Ehat is nondecreasing in u (d/du = pi/2 - phi >= 0), so Ehat(u) <= table[ceil]."""
     global _ETAB
     if _ETAB is None:
-        fn = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cache', 'ehat_table.json')
+        fn = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cache', f'ehat_d_table_L{ETAB_L0:g}.json')
         if os.path.exists(fn):
             _ETAB = json.load(open(fn))
         else:
-            _ETAB = [Ehat(ETAB_U0 + ETAB_DU*i, 0.92, 400) for i in range(ETAB_N)]
+            _ETAB = [Ehat_d(ETAB_U0 + ETAB_DU*i, 0.92, ETAB_DELTA) for i in range(ETAB_N)]
             json.dump(_ETAB, open(fn, 'w'))
     return _ETAB
 
@@ -101,6 +118,7 @@ def K_osc(sigma, t1, t2, L0, a_cells=None):
     """certified upper bound of |S^(sigma + i tau)| for tau in [t1, t2] (t2 >= t1 >= 0), all tail states (a >= 998, w <= e^{-L0}).
     Returns (bound, info)."""
     assert sigma > 0 and t2 >= t1 >= 0
+    assert t2 <= 1146.0          # validity range of the NC / q >= 0.92 estimates (pi tau/2 <= 1800)
     sw = math.exp(-L0/2)
     dlam = 7*sw                                  # delta_lambda <= w + 6.6 sqrt(w) <= 7 sqrt(w)
     G = G_cell(sigma, t1, t2)
@@ -130,7 +148,8 @@ def K_osc(sigma, t1, t2, L0, a_cells=None):
             E = Ehat_up(uhi)
             Y1 = 2*a2*rho
             c1 = 3*dlam*Y1*Y1/(8*a1)
-            c2 = a2*dlam*rho/(1 - rho)
+            assert L0 >= ETAB_L0
+            c2 = 0.0                      # the lambda-correction is inside the delta-table (Ehat_d)
             loss = a2*max(E, 0.0) if E > 0 else a1*E
             X = 0.995*2*a1*rho
             lg = math.log(eG) + math.log(G*Y1**sigma) + max(c1 - math.log(sigma), math.log(math.pi/2) + loss + c2) + math.log(2)

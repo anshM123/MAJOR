@@ -134,7 +134,7 @@ def main():
     TEND = hz['summary']['T_END']
     tail = 0.0
     T = TEND
-    while T < 3000:
+    while T < 1146:
         T2 = T + 1
         intf, Bsup = CL.tail(W, 2.25, T)
         l0 = P.logK_osc(0.25, T, T2, L0); l1 = P.logK_osc(1.25, T, T2, L0)
@@ -146,13 +146,16 @@ def main():
     # t >= 3000: |Ŝ(sigma+it)| <= Gamma(sigma) |1/Gamma(sigma+it)| Ŝ(sigma) <= Gamma(1/4) Gamma(3/4) cosh(pi t)/pi * 1.01 (reflection);
     # sigma = 5/4 adds 1/|1/4+it| <= 1.  int_3000^oo |f| e^{pi t} <= via cb_lines.tail with weight: bounded crudely by e^{pi*T}*tail(T)
     # summed over unit cells up to 6000 and e^{-t^2/4}-dominated beyond (Gaussian erfc factors ~ e^{-(T-1029)^2/1.62}).
-    T = 3000; tail2 = 0.0
+    T = 1146; tail2 = 0.0
     g14 = math.gamma(0.25)*math.gamma(0.75)/math.pi*1.01
     while T < 6000:
         intf, Bsup = CL.tail(W, 2.25, T)
-        tail2 += up(intf*Bsup*arb(g14)*(arb(math.pi)*(T + 1)).exp()*(1 + w*(T + 2)**J0))
+        cbs = cj_bounds(acb(arb(T + 0.5, 0.5), 2.25), J0)
+        js, X0 = jsum(1.0, 1.0, abs(complex(0.25, T + 1)), cbs, w, J0)
+        lt = float((intf*Bsup).log().upper()) + math.log(g14) + math.pi*(T + 1) + math.log(X0 + js)
+        tail2 += math.exp(lt) if lt > -700 else 0.0
         T += 1
-    pr(f'leg tail: [T_END={TEND}, 3000): {tail:.3e};  [3000, 6000): {tail2:.3e}  (beyond 6000: e^{{-1.6e7}})')
+    pr(f'leg tail: [T_END={TEND}, 1146): {tail:.3e};  [1146, 6000) (reflection bound): {tail2:.3e}  (beyond 6000: e^{{-1.6e7}})')
     # ---------------- assemble rho(L) on a grid of L >= L0 (each term decreasing in L; Main decreasing): rho(L) <= Err(Lk)/Main(L_{k+1})
     def main_lb(L):
         tot = 0.0

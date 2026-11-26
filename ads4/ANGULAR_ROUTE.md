@@ -1370,3 +1370,13 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * β ∈ [23.6, 27.5]: a* = 3400.
 * At the bisected a*, err/F_cert runs from 0.21 to 0.9989. The pass criterion is err < F_cert, so all cells pass, some only just; a* is the smallest passing rung on the twist ladder.
 * β ∈ [27.5, 64]: running. Per-cell jsonl files are on the laptop and should be pushed for the audit trail.
+
+## 85. Lemma C: complex-impact-parameter strip (author, 26 Nov)
+
+* **Proved (author).** On 0.37 ≤ Re u ≤ 31.62, \|Im u\| ≤ 0.02, the reference is analytic and \|D_b\|^{−4} < 1.000081.
+* **Infinite-twist face, y = 0 (author; 60-digit outward-rounded intervals over 753 floor cells).** \|H_M(u, 0)\| < 810·F_cert(Re u).
+  * Key step: rotate the endpoint ray v = re^{iπ/4}, so ∫\|K\|e^{−Λr/√2} ≤ √(2π/(Λ sinh B)), which recovers a factor Λ^{−1/2}.
+  * Components: smooth part 20.7, endpoint 790.4, residual 32.6.
+* **Cutoff correction (author).** For f = 2Re g with a complex θ(ν−i), use \|f_θ − f\| ≤ 2\|θ−1\|\|g\|, NOT a bound through \|Re g\|. Corrected: ∫e^{0.02ν}\|f_θ − f\| < 1e-7. Any earlier certificate that used the \|Re g\| form for the complex-shifted cutoff must be rechecked.
+* **All twists (author).** \|H_M(u, y)\| ≤ e^{10500}F_cert. Too large to be useful.
+* **Open.** sup\|H_M(u, y) − H_M(u, 0)\|/F_cert ≤ 190 on the strip, i.e. the signed finite-twist transfer at complex u. This is the binding step for the sliver's impact-parameter cells. The Taylor-order budget (order 20 gives 0.13%) is ready once K ≤ 1000 holds.
