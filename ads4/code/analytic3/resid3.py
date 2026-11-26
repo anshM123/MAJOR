@@ -15,6 +15,8 @@ import rt_cert as RC
 from flint import arb
 
 RATIO = float(os.environ.get('R3_RATIO', '1.03'))
+TURN = tuple(float(x) for x in os.environ.get('R3_TURN', '995,1059').split(','))   # nu-band with refined boxes
+TURN_NU = int(os.environ.get('R3_TURN_NU', '2')); TURN_L = int(os.environ.get('R3_TURN_L', '1')); TURN_W = float(os.environ.get('R3_TURN_W', '0.25'))
 
 
 def run_part(La, Lb, part, nparts):
@@ -29,7 +31,10 @@ def run_part(La, Lb, part, nparts):
             continue
         best = 0.0
         for (a_, b_) in mine:
-            v, ar = K3.K_cell(a_, b_, La, Lb, ratio=RATIO, use_frames=(kind != 'tail'), jmax=110, J0x=1500)
+            if TURN[0] <= a_ < TURN[1] and kind != 'tail':
+                v, ar = K3.K_cell_refined(a_, b_, La, Lb, ratio=RATIO, nsub_nu=TURN_NU, nsub_L=TURN_L, w_turn=TURN_W, jmax=110, J0x=1500)
+            else:
+                v, ar = K3.K_cell(a_, b_, La, Lb, ratio=RATIO, use_frames=(kind != 'tail'), jmax=110, J0x=1500)
             best = max(best, v)
         out.append(dict(idx=idx, kind=kind, lo=lo, hi=hi, m=m, K=best))
         print(f'{kind} [{lo},{hi}] m={m:.3e}: sup|K_J| <= {best:.4e}   [{time.time()-t0:.0f}s]', flush=True)

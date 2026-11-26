@@ -98,7 +98,7 @@ def a_ranges_fine(T1, ratio=1.03, a_max=A_STAR, w_turn=0.25, turn_hi=None):
     return out
 
 
-def K_cell_refined(T0, T1, La, Lb, ratio=1.03, nsub_nu=1, nsub_L=1, w_turn=1.0, use_frames=True, jmax=110, J0x=1500, solframes=True):
+def K_cell_refined(T0, T1, La, Lb, ratio=1.03, nsub_nu=1, nsub_L=1, w_turn=1.0, use_frames=True, jmax=110, J0x=1500, solframes=False):
     """sup |K_J| over nu in [T0, T1], L in [La, Lb], a in [998, 4500]: max over nu-subcells x L-subcells x a-boxes of rt2_kernel's
     per-box bound (B(nu) at the subcell's lower end, Lemma F/E'/X base, Lemma B chain incl. solution frames, REC tail)."""
     best = (0.0, None)
