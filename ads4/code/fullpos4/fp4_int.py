@@ -111,19 +111,19 @@ class Amp:
     |beta| >= B0: split on the whole u-range (S, C real axis from 0; E on the ray u = r e^{i pi/4}); u = s^2 near 0."""
     B0 = 0.04
 
-    def __init__(self, k=2, u0=0.06, lam=None):
+    def __init__(self, k=2, u0=0.06, lam=None, nq=16):
         self.w = Weight(k, lam); self.u0 = u0; self.lam = self.w.lam
         if lam is not None:
             self.B0 = 40.0/self.lam; u0 = 60.0/self.lam; self.u0 = u0
-        s, ws = _graded(0.0, math.sqrt(u0), 1e-4, 1.6, 16)
+        s, ws = _graded(0.0, math.sqrt(u0), 1e-4, 1.6, nq)
         self.un = s*s; self.wun = 2*s*ws
-        self.uf, self.wuf = _graded(u0, 80.0, 0.02, 1.25, 16)
-        r, wr = _graded(0.0, 80.0/self.lam, 1e-3, 1.4, 16)
+        self.uf, self.wuf = _graded(u0, 80.0, 0.02, 1.25, nq)
+        r, wr = _graded(0.0, 80.0/self.lam, 1e-3, 1.4, nq)
         self.ue = u0 + r*np.exp(1j*math.pi/4); self.wue = wr*np.exp(1j*math.pi/4)
         # whole-range nodes (|beta| >= B0)
-        s2, ws2 = _graded(0.0, math.sqrt(80.0), 1e-3, 1.25, 16)
+        s2, ws2 = _graded(0.0, math.sqrt(80.0), 1e-3, 1.25, nq)
         self.ua = s2*s2; self.wua = 2*s2*ws2
-        r2, wr2 = _graded(0.0, math.sqrt(100.0/self.lam), 1e-3, 1.3, 16)
+        r2, wr2 = _graded(0.0, math.sqrt(100.0/self.lam), 1e-3, 1.3, nq)
         rot = np.exp(1j*math.pi/4)
         self.uea = r2*r2*rot; self.wuea = 2*r2*wr2*rot
 
