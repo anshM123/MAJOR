@@ -1447,3 +1447,12 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Outer contour.** The curved path q = ir/(1+ir) is ruled out: at n = 1e15, a = ν = 998 the absolute integral exceeds e^{120}, because of the geometry, not a loose estimate.
   * Replacement 0 → 0.85i → quarter-circle → 0.85 → 1: the arc exponent is < 1.6 at a = 998, giving 𝒩_L < 500 at that state.
 * **Open.** A uniform joint bound on the replacement contour over all complex parameters, including the signed cancellation of the regularised kernel, and hence Lemma C with a practical K.
+
+## 91. Fixed outer contour disproved; signed low-frequency multipliers proved; regularised recurrence (author, 26 Nov)
+
+* **Counterexample** (b = 0, n = 1001, a = 3000, ν = 998, inside the sliver). On the clipped quarter-circle, 𝒩_L > 2^{305} > e^{211}, from exact integer arithmetic (\|K(i/2)\| > 2^{89}).
+  * The SIGNED multiplier is tame: \|d^αS_L(α)\|² ∈ (1.01040, 1.01041). **Checked here independently:** 1500-digit ladder sum gives 1.010403764.
+* **Unbounded in general.** Along the family n = a = m → ∞ the absolute norm on the fixed contour is unbounded. No fixed-contour modulus proof can work.
+* **Signed low-frequency multiplier theorem (author, proof given).** \|d^αS_L(α) − 1\| ≤ e^{0.02\|τ\|}(Γ(σ)/\|Γ(σ+iτ)\|)(C_σ y + e^{−46}) for σ ∈ {5/2, 7/2} on the whole complex strip, with C_{5/2} = 5.9e-5 and C_{7/2} = 1.1e-4. So the error is < 0.004 for \|τ\| ≤ 5. Proof by telescoping plus negative-binomial factorial moments.
+* **Regularised three-term recurrence (author).** [D − α(α−s)]S_L(α−1) = [dD + α(s−2α−1)]S_L(α) + α(α+1)S_L(α+1) + (cD − p_L)U_L(α)_L/L!, with D = 1/h.
+* **Open.** A uniform SIGNED high-frequency multiplier bound (τ up to ~1100) on the complex strip, and hence Lemma C.

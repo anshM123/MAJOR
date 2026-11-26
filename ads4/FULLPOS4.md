@@ -386,12 +386,15 @@ Implementation:
 **Twist-positivity test, all a ≥ 998 at fixed c:**
 | L (c) | b | A₀ = H(a = ∞) | H_M(a = 998) | \|P̂₁\| | \|P̂₂\| | noise floor of \|P̂_ℓ\| | margin (P̂₀ − Σ\|P̂_ℓ\|)/P̂₀ |
 |---|---|---|---|---|---|---|---|
+| 0.5 (0.3935) | 0 | 1.2919e-5 | 1.3309e-5 | 1.9e-7 | 1.6e-13 | ~3e-16; < 2e-30 (ℓ ≥ 100) | **0.98515 PASS** |
+| 0.5 (0.3935) | 4 | 1.2919e-5 | 1.2529e-5 | 1.9e-7 | 4.4e-13 | ~5e-16 | **0.98469 PASS** |
 | 2 (0.8647) | 0 | 6.0674e-6 | 6.0969e-6 | 1.5e-8 | 2.3e-14 | ~1e-17 (ℓ = 5–50); < 4e-32 (ℓ ≥ 100) | **0.99757 PASS** |
 | 2 (0.8647) | 4 | 6.0674e-6 | 6.0378e-6 | 1.5e-8 | 3.0e-14 | ~1e-17 | **0.99756 PASS** |
 | 7 (0.99909) | 0 | 3.4905e-7 | 3.4906e-7 | 4.8e-12 | 1.0e-17 | ~1e-18; < 5e-35 (ℓ ≥ 100) | **0.999986 PASS** |
 | 7 (0.99909) | 4 | 3.4905e-7 | 3.4904e-7 | 5.9e-12 | 8.3e-18 | ~1e-18 | **0.999983 PASS** |
 
-(F_cert(β_c = 3.31) = 4.86e-6; F_cert(8.39) = 2.66e-7.)
+(F_cert(β_c = 1.47) = 1.12e-5; F_cert(3.31) = 4.86e-6; F_cert(8.39) = 2.66e-7. At L = 0.5: max|R_{m,j}| = 1e213, |A_m| peaks at 2e18,
+constant partial sums from M′ = 300, 3000 bits, N_p = 6000, 17 min.)
 * At L = 7, |A_m| peaks at 1e14 (m ≈ 100), and the partial sums are constant from M′ = 300 on.
 * Cost: 11 min per c at L = 2 (N_p = 8000) and 28 min at L = 7 (N_p = 15000), on one core; both channels share the jets.
 
