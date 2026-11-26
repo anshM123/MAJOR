@@ -220,8 +220,16 @@ K = X^B(1−ξX)^{a−1}(1−ξ/X)^{−a−1}:
 **Norms (soft-signed per A, as in §3.2; N_s/w³ ≈ |G(c)| at (2000, 1500)).**
 | state | L | \|G(c)\| | D | D-norm (real 1D) | N_rem (soft) | N_rem/\|G(c)\| | bands of N_rem, \|A\|S: <10 / [10,100) / [100,1000) / ≥1000 |
 |---|---|---|---|---|---|---|---|
-| (2000, 1500, 0), ξ₀ = 0.02 | 0.20 | 2.88e-5 | −3.05e-6 | 2.46e-2 | 0.457 | **1.6e4** | 0.013 / 0.075 / 0.171 / 0.197 |
+| (2000, 1500, 0), ξ₀ = 0.02 | 0.20 | 2.88e-5 | −3.05e-6 | 2.46e-2 | 0.457 | 1.6e4 | 0.013 / 0.075 / 0.171 / 0.197 |
+| (2000, 1500, 0), ξ₀ = 0.05 | 0.20 | 2.88e-5 | −1.92e-7 | 2.46e-2 | 0.0846 | 2.9e3 | 0.005 / 0.019 / 0.029 / 0.031 |
+| (2000, 1500, 0), ξ₀ = 0.1 | 0.20 | 2.88e-5 | +2.29e-7 | 2.46e-2 | 0.0228 | 7.9e2 | 0.0023 / 0.0059 / 0.0072 / 0.0074 |
+| (2000, 1500, 0), ξ₀ = 0.2 | 0.20 | 2.88e-5 | +1.70e-6 | 2.47e-2 | 0.00571 | **2.0e2** | 0.0010 / 0.0016 / 0.0017 / 0.0015 |
+| (998, 20000, 0), ξ₀ = 0.02 | 2.38 | 6.21e-3 | +2.8e-7 | 1.3e-3 | 0.599 | 97 | 0.015 / 0.012 / 0.077 / 0.496 |
 
-* Hard localisation (|A| ≤ Λ/S) would remove the ≥ 1000 band: ≈ 0.26, i.e. **≈ 9e3 × |G(c)|**.
+* **The remaining norm falls like ξ₀^{−2}** (the outgoing amplitude at |β| ≥ 2ξ₀ is ~ψ′(0)/(Λβ)²). Meanwhile the diagonal block's
+  1D norm stays ≈ 855|G(c)|, dominated by small ξ where G ≈ G(0). D itself moves with ξ₀ (it is the real-segment share), and only D + R is
+  invariant; the toy checks of that invariance at larger ξ₀ are in §4.1.
+* Hard localisation (|A| ≤ Λ/S) would remove the ≥ 1000 band: at ξ₀ = 0.02 that leaves ≈ 0.26 (9e3|G(c)|) at L = 0.2 and ≈ 0.10
+  (**16|G(c)|**) at L = 2.38.
 * The diagonal block's norm (850 × |G(c)|) costs only precision: it is a 1D real integral of explicit functions.
 * The **raw** norm of the remaining contour is unchanged (6.45e5): the soft-signed evaluation stays essential.

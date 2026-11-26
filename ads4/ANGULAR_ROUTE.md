@@ -1270,3 +1270,16 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Probes [certified], width 0.1, both channels:** a* = 3200 at β = 9, 12, 16, 20; 3600 at β = 30, 45, 63.9. Single runs show 3400 passing at 30 and 64; the [8.24, 8.4] cell now gives 3400 instead of 4000.
 * **Laptop run.** run_large_scan.py, 556 cells on [8.4, 64], running since commit 8ded31f. The η-choice change in ea2f379 is rigour-neutral (agent-confirmed; regression check agrees to 7 digits).
 * **β ≥ 64 is not reachable by this certificate.** The low-frequency residual mass, known only as an absolute integral, gives G^r/F ≈ 8e-6β², which reaches 1 near β ≈ 350. So β → ∞ needs the contour route (ℰ₂ < 0.01𝓜 for L ≥ 30.16), with its connection terms j ≥ 1 and k = 3 still unchecked. --beyond B works to β ≈ 200.
+
+## 78. Lemma S, part 2: quadrature-free rational reference (author, 26 Nov)
+
+* **Saddle side.** Airy-zone phase 𝓕_a(π/2+t) = aπ/2 + (a−ν)t − νt³/6 − νt⁵/24 + E, with \|E\| ≤ 0.014ν\|t\|⁷. A global CFU remainder is not obtained.
+* **Replacement reference.** 𝒦_p^ref = 𝒬_M(ϑ)F_{p,ν}(c), with the full rational ladder Taylor-truncated in h at order M.
+  * Claimed uniform remainder w^p\|𝒦_p − 𝒦_p^ref\| < e^{−105} (M = 1000; band-dependent M = 64–850 gives e^{−85}–e^{−129}) for a ≥ 998, J ≥ 1001, 0.04 < L < 30, ν ≤ 1100, both channels.
+  * Proof: the §63 vertical-line machinery with normalised coefficient majorant 20e^{πν/2}[1+d(k+5)]⁵; 1215 d-cells; outward-padded elementary arithmetic, **not Arb, not reproduced**.
+* **Evaluator.**
+  * R_{m,j} recurrence in the scaled falling-factorial basis (author: 588 exact-rational checks); W_j = Σ_m R_{m,j}.
+  * Contraction against the scaled jet [t^j]Y, Y(t) = w^pF(c + cdt). The jet comes from a degree-3-coefficient ODE recurrence seeded by P_ν(cosh β_c) and ∂_βP_ν.
+  * Cost: O(M²) per state, O(M) per frequency.
+  * **Internal cancellation:** coefficients reach ~1e366, so ball arithmetic at ~1300 bits is required.
+* **Coordinator caution (to be tested).** Evaluating one state is cheap. A certificate over the CONTINUUM of states (real a and J up to ~1e7) needs parameter cells. With ~1e366 internal cancellation in Σ_j W_j[t^j]Y, a naive interval enclosure over a cell is hopeless unless the cells are tiny or Taylor models in (c, h) track the cancellation. That cost decides feasibility.
