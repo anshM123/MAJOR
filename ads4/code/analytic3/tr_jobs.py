@@ -80,6 +80,7 @@ def run_one(job, escal=(0, 6, 12)):
     for dm in escal:
         rows = None; err = None
         box = dict(job['box']); box['m'] = job['box']['m'] + dm
+        if dm >= 6: box['K'] = min(1500, box['K'] + 60*(dm//6))
         if dm >= 12: box['R'] = max(box['R'], 16)
         try:
             rows = TK.run_box(box)

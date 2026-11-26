@@ -61,6 +61,38 @@ def series_inv1(c0, D):
     return arb_poly([(-c0)**k for k in range(D + 1)])
 
 
+def _ser(v):
+    n = int(ctx.prec*0.302) + 10
+    return (v.mid().str(n, radius=False), n, str(arb(v.rad()).upper()))
+
+
+def _des(t):
+    """midpoint was printed with n significant digits: add |m| 10^{-(n-2)} for the decimal rounding."""
+    m, n, rs = t
+    a = arb(m)
+    return a + arb(0, (abs(a)*arb(10)**(-(n - 2))).upper()) + arb(0, arb(rs.strip('[]')).upper() if '+/-' not in rs else arb(rs).upper())
+
+
+def anchor(c0, prec, pr, Kj):
+    """anchor jets with on-disk cache (cache/anchor_*.pkl); the cache stores midpoints to full precision and radii."""
+    import pickle, lu_bounds as B
+    key = f"anchor_{c0.mid().str(18, radius=False)}_{Kj}_{prec}_{C1.M}.pkl".replace(' ', '')
+    fn = os.path.join(HERE, 'cache', key)
+    if os.path.exists(fn):
+        d = pickle.load(open(fn, 'rb'))
+        ctx.prec = d['prec']
+        YA = [_des(t) for t in d['YA']]; YD = [_des(t) for t in d['YD']]
+        meta = d['meta']; meta['env'] = C1.env_floats(B.Envelope(c0))
+        pr(f'anchor jets loaded from {key}')
+        return YA, YD, meta
+    YA, YD, meta = C1.build(c0, prec, pr, Kj=Kj)
+    ctx.prec = prec
+    m2 = {k: v for k, v in meta.items() if k != 'env'}
+    pickle.dump(dict(prec=prec, YA=[_ser(v) for v in YA], YD=[_ser(v) for v in YD], meta=m2), open(fn + '.tmp', 'wb'))
+    os.replace(fn + '.tmp', fn)
+    return YA, YD, meta
+
+
 def cell(u_lo, u_hi, prec, I1, I0, D, out=None, rho_fac=6.0, precC=None, KC=40, Jextra=400):
     T0 = time.time()
     precC = precC or prec
@@ -81,7 +113,7 @@ def cell(u_lo, u_hi, prec, I1, I0, D, out=None, rho_fac=6.0, precC=None, KC=40, 
     assert float((c0*rho).upper()) < 0.5
     # ---------------- anchor jets
     Kj = 3*M + 3 + D + Jextra
-    YA, YD, meta = C1.build(c0, prec, pr, Kj=Kj)
+    YA, YD, meta = anchor(c0, prec, pr, Kj)
     env = meta['env']; F = meta['F']
     tj = time.time() - T0
     ctx.prec = prec
@@ -90,11 +122,11 @@ def cell(u_lo, u_hi, prec, I1, I0, D, out=None, rho_fac=6.0, precC=None, KC=40, 
     inv1 = series_inv1(c0, D)
     cw = inv1*c0                                     # c(w) = c0/(1 + c0 w)
     dw = 1 - cw
-    tau = (cw - c0)/(c0*d0)
+    tau = (cw - c0)*(1/(c0*d0))
     taus = [arb_poly([1])]
     for k in range(1, D + 1):
         taus.append((taus[-1]*tau).truncate(D + 1))
-    P3 = ((dw/d0)**3).truncate(D + 1)
+    P3 = ((dw*(1/d0))**3).truncate(D + 1)
     c0r = float((c0*rho).upper())
     Pd3 = ((1 + float((c0*rho/d0).upper()))/(1 - c0r))**3
     Tm = float((c0*rho/(d0*(1 - c0r))).upper())
@@ -179,7 +211,8 @@ def cell(u_lo, u_hi, prec, I1, I0, D, out=None, rho_fac=6.0, precC=None, KC=40, 
     pr(f"Y' polynomials: {time.time() - t:.0f}s;  max log rad: A {max(float(p[0].rad().log()) for p in YpA if p[0].rad() > 0):.1f}")
     ty = time.time() - t
     res = {}
-    for b in (0, 4):
+    chans = [int(x) for x in os.environ.get('LU_CHANNELS', '0,4').split(',')]
+    for b in chans:
         t = time.time()
         s, q_b, sig, kb, e = C.chan(b)
         # Y'^B

@@ -114,12 +114,19 @@ def PQ(d_lo, d_hi, nu_lo, nu_hi, m, channels=((3, 0), (3, 4)), name='box', tries
 
 
 def m_for(nu, L):
-    """Taylor order heuristic from the coordinator's preflight table (ANGULAR_ROUTE §107), plus margin."""
+    """Taylor order heuristic: for L >= 3 the values validated on [3.2, 3.35]; below, interpolated from the coordinator's preflight table
+    (ANGULAR_ROUTE §107: orders for a Cauchy remainder < 1e-3 at nu = 500 / 900: L = 3.2: 14 / 23, 2.5: 23 / 44, 2.0: 36 / 73, 1.6: 53 / 118)
+    plus a margin of 3; the runner raises m by 6 and 12 on failure."""
     if L >= 3.0:
         return 12 if nu < 400 else (16 if nu < 600 else (22 if nu < 800 else 28))
-    if L >= 2.5:
-        return 18 if nu < 400 else (24 if nu < 600 else (34 if nu < 800 else 44))
-    return 30 if nu < 400 else (40 if nu < 600 else (60 if nu < 800 else 76))
+    tab = [(3.2, 14, 23), (2.5, 23, 44), (2.0, 36, 73), (1.6, 53, 118)]
+    for (L1, a1, b1), (L2, a2, b2) in zip(tab[:-1], tab[1:]):
+        if L2 <= L <= L1 or L < 1.6:
+            w = (L1 - L)/(L1 - L2)
+            m500, m900 = a1 + w*(a2 - a1), b1 + w*(b2 - b1)
+            break
+    m = m500 + (m900 - m500)*(min(max(nu, 400.0), 1060.0) - 500)/400
+    return int(math.ceil(max(10, m))) + 3
 
 
 _MC = {}
