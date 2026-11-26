@@ -1869,3 +1869,11 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Estimates: [1.8, 2.9] ≈ 60 core-h; [1.5, 1.8] ≈ 240 core-h. [1.2, 1.25] alone is ≈ 350 core-h, and K reaches 1000–1240 near L ≈ 1.0.
   * So the launcher is laptop-feasible down to L ≈ 1.5; [1.3, 1.5] takes days; below ≈ 1.2 it is not feasible.
   * PASS margins below 2.6 are untested; a FAIL means split the cell and rerun.
+
+## 113. Low-L realised moments: the rational-pole seed errors reduce to three imaginary-frequency evaluations (author, 27 Nov; code not yet received)
+
+* **Set-up.** For the unshifted Gaussian part of the repaired weight, define F_{j,a} = ∫₀^∞ B(ν)θ(ν)/(4ν²+a)·(ν/1000)^{2j} dν for a ∈ {1, 9, 49}.
+* **Recurrence.** Since (ν/1000)² = (4ν²+a−a)/(4·10⁶), the exact recurrence F_{j+1,a} = (S_j − aF_{j,a})/(4·10⁶) holds, where S_j is the plain Gaussian moment. The coordinator checked this.
+* **Error propagation.** A seed error ε_a propagates as ΔF_{j,a} = ε_a(−a/(4·10⁶))^j, so its effect on the action is ε_a times the generating series evaluated at ν² = −a/4 (ν = i√a/2). Three correlated errors therefore replace thousands of independent ones.
+* **Claim (author).** Over the full 3,564-coefficient Gaussian inventory, \|ΔH_pole\| < 2.4e-20 on 0.05 ≤ c ≤ 0.56, against floors of about 1e-6.
+* **Scope.** This controls only the seed errors of the rational-pole moments, including the Gaussian cutoff correction. The plain Gaussian moments S_j (high order) and the full repaired moment vector are not yet certified.
