@@ -1,0 +1,6 @@
+state J=1500 a=1500.0 b=4: c=0.250082 beta_c=1.0988 L=-log d=0.2878  Y=14.0
+  bottom : Re fm +2.58407504e-05  inf +2.58408033e-05  |inf| 8.779e-05  |fm-inf| 1.330e-10  max|m-1| 1.519e-06  [1s]
+  left   : Re fm +8.78813842e-06  inf +8.78815198e-06  |inf| 4.660e-04  |fm-inf| 8.664e-10  max|m-1| 4.986e-05  [9s]
+  right  : Re fm +7.97033387e-14  inf +6.14286414e-14  |inf| 6.171e-14  |fm-inf| 4.292e-14  max|m-1| 1.768e+00  [29s]
+  top    : Re fm -6.83983460e-11  inf -6.84018137e-11  |inf| 4.535e-07  |fm-inf| 3.076e-07  max|m-1| 1.883e+00  [97s]
+ TOTAL fm 3.4628820369e-05  inf 3.4628886770e-05  rel diff -1.917e-06  sum|diff| 3.086e-07  sum|inf| 5.543e-04

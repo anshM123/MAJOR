@@ -1575,3 +1575,20 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * The hard-coded NF02 weight coefficients (X, Y, k₀) match prl/data/nf02_psi.json exactly (psi2 and psi3, exact rationals).
   * All remaining runs (wide b = 4; gap, gap_low, gap_mid for both spins) rebuilt and rerun; logs identical to the author's. verify_gap_bands.py on the fresh logs: both near-gap certificates PASS (3.5714e-5 and 2.9787e-5).
 * **Scope.** Two spins (J = 1002, b = 0; J = 1005, b = 4) × twist intervals [998, 1002] and [2951, 3049]. Not a continuum in spin.
+
+## 100. Analytic sliver attempt: L ≥ 5 closed analytically, pending review (agent, 26–27 Nov)
+
+* **Claim** (ANALYTIC_SLIVER.md §0, §7.3–7.4, §9). For Δ_g = 1000, a ≥ 998 (every twist, not only a < a*(L)), J ≥ 1001, b ∈ {0, 4} and L ≥ 5, d³ℒ(G) ≥ M − (E₂ + E₃ + E_r + E_ρ) with the errors ≤ ρ·F_cert(β_c), ρ < 1. Together with M ≥ F_cert(β_c) (FULLPOS3 §4.1(c)) this gives H_ang,b > 0.
+* **Coverage and ρ.**
+  * L ∈ [5, 8]: Route T′ with the new Lemma Loc′ (J₀ = 1500), half-unit cells: ρ = 0.947, 0.179, 0.070, 0.042, 0.032, 0.028. The worst cell is [5, 5.5].
+  * L ∈ [8, 16]: Route T′ with TAIL's Lemma Loc, ρ ≤ 0.0464.
+  * L ≥ 15.5: TAIL+E′, ρ ≤ 0.50 at 15.5 and ≤ 0.171 at 16.
+  * L ≥ 20: TAIL_CERT, ρ ≤ 0.066.
+* **New ingredient: Lemma Loc′.** A regionwise remainder bound replacing TAIL's single global localisation constant: connection-series tail, B-tiers weighted by (1.02d/b)^998, an angular fraction, dressing factor 41, and the B = E/(2iν) pole handled by Cauchy. log∫|f||𝒱_bℒ(R_1500)| = −894 at L = 5. Spot checks: K₀ = 1.0003 against the bound 1.6; the j-sum growth constant is 1.946 (≤ 2 asserted).
+* **Unreviewed.** Theorem E′, Lemma X, the helicity bound, the splitting lemma, Theorem R, Lemma NB with explicit d, Lemma V, Lemma Loc′, and the state relations at L ≥ 4.5 (0.49d ≤ a/N ≤ 0.51d and Td² ≥ 3.9a²; exact algebra, grid spot-checked only).
+* **Below L = 5 (open).**
+  1. Turning-point residual at a = 998, ν ∈ [1031, 1032]: 0.94·F_cert at L = 5 and 16·F_cert at L = 4.5. This is termwise j-series growth on top of Lemma X; it needs a resummed bound on K_J near ν ≈ a or finer certified residual masses.
+  2. Lemma Loc′ fails near L ≈ 4.
+  3. Top line (Lemma T) termwise bounds die near L ≈ 2–4, so a full-kernel upper-half-plane bound is needed.
+* **Sliver status.** If reviewed, the open sliver shrinks to 998 ≤ a < a*(L), J ≥ 1001 and 0.06 ≲ L < 5 (plus the four fixed-spin intervals of §98–99 inside it).
+* **Code.** code/analytic/ (rt_cert.py, whose 5th argument selects Loc′; rt_loc3.py, rt_pp.py, rt_rmass2.py, rt_rem.py, crossing.py, thmE.py, energy*.py, tp/); logs/. cache/ is gitignored.

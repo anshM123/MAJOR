@@ -1,0 +1,7 @@
+state J=10000 a=1500.0 b=0: c=0.756154 beta_c=2.6626 L=-log d=1.4112  Y=9.0
+  bottom : Re fm +5.27637032e-04  inf +5.27637728e-04  |inf| 1.135e-03  |fm-inf| 1.260e-09  max|m-1| 1.117e-06  [2s]
+  left   : Re fm +3.93696488e-05  inf +3.93696011e-05  |inf| 1.725e-03  |fm-inf| 1.270e-09  max|m-1| 7.529e-06  [15s]
+  right  : Re fm +3.89877913e-15  inf -3.81000239e-15  |inf| 3.834e-15  |fm-inf| 8.092e-15  max|m-1| 2.500e+00  [27s]
+  top    : Re fm -1.69954208e-13  inf -1.69952975e-13  |inf| 1.066e-09  |fm-inf| 7.471e-10  max|m-1| 1.880e+00  [135s]
+ TOTAL fm 5.6700668046e-04  inf 5.6700732905e-04  rel diff -1.144e-06  sum|diff| 3.277e-09  sum|inf| 2.860e-03
+real-axis: L(G) = 5.6700668046e-04   G(c) = 5.6700732905e-04
