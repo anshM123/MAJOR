@@ -29,9 +29,9 @@ Holography predicts that conformal field theories with a large central charge c_
 4 pages + references, 3 figures; 44 pages of Supplemental Material. Code and data: https://doi.org/10.5281/zenodo.24571131
 ```
 
-* The Letter PDF is 5 pages in total: the text, acknowledgments and data-availability statement end on page 4, and the references fill pages 4 and 5 (REVTeX
+* The Letter PDF is 6 pages in total: the text, acknowledgments and data-availability statement end on page 4, and the references fill pages 4 to 6 (REVTeX
   `prl` style, build of 26 Nov 2026). The Supplement is 44 pages (build of 26 Nov 2026). If you would rather count the whole PDF, write
-  "5 pages, 3 figures, 44 pages of Supplemental Material".
+  "6 pages, 3 figures, 44 pages of Supplemental Material".
 * Code and data: Zenodo, DOI 10.5281/zenodo.24571131 (filled in).
 * If the Supplement goes into the same arXiv submission (recommended: append it to the Letter PDF or upload it as an ancillary
   file), say so: "Supplemental Material included".
