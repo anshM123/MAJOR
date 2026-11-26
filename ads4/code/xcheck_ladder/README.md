@@ -161,12 +161,42 @@ quoted, these states differ by more than 2 stat:
 action, so they cannot be compared number by number. The exact result does confirm their conclusion: the excess has no
 effect on the sign, and the state is positive with the full hybrid margin.
 
-**Minimum over masses** (`out/minscan_1000_*.txt`). The minimum of λ/N_s over masses from the twist edge to 5Λ, for
-J ≤ 48 at Δ_g = 1000, against Table tab:Dstates: see §4.
+**Minimum over masses.** See §4.
 
-## 4. Minimum over masses
+## 4. Minimum over masses (Dg = 1000)
 
-(filled from `out/minscan_*.txt`; see the end of this file)
+The scan covers twist edge to 5Λ: 46 grid points plus a golden-section search, with N_s from `xl_norm` at 160 nodes. It
+is compared with Table tab:Dstates (published chain minima; direct rows in brackets). Full output:
+`out/minscan_1000_J*.txt`; odd J at intermediate masses: `out/odd_midmass.txt`.
+
+| J | exact min λ/N_s (at m/Λ) | tab:Dstates |
+|---|---|---|
+| 4 | +0.20412 (tw) | +0.2041 |
+| 5 | +0.20087 (tw) | +0.2009 |
+| 6 | +0.22951 (tw) | +0.2296 |
+| 8 | +0.42979 (tw) | +0.4309 |
+| 12 | +0.67676 (1.056) | +0.6759 (direct +0.6872 at 1.05) |
+| 14 | +0.69969 (1.036) | +0.6982 (direct +0.7264 at 1.03) |
+| 15 | +0.69166 (tw) | +0.6751 (own K₂ row +0.6900, direct +0.6943) |
+| 16 | +0.72504 (1.025) | +0.7191 (direct +0.7509 at 1.03) |
+| 17 | +0.84436 (1.051) | +0.840 (direct +0.848 at 1.05) |
+| 19 | **+0.8666 (1.04)** | "odd 19–29: +0.887 to +0.979"; direct +0.928 (1.05) |
+| 20 | +0.83882 (tw) | direct +0.835 |
+| 21 | +0.88343 (1.031) | +0.885 at 1.03 |
+| 22 / 24 / 26 / 28 | +0.887 / +0.904 / +0.917 / +0.935 (++, at m = 4.3–5Λ) | "above the minimum" |
+| 29 | +0.9678 (1.042) | ≥ +0.956 on 1.04–1.10 |
+| 30 | +0.9498 (++, 3.46Λ) | direct +0.900 (tw) |
+| 31 | +0.9714 (1.036) | +0.988 |
+| 32 | +0.9555 (++, 3.68Λ) | +0.904 (→ +0.997 without the ref-zero node) |
+| 36 | +0.9643 (++, 4.13Λ) | +0.957 |
+| 40 | +0.9708 (++, 4.58Λ) | +0.9795 |
+| 48 | +0.9890 (++, 5Λ) | +0.915 ± 0.08 |
+
+* **J = 19.** Its minimum is 0.8666 at m ≈ 1.04Λ. The hybrid alone gives 0.8670 there, so this is a dip of the
+  leading-Regge action, not a correction. That is 0.02 below the lower end, +0.887, of the published odd-J chain range.
+  A mass between the chain's grid points was probably missed. It has no bearing on the sign.
+* **J = 31 and J = 40.** The exact minima lie 0.017 and 0.009 below the published per-state minima.
+* **Everything else** agrees with the published minima, or lies above them.
 
 ## Files
 
@@ -189,5 +219,5 @@ python3 xl_moments.py cont 1000 24 120 900;  python3 xl_moments.py grid 1000 0 1
 python3 xl_moments.py grid 2000 0 120 1400;  python3 xl_moments.py grid 5000 0 120 1400
 python3 xl_eval.py 1000 2000 5000; python3 xl_report.py
 python3 xl_extra.py prec; python3 xl_extra.py win; python3 xl_extra.py kernel
-for j in 0 1 2; do python3 xl_extra.py scan 48 $j 3; done
+for j in 0 1 2; do python3 xl_extra.py scan 48 $j 3; done   # ~1 CPU-h
 ```

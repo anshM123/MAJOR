@@ -1,0 +1,8 @@
+# Dg=1000: min over m/Lam in [twist edge, 5] of lambda/N_s = min_b H_ang,b/N_s,b  (N_s from xl_norm.hybrid, npn=160; grid: 30 log-spaced points on [tw, 1.3] + 15 on [1.3, 5], then 18 golden-section steps around the minimum)
+J=  6  min lambda/N_s = +0.22951 (+-) at m/Lam = 1.00599   (twist edge 1.00599: +0.22951)
+J= 14  min lambda/N_s = +0.69969 (+-) at m/Lam = 1.03580   (twist edge 1.01392: +1.00001)
+J= 17  min lambda/N_s = +0.84436 (+-) at m/Lam = 1.05079   (twist edge 1.01687: +0.99529)
+J= 21  min lambda/N_s = +0.88343 (+-) at m/Lam = 1.03056   (twist edge 1.02080: +0.99914)
+J= 26  min lambda/N_s = +0.91709 (++) at m/Lam = 5.00000   (twist edge 1.02570: +0.99854)
+J= 30  min lambda/N_s = +0.94982 (++) at m/Lam = 3.46229   (twist edge 1.02959: +0.97587)
+J= 36  min lambda/N_s = +0.96434 (++) at m/Lam = 4.13119   (twist edge 1.03541: +0.98571)

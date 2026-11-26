@@ -72,15 +72,12 @@ def win():
 
 
 def scan(Jmax, J0=0, step=1):
-    sys.path.insert(0, os.path.join(X.ADS4, 'code', 'largespin'))
-    import ls_core as hf
+    JL = [4, 5, 6, 8, 12, 14, 15, 16, 17, 19, 20, 21, 22, 24, 26, 28, 29, 30, 31, 32, 36, 40, 48]
     ctx.prec = 1024
     Z, Y = X.load_cert_moments(1000, 1000, kmax=Jmax + 2); Q = X.Q_exact(Jmax + 2, LAM)
-    out = ['# Dg=1000: min over m/Lam in [twist edge, 5] of lambda/N_s = min_b H_ang,b/N_s,b  (N_s from ls_core.hyb_fast; '
+    out = ['# Dg=1000: min over m/Lam in [twist edge, 5] of lambda/N_s = min_b H_ang,b/N_s,b  (N_s from xl_norm.hybrid, npn=160; '
            'grid: 30 log-spaced points on [tw, 1.3] + 15 on [1.3, 5], then 18 golden-section steps around the minimum)']
-    for J in range(J0, Jmax + 1, step):
-        if J in (1, 3):
-            continue
+    for J in [j for j in JL if j <= Jmax][J0::step]:
         bs = [(0, '++'), (4, '+-')] if J % 2 == 0 else [(4, '+-')]
         if J < 4:
             bs = [(0, '++')]
@@ -95,7 +92,7 @@ def scan(Jmax, J0=0, step=1):
             vals = []
             for b, h in bs:
                 H = float(X.H_ang(J, b, X.to_arb(T), Z, Y, Q, LAM).mid())
-                vals.append((H/hf.hyb_fast(1000, J, mf, h)['Ns'], h))
+                vals.append((H/float(N.hybrid(1000, J, repr(mf), h, npn=160, dps=25)['Ns']), h))
             return min(vals)
         grid = [mtw] + [mtw*(1.3/mtw)**(i/30) for i in range(1, 31)] + [1.3*(5/1.3)**(i/15) for i in range(1, 16)]
         vals = [(lam_of(m), m) for m in grid]
