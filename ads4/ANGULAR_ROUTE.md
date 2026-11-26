@@ -1976,3 +1976,27 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * inventory_cut, pole_bound(_full), raw_seed_budget(_actual/_full): PASS, with the numbers above.
 * **Scope.** Coverage for c > 0.09 needs a larger moment table: K ≈ 3,250 at c = 0.56, and the prefix theorem allows up to 17,847 at c = 0.9. The [2.15, 2.3] slab was interrupted and makes no claim.
 * **Open after this:** L ∈ [0.0943, 2.3].
+
+## 119. Referee of L ∈ [3.65, 5] (ANALYTIC_SLIVER2): all four cells survive (referee agent, 27 Nov)
+
+* **Report:** REVIEW_SLIVER2.md; scripts in code/review_s2/.
+* **Lemmas.**
+  * **Lemma F holds.** The frames are affine; the defect is bounded by Taylor with the Hessian enclosed in Arb over the whole box. Against exact values on 148 certificate boxes the bound is never closer than e^{2.49}.
+    * Nit S4: in 17% of boxes the float midpoint ± radius misses the box by about 1e-15. Widen the radius; no state is lost.
+  * **Lemma B holds.** Each frame family is rigorous over the whole box, so the per-j minimum is valid; it is never closer than e^{1.5} to exact.
+  * **Loc″ holds.** The ratio is < 1 on all 2294 cells, and ψ₂ = 0 above Λ, so J′ = 2200 is legitimate.
+  * **rmass3** regenerates bit-identically.
+* **Gap S1, closed by the referee.** The state relations were needed on [3.65, 3.75] but stated only for L ≥ 3.75. They are now proven for all L ≥ 3.65: a/(Nd) ≤ 0.50337, Dd²/a² ≥ 3.947, N/a ≥ 76. The text's "Dd² ≥ 3.95a²" is false at 3.65, but nothing uses it.
+* **Contour on [3.65, 3.75].** The hypotheses hold: (A+B)/den = 1.9745 ≤ 1.99; F/den = 0.930; the j-tail ratio is 0.486 < 0.5 (a narrow pass); the top line stays clear of the B poles. The right edge (0.32·F) rests on **Lemma X (AS §5.5), still unreviewed**; numerically it sits above the truth by at least e^{8.35}.
+* **S3, wrong justification, negligible effect.** The claim "\|f_θ\| ≤ \|f\| above Λ" is false, because θ is evaluated at ν − i (θ(1098.5 − i) = 0.49999 + 0.0566i). The correct omitted term is ≤ 7e-11·F.
+* **Reruns.**
+
+  | cell | ρ |
+  |---|---|
+  | [3.65, 3.75] | 0.545 (bit-for-bit) |
+  | [3.75, 4] | 0.223 (bit-for-bit) |
+  | [4, 4.5] | 0.0894 (bit-for-bit) |
+  | [4.5, 5] | cached 0.0267, rerun 0.0177 |
+
+  S2: the cached [4.5, 5] value comes from the older single-family Lemma B call, which reproduces exactly when patched in. Both versions are rigorous.
+* **Status.** [3.65, 5] stands. [3.65, 3.75] is conditional on Lemma X, which can be removed by covering [3.65, 3.8] with the author's norming pipeline (§109–110); see §120.
