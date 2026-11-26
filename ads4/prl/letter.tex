@@ -38,7 +38,22 @@ tensors to vanish as powers of $1/\Delta_g$. Averaged null energy is positive~\c
 and the light-ray operators that measure it commute at spacelike separation~\cite{KKSDZ,KKSDZlightray}; the
 resulting sum rules on $\langle TTTT\rangle$ force those couplings to vanish at infinite
 gap~\cite{KKSDZ,BHM}. What these arguments do not give is the constant in front: how far from Einstein
-gravity can a theory with a given gap be?
+gravity can a theory with a given gap be? The answer matters beyond AdS/CFT. It is a quantitative test of the
+idea that quantum gravity with a large gap reduces to Einstein gravity; it limits which gravitational effective
+field theories can have a holographic completion; and it tells anyone building a holographic model how large a
+non-Einstein coupling a given gap allows. For all three uses a scaling law is not enough: what is needed is a number.
+
+\begin{figure}[tb]
+\includegraphics[width=\columnwidth]{fig/fig0_concept}
+\caption{\label{fig:concept}The question and the method. (a)~The stress tensor $T$ creates a state whose energy flux
+at null infinity (dotted circle) is measured by energy detectors $\mathcal E(\vec n)$. Its angular profile is
+proportional to $1+A\cos(4\theta-\varphi)$. Every unitary CFT$_3$ allows $A$ up to one (dashed, $A=1$); at
+$\Delta_g\ge1000$ we find $A\le7.2\times10^{-9}$, an isotropic pattern (solid). (b)~Schematic spectrum of $T\times T$.
+Commutativity of the detectors gives a sum rule in which the heavy states, above the gap, balance the light ones:
+$T$ (star), its double traces $[TT]$ and light single traces of spin zero and two (open circles). The light side is
+fixed by Newton's constant $G$ and the couplings $\hat g_3$ and $g_4$; if the functional $\Omega$ is positive on
+every heavy state, the sum rule bounds them.}
+\end{figure}
 
 In flat space this question has a sharp answer. Dispersive sum rules bound graviton couplings in units of
 the mass of the lightest higher-spin state~\cite{CaronHuotVanDuong,CHMRSswamp,BKZ,CHLPS,CHLPSpw}, and
@@ -50,9 +65,9 @@ $\langle TTTT\rangle$ and listed the steps still missing before graviton couplin
 AdS~\cite{CLSD}.
 
 Here we take those steps for AdS$_4$/CFT$_3$. We show that a gap of 1000 forces the three-point function
-of the stress tensor to its Einstein form to one part in $10^8$, and we bound the leading stringy
+of the stress tensor to its Einstein form to one part in $10^8$ [Fig.~\ref{fig:concept}(a)], and we bound the leading stringy
 ($R^4$) correction to graviton scattering from above. Both bounds follow from positivity of a fixed
-linear functional on the heavy spectrum. For the cubic bound we prove this positivity at $\Delta_g=1000$,
+linear functional on the heavy spectrum [Fig.~\ref{fig:concept}(b)]. For the cubic bound we prove this positivity at $\Delta_g=1000$,
 on every heavy state, with a computer-assisted proof (Fig.~\ref{fig:coverage}). Without any positivity
 input, the algebra of energy detectors together with crossing still gives a weaker bound. In what
 follows, ``we prove'' means a written proof, ``certified'' a computer-assisted proof in interval or
@@ -232,8 +247,9 @@ dominated by an infrared logarithm. Beyond the parametric statements of Refs.~\c
 flat-space and higher-dimensional precedents~\cite{CHLPS,CHLPSpw}, the new elements are explicit constants derived
 from $\langle TTTT\rangle$, a proof that a dispersive functional is positive on the entire heavy spectrum of AdS
 at finite gap, a bound on the parity-odd coupling $\alpha_T$, and an AdS bound on a graviton $R^4$ coefficient,
-which localization determines in ABJ(M) theory~\cite{BCP,BCJP}. None of the ingredients is special to three
-dimensions; AdS$_5$/CFT$_4$, where $\mathcal N=4$ super-Yang--Mills theory supplies exact checks, is the natural
+which localization determines in ABJ(M) theory~\cite{BCP,BCJP}. Because the bounds are numbers rather than scaling laws, they can be compared directly with string theory, as the
+ABJM check shows, and used as inputs by anyone constraining gravitational effective theories. None of the ingredients
+is special to three dimensions, and the same method applies at any gap; AdS$_5$/CFT$_4$, where $\mathcal N=4$ super-Yang--Mills theory supplies exact checks, is the natural
 next case.
 
 \textit{Acknowledgments}---AI (Claude) assisted with the formulation and drafting of this manuscript. The authors take full
