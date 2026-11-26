@@ -1566,3 +1566,12 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Status.** Author-executed (C++ package of 18 files, not yet in the repository; must be pushed and rerun independently).
   * Coverage is so far only four (J, twist-interval) pairs.
   * Fixed-spin certificates cannot cover J up to ~1e7+; a spin-uniform version (compactified 1/J) is still needed.
+
+## 99. Fixed-spin sliver certificates: package added and reproduced (coordinator)
+
+* **The package** is in code/sliver/: C++/GMP checkers check_wide, check_gap, check_gap_low, check_gap_mid, verify_gap_bands.py, README and the author's logs.
+* **Reproduced here.**
+  * check_wide 1002 0 rebuilt from source and rerun (45 s): output identical to the author's log, action_lower = 2.4032e-5, PASS.
+  * The hard-coded NF02 weight coefficients (X, Y, k₀) match prl/data/nf02_psi.json exactly (psi2 and psi3, exact rationals).
+  * The remaining runs (wide b = 4, the gap bands) are being rerun.
+* **Scope.** Two spins (J = 1002, b = 0; J = 1005, b = 4) × twist intervals [998, 1002] and [2951, 3049]. Not a continuum in spin.

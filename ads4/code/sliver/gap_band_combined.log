@@ -1,0 +1,2 @@
+J=1002 b=0 a=[998,1002] ideal_lower=3.61095512566e-05 residual_upper=3.94922881603e-07 action_lower=3.5714628375e-05 PASS
+J=1005 b=4 a=[998,1002] ideal_lower=3.32163953524e-05 residual_upper=3.4294909329e-06 action_lower=2.97869044195e-05 PASS

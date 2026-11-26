@@ -1,0 +1,2 @@
+p=3 gmax(log10 units)=1026 gsum(log10 units)=1027 max Wnorm=1.00199 tail=1.63731e-51 round=1.40806e-80 ideal err=9.20207e-44
+J=1005 b=4 D0=4022010 D_radius=8000 Q=260 precision_bits=1850 spectral_kernel_norm_upper=80352.76057506434

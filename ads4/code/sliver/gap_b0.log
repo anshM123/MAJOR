@@ -1,0 +1,6 @@
+p=3 gmax(log10 units)=1219 gsum(log10 units)=1220 max Wnorm=1.002 tail=3.08657e-104 round=8.32445e-219 ideal err=1.73473e-96
+p=4 gmax(log10 units)=1218 gsum(log10 units)=1220 max Wnorm=0.248629 tail=2.31493e-104 round=6.24451e-219 ideal err=6.50523e-97
+J=1002 b=0 n=1002 D0=4010006 D_radius=8000 Q=300 precision_bits=2400
+ideal_constant=3.615926683251701e-05 ideal_variation=1.242889397408793e-08 ideal_lower=3.614683793854292e-05
+spectral_kernel_norm_upper=7307868607752.442 residual_upper=43935.08181013492 action_lower=-43935.08177398809
+FAIL
