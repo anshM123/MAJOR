@@ -1,0 +1,16 @@
+R265a env RT2_FINE=1 RT2_JP=2200 python3 rt2_resid.py 3.65 3.75 0 2
+R265b env RT2_FINE=1 RT2_JP=2200 python3 rt2_resid.py 3.65 3.75 1 2
+R375a env RT2_FINE=1 RT2_JP=2200 python3 rt2_resid.py 3.75 4.0 0 2
+R375b env RT2_FINE=1 RT2_JP=2200 python3 rt2_resid.py 3.75 4.0 1 2
+L365 python3 rt2_loc2.py 3.65 3.75 1500 2200
+L375 python3 rt2_loc2.py 3.75 4.0 1500 2200
+C365 python3 rt2_contour.py 3.65 3.75 4
+C375 python3 rt2_contour.py 3.75 4.0 4
+R40a env RT2_FINE=1 python3 rt2_resid.py 4.0 4.5 0 2
+R40b env RT2_FINE=1 python3 rt2_resid.py 4.0 4.5 1 2
+L40 python3 rt2_loc.py 4.0 4.5 1500
+C40 python3 rt2_contour.py 4.0 4.5 2
+R45a python3 rt2_resid.py 4.5 5.0 0 2
+R45b python3 rt2_resid.py 4.5 5.0 1 2
+L45 python3 rt2_loc.py 4.5 5.0 1500
+C45 python3 rt2_contour.py 4.5 5.0 2

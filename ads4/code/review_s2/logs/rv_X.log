@@ -1,0 +1,5 @@
+PP(sigma<=0.5, tau in [Lam-1, Lam]) : log bound 9.747, max exact 1.393 at (998, 4, 83368, (0.5+998.4998748122105j)), gap 8.353
+PP(sigma<=1.5, tau in [Lam-1, Lam]) : log bound 10.586, max exact 1.961 at (998, 4, 83368, (1.5+998.4998748122105j)), gap 8.625
+PP(sigma<=2.5, tau in [Lam-1, Lam]) : log bound 11.413, max exact 2.525 at (998, 4, 83368, (2.5+998.4998748122105j)), gap 8.887
+PP(sigma<=3.5, tau in [Lam-1, Lam]) : log bound 12.229, max exact 3.087 at (998, 4, 83368, (3.5+998.4998748122105j)), gap 9.142
+min gap 8.353484801281887

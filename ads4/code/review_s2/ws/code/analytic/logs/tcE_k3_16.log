@@ -1,0 +1,3 @@
+k=3: int_0^1 |psi3(p)| |B(Lam p)| X3(p) dp <= 8.3114e-01   (L0 = 16.0, J0 = 200)
+k=3 main part / M(L) <= 7.424e-03 for L in [16.0, 115.5] (sup over the grid; the ratio is decreasing in L for L > 1)
+k=3 remainder / M(L): log10 <= -309.2

@@ -1,0 +1,14 @@
+state J=1001 a=3200.0 b=0: c=0.056819 beta_c=0.4861 L=-log d=0.0585  Y=30.0
+  bottom : Re fm +1.38755748e-05  inf +1.38755753e-05  |inf| 6.544e-05  |fm-inf| 3.787e-12  max|m-1| 5.811e-08  [2s]
+  left   : Re fm +1.48374972e-05  inf +1.48374918e-05  |inf| 1.262e-03  |fm-inf| 4.326e-10  max|m-1| 1.107e-04  [60s]
+Traceback (most recent call last):
+  File "/home/user/MAJOR/ads4/code/analytic/ct_check.py", line 49, in <module>
+    piece('right', lambda y: (LAM + I*y, I, psi((LAM + I*y)/LAM)), 0, Y, max(2, int(Y)), 10)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/MAJOR/ads4/code/analytic/ct_check.py", line 36, in piece
+    Kf, _ = Kplus(nu, st, U); Ki, _ = Kplus(nu, st, U, inf=True)
+            ~~~~~^^^^^^^^^^^
+  File "/home/user/MAJOR/ads4/code/analytic/kplus.py", line 50, in Kplus
+    if j > jmax: raise RuntimeError('jmax')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: jmax

@@ -1,0 +1,45 @@
+segment: 7500 W-cells; max delta_seg = 3.2961e-06; max j>=1 factor = 7.034e-08
+detour: short 25 cells (max |X|-factor 1.000002), vertical 24000 cells (max 1.000002)  [10s]
+   leg cell 0/14568 t = 0.25: |X0| <= 1.802, j-sum 2.805e-07 [10s]
+   leg cell 2000/14568 t = 20.25: |X0| <= 2.042, j-sum 2.351e-06 [11s]
+   leg cell 4000/14568 t = 40.24: |X0| <= 2.085, j-sum 4.737e-06 [12s]
+   leg cell 6000/14568 t = 197.37: |X0| <= 2.501, j-sum 2.809e-05 [13s]
+   leg cell 8000/14568 t = 397.33: |X0| <= 3.343, j-sum 7.795e-05 [14s]
+   leg cell 10000/14568 t = 597.29: |X0| <= 5.032, j-sum 1.865e-04 [15s]
+   leg cell 12000/14568 t = 797.25: |X0| <= 10.53, j-sum 5.693e-04 [16s]
+   leg cell 14000/14568 t = 997.21: |X0| <= 1.376e+05, j-sum 1.144e+01 [17s]
+leg tail: [T_END=1054, 1146): 2.828e-168;  [1146, 6000) (reflection bound): 0.000e+00  (beyond 6000: e^{-1.6e7})
+leg sum int|fB|(|X0| + j-sum) over CONTOUR cells: 1.0616e+12 (vs int|fB| = 5.3018e+11; t<45 part 1.0616e+12)
+L in [16.0, 80] (cells 0.05): max rho = 1.6273e-01
+  L in [16.00,16.05]: rho <= 1.627e-01   (seg_j 3.1e-08, res 4.3e-19, short 2.6e-04, vert 6.6e-03, leg 1.6e-01)
+  L in [18.00,18.05]: rho <= 2.134e-03   (seg_j 3.1e-08, res 4.8e-19, short 6.5e-05, vert 1.6e-04, leg 1.9e-03)
+  L in [20.00,20.05]: rho <= 4.940e-05   (seg_j 3.1e-08, res 5.2e-19, short 1.6e-05, vert 1.0e-05, leg 2.3e-05)
+  L in [22.00,22.05]: rho <= 5.697e-06   (seg_j 3.1e-08, res 5.7e-19, short 3.9e-06, vert 1.5e-06, leg 2.8e-07)
+  L in [24.00,24.05]: rho <= 1.248e-06   (seg_j 3.0e-08, res 6.1e-19, short 9.3e-07, vert 2.9e-07, leg 3.4e-09)
+  L in [26.00,26.05]: rho <= 3.090e-07   (seg_j 3.0e-08, res 6.6e-19, short 2.2e-07, vert 5.6e-08, leg 4.0e-11)
+  L in [28.00,28.05]: rho <= 9.452e-08   (seg_j 3.0e-08, res 7.0e-19, short 5.3e-08, vert 1.1e-08, leg 4.8e-13)
+  L in [30.00,30.05]: rho <= 4.492e-08   (seg_j 3.0e-08, res 7.5e-19, short 1.3e-08, vert 2.3e-09, leg 5.6e-15)
+  L in [32.00,32.05]: rho <= 3.335e-08   (seg_j 3.0e-08, res 7.9e-19, short 3.0e-09, vert 4.9e-10, leg 6.6e-17)
+  L in [34.00,34.05]: rho <= 3.060e-08   (seg_j 3.0e-08, res 8.4e-19, short 7.0e-10, vert 1.0e-10, leg 7.8e-19)
+  L in [36.00,36.05]: rho <= 2.990e-08   (seg_j 3.0e-08, res 8.8e-19, short 1.7e-10, vert 2.2e-11, leg 9.1e-21)
+  L in [38.00,38.05]: rho <= 2.968e-08   (seg_j 3.0e-08, res 9.3e-19, short 3.9e-11, vert 4.7e-12, leg 1.1e-22)
+  L in [40.00,40.05]: rho <= 2.958e-08   (seg_j 3.0e-08, res 9.7e-19, short 9.1e-12, vert 1.0e-12, leg 1.2e-24)
+  L in [42.00,42.05]: rho <= 2.952e-08   (seg_j 3.0e-08, res 1.0e-18, short 2.1e-12, vert 2.2e-13, leg 1.4e-26)
+  L in [44.00,44.05]: rho <= 2.946e-08   (seg_j 2.9e-08, res 1.1e-18, short 4.9e-13, vert 4.7e-14, leg 1.7e-28)
+  L in [46.00,46.05]: rho <= 2.941e-08   (seg_j 2.9e-08, res 1.1e-18, short 1.1e-13, vert 1.0e-14, leg 1.9e-30)
+  L in [48.00,48.05]: rho <= 2.936e-08   (seg_j 2.9e-08, res 1.2e-18, short 2.7e-14, vert 2.2e-15, leg 2.2e-32)
+  L in [50.00,50.05]: rho <= 2.932e-08   (seg_j 2.9e-08, res 1.2e-18, short 6.2e-15, vert 4.9e-16, leg 2.6e-34)
+  L in [52.00,52.05]: rho <= 2.928e-08   (seg_j 2.9e-08, res 1.2e-18, short 1.4e-15, vert 1.1e-16, leg 3.0e-36)
+  L in [54.00,54.05]: rho <= 2.924e-08   (seg_j 2.9e-08, res 1.3e-18, short 3.3e-16, vert 2.3e-17, leg 3.4e-38)
+  L in [56.00,56.05]: rho <= 2.921e-08   (seg_j 2.9e-08, res 1.3e-18, short 7.6e-17, vert 5.1e-18, leg 3.9e-40)
+  L in [58.00,58.05]: rho <= 2.918e-08   (seg_j 2.9e-08, res 1.4e-18, short 1.8e-17, vert 1.1e-18, leg 4.5e-42)
+  L in [60.00,60.05]: rho <= 2.915e-08   (seg_j 2.9e-08, res 1.4e-18, short 4.1e-18, vert 2.5e-19, leg 5.2e-44)
+  L in [62.00,62.05]: rho <= 2.912e-08   (seg_j 2.9e-08, res 1.5e-18, short 9.4e-19, vert 5.4e-20, leg 6.0e-46)
+  L in [64.00,64.05]: rho <= 2.909e-08   (seg_j 2.9e-08, res 1.5e-18, short 2.2e-19, vert 1.2e-20, leg 6.8e-48)
+  L in [66.00,66.05]: rho <= 2.907e-08   (seg_j 2.9e-08, res 1.6e-18, short 4.9e-20, vert 2.7e-21, leg 7.8e-50)
+  L in [68.00,68.05]: rho <= 2.904e-08   (seg_j 2.9e-08, res 1.6e-18, short 1.1e-20, vert 5.9e-22, leg 8.9e-52)
+  L in [70.00,70.05]: rho <= 2.902e-08   (seg_j 2.9e-08, res 1.6e-18, short 2.6e-21, vert 1.3e-22, leg 1.0e-53)
+  L in [72.00,72.05]: rho <= 2.900e-08   (seg_j 2.9e-08, res 1.7e-18, short 6.0e-22, vert 2.9e-23, leg 1.2e-55)
+  L in [74.00,74.05]: rho <= 2.898e-08   (seg_j 2.9e-08, res 1.7e-18, short 1.4e-22, vert 6.3e-24, leg 1.3e-57)
+  L in [76.00,76.05]: rho <= 2.896e-08   (seg_j 2.9e-08, res 1.8e-18, short 3.1e-23, vert 1.4e-24, leg 1.5e-59)
+  L in [78.00,78.05]: rho <= 2.894e-08   (seg_j 2.9e-08, res 1.8e-18, short 7.2e-24, vert 3.1e-25, leg 1.7e-61)

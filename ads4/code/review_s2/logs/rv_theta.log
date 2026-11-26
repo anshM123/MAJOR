@@ -1,0 +1,30 @@
+nu_c = [1098.49987481221047972826991895022194016116673380923031848 +/- 2.47e-55]
+def theta_series(W, z):
+    """theta(z) for acb or acb_series z."""
+    return 1 - ((z + W.nuc)/W.acut).erfc()/2 - ((W.nuc - z)/W.acut).erfc()/2
+
+
+def G_series(W, z0, N, near=None):
+    """Taylor coefficients (length N) of G_near(z0 + s) at s = 0; z0 acb, Re z0 > 0 (or = 0 away from 0, 2i).  G_near uses the RBF
+    terms near Re z0 (near_terms)."""
+    S = acb_series([z0, 1], prec=N)
+    nup = S - I
+    if near is None:
+        near = near_terms(W, float(z0.real.mid()))
+    Bg = None
+    for ca, xa, inv, *_ in near:
+        D = nup - ca
+        t = (-(D*D)*inv).exp()*xa
+        Bg = t if Bg is
+nu = 1000.0: theta(nu - i) = 1+1.92934e-44j, |theta| = 1.000000
+nu = 1030.0: theta(nu - i) = 1+1.69351e-22j, |theta| = 1.000000
+nu = 1059.0: theta(nu - i) = 1+8.52231e-09j, |theta| = 1.000000
+nu = 1080.0: theta(nu - i) = 0.995894+0.00180526j, |theta| = 0.995895
+nu = 1098.5: theta(nu - i) = 0.499993+0.0566076j, |theta| = 0.503187
+nu = 1110.0: theta(nu - i) = 0.0502063+0.0149507j, |theta| = 0.052385
+nu = 1150.0: theta(nu - i) = 8.20718e-14+1.42662e-13j, |theta| = 0.000000
+CONTOUR bound int_1059^oo |f_theta| <= [2.38038898300022364789517397519680694894516966063823068e-255 +/- 2.20e-309]
+[3.65_3.75] (code): sup K on [Lam,1059) = 1.063e+14, on [1059,1150] = 2.457e+39; omitted 2 int_(nu>=Lam)|f_theta - f||K_J| <= 3.529e-09 -> /F = 6.606e-11
+[3.75_4.0] (code): sup K on [Lam,1059) = 1.322e+14, on [1059,1150] = 1.105e+39; omitted 2 int_(nu>=Lam)|f_theta - f||K_J| <= 4.391e-09 -> /F = 7.111e-11
+[4.0_4.5] (code): sup K on [Lam,1059) = 1.319e+14, on [1059,1150] = 4.726e+39; omitted 2 int_(nu>=Lam)|f_theta - f||K_J| <= 4.381e-09 -> /F = 4.460e-11
+[4.5_5.0] (code): sup K on [Lam,1059) = 5.483e+13, on [1059,1150] = 4.611e+38; omitted 2 int_(nu>=Lam)|f_theta - f||K_J| <= 1.820e-09 -> /F = 5.842e-12
