@@ -19,44 +19,42 @@
 
 \begin{abstract}
 Holography predicts that CFTs with large central charge and a large gap behave like Einstein
-gravity, but only as a scaling law. In three dimensions we supply the numbers. A gap of 1000 forces
-the graviton's three-point couplings to their Einstein values to one part in $10^8$ at leading order
-in $1/c_T$. The positivity property this rests on, which we prove in flat space, we establish in AdS
-on every heavy state at that gap by a computer-assisted proof. Under a further positivity assumption
-we also bound the first stringy correction, and without positivity energy-detector commutativity and
-crossing still bound the deviation by $0.018$.
+gravity, with corrections that fall as powers of the gap. For three-dimensional CFTs we determine the
+constants. A gap of 1000 forces the graviton's three-point couplings to agree with their Einstein values
+to one part in $10^8$ at leading order in $1/c_T$. The bound rests on a positivity property, which we
+prove in flat space and, at that gap, establish in AdS on every heavy state by a computer-assisted proof.
+Under a further positivity assumption we also bound the first stringy correction. Without any positivity
+input, commutativity of energy detectors and crossing still bound the deviation by $0.018$.
 \end{abstract}
 
 \maketitle
 
 \textit{Introduction}---A conformal field theory (CFT) with a large central charge $c_T$ and a large gap
 $\Delta_g$ in its spectrum of single-trace operators is expected to be dual to weakly coupled Einstein
-gravity, with higher-derivative corrections suppressed by the gap~\cite{HPPS}. This expectation is
-known as a scaling law. Causality of high-energy scattering~\cite{CEMZ} and of CFT correlators in the
+gravity, with higher-derivative corrections suppressed by the gap~\cite{HPPS}. Causality of high-energy scattering~\cite{CEMZ} and of CFT correlators in the
 Regge limit~\cite{HJK,AHKT,CHP,MeltzerPerlmutter,AKT} forces the non-Einstein couplings of three stress
 tensors to vanish as powers of $1/\Delta_g$. Averaged null energy is positive~\cite{HofmanMaldacena,HKT},
 and the light-ray operators that measure it commute at spacelike separation~\cite{KKSDZ,KKSDZlightray}; the
 resulting sum rules on $\langle TTTT\rangle$ force those couplings to vanish at infinite
-gap~\cite{KKSDZ,BHM}. What these arguments do not give is the constant in front: how far from Einstein
-gravity can a theory with a given gap be? The answer matters beyond AdS/CFT. It is a quantitative test of the
-idea that quantum gravity with a large gap reduces to Einstein gravity; it limits which gravitational effective
-field theories can have a holographic completion; and it tells anyone building a holographic model how large a
-non-Einstein coupling a given gap allows. For all three uses a scaling law is not enough: what is needed is a number.
+gap~\cite{KKSDZ,BHM}. These arguments do not fix the constant in front, that is, how far from Einstein
+gravity a theory with a given gap can be. The constant matters beyond AdS/CFT. It turns the idea that quantum
+gravity with a large gap reduces to Einstein gravity into a quantitative test. It also limits which gravitational
+effective field theories can have a holographic completion, and how large a non-Einstein coupling a holographic
+model with a given gap can have.
 
 \begin{figure}[tb]
 \includegraphics[width=\columnwidth]{fig/fig0_concept}
-\caption{\label{fig:concept}The question and the method. (a)~The stress tensor $T$ creates a state whose energy flux
+\caption{\label{fig:concept}(a)~The stress tensor $T$ creates a state whose energy flux
 at null infinity (dotted circle) is measured by energy detectors $\mathcal E(\vec n)$. Its angular profile is
 proportional to $1+A\cos(4\theta-\varphi)$. Every unitary CFT$_3$ allows $A$ up to one (dashed, $A=1$); at
-$\Delta_g\ge1000$ we find $A\le7.2\times10^{-9}$, an isotropic pattern (solid). (b)~Schematic spectrum of $T\times T$.
+$\Delta_g\ge1000$ we find $A\le7.2\times10^{-9}$, indistinguishable from isotropic (solid). (b)~Schematic spectrum of $T\times T$.
 Commutativity of the detectors gives a sum rule in which the heavy states, above the gap, balance the light ones:
 $T$ (star), its double traces $[TT]$ and light single traces of spin zero and two (open circles). The light side is
 fixed by Newton's constant $G$ and the couplings $\hat g_3$ and $g_4$; if the functional $\Omega$ is positive on
 every heavy state, the sum rule bounds them.}
 \end{figure}
 
-In flat space this question has a sharp answer. Dispersive sum rules bound graviton couplings in units of
-the mass of the lightest higher-spin state~\cite{CaronHuotVanDuong,CHMRSswamp,BKZ,CHLPS,CHLPSpw}, and
+In flat space, dispersive sum rules bound graviton couplings in units of the mass of the lightest higher-spin state~\cite{CaronHuotVanDuong,CHMRSswamp,BKZ,CHLPS,CHLPSpw}, and
 Caron-Huot, Li, Parra-Martinez, and Simmons-Duffin remark that their four-dimensional bound translates to
 holographic CFT$_3$, without a derivation~\cite{CHLPS}. In anti-de Sitter (AdS) space, dispersive CFT sum
 rules~\cite{CHMRSdisp} have given bounds with explicit constants on scalar contact
@@ -65,15 +63,14 @@ $\langle TTTT\rangle$ and listed the steps still missing before graviton couplin
 AdS~\cite{CLSD}.
 
 Here we take those steps for AdS$_4$/CFT$_3$. We show that a gap of 1000 forces the three-point function
-of the stress tensor to its Einstein form to one part in $10^8$ [Fig.~\ref{fig:concept}(a)], and we bound the leading stringy
-($R^4$) correction to graviton scattering from above. Both bounds follow from positivity of a fixed
-linear functional on the heavy spectrum [Fig.~\ref{fig:concept}(b)]. For the cubic bound we prove this positivity at $\Delta_g=1000$,
+of the stress tensor to agree with its Einstein form to one part in $10^8$ [Fig.~\ref{fig:concept}(a)], and we bound the leading stringy
+($R^4$) correction to graviton scattering from above. Both bounds follow from positivity of fixed
+linear functionals on the heavy spectrum [Fig.~\ref{fig:concept}(b)]. For the cubic bound we prove this positivity at $\Delta_g=1000$,
 on every heavy state, with a computer-assisted proof (Fig.~\ref{fig:coverage}). Without any positivity
-input, the algebra of energy detectors together with crossing still gives a weaker bound. In what
-follows, ``we prove'' means a written proof, ``certified'' a computer-assisted proof in interval or
-directed-rounding arithmetic, ``with error control'' a computation in which every modelled term carries a
-threefold safety factor, ``in a model'' a computation whose accuracy is itself a hypothesis, and ``we
-sketch'' an argument whose details are not complete. The Supplemental Material~\cite{SM} grades every
+input, the algebra of energy detectors together with crossing still gives a weaker bound. We say ``we prove'' for a written proof and ``certified'' for a computer-assisted proof in
+interval or directed-rounding arithmetic. ``With error control'' marks a computation in which every modeled term
+carries a threefold safety factor, ``in a model'' one whose accuracy is itself a hypothesis, and ``we sketch'' an
+argument whose details are not complete. The Supplemental Material~\cite{SM} grades every
 statement on this scale.
 
 \textit{Setup}---We consider a unitary CFT$_3$, parity invariant or not, with a unique stress tensor $T$
@@ -92,11 +89,12 @@ in the operator product expansion (OPE) $T\times T$ has twist at least $\Delta_g
 zero and two may be light. (ii) \emph{Weak coupling below the gap}: $c_T\to\infty$ at fixed $\Delta_g$,
 and the states below the gap are described by a tree-level bulk effective theory, uniformly in spin. All
 bounds hold at leading order in $1/c_T$. (iii) \emph{Positivity}: the functionals introduced below are
-positive on every heavy state. For the cubic functional at $\Delta_g=1000$ this is not an assumption: we
-prove it. The quartic bound needs, in addition, either $\tau=0$ or the positive sign of one light-side
-coefficient, and, for its headline value, that no scalar lighter than $0.46\Lambda$ couples to $TT$. The
-standard inputs are listed and graded in the Supplemental Material~\cite{SM}; the strongest, used only for
-the quartic bound, is that light double-trace data contain no conspiracy.
+positive on every heavy state. For the cubic functional at $\Delta_g=1000$ we prove (iii), so there it is not an
+assumption. The quartic bound also needs either $\tau=0$ or a positive sign for one light-side coefficient;
+the value in Eq.~\eqref{eq:quartic} further needs that no scalar lighter than $0.46\Lambda$ couples to $TT$. The
+standard inputs are listed and graded in the Supplemental Material~\cite{SM}. The strongest, used only to identify
+the coefficient the quartic sum rule measures with $g_4$, is that the light double-trace data are those of a
+tree-level bulk theory, with no fine-tuned cancellation between the heavy states and the tower of bulk contact terms.
 
 \textit{How close to Einstein}---Under (i) and (ii), every holographic CFT$_3$ with a gap
 $\Delta_g\ge\DgHead$ in the single traces of $T\times T$ has
@@ -105,31 +103,30 @@ $\Delta_g\ge\DgHead$ in the single traces of $T\times T$ has
 \label{eq:cubic}
 \end{equation}
 at leading order in $1/c_T$ [certified arithmetic gives $2.8914\times10^{-8}$]. In units of the gap this
-reads $|\hat g_3|\Lambda^4\le\GthreeHead$, a number rather than a scaling law. If we define a scale by
-$|\hat g_3|=M_*^{-4}$, then $M_*\ge0.30\,\Lambda$: whatever generates the $R^3$ coupling cannot set in
-below $0.3$ of the gap. The bound also covers parity-violating theories.
+reads $|\hat g_3|\Lambda^4\le\GthreeHead$. If we define a scale by $|\hat g_3|=M_*^{-4}$, then
+$M_*\ge0.30\,\Lambda$, so whatever generates the $R^3$ coupling cannot set in below $0.30$ of the gap. The bound also covers parity-violating theories.
 
-The bound has a direct physical meaning. A state created by the stress tensor deposits energy at null
+Physically, a state created by the stress tensor deposits energy at null
 infinity with an angular profile proportional to $1+A\cos(4\theta-\varphi)$, with $A\le\tau/4$~\cite{CDPrakash}.
 The conformal-collider bound, which holds in every unitary CFT$_3$, allows $A$ up to one, and a free scalar
-or a free fermion saturates it~\cite{HofmanMaldacena,CDPrakash}. Here $A\le7.2\times10^{-9}$: the energy
+or a free fermion saturates it~\cite{HofmanMaldacena,CDPrakash}. Here $A\le7.2\times10^{-9}$, so the energy
 flux is isotropic to one part in $10^8$. Equivalently, the parity-even part of $\langle TTT\rangle$ is that
 of equal numbers of free real scalars and free Majorana fermions, up to $7.2\times10^{-9}c_T$. Most of the
 factor $10^8$ between the two bounds is the $\Lambda^{-4}$ scaling already implied by
-causality~\cite{CEMZ,AKT}; what is new is the coefficient [Fig.~\ref{fig:bounds}(a)].
+causality~\cite{CEMZ,AKT}; our result is its coefficient [Fig.~\ref{fig:bounds}(a)].
 
 A theory with a larger gap also has a gap of 1000, so Eq.~\eqref{eq:cubic} bounds it too. Positivity at its
 own gap would give the sharper bounds of Fig.~\ref{fig:bounds}, with $|\hat g_3|\Lambda^4\le128$ at
-$\Delta_g=2000$ and $139$ at $5000$. We have not certified positivity at those gaps; the evidence for it
-there rests on further premises, including that near-gap corrections do not grow with the gap, and one band of near-gap spins is
-not covered~\cite{SM}.
+$\Delta_g=2000$ and $139$ at $5000$. We have not certified positivity at those gaps. The evidence for it
+there rests on further premises, including that near-gap corrections do not grow with the gap, and it does not cover one
+band of near-gap spins~\cite{SM}.
 
 \begin{figure}[tb]
 \includegraphics[width=\columnwidth]{fig/fig1_bounds}
 \caption{\label{fig:bounds}Bounds as functions of the higher-spin gap. (a)~The bound on the deviation
 $\tau$ from Einstein gravity, compared with the conformal-collider bound $\tau\le4$ and with the bound
-obtained without positivity. Dashed: the flat-space optimum of Ref.~\cite{CHLPS} transplanted to AdS, a
-comparison rather than an AdS bound. (b)~The upper bound on the $R^4$ coefficient with and without light
+obtained without positivity. Dashed: the flat-space optimum of Ref.~\cite{CHLPS} transplanted to AdS, shown
+for comparison; it is not an AdS bound. (b)~The upper bound on the $R^4$ coefficient with and without light
 scalars, and the type~IIA string value $2\zeta(3)$ of ABJM theory. Filled circles: $\Delta_g=1000$. Above
 1000 the bounds assume positivity at their own gap; open circles mark gaps at which near-gap states were
 recomputed, and faded lines gaps at which positivity was not examined.}
@@ -141,35 +138,35 @@ $\tau=0$ or the light-side coefficient mentioned above is positive, we find at $
 \tilde g_4\Lambda^6/8\pi G\le\QuartHead
 \label{eq:quartic}
 \end{equation}
-when no scalar lighter than $0.46\Lambda$ couples to $TT$, and $\QuartRep$ otherwise, using positivity of
-both functionals. Here $\tilde g_4$ is
+when no scalar lighter than $0.46\Lambda$ couples to $TT$, and $\QuartRep$ otherwise; the second value uses
+positivity of both functionals. Here $\tilde g_4$ is
 the coefficient the sum rule measures; it equals $g_4$ up to corrections of order $\Lambda^{-2}$ if the
 light double-trace data are those of a tree-level bulk theory, as assumed in Refs.~\cite{CHMRS,CLSD}. The
-bound grows only logarithmically with the gap [Fig.~\ref{fig:bounds}(b)]. The subleading terms, the bound without the
-scalar condition and, when $\tau\ne0$, the sign of the light-side coefficient rest on steps we sketch, the last with a
-model input.
+bound grows only logarithmically with the gap [Fig.~\ref{fig:bounds}(b)]. The subleading terms and the bound without the
+scalar condition rest on steps we sketch. So does the sign of the light-side coefficient when $\tau\ne0$, which also
+uses a model input.
 
 \textit{Without positivity}---Commutativity of an energy detector with its first moment in retarded time
-gives a second sum rule. In it each heavy family enters through a ladder of helicity amplitudes fixed by the
-special conformal Ward identity, an exact telescoping identity makes every heavy contribution non-negative,
+gives a second sum rule. In this sum rule each heavy family enters through a ladder of helicity amplitudes fixed
+by the special conformal Ward identity. An exact telescoping identity makes every heavy contribution non-negative,
 and reflection positivity in the crossed channel controls the sum over the spectrum. Together with a
 detector sum rule for the fourth angular harmonic, this gives
 \begin{equation}
 \tau\le0.0178\quad\text{at }\Delta_g=1000,
 \label{eq:angular}
 \end{equation}
-decreasing like $17.8/\Delta_g$ at large gap~\cite{SM}. Besides (i) and (ii), this uses the detector
-identities as operator identities (the ladder is checked exactly up to spin 40), existence and light-cone
-convergence of the mixed detector commutator~\cite{KKSDZ}, and no scalar of dimension at most one in
-$T\times T$. Its $1/\Delta_g$ scaling is far from optimal.
+decreasing like $17.8/\Delta_g$ at large gap~\cite{SM}. Besides (i) and (ii), this requires that the detector
+identities hold as operator identities (the ladder is checked exactly up to spin 40), that the mixed detector
+commutator exists and converges in the light-cone limit~\cite{KKSDZ}, and that $T\times T$ contains no scalar of
+dimension at most one. Its $1/\Delta_g$ scaling is far from optimal.
 
 \textit{How the bounds arise}---Light-transformed stress tensors~\cite{KSDlight} act as energy detectors at
 null infinity, and two detectors commute when they are spacelike separated. Integrating the expectation
 value of their double commutator against a weight gives a sum rule~\cite{KKSDZ,CLSD}. If the weight decays
 fast enough at high energy and fixed momentum transfer, the sum rule converges and its total vanishes. This
 holds in every unitary CFT, whose Regge intercept is at most one~\cite{KKSDZ,CaronHuotInversion,PSZ}; the
-larger intercept of planar graviton exchange never enters, because, as in Refs.~\cite{CHMRS,CLSD}, we use
-the sum rule at finite $c_T$ and expand only its light part in $1/c_T$. Expanding in the $T\times T$ OPE
+larger intercept of planar graviton exchange never enters, because we use the sum rule at finite $c_T$ and
+expand only its light part in $1/c_T$, as in Refs.~\cite{CHMRS,CLSD}. Expanding in the $T\times T$ OPE
 splits the sum rule into the light states (the identity, $T$ and its multi-traces below the gap) and the
 heavy ones,
 \begin{equation}
@@ -177,44 +174,43 @@ heavy ones,
 \label{eq:sumrule}
 \end{equation}
 At leading order the light side is fixed by the bulk couplings: graviton exchange, $|\hat g_3|^2$ and, for
-the quartic functional, $g_4$. If the functional $\Omega$ is positive on every heavy state, the right side
-cannot be positive, and that is the bound. In the flat limit the heavy side becomes the partial-wave
+the quartic functional, $g_4$. If $\Omega$ is positive on every heavy state, the left side is non-negative, so
+$\Omega(\text{light})\le0$; this inequality is the bound. In the flat limit the heavy side becomes the partial-wave
 expansion of graviton scattering, and positivity becomes the positivity used in flat space~\cite{CHLPS}. The
 difficulty in AdS is that curvature moves the contribution of each heavy state away from its flat value, by
 amounts that are not small near the gap or at large impact parameter.
 
-Three ingredients make the problem tractable. First, we use a dual tensor structure for which AdS curvature
-produces no helicity mixing at leading Regge order; with the standard structure the mixing makes the
-functional negative at large impact parameter, in a model calculation. Second, we choose the weights so that
-every heavy state contributes its flat-space value at leading Regge order, to about one part in $10^6$, which
-leaves only the smaller corrections beyond leading order to threaten positivity. Third, for the quartic bound,
-the $R^4$ contact sits exactly at the convergence border of the sum rule and leaves a finite Regge ``arc'',
+We control these shifts as follows. We use a dual tensor structure for which AdS curvature produces no
+helicity mixing at leading Regge order; in a model calculation, the mixing produced by the standard structure
+makes the functional negative at large impact parameter. We also choose the weights so that every heavy state
+contributes its flat-space value at leading Regge order, to about one part in $10^6$, so that only the smaller
+corrections beyond leading order can spoil positivity. For the quartic bound, the $R^4$ contact sits exactly at the convergence border of the sum rule and leaves a finite Regge ``arc'',
 which we normalize by matching to a heavy scalar whose exchange produces an $R^4$ contact. On the light side we
-derive that no term linear in $t_4$ or $\alpha_T$ survives: such terms flip helicity, and the dual structure
-removes helicity flips; a direct numerical evaluation confirms this to $10^{-11}$. The cubic bound then follows
+derive that no term linear in $t_4$ or $\alpha_T$ survives, because such terms flip helicity and the dual structure
+removes helicity flips. A direct numerical evaluation confirms this to $10^{-11}$. The cubic bound then follows
 from the ratio of the graviton pole to the $|\hat g_3|^2$ term, whose coefficient we compute in closed form.
-The weights that define both functionals are published~\cite{Zenodo}.
 
-Light single traces of spin zero and two, which (i) allows, enter the sum rule like heavy states. By a step we
-sketch, their contribution is fixed by their Regge behavior, and we prove that the cubic functional is positive
-on them in the flat limit at every mass, so the cubic bound is unchanged and also bounds their
+
+Light single traces of spin zero and two, which (i) allows, enter the sum rule like heavy states. Their contribution
+is fixed by their Regge behavior, by a step we sketch. We prove that the cubic functional is positive on them in
+the flat limit at every mass, so the cubic bound is unchanged and also bounds their
 couplings~\cite{CHLPS}. The quartic functional, by contrast, is negative on scalars lighter than $0.46\Lambda$,
 which couple to $TT$ through $\phi W^2$ (cf.\ Ref.~\cite{CMT}); this is the origin of the scalar condition.
 
 \textit{Positivity on every heavy state}---In flat space we prove that the cubic functional is positive. In AdS
-we first certify that its leading-Regge part loses less than $0.1\%$ of the flat-space margin on any heavy state.
-The question is then whether the remaining finite-mass corrections can overturn this anywhere in the infinite
-heavy spectrum. At $\Delta_g=1000$ they cannot.
+we first certify that its leading-Regge part loses less than $0.1\%$ of the flat-space margin on every heavy state,
+at every gap of 1000 or more. We then show that at $\Delta_g=1000$ the remaining finite-mass corrections do not
+overturn this anywhere in the infinite heavy spectrum.
 
-The proof starts from an exact rewriting. Using the detector identities behind Eq.~\eqref{eq:angular}, the action
-of the functional on any heavy state is a positive multiple of a finite ``ladder'' sum in each of two helicity
+Using the detector identities behind Eq.~\eqref{eq:angular}, we rewrite the action of the functional on any heavy
+state exactly as a positive multiple of a finite ``ladder'' sum in each of two helicity
 channels, with spectral data of the published weight as coefficients. We cover the heavy spectrum with certificates
-in interval or directed-rounding arithmetic (Fig.~\ref{fig:coverage}): spin by spin up to spin 1000; an expansion
-about the leading-Regge value at high twist; and, for larger spins near the twist edge, a sequence of methods
-organized by impact parameter, from a localized bound at large impact parameter, through an exact resummation at
-intermediate impact parameter, to a direct evaluation at small impact parameter. The difficulty is cancellation:
-the ladder sum is of order one, while its individual terms reach $10^{685}$, and the finite-mass correction has
-no favorable sign. The certificates near the twist edge, where the difficulty lies, were rerun from source on
+in interval or directed-rounding arithmetic (Fig.~\ref{fig:coverage}). Spins up to 1000 are certified one by one,
+and high twist by an expansion about the leading-Regge value. For larger spins near the twist edge we use a
+localized bound at large impact parameter, an exact resummation at intermediate impact parameter, and a direct
+evaluation at small impact parameter. The main obstacle is cancellation. The ladder sum is of order one while its
+individual terms reach $10^{685}$, and the finite-mass correction has no favorable sign. The certificates near the
+twist edge were rerun from source on
 separate hardware with identical output, and every new lemma was rederived independently~\cite{SM}.
 
 For the quartic functional positivity remains an assumption. With error control it holds on its binding states
@@ -232,23 +228,23 @@ twist in its band. Every region is certified; details in the Supplemental Materi
 
 \textit{A check with ABJM theory}---In the type-IIA 't~Hooft regime of ABJM theory~\cite{ABJM} the higher-spin
 gap is the string scale: supergravity fields have spin at most two, and the lightest single trace of spin four
-or more is a string state at the first massive level. Assumptions (i) and (ii) therefore hold at leading order,
-and through the orders computed only the stress-tensor multiplet is exchanged in $T\times T$ at tree
-level~\cite{CPY,BCP}, so the scalar condition holds too; we sketch both arguments. The flat limit gives
+or more is a string state at the first massive level. Assumptions (i) and (ii) therefore hold at leading order.
+Through the orders computed, only the stress-tensor multiplet is exchanged in $T\times T$ at tree
+level~\cite{CPY,BCP}, so the scalar condition also holds. We sketch both arguments. The flat limit gives
 $g_4M^6/8\pi G=2\zeta(3)$~\cite{CHMRSswamp,BCP}, $2.6\%$ of our bound at $\Delta_g=1000$, with an uncertainty of
-a few percent from identifying $\Lambda$ with the string mass in AdS units. This is a consistency check at the
-one-digit level, not evidence for positivity.
+a few percent from identifying $\Lambda$ with the string mass in AdS units. This is a consistency check, good to about one significant
+figure, and not evidence for positivity.
 
 \textit{Conclusions}---The cubic and quartic graviton couplings of a holographic CFT$_3$ with a large gap in the
 single traces of $T\times T$ are, in units of the gap, at most of order a hundred, as expected when the gap sets
 the size of higher-derivative terms. The cubic bound is about ten times weaker in $|\hat g_3|$ than the flat-space
-optimum transplanted to AdS~\cite{CHLPS}, which uses sum rules not available here, and the quartic bound is
-dominated by an infrared logarithm. Beyond the parametric statements of Refs.~\cite{KKSDZ,BHM,AKT} and the
-flat-space and higher-dimensional precedents~\cite{CHLPS,CHLPSpw}, the new elements are explicit constants derived
-from $\langle TTTT\rangle$, a proof that a dispersive functional is positive on the entire heavy spectrum of AdS
-at finite gap, a bound on the parity-odd coupling $\alpha_T$, and an AdS bound on a graviton $R^4$ coefficient,
-which localization determines in ABJ(M) theory~\cite{BCP,BCJP}. Because the bounds are numbers rather than scaling laws, they can be compared directly with string theory, as the
-ABJM check shows, and used as inputs by anyone constraining gravitational effective theories. None of the ingredients
+optimum transplanted to AdS~\cite{CHLPS}, which uses sum rules not available here. The quartic bound is
+dominated by an infrared logarithm. Relative to the parametric statements of Refs.~\cite{KKSDZ,BHM,AKT} and the
+flat-space and higher-dimensional precedents~\cite{CHLPS,CHLPSpw}, we give explicit constants derived from
+$\langle TTTT\rangle$, a proof that a dispersive functional is positive on the entire heavy spectrum of AdS at
+finite gap, a bound on the parity-odd coupling $\alpha_T$, and, assuming positivity of the quartic functional, an
+AdS bound on a graviton $R^4$ coefficient, which localization determines in ABJ(M) theory~\cite{BCP,BCJP}. Because the constants are explicit, the bounds can be compared directly with string theory, as the ABJM check
+shows, and used as inputs in constraints on gravitational effective theories. None of the ingredients
 is special to three dimensions, and the same method applies at any gap; AdS$_5$/CFT$_4$, where $\mathcal N=4$ super-Yang--Mills theory supplies exact checks, is the natural
 next case.
 
