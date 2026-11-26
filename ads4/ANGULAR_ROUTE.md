@@ -1534,3 +1534,21 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Info.** k = 3 is binding only because Theorem P is loose; the true k = 3 term is 4.8e-5·𝓜 at L = 20, so L_tail could be lowered.
 * **Inherited, not re-derived:** the action formula and the generating-function identity E5, CONTOUR's Arb tables (spot-checked), and EPSW's r(0) and sup\|r\|.
 * **Open region unchanged:** 998 ≤ a < a*(L), J ≥ 1001, 0.06 ≲ L < 20 (u ≥ 0.486).
+
+## 97. Polynomial-certificate route for the sliver (author, 26 Nov)
+
+* **Restricted domain.** 0.466 ≤ Re u ≤ 19.407, \|Im u\| ≤ 0.02.
+  * Independent truncation check: 2260 interval cells, bound 1.900054618.
+  * Results: \|H₁₀₀₀ − H_pref\| < e^{−85}, and \|H₁₀₀₀ − H_ang\| < e^{−84} on real physical states.
+* **Lemma P6000.** Replace G_A, G_D by degree-6000 Taylor polynomials about an anchor c₀. Then \|H₁₀₀₀ − Ĥ₁₀₀₀\| < e^{−400} on \|u−u₀\| ≤ 0.02, from sup bound e^{1650}, ratio 0.08 and row norm e^{13100}.
+* **Certificate.** P_b(c, h) = (1−c)³Σ_{k≤6000}T_{1000,k}(h; c)[(1+q_bh)A_k + h(B_k + σ_bD_k)], bivariate of degree (≤ 6003, ≤ 1001).
+  * Positivity of all Bernstein coefficients of P_b − 1e-35(1+q_bh)⁴ on real cells (~473 β-cells of width ≤ 0.04, twist handled by the polynomial in h) implies H_ang,b > 0.
+  * No small-K lemma is logically needed.
+* **Diagnostics.**
+  * 57 off-axis ideal-weight states at Im u = 0.019 in the low-u region: max \|H\|/F_cert = 27.8.
+  * One full repaired-weight enclosure near u = 0.5 + 0.019i (b = 4): \|H\|/F_cert < 750.
+* **Repaired-moment recurrences.** M_{j+1} = (c+i)M_j + jσ²M_{j−1} + σ²E_j, and J_{j+1} = (z₀+i)J_j + M_j. Not implemented.
+* **Coordinator note.**
+  * Bernstein coefficients of a high-degree polynomial on a real cell are governed by its size on a complex neighbourhood of the cell. So the Bernstein checks succeed only if \|H\| stays moderate on discs of radius ~ cell width; the diagnostics (≤ 750) suggest it does. The certificate stays rigorous regardless, and it simply fails rather than lying.
+  * Cost (not yet estimated): certified degree-6000 jets of the integrated G at ~473 anchors, plus degree-(6003, 1001) Bernstein conversions at ~6000-bit precision. Likely days of compute.
+* **Status.** A complete, rigorous route on paper; execution outstanding. The sliver is not yet closed.
