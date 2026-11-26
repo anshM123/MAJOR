@@ -1,0 +1,46 @@
+{"principal_constant_upper": "12.612145297956776", "excluded_beta_constant_upper": "0.0007205365325050493", "outer_constant_upper": "2.207298491613935e-39", "combined_lt_14": true}
+[
+  {
+    "frequency_end": 40,
+    "error_upper_scaled_1e40": "754159382749263480922093918202629",
+    "error_upper": "7.541593827492635e-08",
+    "ratio_upper": "0.04032937875664511"
+  },
+  {
+    "frequency_end": 80,
+    "error_upper_scaled_1e40": "832841553766245839983013765505155",
+    "error_upper": "8.328415537662458e-08",
+    "ratio_upper": "0.04453698148482598"
+  },
+  {
+    "frequency_end": 120,
+    "error_upper_scaled_1e40": "852049707343541090020182374903855",
+    "error_upper": "8.520497073435411e-08",
+    "ratio_upper": "0.04556415547291664"
+  },
+  {
+    "frequency_end": 140,
+    "error_upper_scaled_1e40": "883096594892926683245441870651410",
+    "error_upper": "8.830965948929267e-08",
+    "ratio_upper": "0.04722441683919394"
+  },
+  {
+    "frequency_end": 160,
+    "error_upper_scaled_1e40": "1450833623486382330982994218901279",
+    "error_upper": "1.4508336234863822e-07",
+    "ratio_upper": "0.07758468574793488"
+  },
+  {
+    "frequency_end": 180,
+    "error_upper_scaled_1e40": "5693077837453094029137073224889424",
+    "error_upper": "5.693077837453094e-07",
+    "ratio_upper": "0.3044426651044435"
+  },
+  {
+    "frequency_end": 200,
+    "error_upper_scaled_1e40": "18043101084381954239591555502885857",
+    "error_upper": "1.8043101084381954e-06",
+    "ratio_upper": "0.9648717157423505"
+  }
+]
+PASS: conditional on the retained EPSW residual masses, cutoff integral, and F_cert>=1.87e-6.

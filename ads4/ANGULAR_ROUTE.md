@@ -1710,3 +1710,38 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Low-frequency residual theorem.** d³\|𝒱_b F_{3,ν}\| ≤ 14 exp(0.0065ν + ν²/4200) for ν ≤ 200 and 0.8 ≤ L ≤ 3.65, at all spins and a ≥ 998. It uses no connection expansion: beta–Cauchy with 1−r ≥ 1.555t on v ≥ 0.75t, \|Im β\| ≤ arctan(X/1.555), P(v < 0.75t) < e⁻³⁶, Cauchy radius t/200 for the dressing, and log(1+X²) ≥ (7/8)X². Against the resid3 per-cell masses this gives E_{r,[0,160]} < 0.08·F_cert, cutoff correction included.
 * **Remaining for 0.8 < L < 3.65.** E_ψ₂ + E_ψ₃ + E_{r,ν>160} < 0.92·F_cert − e⁻⁴⁶, needing continuum coverage of the signed transfer in (d, h, ν) and assembly of the contour pieces.
 * **Status.** Author-executed on two boxes; the code has not yet been received or reproduced. The low-frequency theorem has not been independently checked.
+
+## 107. Signed-transfer checker reproduced; full-twist boxes; majorant scaling in L (coordinator, 27 Nov)
+
+* **Package** (author): code/signed_transfer/ contains check_transfer.js (BigInt Taylor models in (d, h, ν), scale 1e80), check_identity.py, check_lowfreq.py, make_grid.py, benchmarks, logs and README. The fresh reruns are in code/signed_transfer/rerun_coordinator/.
+* **Reproduced here (identical output).**
+  * check_identity.py: 576 exact recurrence and dressing checks, 48 signed transfer sums.
+  * check_lowfreq.py: E_{r,[0,160]} ≤ 1.80e-6·(2/Λ)… ratio 0.9649 of budget, PASS (conditional on EPSW masses and F_cert ≥ 1.87e-6).
+  * pilot: 6 channel boxes at L ≈ 3.2 and 2.5, e.g. \|P\| < 1.9358, \|Q\| < 0.6709.
+  * combo: full twist, 4% in d, ν = 900 ± 10, b = 4: \|P\| < 5.4653, \|Q\| < 2.0611, remainder 8.96e-5 (27 s).
+  * lower40: full twist at L ≈ 2.5, m = 40: \|P\| < 2.9384, \|Q\| < 0.7456 (105 s).
+  * complex_top: ν = 900 + 6.25i ± 5: \|P\| < 2.6761, \|Q\| < 1.0107.
+* **Source audit** (coordinator reading):
+  * The cleared-denominator recurrence (A = (d + hβ(s−1−2β))·nr_j·dr_{j−1}, B = hβ(β+1)·nr_j·nr_{j−1}, D = den·dr_j·dr_{j−1}) is correct.
+  * The l1 algebra is submultiplicative for complex coefficients. Division uses a Neumann inverse with outward residual bookkeeping; truncated products are exact.
+  * The polydisk majorant covers both basis solutions and the dressing. The multivariate Cauchy tail and the R = 1 tail for indices K..1499 are correct.
+  * The h-split is an exact binomial shift.
+  * h_cap = d_max²/(998²(1+√(1−d_max))²) is rounded up, so h ∈ [0, h_cap] covers every a ≥ 998.
+* **Majorant scaling** (coordinator preflight probe, full-twist boxes, b = 4, rerun_coordinator/majorant_probe_boxes.json). The absolute polydisk majorant M_R is the termwise hump and is almost independent of box size. The Taylor order needed for a Cauchy remainder < 1e-3 at the best R ∈ {2, 4, 8}:
+
+  | L | ν = 500 | ν = 900 |
+  |---|---|---|
+  | 3.2 | 12–14 | 21–23 |
+  | 2.5 | 20–23 | 39–44 |
+  | 2.0 | 30–36 | 65–73 |
+  | 1.6 | 44–53 | 104–118 |
+  | 1.3 | 61–75 | 159–176 |
+  | 1.0 | 107–119 | 337–410 |
+  | 0.8 | 235–252 | 751–836 |
+
+  Cost per box scales roughly as m³·K (27 s at m = 28, 105 s at m = 40), and memory as C(m+3, 3) coefficients. **So the method as built is practical for L ≳ 1.8**. Below about L ≈ 1.5 it needs a resummed (non-termwise) polydisk majorant, or the region must be handed to the small-L Lemma U route.
+* **Still needed for 1.8 ≲ L ≤ 3.65:**
+  1. Certified bounds M₀, M₁ on X₀ and X₋₁ per box (Theorem E′, Lemma F, helicity).
+  2. An adaptive grid in all 4 channels.
+  3. Contour assembly for ψ₂/ψ₃ (top line at complex ν, right edge).
+  4. The real-axis residual for ν > 160 against the EPSW cell masses.

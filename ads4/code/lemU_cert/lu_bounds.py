@@ -20,16 +20,17 @@ PI = None
 
 
 def _box_eval(c, d, r, a0, a1):
-    """enclosures on the alpha-box [a0, a1]*pi of the circle.  w(phi) = A + B cos(phi), A = (1+z)/(1-z), B = 2 sqrt(z)/(1-z),
-    runs over the segment [A - B, A + B] = [e^{-xi}, e^{xi}].  If 0 is not on the segment, arg w is monotone along it, so
-    max|arg w| is attained at an end point, and min|w| >= dist(0, segment) >= dist(0, line) = |Im(A conj B)|/|B|."""
+    """enclosures on the alpha-box [a0, a1]*pi of the circle.  With q = sqrt(z):  w(phi) = (1 + q^2 + 2 q cos phi)/(1 - q^2)
+    runs over the segment between w_- = (1-q)/(1+q) = e^{-xi} and w_+ = (1+q)/(1-q) = e^{xi}.  If 0 is not on the segment,
+    arg w is monotone along it, so max|arg w| = max(|arg w_+|, |arg w_-|) = |Im xi|; and min |w| = min_s |(1-q)^2 + 2q(1+s)|/|1-q^2|
+    over s in [-1,1], attained at clamp(s*), s* = -Re((1+q^2) conj q)/(2|q|^2) (convexity)."""
     al = arb((a0 + a1)/2, (a1 - a0)/2)*PI
     t = acb(r*al.cos(), r*al.sin())
     z = c + c*d*t
+    q = z.sqrt()
     one_z = 1 - z
     iv = 1/abs(one_z)
-    A = (1 + z)/one_z; Bq = 2*z.sqrt()/one_z
-    wp = A + Bq; wm = A - Bq
+    wp = (1 + q)/(1 - q); wm = (1 - q)/(1 + q)
     ap, am = abs(wp), abs(wm)
     if not (ap.lower() > 0 and am.lower() > 0) or not iv.is_finite():
         return None
@@ -39,13 +40,11 @@ def _box_eval(c, d, r, a0, a1):
         th = th2
     if not (th.upper() < PI*0.999):
         return None
-    # min over [-1,1] of |A + B s| (convex in s) is attained at clamp(s*), s* = -Re(A conj B)/|B|^2, which lies in the ball S
-    sstar = -(A*Bq.conjugate()).real/(abs(Bq)**2)
+    sstar = -((1 + q*q)*q.conjugate()).real/(2*abs(q)**2)
     lo = max(-1.0, min(1.0, float(sstar.lower()))); hi = max(-1.0, min(1.0, float(sstar.upper())))
-    if not (sstar.lower() >= -1 or lo == -1.0) or not (sstar.upper() <= 1 or hi == 1.0):
-        return None
-    S = arb((lo + hi)/2, (hi - lo)/2 + 1e-300)
-    dist = arb(abs(A + Bq*S).lower())
+    S1 = arb((lo + hi)/2 + 1, (hi - lo)/2 + 1e-30)            # 1 + s, s in [lo, hi]
+    num = (1 - q)**2 + 2*q*S1
+    dist = arb((abs(num)*iv).lower()) if False else arb((abs(num)/abs(1 - q*q)).lower())
     if not dist > 0:
         return None
     lw = abs(ap.log())
