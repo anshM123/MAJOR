@@ -1877,3 +1877,19 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Error propagation.** A seed error ε_a propagates as ΔF_{j,a} = ε_a(−a/(4·10⁶))^j, so its effect on the action is ε_a times the generating series evaluated at ν² = −a/4 (ν = i√a/2). Three correlated errors therefore replace thousands of independent ones.
 * **Claim (author).** Over the full 3,564-coefficient Gaussian inventory, \|ΔH_pole\| < 2.4e-20 on 0.05 ≤ c ≤ 0.56, against floors of about 1e-6.
 * **Scope.** This controls only the seed errors of the rational-pole moments, including the Gaussian cutoff correction. The plain Gaussian moments S_j (high order) and the full repaired moment vector are not yet certified.
+
+## 114. Independent referee of the author's chain §104–111: no errors (referee agent, 27 Nov)
+
+* **Report:** REVIEW_AUTHOR_CHAIN.md; scripts and logs in code/review_chain/.
+* **Verdict.** L ∈ [2.6, 3.65] positivity stands, conditional on retained inputs. The low-L prefix theorem stands as a truncation and pole-exclusion result only; L ∈ [0.051, 0.82] is not proved, because the sign of the rational prefix is uncertified.
+* **Per item.**
+  1. **`nb_delta` seed, downward steps, Δ-recurrence: hold.** The seed constant was re-derived term by term. Its hypotheses hold on every cell (n ≥ 997; actually dn ≥ 747, so the code's 497 is loose). Checked against exact values: Lemma V to 1e-80; nb_delta ≤ 0.48× exact; near_sum ≤ 0.67× exact on the [2.6, 2.9] bottom/left edges up to y = 20.25.
+  2. **Gamma/Euler envelopes and contour normalisation: hold.** The prefactor equals \|coth πν\|/(2π) to 12 digits. The worst ratio is 0.78 against mpmath (300 complex points plus 6 boxes). The 4/Λ and 2τΛ factors and the extra segment [Λ, 998.5] match AS §4. The dressed finite sum versus the undressed infinite-twist main term is consistent with FULLPOS3 §4.1(c). Exact physical transfers against the bounds used: worst 0.96.
+  3. **Base-multiplier lemma: holds.** All steps were re-derived, including negative real exponents on the top line. Against exact Arb ladders (9000 bits) the worst ratio is 0.992. A 4000-bit run gives a spurious "violation" from precision loss; the true value is 8.78.
+  4. **low_prefix constants: all hold** (dressing factor < 1.082, 2^2554, Cauchy tail, pole gap).
+  5. **Coverage: complete,** with no gaps in channels, bands, contour pieces or top-line breakpoints, and J0 = 1500 used consistently. The floors were recomputed from lrt3_rcert and agree with §111. Two documentation gaps:
+     * (a) TAIL_CERT's L uses w = e^{−L}, while the code uses d = e^{−L}; for b = 4, d = w(1+20h). The d-slab margins (≥ 2.9e-7 relative) exceed 20·hcap (≤ 2.9e-8), so both conventions are covered.
+     * (b) assemble_26.py does not itself assert the F_cert rows for [2.6, 2.9]; they are correct (§111).
+  6. **Low-frequency theorem: holds** (principal constant 12.61 < 14).
+* **§73 is in the repository,** contrary to the referee's note. code/fullpos3/cache/laptop_*.jsonl plus results/ht_scan_done.jsonl hold the 60 cells contiguously on β ∈ [0.39, 8.4], all ok, both channels. The cell [4.84, 5.04] has a* = 4500 (b = 0, 4), which covers the [3.5, 3.65] β-range. Coordinator check.
+* **Still retained (not reviewed):** the angular-action identity; EPSW masses, cutoff and Gaussian inventory; LRINF floors; Loc-Joint internals and K₀; contour3 on [3.5, 3.65] (its state relations hold there); the helicity identity.
