@@ -1346,3 +1346,18 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Contributions: Σ_{j≥1} < 2e-6·F_*; \|ℛ_MB\| < e^{−2800}F_*; endpoint matching 3e-8.
 * **Result (author).** w³\|(ℒ_b − ev_c)(G_{r̃} + T^{−1}𝒟_bG_{r̃})\| < 0.001F_*(β) for β ≥ 30, all a ≥ 998, both channels. Combined with Lemma R: H_r > −0.029F_*.
 * **Not covered.** The ideal-weight finite-mass contribution and the k = 3 piece; the same machinery is said to apply. The CONTOUR_BOUNDS Arb tables are used as inputs; the rest is not reproduced.
+
+## 83. Lemma U twist certificate, first numbers: passes at L = 2 in both channels (agent FULLPOS4) [DV]
+
+* **Setup.** c = 1 − e^{−2}, ideal NF02 weights, M = 1000, 1500-bit midpoint arithmetic, integrated-G jets to j ≤ 3003 (8000-node GL in p).
+* **Sanity check.** A₀ = d³G(c) = 2·OmLR(β_c) to 1e-9.
+* **A_m behaviour.** A_m is large at moderate m (up to 4e17 at m = 100), then decays (2e-253 at m = 1000). Partial sums are stable from M′ ≈ 300.
+* **Twist test** (Chebyshev in y over all a ≥ 998):
+  * b = 0: \|P̂₁\| = 1.5e-8, \|P̂₂\| = 2e-14, then noise ~1e-17. (P̂₀ − Σ\|P̂_ℓ\|)/P̂₀ = **0.99757, PASS**.
+  * b = 4: **0.99756, PASS**.
+  * The finite-mass shift is 0.5% at a = 998.
+* **Cost.** ~11 min per c-value on one core.
+* **Running.** L = 0.5, 7, 0.1, 20.
+* **Caveats.**
+  1. DV only: the jets need rigorous enclosures.
+  2. The c-direction cells are not yet addressed.
