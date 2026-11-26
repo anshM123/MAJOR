@@ -1552,3 +1552,17 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Bernstein coefficients of a high-degree polynomial on a real cell are governed by its size on a complex neighbourhood of the cell. So the Bernstein checks succeed only if \|H\| stays moderate on discs of radius ~ cell width; the diagnostics (≤ 750) suggest it does. The certificate stays rigorous regardless, and it simply fails rather than lying.
   * Cost (not yet estimated): certified degree-6000 jets of the integrated G at ~473 anchors, plus degree-(6003, 1001) Bernstein conversions at ~6000-bit precision. Likely days of compute.
 * **Status.** A complete, rigorous route on paper; execution outstanding. The sliver is not yet closed.
+
+## 98. First executed sliver certificates at fixed spin (author, 26 Nov; package not yet in the repository)
+
+* **Method (author).** At fixed physical spin, expand E_k(t) = 15^kU_k(D₀ + Wt) in the mass variable t ∈ [−1, 1] with the exact triangular recurrence e_{k+1,m} = [15(C₀ − k(k+s))e_{k,m} − We_{k+1,m−1}]/(D₀ − k(k+s)).
+  * Contract against the Chebyshev-in-ν² conical coefficients to get the signed polynomial 𝒦(t, x) = ΣA_{m,ℓ}t^mT_ℓ(x), then bound by Σ\|A\|.
+  * 1400-bit fixed-point integers with explicit rounding errors; residual split into three frequency bands near the gap.
+* **Claimed certified intervals.** Lower bounds on the normalised action:
+  * J = 1002, b = 0: twist [998, 1002] gives 3.57e-5; [2951, 3049] gives 2.40e-5;
+  * J = 1005, b = 4: twist [998, 1002] gives 2.98e-5; [2951, 3049] gives 2.26e-5.
+
+  This uses the terminating ladder, the repaired weight, the dressing and k = 3, and relies on the retained action identity and the EPSW inputs.
+* **Status.** Author-executed (C++ package of 18 files, not yet in the repository; must be pushed and rerun independently).
+  * Coverage is so far only four (J, twist-interval) pairs.
+  * Fixed-spin certificates cannot cover J up to ~1e7+; a spin-uniform version (compactified 1/J) is still needed.
