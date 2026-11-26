@@ -1,0 +1,7 @@
+Route T' certificate, L in [5.0, 5.5], cells 0.5, top line at Re alpha = 1/4 - 2
+L in [5.00,5.50] (beta_c in [6.383,6.884]): F_cert >= 6.4011e-07
+   psi2: bottom 1.38e-05  left 1.29e-05  top(Y=4.25) 6.47e-06  right 9.88e-07
+   psi3: bottom 6.93e-09  left 6.62e-09  top(Y=5.25) 1.35e-11  right 1.90e-09
+   residual: 9.47e-01  ([0,0.05]: 2.1e-03, [0.05,0.4]: 5.8e-03, [0.4,40.0]: 1.6e-03, [40.0,898.0]: 1.2e-03, [898,oo) worst cell 1031: 9.4e-01, [1150,oo): 0.0e+00)
+   Lemma-Loc' remainders: k=2 0.00e+00 (J0=1500), k=3 0.00e+00 (J0=1500)
+   rho <= 9.4683e-01   PASS   [200s]

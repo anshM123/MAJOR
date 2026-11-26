@@ -1592,3 +1592,25 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   3. Top line (Lemma T) termwise bounds die near L ≈ 2–4, so a full-kernel upper-half-plane bound is needed.
 * **Sliver status.** If reviewed, the open sliver shrinks to 998 ≤ a < a*(L), J ≥ 1001 and 0.06 ≲ L < 5 (plus the four fixed-spin intervals of §98–99 inside it).
 * **Code.** code/analytic/ (rt_cert.py, whose 5th argument selects Loc′; rt_loc3.py, rt_pp.py, rt_rmass2.py, rt_rem.py, crossing.py, thmE.py, energy*.py, tp/); logs/. cache/ is gitignored.
+
+## 101. Independent review of the L ≥ 5 sliver certificate (referee agent, 27 Nov)
+
+* **Verdict.** No error found that breaks the L ≥ 5 certificate. Full report: REVIEW_SLIVER_L5.md; scripts and logs in code/review_l5/.
+* **Reproduced from source.**
+  * The Loc′ cells [5, 5.5], [5.5, 6.5] and [6.5, 8] give ρ = 0.94683, 0.17942, 0.069807, 0.041726, 0.031817 and 0.027767.
+  * All 16 cells of [8, 16] are identical to the cached output.
+  * The Loc′ integrals and rt_rmass2.json are identical.
+  * Not rerun: [4.5, 5], rt_rem.py and TAIL+E′.
+* **Cell [5, 5.5] survives (5.3% margin).** Every piece is evaluated at the largest d in the cell and is increasing in d.
+* **Lemmas.**
+  * Loc′, Theorem E′, the helicity bound, Lemma V, the splitting lemma and Theorem R: hold.
+  * Imported constants are used in the safe direction.
+  * State relations at L ≥ 4.5 are now proven from the exact formula d = a(2N−a+s)/(N(N+s)): 0.5d ≤ a/N ≤ 0.5029d, Dd² ≥ 3.977a², T ≥ D and N ≥ 179a.
+* **Rigor gaps to write out (numerically negligible).**
+  * G1: E_r omits the θ-cutoff correction ∫\|f_θ − f\|\|K\| (≈ 1e-11·F).
+  * G2: the residual on ν ∈ [1150, 3000] uses a crude kernel bound with j ≥ 3 terms uncontrolled, and the integrals add nothing above ν = 1300 (or above 3000 for the residual); the tail mass is e⁻⁹¹⁰³.
+  * G3: Lemma NB with explicit d drops lower-order factorial-moment terms (relative effect ≤ 1e-7).
+  * G4: Lemma X not re-derived; 134 numerical checks, exact/bound ≤ 2.5e-5.
+  * Loc′ also silently needs F/den ≤ 1 (holds: 0.93).
+* **Text correction (E1).** The 0.94·F at L = 5 is the whole band ν ∈ [898, ∞), not the single cell [1031, 1032], which contributes 0.22. The bulk is spread over ν ≈ [1000, 1033].
+* **Status.** L ≥ 5 is certified, reviewed, and reproduced, modulo writing out G1–G4. The open sliver is 998 ≤ a < a*(L), J ≥ 1001, 0.06 ≲ L < 5.
