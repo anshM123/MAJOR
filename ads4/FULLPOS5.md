@@ -133,8 +133,12 @@ Before the split, θ-part 2 under Lemma B was the binding local component at β 
 * Candidate ρ grid: h_max·10^{i/4}, i = −24…56. This is the same 81-point span around h_max that the absolute grid gives at β ≈ 8; the
   lemma allows any admissible ρ.
 * Iteration cap: 10⁴/d.
-* The η-choice float majorant is now written in d: log((c^{−l} − 1)/l) = log(expm1(l·(−log1p(−d)))/l). The bound itself is still the Arb
-  `fp3_ht.norm_major` at c₋.
+* The η-choice float majorant is now written in d: log((c^{−l} − 1)/l) = x + log(−expm1(−x)) − log l, with x = −l·log1p(−d). This form is
+  stable for x → 0 (large β) and for x → ∞ (small β; a first version overflowed there, which only made low-β runs fail). The bound
+  itself is still the Arb `fp3_ht.norm_major` at c₋, so the float only picks η. It agrees with fp3_ht's float to all digits at
+  β ≈ 0.4 and 8.
+* `run_large` is `fp3_ht.run` line for line except: the precision; G^r via Lemma B′; the two replaced functions; F_cert beyond 64; and a
+  per-component budget `loc_comp` in the output. A `diff` is 15 lines.
 * Result: far/F_cert ≤ 1.1·10⁻⁴ in every probe (the M-selection rule asks < 10⁻³). At β = 63.9 it is 5·10⁻²²⁸ with M = 450,
   n ≈ 10³¹, h_max ≈ 10⁻⁶², and the k-sum switches to its geometric tail at k ≈ 7.6·10³⁰.
 
@@ -152,7 +156,9 @@ The bisection list gets intermediate values: 998, 1100, 1250, 1400, 1500, …, 2
 ## 2. Probe results [certified]
 
 `fp3_ht_large.py scan` (bisection, both channels, cell width 0.1, exact P_m to m = 70, 81 radii). Results are in
-`cache/large/probe{A,B}.jsonl`.
+`cache/large/probe{A,B}.jsonl`. They were moved out of the launcher's `cache/large_*.jsonl` pattern so that the production run recomputes
+these cells with the final ladder. They came from a revision that differed only in the float η-choice and the ladder, and remain
+valid certificates.
 
 | β-cell | channel | a* | err/F | G^r/F | Σ local/F | far/F | M | top local components (/F) | cell time |
 |---|---|---|---|---|---|---|---|---|---|

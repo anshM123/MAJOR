@@ -406,7 +406,7 @@ def run_large(b, ba, bb, a0, M=None, m1=70, verbose=True, geo=None):
     (min of Lemma B and Lemma B' per EPSW cell); far_remainder_large; norm_major_float_large."""
     t0 = time.time()
     set_prec(Fr(bb))
-    _DCELL[0] = float(lo(1 - up((A(Fr(bb))/2).tanh()**2)).lower())
+    _DCELL[0] = float((1 - lo((A(Fr(ba))/2).tanh()**2)).mid())    # d at c_lo, as fp3_ht's float majorant uses c_lo (eta choice only)
     s = 2*b + 1; sig = 1 if b == 0 else -1; kap = Fr(9, 2) - b*(b - 1)
     ba = Fr(ba); bb = Fr(bb)
     c_lo = (A(ba)/2).tanh()**2; c_hi = (A(bb)/2).tanh()**2
@@ -557,7 +557,6 @@ H.A0LIST = [998, 1100, 1250, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2125, 225
 
 def scan_cell_large(ba, bb, out):
     set_prec(Fr(bb))
-    _DCELL[0] = float(lo(1 - up((A(Fr(bb))/2).tanh()**2)).lower())
     return H.scan_cell(ba, bb, out)
 
 
