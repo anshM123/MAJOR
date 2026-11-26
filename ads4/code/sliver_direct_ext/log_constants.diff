@@ -1,0 +1,4 @@
+43c43
+< int main(){PREC=6528;Z S;mpz_ui_pow_ui(S.get_mpz_t(),10,1600);for(auto v:{sqrt(pi()/2ul),pi()/2ul*exp(I(Q(1,2)))*erfc(I(1)/sqrt(I(2)))}){V l,u;Z a,b;mpfr_mul_z(l.a,v.l.a,S.get_mpz_t(),MPFR_RNDD);mpfr_mul_z(u.a,v.u.a,S.get_mpz_t(),MPFR_RNDU);mpfr_get_z(a.get_mpz_t(),l.a,MPFR_RNDD);mpfr_get_z(b.get_mpz_t(),u.a,MPFR_RNDU);std::cout<<a<<' '<<b<<'\n';}}
+---
+> int main(){PREC=10528;Z S;mpz_ui_pow_ui(S.get_mpz_t(),10,2600);for(auto v:{sqrt(pi()/2ul),pi()/2ul*exp(I(Q(1,2)))*erfc(I(1)/sqrt(I(2)))}){V l,u;Z a,b;mpfr_mul_z(l.a,v.l.a,S.get_mpz_t(),MPFR_RNDD);mpfr_mul_z(u.a,v.u.a,S.get_mpz_t(),MPFR_RNDU);mpfr_get_z(a.get_mpz_t(),l.a,MPFR_RNDD);mpfr_get_z(b.get_mpz_t(),u.a,MPFR_RNDU);std::cout<<a<<' '<<b<<'\n';}}

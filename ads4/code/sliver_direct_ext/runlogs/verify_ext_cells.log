@@ -1,0 +1,5 @@
+triangle 129/500 131/500 0 K 1397 lower 1.403672819914933e-05
+triangle 131/500 33/125 0 K 1405 lower 1.0938545052122208e-05
+triangle 129/500 131/500 4 K 1397 lower 1.1126015480835175e-05
+triangle 131/500 263/1000 4 K 1401 lower 1.7369393142148918e-06
+PASS: exact source transfer, spin caps, pole gaps, Cauchy majorants/tails and final inequalities; 4 channel cells

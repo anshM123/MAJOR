@@ -1,0 +1,8 @@
+19c19
+< l,u=map(F,sys.argv[1:3]);b=int(sys.argv[3]);D=100;S=10**D;K=1251;s=2*b+1;q=b*(b+1)
+---
+> l,u=map(F,sys.argv[1:3]);b=int(sys.argv[3]);D=100;S=10**D;K=int(sys.argv[4]);s=2*b+1;q=b*(b+1)  # EXT: K is an input (was 1251)
+21c21
+< assert l==F('.223') and u==F('.258') and b in (0,4)
+---
+> assert F('.05')<=l<u<=F('.56') and b in (0,4)  # EXT: cell endpoints are inputs (was .223,.258)

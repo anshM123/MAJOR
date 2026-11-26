@@ -2048,3 +2048,23 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Every intermediate inequality holds on 150 trajectories.
 * **Alternative.** base_bounds (§109) would also serve on this edge and is 4–6.5 nats sharper, but would need rewiring.
 * **Status.** With §119, the cell [3.65, 3.75] no longer has an unreviewed dependency, so L ∈ [3.65, 5] is fully refereed. The remaining retained inputs are the global ones: the angular-action identity, EPSW masses and cutoff, the LRINF floors, and §73.
+
+## 122. Larger realised coefficient table (K = 3300); direct cells to c = 0.263; driver h-cap limitation (agent, 27 Nov)
+
+* **Table.** run_full_gauss.py with K = 3300 and D = 2600, followed by make_coefficients.py, produces 3299 coefficient pairs. These are enough for need_k up to c = 0.56.
+  * Radii: A ≤ 1e-466 and G ≤ 1e-543 at k = 3298. Time: 854 s plus 23 s.
+  * Only inputs were changed: K and D in make_coefficients.py, and the log_constants.cpp output scale raised to 10^2600 with 10528 bits. At the old fixed 10^1600 it silently gave A₀ = 26.73 instead of 20.77, so the scale must track D.
+  * Cross-checks: all 1253 old coefficient intervals overlap the new ones, and the author's tight cell [0.223, 0.258] reproduces the exact same physical_lower.
+  * The tables are saved compressed in code/sliver_direct_ext/tables/.
+* **New PASS cells** (author's direct_sign_triangle, unchanged; verified with a script based on verify_extension.py):
+
+  | c-cell | b | K | lower bound |
+  |---|---|---|---|
+  | [0.258, 0.262] | 0 | 1397 | 1.404e-5 |
+  | [0.258, 0.262] | 4 | 1397 | 1.113e-5 |
+  | [0.262, 0.264] | 0 | 1405 | 1.094e-5 |
+  | [0.262, 0.263] | 4 | 1401 | 1.74e-6 |
+
+  Direct coverage now reaches c = 0.263, i.e. L ≈ 0.305.
+* **Limitation.** The drivers bound h by c_hi/((1001−b)(1002+b)), which uses only J ≥ 1001. Above c ≈ 0.251 the physical constraint a ≥ 998, h ≤ (1−√c)²/998², is tighter. The rectangle therefore contains non-physical (c, h) points where the prefix numerator is genuinely negative or huge, whatever K is (b = 0 corner probe: −1.5e-5 at c = 0.266). That is why cells above 0.264 come out inconclusive.
+* **Proposed fix (not applied; needs the author's decision).** In the driver, use h ≤ min(c_hi/((1001−b)(1002+b)), (1−√c_lo)²/998²). This is a valid superset of the physical states, since (1−√c)² decreases in c. The C++ is unchanged. Non-rigorous probes with this cap show a smooth positive numerator of about 1.1–1.5e-5 up to c = 0.56 (b = 0). Estimated cost to c ≈ 0.51 is 2–8 CPU-h. Above about 0.51, the smallest h-radius option (2) hits the pole (1.5hK² ≥ 1), so a smaller radius option or a smaller K is needed.
