@@ -72,7 +72,7 @@ def inc_gamma_upper(sigma, X):
 
 
 _ETAB = None
-ETAB_U0, ETAB_DU, ETAB_N = 0.5, 0.0005, 5001          # u in [0.5, 3.0]
+ETAB_U0, ETAB_DU, ETAB_N = 0.5, 0.0005, 5301          # u in [0.5, 3.15]
 
 
 def Ehat_table():
