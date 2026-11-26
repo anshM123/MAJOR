@@ -1,0 +1,8 @@
+(1a) F(z+i)/F(z-i) - R_-/R_+  (symbolic, after Gamma/cosh recurrences) = 0
+(1a) numeric max |F(z+i)/F(z-i) / (R_-/R_+) - 1| at 5 complex points (mpmath Gamma, 40 dps) = 3.69e-41
+(1a) P(z+i)/R_-(z) - [-z(2z-7i)^2(2z-3i)^2(2z+3i)(2z+7i)^2/2048] = 0
+(1a) B two forms agree: 4.65e-41; even: 1.75e-41; |Im B/Re B| on R: 8.77e-42
+(1c) R_+(x) - conj(R_-(x)) on real x: 0
+(2) R_-Q(z+i)+R_+Q(z-i) - P_KB2A4(z) = 0
+(2) R_- + R_+ = -8*(4*z**2 + 1)*(16*z**4 - 728*z**2 + 969)/((4*z**2 + 9)*(4*z**2 + 49))
+(2) Einstein: R_-D(z+i)+R_+D(z-i) = Lemma-R Einstein function iff D = c/(z^2+9/4) with c = {c: 1}
