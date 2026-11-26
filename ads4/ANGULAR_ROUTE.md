@@ -1800,3 +1800,29 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * The eigenframe identity was checked numerically to 2e-17 relative, and the antiderivative and d^σ normalisation were checked by hand.
 * **Retained.** The contour3 pieces (agent-certified, unreviewed), F_cert (LRINF), the EPSW masses and cutoff, the angular-action identity, Loc-Joint (§105) and §73.
 * **Cost note.** At L ≈ 1.6 a full-twist box (0.2% in d, ν width 1) needs 209,760 evaluations and 429 s, so the lower part of the band is expensive.
+
+## 110. Sliver positivity certified on L ∈ [2.9, 3.65] (author; recomputed by coordinator, 27 Nov)
+
+* **Package** (author): code/sliver_ext/ (91 files). The coordinator's recomputation is in code/sliver_ext/rerun_coordinator/.
+* **New ingredients.**
+  1. **Coupled twist coordinate** h = d²x, with 0 ≤ x ≤ 1/(998²(1+√(1−d))²). It enters check_norm.py through the majorant variation \|d²x − d₀²x_c\| ≤ (d₀+d_r)²x_r + x_c(2d₀d_r + d_r²). This excludes non-physical (d, h) pairs; for example, the dressed b = 4 bound on [850, 950.1] drops from 17584 to 25.1.
+  2. **major_rect.py**: a rectangle-enclosure majorant with one complex axis at a time. Re β(β+k) is enclosed exactly, using the vertex. The bound on \|r_j\| is quasi-convex in t², and the pole gap is checked through Re D > 0. The code takes the minimum with the disk majorant.
+  3. **ellipse_extend.py**: Hadamard three circles on the Joukowski annulus at fixed real (d, x), giving sup_{E_r}\|P\| ≤ U^{1−λ}M^λ with λ = log r/log R. Here U is the certified real-ν bound and M an outer-ellipse majorant of the full 1500-term sum; Q is handled in the same way. This moves the real transfer bounds onto the top and right contour edges, with an exact containing-ellipse corner check.
+  4. **contour_direct.py**: bottom and left edges via the exact difference recurrence for Δ_j = X_j − 1. The source term is gβc(βc + 1 + sd) with g = h/d² and c = 1−d, which the coordinator re-derived by hand. The recurrence is seeded by a negative-binomial telescoping bound (`nb_delta`), and the infinite-twist tail uses the ratio bound. Gamma-duplication and Euler-integral envelopes handle B(ν) and \|B H(d)\| on the top line. The right endpoint 998.5 > Λ is handled with an explicit extra segment.
+  5. **Sharper Gaussian tail**: 5 groups of centres with exact amplitude sums and prefactor 1062; the mass above 1040 is < 1.26e-37.
+* **Result.** PASS_CONDITIONAL in all four cells, both b, every a ≥ 998, with no spin enumeration. The [3.5, 3.65] contour is imported from contour3 for a ≤ 4500 (with §73 for larger a); the contours below 3.5 are new. Error/floor ratios, author's run vs coordinator's recomputation:
+
+  | L-cell | floor | b = 0 author / rerun | b = 4 author / rerun |
+  |---|---|---|---|
+  | [2.9, 3.2] | 2.5e-6 | 0.07923 / 0.07923 | 0.08840 / 0.08840 |
+  | [3.2, 3.35] | 1.87e-6 | 0.24606 / 0.24425 | 0.29755 / 0.29523 |
+  | [3.35, 3.5] | 1.87e-6 | 0.16816 / 0.16812 | 0.19135 / 0.19130 |
+  | [3.5, 3.65] | 1.98e-6 | 0.13750 / 0.13751 | 0.14886 / 0.14887 |
+* **Reproduction.**
+  * `JOBS=3 bash reproduce.sh` takes 616 s. The [2.9, 3.2] outputs (residuals, F₄, all four contour files, budget) are identical to the author's apart from timing.
+  * The three older cells were recomputed with the current majorants, which choose different grids, as the README warns. All pass, with equal or slightly smaller ratios.
+  * check_identity (576 + 48), check_base_identity (132 + 48), check_lowfreq and verify_inputs on this checkout (floor rows, inventory, 881 mass rows, contour ceilings, NF02) all PASS.
+* **Not yet independently reviewed.** The `nb_delta` seed lemma (telescoping with factor 2; uses n ≥ 997 and dn ≥ 497), the B_box/inf_BH envelopes, the floors per L-cell taken from lrt3_rcert, the contour3 import on [3.5, 3.65], and the retained inputs (angular-action identity, EPSW masses and cutoff, Loc-Joint).
+* **Sliver status.**
+  * Certified, conditional on retained inputs: L ≥ 2.9 (L ≥ 5 reviewed; [3.65, 5] under review; [2.9, 3.65] here).
+  * Open: 998 ≤ a < a*(L), J ≥ 1001, 0.06 ≲ L < 2.9.
