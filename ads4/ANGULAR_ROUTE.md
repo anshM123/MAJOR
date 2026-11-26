@@ -1893,3 +1893,26 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   6. **Low-frequency theorem: holds** (principal constant 12.61 < 14).
 * **§73 is in the repository,** contrary to the referee's note. code/fullpos3/cache/laptop_*.jsonl plus results/ht_scan_done.jsonl hold the 60 cells contiguously on β ∈ [0.39, 8.4], all ok, both channels. The cell [4.84, 5.04] has a* = 4500 (b = 0, 4), which covers the [3.5, 3.65] β-range. Coordinator check.
 * **Still retained (not reviewed):** the angular-action identity; EPSW masses, cutoff and Gaussian inventory; LRINF floors; Loc-Joint internals and K₀; contour3 on [3.5, 3.65] (its state relations hold there); the helicity identity.
+
+## 115. Positivity on L ∈ [2.3, 2.6]; realised-moment machinery for low L (author; reproduced by coordinator, 27 Nov)
+
+* **Package** (author): code/sliver_L23/. The coordinator's rerun (1149 s) is in rerun_coordinator/.
+* **Cell [2.3, 2.6].** Coupled norming with 10 p = 3 boxes (1,307,286 evaluations) and 2 p = 4 right-edge boxes (247,104). Contour heights are 15.25 (p = 3) and 30.25 (p = 4), with a normed right edge for p = 4 on Im ν ∈ [0, 25]. The Gaussian bands near 1040 are refined. Floor 3e-6: the lrt3_rcert rows on β ∈ [3.6, 4.0] have minimum 3.46e-6, and assemble_23.py asserts coverage.
+  * b = 0: E/F < 0.316041, action > 2.0518e-6.
+  * b = 4: E/F < 0.568905, action > 1.2932e-6. This is the thinnest margin so far, 43%.
+* **Checker changes (audited by the coordinator).**
+  * Norming now uses N ≥ 1.4m nodes, factor 5/2 and +7/2·ε per axis. This is valid because m(π/2N + 3e-6) < 1.13 and cos(1.13) > 2/5, which is checked exactly.
+  * scalar_binary.cpp is a binary fixed-point variant. Each coefficient ratio is rounded once (l1 ≤ 2 units), and its error term (\|a\|₁+2)e_u + 2\|u\|₁ + 2 covers both coefficient rounding and propagation.
+* **Reproduced.**
+  * The ledger, budget, all four contour files, the p = 4 results and pole_bound_results are identical apart from timing.
+  * The p = 3 transfer bounds agree to all printed digits; their exact rational tails differ only in roundoff-unit bookkeeping at the 1e-60 level.
+  * inventory_cut on this checkout's k2_continuum_D_1000_rep.json gives 1030 groups and cutoff seed < 7.0957e-24. pole_bound gives cutoff pole contributions 2.30e-20 (b = 0 and 4). raw_seed_budget gives a correlated log-seed action error of 7.3e-46, and < 1e-400 for the log cutoff. test_raw_transform passes 33 outputs against 12 exact atoms. gaussian_high_test passes 7 repository centres, 3254 even moments at 2500 digits.
+* **Low-L realised-moment route** (README; extends §111 and §113).
+  * The raw unshifted weight g = −(R(ν²)B + R̃(ν²)𝓛)θ/Λ has three rational poles at a = 1, 9, 49.
+  * Plain Gaussian moments with the erf cutoff come from an exact integration-by-parts recurrence M_{k+1} = (c/V)M_k + k(s²/V²)M_{k−1} + (s²/V)(E⁻_k − E⁺_k), implemented in gaussian_cut_moments.cpp with MPFR intervals.
+  * Rational-pole seeds are handled as imaginary-frequency atoms (§113); the log seeds use G/E/K recurrences.
+  * The raw triangular transform to I_{m,j} feeds the retained A_k identity.
+  * **Not yet run:** the full-inventory realised A_k, and the sign of the low-L bivariate rational numerator.
+* **Sliver status.**
+  * Certified (conditional on retained inputs): L ≥ 2.3. The chain §104–111 has been refereed with no errors (§114).
+  * Open: L ∈ [0.82, 2.3] (the laptop launcher covers [1.5, 2.6]) and the low-L sign problem on [0.051, 0.82].

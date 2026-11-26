@@ -1,0 +1,7 @@
+K 8 digits 55 centers 1 elapsed 0.003993464999439311 max radius numerator 1 digits of width 1
+K 8 digits 55 centers 1 elapsed 0.0054765700006100815 max radius numerator 1 digits of width 1
+K 8 digits 55 centers 1 elapsed 0.01346101700073632 max radius numerator 1 digits of width 1
+K 8 digits 55 centers 1 elapsed 0.00400901900138706 max radius numerator 1 digits of width 1
+36 independent high-precision quadrature diagnostics agree
+K 3253 digits 2500 centers 12 elapsed 271.79598708900085 max radius numerator 1 digits of width 1
+PASS 12 actual repository centers through 6506 powers; no full-weight claim
