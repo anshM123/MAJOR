@@ -42,7 +42,7 @@ stated legend.
 
 Every number is reproducible. The functional weights are published as exact rationals and tables, separate code reproduces every
 constant from them, an independent check rebuilt the key reductions from the written statements alone, and the positivity
-certificates are published with their inputs, outputs and replay scripts. Data and code are available at [URL].
+certificates are published with their inputs, outputs and replay scripts. Data and code are available at https://doi.org/10.5281/zenodo.24571131.
 
 **Why *Physical Review Letters*.** That a large gap forces Einstein gravity is one of the load-bearing beams of holography, and until now
 it has been a statement about exponents. This Letter turns it into a number. In any
@@ -72,7 +72,7 @@ Aryan Senthilkumar (independent researcher), aryan.senthilk@gmail.com
 
 ## Notes for the authors (not part of the letter)
 
-* **[AUTHORS] arXiv number and data URL.** Fill in both, or delete the sentence "It has been posted to the arXiv …" if you
+* **[AUTHORS] arXiv number.** The data URL is filled in (Zenodo DOI). Fill in the arXiv number, or delete the sentence "It has been posted to the arXiv …" if you
   submit to PRL first.
 * **AI-use sentence.** Removed from the cover letter (it was optional): APS asks for disclosure in the manuscript, and the
   acknowledgments contain it unchanged. Re-add it here if you prefer.

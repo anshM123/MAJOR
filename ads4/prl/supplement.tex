@@ -274,7 +274,7 @@ parity-odd coupling is [I]; it is not used, because positivity is quoted per blo
 
 \begin{table}[!htbp]
 \caption{\label{tab:data}Published data (directory \texttt{data/} of the Supplemental
-Material; SHA-256 prefixes in \texttt{MANIFEST.txt}, \texttt{k2/SHA256SUMS} and \texttt{TRUNC\_SHA256SUMS}). The continuum weights are
+Material, \texttt{prl/data/} of the archive~\cite{Zenodo}; SHA-256 prefixes in \texttt{MANIFEST.txt}, \texttt{k2/SHA256SUMS} and \texttt{TRUNC\_SHA256SUMS}). The continuum weights are
 the definitions; grid files are numerical realisations, and the $k=2$ grids are read as zero beyond $\nu=\Lambda+10$
 (Sec.~\ref{sec:cutoff}); the \texttt{*\_trunc.txt} copies, written by \texttt{truncate\_grids.py}, are that reading, and the
 published grids are unchanged. The Q3$^*$ factored coefficients (the definition of $\Omega^Q_{\rm up}$'s
@@ -1960,6 +1960,9 @@ gap where the method closes'' holds only with the refinement. It is not a proof.
 
 \section{Independent reproduction}
 \label{sec:repro}
+
+All code, data and logs are archived at Ref.~\cite{Zenodo} (DOI 10.5281/zenodo.24571131); \texttt{reproduce.py} at its root
+re-runs the checks behind the headline numbers.
 
 \textbf{Who performed the checks, and what ``independent'' means here.} Every check in this section was a separate run, made after
 the computation it checks. A check is called
