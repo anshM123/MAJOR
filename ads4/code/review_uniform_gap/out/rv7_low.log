@@ -6,3 +6,5 @@ Dg=1500: done 19.5s; running min {'Dg': 1500, 'J': 64, 'b': 0, 'Smin': 0.0005500
 Dg=2000: done 23.4s; running min {'Dg': 2000, 'J': 64, 'b': 0, 'Smin': 0.0005295570597356269, 'zeta_at_min': 1.0, 'S_edge': 0.0005295570597356269, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
 Dg=3000: done 27.2s; running min {'Dg': 3000, 'J': 64, 'b': 0, 'Smin': 0.0005105418118539047, 'zeta_at_min': 1.0, 'S_edge': 0.0005105418118539047, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
 Dg=5000: done 31.0s; running min {'Dg': 5000, 'J': 64, 'b': 0, 'Smin': 0.000496414479350134, 'zeta_at_min': 1.0, 'S_edge': 0.000496414479350134, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=10000: done 34.9s; running min {'Dg': 10000, 'J': 64, 'b': 0, 'Smin': 0.0004864483127911397, 'zeta_at_min': 1.0, 'S_edge': 0.0004864483127911397, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=30000: done 38.9s; running min {'Dg': 30000, 'J': 64, 'b': 0, 'Smin': 0.00048010295662299815, 'zeta_at_min': 1.0, 'S_edge': 0.00048010295662299815, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}

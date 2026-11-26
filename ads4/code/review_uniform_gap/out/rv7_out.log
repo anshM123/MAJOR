@@ -3,3 +3,4 @@ J=80 done 3.4s; running min {'Dg': 'inf', 'J': 80, 'b': 4, 'bhat': 161.0, 'S': 0
 J=100 done 7.4s; running min {'Dg': 'inf', 'J': 100, 'b': 4, 'bhat': 201.0, 'S': 0.00012438736243054112, 'pos': True, 'trunc_rel': 1.3992667957290182e+66, 'rad': 0.0}
 J=130 done 13.5s; running min {'Dg': 'inf', 'J': 130, 'b': 4, 'bhat': 261.0, 'S': 5.6981654775019186e-05, 'pos': True, 'trunc_rel': 5.492008959519507e+85, 'rad': 0.0}
 J=160 done 21.6s; running min {'Dg': 'inf', 'J': 160, 'b': 4, 'bhat': 321.0, 'S': 3.0686492207090573e-05, 'pos': True, 'trunc_rel': 9.139608190168636e+104, 'rad': 0.0}
+J=200 done 34.9s; running min {'Dg': 'inf', 'J': 200, 'b': 0, 'bhat': 400.0, 'S': 1.5993317150672905e-05, 'pos': True, 'trunc_rel': 2.894634141131347e+134, 'rad': 1.8252491411485374e-293}
