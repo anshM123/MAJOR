@@ -1422,3 +1422,16 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * A_m peaks at 1e14 (m ≈ 100); the sum is stable from M′ = 300.
   * Cost: 28 min per c.
 * **So far:** L = 2 and L = 7 PASS in both channels. L = 0.1 and 0.5 are queued; complex-u measurements at η = 0.02 and 0.01 (L = 2) are running.
+
+## 89. Lemma Cβ: non-amplifying complex beta measure; continuation obstruction; rotated-line complex truncation (author, 26 Nov)
+
+* **Complex beta measure (author, proof given).** On the saddle contour t(v) = Ae^v/(B+Ae^v), ∫\|dμ_{A,B}\| < 1.015 for \|arg A\|, \|arg B\| ≤ 0.1 and Re ≥ 100, uniformly in size.
+  * Key identity: Ψ′(v) = (1−e^v)/(1/A + e^v/B). **Checked here by hand.**
+  * The §80 strip parameters satisfy \|arg a\|, \|arg n\| < 0.1.
+* **Inner kernel.** \|K(q)\| ≤ 1.05·₂F₁(−0.93Re n, 0.93Re a; 0.93Re(N+s); q) ≤ 1.05 on q ∈ [0, 1].
+* **Obstruction.** For non-integer complex n the ladder does not terminate, and U_k can have poles: n = 1001.5, N = 2000 lies in the rectangle. Also S_β(−m) = Σ_k(−1)^k C(m, k)U_k. So the continued beta form cannot be identified naively with H_M; a regularisation is needed.
+* **Outer Mellin factor.** The 1/Γ(α) factor is ~e^{1550} at ν = 998. It is cancelled exactly on the contour q = it/(1+it), which gives a factor \|i^α\| = e^{−πν/2}. A joint bound on that curved q-path is still open.
+* **Complex truncation without integer spin.** On the rotated line v = e^{iφ}(ρ+it), φ = arg(1−c), Θ = (1−\|c\|²)/(2\|1−c\|):
+  * \|1−vp_j\|² − \|c−vp_j\|² = 2\|1−c\|(Θ − ρp_j). **Checked here by hand.** Hence \|U_k\| ≤ 1, with an exponential envelope.
+  * Residue identity for U_k − T_{M,k}, and a circle maximum (\|c−x²\| + x\|1−c\|)/(1−x²).
+* **Status.** Lemma C (full signed strip bound with K ≲ 1000) is open. Route: a regularised beta transform on the saddle contour plus rotated-line truncation; the joint complex q-path estimate and a uniform truncation budget remain.
