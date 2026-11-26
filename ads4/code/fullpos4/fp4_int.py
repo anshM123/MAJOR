@@ -52,7 +52,7 @@ class Weight:
         xc, wc = np.polynomial.legendre.leggauss(80)
         self.pc = 0.015*(xc + 1); self.wc = 0.015*wc
         self.psic = np.polyval(self.cf[::-1], self.pc)
-        cw = min(0.015, 6.0/LAMl)
+        cw = min(1.0, max(0.015, 6.0/LAMl))        # e^{-2 pi lam p} < 1e-16 beyond
         self.pc = cw*(xc + 1); self.wc = cw*wc
         self.psic = np.polyval(self.cf[::-1], self.pc)
         self.corc = 2/np.expm1(2*math.pi*LAMl*self.pc)
