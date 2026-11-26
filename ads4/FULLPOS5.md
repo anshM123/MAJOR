@@ -249,11 +249,24 @@ taking a larger. Numerically [certified evaluations of the m = 0 term, cell widt
 * **β → ∞:** see §3.2. The certificate's own limit is β ≈ 350 (m = 0 term); in practice ~200.
 * **a* is set by the high-frequency residual pieces** (ν ≈ 900–1059), as in FULLPOS3 §4.6 at low β. Lowering a* below ~3000 needs the
   grouped / carrier-shifted local bounds (ANGULAR_ROUTE §64b, §66), not more cells.
-* **The new lemmas also apply at β ≤ 8.4.** Lemma B′, Lemma A′ and the rest-split are valid for every β > 0. LOWBETA
+* **The new lemmas also apply at β ≤ 8.4.** Lemma B′, Lemma A′ and the rest-split are valid for every β > 0. On the old cell [8.24, 8.4] they give
+  a* = 3400 in both channels (err/F = 0.79), against 4000 from `fp3_ht.py`. A comparison on [0.39, 0.44] (`cache/large/cmp_lowbeta2.jsonl`)
+  was still running at hand-back. Its low-β geometry takes ≈ 11 min, as in `fp3_ht.py`, because both use the old J-table lookup there.
   The laptop job was not changed. Re-running β ≤ 8.4 with `fp3_ht_large.py` would only sharpen a*.
 * **Not done here:** the β ≤ 8.4 cells (laptop), the 556-cell production run, cells beyond 64.
 
 ---
+
+## 5a. Versions and rigour of the post-launch change
+* The laptop runs `run_large_scan.py` + `fp3_ht_large.py` at commit 8ded31f.
+* The only later change to either file (ea2f379) is the float `_DCELL` used by `norm_major_float_large`. It was d at β_b and is now d at
+  c₋ = c(β_a), which is what fp3_ht's float uses.
+* **This change is rigour-neutral.** The float's two outputs are used only to choose the radius R and the auxiliary η that are then
+  passed to the Arb bound `fp3_ht.norm_major`. Inequality (M2) holds for every η > 0, and the Cauchy bound holds for every R in the list.
+  So any choice gives a valid upper bound; only its size can change.
+* No cell certified at 8ded31f needs rerunning.
+* **Regression check:** [12, 12.1], b = 0, a₀ = 3200 with ea2f379 gives err/F = 0.45261006, against 0.45261029 in the probe.
+* Both files are **frozen** from here on.
 
 ## 6. Reproduce (`ads4/code/fullpos3/`; `ulimit -v 4000000; export OMP_NUM_THREADS=1`)
 ```

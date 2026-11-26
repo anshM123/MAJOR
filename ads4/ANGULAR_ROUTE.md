@@ -1261,3 +1261,12 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * ν = 950: 5.6e-4 / 6.0e-5 / 2.9e-6 / 9.4e-7;
   * ν = 993: 2.5e-2 / 1.3e-2 / 4.3e-2 / 1.4e-1, i.e. fails at the turning point.
 * **Assessment.** Excellent in the central band. Problems at low ν (the hard parameter ν is small; the Legendre/T0 kernel is accurate there instead) and near κ → 1 (a uniform Airy form is needed).
+
+## 77. Large-β high-twist certificate (agent FULLPOS5 final report, 26 Nov)
+
+* **New module, frozen.** fp3_ht_large.py and run_large_scan.py (fp3_ht.py untouched).
+  * Large-β failures fixed: arc-subdivision floor, precision, J-tables, ρ-grid, iteration cap, overflow. None could cause a wrong PASS.
+  * New bounds [P + DV]: Lemma B′ (oscillation-aware \|P_ν\|), Lemma A′ (coth correction by parts), residual rest split by frequency support.
+* **Probes [certified], width 0.1, both channels:** a* = 3200 at β = 9, 12, 16, 20; 3600 at β = 30, 45, 63.9. Single runs show 3400 passing at 30 and 64; the [8.24, 8.4] cell now gives 3400 instead of 4000.
+* **Laptop run.** run_large_scan.py, 556 cells on [8.4, 64], running since commit 8ded31f. The η-choice change in ea2f379 is rigour-neutral (agent-confirmed; regression check agrees to 7 digits).
+* **β ≥ 64 is not reachable by this certificate.** The low-frequency residual mass, known only as an absolute integral, gives G^r/F ≈ 8e-6β², which reaches 1 near β ≈ 350. So β → ∞ needs the contour route (ℰ₂ < 0.01𝓜 for L ≥ 30.16), with its connection terms j ≥ 1 and k = 3 still unchecked. --beyond B works to β ≈ 200.
