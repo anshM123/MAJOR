@@ -37,7 +37,9 @@ def derivs(c, x0):
 
 
 class Weight:
-    def __init__(self, k=2):
+    def __init__(self, k=2, lam=None):
+        self.lam = LAM if lam is None else lam
+        LAMl = self.lam
         self.c = _p2 if k == 2 else _p3
         self.cf = np.array([float(x) for x in self.c])
         self.d0 = derivs(self.c, 0); self.d1 = derivs(self.c, 1)
@@ -45,12 +47,15 @@ class Weight:
         xg, wg = np.polynomial.legendre.leggauss(200)
         self.pg = (xg + 1)/2; self.wg = wg/2
         self.psig = np.polyval(self.cf[::-1], self.pg)
-        self.cothg = 1/np.tanh(math.pi*LAM*self.pg)
+        self.cothg = 1/np.tanh(math.pi*LAMl*self.pg)
         # coth correction nodes on [0, 0.03]
         xc, wc = np.polynomial.legendre.leggauss(80)
         self.pc = 0.015*(xc + 1); self.wc = 0.015*wc
         self.psic = np.polyval(self.cf[::-1], self.pc)
-        self.corc = 2/np.expm1(2*math.pi*LAM*self.pc)
+        cw = min(0.015, 6.0/LAMl)
+        self.pc = cw*(xc + 1); self.wc = cw*wc
+        self.psic = np.polyval(self.cf[::-1], self.pc)
+        self.corc = 2/np.expm1(2*math.pi*LAMl*self.pc)
 
     def psi(self, p):
         return np.polyval(self.cf[::-1], p)
@@ -58,10 +63,10 @@ class Weight:
     def W_direct(self, t):
         """W_h(t) by 200-node Gauss-Legendre in p (accurate for Lam |t| <~ 60)."""
         t = np.asarray(t, complex)
-        return 2*(np.exp(1j*LAM*np.multiply.outer(t, self.pg))*(self.psig*self.cothg*self.wg)).sum(-1)
+        return 2*(np.exp(1j*self.lam*np.multiply.outer(t, self.pg))*(self.psig*self.cothg*self.wg)).sum(-1)
 
     def W_S(self, t):
-        t = np.asarray(t, complex); x = 1j*LAM*t
+        t = np.asarray(t, complex); x = 1j*self.lam*t
         s = np.zeros_like(t)
         for j in range(len(self.d0) - 1, -1, -1):          # Horner in 1/x
             s = s/x + (-1)**j*self.d0[j]
@@ -69,7 +74,7 @@ class Weight:
 
     def W_Eamp(self, t):
         """W_E(t) e^{-i Lam t}."""
-        t = np.asarray(t, complex); x = 1j*LAM*t
+        t = np.asarray(t, complex); x = 1j*self.lam*t
         s = np.zeros_like(t)
         for j in range(len(self.d1) - 1, -1, -1):
             s = s/x + (-1)**j*self.d1[j]
@@ -77,7 +82,7 @@ class Weight:
 
     def W_C(self, t):
         t = np.asarray(t, complex)
-        return 2*(np.exp(1j*LAM*np.multiply.outer(t, self.pc))*(self.psic*self.corc*self.wc)).sum(-1)
+        return 2*(np.exp(1j*self.lam*np.multiply.outer(t, self.pc))*(self.psic*self.corc*self.wc)).sum(-1)
 
 
 def _gl(a, b, n):
@@ -106,17 +111,19 @@ class Amp:
     |beta| >= B0: split on the whole u-range (S, C real axis from 0; E on the ray u = r e^{i pi/4}); u = s^2 near 0."""
     B0 = 0.04
 
-    def __init__(self, k=2, u0=0.06):
-        self.w = Weight(k); self.u0 = u0
+    def __init__(self, k=2, u0=0.06, lam=None):
+        self.w = Weight(k, lam); self.u0 = u0; self.lam = self.w.lam
+        if lam is not None:
+            self.B0 = 40.0/self.lam; u0 = 60.0/self.lam; self.u0 = u0
         s, ws = _graded(0.0, math.sqrt(u0), 1e-4, 1.6, 16)
         self.un = s*s; self.wun = 2*s*ws
         self.uf, self.wuf = _graded(u0, 80.0, 0.02, 1.25, 16)
-        r, wr = _graded(0.0, 0.08, 1e-3, 1.4, 16)
+        r, wr = _graded(0.0, 80.0/self.lam, 1e-3, 1.4, 16)
         self.ue = u0 + r*np.exp(1j*math.pi/4); self.wue = wr*np.exp(1j*math.pi/4)
         # whole-range nodes (|beta| >= B0)
         s2, ws2 = _graded(0.0, math.sqrt(80.0), 1e-3, 1.25, 16)
         self.ua = s2*s2; self.wua = 2*s2*ws2
-        r2, wr2 = _graded(0.0, math.sqrt(0.1), 1e-3, 1.3, 16)
+        r2, wr2 = _graded(0.0, math.sqrt(100.0/self.lam), 1e-3, 1.3, 16)
         rot = np.exp(1j*math.pi/4)
         self.uea = r2*r2*rot; self.wuea = 2*r2*wr2*rot
 
@@ -125,14 +132,14 @@ class Amp:
         tf = b + self.uf[None, :]
         sc = ((self.w.W_S(tf) + self.w.W_C(tf))*kern(b, self.uf[None, :])*self.wuf).sum(1)
         te = b + self.ue[None, :]
-        e = (np.exp(1j*LAM*te)*self.w.W_Eamp(te)*kern(b, self.ue[None, :])*self.wue).sum(1)
+        e = (np.exp(1j*self.lam*te)*self.w.W_Eamp(te)*kern(b, self.ue[None, :])*self.wue).sum(1)
         return near + sc + e, sc, e
 
     def _large(self, b):
         tf = b + self.ua[None, :]
         sc = ((self.w.W_S(tf) + self.w.W_C(tf))*kern(b, self.ua[None, :])*self.wua).sum(1)
         te = b + self.uea[None, :]
-        e = (np.exp(1j*LAM*te)*self.w.W_Eamp(te)*kern(b, self.uea[None, :])*self.wuea).sum(1)
+        e = (np.exp(1j*self.lam*te)*self.w.W_Eamp(te)*kern(b, self.uea[None, :])*self.wuea).sum(1)
         return sc + e, sc, e
 
     def __call__(self, beta, split=False):
