@@ -204,3 +204,7 @@ if __name__ == '__main__' and sys.argv[1] == 'edge':
     Js = [int(a) for a in sys.argv[2].split(',')]
     run_edge(Js, [fmpq(1), fmpq(99, 100), fmpq(9, 10), fmpq(1, 2), fmpq(1, 10)], 'edge_' + sys.argv[2].replace(',', '_'),
              gaps=[1000, 1500, 3000, 10**4, 10**5, None])
+
+if __name__ == '__main__' and sys.argv[1] == 'imp2':
+    GAPS[:] = [1000, 1500, 3000, 10**4, 10**5, None]
+    run_imp(list(range(65, 141)) + [200, 500, 2000, 5000, 10**5], Fr(0), Fr(40), 80, 'imp2')
