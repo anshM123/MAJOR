@@ -1241,3 +1241,23 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Cells: naive ~2e5; with a (τ, 1/S, a) design perhaps 1e3–1e4 (unproven).
 * **Total:** optimistic ~1.5e4 core-h, naive ≥ 1e6 core-h, against ~176 core-h available overnight. Raising ξ₀ lowers the norm but not the node counts.
 * **Conclusion.** The sliver 998 ≤ a < a*(L), J ≥ 1001, 0.04 < L ≲ 30 cannot be certified by brute-force contour quadrature before submission. It needs either an asymptotic (saddle) evaluation with certified remainders replacing the quadrature, or weeks of compute.
+
+## 76. Lemma S, part 1: transport expansion in log-tan coordinates (author, 26 Nov)
+
+* **Coordinates.** u = log tan(α/2), v = log tan(γ/2), with β = v − u, dα/sin α = du, dγ = sech v dv. Phase Ψ₊ = i[f_S(u) − f_a(v)], with f_m(x) = 2m·arctan(e^x) − νx.
+  * Saddle points: u_* = −arcosh(S/ν), v_* = −arcosh(a/ν).
+  * Curvatures: f″ = ν√(1−ν²/m²). **The hard saddle's large parameter is ν, not S.**
+  * **Checked here by hand:** f_m(u) = mα + ν log cot(α/2); the saddle condition is m sech x = ν; the curvature follows.
+* **Transport machinery.**
+  * Amplitude A_{p,b}(β) = tanh^{2b}(β/2)cosh^{2p}(β/2)Q_ν(β), with Q = e^{−iνβ}P⁺ obeying Q″ + (2iν + coth β)Q′ + (¼ + iν coth β)Q = 0.
+  * Phase-correction polynomials: E_r = (i/r)Σ_j j c_j X^{j+2}E_{r−j}, evaluated with Gaussian moments.
+  * No quadrature anywhere.
+* **Order test (author)** at J = 1001, a = 998, b = 0, p = 3, against the exact ladder (1050 digits). Absolute errors after w³ normalisation, at orders 0 / 1 / 2 / 3:
+  * ν = 20: 2.5e-6 / 1.4e-3 / 1.2e-4 / 1.8e-5;
+  * ν = 50: 4.1e-6 / 1.3e-4 / 4.1e-6 / 2.7e-7;
+  * ν = 100: 4.3e-6 / 2.9e-5 / 3.0e-7 / 1.7e-8;
+  * ν = 300: 1.6e-5 / 3.0e-7 / 1.1e-8 / 1.8e-11;
+  * ν = 700: 6.3e-5 / 1.7e-7 / 4.2e-9 / 9.1e-12;
+  * ν = 950: 5.6e-4 / 6.0e-5 / 2.9e-6 / 9.4e-7;
+  * ν = 993: 2.5e-2 / 1.3e-2 / 4.3e-2 / 1.4e-1, i.e. fails at the turning point.
+* **Assessment.** Excellent in the central band. Problems at low ν (the hard parameter ν is small; the Legendre/T0 kernel is accurate there instead) and near κ → 1 (a uniform Airy form is needed).
