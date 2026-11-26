@@ -1520,3 +1520,17 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * So Lemma C only needs complex discs around the restricted real domain.
   * The agent's measurement at L = 0.5 (u ≈ 1.2) gives K ≈ 1.3–1.4 at η = 0.02. A larger K costs one Taylor order per doubling (K = 1e5 needs order 24).
 * **Open.** The restricted physical-strip inequality (target K ≤ 1e5), then the cell run.
+
+## 96. Independent audit of TAIL_CERT: tail closed for L ≥ 20 confirmed (TAIL_AUDIT.md, 26 Nov)
+
+* **Verdict: holds** for every L ≥ 20, all a ≥ 998 (including non-integer and a → ∞), every spin, both channels, with ρ ≤ 0.066.
+  * Every tailcert script was rerun in a mirror; outputs match digit for digit.
+  * About 900 adversarial spot checks: worst ratio to the stated bounds 0.9995 (Lemma NB) and 0.95 (Theorem P).
+* **Low-severity gaps; each fix changes no number:**
+  1. The Lemma NB step needs a finer argument (excess ≤ 2e-5).
+  2. Theorem P at non-integer a needs the general form g = E_V[(1−p/V)₊^a] with a partial deformation.
+  3. The recurrence range in the doc should say \|β\| ≤ 6200.
+  4. The weight bound beyond ν = 1060 should cite CONTOUR's tail formula.
+* **Info.** k = 3 is binding only because Theorem P is loose; the true k = 3 term is 4.8e-5·𝓜 at L = 20, so L_tail could be lowered.
+* **Inherited, not re-derived:** the action formula and the generating-function identity E5, CONTOUR's Arb tables (spot-checked), and EPSW's r(0) and sup\|r\|.
+* **Open region unchanged:** 998 ≤ a < a*(L), J ≥ 1001, 0.06 ≲ L < 20 (u ≥ 0.486).

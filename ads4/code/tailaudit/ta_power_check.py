@@ -16,7 +16,7 @@ import numpy as np
 import mpmath as mp
 HERE = os.path.dirname(os.path.abspath(__file__))
 ADS4 = os.path.abspath(os.path.join(HERE, '..', '..'))
-sys.path.insert(0, os.path.join(ADS4, 'code', 'tailcert'))
+sys.path.insert(0, os.path.join(ADS4, 'code', 'tailcert'))  # tc_power is imported read-only
 sys.dont_write_bytecode = True
 out = []
 def pr(s):
@@ -47,10 +47,10 @@ def panels(lo, hi, width):
     return xs, ws
 
 
-def J_numpy(beta, a, lams, lw):
+def J_numpy(beta, a, lams, lw, Y1=None):
     """e^{+pi tau/2} * int_path x^{beta-1} E[F] dx  (regime A path, Y1 = 2 tau), lams/lw: lambda nodes & weights."""
     sig, tau = beta.real, beta.imag
-    Y1 = max(2*tau, 2.0)
+    Y1 = max(2*tau, 2.0) if Y1 is None else Y1
     def Fbar(x, off=0):
         z = x/(2*a)
         base = -np.log1p(z)
@@ -82,7 +82,7 @@ def J_numpy(beta, a, lams, lw):
     return tot
 
 
-def Shat(beta, a, b, L=None, ft=False):
+def Shat(beta, a, b, L=None, ft=False, Y1=None):
     beta = complex(beta)
     sig, tau = beta.real, beta.imag
     if ft:
@@ -98,7 +98,7 @@ def Shat(beta, a, b, L=None, ft=False):
             lams = [float(1/v - 1) for v in V]; lw = list(GHW)
             mb = mp.mpc(beta)
             lpre = mb*mp.log(w) + mp.loggamma(N + s) - mp.loggamma(N + s - mb) - mb*mp.log(2*a)
-    J = J_numpy(beta, a, lams, lw)
+    J = J_numpy(beta, a, lams, lw, Y1)
     lpre = lpre - mp.loggamma(mp.mpc(beta)) - mp.pi*tau/2
     return complex(mp.exp(lpre))*J
 
@@ -190,13 +190,16 @@ if __name__ == '__main__':
                f'ratio {max(vals)/bd:.3f}')
     pr(f'  worst |S^|/bound (regime A, finite n) = {worst:.3f}')
     pr('')
-    pr('Theorem P, regime B (a = 998, tau > 519): fixed-twist |S^| (mpmath 70 digits) vs certified K_osc(sigma, t, t+0.01, 20)')
-    for sig in (0.25, 3.5):
-        for t in (600, 800, 998, 1050, 1100, 1140):
-            if sig == 3.5 and t > 999:
-                continue
-            ftv = abs(Shat_mp_ft(complex(sig, t), 998))
+    pr('Theorem P, regime B (a = 998, tau > 0.52a): |S^| on the rho = 0.92 path (double precision; the arc amplification e^{a Ehat}')
+    pr('  is <= e^{6} for tau <= 1000, so double precision suffices) vs certified K_osc(sigma, t, t+0.01, 20)')
+    for sig in (0.25, 1.25, 3.5, 4.5):
+        for t in (550, 600, 700, 800, 900, 998):
+            vals = [abs(Shat(complex(sig, t), 998, b, L, Y1=1.84*998)) for b in (0, 4) for L in (20, 25)]
+            ftv = abs(Shat(complex(sig, t), 998, 0, ft=True, Y1=1.84*998))
+            # cross-check of the path independence in the overlap: regime-A path at the same point
+            alt = abs(Shat(complex(sig, t), 998, 0, ft=True))
             bd, _ = P.K_osc(sig, t, t + 0.01, 20)
-            # also regime A value at a = 2000 (t <= 1040) for comparison of the a-dependence
-            pr(f'  sigma={sig} t={t}: fixed twist a=998 |S^| = {ftv:.4f};  bound {bd:.4g};  ratio {ftv/bd:.2e}')
+            pr(f'  sigma={sig} t={t}: max_states |S^| = {max(vals):.4f}, fixed twist {ftv:.4f} (regime-A path {alt:.4f});  bound {bd:.4g};  '
+               f'ratio {max(vals)/bd:.2e}')
+            assert max(vals) <= bd
     open(os.path.join(HERE, 'cache', 'ta_power_check.txt'), 'w').write('\n'.join(out) + '\n')
