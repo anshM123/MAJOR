@@ -1,0 +1,27 @@
+M=3 m=9  max|C_j|=6.4182e+28
+T0a f(2) direct=0.0032575645888383955217  partial fractions=0.0032575645888383955217
+evaluating E on 2240 nodes ...
+T0b (2/Lam) int E P(1.5) = 0.002099483646324922   f = 0.002099483646324922
+T0b (2/Lam) int E P(4.0) = 0.0008876907349884305   f = 0.0008876907349884305
+T1  k=0  (2/Lam) int E g_k = 7.44118895126205e-26   F_k = 0.0
+T1  k=1  (2/Lam) int E g_k = 2.23235669930613e-25   F_k = 0.0
+T1  k=2  (2/Lam) int E g_k = 4.46471339382482e-25   F_k = 0.0
+T1  k=3  (2/Lam) int E g_k = 1.0   F_k = 1.0
+T1  k=4  (2/Lam) int E g_k = -2.99444444444444   F_k = -2.99444444444444
+T2  -(2/Lam^7) int E Q = 36.0   (100F2+36F3)/Lam^6 = 36.0
+T3  I(z-form) = 0.000549438110221622   (2/Lam) int E D = 0.000549438110221622
+building chi on 832 nodes ...
+T4  LR image of chi at eta=1.5 : 0.0020994836463249   f(eta)=0.0020994836463249
+T4  LR image of chi at eta=5.0 : 0.00040795063360254   f(eta)=0.00040795063360254
+T5  int chi P_K = -18.000000000001   int E Q = -18.0
+T5  int chi Ein = 0.00027471905511081   int E D = 0.00027471905511081
+T6  k=0  D_k^2 L_k (paper moments of chi) = -1.0154009408e-20   F_k = 0.0
+T6  k=1  D_k^2 L_k (paper moments of chi) = 6.79292492944e-18   F_k = 0.0
+T6  k=2  D_k^2 L_k (paper moments of chi) = -1.11505654295e-15   F_k = 0.0
+T6  k=3  D_k^2 L_k (paper moments of chi) = 1.0   F_k = 1.0
+T6  k=4  D_k^2 L_k (paper moments of chi) = -2.99444444445   F_k = -2.99444444444
+T7  chi(5.0)*nu*e^{pi nu} = 11.401484
+T7  chi(10.0)*nu*e^{pi nu} = -963776.68
+T7  chi(15.0)*nu*e^{pi nu} = -7.33166e+8
+T7  chi(20.0)*nu*e^{pi nu} = -7.4821526e+10
+T7  chi(25.0)*nu*e^{pi nu} = -2.6518327e+12

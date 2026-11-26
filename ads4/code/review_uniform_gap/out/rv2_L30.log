@@ -6,3 +6,8 @@ x | f(x) | LHS(eps=1e-4) | LHS(eps=1e-7) | Richardson(1e-6,1e-7) err | PV-form L
 15.0 | 14.4432583549 | 14.4613882626 | 14.4432764848 | 4.66e-16 | 3.5e-30 | 5.0e-29,1.3e-29
 27.0 | 0.00779974940271 | 0.00781382799739 | 0.00779976348157 | 2.67e-15 | 4.47e-32 | 2.5e-32,0.0
 29.5 | -7.80798867202e-6 | -7.05184658772e-6 | -7.80723253247e-6 | 2.54e-17 | 7.26e-34 | 1.5e-33,3.9e-34
+33.0 | 0.0 | 1.17171412802e-8 | 1.17171413088e-11 | 3.15e-24 | 1.11e-35 | 3.6e-35,0.0
+worst PV-form relative error: 8.55e-29
+beyond Lambda: x-L=0.5: strip-limit LHS = 5.983249695e-23 (should be 0); |LHS|/|R_-(x-i)chi(x-i)| = 6.07e-20
+beyond Lambda: x-L=3.0: strip-limit LHS = 3.149736505e-24 (should be 0); |LHS|/|R_-(x-i)chi(x-i)| = 6.58e-20
+beyond Lambda: x-L=25.0: strip-limit LHS = 1.513044543e-36 (should be 0); |LHS|/|R_-(x-i)chi(x-i)| = 9.21e-20

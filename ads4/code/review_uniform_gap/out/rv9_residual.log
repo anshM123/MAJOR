@@ -17,4 +17,4 @@ x-L | log10|G(x)| | log10|Im theta(x-i)| | log10|r(x)|
 2100 | -1437.41 | -45.0202 | -1482.13
 2300 | -1573.54 | -50.1431 | -1623.38
 max log10|r| on the sampled points: -1346.03 at x-L = 1900  (2^-1000 = 10^ -301.03 )
-identity check with C=L+30 at x=L+25: E_theta - f = 3.523374243e-29   r formula = 3.473424234e-29
+identity check with C=L+30 at x=L+25: E_theta - f = 3.473424234e-29   r formula = 3.473424234e-29
