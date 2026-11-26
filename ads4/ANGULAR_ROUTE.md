@@ -1942,3 +1942,37 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Cost** (untested on a passing cell): ≈ 600–1100 core-h for β ∈ [1.47, 5.1].
 * **Low L.** Rebuilding the jets from global A_k is about 50× cheaper than per-c quadrature and matches to 7–11 digits for j ≤ 1000, but needs K ≈ 7000–8000 coefficients for j ≥ 2000 when c ≤ 0.56. The recommendation for L ≲ 0.82 is global realised A_k with K ≈ 8000 (author's tools, §115), then contraction plus a cell model.
 * **Assessment (coordinator).** For low L, the author's direct prefix method (§111, §116), which does a Chebyshev sign test on the bivariate numerator, avoids the R-contraction cancellation altogether and has already produced claimed PASS cells. It is the route to pursue. The Lemma U route is parked.
+
+## 118. Direct low-L positivity, c ∈ [0.05, 0.09], with the full realised weight (author; reproduced bit-for-bit by coordinator, 27 Nov)
+
+* **Package** (author): code/sliver_direct/. Large regenerable intermediates are not committed: the shard files g1254_1600_*.txt, the *.in inputs, raw_coefficients.txt and ideal4.txt (SHA256SUMS lists them). The coordinator's logs are in rerun_coordinator/.
+* **Inputs.**
+  * **Inventory.** weights.json equals ads4/prl/data/k2/k2_continuum_D_1000_rep.json exactly: all 3,564 centres, widths and x_re, plus y_re. The source blob is d7e513e1 (coordinator check).
+  * **Moments.** Realised Gaussian moments S_j, j ≤ 1254, at 10^1600 scale, from the exact integration-by-parts recurrence with an erf cutoff (MPFR, directed). Adjacent-centre erfc increments use a Cauchy-bounded Taylor series.
+  * **Seeds.** Correlated seeds (F₁, F₉, F₄₉, K₀, LF₉, LF₄₉) have widths < 1e-40. They are charged at action level:
+    * Gaussian pole correction < 2.4e-20 and log-seed correction < 7.35e-26 for c ≤ 0.56;
+    * < 1.8e-15 and < 1e-20 respectively for c ≤ 0.9.
+  * **Coefficients.** Raw triangular transform to A_k, then the retained raw angular identity; the ideal G_D comes from exact NF02 ψ₃. The result is 1,253 coefficient enclosures, widths < 1e-375 for the seed-substituted vector.
+* **Prefix theorem** (full_prefix.py): \|H − H_prefix\| < 2^{−110} on 22 contiguous cells tiling c ∈ [0.05, 0.9], with K up to 17,847 and minimum pole gap 0.050.
+* **Sign certificate** (direct_sign_cheb.py/.cpp).
+  * Spin cap h ≤ c/((1001−b)(1002+b)) covers every J ≥ 1001, with h → 0 at infinite spin.
+  * The nested rational sum S_k = F_k + (c−p_k h)/(1−p_k h)S_{k+1} is expanded as an exact Taylor rectangle in (u, v). Its error recurrence is E′ = ((\|a\|+DC+r)E + M·d)/(d−r) + F_r.
+  * The analytic tail comes from a Horner majorant on a polydisk with exact pole gaps: M(Rc^{−mc−1} + Rh^{−mh−1})/((1−1/Rc)(1−1/Rh)).
+  * The rectangle is converted to tensor Chebyshev. The weights are nonnegative with column sums 1, so the l1 error does not grow.
+  * Lower bound = c₀₀ − Σ\|others\| − rounding − tail, normalised by (1−c)³/(1+qh)⁴, minus the 1e-18 seed and truncation allowance.
+  * The coordinator audited both files line by line.
+* **Results** (PASS_CONDITIONAL, normalised action lower bounds):
+
+  | c-cell | K | (mc, mh) | b = 0 | b = 4 |
+  |---|---|---|---|---|
+  | [0.05, 0.065] | 684 | (369–371, 241–242) | 2.2097e-5 | 2.1955e-5 |
+  | [0.065, 0.09] | 777 | (433–435, 325–326) | 1.9052e-5 | 1.8853e-5 |
+
+  Together these cover L ∈ [0.0513, 0.0943], overlapping the earlier corner L ≲ 0.058.
+* **Reproduction** (coordinator, 386 s plus 384 s).
+  * Everything was rebuilt from source.
+  * With the author's 4-way sharding, S_1254_1600.txt, raw_coefficients.txt and direct_coefficients.txt are byte-identical, and all four sign ledgers are identical apart from timing. (With 3 shards the interval endpoints differ slightly, and the four cells still pass with the same lower bounds to 7 digits.)
+  * verify_direct_results.py: PASS (inventory, seed widths, exact moment sum, coefficient radii, Chebyshev transform, seed budget, four ledgers).
+  * inventory_cut, pole_bound(_full), raw_seed_budget(_actual/_full): PASS, with the numbers above.
+* **Scope.** Coverage for c > 0.09 needs a larger moment table: K ≈ 3,250 at c = 0.56, and the prefix theorem allows up to 17,847 at c = 0.9. The [2.15, 2.3] slab was interrupted and makes no claim.
+* **Open after this:** L ∈ [0.0943, 2.3].

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-MAJOR/60eea3a7-07d6-5453-af55-c4346d86f9b5/scratchpad/dir2/rerun/verify_direct_results.py", line 20, in <module>
+    rows=[list(map(lambda l:tuple(map(int,l.split())),open(f'g{K}_{D}_{i}.txt')))for i in range(4)]
+                                                      ~~~~^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'g1254_1600_3.txt'

@@ -9,7 +9,8 @@ committed. Review scripts are in `ads4/code/review_s2/` (`rv_*.py`). Logs are in
 
 **No error that breaks any of the four cells was found.** Every lemma is a proof valid on the whole continuum of states in its box, not a
 sampled check. I found:
-* two gaps (S1, S2), both closed here;
+* one gap (S1: the state relations on [3.65, 3.75]), closed here by proof;
+* one reproducibility issue (S2: the cached [4.5, 5] certificate comes from an older code path, §7);
 * one wrong justification with a negligible effect (S3);
 * one floating-point nit (S4);
 * one load-bearing input that is still unreviewed from AS: Lemma X, which carries the right edge.
@@ -24,7 +25,7 @@ sampled check. I found:
 | state relations for L ∈ [3.65, 3.75] | **gap S1, closed here by proof** (the document only scans L ≥ 3.75) |
 | G1 bookkeeping above Λ | **wrong argument (S3)**: "\|f_θ\| ≤ \|f\| pointwise" is false. The omitted term is ≤ 7·10⁻¹¹·F |
 | contour pieces on [3.65, 3.75] (old code) | hypotheses hold (asserted at d_max, monotone); the right edge 0.32·F rests on Lemma X (AS, prior G4 still open) |
-| reruns | see §7 |
+| reruns | [3.65, 3.75], [3.75, 4] and [4, 4.5] reproduced **bit-for-bit**. [4.5, 5] is not reproducible from the current source: the cache is from an older Lemma B call, and the current code gives ρ = 0.0177 < 0.0267 (§7) |
 
 ## 1. Lemma F (turning point): a proof over the box, not a sample
 
@@ -177,7 +178,7 @@ plus 4 random points in each of 5 boxes × 2 L-cells × 2 values of i_s:
 
 **Item 4: rmass3 (EPSW per-unit-cell masses).**
 * `rmass3.py` is a line-for-line copy of the panel loop of `rt_rmass2.py`; the diff shows only the range filter and the output.
-* Regenerated: `rmass3_1_40.json` is bit-identical. `rmass3_40_898.json` is listed in §7.
+* Regenerated: `rmass3_1_40.json` and `rmass3_40_898.json` are both bit-identical to the cached files.
 * Consistency with EPSW's certified ranges (`ew_cert_1000_re_rep.txt`):
 
 | range | rmass3 sum | EPSW range |
@@ -279,10 +280,10 @@ L = 3.65.
 |---|---|---|---|---|---|---|
 | [3.65, 3.75] | identical | identical | identical (531 + 531 cells) | **identical file** | 0.54472 | **0.54472** |
 | [3.75, 4] | identical | identical | identical | **identical file** | 0.22261 | **0.22261** |
-| [4, 4.5] (fine) | RR40C | RR40L | RR40R | RR40X | 0.089364 | RR40 |
+| [4, 4.5] (fine) | identical | identical | identical per cell (1061 cells, 2 parts instead of 1) | **identical file** | 0.089364 | **0.089364** |
 | [4.5, 5] | identical | identical | **differ** (new ≤ old in every cell, down to ×0.049) | differs | 0.026737 | **0.017727** |
 
-**[4.5, 5] (provenance remark).**
+**S2: [4.5, 5] provenance.**
 * The cached [4.5, 5] certificate was produced before `rt2_kernel.K_cell` switched to the multi-frame `chain_bounds_multi`. §6 says it
   "used `chain_bounds`", but the current source always calls `chain_bounds_multi`.
 * So the cached 0.0267 is **not reproducible from the current source**. The current source gives the sharper ρ = 0.0177.
@@ -294,10 +295,10 @@ L = 3.65.
 
 | cell | claimed ρ | rerun ρ | issues affecting it | survives? |
 |---|---|---|---|---|
-| [4.5, 5] | 0.0267 | RR45 | S3 (≤ 6·10⁻¹²) | **yes** |
-| [4, 4.5] | 0.0894 | RR40 | S3 (≤ 5·10⁻¹¹) | **yes** |
-| [3.75, 4] | 0.223 | RR375 | S1 (closed), S3 (≤ 7·10⁻¹¹); Lemma X carries 0.068 | **yes** |
-| [3.65, 3.75] | 0.545 | RR365 | S1 (closed here: needed), S3 (≤ 7·10⁻¹¹); Lemma X carries 0.32 | **yes, conditional on Lemma X (as for AS)** |
+| [4.5, 5] | 0.0267 | 0.0177 (current source) | S3 (≤ 6·10⁻¹²) | **yes** |
+| [4, 4.5] | 0.0894 | 0.0894 | S3 (≤ 5·10⁻¹¹) | **yes** |
+| [3.75, 4] | 0.223 | 0.223 | S1 (closed), S3 (≤ 7·10⁻¹¹); Lemma X carries 0.068 | **yes** |
+| [3.65, 3.75] | 0.545 | 0.545 | S1 (closed here: needed), S3 (≤ 7·10⁻¹¹); Lemma X carries 0.32 | **yes, conditional on Lemma X (as for AS)** |
 
 ## 9. Files
 

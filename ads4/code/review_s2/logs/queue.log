@@ -17,3 +17,9 @@ done C375 rc=0 16:12:46
 start R40a 16:12:46
 done L375 rc=0 16:14:32
 start R40b 16:14:32
+done R40a rc=0 17:20:57
+start L40 17:20:57
+done R40b rc=0 17:21:35
+start C40 17:21:35
+done C40 rc=0 17:21:36
+start R45a 17:21:36
