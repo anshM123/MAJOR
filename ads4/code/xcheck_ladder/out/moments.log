@@ -1,0 +1,18 @@
+cont_1000_n24_p1400: 26904 nodes, nu_max = 1068.499, sum|w g| = 2.142176e-03, eval 2.7s
+  power moments j <= 120: 0.7s
+  written out/pmom_cont_1000_n24_p1400.json
+cont_1000_n32_p1400: 35872 nodes, nu_max = 1068.499, sum|w g| = 2.142200e-03, eval 4.2s
+  power moments j <= 120: 1.0s
+  written out/pmom_cont_1000_n32_p1400.json
+cont_1000_n24_p900: 26904 nodes, nu_max = 1068.499, sum|w g| = 2.142176e-03, eval 2.5s
+  power moments j <= 120: 0.6s
+  written out/pmom_cont_1000_n24_p900.json
+grid_1000_p1400: 25212 nodes, nu_max = 1008.460, sum|w g| = 2.142234e-03, eval 0.0s
+  power moments j <= 120: 0.6s
+  written out/pmom_grid_1000_p1400.json
+grid_2000_p1400: 40170 nodes, nu_max = 2008.475, sum|w g| = 5.387248e-04, eval 0.1s
+  power moments j <= 120: 1.0s
+  written out/pmom_grid_2000_p1400.json
+grid_5000_p1400: 100170 nodes, nu_max = 5008.475, sum|w g| = 8.650671e-05, eval 0.2s
+  power moments j <= 120: 2.5s
+  written out/pmom_grid_5000_p1400.json
