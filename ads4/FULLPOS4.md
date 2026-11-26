@@ -199,3 +199,29 @@ Reading:
 * Hard localisation at |A| ≤ Λ/S removes the ≥1000 band: **2.1, i.e. 3.4e2 × |G(c)|.**
 * The diagonal/hard structure scales as predicted: the |A|S < 1000 soft norm falls from 21 (L = 0.20) to 2.1 (L = 2.38), while |G(c)| grows
   by 200.
+
+---
+
+## 4. The author's §74 diagonal extraction: implemented and measured [DV]
+`fp4_diag.py`. Soft variable ξ: Y = (X−ξ)/(1−ξX), X = e^{ε+iA}, dγ/sin α = 2dξ/((1−ξX)(1−ξ/X)), and the carrier is X^B((1−ξX)/(1−ξ/X))^a. With
+K = X^B(1−ξX)^{a−1}(1−ξ/X)^{−a−1}:
+* ℒ(G) = (𝒞/π)∫dA∫Kξ^{s−1}F dξ (full F), equivalently 2Re(𝒞/π)∫dA∫Kξ^{s−1}F⁺dξ (outgoing).
+* Each soft path is cut at its LAST crossing of |ξ| = ξ₀. The start becomes the real segment [0, ξ₀] plus an arc on |ξ| = ξ₀.
+* ℒ = D + R:
+  * D = (𝒞/π)∫₀^{ξ₀}ξ^{s−1}G(ξ²)𝔥_B(ξ)dξ, using the REAL G;
+  * R = 2Re(𝒞/π)∫dA[∫_arc Kξ^{s−1}F⁺dξ + ∫_{rest}W⁺dγ/2·…], i.e. the §55 pieces with the diagonal prefix replaced by the arc.
+
+**Checks.**
+* 𝔥_B by direct A-quadrature is real to 3e-12, and agrees with the author's 41-term closed form to 2.8e-12 (ξ ∈ {0.002, 0.01, 0.02}
+  at (2000, 1500); 5e-15 at the toy state).
+* Toy (λ = 8, n = 10, N = 30.5): D + R = 8.665245954894 vs exact 8.665245954376 (**6e-11**).
+* (2000, 1500, 0): D = −3.05e-6 = −0.106·|G(c)| = −0.104·N_s/w³. The author's diagnostic is −1.66e-6 ≈ −0.10·N_s at his state.
+
+**Norms (soft-signed per A, as in §3.2; N_s/w³ ≈ |G(c)| at (2000, 1500)).**
+| state | L | \|G(c)\| | D | D-norm (real 1D) | N_rem (soft) | N_rem/\|G(c)\| | bands of N_rem, \|A\|S: <10 / [10,100) / [100,1000) / ≥1000 |
+|---|---|---|---|---|---|---|---|
+| (2000, 1500, 0), ξ₀ = 0.02 | 0.20 | 2.88e-5 | −3.05e-6 | 2.46e-2 | 0.457 | **1.6e4** | 0.013 / 0.075 / 0.171 / 0.197 |
+
+* Hard localisation (|A| ≤ Λ/S) would remove the ≥ 1000 band: ≈ 0.26, i.e. **≈ 9e3 × |G(c)|**.
+* The diagonal block's norm (850 × |G(c)|) costs only precision: it is a 1D real integral of explicit functions.
+* The **raw** norm of the remaining contour is unchanged (6.45e5): the soft-signed evaluation stays essential.
