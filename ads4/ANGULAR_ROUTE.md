@@ -2099,3 +2099,24 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Termination-preserving split: 42 channel rectangles and 10214 finite-spin interval checks (distinct n: 4801 for b = 0, 4841 for b = 4). This is a cover only; nothing on it is sign-certified.
 * **Not done here.** The full data regeneration (`--regenerate`: 6000-order moments at 3000 digits, long transform); the archived 17,201-pair vector is checked only by verify_long_transport. The [0.268, 0.28] cell (§123) and the degree-600 twist residue checker are not in this package.
 * **Status.** Direct coverage of c ≤ 0.268 (L ≤ 0.31197) is reproduced. Open: 0.312 < L < 2.3; the laptop launcher is running [1.5, 2.3], and the gap agents are on the low side.
+
+## 126. Gap agents: designer report; prover cells c ∈ [0.28, 0.56] both b; G1, G2 proved (27 Nov)
+
+* **Prover** (code/gap_prove/ledger.json, GAP_LEMMAS.md; still running):
+  * G1 (physical twist cap h ≤ min(c/((1001−b)(1002+b)), (1−√c)²/998²)): PROVED (+ check PASS).
+  * G2 (seed/tail allowance 1e-7 + 1e-14 for c ∈ [0.56, 0.9] with coeff_long_17200): PROVED (+ check PASS).
+  * G1-capped direct sign cells PASS_CONDITIONAL for c ∈ [0.28, 0.56] in both b (b = 0 to 0.585), i.e. L up to 0.8210. They are verified by verify_gap_cells.py, modelled on the author's verify_extension.py.
+* **Designer** (code/gap_design/; finished).
+  * On the physical range y = h/hcap ∈ [0, 1] the prefix is affine in y to 1e-8 relative, and it explodes at y ≈ 1.1 for every c.
+  * Cell-size rule: the overshoot ω = (1−√c_lo)²/(1−√c_hi)² must be ≤ 1.08; b = 4 is about 5× more sensitive near the threshold. The author's [0.268, 0.35] failure and the c = 0.35 witness both sit at y ≈ 1.4.
+  * Above c ≈ 0.5, the author's 2^{−k} storage lets rounding grow by up to 1e427. At D = 100 the output is garbage, though not a false sign. The fix is to choose D from the a-priori growth bound, or use the unscaled checker direct_sign_triangle_u.cpp, which gives identical results.
+  * The designer's own PASS cells:
+
+    | cell | b | lower bound |
+    |---|---|---|
+    | [0.3, 0.3097] | 0 | 1.33e-5 |
+    | [0.6, 0.6068] | 0 | 9.88e-6 (two h-pieces) |
+    | [0.77, 0.7781] | 0, 4 | 6.95–7.04e-6 (three h-pieces, ≈ 23 min each) |
+  * A 102-rectangle plan for [0.56, 0.777] is predicted to pass (L1/centre ≤ 0.053).
+  * Route ranking: (A) G1-capped cells — the cheapest; ≈ 15–20 CPU-h for the whole band, ≈ 10 on [0.56, 0.777]. (B) The author's termination-preserving split, a fallback at similar cost. Not recommended: the conformal route, since \|Ã_j\| plateaus at 1e1390; and the monomial twist polynomial or dominant-term idea, which hides 40–90 orders of cancellation, so the right twist basis is Chebyshev in y.
+* **Status.** The band c ∈ (0.268, 0.28) is covered by the author's claimed cell (§123), whose package is still pending. Open on the low side: c ∈ (0.56, 0.777), i.e. L ∈ (0.821, 1.5), which is being executed with the designer's plan. The laptop covers [1.5, 2.3].

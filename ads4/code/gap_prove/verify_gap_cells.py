@@ -4,12 +4,15 @@ For every piece of every cell listed in cells.json (c-chain per b, contiguous fr
  * exact transfer of every input coefficient ball from the K=3299 table (scale 10^D, A_k,G_k * 2^-k);
  * prefix condition (c_hi/R)^(K+1) 2^2700 <= 1, R=1999/2000; spin+twist cap (G1) recomputed independently,
    hcap <= 998^-2, real pole gap 1-hcap(K-1)(K-1+s)>0;
- * h-pieces tile [0,hcap] exactly; header encodes exactly [c_lo,c_hi] x [h_lo,h_hi];
+ * h-pieces tile [0,hcap] exactly; header encodes exactly [c_lo,c_hi(piece)] x [h_lo,h_hi];
+ * staircase cells (gap_stair.py): piece c_hi >= (1-998 sqrt(h_lo))^2 checked exactly (G1), prefix K per piece;
  * Cauchy majorant v (complex pole gaps den-(H0+rh DH)p>0) and triangle tail eps=2v(Q+2)/2^Q recomputed;
  * LOWER == CENTER-L1-ERROR, L1,ERROR>=0, poly lower = LOWER/S-eps > 0;
  * physical lower = poly_lower (1-c_hi)^3/(1+q h_hi)^4 - 1e-18 > 0, equal to the json value.
 Writes ledger.json (in this script's directory). The C++ sign runs themselves are not re-executed here.
-Usage: verify_gap_cells.py RUNDIR TABLE
+Long cells (kind 'long', gap_stair_long.py, c>=0.56, Lemma G2): table coeff_long_17200.txt (LONGTABLE), prefix condition
+tail(c_hi_piece,K)<1e-7 with the exact envelope-2^2337 tail (re-implemented here), allowance 1e-7+1e-14.
+Usage: verify_gap_cells.py RUNDIR TABLE [LONGTABLE]
 """
 import json,sys,math,os
 from math import isqrt
@@ -26,31 +29,55 @@ def caps(l,u,b):
  # independent exact check that c2 >= (1-sqrt(l))^2/998^2: exhibit r<=sqrt(c2*998^2) with (1-r)^2<=l
  w=c2*998**2;r=F(isqrt((w.numerator*10**60)//w.denominator),10**30);assert r*r<=w and r<1 and (1-r)**2<=l
  return min(c1,c2)
-def run(rundir,table):
+TAILE=2337;RT=F(199,200);HT=F(1,998**2);ALLOW=F('1e-7')+F('1e-14')
+def tail(c,K):
+ t=F(c)/RT;assert 0<t<1
+ return 2**TAILE*t**(K+1)*((1+20*HT)/(1-t)+2*HT*((K+5)**2/(1-t)+2*(K+5)*t/(1-t)**2+t*(1+t)/(1-t)**3))
+def run(rundir,table,longtable=None):
  cells=json.load(open(os.path.join(HERE,'cells.json')))
- with open(table) as f:
-  N,DD=map(int,f.readline().split());source=[list(map(int,x.split()))for x in f];assert len(source)==N+1
+ tabs={}
+ def load(path,kmax):
+  if path not in tabs or len(tabs[path][2])<kmax+2:
+   with open(path) as f:
+    N,DD=map(int,f.readline().split());rows=[]
+    for i in range(min(N+1,kmax+2)):rows.append(list(map(int,f.readline().split())))
+   tabs[path]=(N,DD,rows)
+  return tabs[path]
+ kmax_long=max([c['K'] for c in cells if c.get('kind')=='long'],default=0)+2
  out=[];tops={}
  for b in (0,4):
   last=START
   for cell in [c for c in cells if c['b']==b]:
-   l,u,m,D=F(cell['c_lo']),F(cell['c_hi']),cell['m'],cell['D'];assert l==last and l<u<=F('.56');last=u;tops[b]=u
+   l,u,m,D=F(cell['c_lo']),F(cell['c_hi']),cell['m'],cell['D'];assert l==last and l<u<=F('.9');last=u;tops[b]=u
+   kind=cell.get('kind','tri');stair=kind in ('stair','long');lng=kind=='long'
+   N,DD,source=load(longtable,kmax_long) if lng else load(table,3400)
    s=2*b+1;q=b*(b+1);S=10**D;hcap=caps(l,u,b);assert hcap<=F(1,998**2)
-   lows=[];hprev=F(0);secs=0
+   lows=[];hprev=F(0);secs=0;Kmax=0
    for pi in range(m):
-    name=f'g1tri_{l.numerator}_{l.denominator}_{u.numerator}_{u.denominator}_{b}_m{m}_p{pi}_D{D}'
+    if lng:name=f'g2st_{l.numerator}_{l.denominator}_{u.numerator}_{u.denominator}_{b}_m{cell["mb"]}x{cell["mt"]}_p{pi}_D{D}'
+    elif stair:name=f'g1st_{l.numerator}_{l.denominator}_{u.numerator}_{u.denominator}_{b}_m{cell["mb"]}x{cell["mt"]}_p{pi}_D{D}'
+    else:name=f'g1tri_{l.numerator}_{l.denominator}_{u.numerator}_{u.denominator}_{b}_m{m}_p{pi}_D{D}'
     r=json.load(open(os.path.join(rundir,name+'.json')));z=dict((a,int(v))for a,v in map(str.split,open(os.path.join(rundir,name+'.out'))))
-    assert (F(r['c_lo']),F(r['c_hi']),r['b'],r['m'],r['piece'],r['D'])==(l,u,b,m,pi,D) and F(r['hcap'])==hcap
-    K=r['K'];assert K+1<=N
-    c=u/F(1999,2000);assert (c.numerator**(K+1)<<2700)<=c.denominator**(K+1)
+    assert (F(r['c_lo']),F(r['c_hi']),r['b'],r.get('m',r.get('mb',0)+r.get('mt',0)),r['piece'],r['D'])==(l,u,b,m,pi,D) and F(r['hcap'])==hcap
+    if stair:assert (r['mb'],r['mt'])==(cell['mb'],cell['mt'])
+    K=r['K'];assert K+1<=N;Kmax=max(Kmax,K)
+    ha,hb=F(r['h_lo']),F(r['h_hi']);assert ha==hprev and hb>ha;hprev=hb
+    ui=F(r['c_hi_piece']) if stair else u
+    if stair:
+     assert l<ui<=u
+     if ha>0 and ui<u:
+      # staircase: physical states with h>=ha have c<=(1-998 sqrt(ha))^2 (G1); exhibit r<=sqrt(ha) with (1-998r)^2<=ui
+      rr=F(isqrt((ha.numerator*10**60)//ha.denominator),10**30);assert rr*rr<=ha and 0<=998*rr<=1 and (1-998*rr)**2<=ui
+    else:assert hb==hcap*(pi+1)/m
+    if lng:assert tail(ui,K)<F('1e-7') and F(r['allowance'])==ALLOW and F('.56')<=l
+    else:c=ui/F(1999,2000);assert (c.numerator**(K+1)<<2700)<=c.denominator**(K+1) and u<=F('.56')
     assert 1-hcap*(K-1)*(K-1+s)>0
-    ha,hb=F(r['h_lo']),F(r['h_hi']);assert ha==hprev and hb==hcap*(pi+1)/m;hprev=hb
     with open(os.path.join(rundir,name+'.in'))as f:
      head=list(map(int,f.readline().split()));a=[list(map(int,x.split())) for x in f]
     k,ac,ah,Q,bb,DD2,den,C0,DC,H0,DH=head;rc,rh=2**ac,2**ah
     assert (k,bb,DD2)==(K,b,D) and len(a)==K+2 and 80<=D<=DD and (ac,ah,Q)==(r['ac'],r['ah'],r['Q'])
     assert sum((Q-1-ac*i)//ah+1 for i in range((Q-1)//ac+1))==r['terms']
-    assert F(C0-DC,den)==l and F(C0+DC,den)==u and F(H0-DH,den)==ha and F(H0+DH,den)==hb and H0>=DH>0 and DC>0
+    assert F(C0-DC,den)==l and F(C0+DC,den)==ui and F(H0-DH,den)==ha and F(H0+DH,den)==hb and H0>=DH>0 and DC>0
     for i,(row,orig) in enumerate(zip(a,source)):
      div=10**(DD-D)*2**i
      for mm,e,m0,e0 in (row[:2]+orig[:2],row[2:]+orig[2:]):
@@ -72,14 +99,14 @@ def run(rundir,table):
     assert eps==F(r['analytic_tail'])<=F('1e-10')
     assert z['LOWER']==z['CENTER']-z['L1']-z['ERROR'] and z['L1']>=0 and z['ERROR']>=0
     lb=F(z['LOWER'],S)-eps;assert lb==F(r['poly_lower'])>0
-    H=lb*(1-u)**3/(1+q*hb)**4-F('1e-18')
+    H=lb*(1-ui)**3/(1+q*hb)**4-(ALLOW if lng else F('1e-18'))
     assert H==F(r['physical_lower']) and H>0 and r['status']=='PASS_CONDITIONAL'
     lows.append(H);secs+=r['seconds']
    assert hprev==hcap
    H=min(lows)
-   print('cell',l,u,'b',b,'K',K,'m',m,'D',D,'lower',float(H),'sec',round(secs),flush=True)
-   out.append(dict(c_lo=str(l),c_hi=str(u),b=b,K=K,m=m,D=D,hcap=str(hcap),lower_exact=str(H),lower_approx=float(H),cpu_seconds=round(secs,1)))
+   print('cell',l,u,'b',b,'K',Kmax,'m',m,'D',D,'lower',float(H),'sec',round(secs),flush=True)
+   out.append(dict(kind=cell.get('kind','tri'),c_lo=str(l),c_hi=str(u),b=b,K=Kmax,m=m,D=D,hcap=str(hcap),lower_exact=str(H),lower_approx=float(H),cpu_seconds=round(secs,1)))
  cm=min(tops.values()) if len(tops)==2 else START
- json.dump(dict(status='PASS_CONDITIONAL',note='G1-capped direct sign cells; conditional on the retained inputs of the direct method (seed allowance 1e-18 valid for c<=0.56)',c_lo=str(START),c_hi_b0=str(tops.get(0,START)),c_hi_b4=str(tops.get(4,START)),c_hi_both=str(cm),L_hi_both=-math.log1p(-float(cm)),rows=out),open(os.path.join(HERE,'ledger.json'),'w'),indent=2)
+ json.dump(dict(status='PASS_CONDITIONAL',note='G1-capped direct sign cells; conditional on the retained inputs of the direct method: allowance 1e-18 (K=3299 table, c<=0.56) and, for long cells, Lemma G2 allowance 1e-7+1e-14 (coeff_long_17200, c<=0.9)',c_lo=str(START),c_hi_b0=str(tops.get(0,START)),c_hi_b4=str(tops.get(4,START)),c_hi_both=str(cm),L_hi_both=-math.log1p(-float(cm)),rows=out),open(os.path.join(HERE,'ledger.json'),'w'),indent=2)
  print('PASS: transfer, prefix K, G1 caps, h-tiling, pole gaps, Cauchy majorants/tails, final inequalities;',len(out),'channel cells; top',{b:str(t) for b,t in tops.items()})
-if __name__=='__main__':run(sys.argv[1],sys.argv[2])
+if __name__=='__main__':run(sys.argv[1],sys.argv[2],sys.argv[3] if len(sys.argv)>3 else None)

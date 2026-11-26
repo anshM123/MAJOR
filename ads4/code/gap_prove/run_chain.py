@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Adaptive chain of G1-capped cells for one b (sequential; one process at a time).
 Usage: run_chain.py b c_start c_stop w0 wmax RUNDIR
-On PASS the width grows by 1.5x (capped at wmax, endpoints on the 1/2000 grid); on FAIL it halves (min 1/2000).
+On PASS the width grows by 1.25x (capped at wmax, endpoints on the 1/2000 grid); on FAIL it halves (min 1/2000) and wmax drops to 0.8x the failed width.
 Choose m (h-pieces) minimal with complex-pole admissibility for ah=1, and D from the a-priori rounding growth.
 Appends passing cells to RUNDIR/chain_b.json.
 """
@@ -38,7 +38,7 @@ while c<stop:
  print(time.strftime('%H:%M:%S'),'b',b,'cell',float(c),float(u),'K',K,'m',m,'D',D,'PASS' if ok else 'FAIL','lower',low,'wall',round(time.time()-st),flush=True)
  if ok:
   done.append(dict(c_lo=str(c),c_hi=str(u),b=b,m=m,D=D,K=K,lower=low,wall=round(time.time()-st,1)));json.dump(done,open(cf,'w'),indent=1)
-  c=u;w=min(wmax,w*F(3,2))
+  c=u;w=min(wmax,w*F(5,4))
  else:
   if w<=G:print('STOP: fails at minimal width',flush=True);break
-  w=max(G,w/2)
+  wmax=min(wmax,snap(w*F(4,5)));w=max(G,w/2)  # never retry the failed width
