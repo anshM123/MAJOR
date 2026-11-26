@@ -1123,3 +1123,13 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Remaining compact family.** 998 ≤ a < a*(L) ≈ 3200–4000, J from 1001 to ~a*√c/(1−√c) (≈ 9e6 at L = 7).
   * Tools: grouped carrier bounds (§§64b, 66) and the vertical-line far remainder (§63). Neither is implemented yet.
   * Caveat (agent): at a ≈ Λ the endpoint carrier sits at 0.5–0.83 of the h-series convergence radius.
+
+## 68. The naive grouped-carrier certificate fails; what is needed instead (agent, 26 Nov) [DV]
+
+* **Test.** β = 0.415, a₀ = 2000, b = 0. Bound Σ_±S_B(R)Σ_i\|q_i\|i!R^{−i}, with q_i the Taylor coefficients of 𝒬₇₀ − 1 at ±iλ (λ = 213).
+  * Best case: 2.5e5·F_cert at R = 0.4; per-order: 2.1e6·F.
+  * R = 0.6: grouped sum 1.67, but S_B ~ 3e4 (quadratic phase e^{33}).
+  * R = 0.1: S_B small, but grouped sum 1e103.
+* **Cause.** Grouping fixes the value at the carrier but not the high k-derivatives. A degree-D polynomial approximating e^{−αk³} forces R ≳ α^{1/3}D^{2/3} ≈ 0.4, and there the carrier's nonlinear phase costs e^{ΛR²\|ξ″\|/2}. **Taylor-expanding the amplitude at t = 0 is the lossy step.**
+* **What is needed (agent's view).** Treat the ladder multiplier as an integral (Airy-convolution) operator acting on e^{iλt}B(t). It samples B only on \|t\| ≲ few·α^{1/3} ≈ 0.05. That is the §52 Airy form, but with the endpoint carrier factored out and the full ladder symbol, not the cubic truncation. Not attempted.
+* **Scan.** 5/60 cells done (a* = 3200 at low L, 4000 at L ≈ 7); continuing.

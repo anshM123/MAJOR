@@ -251,6 +251,28 @@ index k converges for |k|²h/c ≲ 1, i.e. |k| ≲ √C′ ≈ n. The ψ₂-endp
 * So the h-expansion can approach a = 998 only where c is not small, or if the endpoint component (size ~ J_e ~ 10⁻¹¹ relative) is bounded
   non-perturbatively at the turning point, e.g. by an Airy-window bound as in §48 but for the finite-ladder symbol.
 
+### 5.1 Naive grouped carrier bound: tested, fails [DV] (`fp3_grouped_dv.py`)
+Setup:
+* G_e(ce^t) = Σ_±e^{±iλt}B_±(t), with |B_±| ≤ 2|1−z|^{−3}(√2/π)(1/2)J_e(Re ξ)·e^{Λ|Im φ|} and |Im φ| ≤ (R²/2)max|ξ″|;
+* local term bound Σ_±S_B(R)Σ_i|q_i|i!R^{−i}, where q_i are the Taylor coefficients at ±iλ of the grouped polynomial
+  𝒬₇₀ − 1 = Σ_{m=1}^{70}h^mP_m(k).
+
+At β = 0.415 (c = 0.042, λ = 213), a₀ = 2000, b = 0, the best bound is 2.5·10⁵ F_cert (R = 0.4); the per-order version gives 2.1·10⁶.
+
+| R | S_B | Σ\|q_i\|i!R^{−i} (grouped) | (per-order) |
+|---|---|---|---|
+| 0.10 | 3.1e-10 | 9.7e102 | 9.8e102 |
+| 0.20 | 2.8e-9 | 1.3e49 | 1.4e49 |
+| 0.30 | 1.7e-7 | 2.9e21 | 3.7e21 |
+| 0.40 | 7.6e-5 | 3.5e4 | 2.9e5 |
+| 0.60 | 3.1e4 | 1.67 | 1.7e5 |
+
+**Why it fails.** The grouped value at the carrier itself is O(1) (q₀ = 𝒬(iλ) − 1), but the high k-derivatives of a degree-D polynomial
+approximating e^{−A(k)}, A ≈ αk³, force R ≳ α^{1/3}D^{2/3} (≈ 0.4 here). At that radius the carrier's quadratic phase costs
+e^{ΛR²|ξ″|/2} (e⁹–e³³). Grouping in m alone is therefore not enough: Taylor-expanding the amplitude B at t = 0 is the lossy step.
+* **Needed instead:** treat the multiplier as an integral operator. For the cubic part, e^{−α∂_t³} acting on e^{iλt}B is an Airy
+  convolution of width ~α^{1/3} (cf. the author's §52 Airy form). Then only B on |t| ≲ few·α^{1/3} enters. This is not attempted here.
+
 ## 6. Obstructions and dead ends recorded here
 1. **Coordinator's truncated-exponent kernel R_M per frequency (§2).** It fails at a = 998: R₁ ~ 10²² N_s, from the k > n region at ν ≈ a. It works at
    a ≳ 3000.
@@ -261,7 +283,8 @@ index k converges for |k|²h/c ≲ 1, i.e. |k| ≲ √C′ ≈ n. The ψ₂-endp
    a* ≈ 3200 at low L.
 4. **Grouped bound near a ≈ Λ.** The endpoint carrier iλ approaches the convergence radius ≈ n of the h-series of the ladder symbol (the turning point),
    so Cauchy-in-k control degenerates there (§5).
-5. **Per-frequency envelopes and generic Racah norms.** Dead, as stated in the brief and in §51. Not re-tried.
+5. **Naive grouped carrier bound (Taylor shift of the grouped polynomial at the carrier).** Fails by 10⁵ at a₀ = 2000 (§5.1).
+6. **Per-frequency envelopes and generic Racah norms.** Dead, as stated in the brief and in §51. Not re-tried.
 
 ## 7. Reproduce (`ads4/code/fullpos3/`; `ulimit -v 4000000; export OMP_NUM_THREADS=1`; ≤ 2 processes)
 ```
