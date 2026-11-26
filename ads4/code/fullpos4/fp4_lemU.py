@@ -109,10 +109,17 @@ def run(L, M, Np, prec):
             Ph.append(((2 if l else 1)*sacc).mid())
         P0 = Ph[0]; rest = sum((abs(v) for v in Ph[1:]), arb(0))
         P1 = sum(pm, arb(0)); Dmax = 1 + q_b*dx
+        part = {}
+        acc_ = arb(0)
+        for m_, v_ in enumerate(pm):
+            acc_ += v_
+            if m_ in (10, 40, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1001):
+                part[m_] = float(acc_.mid())
+        Aprof = {m_: float(abs(Am[m_]).mid()) for m_ in (0, 1, 10, 40, 100, 200, 300, 400, 600, 800, 1000) if m_ < len(Am)}
         dec = {l: float(abs(Ph[l]).mid()) for l in [1, 2, 3, 5, 10, 20, 50, 100, 200, 400, 700, 1000] if l < len(Ph)}
         r = dict(L=L, c=float(c.mid()), b=b, M=M, Np=Np, prec=prec, xstar=float(xs.mid()), A0_dGc=float(Am[0].mid()),
                  P_at_y1=float(P1.mid()), H_at_a998=float((P1/Dmax**4).mid()), Phat0=float(P0.mid()), sum_abs_Phat_ge1=float(rest.mid()),
-                 margin_rel=float(((P0 - rest)/abs(P0)).mid()), Phat_decay=dec, log10_max_A=bigA, log10_max_R=bigR, t_jets=tj, secs=time.time() - t0)
+                 margin_rel=float(((P0 - rest)/abs(P0)).mid()), Phat_decay=dec, partial_P1=part, A_profile=Aprof, log10_max_A=bigA, log10_max_R=bigR, t_jets=tj, secs=time.time() - t0)
         print(json.dumps(r), flush=True)
         open(os.path.join(HERE, 'cache', 'fp4_lemU.jsonl'), 'a').write(json.dumps(r) + '\n')
         out.append(r)
