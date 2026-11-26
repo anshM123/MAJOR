@@ -1228,3 +1228,16 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Open.**
   1. The norm of the remaining contour (without the diagonal prefix) relative to N_s.
   2. The certified implementation.
+
+## 75. Cost of a certified sliver contour run: does not fit before submission (agent FULLPOS4, 26 Nov)
+
+* **Status after the §74 diagonal extraction.**
+  * (2000, 1500, 0): diagonal ≈ 0.106\|G(c)\|, remaining contour norm ≈ 1e4\|H\|.
+  * (998, 20000, 0): ~340\|G(c)\| before extraction.
+  * The toy end-to-end check of the full §74 pipeline gives 6e-11 relative.
+* **Cost is set by node counts, not by the norm.**
+  * Hard angle: ~3000 α-nodes (320κ oscillations after rescaling). Soft path: ~4a nodes per α. Total ~1–2e7 amplitude evaluations per state.
+  * Certified balls cost ~10–20 ms each, so ~50–100 core-h per state. With a one-time certified table of 𝒫⁺ (not yet built; ~1–2 days), ~0.3–0.5 core-h.
+  * Cells: naive ~2e5; with a (τ, 1/S, a) design perhaps 1e3–1e4 (unproven).
+* **Total:** optimistic ~1.5e4 core-h, naive ≥ 1e6 core-h, against ~176 core-h available overnight. Raising ξ₀ lowers the norm but not the node counts.
+* **Conclusion.** The sliver 998 ≤ a < a*(L), J ≥ 1001, 0.04 < L ≲ 30 cannot be certified by brute-force contour quadrature before submission. It needs either an asymptotic (saddle) evaluation with certified remainders replacing the quadrature, or weeks of compute.
