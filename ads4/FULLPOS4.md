@@ -224,6 +224,7 @@ K = X^B(1−ξX)^{a−1}(1−ξ/X)^{−a−1}:
 | (2000, 1500, 0), ξ₀ = 0.05 | 0.20 | 2.88e-5 | −1.92e-7 | 2.46e-2 | 0.0846 | 2.9e3 | 0.005 / 0.019 / 0.029 / 0.031 |
 | (2000, 1500, 0), ξ₀ = 0.1 | 0.20 | 2.88e-5 | +2.29e-7 | 2.46e-2 | 0.0228 | 7.9e2 | 0.0023 / 0.0059 / 0.0072 / 0.0074 |
 | (2000, 1500, 0), ξ₀ = 0.2 | 0.20 | 2.88e-5 | +1.70e-6 | 2.47e-2 | 0.00571 | **2.0e2** | 0.0010 / 0.0016 / 0.0017 / 0.0015 |
+| (2000, 1500, 0), ξ₀ = 0.35 | 0.20 | 2.88e-5 | +1.51e-6 | 2.46e-2 | 0.00175 | **61** | 0.00044 / 0.00048 / 0.00047 / 0.00035 |
 | (998, 20000, 0), ξ₀ = 0.02 | 2.38 | 6.21e-3 | +2.8e-7 | 1.3e-3 | 0.599 | 97 | 0.015 / 0.012 / 0.077 / 0.496 |
 
 * **The remaining norm falls like ξ₀^{−2}** (the outgoing amplitude at |β| ≥ 2ξ₀ is ~ψ′(0)/(Λβ)²). Meanwhile the diagonal block's
@@ -233,3 +234,48 @@ K = X^B(1−ξX)^{a−1}(1−ξ/X)^{−a−1}:
   (**16|G(c)|**) at L = 2.38.
 * The diagonal block's norm (850 × |G(c)|) costs only precision: it is a 1D real integral of explicit functions.
 * The **raw** norm of the remaining contour is unchanged (6.45e5): the soft-signed evaluation stays essential.
+
+### 4.1 Invariance of D + R under ξ₀, and a strong-cancellation check [DV]
+* Toy λ = 8, (n, N) = (10, 30.5): D + R = 8.665245954894 at ξ₀ = 0.02 and 8.665245954894 at ξ₀ = 0.3 (exact 8.665245954376; rel. err 6e-11).
+  * D moves from 0.381 to 0.628; N_rem/|ℒ| from 7.4 to 2.2.
+  * The author's 41-term closed form for 𝔥_B is an asymptotic series in 1/B: it fails at B = 21, ξ = 0.3 (0.8 off), so the direct
+    A-quadrature is used.
+* Toy λ = 30, (n, N) = (40, 85.5), a = 45.5: the exact ladder sum is 0.0990087008 with max|U_kM_k| = 3.7e6 (cancellation 4e7).
+  * At ξ₀ = 0.3, D + R = 0.0990086857, **rel. err 1.5e-7** on the coarse α-grid (`fp4_toy2.py`).
+  * N_rem/|ℒ| = 19, D-norm/|ℒ| = 7.2.
+* The signed total at the physical states was not evaluated. It needs ~3000 α-nodes × ~4a soft nodes ≈ 1–2e7 amplitude evaluations,
+  i.e. 4–7 h per state on one core.
+
+---
+
+## 5. The author's §78 quadrature-free reference: benchmark and cell test
+
+### 5.1 Pointwise benchmark [ball arithmetic; DV comparison]
+`fp4_ref.py` (python-flint). 𝒦_ref = Σ_{j≤3M}W_j[t^j]Y, with the R_{m,j} recurrence and the ODE jet exactly as in §78. The exact comparison is
+w³Σ_{k≤n}U_kg_k, with midpoint propagation in the g_k recurrence; ball wrapping there grows like (1+√2)^k. p = 3, b = 0, M = 1000:
+| (J, a) | bits | max\|R_{m,j}\| | ν = 20 | 300 | 700 | 950 | 993 |
+|---|---|---|---|---|---|---|---|
+| (1001, 998) | 8000 | 1e571 | 0 (1600 b) | 0 | 0 | 1.4e-271 | 6.6e-237 |
+| (1500, 2000) | 1600 | 1e187 | 0 | 0 | 2e-185 | 4e-77 | — |
+| (20000, 998) | 8000 | ~1 | 0 | 0 | — | 2.2e-276 | — |
+
+(Entries are |w³𝒦_ref − w³𝒦_exact|; 0 means agreement to all printed and internal digits.)
+* The reference is exact for practical purposes at all three states, including the turning point ν = 993 at a = 998.
+* Cost: W_j takes 5 s at 1600 bits and 40 s at 8000 bits per state. Each frequency then costs 0.04–0.4 s.
+* At 1600 bits the rigorous radii blow up (1e65 at ν = 300, 1e686 at ν = 950) while the midpoints are right; ~8000 bits gives tight balls.
+* (The integrated comparison, H_ref = 2∫ψ₂w³𝒦_ref vs the direct ladder, is in §5.3.)
+
+### 5.2 Uniformity over the continuum: naive interval cells fail [ball arithmetic]
+`fp4_ref_cell.py`: a ∈ [a₀, a₀+δ] at fixed integer J, all of c, d, h, w as balls, ν = 300, M = 1000, 8000 bits.
+| J | δ = 1e-1000 | 1e-600 | 1e-300 | 1e-100 | 1e-30 | 1e-3 |
+|---|---|---|---|---|---|---|
+| 1001 | tight | rad 4e-58 | **rad 4e242** | | | |
+| 20000 | | | rad 1e379 | 1e579 | 1e664 | 1e718 |
+
+* **The usable twist-cell width is δ ~ 1e-550.** At J = 20000 the true cancellation is mild (max|R| ≈ 1), yet the wrapping in the M-step
+  R recurrence (≈ 2^M) still kills every cell.
+* Taylor models are not implemented. Their remainder terms still pay Σ_j|W_jy_j| (up to 1e187–1e571) × (δσ)^{K+1}. At K = 100 and
+  sensitivity σ ~ 1 per unit a that allows δ ≲ 1e-6, i.e. ~1e9 a-cells for each J.
+* J cannot be enumerated: n ≈ 2ae^L gives J up to ~1e7 at L = 7 and ~1e12 at L ≈ 20. It must be a continuous cell parameter too.
+* **Verdict on §78 [DV + ball tests]:** an excellent pointwise reference, but no route to a continuum certificate without an a priori
+  uniform derivative bound on H_ref in (a, 1/J). Such a bound is the per-order-majorant problem in another form.
