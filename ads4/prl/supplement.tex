@@ -75,7 +75,9 @@ the $\lambda$-level budget; ``computed'', ``measured'' (of a value) = [NE] or [D
 estimates'', ``interpolated'' = [NE\,+\,M] or [M]; ``we assume'', ``assumption'' = [A]; ``open hypothesis'' = [I].
 
 \emph{The Letter's assumptions.} (i) and (ii) are A1$'$ and A2 below. (iii) is (Pos$_\Omega$) of Sec.~\ref{sec:defs}.C for
-$\Omega^{EE}$ (items 1) or $\Omega^Q_{\rm up}$ (item 2a); the Result assumes it, and Secs.~\ref{sec:pos}--\ref{sec:allgap} give its
+$\Omega^{EE}$ (items 1) or $\Omega^Q_{\rm up}$ (item 2a). For $\Omega^{EE}$ at $\Delta_g=1000$ it is proved: Theorem FP
+(Sec.~\ref{sec:fullpos}) [certified, given the operator identities of Sec.~\ref{sec:angular}], so item (1) at $\Delta_g=1000$ does not
+assume it. Elsewhere (other gaps, and $\Omega^Q_{\rm up}$) the Result assumes it, and Secs.~\ref{sec:pos}--\ref{sec:allgap} give its
 evidence, which is never used as an input. In (iii): ``we prove this in flat space, where the action is at least $N_s/5$'' is the flat
 certificate NF02 [certified] (Sec.~\ref{sec:pos}); ``in AdS we certify that its leading Regge part is at least $0.1999\,N_s$ \dots''
 is T0 (Sec.~\ref{sec:T0}) [certified], for the exact de-shifted (target) weights: $++$ for every even $J$, $+-$ for every $J\ge4$,
@@ -85,26 +87,21 @@ impact parameter [certified]. ``Curvature costs less than $0.1\%$'': flat floor 
 The standard inputs ``graded in the Supplemental Material'' are Table~\ref{tab:inputs}; ``light double-trace data contain no
 conspiracy'' is L7(b) [A], used only for $\tilde g_4=g_4$.
 
-\emph{Positivity paragraph.} ``With error control, $\Omega^{EE}$ is positive on its most constraining state \dots\ 25 of the 31 spins
-up to 32 that have near-gap states'' is the [NE$\pm$] row of Table~\ref{tab:coverLS}: the binding state ($J=5$ at the gap), and near
-the gap $J=0,2,4$--$21$, $23$, $25$, $27$, $29$, $31$ from the twist edge, at the masses listed there; the thinnest are $J=14$, $15$
-($L\ge1.5$), $21$ ($L=1.20$), $20$ ($\lambda$-level at $1.05\Lambda$), and $29$, $31$ (signed window only at the twist edge); $J=1$, $3$
-have no near-gap state, and $J=22$, $24$, $26$, $28$, $30$, $32$ are [NE\,+\,M] at their twist edges. ``With error control,
-$\Omega^Q_{\rm up}$ is positive on its binding states near the gap and at masses $1.3$--$3\Lambda$'' is the $\Omega^Q$ row of
-Table~\ref{tab:computed} ([NE$\pm$], $L\ge58$ at the binding pair; the $+-$ gap states $J=4$--$6$ given the saddle-point rows on the
-last $4\%$ of the $\nu$ range). ``The leading-Regge floor of (iii)'' and its scope are T0 as above; ``a second evaluator and an
-independent re-derivation of the curvature lemma confirmed it'' is the check described in Sec.~\ref{sec:T0} and Sec.~\ref{sec:repro}, run (e) (a re-run of the
-certificate code, which shows reproducibility only, a separately written evaluator agreeing to $10^{-10}$ on 1534 random states per gap, and a re-derivation of the curvature
-lemma by a different method). ``Elsewhere the values are computed in models or interpolated'' are the [NE\,+\,M] and [M] entries of
-Tables~\ref{tab:computed}, \ref{tab:cover}, \ref{tab:coverLS}, and $H_R'$ [D-sketch\,+\,M].
-
-\emph{Large spin.} ``Two conditional statements'' are Theorems W and L$'$ of Sec.~\ref{sec:largespin}: ``the uniform decay of (iii)''
-is (AG$_U$) of Sec.~\ref{sec:largespin}.D, [A] beyond all orders; ``a few magnitudes from models'' are premise W, the $+-$ transfer
-convention [M], Theorem L$'$'s edge amplitude (EDGE) and its $O(1/m^2)$ coefficients above $J=344$ [M]; P1$'$ beyond the leading-Regge
-kernel and one boundary factor are [D-sketch]; ``the computed costs use less than half of the margin'' is $d_\chi\le0.489H$ of
-Sec.~\ref{sec:largespin}.F; ``one edge integral of the graviton that we estimate only in a model'' is (EDGE-R) [M], with
-Table~\ref{tab:jstarW} (the exact scalar analogue: margin $1.42$ at $(J,m)=(26,1.026\Lambda)$ at the tabulated cutoff, $0.405$ against
-$0.406$ at the worst cutoff of the lemma's grid).
+\emph{Positivity paragraph.} ``At $\Delta_g=1000$, $\Omega^{EE}$ is positive on every heavy state'' is Theorem FP of
+Sec.~\ref{sec:fullpos} [certified, given Eq.~\eqref{eq:fp-target}]; ``an exact rewriting \dots\ a finite ladder sum in each of two
+helicity channels'' is Eq.~\eqref{eq:fp-target} with Eq.~\eqref{eq:fp-H}; the cover is Table~\ref{tab:fpcover}: ``polynomial
+certificates at each spin up to $J=1000$'' is its first row, ``an expansion about the leading-Regge value at high twist'' its second,
+``a localised bound on the connection series at large impact parameter'' the tail theorem and routes T$'$, T$''$, ``its exact
+resummation at intermediate impact parameter'' the signed transfer, and ``a direct evaluation of the ladder sum with precomputed
+spectral coefficients'' the direct prefix rows. ``Its terms reach $10^{685}$'' and ``no favourable sign'' are facts (a) and (c) of
+Sec.~\ref{sec:fullpos}.C. ``The certificates for large spin near the twist edge \dots\ re-run from source on separate hardware with identical output, and
+\dots\ re-derived independently'' is Sec.~\ref{sec:fullpos}.I (rows 3--8 of Table~\ref{tab:fpcover}). ``The earlier evidence, including two conditional large-spin statements'' is Secs.~\ref{sec:pos} and
+\ref{sec:largespin} (Theorems W and L$'$), whose grades are unchanged. ``With error control, $\Omega^Q_{\rm up}$ is positive on its
+binding states near the gap and at masses $1.3$--$3\Lambda$'' is the $\Omega^Q$ row of Table~\ref{tab:computed} ([NE$\pm$], $L\ge58$ at
+the binding pair; the $+-$ gap states $J=4$--$6$ given the saddle-point rows on the last $4\%$ of the $\nu$ range); ``elsewhere its
+values are computed in models or interpolated'' are the [NE\,+\,M] and [M] entries for $\Omega^Q_{\rm up}$ in
+Table~\ref{tab:computed}. In (iii), ``we certify that its leading Regge part is at least $0.1999\,N_s$'' is T0 as above, and ``at
+$\Delta_g=1000$ we certify the full action positive on every heavy state'' is Theorem FP.
 
 \emph{Larger gaps.} ``Wherever the de-shifted weight exists (we construct it up to $5000$)'' is row \emph{Weights} of
 Table~\ref{tab:allgapU}. ``Twenty-two spins up to $29$, seven of them on direct evaluations \dots\ every computed state closes except
@@ -134,15 +131,14 @@ LJ}(300)$, \HLJwindowGrade\ (Table~\ref{tab:cover}).
 \textbf{What is here.} The full statement with the lower end, the H17 remark and the
 inputs list I1--I6 (Sec.~\ref{sec:full}), the derivation of $c_1=0$ (Sec.~\ref{sec:c1}), the energy-flux corollary
 (Sec.~\ref{sec:flux}), the $\Lambda$-forms (Sec.~\ref{sec:lambda}), positivity at every gap $\Delta_g\ge1000$ (Sec.~\ref{sec:allgap}), the conditional remark on
-$\Delta_g\ge300$ (Sec.~\ref{sec:cor}) and the reproduction summary (Sec.~\ref{sec:repro}). Every state list, leverage value and
-premise behind the Letter's Fig.~2 is in Tables~\ref{tab:computed}, \ref{tab:cover}, \ref{tab:dircv}, \ref{tab:coverLS} and
-Sec.~\ref{sec:largespin}; the order of limits is in Table~\ref{tab:inputs} (rows A2, R1, $H_K$) and at the end of
+$\Delta_g\ge300$ (Sec.~\ref{sec:cor}) and the reproduction summary (Sec.~\ref{sec:repro}). The cover behind the Letter's Fig.~2 is Table~\ref{tab:fpcover}; every state list, leverage value and premise of the earlier evidence
+is in Tables~\ref{tab:computed}, \ref{tab:cover}, \ref{tab:dircv}, \ref{tab:coverLS} and Sec.~\ref{sec:largespin}; the order of limits is in Table~\ref{tab:inputs} (rows A2, R1, $H_K$) and at the end of
 Sec.~\ref{sec:HK}. In Sec.~\ref{sec:largespin}, ``Theorem W'' and ``Theorem L$'$'' name two routes (weight-shifting, large impact
 parameter); they are unrelated to Lemma W of Sec.~\ref{sec:Cprime}.
 
 \textbf{Three layers.} (i) the setting A1$'$, A2; (ii) the \emph{inputs} of the implication
-(Table~\ref{tab:inputs}); (iii) per-state positivity, which the result assumes and for which
-Sec.~\ref{sec:pos} gives the \emph{evidence}. Evidence is never used as an input.
+(Table~\ref{tab:inputs}); (iii) per-state positivity, which for $\Omega^{EE}$ at $\Delta_g=1000$ is Theorem FP (Sec.~\ref{sec:fullpos}) and otherwise is assumed, with the \emph{evidence} of
+Sec.~\ref{sec:pos}. Evidence is never used as an input.
 
 \textbf{Checks by separate code.} Sec.~\ref{sec:repro} states who performed each check and in what sense it is independent. Separate
 runs, with their own code written from the definitions, reproduced the headline constants; the $EE$-kernel reduction and Lemma Y (from
@@ -365,7 +361,7 @@ $\Omega^Q_{\rm low}$ beyond leading Regge. No input is open.
 \label{sec:full}
 
 \textbf{Result (conditional; implication (1) [D] without light single traces, otherwise [D-sketch]; (2) [D-sketch]).} \emph{Assume A1$'$, A2, the inputs of
-Table~\ref{tab:inputs} (summarised as I1--I6 below), and (Pos$_\Omega$) for $\Omega^{EE}$ [item (1)] or for
+Table~\ref{tab:inputs} (summarised as I1--I6 below), and (Pos$_\Omega$) for $\Omega^{EE}$ [item (1); at $\Delta_g=1000$ this is Theorem FP of Sec.~\ref{sec:fullpos}, not an assumption] or for
 $\Omega^Q_{\rm up}$ [item (2), upper end], on heavy states and on light spin-$0,2$ states at the $k$ where they
 enter. Then, at leading order in $1/c_T$ (the $c_T\to\infty$ limit of the finite-$c_T$ inequality, end of
 Sec.~\ref{sec:HK}):}
@@ -396,7 +392,9 @@ statement of L1 (both parities), which carries both the Einstein term and $c_1=0
 the $t_4^2$/$\alpha_T^2$ asymmetry band of H17 [D-sketch\,+\,M] (the H17 value itself is [D], I3); constants [DV]. Implication (2a): [D-sketch] in the $g_5$ term (I4) and the
 light single traces; [D-sketch\,+\,M] in the sign of $\kappa$ (I6) if $\hat g_3\ne0$; [A] through $H_{\rm EFT}$(b) for
 $\tilde g_4=g_4$. (2b) adds the $0.040\,\Omega^{EE}$ repair [D-sketch] and (Pos) for $\Omega^{EE}$. No input is open.
-Positivity is the Letter's assumption (iii); its evidence is in Secs.~\ref{sec:pos} and \ref{sec:largespin}, and at every $\Delta_g\ge1000$ in Sec.~\ref{sec:allgap}. \emph{Dependence:} (1) uses only $\Omega^{EE}$; (2a) only
+Positivity is the Letter's assumption (iii). For $\Omega^{EE}$ at $\Delta_g=1000$ it is Theorem FP (Sec.~\ref{sec:fullpos}) [certified, given the
+operator identities of Sec.~\ref{sec:angular}], so at that gap item (1) holds under A1$'$, A2 and the inputs alone; otherwise its evidence is in
+Secs.~\ref{sec:pos} and \ref{sec:largespin}, and at every $\Delta_g\ge1000$ in Sec.~\ref{sec:allgap}. \emph{Dependence:} (1) uses only $\Omega^{EE}$; (2a) only
 $\Omega^Q_{\rm up}$; (2b) both.
 
 \textbf{Inputs I1--I6} (a summary of Table~\ref{tab:inputs}).
@@ -942,6 +940,10 @@ $\Delta_g$ & $\Lambda$ & $16L_A$ & $\tau_0$ & H17 band & $2L_{\rm AdS}$ & $B_{\r
 
 \section{Per-state positivity: evidence}
 \label{sec:pos}
+
+\emph{Status.} For $\Omega^{EE}$ at $\Delta_g=1000$ this section and Secs.~\ref{sec:largespin}--\ref{sec:cor} are superseded by Theorem FP
+(Sec.~\ref{sec:fullpos}), which proves positivity on every heavy state. They remain the evidence for $\Omega^{EE}$ at other gaps and for
+$\Omega^Q_{\rm up}$, and an independent cross-check of Theorem FP where they overlap.
 
 \textbf{How it is computed.} The action of each functional on a block is its flat part plus the leading-Regge
 AdS curvature plus beyond-leading-Regge corrections. The flat part is certified (below). The curvature is an
@@ -2032,6 +2034,8 @@ $k=2$ tails beyond $\Lambda$; the direct own rows of $J=9$--$11$, $13$--$15$ at 
 held masses), which run (d) re-ran but did not re-implement. Run (b) found no substantive discrepancy, run (c) (the five rows from
 identity~\eqref{eq:magic} on) no load-bearing error, and run (d) no numerical discrepancy.
 
+\input{sec_fullpos}
+
 \section{An argument without positivity: the angular route}
 \label{sec:angular}
 \emph{Sum rule.} For a stress-tensor state at rest, the detector $E(n)$ and its first retarded-time moment
@@ -2155,7 +2159,8 @@ consistency check of a theory inside the assumptions [D-sketch for ``inside''], 
 is not shown for string states in AdS, and at $3\%$ of the upper end the check could fail only grossly. Loops
 (finite $g_s$) are outside A2.
 
-\section{Scope} The following lie outside the results: an unconditional bound; any statement beyond leading order in $1/c_T$, in particular the size of the $1/c_T$
+\section{Scope} The following lie outside the results: a bound free of A1$'$, A2 and of the inputs of Table~\ref{tab:inputs}; positivity of $\Omega^{EE}$ at gaps other than $1000$ beyond
+Secs.~\ref{sec:pos}--\ref{sec:allgap}, and of $\Omega^Q_{\rm up}$ beyond its evidence; any statement beyond leading order in $1/c_T$, in particular the size of the $1/c_T$
 corrections to the bounds (end of Sec.~\ref{sec:HK}); any $\Delta_g<1000$ other than 300 (Sec.~\ref{sec:cor} is a conditional remark only); at $\Delta_g>1000$, anything beyond
 Sec.~\ref{sec:allgap} (positivity of $\Omega^{EE}$ there has at best its $1000$ grade, rests on the no-growth premise below $\Delta_1^*$ and, at large
 spin, on premise constants carried in AdS units, and leaves the band $33\le J<J_W$ near the gap uncovered; $\Omega^Q_{\rm up}$ is examined at $300$, $1000$ only);
@@ -2165,7 +2170,7 @@ or a ratio $|\hat g_3|^2/g_4$ (a closure of this kind would have lower slope $0.
 the flat optimum $0.26$); the $\delta=0.05$ functional (margin $+0.0060$, depends on $\sigma_{hU}$); a
 lower constant; a numerical evaluation of Lemma A on the Einstein correlator or
 of the AdS$_4$ $R^4$ correlator; anything about theories with light single traces of spin $\ge4$ or with light
-spectra accumulating below $\Delta_g$; positivity ``for $m\ge m_*$''; unconditional positivity at large spin
+spectra accumulating below $\Delta_g$; positivity ``for $m\ge m_*$''; at gaps other than $1000$, unconditional positivity at large spin
 (Sec.~\ref{sec:largespin}: Theorems W and L$'$ are conditional on the assumption (AG$_U$) [A], Theorem W also on the graviton's
 edge integral (EDGE-R) [M], and both on magnitude premises graded [M]); positivity between sampled states beyond smooth trends; any
 statement on $J>10^6$ beyond $H_R'$.

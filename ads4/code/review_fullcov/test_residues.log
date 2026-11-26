@@ -1,0 +1,4 @@
+max rel diff exact vs closed formula: 5.3604e-58
+max |rho_jk| / [(2/j)c^-(s-1) e^-L(j,k)] over 780 cases: 0.30671331
+max |rho_inf| / [(2/j)c^-(s-1)]: 0.30672322
+partial-fraction decomposition exact: PASS

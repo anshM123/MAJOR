@@ -1,0 +1,9 @@
+  cell_8936_9000_r0.in b=0: printed [lo,hi]=[-43,15961]e-20  independent F_K-R in [-4.064943e-19,1.596202e-16]  encloses
+  cell_8936_9000_r0.in b=4: printed [lo,hi]=[-118,16572]e-20  independent F_K-R in [-1.205512e-18,1.656987e-16]  encloses
+cell_8936_9000_r0.in: K=15312 P=180 nodes=6  max |scalar F - F_K| / E_scalar = 3.973e-07 OK
+  cell_5305_6041_g3_0.in b=0: printed [lo,hi]=[-4734657,128]e-20  independent F_K-R in [-4.734653e-14,1.320442e-18]  encloses
+  cell_5305_6041_g3_0.in b=4: printed [lo,hi]=[-4716219,-131]e-20  independent F_K-R in [-4.716218e-14,-1.322002e-18]  encloses
+cell_5305_6041_g3_0.in: K=3193 P=80 nodes=6  max |scalar F - F_K| / E_scalar = 8.114e-05 OK
+  cell_7596_7929_s3_1.in b=0: printed [lo,hi]=[683133,42678684]e-20  independent F_K-R in [6.831344e-15,4.267868e-13]  encloses
+  cell_7596_7929_s3_1.in b=4: printed [lo,hi]=[600853,29942861]e-20  independent F_K-R in [6.008537e-15,2.994286e-13]  encloses
+cell_7596_7929_s3_1.in: K=5822 P=80 nodes=6  max |scalar F - F_K| / E_scalar = 5.054e-06 OK

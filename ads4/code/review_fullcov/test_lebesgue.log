@@ -1,0 +1,13 @@
+m=1: true Lebesgue const 1.66667  Lambda_m 3.00000
+m=2: true Lebesgue const 1.98885  Lambda_m 3.66667
+m=5: true Lebesgue const 2.48943  Lambda_m 4.57460
+m=10: true Lebesgue const 2.90082  Lambda_m 5.26651
+m=50: true Lebesgue const 3.90060  Lambda_m 6.87555
+m=446: true Lebesgue const 5.28809  Lambda_m 9.06383
+m=908: true Lebesgue const 5.74032  Lambda_m 9.77475
+max true/Lambda_m = 0.5872594935784329 OK
+m=3: algebraic Lebesgue const at m+1 cosine nodes 2.2022 <= Lambda_m 4.0667
+m=8: algebraic Lebesgue const at m+1 cosine nodes 2.7664 <= Lambda_m 5.0436
+m=20: algebraic Lebesgue const at m+1 cosine nodes 3.3267 <= Lambda_m 5.9593
+m=60: algebraic Lebesgue const at m+1 cosine nodes 4.0156 <= Lambda_m 7.0579
+max algebraic/Lambda_m = 0.5689567923728323 OK

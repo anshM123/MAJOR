@@ -1,0 +1,67 @@
+cell_5305_6041 c=0.53050 b=0: residues 49s  max|Res_j|=1.084e+691  2nd-diff of F-PF: 3.35e-122, -1.63e-122  max |Res_j|/bound_j=2.309e-11
+    m=   2  exact majorant=  5.873e+675  Ey(m)=  8.088e+687
+    m=   5  exact majorant=  2.712e+665  Ey(m)=  1.551e+677
+    m=  10  exact majorant=  1.219e+650  Ey(m)=  2.201e+662
+    m=  20  exact majorant=  3.595e+622  Ey(m)=  7.102e+635
+    m=  50  exact majorant=  1.042e+551  Ey(m)=   1.76e+567
+    m= 100  exact majorant=  2.512e+449  Ey(m)=  1.071e+470
+    m= 446  exact majorant=   6.204e-62  Ey(m)=   6.148e-14
+cell_5305_6041 c=0.53050 b=4: residues 49s  max|Res_j|=4.441e+690  2nd-diff of F-PF: 6.75e-122, -3.68e-122  max |Res_j|/bound_j=2.414e-10
+    m=   2  exact majorant=   7.88e+676  Ey(m)=  8.088e+687
+    m=   5  exact majorant=  3.674e+666  Ey(m)=  1.551e+677
+    m=  10  exact majorant=  1.673e+651  Ey(m)=  2.201e+662
+    m=  20  exact majorant=  5.056e+623  Ey(m)=  7.102e+635
+    m=  50  exact majorant=  1.655e+552  Ey(m)=   1.76e+567
+    m= 100  exact majorant=  2.856e+450  Ey(m)=  1.071e+470
+    m= 446  exact majorant=   1.532e-60  Ey(m)=   6.148e-14
+cell_5305_6041 c=0.56730 b=0: residues 52s  max|Res_j|=8.029e+690  2nd-diff of F-PF: 8.66e-122, -4.4e-122  max |Res_j|/bound_j=2.023e-11
+    m=   2  exact majorant=  3.155e+675  Ey(m)=  8.088e+687
+    m=   5  exact majorant=  1.082e+665  Ey(m)=  1.551e+677
+    m=  10  exact majorant=  2.954e+649  Ey(m)=  2.201e+662
+    m=  20  exact majorant=  3.176e+621  Ey(m)=  7.102e+635
+    m=  50  exact majorant=  3.784e+548  Ey(m)=   1.76e+567
+    m= 100  exact majorant=  9.275e+444  Ey(m)=  1.071e+470
+    m= 446  exact majorant=   3.964e-85  Ey(m)=   6.148e-14
+    DCT a_2=-8.2955088e-14  residue prediction=-8.2950199e-14
+    DCT a_3=3.4088264e-14  residue prediction=3.4095747e-14
+    DCT a_5=2.9262456e-14  residue prediction=2.9246716e-14
+    DCT a_8=2.4519293e-14  residue prediction=2.4538524e-14
+    DCT a_12=1.055462e-14  residue prediction=1.0496138e-14
+    true Chebyshev tail beyond m=1: ~5.381e-13  Ey(m)=8.699e+692
+    true Chebyshev tail beyond m=2: ~4.551e-13  Ey(m)=8.088e+687
+    true Chebyshev tail beyond m=4: ~3.902e-13  Ey(m)=2.428e+680
+    true Chebyshev tail beyond m=8: ~2.832e-13  Ey(m)=1.258e+668
+cell_5305_6041 c=0.56730 b=4: residues 51s  max|Res_j|=3.136e+690  2nd-diff of F-PF: 4.55e-122, -5.83e-122  max |Res_j|/bound_j=1.526e-10
+    m=   2  exact majorant=  3.229e+676  Ey(m)=  8.088e+687
+    m=   5  exact majorant=  1.122e+666  Ey(m)=  1.551e+677
+    m=  10  exact majorant=  3.102e+650  Ey(m)=  2.201e+662
+    m=  20  exact majorant=  3.428e+622  Ey(m)=  7.102e+635
+    m=  50  exact majorant=  4.766e+549  Ey(m)=   1.76e+567
+    m= 100  exact majorant=  8.702e+445  Ey(m)=  1.071e+470
+    m= 446  exact majorant=   7.445e-84  Ey(m)=   6.148e-14
+    DCT a_2=3.8011067e-13  residue prediction=3.8012065e-13
+    DCT a_3=1.3344562e-13  residue prediction=1.3345648e-13
+    DCT a_5=1.2389348e-13  residue prediction=1.2385453e-13
+    DCT a_8=1.0752182e-13  residue prediction=1.0758541e-13
+    DCT a_12=6.9668009e-14  residue prediction=6.9517643e-14
+    true Chebyshev tail beyond m=1: ~2.087e-12  Ey(m)=8.699e+692
+    true Chebyshev tail beyond m=2: ~1.706e-12  Ey(m)=8.088e+687
+    true Chebyshev tail beyond m=4: ~1.445e-12  Ey(m)=2.428e+680
+    true Chebyshev tail beyond m=8: ~9.814e-13  Ey(m)=1.258e+668
+cell_5305_6041 c=0.60410 b=0: residues 50s  max|Res_j|=5.752e+690  2nd-diff of F-PF: 1.35e-122, 3.03e-122  max |Res_j|/bound_j=1.155e-10
+    m=   2  exact majorant=  1.499e+675  Ey(m)=  8.088e+687
+    m=   5  exact majorant=  3.448e+664  Ey(m)=  1.551e+677
+    m=  10  exact majorant=  4.881e+648  Ey(m)=  2.201e+662
+    m=  20  exact majorant=  1.376e+620  Ey(m)=  7.102e+635
+    m=  50  exact majorant=  2.318e+545  Ey(m)=   1.76e+567
+    m= 100  exact majorant=  1.157e+439  Ey(m)=  1.071e+470
+    m= 446  exact majorant=  4.603e-115  Ey(m)=   6.148e-14
+cell_5305_6041 c=0.60410 b=4: residues 50s  max|Res_j|=2.141e+690  2nd-diff of F-PF: 1.01e-122, 3.23e-122  max |Res_j|/bound_j=2.055e-10
+    m=   2  exact majorant=  1.194e+676  Ey(m)=  8.088e+687
+    m=   5  exact majorant=  2.792e+665  Ey(m)=  1.551e+677
+    m=  10  exact majorant=  3.985e+649  Ey(m)=  2.201e+662
+    m=  20  exact majorant=  1.162e+621  Ey(m)=  7.102e+635
+    m=  50  exact majorant=  2.403e+546  Ey(m)=   1.76e+567
+    m= 100  exact majorant=  8.832e+439  Ey(m)=  1.071e+470
+    m= 446  exact majorant=   6.69e-114  Ey(m)=   6.148e-14
+test_yapprox PASS cell_5305_6041

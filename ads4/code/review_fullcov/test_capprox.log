@@ -1,0 +1,41 @@
+cell_5305_6041 y=3094114552107467837/1000000000000000000000000 K=3193: |a_n| at n=0,10,50,100,200,300,400,500: 1.1e-05 3.0e-15 3.7e-16 1.5e-16 9.0e-23 9.2e-23 1.4e-22 1.0e-22
+   m=  20 true tail=2.443e-14 (noise floor 1.4e-23)  majorant=inf  OK
+   m=  50 true tail=1.402e-14 (noise floor 1.4e-23)  majorant=inf  OK
+   m= 100 true tail=7.900e-16 (noise floor 1.4e-23)  majorant=inf  OK
+   m= 150 true tail=3.239e-20 (noise floor 1.4e-23)  majorant=inf  OK
+   m= 200 true tail=2.973e-20 (noise floor 1.4e-23)  majorant=inf  OK
+   m= 300 true tail=2.421e-20 (noise floor 1.4e-23)  majorant=5.655e+274  OK
+   m= 400 true tail=1.860e-20 (noise floor 1.4e-23)  majorant=1.195e+138  OK
+   m= 511 true tail=1.402e-20 (noise floor 1.4e-23)  majorant=1.820e-14  OK
+   certified E_c at m=511: 1.820e-14
+cell_5305_6041 y=1/2 K=3193: |a_n| at n=0,10,50,100,200,300,400,500: 1.1e-05 2.1e-15 3.7e-16 1.2e-16 1.1e-22 1.9e-24 8.5e-23 1.5e-23
+   m=  20 true tail=2.662e-14 (noise floor 1.6e-23)  majorant=inf  OK
+   m=  50 true tail=1.358e-14 (noise floor 1.6e-23)  majorant=inf  OK
+   m= 100 true tail=1.070e-15 (noise floor 1.6e-23)  majorant=inf  OK
+   m= 150 true tail=3.243e-20 (noise floor 1.6e-23)  majorant=inf  OK
+   m= 200 true tail=2.843e-20 (noise floor 1.6e-23)  majorant=inf  OK
+   m= 300 true tail=2.304e-20 (noise floor 1.6e-23)  majorant=8.700e+303  OK
+   m= 400 true tail=1.855e-20 (noise floor 1.6e-23)  majorant=2.446e+193  OK
+   m= 586 true tail=1.135e-20 (noise floor 1.6e-23)  majorant=5.802e-13  OK
+   certified E_c at m=586: 5.802e-13
+cell_5305_6041 y=1 K=3193: |a_n| at n=0,10,50,100,200,300,400,500: 1.1e-05 9.2e-15 1.7e-15 2.3e-14 1.0e-22 5.1e-23 1.1e-22 8.0e-23
+   m=  20 true tail=2.883e-12 (noise floor 1.9e-23)  majorant=inf  OK
+   m=  50 true tail=2.557e-12 (noise floor 1.9e-23)  majorant=inf  OK
+   m= 100 true tail=1.451e-12 (noise floor 1.9e-23)  majorant=inf  OK
+   m= 150 true tail=4.990e-20 (noise floor 1.9e-23)  majorant=inf  OK
+   m= 200 true tail=3.042e-20 (noise floor 1.9e-23)  majorant=inf  OK
+   m= 300 true tail=2.495e-20 (noise floor 1.9e-23)  majorant=inf  OK
+   m= 400 true tail=1.981e-20 (noise floor 1.9e-23)  majorant=9.878e+299  OK
+   m= 821 true tail=4.500e-21 (noise floor 1.9e-23)  majorant=2.004e-12  OK
+   certified E_c at m=821: 2.004e-12
+cell_8936_9000 y=1 K=15312: |a_n| at n=0,10,50,100,200,300,400,500: 5.3e-06 8.6e-16 2.5e-19 4.6e-23 9.3e-24 2.9e-24 9.1e-24 3.6e-24
+   m=  20 true tail=2.736e-13 (noise floor 8.8e-24)  majorant=inf  OK
+   m=  50 true tail=2.871e-19 (noise floor 8.8e-24)  majorant=inf  OK
+   m= 100 true tail=2.024e-20 (noise floor 8.8e-24)  majorant=inf  OK
+   m= 150 true tail=1.825e-20 (noise floor 8.8e-24)  majorant=inf  OK
+   m= 200 true tail=1.682e-20 (noise floor 8.8e-24)  majorant=inf  OK
+   m= 300 true tail=1.402e-20 (noise floor 8.8e-24)  majorant=1.049e+305  OK
+   m= 400 true tail=1.083e-20 (noise floor 8.8e-24)  majorant=1.962e+185  OK
+   m= 566 true tail=6.659e-21 (noise floor 8.8e-24)  majorant=3.500e-14  OK
+   certified E_c at m=566: 3.500e-14
+Mobius test: max_{disk}|factor| / max_{real endpoints}|factor| = 0.9999942651411782 OK

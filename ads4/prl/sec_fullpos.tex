@@ -1,16 +1,24 @@
-% sec_fullpos.tex -- Supplemental Material section: full positivity of Omega^EE at finite mass.
-% Meant to be \input into supplement.tex just before the section on the angular route (sec:angular).
-\section{Full positivity of the energy--energy action at finite mass}
+% sec_fullpos.tex -- Supplemental Material section: full positivity of Omega^EE at Delta_g = 1000 (Theorem FP).
+% \input into supplement.tex just before the section on the angular route (sec:angular).
+\section{Positivity of \texorpdfstring{$\Omega^{EE}$}{Omega EE} on every heavy state at \texorpdfstring{$\Delta_g=1000$}{Delta g = 1000}}
 \label{sec:fullpos}
 
-This section reports what is established about assumption (iii) for $\Omega^{EE}$ at finite $(\Delta,J)$, beyond the leading-Regge
-floor T0 (Sec.~\ref{sec:T0}). It uses an exact rewriting of the heavy action in the detector-ladder variables of
-Sec.~\ref{sec:angular}. Like Secs.~\ref{sec:pos}--\ref{sec:allgap}, it is evidence for (iii) and is never used as an input. Unless
-stated otherwise $\Delta_g=1000$, and the $k=2$ weight is the published, endpoint-repaired continuum weight that defines
-$\Omega^{EE}$ (Table~\ref{tab:data}). \emph{Summary.} Positivity of the finite-mass action is certified for every spin $J\le766$ at
-every mass, and for every larger spin at impact parameter $\hat b\le400$ (Table~\ref{tab:fpcover}). At very large impact parameter a
-contour argument gives it at grade [D-sketch]. The rest, large spin near the twist edge at moderate impact parameter, is open; numerical
-evidence there is listed in Sec.~\ref{sec:fullpos}.E.
+This section proves assumption (iii) for $\Omega^{EE}$ at $\Delta_g=1000$: the finite-mass action is positive on every heavy state,
+in both helicity channels, at every spin and every mass. It uses an exact rewriting of the heavy action in the detector-ladder
+variables of Sec.~\ref{sec:angular} (Secs.~\ref{sec:fullpos}.A--B) and a cover of the heavy spectrum by computer-assisted
+certificates (Secs.~\ref{sec:fullpos}.C--I). Unless stated otherwise $\Delta_g=1000$, and the $k=2$ weight is the published,
+endpoint-repaired continuum weight that defines $\Omega^{EE}$ (Table~\ref{tab:data}).
+
+\textbf{Theorem FP} [certified, given Eq.~\eqref{eq:fp-target}]. \emph{At $\Delta_g=1000$, $H_{{\rm ang},b}(\Delta,J)>0$ for $b=0,4$ on every
+heavy state, $\Delta-J\ge\Delta_g$. Hence (Pos$_\Omega$) holds for $\Omega^{EE}$ on every heavy state, and item (1) of the Result needs no
+positivity assumption at $\Delta_g=1000$.}
+
+The cover is summarised in Table~\ref{tab:fpcover}. The certificates for large spin near the twist edge (rows 3--8) were
+re-run from source on separate hardware with byte-identical (or, where the arithmetic grid was re-chosen, independently passing)
+output, and the mathematics of each of their new lemmas was re-derived independently (Sec.~\ref{sec:fullpos}.I). The retained inputs are the identity~\eqref{eq:fp-target}, the certified spectral
+data of the repaired weight (Sec.~\ref{sec:T0}) and the certified leading-Regge floor $F_{\rm cert}$; they are listed in
+Sec.~\ref{sec:fullpos}.I. Theorem FP is specific to $\Delta_g=1000$: at other gaps positivity keeps the grades of
+Secs.~\ref{sec:pos}--\ref{sec:allgap}, and $\Omega^Q_{\rm up}$ is not covered.
 
 \emph{Notation.} $T:=T_\Delta=(\Delta-1)(\Delta-2)$ and $C:=J(J+1)$, so that $m^2=T-C$; $r:=C/T$, $w:=1-r=m^2/T$ and
 $\ell:=-\ln(1-r)=\ln(1+C/m^2)$; $a:=\Delta-J-2$. The impact parameter is $\hat b:=(2J+1)\Lambda/m$, the $b$ of Sec.~\ref{sec:defs}.A,
@@ -49,7 +57,7 @@ $H_{{\rm hyb},b}\ge0.1999\,N_{s,b}$,
 \label{eq:fp-lift}
 \end{equation}
 [P]; $\mathcal B$ cancels. The comparison is meaningful because the leading-Regge limit of $H_{{\rm ang},b}$ is T0's per-state
-action with relative factor exactly 1 (Sec.~\ref{sec:fullpos}.B). The certificates of Sec.~\ref{sec:fullpos}.C prove the sign of
+action with relative factor exactly 1 (Sec.~\ref{sec:fullpos}.B). The certificates of Secs.~\ref{sec:fullpos}.D--H prove the sign of
 $H_{{\rm ang},b}$ directly, without the comparison; the comparison is used only as evidence.
 
 \subsection{The exact finite-mass action}
@@ -137,217 +145,186 @@ exactly 1; the factor 2 is $9216/4608$ [D; DV]. Checks: at $J=0$, $T\to\infty$, 
 $\hat b=2$ for $J=20$ and $J=40$ ($T$ four times larger) [DV]. The difference between $\eta$ and $\cosh\beta=\eta+1/(2m^2)$ is of the
 same order.
 
-\subsection{Certified coverage at \texorpdfstring{$\Delta_g=1000$}{Delta g = 1000}}
-\emph{Certified moments} [certified]. $Z_k$, $Y_k$ are computed in Arb ball arithmetic in closed form, with no quadrature of the
-Gaussian part of $\chi$. That part is reduced by exact polynomial division to exact Gaussian moments and Faddeeva functions. The
-logarithmic part is reduced to an exact integration-by-parts recurrence and three one-dimensional integrals done with Arb's rigorous
-integrator. The cutoff, whose relative effect on the $k$-th moment is about $10^{-24}\times1.03^{2k}$ and therefore not negligible,
-is treated by Gauss--Legendre quadrature near $\nu=\Lambda+100$ with the Bernstein-ellipse remainder bound, and by Gaussian tail bounds
-elsewhere. At $\Delta_g=1000$ the moments are certified for $k\le1000$ (7000-bit run, 20\,min), with relative radius $\le10^{-500}$ for
-$k\le500$ and $\le10^{-216}$ for $k\le1000$; at $\Delta_g=300$ for $k\le300$. \emph{Rigour patch.} In the first runs the logarithm inside
-Arb's integrator was evaluated without the flag that enforces the holomorphy check on which its error bound rests. Every moment was
-recomputed with the flag, and every recomputed ball lies inside the ball used by the certificates: 2002 of 2002 ($k\le1000$), and 602 of 602
-for $k\le300$ at both $\Delta_g=1000$ and $300$. So all certificates stand as run.
-
-\emph{Fixed spin, every mass.} With $\varpi:=\Lambda^2/T$, $H_{{\rm ang},b}\prod_{j<n}(T-u_j)/[(1-r)^3T^n]$ is a polynomial
-$\mathcal P_{J,b}(\varpi)$ of degree $n+1$, and the prefactor is positive on heavy states. The heavy range of spin $J$,
-$m\ge m_{\rm gap}(J)$, is $0\le\varpi\le\Lambda^2/[(J+\Delta_g-1)(J+\Delta_g-2)]$, including $T\to\infty$. $\mathcal P_{J,b}>0$ there is
-proved by positivity of its Bernstein coefficients (Arb, from the moment balls and the exact $Q_k$), with de Casteljau bisection where
-needed. Every channel with $J\le766$ passes: 1147 polynomials, 356 for $J\le239$ with the $k\le300$ moments and 791 for
-$240\le J\le766$ with the $k\le1000$ moments. There is no failure; the runs were stopped at $J=766$ for time. With the $k\le300$ moments
-the first failure is at $J=240$, from moment precision, not a sign. The Bernstein margin is smallest at the twist edge and falls with
-$J$ ($\mathcal P(\varpi_{\max})\approx0.52$, $2.2\times10^{-3}$, $2\times10^{-6}$ at $J=4$, $40$, $238$), through the normalising factor
-$\prod_j(1-u_j\varpi/\Lambda^2)$, not through $H_{{\rm ang},b}$. At $\Delta_g=300$ every channel with $J\le285$ passes (426
-polynomials; the count includes the $b=4$ channel of $J=286$); the first failure, at $J=286$, $b=0$, is again from moment precision.
-
-\emph{All spins at bounded impact parameter.} In the variables $x=\hat b^2/4=\Lambda^2(J+\frac12)^2/m^2$ and $v=(J+\frac12)^{-2}$,
-exactly, $C=1/v-\frac14$, $1/T=xv/E$ with $E=\Lambda^2+x-xv/4$, and
+\subsection{Coordinates and the cover}
+On ladder $b$ put $s:=2b+1$, $n:=J-b$, $N:=n+a$ and
 \begin{equation}
-U_{b,k}=\frac{x^kA_{b,k}(v)}{\Lambda^{2k}\Pi_k},\qquad A_{b,k}=\prod_{j<k}\big[1-(b+j+\tfrac12)^2v\big],\qquad
-\Pi_k=\prod_{j<k}\Big[1+\frac x{\Lambda^2}\big(1-(b+j+\tfrac12)^2v\big)\Big].
-\label{eq:fp-xv}
+c:=U_{b,1}=\frac{n(n+s)}{N(N+s)},\qquad d:=1-c,\qquad h:=\frac1{N(N+s)}=\frac1{T-u_0},\qquad L:=-\ln d ,
+\label{eq:fp-cdh-coords}
 \end{equation}
-The terms $k\le K$ of Eq.~\eqref{eq:fp-H}, multiplied by $E\Pi_K>0$, form an exact bivariate polynomial $N(x,v)$ of degree $K+1$ in each
-variable; no denominator is expanded. For $J\ge J_0>K+b$ every such term is a genuine ladder term, and termination is automatic
-($A_{b,k}=0$ for $k>n$). The terms $K<k\le1000$ are bounded with the certified moments, $0\le A_{b,k}\le1$, $\Pi_k\ge1$, and those with
-$k>1000$ by the all-$k$ bounds $|f_m(\nu)|\le3^{m-1}e^{(\pi/\sqrt3)(\nu+\frac12)}$ and $|q_n|\le3^ne^{(\pi/\sqrt3)\sqrt{\nu^2+17/4}}$
-integrated in closed form. Tensor Bernstein coefficients of $N$, less the tail bound, are positive on $[0,x_{\max}]\times[0,(J_0+\frac12)^{-2}]$
-for both channels, for the three boxes of Table~\ref{tab:fpcover} [certified]. The method stops at the harmonic truncation $K<J_0-b$:
-with $|Z_k|\lesssim10^{673}$ the tail $x^K|Z_K|/\Lambda^{2K}$ is small only for $\hat b\lesssim0.7J_0$. (A box $J_0=651$,
-$\hat b\le490$ failed because of the crude $k>1000$ bound, not because of $N$.)
+so that $U_{b,k}=\prod_{j<k}(c-u'_jh)/(1-u'_jh)$ with $u'_j:=j(j+s)$, and $L=\ell$ for $b=0$. $L$ is the impact parameter in the
+ladder variable: $L\to0$ is the flat (small impact parameter) end and $L\to\infty$ the large-impact-parameter, near-light-cone end.
+At fixed $L$ the twist $a=N-n\ge998$ is the only other coordinate, and the spin follows from $n\simeq a\sqrt c/(1-\sqrt c)$. Two
+exact relations are used throughout: $a\le\sqrt{N(N+s)}-\sqrt{n(n+s)}=(1-\sqrt c)/\sqrt h$, hence the \emph{physical twist cap}
+\begin{equation}
+h\le\frac{(1-\sqrt c)^2}{998^2},
+\label{eq:fp-cap}
+\end{equation}
+and $h\le c/[(1001-b)(1002+b)]$ for $J\ge1001$.
 
 \begin{table}[!htbp]
-\caption{\label{tab:fpcover}Positivity of the finite-mass action, $H_{{\rm ang},b}>0$ in both channels, at $\Delta_g=1000$ unless stated;
-$K$ is the number of harmonics kept, TB the certified tail bound, and $N(0,0)=2.07\times10^7$ in the bivariate rows.
-$\hat b_{\max}(J)=(2J+1)\Lambda/\sqrt{(\Delta_g-2)(\Delta_g-1+2J)}$ is the impact parameter at the twist edge ($\approx965$ at $J=767$,
-$\approx44.7\sqrt J$ at large $J$); $\ell=-\ln(1-r)$.}
+\caption{\label{tab:fpcover}The cover of the heavy spectrum by certificates for $H_{{\rm ang},b}>0$, both channels, $\Delta_g=1000$.
+$a^*(\beta)$ is the high-twist threshold of row 2 ($3100\le a^*\le4500$), with $\cosh^2(\beta/2)=e^L$. Margins are the smallest
+certified ratio (main term$-$errors)/main term, or the smallest certified lower bound on the normalised action. Rep.: re-run from source
+with identical output; Ref.: mathematics re-derived independently (Sec.~\ref{sec:fullpos}.I).}
 \footnotesize
 \begin{ruledtabular}
-\begin{tabular}{L{4.6cm}L{9.0cm}L{2.6cm}}
-region & method & grade\\\hline
-$J\le766$, every $m\ge m_{\rm gap}(J)$ & per-spin Bernstein certificate in $\varpi=\Lambda^2/T$; 1147 polynomials, no failure & [certified]\\
-$J\ge240$, $\hat b\le100$ & bivariate $(x,v)$, $K=230$, TB $=9.3\times10^{-122}$; min.\ Bernstein coefficient $1.56\times10^3$ ($b=0$), $1.55\times10^3$ ($b=4$) & [certified]\\
-$J\ge420$, $\hat b\le282.8$ & bivariate, $K=410$, TB $=7.3\times10^{-54}$; $1.56\times10^3$, $1.53\times10^3$ & [certified]\\
-$J\ge651$, $\hat b\le400$ ($\ell\le0.039$) & bivariate, $K=640$, TB $=9.8\times10^{-90}$; $2.93\times10^3$, $2.89\times10^3$ & [certified]\\
-$\Delta_g=300$: $J\le285$, every mass & per-spin Bernstein certificate, 426 polynomials & [certified]\\
-$\ell\ge30.16$ ($\hat b\gtrsim7.1\times10^9$), every $J$ & contour argument of Sec.~\ref{sec:fullpos}.D, uniform transform bound & [D-sketch]\\
-$20.27\le\ell<30.16$ & the same with the transform profile, itself open & [I]\\
-$J\ge767$, $400<\hat b\le\hat b_{\max}(J)$, $\ell<30.16$ & open; numerical values at six states with $\ell\le0.29$ (Sec.~\ref{sec:fullpos}.E) & [I]; values [DV]\\
+\begin{tabular}{L{4.4cm}L{8.2cm}L{3.0cm}}
+region & method & status\\\hline
+$J\le1000$ ($b=4$: $J\le1004$), every mass & per-spin Bernstein certificate in $\varpi=\Lambda^2/T$ (Sec.~\ref{sec:fullpos}.D) & [certified]\\
+$J\ge1001$, $a\ge a^*(\beta)$, $0.39\le\beta\le64$ & $h$-expansion of the ladder about $c$ with certified remainder; 616 $\beta$-cells (Sec.~\ref{sec:fullpos}.E) & [certified]; records checked\\
+$L\ge20$, every twist & tail theorem: localisation, negative-binomial and Theorem-P bounds; $\rho\le0.066$ (Sec.~\ref{sec:fullpos}.F) & [certified]; Rep., Ref.\\
+$5\le L\le20$, every twist & Route T$'$: uniform per-power multipliers, localised remainder; worst cell $\rho=0.947$ ($L\in[5,5.5]$) (Sec.~\ref{sec:fullpos}.F) & [certified]; Rep., Ref.\\
+$3.65\le L\le5$, every twist & Route T$''$: turning-point frames, chained similarity bound, sharp tail ratio; worst $\rho=0.545$ & [certified]; Rep., Ref.\\
+$2.3\le L\le3.65$, every twist & signed connection transfer, sequential Chebyshev norming, eigenframe base multipliers, three-circles contour extension; worst error/floor $0.569$ (Sec.~\ref{sec:fullpos}.G) & [certified]; Rep., Ref.\\
+$0.0513\le L\le0.2984$ ($0.05\le c\le0.258$), $J\ge1001$ & direct prefix: global realised coefficients, prefix truncation, Chebyshev sign certificate; normalised action $\ge9.4\times10^{-6}$ (Sec.~\ref{sec:fullpos}.H) & [certified]; Rep.\\
+$0.2984\le L\le2.3026$ ($0.258\le c\le0.9$), $J\ge1001$ & direct prefix on the coupled cap $y=h/H(c)$; normalised action $\ge5.14\times10^{-6}$ (Sec.~\ref{sec:fullpos}.H) & [certified]; Rep., Ref.\\
+$J\ge651$, $\hat b\le400$ ($\ell\le0.039$), every mass & bivariate $(x,v)$ Bernstein certificate, $K=640$ harmonics, certified tail (Sec.~\ref{sec:fullpos}.D) & [certified]\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
 
-\emph{Comparison with the hybrid} [DV]. On 69 state--channel pairs ($J\in\{0,2,4,5,6,8,10,12,16,20,30,40,60\}$, both channels,
-twists 1000, 1300, 2000), with $H_{{\rm ang},b}$ from the certified moments and T0's hybrid in floating point,
-$\max|H_{{\rm ang},b}-H_{{\rm hyb},b}|/N_{s,b}=4.07\times10^{-3}$ ($J=16$, $+-$, twist edge); it is $\le4.7\times10^{-5}$ for $++$ and
-$\le4.2\times10^{-5}$ for $+-$ at twist $\ge1300$. Sampling all 37 channels with $J\le26$ at 24 masses each gives
-$\max|H_{{\rm ang},b}/H_{{\rm hyb},b}-1|=4.71\times10^{-3}$ ($J=17$, $+-$, twist edge) and $\min H_{{\rm ang},b}/N_{s,b}=0.2009$ ($J=5$,
-$+-$). A sharper statement, $|H_{{\rm ang},b}/H_{{\rm hyb},b}-1|\le0.01$ for $J\le26$ at every mass, was obtained with a separate
-certificate in the variable $u$ that keeps the exact Weyl shift; it has not been reproduced, and we do not use it. So where it was measured, the
-finite-mass correction uses at most $2\%$ of the T0 margin $0.1999$.
+\emph{Completeness.} A heavy state with $J\le1000$ is in row 1, and one with $J\ge651$ and $\hat b\le400$ in the last row. Let
+$J\ge1001$ and $\hat b>400$, so $\beta\ge0.39$. If $a\ge a^*(\beta)$ the state is in row 2 ($\beta\le64$) or row 3 ($\beta>64$ means
+$L>20$). If $a<a^*(\beta)$, then for $\beta\le0.79$, where $a^*=3200$, $n\ge997$ gives $\sqrt c\ge n/N\ge997/(997+3200)$, i.e.\ $L\ge0.058$,
+and for $\beta>0.79$ already $L=2\ln\cosh(\beta/2)>0.15$; in either case the state lies in one of rows 3--8, whose $L$-intervals overlap and cover $[0.0513,\infty)$
+for every twist $a\ge998$ and every $J\ge1001$. Each row covers its full stated twist range (on $[3.5,3.65]$ the imported contour pieces hold for $a\le4500$, and $a>4500\ge a^*$ is row 2), not only $a<a^*$, and every compatible
+spin, including $J\to\infty$ at fixed twist ($c\to1$, i.e.\ $L\to\infty$, row 3). The interval union is checked with exact rational
+endpoints, and it holds in either convention for $L$ (with $d$ or with the physical $w=d/(1+qh)$), since every overlap exceeds $20h$.
 
-\subsection{Large impact parameter}
-As $r\to1$ the ladder sum is controlled through singular powers rather than through harmonics. Near $z=1$ the Legendre function in
-$F(z)$ is a combination of $((1+z)/(1-z))^{-1/2\pm i\nu}$, so $F$ is a superposition over $\nu$ of $(1-z)^{-\alpha}$, $\alpha=\frac52+i\nu$,
-with density $\mathsf f(\nu)\mathsf B(\nu)$, $\mathsf B(\nu)=\Gamma(2i\nu)/\Gamma(\frac12+i\nu)^2$,
-$\mathsf f(\nu)=\chi_\theta R_-(\nu-i)+\chi_\theta R_+(\nu+i)$ (on the real axis $\mathsf f$ reproduces $\psi_2$) [D]. On each power,
-Eq.~\eqref{eq:fp-V} gives exactly
-\begin{equation}
-\mathcal V_b\big((1-z)^{-\alpha}\big)=\Big(1+\frac{B_b}T\Big)S_b(\alpha)+\frac{\alpha A_b}T\big[S_b(\alpha+1)-S_b(\alpha)\big],\qquad
-S_b(\alpha)=\sum_kU_{b,k}\frac{(\alpha)_k}{k!},
-\label{eq:fp-Salpha}
-\end{equation}
-$A_b=\frac{9+\alpha}2-2b$, $B_b=\frac{9+\alpha}2-b(b-1)$ [P; DV to $6\times10^{-41}$]. In the leading-Regge limit
-$S_b(\alpha)\to w^{-\alpha}$. The deviation $\mathsf D_\alpha:=w^\alpha\mathcal V_b((1-z)^{-\alpha})-1$ enters the leading connection
-term
-\begin{equation}
-\mathcal E_2=\frac4\Lambda\sqrt w\;{\rm Re}\!\int\!\mathsf f(\nu)\mathsf B(\nu)\,e^{i\nu\ell}\,\mathsf D_{5/2+i\nu}\,d\nu .
-\label{eq:fp-E2}
-\end{equation}
-For real $0\le\alpha\le4$ and $r\ge\frac12$, $|\mathsf D_\alpha|\le94/a^2$ on every heavy state (a uniform singular-power bound) [D;
-tested on 40 states, worst $14.8/a^2$]. For complex $\alpha$ there is no bound polynomial in $|\nu|$, since
-$\mathcal V_b((1-z)^{-\alpha})$ has exact degree $n+1$ in $\alpha$ [P]. An absolute-value $\nu$-integration of Eq.~\eqref{eq:fp-E2} cannot
-work at moderate $\ell$ [D]. The estimate is therefore signed. The $\nu$-contour is deformed to
-$0\to\frac34i\to\frac14+\frac34i\to\frac14+\frac94i\to\infty+\frac94i$. On the imaginary segment the integrand defines a density
-$W_{\rm loc}(y)=-2\mathsf B(iy)\,{\rm Im}\,\mathsf f(iy)$, $0\le y\le\frac34$; with the local bound $|\mathsf D(iy)|\le100/a^2$ it
-contributes at most $(100/a^2)\mathcal M(\ell)$, where
-\begin{equation}
-\mathcal M(\ell)=\sqrt w\Big[\mathsf A+\frac2\Lambda\int_0^{3/4}W_{\rm loc}(y)\,e^{-\ell y}\,dy\Big],\qquad \mathsf A=E(0)/\Lambda\ge0,
-\label{eq:fp-M}
-\end{equation}
-is the positive main term. $\mathsf A\ge0$ is the endpoint condition $E(0)\ge\psi(0)$ of Sec.~\ref{sec:T0}; without the repair it would
-fail. The detour and the horizontal leg are damped by $e^{-3\ell/4}$ and $e^{-9\ell/4}$. On them the argument uses a finite-state
-beta-kernel bound $|K_{n,a,b}(q)|\le2|1+q|^{-a}$, proved for $n\ge1024a^2$ and stated for $n<1024a^2$ when $\ell\ge40$, and a transform
-bound on the leg, $|\mathsf D(t+\frac94i)|\le200(1+t)^{5/4}e^{a\,g(t/a)}$ for $t\ge0$, whose supremum on the band is $<5\times10^{12}$
-[D-sketch].
+\emph{Why the problem is hard.} Three facts rule out a short argument. (a) The moments $Z_k$ of Eq.~\eqref{eq:fp-moments} grow to
+$|Z_k|\approx10^{672}$ and the ladder sum of size $10^{-5}$--$10$ is a cancellation among terms of size up to $10^{685}$; termwise
+bounds lose a factor $e^{\nu d/2}$ (the ``hump''), $e^{13}$--$e^{30}$ at moderate $L$. (b) $\{U_{b,k}\}$ is not a moment sequence:
+$\mathcal L((z-c)^2)=-2(b+1)c(1-c)/(T-u_1)<0$ [P], so positivity of a generating function does not transfer to the ladder sum.
+(c) The finite-mass correction has no favourable sign and does not decay at fixed twist: relative to leading Regge the leading
+singular power tends to $\mathfrak N_a=1-O(a^{-2})$, with $1-\mathfrak N_{998}=3.3\times10^{-6}$, as $J\to\infty$. Each route below handles
+the cancellation in (a) exactly, in a different basis.
 
-\emph{Certified contour inputs} [certified, Arb]. $\sup|\mathsf f(t+\frac34i)|\le3.924$ for $0\le t\le\frac14$; on the vertical leg,
-$\sup_y|\mathsf f(\frac14+iy)|e^{-17(y-3/4)}\le227$ (the twelve values of $\sup|\mathsf f|$ on $\frac18$-intervals are also enclosed,
-rising from $12.6$ to $2.69\times10^{13}$); $\int_{1/4}^\infty|\mathsf f(t+\frac94i)|dt\le9.0084\times10^{13}$ and
-$\int_{1/4}^\infty|\mathsf f\mathsf B|(t+\frac94i)\,dt\le5.3018\times10^{11}$; $W_{\rm loc}=(\frac12-y)^2V(y)$ with $V>0$ on $[0,\frac34]$, so
-$W_{\rm loc}\ge0$ with a double zero at $y=\frac12$ (the sign changes of $\mathsf B$ and $R_+$ there cancel), $W_{\rm loc}(0)=0.0604088$,
-and $\int_0^{3/4}W_{\rm loc}e^{-\ell y}dy\ge1.945\times10^{-3}$ at $\ell=28$; $|\mathsf B|\le0.1034$ on the detour and $\le0.0171$ on the
-leg. With these, $|\mathcal E_2|/\mathcal M(\ell)\le\rho(\ell):=100/a^2+2X(\ell)/I_W(\ell)$, where $X(\ell)$ collects the three contour
-pieces and $I_W$ is the integral in Eq.~\eqref{eq:fp-M}. $\rho$ is evaluated rigorously on a cell cover of $28\le\ell\le400$, and
-beyond $\ell=400$ every term decays.
+\subsection{Fixed spin, every mass}
+With $\varpi:=\Lambda^2/T$, $H_{{\rm ang},b}\prod_{j<n}(T-u_j)/[(1-r)^3T^n]$ is a polynomial $\mathcal P_{J,b}(\varpi)$ of degree $n+1$
+with a positive prefactor. The heavy range of spin $J$ is $0\le\varpi\le\Lambda^2/[(J+\Delta_g-1)(J+\Delta_g-2)]$, including
+$T\to\infty$. Its positivity is proved by positive Bernstein coefficients (Arb, from moment balls and exact $Q_k$), with de Casteljau
+bisection where needed, for every channel with $J\le1000$, and $b=4$ up to $J=1004$ [certified]. The moments are certified in Arb in
+closed form (Gaussian moments, Faddeeva functions, an exact recurrence for the logarithmic part, rigorous quadrature only near the
+cutoff), to $k\le1000$ with relative radius $\le10^{-216}$; every ball was recomputed with Arb's holomorphy check enforced and lies
+inside the ball used. The margin is smallest at the twist edge and falls with $J$ through the normalising product, not through
+$H_{{\rm ang},b}$.
 
-\emph{Thresholds.} With the uniform transform bound $5\times10^{12}$, $\rho<0.01$ for $\ell\ge30.16$ and $\rho<0.1$ for $\ell\ge29.12$,
-while $\rho(28)\le1.19$. With the profile, $\rho<0.01$ for $\ell\ge20.27$ and $\rho(28)\le1.004\times10^{-4}$, the floor $100/a^2$. About
-99\% of $\rho$ comes from the horizontal leg, where the transform bound, not $\mathsf f$, is now the limiting input. Assembled with the
-bounds on the remaining connection terms, a localisation lemma $|\mathcal L(G)|\le50K(4w)^p$ for $|G(z)|\le K|1-z|^p$ ($1\le p\le597$),
-and on the $k=3$ part, $|H^{(3)}|<4\times10^5w^{3/2}$, all of which decrease with $\ell$, this gives $H_{{\rm ang},b}>0$ in both channels
-for every spin and mass with $\ell\ge30.16$, i.e.\ $\hat b\gtrsim7.1\times10^9$. At the twist edge that is $J\gtrsim2.5\times10^{16}$.
-With the profile it would start at $\ell\ge20.27$ ($\hat b\gtrsim5.0\times10^7$; $J\gtrsim1.3\times10^{12}$ at the edge).
-\emph{Grade.} $\ell\ge30.16$: [D-sketch]. The contour inputs are [certified]; the transform bound, the local bound $100/a^2$, the
-kernel bounds, the connection terms and the $k=3$ bound are written-out but unchecked derivations, and the kernel bound for
-$n<1024a^2$ is stated for $\ell\ge40$ only. $20.27\le\ell<30.16$: [I], because it needs the transform profile below its supremum,
-the complex-$\alpha$ analogue of the singular-power bound, which is not proved. (An earlier claim of positivity for $\ell\ge28$
-rests on the profile and is not supported by the uniform bound.)
+\emph{All spins at bounded impact parameter.} In $x=\hat b^2/4=\Lambda^2(J+\frac12)^2/m^2$ and $v=(J+\frac12)^{-2}$, exactly
+$U_{b,k}=x^kA_{b,k}(v)/(\Lambda^{2k}\Pi_k)$ with $A_{b,k}=\prod_{j<k}[1-(b+j+\frac12)^2v]$ and
+$\Pi_k=\prod_{j<k}[1+(x/\Lambda^2)(1-(b+j+\frac12)^2v)]$. The first $K$ terms of Eq.~\eqref{eq:fp-H}, times $E\Pi_K>0$, form an exact
+bivariate polynomial; the terms $K<k\le1000$ are bounded with the certified moments and $0\le A_{b,k}\le1\le\Pi_k$, and those with
+$k>1000$ by all-$k$ bounds on the CDH polynomials. Tensor Bernstein coefficients, less the tail, are positive on
+$[0,x_{\max}]\times[0,(J_0+\frac12)^{-2}]$ for $J_0=651$, $\hat b\le400$ ($K=640$, tail $9.8\times10^{-90}$, minimum coefficient
+$2.89\times10^3$ against $N(0,0)=2.07\times10^7$), both channels [certified].
 
-\subsection{Why it is hard, and what remains}
-\emph{Exponentially large moments.} $|Z_k|$ grows like $(\Lambda^k/k!)^2$ up to $k\approx\Lambda/2$ and then stays on an oscillating
-plateau, $|Z_k|\approx10^{672.5}$ for $550\le k\le1000$ ($10^{198.5}$ for $160\le k\le300$ at $\Delta_g=300$) [certified values], against
-$e^{(\pi/2)\Lambda}=10^{681}$ ($10^{204}$). The reason is the CDH polynomials: at fixed $\nu$, $f_m$ grows to about $e^{(\pi/2)\nu}$ for
-$m<\nu/2$ (since $\int_0^1{\rm arcosh}(1/s)\,ds=\pi/2$) and then oscillates with amplitude $e^{(\pi/2)\nu}m^{-3/2}$ [D; DV]. The ladder sum of
-size $10^{-5}$--$10^{1}$ is therefore a cancellation among terms of size up to $10^{685}$. Consequences: the per-spin certificate needs
-moments to about $J/2+300$ digits; coefficient envelopes of the type $|P_k-P^*_k|\le P^*_k/4$, with
-$P^*_k=((5/2)_k/k!)(\mathsf A+\mathsf B'/\ln(k+2))$, hold for no $k\le1000$ and can hold only for $\ln k\gtrsim\Lambda$ [certified values; D];
-the absolute comparison constant $\mathcal K_b(r_0)$ of a bound $|H_{\rm ang}-H_{\rm LR}|\le\mathcal K_b(r_0)/T$ grows like $e^{2\hat b}$
-($\ge1.8\times10^7$, $7\times10^{11}$, $1.8\times10^{27}$, $3.9\times10^{84}$ at $r_0=10^{-6}$, $10^{-4}$, $10^{-3}$, $10^{-2}$), so it is
-useless beyond $\hat b\approx20$; and a signed remainder in $r$ carries the same cancellation. Per frequency, in contrast, the finite-mass
-kernel is of polynomial size and within $O(\nu^2/T)$ of the leading-Regge kernel [DV]: the exponential sizes live only in the moment
-basis.
+\subsection{High twist}
+For $a\ge a^*$ the ladder is close to its leading-Regge limit. Write $U_k=c^kE_k$ with $E_k=\prod_{j<k}(1-hu'_j/c)/(1-hu'_j)\in[0,1]$;
+$-\ln E_k$ is a power series in $h$ with non-negative coefficients, so $E_k=\sum_{m\le M}h^mP_m(k)+\rho_M(k)$ with $P_m$ polynomials of
+degree $3m$ in $k$ and an explicit remainder. This gives
+$H/w^3=\sum_{m\le M}h^mP_m(\vartheta)G(c)+\mathcal R_M$, $\vartheta=z\partial_z$, with $G$ the dressed generating function and
+$\mathcal R_M$ bounded through the Cauchy estimate of $G$ on a circle and a joint-cell majorant of $1/E_k$. The main term is bounded below
+by $F_{\rm cert}(\beta)$, the certified leading-Regge floor (main term $(1-c)^3[G_A^\psi(c)+\tau\sigma_bG_D^\psi(c)]=2\Omega_2+\sigma_bu\Omega_3$),
+and the certificate is error $<F_{\rm cert}$. It passes for $a\ge a^*(\beta)$ on 60 cells of $\beta\in[0.39,8.4]$ ($a^*=3200$--$4500$) and
+556 cells of width $0.1$ on $[8.4,64]$ ($a^*=3100$--$3400$), both channels; the largest error/floor ratio is $0.9989$ [certified;
+the $[8.4,64]$ cells were run on separate hardware and every record checked].
 
-\emph{$\mathcal L$ is not a positive average.} With $c:=U_{b,1}=(C-u_0)/(T-u_0)$ (so $c=r$ for $b=0$), $\mathcal L(z-c)=0$ and
-\begin{equation}
-\mathcal L\big((z-c)^2\big)=U_{b,2}-c^2=-\frac{2(b+1)\,c(1-c)}{T-u_1}<0
-\label{eq:fp-notpos}
-\end{equation}
-[P; checked exactly on 320 states]. So $\{U_{b,k}\}$ is not the moment sequence of a positive measure, and positivity of a generating
-function on $[0,1]$ does not transfer to its ladder sum: no monotonicity argument can carry T0's floor to finite mass.
+\subsection{Large impact parameter: \texorpdfstring{$L\ge3.65$}{L >= 3.65}}
+\emph{Representation.} Near $z=1$ the generating function is a superposition over $\nu$ of singular powers $(1-z)^{-\alpha}$,
+$\alpha=p-\frac12+i\nu$; the ladder acts on each through $S(\alpha)=\mathcal L((1-z)^{-\alpha})$, and the Regge contour of
+Sec.~\ref{sec:fullpos}.B splits $H$ into a main term ($\ge F_{\rm cert}$), contour pieces and a real-axis residual weighted by the
+certified EPSW masses.
 
-\emph{The fixed-twist limit falls short.} As $J\to\infty$ at fixed $a$ and fixed $\xi=k(1-r)$, $U_{b,k}\to e^{-2a\,{\rm artanh}(\xi/2a)}$, and
-the finite-mass action of the leading singular power, relative to its leading-Regge value, tends to
-\begin{equation}
-\mathfrak N_a=\frac1{\Gamma(5/2)}\int_0^{2a}\xi^{3/2}e^{-2a\,{\rm artanh}(\xi/2a)}d\xi,\qquad 1-\frac{105}{32a^2}\le\mathfrak N_a<1
-\label{eq:fp-Na}
-\end{equation}
-[D; DV: $\mathfrak N_{998}=0.999996705605$ against the lower bound $0.999996705586$]. The deficit is small, $3.3\times10^{-6}$ at the
-twist edge, but it does not vanish as $J\to\infty$: the finite-mass correction has no favourable sign and does not decay at fixed twist,
-so uniform control needs explicit $1/a^2$ bounds such as the one quoted after Eq.~\eqref{eq:fp-E2}. For complex
-$\alpha=\frac52+i\nu$ the analogue of $\mathfrak N_a$ has a turning point at $|\nu|=a$ and grows like $e^{a\,g(\nu/a)}$ beyond it [D].
+\emph{Tail, $L\ge20$.} Localisation of the connection series, a negative-binomial bound on the ladder, Theorem P on the per-power
+multipliers and a three-term recurrence in $\beta$ give errors $\le0.066\,F_{\rm cert}$ for every twist $a\ge998$ [certified; audited].
 
-\emph{First-order profile.} With $d:=1-c$, $X:=T-u_0$ (so $dX=m^2$) and $S_{b,k}:=\sum_{j<k}(u_j-u_0)=k(k-1)(k+3b+1)/3$,
-\begin{equation}
-\big|U_{b,k}-c^k+(d/X)\,c^{k-1}S_{b,k}\big|\le6\,c^{k-2}S_{b,k}^2/X^2\qquad\text{for all }k\ge0,
-\label{eq:fp-ladder}
-\end{equation}
-including $k>n$, where $U_{b,k}=0$ [D; checked exactly]. We checked Eq.~\eqref{eq:fp-ladder} in exact rational arithmetic on 700 heavy
-states, $b=0$, $4$, at gaps $\Delta_g=6$, $30$, $300$, $1000$, with spins up to $10^6$ and twists up to $10^7$: 173\,009 pairs $(\text{state},k)$,
-17\,350 of them on terminated ladders, every $k\le n+30$ on the 380 states with $n\le1500$. There was no failure, and the largest ratio of the
-two sides was $0.082$. Summed against $F=\sum_kp_kz^k$ it gives
-\begin{equation}
-\mathcal L(F)=F(c)+\frac{\mathcal A_bF(c)}{T-u_0}+\mathcal R,\qquad
-\mathcal A_bF=-c(1-c)\Big[(b+1)F''+\frac c3F'''\Big],\qquad
-|\mathcal R|\le\frac6{(T-u_0)^2}\sum_k|p_k|\,c^{k-2}S_{b,k}^2 .
-\label{eq:fp-profile}
-\end{equation}
-To first order the ladder evaluates $F$ at $c$, with an explicit correction that is negative on functions with positive derivatives,
-consistent with Eqs.~\eqref{eq:fp-notpos} and~\eqref{eq:fp-Na}. On a singular power the relative correction is
-$-c\,\alpha(\alpha+1)[(b+1)+c(\alpha+2)/(3(1-c))]/m^2$. Near the twist edge $m^2(1-c)\to4a^2$ as $J\to\infty$, so the correction is of order
-$|\nu|^3/(12a^2)$ and becomes of order one at $|\nu|\approx230$, well inside the support $\nu\lesssim\Lambda$ of the weight. Away from the
-far tail, where $e^{i\nu\ell}$ is used through the contour, the first-order profile is therefore not a small-parameter expansion of
-$H_{\rm ang}$, and its remainder has to be controlled with its cancellations.
+\emph{Route T$'$, $5\le L\le20$.} The spin recurrence of $S$ is the dual-Hahn recurrence; its eigenframes give per-power multipliers
+uniform in spin (Theorem E$'$; $b=4$ by the exact helicity identity $U^{(9)}_k=U^{(1)}_{k+4}/U^{(1)}_4$). The truncation remainder of the
+connection series is bounded region by region in the beta--Cauchy representation $\mathcal L(R)=\mathbb E_B[(2\pi i)^{-1}\oint(1-z)^{-a-1}R(Bz)z^{-n-1}dz]/\binom Na$,
+$B\sim{\rm Beta}(n+s,a)$ (Lemma Loc$'$). Cells of width $\frac12$ on $[5,8]$ give $\rho=0.947$, $0.179$, $0.070$, $0.042$, $0.032$,
+$0.028$, and $[8,16]$ gives $\rho\le0.046$ [certified].
 
-\emph{What remains open.} At $\Delta_g=1000$ positivity of the finite-mass action is open exactly on
-\begin{equation}
-\mathcal R_{\rm open}=\Big\{J\ge767,\ \ 400<\hat b\le\hat b_{\max}(J)\approx44.7\sqrt J,\ \ \ell<30.16\Big\},
-\label{eq:fp-open}
-\end{equation}
-that is $m_{\rm gap}(J)\le m<(2J+1)\Lambda/400\approx4.99(J+\frac12)$ at large spin, including $r\to1$ at fixed twist. For
-$J\lesssim2.5\times10^{16}$ the constraint $\ell<30.16$ is automatic. With the transform profile, $30.16$ would become $20.27$. The region is infinite.
-Every finite range of $J$ can be closed at polynomial cost, with moments to $k\sim J$ and bivariate boxes with $K\approx J_0$, but the
-edge needs infinitely many boxes, and its limit, $J\to\infty$ at fixed twist, is reached by no finite computation. Two analytic routes
-avoid the moments: a per-frequency bound on the finite-mass kernel minus the hybrid kernel, $O(\nu^2/T)$ with no exponential sizes,
-or a Mellin representation of the ladder sum with its boundary term at $r=1$ resolved. Since $\hat b>400\ge0.37211\Lambda$ there,
-Theorem~L$'$ of Sec.~\ref{sec:largespin} covers $\mathcal R_{\rm open}$ for $J\le10^6$ at its conditional grade (on premises unrelated to
-this section).
+\emph{Route T$''$, $3.65\le L\le5$.} The turning point $\nu\approx a$ is crossed with Riccati frames affine in $(\tau,a,1/N,\sigma)$ and a
+second-order defect bound (Lemma F); the sum over the connection index uses chained similarity transforms minimised over frame families
+(Lemma B); the tail uses the sharp ratio $|c_{j+1}/c_j|<1$ for $j\ge J_0$ (Lemma Loc$''$); the right contour edge uses the crossing
+bound of Lemma X. Cells $[4.5,5]$, $[4,4.5]$, $[3.75,4]$, $[3.65,3.75]$ give $\rho=0.027$, $0.089$, $0.223$, $0.545$ [certified]. The
+state relations used ($0.5d\le a/N\le0.5034d$, $Dd^2\ge3.947a^2$, $N\ge76a$) are proved for $L\ge3.65$ from the exact
+$d=a(2N-a+s)/[N(N+s)]$.
 
-\emph{Numerical evidence in $\mathcal R_{\rm open}$} [DV]. Exact ladder sums from the certified moments, at $b=0$, $4$ and twists
-$a=998$--$10^5$ with $n\le1000$, reach $\ell\le0.29$. Of the 18 states scanned, six lie in $\mathcal R_{\rm open}$ ($J=1000$, $1004$;
-$a=998$, $1500$, $3000$; $\ell=0.065$--$0.29$). There $H_{{\rm ang},b}/N_{s,b}\ge0.918$ ($b=4$, $a=998$; $\approx1.0001$ for $b=0$), against
-the T0 floor $0.1999$, and on all 18 states $H_{{\rm ang},b}$ agrees with the hybrid to $\le1.3\times10^{-4}$ relative; the smallest value in
-the scan is $0.893$ ($b=4$, $a=998$, $J=445$, $\ell=0.10$, inside the certified region). Together with the hybrid comparison of
-Sec.~\ref{sec:fullpos}.C ($|H_{{\rm ang},b}-H_{{\rm hyb},b}|/N_{s,b}\le4.07\times10^{-3}$ on 69 states with $J\le60$), this shows the
-finite-mass correction far below the margin wherever it has been computed. No state with $0.29<\ell<30.16$ in $\mathcal R_{\rm open}$
-has been evaluated.
+\subsection{Intermediate impact parameter: \texorpdfstring{$2.3\le L\le3.65$}{2.3 <= L <= 3.65}}
+\emph{Signed transfer.} With $X_j=d^{\alpha-j}S(\alpha-j)$ and $Z_j=c_j(\nu)d^jX_j$ ($c_j$ the connection coefficients), the exact
+recurrence $D_jZ_{j+1}=r_j[d+h\beta_j(s-2\beta_j-1)]Z_j+r_jr_{j-1}h\beta_j(\beta_j+1)Z_{j-1}$, $D_j=1-h\beta_j(\beta_j-s)$,
+$\beta_j=\alpha-j$, $r_j=c_{j+1}/c_j$, gives $\sum_{j<1500}Z_j=P\,X_0+Q\,X_{-1}$ with $P,Q$ rational in $(d,h,\nu)$: the varying
+recurrence is resummed exactly, so the hump of fact (a) never appears. On a full-twist box ($h=d^2x$,
+$0\le x\le[998(1+\sqrt{1-d})]^{-2}$) $|P|,|Q|$ are certified by \emph{sequential Chebyshev norming}: for each axis in turn, an
+ellipse majorant uniform in the other real coordinates gives a Chebyshev truncation error $2M\rho^{-m}/(\rho-1)$, and the
+Bernstein--Szeg\H{o} inequality bounds the polynomial by $2$ (or $\frac52$) times its maximum on $N\ge1.6m$ (or $1.4m$) Lobatto nodes.
+Scalar evaluations use exact rational nodes and directed GMP arithmetic.
 
-\emph{For assumption (iii).} At $\Delta_g=1000$ the finite-mass action of $\Omega^{EE}$ is certified positive on every heavy state
-outside $\mathcal R_{\rm open}$ with $\ell<30.16$, that is everywhere except near the twist edge at spins $J\ge767$ and impact parameters
-$400<\hat b$ ($\ell\ge30.16$ is covered at grade [D-sketch]). In that large-spin, near-edge region, the states computed (all with
-$\ell\le0.29$) keep a margin far from zero. The identification of this action with $\Omega^{EE}$ is [D given the operator identities of
-Sec.~\ref{sec:angular}].
+\emph{Base multipliers.} $|X_0|,|X_{-1}|$ are bounded uniformly in spin, across the turning point, by integrating the eigenframe
+connection of the dual-Hahn recurrence: with $w=(\kappa+i)y$, $\lambda_\pm=w\pm\sqrt{1+w^2}$ and $T=[[\lambda_+,\lambda_-],[1,1]]$,
+exactly $\|T^{-1}T'\|_\infty=\frac{\sqrt{1+\kappa^2}}2(|w+i|^{-1}+|w-i|^{-1})$, whose integral
+$\frac12[{\rm arsinh}\frac{(1+\kappa^2)Y+1}\kappa+{\rm arsinh}\frac{(1+\kappa^2)Y-1}\kappa]$ is finite through $y=1$; the growth normalised
+by $d^\sigma$ uses $\int_0^n\eta=-\ln d$ and $\eta'\ge\eta^2$ [P; checked against exact ladders].
 
-\emph{Code.} \texttt{code/fullpos/} (moments, per-spin and bivariate certificates, comparisons, scan) and \texttt{code/contour/} (contour
-inputs). The certified moments, the per-spin and bivariate certificates and the contour inputs have not yet been reproduced by separate
-code.
+\emph{Contours.} The real-$\nu$ transfer bounds are carried to the top and right contour edges by Hadamard's three-circles theorem on
+the Joukowski annulus, $\sup_{E_r}|P|\le U^{1-\lambda}M^\lambda$, $\lambda=\ln r/\ln R$, at fixed real $(d,x)$; the near-real edges use
+the exact difference recurrence for $X_j-1$, whose source term is $g\beta c(\beta c+1+sd)$, $g=h/d^2$.
+
+\emph{Result.} Seven cells ($[2.3,2.6]$, $[2.6,2.9]$, $[2.9,3.2]$, $[3.2,3.35]$, $[3.35,3.5]$, $[3.5,3.65]$ and an overlapping split of
+$[2.6,2.9]$) pass in both channels with error/floor $\le0.569$ (the thinnest is $b=4$ on $[2.3,2.6]$). Floors are the minimum of
+$F_{\rm cert}$ over each cell's $\beta$-range, rounded down; the localisation remainder is $<e^{-46}$ on $0.8\le L\le3.65$ (joint
+beta--angular cells with two-sided beta concentration, 190\,031 cells in directed integer arithmetic), and the residual below
+$\nu=160$ is $<0.08F_{\rm cert}$ by a direct beta--Cauchy bound [certified].
+
+\subsection{Small and intermediate impact parameter: \texorpdfstring{$0.05\le c\le0.9$}{0.05 <= c <= 0.9}}
+\emph{Global coefficients.} For $L\lesssim2.3$ it is cheaper to avoid the singular-power expansion and evaluate the ladder sum directly.
+The integrated generating functions $G_A$ (realised repaired weight) and $G_D$ (ideal $\psi_3$) have Taylor coefficients at $z=0$ that do
+not depend on the state. They are computed from the exact repaired inventory (3564 Gaussian centres with binary64 amplitudes and three
+logarithmic terms) by an exact integration-by-parts recurrence for the cut-off Gaussian moments
+$M_{k+1}=\frac cVM_k+k\frac{s^2}{V^2}M_{k-1}+\frac{s^2}V(E^-_k-E^+_k)$ in directed MPFR arithmetic, and an exact triangular transform to the
+ladder basis. The rational-pole seeds ($4\nu^2+a$, $a=1,9,49$) propagate as single imaginary-frequency atoms at $\nu^2=-a/4$, and the
+logarithmic seeds as Gaussian polynomial weights; their coherent errors are charged at action level ($<10^{-14}$ on $c\le0.9$). The
+final table has 17\,201 coefficient pairs at scale $10^{3000}$, with spectral-degree truncation error $<2^{-1910}$.
+
+\emph{Prefix truncation.} The Mehler bound $|P_{-1/2+i\nu}|\le\frac\pi2e^{\nu|{\rm Im}\beta|}$ on $|z|\le R$ and Cauchy's estimate bound the
+coefficients by $2^{2577}R^{-k}$; with $0\le U_{b,k}\le c^k$ up to termination,
+$|H-H_{\rm prefix}|<2^{-110}$ on 22 cells of $c\in[0.05,0.9]$ with prefix degree $K\le17\,847$ and denominator gaps $\ge0.05$ [certified].
+The rational prefix $\sum_{k\le K}[(1+qh)A_k+hB_k+\sigma_bhD_k]U_k$ is a rational function of $(c,h)$ with global coefficients.
+
+\emph{The physical domain matters.} The rational prefix is \emph{negative} at non-physical points, e.g.\ $-5.9\times10^{18}$ at $b=4$,
+$c=0.35$, $h=2.33\times10^{-7}$, which violates the cap~\eqref{eq:fp-cap} [certified]; on the physical range it is nearly affine in
+$y=h/h_{\rm cap}$ and grows violently just beyond $y\approx1.1$. Every certificate therefore works on a domain inside, or at most a few
+per cent beyond, the cap.
+
+\emph{Sign certificates.} For $0.05\le c\le0.258$ the nested rational sum $S_k=F_k+\frac{c-u'_kh}{1-u'_kh}S_{k+1}$ is expanded as an exact
+Taylor rectangle (or downward-closed triangle) in the cell coordinates, with an $\ell^1$ error recurrence, a Cauchy tail from a
+polydisk Horner majorant with checked pole gaps, and conversion to the tensor Chebyshev basis (non-negative weights, column sums one,
+so no error growth); the lower bound is the constant coefficient minus the absolute sum of the others, minus rounding and tail. Nine
+cells pass in both channels (normalised action $\ge9.4\times10^{-6}$). For $0.258\le c\le0.9$ the coordinate is $y=h/H(c)\in[0,1]$, with
+$H(c)$ the secant of the convex cap~\eqref{eq:fp-cap} on the cell; it contains every physical state and overshoots the cap by $<2\%$.
+The $y$-approximation error is bounded through the partial-fraction residues of the ladder at $h=1/u'_j$, and the $c$-approximation
+error through a M\"obius-disk product majorant; degree-matched trigonometric norming (Lebesgue constant
+$1+2\sum_{k\le m}(2k-1)^{-1}$, Markov control of rounded nodes, a self-consistent grouped bound) turns directed scaled-integer
+evaluations at $5.67\times10^6$ nodes into a continuum bound. Eighteen cells cover $c\in[0.258,0.9]$, i.e.\ $L\in[0.2984,2.3026]$, in
+both channels, with normalised action $\ge5.166\times10^{-6}$ ($b=0$) and $\ge5.148\times10^{-6}$ ($b=4$) [certified].
+
+\subsection{Inputs, reproduction and code}
+\emph{Retained inputs.} (R1) the identity~\eqref{eq:fp-target}, [D given the ladder and first-moment identities of
+Sec.~\ref{sec:angular} as operator identities], the same inputs as item (3) of the Result; (R2) the certified repaired spectral data
+(EPSW residual masses, cutoff bound $1.34\times10^{-14}$, Gaussian inventory) of Sec.~\ref{sec:T0}; (R3) the certified leading-Regge floor
+$F_{\rm cert}(\beta)$ (minimum over $u\le1$ and $\sigma=\pm1$). No other input is used; in particular no model, sampled state or
+interpolation enters Theorem FP.
+
+\emph{Reproduction.} Each certificate in rows 3--8 of Table~\ref{tab:fpcover} was re-run from its source on separate hardware: the
+direct-prefix, coupled-cap, transfer and norming certificates with byte-identical output (the coupled-cap certificate by replay of all
+172 scalar shards in portable GMP arithmetic, independent of the vectorised arithmetic used to produce them), the route-T$'$/T$''$ cells bit-for-bit, and the tail theorem by an independent audit. The high-twist cells (row 2) were run on
+two machines and every record was checked (flags, thresholds, contiguity); the per-spin and bivariate certificates (rows 1 and 9) were
+run once, in Arb, and have not been re-run by separate code. Independent re-derivations covered Lemmas F, B, Loc$''$ and X, the state relations,
+the negative-binomial seed, the Gamma and Euler envelopes and contour normalisation, the base-multiplier lemma, the low-frequency
+theorem, the prefix-truncation constants, and the coupled-cap norming argument; they found no error affecting a sign, and the
+imprecisions they found are covered by slack already in the certificates.
+
+\emph{Code.} \texttt{code/fullpos3/} (high twist), \texttt{code/tailcert/}, \texttt{code/analytic*/} (routes T$'$, T$''$),
+\texttt{code/locjoint/}, \texttt{code/norming/}, \texttt{code/sliver\_ext/}, \texttt{code/sliver\_L23/} (transfer and norming),
+\texttt{code/sliver\_direct*/}, \texttt{code/gap\_prove/}, \texttt{code/sliver\_fullband/}, \texttt{code/sliver\_fullcov/} (direct prefix),
+\texttt{code/fullpos/} (per-spin certificates and moments).

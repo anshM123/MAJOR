@@ -2139,3 +2139,25 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   1. The full portable-GMP replay (replay_scalar.py), comparing every archived scalar shard byte for byte. The author's laptop is running it.
   2. An independent referee of PROOF.md's new mathematics: the residue bound behind E_y, the Möbius majorant behind E_c, the norming constants, and the self-consistent grouped norming of §3b.
 * **Status.** If items 1 and 2 pass, the sliver is fully certified: together with L ≤ 0.298 (§118, §120, §125) and L ≥ 2.3 (§§100–121), this covers every L. That makes assumption (iii), full AdS positivity at Δ_g = 1000, hold, conditional only on the retained global inputs: the angular-action identity, the EPSW spectral data and cutoff, the LRINF floors, and the §73 high-twist scan.
+
+## 128. Full portable-GMP replay of the coupled-cap certificate: all 172 shards exact (author's laptop, 27 Nov)
+
+* `python3 replay_scalar.py --jobs 22` (portable GMP, no SIMD) on the author's machine: **all 172 archived scalar shards replayed exactly**, with byte-identical output. These are the 152 new-cell shards plus 20 earlier ones (sliver_close, sliver_fast, sliver_next_work, physical_sliver_run).
+* This independently confirms the 5,669,470 scalar evaluations behind §127, which were originally produced with SIMD exact division.
+
+## 129. Referee of the coupled-cap norming certificate (PROOF.md): holds (referee agent, 27 Nov) — SLIVER CLOSED
+
+* **Report:** code/review_fullcov/REVIEW_FULLCOV.md, with an independent F_K evaluator (rc.py) and tests.
+* **Verdicts — all hold.**
+  * §1 (cap, secant, coupled rectangle, corner sufficiency): holds. The ordinary tail is used only at physical points, and the §6 group tail uses corner ratio maxima, valid off the physical set.
+  * §2 c-approximation (Möbius disk, Bernstein ellipse): holds.
+  * §2 y-approximation (partial-fraction residues; residues up to 1e691 cancel to an affine remainder at 1e-122): holds. Exact residues are ≤ 2.4e-10 of the per-pole bound, and the exact truncation is ≤ 6e-62 against E_y = 6.1e-14.
+  * §3 norming: holds. The true Lebesgue constant is ≤ 0.59 Λ_m; §3b was re-derived, with λ ≤ 3.3e-3.
+  * §4 directed arithmetic: holds. The recurrence and T coefficients match the direct method, and portable GMP agrees with the referee's evaluator on 18 nodes.
+  * §5 final inequality: holds. One wording slip: "E_short_tail" there means the physical ordinary tail beyond K.
+  * Code faithfulness of verify_merged.py and check_ledgers.py: holds.
+* **End-to-end.** On random and corner points in all 22 new channel-cells, \|F_K − R\| ≤ 1.1% of the certified M, and F_K ≥ B_R − M everywhere. Physical states (a = 998–3000, n up to about 5e4) agree with the full 17199-term action.
+* **Caveats.**
+  * Upstream inputs (angular identity, coefficient table, 1e-14 coherent allowance, 2^{−140} tail) are retained.
+  * The four direct-triangle cells in [0.258, 0.30] were not refereed by this agent. Their checker was audited by the coordinator (§120), their outputs reproduce byte-identically (§125), and they are among the 172 replayed shards (§128).
+* **Status.** With §§100–128, H_ang,b > 0 holds on every heavy state at Δ_g = 1000 (Theorem FP of the supplement, Sec. S11), conditional only on the retained global inputs. **Assumption (iii) for Ω^EE at Δ_g = 1000 is proved.** The paper is updated (prl/CHANGES_v17.md).

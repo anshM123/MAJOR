@@ -1,0 +1,6 @@
+cell_30_35 b=0 K=1532: max|F_K-R|=5.521e-07 certified residual=3.451e-06 prefix_lower=1.0505e-05 OK
+cell_30_35 b=4 K=1532: max|F_K-R|=5.122e-07 certified residual=3.201e-06 prefix_lower=1.0264e-05 OK
+cell_3500_4462 b=0 K=1994: max|F_K-R|=7.580e-07 certified residual=4.737e-06 prefix_lower=8.3581e-06 OK
+cell_3500_4462 b=4 K=1994: max|F_K-R|=6.953e-07 certified residual=4.345e-06 prefix_lower=8.3626e-06 OK
+cell_4462_5305 b=0 K=2539: max|F_K-R|=6.457e-07 certified residual=4.035e-06 prefix_lower=7.9811e-06 OK
+cell_4462_5305 b=4 K=2539: max|F_K-R|=6.021e-07 certified residual=3.763e-06 prefix_lower=7.9724e-06 OK
