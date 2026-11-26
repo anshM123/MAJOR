@@ -22,11 +22,12 @@ Arb tables are used as certified inputs]:
 | segment D (local multiplier on W ≥ 0) | 3.3·10⁻⁶ | same | same | certified |
 | connection terms 1 ≤ j < 200 (all pieces) | 5.6·10⁻¹⁰ | 5.6·10⁻¹⁰ | 5.5·10⁻¹⁰ | certified (given §3 recurrence) |
 | remainder j ≥ 200 (localisation) | < 10⁻⁴³⁵ | smaller | smaller | [P] + certified arithmetic |
-| k = 3 piece (absolute, real axis, its own j-sum) | **0.065** | 0.012 | 6·10⁻⁴ | certified (given §2) |
+| k = 3 piece (absolute, real axis, its own j-sum) | **0.065** | 1.4·10⁻³ | 4.2·10⁻⁶ | certified (given §2) |
 | k = 3 remainder | < 10⁻⁶⁵² | | | [P] + certified arithmetic |
 
 * **Threshold.** L_tail = 20 (β_c ≥ 21.4) is far below the cell certificate's reach (β ≤ 64 ⇔ L ≲ 62.6): wide overlap.
-  The binding piece at L = 20 is k = 3 (∝ e^{−L}); k = 2 alone would close near L ≈ 17 (§6). L ≥ 18 is being checked (§6).
+  The binding piece is k = 3 (∝ e^{−L}). **L ≥ 18 also passes: ρ ≤ 0.68** (k = 2: 4.8·10⁻³, k = 3: 0.673, remainders < 10⁻²⁶⁴), so
+  H_ang,b ≥ 0.32·𝓜 for every L ≥ 18 (β_c ≥ 19.4) (§6).
 * **What changed against §§38/40/43.** The three author inputs that CONTOUR_BOUNDS had to *assume* (\|D\| ≤ 100/a², 300/a² on the
   detour, 5·10¹² on the leg) are now **proved** (§2), and much sharper: \|D\| ≤ 3.3·10⁻⁶ on the segment/detour; on the leg
   \|w^βS(β)\| ≤ 1.8–20 for t ≤ 45, where all of ∫\|fB\| sits. This alone moves the ℰ₂ threshold from 30.16 to below 20.
@@ -108,8 +109,8 @@ the imaginary axis, avoided by the detour; Gaussian decay of f at Re ν → ∞ 
      (f is nondecreasing in u), cost e^{a·max(f,0)}; at u ≤ 0.8 the max is ≤ 2.4·10⁻⁴, at u = 1: 5.5·10⁻³, u = 1.148: 0.060.
 6. Real tail ∫_{q₁}^∞: on [q₁, 0.92], A ≤ e^{−1.99aq}(δ-perturbed), giving \|1/Γ(β)\|Γ(σ, 0.995Y₁)/0.995^σ; beyond 0.92,
    g ≤ (1 − 0.99(M/N)p₁)^a + Chernoff ≤ 0.0516^a + e^{−10⁶}, and g ≤ 2^{−a−s}((1+q)/4)^{−(N+s)} for q ≥ 3: ≤ 10⁻³⁰ for τ ≤ 1146.
-Result (all tail states, L ≥ 20): **\|Ŝ(¼+it)\| ≤ 2.3 (t = ¼), 3.1 (1), 8.9 (10), 20 (45), 55 (300), 7.8·10³–8·10⁴ (520 ≤ t ≤ 600),
-2·10⁶–8·10⁶ (t ≈ 1000)**, against the [DV] fixed-twist truth 1.0–5.6 for t ≤ 998 at a = 998 (`scratchpad/nleg.py`). Valid for t ≤ 1146.
+Result (all tail states, L ≥ 20): **\|Ŝ(¼+it)\| ≤ 2.3 (t = ¼), 3.1 (1), 8.9 (10), 20 (45), 55 (300), 440 (t ≈ 600), 600 (t ≈ 800),
+3.2·10⁴ (t ≈ 1000, regime B at a ≈ 998)**, against the [DV] fixed-twist truth 1.0–5.6 for t ≤ 998 at a = 998 (`scratchpad/nleg.py`). Valid for t ≤ 1146.
 For t ≥ 1146: \|Ŝ(σ+it)\| ≤ Γ(σ)\|1/Γ(σ+it)\|·Ŝ(σ) ≤ Γ(σ)Γ(1−σ)cosh(πt)/π (reflection; U_k ≥ 0, \|Γ(x+iy)\| ≤ Γ(x)).
 Sanity [DV] (`tc_power_dv.py`): exact S at n = 3·10⁵, a = 998 (L = 5.0): \|Ŝ(¼+10i)\| = 1.00003, \|Ŝ(¼+100i)\| = 1.0031, below the bound.
 
@@ -149,8 +150,8 @@ for C(n+γ′, γ′) and Gautschi's inequality give I₁ ≤ 2.53(a/N)^m exactl
 **K for R_{J₀}** (m = 196): near \|1−ξ\| ≤ ½ the branch-series tail (\|arg(1−ξ)\| < π/2 gives e^{πν/2}); far: FULLPOS3 Lemma B
 (\|P_{−½+iν}(cosh ξ)\| ≤ (π/2)e^{ν\|Im ξ\|}) plus the truncated sum; \|ν\| ≤ 0.4 by the maximum principle in ν (R is analytic there:
 the ν = 0 poles of B(±ν) cancel) with the Pfaff-series bound \|F_{p,ν}(ξ)\| ≤ \|1−ξ\|^{−p}2^{0.9}e^{0.2π}/(1−\|ξ\|).
-\|B(ν)\|² = coth(πν)/(4πν) exactly for real ν. Weight: \|f\| ≤ sup\|ψ\| + sup\|r\| = 21.34 on [0, 1300] (EPSW), CONTOUR's Gaussian tail
-formula beyond. **Result: log₁₀(remainder/𝓜) ≤ −435 for L ≥ 20.**
+\|B(ν)\|² = coth(πν)/(4πν) exactly for real ν. Weight: \|f_θ\| ≤ sup\|ψ\| + sup\|r\| + sup\|f_θ − f\| ≤ 21.34 on [0, 1300] (EPSW; sup\|f_θ − f\| ≤ 10⁻²¹ by `tc_cutoff.py`,
+within the 5·10⁻¹⁰ slack of the code), CONTOUR's Gaussian tail formula (θ included exactly) beyond. **Result: log₁₀(remainder/𝓜) ≤ −435 for L ≥ 20.**
 
 ## 5. The k = 3 piece (`tc_k3.py`) [certified given §2]
 H^{(3)} = w³σ_bT⁻¹ℒ(G_D) bounded in absolute value on the real axis (no contour needed): T⁻¹/w = 1/(T−C) ≤ 0.2515w/a², and
@@ -158,6 +159,46 @@ H^{(3)} = w³σ_bT⁻¹ℒ(G_D) bounded in absolute value on the real axis (no c
 fmpq Taylor shift (a naive ball evaluation of the degree-14 polynomial overestimates by 10³, an earlier run's bug, fixed).
 ∫₀¹\|ψ₃\|\|B(Λp)\|X₃ dp ≤ 329 (∫\|ψ₃B\| ≈ 0.2 [DV]; X₃ ≤ 330 for ν ≤ 510, ≤ 2·10⁴ above, regime B).
 **Result: \|H^{(3)}\|/𝓜 ≤ 0.065 at L = 20, decreasing like e^{−L}L**; k = 3 remainder ≤ 10⁻⁶⁵².
+
+## 6. Threshold (`cache/tc_assemble_L18.0.*`, `tc_k3_L18.0_J200.txt`, `tc_remainder_k2_L18.0_J200.txt`)
+Theorem P's constants depend on L₀ only through \|λ − 1\| ≤ 7e^{−L₀/2} (the arc table `ehat_d_table_L<L₀>.json` is rebuilt per L₀).
+
+| L₀ | ρ_{k=2} (max over [L₀, 80]) | ρ_{k=3} | k=2 remainder | total ρ | conclusion |
+|---|---|---|---|---|---|
+| 20 | 8.23·10⁻⁵ | 0.0650 | < 10⁻⁴³⁵ | **≤ 0.066** | H_ang,b ≥ 0.93𝓜 > 0 for L ≥ 20 |
+| 18 | 4.85·10⁻³ | 0.673 | < 10⁻²⁶⁴ | **≤ 0.68** | H_ang,b ≥ 0.32𝓜 > 0 for L ≥ 18 |
+
+Going lower is limited by k = 3 (×e per unit of L) and the leg (×e^{2.25}). Nothing more is needed for the overlap: L ≥ 18
+(β_c ≥ 19.4; for b = 4, d = 1 − c ≥ w, so L_d = 2 log cosh(β_c/2) ≤ L_w) is deep inside the cell certificate's β ≤ 64.
+**Note:** the cell certificate covers a ≥ a*(β) only; the tail covers every a ≥ 998.
+
+## 7. Caveats, gaps, and what was not done
+1. **Inputs taken from other certificates:** CONTOUR's per-cell ∫\|fB\| tables and W-cells (Arb, CONTOUR_BOUNDS §§2–4); EPSW's r(0),
+   ε_W, B, sup\|r\|; LRINF's F_cert cells (Lemma R only). Not recomputed.
+2. **[P] steps not ball-evaluated:** the 10⁻³⁰-size pieces of Theorem P (T-part, V-concentration complement, q ≥ 0.92 real tail),
+   the e^{−11000} cutoff piece on [0, 1], the Binet bound for Γ(x)/Γ(x−β), the analyticity/decay justifications of the contour shifts,
+   and Lemma Loc's inequalities (all stated with explicit constants above). Elementary, but unreviewed.
+3. **Theorem P validity:** τ ≤ 1146 (the reflection bound is used beyond). Regime-B arc maxima are certified on a u-grid using
+   monotonicity in u.
+4. **E5** (generating function with the shifted realised density) is checked on a toy weight [DV]; it is the identity FULLPOS3 §4.1
+   and ANGULAR_ROUTE §32 use, not re-derived here.
+5. The DV fixed-twist profiles (`scratchpad/nlim.py`, `nleg.py`, not in the repo) are sanity checks only.
+6. Not done: an Arb reproduction of the author's own §82 constants (12/a², 4·10⁴e^{G}, MB e^{−2800}). Unnecessary for the tail, since
+   §§2–4 give independent certified bounds for the same objects.
+
+## 8. Reproduce (`ads4/code/tailcert/`; `ulimit -v 4000000; export OMP_NUM_THREADS=1`)
+```
+python3 tc_exact.py                 # E1-E4                                  (seconds)
+python3 tc_power.py                 # Theorem P / Lemma NB spot values       (seconds; builds cache/ehat_d_table_L20.json)
+python3 tc_assemble.py 20 200       # k = 2 contour, j < 200                 (~3 min)
+python3 tc_remainder.py 20 200      # R_200 by Lemma Loc                     (~5 min)
+python3 tc_k3.py 20 200             # k = 3                                  (~3 min)
+TC_L0TAB=18 python3 tc_assemble.py 18 200; TC_L0TAB=18 python3 tc_k3.py 18 200; python3 tc_remainder.py 18 200
+python3 tc_cutoff.py; python3 tc_lemmaR.py; python3 tc_lownu_dv.py      # cutoff audit, Lemma R, item-3 numbers
+python3 tc_power_dv.py 300000; python3 tc_author_dv.py                  # [DV] sanity checks
+```
+
+---
 
 ## R. Item 3 and the author's Lemma R (coordinator request, done first)
 
@@ -170,21 +211,25 @@ P from the two-branch formula (checked against mpmath `legenp` to 14 digits at �
 |---|---|---|---|---|
 | 30 | 1.176·10⁻¹² (LRINF cell [30, 30.5]) | **+0.0021** | +0.0021 | 0.011 |
 | 64 | 3.61·10⁻²⁰ (fcert_tail) | **+0.0031** | +0.0031 | 0.032 |
-| 100 | 3.52·10⁻²⁸ | **+0.0036** | (see cache) | 0.077 |
-| 200 | 3.40·10⁻⁵⁰ | **+0.0040** | (see cache) | 0.306 |
+| 100 | 3.52·10⁻²⁸ | **+0.0036** | +0.0037 | 0.077 |
+| 200 | 3.40·10⁻⁵⁰ | **+0.0040** | +0.0041 | 0.306 |
 
 The signed piece is **positive** and saturates at a few ×10⁻³ of the floor, while the absolute bound grows like β² (0.31 at β = 200),
 exactly as FULLPOS5 §3 found. So the β² growth is an artefact of taking |r|.
 
-### R.2 Lemma R (ANGULAR_ROUTE §81) reproduced in Arb [certified, given EPSW's certified inputs; two θ-corrections [P]]
+### R.2 Lemma R (ANGULAR_ROUTE §81) reproduced in Arb [certified, given EPSW's certified inputs]
 (`tc_lemmaR.py`, `cache/tc_lemmaR.txt`)
 * **Inputs.** From `epswcert/cache/ew_cert_1000_re_rep.json` (EPSW_CERT, certified): r(0) = 9.6925·10⁻¹⁴, ε_W ≥ ∫\|r\| = 2.68136·10⁻⁶,
   B_EPSW ≥ \|r′(0⁺)\| + ∫\|r″\| = 1.89971·10⁻³. For r̃ = r_θ − r(0)sech(πν):
   * E_in = ε_W + r(0)/2 + δE_θ ≤ **2.68236·10⁻⁶** (author: < 2.683·10⁻⁶ ✓);
   * B_in = B_EPSW + π²r(0) + δB_θ ≤ **1.89971·10⁻³** (author: < 1.901·10⁻³ ✓).
-  * Here ∫sech(πν) = ½, ∫\|(sech πν)″\| ≤ π² (sech″ = sech − 2sech³), and δE_θ, δB_θ ≤ 10⁻⁹ is **[P]**: on [0, Λ+30], 1 − θ ≤ erfc(7)
-    and \|θ′\|, \|θ″\| ≤ e⁻⁴⁸, against ∫\|E\|, sup\|E′\| ≤ B_EPSW + sup\|ψ′\|; beyond Λ+30 all RBF centres are ≤ Λ+30, so θ′E′ is ≤ e^{−48}.
-    These are e^{−40}-size, far below the 10⁻⁹ allowance, but the sup bounds were not ball-evaluated.
+  * Here ∫sech(πν) = ½, ∫\|(sech πν)″\| ≤ π² (sech″ = sech − 2sech³). **Cutoff correction, corrected form (audit §85)** [certified,
+    `tc_cutoff.py`, `cache/tc_cutoff.txt`]: f_θ = 2Re[θ(ν−i)g], g = χR₋(ν−i), so \|f_θ − f\| ≤ 2\|θ(ν−i) − 1\|\|g\| (not via \|Re g\|).
+    Enclosed on 0.05-cells over [1, Λ+80] (θ at the complex argument, RBF disc bounds, Cauchy for the second derivative) plus CONTOUR's
+    Gaussian tail beyond: **δE_θ = ∫\|f_θ − f\| ≤ 1.7·10⁻²³, δB_θ = ∫\|(f_θ − f)″\| ≤ 4.4·10⁻²², ∫e^{0.02ν}\|f_θ − f\| ≤ 1.3·10⁻¹⁴**
+    (author §85: < 10⁻⁷); on [0, 1] \|θ(ν−i) − 1\| ≤ e^{−12000} and the 1/ν parts of (g)″ cancel in the real part ([P]).
+    *My first version of this item argued with "1 − θ ≤ erfc(7) times \|E\|", i.e. the \|Re g\| form the audit flags; it is replaced by
+    the computation above. The 10⁻⁹ allowances used in `tc_lemmaR.py` remain valid upper bounds, so no number changes.*
 * **Mehler step, re-derived [P].** W(t) = ∫r̃ cos νt, \|W\| ≤ min(E_in, B_in/t²) (two integrations by parts), ∫₀^∞W = (π/2)r̃(0) = 0.
   With k(t) = (cosh β − cosh t)^{−½} on [0, β) and K₀ = k(0):
   I_{r̃} = (√2/π)∫₀^∞W(t)[k(t)1_{t<β} − K₀]dt, and
@@ -211,4 +256,3 @@ needs neither Lemma R nor any bound on r: the "higher-order finite-mass transfer
 the D-bound of §2, which acts on f as a whole.
 
 ---
-(main sections follow; in progress)

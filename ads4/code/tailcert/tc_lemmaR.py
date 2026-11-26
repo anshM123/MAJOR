@@ -4,11 +4,11 @@ Arb reproduction of the author's Lemma R (ANGULAR_ROUTE §81), with the Mehler-s
 
 Inputs (EPSW_CERT, certified, epswcert/cache/ew_cert_1000_re_rep.json): r(0), r'(0+), eps_W >= int|r|, B_EPSW >= |r'(0+)| + int|r''|,
 for r = E - psi (E without the erf cutoff theta).  r~ := r_theta - r(0) sech(pi nu), r_theta = E theta - psi.
-  E_in := eps_W + r(0)/2 + dE_theta,        dE_theta >= int |E(1-theta)|
-  B_in := B_EPSW + r(0) pi^2 int_0^oo |sech''| + dB_theta,  dB_theta >= int |(E(1-theta))''|
-  (int_0^oo sech(pi nu) dnu = 1/2;  int_0^oo |sech''(x)| dx <= 2  [sech'' = sech(2 sech^2 - ... ) ; |sech''| <= sech + 2 sech^3, int <= pi/2 + pi/2... see doc])
-  dE_theta, dB_theta <= 1e-9 [P]: see TAIL_CERT.md §R (1 - theta <= erfc(7) on [0, Lam+30]; Gaussian decay of E beyond Lam+30,
-  sup|E'| <= B_EPSW + sup|psi'|; theta', theta'' <= e^{-48} on [0, Lam+30]).  Taken as 1e-9 each (generous).
+  E_in := eps_W + r(0)/2 + dE_theta,        dE_theta >= int |f_theta - f|
+  B_in := B_EPSW + r(0) pi^2 int_0^oo |sech''| + dB_theta,  dB_theta >= int |(f_theta - f)''|
+  (int_0^oo sech(pi nu) dnu = 1/2;  sech'' = sech - 2 sech^3, so int_0^oo |sech''| <= pi/2 + pi/2 = pi and int |(sech pi nu)''| dnu <= pi^2)
+  dE_theta <= 1.7e-23, dB_theta <= 4.4e-22 certified in tc_cutoff.py (correct form |f_theta - f| <= 2|theta(nu-i)-1||g|);
+  the 1e-9 allowances used below are upper bounds for them.
 Lemma (Mehler step) [P, re-derived here]: with W(t) = int r~ cos(nu t), |W| <= min(E_in, B_in/t^2), int_0^oo W = (pi/2) r~(0) = 0,
   k(t) = (cosh b - cosh t)^{-1/2} on [0,b), K0 = k(0) = (cosh b - 1)^{-1/2}:
   I := int_0^oo r~ P_{-1/2+i nu}(cosh b) dnu = (sqrt2/pi) int_0^oo W (k 1_{t<b} - K0) dt, and

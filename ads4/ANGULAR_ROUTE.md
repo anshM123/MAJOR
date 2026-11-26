@@ -1380,3 +1380,21 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Cutoff correction (author).** For f = 2Re g with a complex θ(ν−i), use \|f_θ − f\| ≤ 2\|θ−1\|\|g\|, NOT a bound through \|Re g\|. Corrected: ∫e^{0.02ν}\|f_θ − f\| < 1e-7. Any earlier certificate that used the \|Re g\| form for the complex-shifted cutoff must be rechecked.
 * **All twists (author).** \|H_M(u, y)\| ≤ e^{10500}F_cert. Too large to be useful.
 * **Open.** sup\|H_M(u, y) − H_M(u, 0)\|/F_cert ≤ 190 on the strip, i.e. the signed finite-twist transfer at complex u. This is the binding step for the sliver's impact-parameter cells. The Taylor-order budget (order 20 gives 0.13%) is ready once K ≤ 1000 holds.
+
+## 86. TAIL CLOSED for L ≥ 20, every twist a ≥ 998 (agent TAIL_CERT final report, 26 Nov)
+
+* **Result.** H_ang,b ≥ (1−ρ)𝓜(L) with ρ ≤ 0.066 for every L ≥ 20 (β_c ≥ 21.4), and ρ ≤ 0.68 for L ≥ 18.
+  * Holds for all a ≥ 998, all J, both channels, all connection terms, the dressing and k = 3.
+  * Arithmetic is Arb or exact; it rests on [P] lemmas written out in TAIL_CERT.md (unreviewed). CONTOUR and EPSW tables are inputs.
+* **Budget at L = 20:** j = 0 gives 8.2e-5; local multiplier 3.3e-6; connection terms j ≥ 1 5.6e-10; remainder < 1e-435; **k = 3: 0.065 (binding)**, falling like e^{−L}.
+* **New proofs.**
+  * Lemma NB: \|w^βS(β) − 1\| ≤ 1.0003(β)₃/(12a²).
+  * Theorem P: oscillatory multiplier bound on the leg, 1.8–20 for t ≤ 45. This replaces the assumed 100/a², 300/a² and 5e12 inputs.
+  * A three-term recurrence in β for the connection terms.
+  * A localisation lemma with the saddle-chosen radius.
+  * k = 3 evaluated with exact Taylor shifts; a ball-overestimation bug was fixed.
+* **Audits.**
+  * Lemma R reproduced: 0.0249 and 0.0144.
+  * The §85 θ-inequality was redone correctly: δE ≤ 1.7e-23 and ∫e^{0.02ν}\|f_θ − f\| ≤ 1.3e-14. No conclusion changes.
+* **Consequence.** β → ∞ is closed at every twist. The sliver reduces to 998 ≤ a < a*(L), J ≥ 1001, 0.04 < L < 20. The laptop cells for β > 21.4 are now only overlap.
+* **Caveats.** Some paper-bounded steps (terms ≲ 1e-30, a Binet bound, contour-shift justifications) are not ball-evaluated. The shifted-density generating-function identity is checked only on a toy weight.
