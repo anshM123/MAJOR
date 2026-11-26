@@ -359,3 +359,38 @@ python3 fp4_ref.py 1001 998 0 300,950,993 1000 8000
 python3 fp4_ref_cell.py 1001 998 0 300 1000 8000 1e-600,1e-300
 python3 fp4_ref_int.py 1500 2000 0 1600 1000 4000
 ```
+
+---
+
+## 6. Lemma U (author, ANGULAR_ROUTE §80): the twist direction as one polynomial per c [DV]
+`fp4_lemU.py`. At fixed c (u = β_c), every state with a ≥ 998 has x = h/d² = y·x_* with y ∈ (0, 1], and R_{m,j}(c, x) = y^mR_{m,j}(c, x_*).
+So H_M = P(c, y)/D⁴ with
+* P = ΣA_my^m + d²x_*yΣ(q_bA_m + B_m)y^m and D = 1 + q_bd²x_*y;
+* A_m = Σ_jR_{m,j}(c, x_*)Y^A_j, Y_j = d³(cd)^jG^{(j)}(c)/j!.
+
+Implementation:
+* Jets Y^A (ψ₂, p = 3) and Y^D (Λ²ψ₃, p = 4) of the integrated G: per-frequency ODE jets, Gauss–Legendre in p.
+  N_p must resolve e^{iΛpβ_c} and degree-2j polynomials: 8000 at L = 2, 15000 at L = 7.
+* Y^B = 𝒟_bY^A + σ_bY^D by the exact jet contraction
+  [t^j]𝒟_bg = [(j+2)(j+1)g_{j+2} + ((d−c)j + (7−4b)c + 1)(j+1)g_{j+1} + (−cdj(j−1) + (7−4b)cdj)g_j]/(2cd) + (9/2 − b(b−1))g_j.
+* Chebyshev conversion on y ∈ [0, 1]: P̂_ℓ = (2−δ_{ℓ0})Σ_{m≥ℓ}C(2m, m−ℓ)4^{−m}p_m. Test: P̂₀ − Σ_{ℓ≥1}|P̂_ℓ| > 0.
+* Midpoint arb arithmetic (1500–3000 bits), M = 1000. IDEAL NF02 weights (no EPSW residual).
+
+**Sanity.** A₀ = d³G(c) = 2·OmLR(β_c) (Mehler) to 1e-9 at L = 2 (6.067386e-6).
+
+**Convergence in M (L = 2, b = 0).**
+* |A_m| = 3e-5 (m = 10), 9e11 (40), 4e17 (100), 1e-3 (200), 3e-38 (300), 7e-78 (400), 2e-253 (1000).
+* The partial sums P_{M′}(1) are wild up to M′ ≈ 200 and agree to all digits from M′ = 300 on. The truncated h-series at a = 998 really does
+  converge, after a 1e18 transient. (The truncated per-order bounds of FULLPOS3 saw only the transient.)
+
+**Twist-positivity test, all a ≥ 998 at fixed c:**
+| L (c) | b | A₀ = H(a = ∞) | H_M(a = 998) | \|P̂₁\| | \|P̂₂\| | noise floor of \|P̂_ℓ\| | margin (P̂₀ − Σ\|P̂_ℓ\|)/P̂₀ |
+|---|---|---|---|---|---|---|---|
+| 2 (0.8647) | 0 | 6.0674e-6 | 6.0969e-6 | 1.5e-8 | 2.3e-14 | ~1e-17 (ℓ = 5–50); < 4e-32 (ℓ ≥ 100) | **0.99757 PASS** |
+| 2 (0.8647) | 4 | 6.0674e-6 | 6.0378e-6 | 1.5e-8 | 3.0e-14 | ~1e-17 | **0.99756 PASS** |
+| 7 (0.99909) | 0 | 3.4905e-7 | 3.4906e-7 | 4.8e-12 | 1.0e-17 | ~1e-18; < 5e-35 (ℓ ≥ 100) | **0.999986 PASS** |
+| 7 (0.99909) | 4 | 3.4905e-7 | 3.4904e-7 | 5.9e-12 | 8.3e-18 | ~1e-18 | **0.999983 PASS** |
+
+(F_cert(β_c = 3.31) = 4.86e-6; F_cert(8.39) = 2.66e-7.)
+* At L = 7, |A_m| peaks at 1e14 (m ≈ 100), and the partial sums are constant from M′ = 300 on.
+* Cost: 11 min per c at L = 2 (N_p = 8000) and 28 min at L = 7 (N_p = 15000), on one core; both channels share the jets.

@@ -1412,3 +1412,13 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   2. Narrow η to ~0.015.
   3. Accept a larger K (doubling K costs one more Taylor order).
 * **Unsolved in every option:** a rigorous sup over a two-dimensional complex region without cells.
+
+## 88. Lemma U twist test passes at L = 7 as well (agent FULLPOS4) [DV]
+
+* **L = 7** (c = 0.99909), ideal weights, M = 1000:
+  * b = 0: margin 0.999986 (\|P̂₁\| = 4.8e-12);
+  * b = 4: margin 0.999983;
+  * A₀ matches 2·OmLR(8.386).
+  * A_m peaks at 1e14 (m ≈ 100); the sum is stable from M′ = 300.
+  * Cost: 28 min per c.
+* **So far:** L = 2 and L = 7 PASS in both channels. L = 0.1 and 0.5 are queued; complex-u measurements at η = 0.02 and 0.01 (L = 2) are running.
