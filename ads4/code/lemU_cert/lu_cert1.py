@@ -223,12 +223,14 @@ def _build(c, prec, pr, rbudget, tgt):
     # ---- E_theta panels on [nu_cut, NU_E]
     panels = []
     edges = [nu_cut]
-    e_ = Fr(4*(math.floor(float(nu_cut))//4) + 4)
-    while e_ < NU_E:
-        if e_ - edges[-1] >= 1:
-            edges.append(e_)
-        e_ += 4
-    edges.append(Fr(NU_E))
+    while edges[-1] < NU_E:
+        e_ = edges[-1]
+        nxt = Fr(4*(math.floor(float(e_))//4) + 4)
+        if float(e_) < 12:
+            nxt = min(nxt, Fr(math.ceil(float(e_)*1.4*64), 64))
+        if nxt - e_ < Fr(1, 64):
+            nxt += Fr(1, 64)
+        edges.append(min(nxt, Fr(NU_E)))
     errE = -np.inf*np.ones(K + 1)
     t = time.time()
     for a_, b_ in zip(edges[:-1], edges[1:]):

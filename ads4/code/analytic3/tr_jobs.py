@@ -74,15 +74,21 @@ def load_results(fn):
     return out
 
 
-def run_one(job):
+def run_one(job, escal=(0, 6, 12)):
+    """run a job, raising the Taylor order m (and R for the larger orders) on FAIL_REMAINDER/ERROR."""
     t0 = time.time()
-    rows = None; err = None
-    try:
-        rows = TK.run_box(job['box'])
-    except Exception as e:
-        err = str(e)[-500:]
-    st = 'ERROR' if rows is None else ('PASS' if all(r['status'] == 'PASS' for r in rows.values()) else 'FAIL')
-    res = dict(id=job['id'], status=st, secs=time.time() - t0, err=err)
+    for dm in escal:
+        rows = None; err = None
+        box = dict(job['box']); box['m'] = job['box']['m'] + dm
+        if dm >= 12: box['R'] = max(box['R'], 16)
+        try:
+            rows = TK.run_box(box)
+        except Exception as e:
+            err = str(e)[-500:]
+        st = 'ERROR' if rows is None else ('PASS' if all(r['status'] == 'PASS' for r in rows.values()) else 'FAIL')
+        if st == 'PASS':
+            break
+    res = dict(id=job['id'], status=st, secs=time.time() - t0, err=err, m=box['m'])
     if rows is not None:
         res['P'] = max(float(TK.Fr(r['P_bound'])) for r in rows.values() if r['status'] == 'PASS') if st == 'PASS' else None
         res['Q'] = max(float(TK.Fr(r['Q_bound'])) for r in rows.values() if r['status'] == 'PASS') if st == 'PASS' else None
@@ -93,7 +99,7 @@ def run_one(job):
 
 def run(jobs_fn, res_fn, procs=3):
     jobs = [json.loads(l) for l in open(jobs_fn) if l.strip()]
-    done = load_results(res_fn)
+    done = {k: v for k, v in load_results(res_fn).items() if v['status'] == 'PASS'}
     todo = [j for j in jobs if j['id'] not in done]
     print(f'{len(jobs)} jobs, {len(done)} done, {len(todo)} to run with {procs} processes', flush=True)
     with ThreadPoolExecutor(max_workers=procs) as ex, open(res_fn, 'a') as fo:

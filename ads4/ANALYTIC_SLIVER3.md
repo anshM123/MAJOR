@@ -234,6 +234,26 @@ the monotone trend of the margins it should pass with margin ≈ 0.999.
 
 ---
 
+## 9. With the signed transfer (ANGULAR_ROUTE §106–107): the hump removed, Route T‴ below 3.55
+
+The author's signed connection transfer (code/signed_transfer/, reproduced in §107) is the drift resummation of §6, done by Taylor models:
+Σ_{j<1500}(dressed Z_j) = (P X₀ + Q X₋₁)/(1 + qh), X_j = d^{α−j}S(α−j), with |P|, |Q| certified over full-twist boxes (d ∈ slab,
+h ∈ [0, h_cap] ⊇ every a ≥ 998, ν in a real or complex box). I use `check_transfer.js` unchanged, as a black box (read in full first).
+
+**Module** (`transfer_kernel.py`, `tr_jobs.py`, `tr_assemble.py`) [P + certified arithmetic, given the checker]:
+* one branch, real axis: |κ_J(ν)| ≤ |B(ν)| d^{−5/2}(P·M₀ + Q·M₁) (1/(1+qh) ≤ 1 dropped), with **M₀ ≥ |Ŝ(5/2+iν)|, M₁ ≥ |Ŝ(7/2+iν)| the max
+  over the a-cover 998 ≤ a ≤ 4500 of rt2_kernel.PP_box** (Theorem E′, Lemma X, Lemma F incl. the turning point, helicity bound for b = 4);
+  per unit residual cell the max over d-slabs (d^{1/2} at the slab's upper end after the d³ prefactor);
+* ψ₂ top line (ν = t + 6.25i, Re α = ¼ − 4): |κ_J − κ_∞| ≤ |B||d^{−α}|[(P M₀ + Q M₁) + (P + Q) + 10⁻³⁰⁰], where κ_∞ (truncated) is the
+  h = 0 face of the same box with X ≡ 1 (at h = 0 the recurrence is Z_{j+1} = r_j d Z_j and τ = 0), its j ≥ 1500 tail is < e^{−3000};
+  M₀, M₁ at Re α = −3.75, −2.75 from rt_pp.PP at σ = ¼, 5/4 and the REC chain (as in §3);
+* everything else as in §§3–4 (bottom, left, right, ψ₃ termwise; residual termwise for ν < 500 and on [1059, 1150]; G1, far, small ν);
+  a failed transfer box (FAIL/ERROR after raising m by 6 and 12) falls back to the termwise bound for the cells it covers;
+* jobs: one checker process per (d-slab, frequency box, channel pair); `tr_jobs.py run` is resumable (JSONL, skip-PASS, retries),
+  `tr_jobs.py summary` reports counts, failures and CPU time.
+
+__TR__
+
 ## 8. Grades, inputs, files
 
 * **New and unreviewed here:** Lemma Loc‴ (§2) with Lemmas K (K₀ ≤ 1.5727 for every state), W (θ-weight), C (Chernoff B-weight),
