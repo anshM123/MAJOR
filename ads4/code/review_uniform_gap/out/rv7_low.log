@@ -8,3 +8,12 @@ Dg=3000: done 27.2s; running min {'Dg': 3000, 'J': 64, 'b': 0, 'Smin': 0.0005105
 Dg=5000: done 31.0s; running min {'Dg': 5000, 'J': 64, 'b': 0, 'Smin': 0.000496414479350134, 'zeta_at_min': 1.0, 'S_edge': 0.000496414479350134, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
 Dg=10000: done 34.9s; running min {'Dg': 10000, 'J': 64, 'b': 0, 'Smin': 0.0004864483127911397, 'zeta_at_min': 1.0, 'S_edge': 0.0004864483127911397, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
 Dg=30000: done 38.9s; running min {'Dg': 30000, 'J': 64, 'b': 0, 'Smin': 0.00048010295662299815, 'zeta_at_min': 1.0, 'S_edge': 0.00048010295662299815, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=100000: done 42.8s; running min {'Dg': 100000, 'J': 64, 'b': 0, 'Smin': 0.0004779384642239068, 'zeta_at_min': 1.0, 'S_edge': 0.0004779384642239068, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=1000000: done 47.0s; running min {'Dg': 1000000, 'J': 64, 'b': 4, 'Smin': 0.00046900977280150323, 'zeta_at_min': 1.0, 'S_edge': 0.00046900977280150323, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+Dg=None: done 50.0s; running min {'Dg': 'inf', 'J': 64, 'b': 4, 'Smin': 0.0004669566964947163, 'zeta_at_min': 1.0, 'S_edge': 0.0004669566964947163, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+GLOBAL MIN (J<=64, all gaps, all masses scanned): {'Dg': 'inf', 'J': 64, 'b': 4, 'Smin': 0.0004669566964947163, 'zeta_at_min': 1.0, 'S_edge': 0.0004669566964947163, 'all_positive': True, 'nonpos_zetas': [], 'tight': True}
+any non-positive: []
+
+real	0m50.081s
+user	0m45.811s
+sys	0m0.031s
