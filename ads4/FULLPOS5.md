@@ -27,18 +27,21 @@ Notation as in FULLPOS3 §4: c = tanh²(β/2), d = 1 − c = e^{−L} (so L = 2 
    | [12, 12.1] | 10.6 | 3200 | 3200 | 0.45 |
    | [16, 16.1] | 14.6 | 3200 | 3200 | 0.62 |
    | [20, 20.1] | 18.6 | 3200 | 3200 | 0.79 |
-   | [30, 30.1] | 28.6 | 3600 | 3600 | 0.098 |
-   | [45, 45.1] | 43.6 | PROBE45 | | |
-   | [63.9, 64] | 62.6 | PROBE64 | | |
+   | [30, 30.1] | 28.6 | 3600 (3400 passes, b = 0 run: 0.31) | 3600 | 0.098 |
+   | [45, 45.1] | 43.6 | 3600 | 3600 | 0.149 |
+   | [63.9, 64] | 62.6 | 3600 (3400 passes, b = 0 run: 0.57) | 3600 | 0.185 |
 
-   a* grows slowly (§2): at fixed a the error grows like β relative to F_cert, while it falls steeply in a (≈ a⁻¹²).
+   (The probes used the old twist ladder …, 2800, 3200, 3600, …; single runs show 3400 passing at β = 30 and 64.) **a* ≈ 3200–3600 on
+   all of [9, 64], channel-independent to 7 digits.** a* grows slowly (§2): at fixed a the error grows like β relative to F_cert, while it
+   falls steeply in a (≈ a⁻¹²). The new bounds also lower a* in the old range: the cell [8.24, 8.4] gives a* = 3400 (fp3_ht: 4000).
 4. **β ≥ 64: not covered by this certificate, and it cannot be (§3).** Every term has an explicit β → ∞ behaviour. The low-frequency
    residual mass (EPSW cell ν ∈ [0, 0.31], ∫|r| ≈ 8.9·10⁻⁷) is known only as an absolute integral, and its bound grows like βe^{−β/2},
    against F_cert ∝ e^{−β/2}/β. So |G^r|/F_cert ≈ 8·10⁻⁶β² for every a, which reaches 1 near β ≈ 350. Cells can be pushed past 64
    (the launcher takes `--beyond B`, with LRINF's tail floor) up to roughly β ≈ 200, but not to ∞. The β → ∞ end needs the contour
    route (CONTOUR_BOUNDS, ℰ₂ < 0.01𝓜 for L ≥ 30.16, all a ≥ 998); its connection terms j ≥ 1 and k = 3 are still unchecked.
 5. **Cell plan and launcher (§4).** 556 cells of width 0.1 on [8.4, 64]; `python3 run_large_scan.py` on the laptop. Estimated CPU:
-   CPUEST.
+   ≈ 90–110 CPU-hours, i.e. about 4–5 h on 22 workers. The part below the contour threshold (β < 31.6) is ≈ 25–30 CPU-h, about
+   1.3 h, and runs first.
 
 ---
 
@@ -132,7 +135,8 @@ Before the split, θ-part 2 under Lemma B was the binding local component at β 
 * Iteration cap: 10⁴/d.
 * The η-choice float majorant is now written in d: log((c^{−l} − 1)/l) = log(expm1(l·(−log1p(−d)))/l). The bound itself is still the Arb
   `fp3_ht.norm_major` at c₋.
-* Result: far/F_cert ≤ 3·10⁻⁹ in every probe (FARMAX).
+* Result: far/F_cert ≤ 1.1·10⁻⁴ in every probe (the M-selection rule asks < 10⁻³). At β = 63.9 it is 5·10⁻²²⁸ with M = 450,
+  n ≈ 10³¹, h_max ≈ 10⁻⁶², and the k-sum switches to its geometric tail at k ≈ 7.6·10³⁰.
 
 ### 1.8 Floor beyond β = 64 (only for `--beyond`)
 `fcert_tail(β)` = (1 − 2.1·10⁻⁷)·A₁,min·(√2/π)K₀(β)ℓ/(βΛ²). Here A₁,min = 2ψ₂′(0) − ψ₃′(0) (exact), K₀ = (cosh β − 1)^{−½}, and
@@ -150,14 +154,30 @@ The bisection list gets intermediate values: 998, 1100, 1250, 1400, 1500, …, 2
 `fp3_ht_large.py scan` (bisection, both channels, cell width 0.1, exact P_m to m = 70, 81 radii). Results are in
 `cache/large/probe{A,B}.jsonl`.
 
-PROBETABLE
+| β-cell | channel | a* | err/F | G^r/F | Σ local/F | far/F | M | top local components (/F) | cell time |
+|---|---|---|---|---|---|---|---|---|---|
+| [9, 9.1] | 0, 4 | 3200 | 0.307 | 0.0027 | 0.305 | 2.8·10⁻⁹ | 300 | θ₂ 0.134, ν∈[949,999] 0.066, [999,1049] 0.039 | 248 s |
+| [12, 12.1] | 0, 4 | 3200 | 0.453 | 0.0043 | 0.448 | 2.1·10⁻⁷ | 300 | θ₂ 0.192, 0.094, 0.056 | 284 s |
+| [16, 16.1] | 0, 4 | 3200 | 0.619 | 0.0063 | 0.613 | 1.1·10⁻⁴ | 300 | θ₂ 0.255, 0.125, θ₁ 0.080 | 334 s |
+| [20, 20.1] | 0, 4 | 3200 | 0.788 | 0.0088 | 0.779 | 2·10⁻²⁰⁹ | 450 | θ₂ 0.315, 0.154, θ₁ 0.121 | 413 s |
+| [30, 30.1] | 0, 4 | 3600 | 0.098 | 0.0186 | 0.079 | 8·10⁻²⁶ | 300 | θ₂ 0.025, θ₁ 0.018, 0.014 | 422 s |
+| [30, 30.1] | 0 (single run) | **3400** | 0.314 | 0.0186 | — | 3·10⁻¹² | 300 | | 121 s |
+| [45, 45.1] | 0, 4 | 3600 | 0.149 | 0.0315 | 0.118 | 1·10⁻¹⁵ | 300 | θ₁ 0.036, θ₂ 0.034, 0.018 | 689 s |
+| [63.9, 64] | 0, 4 | 3600 | 0.185 | 0.0435 | 0.141 | 5·10⁻²²⁸ | 450 | θ₁ 0.055, θ₂ 0.036, 0.019 | 1012 s |
+| [63.9, 64] | 0 (single run) | **3400** | 0.566 | 0.0435 | — | 7·10⁻²⁰⁵ | 450 | | 270 s |
+| [8.24, 8.4] (old range, comparison) | 0, 4 | 3400 (fp3_ht: 4000) | 0.786 | | | | | | 214 s |
+
+θ₂ = θ-part 2 of the residual (ν ∈ (Λ, 1059], Lemma B′); θ₁ = θ-part 1 (all ν, Lemma B only); the other entries are EPSW residual cells
+(Lemma B′). The two channels agree to 7–8 digits everywhere (b only enters through s = 2b+1 in P_m and 𝒟_b, both subleading here). Cell
+times are wall-clock on a shared 4-core machine (load ≈ 5) with the old ladder; a "single run" is one a₀ in one channel.
 
 **How a* depends on β.** At a₀ = 3200 the error grows linearly in β, err/F ≈ 0.04β: 0.31, 0.45, 0.62, 0.79 at β = 9, 12, 16, 20.
 * The binding components are the high-frequency residual pieces: θ-part 2 (ν ∈ (Λ, 1059]) and the EPSW cells at ν ≈ 900–1060, all under
   Lemma B′. Their kernel is β-independent times e^{−β/2}, while F_cert ∝ e^{−β/2}/β, hence the factor β.
 * G^r/F_cert is 0.003–0.044 on [9, 64] (§3).
 * The local terms fall steeply in a: at β = 12 the total error is 0.45F at a₀ = 3200 and 0.013F at a₀ = 4500, i.e. roughly ∝ a^{−12}.
-  So a*(β) ∝ β^{1/12} in this regime: 3200 for β ≤ 20, 3600 by β = 30 (3400 is between them in the new ladder), A45 at 45, A64 at 64.
+  So a*(β) ∝ β^{1/12} in this regime: 3200 for β ≤ 20, 3400 at β = 30 and at β = 64 (err/F = 0.31 and 0.57).
+* Above β ≈ 40 the Lemma-B-only θ-part 1 (r25 below) overtakes θ-part 2, and G^r rises to 0.044F at β = 64.
 
 ---
 
@@ -209,7 +229,13 @@ taking a larger. Numerically [certified evaluations of the m = 0 term, cell widt
   cells already in `cache/large_*.jsonl` or `results/ht_large_done.jsonl`. `--summary` prints the table; `--merge` writes
   `results/ht_large_done.jsonl`; `--beyond B` appends cells on [64, B]. It reads none of the laptop job's files (`ht_scan_done.jsonl`,
   `laptop_*`, `ht_scan*`), and the laptop job reads none of its files.
-* **CPU estimate.** CPUEST2
+* **CPU estimate.** Measured cell times here (wall, shared core, old ladder): 248 s (β = 9), 284 (12), 334 (16), 413 (20), 422 (30),
+  689 (45), 1012 (64). Time grows with β through the precision (256 → 440 bits) and the far-remainder k-range (k ≈ 10³/d).
+  * Interpolating over the 556 cells gives 90 h.
+  * The finer twist ladder adds ≈ 20 %, for ≈ 90–110 CPU-hours in all, i.e. **≈ 4–5 h on 22 workers**.
+  * [8.4, 31.6] alone (232 cells) is ≈ 25–30 CPU-h, ≈ 1.3 h.
+  * Memory is ≈ 0.2 GB per worker.
+  * If both launchers run at once, split the cores between them (e.g. `python3 run_large_scan.py 10`).
 
 ---
 

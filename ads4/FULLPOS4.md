@@ -114,10 +114,11 @@ the 1/ν of coth(πν).
 ### 2.2 End-to-end check of the integrated pipeline [DV]
 Test (`fp4_toy.py`): the same ψ₂ weight at reduced bandwidth Λ_toy = 8, i.e. G = 2∫ψ₂F_{3,8p}dp, at (n, N, b) = (10, 30.5, 0).
 The exact value is ℒ(G) = Σ_{k≤n}U_kM_k with M_k = 2∫ψ₂g_k(8p)dp.
-* Integrated outgoing §55 contour (𝒫⁺_h via `fp4_int.Amp(lam=8)`, then (𝒞/π)Re(I_U − iI_T − iI_L)): 8.665890.
-* Exact: 8.665246 (max|U_kM_k| = 20.8). Rel. err 7e-5, limited by the coarse norm-measurement grids of `fp4_abs` (8-node panels).
-* ∫|W|/|ℒ(G)| = 178.
-So frequency integration first, then the §55 contour with the outgoing amplitude, reproduces the action.
+* First runs: 8.665890 against the exact 8.665246 (rel. err 7e-5). Cause: a bug in `fp4_int.Weight`. The coth-correction window was
+  min(0.015, 6/λ); at λ = 8 this truncates 2/(e^{2πλp}−1) at e^{−0.75}. It is now min(1, max(0.015, 6/λ)). This matters only for toy
+  bandwidths; at Λ = 998.5 the window was already complete.
+* After the fix, with the §74 diagonal extraction (§4 below): D + R = **8.665245954894 vs exact 8.665245954376, rel. err 6e-11.**
+So frequency integration first, then the §55 contour with the outgoing amplitude (plus the diagonal block), reproduces the action.
 
 ---
 
@@ -184,4 +185,17 @@ Reading:
      **≈ 7e5 × |G(c)|**.
    * Separating the diagonal boundary terms analytically and lifting them in α (they are frequency-free) would remove more. But their total is
      the small-z (z → 0) information of G, the same information whose ladder sum Σ U_kg_k cancels from |U_kg_k| ≫ 1 down to 3e-5. So at least
-     one of the two pieces has norm ≳ O(G(0)) = O(20). **The effective ratio stays ≳ 1e5–1e6 at L ≈ 0.2.**
+     one of the two pieces has norm ≳ O(G(0)) = O(20). The effective ratio stays ≳ 1e5–1e6 at L ≈ 0.2.
+   * **Superseded in part by the author's §74 extraction (§4).** The diagonal block is a REAL one-dimensional integral against the closed-form
+     𝔥_B. Its norm (O(10²–10³)·N_s) costs nothing in a certificate, because it is evaluated to ~1e-20 by Arb quadrature. The decisive
+     number is then the norm of the remaining contour (§4).
+
+**(a, J, b) = (998, 20000, 0); S = 40999, c = 0.907, L = 2.38, |G(c)| = 6.21e-3** (N_s not computed: `hyb_fast` needs (2J)×J arrays).
+| \|A\|S band | [0,1) | [1,10) | [10,100) | [100,1000) | ≥1000 | total | total/\|G(c)\| |
+|---|---|---|---|---|---|---|---|
+| raw ∫\|W\| | 5.9e7 | 1.7e7 | 1.3e5 | 451 | 125 | 7.6e7 | 1.2e10 |
+| soft-signed | 0.011 | 0.017 | 0.20 | 1.86 | 80.0 | 82.1 | 1.3e4 |
+
+* Hard localisation at |A| ≤ Λ/S removes the ≥1000 band: **2.1, i.e. 3.4e2 × |G(c)|.**
+* The diagonal/hard structure scales as predicted: the |A|S < 1000 soft norm falls from 21 (L = 0.20) to 2.1 (L = 2.38), while |G(c)| grows
+  by 200.
