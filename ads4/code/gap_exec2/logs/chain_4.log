@@ -70,3 +70,4 @@ TypeError: cannot unpack non-iterable NoneType object
   prep mb 3 D 100 cost K*terms 14854763821 terms [601704, 613832, 729632, 168675, 132135]
   prep mb 4 D 100 cost K*terms 17167245685 terms [513372, 577600, 601704, 601704, 168675, 132135]
   prep mb 5 D 100 cost K*terms 16179157199 terms [358202, 383161, 405169, 455910, 542725, 168675, 132135]
+23:06:16 b 4 mode u cell 1537/2000 1553/2000 0.7685 0.7765 K 6622 mb,mt 3 2 D 100 PASS lower 7.036425145221338e-06 wall 1367

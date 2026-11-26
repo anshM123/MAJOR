@@ -22,6 +22,12 @@ def W(v):
 def bps(x, extra=()):
     lo, hi = max(-L, x-WIN), min(L, x+WIN)
     pts = {lo, hi}
+    # dense breakpoints (every 1/2 unit): the integrand varies on scale ~1 (sech) and steeply near +-L
+    k0 = int(mp.ceil(2*lo)); k1 = int(mp.floor(2*hi))
+    for k in range(k0, k1+1):
+        p = mp.mpf(k)/2
+        if lo < p < hi:
+            pts.add(p)
     for p in [mp.mpf(0)] + list(extra):
         if lo < p < hi:
             pts.add(p)
@@ -94,3 +100,8 @@ if __name__ == '__main__':
         worst = max(worst, e_p)
         print(f"{mp.nstr(x,8)} | {mp.nstr(fx,12)} | {mp.nstr(mp.re(l4),12)} | {mp.nstr(mp.re(l7),12)} | {mp.nstr(e_r,3)} | {mp.nstr(e_p,3)} | {mp.nstr(abs(mp.im(l7)),2)},{mp.nstr(abs(mp.im(lp)),2)}", flush=True)
     print("worst PV-form relative error:", mp.nstr(worst, 3))
+    # relative check beyond Lambda, where f = 0 and both sides are tiny: compare the strip-limit value with the PV-form value
+    for x in [Lf+0.5, Lf+3.0, Lf+25.0]:
+        x = mp.mpf(x)
+        l6 = lhs_strip(x, mp.mpf('1e-6')); l7 = lhs_strip(x, mp.mpf('1e-7')); rich = l7 + (l7-l6)/9
+        print(f"beyond Lambda: x-L={mp.nstr(x-L,4)}: strip-limit LHS = {mp.nstr(mp.re(rich),10)} (should be 0); |LHS|/|R_-(x-i)chi(x-i)| = {mp.nstr(abs(rich)/abs(Rm(mp.mpc(x,-1))*Bz(mp.mpc(x,-1))*q_strip(x,-(1-mp.mpf('1e-7')))),3)}")

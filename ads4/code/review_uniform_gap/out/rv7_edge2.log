@@ -1,0 +1,7 @@
+J=1000 done 77.1s; running min {'Dg': 'inf', 'J': 1000, 'b': 4, 'zeta': 1.0, 'bhat': 2001.0, 'S': 1.275716288131059e-07, 'pos': True, 'rad': 4.624719604532832e-290}
+GLOBAL MIN: {'Dg': 'inf', 'J': 1000, 'b': 4, 'zeta': 1.0, 'bhat': 2001.0, 'S': 1.275716288131059e-07, 'pos': True, 'rad': 4.624719604532832e-290}
+non-positive points: []
+
+real	1m17.285s
+user	1m16.606s
+sys	0m0.484s

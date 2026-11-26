@@ -405,3 +405,51 @@ It does not re-execute the C++ Horner runs. The .in/.out files are kept in the s
 * Conditional on the retained inputs of the direct method (§§115–120) and SPECTRAL_DEGREE.md (G2).
 
 * PROVER erratum: the CPU total for the 35 passing channel cells is 4.3 h (from ledger.json). "About 7.5 h" above also counted failed runs and was only an estimate.
+
+---
+### Executor 2 cells (second executor agent, 26 Nov): G4 on c ∈ [0.67, 0.777], both b
+
+**Result.** PASS_CONDITIONAL for every cell in both channels, with no failures and no splits. Coverage is contiguous over
+**c ∈ [0.67, 0.777], i.e. L ∈ [1.1087, 1.5006]**, for b = 0 and for b = 4. Combined with the prover's [0.28, 0.67], this closes the low side up to the
+laptop range (c ≥ 0.77687). Smallest lower bound: 7.04e−6 (b = 4, [0.7685, 0.7765]). Verified by
+`code/gap_exec2/verify_exec2_cells.py`, which gave PASS on 26 channel cells (log: logs/verify_exec2.log). Exact rational lower bounds are in
+`code/gap_exec2/ledger.json`.
+
+**Setup (mirrors the prover's long cells).**
+* Table: coeff_long_17200.txt. Its SHA-256 matches LARGE_FILES_SHA256.txt, and the verifier re-checks it.
+* K per piece is the least K with tail(c_i, K) < 1e−7 (envelope 2^2337). The allowance is 1e−7 + 1e−14 (G2).
+* G1 cap and staircase pieces come from the prover's own `hgrid`/`stair_c`/`g1_cap`/`k_tail`, imported unchanged: mb bottom pieces plus mt = 2 strips.
+* c-cells: the designer's plan_highc_056_0777.json cells, all with ω ≤ 1.08. There is one adjustment: the plan cell [0.6625, 0.6735]
+  was cut to [0.67, 0.6735] (ω = 1.024).
+* mb is chosen from the pole-admissible values by a preflight cost estimate (Σ K·terms). This affects cost only.
+* Checker: the designer's **unscaled** direct_sign_triangle_u.cpp with D = 100. The a-priori growth of the l1 rounding recurrence is ≤ 1, and
+  the reported roundoff is ≤ 4e−74. The scaled checker would need D ≈ 1700 at c = 0.777 and ran no faster in a benchmark.
+* Driver: `gap_exec2/gap_stair_long_u.py`, a copy of gap_prove/gap_stair_long.py with three changes: transfer without 2^−k, B = k1·A_{k+1},
+  and a Cauchy majorant without the factor 2.
+* Verifier: a copy of gap_prove/verify_gap_cells.py with the same three changes for kind 'longu'. Added checks: the table SHA-256, ω ≤ 1.08,
+  and END = 0.777 coverage. A mutation test (scaled transfer applied to unscaled inputs) is rejected.
+
+| c-cell | K | ω | pieces b=0 / b=4 | lower b = 0 | lower b = 4 | CPU s (both b) |
+|---|---|---|---|---|---|---|
+| [0.6700, 0.6735] | 4204 | 1.024 | 2+2 / 2+2 | 9.1608e-06 | 9.0399e-06 | 857 |
+| [0.6735, 0.6845] | 4386 | 1.079 | 2+2 / 2+2 | 8.4694e-06 | 8.3639e-06 | 1356 |
+| [0.6845, 0.6950] | 4573 | 1.077 | 2+2 / 4+2 | 8.3364e-06 | 8.2366e-06 | 1628 |
+| [0.6950, 0.7055] | 4772 | 1.080 | 2+2 / 2+2 | 8.1657e-06 | 8.0720e-06 | 1631 |
+| [0.7055, 0.7155] | 4976 | 1.079 | 5+2 / 5+2 | 8.0370e-06 | 7.9467e-06 | 2439 |
+| [0.7155, 0.7250] | 5184 | 1.077 | 5+2 / 5+2 | 7.9126e-06 | 7.8271e-06 | 2063 |
+| [0.7250, 0.7345] | 5407 | 1.079 | 5+2 / 5+2 | 7.7488e-06 | 7.6685e-06 | 2300 |
+| [0.7345, 0.7435] | 5633 | 1.077 | 5+2 / 5+2 | 7.6278e-06 | 7.5518e-06 | 2476 |
+| [0.7435, 0.7520] | 5862 | 1.075 | 5+2 / 5+2 | 7.5135e-06 | 7.4415e-06 | 2486 |
+| [0.7520, 0.7605] | 6108 | 1.078 | 3+2 / 3+2 | 7.3578e-06 | 7.2906e-06 | 2505 |
+| [0.7605, 0.7685] | 6356 | 1.075 | 3+2 / 3+2 | 7.2481e-06 | 7.1844e-06 | 2572 |
+| [0.7685, 0.7765] | 6622 | 1.078 | 3+2 / 3+2 | 7.0963e-06 | 7.0364e-06 | 2713 |
+| [0.7765, 0.7770] | 6639 | 1.005 | 2+2 / 2+2 | 7.7152e-06 | 7.6494e-06 | 1412 |
+
+**CPU.** 7.35 h for the passing C++ runs (13,171 s for b = 0, 13,272 s for b = 4); about 7.6 h including preflights and a 4-minute checker
+benchmark. Wall time was 3.8 h on 2 processes.
+
+**Notes.**
+* The two "FAIL ... wall 0/3" lines at 19:31 in logs/chain_{0,4}.log are runs I killed on restart, not results.
+* The .in files (1.1 GB) and the per-piece .json/.out files are in the session scratchpad (exec2/runs/), not in the repo. The chain records and
+  cell logs are in code/gap_exec2/logs/cells/.
+* Conditional on the same retained inputs as the prover's long cells (§§115–120, SPECTRAL_DEGREE.md via G2).

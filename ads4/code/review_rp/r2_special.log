@@ -1,0 +1,31 @@
+(a) Mehler-Fock 1/(x+A) = pi int_0^oo nu tanh(pi nu)/cosh(pi nu) P(x) P(A) dnu
+   x=1.0    A=1.5      rhs=0.4  1/(x+A)=0.4  rel.err=0.00e+00
+   x=2.0    A=1.5      rhs=0.285714285714286  1/(x+A)=0.285714285714286  rel.err=0.00e+00
+   x=5.0    A=1.010000000000000008881784197  rhs=0.166389351081531  1/(x+A)=0.166389351081531  rel.err=9.86e-32
+   x=1.30000000000000004440892098501 A=3.0      rhs=0.232558139534884  1/(x+A)=0.232558139534884  rel.err=9.86e-32
+   x=20.0   A=1.00049999999999994493293797859  rhs=0.0476179138591938  1/(x+A)=0.0476179138591938  rel.err=9.86e-31
+(b) int_1^oo P(x)/(x+A) dx = pi P(A)/cosh(pi nu)
+   nu=0.299999999999999988897769753748 A=1.5 lhs=1.9674173848225 rhs=1.9674173848225 rel=3.33e-18
+   nu=2.0 A=1.010000000000000008881784197 lhs=0.01148604894856 rhs=0.01148604894856 rel=1.60e-16
+   nu=5.0 A=3.0 lhs=-2.9588265394636e-8 rhs=-2.9588265395403e-8 rel=2.59e-11
+(c) int_1^oo Q_1 P_{-1/2+i nu} dx = 1/(nu^2+9/4)
+   nu=0.0  lhs=0.444444444444444 1/(nu^2+9/4)=0.444444444444444 rel=1.51e-17
+   nu=0.5  lhs=0.4 1/(nu^2+9/4)=0.4 rel=3.06e-19
+   nu=1.69999999999999995559107901499 lhs=0.194552529182879 1/(nu^2+9/4)=0.194552529182879 rel=2.89e-19
+   nu=4.0  lhs=0.0547945205479452 1/(nu^2+9/4)=0.0547945205479452 rel=6.64e-19
+   nu=9.0  lhs=0.012012012012012 1/(nu^2+9/4)=0.012012012012012 rel=1.85e-18
+    Q_1>0 on (1,oo): True
+    (x^2-1)Q_1'(x) -> -1 at x->1: -0.99998649
+(d) new inverse
+   min Phi on [-30,30] grid: 2.60846e-24  max |Im Phi|: 8.83e-30
+   Phi(x)/(x^{23/2}e^{-pi x}) at x=20.0 : 2.388548492
+   Phi(x)/(x^{23/2}e^{-pi x}) at x=40.0 : 2.262668386
+   Phi(x)/(x^{23/2}e^{-pi x}) at x=80.0 : 2.231714003
+   Phi(x)/(x^{23/2}e^{-pi x}) at x=160.0 : 2.224007468
+   max |B1/B2-1| at complex points in the strip: 7.1e-30
+   B real-even on R: 4.48e-31 8.96e-31
+Traceback (most recent call last):
+  File "/home/user/MAJOR/ads4/code/review_rp/r2_special.py", line 52, in <module>
+    print('   B(x)/x^2 as x->0 :', [mp.nstr(mp.re(B1(mp.mpf(t)))/t**2, 10) for t in ['1e-3', '1e-5']])
+                                                                 ~^^~
+TypeError: unsupported operand type(s) for ** or pow(): 'str' and 'int'

@@ -1,0 +1,14 @@
+(4.1) F(x)/(1+x)^(23/2) on [0,1e7]: min 0.304258 (claim >= 2^-11 = 4.883e-04), max 14.6221 (claim <= 2^13 = 8192)
+(4.2) |F(x+-i)|/(1+x)^(23/2): max 4.51714 (claim <= 2^14 = 16384)
+(4.3) |B(x)|/(1+x)^(19/2): max 0.448701 (claim <= 512); B(0+) -> 5.6e-15
+      large-x limits at 1e12: F/(1+x)^11.5 = 1.1107207, |B|/(1+x)^9.5 = 0.069420046
+(4.4) Binet bounds a in {3/4,5/4,7/4}, y in [0,1e7]: min value/lower = 2.41734 (>=1 ok), min upper/value = 2.19984 (>=1 ok)
+(4.5) shifted Gamma/cosh factor /(1+x)^(3/2): max 1.11072 (claim <= 16)
+(4.6) max (1+s)^12 e^-s/2 = 3.6995e+11 <= 24^12 = 3.6520e+16: True;  max (1+s)^13 e^-s/2 = 9.2464e+12 <= 26^13 = 2.4812e+18 < 2^62 = 4.6117e+18: True; max csch/(3e^-1.5s) on s>=1: 0.6492
+(4.7) Lambda^2=997002: max log[(k!)^2 t^k|g_k3| / (1+y^2)^k] over k<=65, nu grid = 0.0000 at (0, 1, 0) (claim <= 0); over 1<=k<=65: -0.0000 at (1000000.0, 1, 1)
+(4.8) Lambda^2=997002: max log[t^k|g_k3| / (2 e^(86y) 1600^-k)] over k<=250, nu grid = -0.8654 at (0, 1, 0) (claim <= 0)
+(4.7) Lambda^2=100000000: max log[(k!)^2 t^k|g_k3| / (1+y^2)^k] over k<=65, nu grid = 0.0000 at (0, 1, 0) (claim <= 0); over 1<=k<=65: -0.0001 at (1000000.0, 1, 1)
+(4.8) Lambda^2=100000000: max log[t^k|g_k3| / (2 e^(86y) 1600^-k)] over k<=250, nu grid = -0.7103 at (0, 1, 0) (claim <= 0)
+(5.1) min M1 on beta in [7/4,12] (201 pts): 0.000114646 at beta=12.000 (claim > 9e-5)
+(5.2) M1(beta)/[(sqrt2/pi) K0/(10 beta)] for beta in 12..100: [(12, '8.7182'), (14, '8.922'), (16, '9.0688'), (20, '9.2673'), (30, '9.5213'), (40, '9.6443'), (60, '9.765'), (100, '9.86')] (claim >= 1)
+(5.3) max beta*eps1(beta) on [12,312]: 0.0145 (claim <= 1)

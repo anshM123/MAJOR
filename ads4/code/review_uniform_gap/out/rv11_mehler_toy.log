@@ -1,0 +1,21 @@
+toy nu e^-nu: A=1.0 B=2.27067 rhat check 8.61e-42
+   beta=12: |LHS| = 0.000114155  bound = 0.000438484  ratio = 0.2603
+   beta=15: |LHS| = 2.1059e-5  bound = 7.31017e-5  ratio = 0.2881
+   beta=20: |LHS| = 1.33648e-6  bound = 4.19186e-6  ratio = 0.3188
+   beta=30: |LHS| = 6.17454e-9  bound = 1.74645e-8  ratio = 0.3535
+   beta=45: |LHS| = 2.31703e-12  bound = 6.10468e-12  ratio = 0.3795
+   beta=60: |LHS| = 9.69284e-16  bound = 2.46285e-15  ratio = 0.3936
+toy nu e^-nu cos3nu: A=0.62626 B=8.42127 rhat check 0.0
+   beta=12: |LHS| = 0.000118841  bound = 0.00162035  ratio = 0.07334
+   beta=15: |LHS| = 2.16923e-5  bound = 0.000270816  ratio = 0.0801
+   beta=20: |LHS| = 1.36151e-6  bound = 1.55444e-5  ratio = 0.08759
+   beta=30: |LHS| = 6.22992e-9  bound = 6.47707e-8  ratio = 0.09618
+   beta=45: |LHS| = 2.32665e-12  bound = 2.26405e-11  ratio = 0.1028
+   beta=60: |LHS| = 9.7159e-16  bound = 9.13401e-15  ratio = 0.1064
+toy sin(nu) e^-nu/2: A=1.21989 B=2.83447 rhat check 9.06e-27
+   beta=12: |LHS| = 0.000114697  bound = 0.000547304  ratio = 0.2096
+   beta=15: |LHS| = 2.11342e-5  bound = 9.12498e-5  ratio = 0.2316
+   beta=20: |LHS| = 1.33947e-6  bound = 5.23266e-6  ratio = 0.256
+   beta=30: |LHS| = 6.18118e-9  bound = 2.18009e-8  ratio = 0.2835
+   beta=45: |LHS| = 2.31818e-12  bound = 7.62045e-12  ratio = 0.3042
+   beta=60: |LHS| = 9.69562e-16  bound = 3.07437e-15  ratio = 0.3154

@@ -1,0 +1,2 @@
+Lambda^2=900: max log2(|chi R_-| e^(x-L)_+) = 12.98 (claim <= 90); max log2(|chi|(1+x)^2 e^(x-L)_+) = 9.26 (claim <= 90); fitted decay rate d log|chi|/dx on [L+20,L+120] = -1.4705 (pi/2 = 1.5708)
+Lambda^2=997002: max log2(|chi R_-| e^(x-L)_+) = 8.00 (claim <= 90); max log2(|chi|(1+x)^2 e^(x-L)_+) = 4.28 (claim <= 90); fitted decay rate d log|chi|/dx on [L+20,L+120] = -1.5619 (pi/2 = 1.5708)
