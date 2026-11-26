@@ -36,17 +36,21 @@ obstructions for the others.
 5. **b = 4:** 𝒞_{s=9} = a/U_{0,4}, so the helicity shift does not change the integrand (checked).
 6. **Lemma U (author §80) twist test: PASSES at every L tested, both channels [DV, ideal NF02 weights, M = 1000].**
    At fixed c, a single degree-1001 polynomial in y covers all a ≥ 998:
-   * margin (P̂₀ − Σ_{ℓ≥1}|P̂_ℓ|)/P̂₀ = 0.972 / 0.971 (L = 0.1), 0.985 / 0.985 (L = 0.5), 0.9976 / 0.9976 (L = 2), 0.99999 / 0.99998 (L = 7),
+   * margin (P̂₀ − Σ_{ℓ≥1}|P̂_ℓ|)/P̂₀ = 0.978 / 0.977 (L = 0.04), 0.972 / 0.971 (L = 0.1), 0.985 / 0.985 (L = 0.5), 0.9976 / 0.9976 (L = 2), 0.99999 / 0.99998 (L = 7),
      for b = 0 / 4.
    * The h-series at a = 998 has a 1e11–1e18 transient in A_m (m ≈ 40–100), then converges: partial sums are constant from M′ = 300.
-   * Complex impact parameter (Lemma C test): max_y|H_M(β_c + iη, y)|/F_cert = 1.26 (L = 2, η = 0.02) and 1.27–1.40 (L = 0.5, η = 0.02).
-     Low L is in progress (§8.1).
+   * Complex impact parameter (Lemma C test), max_y|H_M(β_c + iη, y)|/F_cert:
+     * 1.26 at L = 2 (η = 0.01 and 0.02);
+     * 1.27 (b = 0) and 1.40 (b = 4) at L = 0.5, η = 0.02;
+     * **242 (b = 0) and 5271 (b = 4) at L = 0.04, η = 0.02** (transfer 479 / 5279; the author's > 463 is confirmed).
+     So η = 0.02 is fine for L ≳ 0.5 and far too wide at low L (§8.1).
 7. **What is missing for a certificate (honest):**
    1. rigorous jet enclosures (GL error on an ellipse, plus ≥ 6000–8000 bits against recurrence wrapping);
    2. the realised EPSW-repaired weight instead of the ideal NF02 one;
    3. an Arb reproduction of the §78 truncation error;
    4. the c-direction: ~1.4e3 c-points × 15–30 min, i.e. several hundred core-hours DV and more certified (§8.2). The strip constant
-      K = sup|H_M|/F_cert is ~1.3–1.4 at L ≥ 0.5, so cells there can be ~η wide; at low L the author measured a transfer > 463.
+      K = sup|H_M|/F_cert is ~1.3–1.4 at L ≥ 0.5, so cells there can be ~η = 0.02 wide. At L = 0.04 it is ~5e3, so a much narrower strip
+      and denser cells are needed there.
 
 **b = 4.** The coordinator's identity ℒ₄(F) = ℒ₀(z⁴F)/U_{0,4} is correct, but 𝒞_{s=9} = a/U_{0,4} exactly (checked to 1e-12 at 3 states).
 So the shifted s = 1 integrand equals the s = 9 integrand pointwise and the norm is unchanged (author §72 agrees). The cancellation is the
@@ -394,6 +398,8 @@ Implementation:
 **Twist-positivity test, all a ≥ 998 at fixed c:**
 | L (c) | b | A₀ = H(a = ∞) | H_M(a = 998) | \|P̂₁\| | \|P̂₂\| | noise floor of \|P̂_ℓ\| | margin (P̂₀ − Σ\|P̂_ℓ\|)/P̂₀ |
 |---|---|---|---|---|---|---|---|
+| 0.04 (0.0392) | 0 | 3.1111e-5 | 3.2505e-5 | 7.0e-7 | 1.1e-12 | ~3e-12; < 2e-36 (ℓ ≥ 100) | **0.97808 PASS** |
+| 0.04 (0.0392) | 4 | 3.1111e-5 | 2.9712e-5 | 7.0e-7 | 6.6e-13 | ~7e-12 | **0.97703 PASS** |
 | 0.1 (0.0952) | 0 | 1.8895e-5 | 1.9968e-5 | 5.4e-7 | 2.3e-13 | ~1e-13; < 1e-33 (ℓ ≥ 100) | **0.97240 PASS** |
 | 0.1 (0.0952) | 4 | 1.8895e-5 | 1.7822e-5 | 5.4e-7 | 2.8e-13 | ~1e-13 | **0.97078 PASS** |
 | 0.5 (0.3935) | 0 | 1.2919e-5 | 1.3309e-5 | 1.9e-7 | 1.6e-13 | ~3e-16; < 2e-30 (ℓ ≥ 100) | **0.98515 PASS** |
@@ -403,9 +409,9 @@ Implementation:
 | 7 (0.99909) | 0 | 3.4905e-7 | 3.4906e-7 | 4.8e-12 | 1.0e-17 | ~1e-18; < 5e-35 (ℓ ≥ 100) | **0.999986 PASS** |
 | 7 (0.99909) | 4 | 3.4905e-7 | 3.4904e-7 | 5.9e-12 | 8.3e-18 | ~1e-18 | **0.999983 PASS** |
 
-(F_cert(β_c = 0.64) = 1.54e-5; F_cert(1.47) = 1.12e-5; F_cert(3.31) = 4.86e-6; F_cert(8.39) = 2.66e-7. At L = 0.5: max|R_{m,j}| = 1e213, |A_m| peaks at 2e18,
+(F_cert(β_c = 0.40) = 1.90e-5; F_cert(0.64) = 1.54e-5; F_cert(1.47) = 1.12e-5; F_cert(3.31) = 4.86e-6; F_cert(8.39) = 2.66e-7. At L = 0.5: max|R_{m,j}| = 1e213, |A_m| peaks at 2e18,
 constant partial sums from M′ = 300, 3000 bits, N_p = 6000, 17 min.
-At L = 0.1: max|R| = 1e1204, A_m transient ≤ 1e11, 3000 bits, N_p = 5000, 10 min. The P̂ noise floor (1e-13 ≈ 5e-9 relative) is
+At L = 0.04: max|R| = 1e1697, 6000 bits, N_p = 4000, 16 min; A₀ matches Mehler (3.110548e-5) to 1e-6. At L = 0.1: max|R| = 1e1204, A_m transient ≤ 1e11, 3000 bits, N_p = 5000, 10 min. The P̂ noise floor (1e-13 ≈ 5e-9 relative) is
 higher there, consistent with 3000 bits against |R| ~ 1e1204; lower L needs ≥ 6000 bits.)
 * At L = 7, |A_m| peaks at 1e14 (m ≈ 100), and the partial sums are constant from M′ = 300 on.
 * Cost: 11 min per c at L = 2 (N_p = 8000) and 28 min at L = 7 (N_p = 15000), on one core; both channels share the jets.
@@ -420,6 +426,8 @@ P_ν(cosh u), ∂_βP_ν. Reported:
 transient; a 1500-bit recheck is queued.)
 | L | u | η | b | \|H_M(u, 0)\|/F_cert | max_y\|H_M(u, y)\|/F_cert | max_y\|H_M(u, y) − H_M(u, 0)\|/F_cert |
 |---|---|---|---|---|---|---|
+| 0.04 | 0.4013 | 0.02 | 0 | 242 | **242** | **479** (at y = 0.07) |
+| 0.04 | 0.4013 | 0.02 | 4 | 242 | **5271** | **5279** (at y = 1) |
 | 0.5 | 1.4738 | 0.02 | 0 | 1.216 | **1.275** | 0.154 |
 | 0.5 | 1.4738 | 0.02 | 4 | 1.216 | **1.397** | 0.455 |
 | 2 | 3.3149 | 0.02 | 0 | 1.249 | **1.258** | 0.0090 |
@@ -428,8 +436,13 @@ transient; a 1500-bit recheck is queued.)
 | 2 | 3.3149 | 0.01 | 4 | 1.249 | 1.249 | 0.0061 |
 
 The author's own measurement (§87, coordinator's message) is at low L: c = 0.037 + 0.0037i (u ≈ 0.39 + 0.02i), y = 1/20, b = 0, with
-|H_M(u, y) − H_M(u, 0)| > 463F_cert. At L = 2 the strip transfer is ~1e-2 F_cert. So the strip bound is strongly L-dependent; low-L points
-are queued (`cache/lemUc_L0.04.log`).
+|H_M(u, y) − H_M(u, 0)| > 463F_cert. At L = 2 the strip transfer is ~1e-2 F_cert. **Confirmed here at L = 0.04 (u = 0.4013 + 0.02i, 6000 bits):**
+* the transfer is 479 F_cert for b = 0 (the author: > 463) and 5279 for b = 4;
+* even the infinite-twist face is |H_M(u, 0)| = 242F_cert, dominated by Im H_M = 4.6e-3 against Re 6.1e-5.
+
+This is the e^{Λη} growth of the p = 1 endpoint (e^{20} at η = 0.02), multiplied at b = 4 by the helicity factor.
+**So the strip must shrink at low L.** At L ≥ 0.5 the constant is K ≈ 1.3–1.4 at η = 0.02; at L = 0.04 it is K ≈ 5e3. An e^{Λη} scaling suggests
+η ≈ 0.003–0.005 there (K ~ e^{3–5}·O(1)); this is not measured.
 
 ### 8.2 Cost of the c-direction (estimate)
 * **Per c (twist test, DV):** 11 min (L = 2) to 28 min (L = 7). It is dominated by the ν-quadrature for the jets, with N_p ≈ 3000 + 1.4Λβ_c
