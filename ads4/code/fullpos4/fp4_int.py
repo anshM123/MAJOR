@@ -101,30 +101,50 @@ def kern(beta, u):
 
 
 class Amp:
-    """P+_h(beta) for arrays of complex beta (Re beta > 0, |Im beta| < pi/2 or so)."""
-    def __init__(self, k=2, u0=0.06, parts=('S', 'E', 'C')):
-        self.w = Weight(k); self.u0 = u0; self.parts = parts
-        # near part u in [0, u0]: u = s^2, graded at 0
+    """P+_h(beta) for arrays of complex beta (Re beta > 0, |Im beta| < pi/2 or so).
+    |beta| <  B0: u in [0, u0] with W_h direct (Gauss-Legendre in p), u >= u0 split (S, C real axis; E on a pi/4 ray from u0);
+    |beta| >= B0: split on the whole u-range (S, C real axis from 0; E on the ray u = r e^{i pi/4}); u = s^2 near 0."""
+    B0 = 0.04
+
+    def __init__(self, k=2, u0=0.06):
+        self.w = Weight(k); self.u0 = u0
         s, ws = _graded(0.0, math.sqrt(u0), 1e-4, 1.6, 16)
         self.un = s*s; self.wun = 2*s*ws
-        # far part: real axis u in [u0, 80]
         self.uf, self.wuf = _graded(u0, 80.0, 0.02, 1.25, 16)
-        # rotated ray for E: u = u0 + r e^{i pi/4}, r in [0, 60/Lam*...]
         r, wr = _graded(0.0, 0.08, 1e-3, 1.4, 16)
         self.ue = u0 + r*np.exp(1j*math.pi/4); self.wue = wr*np.exp(1j*math.pi/4)
+        # whole-range nodes (|beta| >= B0)
+        s2, ws2 = _graded(0.0, math.sqrt(80.0), 1e-3, 1.25, 16)
+        self.ua = s2*s2; self.wua = 2*s2*ws2
+        r2, wr2 = _graded(0.0, math.sqrt(0.1), 1e-3, 1.3, 16)
+        rot = np.exp(1j*math.pi/4)
+        self.uea = r2*r2*rot; self.wuea = 2*r2*wr2*rot
+
+    def _small(self, b):
+        near = (self.w.W_direct(b + self.un[None, :])*kern(b, self.un[None, :])*self.wun).sum(1)
+        tf = b + self.uf[None, :]
+        sc = ((self.w.W_S(tf) + self.w.W_C(tf))*kern(b, self.uf[None, :])*self.wuf).sum(1)
+        te = b + self.ue[None, :]
+        e = (np.exp(1j*LAM*te)*self.w.W_Eamp(te)*kern(b, self.ue[None, :])*self.wue).sum(1)
+        return near + sc + e, sc, e
+
+    def _large(self, b):
+        tf = b + self.ua[None, :]
+        sc = ((self.w.W_S(tf) + self.w.W_C(tf))*kern(b, self.ua[None, :])*self.wua).sum(1)
+        te = b + self.uea[None, :]
+        e = (np.exp(1j*LAM*te)*self.w.W_Eamp(te)*kern(b, self.uea[None, :])*self.wuea).sum(1)
+        return sc + e, sc, e
 
     def __call__(self, beta, split=False):
         beta = np.atleast_1d(np.asarray(beta, complex))
         out = np.zeros_like(beta); oS = np.zeros_like(beta); oE = np.zeros_like(beta)
-        for i0 in range(0, len(beta), 64):
-            b = beta[i0:i0 + 64][:, None]
-            near = (self.w.W_direct(b + self.un[None, :])*kern(b, self.un[None, :])*self.wun).sum(1)
-            tf = b + self.uf[None, :]
-            sc = ((self.w.W_S(tf) + self.w.W_C(tf))*kern(b, self.uf[None, :])*self.wuf).sum(1)
-            te = b + self.ue[None, :]
-            e = (np.exp(1j*LAM*te)*self.w.W_Eamp(te)*kern(b, self.ue[None, :])*self.wue).sum(1)
-            out[i0:i0 + 64] = -1j/math.pi*(near + sc + e)
-            oS[i0:i0 + 64] = -1j/math.pi*sc; oE[i0:i0 + 64] = -1j/math.pi*e
+        sm = np.abs(beta) < self.B0
+        for mask, fn in ((sm, self._small), (~sm, self._large)):
+            idx = np.nonzero(mask)[0]
+            for i0 in range(0, len(idx), 64):
+                ii = idx[i0:i0 + 64]
+                t, sc, e = fn(beta[ii][:, None])
+                out[ii] = -1j/math.pi*t; oS[ii] = -1j/math.pi*sc; oE[ii] = -1j/math.pi*e
         return (out, oS, oE) if split else out
 
 
@@ -142,7 +162,7 @@ if __name__ == '__main__':
     sys.path.insert(0, os.path.join(HERE, '..', 'largespin'))
     import ls_core as LSC
     A = Amp()
-    bs = np.array([0.01, 0.03, 0.1, 0.3, 0.6, 1.0, 2.0, 4.0, 8.0])
+    bs = np.array([0.01, 0.03, 0.039, 0.041, 0.1, 0.3, 0.6, 1.0, 2.0, 4.0, 8.0])
     v = A(bs + 0j)
     ref = 2*LSC.OmLR(2, bs)
     for b_, x, r in zip(bs, v, ref):
