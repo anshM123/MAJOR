@@ -88,18 +88,21 @@ def run(u, M, Np, Fc):
         dx = d*d*xs
         pm = [Am[0]] + [cm(Am[m] + dx*(q_b*Am[m - 1] + Bm[m - 1])) for m in range(1, M + 1)] + [cm(dx*(q_b*Am[M] + Bm[M]))]
         H0 = pm[0]
-        worst = 0.0; wy = 0.0
+        worst = 0.0; wy = 0.0; mabs = 0.0; my_ = 0.0
         for yv in np.linspace(0, 1, 401):
             yb = arb(float(yv)); v = acb(0)
             for coef in reversed(pm):
                 v = v*yb + coef
             Hy = v/(1 + q_b*dx*yb)**4
             dlt = float(abs(Hy - H0).mid())
+            ah = float(abs(Hy).mid())
+            if ah > mabs:
+                mabs, my_ = ah, float(yv)
             if dlt > worst:
                 worst, wy = dlt, float(yv)
         res.append(dict(u=[float(u.real.mid()), float(u.imag.mid())], b=b, M=M, Np=Np, prec=ctx.prec, Fcert=Fc,
                         H0=[float(H0.real.mid()), float(H0.imag.mid())], absH0_over_F=float(abs(H0).mid())/Fc,
-                        maxdiff_over_F=worst/Fc, at_y=wy, secs=time.time() - t0))
+                        maxdiff_over_F=worst/Fc, at_y=wy, maxabs_over_F=mabs/Fc, maxabs_at_y=my_, secs=time.time() - t0))
     return res
 
 if __name__ == '__main__':
