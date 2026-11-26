@@ -36,6 +36,7 @@ def geom(al, ga):
     return xi, beta
 
 
+MAJ = os.environ.get('FP4_MAJ', '0') == '1'
 BANDS = [0, 0.01, 0.1, 0.3, 1, 3, 1e9]
 
 
@@ -50,7 +51,7 @@ def run(a, J, b, amp=None, p=3, kappa=None, toy=False):
     band_abs = np.zeros(len(BANDS) - 1)
     A0 = math.pi/2 if kappa is None else min(math.pi/2, kappa*I.LAM/S)
     A, wA = graded(0.0, A0, eps/20)
-    tot = {}; sig = {}
+    tot = {}; sig = {}; totm = {}
     for piece in ('U', 'T', 'L'):
         ALs, GAs, WTs = [], [], []
         for Ai, wa in zip(A, wA):
@@ -74,6 +75,10 @@ def run(a, J, b, amp=None, p=3, kappa=None, toy=False):
         P[ok] = amp(beta[ok])
         Wv = xi**(s - 1)*(1 - xi*xi)**(-p)*P*np.exp(1j*S*al - 1j*a*ga)/np.sin(al)
         ab = np.abs(Wv)*wt
+        if MAJ:
+            Mj = np.zeros(len(al)); Mj[ok] = amp.majorant(beta[ok])
+            abm = np.abs(xi**(s - 1)*(1 - xi*xi)**(-p)*np.exp(1j*S*al - 1j*a*ga)/np.sin(al))*Mj*wt
+            totm[piece] = float(abm.sum())
         tot[piece] = float(ab.sum()); sig[piece] = complex((Wv*wt).sum())
         bb = np.abs(beta)
         for i in range(len(BANDS) - 1):
@@ -88,7 +93,7 @@ def run(a, J, b, amp=None, p=3, kappa=None, toy=False):
     m = math.sqrt(T - C); hy = LSC.hyb_fast(1000, J, m/I.LAM, '++' if b == 0 else '+-')
     Ns = hy['Ns']
     out = dict(a=a, J=J, b=b, S=S, c=c, L=-math.log(1 - c), beta_c=beta_c, C=Cc, Gc=Gc, Ns=Ns, w3=w**3,
-               Nabs=Nabs, signed_quad=Hsig, signed_over_Gc=Hsig/Gc, pieces={k: Cc/math.pi*v for k, v in tot.items()},
+               Nabs=Nabs, Nmaj=(Cc/math.pi*sum(totm.values()) if MAJ else None), signed_quad=Hsig, signed_over_Gc=Hsig/Gc, pieces={k: Cc/math.pi*v for k, v in tot.items()},
                bands={f'{BANDS[i]}-{BANDS[i+1]}': Cc/math.pi*band_abs[i] for i in range(len(BANDS) - 1)},
                kappa=kappa, A0=A0, ratio_G=Nabs/abs(Gc), ratio_Ns=w**3*Nabs/Ns, w3Gc_over_Ns=w**3*Gc/Ns, npts=len(A), secs=time.time() - t0)
     return out

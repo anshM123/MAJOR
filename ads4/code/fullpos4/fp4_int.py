@@ -142,6 +142,27 @@ class Amp:
         e = (np.exp(1j*self.lam*te)*self.w.W_Eamp(te)*kern(b, self.uea[None, :])*self.wuea).sum(1)
         return sc + e, sc, e
 
+
+    def majorant(self, beta):
+        """Lemma-A+-type majorant (FULLPOS4 §3): (1/pi) int_0^oo |K| (|W_S| + |W_C| + e^{-Lam Im t}|W_E e^{-i Lam t}|) du on the real
+        u-axis for |beta| >= B0; for |beta| < B0 the part u < u0 uses |W_h| (direct).  Not certified (quadrature), DV only."""
+        beta = np.atleast_1d(np.asarray(beta, complex)); out = np.zeros(len(beta))
+        sm = np.abs(beta) < self.B0
+        for i0 in range(0, len(beta), 64):
+            b = beta[i0:i0 + 64][:, None]; m = sm[i0:i0 + 64]
+            tf = b + self.ua[None, :]
+            v = (np.abs(self.w.W_S(tf)) + np.abs(self.w.W_C(tf)) + np.exp(-self.lam*tf.imag)*np.abs(self.w.W_Eamp(tf)))
+            big = (v*np.abs(kern(b, self.ua[None, :]))*self.wua).sum(1)
+            if m.any():
+                bs = b[m]
+                near = (np.abs(self.w.W_direct(bs + self.un[None, :]))*np.abs(kern(bs, self.un[None, :]))*self.wun).sum(1)
+                tf2 = bs + self.uf[None, :]
+                v2 = (np.abs(self.w.W_S(tf2)) + np.abs(self.w.W_C(tf2)) + np.exp(-self.lam*tf2.imag)*np.abs(self.w.W_Eamp(tf2)))
+                far = (v2*np.abs(kern(bs, self.uf[None, :]))*self.wuf).sum(1)
+                big[m] = near + far
+            out[i0:i0 + 64] = big/math.pi
+        return out
+
     def __call__(self, beta, split=False):
         beta = np.atleast_1d(np.asarray(beta, complex))
         out = np.zeros_like(beta); oS = np.zeros_like(beta); oE = np.zeros_like(beta)
