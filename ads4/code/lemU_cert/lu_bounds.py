@@ -27,7 +27,8 @@ def _box_eval(c, d, r, a0, a1):
     al = arb((a0 + a1)/2, (a1 - a0)/2)*PI
     t = acb(r*al.cos(), r*al.sin())
     z = c + c*d*t
-    q = z.sqrt()
+    # the set {w(phi)} is invariant under q -> -q, so any branch of sqrt(z) may be used; avoid the cut of acb sqrt
+    q = z.sqrt() if float(z.real.mid()) >= 0 else acb(0, 1)*(-z).sqrt()
     one_z = 1 - z
     iv = 1/abs(one_z)
     wp = (1 + q)/(1 - q); wm = (1 - q)/(1 + q)

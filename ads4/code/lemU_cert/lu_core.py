@@ -192,3 +192,18 @@ def cheb(pm, mid=False):
             w = w*(m - l + 1)/(m + l)
             Ph[l] += 2*w*pm[m]
     return [_m(v, mid) for v in Ph]
+
+
+def wrap_bits(c, K):
+    """estimated precision loss (bits) of the ball jet recurrence: majorant rate 1/lam (root of 1 - |A1| l - |A2| l^2 - |A3| l^3)
+    against the true rate c^j; DV estimate used only to choose the working precision."""
+    cf = float(c.mid()); df = 1 - cf
+    a1, a2, a3 = abs(df - 2*cf), abs(cf*cf - 2*cf*df), cf*cf*df
+    lo, hi = 0.0, 10.0
+    for _ in range(200):
+        m = (lo + hi)/2
+        if 1 - a1*m - a2*m*m - a3*m**3 > 0:
+            lo = m
+        else:
+            hi = m
+    return max(0, int(K*math.log(1/(lo*cf))/math.log(2))) + 64

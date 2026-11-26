@@ -1745,3 +1745,24 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   2. An adaptive grid in all 4 channels.
   3. Contour assembly for ψ₂/ψ₃ (top line at complex ν, right edge).
   4. The real-axis residual for ν > 160 against the EPSW cell masses.
+
+## 108. No small complex-twist majorant at low L; real-axis Chebyshev norming replaces it (author, 27 Nov; checker not yet in repo)
+
+* **Obstruction (author, rigorous).** Dressed b = 4 transfer at d = 0.449329 (L ≈ 0.8), ν = 900, with h = h_c(1+x) and h_c = 3.34e-8. The full signed 1500-term recurrence at 400 digits with rounding enclosures gives:
+  * \|P\| = 1.736 at the real twist midpoint;
+  * \|P(x = i)\| > 1e12;
+  * \|P(x = 1.2+1.6i)\| > 1e26.
+
+  So no O(1) resummed majorant can hold on a complex twist disk at low L. This is a property of the true function, not of the termwise majorant, and it rules out the coordinator's suggested target in §107.
+* **Replacement (author).** In the twist direction use Chebyshev approximation on a Bernstein ellipse E_ρ: ‖P − P_m‖ ≤ 2M_ρρ^{−m} for ρ ≥ 2. Then the cosine-grid norming inequality (Ehlich–Zeller type) gives ‖P‖_∞ ≤ (max_k \|P(cos kπ/N)\| + ε_m)/cos(mπ/(2N)) + ε_m. This needs only scalar recurrence evaluations at real twists, plus a sup bound M_ρ on the ellipse.
+* **Executed (author)**, full twist 0 ≤ h ≤ 6.68e-8, L ≈ 0.8, dressed b = 4:
+  * ν = 900: \|P\| < 7.745 and \|Q\| < 2.509 from 513 evaluations (ε_m = 7.4e-7);
+  * ν = 1031: \|P\| < 6131 and \|Q\| < 2365 from 598 evaluations (ε_m = 4.6e-7).
+
+  These are single (d, ν) cross-sections, continuous in twist only.
+* **Open.**
+  1. Continuum in (d, ν): a tensor Chebyshev/ellipse version, or Taylor in (d, ν) combined with Chebyshev in h.
+  2. Certified M₀ and M₁.
+  3. A kernel budget near the turning point, where \|P\| ~ 6e3 at L = 0.8.
+  4. Contour assembly.
+  5. The checker has not been received or reproduced.
