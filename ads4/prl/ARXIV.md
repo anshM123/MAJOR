@@ -29,9 +29,9 @@ Holography predicts that quantum field theories with a large gap behave like Ein
 4 pages + references, 2 figures; 43 pages of Supplemental Material. Code and data: https://doi.org/10.5281/zenodo.24571131
 ```
 
-* The Letter PDF is 6 pages in total: the text and acknowledgments end near the top of page 5, and the references fill the rest of pages 5 and 6 (REVTeX
+* The Letter PDF is 5 pages in total: the text, acknowledgments and data-availability statement end on page 4, and the references fill pages 4 and 5 (REVTeX
   `prl` style, build of 27 Nov 2026). The Supplement is 43 pages (build of 27 Nov 2026). If you would rather count the whole PDF, write
-  "6 pages, 2 figures, 43 pages of Supplemental Material".
+  "5 pages, 2 figures, 43 pages of Supplemental Material".
 * Code and data: Zenodo, DOI 10.5281/zenodo.24571131 (filled in).
 * If the Supplement goes into the same arXiv submission (recommended: append it to the Letter PDF or upload it as an ancillary
   file), say so: "Supplemental Material included".

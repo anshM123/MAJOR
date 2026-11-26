@@ -5,7 +5,7 @@ Omega^Q_up flat target Q3*), and evaluates the exact light-side integrals
     16 L_A(Lam)  = 16 int_0^1 psi2^D(p) dp / (p^2 + 9/(4 Lam^2))        (Result (1); K = 1; c1 = 0 exactly, C1_FINAL)
     2 L_AdS(Lam) =  2 int_0^1 psi2^Q(p) dp / (p^2 + 9/(4 Lam^2))        (Result (2a), published constants)
 term by term in mpmath (recursion I_n = 1/(n-1) - a^2 I_{n-2}, a = 3/(2 Lam)), as ads4/code/repro/bounds.py does.
-Plotted (v15 redesign, for a broad reader; same numbers as v14):
+Plotted (v18: Computer Modern fonts, no overlapping labels, Delta_g >= 1000 only; same numbers as v14):
   (a) log scale: the bound tau0 = 240 sqrt(16 L_A)/Lam^4 on tau = sqrt(t4^2 + alpha_T^2), against the conformal-collider bound
       tau <= 4 that holds in every unitary CFT_3 (Supplement Sec. S5.F; saturated by a free scalar or free fermion), with the
       factor 4/tau0 at Delta_g = 1000 drawn as an arrow. Comparison curve (not an AdS bound, no status markers): the flat D = 4
@@ -74,94 +74,79 @@ for Dg in (300, 1000, 2000, 5000, 10000, 100000):
 print('collider bound tau <= 4 over tau0(1000) = %.3e;  A = tau0/4 <= %.3e at 1000'
       % (4 / vals(1000)['tau'], vals(1000)['tau'] / 4))
 
-grid = [int(round(10 ** (2.48 + 0.02 * i))) for i in range(int((3.74 - 2.48) / 0.02) + 1)]
-grid = sorted(set([g for g in grid if g >= 300] + [300, 1000, 2000, 5000]))
+grid = sorted(set([int(round(10 ** (3.0 + 0.02 * i))) for i in range(36)] + [1000, 2000, 5000]))
+grid = [g for g in grid if 1000 <= g <= 5000]
 V = {Dg: vals(Dg) for Dg in grid}
 xs = grid
 ZETA3x2 = 2 * float(mp.zeta(3))
 TAU_COLL = 4.0          # conformal-collider bound tau <= 4 (every unitary CFT_3; Supplement Sec. S5.F)
 
-# ------------------------------------------------------------------ style (single-column PRL width 3.375 in; size as v14)
-INK, INK2, MUTED, GRID = '#0b0b0b', '#52514e', '#8a8984', '#e4e3df'
+# ------------------------------------------------------------------ style: single PRL column, Computer Modern like REVTeX
+INK, INK2, GRID = '#1a1a1a', '#555555', '#e6e6e6'
 C1, C2, C3 = '#2a78d6', '#eb6834', '#1baf7a'
-FS = 7.0
-plt.rcParams.update({'font.family': 'serif', 'font.serif': ['DejaVu Serif'], 'mathtext.fontset': 'dejavuserif',
-                     'font.size': 7.5, 'axes.labelsize': 7.5, 'xtick.labelsize': 7, 'ytick.labelsize': 7, 'legend.fontsize': 7,
+FS = 7.5
+plt.rcParams.update({'font.family': 'serif', 'font.serif': ['cmr10'], 'mathtext.fontset': 'cm',
+                     'axes.formatter.use_mathtext': True, 'axes.unicode_minus': False,
+                     'font.size': 8, 'axes.labelsize': 8, 'xtick.labelsize': 7.5, 'ytick.labelsize': 7.5,
                      'axes.edgecolor': INK2, 'axes.linewidth': 0.6, 'xtick.color': INK2, 'ytick.color': INK2,
                      'xtick.major.width': 0.6, 'ytick.major.width': 0.6, 'xtick.minor.width': 0.4, 'ytick.minor.width': 0.4,
+                     'xtick.direction': 'in', 'ytick.direction': 'in',
                      'text.color': INK, 'axes.labelcolor': INK, 'pdf.fonttype': 42})
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(3.375, 3.6), sharex=True,
-                               gridspec_kw=dict(hspace=0.10, height_ratios=[1.22, 1]))
-XMIN, XMAX = 230, 5600
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(3.375, 3.5), sharex=True,
+                               gridspec_kw=dict(hspace=0.08, height_ratios=[1.25, 1]))
+XMIN, XMAX = 900, 5600
 for ax in (ax1, ax2):
     ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlim(XMIN, XMAX)
-    ax.axvspan(XMIN, 300, color='#f0efec', lw=0, zorder=0)
     ax.grid(True, which='major', color=GRID, lw=0.5, zorder=0)
-    for s in ('top', 'right'):
-        ax.spines[s].set_visible(False)
-
-
-def series(ax, key, color, ls, solid_from=None, status=True):
-    ys = [V[x][key] for x in xs]
-    if not status:   # comparison curve: full strength, no status markers (referee 5, m9)
-        ax.plot(xs, ys, color=color, ls=ls, lw=1.0, zorder=3)
-        return
-    ax.plot(xs, ys, color=color, ls=ls, lw=1.0, alpha=0.45, zorder=3)   # implication only between markers
-    if solid_from is not None:   # Delta_g >= 1000 for Omega^EE, given the no-growth premise (Supplement Sec. S8)
-        xx = [x for x in xs if x >= solid_from]
-        ax.plot(xx, [V[x][key] for x in xx], color=color, ls=ls, lw=1.4, zorder=3)
-        ax.plot([2000, 5000], [V[2000][key], V[5000][key]], 'o', ms=3.0, mfc='white', mec=color, mew=0.9, zorder=4)
-    ax.plot([300], [V[300][key]], 'D', ms=3.6, mfc='white', mec=color, mew=1.1, zorder=4)    # one hypothesis open
-    ax.plot([1000], [V[1000][key]], 'o', ms=4.6, mfc=color, mec='white', mew=0.8, zorder=5)  # headline
-
+    for sp in ('top', 'right'):
+        ax.spines[sp].set_visible(False)
+LAB = dict(fontsize=FS, color=INK)
 
 # ------------------------------------------------------------------ (a) how close to Einstein
-# three elements: the collider bound (reference line), this work (with the factor as an arrow), the comparison curve
 ax1.axhline(TAU_COLL, color=INK2, lw=0.9, ls=(0, (6, 2, 1, 2)), zorder=2)
-ax1.text(1250, TAU_COLL * 2.0, r'every unitary CFT$_3$: $\tau\leq4$', fontsize=FS, color=INK, ha='left', va='bottom')
-series(ax1, 'chlps_tau', C2, (0, (4, 2)), status=False)
-series(ax1, 'tau', C1, '-', solid_from=1000)
+ax1.text(1500, TAU_COLL * 1.8, r'collider bound, every CFT$_3$', ha='left', va='bottom', **LAB)
+ax1.plot(xs, [V[x]['chlps_tau'] for x in xs], color=C2, ls=(0, (4, 2)), lw=1.0, zorder=3)
+ax1.plot(xs, [V[x]['tau'] for x in xs], color=C1, lw=1.4, zorder=3)
+ax1.plot([2000, 5000], [V[2000]['tau'], V[5000]['tau']], 'o', ms=3.2, mfc='white', mec=C1, mew=0.9, zorder=4)
 t1000 = V[1000]['tau']
-# bound (3) of the Letter: no positivity assumption (angular route), tau <= (160/9)/(Dg-2) [1-49/(2Dg+9)^2]^(-1/2)
+ax1.plot([1000], [t1000], 'o', ms=4.8, mfc=C1, mec='white', mew=0.8, zorder=5, clip_on=False)
 ang = [160.0 / 9.0 / (x - 2) * (1 - 49.0 / (2 * x + 9) ** 2) ** -0.5 for x in xs]
-ax1.plot(xs, ang, color=C3, ls=(0, (1, 1.4)), lw=1.3, zorder=3)
-ax1.text(2300, 0.035, 'without (iii)', fontsize=FS, color=INK, ha='left', va='bottom')
-ax1.annotate('', xy=(1000, t1000 * 2.2), xytext=(1000, TAU_COLL / 1.5),
-             arrowprops=dict(arrowstyle='-|>', color=INK2, lw=0.8, mutation_scale=7, shrinkA=0, shrinkB=0), zorder=4)
-ax1.text(1110, 10 ** float((mp.log10(TAU_COLL) + mp.log10(t1000)) / 2), r'$1.4\times10^{8}$ times' + '\ntighter',
-         fontsize=FS, color=INK, ha='left', va='center', linespacing=1.15)
-ax1.text(1110, t1000 * 1.6, r'$\tau\leq2.89\times10^{-8}$', fontsize=FS, color=INK, ha='left', va='bottom')
-ax1.text(345, 7.5e-6, 'this work', fontsize=FS, color=C1 if False else INK, ha='left', va='bottom')
-ax1.text(330, 6e-10, 'flat-space optimum,\ntransplanted', fontsize=FS, color=INK2, ha='left', va='top',
-         linespacing=1.1)
+ax1.plot(xs, ang, color=C3, ls=(0, (1, 1.4)), lw=1.4, zorder=3)
+# direct labels, each in empty space next to its own line
+v26 = vals(2600)
+ang26 = 160.0 / 9.0 / (2600 - 2) * (1 - 49.0 / (2 * 2600 + 9) ** 2) ** -0.5
+ax1.text(2600, ang26 * 2.2, 'without positivity', ha='left', va='bottom', **LAB)
+ax1.text(1080, t1000 * 2.0, r'this work, $\tau\leq2.89\times10^{-8}$', ha='left', va='bottom', **LAB)
+ax1.text(1080, vals(2300)['chlps_tau'] / 1.8, 'flat-space optimum', ha='left', va='top', color=INK2, fontsize=FS)
+# the factor between the collider bound and this work, as an arrow at Delta_g = 1000
+ax1.annotate('', xy=(1000, t1000 * 2.4), xytext=(1000, TAU_COLL / 1.6),
+             arrowprops=dict(arrowstyle='-|>', color=INK2, lw=0.7, mutation_scale=6, shrinkA=0, shrinkB=0), zorder=4)
+ax1.text(1080, 1e-4, r'$1.4\times10^{8}$ times' + '\nsmaller', ha='left', va='center', linespacing=1.15, **LAB)
 ax1.set_ylim(1e-12, 1e3)
 ax1.set_yticks([1e-12, 1e-9, 1e-6, 1e-3, 1e0])
 ax1.yaxis.set_minor_locator(matplotlib.ticker.NullLocator())
-ax1.set_ylabel(r'bound on $\tau=\sqrt{t_4^2+\alpha_T^2}$')
-ax1.text(0.02, 0.985, '(a)', transform=ax1.transAxes, va='top', fontsize=7.5, color=INK, fontweight='bold')
-ax1.text(265, 1e-5, 'nothing claimed', rotation=90, fontsize=FS, color=INK2, ha='center', va='center')
+ax1.set_ylabel(r'bound on $\tau$')
+ax1.text(0.97, 0.97, '(a)', transform=ax1.transAxes, ha='right', va='top', **LAB)
 
-# ------------------------------------------------------------------ (b) the R^4 upper end
-# three elements: (2b), (2a), the string / ABJM value
-series(ax2, 'q2b', C3, (0, (1.2, 1.4)))
-series(ax2, 'q2a', C1, '-')
+# ------------------------------------------------------------------ (b) the R^4 upper end (Omega^Q_up examined at 1000 only)
+for key, col, ls in (('q2b', C3, (0, (1.2, 1.4))), ('q2a', C1, '-')):
+    ax2.plot(xs, [V[x][key] for x in xs], color=col, ls=ls, lw=1.2, alpha=0.45, zorder=3)
+    ax2.plot([1000], [V[1000][key]], 'o', ms=4.8, mfc=col, mec='white', mew=0.8, zorder=5, clip_on=False)
 ax2.axhline(ZETA3x2, color=INK2, lw=0.9, ls=(0, (6, 2, 1, 2)), zorder=2)
-ax2.text(345, ZETA3x2 * 1.3, r'ABJM (type IIA strings): $2\zeta(3)$', fontsize=FS, color=INK, ha='left', va='bottom')
-ax2.text(345, 300, '(2b) light scalars allowed,\nneeds both functionals', fontsize=FS, color=INK, ha='left', va='bottom',
-         linespacing=1.1)
-ax2.text(345, 50, r'(2a) no scalar with $m<0.46\Lambda$', fontsize=FS, color=INK, ha='left', va='top')
+ax2.text(1500, ZETA3x2 * 1.35, r'ABJM, $2\zeta(3)$', ha='left', va='bottom', **LAB)
+ax2.text(1500, vals(1500)['q2b'] * 1.45, 'light scalars allowed', ha='left', va='bottom', **LAB)
+ax2.text(1500, vals(1500)['q2a'] / 1.5, 'no light scalar', ha='left', va='top', **LAB)
 ax2.set_ylim(1, 3000)
 ax2.set_yticks([1, 10, 100, 1000]); ax2.set_yticklabels(['1', '10', '100', '1000'])
 ax2.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
-ax2.set_ylabel(r'upper end of $\tilde{g}_4\Lambda^6/8\pi G$')
+ax2.set_ylabel(r'bound on $\tilde{g}_4\Lambda^6/8\pi G$')
 ax2.set_xlabel(r'higher-spin gap $\Delta_g$')
-ax2.set_xticks([300, 500, 1000, 2000, 5000]); ax2.set_xticklabels(['300', '500', '1000', '2000', '5000'])
+ax2.set_xticks([1000, 2000, 3000, 5000]); ax2.set_xticklabels(['1000', '2000', '3000', '5000'])
 ax2.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
-ax2.text(0.02, 0.97, '(b)', transform=ax2.transAxes, va='top', fontsize=7.5, color=INK, fontweight='bold')
-ax2.text(265, 40, 'nothing claimed', rotation=90, fontsize=FS, color=INK2, ha='center', va='center')
+ax2.text(0.97, 0.97, '(b)', transform=ax2.transAxes, ha='right', va='top', **LAB)
 
 fig.align_ylabels((ax1, ax2))
-fig.subplots_adjust(left=0.165, right=0.98, top=0.985, bottom=0.10)
+fig.subplots_adjust(left=0.15, right=0.975, top=0.985, bottom=0.10)
 out = os.path.join(HERE, 'fig1_bounds.pdf')
 fig.savefig(out)
 fig.savefig(os.path.join(HERE, 'fig1_bounds_preview.png'), dpi=220)
