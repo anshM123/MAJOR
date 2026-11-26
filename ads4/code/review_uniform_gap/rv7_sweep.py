@@ -172,3 +172,35 @@ if __name__ == '__main__':
         run_imp([65, 100, 300, 1000], Fr(0), Fr(40), 160, 'imp')
     elif mode == 'out':
         run_imp([65, 80, 100, 130, 160, 200, 250, 300], Fr(40), Fr(400), 360, 'out')
+
+def run_edge(Js, zetas, tag, gaps=None):
+    """large-spin probe at/near the twist edge (full ladder, no truncation); planning data for the uncovered region."""
+    gaps = gaps or GAPS
+    res = []; glob = None; t0 = time.time()
+    for J in Js:
+        bmax = 2*J+1
+        prec = 256 + int(1.6*bmax)
+        ts = [gap_data(Dg)[0] for Dg in gaps]
+        tab = AGtab(J+1, ts, prec)
+        for Dg in gaps:
+            t, lam2 = gap_data(Dg)
+            for b in (0, 4):
+                if b == 0 and J % 2:
+                    continue
+                for z in zetas:
+                    u = u_of(J, Dg, z)
+                    S = S_value(J, b, t, u, tab)
+                    row = dict(Dg=Dg if Dg else 'inf', J=J, b=b, zeta=float(z), bhat=float(bhat(J, Dg, u).mid()), S=float(S.mid()),
+                               pos=bool(S > 0), rad=float(S.rad()))
+                    res.append(row)
+                    if glob is None or row['S'] < glob['S']:
+                        glob = row
+        print(f"J={J} done {time.time()-t0:.1f}s; running min {glob}", flush=True)
+    json.dump(dict(rows=res, global_min=glob), open(f'out/rv7_{tag}.json', 'w'), indent=1)
+    print("GLOBAL MIN:", glob)
+    print("non-positive points:", [r for r in res if not r['pos']])
+
+if __name__ == '__main__' and sys.argv[1] == 'edge':
+    Js = [int(a) for a in sys.argv[2].split(',')]
+    run_edge(Js, [fmpq(1), fmpq(99, 100), fmpq(9, 10), fmpq(1, 2), fmpq(1, 10)], 'edge_' + sys.argv[2].replace(',', '_'),
+             gaps=[1000, 1500, 3000, 10**4, 10**5, None])
