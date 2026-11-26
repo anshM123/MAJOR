@@ -1,0 +1,1 @@
+Extract the included sliver_direct_certificate.zip, then copy all delta files into its sliver_direct_certificate directory. See delta/EXTENSION.md and delta/extension_ledger.json. The certificate is conditional; the remaining band is not closed.

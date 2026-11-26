@@ -2000,3 +2000,32 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 
   S2: the cached [4.5, 5] value comes from the older single-family Lemma B call, which reproduces exactly when patched in. Both versions are rigorous.
 * **Status.** [3.65, 5] stands. [3.65, 3.75] is conditional on Lemma X, which can be removed by covering [3.65, 3.8] with the author's norming pipeline (§109–110); see §120.
+
+## 120. Direct low-L positivity extended to c ∈ [0.09, 0.258]; conformal prefix theorem (author; reproduced by coordinator, 27 Nov)
+
+* **Package** (author): code/sliver_direct_cont/, a delta on top of code/sliver_direct/. The bundled original zip is byte-identical to the §118 package. The large .in files are not committed. The coordinator's logs are in rerun_coordinator/.
+* **New checkers.**
+  * direct_sign_triangle.cpp/.py stores A_k, G_k × 2^{−k}. This doubles the Horner ratio, and the dressing uses 2(k+1)²A′_{k+1}. The truncation is a downward-closed Taylor triangle {a_c i + a_h j < Q}, with polydisk radii 2^{a_c}, 2^{a_h} and Cauchy tail v(Q+2)2^{1−Q}.
+  * direct_sign_tight.py does the same on [0.223, 0.258]. There the prefix truncation error is relaxed locally to 3e-6: the exact ordinary-power tail at c = 0.258 with K = 1251 is 2.5901e-6, from |A_k|+|G_k| ≤ 2^2417(199/200)^{−k}. Its sign test subtracts 3e-6 + 1e-18.
+  * The coordinator audited both: the recurrence and error growth (\|a\|+dc+2r), and the triangle tail count of at most m+1 pairs per weighted degree.
+* **Results** (PASS_CONDITIONAL, normalised action lower bounds, both b):
+
+  | c-cell | method | b = 0 | b = 4 |
+  |---|---|---|---|
+  | [0.09, 0.12] | Chebyshev rectangle | 1.7305e-5 | 1.7064e-5 |
+  | [0.12, 0.15] | Chebyshev rectangle | 1.5690e-5 | 1.5385e-5 |
+  | [0.15, 0.18] | triangle | 1.4713e-5 | 1.4341e-5 |
+  | [0.18, 0.223] | triangle | 1.3289e-5 | 1.2845e-5 |
+  | [0.223, 0.258] | tight | 9.9709e-6 | 9.4152e-6 |
+
+  Together with §118 this gives direct coverage of c ∈ [0.05, 0.258], i.e. L ∈ [0.0513, 0.29841].
+* **Reproduction** (637 s). All 10 cell .json/.out files and extension_ledger.json are byte-identical (apart from timing). verify_extension.py passes: source transfer, spin caps, pole gaps, Cauchy majorants and tails, final inequalities. prefix_improvements.py passes (direct tail at 0.258: 2.59e-6; conformal tail at 0.9 with J = 5333: 1.33e-34 < 2^{−110}). verify_conformal_recurrence.py passes (symbolic identity plus 1980 finite-spin checks).
+* **Conformal prefix theorem** (proved; coefficient table not yet built).
+  * Variable: w = (1−√(1−c))/(1+√(1−c)), c = 4w/(1+w)², so w ≤ 0.52 for c ≤ 0.9.
+  * The Mehler–Dirichlet bound with \|Im β\| ≤ 4 atan√0.99 < π gives \|Ã_j\| + \|G̃_j\| ≤ 2^4813·0.99^{−j}.
+  * Lagrange inversion gives [z^k]w^j = (j/k)4^{−k}C(2k, k−j) ≥ 0, hence T_h[w^j] ≤ w(c)^j (coordinator checked the Lagrange step).
+  * Consequence: 5,334 coefficient pairs suffice on the whole band c ≤ 0.9, against 17,849 in the ordinary basis.
+  * The five-term transformed ladder recurrence is verified, but a stable continuum summation and the transformed seed-error budget are still open.
+* **Sliver status.**
+  * Certified (conditional on retained inputs): L ≤ 0.2984 (corner plus direct), and L ≥ 2.3.
+  * Open: 0.2984 < L < 2.3, i.e. c ∈ (0.258, 0.8997).
