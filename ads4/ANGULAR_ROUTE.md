@@ -1716,7 +1716,7 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Package** (author): code/signed_transfer/ contains check_transfer.js (BigInt Taylor models in (d, h, ν), scale 1e80), check_identity.py, check_lowfreq.py, make_grid.py, benchmarks, logs and README. The fresh reruns are in code/signed_transfer/rerun_coordinator/.
 * **Reproduced here (identical output).**
   * check_identity.py: 576 exact recurrence and dressing checks, 48 signed transfer sums.
-  * check_lowfreq.py: E_{r,[0,160]} ≤ 1.80e-6·(2/Λ)… ratio 0.9649 of budget, PASS (conditional on EPSW masses and F_cert ≥ 1.87e-6).
+  * check_lowfreq.py: constant 12.61 + 7e-4 + 2e-39 < 14. E_{r,[0,160]} < 1.451e-7 = 0.0776·F_cert. The successive rows reach 0.30·F_cert and 0.96·F_cert at the next two ceilings, so 160 is the right cut. PASS, conditional on the EPSW masses and F_cert ≥ 1.87e-6.
   * pilot: 6 channel boxes at L ≈ 3.2 and 2.5, e.g. \|P\| < 1.9358, \|Q\| < 0.6709.
   * combo: full twist, 4% in d, ν = 900 ± 10, b = 4: \|P\| < 5.4653, \|Q\| < 2.0611, remainder 8.96e-5 (27 s).
   * lower40: full twist at L ≈ 2.5, m = 40: \|P\| < 2.9384, \|Q\| < 0.7456 (105 s).
