@@ -1471,3 +1471,26 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * The defect is < e^{−120} (scalar integer-arithmetic enclosures over 410 cells). The complex perturbation sum is < 0.023. b = 4 follows by the helicity shift.
   * Not reproduced in Arb.
 * **Open.** The constants are too large for K ≲ 1000. Track the physically selected recurrence branch rather than bounding all solutions; combine with the fifth-order endpoint zero and the signed spectral integration; then an audited uniform truncation.
+
+## 93. FULLPOS4 final report: Lemma U passes at all tested L; Lemma C strip width depends on L (agent, 26 Nov) [DV]
+
+* **Lemma U twist test** (ideal NF02 weights, dressing included, M = 1000). Margins, b = 0 / b = 4:
+  * L = 0.04: 0.978 / 0.977;
+  * L = 0.1: 0.972 / 0.971;
+  * L = 0.5: 0.985 / 0.985;
+  * L = 2: 0.9976 / 0.9976;
+  * L = 7: 0.99999 / 0.99998.
+
+  All pass. \|R_{m,j}\| reaches 1e1697 at L = 0.04, which needs 6000 bits. Cost 10–28 min per c.
+* **Lemma C, measured** (max over y of \|H_M\|/F_cert at u = β_c + iη, b = 0 / b = 4):
+  * L = 2, η = 0.01 and 0.02: 1.26 / 1.25 (transfer 0.009);
+  * L = 0.5, η = 0.02: 1.27 / 1.40;
+  * L = 0.04, η = 0.02: 242 / 5271 (transfer 479, confirming the author's > 463).
+
+  So η = 0.02 is fine for L ≳ 0.5. At very low L it needs ~0.003–0.005, but **L ≲ 0.058 is already closed by the per-J certificates** (a < 3200 ⇒ J ≤ 1000). The relevant low end is L ≈ 0.06–0.5, not yet measured off-axis.
+* **Contour route.** It works numerically: the §55 benchmark is reproduced and the §74 pipeline matches to 6e-11. Brute-force certification is infeasible, ≳ 1.5e4 core-h.
+* **§78 reference.** Exact at single states; plain interval cells fail through ball wrapping.
+* **Missing for a sliver certificate.**
+  1. Rigorous jet enclosures of the integrated G, with the realised EPSW-repaired weight.
+  2. An Arb reproduction of the §78 E_ref.
+  3. The c-direction: ~1.4e3 c-points × 15–30 min, i.e. several nights on 22 cores, before certification overhead.
