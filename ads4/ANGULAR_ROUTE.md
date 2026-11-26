@@ -1161,3 +1161,17 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * The outgoing-split, frequency-integrated contour (spec in FULLPOS3 §5.2).
   * Reproduction of the §§62–63 vertical-line far remainder.
   * The §54 global contour as literally written gives NaN at a test state; it needs the author's diagonal and branch conventions.
+
+## 71. Lemma A⁺: signed outgoing frequency-integrated amplitude (author, 26 Nov)
+
+* **Representation.** 𝒫⁺_h(β) = −(i/(√2π))∫₀^∞K(β,u)W_h(β+u)du, with K = [2 sinh(β+u/2) sinh(u/2)]^{−1/2} and W_h(v) = ∫h(ν)coth(πν)e^{iνv}dν.
+  * Derivative: ∂_β𝒫⁺ = −(i/√2π)∫K[iW_{νh} − ½coth(β+u/2)W_h]du.
+* **Ideal weights H_{i,j} = ν^jψ_i(ν/Λ).** Integration by parts in ν terminates exactly (polynomials).
+  * Bound: \|W(X+iy)\| ≤ A_{i,j}(X) + 1.004e^{−Λy}E_{i,j}(X) for y ≥ 0, integrating over the full support [0, Λ], since H(0) = 0.
+  * The upper-endpoint sum starts at r = 5 (fifth-order zero).
+  * **Checked here (exact NF02 polynomials, sympy):** E_{2,0}(0.37) = 5.545e-7, E_{2,1} = 5.63e-4, E_{3,0} = 5.43e-7, E_{3,1} = 5.52e-4; L_{2,0}(0.37) = 1.905, L_{2,1} = 10.84, L_{3,0} = 0.508, L_{3,1} = 2.886. All are at or below the author's bounds. H′_{2,0}(0) = 0.18918 < 0.189275. H^{(r)}(Λ) = 0 for r < 5.
+* **Residual.** Per-panel EPSW masses, R_j(y) = Σε_ℓ coth(πl_ℓ)sup ν^je^{−νy}, \|r\|₁ < 2.682e-6. The erf-cutoff difference is < 1e-11.
+* **Vertical contour (Im β < 0).** e^{−at−νy} ≤ e^{−t−νθ(A)}e^{G_{a−1}(ν)}, with G₉₉₇(Λ) < 0.055. No e^{πΛ/2} loss.
+* **Diagonal.** 𝒫⁺_h = (i/π)[M_h log(2β) − D_h] + E_h, with explicit \|E_h\| and \|E_h′\| bounds for \|β\| ≤ 1/(32·1101). ξ∂_β𝒫⁺ is finite at the diagonal.
+* **Closed majorants.** 𝓑_x[g] ≤ e^{−x/2}g(x)/√(1−e^{−2x}) for decreasing g. Leading size (2/Λ)\|𝒫⁺\| = O(e^{−x/2}/(Λ²x)), the leading-Regge floor scale.
+* **Not yet evaluated:** the resulting full contour-integrand norm relative to N_s over the cells.
