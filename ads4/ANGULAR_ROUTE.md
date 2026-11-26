@@ -2029,3 +2029,22 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Sliver status.**
   * Certified (conditional on retained inputs): L ≤ 0.2984 (corner plus direct), and L ≥ 2.3.
   * Open: 0.2984 < L < 2.3, i.e. c ∈ (0.258, 0.8997).
+
+## 121. Lemma X (AS §5.5) refereed: holds (referee agent, 27 Nov)
+
+* **Report:** REVIEW_LEMMA_X.md; scripts and logs in code/review_lemx/.
+* **Verdict: holds.** The proof was re-derived step by step; no inequality has the wrong direction and no constant is wrong. There are five imprecisions (N1–N5), each covered by slack already in the code:
+  * N1: the first window step starts from y ≤ y_A (about 0.03 nats), covered by the code's +3 steps.
+  * N2: phase III drops a boundary term (0.1–0.27 nats).
+  * N3: lmax sits about 3% below \|λ₊\| near y_B.
+  * N4: some redundant slack.
+  * N5: c = 0.5 is used only by the DV driver, not by the certificate.
+
+  An independent bound with N1–N3 fixed stays at least 0.066 nats below rt_pp.cross for every c ∈ {0.7, 1, 1.5}, box [t−1, t] with t ∈ [949, 1150], and σ ≤ 6.5.
+* **Hypotheses on the [3.65, 3.75] right edge.** piece_right → PP → cross with τ ∈ [Λ−1, Λ_up] and σ ≤ 5.5 (helicity shift included), for all a ≥ 998 and any spin. Since τ = Λ < 999, every step has y_k < 0.9995: the turning point is never crossed, and only phases I and II are active. The lemma makes no assumption on L, d or N/a.
+* **Numerical margins** (exact \|Ŝ\| in Arb at 12000 and 16000 bits; 21 values of a in [998, 4500], L ∈ {3.65, 3.70, 3.75}, σ ∈ [0, 5.5], τ ∈ [Λ−1, Λ]):
+  * Lemma X (b = 0): smallest gap e^{7.727}, at a = 998, n = 83372, σ = 0.
+  * PP with helicity (b = 4): e^{8.21}.
+  * Every intermediate inequality holds on 150 trajectories.
+* **Alternative.** base_bounds (§109) would also serve on this edge and is 4–6.5 nats sharper, but would need rewiring.
+* **Status.** With §119, the cell [3.65, 3.75] no longer has an unreviewed dependency, so L ∈ [3.65, 5] is fully refereed. The remaining retained inputs are the global ones: the angular-action identity, EPSW masses and cutoff, the LRINF floors, and §73.

@@ -74,7 +74,7 @@ def bound_indep(sig, t_lo, t_hi, c, a0=998.0, parts=False):
     Phase I (eigen-coordinates, d^sigma cancellation, excess integral, adiabatic integral) up to y' = yA + dy, dy = 2 t_hi/(a0+1)^2
     (proved step bound Delta y_k <= 2 tau/(m+1)^2 <= 2 tau/(a+1)^2, from d eps/dk <= 4/m^2), last adiabatic term f(y')dy;
     window: eta = 2(delta + dy + u) (covers the first window step taken from an index with y in (yA - dy, yA]),
-    W <= t_hi(1/yA - 1/yB) + 2 steps; phase III as in rt_pp.cross but with |r| >= sqrt(y^2 - 1 - u^2) everywhere and
+    W <= t_hi(1/yA - 1/yB) + 1 interior steps plus the entry step; phase III as in rt_pp.cross but with |r| >= sqrt(y^2 - 1 - u^2) everywhere and
     |lam+| <= (y + u) + sqrt(y^2 - 1 + u^2 + 2uy).  Returns log bound (and the parts)."""
     s = sig; tl = t_lo; th = t_hi; a = a0
     al = math.hypot(s, th); q = al/tl
@@ -94,7 +94,7 @@ def bound_indep(sig, t_lo, t_hi, c, a0=998.0, parts=False):
     eta = 2*(dl + u)
     etap = 2*(dl + dy + u)          # first window step
     e1 = 2*(u + 1 - yA + dy + math.sqrt(1 - (yA - dy)**2 + u*u + 2*u))
-    W = th*(1/yA - 1/yB) + 2
+    W = th*(1/yA - 1/yB) + 1          # steps with y in (yA, yB); the entry step from y_K <= yA is step1
     step = math.log(1 + math.sqrt(eta) + eta)
     step1 = math.log(max(1 + etap + etap/math.sqrt(eta), 1 + math.sqrt(eta)))
     cII = cI + math.log(2 + e1 + e1/math.sqrt(eta)) + step1 + W*step     # bound of the window norm N at exit / end
@@ -112,7 +112,7 @@ def bound_indep(sig, t_lo, t_hi, c, a0=998.0, parts=False):
     lad = q*(math.log((ym + math.sqrt(ym2))/(yB + math.sqrt(yb2))) + q/2*math.log(ym2/yb2)) + q*(1/rB + q*(yB + dy)/rB**2)*dy
     lsig = s*(math.log(max(th/a, 1.0)) + 1/a)/rB
     lmax = (ym + u) + math.sqrt(ym*ym - 1 + u*u + 2*u*ym)
-    fin = math.log((lmax + 1/1)*lmax)
+    fin = math.log(lmax*lmax + 1)     # (|lam+| + |lam-|)|lam+| = |lam+|^2 + 1, |lam+| <= lmax
     lIII_end = cII + conv + G + lad + lsig + fin
     res = max(lI_end, lII_end, lIII_end)
     if parts:
