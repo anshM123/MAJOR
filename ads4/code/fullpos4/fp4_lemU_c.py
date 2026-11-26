@@ -107,8 +107,9 @@ def run(u, M, Np, Fc):
 
 if __name__ == '__main__':
     u0 = float(sys.argv[1]); etas = [float(x) for x in sys.argv[2].split(',')]
-    M = int(sys.argv[3]); Np = int(sys.argv[4]); ctx.prec = int(sys.argv[5])
-    import fp3_htdata as HD
+    M = int(sys.argv[3]); Np = int(sys.argv[4])
+    import fp3_htdata as HD                  # NB: sets ctx.prec = 256 on import
+    ctx.prec = int(sys.argv[5])
     Fc = None
     for ba, bb, F in HD.fcert_cells():
         if float(ba) <= u0 <= float(bb):
