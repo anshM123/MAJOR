@@ -1435,3 +1435,15 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * \|1−vp_j\|² − \|c−vp_j\|² = 2\|1−c\|(Θ − ρp_j). **Checked here by hand.** Hence \|U_k\| ≤ 1, with an exponential envelope.
   * Residue identity for U_k − T_{M,k}, and a circle maximum (\|c−x²\| + x\|1−c\|)/(1−x²).
 * **Status.** Lemma C (full signed strip bound with K ≲ 1000) is open. Route: a regularised beta transform on the saddle contour plus rotated-line truncation; the joint complex q-path estimate and a uniform truncation budget remain.
+
+## 90. Lemma C: finite-prefix regularisation and uniform complex truncation (author, 26 Nov)
+
+* **Finite prefix.** Keep the exact U_k(h; c) for k with w(k+s/2) ≤ 20000 and p_k Re(e^{−iφ}h) ≤ 0.98Θ, where w = \|1−c\| and Θ = cos φ − w/2. Drop the rest. The rotated-line residue identities then keep every retained term away from its poles. **This resolves the §89 continuation obstruction.**
+* **Regularised beta representation (author, proof given).** S_L(α) = Σ_{k≤L}U_k(α)_k/k! = Γ(N+1+α)/(Γ(N+1)Γ(α))∫₀¹q^{α−1}J_L(q)dq, with J_L = (1−q)^N Σ_{k≤L}C(n, k)(n+s)_k/(N+s)_k·(q/(1−q))^k. Exact for complex n, N with Re N > L−1; Re N > L+1 holds on the strip.
+* **Uniform truncation (author).** \|H₁₀₀₀ − H_pref\| < e^{−90} on the whole strip, both channels, with the repaired weight.
+  * It rests on a product bound \|U_k(v; c)\| ≤ exp(62 − XI/√(ϑT)) and the scalar inequality (1+√(1−w))I > 1.91.
+  * That inequality was certified on 6526 interval cells (directed floating-point, not Arb), with smallest margin 1.9100191.
+  * On real integer-spin states this also controls the §78 reference error (< e^{−200}).
+* **Outer contour.** The curved path q = ir/(1+ir) is ruled out: at n = 1e15, a = ν = 998 the absolute integral exceeds e^{120}, because of the geometry, not a loose estimate.
+  * Replacement 0 → 0.85i → quarter-circle → 0.85 → 1: the arc exponent is < 1.6 at a = 998, giving 𝒩_L < 500 at that state.
+* **Open.** A uniform joint bound on the replacement contour over all complex parameters, including the signed cancellation of the regularised kernel, and hence Lemma C with a practical K.

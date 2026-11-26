@@ -394,3 +394,39 @@ Implementation:
 (F_cert(β_c = 3.31) = 4.86e-6; F_cert(8.39) = 2.66e-7.)
 * At L = 7, |A_m| peaks at 1e14 (m ≈ 100), and the partial sums are constant from M′ = 300 on.
 * Cost: 11 min per c at L = 2 (N_p = 8000) and 28 min at L = 7 (N_p = 15000), on one core; both channels share the jets.
+
+### 6.1 Complex impact parameter (Lemma C test) [DV]
+`fp4_lemU_c.py`: the same construction in complex arithmetic at u = β_c + iη. Here c = tanh²(u/2), x_* is analytically continued, and the seeds are
+P_ν(cosh u), ∂_βP_ν. Reported:
+* max_{y∈[0,1]}|H_M(u, y)|/F_cert(Re u);
+* max_y|H_M(u, y) − H_M(u, 0)|/F_cert (401 y-points, M = 500).
+
+(The first L = 2 runs ran at 256 bits, because `import fp3_htdata` resets ctx.prec. Midpoint arithmetic at 256 bits still covers the 1e18
+transient; a 1500-bit recheck is queued.)
+| L | u | η | b | \|H_M(u, 0)\|/F_cert | max_y\|H_M(u, y)\|/F_cert | max_y\|H_M(u, y) − H_M(u, 0)\|/F_cert |
+|---|---|---|---|---|---|---|
+| 2 | 3.3149 | 0.02 | 0 | 1.249 | **1.258** | 0.0090 |
+| 2 | 3.3149 | 0.02 | 4 | 1.249 | **1.249** | 0.0083 |
+| 2 | 3.3149 | 0.01 | 0 | 1.249 | 1.255 | 0.0061 |
+| 2 | 3.3149 | 0.01 | 4 | 1.249 | 1.249 | 0.0061 |
+
+The author's own measurement (§87, coordinator's message) is at low L: c = 0.037 + 0.0037i (u ≈ 0.39 + 0.02i), y = 1/20, b = 0, with
+|H_M(u, y) − H_M(u, 0)| > 463F_cert. At L = 2 the strip transfer is ~1e-2 F_cert. So the strip bound is strongly L-dependent; low-L points
+are queued (`cache/lemUc_L0.04.log`).
+
+### 6.2 Cost of the c-direction (estimate)
+* **Per c (twist test, DV):** 11 min (L = 2) to 28 min (L = 7). It is dominated by the ν-quadrature for the jets, with N_p ≈ 3000 + 1.4Λβ_c
+  (up to ~4e4 at L = 30). A certified version needs rigorous jet enclosures (GL error bound on a Bernstein ellipse in p, plus ≥ 8000 bits
+  against the (1+√2)^{3M} wrapping of the jet recurrence): perhaps 3–10× the cost.
+* **Cells in u from Cauchy on the strip |Im u| ≤ η.** With K := sup_strip max_y|H_M|/F_cert, a second-order Taylor step using the exact
+  first derivative (derivative contractions, ~2× cost) gives cells of half-width δ ≈ η·√(2·margin/K).
+  * At L ≈ 2 (K ≈ 1.3, H/F ≈ 1.25): δ ~ η, i.e. ~25 points per unit u.
+  * At low L (K ≳ 463 by the author's point): δ ~ 0.05η, i.e. ~1000 points per unit u.
+  * Rough total: (31 units × 25) + (0.6 units × 1000) ≈ 1.4e3 c-points × 15–30 min ≈ 350–700 core-h (DV). The certified version is several
+    times more.
+* **The author's design:** one degree-6000 jet per Δβ = 0.05 cell (~600 cells), with the grid points inside a cell from the Taylor shift.
+  That moves the jet cost to ~600 × ~1 h, plus cheap R recursions (~1 min each at M = 1000). Also several hundred core-hours.
+* **Verdict:** not an overnight job on 22 cores (≈ 176 core-h), but within a few nights, or one night on ~100 cores, if
+  1. the jets are certified;
+  2. the realised (EPSW-repaired) weight replaces the ideal NF02 one (a residual at ν ≈ 1000–1130 > a needs the same jets with more nodes);
+  3. the §78 truncation error E_ref is reproduced in Arb.
