@@ -2074,3 +2074,13 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Claim** (author): PASS in both channels on c ∈ [0.268, 0.28]: b = 0 lower bound 1.3553e-5, b = 4 lower bound 1.2991e-5. This is L ∈ [0.3120, 0.3285].
 * **Coverage gap to close.** The reproduced coverage ends at c = 0.264 for b = 0 and c = 0.263 for b = 4 (§122). The strip c ∈ [0.263, 0.268] (b = 4) and [0.264, 0.268] (b = 0) is not covered unless the author's package contains cells for it.
 * **New idea** (author, not yet received): a partial-fraction representation of the angular ladder with explicit control of its rational poles. It would replace the two-variable Taylor certificates by one-variable polynomial certificates plus a controlled approximation in the twist direction.
+
+## 124. Author: cell [0.258, 0.268]; full moment table; termination-preserving reduction; degree-600 twist approximation (author claims, 27 Nov; package of 116 MB not yet received)
+
+* **Cell.** c ∈ [0.258, 0.268] passes in both channels: b = 0 > 1.3804e-5, b = 4 > 1.3220e-5. Together with the claimed §123 cell, this fills the strip noted in §123 and puts the open band's lower end at c = 0.28 if both are reproduced. The author quotes L = −log(0.732) ≈ 0.312, which corresponds to c = 0.268.
+* **Moments.** All 3,564 centres; 6,001 enclosed orders at 3,000 digits; a faster scaled-integer recurrence. Truncation in spectral degree gives an error < 2^{−1910}. New Gaussian seed action error < 1e-45. The coefficient vector has 17,201 pairs; an unsigned-integer error in the ideal transport was found, fixed and regression-tested.
+* **Cover.** 21 pole-free continuous rectangles cover the whole remaining band, with maximum ordinary prefix degree 16,989 and minimum denominator gap > 0.1447.
+* **Obstruction (rigorous).** The unrestricted rational prefix is NEGATIVE at b = 4, c = 0.35, h = 2.33e-7. That point violates the twist constraint, so it is not a counterexample. It shows that certificates must be restricted to the physical domain; compare the §122 diagnosis and GAP_LEMMAS G1.
+* **Termination-preserving coordinate.** Use x = h/c = 1/(n(n+s)), so U_k = c^k Π_{j<k}(1 − x·j(j+s))/(1 − c·x·j(j+s)). The physical domain is x ≤ min(1/((1001−b)(1002+b)), (1−√c)²/(998²c)).
+* **Residue checker** (exact arithmetic, PASS on 21/21 rectangles, both b). A degree-600 polynomial in the twist variable approximates the prefix with uniform error ≤ 5.31e-23, continuously in x.
+* **Open.** The sign of the degree-600 approximating polynomial on the physical domain. Since 27 Nov the coordinator's agents have been working on it in GAP_LEMMAS.md: the designer on the sign certificate, the prover on G1-capped direct cells from c = 0.28 upward.
