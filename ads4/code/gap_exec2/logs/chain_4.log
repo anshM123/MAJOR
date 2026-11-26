@@ -1,0 +1,27 @@
+19:31:32 b 4 mode u cell 1553/2000 777/1000 0.7765 0.777 K 6639 mb,mt 2 2 D 100 PASS lower 7.64942343843914e-06 wall 713
+19:31:33 b 4 mode u cell 67/100 1347/2000 0.67 0.6735 K 4204 mb,mt 2 2 D 100 FAIL lower None wall 0
+SPLIT 67/100 2687/4000 1347/2000
+19:31:35 restart with cost-based mb
+  prep mb 2 D (2, 2, 100) cost K*terms None terms []
+  prep mb 3 D (3, 2, 100) cost K*terms None terms []
+  prep mb 4 D (4, 2, 100) cost K*terms None terms []
+  prep mb 5 D (5, 2, 100) cost K*terms None terms []
+Traceback (most recent call last):
+  File "/home/user/MAJOR/ads4/code/gap_exec2/run_exec2.py", line 66, in <module>
+    _,mb,D=best
+    ^^^^^^
+TypeError: cannot unpack non-iterable NoneType object
+  prep mb 2 D 100 cost K*terms 4059511976 terms [408483, 438274, 64261, 54979]
+  prep mb 3 D 100 cost K*terms 4381845268 terms [256511, 294274, 372645, 64261, 54979]
+  prep mb 4 D 100 cost K*terms 4066986688 terms [198926, 211125, 219242, 219242, 64261, 54979]
+  prep mb 5 D 100 cost K*terms 4543014016 terms [192425, 192425, 192425, 192425, 192067, 64261, 54979]
+19:39:19 b 4 mode u cell 67/100 1347/2000 0.67 0.6735 K 4204 mb,mt 2 2 D 100 PASS lower 9.039861878819984e-06 wall 428
+  prep mb 2 D 100 cost K*terms 6465394678 terms [567645, 655512, 141778, 111554]
+  prep mb 3 D 100 cost K*terms 7519249600 terms [415380, 480942, 567112, 141778, 111554]
+  prep mb 4 D 100 cost K*terms 6501280930 terms [284089, 284089, 309136, 354025, 141778, 111554]
+  prep mb 5 D 100 cost K*terms 7328362108 terms [284089, 284089, 284089, 284089, 283556, 141778, 111554]
+19:50:56 b 4 mode u cell 1347/2000 1369/2000 0.6735 0.6845 K 4386 mb,mt 2 2 D 100 PASS lower 8.363863568583399e-06 wall 680
+  prep mb 2 D 100 cost K*terms 7031058086 terms [578888, 704484, 142845, 113685]
+  prep mb 3 D 100 cost K*terms 8155746279 terms [442225, 516242, 570846, 142845, 113685]
+  prep mb 4 D 100 cost K*terms 7025447015 terms [285690, 300304, 330050, 366101, 142845, 113685]
+  prep mb 5 D 100 cost K*terms 7694499780 terms [285690, 285690, 285690, 285690, 285690, 142845, 113685]
