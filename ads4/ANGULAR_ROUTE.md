@@ -1361,3 +1361,12 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Caveats.**
   1. DV only: the jets need rigorous enclosures.
   2. The c-direction cells are not yet addressed.
+
+## 84. Large-β scan, laptop progress (author run of run_large_scan.py): 191/556 cells
+
+* **Certified, both channels:**
+  * β ∈ [8.4, 11.9]: a* = 3100;
+  * β ∈ [11.9, 23.6]: a* = 3200;
+  * β ∈ [23.6, 27.5]: a* = 3400.
+* At the bisected a*, err/F_cert runs from 0.21 to 0.9989. The pass criterion is err < F_cert, so all cells pass, some only just; a* is the smallest passing rung on the twist ladder.
+* β ∈ [27.5, 64]: running. Per-cell jsonl files are on the laptop and should be pushed for the audit trail.
