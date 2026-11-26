@@ -1,0 +1,99 @@
+Route T' certificate, L in [8.0, 11.0], cells 0.5, top line at Re alpha = 1/4 - 2
+L in [8.00,8.50] (beta_c in [9.386,9.886]): F_cert >= 1.1107e-07
+   psi2: bottom 1.71e-05  left 1.22e-05  top(Y=4.25) 5.42e-12  right 5.00e-09
+   psi3: bottom 4.33e-10  left 3.14e-10  top(Y=5.25) 2.37e-20  right 4.79e-13
+   residual: 2.61e-02  ([0,0.05]: 3.2e-03, [0.05,0.4]: 7.1e-03, [0.4,40.0]: 1.7e-03, [40.0,898.0]: 4.5e-05, [898,oo) worst cell 1031: 1.4e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 1.48e-26 (J0=750), k=3 7.68e-274 (J0=750)
+   rho <= 2.6132e-02   PASS   [53s]
+L in [8.50,9.00] (beta_c in [9.886,10.386]): F_cert >= 8.3098e-08
+   psi2: bottom 1.78e-05  left 1.23e-05  top(Y=4.25) 6.58e-13  right 4.00e-09
+   psi3: bottom 2.73e-10  left 1.91e-10  top(Y=5.25) 1.05e-21  right 2.32e-13
+   residual: 2.56e-02  ([0,0.05]: 3.4e-03, [0.05,0.4]: 7.3e-03, [0.4,40.0]: 1.7e-03, [40.0,898.0]: 4.3e-05, [898,oo) worst cell 1031: 1.3e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 7.42e-189 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 2.5662e-02   PASS   [97s]
+L in [9.00,9.50] (beta_c in [10.386,10.886]): F_cert >= 6.2220e-08
+   psi2: bottom 1.85e-05  left 1.24e-05  top(Y=4.25) 8.05e-14  right 3.37e-09
+   psi3: bottom 1.72e-10  left 1.16e-10  top(Y=5.25) 4.72e-23  right 1.19e-13
+   residual: 2.58e-02  ([0,0.05]: 3.6e-03, [0.05,0.4]: 7.6e-03, [0.4,40.0]: 1.8e-03, [40.0,898.0]: 4.3e-05, [898,oo) worst cell 1031: 1.3e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 2.5825e-02   PASS   [139s]
+L in [9.50,10.00] (beta_c in [10.886,11.386]): F_cert >= 4.6630e-08
+   psi2: bottom 1.92e-05  left 1.24e-05  top(Y=4.25) 9.90e-15  right 2.94e-09
+   psi3: bottom 1.09e-10  left 7.11e-11  top(Y=5.25) 2.13e-24  right 6.29e-14
+   residual: 2.63e-02  ([0,0.05]: 3.9e-03, [0.05,0.4]: 7.9e-03, [0.4,40.0]: 1.9e-03, [40.0,898.0]: 4.3e-05, [898,oo) worst cell 1031: 1.3e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 2.6357e-02   PASS   [181s]
+L in [10.00,10.50] (beta_c in [11.386,11.886]): F_cert >= 3.4981e-08
+   psi2: bottom 1.99e-05  left 1.25e-05  top(Y=4.25) 1.22e-15  right 2.64e-09
+   psi3: bottom 6.84e-11  left 4.34e-11  top(Y=5.25) 9.66e-26  right 3.42e-14
+   residual: 2.71e-02  ([0,0.05]: 4.1e-03, [0.05,0.4]: 8.2e-03, [0.4,40.0]: 2.0e-03, [40.0,898.0]: 4.4e-05, [898,oo) worst cell 1031: 1.3e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 2.7113e-02   PASS   [224s]
+L in [10.50,11.00] (beta_c in [11.886,12.386]): F_cert >= 2.3004e-08
+   psi2: bottom 2.36e-05  left 1.44e-05  top(Y=4.25) 1.72e-16  right 2.75e-09
+   psi3: bottom 4.91e-11  left 3.03e-11  top(Y=5.25) 5.00e-27  right 2.16e-14
+   residual: 3.19e-02  ([0,0.05]: 5.0e-03, [0.05,0.4]: 9.7e-03, [0.4,40.0]: 2.3e-03, [40.0,898.0]: 5.2e-05, [898,oo) worst cell 1031: 1.5e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 3.1988e-02   PASS   [265s]
+Route T' certificate, L in [11.0, 13.5], cells 0.5, top line at Re alpha = 1/4 - 2
+L in [11.00,11.50] (beta_c in [12.386,12.886]): F_cert >= 1.7267e-08
+   psi2: bottom 2.45e-05  left 1.46e-05  top(Y=4.25) 2.13e-17  right 2.55e-09
+   psi3: bottom 3.09e-11  left 1.85e-11  top(Y=5.25) 2.28e-28  right 1.22e-14
+   residual: 3.31e-02  ([0,0.05]: 5.3e-03, [0.05,0.4]: 1.0e-02, [0.4,40.0]: 2.4e-03, [40.0,898.0]: 5.4e-05, [898,oo) worst cell 1031: 1.5e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 3.3172e-02   PASS   [53s]
+L in [11.50,12.00] (beta_c in [12.886,13.386]): F_cert >= 1.2970e-08
+   psi2: bottom 2.54e-05  left 1.47e-05  top(Y=4.25) 2.63e-18  right 2.40e-09
+   psi3: bottom 1.94e-11  left 1.14e-11  top(Y=5.25) 1.04e-29  right 6.92e-15
+   residual: 3.44e-02  ([0,0.05]: 5.7e-03, [0.05,0.4]: 1.0e-02, [0.4,40.0]: 2.5e-03, [40.0,898.0]: 5.5e-05, [898,oo) worst cell 1031: 1.6e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 3.4444e-02   PASS   [96s]
+L in [12.00,12.50] (beta_c in [13.386,13.886]): F_cert >= 9.7513e-09
+   psi2: bottom 2.63e-05  left 1.49e-05  top(Y=4.25) 3.25e-19  right 2.27e-09
+   psi3: bottom 1.22e-11  left 6.96e-12  top(Y=5.25) 4.71e-31  right 3.98e-15
+   residual: 3.57e-02  ([0,0.05]: 6.1e-03, [0.05,0.4]: 1.1e-02, [0.4,40.0]: 2.6e-03, [40.0,898.0]: 5.7e-05, [898,oo) worst cell 1031: 1.6e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 3.5779e-02   PASS   [138s]
+L in [12.50,13.00] (beta_c in [13.886,14.386]): F_cert >= 7.3363e-09
+   psi2: bottom 2.72e-05  left 1.51e-05  top(Y=4.25) 4.02e-20  right 2.17e-09
+   psi3: bottom 7.67e-12  left 4.27e-12  top(Y=5.25) 2.14e-32  right 2.31e-15
+   residual: 3.71e-02  ([0,0.05]: 6.4e-03, [0.05,0.4]: 1.1e-02, [0.4,40.0]: 2.7e-03, [40.0,898.0]: 5.9e-05, [898,oo) worst cell 1031: 1.7e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 3.7168e-02   PASS   [180s]
+L in [13.00,13.50] (beta_c in [14.386,14.886]): F_cert >= 5.5236e-09
+   psi2: bottom 2.82e-05  left 1.52e-05  top(Y=4.25) 4.97e-21  right 2.09e-09
+   psi3: bottom 4.81e-12  left 2.62e-12  top(Y=5.25) 9.72e-34  right 1.35e-15
+   residual: 3.86e-02  ([0,0.05]: 6.8e-03, [0.05,0.4]: 1.2e-02, [0.4,40.0]: 2.8e-03, [40.0,898.0]: 6.1e-05, [898,oo) worst cell 1031: 1.7e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 3.8603e-02   PASS   [222s]
+Route T' certificate, L in [13.5, 16.0], cells 0.5, top line at Re alpha = 1/4 - 2
+L in [13.50,14.00] (beta_c in [14.886,15.386]): F_cert >= 4.1614e-09
+   psi2: bottom 2.91e-05  left 1.54e-05  top(Y=4.25) 6.13e-22  right 2.02e-09
+   psi3: bottom 3.02e-12  left 1.60e-12  top(Y=5.25) 4.41e-35  right 7.91e-16
+   residual: 4.00e-02  ([0,0.05]: 7.3e-03, [0.05,0.4]: 1.2e-02, [0.4,40.0]: 2.9e-03, [40.0,898.0]: 6.3e-05, [898,oo) worst cell 1031: 1.8e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 4.0081e-02   PASS   [54s]
+L in [14.00,14.50] (beta_c in [15.386,15.886]): F_cert >= 3.1373e-09
+   psi2: bottom 3.01e-05  left 1.56e-05  top(Y=4.25) 7.56e-23  right 1.97e-09
+   psi3: bottom 1.89e-12  left 9.84e-13  top(Y=5.25) 2.00e-36  right 4.67e-16
+   residual: 4.16e-02  ([0,0.05]: 7.7e-03, [0.05,0.4]: 1.2e-02, [0.4,40.0]: 2.9e-03, [40.0,898.0]: 6.5e-05, [898,oo) worst cell 1031: 1.8e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 4.1599e-02   PASS   [98s]
+L in [14.50,15.00] (beta_c in [15.886,16.386]): F_cert >= 2.3665e-09
+   psi2: bottom 3.10e-05  left 1.58e-05  top(Y=4.25) 9.33e-24  right 1.93e-09
+   psi3: bottom 1.18e-12  left 6.04e-13  top(Y=5.25) 9.09e-38  right 2.78e-16
+   residual: 4.31e-02  ([0,0.05]: 8.2e-03, [0.05,0.4]: 1.3e-02, [0.4,40.0]: 3.0e-03, [40.0,898.0]: 6.7e-05, [898,oo) worst cell 1031: 1.9e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 4.3158e-02   PASS   [141s]
+L in [15.00,15.50] (beta_c in [16.386,16.886]): F_cert >= 1.7864e-09
+   psi2: bottom 3.20e-05  left 1.60e-05  top(Y=4.25) 1.15e-24  right 1.90e-09
+   psi3: bottom 7.40e-13  left 3.71e-13  top(Y=5.25) 4.12e-39  right 1.66e-16
+   residual: 4.47e-02  ([0,0.05]: 8.7e-03, [0.05,0.4]: 1.3e-02, [0.4,40.0]: 3.1e-03, [40.0,898.0]: 6.9e-05, [898,oo) worst cell 1031: 2.0e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 4.4752e-02   PASS   [185s]
+L in [15.50,16.00] (beta_c in [16.886,17.386]): F_cert >= 1.3493e-09
+   psi2: bottom 3.30e-05  left 1.62e-05  top(Y=4.25) 1.42e-25  right 1.88e-09
+   psi3: bottom 4.63e-13  left 2.28e-13  top(Y=5.25) 1.87e-40  right 9.92e-17
+   residual: 4.63e-02  ([0,0.05]: 9.2e-03, [0.05,0.4]: 1.4e-02, [0.4,40.0]: 3.2e-03, [40.0,898.0]: 7.2e-05, [898,oo) worst cell 1031: 2.0e-02, [1150,oo): 0.0e+00)
+   Lemma-Loc remainders: k=2 0.00e+00 (J0=750), k=3 0.00e+00 (J0=750)
+   rho <= 4.6384e-02   PASS   [227s]
