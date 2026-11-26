@@ -137,10 +137,11 @@ def main():
     while T < 3000:
         T2 = T + 1
         intf, Bsup = CL.tail(W, 2.25, T)
-        m0, _ = P.K_osc(0.25, T, T2, L0); mm1, _ = P.K_osc(1.25, T, T2, L0)
+        l0 = P.logK_osc(0.25, T, T2, L0); l1 = P.logK_osc(1.25, T, T2, L0)
         cbs = cj_bounds(acb(arb(T + 0.5, 0.5), 2.25), J0)
-        js, X0 = jsum(m0, mm1, abs(complex(0.25, T2)), cbs, w, J0)
-        tail += up(intf*Bsup)*(X0 + js)
+        js, X0 = jsum(1.0, math.exp(min(l1 - l0, 600)) if l1 > l0 else 1.0, abs(complex(0.25, T2)), cbs, w, J0)
+        lt = float((intf*Bsup).log().upper()) + l0 + math.log(X0 + js)
+        tail += math.exp(lt) if lt > -700 else 0.0
         T = T2
     # t >= 3000: |Ŝ(sigma+it)| <= Gamma(sigma) |1/Gamma(sigma+it)| Ŝ(sigma) <= Gamma(1/4) Gamma(3/4) cosh(pi t)/pi * 1.01 (reflection);
     # sigma = 5/4 adds 1/|1/4+it| <= 1.  int_3000^oo |f| e^{pi t} <= via cb_lines.tail with weight: bounded crudely by e^{pi*T}*tail(T)

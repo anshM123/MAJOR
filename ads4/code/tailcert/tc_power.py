@@ -133,11 +133,22 @@ def K_osc(sigma, t1, t2, L0, a_cells=None):
             c2 = a2*dlam*rho/(1 - rho)
             loss = a2*max(E, 0.0) if E > 0 else a1*E
             X = 0.995*2*a1*rho
-            bB = eG*(G*Y1**sigma*(math.exp(c1)/sigma + (math.pi/2)*math.exp(loss + c2))
-                     + up(RG*inc_gamma_upper(sigma, X))/0.995**sigma) + 1e-30
-            res.append(('B', bB, a1, a2, E))
+            lg = math.log(eG) + math.log(G*Y1**sigma) + max(c1 - math.log(sigma), math.log(math.pi/2) + loss + c2) + math.log(2)
+            lrt = math.log(eG) + float((RG*inc_gamma_upper(sigma, X)).log().upper()) - sigma*math.log(0.995)
+            lB = max(lg, lrt) + math.log(2)
+            bB = math.exp(lB) if lB < 700 else float('inf')
+            res.append(('B', bB, a1, a2, E, lB))
     b = max(r[1] for r in res)
     return b, res
+
+
+def logK_osc(sigma, t1, t2, L0):
+    """log of the K_osc bound (no overflow)."""
+    b, res = K_osc(sigma, t1, t2, L0)
+    l = math.log(res[0][1])
+    for r in res[1:]:
+        l = max(l, r[5])
+    return l
 
 
 def NB_bound(sigma, tau, s=9):
