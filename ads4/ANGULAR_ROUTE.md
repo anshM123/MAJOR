@@ -1643,3 +1643,14 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * pipeline: rt2_*.py, rmass3.py;
   * checks: check_F.py, check_B.py, check_state.py;
   * outputs: cache/rt2_cert_*.txt.
+
+## 103. Large-β high-twist scan completed on the author's laptop (27 Nov)
+
+* **Run.** run_large_scan.py (fp3_ht_large.py), 556 cells of width 0.1 covering β_c ∈ [8.4, 64] contiguously, both channels b ∈ {0, 4}. Merged record: code/fullpos3/results/ht_large_done.jsonl; summary in cache/large_summary.txt. The earlier small-β laptop cells (cache/laptop_*.jsonl, 45 shards) are added for the audit trail.
+* **Checked here.**
+  * All 556 × 2 records have ok = true and a finite a*.
+  * ok agrees with err < F_cert in every record.
+  * The cells tile [8.4, 64] with no gaps or overlaps.
+* **Thresholds.** a* = 3100 on [8.4, 11.9] (35 cells), 3200 on [11.9, 23.6] (117 cells), 3400 on [23.6, 64] (404 cells).
+* **Margins.** Maximum err/F = 0.99888, at β ∈ [23.5, 23.6]. Four records exceed 0.99: [11.8, 11.9] and [23.5, 23.6] for both b. At the next cell the threshold steps up (3200, respectively 3400) and err/F drops to 0.39, respectively 0.21. Rerunning these two cells at a* + 100 would widen the margin; this is optional.
+* **Status.** High twist a ≥ a*(β) is certified on β ∈ [8.4, 64], at every spin, in both channels. Together with the earlier small-β scan (60 cells, β ∈ [0.39, 8.4]) and TAIL_CERT, this closes the a ≥ a* side.
