@@ -1,0 +1,25 @@
+J 33 b 4 PASS leaves 5 lower 0.000421297981117268 time 0.09
+J 34 b 0 PASS leaves 4 lower 0.0002878522769310864 time 0.13
+J 34 b 4 PASS leaves 5 lower 0.0003581637852306224 time 0.1
+J 35 b 4 PASS leaves 5 lower 0.0002734978588505066 time 0.1
+J 36 b 0 PASS leaves 4 lower 0.00018356512137444314 time 0.14
+J 36 b 4 PASS leaves 5 lower 0.00022710747661409627 time 0.1
+J 37 b 4 PASS leaves 6 lower 0.00017655037571828486 time 0.12
+J 38 b 0 PASS leaves 4 lower 0.00011633949245630833 time 0.18
+J 38 b 4 PASS leaves 6 lower 0.00014316634714606294 time 0.14
+J 39 b 4 PASS leaves 6 lower 0.00011059547008137542 time 0.15
+J 40 b 0 PASS leaves 5 lower 7.321219040104903e-05 time 0.23
+J 40 b 4 PASS leaves 6 lower 8.96335678306833e-05 time 0.16
+J 41 b 4 PASS leaves 6 lower 6.90593307850388e-05 time 0.17
+J 42 b 0 PASS leaves 5 lower 4.571120535489098e-05 time 0.26
+J 42 b 4 PASS leaves 6 lower 5.568613210035122e-05 time 0.19
+J 43 b 4 PASS leaves 6 lower 4.309310908013426e-05 time 0.21
+J 44 b 0 PASS leaves 5 lower 2.829815179450836e-05 time 0.3
+J 44 b 4 PASS leaves 6 lower 3.4304435943155587e-05 time 0.23
+J 45 b 4 PASS leaves 6 lower 2.688564500334772e-05 time 0.24
+J 46 b 0 PASS leaves 5 lower 1.5920939684865344e-05 time 0.36
+J 46 b 4 PASS leaves 6 lower 2.0625299265452277e-05 time 0.27
+J 47 b 4 PASS leaves 6 lower 1.677767409044831e-05 time 0.3
+J 48 b 0 PASS leaves 5 lower 7.894994419470351e-06 time 0.42
+J 48 b 4 PASS leaves 6 lower 1.1748952017878127e-05 time 0.31
+TOTAL 24 passes 24 seconds 4.879478693008423

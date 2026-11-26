@@ -1,0 +1,3 @@
+PASS: Gamma factorization, light polynomial identity, uniform cutoff constants, all 94 spin-channel lower bounds > 1e-8; angular and light cutoff errors < 2^-500.
+minimum normalized ideal low-spin bound 2.7185352228409318e-08
+PASS: cutoff transfer to all-spin bhat<=40 rectangle
