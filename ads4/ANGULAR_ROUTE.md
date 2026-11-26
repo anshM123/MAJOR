@@ -1110,3 +1110,16 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Conclusion.** Per-order absolute bounds lose e^{\|A\|}-type factors. The resummed multiplier stays O(1), at most ≈ 2.7 in modulus (the Darboux-multiplier size).
 * **Estimate.** The derivative sum Σ_i\|𝒬^{(i)}(iλ)\|R^{−i} is controlled if λR ≳ 3\|A\|. That holds down to a ≈ 1500–2000 at low c. At a = 998 it needs R ≈ 0.6, where the nonlinear-phase factor is about e^{30}: marginal.
 * **Certified (scan).** β ∈ [0.39, 0.44]: a* = 3200 in both channels (err/F = 0.096 and 0.117). The scan continues.
+
+## 67. FULLPOS3 progress (3): certified a*(L) in the first cells; the low-L corner closes (agent)
+
+* **Certified a*, both channels** (fixed far remainder, exact P_m to m = 70, 81 radii):
+  * β ∈ [0.39, 0.44]: 3200 (err/F = 0.096/0.117);
+  * β ∈ [0.49, 0.54]: 3200 (0.067/0.075);
+  * β ∈ [0.59, 0.64]: 3200 (0.063/0.067);
+  * β ∈ [8.24, 8.40]: 4000 (0.907/0.907; exact orders 1–30 give 0.90·F_cert, F_cert = 2.7e-7).
+  * The remaining cells need about 5 h.
+* **Low-L corner closed** (pending the intermediate cells). n ≈ a√c/(1−√c), so every state with L ≤ ~0.058 and a < 3200 has J ≤ 1000, which the per-J certificates cover.
+* **Remaining compact family.** 998 ≤ a < a*(L) ≈ 3200–4000, J from 1001 to ~a*√c/(1−√c) (≈ 9e6 at L = 7).
+  * Tools: grouped carrier bounds (§§64b, 66) and the vertical-line far remainder (§63). Neither is implemented yet.
+  * Caveat (agent): at a ≈ Λ the endpoint carrier sits at 0.5–0.83 of the h-series convergence radius.

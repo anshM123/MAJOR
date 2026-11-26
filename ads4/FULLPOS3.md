@@ -241,3 +241,41 @@ needs:
 Estimate: Σ_i|Q^{(i)}(iλ)|R^{−i} ≈ |E|Σ_i(3|A|/(λR))^i. This needs λR ≳ 3|A|, limited by the nonlinear-phase factor
 exp[(ΛR²/2)·√(ce^R)(1+ce^R)/(2(1−ce^R)²)] (author's §64b). That suggests a ≈ 1500–2000 at low L is reachable, and a = 998 only
 marginally there.
+
+**Turning-point obstruction to a ≈ 998 [P-level remark].** The h-series of the ladder symbol E(k) = U(k)/c^k (Γ-ratio continuation) at complex
+index k converges for |k|²h/c ≲ 1, i.e. |k| ≲ √C′ ≈ n. The ψ₂-endpoint carrier is k = iλ, λ = Λ√c/(1−c), and n ≈ a√c/(1−√c), so
+λ/n ≈ Λ/(a(1+√c)).
+* At a ≈ Λ ≈ 998 the endpoint carrier sits at 0.5–0.83 of the convergence radius: λ = 210 against n ≈ 250 at c = 0.04. This is the
+  turning point ν ≈ a of §§47–49, seen from the ladder side.
+* Cauchy estimates in k around iλ therefore have radius ≲ n − λ (~40 at c = 0.04, a = 998), too small to control the high k-derivatives.
+* So the h-expansion can approach a = 998 only where c is not small, or if the endpoint component (size ~ J_e ~ 10⁻¹¹ relative) is bounded
+  non-perturbatively at the turning point, e.g. by an Airy-window bound as in §48 but for the finite-ladder symbol.
+
+## 6. Obstructions and dead ends recorded here
+1. **Coordinator's truncated-exponent kernel R_M per frequency (§2).** It fails at a = 998: R₁ ~ 10²² N_s, from the k > n region at ν ≈ a. It works at
+   a ≳ 3000.
+2. **Far remainder with circular Cauchy contours in h of E_k = U_k/c^k (my first version).** The radius is c/u_{k−1}, which gives a termination barrier
+   d·n ≳ 2300, and it had a cell-monotonicity bug (§4.4). Superseded by the 𝒰_k radius-1/u_{k−1} lemma (author §61). At a ≲ 1500 for β ≳ 8 it still
+   needs M > 850; the author's vertical-line version (§§62–63) is not implemented here.
+3. **Per-order absolute local majorants.** They lose e^{|A|} against the grouped multiplier (§5): ~10⁴ at a = 2000, up to 10³⁴ at a = 998. This sets
+   a* ≈ 3200 at low L.
+4. **Grouped bound near a ≈ Λ.** The endpoint carrier iλ approaches the convergence radius ≈ n of the h-series of the ladder symbol (the turning point),
+   so Cauchy-in-k control degenerates there (§5).
+5. **Per-frequency envelopes and generic Racah norms.** Dead, as stated in the brief and in §51. Not re-tried.
+
+## 7. Reproduce (`ads4/code/fullpos3/`; `ulimit -v 4000000; export OMP_NUM_THREADS=1`; ≤ 2 processes)
+```
+python3 fp3_polyext.py 851 1003 2; python3 fp3_polyext.py 812 1004 2     # §1 per-J certificates (≈ 2.5 h)
+python3 fp3_resum_scan.py 800,1800,0 2400 6                                # §2 (one state per call, ~1 min)
+python3 fp3_profile_dv.py 0.0392,0.1,0.5 64 64                             # §3/§4.1 DV profiles (~1 min per c)
+python3 fp3_ht.py 0 2 41/20 5000                                           # §4 single certificate (verbose)
+python3 fp3_ht.py scan "0.39,0.44;0.44,0.49" out.jsonl                     # §4.6 cell scan (~12 min per cell)
+```
+| file | content | grade |
+|---|---|---|
+| `fp3_common.py` | ψ data, Taylor coefficients of F_{p,ν} at c via the ODE (checked by finite differences) | — |
+| `fp3_polyext.py` | per-J every-mass certificates | [certified] |
+| `fp3_resum_scan.py` | coordinator's R_M test, integrated | [DV] |
+| `fp3_profile_dv.py` | h-expansion profiles at c (ψ weights) | [DV] |
+| `fp3_htdata.py` | J_s, J_C, J_e tables, C_cor, ∫\|ψ\|e^{κΛp}, residual exponential moments (EPSW cells), F_cert cells | [certified] inputs |
+| `fp3_ht.py` | the high-twist certificate (§4): stadium geometry, exact/majorant P_m, far remainder, cell scan | [certified] |
