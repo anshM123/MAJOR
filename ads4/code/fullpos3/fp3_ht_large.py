@@ -253,7 +253,8 @@ def _logA_vec_d(m, rho, s, dl, logeta):
     yb = (2*l + 1)/rho
     Bh = 2 + yb/2 - (yb/2)/np.tan(yb/2)
     Lc = -math.log1p(-dl)                                   # -log c_lo
-    lcoef = np.log(np.expm1(l*Lc)/l)                        # log((c^{-l} - 1)/l)
+    x = l*Lc
+    lcoef = x + np.log(-np.expm1(-x)) - np.log(l)           # log((c^{-l} - 1)/l), stable for small and large l*Lc
     base = lcoef + np.log(Bh) + (l + 1)*np.log(rho) + l*np.log(rho + s) - np.log(l + 1)
     lt = base[None, :] + np.outer(logeta, l)
     mxv = lt.max(axis=1)
