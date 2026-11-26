@@ -1766,3 +1766,37 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   3. A kernel budget near the turning point, where \|P\| ~ 6e3 at L = 0.8.
   4. Contour assembly.
   5. The checker has not been received or reproduced.
+
+## 109. Norming checker, base-multiplier lemma, first end-to-end cell [3.55, 3.65] (author; reproduced by coordinator, 27 Nov)
+
+* **Package** (author): code/norming/ contains:
+  * scalar.cpp: a GMP directed scalar recurrence with exact rational (d, h, ν);
+  * check_norm.py: sequential one-variable Chebyshev norming in d, h, ν;
+  * base_bounds.py: the new M₀, M₁ lemma;
+  * assemble.py and assemble_top.py;
+  * identity, input and low-frequency checkers;
+  * logs.
+
+  The coordinator's reruns are in code/norming/rerun_coordinator/.
+* **Norming theorem.** Each axis in turn is bounded by an ellipse majorant M (uniform over the other real coordinates; partial sum j < K), giving ‖f − p_m‖ ≤ 2Mρ^{−m}/(ρ−1). The node spacing satisfies m(π/2N + 3e-6) < π/3, so the Bernstein–Szegő inequality gives ‖p_m‖ ≤ 2 max over nodes, hence ‖f‖ ≤ 2 max\|f(x_j)\| + 3ε per axis. Rational nodes have error < 1e-12; the real tail j ≥ K is added. No complex polydisk in all three variables is needed, which avoids the §108 obstruction.
+* **Base-multiplier lemma** (spin-uniform, crosses the turning point):
+  * Use the exact dual-Hahn recurrence S_{k+1} = S_{k−1} + 2αη(k)S_k, with eigenframe T = [[λ₊, λ₋], [1, 1]], λ_± = w ± √(1+w²) and w = (κ+i)y.
+  * Exact identity: ‖T⁻¹T′‖_∞ = (√(1+κ²)/2)(1/\|w+i\| + 1/\|w−i\|). Its integral is A(Y, κ) = ½[asinh(((1+κ²)Y+1)/κ) + asinh(((1+κ²)Y−1)/κ)], finite through y = 1 whenever σ > 0.
+  * The growth normalised by d^σ uses ∫₀ⁿη = −log d and η′ ≥ η².
+  * b = 4 follows from the exact helicity identity.
+* **End-to-end cell, L ∈ [3.55, 3.65]**, both b, all twists. Contour pieces are imported from code/analytic3/cache/contour3_3.55_3.65_k4.json for a ≤ 4500; a ≥ 4500 is covered by §73. The real residual (ν ≥ 159) uses closure5: 5 full-twist boxes × 2 channels, 137,082 scalar evaluations, 881 EPSW mass rows in 16 bands. The rest of the budget is low frequency 1.46e-7, cutoff, Gaussian tail and far tail < 1e-100, and localisation < 1.1e-20.
+
+  | | total error | F_lower | ratio | action lower bound |
+  |---|---|---|---|---|
+  | b = 0 | 2.036e-7 | 1.98e-6 | 0.1028 | > 1.7763e-6 |
+  | b = 4 | 2.142e-7 | 1.98e-6 | 0.1082 | > 1.7657e-6 |
+* **Reproduced here (identical exact rational bounds).**
+  * `JOBS=3 ./reproduce.sh` (126 s): cross-sections 2/2, tensor1 4/4, complex pilot 4/4 and closure5 10/10 give identical P_bound/Q_bound strings. The assembly gives identical totals and ratios, PASS_CONDITIONAL.
+  * Identity checks: 576 recurrence and dressing identities plus 48 transfer sums; 132 spin steps plus 48 helicity identities.
+  * verify_inputs.py on this checkout: PASS (881 mass rows, 16 band ceilings, contour ceilings, NF02 exact coefficients).
+* **Source audit** (coordinator reading):
+  * The coefficients of scalar.cpp (2wβ scaling, r_j = rn/rd, dressing c₀ = 8w²(q + A₀), c₁ = 8w²A₁) are exact, with outward ball errors.
+  * The majorant terms in check_norm.py (centre plus variation, pole gaps) are correct, and the sequential norming chain is valid in any axis order.
+  * The eigenframe identity was checked numerically to 2e-17 relative, and the antiderivative and d^σ normalisation were checked by hand.
+* **Retained.** The contour3 pieces (agent-certified, unreviewed), F_cert (LRINF), the EPSW masses and cutoff, the angular-action identity, Loc-Joint (§105) and §73.
+* **Cost note.** At L ≈ 1.6 a full-twist box (0.2% in d, ν width 1) needs 209,760 evaluations and 429 s, so the lower part of the band is expensive.
