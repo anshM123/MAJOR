@@ -1509,3 +1509,14 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
 * **Spectral tail.** ν > 1100 contributes < e^{−1200} to the prefix action.
 * **Observation.** At u = 0.39, ν = 998, a single connection term \|C₂₀₀\|d^{200} > e^{366}. So the connection expansion cannot be bounded termwise; the full-kernel recurrence avoids it.
 * **Open.** A uniform amplitude estimate for the physical solution of the lattice equation, including the Airy transition near ν = a; then the practical K bound for H_M.
+
+## 95. Full-rectangle K = 1000 is false; restrict Lemma C to the physical domain (author, 26 Nov)
+
+* **Counterexample.** b = 4, c = 0.037 + 0.0037i (u ≈ 0.39 + 0.02i), y = 1, M = 1000: \|H₁₀₀₀\| > 0.13, so \|H\|/F_cert > 6700.
+  * Method: signed Chebyshev-in-ν² assembly of the spectral kernel at 1000 digits; exact ideal-weight moment recurrence μ_{j,m}; repaired-residual quadrature; local truncation certified < e^{−120} (128 interval cells).
+  * Not reproduced here.
+* **Why this does not threaten positivity.** The point is off-axis and in a low-L, low-spin region that is already certified.
+* **Restriction.** For J ≥ 1001 and a < 3200: c ≥ 1001·1002/(4201·4202), so **u ≥ 0.486**. More generally y ≤ Y_s(u) = min{1, c/(1001(1001+s)d²x_*)}.
+  * So Lemma C only needs complex discs around the restricted real domain.
+  * The agent's measurement at L = 0.5 (u ≈ 1.2) gives K ≈ 1.3–1.4 at η = 0.02. A larger K costs one Taylor order per doubling (K = 1e5 needs order 24).
+* **Open.** The restricted physical-strip inequality (target K ≤ 1e5), then the cell run.
