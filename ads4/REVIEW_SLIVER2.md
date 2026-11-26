@@ -144,7 +144,9 @@ plus 4 random points in each of 5 boxes × 2 L-cells × 2 values of i_s:
 * The residual uses J′ = 2200 for cells with ν_lo ≥ 999. `rt2_loc2` uses J′ for T ≥ 999. The panels beyond Λ are exactly [T, T+1].
 * ψ = ψ₂^{NF02}(ν/Λ)/k₀ for ν ≤ Λ and 0 beyond: this is in the `ew_common` docstring, and `inside = False` for panels above Λ.
 * So for ν ≥ Λ = 998.4994, f = r, and any J′ is admissible there. **Claim verified.**
-* The original [3.65, 3.75] and [3.75, 4] logs agree with a run using `RT2_JP=2200`; the rerun uses that setting explicitly.
+* The original logs do not record which `RT2_JP` was used. This does not matter: the J₀-tail is negligible, so K_cell is the same for
+  J₀ = 1500 and 2200. Cell [1040, 1041.1] at [3.65, 3.75] gives 8.05813·10¹¹ in both cases, the logged value 8.0581·10¹¹. The rerun sets
+  `RT2_JP=2200` explicitly.
 
 **S3 (wrong justification, negligible).**
 * §6 and `rt2_resid.py` assert that "above Λ, ψ₂ = 0, so r_θ = f_θ and |f_θ| ≤ |f| = |r| pointwise (0 ≤ θ ≤ 1 on the real axis)", and
