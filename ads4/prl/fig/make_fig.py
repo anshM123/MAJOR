@@ -106,7 +106,7 @@ LAB = dict(fontsize=FS, color=INK)
 ax1.axhline(TAU_COLL, color=INK2, lw=0.9, ls=(0, (6, 2, 1, 2)), zorder=2)
 ax1.text(1500, TAU_COLL * 1.8, r'collider bound, every CFT$_3$', ha='left', va='bottom', **LAB)
 ax1.plot(xs, [V[x]['chlps_tau'] for x in xs], color=C2, ls=(0, (4, 2)), lw=1.0, zorder=3)
-ax1.plot(xs, [V[x]['tau'] for x in xs], color=C1, lw=1.4, zorder=3)
+ax1.plot(xs, [V[x]['tau'] for x in xs], color=C1, lw=1.4, alpha=0.45, zorder=3)   # beyond 1000: assumes positivity at own gap
 ax1.plot([2000, 5000], [V[2000]['tau'], V[5000]['tau']], 'o', ms=3.2, mfc='white', mec=C1, mew=0.9, zorder=4)
 t1000 = V[1000]['tau']
 ax1.plot([1000], [t1000], 'o', ms=4.8, mfc=C1, mec='white', mew=0.8, zorder=5, clip_on=False)

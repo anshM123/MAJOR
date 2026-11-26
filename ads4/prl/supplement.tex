@@ -86,7 +86,7 @@ assume it. Elsewhere (other gaps, and $\Omega^Q_{\rm up}$) the Result assumes it
 evidence, which is never used as an input. The standard inputs ``listed and graded in the Supplemental Material'' are
 Table~\ref{tab:inputs}; ``the light double-trace data are those of a tree-level bulk theory, with no fine-tuned cancellation between the heavy states and the tower of bulk contact terms'' is L7(b) [A], used only for $\tilde g_4=g_4$.
 
-\emph{How close to Einstein.} Eq.~(1) is item (1): $\tau_0=(240/\Lambda^4)(16L_A/K)^{1/2}$ with $K=1-32.4/\Lambda^2$, evaluated in
+\emph{How close to Einstein.} Eq.~(1) is item (1), stated as in the Result with no light single trace in $T\times T$; with light single traces it is [D-sketch] through LS4 (``we sketch why Eq.~(1) still holds''): $\tau_0=(240/\Lambda^4)(16L_A/K)^{1/2}$ with $K=1-32.4/\Lambda^2$, evaluated in
 certified arithmetic. ``Also covers parity-violating theories'' is row L1, including the parity-odd, odd-twist $[TT]$ double zeros [D]
 (Sec.~\ref{sec:c1}). The energy-flux statement is Sec.~\ref{sec:flux}: [D] from the cubic bound, with quoted kinematics [Q] checked [DV].
 ``A theory with a larger gap also has a gap of 1000'' is the Remark of Sec.~\ref{sec:allgap}.A, [D]. ``Positivity at its own gap
@@ -111,13 +111,13 @@ finite-frequency light-ray algebra and no scalar with $\Delta\le1$; light-cone c
 ($J_0<\tfrac32$ for $k=2,3,5$, $J_0<\tfrac52$ for $k=4$). ``No helicity mixing at leading Regge order'' for $EE$ is [P]; ``negative at
 large impact parameter, in a model calculation'' is [M]. De-shifting ``to about one part in $10^6$'' is the generalised Abel equation,
 certified for the load-bearing $k=4$ pieces. ``We derive that no term linear in $t_4$ or $\alpha_T$ survives'' is row L3 and
-Sec.~\ref{sec:c1}: $c_1=0$ [D] given row L1; ``a direct numerical evaluation confirms this to $10^{-11}$'' is the free-field evaluation
+Sec.~\ref{sec:c1}: $c_1=0$ [D] given row L1; ``a free-field evaluation of the key step confirms this to $10^{-11}$'' is the free-field evaluation
 of Sec.~\ref{sec:c1} [DV]. ``Whose coefficient we compute in closed form'' is I3: the closed-form H17 value of $K$ [D], arithmetic
 [certified]. The light single traces' ``step we sketch'' is row LS4 ([D given (E$'$)], (E$'$) [D-sketch]); ``positive on them in the
 flat limit at every mass'' is [P].
 
-\emph{Positivity on every heavy state.} ``In flat space we prove'' is the flat certificate NF02 [certified] (Sec.~\ref{sec:pos}).
-``its leading-Regge part loses less than $0.1\%$ of the flat-space margin on every heavy state, at every gap of 1000 or more'' is T0 (Sec.~\ref{sec:T0}) [certified]:
+\emph{Positivity on every heavy state.} ``In flat space we certify'' is the flat certificate NF02 [certified] (Sec.~\ref{sec:pos}).
+``its leading-Regge part loses less than $0.1\%$ of the flat-space margin on every heavy state at $\Delta_g=1000$'' is T0 (Sec.~\ref{sec:T0}) [certified]:
 floor $0.1999\,N_s$ against the flat $N_s/5$, for the exact de-shifted (target) weights: $++$ for every even $J$, $+-$ for every $J\ge4$,
 every $m\ge\Lambda$, every $\hat b$, every $\Delta_g\ge1000$; the parity-odd even-$J$ (OO) block needs in addition the cancellation of its
 EO entries and $\kappa_{\rm OO}>0$ (row values [DV]); for the published (endpoint-repaired, Table~\ref{tab:data}) continuum weights at
@@ -126,9 +126,7 @@ Sec.~\ref{sec:fullpos} [certified, given Eq.~\eqref{eq:fp-target}]; ``we rewrite
 helicity channels'' is Eq.~\eqref{eq:fp-target} with Eq.~\eqref{eq:fp-H}; the cover is Table~\ref{tab:fpcover}: ``spins up to 1000 are certified one by one'' is its first row, ``high twist by an expansion about the leading-Regge value'' its second, ``a localized bound at large impact
 parameter'' the tail theorem and routes T$'$, T$''$, ``an exact resummation at intermediate impact parameter'' the signed transfer, and
 ``a direct evaluation at small impact parameter'' the direct prefix rows. ``Its individual terms reach $10^{685}$'' and ``no favorable
-sign'' are facts (a) and (c) of Sec.~\ref{sec:fullpos}.C. ``Rerun from source on separate hardware with identical output, and every new
-lemma was rederived independently'' is Sec.~\ref{sec:fullpos}.I (rows 3--8 of Table~\ref{tab:fpcover}); rows 1, 2 and 9 were not re-run
-by separate code. The earlier evidence of Secs.~\ref{sec:pos} and \ref{sec:largespin} (Theorems W and L$'$) is now a cross-check; its
+sign'' are facts (a) and (c) of Sec.~\ref{sec:fullpos}.C. ``rerun from source on separate hardware with identical output, and the main new lemmas behind them were rederived independently; the spin-by-spin and high-twist certificates were run once'' is Sec.~\ref{sec:fullpos}.I (rows 3--8 of Table~\ref{tab:fpcover} were re-run; rows 1, 2 and 9 were run once; the lemmas re-derived are listed there). The earlier evidence of Secs.~\ref{sec:pos} and \ref{sec:largespin} (Theorems W and L$'$) is now a cross-check; its
 grades are unchanged. ``With error control it holds on its binding states near the gap and at masses $1.3$--$3\Lambda$'' is the
 $\Omega^Q$ row of Table~\ref{tab:computed} ([NE$\pm$], $L\ge58$ at the binding pair; the $+-$ gap states $J=4$--$6$ given the
 saddle-point rows on the last $4\%$ of the $\nu$ range); ``elsewhere its values are computed in models or interpolated'' are the
@@ -341,6 +339,17 @@ $\langle\mathcal O|\mathcal E|T\rangle\propto\cos(\pi h)\,\Gamma(h-\tfrac12)$, $
 $[TT]$ dimensions $J+3+2n$ ($J\ge4$) and $7+2n$ ($J=0,2$), so $|K|^2\propto\cos^2(\pi\tau/2)$ [P, all $J$, extreme components]; all $m$,
 both external helicities and first moments [P] for $J\le30$ and $J=40$, else given the helicity ladder; parity-violating admixtures enter
 at $O(c_T^{-2})$ [D]\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\begin{table}[!htbp]
+\addtocounter{table}{-1}
+\caption{Inputs of the implication (continued).}
+\scriptsize
+\begin{ruledtabular}
+\begin{tabular}{L{1.5cm}L{9.6cm}L{0.8cm}L{4.3cm}}
+input & statement & used & grade\\\hline
 L2 & $|\hat g_3|^2$ light coefficient $K=K_0(1+\delta_3)$, $\delta_3=\delta K_0+$H17; $\delta K_0=-7.666\times10^{-4}$ / $-6.830\times10^{-5}$ & D & $\delta K_0$ [certified]; H17 value [D] (closed form, I3); its $t_4^2$/$\alpha_T^2$ asymmetry [D-sketch\,+\,M]\\
 L3 & the $O(t_4)$ light term $16\pi Gc_1t_4$ of $\hat C'_{EE}$ vanishes for every $\nu$, $c_1=0$, and so does the $O(\alpha_T)$ term; F$_2$: the $s$-channel $T$-family term factorises through light-ray one-point matrices, diagonal for Einstein and pure flip at $O(t_4)$, $O(\alpha_T)$; shock ($u$-channel) and $k=3$ parts $=0$ & D, Q & $c_1=0$ [D] given L1's double zeros (both parities) and L4; F$_2$ [D\,+\,DV] (Table~\ref{tab:c1}); $O(\alpha_T)$ step [D]; shock part [P]\\
 L4 & $\Omega_k[X]=D_{\rm LR}[X]+\mathcal A_k[X]$ on every tree term; $\mathcal A_k=0$ for Regge spin $n_X<k$; at $n_X=k$ a linear functional of the top Regge coefficient & Q & [D given C$'$\,+\,Mellin convergence]; [DV] on a Witten family, incl.\ $k=4$\\
@@ -800,7 +809,7 @@ algebraically]. Equality holds for linear polarisation; helicity eigenstates $\v
 parity-even part reproduces $\langle\mathcal E(n)\rangle=(E/2\pi)[1+t_4(|\varepsilon_{ij}n_in_j|^2/\varepsilon^*\!\cdot\varepsilon-\tfrac14)]$
 \cite{HofmanMaldacena,Buchel}; Ref.~\cite{Buchel}, Eq.~(3.8), prints the $d=3$ constant as $\tfrac18$, whereas zero net flux (the angular
 average of $|\varepsilon_{ij}n_in_j|^2/\varepsilon^*\!\cdot\varepsilon$ is $\tfrac14=2/(d^2-1)$, their Eq.~(3.6)) requires $\tfrac14$,
-consistent with $|t_4|\le4$. The cubic bound $\tau\le2.89126\times10^{-8}$ at $\Delta_g=1000$ gives $A\le7.23\times10^{-9}$ and a
+consistent with $|t_4|\le4$. The cubic bound $\tau\le2.8913\times10^{-8}$ at $\Delta_g=1000$ gives $A\le7.23\times10^{-9}$ and a
 maximum-to-minimum flux ratio $\le1+1.45\times10^{-8}$. With $t_4=-4(n_f-n_s)/(n_f+n_s)$, $\alpha_T=8\pi^4p_T/[3(n_f+n_s)]$, where
 $n_s$, $n_f$ count the free real scalar and free Majorana fermion structures in $\langle TTT\rangle$ and $p_T$ multiplies the
 parity-odd one, and $c_T=n_s+n_f$ (a Majorana fermion has the $c_T$ of a real scalar in $d=3$) \cite{CDPrakash}, this reads
@@ -1657,7 +1666,7 @@ $J\le8$ the own-row $K_2$ values; the two differ by $\le0.001$ for $J\le16$. For
 entries come from direct own rows ($\Delta_{\rm ref}=2\times10^4$; even $J$ repaired into the local structure basis), with the error budget
 of Sec.~\ref{sec:pos} for direct rows (sign-free budget, measured $\times3$ window; odd $J\ge23$ with the direct bulk and the
 Gauss--Kronrod edge); there no bracket is given (no truncation term); mass entries above each $2000$ twist edge are held at the own row.}
-\footnotesize
+\scriptsize
 \begin{ruledtabular}
 \begin{tabular}{rlllll}
 $J$ & $m/\Lambda$ & $\Delta_g=1000$ & $2000$ & $5000$ & grade at $2000$\\\hline
@@ -2008,7 +2017,7 @@ stored functional coefficients.}
 \begin{tabular}{L{5.2cm}L{3.8cm}L{4.4cm}L{3.4cm}}
 quantity & claimed & reproduced & independence\\\hline
 $A$, $B_{\rm AdS}$ / $B_\infty$ & $3022.34$, $-6552.66$ / $-5327.21$ & $3022.3377$, $-6552.662$ / $-5327.2096$ & fully\\
-$\tau_0$ at 300 / 1000 & $3.13206\times10^{-6}$ / $2.89126\times10^{-8}$ & same; also with the continuum $k=2$ weight & fully\\
+$\tau_0$ at 300 / 1000, $K=1$ (computed $K$: $3.13262\times10^{-6}$ / $2.89131\times10^{-8}$) & $3.13206\times10^{-6}$ / $2.89126\times10^{-8}$ & same; also with the continuum $k=2$ weight & fully\\
 $A_Q$, $B_\infty^Q$, $\kappa$ & $17.241$, $-19.2782$, $0.1099$ & $17.240713$, $-19.278176$, $0.109908$ & fully\\
 $2L_{\rm AdS}$ at 300 / 1000 & $72.04$ / $92.81$ & $72.0406$ / $92.8135$ & fully\\
 $\Lambda$-forms, H17 band, $\delta K_0$ & Sec.~\ref{sec:lambda} & agree; H17 band $\pm0.24\%$ & fully\\
