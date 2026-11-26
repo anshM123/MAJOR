@@ -20,13 +20,15 @@ while c<stop:
  m=1
  while 1-hcap*(1+F(1,2*m))*p<=0:m+=1
  # a-priori rounding growth of the Horner l1 error (ratio of the C++ recurrence, real point bound)
- lg=0.0
- for k in range(K):
-  pk=k*(k+s);r=float(2*(u+pk*hcap)/(1-pk*hcap))
-  if r>1:lg+=math.log10(r)
- D=100+max(0,math.ceil(lg)+10)
+ # error injected at Horner step k is amplified by prod_{j<k} ratio_j, ratio_j=2(|c0-p h0|+dc+p dh)/(1-p(h0+dh)) (C++ l1 recurrence)
+ mx=0.0
+ for pi in range(m):
+  h0=hcap*(2*pi+1)/(2*m);dh=hcap/(2*m);lg=0.0
+  for k in range(K):
+   pk=k*(k+s);lg+=math.log10(float(2*(abs((c+u)/2-pk*h0)+(u-c)/2+pk*dh)/(1-pk*(h0+dh))));mx=max(mx,lg)
+ D=100+(math.ceil(mx)+10 if mx>0 else 0)
  st=time.time()
- subprocess.run(['python3',drv,str(c),str(u),str(b),str(m),str(D)],cwd=rd,stdout=open(os.path.join(rd,f'cell_{c}_{u}_{b}_m{m}_D{D}.log'.replace('/','o')),'w'),stderr=subprocess.STDOUT)
+ subprocess.run(['python3',drv,str(c),str(u),str(b),str(m),str(D)],cwd=rd,stdout=open(os.path.join(rd,(f'cell_{c}_{u}_{b}_m{m}_D{D}.log').replace('/','o')),'w'),stderr=subprocess.STDOUT)
  ok=True;low=None
  for pi in range(m):
   name=f'g1tri_{c.numerator}_{c.denominator}_{u.numerator}_{u.denominator}_{b}_m{m}_p{pi}_D{D}.json'

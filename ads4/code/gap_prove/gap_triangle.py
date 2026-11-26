@@ -91,5 +91,6 @@ def main():
   res=dict(name=name,c_lo=str(l),c_hi=str(u),b=b,K=K,D=D,m=m,piece=pi,h_lo=str(ha),h_hi=str(hb),hcap=str(hcap),cap1=str(cap1),cap2=str(cap2),ac=ac,ah=ah,Q=Q,mc=mc,mh=mh,terms=terms,analytic_tail=str(eps/S),poly_lower=str(lb),physical_lower=str(physical),center=float(F(z['CENTER'],S)),L1=float(F(z['L1'],S)),roundoff=float(F(z['ERROR'],S)),lower=float(physical),status='PASS_CONDITIONAL' if physical>0 else 'FAIL_INCONCLUSIVE',seconds=time.monotonic()-st)
   json.dump(res,open(name+'.json','w'),indent=2);print({k:v for k,v in res.items()if k not in ('analytic_tail','poly_lower','physical_lower','h_lo','h_hi','hcap','cap1','cap2')},flush=True)
   rows.append(res)
+  if res['status']!='PASS_CONDITIONAL':break  # cell already failed; skip remaining pieces
  print('CELL',str(l),str(u),'b',b,'m',m,'min lower',min(r['lower'] for r in rows),'ALLPASS',all(r['status']=='PASS_CONDITIONAL' for r in rows),flush=True)
 if __name__=='__main__':main()
