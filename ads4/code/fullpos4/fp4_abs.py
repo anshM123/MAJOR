@@ -4,7 +4,7 @@ fullpos4/fp4_abs.py (FULLPOS4.md §3) [DV]: norm of the frequency-integrated out
   W = xi^{s-1} (1-xi^2)^{-3} P+_h(beta) e^{i S al - i a ga}/sin(al),   P+_h from fp4_int.Amp.
 Measured: N_abs = (C/pi) (int|W_U| + int|W_T| + int|W_L|), split by |beta| bands, against
   |G(c)| = (1-c)^{-3} |2 OmLR(beta_c)| (= L(G) to ~1e-6, FULLPOS3 §3.1) and N_s (T0 hyb_fast);  reported as w^3 N_abs / N_s.
-Usage: fp4_abs.py a J b
+Usage: fp4_abs.py a J b [kappa]
 """
 import sys, os, math, json, time
 sys.dont_write_bytecode = True
@@ -39,7 +39,8 @@ def geom(al, ga):
 BANDS = [0, 0.01, 0.1, 0.3, 1, 3, 1e9]
 
 
-def run(a, J, b, amp=None, p=3):
+def run(a, J, b, amp=None, p=3, kappa=None):
+    """kappa: retain only |A| <= A0 = kappa*Lam/S (hard localisation; the lifted remainder is not included)."""
     t0 = time.time()
     amp = amp or I.Amp(2)
     n = J - b; N = n + a; s = 2*b + 1; S = 2*J + 1 + a; eps = 1.0/S
@@ -47,7 +48,8 @@ def run(a, J, b, amp=None, p=3):
     Cc = Cconst(n, N, s)
     res = {}
     band_abs = np.zeros(len(BANDS) - 1)
-    A, wA = graded(0.0, math.pi/2, eps/20)
+    A0 = math.pi/2 if kappa is None else min(math.pi/2, kappa*I.LAM/S)
+    A, wA = graded(0.0, A0, eps/20)
     tot = {}
     for piece in ('U', 'T', 'L'):
         ALs, GAs, WTs = [], [], []
@@ -85,12 +87,13 @@ def run(a, J, b, amp=None, p=3):
     out = dict(a=a, J=J, b=b, S=S, c=c, L=-math.log(1 - c), beta_c=beta_c, C=Cc, Gc=Gc, Ns=Ns, w3=w**3,
                Nabs=Nabs, pieces={k: Cc/math.pi*v for k, v in tot.items()},
                bands={f'{BANDS[i]}-{BANDS[i+1]}': Cc/math.pi*band_abs[i] for i in range(len(BANDS) - 1)},
-               ratio_G=Nabs/abs(Gc), ratio_Ns=w**3*Nabs/Ns, w3Gc_over_Ns=w**3*Gc/Ns, npts=len(A), secs=time.time() - t0)
+               kappa=kappa, A0=A0, ratio_G=Nabs/abs(Gc), ratio_Ns=w**3*Nabs/Ns, w3Gc_over_Ns=w**3*Gc/Ns, npts=len(A), secs=time.time() - t0)
     return out
 
 
 if __name__ == '__main__':
     a, J, b = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3])
-    r = run(a, J, b)
+    kap = float(sys.argv[4]) if len(sys.argv) > 4 else None
+    r = run(a, J, b, kappa=kap)
     print(json.dumps(r), flush=True)
     open(os.path.join(HERE, 'cache', 'fp4_abs.jsonl'), 'a').write(json.dumps(r) + '\n')
