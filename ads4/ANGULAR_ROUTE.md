@@ -1190,3 +1190,17 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Eight boundary-free integrations by parts along the combined soft path give a factor (ia)^{−8}; the corner terms cancel between the arc and the tail.
   * Practical version: Taylor-expand F_α at the corner and integrate e^{−iaγ}P(γ) exactly with the SAME polynomial on both sides, so the shared endpoint cancels exactly.
 * **Not yet certified:** the global contour norm relative to N_s.
+
+## 73. High-twist scan complete: all 60 β-cells, both channels (author's laptop run, 26 Nov)
+
+* **Certified a*(L)** (fp3_ht.py with the fixed far remainder; run_laptop_scan.py, 22 workers; summary reported by the author):
+  * β ∈ [0.39, 1.04] (L ≈ 0.04–0.25): a* = 3200;
+  * β ∈ [1.04, 3.04]: a* = 3600;
+  * β ∈ [3.04, 8.24]: a* = 4500;
+  * β ∈ [8.24, 8.40] (L ≈ 7): a* = 4000.
+* **Consequence.** H_ang,b > 0 for every heavy state with β_c ∈ [0.39, 8.40] and a ≥ 4500 (≥ 3200/3600 in the lower cells), both channels, all J.
+* **Remaining.**
+  1. The sliver 998 ≤ a < a*(L), J ≥ 1001 (FULLPOS4).
+  2. β > 8.4 (FULLPOS5).
+  3. The tail.
+* **Note.** The per-cell jsonl records live on the author's laptop (cache/laptop_*.jsonl). They should be pushed for the audit trail.

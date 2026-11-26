@@ -111,6 +111,14 @@ With P⁺ forced at ν ≤ 1 on the §55 contour, (𝒞/π)Re(I_U − iI_T − i
 The complete-conical treatment below ν = 1 is therefore optional. The integrated amplitude can use P⁺ at every frequency, since h(ν) ∝ ν cancels
 the 1/ν of coth(πν).
 
+### 2.2 End-to-end check of the integrated pipeline [DV]
+Test (`fp4_toy.py`): the same ψ₂ weight at reduced bandwidth Λ_toy = 8, i.e. G = 2∫ψ₂F_{3,8p}dp, at (n, N, b) = (10, 30.5, 0).
+The exact value is ℒ(G) = Σ_{k≤n}U_kM_k with M_k = 2∫ψ₂g_k(8p)dp.
+* Integrated outgoing §55 contour (𝒫⁺_h via `fp4_int.Amp(lam=8)`, then (𝒞/π)Re(I_U − iI_T − iI_L)): 8.665890.
+* Exact: 8.665246 (max|U_kM_k| = 20.8). Rel. err 7e-5, limited by the coarse norm-measurement grids of `fp4_abs` (8-node panels).
+* ∫|W|/|ℒ(G)| = 178.
+So frequency integration first, then the §55 contour with the outgoing amplitude, reproduces the action.
+
 ---
 
 ## 3. The norm of the frequency-integrated contour: structure [P-level analysis] and measurements [DV]
@@ -145,3 +153,35 @@ and (1−ξ²)^{−p} = cosh^{2p}(β/2) ~ e^{pβ}.
 * The integrated amplitude's low-frequency content does not decay in Im β: it is the p = 0 endpoint, power-law ψ′(0)/(Λβ)². So
   |𝒫⁺_h(β ≈ 8)| ≈ 2·10⁻⁷ multiplies e^{3β}/64 ≈ 10⁹.
 * A per-frequency-optimal tail sits at the soft saddle, γ₁(ν) = arcsin(ν/a). No single contour serves all ν; only band-dependent contours can.
+
+### 3.2 Measurements at open-region states [DV]
+* `fp4_abs.py`: raw ∫|W| on the author's contour (I_U, I_T, I_L), with the actual |𝒫⁺_h| and with a Lemma-A⁺-type majorant
+  (1/π)∫|K|(|W_S| + |W_C| + e^{−Λ Im t}|W_E e^{−iΛt}|)du. The majorant is 1–3× the actual amplitude.
+* `fp4_soft.py`: **soft-signed / hard-absolute** norm. For each α the whole γ path (arc + tail, so the corner is paired automatically, or
+  the lower ray) is integrated SIGNED with half-wavelength panels; then
+  N_soft = (𝒞/π)∫|e^{iSα}Ψ(α)/sin α|dA.
+  This is the norm an α-cell certificate pays if the soft integral is evaluated exactly per α (the author's IBP/corner-pairing).
+* Weight: ψ₂ (the main part G_A^ψ of H/w³), p = 3.
+* Reference: |G(c)| = |ℒ(G^ψ)| to ~1e-6 (FULLPOS3 §3.1). Note w³|G(c)| ≈ N_s at these states (ratio 0.99 at (2000, 1500)).
+
+**(a, J, b) = (2000, 1500, 0); S = 5001, c = 0.184, L = 0.20, |G(c)| = 2.88e-5, N_s = 1.59e-5.**
+| \|A\|S band | [0,1) | [1,10) | [10,100) | [100,1000) | ≥1000 | total | total/\|G(c)\| |
+|---|---|---|---|---|---|---|---|
+| raw ∫\|W\| (I_U + I_T + I_L) | 5.0e5 | 1.4e5 | 1.1e3 | 26 | 137 | 6.45e5 | **2.2e10** |
+| soft-signed N_soft | 0.025 | 0.21 | 2.2 | 18.7 | 54.2 | 75.4 | **2.6e6** |
+
+(The first raw run had an overflow in I_T, e^{Λ|Im β|} formed before the carrier damping. It was fixed by carrying e^{iΛβ} in the exponent; the
+I_U and I_L values were unaffected: I_U = 6.44e5, I_L = 25.4. In the band split, 139 of the raw norm sits at |β| < 0.01, 20 at
+0.01–0.1, and 1.5 at 0.1–0.3.)
+
+Reading:
+1. **The raw norm is useless** (2e10). It is dominated by |A|S < 10: I_U at large β, plus the I_U/I_T corner. The soft-signed norm shows that this
+   is an exact cancellation along each soft path (0.23 left of 6.4e5). The author's IBP/corner pairing is therefore essential, not optional.
+2. **What survives is the diagonal-endpoint region |A|S ≳ 100.**
+   * For |A| ≫ 1/a the γ path never reaches the physical region (γ ≥ A ≫ 1/a). Ψ(α) is then the diagonal boundary expansion: log-singular,
+     amplitude ~ M_h log/(ia), with M_h ~ ∫|h|.
+   * Hard localisation (lifting α where the outgoing growth e^{νY/|A|} < e^{SY}, |A| ≳ Λ/S) removes the ≥ 1000 band, leaving ≈ 21, i.e.
+     **≈ 7e5 × |G(c)|**.
+   * Separating the diagonal boundary terms analytically and lifting them in α (they are frequency-free) would remove more. But their total is
+     the small-z (z → 0) information of G, the same information whose ladder sum Σ U_kg_k cancels from |U_kg_k| ≫ 1 down to 3e-5. So at least
+     one of the two pieces has norm ≳ O(G(0)) = O(20). **The effective ratio stays ≳ 1e5–1e6 at L ≈ 0.2.**
