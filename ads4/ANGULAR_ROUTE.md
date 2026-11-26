@@ -1283,3 +1283,19 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * Cost: O(M²) per state, O(M) per frequency.
   * **Internal cancellation:** coefficients reach ~1e366, so ball arithmetic at ~1300 bits is required.
 * **Coordinator caution (to be tested).** Evaluating one state is cheap. A certificate over the CONTINUUM of states (real a and J up to ~1e7) needs parameter cells. With ~1e366 internal cancellation in Σ_j W_j[t^j]Y, a naive interval enclosure over a cell is hopeless unless the cells are tiny or Taylor models in (c, h) track the cancellation. That cost decides feasibility.
+
+## 79. Benchmark of the §78 rational reference (agent FULLPOS4, 26 Nov)
+
+* **(a) Pointwise exact [DV, ball arithmetic, 1600–8000 bits].** 𝒦_ref·w³ against the exact ladder, max\|R_{m,j}\| in brackets:
+  * (1001, 998) [1e571]: differences 0 at ν = 20/300/700, 1e-271 at 950, 7e-237 at 993;
+  * (1500, 2000) [1e187]: differences of 2e-185 or less;
+  * (20000, 998) [≈ 1]: ≤ 2e-276.
+  * Cost: W_j takes 5–40 s per state, each ν 0.04–0.4 s, so H_ref takes ~15 min per state.
+* **(b) Continuum certificate: does not close tonight.**
+  * Naive interval cells in a lose the sign for δ ≳ 1e-550; at J = 20000 the R-recurrence wrapping is ~2^M.
+  * Taylor-model cells: δ ≲ 1e-6, so ~1e9 cells per J. J must be continuous (n ≈ 2ae^L, up to ~1e12 at L ≈ 20).
+* **Needed instead.** An a priori uniform derivative bound for H in (a, 1/J), of physical size (Lemma U).
+* **Contour side, for reference (§74 extraction, soft-signed remaining norm / \|G(c)\|).**
+  * (2000, 1500, 0): ξ₀ = 0.02, 0.05, 0.1, 0.2, 0.35 gives 1.6e4, 2.9e3, 790, 198, 61.
+  * (998, 20000, 0): ξ₀ = 0.02 gives 97 (16 after localisation).
+  * The node counts still rule out an overnight run.

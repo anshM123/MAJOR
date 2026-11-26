@@ -97,9 +97,9 @@ def kexact(p, nu, J, a, b):
     g0, gm = arb(1), arb(0); U = arb(1); tot = arb(0)
     for k in range(n + 1):
         tot += U*g0
-        g1 = ((2*k*k + 2*p*k + p - sn)*g0 - (k - 1 + p)**2*gm)/((k + 1)**2)
-        gm, g0 = g0, g1
-        U = U*(k - n)*(n + s + k)/((k - N)*(N + s + k))
+        g1 = (((2*k*k + 2*p*k + p - sn)*g0 - (k - 1 + p)**2*gm)/((k + 1)**2)).mid()     # midpoint propagation (DV):
+        gm, g0 = g0, g1                                                                  # ball wrapping grows like (1+sqrt2)^k
+        U = (U*(k - n)*(n + s + k)/((k - N)*(N + s + k))).mid()
     return w**p*tot
 
 
