@@ -338,8 +338,11 @@ direct-prefix, coupled-cap, transfer and norming certificates with byte-identica
 two machines and every record was checked (flags, thresholds, contiguity); the per-spin and bivariate certificates (rows 1 and 9) were
 run once, in Arb, and have not been re-run by separate code. Independent re-derivations covered Lemmas F, B, Loc$''$ and X, the state relations,
 the negative-binomial seed, the Gamma and Euler envelopes and contour normalisation, the base-multiplier lemma, the low-frequency
-theorem, the prefix-truncation constants, and the coupled-cap norming argument; they found no error affecting a sign, and the
-imprecisions they found are covered by slack already in the certificates.
+theorem, the prefix-truncation constants, and the coupled-cap norming argument; they found no error affecting a sign, and the imprecisions they found are covered by slack already in the certificates. A second
+route for the coupled-cap row, with its own drivers and lemmas (a twist cap from $\sqrt{x(x+s)}$ monotonicity, a tail allowance from the
+long coefficient table, and cells shaped to the physical region), re-certifies $0.28\le c\le0.777$ in both channels: 61 channel
+cells, every one passing its verifier, with normalised lower bounds $\ge7.0\times10^{-6}$ except one $b=4$ cell at $9.2\times10^{-7}$
+(\texttt{code/gap\_prove/}, \texttt{code/gap\_exec2/}; same retained inputs).
 
 \emph{Code} (archived with all inputs, outputs and logs at Ref.~\cite{Zenodo}; paths relative to the archive root). \texttt{code/fullpos3/} (high twist), \texttt{code/tailcert/}, \texttt{code/analytic*/} (routes T$'$, T$''$),
 \texttt{code/locjoint/}, \texttt{code/norming/}, \texttt{code/sliver\_ext/}, \texttt{code/sliver\_L23/} (transfer and norming),

@@ -42,8 +42,8 @@ print("J b mass | H_fpH/w^3 (new chi, uncut) | closed form | rel diff | rel diff
 for J, b, mspec in states:
     # mspec: 'tw' = twist edge at the gap with Lambda^2 = (Dg-1)(Dg-2) [only for lam2 = 997002], or a decimal m/Lambda
     if mspec == 'tw':
-        assert lam2 == 997002
-        Dl = J + 1000
+        Dg = int(round((3 + (1 + 4*lam2)**0.5)/2)); assert (Dg-1)*(Dg-2) == lam2
+        Dl = J + Dg
         T = Fr((Dl-1)*(Dl-2))
     else:
         T = Fr(mspec)**2*lam2 + J*(J+1)
