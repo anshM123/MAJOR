@@ -1204,3 +1204,27 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   2. β > 8.4 (FULLPOS5).
   3. The tail.
 * **Note.** The per-cell jsonl records live on the author's laptop (cache/laptop_*.jsonl). They should be pushed for the audit trail.
+
+## 74. Diagonal-endpoint resummation (author, 26 Nov)
+
+* **Context (agent FULLPOS4, at (a, J, b) = (2000, 1500, 0)).** Contour norms in units of N_s ≈ \|H\|:
+  * fully absolute 2.2e10;
+  * soft-signed 2.6e6;
+  * hard-localised ~7e5.
+
+  The remaining cancellation is in the diagonal (z → 0) region: G(0) ≈ 20.8 must cancel to G(c) ≈ 3e-5.
+* **Exact hard projection (author).**
+  * D_m(v) = (1−e^{−v})^{2m}Σ_{r≤J−m}C(2m+r−1, r)e^{−rv}.
+  * a∫e^{−av}D_m dv = U_{0,m} (telescoping beta sum). **Checked here** (mpmath, 4 cases including non-integer a): agrees with U_{0,m} to 15 digits.
+  * So the boundary-jet expansion resums to the ladder. But finite truncation is ill-conditioned and the 1/a boundary series diverges when r ≥ a.
+* **The construction to use (author).** Change the soft variable to ξ. Then dγ/sin α = 2dξ/((1−ξX)(1−ξ/X)), and the carrier becomes X^B((1−ξX)/(1−ξ/X))^a.
+  * Extract the real segment 0 ≤ ξ ≤ ξ₀ = 0.02 (β₀ ≈ 0.04), plus a short connector:
+    H_diag = (aw³/(πU_{0,b}))∫₀^{ξ₀}ξ^{2b}G_b(ξ²)𝔥_B(ξ)dξ, with 𝔥_B(ξ) = ∫_{−π/2}^{π/2}X^B(1−ξX)^{a−1}(1−ξ/X)^{−a−1}dA.
+  * 𝔥_B is real, so the outgoing logarithm cancels and the full real G is used.
+  * 41-term closed form: 𝔥_B ≈ (2(−1)^J e^{Bε}/B)·Re Σ_{j≤40}(−1)^j Z^{(j)}(ε)/B^j, with error < (6/B)e^{−78}. Matches direct GL to 1e-16 (author's diagnostic).
+  * Certified prescription: 40 panels × 48-node GL; total error < 3e-22.
+* **Diagnostic (author, ideal weights).** The signed diagonal is −1.66e-6 at (1500, 2000, 0), i.e. ≈ −0.10·N_s, with real-integral norm 1.4e-2; b = 4 values are ~1e-17.
+* **Connector (author).** Carrier ≤ e^{1.002}; with the outgoing exponential, ≤ e^6; \|β\| > 0.03999.
+* **Open.**
+  1. The norm of the remaining contour (without the diagonal prefix) relative to N_s.
+  2. The certified implementation.
