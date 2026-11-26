@@ -1299,3 +1299,23 @@ L = −log(1−r) = log(1 + (b̂²/4Λ²)[1 − (2J+1)⁻²]) ≥ 0. At gap 1000
   * (2000, 1500, 0): ξ₀ = 0.02, 0.05, 0.1, 0.2, 0.35 gives 1.6e4, 2.9e3, 790, 198, 61.
   * (998, 20000, 0): ξ₀ = 0.02 gives 97 (16 after localisation).
   * The node counts still rule out an overnight run.
+
+## 80. Lemma U: exact derivative contractions; twist direction as one polynomial; c-cell polynomial construction (author, 26 Nov)
+
+* **Coordinates.** u = β_c = 2atanh√c and x = h/d², with x = 1/(a²(1+c+√(4c+s²d²/a²))).
+  * \|∂_{log a} log x\| ≤ 2 and \|∂_u log x\| ≤ 1−√c. The physical β differs negligibly (∂_uβ > 0.9998).
+  * **Checked here:** d/h = a(2J+1+a) = aS.
+* **Twist direction.** At fixed c, R_{m,j}(c, x) = y^m R_{m,j}(c, x_*), with y = x/x_*. So H_M = P(c, y)/D⁴ with P of degree ≤ M+1 in y, and one polynomial covers the whole twist interval.
+  * Certify with the signed Chebyshev conversion P̂_ℓ = (2−δ_{ℓ0})Σ_{m≥ℓ}C(2m, m−ℓ)4^{−m}p_m, and the positivity test P̂₀ − Σ_{ℓ≥1}\|P̂_ℓ\| > D_max⁴E_ref.
+* **Exact derivatives.** Y_j = d³(cd)^jG^{(j)}(c)/j! satisfies ∂_uY_j = ([j(1−2c) − 3c]Y_j + (j+1)Y_{j+1})/√c. **Checked here by hand** (dc/du = √c·d). Also x∂_xR_{m,j} = mR_{m,j}.
+* **Lipschitz targets.** \|U\| ≤ 4F and \|V\| ≤ 2F give C_β = 6.01 and C_a = 4.01. Not yet evaluated.
+* **Impact-parameter cells.** \|c−c₀\| ≤ 0.03d₀ (Δβ ≈ 0.05).
+  * Degree-6000 Taylor of G about c₀, with sup bound e^{1770} on \|z−c₀\| ≤ 0.9d₀ and remainder < e^{−600} after contraction (row-sum bound e^{4700}).
+  * c^M R_{m,j} is a polynomial in c, so Q(c, y) = c^M P̃ is bivariate of degree (≤ 11105, ≤ 851). A Bernstein positivity check of Q − (E_ref + e^{−600})c^M D⁴ certifies a whole cell.
+* **Adjoint recurrence.** A_m = (𝓑^m Y^A)₀, with 𝓑 banded (author: 78 exact checks).
+* **Diagnostic (ideal weights, J = 1004, a = 1000).** ∂_βH/H = −0.38 / −0.31 and ∂_{log a}H/H = −0.08 / +0.09 for b = 0 / 4.
+* **Open.**
+  1. Repaired-density jet evaluation.
+  2. Running the signed polynomial checks.
+  3. Arb reproduction of the §78 reference error.
+  4. Cost of the c-cell construction.

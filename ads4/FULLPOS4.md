@@ -11,7 +11,46 @@ Grades: **[certified]** Arb balls or exact rationals with every remainder proved
 
 ---
 
-## 0. Verdict (in progress)
+## 0. Verdict
+
+**Not closed. No new certified coverage.** The sliver 998 ≤ a < a*(L) (a* = 3200–3600 after ANGULAR_ROUTE §73 and FULLPOS5),
+J ≥ 1001, 0.04 < L ≲ 30 is still open. What this run established:
+
+1. **The §55 outgoing contour works per frequency [DV].**
+   * Literal recipe (coordinator's message): reproduced at the benchmark state; every piece matches the author's values to 8 digits.
+   * 12-state sweep against the exact ladder sum: p = 3, 4; b = 0, 4; ν = 0.3–12; non-integer N. Rel. err 1e-14 to 2e-7.
+   * The outgoing split also holds for ν ≤ 1 (rel. err 1e-12), so the complete-conical treatment is optional.
+   * FULLPOS3's NaN state is fine (1.415451002331); the NaN came from its literal diagonal/branch reading.
+   * Numerical trap: mpmath `fp.hyp2f1` is wrong by 1e-4 near e^{−2β} → 1.
+2. **Frequency integration first works [DV].** 𝒫⁺_h(β) = −(i/π)∫W_h(β+u)(4 sinh(β+u/2)sinh(u/2))^{−½}du (= §58/§71).
+   * Checked against Mehler to 1e-7–1e-10, and against direct p-quadrature at complex β to 1e-8.
+   * End-to-end with the §74 diagonal extraction, against exact ladder sums: rel. err 6e-11 (λ = 8), and 1.5e-7 at a state whose ladder
+     cancels by 4e7 (λ = 30, n = 40).
+3. **Norms [DV].** Units are |G(c)| = |ℒ(G^ψ)|; N_s/w³ ≈ |G(c)| (0.99 at (2000, 1500)).
+   * The fully absolute contour norm is hopeless: 2.2e10 at (2000, 1500, 0), L = 0.20 (Lemma-A⁺-type majorant: 3.1e10); 1.2e10 at
+     (998, 20000, 0), L = 2.38.
+   * Signed soft γ-integral (the corner and large-β mass cancel exactly): 2.6e6 and 1.3e4.
+   * **After the author's §74 diagonal extraction**, the remaining norm falls like ξ₀^{−2}:
+     * (2000, 1500, 0): 1.6e4 at ξ₀ = 0.02, 198 at 0.2, **61 at ξ₀ = 0.35**;
+     * (998, 20000, 0), L = 2.38: 97 at ξ₀ = 0.02, ~16 after hard localisation.
+   * The diagonal block itself is a 1D real integral (norm ≈ 855) and costs only precision.
+4. **The author's §78 quadrature-free reference is exact pointwise [ball arithmetic + DV].**
+   * At (1001, 998), (1500, 2000) and (20000, 998), M = 1000, it agrees with the exact ladder to 1e-77 … 0, including the turning point
+     ν = 993.
+   * Integrated with ψ₂ at (1500, 2000): H_ref = H_direct = 1.5669176627e-5 (and w³G(c) to 4e-7).
+   * Internal |R_{m,j}| reaches 1e571. Cost: 5–40 s per state plus 0.04–0.4 s per ν.
+5. **Why it does not close tonight (decisive).** Both routes evaluate single states well; the obstruction is **uniformity over the continuum**.
+   * Contour: ~1–2e7 amplitude evaluations per state (≈ 3000 α × 4a soft nodes; ~4–7 core-h in DV, more in balls), times ≥ 1e3–1e5
+     parameter cells. Estimate ~1.5e4 to ≥ 1e6 core-h, against the ~176 available.
+   * §78: naive interval cells lose the sign unless δa ≲ 1e-550 (measured: radius 4e-58 at δ = 1e-600, 4e242 at δ = 1e-300). Even at
+     J = 20000, where max|R| ≈ 1, ball wrapping in the M-step recurrence gives 1e379 at δ = 1e-300.
+   * J ranges to ~1e7 (L = 7) and ~1e12 (L ≈ 20), so it must be a continuous cell parameter.
+   * A certificate needs an a priori uniform derivative bound for H_ref (or for the contour integral) in (a, 1/J). None is available.
+
+**b = 4.** The coordinator's identity ℒ₄(F) = ℒ₀(z⁴F)/U_{0,4} is correct, but 𝒞_{s=9} = a/U_{0,4} exactly (checked to 1e-12 at 3 states).
+So the shifted s = 1 integrand equals the s = 9 integrand pointwise and the norm is unchanged (author §72 agrees). The cancellation is the
+I_U/I_T corner (|ξ|⁸/U_{0,4} ~ c^{−4} away from |ξ|² ≈ c). The soft-signed evaluation pairs the corner exactly; the b = 4 norm after the
+§74 extraction was not measured (the runs were stopped to free cores).
 
 ---
 
@@ -279,3 +318,44 @@ w³Σ_{k≤n}U_kg_k, with midpoint propagation in the g_k recurrence; ball wrapp
 * J cannot be enumerated: n ≈ 2ae^L gives J up to ~1e7 at L = 7 and ~1e12 at L ≈ 20. It must be a continuous cell parameter too.
 * **Verdict on §78 [DV + ball tests]:** an excellent pointwise reference, but no route to a continuum certificate without an a priori
   uniform derivative bound on H_ref in (a, 1/J). Such a bound is the per-order-majorant problem in another form.
+
+---
+
+## 6. Obstructions recorded
+1. **Raw ∫|integrand| of the frequency-integrated §55 contour is ~1e10 × N_s at both test states.** The integrated outgoing amplitude has
+   power-law low-frequency content: the odd-j p = 0 terms ψ^{(j)}(0)/(iΛt)^{j+1} survive in P⁺ alone. That content has no e^{−ν Im β} decay,
+   so I_U at large β (z → 1, (1−ξ²)^{−p} ~ e^{pβ}) and the I_U/I_T corner carry huge mass. It cancels exactly along each soft path.
+   **Rule: never bound the soft integral absolutely; evaluate it signed per α.**
+2. **Diagonal γ = α (z = 0):** a forced boundary of every §53–§59 contour (the image of u = v = 0). There |𝒫⁺_h| ~ ∫|h| ~ 20 (= G(0)/2 +
+   (i/π)M_h log 2β) for β ≲ 1/Λ, and ~ψ′(0)/(Λβ)² up to β ~ 1.
+   * Soft-signed norm before extraction: 2.6e6 at L = 0.2. It is removed by the author's §74 real-segment extraction.
+   * The leading log expansion (i/π)[M_h log 2β + D_h] (M_h = 20.77) holds only for β ≲ 1e-4. The block must be the full real-G integral,
+     not a few constants.
+3. **Per-frequency vs integrated geometry.** The author's fixed tail γ₁ = π/2 is optimal only for ν ≈ a; low frequencies would want
+   γ₁(ν) = arcsin(ν/a). This is irrelevant once the soft integral is signed.
+4. **Ball wrapping** in long three-term recurrences (g_k ladder: (1+√2)^k; R_{m,j}: ~2^M) inflates radii by 1e300–1e3000 regardless of the
+   true cancellation. Point evaluations need ~8000 bits; parameter cells are infeasible without Taylor models.
+5. **Cost / uniformity (the decisive one).** See §0 item 5.
+
+## 7. Files and reproduction (`ads4/code/fullpos4/`; `ulimit -v 4000000; export OMP_NUM_THREADS=1`)
+| file | content | grade |
+|---|---|---|
+| `fp4_kern.py` | exact ladder kernel; §59 form with mpmath (slow) | DV |
+| `fp4_pf.py` | (α, γ) contour, base §59 path and own outgoing deformed path; accurate P⁺ (`_h2f1_zb`) | DV |
+| `fp4_s55.py`, `fp4_s55_sweep.sh` | author's §55 recipe; 12-state sweep → `cache/fp4_s55_sweep.txt` | DV |
+| `fp4_int.py` | frequency-integrated 𝒫⁺_h (Euler/Q form, W_S/W_E/W_C split, rotated endpoint ray, factored e^{iΛβ}), Lemma-A⁺-type majorant | DV |
+| `fp4_abs.py` | raw ∫\|W\| (actual and majorant) on the author's contour | DV |
+| `fp4_soft.py` | soft-signed / hard-absolute norm | DV |
+| `fp4_diag.py` | §74 diagonal extraction + remaining contour (D, R, norms); `fp4_toy.py`, `fp4_toy2.py` exact end-to-end checks | DV |
+| `fp4_ref.py`, `fp4_ref_cell.py`, `fp4_ref_int.py` | §78 reference (python-flint balls), cell enclosure test, integrated comparison | DV + balls |
+
+Results: `cache/fp4_abs*.jsonl`, `fp4_soft.jsonl`, `fp4_diag.jsonl`, `fp4_toy2.jsonl`, `fp4_ref*.jsonl`, `*.log`.
+```
+python3 fp4_s55.py 2 7.5 0 3 1.2 32 40          # §55 benchmark (I_U, I_T, I_L)
+python3 fp4_int.py                              # amplitude self-tests
+python3 fp4_diag.py 2000 1500 0 4 - 0.35         # diagonal extraction + remaining norm (~15 min)
+python3 fp4_toy2.py 30 40 85.5 0 0.3 16          # strong-cancellation end-to-end check (~5 min)
+python3 fp4_ref.py 1001 998 0 300,950,993 1000 8000
+python3 fp4_ref_cell.py 1001 998 0 300 1000 8000 1e-600,1e-300
+python3 fp4_ref_int.py 1500 2000 0 1600 1000 4000
+```
