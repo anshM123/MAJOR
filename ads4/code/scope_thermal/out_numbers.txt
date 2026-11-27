@@ -1,0 +1,32 @@
+Delta_g = 1000: Lambda = 998.4999, Lambda^4 = 9.9401e+11, Lambda^6 = 9.9103e+17, Lambda^8 = 9.8806e+23
+  tau_* = 1.781351e-02  ->  X_* = (3/40) tau_* = 1.336013e-03
+  tau <= 2.8914e-8 (certified)  ->  X_cubic = 2.1685e-09  (2.89e-8 -> 2.1675e-09)
+  quartic: g4/8piG L^6 <= 9.3640e-17 (no scalar < 0.46 Lambda);  216 G4 = 2.023e-14;  108 G4 = 1.011e-14
+  quartic: g4/8piG L^6 <= 1.6599e-16 (with light scalars);  216 G4 = 3.585e-14;  108 G4 = 1.793e-14
+  type II reference: g4/8piG = 2 zeta3/(ML)^6 with ML ~ Lambda: 108 G4 = 2.620e-16
+  X_total (cubic + quartic, c1 <= G4/4) = 2.1686e-09
+  t4^2 term: (17/3840) tau^2 <= 3.7e-18
+  remainder, natural coefficient c = 1: I2 I3 ~ 1944 c/Lambda^8 = 2.0e-21; I3^2 ~ 6480 c/Lambda^10 = 6.6e-27; I2^3 ~ 31104 c/Lambda^10 = 3.2e-26
+  remainder, natural coefficient c = 20: I2 I3 ~ 1944 c/Lambda^8 = 3.9e-20; I3^2 ~ 6480 c/Lambda^10 = 1.3e-25; I2^3 ~ 31104 c/Lambda^10 = 6.3e-25
+  remainder, natural coefficient c = 100: I2 I3 ~ 1944 c/Lambda^8 = 2.0e-19; I3^2 ~ 6480 c/Lambda^10 = 6.6e-25; I2^3 ~ 31104 c/Lambda^10 = 3.2e-24
+  thermal free energy |f/f_E - 1| <= tau/720 + 4 G4 = 4.016e-11; unconditional tau_*/720 = 2.474e-05
+
+Gap scan:  Delta  X_*=(3/40)tau_*    (4/3)/(Delta-2)   X_an1        X_an2       X_ownpos (18*B/Lambda^4)
+        10  1.7175e-01   1.6667e-01     3.863e-01   2.641e-01      -
+        30  4.7866e-02   4.7619e-02     4.121e-02   1.400e-02      -
+       100  1.3613e-02   1.3605e-02     4.106e-03   7.110e-04      -
+       300  4.4746e-03   4.4743e-03     5.078e-04   4.907e-05      -
+      1000  1.3360e-03   1.3360e-03     5.083e-05   2.631e-06   2.173e-09
+      2000  6.6734e-04   6.6733e-04     1.342e-05   4.867e-07   1.444e-10
+      5000  2.6677e-04   2.6677e-04     2.290e-06   5.206e-08   4.008e-12
+     10000  1.3336e-04   1.3336e-04     5.983e-07   9.565e-09      -
+     20000  6.6673e-05   6.6673e-05     1.558e-07   1.753e-09      -
+    100000  1.3334e-05   1.3334e-05     6.777e-09   3.380e-11      -
+    200000  6.6667e-06   6.6667e-06     1.750e-09   6.152e-12      -
+     1e+06  1.3333e-06   1.3333e-06     7.489e-11   1.171e-13      -
+
+Reverse reading: deviation delta = |4 pi eta/s - 1| needs tau >= (40/3) delta, i.e. a higher-spin single trace below twist g_*((40/3)delta) ~ 2 + 17.8*3/(40 delta) = 2 + 1.335/delta
+  delta = 0.3: Delta_g <~ 6.5
+  delta = 0.1: Delta_g <~ 15.4
+  delta = 0.01: Delta_g <~ 135.5
+  delta = 0.001: Delta_g <~ 1337.0
