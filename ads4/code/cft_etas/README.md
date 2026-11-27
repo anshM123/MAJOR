@@ -361,3 +361,18 @@ With those, a Cauchy estimate gives a power law. This is the CFT image of Propos
 * **The bound.** D⁴R⁶ is the elastic 3 → 3 contact. It would be sign-definite given a 3 → 3 dispersion relation, and needs 3 → 3
   superconvergence for an upper bound.
   * c₁₈ is an interference term, bounded by Gram. R⁴-type positivity does not extend to D⁸R⁵.
+
+## 2026-11-27, session 11: an upper bound on the elastic 3 → 3 contact D⁴R⁶? (THEOREM_33.md) — no bound; obstruction located
+
+* **(a) Flat superconvergence.**
+  * Works: 𝒩 = 8 trees fall like 1/z² [Q]; amplitudes are meromorphic at tree level; a soft UV gives residue sum rules.
+  * Fails: heavy residues are |A(123 → X)|² only in exact forward elastic kinematics, where BCFW shifts degenerate.
+  * Collinear bundling kills the W₊³W₋³ contact (same-helicity collinear brackets vanish). Whether another bundling works is open.
+  * Spectator graviton t-poles remain; 𝒩 = 8 does not remove them.
+* **(a′) CFT version ⟨T A T A⟩ with A = [TT].**
+  * Regge boundedness is available, the heavy weights Σ|⟨X|T[TT]⟩|² are positive and equal the six-point diagonal, and under 𝒩 = 8
+    the light side is computable.
+  * It fails at O(c_T⁻²): heavy-in-loop corrections to the O(c_T⁻¹) spectator terms are sign-indefinite (Remark 7′ structure).
+* **(b) Type II.** The α′⁷ term is ζ(7) only, mixing D⁴R⁶ with the six-point part of D⁸R⁴. Not extracted.
+* **Verdict.** No bound, so no unconditional p. The 𝒩 = 8 statement stays conditional on natural size.
+* **Next.** An SDP functional that annihilates the full spectator double-trace family, tested on AdS₄ supergravity data.
