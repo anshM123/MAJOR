@@ -1,6 +1,6 @@
 # The cubic bound without a bulk effective theory
 
-Note, 27 Nov 2026. Unrefereed, not committed. Nothing outside `ads4/code/no_eft/` was edited.
+Note, 27 Nov 2026. Unrefereed. Not committed by this agent (the session auto-committed in-progress snapshots). Nothing outside `ads4/code/no_eft/` was edited.
 Paper: `prl/letter.tex` (assumption (ii), lines 86–90), `prl/supplement.tex` (Table `tab:inputs`, rows A2, H_K, L1–L7, LS1–LS6;
 "Order of limits", lines 677–686; the c₁ = 0 chain, lines 698–806 and Table `tab:c1`; the angular route, lines 2073–2168),
 `prl/sec_fullpos.tex` (Theorem FP, Eqs. (fp-target), (fp-H)).
@@ -33,7 +33,7 @@ No other link of the cubic chain needs a bulk effective theory. The three correc
 **What is derived.**
 
 * **Reduction (Lemma 2, [P]).** The finite-c_T sum rule plus Theorem FP give, at every c_T,
-  τ(c_T)² ≤ τ₀² + (57600/KΛ⁸)·|c_T R(c_T)|/n₀. Here R is the light remainder (light states other than 1, T and light single
+  τ(c_T)² ≤ τ₀² + (57600/KΛ⁸)·|c_T R(c_T)|/(32n₀/π). Here R is the light remainder (light states other than 1, T and light single
   traces). So "leading order in 1/c_T" means exactly c_T R → 0, and a rate for R gives a finite-c_T bound.
 * **Fixed spin (Lemma 3, [D given (F_J)]).** For each fixed J the double zeros (L1) make the spin-J part of R O(c_T⁻²) under
   fixed-spin factorisation. Only finitely many states are involved.
@@ -179,7 +179,7 @@ without bulk input.
   𝒟 = 0 [P given the angular inputs].
 * **Double zeros.** |a_{O,b,0}|² carries the zero factor of the light-ray amplitude:
   * parity-even structures: |K|² ∝ sin²(πτ/2);
-  * parity-odd structures: ∝ cos²(πτ/2)Γ(τ/2 − ½)², vanishing at τ = 3, 5, … (L1; τ ≥ 7 for J = 0, 2).
+  * parity-odd structures: ∝ cos²(πτ/2)Γ(τ/2 − ½)², vanishing at τ = 3, 5, … for J ≥ 4 and at Δ = 7 + 2n for J = 0, 2 (L1).
 
   Write S_b(τ_O) for the factor and |a_{O,b,0}|² = S_b(τ_O)·α_{O,b}, so that α_{O,b} is the "stripped" amplitude.
 * **Per-state action (Eq. (fp-target), with B(1−r)³ = (2πGΛ⁴/9)T_Δ taken out).**

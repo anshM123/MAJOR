@@ -1,5 +1,5 @@
 """
-Fast version (diagonal shear gauge) of etas_ads4.py.  [computed]
+Linear-in-coupling eta/s for AdS4 black branes, diagonal shear gauge.  [computed]
 
 At linear order in the coupling only the correction operator's contributions on the *Einstein* black brane are
 needed: with the horizon held at r = 1, the Einstein-term contributions to both eta and s equal r_h^2/(16 pi G) x
