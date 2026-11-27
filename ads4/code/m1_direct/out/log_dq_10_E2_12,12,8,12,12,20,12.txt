@@ -1,0 +1,1 @@
+   D=10 E2 t-node 1/8: 56s, max|eps| 8.2e+00, nbad 0

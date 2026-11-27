@@ -1,0 +1,2 @@
+   D=7 E2 t-node 1/6: 16s, max|eps| 8.9e+00, nbad 24000
+   D=7 E2 t-node 2/6: 32s, max|eps| 9.2e+00, nbad 48000

@@ -1,0 +1,5 @@
+   D=20 S t-node 1/6: 10s, max|eps| 2.9e+00, nbad 0
+   D=20 S t-node 2/6: 20s, max|eps| 2.9e+00, nbad 0
+   D=20 S t-node 3/6: 30s, max|eps| 2.9e+00, nbad 0
+   D=20 S t-node 4/6: 38s, max|eps| 2.9e+00, nbad 0
+   D=20 S t-node 5/6: 47s, max|eps| 2.9e+00, nbad 0

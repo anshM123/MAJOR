@@ -37,7 +37,8 @@ def fit(nu, I1, I2, P1, P2, w):
     # minimise sum w |I1 P2 - c I2 P1|^2 over complex c
     a = I1*P2; b = I2*P1
     c = np.sum(w*np.conj(b)*a)/np.sum(w*np.abs(b)**2)
-    res = (a - c*b)/(np.abs(a) + np.abs(c*b))
+    env = np.sqrt(np.sum(w*np.abs(a)**2)/np.sum(w))      # rms scale of the window (zeros of the image do not inflate rho)
+    res = (a - c*b)/env
     return c, res
 
 
@@ -49,14 +50,18 @@ def main(Dref=100.0, numax=6.0):
         print('no reference'); return
     gR, nuR, IR = R[-1]
     pr(f'# J = 0 test of (fp-H) continued: direct D\' (literal CLS-D k=2 EE functional) vs ladder P = z2/3 + 2 y2/T; reference Delta = {Dref:g} (grid {gR})')
-    pr(f'# residual rho(nu) = (I1 P2 - c I2 P1)/(|I1 P2| + |c I2 P1|), c fitted on nu <= {numax}; "LR" = control with P -> z2/3 (no 1/T term)')
+    pr(f'# residual rho(nu) = (I1 P2 - c I2 P1)/rms_window(I1 P2), c fitted on nu <= {numax}; "LR" = control with P -> z2/3 (no 1/T term)')
     for f in sorted(set(glob.glob(os.path.join(HERE, 'out', 'dq_D*_E2_*.npz')))):
         pass
     Ds = sorted(set(float(os.path.basename(f).split('_')[1][1:]) for f in glob.glob(os.path.join(HERE, 'out', 'dq_D*_E2_*.npz'))))
     for D in Ds:
         if D == Dref:
             continue
+        RR = {gg: (nn, II) for gg, nn, II in best(Dref)}
         for (g, nu, I) in best(D)[-2:]:
+            if g not in RR:
+                continue
+            nuR, IR = RR[g]
             m = np.isin(np.round(nu, 6), np.round(nuR, 6))
             nu1 = nu[m]; I1 = I[m]; I2 = np.array([IR[np.argmin(np.abs(nuR - v))] for v in nu1])
             w = (nu1 <= numax).astype(float)

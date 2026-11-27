@@ -1,0 +1,8 @@
+# J = 0 test of (fp-H) continued: direct D' (literal CLS-D k=2 EE functional) vs ladder P = z2/3 + 2 y2/T; reference Delta = 300 (grid 10-10-6-10-10-16-10)
+# residual rho(nu) = (I1 P2 - c I2 P1)/rms_window(I1 P2), c fitted on nu <= 5.0; "LR" = control with P -> z2/3 (no 1/T term)
+  Delta = 10 (T = 72), grid 10-10-6-10-10-16-10:
+     ladder: c = +7.566397e+21-2.89e+19i   max|rho| (nu<=5) = 1.16e-02   rho at nu = 0.5:3.0e-03 1:1.9e-04 2:5.2e-03 3:5.8e-03 4:1.2e-02 5:7.1e-03 6:3.3e-02 8:1.9e-01 10:2.5e-01
+     LR    : c = +7.713509e+21-3.11e+19i   max|rho| (nu<=5) = 8.19e-02   rho at nu = 0.5:2.9e-02 1:6.8e-04 2:6.8e-02 3:1.7e-02 4:8.2e-02 5:4.4e-02 6:3.8e-02 8:1.9e-01 10:2.5e-01
+  Delta = 30 (T = 812), grid 10-10-6-10-10-16-10:
+     ladder: c = +2.002116e+14+6.80e+09i   max|rho| (nu<=5) = 6.05e-05   rho at nu = 0.5:1.5e-05 1:4.4e-06 2:5.0e-05 3:1.9e-05 4:6.1e-05 5:2.2e-05 6:2.2e-06 8:3.7e-06 10:2.3e-06
+     LR    : c = +2.005529e+14+6.80e+09i   max|rho| (nu<=5) = 8.03e-03   rho at nu = 0.5:2.7e-03 1:7.4e-05 2:5.8e-03 3:1.0e-03 4:8.0e-03 5:3.8e-03 6:5.4e-04 8:1.7e-05 10:5.1e-06
