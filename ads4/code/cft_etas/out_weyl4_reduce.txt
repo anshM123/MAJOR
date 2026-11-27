@@ -1,0 +1,2 @@
+W = a I^2 + b P^2 with a = 0.0312500000, b = -0.0312500000 ; max residual 2.55e-11
+our response table: I^2 -> +864, P^2 -> 0  =>  planar 4 pi eta/s - 1 = 864 a gamma = 27.000000 gamma  (Garousi-Ghodsi: 1728 gamma)

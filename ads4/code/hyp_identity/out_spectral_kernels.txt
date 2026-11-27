@@ -1,0 +1,11 @@
+== 1. shell kernels vs closed forms ==
+ p=0.25  J/J_closed-1 =  5.08e-21   lamF/lamF_closed-1 =  1.69e-21
+ p=0.50  J/J_closed-1 =  5.08e-21   lamF/lamF_closed-1 =  1.69e-21
+ p=1.00  J/J_closed-1 = -8.47e-22   lamF/lamF_closed-1 =  3.39e-21
+ p=1.70  J/J_closed-1 =       0.0   lamF/lamF_closed-1 = -3.39e-21
+ p=3.00  J/J_closed-1 = -8.47e-22   lamF/lamF_closed-1 =       0.0
+== 2. direct quadrature at T0 = 1/2pi (Gauss-Legendre in E on [0,8], N=30) ==
+ scalar: eta_Y(T0)/(pi^2 C_T/48) = 1.0  c_H(T0)/(pi^3 C_T/12) = 1.000000007  c_H/(4 pi eta) = 1.000000007
+   dlog eta/dlog T = 2.19999999995  ->  V(T0) = 1.19999999995   (76s)
+ dirac: eta_Y(T0)/(pi^2 C_T/48) = 1.0  c_H(T0)/(pi^3 C_T/12) = 1.000000007  c_H/(4 pi eta) = 1.000000007
+   dlog eta/dlog T = 1.13333334233  ->  V(T0) = 0.133333342329   (78s)

@@ -1,0 +1,17 @@
+scalar: eta_Y(T0)/(pi^2C_T/48) = 1.0
+   c_H(T0)/(pi^3C_T/12) = 1.0
+   V(T0) = dlog eta/dlogT - 1 = 1.2 = (6/5)
+   W = dlog c_H/dlogT = 2.26666666666666666666666666667 = (34/15)
+dirac: eta_Y(T0)/(pi^2C_T/48) = 1.0
+   c_H(T0)/(pi^3C_T/12) = 1.0
+   V(T0) = dlog eta/dlogT - 1 = 0.133333333333333333333333333333 = (2/15)
+   W = dlog c_H/dlogT = 1.73333333333333333333333333333 = (26/15)
+Einstein: V(T0) = 0.0, W = (7/4)
+
+Claim V = -t4/30:  predicted scalar -2/15, fermion +2/15
+  fermion: (2/15)  (claim OK)
+  scalar : (6/5)  (claim FAILS; offset from claim = (4/3))
+  line through (Einstein, fermion): V = -((1/30)) * t4  -> predicts boson -((2/15))
+  scalar+fermion (if both were <TTT>-faithful) would force V(t4=0) = (2/3) != 0 = Einstein
+
+Third cumulant W: line through (Einstein, fermion) has slope (1/240), predicts boson (53/30); thermal scalar gives (34/15) (offset (1/2))

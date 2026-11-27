@@ -305,3 +305,19 @@ With those, a Cauchy estimate gives a power law. This is the CFT image of Propos
   * Not constructed: a realizing Regge-bounded spinning tower [A].
 * **Six-point Regge boundedness [P conditional].** If a 3 → 3 improved sum rule exists (positive diagonal Σg₃², GR-computable light
   side, domination for M ≥ Λ), then Gram gives |β₅| ≤ 2√(A κ₆L₆) ~ Δ_g⁻⁸, two-sided. This is the sharpened open problem.
+
+## 2026-11-27, session 8: maximal supersymmetry (THEOREM_SUSY.md; `weyl4_reduce.py` → `out_weyl4_reduce.txt`)
+
+* **Three-point data [Q + D].** t₄ = α_T = 0 for 𝒩 ≥ 2 SCFTs: a single supercurrent three-point structure (BKS 1503.04961) equals
+  the free chiral-multiplet value, which has t₄ = 0; parity-odd structures are excluded for 𝒩 ≥ 1. Hence a₀ = 0 exactly.
+* **Four-point data [Q].** The R⁴ coefficient is fixed by localization (CPY 1804.00949; BCP 1808.10554, 1906.07195).
+* **Five- and six-point data [Q + D-sketch].** R⁵ and Rⁿ (n > 4) have no maximal supersymmetrization (EFK 1003.5018). By derivative
+  counting under reduction, the 4D quintic is O(Δ_g⁻¹⁰) and fixed by four-point superinvariants.
+  * No 3d 𝒩 = 8 five-point correlator exists in the literature.
+* **No scalar-hair sector.** 𝒩 = 8 SO(8) supergravity has no singlet scalars.
+* **Literature check [DV].** W_{t8t8} = (I² − P²)/32 in 4D, so our response gives 4πη/s − 1 = 27γ/R_AdS⁶. Garousi–Ghodsi's
+  M2-brane result 1728γ/L⁶ agrees exactly, with L = 2R_AdS (the S⁷ radius).
+* **Conditional result.** For maximally supersymmetric holographic CFT₃ (IIA ABJM):
+  4πη/s = 1 + 27γ_{R⁴} + O(Δ_g⁻¹⁰), with γ_{R⁴} localization-fixed and η_H = 0.
+  * Assumed: bulk 𝒩 = 8 supergravity plus superinvariants, and the AdS₄ lift of the classification.
+  * The CFT-native gap is 𝒩 = 8 five-point Ward-identity rigidity.
