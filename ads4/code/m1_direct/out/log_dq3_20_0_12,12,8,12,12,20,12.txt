@@ -1,0 +1,4 @@
+   D=20 J=0 t-node 1/8: 174s, nbad 0
+   D=20 J=0 t-node 2/8: 333s, nbad 0
+   D=20 J=0 t-node 3/8: 490s, nbad 0
+   D=20 J=0 t-node 4/8: 638s, nbad 0

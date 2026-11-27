@@ -1,0 +1,15 @@
+x(1) = 0.0   x(0) = 1.0   x(0.5) = 0.583005244258362362006463014557041702841
+Taylor radius about n=1: |1 - i/sqrt3| = 1.154700538 ; ratio 1/rho = 0.8660254038
+|c_k| rho^k for k=10,20,40,60: ['0.10705', '0.012541', '0.020313', '0.012577']
+K= 5  partial sum at n=0: 1.13623046875   error 0.136   (rho^-K = 0.487)
+K=10  partial sum at n=0: 0.953399971128   error 0.0466   (rho^-K = 0.237)
+K=20  partial sum at n=0: 0.994341214958   error 0.00566   (rho^-K = 0.0563)
+K=40  partial sum at n=0: 1.00008346174   error 8.35e-5   (rho^-K = 0.00317)
+K=60  partial sum at n=0: 1.00000168677   error 1.69e-6   (rho^-K = 0.000179)
+
+Theorem H bound (M = 1): power law in Delta_g with eps = Dg^-4; fitted exponent = -dlog(bound)/dlog(Dg)
+C=1.00 rho=1.1547 : bound(Dg=1e2,1e4,1e8) = ['1.36e-6', '2.64e-14', '5.2e-30'] ; exponent 3.926 (prediction 4 log rho/log(rho*max(C,1)) = 4.0)
+C=1.10 rho=1.1547 : bound(Dg=1e2,1e4,1e8) = ['0.000269', '4.15e-9', '9.89e-19'] ; exponent 2.406 (prediction 4 log rho/log(rho*max(C,1)) = 2.406)
+C=1.50 rho=1.1547 : bound(Dg=1e2,1e4,1e8) = ['0.0755', '0.00061', '3.94e-8'] ; exponent 1.048 (prediction 4 log rho/log(rho*max(C,1)) = 1.047)
+C=1.00 rho=2.0000 : bound(Dg=1e2,1e4,1e8) = ['2.85e-7', '5.51e-15', '1.08e-30'] ; exponent 3.927 (prediction 4 log rho/log(rho*max(C,1)) = 4.0)
+C=2.00 rho=2.0000 : bound(Dg=1e2,1e4,1e8) = ['0.000286', '2.83e-8', '2.91e-16'] ; exponent 1.997 (prediction 4 log rho/log(rho*max(C,1)) = 2.0)

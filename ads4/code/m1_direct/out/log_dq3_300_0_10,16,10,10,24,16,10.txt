@@ -1,3 +1,9 @@
    D=300 J=0 t-node 1/10: 230s, nbad 0
    D=300 J=0 t-node 2/10: 375s, nbad 0
    D=300 J=0 t-node 3/10: 470s, nbad 0
+   D=300 J=0 t-node 4/10: 570s, nbad 0
+   D=300 J=0 t-node 5/10: 668s, nbad 0
+   D=300 J=0 t-node 6/10: 773s, nbad 0
+   D=300 J=0 t-node 7/10: 995s, nbad 0
+   D=300 J=0 t-node 8/10: 1196s, nbad 0
+   D=300 J=0 t-node 9/10: 1394s, nbad 0

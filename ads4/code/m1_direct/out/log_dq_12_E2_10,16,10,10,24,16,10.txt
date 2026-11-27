@@ -1,0 +1,8 @@
+   D=12 E2 t-node 1/10: 89s, max|eps| 9.2e+00, nbad 0
+   D=12 E2 t-node 2/10: 157s, max|eps| 9.2e+00, nbad 0
+   D=12 E2 t-node 3/10: 231s, max|eps| 9.2e+00, nbad 0
+   D=12 E2 t-node 4/10: 304s, max|eps| 9.2e+00, nbad 0
+   D=12 E2 t-node 5/10: 377s, max|eps| 9.2e+00, nbad 0
+   D=12 E2 t-node 6/10: 444s, max|eps| 9.2e+00, nbad 0
+   D=12 E2 t-node 7/10: 513s, max|eps| 9.2e+00, nbad 0
+   D=12 E2 t-node 8/10: 579s, max|eps| 9.2e+00, nbad 0
