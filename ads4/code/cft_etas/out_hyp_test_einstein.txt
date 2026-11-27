@@ -1,0 +1,5 @@
+curvature done 865.5s
+background R+6 = -6  (Einstein: R = -12 => R+6 = -6)
+reduced Einstein L2 = -pi*p1**2*r*(r - r_h)*(r**2 + r*r_h + r_h**2 - 1)/4
+alphas: {1: -pi*r*(r - r_h)*(r**2 + r*r_h + r_h**2 - 1)/4}
+eta0 (membrane flux) = -pi*r_h**2/2  ; per horizon area r_h^2: -pi/2
