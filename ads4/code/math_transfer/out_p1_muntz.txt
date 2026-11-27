@@ -1,0 +1,20 @@
+gamma=0.25 N= 1  Gram distance=   0.942809041582063  (2g)^-1/2*beta_N=   0.942809041582063  rel.diff=1.56e-61
+gamma=0.25 N= 2  Gram distance=   0.754247233265651  (2g)^-1/2*beta_N=   0.754247233265651  rel.diff=4.67e-61
+gamma=0.25 N= 5  Gram distance=   0.522422326071446  (2g)^-1/2*beta_N=   0.522422326071446  rel.diff=3.46e-57
+gamma=0.25 N=10  Gram distance=   0.382205616978205  (2g)^-1/2*beta_N=   0.382205616978205  rel.diff=9.85e-50
+gamma=0.25 N=20  Gram distance=   0.275128216741392  (2g)^-1/2*beta_N=   0.275128216741392  rel.diff=2.04e-34
+gamma= 0.5 N= 1  Gram distance=                 0.5  (2g)^-1/2*beta_N=                 0.5  rel.diff=7.78e-62
+gamma= 0.5 N= 2  Gram distance=   0.333333333333333  (2g)^-1/2*beta_N=   0.333333333333333  rel.diff=3.27e-60
+gamma= 0.5 N= 5  Gram distance=   0.166666666666667  (2g)^-1/2*beta_N=   0.166666666666667  rel.diff=3.87e-57
+gamma= 0.5 N=10  Gram distance=  0.0909090909090909  (2g)^-1/2*beta_N=  0.0909090909090909  rel.diff=7.95e-50
+gamma= 0.5 N=20  Gram distance=  0.0476190476190476  (2g)^-1/2*beta_N=  0.0476190476190476  rel.diff=2.63e-35
+gamma= 1.0 N= 1  Gram distance=   0.235702260395516  (2g)^-1/2*beta_N=   0.235702260395516  rel.diff=3.11e-61
+gamma= 1.0 N= 2  Gram distance=   0.117851130197758  (2g)^-1/2*beta_N=   0.117851130197758  rel.diff=1.71e-60
+gamma= 1.0 N= 5  Gram distance=  0.0336717514850737  (2g)^-1/2*beta_N=  0.0336717514850737  rel.diff=1.1e-55
+gamma= 1.0 N=10  Gram distance=  0.0107137391088871  (2g)^-1/2*beta_N=  0.0107137391088871  rel.diff=1.58e-49
+gamma= 1.0 N=20  Gram distance= 0.00306106831682488  (2g)^-1/2*beta_N= 0.00306106831682488  rel.diff=2.13e-33
+gamma= 1.5 N= 1  Gram distance=   0.144337567297406  (2g)^-1/2*beta_N=   0.144337567297406  rel.diff=2.33e-61
+gamma= 1.5 N= 2  Gram distance=  0.0577350269189626  (2g)^-1/2*beta_N=  0.0577350269189626  rel.diff=1.46e-59
+gamma= 1.5 N= 5  Gram distance=   0.010309826235529  (2g)^-1/2*beta_N=   0.010309826235529  rel.diff=8.81e-56
+gamma= 1.5 N=10  Gram distance= 0.00201870723492876  (2g)^-1/2*beta_N= 0.00201870723492876  rel.diff=1.77e-48
+gamma= 1.5 N=20  Gram distance=0.000326002410609614  (2g)^-1/2*beta_N=0.000326002410609614  rel.diff=3.66e-33
