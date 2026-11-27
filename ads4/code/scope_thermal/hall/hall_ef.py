@@ -359,3 +359,10 @@ def hall_phi(L2odd, label):
 print("\nReciprocity (expect the negatives of the eta_H values above):")
 hall_phi(cross_part(r ** 2 * Q_[2]), 'Q')
 hall_phi(cross_part(sp.expand(r ** 2 * I_[0] * P_[2])), 'I P')
+
+print("\nHigher-point parity-odd operators (invisible in vacuum TTT/TTTT), for the power-counting estimate:")
+for lab, L2c in (('I Q (10-deriv, quintic)', cross_part(sp.expand(r ** 2 * I_[0] * Q_[2]))),
+                 ('J P (10-deriv, quintic)', cross_part(sp.expand(r ** 2 * J_[0] * P_[2]))),
+                 ('I^2 P (12-deriv, sextic)', cross_part(sp.expand(r ** 2 * I_[0] ** 2 * P_[2]))),
+                 ('J Q (12-deriv, sextic)', cross_part(sp.expand(r ** 2 * J_[0] * Q_[2])))):
+    hall(L2c, lab)

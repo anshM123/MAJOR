@@ -39,3 +39,21 @@ SUMMARY (ORIENT = 1): 4 pi eta_H/s per unit coupling: {'P': 0, 'Q': 108, 'IP': -
 Reciprocity (expect the negatives of the eta_H values above):
 [Q] phi-channel: sigma_phi = -432/r**5, N_phi = 1, bad terms = []; delta T^(phi) coefficient of chi_v = -108
 [I P] phi-channel: sigma_phi = 3024/r**8, N_phi = 1, bad terms = []; delta T^(phi) coefficient of chi_v = 432
+
+Higher-point parity-odd operators (invisible in vacuum TTT/TTTT), for the power-counting estimate:
+[I Q (10-deriv, quintic)] sigma(r) = 25920/r**11
+[I Q (10-deriv, quintic)]   absent-check: undifferentiated-phi terms [];  pure-r-derivative terms []
+[I Q (10-deriv, quintic)]   O(w^2) terms dropped: 6
+[I Q (10-deriv, quintic)]   int_1^oo sigma dr = 2592   ->  4 pi eta_H/s = 2592 * coupling
+[J P (10-deriv, quintic)] sigma(r) = -6480/r**11
+[J P (10-deriv, quintic)]   absent-check: undifferentiated-phi terms [];  pure-r-derivative terms []
+[J P (10-deriv, quintic)]   O(w^2) terms dropped: 6
+[J P (10-deriv, quintic)]   int_1^oo sigma dr = -648   ->  4 pi eta_H/s = -648 * coupling
+[I^2 P (12-deriv, sextic)] sigma(r) = -134784/r**14
+[I^2 P (12-deriv, sextic)]   absent-check: undifferentiated-phi terms [];  pure-r-derivative terms []
+[I^2 P (12-deriv, sextic)]   O(w^2) terms dropped: 6
+[I^2 P (12-deriv, sextic)]   int_1^oo sigma dr = -10368   ->  4 pi eta_H/s = -10368 * coupling
+[J Q (12-deriv, sextic)] sigma(r) = 42120/r**14
+[J Q (12-deriv, sextic)]   absent-check: undifferentiated-phi terms [];  pure-r-derivative terms []
+[J Q (12-deriv, sextic)]   O(w^2) terms dropped: 6
+[J Q (12-deriv, sextic)]   int_1^oo sigma dr = 3240   ->  4 pi eta_H/s = 3240 * coupling
