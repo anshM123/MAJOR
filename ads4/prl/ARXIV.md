@@ -25,11 +25,11 @@ The stress-tensor three-point function of a three-dimensional conformal field th
 ## Comments
 
 ```
-5 pages, 2 figures; 57 pages of Supplemental Material (appended). Code and data: https://doi.org/10.5281/zenodo.24571131
+5 pages, 2 figures; 58 pages of Supplemental Material (appended). Code and data: https://doi.org/10.5281/zenodo.24571131
 ```
 
-* The Letter PDF is 5 pages (REVTeX `prl` style, build of 27 Nov 2026); the Supplement is 57 pages and is appended after the
-  references in the arXiv tarball, so the arXiv PDF has 62 pages.
+* The Letter PDF is 5 pages (REVTeX `prl` style, build of 27 Nov 2026); the Supplement is 58 pages and is appended after the
+  references in the arXiv tarball, so the arXiv PDF has 63 pages.
 * Code and data: Zenodo, DOI 10.5281/zenodo.24571131 (filled in).
 * If the Supplement goes into the same arXiv submission (recommended: append it to the Letter PDF or upload it as an ancillary
   file), say so: "Supplemental Material included".
