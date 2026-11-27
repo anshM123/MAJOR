@@ -1,0 +1,12 @@
+S1: exponent d log(gamma)/d log(hb) of the single-block inversion, tau' = tau_T = 1
+ p_ext   hb=1e2     hb=1e3     hb=1e4     hb=1e5
+  0.5   leading coefficient = 0 (Gamma(-eta) = Gamma(0)): faster decay
+  1.0  -1.003620  -1.000361  -1.000036  -1.000004
+  1.5  -1.003620  -1.000361  -1.000036  -1.000004
+  2.0  -1.003648  -1.000361  -1.000036  -1.000004
+  2.5  -1.003702  -1.000362  -1.000036  -1.000004
+=> gamma_{n,J} ~ kappa/(c_T J^{tau_T}) = kappa/(c_T J) for every component pair (tau_T = 1 in d = 3).
+   p_ext = 1/2 (= tau_T/2) has Gamma(-eta) = Gamma(0): that component pair's leading coefficient vanishes
+   and its decay is faster (only helps).
+Consequence used below: sup_J c_T gamma_{n,J}^2 = sup_J kappa_{n,J}^2/(c_T J^2) = O(1/c_T) -> 0 uniformly in J,
+since at tree level c_T gamma_{n,J} is c_T-independent and finite at every J.

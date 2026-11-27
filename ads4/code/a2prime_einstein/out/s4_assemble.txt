@@ -1,0 +1,28 @@
+(i) per-state summand exponent at fixed n (q = 5/2): d log(term)/d log J between J and 2J
+   pp   h=1.0: -3.196, -3.351, -3.394   (expected -7/2 + log: per state J^{5/2} log * J^2 * C_T J^{-6} * gamma^2)
+   pm   h=1.0: -3.423, -3.374, -3.397   (expected -7/2 + log: per state J^{5/2} log * J^2 * C_T J^{-6} * gamma^2)
+   odd  h=1.5: -3.163, -3.348, -3.394   (expected -7/2 + log: per state J^{5/2} log * J^2 * C_T J^{-6} * gamma^2)
+
+(ii) E_{5/2}(c_T) and its c_T scaling (families n = 0..3 even, both ladders; odd n = 0, 1)
+   Jmax= 2000  c_T=1e4:  E = 0.37553074   c_T*E = 3755.3074
+   Jmax= 2000  c_T=1e6:  E = 0.003755398   c_T*E = 3755.398
+   Jmax= 2000  c_T=1e8:  E = 3.7553989e-5   c_T*E = 3755.3989
+   Jmax= 8000  c_T=1e4:  E = 0.37553081   c_T*E = 3755.3081
+   Jmax= 8000  c_T=1e6:  E = 0.0037553988   c_T*E = 3755.3988
+   Jmax= 8000  c_T=1e8:  E = 3.7553997e-5   c_T*E = 3755.3997
+   => c_T*E converges in Jmax and is c_T-independent: E_light = O(1/c_T) -> 0 (A2' holds).
+
+(iii) with the twist-2 N-structure added (c_T = 1e6)
+   B_J = 1/J (estimated)           : c_T*E (Jmax 2000, 8000) = 4996.0886, 4996.0894
+   B_J = 1 (no decay, worst case)  : c_T*E (Jmax 2000, 8000) = 25517.67, 25554.658
+
+(iv) how much spin weight is available: summand exponent for weight (1+J)^q, n = 0 pp, c_T = 1e6
+   q = 2.5: summand ~ J^-3.499 x log J  -> converges
+   q = 4.0: summand ~ J^-1.999 x log J  -> converges
+   q = 4.8: summand ~ J^-1.199 x log J  -> converges
+   q = 5.0: summand ~ J^-0.999 x log J  -> DIVERGES
+   q = 5.5: summand ~ J^-0.499 x log J  -> DIVERGES
+   with gamma ~ 1/J: converges iff q < 5;  using only sup_J c_T gamma^2 -> 0 (no decay of gamma): iff q < 3.
+
+(v) eikonal n-growth kappa_n ~ n^3 (h_n^3) included: c_T*E at c_T = 1e6, Jmax = 4000
+   kappa = 1: 3755.4;  kappa = h^3: 73169.8  (finite: n-sum is finite at fixed Delta_g)
