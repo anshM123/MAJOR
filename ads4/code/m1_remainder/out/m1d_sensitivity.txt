@@ -1,0 +1,11 @@
+back-to-back part of sum_{J even} W(J) hhat_b(J), W = C (J+1)^{-p}, C fixed by W(600) = pp weight (A = kappa = 1)
+   b=0 p= 6.0: back-to-back part  spline   4.345e+668   linear    4.38e+668
+   b=0 p= 7.0: back-to-back part  spline   2.087e+668   linear   2.131e+668
+   b=0 p= 8.0: back-to-back part  spline  -4.628e+666   linear   1.155e+666
+   b=0 p= 9.0: back-to-back part  spline   -1.78e+668   linear  -1.702e+668
+   b=0 p=10.0: back-to-back part  spline  -2.719e+668   linear  -2.615e+668
+   b=4 p= 6.0: back-to-back part  spline   4.289e+668   linear   4.323e+668
+   b=4 p= 7.0: back-to-back part  spline   2.112e+668   linear   2.155e+668
+   b=4 p= 8.0: back-to-back part  spline    6.64e+666   linear   1.208e+667
+   b=4 p= 9.0: back-to-back part  spline  -1.604e+668   linear  -1.533e+668
+   b=4 p=10.0: back-to-back part  spline  -2.555e+668   linear  -2.462e+668

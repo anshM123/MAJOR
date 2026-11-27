@@ -74,14 +74,20 @@ def main():
     pref = 64*mp.mpf(998*999)**2/9
     total = mp.mpf(0)
     pr('\nfull even-J spin sums  sum_J W(J) hhat_b(J)  =  (+ part)  +  (- part, back-to-back):')
+    pr('   (- part: phi(t) = H_b(-e^{-t}) e^{KAP t}/|H_b(-1)| interpolated linearly on the computed t-nodes, KAP = 500;')
+    pr('    H_b(-e^{-t}) changes sign on [0.01, 0.05] (it samples the weight chi at decreasing nu), so the dense nodes matter)')
+    KAP = mp.mpf(500)
     for key, (Cc, p, b) in fits.items():
         Hk = f'H{b}'
         tn = [x[0] for x in neg]; vn = [x[1][Hk] for x in neg]
-        f = lambda t: (t**(p - 1)*mp.exp(-t)*(interp_logabs(tn, vn, t) or 0))
-        # integrate on the node intervals (log-linear integrand), then the tail beyond the last node is negligible
-        Im = mp.mpf(0)
+        H1 = abs(vn[0])
+        phi = [v*mp.exp(KAP*t)/H1 for t, v in zip(tn, vn)]
+        Im = mp.mpf(0); parts = []
         for i in range(len(tn) - 1):
-            Im += mp.quad(f, [tn[i], tn[i + 1]])
+            a, c = tn[i], tn[i + 1]
+            lin = lambda t, i=i: phi[i] + (phi[i + 1] - phi[i])*(t - tn[i])/(tn[i + 1] - tn[i])
+            seg = mp.quad(lambda t: t**(p - 1)*mp.exp(-t - KAP*t)*lin(t), [a, c])*H1
+            Im += seg; parts.append((a, c, seg))
         tp = [x[0] for x in pos]; vp = [x[1][Hk] for x in pos]
         fp_ = lambda t: (t**(p - 1)*mp.exp(-t)*(interp_logabs(tp, vp, t) or 0))
         Ip = mp.mpf(0)
@@ -89,8 +95,12 @@ def main():
             Ip += mp.quad(fp_, [tp[i], tp[i + 1]])
         Sm = Cc/(2*mp.gamma(p))*Im; Sp = Cc/(2*mp.gamma(p))*Ip
         total += Sm + Sp
-        pr(f'   {key:3s} (ladder b={b}): back-to-back part {mp.nstr(Sm, 6)}  (log10 {float(mp.log10(abs(Sm))):.2f}),'
+        big = sorted(parts, key=lambda x: -abs(x[2]))[:4]
+        pr(f'   {key:3s} (ladder b={b}): back-to-back part {mp.nstr(Sm, 6)}  (log10|.| {float(mp.log10(abs(Sm))):.2f}),'
            f'  heavy-like part (t in [{mp.nstr(tp[0],3)},{mp.nstr(tp[-1],3)}]) {mp.nstr(Sp, 4)}')
+        pr('        largest t-intervals: ' + ', '.join(f'[{mp.nstr(a,3)},{mp.nstr(c,3)}]: {mp.nstr(Cc/(2*mp.gamma(p))*v, 3)}' for a, c, v in big))
+        # simple cross-check: top-end estimate C/2 * H(-1) * (nu*/2)^{-p}, nu* = 1030
+        pr(f'        cross-check C/2 H_b(-1) (515)^(-p) = {mp.nstr(Cc/2*vn[0]*mp.mpf(515)**(-p), 4)}')
     R2 = pref*total
     pr(f'\nR_2 (twist-2 families pp, pm, N; all J; A = kappa = 1) = {mp.nstr(R2, 6)}   log10|R_2| = {float(mp.log10(abs(R2))):.2f}')
     L_A = mp.mpf('14339.59')/16; n0 = mp.mpf('4.53987e-7')
@@ -100,5 +110,41 @@ def main():
     open(os.path.join(OUT, 'm1d_spin_sum.txt'), 'w').write('\n'.join(lines) + '\n')
 
 
-if __name__ == '__main__':
+if __name__ == '__main__' and len(sys.argv) == 1:
     main()
+
+
+def sensitivity():
+    """Spline version of the back-to-back integral and its dependence on the spin profile W(J) = C (J+1)^{-p}
+    (C fixed by W(600) = pp value), to show that its SIGN depends on the profile (H_b(-e^{-t}) changes sign)."""
+    import numpy as np
+    from scipy.interpolate import CubicSpline
+    from scipy.special import gammaln
+    import m1c_physical_sum as C
+    pts = load_H()
+    neg = sorted([(float(-mp.log(-z)), v) for z, v in pts.items() if z < 0], key=lambda x: x[0])
+    tn = np.array([x[0] for x in neg])
+    out = []
+    w600, _ = C.ctA2('pp', 1, 600)
+    for b in (0, 4):
+        vn = [x[1][f'H{b}'] for x in neg]
+        H1 = abs(vn[0]); KAP = 500.0
+        phi = np.array([float(v/H1)*np.exp(KAP*t) for t, v in zip(tn, vn)])
+        cs = CubicSpline(tn, phi)
+        tt = np.linspace(0, tn[-1], 400001)
+        for p in (6.0, 7.0, 8.0, 9.0, 10.0):
+            Cc = float(w600)*601**p
+            wts = np.exp((p - 1)*np.log(np.maximum(tt, 1e-300)) - (1 + KAP)*tt - gammaln(p))
+            I_sp = np.trapezoid(wts*cs(tt), tt)
+            I_li = np.trapezoid(wts*np.interp(tt, tn, phi), tt)
+            S_sp = mp.mpf(Cc)/2*mp.mpf(I_sp)*H1; S_li = mp.mpf(Cc)/2*mp.mpf(I_li)*H1
+            out.append(f'   b={b} p={p:4.1f}: back-to-back part  spline {mp.nstr(S_sp, 4):>12s}   linear {mp.nstr(S_li, 4):>12s}')
+    return out
+
+
+if __name__ == '__main__' and len(sys.argv) > 1 and sys.argv[1] == 'sens':
+    lines = sensitivity()
+    print('\n'.join(lines))
+    open(os.path.join(OUT, 'm1d_sensitivity.txt'), 'w').write(
+        'back-to-back part of sum_{J even} W(J) hhat_b(J), W = C (J+1)^{-p}, C fixed by W(600) = pp weight (A = kappa = 1)\n'
+        + '\n'.join(lines) + '\n')
