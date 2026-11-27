@@ -1,0 +1,7 @@
+x(n) about n=1: 1 + 3*(n - 1)**2/8 - (n - 1)**3/32 - n + O((n - 1)**4, (n, 1))
+J    delta(x) = -12*lambda*x*(5*x + 4)       V(x) = 60*lambda*x**2 - 120*lambda*x - 48*lambda  V(1)=-108 (planar table -108)   Taylor a_k at n=1 (k=0..3): [-48, 120, 15, -165/4]
+I^2  delta(x) = 96*lambda*x**2*(2*x + 7)     V(x) = -384*lambda*x**3 - 96*lambda*x**2 + 1344*lambda*x  V(1)=864 (planar table 864)   Taylor a_k at n=1 (k=0..3): [0, -1344, 408, 414]
+IJ   delta(x) = -24*lambda*x**3*(41*x + 40)  V(x) = 2952*lambda*x**4 - 2016*lambda*x**3 - 2880*lambda*x**2  V(1)=-1944 (planar table -1944)   Taylor a_k at n=1 (k=0..3): [0, 0, -2880, 4176]
+J^2  delta(x) = -144*lambda*x**4*(19*x + 26) V(x) = 10944*lambda*x**5 - 2448*lambda*x**4 - 14976*lambda*x**3  V(1)=-6480 (planar table -6480)   Taylor a_k at n=1 (k=0..3): [0, 0, 0, 14976]
+I    delta(x) = -4*lambda*(x - 1)            V(x) = 0                                   V(1)=0 (planar table 0)   Taylor a_k at n=1 (k=0..3): [0, 0, 0, 0]
+I^3  delta(x) = 1728*lambda*x**4*(5*x + 13)  V(x) = -34560*lambda*x**5 - 24192*lambda*x**4 + 89856*lambda*x**3  V(1)=31104 (planar table 31104)   Taylor a_k at n=1 (k=0..3): [0, 0, 0, -89856]

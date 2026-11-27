@@ -105,18 +105,104 @@ Consequences:
   This follows ρ^{−K}.
 * At first order in couplings, 𝒱 = δ + (1 − x)δ′ with δ polynomial in x (see §5). So 𝒱 inherits exactly this domain.
 
-## 5. Test on Einstein + λF (in progress)
+## 5. General first-order response on the hyperbolic branch, and the Taylor data [DV]
 
-`hyp_engine.py` and `hyp_test_einstein.py` compute the hyperbolic responses e₁, σ₁ for θ(r)I and θ(r)J and hence δ(x). The
-results go in the README ledger.
+**Engine.** `hyp_num.py` (sympy, fixed rational r_h) computes the membrane flux after the H² integral, in the det-preserving TT
+gauge of the planar engine. It was run at r_h = 1, 5/4, 3/2, 2, 3, 5, 10 (outputs in `out_hyp_num_*.txt`). Results:
+* There is no mass term at any r_h.
+* η₀ ∝ r_h², so 4πη/s = 1 at every T.
+* The fits below agree with all seven runs in **exact rational arithmetic**:
 
-## 6. Bottleneck (preliminary)
+  e₁[θI] = 4t₀ − 2f′(r_h) t₁,    e₁[θJ] = x(−48 − 54x) t₀ + 6x f′(r_h) t₁,    f′(r_h) = 3r_h − 1/r_h = 4πT,
 
-* **(a) is the bottleneck.** It asks for all-k bounds on vacuum multi-point energy (modular-Hamiltonian) correlators of T, with
-  growth C^k and C < ρ for a useful exponent. Only k = 0 (c_T) and k = 1 (t₄, α_T, the paper's bounds) are controlled. k = 2
-  (⟨TTTT⟩) is controlled up to the quartic positivity input. k ≥ 3 involves ≥ 5-point vacuum data (I₂I₃), which is uncontrolled.
-* **(b) is O(1).** It is natural: no phase transition for n ∈ (0, 1], since hyperbolic black holes are stable for T ≥ T₀, and
-  Rényi transitions occur at n > 1. Plus analyticity of the high-temperature curvature expansion at n = 0. But it requires
-  continuing slightly past Re n = 0. The axiomatic domain of the thermal partition function is Re β > 0, i.e. Re n > 0, so n = 0
-  is an axiomatic *boundary* point. At planar order a single saddle continues analytically (Einstein: up to |n| < 1/√3), but
-  that is an [A].
+  where t₀ = θ(r_h) and t₁ = θ′(r_h).
+
+**Wald entropy [D].** For L = R + θI, the Wald ratio is s₁/s₀ = 4θ C^{tr}{}_{tr}, and the horizon eigenvalue is C^{tr}{}_{tr} = x.
+For θJ, use the type-D Weyl projection P(M²) = (A/2)M of the bivector square. Both are calibrated on the planar engine's 4θ and 6θ:
+
+  σ₁[θI] = 4x t₀,   σ₁[θJ] = 6x² t₀.
+
+**General response [DV + D].** At the horizon I = 12x², J = 12x³, r_h I′ = −72x², r_h J′ = −108x³ and f′/r_h = 2 + x. So, for
+16πG𝓛 = R + 6 + F(I, J) at first order,
+
+  δ(x) = 4(1−x) θ_I − 2(2+x) r_hθ_I′ + (−48x − 60x²) θ_J + 6x(2+x) r_hθ_J′,   with θ_y = F_y on the background,
+
+  𝒱(x) = δ + (1−x) δ′.
+
+`hyp_coeffs.py` → `out_hyp_coeffs.txt` gives these per-operator results:
+
+| F | 𝒱(x)/λ | 𝒱 at x = 1 (planar) | Taylor coefficients a_k/λ at n = 1, k = 0, 1, 2, 3 |
+|---|---|---|---|
+| I | 0 (GB-blind) | 0 | 0, 0, 0, 0 |
+| J | −48 − 120x + 60x² | −108 ✓ | −48, 120, 15, −165/4 |
+| I² | 1344x − 96x² − 384x³ | 864 ✓ | 0, −1344, 408, 414 |
+| IJ | −2880x² − 2016x³ + 2952x⁴ | −1944 ✓ | 0, 0, −2880, 4176 |
+| J² | −14976x³ − 2448x⁴ + 10944x⁵ | −6480 ✓ | 0, 0, 0, 14976 |
+| I³ | 89856x³ − 24192x⁴ − 34560x⁵ | 31104 ✓ | 0, 0, 0, −89856 |
+
+All six planar values reproduce the paper's table. J² and I³ were **not** used in the fits, so they are independent checks.
+
+**What the table shows.**
+* **The counting.** An operator with m Weyl factors enters first at a_{m−3}. So a_k involves (k+3)-point vacuum data:
+  * a₀ is ⟨TTT⟩ (t₄);
+  * a₁ is ⟨TTTT⟩ (quartic contacts);
+  * a₂ is the first 5-point coefficient, where the quintic IJ (I₂I₃) enters;
+  * a₃ is 6-point.
+* **Note.** x(n) = (1−n) + (3/8)(1−n)² − (1/32)(1−n)³ + …, so x ≈ 1 − n near T₀.
+* **An exact CFT identity at T₀ [D].** ∂_T η at T₀ is the parity-even ⟨K; TT⟩. Since ∂_T s ∝ c_T and η(T₀) ∝ C_T,
+  𝒱(T₀) is affine in t₄ in *any* CFT₃. It vanishes for Einstein, and its slope is fixed by the J row (λ = −α₃/6, t₄ = −240α₃):
+
+  **𝒱(T₀) = 4π ∂_Tη/∂_Ts |_{T₀} − 1 = −t₄/30.**
+
+  With the paper's bound this gives |𝒱(T₀)| ≤ τ_*(Δ_g)/30. This is an exact, gap-controlled k = 0 statement, analogous to the
+  shear sum rule. It is testable on free fields (not done).
+
+## 6. What the bound must look like, and why positivity cannot supply it
+
+**(a) and (b) are one statement [P].** By Cauchy, |a_k| ≤ εC^k for all k holds if and only if |𝒱| ≲ ε on the disk
+D(1, r) with r < 1/C. So hypothesis (a) is: *the deviation is uniformly small for complex temperatures near T₀*, a near-vacuum
+statement. Theorem H then transports it to n = 0 using only the O(1) analyticity bound (b), at a cost of ε → ε^θ.
+
+**Consistency with the collaborator's counterexample.** In F_N = ((1−q)/(1+q))^N, the point 0 lies on the boundary of
+Re q ≥ 0. On any disk D(1, ρ) with ρ > 1, sup|F_N| grows like (ρ/(2−ρ))^N. That is exactly why Theorem H needs a *uniform* M on
+an open domain containing n = 0.
+
+**Required growth.**
+* In the bulk, each operator contributes a polynomial in x(n). Its Taylor coefficients decay like (√3/2)^k, so C = √3/2 < 1 for
+  any finite set of operators.
+* Summed over operators, C ≤ 1 holds if the m-graviton couplings obey |λ_m| ≲ Δ_g^{−4} K^m with K below a fixed constant.
+  Natural power counting, λ_m ~ Δ_g^{−(2m−4)}, satisfies this easily.
+* With C ≤ 1 and the Einstein radius ρ = 2/√3, Theorem H gives |4πη/s − 1| ≲ Δ_g⁻⁴ log Δ_g. That is the rate in the target.
+
+**What positivity gives [P/D].**
+1. **Lehmann positivity.** Z(β) and Λ(β) = Z η_Y/β are Laplace transforms of positive measures on the H² spectrum: Λ ∝ Σ_E
+   e^{−βE}|O_{EE}|². So both are completely monotone, analytic for Re β > 0, and bounded by |g(β)| ≤ g(Re β) (Bernstein). This gives
+   *per-theory* geometric bounds on Taylor coefficients at β₀, with radius < β₀, i.e. |n − 1| < 1. Two problems remain:
+   * n = 0 is on the boundary of that disk, not inside it.
+   * The ratios in 𝒱 need zero-free regions (Fisher zeros), which positivity does not give.
+2. **Multi-point energy-correlator positivity.** Commuting ANEC operators give positive k-point energy correlators, and energy
+   conservation gives sum rules. Together these give *per-theory boundedness* |a_k| ≤ C^k, not smallness of deviations.
+3. **Modular positivity.** Δ = e^{−2πK_full} ≥ 0 gives log-convexity in the modular parameter: one-sided inequalities, e.g.
+   specific heat ≥ 0. K itself is not positive.
+
+None of these produces *small* deviations. Positivity bounds each theory, not the difference between two theories.
+
+## 7. The bottleneck
+
+1. **Single open input: uniform-in-k smallness of the modular-cumulant deviations.**
+
+   |δa_k| ≤ Δ_g⁻⁴ C^k for all k, with C < ρ (C ≤ 1 for the full Δ_g⁻⁴ log Δ_g rate).
+
+   * Equivalently: the H² thermal free energy and Kubo correlator are Einstein-close to O(Δ_g⁻⁴) uniformly for complex T in a
+     disk around T₀.
+   * Status by order:
+     * k = 0 is controlled exactly: 𝒱(T₀) = −t₄/30.
+     * k = 1 is ⟨TTTT⟩ data, controlled under the paper's quartic-positivity input.
+     * k ≥ 2 needs vacuum 5-point and higher data (I₂I₃ first), for which no bound exists.
+   * The closest known analogue is the d = 2 sparseness theorem of Hartman (2013): large c plus a sparse light spectrum gives
+     universal Rényi entropies. A d = 3 analogue for hyperbolic/Rényi quantities at all orders in (n − 1) is exactly what is
+     needed.
+2. **Secondary [A]: the O(1) analyticity domain (b).** n = 0 must be an interior point of a domain of uniform boundedness. It sits
+   at the boundary of the axiomatic region Re β > 0. In Einstein gravity the domain is D(1, 2/√3); the singularities are spinodal
+   (Fisher-zero) branch points at n = ±i/√3. On the CFT side this is a statement about Fisher zeros of the planar H² partition
+   function.

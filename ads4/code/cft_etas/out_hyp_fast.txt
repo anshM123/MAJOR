@@ -1,5 +1,8 @@
 Gamma 0.0s
 Riemann 0.1s
-Weyl 5.5s
-M split 6.4s
-products 35.6s
+Weyl 5.4s
+M split 6.2s
+background bivector off-diagonal nonzero entries: [(0, 1), (1, 0), (4, 5), (5, 4)]
+I, J 24.1s
+R c0 terms: 20930  c1 = NONZERO(len 23748)  quad keys: [(0, 0), (1, 1)]
+I c0 terms: 43066345  c1 = NONZERO(len 78608248)  quad keys: [(0, 0), (0, 1), (0, 2), (1, 1), (1, 2), (2, 2)]

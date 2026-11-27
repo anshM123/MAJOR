@@ -69,12 +69,16 @@ def epsc(e, k):
 Mk = [[[epsc(M[i][j], k) for j in range(6)] for i in range(6)] for k in range(3)]
 M0, M1, M2c = Mk
 print('M split %.1fs' % (time.time() - T0)); sys.stdout.flush()
-mm = lambda A, B: [[se.expand(sum(A[i][k]*B[k][j] for k in range(6))) for j in range(6)] for i in range(6)]
-tr = lambda A: se.expand(sum(A[i][i] for i in range(6)))
-M00 = mm(M0, M0); M11 = mm(M1, M1)
-print('products %.1fs' % (time.time() - T0)); sys.stdout.flush()
-I0 = 4*tr(M00); I1 = 8*tr(mm(M0, M1)); I2 = 4*(2*tr(mm(M0, M2c)) + tr(M11))
-J0 = 8*tr(mm(M00, M0)); J1 = 24*tr(mm(M00, M1)); J2 = 24*(tr(mm(M00, M2c)) + tr(mm(M0, M11)))
+offd = [(i, j) for i in range(6) for j in range(6) if i != j and M0[i][j] != 0]
+print('background bivector off-diagonal nonzero entries:', offd)
+d0 = [M0[i][i] for i in range(6)]
+I0 = 4*sum(d0[i]**2 for i in range(6))
+I1 = 8*sum(d0[i]*M1[i][i] for i in range(6))
+M11d = [se.expand(sum(M1[i][k]*M1[k][i] for k in range(6))) for i in range(6)]
+I2 = 4*(2*sum(d0[i]*M2c[i][i] for i in range(6)) + sum(M11d))
+J0 = 8*sum(d0[i]**3 for i in range(6))
+J1 = 24*sum(d0[i]**2*M1[i][i] for i in range(6))
+J2 = 24*(sum(d0[i]**2*M2c[i][i] for i in range(6)) + sum(d0[i]*M11d[i] for i in range(6)))
 I = I0 + eps*I1 + eps**2*I2
 J = J0 + eps*J1 + eps**2*J2
 print('I, J %.1fs' % (time.time() - T0)); sys.stdout.flush()

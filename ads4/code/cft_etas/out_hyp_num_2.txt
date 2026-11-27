@@ -1,0 +1,10 @@
+curvature 164s
+bivector series 169s
+background off-diagonal entries: []
+I0 = 432/r**6  J0 = 2592/r**9  I1 = 0
+Einstein alphas {1: pi*r*(-r**3 + r + 6)/4}  eta0 = -2*pi
+[theta I] e1 = 4*t0 - 11*t1
+[theta J] e1 = -531*t0/8 + 99*t1/4
+[theta I] sigma1/t0 = nan
+[theta J] sigma1/t0 = nan
+done 184s

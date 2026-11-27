@@ -192,3 +192,36 @@ With those, a Cauchy estimate gives a power law. This is the CFT image of Propos
   * x(n) has branch points only at n = ±i/√3 (spinodal points), so ρ = 2/√3 = 1.1547 > 1.
   * The Taylor series about n = 1 converges at n = 0 at the rate (√3/2)^K. Checked: error 1.7e-6 at K = 60.
   * Rates for ε = Δ_g⁻⁴: exponent 3.93 for C = 1, 2.41 for C = 1.1, 1.05 for C = 1.5.
+
+### Milestone 8: the general response on the hyperbolic branch, the Taylor data and the bottleneck (THEOREM_H.md §§5–7)
+
+* **Engine [DV].** `hyp_num.py` was run at r_h = 1, 5/4, 3/2, 2, 3, 5, 10 and agrees in exact rationals with
+  * e₁[θI] = 4t₀ − 2f′t₁;
+  * e₁[θJ] = x(−48 − 54x)t₀ + 6x f′ t₁.
+* **Wald [D].** σ₁ = 4x t₀ for θI and 6x² t₀ for θJ.
+* **General response.** For any F(I, J):
+  δ(x) = 4(1−x)θ_I − 2(2+x)r_hθ_I′ + (−48x − 60x²)θ_J + 6x(2+x)r_hθ_J′, and 𝒱 = δ + (1−x)δ′.
+  * All six tested operators (I, J, I², IJ, J², I³) reproduce the planar table at x = 1. J² and I³ are independent of the fit.
+  * I gives 𝒱 ≡ 0, confirming GB-blindness.
+* **Counting.** An operator with m Weyl factors enters first at Taylor order k = m − 3. So a_k is (k+3)-point vacuum data.
+* **Exact CFT identity [D].** 𝒱(T₀) = 4π∂_Tη/∂_Ts|_{T₀} − 1 = −t₄/30 in any CFT₃. Hence |𝒱(T₀)| ≤ τ_*/30.
+* **(a) and (b) collapse to one input [P].** Hypothesis (a) is the same as uniform smallness of the deviation for complex T near T₀.
+  * Positivity (Lehmann/complete monotonicity, energy-correlator positivity, modular positivity) gives per-theory geometric bounds
+    on the disk |n − 1| < 1. It does not reach n = 0 in the interior, and it never gives small deviations.
+* **Bottleneck.** Uniform-in-k smallness of the modular-cumulant deviations, |δa_k| ≤ Δ_g⁻⁴ C^k with C < 2/√3:
+  * k = 0 is controlled (t₄);
+  * k = 1 is controlled (quartic, under the paper's quartic-positivity input);
+  * k ≥ 2 is 5-point and higher, and uncontrolled.
+
+  This would be a d = 3, all-order analogue of Hartman's d = 2 Rényi sparseness theorem.
+  * Secondary [A]: the Fisher-zero-free analyticity domain around [0, 1].
+  * With C ≤ 1, the rate would be Δ_g⁻⁴ log Δ_g.
+* **Corrections recorded.** Lemma R3(iii) is withdrawn (THEOREM_R.md §1), following the collaborator's Remark 14(A).
+* **Files (session 3).**
+  * `hyp_engine.py`: helpers.
+  * `hyp_test_einstein.py` → `out_hyp_test_einstein.txt`: Einstein massless check.
+  * `hyp_num.py` → `out_hyp_num_*.txt`: the production engine, one run per r_h.
+  * `hyp_coeffs.py` → `out_hyp_coeffs.txt`: the general response, 𝒱 and the Taylor data.
+  * `hyp_cauchy.py` → `out_hyp_cauchy.txt`: the Einstein analytic structure and the Theorem H rates.
+  * Superseded, too slow (unsimplified rational expressions): `hyp_full.py`, `hyp_fast.py`, and their `out_` files. `hyp_response.py`
+    was never run.
