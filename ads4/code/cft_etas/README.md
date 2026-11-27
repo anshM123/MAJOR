@@ -267,3 +267,25 @@ With those, a Cauchy estimate gives a power law. This is the CFT image of Propos
   Weyl factors fails: only one projected-Hessian functional is constrained.
 * **Verdict [D].** Thermal causality = heavy-exchange positivity of the Hessian of F along the curve (δI, δJ) ∝ (−6q, 9q²). This
   closes the thermal-CEMZ route.
+
+## 2026-11-27, session 6: two-sided bound on β₅? (THEOREM_Q5.md; `quintic_family.py` → `out_quintic_family.txt`)
+
+* **Proposition NQ [D at tree level; DV].** Heavy scalars with couplings X(g₂I + g₃J) at fixed g₂, i.e. fixed four-point data.
+  * Planar: 4πη/s − 1 = 216(2g₂² − 9g₂g₃ − 15g₃²)/M². This is bounded above by (3618/5)g₂²/M² and **unbounded below**.
+  * Hyperbolic: a₀ = 0 and a₁ = −672g₂²/M² see only g₂. g₃ enters first at a₂ and a₃.
+  * The family satisfies:
+    * every 2 → 2 constraint, including null constraints and the paper's sum rules, because g₃ is absent from 2 → 2;
+    * the Gram cone b² = 4ac, saturated;
+    * multipositivity g₅² ≤ g₄g₆ (Cheung–Remmen 2505.05553; six-point preprint 2609.17861), since the family is PSD rank one;
+    * thermal causality, where K is a perfect square;
+    * CEMZ.
+  * **Not checked:** five- and six-point Regge boundedness of the required heavy tower. This is the only escape left.
+* **Routes.**
+  * (A) 2 → 2 crossing confinement cannot see XTTT [P]. Five-point null constraints are relations, not bounds.
+  * (B) The 3 → 3 dispersion relation has the right positive diagonal. Its obstructions are spectator/forward singularities,
+    multi-particle analyticity, the need for an improved sum rule (a 3 → 3 Regge bound), and multi-structure partial-wave positivity.
+  * (A′) Mixed correlators ⟨TTTX⟩ and ⟨TXTX⟩ give per-species bounds, but the inclusive sum needs heavy-heavy-light weights
+    Σ_{X,Y}λ²_{TXY}.
+  * (C) The hyperbolic analyticity imposes no relation [P].
+* **Corollary.** In the exchange sector, four-point data bound the *increase* of η/s. Only the KSS (lower) side is open.
+* **Weakest useful target.** Σ_X⟨X|T³⟩²/M_X² ≲ Δ_g⁻², the six-point diagonal.

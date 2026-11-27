@@ -1,0 +1,6 @@
+cone 4ac - b^2 = 0
+thermal causality K(q) = (-2*g2 + 3*g3*q)**2/(4*M**2)
+planar 4pi eta/s - 1 = 216*(2*g2**2 - 9*g2*g3 - 15*g3**2)/M**2  = (1/M^2)(432 g2^2 - 1944 g2 g3 - 3240 g3^2)
+  max over g3 at g3 = -3*g2/10  value = 3618*g2**2/(5*M**2)  ; unbounded below as |g3| grows
+hyperbolic Taylor a_k (k=0..3) in units 1/M^2: [0, -672*g2**2, 12*g2*(17*g2 - 240*g3), 9*(23*g2**2 + 464*g2*g3 + 832*g3**2)]
+  => a_0 = 0, a_1 = -672 g2^2 depend on g2 only (4-point); g3 enters first at a_2 (5-point) and a_3 (6-point)
