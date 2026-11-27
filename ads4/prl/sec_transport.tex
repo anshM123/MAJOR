@@ -84,8 +84,8 @@ contact convention shared with the free Dirac fermion. This theory violates cond
 $\bar\psi\psi$, so only the OPE side of the sum rule can be tested there.
 \end{itemize}
 Since the parity-even $\langle TTT\rangle$ of a CFT$_3$ is spanned by the free-scalar and free-fermion structures, $\mathcal S_E$
-is affine in $t_4$, and the two free points fix it; the Einstein point is a third, independent check. The coefficient of $t_4$
-had not been checked independently before~\cite{Chowdhury:2016hjy}.
+is affine in $t_4$, and the two free points fix it; the Einstein point is a third, independent check. We found no earlier independent check of the coefficient of $t_4$ (Ref.~\cite{Chowdhury:2016hjy} and its citing literature;
+a search-level statement).
 
 \subsection{The Hall sum rule}
 \textbf{Theorem (Hall-channel sum rule)} [D]. Assume
@@ -143,13 +143,14 @@ are proportional with a real ratio. A structural argument gives the same result:
 ingoing solution and depend on the single chiral coupling $\hat g_3$ [D-sketch].
 
 \subsection{The universal disc}
-\textbf{Statement} [D given Q]. Every unitary CFT$_3$ satisfying condition (b) of Sec.~\ref{sec:transport}.B and (H1)--(H4) of
+\textbf{Statement} [D given Q; integral form of $\mathcal S_H$ D given H5]. Every unitary CFT$_3$ satisfying condition (b) of Sec.~\ref{sec:transport}.B and (H1)--(H4) of
 Sec.~\ref{sec:transport}.C has $(\mathcal S_E-3/8)^2+\mathcal S_H^2\le1/64$. \emph{Proof.} The conformal-collider (energy positivity)
 bound is $t_4^2+\alpha_T^2\le16$~\cite{CDPrakash}; by Eq.~\eqref{eq:tr-SHthm}, $(\mathcal S_E-3/8)^2+\mathcal S_H^2=\tau^2/1024$. The sign convention of $\mathcal S_H$ does not matter.
 The parity-even projection, $1/4\le\mathcal S_E\le1/2$, is in Ref.~\cite{Chowdhury:2016hjy}. Free scalar and free fermion lie at
 $(1/2,0)$ and $(1/4,0)$, mixtures of free fields on the diameter, Einstein gravity at the center, and the large-$N$
-Chern--Simons--matter theories, with $t_4=-4\cos\pi\lambda$, $\alpha_T=4\sin\pi\lambda$~\cite{CDPrakash}, on the circle,
-although they violate condition (b) as noted above. We found no earlier statement of the Hall sum rule or of the disc; the
+Chern--Simons--matter theories, with $t_4=-4\cos\pi\lambda$, $\alpha_T=4\sin\pi\lambda$~\cite{CDPrakash}, on the circle
+for the high-frequency constants only: they violate condition (b) through $\bar\psi\psi$, so their integrals $\mathcal S_E$,
+$\mathcal S_H$ need the subtraction of Sec.~\ref{sec:transport}.B before they can be placed on the disc. We found no earlier statement of the Hall sum rule or of the disc; the
 searches covered the citing literature of Refs.~\cite{Chowdhury:2016hjy,CDPrakash} and quantum-Hall sum rules, so this is ``not
 found'', not ``proven absent''.
 
@@ -170,7 +171,7 @@ The theorem uses no black brane, no bulk effective theory and no positivity assu
 $1/c_T$: the sum rule is exact at any $c_T$, but $\tau_*$ is not. Examples: $\delta=10^{-2}$ gives $\Delta_g\le57.64$ (exact
 inversion) and $\delta=10^{-3}$ gives $\Delta_g\le557.8$.
 
-\textbf{Fixed gap} [certified\,+\,inputs of Eq.~(5) of the Letter]. If $\Delta_g\ge1000$ and no light single trace appears in
+\textbf{Fixed gap} [net grade of item (1): positivity certified, light remainder D-sketch; leading order in $1/c_T$]. If $\Delta_g\ge1000$ and no light single trace appears in
 $T\times T$, $\delta_{\rm th}\le2.8914\times10^{-8}/32=9.04\times10^{-10}$; equivalently, $\delta_{\rm th}>9.04\times10^{-10}$
 forces a higher-spin single trace below twist 1000.
 
@@ -330,7 +331,14 @@ $\mathcal S_E-3/8+i\mathcal S_H$ instead, the cubic imaginary parts add. Taking 
 $\tilde\alpha_4^2\le\alpha_4\alpha_4'$, $|\mathcal Z-108G_4|\le108G_4+\tfrac{17}{3840}\tau^2+|R|$: a disc tangent to the origin,
 so that a corrected shear response at either end of its allowed interval forces the corrected Hall response to vanish. The
 combination is not exact in the CFT: $\eta/s$ needs the brane. A single-trace scalar with $\phi W^2$ coupling and
-$3<\Delta<\Delta_g$ shifts $\eta/s$ without shifting $\mathcal S_E$ and must be excluded.
+$3<\Delta<\Delta_g$ shifts $\eta/s$ without shifting $\mathcal S_E$ and must be excluded, or controlled as follows.
+\emph{Induced scalar hair} [D]. On the thermal branch continuously connected to AdS$_4$-Schwarzschild with $\phi=0$, a coupling
+$\lambda\phi C^2$ sources $\phi$ at order $\lambda$. The static source-free solution is $\phi_{\rm sf}=Bz^a{}_2F_1(a,a;2a;z)$, with
+$z=(r_h/r)^3$ and $a=\Delta/3$, and near the horizon ${}_2F_1(a,a;2a;z)=-[\Gamma(2a)/\Gamma(a)^2]\log(1-z)+O(1)$; since
+$\Gamma(2a)/\Gamma(a)^2\ne0$ for $a>0$, regularity forces $B=0$, so with the usual boundary conditions the regular solution has
+$\phi=O(\lambda)$. The scalar stress and the explicit metric correction then start at $O(\phi^2)$ and $O(\lambda\phi)$, so
+$\delta(4\pi\eta/s)=O(\lambda^2)$, which is $O(\Delta_g^{-4})$ if $\lambda=O(\Delta_g^{-2})$. This replaces the exclusion by a
+power-counting assumption of the same kind as Proposition R; it does not cover disconnected hairy phases.
 
 \subsection{What an EFT-free derivation of \texorpdfstring{$\eta/s$}{eta/s} requires}
 The transport statements above use the bulk effective theory on the brane. A CFT derivation of $\eta/s=1/4\pi$ up to powers
@@ -389,7 +397,7 @@ statement & inputs (grade)\\\hline
 Shear sum rule & condition (b) of Sec.~\ref{sec:transport}.B [Q; DV]\\
 Hall sum rule & H1--H4 [D]; integral form also H5 [D given H5]; exact checks in large-$N$ CS-fermion theory and on the brane\\
 Universal disc & both sum rules; collider bound [Q]\\
-Theorem SG & A1$'$, A2$'$, inputs of $\tau_*$, condition (b); leading order in $1/c_T$\\
+Theorem SG & A1$'$, A2$'$, inputs of $\tau_*$, condition (b); leading order in $1/c_T$. A check of A2$'$ on the tree-level Einstein $\langle TTTT\rangle$ in AdS$_4$ is open [I]\\
 Fixed-gap and all-gap forms & as for Eq.~(5) of the Letter, resp.\ Eq.~\eqref{eq:fp-allgap} with U1\\
 $\mathcal V=18\hat g_3+\dots$; Hall viscosity & bulk effective theory on the brane, tree level [DV]\\
 Bound on $|\mathcal V|$ & the above; quartic positivity and L7 for $G_4$ [A]; $|\hat g_4|\le g_4$ [Q, flat space]; Proposition R hypothesis [A]\\

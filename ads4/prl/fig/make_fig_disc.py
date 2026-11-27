@@ -79,8 +79,8 @@ ax.text(c0 + R - 0.006, -0.012, 'free\nscalar', ha='right', va='top', fontsize=6
 ax.text(c0 - R + 0.006, -0.012, 'free\nfermion', ha='left', va='top', fontsize=6.5, linespacing=0.95)
 # Chern-Simons-matter label on the circle
 a = np.radians(128)
-ax.annotate('large-$N$ Chern-Simons-matter', xy=(c0 + R * np.cos(a), R * np.sin(a)),
-            xytext=(c0 - 0.158, 0.137), fontsize=6.5, color=C2, ha='left', va='top',
+ax.annotate('large-$N$ Chern-Simons-matter\n(high-frequency constants)', xy=(c0 + R * np.cos(a), R * np.sin(a)),
+            xytext=(c0 - 0.158, 0.137), fontsize=6.5, color=C2, ha='left', va='top', linespacing=0.95,
             arrowprops=dict(arrowstyle='-', color=C2, lw=0.5, shrinkA=0.5, shrinkB=0.5))
 ax.text(c0 + 0.158, -0.137, 'all CFT$_3$', ha='right', va='bottom', fontsize=6.5, color=INK2)
 ax.text(c0 + 0.158, 0.137, r'$\Delta_g\geq1000$: radius $9\times10^{-10}$', ha='right', va='top', fontsize=6.3,
