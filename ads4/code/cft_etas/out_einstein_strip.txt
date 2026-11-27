@@ -1,0 +1,11 @@
+lowest k=0 shear QNM omega (r_+=1) = (1.8494213135830206-2.6638526611526463j)   -> omega/(2 pi T) = (1.2329475423886804-1.7759017741017642j)
+relaxation gap gamma_E = -Im omega/(2 pi T) = 1.775902
+second QNM omega/(2piT) = (2.1075045732077196-3.277611817436909j)
+E(n) n=1..4: [np.float64(0.4127521731), np.float64(0.2381977379), np.float64(0.1637545371), np.float64(0.1239990926)]  E(1e-6)= (0.9999988705113578-0j)
+gamma=0.25  sup_t |E(-gamma+it)| ~ 1.35046 at t=0.00 ;  |E| at t=30: 1.67e-02
+gamma=0.50  sup_t |E(-gamma+it)| ~ 1.89198 at t=0.00 ;  |E| at t=30: 1.67e-02
+gamma=0.75  sup_t |E(-gamma+it)| ~ 2.74405 at t=0.00 ;  |E| at t=30: 1.67e-02
+gamma=0.90  sup_t |E(-gamma+it)| ~ 3.47686 at t=0.00 ;  |E| at t=30: 1.67e-02
+gamma=1.10  sup_t |E(-gamma+it)| ~ 4.81345 at t=0.00 ;  |E| at t=30: 1.67e-02
+gamma=1.25  sup_t |E(-gamma+it)| ~ 6.38547 at t=0.75 ;  |E| at t=30: 1.67e-02
+gamma=1.50  sup_t |E(-gamma+it)| ~ 14.48281 at t=1.15 ;  |E| at t=30: 1.66e-02

@@ -1,0 +1,21 @@
+# Einstein reference, units 2 pi T = 1.5, p = 1, eta(0) = 1
+real w= 0.3  Im G = 0.316092862456   w*|1/A|^2 = 0.316092862455
+real w= 1.0  Im G = 1.647426307430   w*|1/A|^2 = 1.647426307429
+real w= 2.5  Im G = 15.577907186974   w*|1/A|^2 = 15.577907186977
+real w= 6.0  Im G = 215.996196687292   w*|1/A|^2 = 215.996196687214
+dG(0) (contact-free part) = -7.530e-15
+n=1 y= 1.50  Euclid [dG(0)-dG(iy)]/y = 0.4127521731   Poisson avg of deta = 0.4127521730   diff = 4.0e-11
+n=2 y= 3.00  Euclid [dG(0)-dG(iy)]/y = 0.2381977379   Poisson avg of deta = 0.2381977379   diff = 5.2e-11
+n=3 y= 4.50  Euclid [dG(0)-dG(iy)]/y = 0.1637545371   Poisson avg of deta = 0.1637545370   diff = 8.8e-11
+n=4 y= 6.00  Euclid [dG(0)-dG(iy)]/y = 0.1239990926   Poisson avg of deta = 0.1239990925   diff = 1.3e-10
+n=5 y= 7.50  Euclid [dG(0)-dG(iy)]/y = 0.0995749628   Poisson avg of deta = 0.0995749627   diff = 1.5e-10
+n=6 y= 9.00  Euclid [dG(0)-dG(iy)]/y = 0.0831246905   Poisson avg of deta = 0.0831246904   diff = 1.6e-10
+n=7 y=10.50  Euclid [dG(0)-dG(iy)]/y = 0.0713148684   Poisson avg of deta = 0.0713148683   diff = 1.6e-10
+n=8 y=12.00  Euclid [dG(0)-dG(iy)]/y = 0.0624329775   Poisson avg of deta = 0.0624329774   diff = 1.4e-10
+  A = (phi*du2 - dphi*u2)/W
+  A = (phi*du2 - dphi*u2)/W
+  B = (u1*dphi - du1*phi)/W
+  B = (u1*dphi - du1*phi)/W
+  return 3*B/A, A
+  return 3*B/A, A
+large-y: dG(0)-dG(i y) -> 3/4 (=eps*S_E): [(15, np.float64(0.74958588)), (30, np.float64(0.74994793)), (60, np.float64(nan))]

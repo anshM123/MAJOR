@@ -1,0 +1,7 @@
+   D=100 E2 t-node 1/8: 55s, max|eps| 4.3e-02, nbad 0
+   D=100 E2 t-node 2/8: 113s, max|eps| 4.4e-02, nbad 0
+   D=100 E2 t-node 3/8: 183s, max|eps| 4.4e-02, nbad 0
+   D=100 E2 t-node 4/8: 250s, max|eps| 4.5e-02, nbad 0
+   D=100 E2 t-node 5/8: 330s, max|eps| 4.5e-02, nbad 0
+   D=100 E2 t-node 6/8: 411s, max|eps| 4.5e-02, nbad 0
+   D=100 E2 t-node 7/8: 514s, max|eps| 4.6e-02, nbad 0
