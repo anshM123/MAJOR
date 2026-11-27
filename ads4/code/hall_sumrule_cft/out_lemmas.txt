@@ -1,0 +1,35 @@
+L1  energy matrix in helicity basis (v+, v-):
+⎡              ⅈ⋅α_T   t₄⎤
+⎢    1       - ───── - ──⎥
+⎢                4     4 ⎥
+⎢                        ⎥
+⎢ⅈ⋅α_T   t₄              ⎥
+⎢───── - ──       1      ⎥
+⎣  4     4               ⎦
+    eigenvalues: [E*(4 - sqrt(alpha_T**2 + t4**2))/(16*pi), E*(sqrt(alpha_T**2 + t4**2) + 4)/(16*pi)]  -> positivity <=> t4^2 + alpha_T^2 <= 16
+
+L2  SO(3)-invariant tensors of rank n and their reflection parity:
+    rank 4:   3 invariants, reflection eigenvalues in {+1}
+    rank 5:   6 invariants, reflection eigenvalues in {-1}
+    rank 6:  15 invariants, reflection eigenvalues in {+1}
+    rank 7:  36 invariants, reflection eigenvalues in {-1}
+    => even rank: only epsilon-free (parity-even) invariants; odd rank: only epsilon-containing ones.
+    contact terms c p^k <O_{Delta,l}> in <T_A T_B>: rank = 4 + l + k, k = 3 - Delta;  parity-odd needs k odd:
+      O with spin 2, Delta = 3: k = +0 -> parity-odd local term impossible
+      O with spin 0, Delta = 3: k = +0 -> parity-odd local term impossible
+      O with spin 0, Delta = 2: k = +1 -> parity-odd local term ALLOWED
+      O with spin 0, Delta = 1: k = +2 -> parity-odd local term impossible
+      O with spin 4, Delta = 5: k = -2 -> parity-odd local term impossible
+
+L3  check of the Mellin formula at a = 1/3:  Int_0^oo sin(w t) t^-1/3 dt = pi/(w**(2/3)*gamma(1/3))  vs sqrt(3)*gamma(2/3)/(2*w**(2/3))  (difference at w = 1: 1.1e-165)
+    odd  channel, a -> 1 (T):         I*pi * sgn(w)       [finite: Hall UV constant]
+    even channel, a -> 1 (T):         residue -2 -> log|w| unless the 1/|tau| tail vanishes
+    odd  channel, a -> 2 (Delta = 2): residue -2*I -> w log|w| unless position-space residue vanishes
+    even channel, a -> 2 (Delta = 2): -pi * |w|   [finite: CS-fermion a1 |q3|]
+    PV Int e^{i w tau}/tau dtau = I*pi (w > 0)
+
+L4  assembly
+    S_E - 3/8 + i S_H = (t4 + i alpha_T)/32;  |.| = tau/32 <= 1/8 on the collider disc
+    CS-fermion (t4, alpha_T) = (-4 cos pi lam, 4 sin pi lam):  S_E - 3/8 = -cos(pi*lambda)/8 , S_H = sin(pi*lambda)/8
+    cs_fermion_exact.py: Hall constant/eps = sin(pi lam)/8 exactly; shear constant/eps = -1/8 + cos(pi lam)/8 exactly
+    bulk (bulk_hall_exact.py): S_H = -45 lam_Q = 7.5 alpha3~;  |alpha_T| = 240|alpha3~|  ->  |S_H| = |alpha_T|/32

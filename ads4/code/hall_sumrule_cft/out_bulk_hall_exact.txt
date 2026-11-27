@@ -1,0 +1,34 @@
+--- importing ../scope_sumrule/hall_uv_sign.py (its own output follows) ---
+sigma(r) from this EL = 432/r**5   (hall_ef: 432/r**5);  int_1^oo = 108
+source S(z) = sum_k c_k(z, Omega) Phi^(k)(z):
+  c_0 = 72*Omega*z**3*(-Omega + 6*z**2)
+  c_1 = -36*Omega*z**3*(2*Omega*z + 5*z**3 - 2)
+  c_2 = -36*Omega*z**4*(z - 1)*(z**2 + z + 1)
+  c_3 = 0
+  c_4 = 0
+--- end of import ---
+
+source with Phi0 = 1 + Omega z:  S = 36*Omega*z**4*(-4*Omega**2 + 7*Omega*z**2 + 12*z)
+O(m) part (leading at fixed zeta = Omega z):  S1 = -144*Omega**3*z**4 ;  remainder is O(Omega^-4)
+polynomial (regular) solution X = -18*Omega**2*z**5 - 30*Omega*z**4 - 30*z**3
+g(0) = 0 , g'(0) = 0 ,  Pi(oo) = g''(0)/2 = -90 =>  S_H = Pi/2 = -45 per unit lam (exact, Omega-independent)
+with lam = -alpha3~/6:  S_H = 15/2 alpha3~ ;  |alpha_T| = 240|alpha3~|  =>  |S_H| = |alpha_T|/32
+approach to the limit (full Chebyshev numerics of hall_uv_sign.solve, N = 120; roundoff ~1e-2 at Omega = 40):
+   Omega = 5     Pi(oo) = -72.47157
+   Omega = 10    Pi(oo) = -87.07777
+   Omega = 20    Pi(oo) = -89.57864
+   Omega = 40    Pi(oo) = -89.92242
+
+real frequency: delta h^R(w)/eps = Pi(-i w)/2 ;  eta_H(w)/eps = -Im Pi(-i w)/(2 w)
+   w = 0.001  eta_H/eps = +53.99998408   (N=60)   +54.00000608 (N=90)
+   w = 0.5    eta_H/eps = +49.50150101   (N=60)   +49.50152405 (N=90)
+   w = 1      eta_H/eps = +28.02991869   (N=60)   +28.02995445 (N=90)
+   w = 2      eta_H/eps = -81.04996276   (N=60)   -81.04992546 (N=90)
+   w = 4      eta_H/eps = +10.92221685   (N=60)   +10.92224008 (N=90)
+   w = 8      eta_H/eps = -0.00680307   (N=60)   -0.00676033 (N=90)
+   w = 12     eta_H/eps = +0.07437305   (N=60)   +0.07439107 (N=90)
+   w = 16     eta_H/eps = +0.02366180   (N=60)   +0.02379791 (N=90)
+   w = 24     eta_H/eps = +0.00465775   (N=60)   +0.00495857 (N=90)
+   tail: eta_H/eps * w^4 at w = 12..24: [1541.6 1549.1 1548.4 1553.7 1529.8]
+   (1/(pi eps)) Int_R eta_H dw = (2/pi)[-70.723370 + tail 0.0372] = -45.0002   (exact UV constant: -45)
+   eta_H(0)/eps -> 54 (4 pi eta_H/s = 108), yet the integral is negative: eta_H(w) changes sign; no positivity.

@@ -1,0 +1,36 @@
+Large-q3 expansion of G (sympy, gap equation used):
+  q3^3 coefficient - prediction = 0
+  q3^2 coefficient - prediction = 0
+  q3^1 coefficient - prediction = 0
+  q3^0 coefficient - prediction = 0
+  A0/(2 eps) - [-1/8 - (t4 - i alpha_T)/32] = 0
+  => Hall constant  S_H = Im A0/(2 eps) = alpha_T/32 = sin(pi lam)/8   (exact)
+  => shear constant Re A0/(2 eps) = -1/8 - t4/32                       (exact; -1/8 is a lam-independent offset)
+  => psibar-psi term: arg A1 = pi lam/2 exactly, i.e. Hall/shear ratio b1/a1 = tan(pi lam/2)
+lambda = 0.05: mu_F = 0.0692719402570834
+   closed forms vs quadrature: Psi0 1.2e-32, Psi2 4.9e-32, gap residual 1.2e-32, eps 9.9e-32
+   n      q3          |G - A3 q^3 - A1 q - A0| * q3     (should tend to a constant)
+   25     157.0796    0.0468343781
+   50     314.1593    0.02350531736
+   100    628.3185    0.01176506046
+   200    1256.637    0.005885416693
+   400    2513.274    0.0029444817
+   S_H = Im A0/(2 eps) = 0.019554308130028858626 ; sin(pi lam)/8 = 0.019554308130028858626
+lambda = 0.3: mu_F = 0.406448831772374
+   closed forms vs quadrature: Psi0 0.0e+00, Psi2 0.0e+00, gap residual 0.0e+00, eps 0.0e+00
+   n      q3          |G - A3 q^3 - A1 q - A0| * q3     (should tend to a constant)
+   25     157.0796    0.04306207502
+   50     314.1593    0.02358773365
+   100    628.3185    0.01413335716
+   200    1256.637    0.009786711263
+   400    2513.274    0.00790327514
+   S_H = Im A0/(2 eps) = 0.10112712429686842801 ; sin(pi lam)/8 = 0.10112712429686842801
+lambda = 0.7: mu_F = 0.838410340882448
+   closed forms vs quadrature: Psi0 0.0e+00, Psi2 0.0e+00, gap residual 0.0e+00, eps 0.0e+00
+   n      q3          |G - A3 q^3 - A1 q - A0| * q3     (should tend to a constant)
+   25     157.0796    0.04048911771
+   50     314.1593    0.03289672333
+   100    628.3185    0.02915827886
+   200    1256.637    0.02731695086
+   400    2513.274    0.02640557893
+   S_H = Im A0/(2 eps) = 0.10112712429686842801 ; sin(pi lam)/8 = 0.10112712429686842801
