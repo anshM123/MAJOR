@@ -442,6 +442,17 @@ operator inverse order and $\nu(cQ_0+\nu^2)^{-1}=c^{-1/2}R_0(\nu/\sqrt c)$ give 
 $1/4\pi$). No spectral gap is needed. The open step is to derive $\epsilon,\delta=O(\Delta_g^{-4})$: ${\rm spec}\,[H,\cdot]$ consists of energy
 differences, which the vacuum gap does not control.
 
+\textbf{Remark 11 (Euclidean data give at most a logarithmic rate)} [P]. Let $E(s)=4\pi[\delta G_R(0)-\delta G_R(2\pi iTs)]/(2\pi Ts\,s_{\rm ent})$, the
+Poisson average of $4\pi\delta\eta/s$ at width $2\pi Ts$, so $E(0^+)=4\pi\eta/s$ and $E(n)$, $n\ge1$, is a Euclidean $S^1\times\mathbb R^2$ quantity free of contact
+terms [Einstein: $E(1..4)=0.41275,0.23820,0.16375,0.12400$, checked to $10^{-10}$]. If $F=E-E_{\rm Einstein}$ is analytic with $|F|\le M$ on ${\rm Re}\,s>-\gamma$
+and $|F(n)|\le\varepsilon$ for $n\le N$, then $|4\pi\eta/s-1|\le C_\gamma M(\log M/\varepsilon)^{-2\gamma}$ with explicit constants (half-plane Blaschke
+products and Lagrange interpolation); an explicit family that keeps $\rho>0$ and every OPE coefficient and sum rule shows this rate is sharp to a factor
+2--3. In the bulk the reason is that $\eta$ is horizon-local while the $n$-th Matsubara mode vanishes as $\rho^{|n|}$ at the tip of the cigar: a change
+within depth $w$ of the horizon shifts $4\pi\eta/s$ by a fixed amount while $F(n)\propto w^n$. Euclidean thermal data therefore cannot give a power of
+$\Delta_g$; a power needs a small real-time norm (Remark 10) or structural input, e.g.\ a sign-definite relaxation-function deviation supported at
+$t\le t_L$, which gives $|F(0)|\le e^{2\pi Tt_L}|F(1)|$ [P]. The data $c_T,t_4,\alpha_T$, the sum rules and $\rho>0$ leave $E(1)$ free at $O(1)$, so no
+finite-resolution KSS statement follows from controlled data alone (\texttt{code/cft\_etas}).
+
 \subsection{Assumptions of the transport and spectral statements}
 \begin{center}
 \begin{tabular}{L{6.2cm}L{9.6cm}}

@@ -72,3 +72,27 @@ Grades: [P] proof, [D] derivation, [D-sketch], [DV] numerically verified, [A] as
   * For example, if the deviation of the relaxation function is sign-definite and supported at t ≤ t_L, then
     |F(0)| ≤ e^{2πT t_L}|F(1)| [P, one line].
   * Without the sign, compact support at t_L only gives ε·exp(c·e^{πT t_L}) [D-sketch, Chebyshev on [e^{−t_L}, 1]].
+
+### Milestone 3: rigor upgrades
+
+* **Explicit constants [P].** β_N ≤ Γ(1+2γ)N^{−2γ}, from log-convexity of Γ. Λ_N ≤ (N+1)^{2γ}[0.427(3+2√2)^N + 1/2], from the
+  Morgan–Voyce identity. Checked in `lambda_bound.py` → `out_lambda_bound.txt`.
+* **Sharp family made fully OPE-invisible.** An extra factor exp(−λ√(s+γ)) makes the sharp family decay faster than any power in the
+  closed strip, so every asymptotic coefficient is unchanged. See THEOREM_C.md §3.
+* **Trivial but recorded [P].** The controlled data (c_T, t₄, α_T, the sum rules, positivity of ρ) do not fix even the
+  finite-resolution value E(1). A positive bump in η near ω ~ T, compensated at high frequency and decaying faster than any power,
+  changes E(1) at O(1) and changes none of them. So a finite-resolution KSS theorem *is* hypothesis (E) at n = 1, and it needs
+  thermal input.
+
+## Status summary (end of session 1)
+
+**Proved.** The identity (§1 of THEOREM_C), Theorem C and Proposition C′ [P]; the bulk mechanism [DV].
+
+**What this means for the program.**
+* Any route through Euclidean thermal data is capped at the rate (log Δ_g)^{−2γ}. Even (E) itself needs vacuum data at five or
+  more points (I₂I₃).
+* A Δ_g⁻⁴ rate needs a small *real-time* (Liouvillian, or tip-local) norm, or structural sign/support information.
+
+**Most promising next step.** Aim any all-n control (for example the collaborator's coherent-source phase bound) at a real-time
+object. Candidates are the relaxation-function deviation on t ≲ log(Δ_g)/2πT, or the relative form bound on the low-frequency
+(near-horizon) sector of L. Euclidean Matsubara data are not a good target.

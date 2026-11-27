@@ -1,0 +1,38 @@
+gamma = 0.5
+  N=  2  e_N=    0.4051  S_N=     8.772  -ln e/sqrt(gN)=0.9035  lnS/N=1.086
+  N=  4  e_N=   0.09235  S_N=     234.1  -ln e/sqrt(gN)= 1.684  lnS/N=1.364
+  N=  6  e_N=   0.02805  S_N=    7847.0  -ln e/sqrt(gN)= 2.063  lnS/N=1.495
+  N=  8  e_N=   0.01008  S_N=  3.163e+5  -ln e/sqrt(gN)= 2.298  lnS/N=1.583
+  N= 12  e_N=  0.001771  S_N=  7.239e+8  -ln e/sqrt(gN)= 2.587  lnS/N=1.7
+  N= 16  e_N=  0.000403  S_N= 2.208e+12  -ln e/sqrt(gN)= 2.764  lnS/N=1.776
+  N= 20  e_N= 0.0001086  S_N= 8.114e+15  -ln e/sqrt(gN)= 2.886  lnS/N=1.832
+  N= 24  e_N=  3.306e-5  S_N= 3.408e+19  -ln e/sqrt(gN)= 2.978  lnS/N=1.874
+  N= 32  e_N=  3.976e-6  S_N= 7.989e+26  -ln e/sqrt(gN)= 3.109  lnS/N=1.936
+  N= 40  e_N=  6.121e-7  S_N= 2.448e+34  -ln e/sqrt(gN)= 3.199  lnS/N=1.98
+  eps=1e-4   W_up=    0.1158 (N= 4)  -lnW/sqrt(gL)=1.005   W*L^(2g)=1.066
+  eps=1e-8   W_up=   0.01325 (N= 8)  -lnW/sqrt(gL)=1.425   W*L^(2g)=0.244
+  eps=1e-12  W_up=  0.002495 (N=12)  -lnW/sqrt(gL)=1.613   W*L^(2g)=0.06893
+  eps=1e-16  W_up= 0.0006237 (N=16)  -lnW/sqrt(gL)=1.719   W*L^(2g)=0.02298
+  eps=1e-20  W_up= 0.0001897 (N=20)  -lnW/sqrt(gL)=1.786   W*L^(2g)=0.008738
+  eps=1e-30  W_up=  3.306e-5 (N=24)  -lnW/sqrt(gL)=1.756   W*L^(2g)=0.002284
+  eps=1e-40  W_up=   3.06e-6 (N=40)  -lnW/sqrt(gL)=1.871   W*L^(2g)=0.0002818
+
+gamma = 1.0
+  N=  2  e_N=   0.09175  S_N=     6.358  -ln e/sqrt(gN)= 1.689  lnS/N=0.9248
+  N=  4  e_N=   0.01171  S_N=     114.0  -ln e/sqrt(gN)= 2.224  lnS/N=1.184
+  N=  6  e_N=  0.002221  S_N=    2592.0  -ln e/sqrt(gN)= 2.494  lnS/N=1.31
+  N=  8  e_N= 0.0005303  S_N=   7.31e+4  -ln e/sqrt(gN)= 2.667  lnS/N=1.4
+  N= 12  e_N=  4.617e-5  S_N=  8.855e+7  -ln e/sqrt(gN)= 2.882  lnS/N=1.525
+  N= 16  e_N=  5.757e-6  S_N= 1.542e+11  -ln e/sqrt(gN)= 3.016  lnS/N=1.61
+  N= 20  e_N=  9.087e-7  S_N= 3.418e+14  -ln e/sqrt(gN)= 3.111  lnS/N=1.673
+  N= 24  e_N=  1.701e-7  S_N= 9.023e+17  -ln e/sqrt(gN)= 3.182  lnS/N=1.723
+  N= 32  e_N=  8.579e-9  S_N= 9.157e+24  -ln e/sqrt(gN)= 3.283  lnS/N=1.796
+  N= 40  e_N=  6.12e-10  S_N= 1.329e+32  -ln e/sqrt(gN)= 3.354  lnS/N=1.849
+  eps=1e-4   W_up=    0.0231 (N= 4)  -lnW/sqrt(gL)=1.242   W*L^(2g)=1.96
+  eps=1e-8   W_up=  0.001261 (N= 8)  -lnW/sqrt(gL)=1.555   W*L^(2g)=0.428
+  eps=1e-12  W_up= 0.0001347 (N=12)  -lnW/sqrt(gL)=1.695   W*L^(2g)=0.1028
+  eps=1e-16  W_up=  2.118e-5 (N=16)  -lnW/sqrt(gL)=1.773   W*L^(2g)=0.02874
+  eps=1e-20  W_up=  4.327e-6 (N=20)  -lnW/sqrt(gL)=1.82   W*L^(2g)=0.009176
+  eps=1e-30  W_up=  1.701e-7 (N=24)  -lnW/sqrt(gL)=1.875   W*L^(2g)=0.0008115
+  eps=1e-40  W_up=  8.579e-9 (N=32)  -lnW/sqrt(gL)=1.935   W*L^(2g)=7.277e-5
+
