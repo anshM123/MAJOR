@@ -1,1 +1,3 @@
    D=30 E2 t-node 1/6: 16s, max|eps| 1.2e+00, nbad 0
+   D=30 E2 t-node 2/6: 31s, max|eps| 1.2e+00, nbad 0
+   D=30 E2 t-node 3/6: 49s, max|eps| 1.2e+00, nbad 0
