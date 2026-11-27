@@ -79,7 +79,8 @@ functional'' is $\Omega^Q_{\rm up}$ (Sec.~\ref{sec:defs}); ``the light-side coef
 de-shifting; ``the coefficient sum rule measures'' is $\tilde g_4:=-\frac12\mathcal A_4[\text{light}]$; Eq.~(4) of the Letter is
 the sum rule of Sec.~\ref{sec:defs} in schematic form.
 
-\emph{The Letter's assumptions.} (i) and (ii) are A1$'$ and A2 below. (iii) is (Pos$_\Omega$) of Sec.~\ref{sec:defs}.C for
+\emph{The Letter's assumptions.} (i) and (ii) are A1$'$ and A2$'$ below; the Letter's wording of (ii) is the sufficient
+OPE-data form of A2$'$ (anomalous dimensions $o(c_T^{-1/2})$, other squared OPE coefficients $o(1/c_T)$, uniformly in spin). (iii) is (Pos$_\Omega$) of Sec.~\ref{sec:defs}.C for
 $\Omega^{EE}$ (item 1) or $\Omega^Q_{\rm up}$ (item 2a). For $\Omega^{EE}$ at $\Delta_g=1000$ it is proved: Theorem FP
 (Sec.~\ref{sec:fullpos}) [certified, given the operator identities of Sec.~\ref{sec:angular}], so item (1) at $\Delta_g=1000$ does not
 assume it. Elsewhere (other gaps, and $\Omega^Q_{\rm up}$) the Result assumes it, and Secs.~\ref{sec:pos}--\ref{sec:allgap} give its
@@ -103,7 +104,7 @@ subleading terms'' are L8's $g_5$ reading [D-sketch]; ``the bound without the sc
 Sec.~\ref{sec:angular}: the ladder, first-moment and telescoping algebra [P] given the special conformal Ward identity and
 light-transform conservation as operator identities (ladder checked exactly for $J\le40$; the all-$m$ helicity norm [Q],
 Ref.~\cite{GilliozSpinors}, Eqs.~(2.37)--(2.38)); the spectral exchange ($\mathcal D=0$) [P] given unitarity, reflection positivity, OPE
-convergence and the count of conserved structures; $\mathcal L_g\to0$ [D] from planar factorisation; the contact term [D] given the
+convergence and the count of conserved structures; $\mathcal L_g\to0$ [D given A2$'$] (planar factorisation state by state, uniformity in spin from A2$'$); the contact term [D] given the
 finite-frequency light-ray algebra and no scalar with $\Delta\le1$; light-cone convergence of the mixed commutator is an input
 (Ref.~[KKSDZ], Eq.~(4.66), where it is not proved).
 
@@ -326,7 +327,7 @@ are needed only if light spin-0, 2 single traces are present (A1$'$ without A1).
 \begin{tabular}{L{1.5cm}L{9.6cm}L{0.8cm}L{4.3cm}}
 input & statement & used & grade\\\hline
 A1$'$ & every single trace of spin $J\ge4$ in $T\times T$ has $\Delta-J\ge\Delta_g$; spin $0,2$ single traces allowed at any dimension; unique $T$ (spins $1,3$ have no $\langle TT\mathcal O_J\rangle$ structure) & D, Q & [A]\\
-A2 & $c_T\to\infty$ at fixed $\Delta_g$; light data ($\Delta-J<\Delta_g$, except light single traces) $=$ tree-level EFT $+\,o(1/c_T)$ uniformly in spin; sum rules used at finite $c_T$, heavy side never expanded; cf.\ CHMRS's tree-level suppression $\varepsilon$ ``much smaller than any power of $1/\Delta_{\rm gap}$'' (Ref.~\cite{CHMRS}, Sec.~1) & D, Q & [A]\\
+A2$'$ & $c_T\to\infty$ at fixed $\Delta_g$ (discrete spectrum, finitely many light single traces); sum rules used at finite $c_T$, heavy side never expanded; \emph{detector decoupling}: $\mathcal E_{\rm light}:=\sum_{\mathcal O\in\mathcal L'}(1+J)^{5/2}\log(2+J)\sum_b w_{\mathcal O,b}|a_{\mathcal O,b,0}|^2\to0$, with $\mathcal L'$ the states of twist $<\Delta_g$ other than $1$, $T$ and light single traces, $a_{\mathcal O,b,0}$ the detector amplitudes and $w_{\mathcal O,b}=[T_\Delta-b(b-1)]/3+\tfrac32$ the endpoint weights of Sec.~\ref{sec:angular} (unweighted, $\mathcal E_{\rm light}$ is the light share of the endpoint sum rule, $\le3$ at every $c_T$); implied (two-scale crossing, Sec.~\ref{sec:angcross}) by: $c_T\gamma_{n,J}^2\to0$ uniformly on the light $[TT]_{n,J}$ and squared OPE coefficients (unit-normalised $T$) $o(1/c_T)$ for all other light states and structures, uniformly in spin shells. No bulk effective theory; at each fixed spin it is large-$N$ factorisation. Q also needs L7(b) & D, Q & [A] (the uniformity in spin); fixed spin [D]\\
 R1 & $J_0\le1$ for $\langle TTTT\rangle$ (Ref.~\cite{KKSDZ}, Sec.~4.2.4, eq.\ 4.55; cf.\ Refs.~\cite{CaronHuotInversion,HaringZhiboedov}); caveat of their Sec.~4.2.6: the light-cone-limit step has a small loophole at the boundary between the first and second sheets ($\bar\rho=1$), which lies outside the Regge box $B_c$ used by R1$'$; for the exact correlator at every $c_T$; the planar intercept ($=2$, Ref.~\cite{KKSDZ}, eq.~4.80) is not used & D, Q & [Q]\\
 R1$'$ & on $B_c=\{0<\rho\le c,\,0<1/\bar\rho\le c\}$, $c<1$, all normalised polarisations: $|{\rm dDisc}\,\mathcal G|\le2B(c)<\infty$, independent of $\eta$ (Sec.~\ref{sec:HK}) & D, Q & [D\,+\,DV] (spinning check on free-field $\langle TTTT\rangle$)\\
 R2 & K2: endpoint/edge power counting of every per-$\nu$ kernel; K2$\nu$: $|\mathcal K_\nu(x)|\le\bar K(x)$ for all real $\nu$ & D, Q & K2 [Q]/[D]; K2$\nu$ [D]\\
@@ -335,8 +336,9 @@ DS & $k=2$: the minimal-norm $X$ exists and is strip-analytic, or (continuum wei
 LRC-a & leading-Regge form $r^ac_k(\nu)\eta^nP_{-1/2+i\nu}(\eta)(1+O(r))$, $(a,n)=(0,1)$, $(2,3)$ for $k=2,4$ & D, Q & [D\,+\,DV], incl.\ $EE$ at $k=4$\\
 LRC$^*$ & exact per-$\nu$ kernel $=N(\nu)r^2\hat G_{1,-1/2+i\nu}$; the $EE$ kernel is an exact finite sum of nine $b$-shifted scalar continuous-spin partial waves; edge factors analytic in the de-shift strip except where $c_l=0$ & D, Q & [D\,+\,DV] (scalar and $EE$; reduction [P])\\
 $f_{\rm pos}$ & Q's $k=4$ weights have no pole at $\nu=\pm3i/2$ & Q & [P] (continuum weights)\\
-$H_K$ & $\sum_{\mathcal O}{\rm Tr}[P_{\mathcal O}\hat C_\theta[G_{\mathcal O}]]=-\hat C_\theta[{\rm light}]$, absolutely convergent, for each cut-off piece; criteria $J_0<\tfrac32$ ($k=2,3,5$), $J_0<\tfrac52$ ($k=4$, Q's weights; $J_0<2$ for generic weights); at every finite $c_T$ (order of limits: Sec.~\ref{sec:HK}) & D, Q & [D]; order of limits [D given A2]\\
-L1 & $EE$ admissible; $[TT]$ at double zeros, contacts drop ($k=2,3$ unsubtracted); $-\hat C'_{EE,\nu}|_E=16\pi G/(\nu^2+\tfrac94)$, $\hat C_3|_E=0$; H7's value is the Regge arc at $n=k=2$ & D & [D]; double zeros in both parities, from the light-ray amplitudes: the parity-odd structures give
+$H_K$ & $\sum_{\mathcal O}{\rm Tr}[P_{\mathcal O}\hat C_\theta[G_{\mathcal O}]]=-\hat C_\theta[{\rm light}]$, absolutely convergent, for each cut-off piece; criteria $J_0<\tfrac32$ ($k=2,3,5$), $J_0<\tfrac52$ ($k=4$, Q's weights; $J_0<2$ for generic weights); at every finite $c_T$ (order of limits: Sec.~\ref{sec:HK}) & D, Q & [D]; order of limits [D given A2$'$], light remainder [D-sketch] through L0\\
+L0 & stripped action of $\Omega^{EE}$ on light states ($\Delta-J<\Delta_g$), Eq.~\eqref{eq:fp-target} continued: $\omega[\mathcal O]=\tfrac{2\pi G\Lambda^4}9\sum_b|a_{\mathcal O,b,0}|^2\hat h_b$, $|\hat h_b|\le T_\Delta[C_h+C'(1+J)^{5/2}\log(2+J)]$, $C_h\approx e^{\pi\Lambda/2}\,10^{4.5}$ ($10^{685.6}$ at $\Delta_g=1000$, $10^{209}$ at $300$); no sign & D & [NE] ($J\le1000$, ball arithmetic with the moment balls of Theorem FP); continuation to light states and $J\to\infty$ asymptotics [D-sketch]\\
+L1 & $EE$ admissible; $[TT]$ at double zeros, so at $k=2,3$ (unsubtracted) the $O(1/c_T)$ double-trace data, exchange and contact alike, do not contribute, and their $O(c_T^{-2})$ remainder summed over spin is controlled by A2$'$; $-\hat C'_{EE,\nu}|_E=16\pi G/(\nu^2+\tfrac94)$, $\hat C_3|_E=0$; H7's value is the Regge arc at $n=k=2$ & D & [D]; double zeros in both parities, from the light-ray amplitudes: the parity-odd structures give
 $\langle\mathcal O|\mathcal E|T\rangle\propto\cos(\pi h)\,\Gamma(h-\tfrac12)$, $h=\tfrac{\Delta-J}2$, with simple zeros exactly at the parity-odd
 $[TT]$ dimensions $J+3+2n$ ($J\ge4$) and $7+2n$ ($J=0,2$), so $|K|^2\propto\cos^2(\pi\tau/2)$ [P, all $J$, extreme components]; all $m$,
 both external helicities and first moments [P] for $J\le30$ and $J=40$, else given the helicity ladder; parity-violating admixtures enter
@@ -353,12 +355,12 @@ at $O(c_T^{-2})$ [D]\\
 \begin{tabular}{L{1.5cm}L{9.6cm}L{0.8cm}L{4.3cm}}
 input & statement & used & grade\\\hline
 L2 & $|\hat g_3|^2$ light coefficient $K=K_0(1+\delta_3)$, $\delta_3=\delta K_0+$H17; $\delta K_0=-7.666\times10^{-4}$ / $-6.830\times10^{-5}$ & D & $\delta K_0$ [certified]; H17 value [D] (closed form, I3); its $t_4^2$/$\alpha_T^2$ asymmetry [D-sketch\,+\,M]\\
-L3 & the $O(t_4)$ light term $16\pi Gc_1t_4$ of $\hat C'_{EE}$ vanishes for every $\nu$, $c_1=0$, and so does the $O(\alpha_T)$ term; F$_2$: the $s$-channel $T$-family term factorises through light-ray one-point matrices, diagonal for Einstein and pure flip at $O(t_4)$, $O(\alpha_T)$; shock ($u$-channel) and $k=3$ parts $=0$ & D, Q & $c_1=0$ [D] given L1's double zeros (both parities) and L4; F$_2$ [D\,+\,DV] (Table~\ref{tab:c1}); $O(\alpha_T)$ step [D]; shock part [P]\\
-L4 & $\Omega_k[X]=D_{\rm LR}[X]+\mathcal A_k[X]$ on every tree term; $\mathcal A_k=0$ for Regge spin $n_X<k$; at $n_X=k$ a linear functional of the top Regge coefficient & Q & [D given C$'$\,+\,Mellin convergence]; [DV] on a Witten family, incl.\ $k=4$\\
+L3 & the $O(t_4)$ light term $16\pi Gc_1t_4$ of $\hat C'_{EE}$ vanishes for every $\nu$, $c_1=0$, and so does the $O(\alpha_T)$ term; F$_2$: the $s$-channel $T$-family term factorises through light-ray one-point matrices, diagonal for Einstein and pure flip at $O(t_4)$, $O(\alpha_T)$; shock ($u$-channel) and $k=3$ parts $=0$ & D, Q & $c_1=0$ [D] given L1's double zeros (both parities), with the light side evaluated block-wise ($T$ block, Lemma of Sec.~\ref{sec:HK}); L4 only as the identity relating the $T$-block action to the Regge arc of the exchange diagram; F$_2$ [D\,+\,DV] (Table~\ref{tab:c1}); $O(\alpha_T)$ step [D]; shock part [P]\\
+L4 & $\Omega_k[X]=D_{\rm LR}[X]+\mathcal A_k[X]$ on every tree term; $\mathcal A_k=0$ for Regge spin $n_X<k$; at $n_X=k$ a linear functional of the top Regge coefficient & Q (D only as an identity on the exchange diagram, cf.\ L3) & [D given C$'$\,+\,Mellin convergence]; [DV] on a Witten family, incl.\ $k=4$\\
 L5 & Lemma C$'$ (Sec.~\ref{sec:Cprime}); Lemma A: $D_{\rm LR}=0$ on tree terms with $J_0<4$ & Q & [D] (Einstein instance not evaluated)\\
 L6 & $-\mathcal A_4[R^4]=-\hat C_4^{ds}|_{R^4}=2g_4$; $\hat g_4\to0$ & Q & [D given L5, L7(a), heavy dictionary]\\
 L6$'$ & the $R^4$ light function obeys $|L|\le C\Delta\varphi^{-2}(1+|\log\Delta\varphi|)$ at coincident angles; integrable against $C_\nu$ (criterion: growth below $\Delta\varphi^{-7/2}$) & Q & [D] given Refs.~\cite{Paulos,CGPspin,PenedonesMellin} [Q] and dispersiveness; counting lemma [P]; rests on the analytic count: the direct $\Delta\varphi$ scan is pre-asymptotic (local slopes $2.5$--$2.8$ at $\Delta\varphi=0.04$ vs.\ $p=2$), and the AdS$_4$ $R^4$ correlator was not evaluated\\
-L7 & (a) term-wise light value of a heavy exchange's double traces $=$ actual value, pointwise in angle for dispersive terms; (b) light double-trace data $=$ tree-level EFT, no conspiracy in heavy sum / contact tower (cf.\ the technical assumption, eq.~(5.3) of Ref.~\cite{CHMRS}) & Q & (a) [D], [DV] on dispersive terms, except an unexplained $\approx-3\%$ leading-order ratio for a spin-2 heavy exchange [NE] (the calibration uses only a scalar); (b) [A]\\
+L7 & (a) term-wise light value of a heavy exchange's double traces $=$ actual value, pointwise in angle for dispersive terms; (b) light double-trace data $=$ tree-level EFT, no conspiracy in heavy sum / contact tower (cf.\ the technical assumption, eq.~(5.3) of Ref.~\cite{CHMRS}); used for the existence of the $O(1/c_T)$ light side at $k=4,5$, where double traces have single zeros (A2$'$ does not give this), and for $\tilde g_4=g_4$ & Q & (a) [D], [DV] on dispersive terms, except an unexplained $\approx-3\%$ leading-order ratio for a spin-2 heavy exchange [NE] (the calibration uses only a scalar); (b) [A]\\
 L8 & (P) for $R^4$: per-$\nu$ light value constant; (P) for $g_5$: exact cancellation excluded, double-counting reading; upper end holds either way & Q & $R^4$ [D]; $g_5$ [D-sketch\,+\,NE] (Sec.~\ref{sec:F})\\
 L9 & $\kappa>0$, $c_L>0$ (only if $\hat g_3\ne0$) & Q & [D-sketch\,+\,M]\\
 LS1 & light scalar: Regge spin 3; light spin 2: Regge spin 4 in the helicity-preserving sector; the crossed spin-2 pole is double-flip, annihilated by $EE$ & D, Q & flat [Q]\,+\,[D]; AdS count [D-sketch]\\
@@ -371,7 +373,7 @@ LS6 & $\Omega^Q_{\rm up}+0.040\,\Omega^{EE}$ positive on light scalars iff $\mu^
 \end{ruledtabular}
 \end{table}
 
-\textbf{Net grades} (repeated in Sec.~\ref{sec:full}). Item (1): [D] if no light single trace couples to $TT$ (the Letter's headline);
+\textbf{Net grades} (repeated in Sec.~\ref{sec:full}). Item (1): [D] given A1$'$, A2$'$ and the inputs if no light single trace couples to $TT$ (the Letter's headline), with the light-remainder step [D-sketch] through L0 (formerly hidden inside A2);
 otherwise [D-sketch] through (E$'$) (LS4); for parity-violating theories also [D] (L1 in both parities); the $t_4^2$/$\alpha_T^2$ asymmetry band of H17, which moves the constant by $\pm0.24\%$ / $\pm0.021\%$, is
 [D-sketch\,+\,M]. Item (2), upper end: [D-sketch] (L8's $g_5$ reading; LS rows if light states are present;
 LS6 if a scalar below $0.46\Lambda$ couples), [D-sketch\,+\,M] in L9 if $\hat g_3\ne0$, [A] through L7(b) for
@@ -674,16 +676,23 @@ and $J_0<\tfrac52$ ($k=4$): margins $\tfrac12$ and $\tfrac32$ under $J_0\le1$. N
 assumption is used. Net [D] for both results (for Q, with $\Omega^Q_{\rm up}$ defined by the continuum
 weights; with the grid weights it is [D given DS], DS [NE]).
 
-\emph{Order of limits [D given A2].} $H_K$ is used only for the exact correlator at finite $c_T$, where R1 holds. (Pos) is a statement
+\emph{Order of limits [D given A2$'$; light remainder D-sketch through L0].} $H_K$ is used only for the exact correlator at finite $c_T$, where R1 holds. (Pos) is a statement
 about $(\Delta,J)$ and parity, so it applies at every $c_T$ to every state with $\Delta-J\ge\Delta_g$, single- or multi-trace, and to
-light single traces; the sum rule then gives $\Omega[{\rm light}](c_T)\le0$. At $k=2,3$ the light side is $c_T^{-1}$ times the action
-on the $T$ block with the exact $\langle TTT\rangle$ coefficients, plus light double and multi traces, which enter at $O(c_T^{-2})$
-(double zeros). At $k=4,5$ the first double-trace families enter at $O(c_T^{-1})$ with their tree-level data (L4--L7). Given A2,
-$\Omega[{\rm light}]=c_T^{-1}L_1+o(c_T^{-1})$, so $L_1\le0$, which is the Result. The heavy side is never expanded and need not be
+light single traces; the sum rule then gives $\Omega[{\rm light}](c_T)\le0$. At $k=2,3$ the light side is exactly
+$c_T^{-1}L_1+R(c_T)$: $c_T^{-1}L_1$ is the action of the single $T$ block with the exact $(c_T,t_4,\alpha_T)$, a conformal-kinematic
+quantity with no $1/c_T$ expansion [D], and $R$ is the sum over the light states $\mathcal L'$ other than $1$, $T$ and light single
+traces. Hence, at every $c_T$ and with no light single trace, $\tau(c_T)^2\le\tau_0^2+(57600/K\Lambda^8)\,\pi c_T|R(c_T)|/(32n_0)$ [P],
+$n_0>0$ the normalisation of the $T$-block term, and "leading order in $1/c_T$" means $\limsup_{c_T\to\infty}\tau\le\tau_0$, which holds
+iff $c_TR\to0$. By L0, $c_T|R|\le(2\pi c_TG\Lambda^4/3)\max(C_h,C')\,\mathcal E_{\rm light}(c_T)$ up to $O(1)$ factors, so A2$'$ gives
+$c_TR\to0$; at each fixed spin the double zeros make the contribution $O(c_T^{-2})$ under factorisation alone, and only the uniformity
+in spin is assumed. No bulk effective theory and no Witten diagram enters at $k=2,3$. At $k=4,5$ the first double-trace families
+enter at $O(c_T^{-1})$ (single zeros), and the existence of the light side and its value need L4--L7, including L7(b). The heavy side is never expanded and need not be
 analytic in $1/c_T$: in an eikonalised heavy sector the $k=2$ sum rule holds while its term-wise $O(G)$ heavy sum diverges
 \cite[Sec.~4.4]{CHMRS}. This is the logic of \cite[Sec.~1.1.3, eqs.~(1.12)--(1.14)]{CHMRS}; CLS-D restate the same light/heavy split
-\cite[Sec.~2.2.2]{CLSD} but do not discuss the order of limits. The uniformity in spin of the light-side
-remainder is [D-sketch] inside A2, and its size (a power $\Delta_g^p/c_T^2$) is not estimated: the statements hold as $c_T\to\infty$, with no statement on how large $c_T$ must be for the numbers to bound the exact $t_4$, $\alpha_T$, $\tilde g_4$.
+\cite[Sec.~2.2.2]{CLSD} but do not discuss the order of limits. The size of the light-side remainder is not a power of $\Delta_g$:
+term by term it is $O(C_h/c_T^2)$ times a polynomial in $\Lambda$, with $C_h\approx e^{\pi\Lambda/2}10^{4.5}\approx10^{686}$ at
+$\Delta_g=1000$ (L0), so the inequality above bounds the exact $t_4$, $\alpha_T$ only for $c_T\gtrsim10^{690}$, unless the spin sum of the
+light double traces cancels; this holds with or without a bulk effective theory. The statements hold as $c_T\to\infty$.
 
 \emph{Term-wise use (not made).} Applying the sum rules to the $O(1/c_T)$ correlator itself needs two things:
 (i) $J_0^{\rm planar}<2$ at $k=2,3$ ($<4$ at $k=4,5$), which Einstein gravity saturates \cite[eq.~(4.80)]{KKSDZ} and which a stringy
@@ -791,8 +800,8 @@ carry the Einstein term.}
 \begin{ruledtabular}
 \begin{tabular}{L{11.6cm}L{4.8cm}}
 statement & grade\\\hline
-(i) Lemma-R value of a tree term $=$ its term-wise $s$-channel value (L4) & [D] (inherited)\\
-(ii) at $O(1/c_T)$ only the $T$ block survives: $L[T]|\Omega\rangle=0$; $[TT]$ at double zeros (L1), both parities & [D] (inherited; parity-odd zeros in closed form)\\
+(i) the light side is the block-wise $s$-channel sum (definition, Sec.~\ref{sec:arc}); the $T$-block action equals the Regge arc of the exchange diagram (L4, an identity on that function; not needed if the $T$ block is evaluated directly, Steps 1--3) & [D]\\
+(ii) light side $=$ $T$ block $+\,R$, $L[T]|\Omega\rangle=0$; $[TT]$ at double zeros (L1), both parities; $c_TR\to0$ by A2$'$ & [D] (zeros; parity-odd in closed form); $c_TR\to0$ [D-sketch given A2$'$] (L0)\\
 $f=v'-u'$ at $x_0=\infty$ is affine in the retarded times, no $u_1u_3$ term & [P] (symbolic)\\
 $T$-block term $=\langle\Psi_4|A_3P_TA_1|\Psi_2\rangle$, $A\in\{\mathcal E,\mathcal E^{(1)}\}$, at most one $\mathcal E^{(1)}$ & [P]\,+\,[D]\\
 $\mathcal E^{(1)}|_T=\tfrac12\{\mathcal E|_T,-i\bar n\cdot D\}$ for every parity-even $\langle TTT\rangle$ (Einstein diagonal, $t_4$ pure flip) & [D\,+\,DV] (free-field basis; checks to $10^{-16}$)\\
@@ -1594,9 +1603,10 @@ effective; the uniformity of Knop and Maz\'a\v{c} in AdS$_2$ comes from pointwis
 $\Omega^{EE}$ does not have; van Rees and Zhao note that uniformity is not immediate~\cite{vanReesZhao}.
 
 \subsection{Monotonicity in the gap, and the constants}
-\emph{Remark} [D]. A theory that satisfies A1$'$ and A2 with gap $\Delta_g'$ satisfies them with every $\Delta_g\le\Delta_g'$:
-its single traces of spin $\ge4$ have twist $\ge\Delta_g'\ge\Delta_g$, and the states of twist $<\Delta_g$ are among those of
-twist $<\Delta_g'$, whose data are tree level. So, given (Pos) at $\Delta_g=1000$, the headline numbers bound every theory with
+\emph{Remark} [P]. A theory that satisfies A1$'$ and A2$'$ with gap $\Delta_g'$ satisfies them with every $\Delta_g\le\Delta_g'$:
+its single traces of spin $\ge4$ have twist $\ge\Delta_g'\ge\Delta_g$, and the light set at $\Delta_g$ is a subset of the light set
+at $\Delta_g'$, so the sum defining $\mathcal E_{\rm light}$ only loses terms; the states of twist in $[\Delta_g,\Delta_g')$ are heavy
+at $\Delta_g$ and are covered by (Pos). So, given (Pos) at $\Delta_g=1000$, the headline numbers bound every theory with
 $\Delta_g'\ge1000$ (with $\Lambda=\Lambda(1000)$). Positivity at $\Delta_g'$ itself gives the sharper bound at $\Delta_g'$,
 Eq.~\eqref{eq:cubicL}: $\tau_0=2.89\times10^{-8}$, $1.93\times10^{-9}$, $5.33\times10^{-11}$, $3.50\times10^{-12}$,
 $4.03\times10^{-16}$ at $\Delta_g=1000$, $2000$, $5000$, $10^4$, $10^5$ ($K=1$; the computed $K$ changes these by $\le2\times10^{-5}$ relative). In gap units the constant grows slowly,
@@ -2110,8 +2120,10 @@ hence $\mu((L,\infty))=O(L^{-3})$ ($O(L^{-4})$ in the band), $B_N=O(1/N)$ and $\
 the order of limits is finite $c_T$ first, as for the main result (Sec.~\ref{sec:HK}), so the planar Regge intercept $J_0=2$ never
 enters. The mixed commutator needs $J_0<2$ in the Regge corner~\cite{KKSDZ} and light-cone convergence (Ref.~\cite{KKSDZ},
 Eq.~(4.66)). A separate run re-derived this argument (Sec.~\ref{sec:repro}, run (f)); the all-$J$ proofs are in Sec.~\ref{sec:angcross}. $\mathcal L_g\to0$ follows from
-planar factorisation: transitions from $T$ to multi-trace states are $O(c_T^{-1/2})$, and $\Delta_T$ is protected, so degenerate
-multi-trace clusters have no $O(c_T^{-1/2})$ splitting [D]. The contact term of the mixed commutator is $c_0\delta$ if no scalar with
+A2$'$: by the ladder ratio, $|a_{\mathcal O,4,2}|^2\le101|a_{\mathcal O,4,0}|^2$ on light states and $w_{\mathcal O,4}\ge\tfrac32$, so
+$\mathcal L_g\le70\,\mathcal E_{\rm light}\to0$ [D given A2$'$]. State by state this is planar factorisation (transitions from $T$ to
+multi-trace states are $O(c_T^{-1/2})$, and the double zeros make degenerate clusters harmless). The sum over the infinitely many
+light spins is the content of A2$'$. The contact term of the mixed commutator is $c_0\delta$ if no scalar with
 $\Delta\le1$ appears in $T\times T$, and $Q(0)=0$ removes it.
 
 \emph{Free-field check.} In the free scalar and Dirac fermion the null-plane algebra holds with no extra contact terms, and the
