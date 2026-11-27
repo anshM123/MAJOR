@@ -117,11 +117,24 @@ def s_inv_1mz(z0, N):
     return [1/(1 - z0)**(i + 1) for i in range(N)]
 
 
+def legP(lam, x, typ):
+    """P_lam(x); for 0 <= x < 1/5 via the expansion about x = 0 (fast for |lam| ~ 1000), else mpmath."""
+    if typ == 2 and 0 <= x < mp.mpf(1)/5:
+        with mp.workdps(mp.mp.dps + int(abs(mp.im(lam))*x) + 40):     # the two pieces cancel by ~e^{|nu| x}
+            sp_ = mp.sqrt(mp.pi)
+            P0 = sp_/(mp.gamma(lam/2 + 1)*mp.gamma((1 - lam)/2))
+            dP0 = -2*sp_/(mp.gamma((lam + 1)/2)*mp.gamma(-lam/2))   # DLMF 14.5.2
+            v = (P0*mp.hyp2f1(-lam/2, (lam + 1)/2, mp.mpf(1)/2, x*x, maxterms=10**6)
+                 + x*dP0*mp.hyp2f1((1 - lam)/2, (lam + 2)/2, mp.mpf(3)/2, x*x, maxterms=10**6))
+        return +v
+    return mp.legenp(lam, 0, x, type=typ, maxterms=10**6)
+
+
 def legendre_taylor(lam, X0, N):
     """P^{(j)}(X0)/j!, j < N, from P, P' (mpmath) and the Legendre ODE."""
     typ = 2 if abs(X0) < 1 else 3
-    P = mp.legenp(lam, 0, X0, type=typ)
-    Pm = mp.legenp(lam - 1, 0, X0, type=typ)
+    P = legP(lam, X0, typ)
+    Pm = legP(lam - 1, X0, typ)
     dP = lam*(X0*P - Pm)/(X0*X0 - 1)
     if typ == 2:
         P, dP = mp.re(P), mp.re(dP)

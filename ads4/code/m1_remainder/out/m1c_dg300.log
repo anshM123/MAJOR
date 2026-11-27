@@ -9,3 +9,9 @@ family (struct, h, twist, ladder): sum_{J even<=1000} c_T|a|^2 hhat  [signed, ab
 
 R_2 = c_T^2 R (J <= 1000, even J, A_n = kappa_n = 1):  signed 8.72072e+208  (log10 |.| = 208.94),  term-wise abs 1.54929e+211 (log10 = 211.19)
 plateau sup log10|hhat/T| over J > 0.6 Jmax: {2: 209.24317095973618, 3: 206.4279034636558, 4: 203.90397964801167, 6: 199.3542592771695}
+tail J > 1000 (if the plateau |hhat|/T persisted, per family sup values): pref*tail = 5.813e+210 (log10 210.76)
+threshold (X = 1) from signed J<=1000  : n_0 = 1: c_T* = 7.976e+203 (log10 203.90);  n_0 = 6.64e-6 (T-block normalisation, m1_n0): log10 c_T* = 209.08
+threshold (X = 1) from abs J<=1000     : n_0 = 1: c_T* = 1.417e+206 (log10 206.15);  n_0 = 6.64e-6 (T-block normalisation, m1_n0): log10 c_T* = 211.33
+threshold (X = 1) from abs + tail      : n_0 = 1: c_T* = 1.949e+206 (log10 206.29);  n_0 = 6.64e-6 (T-block normalisation, m1_n0): log10 c_T* = 211.47
+
+angular route: E0 = c_T sum w|a|^2 over the same families (J <= 1000) = 47.6367;  L_g <= 70 E0/c_T;  16 L_g <= tau_*^2 = 3.17e-4 needs c_T >= 1.683e+8
