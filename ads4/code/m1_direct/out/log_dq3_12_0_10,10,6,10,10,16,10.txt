@@ -1,1 +1,4 @@
    D=12 J=0 t-node 1/6: 37s, nbad 0
+   D=12 J=0 t-node 2/6: 81s, nbad 0
+   D=12 J=0 t-node 3/6: 115s, nbad 0
+   D=12 J=0 t-node 4/6: 151s, nbad 0

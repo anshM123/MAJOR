@@ -451,7 +451,12 @@ products and Lagrange interpolation); an explicit family that keeps $\rho>0$ and
 within depth $w$ of the horizon shifts $4\pi\eta/s$ by a fixed amount while $F(n)\propto w^n$. Euclidean thermal data therefore cannot give a power of
 $\Delta_g$; a power needs a small real-time norm (Remark 10) or structural input, e.g.\ a sign-definite relaxation-function deviation supported at
 $t\le t_L$, which gives $|F(0)|\le e^{2\pi Tt_L}|F(1)|$ [P]. The data $c_T,t_4,\alpha_T$, the sum rules and $\rho>0$ leave $E(1)$ free at $O(1)$, so no
-finite-resolution KSS statement follows from controlled data alone (\texttt{code/cft\_etas}).
+finite-resolution KSS statement follows from controlled data alone (\texttt{code/cft\_etas}). The rate is classical: $E(n)=\int x^n d\nu$ with $x=e^{-2\pi Tt}$ are Hausdorff moments of the relaxation function, the factor
+$\prod_{n\le N}n/(n+2\gamma)$ is the M\"untz--Sz\'asz product, and by Smolyak's lemma the bound is the optimal worst-case error of any recovery method
+(Micchelli--Rivlin optimal recovery in $H^\infty$; uniqueness from Matsubara data is Baym--Mermin). Extra smoothness or analyticity of $\delta\eta$ at
+$\omega=0$ does not help; a one-signed deviation gives exactly $M^{1/(1+\gamma)}\varepsilon^{\gamma/(1+\gamma)}$ (log-convexity of moments), a power of
+$\Delta_g$; and a positive relaxation function gives the $M$-free lower bound $4\pi\eta/s\ge E(1)^2/E(2)$ and its truncated-Hausdorff refinements, though
+the Einstein relaxation function itself changes sign at late times (\texttt{code/math\_transfer}).
 
 \textbf{Remark 12 (three bounded pieces)} [D]. (a) \emph{Scalar sector.} A canonically normalised scalar with coupling $\gamma\phi C^2$, regular at the
 horizon and source-free (either quantisation), has $\phi_h/\gamma=h(\Delta)=\tfrac43\int_0^1\!du\int_0^1\!dt\,[t(1-t)]^{-1}[ut(1-t)/(1-ut)]^{\Delta/3}$,

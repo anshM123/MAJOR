@@ -1,0 +1,14 @@
+w=0.60  tortoise depth r*(1-w) = 0.4066  -> predicted decay rate of F(s) in s: 2*1.5*r* = 1.2199
+   s= 2  F(s)=+5.2459e-02   local decay rate -dlog|F|/ds = nan
+   s= 4  F(s)=+6.0444e-03   local decay rate -dlog|F|/ds = 1.0804
+   s= 6  F(s)=+5.1311e-04   local decay rate -dlog|F|/ds = 1.2332
+   s= 8  F(s)=+3.9019e-05   local decay rate -dlog|F|/ds = 1.2882
+   s=10  F(s)=+2.8283e-06   local decay rate -dlog|F|/ds = 1.3122
+   s=12  F(s)=+2.0034e-07   local decay rate -dlog|F|/ds = 1.3237
+w=0.40  tortoise depth r*(1-w) = 0.6371  -> predicted decay rate of F(s) in s: 2*1.5*r* = 1.9114
+   s= 2  F(s)=+1.4491e-02   local decay rate -dlog|F|/ds = nan
+   s= 4  F(s)=+4.8486e-04   local decay rate -dlog|F|/ds = 1.6987
+   s= 6  F(s)=+1.1576e-05   local decay rate -dlog|F|/ds = 1.8675
+   s= 8  F(s)=+2.4238e-07   local decay rate -dlog|F|/ds = 1.9331
+   s=10  F(s)=+4.7711e-09   local decay rate -dlog|F|/ds = 1.9640
+   s=12  F(s)=+9.0848e-11   local decay rate -dlog|F|/ds = 1.9806

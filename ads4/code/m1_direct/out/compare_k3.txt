@@ -1,9 +1,19 @@
 # k = 3 test: direct C3H image vs ladder S3_b; reference J = 0 Delta = 300; nu <= 6; residual max|res|/rms
+  Delta=12 J=0 grid 8-8-6-8-8-12-8 [ladder]    : 2.6e-02
+  Delta=12 J=0 grid 8-8-6-8-8-12-8 [LR control]: 2.6e-02
+  Delta=20 J=0 grid 10-10-6-10-10-16-10 [ladder]    : 1.5e-03
+  Delta=20 J=0 grid 10-10-6-10-10-16-10 [LR control]: 1.5e-03
   Delta=20 J=0 grid 8-8-6-8-8-12-8 [ladder]    : 5.8e-03
   Delta=20 J=0 grid 8-8-6-8-8-12-8 [LR control]: 5.8e-03
+  Delta=30 J=0 grid 10-10-6-10-10-16-10 [ladder]    : 6.5e-04
+  Delta=30 J=0 grid 10-10-6-10-10-16-10 [LR control]: 6.5e-04
   Delta=30 J=0 grid 8-8-6-8-8-12-8 [ladder]    : 2.4e-03
   Delta=30 J=0 grid 8-8-6-8-8-12-8 [LR control]: 2.4e-03
   Delta=100 J=0 grid 8-8-6-8-8-12-8 [ladder]    : 1.8e-04
   Delta=100 J=0 grid 8-8-6-8-8-12-8 [LR control]: 1.8e-04
+  Delta=12 J=2 grid 8-8-6-8-8-12-8 [ladder]    : 8.1e-02
+  Delta=12 J=2 grid 8-8-6-8-8-12-8 [LR control]: 8.4e-02
   Delta=16 J=2 grid 8-8-6-8-8-12-8 [ladder]    : 1.2e-02
   Delta=16 J=2 grid 8-8-6-8-8-12-8 [LR control]: 1.4e-02
+  Delta=30 J=2 grid 8-8-6-8-8-12-8 [ladder]    : 2.5e-03
+  Delta=30 J=2 grid 8-8-6-8-8-12-8 [LR control]: 2.6e-03

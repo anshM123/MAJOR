@@ -1,0 +1,5 @@
+# toy small-gap functional (reach nu <= 6): relative difference of smeared actions, direct vs ladder (state normalisation from the per-nu fit)
+  Delta=10: (direct - ladder)/ladder = -4.37e-03;  leading-Regge control (no 1/T): -8.50e-02
+  Delta=20: (direct - ladder)/ladder = -1.16e-05;  leading-Regge control (no 1/T): -1.71e-02
+  Delta=30: (direct - ladder)/ladder = -3.16e-06;  leading-Regge control (no 1/T): -7.18e-03
+  Delta=100: (direct - ladder)/ladder = -2.71e-07;  leading-Regge control (no 1/T): -6.01e-04

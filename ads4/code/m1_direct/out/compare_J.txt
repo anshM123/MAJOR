@@ -7,8 +7,12 @@
   Delta=16 J=2 grid 8-8-6-8-8-12-8 [LR control]: max|res|/rms per entry = 5.6e-02
   Delta=30 J=2 grid 8-8-6-8-8-12-8 : max|res|/rms per entry = 4.5e-04
   Delta=30 J=2 grid 8-8-6-8-8-12-8 [LR control]: max|res|/rms per entry = 9.9e-03
+  Delta=12 J=4 grid 8-8-6-8-8-12-8 : max|res|/rms per entry = 1.5e+00 1.6e+00 1.6e+00 1.1e+00
+  Delta=12 J=4 grid 8-8-6-8-8-12-8 [LR control]: max|res|/rms per entry = 1.5e+00 1.6e+00 1.6e+00 1.1e+00
   Delta=14 J=4 grid 8-8-6-8-8-12-8 : max|res|/rms per entry = 3.3e-03 9.7e-02 3.8e-03 7.3e-02
   Delta=14 J=4 grid 8-8-6-8-8-12-8 [LR control]: max|res|/rms per entry = 2.5e-02 8.9e-02 2.4e-02 6.4e-02
+  Delta=30 J=4 grid 8-8-6-8-8-12-8 : max|res|/rms per entry = 2.2e-04 9.0e-04 2.8e-03 4.8e-04
+  Delta=30 J=4 grid 8-8-6-8-8-12-8 [LR control]: max|res|/rms per entry = 6.4e-04 1.2e-03 2.9e-03 7.8e-04
   Delta=16 J=8 grid 8-8-6-8-8-12-8 : max|res|/rms per entry = 1.4e+00 1.4e+00 1.4e+00 1.6e+00
   Delta=16 J=8 grid 8-8-6-8-8-12-8 [LR control]: max|res|/rms per entry = 1.5e+00 1.5e+00 1.6e+00 1.8e+00
   Delta=20 J=8 grid 8-8-6-8-8-12-8 : max|res|/rms per entry = 6.6e-02 1.1e-01 1.7e-01 1.1e-01
