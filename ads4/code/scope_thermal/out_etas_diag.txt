@@ -1,0 +1,57 @@
+background: I2, I3, WW~, WWW~ = [12/r**6, 12/r**9, 0, 0]
+  at horizon: I2 = 12  I3 = 12  dI2/dr = -72  dI3/dr = -108
+Einstein Wald s0 (units 1/16piG, expect 4 pi): 4*pi
+first-order (eps^1) pieces of I2, I3, WW~, WWW~ (expect 0 for the shear mode): [0, 0, 0, 0]
+second-order pieces: dI2 = (r - 1)*(r**2 + r + 1)*(4*p1**2*r**2 + 4*p1*p2*r**3 - 4*p1*p2 + p2**2*r**4 - p2**2*r)/r**3 
+   dI3 = -3*(r - 1)*(r**2 + r + 1)*(4*p1**2*r**3 - 6*p1**2 + 4*p1*p2*r**4 - 4*p1*p2*r + p2**2*r**5 - p2**2*r**2)/r**7 
+   d(WW~) = 0 
+   d(WWW~) = 0
+Einstein: alpha = 0  beta = -r*(r - 1)*(r**2 + r + 1)/2  mu = 0
+Einstein eta0 (flux units) = -1 ;  s0 = 4*pi
+[I2] mu (expect 0 only after adding the background-EOM pieces; info) = 0
+[I2] alpha near horizon: (r - 1)**2*(r**2 + r + 1)**2
+[I2] Wald s1 (units 1/16piG) = 16*pi
+[I2] eta1/eta0 = 4,  s1/s0 = 4,  4 pi eta/s - 1 = 0 * coupling
+[I3] mu (expect 0 only after adding the background-EOM pieces; info) = 0
+[I3] alpha near horizon: -3*(r - 1)**2*(r**2 + r + 1)**2/r**3
+[I3] Wald s1 (units 1/16piG) = 24*pi
+[I3] eta1/eta0 = -102,  s1/s0 = 6,  4 pi eta/s - 1 = -108 * coupling
+[O2] mu (expect 0 only after adding the background-EOM pieces; info) = 0
+[O2] alpha near horizon: 0
+[O2] Wald s1 (units 1/16piG) = 0
+[O2] eta1/eta0 = 0,  s1/s0 = 0,  4 pi eta/s - 1 = 0 * coupling
+[P3] mu (expect 0 only after adding the background-EOM pieces; info) = 0
+[P3] alpha near horizon: 0
+[P3] Wald s1 (units 1/16piG) = 0
+[P3] eta1/eta0 = 0,  s1/s0 = 0,  4 pi eta/s - 1 = 0 * coupling
+[I2sq] mu (expect 0 only after adding the background-EOM pieces; info) = 0
+[I2sq] alpha near horizon: 24*(r - 1)**2*(r**2 + r + 1)**2/r**6
+[I2sq] Wald s1 (units 1/16piG) = 384*pi
+[I2sq] eta1/eta0 = 960,  s1/s0 = 96,  4 pi eta/s - 1 = 864 * coupling
+[I2I3] mu (expect 0 only after adding the background-EOM pieces; info) = 0
+[I2I3] alpha near horizon: -24*(r - 1)**2*(r**2 + r + 1)**2/r**9
+[I2I3] Wald s1 (units 1/16piG) = 480*pi
+[I2I3] eta1/eta0 = -1824,  s1/s0 = 120,  4 pi eta/s - 1 = -1944 * coupling
+[I2cube] mu (expect 0 only after adding the background-EOM pieces; info) = 0
+[I2cube] alpha near horizon: 432*(r - 1)**2*(r**2 + r + 1)**2/r**12
+[I2cube] Wald s1 (units 1/16piG) = 6912*pi
+[I2cube] eta1/eta0 = 32832,  s1/s0 = 1728,  4 pi eta/s - 1 = 31104 * coupling
+[I3sq] mu (expect 0 only after adding the background-EOM pieces; info) = 0
+[I3sq] alpha near horizon: -72*(r - 1)**2*(r**2 + r + 1)**2/r**12
+[I3sq] Wald s1 (units 1/16piG) = 576*pi
+[I3sq] eta1/eta0 = -6336,  s1/s0 = 144,  4 pi eta/s - 1 = -6480 * coupling
+[I2J2] mu (expect 0 only after adding the background-EOM pieces; info) = 0
+[I2J2] alpha near horizon: 0
+[I2J2] Wald s1 (units 1/16piG) = 0
+[I2J2] eta1/eta0 = 0,  s1/s0 = 0,  4 pi eta/s - 1 = 0 * coupling
+
+SUMMARY (coefficient of the coupling lam in 4 pi eta/s - 1, L = R + 6 + lam O, L_AdS = 1):
+  I2     : 0
+  I3     : -108
+  O2     : 0
+  P3     : 0
+  I2sq   : 864
+  I2I3   : -1944
+  I2cube : 31104
+  I3sq   : -6480
+  I2J2   : 0

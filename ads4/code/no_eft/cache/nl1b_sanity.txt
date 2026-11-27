@@ -1,0 +1,30 @@
+(i) heavy states: H_ang (fp_poly) vs hhat*(1-r)^3/T
+  J=10 tw=1000 b=0: H_ang=1.098369579044e-01  hhat(1-r)^3/T=1.098369579044e-01
+  J=64 tw=1000 b=4: H_ang=5.874469606526e-04  hhat(1-r)^3/T=5.874469606526e-04
+  J=200 tw=1500 b=0: H_ang=9.294045167341e-05  hhat(1-r)^3/T=9.294045167341e-05
+  J=290 tw=1000 b=4: H_ang=2.450576977066e-05  hhat(1-r)^3/T=2.450576977066e-05
+(ii) light J = 0, 2 (b = 0): log10|hhat| at twist 1(J=2 only: T itself), 2, 4, 10, 100, 500
+  J=0 tw=2: hhat =  nan
+  J=0 tw=4: hhat =  1.128335e+07
+  J=0 tw=10: hhat =  1.128472e+07
+  J=0 tw=100: hhat =  1.148475e+07
+  J=0 tw=500: hhat =  1.644508e+07
+  J=2 tw=1: hhat =  nan
+  J=2 tw=2: hhat =  1.238740e+17
+  J=2 tw=4: hhat =  8.258003e+15
+  J=2 tw=10: hhat =  2.501916e+14
+  J=2 tw=100: hhat =  2.847738e+10
+  J=2 tw=500: hhat =  1.884755e+07
+(iii) continuity in twist, J = 64, b = 0: log10|hhat|, sign
+  tw=    2: log10|hhat| =   202.174  sign +
+  tw=   10: log10|hhat| =   189.530  sign +
+  tw=  100: log10|hhat| =   136.848  sign -
+  tw=  300: log10|hhat| =    90.141  sign -
+  tw=  500: log10|hhat| =    62.531  sign -
+  tw=  700: log10|hhat| =    39.396  sign -
+  tw=  900: log10|hhat| =    10.284  sign -
+  tw=  990: log10|hhat| =     2.808  sign +
+  tw=  998: log10|hhat| =     2.824  sign +
+  tw= 1000: log10|hhat| =     2.828  sign +
+  tw= 1010: log10|hhat| =     2.848  sign +
+  tw= 1100: log10|hhat| =     3.019  sign +

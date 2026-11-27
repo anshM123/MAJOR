@@ -1,0 +1,6 @@
+Delta_g=300: J=0 closed form hhat = (Z_0/3) T + (2 Y_0 + Lam^2 Q_0) = 20.771893 T + 1.008492e+06   -> per Lam^2: 20.771893 (T/Lam^2) + 11.318397
+   J=0: min over Delta in [0.5, 300] of hhat/Lam^2 = 1.131834e+01 at Delta = 1.50
+   J=2: min over Delta in [3.05, 302] of hhat/Lam^2 = 1.944363e+00 at Delta = 213.00
+Delta_g=1000: J=0 closed form hhat = (Z_0/3) T + (2 Y_0 + Lam^2 Q_0) = 20.771893 T + 1.128322e+07   -> per Lam^2: 20.771893 (T/Lam^2) + 11.317149
+   J=0: min over Delta in [0.5, 1000] of hhat/Lam^2 = 1.131714e+01 at Delta = 1.50
+   J=2: min over Delta in [3.05, 1002] of hhat/Lam^2 = 1.947559e+00 at Delta = 708.00
