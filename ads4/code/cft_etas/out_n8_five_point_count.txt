@@ -1,0 +1,4 @@
+[exact mod p] D=10: monomials      1, independent (--+++) polynomials     1, S5-symmetric local N=8 superamplitudes (MHV sector): 0
+[exact mod p] D=12: monomials     40, independent (--+++) polynomials     9, S5-symmetric local N=8 superamplitudes (MHV sector): 0
+[exact mod p] D=14: monomials    595, independent (--+++) polynomials    36, S5-symmetric local N=8 superamplitudes (MHV sector): 0
+[exact mod p] D=16: monomials   4983, independent (--+++) polynomials    97, S5-symmetric local N=8 superamplitudes (MHV sector): 0

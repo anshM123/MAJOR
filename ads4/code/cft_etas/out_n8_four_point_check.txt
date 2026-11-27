@@ -1,0 +1,7 @@
+4-pt D= 8: monomials    1, independent polys   1, S4-symmetric local superamplitudes 1
+4-pt D=10: monomials   10, independent polys   2, S4-symmetric local superamplitudes 0
+4-pt D=12: monomials   53, independent polys   3, S4-symmetric local superamplitudes 1
+4-pt D=14: monomials  200, independent polys   4, S4-symmetric local superamplitudes 1
+4-pt D=16: monomials  606, independent polys   5, S4-symmetric local superamplitudes 1
+4-pt D=18: monomials 1560, independent polys   6, S4-symmetric local superamplitudes 1
+4-pt D=20: monomials 3556, independent polys   7, S4-symmetric local superamplitudes 2

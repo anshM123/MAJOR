@@ -321,3 +321,23 @@ With those, a Cauchy estimate gives a power law. This is the CFT image of Propos
   4πη/s = 1 + 27γ_{R⁴} + O(Δ_g⁻¹⁰), with γ_{R⁴} localization-fixed and η_H = 0.
   * Assumed: bulk 𝒩 = 8 supergravity plus superinvariants, and the AdS₄ lift of the classification.
   * The CFT-native gap is 𝒩 = 8 five-point Ward-identity rigidity.
+
+## 2026-11-27, session 9: counting independent five-point contacts under 𝒩 = 8 (THEOREM_N8.md)
+
+* **Exact counts [DV, mod-p ranks].** Local 4D 𝒩 = 8 five-point superamplitudes (MHV sector; anti-MHV is the parity image):
+  * D = 10 (R⁵, the IJ order): 0;
+  * D = 12, 14, 16: 0;
+  * **D = 18 (D⁸R⁵): 1.**
+  * Validated on four points: 1, 0, 1, 1, 1, 1 for D = 8–18, the known R⁴ tower.
+  * Scripts: `n8_five_point_count.py`, `n8_five_point_fast.py`, `n8_four_point_check.py`.
+* **Lift [D-sketch].** In gauged supergravity, C⁵ terms come only from superinvariants of dimension ≥ 10.
+  * d = 12–16 are four-point invariants with unique completions, so their C⁵ coefficients are fixed by four-point data
+    [A: uniqueness of the gauged completion].
+  * The first independent five-point coefficient is c₁₈ (D⁸R⁵), O(Δ_g⁻¹⁶) if natural.
+  * Mellin: the flat-space limit maps top-degree polynomial solutions to flat local superamplitudes, so there are no independent
+    five-point Mellin contacts below the D = 18 degree.
+* **Theorem H under 𝒩 = 8.** β₅ and the D²R⁵ data are fixed by four-point data up to c₁₈. Two things remain:
+  * c₁₈ and the six-point NMHV data (not counted) still need bounds;
+  * the 3d 𝒩 = 8 five-point Mellin Ward identities are not solved here.
+* **Honest status.** Supersymmetry removes the D = 10 quintic obstruction and pushes the first independent five-point datum to
+  D = 18. It does not bound that datum.

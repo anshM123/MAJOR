@@ -547,8 +547,11 @@ table then gives $4\pi\eta/s-1=27\gamma/R_{\rm AdS}^6=108\,g_4/(8\pi GL^6)$, whi
 (with $R_{\rm AdS}=L_{S^7}/2$) exactly. With 32 supercharges $R^5$ has no supersymmetric completion and $D^2R^4$ vanishes on shell, so under a bulk
 supergravity description the quintic obstruction is absent at its natural order, and for IIA ABJM the localization value of $g_4$ gives
 $4\pi\eta/s-1\simeq108\,\zeta(3)/(32(2\pi^2\lambda)^{3/2})\approx0.046\,\lambda^{-3/2}>0$ at leading order, consistent with the known positive IIA
-correction. A CFT-native version would need the 3d $\mathcal N=8$ Ward identities to fix five- and six-point stress-multiplet contacts from four-point
-data (\texttt{code/cft\_etas}, THEOREM\_SUSY.md).
+correction. An exact count of independent local 4D $\mathcal N=8$ five-point superamplitudes (MHV sector, ranks over a large prime field; validated on the
+four-point tower $R^4,D^2R^4\!=\!0,D^4R^4,\dots$) gives none at $D=10,12,14,16$ derivatives ($R^5$, $D^2R^5$, $D^4R^5$, $D^6R^5$) and the first at
+$D=18$ ($D^8R^5$), so under supersymmetry $\beta_5$ is fixed by four-point $D^{2k}R^4$ data up to an independent coefficient that is natural at
+$\Delta_g^{-16}$; that coefficient, and the six-point NMHV sector, are not bounded. A CFT-native version would need the 3d $\mathcal N=8$ Ward identities
+to exclude independent five-point contacts below that degree (\texttt{code/cft\_etas}, THEOREM\_SUSY.md, THEOREM\_N8.md).
 
 \textbf{Remark 19 (hyperbolic transport at the CHM temperature and $\langle TTT\rangle$)} [D + DV, conditional]. Since $\partial_Ts|_{T_0}=\pi^4C_T/(6R)$
 involves only the second modular cumulant, any part of $\mathcal V(T_0)=4\pi\partial_T\eta_Y/\partial_Ts|_{T_0}-1=d\log\eta_Y/d\log T|_{T_0}-1$ fixed by

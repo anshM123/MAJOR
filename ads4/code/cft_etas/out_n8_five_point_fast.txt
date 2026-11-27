@@ -1,0 +1,8 @@
+D=16: 4983 monomials (0s)
+  function-space dimension 97 (probe 400 points) (1s)
+[exact mod p] D=16: monomials   4983, independent (--+++) polynomials    97, S5-symmetric local N=8 superamplitudes (MHV sector): 0
+D=18: 29397 monomials (1s)
+  function-space dimension 210 (probe 400 points) (7s)
+[exact mod p] D=18: monomials  29397, independent (--+++) polynomials   210, S5-symmetric local N=8 superamplitudes (MHV sector): 1
+
+[exited with code 0]
