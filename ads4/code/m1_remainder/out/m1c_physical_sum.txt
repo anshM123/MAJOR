@@ -1,0 +1,16 @@
+family (struct, h, twist, ladder): sum_{J even<=1000} c_T|a|^2 hhat  [signed, abs], dominant J, and c_T|a|^2 T at J=500, 1000
+  pp   h=1.0 tw=2 b=0: signed -2.7071e+671  abs  1.3575e+674  max term at J=624   c_T|a|^2 T: J=500 7.33e-13, J=1000 1.17e-14
+  pm   h=1.0 tw=2 b=4: signed  5.8675e+670  abs  3.3811e+673  max term at J=628   c_T|a|^2 T: J=500 1.95e-13, J=1000 3.01e-15
+  pp   h=2.0 tw=4 b=0: signed  1.2276e+663  abs  1.3842e+668  max term at J=648   c_T|a|^2 T: J=500 1.44e-12, J=1000 2.31e-14
+  pm   h=2.0 tw=4 b=4: signed -6.7304e+664  abs  3.4806e+667  max term at J=652   c_T|a|^2 T: J=500 3.83e-13, J=1000 5.96e-15
+  pp   h=3.0 tw=6 b=0: signed  9.4334e+659  abs  4.7748e+662  max term at J=622   c_T|a|^2 T: J=500 1.88e-12, J=1000 3.05e-14
+  odd  h=1.5 tw=3 b=0: signed -1.0106e+669  abs  5.7917e+671  max term at J=646   c_T|a|^2 T: J=500 5.81e-12, J=1000 9.29e-14
+  N    h=1.0 tw=2 b=4: signed   2.378e+670  abs  1.3703e+673  max term at J=628   c_T|a|^2 T: J=500 7.92e-14, J=1000 1.22e-15
+
+R_2 = c_T^2 R (J <= 1000, even J, A_n = kappa_n = 1):  signed -1.33783e+684  (log10 |.| = 684.13),  term-wise abs 1.2995e+687 (log10 = 687.11)
+tail J > 1000 (if the plateau |hhat|/T persisted, per family sup values): pref*tail = 5.199e+686 (log10 686.72)
+threshold (X = 1, n_0 = 1) from signed J<=1000  : c_T* = 9.159e+678  (log10 678.96)
+threshold (X = 1, n_0 = 1) from abs J<=1000     : c_T* = 8.897e+681  (log10 681.95)
+threshold (X = 1, n_0 = 1) from abs + tail      : c_T* = 1.246e+682  (log10 682.10)
+
+angular route: E0 = c_T sum w|a|^2 over the same families (J <= 1000) = 47.6367;  L_g <= 70 E0/c_T;  16 L_g <= tau_*^2 = 3.17e-4 needs c_T >= 1.683e+8

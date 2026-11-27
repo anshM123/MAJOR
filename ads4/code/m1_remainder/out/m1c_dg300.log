@@ -1,0 +1,11 @@
+family (struct, h, twist, ladder): sum_{J even<=1000} c_T|a|^2 hhat  [signed, abs], dominant J, and c_T|a|^2 T at J=500, 1000
+  pp   h=1.0 tw=2 b=0: signed  1.5004e+198  abs  2.0253e+200  max term at J=206   c_T|a|^2 T: J=500 7.33e-13, J=1000 1.17e-14
+  pm   h=1.0 tw=2 b=4: signed  2.5718e+196  abs  4.9641e+199  max term at J=210   c_T|a|^2 T: J=500 1.95e-13, J=1000 3.01e-15
+  pp   h=2.0 tw=4 b=0: signed -6.7183e+192  abs   1.503e+195  max term at J=200   c_T|a|^2 T: J=500 1.44e-12, J=1000 2.31e-14
+  pm   h=2.0 tw=4 b=4: signed  3.2253e+192  abs  3.8443e+194  max term at J=204   c_T|a|^2 T: J=500 3.83e-13, J=1000 5.96e-15
+  pp   h=3.0 tw=6 b=0: signed -2.9156e+188  abs  6.6772e+190  max term at J=204   c_T|a|^2 T: J=500 1.88e-12, J=1000 3.05e-14
+  odd  h=1.5 tw=3 b=0: signed   8.173e+195  abs   2.126e+198  max term at J=198   c_T|a|^2 T: J=500 5.81e-12, J=1000 9.29e-14
+  N    h=1.0 tw=2 b=4: signed  1.0423e+196  abs  2.0119e+199  max term at J=210   c_T|a|^2 T: J=500 7.92e-14, J=1000 1.22e-15
+
+R_2 = c_T^2 R (J <= 1000, even J, A_n = kappa_n = 1):  signed 8.72072e+208  (log10 |.| = 208.94),  term-wise abs 1.54929e+211 (log10 = 211.19)
+plateau sup log10|hhat/T| over J > 0.6 Jmax: {2: 209.24317095973618, 3: 206.4279034636558, 4: 203.90397964801167, 6: 199.3542592771695}

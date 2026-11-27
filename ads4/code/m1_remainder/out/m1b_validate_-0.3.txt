@@ -1,0 +1,2 @@
+z0=-0.3: H_0 closed form = 1.99500481816637e+437   moments sum_(J<=1000) = 1.99500481816637e+437   rel.diff = 1.42e-16
+z0=-0.3: H_4 closed form = 1.61590808075887e+435   moments sum_(J<=1000) = 1.61590808075887e+435   rel.diff = 1.42e-16

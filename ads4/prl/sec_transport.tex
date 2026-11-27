@@ -390,6 +390,27 @@ where $g_0$ is the Einstein reference with $\eta_0=s_0/4\pi$, and suppose $\int|
 $|\lim_{\omega\to0}{\rm Im}\,h_{\rm UV}/\omega|\le U$ and $|s-s_0|\le\delta s_0$. Then $|4\pi\eta/s-1|\le[4\pi(E+U)/s_0+\delta]/(1-\delta)$.
 A uniform $\Delta_g^{-4}$ bound on the resummed first time moment would therefore complete the Kubo step.
 
+\textbf{Remark 7 (the viscosity shift is a cubic amplitude on the horizon curvature)} [D]. For $S=\frac1{16\pi G}\int\sqrt{-g}\,[R+6+\lambda h(I,J)]$
+with $h$ any function of the full-tensor invariants $I=C^2$, $J=C^3$, the general response formula above gives
+$4\pi\eta/s=1-108\lambda\Gamma_h+O(\lambda^2)$, $\Gamma_h=[h_J-4h_{II}+6h_{IJ}+18h_{JJ}]_{I=J=12}$. Write the chiral Weyl blocks on the type-D curve
+$W_\pm=q\,{\rm diag}(-2,1,1)$, so $I=48q^2$, $J=-96q^3$ and the horizon is $q=-\tfrac12$. For the null polarizations $P(z)=nn^T$,
+$n=(2z,1-z^2,i(1+z^2))$, $U=P(0)$, $V=\bar U$ ($P^2=U^2=V^2=0$), which are the chiral Weyl tensors of three conserved on-shell momenta
+$\lambda\tilde\lambda_h$, $-\lambda(\tilde\lambda_h+z\tilde\lambda_s)$, $z\lambda\tilde\lambda_s$, the third variation of $h$ in the $+$ block is
+$D^3h[P(z),U,V]=-384z^2\,\Gamma(q)$ with $\Gamma(q)=h_J+8qh_{II}+24q^2h_{IJ}-144q^3h_{JJ}$ and $\Gamma(-\tfrac12)=\Gamma_h$ [verified symbolically for
+$h=J,IJ,I^2,J^2$]. So the viscosity shift is $-108$ times the coefficient, relative to $C^3$, of a six-derivative cubic principal amplitude on the
+horizon curvature. For $h=\beta_5IJ$, $\Gamma(q)=72\beta_5q^2$: it vanishes on the vacuum ($q=0$), which is Remark~3 in amplitude form, and equals
+$18\beta_5$ at the horizon. A CFT argument would have to bound this background-dependent amplitude; the match to a full eikonal time delay
+(exchanged leg, propagation, derivative operators) is not done.
+
+\textbf{Remark 8 (uniform Kubo limit)} [D]. Let the zero-momentum shear action be $-\tfrac{\mathcal N}2\int[A\phi'^2-B\dot\phi^2]$ with
+$A=f_0a/u^2$, $B=b/(u^2f_0)$, $f_0=1-u^3$, and $\max(\|a-1\|_\infty,\|b-1\|_\infty,\|c'\|_\infty)\le\varepsilon\le\tfrac14$, $c=\sqrt{ab}$. Stripping
+the ingoing factor turns the radial equation into a Volterra equation whose kernel has norm at most $|\omega|M_*$, with
+$M_*=\sqrt{5/3}\,(\tfrac13+\tfrac23M_0)=1.1633$, $M_0=\tfrac12\log3+\pi/(6\sqrt3)$ (the Einstein value). Hence, for $|\omega|M_*\le\tfrac14$,
+$|{-{\rm Im}\,G_R}/(\omega\mathcal Nc(1))-1|\le7M_*|\omega|$, uniformly in the class, and $\eta=\mathcal Nc(1)$ with $|\eta/\mathcal N-1|\le\varepsilon$.
+With $s=4\pi\mathcal N(1+\nu)$, $|\nu|\le\varepsilon$: $|4\pi\eta/s-1|\le2\varepsilon/(1-\varepsilon)$. The horizon logarithm is kept exactly, so the
+$\omega\to0$ limit is uniform; what remains is to derive the action class and $\varepsilon=O(\Delta_g^{-4})$ from the CFT. Note also that the
+collider estimate of Ref.~\cite{AKT} carries $\log\Delta_g/\Delta_g^4$, so a strict $\Delta_g^{-4}$ rate would need a sharper argument.
+
 \subsection{Assumptions of the transport and spectral statements}
 \begin{center}
 \begin{tabular}{L{6.2cm}L{9.6cm}}

@@ -1,0 +1,9 @@
+setup 2s
+twist 2 b 0 done 2s
+twist 2 b 4 done 3s
+twist 3 b 0 done 3s
+twist 3 b 4 done 4s
+twist 4 b 0 done 4s
+twist 4 b 4 done 4s
+twist 6 b 0 done 5s
+twist 6 b 4 done 5s
