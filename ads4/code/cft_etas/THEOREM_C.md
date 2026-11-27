@@ -158,8 +158,13 @@ Its properties:
 
 * **Bounded in the strip.** |F_sh| ≤ M on H_γ, since every factor has modulus ≤ 1 there (maximum principle).
 * **Real and symmetric.** F_sh is real on the real axis, so G(−ω*) = G(ω)*.
-* **OPE invisible.** F_sh = O(|s|^{−k}) at ∞, so the deviation δG_dev = −2πT s (s_ent/4π) F_sh decays at |ω| → ∞. It changes no
-  OPE coefficient and no sum rule.
+* **OPE invisible.** F_sh = O(|s|^{−k}) at ∞, so the deviation δG_dev = −2πT s (s_ent/4π) F_sh decays at |ω| → ∞ and leaves the
+  sum rule unchanged.
+  * To make *every* asymptotic (OPE) coefficient vanish, multiply F_sh by exp(−λ√(s+γ)) with small λ > 0, taking the principal
+    branch.
+  * This factor has modulus ≤ 1 on H_γ, since Re√ ≥ 0. It is real for real s and decays faster than any power in the closed strip,
+    including the real-ω axis s = −iω/2πT.
+  * The bounds below change only by the factor e^{−λ√γ} → 1.
 * **Small at every Matsubara point.** F_sh(n) = 0 for n ≤ N. For n > N, |F_sh(n)| ≤ M((a−γ)/(a+N+1))^k.
 * **Size at s = 0.** |F_sh(0)| = M β_N (1−γ/a)^k.
 

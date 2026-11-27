@@ -184,3 +184,79 @@ if __name__ == '__main__':
     rng = np.random.default_rng(5)
     for l, v, ex in _test_contract(rng):
         print('contraction test l =', l, v, ex)
+
+
+# ------------------------------------------------------------------ k = 3 piece (C^_3 = Psi_{3,nu}[o_H q], j' = 1, f = -1)
+def _emb_X(x):
+    return np.stack([np.ones_like(x[0]), dot(x, x), x[0], x[1], x[2]], axis=-1)
+
+
+def _emb_Z(x, z):
+    sh = np.shape(x[0])
+    z = [np.broadcast_to(np.asarray(c, float), sh) for c in z]
+    return np.stack([np.zeros(sh), 2*dot(x, z), z[0], z[1], z[2]], axis=-1)
+
+
+def _cof(R1, R2, R3, R4):
+    """cofactor vectors c (N, 5): det([r0; R1; R2; R3; R4]) = r0 . c  (rows (N, 5))."""
+    M = np.stack([np.zeros_like(R1), R1, R2, R3, R4], axis=1)          # (N, 5, 5)
+    c = []
+    for i in range(5):
+        Mi = M.copy(); Mi[:, 0, :] = 0.0; Mi[:, 0, i] = 1.0
+        c.append(np.linalg.det(Mi))
+    return np.stack(c, axis=-1)
+
+
+def prefh3(g, Delta, J):
+    """< F_a, q (x) o_H, G_c > / v042^4  (nsa, nsc, N); l9_points.build_spin kind 'C3H' re-implemented point-wise."""
+    re = lambda v: [np.real(c) if np.ndim(c) else float(np.real(c)) for c in v]
+    x1, x2, x3, x4, x0, e, z0 = (re(g[k]) for k in ('x1', 'x2', 'x3', 'x4', 'x0', 'e', 'z0'))
+    N = np.shape(x1[0])[-1]
+    z0 = [np.broadcast_to(np.asarray(c, float), (N,)) for c in z0]
+    x10, x30 = sub(x1, x0), sub(x3, x0)
+    ph2, W2 = null_circle(2); phJ, WJ = null_circle(J)
+    monsD, solD, _ = conserved(Delta, J)
+    monsT, solT, _ = conserved(3.0 - Delta, J)
+    F = tto_num(x1, x10, x2, W2, e, WJ, J, monsD, solD)
+    G = tto_num(x3, x30, x4, W2, e, WJ, J, monsT, solT)
+    B3 = [[1.0*(i == m) for i in range(3)] for m in range(3)]
+    lin = lambda f: np.stack([f(B3[m]) for m in range(3)])                         # (3, N)
+    H20 = W2 @ lin(lambda B: Hf(x2, B, x0, z0)); H40 = W2 @ lin(lambda B: Hf(x4, B, x0, z0))   # (5, N)
+    H24b = np.stack([np.stack([Hf(x2, B3[m], x4, B3[k]) for k in range(3)]) for m in range(3)])
+    H24 = np.einsum('im,jk,mkn->ijn', W2, W2, H24b)
+    X20, X40, X24 = sq(x2, x0), sq(x4, x0), sq(x2, x4)
+    v042 = Vf(x0, z0, x4, x2)
+    q = (2*H20[:, None]*H40[None, :] + v042**2*H24)/(X20*X40)
+    # o_H = eps(Z2,X2,X4,X0,Z0) H40/sqrt(X24 X20 X40^3) + eps(Z4,X4,X2,X0,Z0) H20/sqrt(X24 X40 X20^3)
+    EX2, EX4, EX0, EZ0 = _emb_X(x2), _emb_X(x4), _emb_X(x0), _emb_Z(x0, z0)
+    c = _cof(EX2, EX4, EX0, EZ0)                                                   # eps(Z2, X2, X4, X0, Z0) = Z2 . c
+    e2 = np.stack([np.einsum('ni,ni->n', _emb_Z(x2, [W2[j, 0], W2[j, 1], W2[j, 2]]), c) for j in range(5)])
+    e4 = np.stack([-np.einsum('ni,ni->n', _emb_Z(x4, [W2[j, 0], W2[j, 1], W2[j, 2]]), c) for j in range(5)])
+    n2 = 1.0/np.sqrt(np.abs(X24*X20*X40**3)); n4 = 1.0/np.sqrt(np.abs(X24*X40*X20**3))
+    o = (e2*n2)[:, None]*H40[None, :] + H20[:, None]*(e4*n4)[None, :]
+    D = q*o/v042**4
+    Fh = fourier(fourier(F, 1, 2), 2, J); Gh = fourier(fourier(G, 1, 2), 2, J); Dh = fourier(fourier(D, 0, 2), 1, 2)
+    k2, kJ = kappa(2), kappa(J)
+    FD = np.einsum('aipn,iqn->apqn', Fh, Dh[::-1]/k2[:, None, None])
+    out = np.einsum('apqn,cqrn->acprn', FD, Gh[:, ::-1]/k2[None, :, None, None])
+    return np.einsum('acpn->acn', np.stack([out[:, :, p, 2*J - p, :]/kJ[2*J - p] for p in range(2*J + 1)], axis=2))
+
+
+def jsign(g):
+    """the j' = 1 celestial sign: sign det[z0; x10; x30] (3-d, lightcone components; a global sign convention is irrelevant)."""
+    re = lambda v: [np.real(c) if np.ndim(c) else float(np.real(c)) for c in v]
+    x1, x3, x0, z0 = (re(g[k]) for k in ('x1', 'x3', 'x0', 'z0'))
+    a, b = sub(x1, x0), sub(x3, x0)
+    N = np.shape(a[0])[-1]
+    z = [np.broadcast_to(np.asarray(c, float), (N,)) for c in z0]
+    det = z[0]*(a[1]*b[2] - a[2]*b[1]) - z[1]*(a[0]*b[2] - a[2]*b[0]) + z[2]*(a[0]*b[1] - a[1]*b[0])
+    return np.sign(det)
+
+
+def ratio3(g, Delta, J):
+    """Phi_C3H[a, c]/Phi_scal: [u'v'/(v'-u')] m12^-2 m34^-2 |m12 m34/(m15 m25 m35 m45)|^{J/2} prefh3 * sign_{j'=1}."""
+    up = g['m12']*g['m34']/(g['m13']*g['m24']); vp = g['m14']*g['m23']/(g['m13']*g['m24'])
+    f = up*vp/(vp - up)/(g['m12']**2*g['m34']**2)
+    if J:
+        f = f*np.abs(g['m12']*g['m34']/(g['m15']*g['m25']*g['m35']*g['m45']))**(J/2)
+    return np.real(prefh3(g, Delta, J)*(f*jsign(g))[None, None])

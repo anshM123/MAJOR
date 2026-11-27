@@ -1,0 +1,22 @@
+# Delta_g = 1000: hhat = hhat2 (quadrature) + hhat3 (exact); no_eft moment-route value in brackets
+  twist    2 J   8 b 0: hhat2 =   -1.31438e+42  hhat3 =    3.23246e+42  total =    1.9180812e+42  log10|total| =   42.283   [no_eft: + 42.283]
+  twist    2 J   8 b 4: hhat2 =   -4.55754e+25  hhat3 =   -1.51329e+26  total =   -1.9690428e+26  log10|total| =   26.294   [no_eft: - 26.294]
+  twist    2 J  20 b 0: hhat2 =   -2.00708e+84  hhat3 =    4.48215e+84  total =    2.4750713e+84  log10|total| =   84.394
+  twist    2 J  20 b 4: hhat2 =   -1.30538e+71  hhat3 =   -2.74247e+71  total =   -4.0478577e+71  log10|total| =   71.607
+  twist    3 J   8 b 0: hhat2 =   -7.73016e+40  hhat3 =    1.90119e+41  total =     1.128177e+41  log10|total| =   41.052   [no_eft: + 41.052]
+  twist    4 J   8 b 0: hhat2 =   -8.58727e+39  hhat3 =    2.11213e+40  total =     1.253399e+40  log10|total| =   40.098   [no_eft: + 40.098]
+  twist    4 J  20 b 0: hhat2 =   -2.32754e+81  hhat3 =     5.1993e+81  total =    2.8717568e+81  log10|total| =   81.458
+  twist    2 J   4 b 0: hhat2 =    -4.5577e+25  hhat3 =    1.51329e+26  total =    1.0575193e+26  log10|total| =   26.024   [no_eft: + 26.024]
+  twist  998 J   8 b 0: hhat2 =       207823.0  hhat3 =       -53490.6  total =        154331.91  log10|total| =    5.188   [no_eft: + 5.188]
+  twist 1000 J   8 b 0: hhat2 =       209976.0  hhat3 =       -54349.4  total =        155626.24  log10|total| =    5.192
+# Delta_g = 300: hhat = hhat2 (quadrature) + hhat3 (exact); no_eft moment-route value in brackets
+  twist    2 J   8 b 0: hhat2 =   -4.70692e+32  hhat3 =    1.16246e+33  total =    6.9176952e+32  log10|total| =   32.840   [no_eft: + 32.840]
+  twist    2 J   8 b 4: hhat2 =   -2.58491e+20  hhat3 =   -8.60384e+20  total =   -1.1188752e+21  log10|total| =   21.049   [no_eft: - 21.049]
+  twist    2 J  20 b 0: hhat2 =   -1.67607e+62  hhat3 =    3.81936e+62  total =    2.1432832e+62  log10|total| =   62.331
+  twist    2 J  20 b 4: hhat2 =   -1.80189e+53  hhat3 =   -3.83214e+53  total =   -5.6340347e+53  log10|total| =   53.751
+  twist    3 J   8 b 0: hhat2 =   -2.76292e+31  hhat3 =    6.82785e+31  total =    4.0649361e+31  log10|total| =   31.609   [no_eft: + 31.609]
+  twist    4 J   8 b 0: hhat2 =   -3.06269e+30  hhat3 =    7.57398e+30  total =    4.5112949e+30  log10|total| =   30.654   [no_eft: + 30.654]
+  twist    4 J  20 b 0: hhat2 =   -1.91317e+59  hhat3 =    4.37418e+59  total =    2.4610046e+59  log10|total| =   59.391
+  twist    2 J   4 b 0: hhat2 =   -2.58593e+20  hhat3 =    8.60384e+20  total =    6.0179184e+20  log10|total| =   20.779   [no_eft: + 20.779]
+  twist  998 J   8 b 0: hhat2 =     7.91532e+6  hhat3 =       268212.0  total =        8183528.1  log10|total| =    6.913   [no_eft: + 6.913]
+  twist 1000 J   8 b 0: hhat2 =     7.97853e+6  hhat3 =       270279.0  total =        8248808.0  log10|total| =    6.916
