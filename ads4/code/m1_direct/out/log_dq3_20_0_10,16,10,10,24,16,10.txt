@@ -1,0 +1,2 @@
+   D=20 J=0 t-node 1/10: 188s, nbad 0
+   D=20 J=0 t-node 2/10: 373s, nbad 0

@@ -20,10 +20,11 @@ compared with the per-ν ladder polynomial of (fp-H), normalisation-free (ratios
   κ = 1.00016 / 1.00002 / 1.00013 (ladder: 1). At Δ = 10 (T = 72) the agreement is 4·10⁻³, limited by quadrature (control 10⁻¹).
   O(1/T²) terms of natural size are excluded at Δ = 20 by a factor ≈ 20.
 * **k = 2 piece, spin J** [NE]. J = 2: 4.5·10⁻⁴ at Δ = 30 (control 10⁻²), 5.6·10⁻³ at Δ = 16 (control 5.6·10⁻²). J = 8 at Δ = 30
-  (twist 22): see §4.3. J = 4: consistent but not discriminating at the grids run.
+  (twist 22, both ladders b = 0, 4; polynomials of degree 11 and 7 in ν²): 6–9·10⁻⁴ per structure pair, against 10⁻²–2.4·10⁻¹ for
+  the leading-Regge control. J = 4: consistent but not discriminating at the grids run.
 * **k = 3 piece (Ĉ₃, j′ = 1, o_H q)** [NE, weaker]. J = 0, where the ladder image is exactly ν-independent: the direct ratio to a
-  heavy reference is ν-independent up to a remainder that scales like 1/T (as any quadrature error of the Δ-dependent part does) and
-  shrinks under grid refinement (§4.4).
+  heavy reference is ν-independent to 1.8·10⁻⁴ at Δ = 20 (5.8·10⁻³ → 1.5·10⁻³ → 1.8·10⁻⁴ under grid refinement), i.e. any 1/T
+  term is < 1 % of the size of the k = 2 one. Higher spin at k = 3 is not yet discriminating (§4.4).
 * **The per-state numbers are reproduced independently** [DV]. Quadrature of the *published* continuum weight against my own
   ladder polynomials (no certified moment balls) gives log₁₀ĥ to all printed digits of `no_eft`: e.g. Δ_g = 1000, twist 2: J = 8
   +1.918·10⁴² (b = 0), J = 20 +2.475·10⁸⁴ (b = 0; the brief's "10⁸⁰" is 10^{84.4}); Δ_g = 300: J = 8 6.92·10³², J = 20 2.14·10⁶².
@@ -166,7 +167,26 @@ The J = 8, Δ = 30 state has twist 22 ≪ Δ_g. Its residual falls by 30× from 
 10⁻²–10⁻¹, so the J = 8 ladder (U_{b,k} for b = 0, 4, k ≤ 8; S₀ and S₄ of degree 11 and 7 in s) is the direct image to ≲ 10⁻³.
 
 ### 4.4 k = 3 [NE] (`out/compare_k3.txt`)
-__K3__
+The ladder's k = 3 image is S3_b(s) = σ_b Σ_k D_k² U_{b,k} q_k(s). At J = 0 it is exactly q₀ = 1, so the direct ratio to the J = 0
+reference must be ν-independent at every Δ. (The LR control coincides with the ladder at J = 0.) Below, the residual is
+max_ν |ratio/fit − 1| on ν ≤ 6.
+
+| Δ (T) | 8⁴·6·12·8 | 10⁴·6·16·10 | 12⁴·8·20·12 |
+|---|---|---|---|
+| 20 (342) | 5.8·10⁻³ | 1.5·10⁻³ | 1.8·10⁻⁴ |
+| 30 (812) | 2.4·10⁻³ | 6.5·10⁻⁴ | — |
+| 100 (9702) | 1.8·10⁻⁴ | — | — |
+
+* **The remainder is quadrature error.** It scales like 1/T at fixed grid and has the same ν-shape at Δ = 20, 30, 100. That is the
+  signature of quadrature error in the integrand's Δ-dependent part, which integrates to a ν-independent constant. It falls by 30×
+  from the 8- to the 12-grid.
+* **Size.** At the 12-grid, T × residual = 0.06. A genuine 1/T term of the size of the k = 2 one (c(ν) = 6y₂/z₂ = 2.6 to 8 on
+  1 ≤ ν ≤ 8) would show as ≳ 10⁻², 50× larger.
+* **Spin.** J = 2 (Δ = 16, 30) was run only on the 8-grid: residual 1.2·10⁻², 2.5·10⁻³, not yet discriminating from its LR control.
+* **Grade.** The k = 3 piece is therefore [NE] at J = 0 and untested at higher spin. The giant light values have
+  ĥ⁽³⁾ ≈ −2.4 ĥ⁽²⁾ (§4.1), so the k = 3 ladder deserves the same J ≥ 2 test as k = 2.
+* **Is it the paper's functional?** Ĉ₃'s O(1/m²) structure depends on the o_H/o_V design choice (H0_SPINNING_FUNCTIONAL §21.6). The
+  integrand used here is the project's C3H (o_H), the one the direct rows used.
 
 ### 4.5 The convergence threshold τ > 5 [D + NE] (`out/log_decay.txt`)
 * **The exponent.** In the pcyc variable t (B = e^{−2t/Δ}), d log|Φ|/dt at large t equals −(1 − (5+J)/Δ) to 3–4 digits: J = 0, 2, 4, 8

@@ -1,2 +1,7 @@
    D=8 E2 t-node 1/10: 67s, max|eps| 1.2e+01, nbad 0
    D=8 E2 t-node 2/10: 135s, max|eps| 1.2e+01, nbad 0
+   D=8 E2 t-node 3/10: 200s, max|eps| 1.2e+01, nbad 0
+   D=8 E2 t-node 4/10: 266s, max|eps| 1.2e+01, nbad 0
+   D=8 E2 t-node 5/10: 332s, max|eps| 1.2e+01, nbad 0
+   D=8 E2 t-node 6/10: 396s, max|eps| 1.2e+01, nbad 0
+   D=8 E2 t-node 7/10: 464s, max|eps| 1.2e+01, nbad 0
