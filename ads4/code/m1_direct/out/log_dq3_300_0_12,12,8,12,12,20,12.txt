@@ -1,3 +1,4 @@
    D=300 J=0 t-node 1/8: 175s, nbad 0
    D=300 J=0 t-node 2/8: 332s, nbad 0
    D=300 J=0 t-node 3/8: 406s, nbad 0
+   D=300 J=0 t-node 4/8: 484s, nbad 0
