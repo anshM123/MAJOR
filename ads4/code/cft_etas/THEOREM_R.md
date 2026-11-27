@@ -202,3 +202,33 @@ A power law must come from a *small* real-time norm, or from a structure that is
 
 `relax_sign.py` (in `out_relax_sign.txt`) is superseded. Its deviation transforms are unreliable because the real-frequency
 deviation of a sharp layer is still O(A ω²) at the cutoff ω = 25.
+
+## 6. Which tip-local data does the CFT control? [D-sketch]
+
+The numerics say η is *tip-local*: it depends on the horizon value of the shear coupling, and every Euclidean or early-time
+observable is blind to the tip up to powers of the depth w. Three kinds of CFT data are O(1)-sensitive to the tip:
+
+1. **Thermodynamics.** s is the Wald entropy at the tip. In the θ-class, δs/s = 4θ_I(1) + 6θ_J(1), while
+   δ(4πη/s) = −6θ_I′(1) − 108θ_J(1) + 18θ_J′(1). These are different functionals, and s/(c_T T²) is itself uncontrolled thermal
+   data.
+2. **Chaos.** λ_L and v_B come from the energy-channel pole-skipping at s = +1. For the planar R² state they are thermal data:
+   unlike the hyperbolic/Rindler case, they are not fixed by vacuum Regge data.
+3. **Hyperbolic T₀.** On R×H² at T₀ = 1/2πR the state is conformal to the vacuum. The bulk is AdS-Rindler, whose horizon has zero
+   Weyl curvature.
+   * Tip-local quantities there are vacuum data. For example s(T₀) = F/(2πR²) and the shear coupling is ∝ c_T, so
+     "4πη/s at T₀" − 1 measures the ratio c_T/F. That ratio is global vacuum data, and it is shifted by the topological
+     Gauss–Bonnet term, which has no planar effect.
+   * Taylor coefficients in (T − T₀) are integrated vacuum (k+2)-point functions. In the bulk the horizon Weyl scale is
+     x ∝ μ/r_h³ ∈ [0, 1), and the planar limit is x → 1.
+   * So the planar η/s is the endpoint of an analytic continuation in temperature on H², whose Taylor data at T₀ are vacuum
+     n-point data for every n.
+   * This is the CFT-native form of "all n-point couplings matter" (I₂I₃ first enters at order x³). A theorem along this route
+     needs:
+     * (i) n-point gap bounds for all n;
+     * (ii) analyticity in x on [0, 1] with no hyperbolic phase transition (hairy/Rényi transitions are known in some models);
+     * (iii) removal of the GB/F contamination, which vanishes as x → 1.
+
+**Why the chaos-alignment computation was not done.** At linear order, computing δv_B[θ_I, θ_J] needs two pieces of work: the
+O(λ)-corrected brane, and the higher-derivative shock-wave equation in Kruskal coordinates. Even a positive (aligned) answer would
+trade η/s for v_B, which is equally uncontrolled planar thermal data. The computation is worth doing only as part of a program that
+also controls v_B from the CFT.

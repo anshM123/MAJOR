@@ -1,1 +1,2 @@
    D=30 J=8 t-node 1/6: 203s, nbad 0
+   D=30 J=8 t-node 2/6: 374s, nbad 0

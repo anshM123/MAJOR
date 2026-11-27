@@ -134,3 +134,34 @@ object. Candidates are the relaxation-function deviation on t ≲ log(Δ_g)/2πT
 * **Concrete next test.** At linear order, compute δv_B for the θ_I I and θ_J J deformations on the brane, and check whether the
   functional is aligned with δ(4πη/s) = −6θ_I′ − 108θ_J + 18θ_J′. If aligned, chaos fixes η at linear order. If not, there is a
   precise obstruction.
+
+### Milestone 6: map of the CFT data that are sensitive to the tip (THEOREM_R.md §6) [D-sketch]
+
+* Only three kinds of CFT data are O(1)-sensitive to the tip: thermodynamics (s), chaos (λ_L, v_B) and hyperbolic T₀ data.
+  * For planar R², the first two are uncontrolled thermal data.
+  * The third is vacuum data, but it includes the global ratio c_T/F, which Gauss–Bonnet shifts.
+* Planar η/s is the endpoint (x → 1) of an analytic continuation in temperature on H². The Taylor coefficients of that
+  continuation are vacuum n-point data, so this is the CFT-native form of the all-n requirement.
+
+## Status (end of session 2)
+
+**Proved.**
+* Theorem R2 [P]: from early-time real-time data, rate exp(−c(log 1/ε)^{0.4}).
+* Proposition NS [P given the QNM expansion]: the sign route fails generically.
+* Theorem R1 [P]: the sign gives a power law, but its hypothesis is false generically.
+
+**Derived, with numerical support.**
+* Lemma R3 [D-sketch]: the early-time commutator is OPE-controlled, b₁ may drop out, and heavy states are ≤ (2t/β)^{Δ_g}.
+* Holographic evidence [DV]: deep (horizon) data never enter the OPE coefficients or the early commutator.
+
+**Dead routes.**
+* Every positivity structure: frequency positivity, Φ ≥ 0, one-signed δΦ.
+* Modular kinematics.
+* Euclidean data, which give at best a logarithmic rate.
+
+**Most promising next step.** Bound a *small real-time norm* directly. The natural CFT carrier is the hyperbolic-temperature
+continuation from T₀ (vacuum) to T = ∞ (planar). It needs:
+* all-n vacuum gap bounds, for example from the collaborator's coherent-source phase bound;
+* a uniform analyticity domain in the horizon Weyl scale x ∈ [0, 1].
+
+With those, a Cauchy estimate gives a power law. This is the CFT image of Proposition R, without the bulk effective theory.
