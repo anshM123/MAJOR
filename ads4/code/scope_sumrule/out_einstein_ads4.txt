@@ -16,3 +16,12 @@ Int_0^2 I =  1.230575315798e+00 (err 1.4e-14)
 Int_2^5 I = -4.932675668552e-02 (err 7.0e-15)
 Int_5^10 I = -2.682794632444e-03 (err 2.2e-14)
 Int_10^20 I = -4.099271888935e-04 (err 2.5e-13)
+/home/user/MAJOR/ads4/code/scope_sumrule/einstein_ads4_sumrule.py:100: IntegrationWarning: The occurrence of roundoff error is detected, which prevents 
+  the requested tolerance from being achieved.  The error may be 
+  underestimated.
+  val, err = quad(I, a, b, limit=200, epsabs=1e-12, epsrel=1e-11)
+Int_20^30 I = -4.123814814365e-05 (err 2.4e-12)
+tail fit on w in [20,40]: I ~ -1.3643 w^(-3.9903)   (OPE expectation: exponent -4)
+tail Int_30^inf (c w^-4 with c from w=40) = -1.748e-05
+S_eta (Einstein) without tail = 0.3750055240, with tail = 0.3749999601 ; prediction 3/8 ; diff = -3.99e-08
+done
