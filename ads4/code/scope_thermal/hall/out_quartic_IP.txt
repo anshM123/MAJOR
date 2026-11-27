@@ -1,0 +1,9 @@
+trial 0 ++++ : [I^2, P^2, I P] sym sums / (sum [ij]^2[kl]^2)^2 = [ 4.+0.j -4.-0.j  0.-4.j]
+   all-plus amplitude of (1/4)(a4 I^2 + a4' P^2 + 2 a4~ IP)  ~  1.000+0.000j a4 + -1.000-0.000j a4' + 0.000-2.000j a4~
+trial 0 --++ : [I^2, P^2, I P] sym sums / <12>^4[34]^4 = [8.+0.j 8.+0.j 0.-0.j]
+trial 1 ++++ : [I^2, P^2, I P] sym sums / (sum [ij]^2[kl]^2)^2 = [ 4.-0.j -4.+0.j -0.-4.j]
+   all-plus amplitude of (1/4)(a4 I^2 + a4' P^2 + 2 a4~ IP)  ~  1.000-0.000j a4 + -1.000+0.000j a4' + -0.000-2.000j a4~
+trial 1 --++ : [I^2, P^2, I P] sym sums / <12>^4[34]^4 = [8.-0.j 8.-0.j 0.+0.j]
+c-check trial 0: s+t+u = 2.5e-15;  c = 1.000000-0.000000j
+c-check trial 1: s+t+u = 2.2e-16;  c = 1.000000-0.000000j
+c-check trial 2: s+t+u = 3.7e-15;  c = 1.000000-0.000000j
