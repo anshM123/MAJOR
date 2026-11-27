@@ -165,3 +165,30 @@ continuation from T₀ (vacuum) to T = ∞ (planar). It needs:
 * a uniform analyticity domain in the horizon Weyl scale x ∈ [0, 1].
 
 With those, a Cauchy estimate gives a power law. This is the CFT image of Proposition R, without the bulk effective theory.
+
+## 2026-11-27, session 3: the hyperbolic route (see THEOREM_H.md)
+
+### Milestone 7: setup, observable and Theorem H
+
+* **Setup.** The CFT lives on R × H² at T = T₀/n, with T₀ = 1/2π. At n = 1 this is the vacuum (Rindler); n → 0 is the planar limit.
+* **Shear mode [D; DV].** TT tensors on H² all satisfy k_T² + 2K = 0, so the shear mode is a massless scalar at "zero momentum".
+  * The engine confirms this: the reduced Einstein Lagrangian has no mass term (α₀ = 0), α₁ = −(π/4) r² f, and η₀ ∝ r_h², so
+    4πη/s = 1 at every T in Einstein gravity.
+  * Files: `hyp_engine.py`, `hyp_test_einstein.py` → `out_hyp_test_einstein.txt`.
+* **Observable.** 𝒱(n) = 4π∂_Tη/∂_Ts − 1.
+  * It is GB-blind: topological GB shifts s by a T-independent constant.
+  * It tends to planar 4πη/s − 1 as n → 0.
+  * It is ≡ 0 in Einstein gravity.
+  * In bulk variables, 𝒱 = δ(x) + (1 − x)δ′(x), where x = 1 − 1/r_h² is the horizon Weyl scale.
+* **Taylor data [D-sketch].** The coefficients of 𝒱 at n = 1 are connected vacuum correlators of T with insertions of the modular
+  Hamiltonian K. Equivalently, they are multi-point light-ray/energy correlators.
+  * They converge in the UV (no entangling surface in the H² frame) and in the IR (Δ_T = 3 > 1 on H²).
+  * Order k involves up to (k+3)-point vacuum data.
+* **Theorem H [P].** Hypotheses: (a) |a_k| ≤ εC^k; (b) 𝒱 analytic and bounded by M on a domain Ω ⊃ [0, 1].
+  * Conclusion: |planar 4πη/s − 1| ≤ ε^θ M^{1−θ}, with θ a harmonic measure.
+  * For a disk Ω = D(1, ρ), θ = log ρ / log(ρ max(C, 1)).
+  * **This is a power of Δ_g.** The planar point is *interior* to the analyticity domain.
+* **Einstein analytic structure [DV]** (`hyp_cauchy.py`).
+  * x(n) has branch points only at n = ±i/√3 (spinodal points), so ρ = 2/√3 = 1.1547 > 1.
+  * The Taylor series about n = 1 converges at n = 0 at the rate (√3/2)^K. Checked: error 1.7e-6 at K = 60.
+  * Rates for ε = Δ_g⁻⁴: exponent 3.93 for C = 1, 2.41 for C = 1.1, 1.05 for C = 1.5.

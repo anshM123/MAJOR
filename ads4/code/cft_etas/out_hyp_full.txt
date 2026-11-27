@@ -1,0 +1,2 @@
+Gamma done 0.2s
+Riemann done 10.4s
