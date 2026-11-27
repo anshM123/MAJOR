@@ -1,0 +1,382 @@
+% sec_transport.tex -- Supplemental Material section for letter_v2.tex: thermal sum rules, the universal disc, the
+% spectral-to-gap theorem, shear and Hall viscosity of the AdS4 brane, the higher-derivative remainder, the corrected
+% viscosity bound, and what an EFT-free derivation of eta/s requires.
+% Written to be \input into supplement.tex (not yet done). Needs \bibliography{refs_verified,refs_v2}.
+\section{Thermal sum rules, Hall viscosity and transport}
+\label{sec:transport}
+
+This section supports the transport and spectral statements of the Letter. Its inputs from the rest of this Supplement are
+the two bounds on $\tau=(t_4^2+\alpha_T^2)^{1/2}$: $\tau\le\tau_*(\Delta_g)$ at every gap (Sec.~\ref{sec:angular}) and
+$\tau\le2.8914\times10^{-8}$ at $\Delta_g\ge1000$ (Secs.~\ref{sec:full} and \ref{sec:fullpos}), each with its own inputs, and,
+for one remark, the analytic all-gap bound of Sec.~\ref{sec:fpanalytic}. Grades are those of Sec.~\ref{sec:grades}. Every
+computation cited here has a script and a recorded output in the code archive~\cite{Zenodo}, in the directories
+\texttt{code/scope\_sumrule}, \texttt{code/sumrule\_freefield}, \texttt{code/scope\_thermal} (with subdirectories
+\texttt{hall} and \texttt{allorders}) and \texttt{code/no\_eft}; each directory has a \texttt{README.md} that lists the
+scripts, their run times and their outputs.
+
+\subsection{Conventions}
+Take a CFT$_3$ in a homogeneous, isotropic thermal state at temperature $T$, with energy density $\varepsilon=2p$ and entropy
+density $s$, and the shear components $T_1=(T_{xx}-T_{yy})/2$, $T_2=T_{xy}$ at zero spatial momentum. Rotation invariance
+gives $G^R=\begin{pmatrix}g&-h\\h&g\end{pmatrix}$, with $G^R_{AB}(t)=i\theta(t)\langle[T_A(t),T_B(0)]\rangle$ integrated over
+space. The circular combinations are $G_\pm=g\pm ih$, $\rho_\pm={\rm Im}\,G_\pm$, and $\delta$ denotes the thermal value minus
+the vacuum value. At low frequency $g=p-i\eta\omega+O(\omega^2)$ and $h=-i\eta_H\omega+O(\omega^2)$. We define
+\begin{equation}
+\mathcal S_E=\frac1{\pi\varepsilon}\int_{-\infty}^{\infty}\frac{\delta\rho(\omega)}{\omega}\,d\omega,\qquad
+\mathcal S_H=\frac1{\pi\varepsilon}\int_{-\infty}^{\infty}\eta_H(\omega)\,d\omega,\qquad
+\eta_H(\omega)=-\frac{{\rm Im}\,\delta h(\omega)}{\omega},
+\label{eq:tr-SESH}
+\end{equation}
+with $\rho={\rm Im}\,g$. On the gravity side we use the action
+\begin{equation}
+16\pi G\,\mathcal L=R+6-\tfrac16(\alpha_3J+\tilde\alpha_3Q)+\tfrac14(\alpha_4I^2+\alpha_4'P^2+2\tilde\alpha_4IP)+\dots,
+\label{eq:tr-action}
+\end{equation}
+in units of the AdS radius, with $I=C_{\mu\nu\rho\sigma}C^{\mu\nu\rho\sigma}$, $P=C_{\mu\nu\rho\sigma}\tilde C^{\mu\nu\rho\sigma}$,
+$J=C_{\mu\nu}{}^{\rho\sigma}C_{\rho\sigma}{}^{\alpha\beta}C_{\alpha\beta}{}^{\mu\nu}$ and
+$Q=C_{\mu\nu}{}^{\rho\sigma}C_{\rho\sigma}{}^{\alpha\beta}\tilde C_{\alpha\beta}{}^{\mu\nu}$. This is the action of
+Ref.~\cite{CHLPS} with the Riemann tensor replaced by the Weyl tensor, which is exact on Einstein spaces up to Ricci and
+topological terms. We write $\hat g_3=\alpha_3+i\tilde\alpha_3$, $G_4=\alpha_4+\alpha_4'=g_4/8\pi G$, and
+$\mathcal V=(4\pi\eta/s-1)-i\,4\pi\eta_H/s$. The orientation is $\epsilon_{vrxy}=+r^2$ in the coordinates of
+Sec.~\ref{sec:transport}.F; reversing it flips the sign of every Hall quantity together. The dictionary $t_4=-240\alpha_3$,
+$|\alpha_T|=240|\tilde\alpha_3|$, i.e.\ $\tau=240|\hat g_3|$, is that of Sec.~\ref{sec:defs} [D].
+
+\subsection{The shear sum rule}
+\textbf{Statement} [Q; DV]. Under the conditions below, $\mathcal S_E=3/8+t_4/32$. This is the $d=3$ case of Eq.~(1.5) of
+Ref.~\cite{Chowdhury:2016hjy} (restated with $t_2,t_4$ as their Eq.~(4.3)): the $t_2$ term drops out at $d=3$, and $\varepsilon=2p$.
+Their $t_4$ is that of Refs.~\cite{Buchel,HofmanMaldacena}, the one used here (free scalar $t_4=4$, free fermion $t_4=-4$). The
+left side is free of contact terms, since it equals $[\delta G(0)-\delta G(i\infty)]/\varepsilon$; the right side is $p$ from
+hydrodynamics minus the $T$-exchange term of the OPE.
+
+\textbf{Conditions} [Q\,+\,D].
+(a)~$G^R$ analytic in the upper half plane, with $G^R(0)=p$ from hydrodynamics. At finite $c_T$ long-time tails make
+$\eta(\omega)$ logarithmic as $\omega\to0$; this is integrable, so the sum rule survives.
+(b)~No operator other than $T$ with $\Delta\le3$ in $T\times T$ has a thermal one-point function. In $d=3$ odd-spin one-point
+functions vanish and unitarity puts other spinning operators above $\Delta=3$, so the condition is: no scalar or pseudoscalar
+$\mathcal O$ in $T\times T$ with $\Delta_{\mathcal O}\le3$ and $\langle\mathcal O\rangle_\beta\ne0$. For $1<\Delta_{\mathcal O}<3$
+the unsubtracted integral diverges; subtracting the tail $\propto\langle\mathcal O\rangle_\beta(i\omega)^{3-\Delta_{\mathcal O}}$
+restores the sum rule with the same right side~\cite{Chowdhury:2016hjy,Lucas:2017dqa}. At $\Delta_{\mathcal O}=1$ the tail
+coefficient is proportional to $d-\Delta_{\mathcal O}-2$ and vanishes~\cite{Lucas:2017dqa}. At $\Delta_{\mathcal O}=3$ the right
+side can shift.
+(c)~In a holographic CFT with large $c_T$, a single-trace scalar that couples to $TT$ (bulk $\phi W^2$) is sourced on the black
+brane at the same order, so (b) amounts to: no single-trace scalar with $\Delta\le3$ couples to $TT$. This is implied by the
+``no light single trace'' condition of Eq.~(3) of the Letter and is stronger than the condition $\Delta>1$ used for $\tau_*$.
+The sum rule depends only on $t_4$ and $\varepsilon$: higher-derivative couplings that do not change $\langle TTT\rangle$,
+including $R^4$, do not enter it, at any $c_T$.
+
+\textbf{Checks} [DV].
+\begin{itemize}
+\item\emph{Free fields} (two independent codes: \texttt{scope\_sumrule/free\_fields\_sumrule.py} from Hamiltonian matrix
+elements, \texttt{sumrule\_freefield/euclid\_tau.py} from the Euclidean path integral with symbolic Wick contractions and
+explicit gamma traces). The vacuum correlators reproduce $c_T$ of Ref.~\cite{OsbornPetkou}, and $\varepsilon$ is taken from the
+free energy ($\zeta(3)/\pi$ per real scalar, $3\zeta(3)/2\pi$ per Dirac fermion). The spectral function at zero momentum is a
+pair continuum, $\rho_0=\omega^3/512$ times $\coth(\omega/4T)$ for the scalar and $\omega^3/256$ times $\tanh(\omega/4T)$ for the
+Dirac fermion, plus a zero-frequency (Drude) weight, the free limit of the hydrodynamic peak, equal to $3\varepsilon/8$ in both
+theories. The pair parts are $+\varepsilon/8$ and $-\varepsilon/8$. Hence $\mathcal S_E=1/2$ (scalar, $t_4=4$) and $1/4$
+(fermion, $t_4=-4$), agreeing with $3/8+t_4/32$ to 20 digits. Without the Drude weight one would find $\pm1/8$. The improvement
+term of the scalar stress tensor drops out at zero momentum; $\phi^2$ ($\Delta=1$) enters only through descendants that vanish at
+zero momentum, and $\bar\psi\psi$ has no thermal one-point function in the free theory. In both theories the cross correlator
+$\langle T_1T_2\rangle$ vanishes, so $\mathcal S_H=0$.
+\item\emph{Einstein gravity} (\texttt{scope\_sumrule/einstein\_ads4\_sumrule.py}). On the AdS$_4$ black brane the integral gives
+$\mathcal S_E=0.3749999601$; the integrand falls as $\omega^{-3.99}$, as the $\Delta=6$ double trace $[TT]$ predicts.
+\item\emph{Large-$N$ Chern--Simons--fermion} (\texttt{sumrule\_freefield/cs\_fermion\_probe.py}), from the exact zero-momentum
+thermal correlator of Ref.~\cite{Ghosh:2019sqf} and the energy density of Ref.~\cite{Aharony:2012ns}. The high-frequency constant
+of the shear channel reproduces the $t_4/32$ dependence with $t_4=-4\cos\pi\lambda$ to $10^{-6}$, up to a $\lambda$-independent
+contact convention shared with the free Dirac fermion. This theory violates condition (b) at $\lambda\ne0$, through
+$\bar\psi\psi$, so only the OPE side of the sum rule can be tested there.
+\end{itemize}
+Since the parity-even $\langle TTT\rangle$ of a CFT$_3$ is spanned by the free-scalar and free-fermion structures, $\mathcal S_E$
+is affine in $t_4$, and the two free points fix it; the Einstein point is a third, independent check. The coefficient of $t_4$
+had not been checked independently before~\cite{Chowdhury:2016hjy}.
+
+\subsection{The Hall sum rule}
+\textbf{Exact statements} [D]. (1)~Since $h(t)$ is real, $\rho_+(-\omega)=-\rho_-(\omega)$ and
+$\delta\rho_+-\delta\rho_-=2\,{\rm Re}\,\delta h$. (2)~The Euclidean antisymmetric correlator is odd in the Matsubara frequency,
+so $\delta h(0)=0$, and no temperature-dependent contact term exists in the odd channel at zero momentum; the vacuum
+gravitational Chern--Simons contact term, of order $\omega^3$, cancels in $\delta h$. (3)~At high frequency
+$\delta h(i\Omega)\to J_H$, the $T$-exchange term of the OPE with the parity-odd structure of $\langle TTT\rangle$, and
+$\delta h-J_H$ decays like $\omega^{-3}$. Kramers--Kronig then gives the convergent form \eqref{eq:tr-SESH},
+$\mathcal S_H=J_H/\varepsilon$; equivalently $\mathcal S_H=\lim_{\Omega\to\infty}(\Omega/\pi\varepsilon)\int_0^\infty
+(\delta\rho_+-\delta\rho_-)(\omega^2+\Omega^2)^{-1}d\omega$, an Abel average of a function that tends to a constant. (4)~The
+Hall viscosity is the infrared moment
+$\eta_H=\pi^{-1}\int_0^\infty(\delta\rho_+-\delta\rho_-)\,\omega^{-2}\,d\omega$, when it converges. Statements (3) and (4) are
+different observables; nothing in (1)--(4) relates $J_H$ to $\eta_H$.
+
+\textbf{Claim} [D-sketch; DV]. $|\mathcal S_H|=|\alpha_T|/32$. \emph{Sketch.} The $T$-exchange coefficient is extracted from the
+soft $T$ leg of $\langle TTT\rangle$. In three dimensions the parity-odd homogeneous structure is the parity-even one with a
+helicity phase on the hard legs~\cite{Jain:2021gwa}: on a transverse traceless leg of momentum $k$ the rotation
+$(\mathscr R_kX)_{ij}=\tfrac12(\epsilon_{i\ell m}\hat k^\ell X_{mj}+\epsilon_{j\ell m}\hat k^\ell X_{im})$ obeys $\mathscr R_k^2=-1$ and,
+for $k$ along Euclidean time, rotates $T_1$ into $T_2$. The rotation commutes with the extraction, so the diagonal coefficient
+$t_4/32$ becomes an antisymmetric coefficient of magnitude $|\alpha_T|/32$, with the relative normalization of $t_4$ and
+$\alpha_T$ fixed by the collider energy matrix of Ref.~\cite{CDPrakash}. A linearized check of the rotation: for the regular
+transverse graviton mode in Euclidean AdS, $\star W[e_1]=iW[e_2]$ and $\star W[e_2]=-iW[e_1]$ for the two shear
+polarizations, component by component. The step ``commutes with the extraction'' is not written out, hence the grade.
+\emph{Checks.} (a)~AdS$_4$ brane with the coupling $\lambda_Q Q$ (\texttt{scope\_sumrule/hall\_uv\_sign.py}): the
+full frequency dependence of $h(i\Omega)$ gives $\mathcal S_H=-44.99\pm0.03$ per unit $\lambda_Q$, against
+$-45=-7.5\times6$ from $|\alpha_T|/32$ with $\tilde\alpha_3=-6\lambda_Q$. The same code reproduces
+$4\pi\eta_H/s=108\lambda_Q$ as $\Omega\to0$ (Sec.~\ref{sec:transport}.F). (b)~Large-$N$ Chern--Simons--fermion, OPE side
+(\texttt{sumrule\_freefield/cs\_fermion\_probe.py}): $|\mathcal S_H|=\sin(\pi\lambda)/8=|\alpha_T|/32$, ratio $1.00001$ at
+$\lambda=0.01$, $0.3$, $0.5$, $0.9$ (limited by the fit). A temperature-dependent term linear in the frequency in that
+theory's Hall correlator, of the contact type flagged in Ref.~\cite{Ghosh:2019sqf}, prevents a test of the infrared moment there.
+
+\textbf{Relative sign} [DV]. For the cubic parity-odd coupling, with both quantities taken from the same $h$,
+$\mathcal S_H=-\tfrac5{12}\,(4\pi\eta_H/s)$ (numerically $-0.41659$ against $-5/12$): $h(i\Omega)$ starts at $+\eta_H\Omega$ and
+ends at $J_H$ of the opposite sign. This ratio is independent of the orientation, since reversing it flips both. Equivalently,
+in the helicity-$+$ channel $4\pi(\eta-i\eta_H)/s-1=18\hat g_3$ and $(\mathcal S_E-i\mathcal S_H)-3/8=-7.5\,\hat g_3$, so the two
+are proportional with a real ratio. A structural argument gives the same result: both limits of $G_+$ are continuations of the
+ingoing solution and depend on the single chiral coupling $\hat g_3$ [D-sketch].
+
+\subsection{The universal disc}
+\textbf{Statement} [D given Q]. Every unitary CFT$_3$ satisfying condition (b) of Sec.~\ref{sec:transport}.B, and its
+parity-odd analogue, has $(\mathcal S_E-3/8)^2+\mathcal S_H^2\le1/64$. \emph{Proof.} The conformal-collider (energy positivity)
+bound is $t_4^2+\alpha_T^2\le16$~\cite{CDPrakash}; insert the two sum rules. The sign convention of $\mathcal S_H$ does not matter.
+The parity-even projection, $1/4\le\mathcal S_E\le1/2$, is in Ref.~\cite{Chowdhury:2016hjy}. Free scalar and free fermion lie at
+$(1/2,0)$ and $(1/4,0)$, mixtures of free fields on the diameter, Einstein gravity at the center, and the large-$N$
+Chern--Simons--matter theories, with $t_4=-4\cos\pi\lambda$, $\alpha_T=4\sin\pi\lambda$~\cite{CDPrakash}, on the circle,
+although they violate condition (b) as noted above. We found no earlier statement of the Hall sum rule or of the disc; the
+searches covered the citing literature of Refs.~\cite{Chowdhury:2016hjy,CDPrakash} and quantum-Hall sum rules, so this is ``not
+found'', not ``proven absent''.
+
+\subsection{The spectral-to-gap theorem}
+\textbf{Theorem SG} [D given the inputs listed]. Let $\delta_E=|\mathcal S_E-3/8|$ and
+$\delta_{\rm th}=[(\mathcal S_E-3/8)^2+\mathcal S_H^2]^{1/2}$, both at $c_T=\infty$. Assume A1$'$, A2$'$, the inputs of
+$\tau_*$ (Sec.~\ref{sec:angular}) and condition (b). Then
+\begin{equation}
+(\Delta_g-2)\Big[1-\frac{49}{(2\Delta_g+9)^2}\Big]^{1/2}\le\frac5{9\,\delta},\qquad
+\Delta_g\le2.2401+\frac5{9\,\delta},
+\label{eq:tr-SG}
+\end{equation}
+with $\delta=\delta_E$; with $\delta=\delta_{\rm th}$ it also uses the Hall sum rule, which is [D-sketch].
+\emph{Proof.} $\delta_E=|t_4|/32\le\tau/32$ and $\delta_{\rm th}=\tau/32$. Since $\tau_*$ is strictly decreasing, $\tau\le\tau_*(\Delta_g)$
+is the first inequality. For the second write $x=\Delta_g-2$: the correction $x-x[1-49/(2x+13)^2]^{1/2}$ is at most $0.2401$,
+attained at $\Delta_g\approx8.25$ (\texttt{scope\_sumrule/gap\_inverse.py}). $\square$\\
+The theorem uses no black brane, no bulk effective theory and no positivity assumption. It is a statement at leading order in
+$1/c_T$: the sum rule is exact at any $c_T$, but $\tau_*$ is not. Examples: $\delta=10^{-2}$ gives $\Delta_g\le57.64$ (exact
+inversion) and $\delta=10^{-3}$ gives $\Delta_g\le557.8$.
+
+\textbf{Fixed gap} [certified\,+\,inputs of Eq.~(3) of the Letter]. If $\Delta_g\ge1000$ and no light single trace appears in
+$T\times T$, $\delta_{\rm th}\le2.8914\times10^{-8}/32=9.04\times10^{-10}$; equivalently, $\delta_{\rm th}>9.04\times10^{-10}$
+forces a higher-spin single trace below twist 1000.
+
+\textbf{All-gap sharpening} [D given U1 and the inputs of Eq.~\eqref{eq:fp-allgap}]. For $\Delta_g\ge1000$ the analytic bound
+$\tau\le280[\log\frac{\Delta_g+2}3]^{1/2}(\Delta_g-2)^{-2}$ gives
+$\delta_{\rm th}\le f(\Delta_g):=\tfrac{35}4[\log\frac{\Delta_g+2}3]^{1/2}(\Delta_g-2)^{-2}$, decreasing in $\Delta_g$; so
+$\delta_{\rm th}>f(D)$ with $D\ge1000$ forces a higher-spin state below twist $D$. Since $f(1000)=2.1\times10^{-5}$ exceeds the
+fixed-gap value, this improves the inversion only for $\delta_{\rm th}<9.04\times10^{-10}$:
+
+\begin{center}
+\begin{tabular}{lcc}
+$\delta_{\rm th}$ & bound from $\tau_*$ & bound from $f$\\\hline
+$10^{-9}$ & $5.6\times10^{8}$ & below 1000 (fixed gap)\\
+$10^{-10}$ & $5.6\times10^{9}$ & $5.5\times10^{5}$\\
+$10^{-12}$ & $5.6\times10^{11}$ & $5.8\times10^{6}$\\
+$10^{-14}$ & $5.6\times10^{13}$ & $6.0\times10^{7}$
+\end{tabular}
+\end{center}
+The scaling is $\Delta_g\lesssim(8.75\sqrt{\log\Delta_g}/\delta_{\rm th})^{1/2}$.
+
+\subsection{Shear and Hall viscosity of the brane}
+\textbf{Setup.} Ingoing Eddington--Finkelstein coordinates,
+$ds^2=-f\,dv^2+2\,dv\,dr+r^2(e^{H})_{ij}dx^idx^j$, $H=\begin{pmatrix}\phi&\chi\\\chi&-\phi\end{pmatrix}$, $f=r^2-1/r$, horizon at
+$r=1$, with $\delta T^{xy}=-p\chi-\eta\dot\chi+\eta_H\dot\phi$. On the background $I=12/r^6$, $J=12/r^9$, $P=Q=0$. All four
+invariants have vanishing first variation under the homogeneous shear, because a spin-two perturbation has no rotationally
+invariant linear image; at the horizon $I=J=12$, $I'=-72$, $J'=-108$, $I''=504$, $J''=1080$.
+
+\textbf{Shear} [DV]. For each operator $\mathcal O$ in $16\pi G\mathcal L=R+6+\lambda\mathcal O$, the static shear mode and the Wald
+entropy give $\delta(4\pi\eta/s)$ per unit $\lambda$ (\texttt{scope\_thermal/etas\_diag.py}, \texttt{thermo\_check.py}):
+$I$: $0$; $J$: $-108$; $I^2$: $+864$; $IJ$: $-1944$; $J^2$: $-6480$; $I^3$: $+31104$; $P$, $Q$, $P^2$, $IP$: $0$. The $J$
+coefficient is $-(3/40)t_4$ with $t_4=-240\alpha_3$, as in Ref.~\cite{Li:2019auk}; the $I^2$ coefficient agrees with the M-theory
+result of Ref.~\cite{Garousi:2008ai} after converting conventions; the Wald entropy agrees with the on-shell free energy through
+the first law for $J$ and $I^2$. Parity-odd operators cannot shift $\eta$ at linear order: the brane and the static shear are
+invariant under $x\leftrightarrow y$.
+
+\textbf{Hall} [DV]. Keeping both polarizations and one time derivative, the mixed quadratic terms are
+\begin{equation}
+P^{(2)}\supset-\frac6{r^2}\dot\phi\,\chi'',\qquad Q^{(2)}\supset\frac{54}{r^6}\dot\phi\,\chi'+\frac{18}{r^5}\dot\phi\,\chi''.
+\end{equation}
+Terms without a time derivative vanish (a static configuration is invariant under the orientation-reversing $t\to-t$), and no
+term involves $\phi$ without a time derivative. The $\chi$ equation at $O(\omega)$ is $\partial_r\Pi=\lambda\sigma(r)\dot\phi$ with
+$\Pi=-r^2(f\chi'+\dot\chi)$, regularity at the horizon fixes $\Pi(1)=-\dot\chi$, and the curvature terms do not reach the boundary
+since $C\sim r^{-3}$. Hence $4\pi\eta_H/s=\lambda\int_1^\infty\sigma\,dr$, with
+$\sigma_Q=432/r^5$ and $\sigma_{IP}=-3024/r^8$:
+\begin{equation}
+\delta(4\pi\eta_H/s)=+108\ (Q),\qquad -432\ (IP),\qquad 0\ (P,\ P^2,\ I,\ J,\ I^2).
+\end{equation}
+The odd terms do not change the background or the Wald entropy at linear order. These numbers were obtained twice, by a
+symbolic calculation in the bivector representation of the Weyl tensor and by an explicit index computation
+(\texttt{scope\_thermal/hall/hall\_ef.py}). Checks: (a)~the response of the $\phi$ channel to $\dot\chi$ is $-108$ and $+432$,
+so the response matrix is antisymmetric, as Onsager reciprocity requires; (b)~a coupling $\theta(r)P$ gives $\sigma=-6\theta''$
+and $6\theta'(1)$, the gravitational Chern--Simons result of Ref.~\cite{Saremi:2011ab} up to the conversion of conventions, and
+$IP$ is exactly $\theta P$ with $\theta=12/r^6$, so this checks the $IP$ coefficient directly; (c)~a constant coefficient of
+$P$ gives zero, as it must for a topological term, while $Q$ is not a total derivative. In terms of Eq.~\eqref{eq:tr-action},
+\begin{equation}
+\mathcal V=18\,\hat g_3+216\,(\alpha_4+i\tilde\alpha_4)+\dots,\qquad 4\pi\frac{|\eta_H|}s=\frac3{40}|\alpha_T|\ \text{(cubic order)}.
+\label{eq:tr-V}
+\end{equation}
+Hall viscosity is a frame-invariant, dissipationless first-order transport coefficient of a parity-violating fluid in
+$2+1$ dimensions~\cite{Jensen:2011xb}; at zero momentum the only local parity-odd contact term is the gravitational Chern--Simons
+term, of order $\omega^3$, so the coefficient of $\omega$ is free of scheme ambiguity. Earlier holographic Hall viscosities
+required an axion with a radial profile or a magnetic field~\cite{Saremi:2011ab,Hoyos:2019pyz}; we found no axion-free
+computation for a neutral brane and no relation to $\alpha_T$ in the literature.
+
+\textbf{Quartic positivity} [D; DV]. For Eq.~\eqref{eq:tr-action} the flat-space four-graviton contact amplitudes are: all-plus
+$\propto\alpha_4-\alpha_4'-2i\tilde\alpha_4$ and maximally helicity violating $\propto\alpha_4+\alpha_4'$, with $IP$ not
+contributing to the latter (\texttt{scope\_thermal/hall/quartic\_IP.py}; the normalization ratio to $\tfrac12\hat g_4(s^2+t^2+u^2)^2$
+is $1.000000$). The flat-space bound $|\hat g_4|\le g_4$~\cite{CHLPS} is then $(\alpha_4-\alpha_4')^2+4\tilde\alpha_4^2\le G_4^2$,
+i.e.\ $\alpha_4,\alpha_4'\ge0$ and $\tilde\alpha_4^2\le\alpha_4\alpha_4'$. Our parity-odd normalization differs by a factor of 2
+from the one implied in Ref.~\cite{CHLPS}; we use the computed amplitude. Consequently $|\alpha_4+i\tilde\alpha_4|^2\le\alpha_4G_4\le G_4^2$.
+This is a flat-space input; we have not established it in AdS.
+
+\textbf{Numbers at $\Delta_g=1000$} [D given the inputs]. $\Lambda=998.50$. Cubic: $(3/40)\times2.8914\times10^{-8}=2.1686\times10^{-9}$.
+Quartic: with quartic positivity and $\tilde g_4=g_4$ (L7), $G_4\le92.81/\Lambda^6=9.36\times10^{-17}$ and $216G_4=2.0\times10^{-14}$
+($3.6\times10^{-14}$ without the scalar condition). Second order: $(17/3840)\tau^2=3.7\times10^{-18}$. Remainder (Sec.~\ref{sec:transport}.H):
+$1.95\times10^{-20}C$. Total $|\mathcal V|\le2.17\times10^{-9}$ and $|\eta_H|/s\le1.73\times10^{-10}$. Without positivity, the cubic
+part alone is at most $(3/40)\tau_*(1000)=1.34\times10^{-3}$, i.e.\ $|\eta_H|/s\le1.06\times10^{-4}$.
+
+\subsection{General linear response}
+\textbf{Algebraic invariants} [DV]. For $16\pi G\mathcal L=R+6+F(I,J,P,Q)$, at first order in $F$, with derivatives at
+$(I,J,P,Q)=(12,12,0,0)$,
+\begin{align}
+\delta(4\pi\eta/s)&=432F_{II}-648F_{IJ}-1944F_{JJ}-108F_J,\\
+\delta(4\pi\eta_H/s)&=108F_Q+1296F_{QI}+1944F_{QJ}-432F_{PI}-648F_{PJ}.
+\end{align}
+These follow from the response to generic radial profiles $\theta_i=\partial F/\partial y_i$, $y=(I,J,P,Q)$, which we computed
+directly (\texttt{scope\_thermal/allorders/shear\_theta.py}, \texttt{hall\_theta.py}): $\delta(4\pi\eta/s)=-6\theta_I'(1)-108\theta_J(1)+18\theta_J'(1)$
+and $\delta(4\pi\eta_H/s)=6\theta_P'(1)+108\theta_Q(1)-18\theta_Q'(1)$; for $Q$ the source is an exact total derivative, so the
+result is horizon-local. No $F_P$, $F_{PP}$, $F_{PQ}$ or $F_{QQ}$ term can appear. Monomial checks against direct computation:
+$IQ$ $+2592$, $JP$ $-648$, $JQ$ $+3240$, $I^2P$ $-10368$, $IJ$ $-1944$, $I^3$ $+31104$, $J^2$ $-6480$.
+
+\textbf{Gradient extension} [D; DV]. For $F(y_i,X_{ij})$ with $X_{ij}=\nabla y_i\cdot\nabla y_j$, define the Euler derivatives
+$A_i=\partial F/\partial y_i-\nabla_\mu[\partial F/\partial(\nabla_\mu y_i)]$ on the brane. Then
+$\delta(4\pi\eta/s)=-108A_J-6A_I'+18A_J'$ and $\delta(4\pi\eta_H/s)=108A_Q+6A_P'-18A_Q'$. The shear leaves the $(v,r)$
+inverse metric and $\sqrt{-g}$ unchanged and the invariants have no first variation, so $X^{(2)}=2\nabla y^{(0)}\cdot\nabla y^{(2)}$
+and integration by parts leaves the Euler derivatives; the extra Iyer--Wald term is proportional to $\nabla y$, which vanishes on
+the bifurcation surface. Direct checks (\texttt{gradient\_direct.py}, \texttt{hall\_gradient\_direct.py}): $(\nabla I)^2$ gives
+$31104$ (flux $32832$ minus Wald $1728$), $\nabla I\cdot\nabla P$ gives $-15552$ (time-dependent computation with no integration
+by parts by hand), $(\nabla J)^2$ gives $-279936$.
+
+\textbf{Ten derivatives} [DV\,+\,Q]. With $U=(\nabla C)^2$ and $\tilde U=\nabla C\cdot\nabla\tilde C$, on any Einstein space with
+$R_{\mu\nu}=-3g_{\mu\nu}$, $U=\tfrac12\Box I+6I+3J$ and $\tilde U=\tfrac12\Box P+6P+3Q$; on the brane $U=180f/r^8$ and
+$\Box I=216/r^6-432/r^9$. The seven independent ten-derivative structures~\cite{Ruhdorfer:2019qmk} are $IJ$, $IQ$, $PJ$, $PQ$,
+$IU$, $PU$, $P\tilde U$, with
+\begin{center}
+\begin{tabular}{lccccccc}
+& $IJ$ & $IQ$ & $PJ$ & $PQ$ & $IU$ & $PU$ & $P\tilde U$\\\hline
+$\delta(4\pi\eta/s)$ & $-1944$ & $0$ & $0$ & $0$ & $-16200$ & $0$ & $0$\\
+$\delta(4\pi\eta_H/s)$ & $0$ & $2592$ & $-648$ & $0$ & $0$ & $3240$ & $0$
+\end{tabular}
+\end{center}
+$IU$ was also computed without the identity (flux $-15768$ plus Iyer--Wald $-432$; \texttt{boxC\_wald.py}), and $PU$ is $\theta P$
+with $\theta=U$. The count is a flat-space Hilbert-series count; with a cosmological constant each reduction also produces
+lower-dimension terms times powers of the curvature scale, which renormalize $t_4$ exactly and the quartic coupling measured by
+$\langle TTTT\rangle$ up to $O(\Lambda^{-2})$.
+
+\subsection{Higher-derivative remainder}
+\textbf{Proposition R} [D; DV, for the stated class and basis]. Let $x=\Lambda^{-2}\le1/997002$ ($\Delta_g\ge1000$). Consider the
+class consisting of all algebraic monomials $I^aJ^bP^cQ^d$, the ten-derivative structures $IU$, $PU$, $P\tilde U$, and all monomials
+of $F(y,X)$ at twelve or more derivatives, and suppose every coefficient $\gamma$ of an operator with $2k$ derivatives, $k\ge5$,
+obeys $|\gamma|\le C\,x^{k-1}$ in this basis. Then at first order in the couplings their total contribution obeys
+$|R_E|\le18145\,C/\Lambda^8$ and $|R_H|\le6481\,C/\Lambda^8$, so $|R|\le19300\,C/\Lambda^8=1.95\times10^{-20}C$ at $\Delta_g=1000$.
+\emph{Proof.} With $A=12x^2$, $B=12x^3$, the sums of the absolute term-wise responses of the algebraic tower are
+$E(x)=\frac{864x^4}{(1-A)^3(1-B)}+\frac{648x^5}{(1-A)^2(1-B)^2}+\frac{3888x^6}{(1-A)(1-B)^3}+\frac{108x^3}{(1-A)(1-B)^2}$ and
+$H(x)=\frac{432x^4}{(1-A)^2(1-B)}+\frac{648x^5}{(1-A)(1-B)^2}+\frac{108x^3}{(1-A)(1-B)}+\frac{1296x^5}{(1-A)^2(1-B)}+\frac{1944x^6}{(1-A)(1-B)^2}$
+(they agree exactly with brute-force sums over monomials). After the cubic and quartic terms are removed, their normalized
+remainders at the largest $x$ are $1944.0377$ and $3240.0136$ in exact rational arithmetic. Gradient monomials with three or
+more factors of $X$ give zero at the horizon; those with one or two give, summed exactly, at most $34993x$ and $104977x$ beyond
+ten derivatives. Adding $IU$ ($16200$) and $PU$ ($3240$) gives $18144.2$ and $6480.1$ (\texttt{allorders/remainder.py}). $\square$\\
+\emph{Scope.} The constants depend on the basis: in the basis $\{(\nabla I)^2,\nabla I\cdot\nabla P\}$ instead of $\{IU,PU\}$ the
+ten-derivative constants become $33048$ and $18792$. Beyond ten derivatives the class does not contain every operator, for example
+$(\Box I)^2$ or general $C^4\nabla^4$ structures, and the hypothesis on $\gamma$ is an assumption about couplings of five or more
+gravitons, which the vacuum three- and four-point functions do not constrain (Sec.~\ref{sec:transport}.K). Proposition R is
+therefore not an all-orders statement about the bulk effective theory. Numerically, with natural coefficients
+$C\lesssim100$, the remainder is below $2\times10^{-18}$.
+
+\subsection{Second order in the cubic couplings}
+\textbf{Result} [DV]. At tree level, $4\pi\eta/s=1+18\alpha_3-255\alpha_3^2=1-\tfrac3{40}t_4-\tfrac{17}{3840}t_4^2$, which reproduces
+the $t_4^2$ coefficient of Ref.~\cite{Li:2019auk}, and $4\pi\eta_H/s=-18\tilde\alpha_3+255\alpha_3\tilde\alpha_3$; $\eta$ has no
+$\tilde\alpha_3^2$ term and $\eta_H$ no $\alpha_3^2$ or $\tilde\alpha_3^2$ term. Hence $\mathcal V=\hat g_3(18-255\,{\rm Re}\,\hat g_3)+\dots$
+and $|\mathcal V-18\hat g_3|\le255|\hat g_3|^2=\tfrac{17}{3840}\tau^2$ (\texttt{allorders/second\_order\_shear.py},
+\texttt{hall\_second\_order.py}, \texttt{wald\_J\_corrected.py}). The Einstein kinetic coefficient is $-Nr^2f/2$ on any static
+background, so the second-order background is not needed. Mixed cubic--quartic terms were not computed; under the bounds they
+are below $10^{-24}$.
+
+\subsection{The corrected viscosity bound and the transport disk}
+Combine Eq.~\eqref{eq:tr-V}, the exact sum rules, and the relative sign of Sec.~\ref{sec:transport}.C:
+\begin{equation}
+\mathcal Z:=\mathcal V+\tfrac{12}5\big(\mathcal S_E-\tfrac38-i\mathcal S_H\big)=216(\alpha_4+i\tilde\alpha_4)-255\,({\rm Re}\,\hat g_3)\,\hat g_3+R,
+\end{equation}
+since $\tfrac{12}5\cdot\tfrac1{32}=\tfrac3{40}$ and the cubic parts cancel in both components. With the combination
+$\mathcal S_E-3/8+i\mathcal S_H$ instead, the cubic imaginary parts add. Taking the real part and $\alpha_4\ge0$:
+\begin{equation}
+4\pi\frac\eta s\ge1-\frac{12}5\Big(\mathcal S_E-\frac38\Big)-\frac{17}{3840}t_4^2-|R_E|
+\end{equation}
+[D given the bulk effective theory on the brane, Proposition R's hypothesis, and $\alpha_4\ge0$]. With
+$\tilde\alpha_4^2\le\alpha_4\alpha_4'$, $|\mathcal Z-108G_4|\le108G_4+\tfrac{17}{3840}\tau^2+|R|$: a disc tangent to the origin,
+so that a corrected shear response at either end of its allowed interval forces the corrected Hall response to vanish. The
+combination is not exact in the CFT: $\eta/s$ needs the brane. A single-trace scalar with $\phi W^2$ coupling and
+$3<\Delta<\Delta_g$ shifts $\eta/s$ without shifting $\mathcal S_E$ and must be excluded.
+
+\subsection{What an EFT-free derivation of \texorpdfstring{$\eta/s$}{eta/s} requires}
+The transport statements above use the bulk effective theory on the brane. A CFT derivation of $\eta/s=1/4\pi$ up to powers
+of $1/\Delta_g$ remains open. We record what it requires.
+
+\textbf{Remark 1 (order of limits)} [Q]. The target is $\mathcal V_{\rm pl}=\lim_{\omega/T\to0^+}\lim_{c_T\to\infty}4\pi\eta(\omega)/s$.
+In $2+1$ dimensions long-time tails give the leading-log running $\mu\,dg/d\mu=-1/(16\pi c_{\rm th}g)$, with $c_{\rm th}=s/T^2$ and
+$g=\eta/s$~\cite{Kovtun:2012rj}. Resolving a deviation of order $\Delta_g^{-4}$ at finite $c_T$ therefore needs
+$\log(\mu_0/\omega)\ll c_T/\Delta_g^4$.
+
+\textbf{Remark 2 (multi-stress data)} [D-sketch]. Expand the thermal $\langle TT\rangle$ in the thermal OPE over $T$ and the
+multi-stress tensors $[T^n]$. At leading order every $n$ contributes to the connected $O(c_T)$ correlator. $n=1$ is fixed by
+$c_T$, $t_4$ and $\alpha_T$. At $n=2$ the contribution is $c_T[(\lambda_1b_0+\lambda_0b_1)B_6+\lambda_0b_0\gamma_1\partial_\Delta B_6]$,
+schematically for the lowest family: the $O(1/c_T)$ OPE data $\lambda_1,\gamma_1$ come from $\langle TTTT\rangle$, but the
+subleading thermal one-point coefficient $b_1$ of $[TT]$ is independent data (cf.\ Eq.~(3.17) of Ref.~\cite{Karlsson:2022osn}
+in four dimensions). $n\ge3$ needs higher-point vacuum data $\langle TT[T^n]\rangle$ and further thermal one-point data. What
+must be bounded is the deviation from the Einstein hierarchy, which is itself nonzero at infinite gap. Finally the thermal OPE
+converges only at separations below $\beta$, while $\eta$ is a zero-frequency quantity, so control of the real-time continuation
+is also needed.
+
+\textbf{Remark 3 (type-N blindness)} [D]. If the bivector Weyl operator $W_0$ (the self-dual $3\times3$ block) satisfies
+$W_0^2=0$, then $F=I_2I_3={\rm tr}\,W^2\,{\rm tr}\,W^3$ obeys $F=DF=D^2F=0$ at $W_0$. \emph{Proof.} $I_2=I_3=0$ at $W_0$, and
+$DI_3[X]=3\,{\rm tr}(W_0^2X)=0$; the product rule gives $DF=DI_2\,I_3+I_2\,DI_3=0$ and
+$D^2F=D^2I_2\,I_3+2\,DI_2\,DI_3+I_2\,D^2I_3=0$. $\square$ The same holds for $\sqrt{-g}F(W(g))$. Aligned AdS plane and shock waves
+of any profile, including superpositions of parallel waves, are of type N, so their quadratic fluctuations are blind to $I_2I_3$.
+This bears on causality constraints from shock waves~\cite{Belin:2019mnx} and on detector methods. It is sharp at cubic order:
+for $N=\begin{pmatrix}1&i&0\\i&-1&0\\0&0&0\end{pmatrix}$ ($N^2=0$) and $X={\rm diag}(2,1,-3)$,
+${\rm tr}(N+tX)^2\,{\rm tr}(N+tX)^3=18t^3+90t^4-252t^5$.
+
+\textbf{Remark 4 (no closure from four-point data)} [D]. Integrating out a scalar of mass $M$ coupled to $g_2I_2+g_3I_3$ gives
+$aI_2^2+bI_2I_3+cI_3^2$ with $a=g_2^2/2M^2$, $b=g_2g_3/M^2$, $c=g_3^2/2M^2$, and sums of such terms obey $b^2\le4ac$. For any
+$A>0$ and any $B$, $g_2=\sqrt{2A}M$, $g_3=BM/\sqrt{2A}$ give $a=A$, $b=B$, $c=B^2/4A$. A bound on the quartic coefficient plus
+mixed positivity therefore does not bound the quintic coefficient $b$; an independent bound on the six-point diagonal $c$ is
+needed.
+
+\textbf{Remark 5 (spectral deformations)} [D]. Sum rules, positivity and the KMS condition do not fix $\eta$. Equal
+deformations $\delta\rho_\pm=\lambda\omega(e^{-\omega/u}-\tfrac uve^{-\omega/v})$ preserve $\mathcal S_E$ and the OPE but change
+$\eta$ by $\lambda(1-u/v)$; opposite ones, $\delta\rho_\pm=\pm\lambda\omega^2e^{-\omega/u}$, preserve $\mathcal S_H$ and change
+the infrared Hall moment by $2\lambda u/\pi$. More sharply, $\delta\rho_\epsilon=A\omega e^{-\omega^2/\epsilon^2}P_m(\omega^2/\epsilon^2)$
+with $P_m=L_m^{(-1/2)}(x)/L_m^{(-1/2)}(0)$ has $\delta\eta=A$, vanishing moments $M_0,\dots,M_{m-1}$, and
+$\sup_\tau|\delta G_E|\le2A\,m!\,\zeta(2m)\beta^{2m-1}\epsilon^{2m+1}/[\sqrt\pi(2\pi)^{2m}]$. For $m=1$,
+$\delta\rho=A\omega(1-2\omega^2/\epsilon^2)e^{-\omega^2/\epsilon^2}$, $\sup|\delta G_E|\le A\beta\epsilon^3/(12\sqrt\pi)$, and positivity
+is preserved if $\rho_0\ge\kappa\omega$ and $A\le\kappa e^{3/2}/2$. Its time kernel has $\int\delta K=0$ and
+$\int|\delta K|=4A\epsilon/(e\sqrt\pi)\to0$, while $-\int t\,\delta K=A$ stays fixed. This is a response-function construction,
+not a CFT: thermal crossing or higher-point consistency would have to exclude it.
+
+\textbf{Remark 6 (a sufficient Kubo lemma)} [D]. Write the subtracted correlator as $g-g_0=h_{\rm UV}+\int(e^{i\omega u}-1)\,\delta k(u)\,du$,
+where $g_0$ is the Einstein reference with $\eta_0=s_0/4\pi$, and suppose $\int|u\,\delta k|\le E$,
+$|\lim_{\omega\to0}{\rm Im}\,h_{\rm UV}/\omega|\le U$ and $|s-s_0|\le\delta s_0$. Then $|4\pi\eta/s-1|\le[4\pi(E+U)/s_0+\delta]/(1-\delta)$.
+A uniform $\Delta_g^{-4}$ bound on the resummed first time moment would therefore complete the Kubo step.
+
+\subsection{Assumptions of the transport and spectral statements}
+\begin{center}
+\begin{tabular}{L{6.2cm}L{9.6cm}}
+statement & inputs (grade)\\\hline
+Shear sum rule & condition (b) of Sec.~\ref{sec:transport}.B [Q; DV]\\
+Hall sum rule, magnitude & as above, parity-odd analogue; CFT argument [D-sketch], checked on the brane and the CS-fermion OPE side [DV]\\
+Universal disc & both sum rules; collider bound [Q]\\
+Theorem SG & A1$'$, A2$'$, inputs of $\tau_*$, condition (b); leading order in $1/c_T$\\
+Fixed-gap and all-gap forms & as for Eq.~(3) of the Letter, resp.\ Eq.~\eqref{eq:fp-allgap} with U1\\
+$\mathcal V=18\hat g_3+\dots$; Hall viscosity & bulk effective theory on the brane, tree level [DV]\\
+Bound on $|\mathcal V|$ & the above; quartic positivity and L7 for $G_4$ [A]; $|\hat g_4|\le g_4$ [Q, flat space]; Proposition R hypothesis [A]\\
+Corrected viscosity bound, disk & the above; $\alpha_4\ge0$, $\tilde\alpha_4^2\le\alpha_4\alpha_4'$ [flat space]; no $\phi W^2$ scalar below the gap\\
+EFT-free $\eta/s$ & open [I]\\
+\end{tabular}
+\end{center}
