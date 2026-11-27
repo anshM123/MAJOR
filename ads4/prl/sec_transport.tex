@@ -31,8 +31,8 @@ with $\rho={\rm Im}\,g$. On the gravity side we use the action
 16\pi G\,\mathcal L=R+6-\tfrac16(\alpha_3J+\tilde\alpha_3Q)+\tfrac14(\alpha_4I^2+\alpha_4'P^2+2\tilde\alpha_4IP)+\dots,
 \label{eq:tr-action}
 \end{equation}
-in units of the AdS radius, with $I=C_{\mu\nu\rho\sigma}C^{\mu\nu\rho\sigma}$, $P=C_{\mu\nu\rho\sigma}\tilde C^{\mu\nu\rho\sigma}$,
-$J=C_{\mu\nu}{}^{\rho\sigma}C_{\rho\sigma}{}^{\alpha\beta}C_{\alpha\beta}{}^{\mu\nu}$ and
+in units of the AdS radius, with $I=C_{\mu\nu\rho\sigma}C^{\mu\nu\rho\sigma}$ and $P=C_{\mu\nu\rho\sigma}\tilde C^{\mu\nu\rho\sigma}$,
+and with $J=C_{\mu\nu}{}^{\rho\sigma}C_{\rho\sigma}{}^{\alpha\beta}C_{\alpha\beta}{}^{\mu\nu}$ and
 $Q=C_{\mu\nu}{}^{\rho\sigma}C_{\rho\sigma}{}^{\alpha\beta}\tilde C_{\alpha\beta}{}^{\mu\nu}$. This is the action of
 Ref.~\cite{CHLPS} with the Riemann tensor replaced by the Weyl tensor, which is exact on Einstein spaces up to Ricci and
 topological terms. We write $\hat g_3=\alpha_3+i\tilde\alpha_3$, $G_4=\alpha_4+\alpha_4'=g_4/8\pi G$, and
@@ -59,7 +59,7 @@ coefficient is proportional to $d-\Delta_{\mathcal O}-2$ and vanishes~\cite{Luca
 side can shift.
 (c)~In a holographic CFT with large $c_T$, a single-trace scalar that couples to $TT$ (bulk $\phi W^2$) is sourced on the black
 brane at the same order, so (b) amounts to: no single-trace scalar with $\Delta\le3$ couples to $TT$. This is implied by the
-``no light single trace'' condition of Eq.~(3) of the Letter and is stronger than the condition $\Delta>1$ used for $\tau_*$.
+``no light single trace'' condition of Eq.~(5) of the Letter and is stronger than the condition $\Delta>1$ used for $\tau_*$.
 The sum rule depends only on $t_4$ and $\varepsilon$: higher-derivative couplings that do not change $\langle TTT\rangle$,
 including $R^4$, do not enter it, at any $c_T$.
 
@@ -104,7 +104,7 @@ different observables; nothing in (1)--(4) relates $J_H$ to $\eta_H$.
 \textbf{Claim} [D-sketch; DV]. $|\mathcal S_H|=|\alpha_T|/32$. \emph{Sketch.} The $T$-exchange coefficient is extracted from the
 soft $T$ leg of $\langle TTT\rangle$. In three dimensions the parity-odd homogeneous structure is the parity-even one with a
 helicity phase on the hard legs~\cite{Jain:2021gwa}: on a transverse traceless leg of momentum $k$ the rotation
-$(\mathscr R_kX)_{ij}=\tfrac12(\epsilon_{i\ell m}\hat k^\ell X_{mj}+\epsilon_{j\ell m}\hat k^\ell X_{im})$ obeys $\mathscr R_k^2=-1$ and,
+$(\mathcal R_kX)_{ij}=\tfrac12(\epsilon_{i\ell m}\hat k^\ell X_{mj}+\epsilon_{j\ell m}\hat k^\ell X_{im})$ obeys $\mathcal R_k^2=-1$ and,
 for $k$ along Euclidean time, rotates $T_1$ into $T_2$. The rotation commutes with the extraction, so the diagonal coefficient
 $t_4/32$ becomes an antisymmetric coefficient of magnitude $|\alpha_T|/32$, with the relative normalization of $t_4$ and
 $\alpha_T$ fixed by the collider energy matrix of Ref.~\cite{CDPrakash}. A linearized check of the rotation: for the regular
@@ -153,7 +153,7 @@ The theorem uses no black brane, no bulk effective theory and no positivity assu
 $1/c_T$: the sum rule is exact at any $c_T$, but $\tau_*$ is not. Examples: $\delta=10^{-2}$ gives $\Delta_g\le57.64$ (exact
 inversion) and $\delta=10^{-3}$ gives $\Delta_g\le557.8$.
 
-\textbf{Fixed gap} [certified\,+\,inputs of Eq.~(3) of the Letter]. If $\Delta_g\ge1000$ and no light single trace appears in
+\textbf{Fixed gap} [certified\,+\,inputs of Eq.~(5) of the Letter]. If $\Delta_g\ge1000$ and no light single trace appears in
 $T\times T$, $\delta_{\rm th}\le2.8914\times10^{-8}/32=9.04\times10^{-10}$; equivalently, $\delta_{\rm th}>9.04\times10^{-10}$
 forces a higher-spin single trace below twist 1000.
 
@@ -220,7 +220,7 @@ computation for a neutral brane and no relation to $\alpha_T$ in the literature.
 
 \textbf{Quartic positivity} [D; DV]. For Eq.~\eqref{eq:tr-action} the flat-space four-graviton contact amplitudes are: all-plus
 $\propto\alpha_4-\alpha_4'-2i\tilde\alpha_4$ and maximally helicity violating $\propto\alpha_4+\alpha_4'$, with $IP$ not
-contributing to the latter (\texttt{scope\_thermal/hall/quartic\_IP.py}; the normalization ratio to $\tfrac12\hat g_4(s^2+t^2+u^2)^2$
+contributing to the latter (script \texttt{quartic\_IP.py} in \texttt{scope\_thermal/hall}; the normalization ratio to $\tfrac12\hat g_4(s^2+t^2+u^2)^2$
 is $1.000000$). The flat-space bound $|\hat g_4|\le g_4$~\cite{CHLPS} is then $(\alpha_4-\alpha_4')^2+4\tilde\alpha_4^2\le G_4^2$,
 i.e.\ $\alpha_4,\alpha_4'\ge0$ and $\tilde\alpha_4^2\le\alpha_4\alpha_4'$. Our parity-odd normalization differs by a factor of 2
 from the one implied in Ref.~\cite{CHLPS}; we use the computed amplitude. Consequently $|\alpha_4+i\tilde\alpha_4|^2\le\alpha_4G_4\le G_4^2$.
@@ -373,7 +373,7 @@ Shear sum rule & condition (b) of Sec.~\ref{sec:transport}.B [Q; DV]\\
 Hall sum rule, magnitude & as above, parity-odd analogue; CFT argument [D-sketch], checked on the brane and the CS-fermion OPE side [DV]\\
 Universal disc & both sum rules; collider bound [Q]\\
 Theorem SG & A1$'$, A2$'$, inputs of $\tau_*$, condition (b); leading order in $1/c_T$\\
-Fixed-gap and all-gap forms & as for Eq.~(3) of the Letter, resp.\ Eq.~\eqref{eq:fp-allgap} with U1\\
+Fixed-gap and all-gap forms & as for Eq.~(5) of the Letter, resp.\ Eq.~\eqref{eq:fp-allgap} with U1\\
 $\mathcal V=18\hat g_3+\dots$; Hall viscosity & bulk effective theory on the brane, tree level [DV]\\
 Bound on $|\mathcal V|$ & the above; quartic positivity and L7 for $G_4$ [A]; $|\hat g_4|\le g_4$ [Q, flat space]; Proposition R hypothesis [A]\\
 Corrected viscosity bound, disk & the above; $\alpha_4\ge0$, $\tilde\alpha_4^2\le\alpha_4\alpha_4'$ [flat space]; no $\phi W^2$ scalar below the gap\\
