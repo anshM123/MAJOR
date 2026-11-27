@@ -289,3 +289,19 @@ With those, a Cauchy estimate gives a power law. This is the CFT image of Propos
   * (C) The hyperbolic analyticity imposes no relation [P].
 * **Corollary.** In the exchange sector, four-point data bound the *increase* of η/s. Only the KSS (lower) side is open.
 * **Weakest useful target.** Σ_X⟨X|T³⟩²/M_X² ≲ Δ_g⁻², the six-point diagonal.
+
+## 2026-11-27, session 7: higher-point Regge boundedness and string theory (THEOREM_RB.md; `regge5_counterexample.py`)
+
+* **String theory [Q].**
+  * Type II tree level has no α′⁴ terms: only odd zetas in the four-point expansion, and single-valued MZVs at five points kill
+    weight 4.
+  * R⁵ is absent at tree level (Garousi 0910.0180) and at one loop (Richards 0807.2421).
+  * Maximal supersymmetry forbids an R⁵ superinvariant, and D²R⁴ vanishes on shell (Elvang–Freedman–Kiermaier 1003.5018).
+  * So β₅ = 0 at its natural order Δ_g⁻⁸, and the remainder is O(Δ_g⁻¹⁰), far inside Theorem H's need.
+  * Supersymmetry is a candidate extra input [D-sketch; the AdS₄ superinvariant check is not done].
+* **Five-point Regge boundedness.** It gives only linear relations in the sign-indefinite interference measure g₂g₃.
+  * Homogeneity lemma [P]: only inhomogeneous sum rules can confine g₃/g₂.
+  * Linear-algebra counterexample [P]: β₅ = ±10³ at fixed four-point data, with all imposed relations satisfied.
+  * Not constructed: a realizing Regge-bounded spinning tower [A].
+* **Six-point Regge boundedness [P conditional].** If a 3 → 3 improved sum rule exists (positive diagonal Σg₃², GR-computable light
+  side, domination for M ≥ Λ), then Gram gives |β₅| ≤ 2√(A κ₆L₆) ~ Δ_g⁻⁸, two-sided. This is the sharpened open problem.
