@@ -1,0 +1,6 @@
+known x^(2, 4) <= (1.0, 0.2), target x^3:  LP = 0.447214   closed form = 0.447214 
+known x^(2, 4) <= (1.0, 0.9), target x^3:  LP = 0.948683   closed form = 0.948683 
+known x^(2, 4) <= (1.0, 2.0), target x^3:  LP = 1   closed form = 1 
+known x^(2, 4) <= (1.0, 0.01), target x^2.5:  LP = 0.316228   closed form = 0.316228 
+known x^(2, 3) <= (1.0, 0.3), target x^4:  LP = 0.300001   closed form = 0.3 
+known x^(2, 3) <= (1.0, 0.3), target x^1:  LP = inf   closed form = inf (unbounded: mass escaping to m -> infinity)

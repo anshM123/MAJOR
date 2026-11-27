@@ -1,7 +1,7 @@
 """md_dquadJ.py -- direct D' per-nu image of the literal CLS-D k = 2 EE functional on a spin-J block (md_spinJ integrand), all
 conserved parity-even structure pairs (a: <TTO_Delta>, c: <TTO~_{3-Delta}>) -> matrix I[a, c](nu).  Product rule as md_dquad with
 t-weights t^6 e^{-lam t}, lam = 1 - (5 + J)/Delta (measured decay toward the B zero, md_test_spinJ); requires Delta - J > 5.
-Usage: python3 md_dquadJ.py Delta J n1,...,n7 [nus] -> out/dqJ_D<Delta>_J<J>_<grid>.npz
+Usage: [MD_KIND=C3] python3 md_dquadJ.py Delta J n1,...,n7 [nus] -> out/dqJ_D<Delta>_J<J>_<grid>.npz (k = 2) or out/dq3_... (k = 3, C3H)
 """
 import os, sys, time
 sys.dont_write_bytecode = True
@@ -14,15 +14,20 @@ import md_spinJ as SJ
 from md_dquad import NUS_DEF
 np.seterr(all='ignore')
 
-SPEC = [('lag', 6.0), ('jac', 2.25, 1.75, -0.5, 0.5), ('tjac', 1.75, -0.5), ('lag', 6.0),
-        ('jac', 0.25, -0.25, 0.5, -0.5), ('cos', 0.5, 1.0), ('sin', -0.5, -1.0)]
+SPECS = {'C2': [('lag', 6.0), ('jac', 2.25, 1.75, -0.5, 0.5), ('tjac', 1.75, -0.5), ('lag', 6.0),
+                ('jac', 0.25, -0.25, 0.5, -0.5), ('cos', 0.5, 1.0), ('sin', -0.5, -1.0)],
+         # k = 3 (C3H): measured C3H/scalar boundary exponents t +1, r_x (+1/2, -1/2), s +1/2, r_y (-1/2, -1/2), phi -2 (md_probe3)
+         'C3': [('lag', 7.0), ('jac', 2.75, 1.25, -0.5, 0.5), ('tjac', 2.25, -0.5), ('lag', 7.0),
+                ('jac', 1.75, 1.25, 0.5, -0.5), ('cos', 2.5, 1.0), ('sin', -0.5, -1.0)]}
+SPEC = SPECS['C2']
+KIND = os.environ.get('MD_KIND', 'C2')
 
 
 def rules(ns, Delta, J):
     lam = 1.0 - (5.0 + J)/Delta
     assert lam > 0, 'D\' integral diverges for Delta - J <= 5'
     out = []
-    for sp, n in zip(SPEC, ns):
+    for sp, n in zip(SPECS[KIND], ns):
         out.append(PQ.Rule('lag', n, sp[1], lam) if sp[0] == 'lag' else PQ.Rule(sp[0], n, *sp[1:]))
     return out
 
@@ -51,7 +56,7 @@ def run(Delta, J, ns, nus=NUS_DEF, verbose=True):
                     lh = o['L'] - lw
                     if shift is None:
                         shift = float(np.max(lh[np.isfinite(lh)]))
-                    rat = SJ.ratio(o['g'], Delta, J)                                    # (na, nc, N)
+                    rat = SJ.ratio(o['g'], Delta, J) if KIND == 'C2' else SJ.ratio3(o['g'], Delta, J)                                    # (na, nc, N)
                     h = np.exp(lh - shift)[None, None]*rat
                     bad = ~np.isfinite(h)
                     nbad += int(bad.sum()); h = np.where(bad, 0.0, h)
@@ -64,7 +69,7 @@ def run(Delta, J, ns, nus=NUS_DEF, verbose=True):
                 I = ang*T if I is None else I + ang*T
         if verbose:
             print(f'   D={Delta:g} J={J} t-node {it + 1}/{len(ts)}: {time.time() - t0:.0f}s, nbad {nbad}', flush=True)
-    fn = os.path.join(HERE, 'out', 'dqJ_D%g_J%d_%s.npz' % (Delta, J, '-'.join(map(str, ns))))
+    fn = os.path.join(HERE, 'out', '%s_D%g_J%d_%s.npz' % ('dqJ' if KIND == 'C2' else 'dq3', Delta, J, '-'.join(map(str, ns))))
     np.savez(fn, nus=nus, I=I, shift=shift, nbad=nbad, ns=np.array(ns), Delta=Delta, J=J)
     return fn, nus, I*np.exp(shift)
 

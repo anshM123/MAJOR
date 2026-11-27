@@ -76,6 +76,12 @@ _CACHE = {}
 
 def conserved(Delta, J):
     key = (round(float(Delta), 12), int(J))
+    if key not in _CACHE and int(J) == 0:
+        # closed form (repro_engine/tto_conserved.py, own derivation there; checked against l4 at Delta = 10, 23.7 by md_test_spinJ)
+        d = float(Delta); den = d*d - 6*d + 6
+        mons = [(2, 2, 0, 0, 0, 0), (1, 1, 0, 1, 0, 0), (0, 0, 0, 2, 0, 0)]
+        sol = np.array([[d*(d + 2)/(2*den)], [2*d*(d - 4)/den], [1.0]])
+        _CACHE[key] = (mons, sol/np.abs(sol).max(), 1)
     if key not in _CACHE:
         import l4_tto_even as L4
         r = L4.conserved_even(float(Delta), int(J))

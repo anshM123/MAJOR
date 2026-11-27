@@ -1,0 +1,6 @@
+n=1  w/(2piT) = 1.232948 -1.775902i   angle below real axis = 55.229 deg   |A(w)|=2.0e-14
+n=2  w/(2piT) = 2.107504 -3.277612i   angle below real axis = 57.259 deg   |A(w)|=1.4e-09
+n=3  w/(2piT) = 2.949635 -4.740278i   angle below real axis = 58.108 deg   |A(w)|=8.9e-05
+(n>=4 not converged by this LHP shooting; dropped.)  Angles approach pi/3 = 60 deg (AdS4 asymptotics).
+Term r_n e^{-i w_n t} with w_n = |w| e^{-i theta}: decays for t = |t|e^{i phi} iff |phi| < theta (mirror pole -w_n^* included).
+=> sector of analyticity of K(t), t>0: |arg t| < alpha with alpha -> pi/3 (min over n of theta_n = 55.2 deg for the lowest QNM).

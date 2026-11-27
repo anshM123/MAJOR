@@ -1,0 +1,4 @@
+tau=    1  P(0)=         2.05560458318  sqrt(pi)/|G|^2=         2.05560458318  e^(pi tau/2)/sqrt(2 pi tau)=         1.91910281618  Mehler-Dirichlet=2.05560458318
+tau=   10  P(0)=         837654.646008  sqrt(pi)/|G|^2=         837654.646008  e^(pi tau/2)/sqrt(2 pi tau)=         837127.935832  Mehler-Dirichlet=837654.646008
+tau=  100  P(0)=     6.60283542137e+66  sqrt(pi)/|G|^2=     6.60283542137e+66  e^(pi tau/2)/sqrt(2 pi tau)=     6.60279415119e+66  Mehler-Dirichlet=6.60283542137e+66
+tau=  300  P(0)=     1.0442459903e+203  sqrt(pi)/|G|^2=     1.0442459903e+203  e^(pi tau/2)/sqrt(2 pi tau)=    1.04424526512e+203  Mehler-Dirichlet=nan

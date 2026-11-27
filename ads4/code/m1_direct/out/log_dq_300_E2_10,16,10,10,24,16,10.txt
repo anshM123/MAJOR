@@ -1,0 +1,6 @@
+   D=300 E2 t-node 1/10: 62s, max|eps| 3.2e-04, nbad 0
+   D=300 E2 t-node 2/10: 128s, max|eps| 3.2e-04, nbad 0
+   D=300 E2 t-node 3/10: 194s, max|eps| 3.2e-04, nbad 0
+   D=300 E2 t-node 4/10: 264s, max|eps| 3.2e-04, nbad 0
+   D=300 E2 t-node 5/10: 328s, max|eps| 3.2e-04, nbad 0
+   D=300 E2 t-node 6/10: 389s, max|eps| 3.2e-04, nbad 0

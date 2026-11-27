@@ -1,0 +1,4 @@
+   D=30 J=0 t-node 1/6: 58s, nbad 0
+   D=30 J=0 t-node 2/6: 93s, nbad 0
+   D=30 J=0 t-node 3/6: 130s, nbad 0
+   D=30 J=0 t-node 4/6: 167s, nbad 0

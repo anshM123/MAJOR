@@ -1,0 +1,32 @@
+p = 1.0 (alpha = 90.0 deg)
+   N= 10  log(Lam)/N = 1.666   -log(beta)/N^(1-p) = 4.19
+   N= 40  log(Lam)/N = 1.727   -log(beta)/N^(1-p) = 6.758
+   N=120  log(Lam)/N = 1.747   -log(beta)/N^(1-p) = 8.907
+   eps=1e-6  bound=   0.05044   -log(bound)/L^(1-p) = 2.987
+   eps=1e-12 bound=   0.01156   -log(bound)/L^(1-p) = 4.46
+   eps=1e-24 bound=  0.002596   -log(bound)/L^(1-p) = 5.954
+   eps=1e-48 bound= 0.0005935   -log(bound)/L^(1-p) = 7.43
+p = 0.75 (alpha = 120.0 deg)
+   N= 10  log(Lam)/N = 1.912   -log(beta)/N^(1-p) = 3.478
+   N= 40  log(Lam)/N = 1.984   -log(beta)/N^(1-p) = 4.683
+   N=120  log(Lam)/N = 2.004   -log(beta)/N^(1-p) = 5.449
+   eps=1e-6  bound=   0.02328   -log(bound)/L^(1-p) = 1.95
+   eps=1e-12 bound=  0.002263   -log(bound)/L^(1-p) = 2.657
+   eps=1e-24 bound= 0.0001197   -log(bound)/L^(1-p) = 3.312
+   eps=1e-48 bound=  3.365e-6   -log(bound)/L^(1-p) = 3.887
+p = 0.6 (alpha = 150.0 deg)
+   N= 10  log(Lam)/N = 2.107   -log(beta)/N^(1-p) = 3.167
+   N= 40  log(Lam)/N = 2.19   -log(beta)/N^(1-p) = 3.874
+   N=120  log(Lam)/N = 2.211   -log(beta)/N^(1-p) = 4.255
+   eps=1e-6  bound=   0.01353   -log(bound)/L^(1-p) = 1.505
+   eps=1e-12 bound= 0.0007215   -log(bound)/L^(1-p) = 1.918
+   eps=1e-24 bound=  1.126e-5   -log(bound)/L^(1-p) = 2.289
+   eps=1e-48 bound=  3.647e-8   -log(bound)/L^(1-p) = 2.608
+p = 0.5 (alpha = 180.0 deg)
+   N= 10  log(Lam)/N = 2.267   -log(beta)/N^(1-p) = 3.008
+   N= 40  log(Lam)/N = 2.361   -log(beta)/N^(1-p) = 3.464
+   N=120  log(Lam)/N = 2.384   -log(beta)/N^(1-p) = 3.68
+   eps=1e-6  bound=  0.009299   -log(bound)/L^(1-p) = 1.259
+   eps=1e-12 bound= 0.0003227   -log(bound)/L^(1-p) = 1.529
+   eps=1e-24 bound=  1.914e-6   -log(bound)/L^(1-p) = 1.771
+   eps=1e-48 bound= 8.767e-10   -log(bound)/L^(1-p) = 1.984

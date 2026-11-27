@@ -1,0 +1,38 @@
+(H) Phi >= 0: rigorous lower bound on 4 pi eta/s from E(1..N) (true Einstein value 1)
+  N=1: 4pi eta/s >= 0.4128
+  N=2: 4pi eta/s >= 0.7152
+  N=3: 4pi eta/s >= 0.8220
+  N=4: 4pi eta/s >= 0.8969
+  N=5: 4pi eta/s >= 0.9324
+  N=6: 4pi eta/s >= 0.9578
+  N=7: 4pi eta/s >= 0.9716
+  N=8: 4pi eta/s >= 0.9817
+(H) with Euclidean data known only to +-eps (lower bound, no M needed)
+  eps=1e-02: N=2: 0.6535  N=4: 0.6800  N=6: 0.6825  N=8: 0.6825
+  eps=1e-03: N=2: 0.7088  N=4: 0.8265  N=6: 0.8365  N=8: 0.8374
+  eps=1e-04: N=2: 0.7146  N=4: 0.8883  N=6: 0.9084  N=8: 0.9120
+  eps=1e-06: N=2: 0.7152  N=4: 0.8968  N=6: 0.9566  N=8: 0.9682
+(H)+(M): two-sided bounds with int x^{-gamma} dnu <= M (gamma in units of y_1 = 1.5, i.e. Re s > -gamma)
+  gamma=0.5 M=1.5 N=2: 0.7152 <= 4 pi eta/s <= 0.9324
+  gamma=0.5 M=1.5 N=4: 0.8969 <= 4 pi eta/s <= 0.9169
+  gamma=0.5 M=1.5 N=8: nan <= 4 pi eta/s <= inf
+  gamma=0.5 M=2.0 N=2: 0.7152 <= 4 pi eta/s <= 1.0979
+  gamma=0.5 M=2.0 N=4: 0.8969 <= 4 pi eta/s <= 1.0375
+  gamma=0.5 M=2.0 N=8: 0.9817 <= 4 pi eta/s <= 1.0160
+  gamma=0.5 M=5.0 N=2: 0.7152 <= 4 pi eta/s <= 1.8705
+  gamma=0.5 M=5.0 N=4: 0.8969 <= 4 pi eta/s <= 1.5326
+  gamma=0.5 M=5.0 N=8: 0.9817 <= 4 pi eta/s <= 1.2806
+  gamma=1.0 M=5.0 N=2: 0.7152 <= 4 pi eta/s <= 1.2246
+  gamma=1.0 M=5.0 N=4: 0.8969 <= 4 pi eta/s <= 1.0730
+  gamma=1.0 M=5.0 N=8: 0.9817 <= 4 pi eta/s <= 1.0213
+  gamma=1.0 M=20.0 N=2: 0.7152 <= 4 pi eta/s <= 2.1766
+  gamma=1.0 M=20.0 N=4: 0.8969 <= 4 pi eta/s <= 1.5286
+  gamma=1.0 M=20.0 N=8: 0.9817 <= 4 pi eta/s <= 1.1871
+(S) Phi completely monotone (E Stieltjes): minimal sup-residual of a positive-mu fit to E(1..N)
+  N=2: residual = 0.000e+00
+  N=3: residual = 1.701e-03
+  N=4: residual = 2.448e-03
+  N=5: residual = 2.772e-03
+  N=6: residual = 2.893e-03
+  N=7: residual = 2.913e-03
+  N=8: residual = 2.913e-03
