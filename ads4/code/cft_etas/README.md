@@ -225,3 +225,27 @@ With those, a Cauchy estimate gives a power law. This is the CFT image of Propos
   * `hyp_cauchy.py` → `out_hyp_cauchy.txt`: the Einstein analytic structure and the Theorem H rates.
   * Superseded, too slow (unsimplified rational expressions): `hyp_full.py`, `hyp_fast.py`, and their `out_` files. `hyp_response.py`
     was never run.
+
+## 2026-11-27, session 4: the k = 2 coefficient (THEOREM_K2.md)
+
+* **Lemma M [P].** ⟨Ω|K_R^m A|Ω⟩ = ⟨Ω|A K_L^m|Ω⟩. So modular cumulants are left–right correlators across the Rindler horizon.
+  * a₂ contains the vacuum 5-point cumulant ⟨O_Y O_Y K_L³⟩_c, a weighted light-ray (boost-charge) correlator.
+* **Decomposition [DV + D].** δa₂ = 15λ_J (t₄) + 408λ_{I²} (quartic) − 2880β₅ (five-point) + O(λ²).
+  * Only β₅ is uncontrolled.
+  * Its exchange part is the (2,3) entry of a positive Gram matrix, so |β₅| ≤ √(G₂₂G₃₃).
+  * Requirement: Theorem H needs only |β₅| ≲ Δ_g⁻⁴/2880. That follows from a **six-point diagonal c ≲ Δ_g⁻²** (natural size
+    Δ_g⁻¹⁰), which is very weak but still 6-point.
+* **Failures, with reasons.**
+  * (a) 5-point light-ray superconvergence gives relations of the form β₅ = interference sum. The heavy side is not positive (support
+    lemma).
+  * (b) Tomita–Takesaki Δ^s only complex-boosts single operators, since B|Ω⟩ = 0, so it reaches 3-point data only [P]. The K_R
+    positivity is per-theory only.
+  * (c) Rényi/coherent states e^{−sK_R}|Ω⟩: energy-flux positivity there is one-sided or O(1), with no Δ_g.
+* **Most promising handle [D-sketch, conjectural]: thermal microcausality ("thermal CEMZ").**
+  * Type-D thermal backgrounds see I₂I₃, unlike type-N shocks. The momentum-enhanced delay is ∝ β₅ x³ k² for k up to Δ_g.
+  * Two-sided causality constraints would give |β₅| ≲ Δ_g⁻². With uniformity in k, Theorem H would then give
+    |4πη/s − 1| ≲ Δ_g⁻² log Δ_g.
+  * Not done: the bulk delay computation in the vector/scalar channels, the CFT derivation through the thermal lightcone bootstrap,
+    and uniformity.
+* **Bottleneck.** Inclusive heavy weights in the multi-stress channels, G_{jj} = Σ_X |⟨X|T^j⟩|²/M², for j ≥ 3. Gram bounds then
+  control every exchange off-diagonal.
