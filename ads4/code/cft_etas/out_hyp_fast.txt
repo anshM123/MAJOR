@@ -1,0 +1,3 @@
+Gamma 0.0s
+Riemann 0.1s
+Weyl 5.9s

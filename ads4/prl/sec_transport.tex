@@ -480,7 +480,11 @@ gap does not supply ($-1/z+\lambda/(1-z)$ has a zero at $1/(1+\lambda)$).
 
 \textbf{Remark 13 (real-time data)} [P/D-sketch]. (a) For $t<\beta/2$ the zero-momentum stress commutator is fixed by the convergent Lorentzian thermal OPE
 ($|t|+|x|<\beta$, causal support), heavy states contribute $\lesssim(2t/\beta)^{\Delta_g}$, and analytic (double-trace) terms give no commutator, so the
-thermal coefficient $b_1$ of Remark 2 drops out of the early response [D-sketch; proved for scalar structures]. (b) If the retarded-kernel deviation is
+thermal coefficient $b_1$ of Remark 2 drops out of the early response only at exact mean-field dimensions: an anomalous dimension
+$\delta$ lifts the zero at first order, ${\rm Disc}(-t^2)^{n+\delta/2}=i\pi(-1)^n\delta\,t^{2n}+O(\delta^2)$, and with $\lambda_{ttD}=O(1)$,
+$\langle D\rangle_\beta=O(c_T)$, $\delta_D=O(1/c_T)$ this enters at leading connected order, as do light multi-stress primaries (a scalar triple-stress
+operator near $\Delta=9$ already has a timelike discontinuity), so the early-time remainder is not $(2t/\beta)^{\Delta_g}$ without control of the
+multi-stress data. (b) If the retarded-kernel deviation is
 analytic and bounded in a sector $|\arg t|<\alpha$ and $\le\varepsilon$ on $(0,t_2]$, then $|k(t)|\le M^{1-\theta}\varepsilon^\theta$ with
 $\theta=(2/\pi)\arcsin((t_2/t)^{\pi/2\alpha})$; with the Einstein quasinormal-mode angles ($\to60^\circ$) this gives $\exp[-2.3(\log1/\varepsilon)^{0.4}]$,
 better than any power of the logarithm but not a power of $\Delta_g$ [P]. (c) A one-signed deviation would give a power, but if the first quasinormal mode
@@ -489,6 +493,23 @@ zeros spaced by $\pi/{\rm Re}\,\omega_1$, and even monotone near-horizon deforma
 remaining CFT-native route is the hyperbolic one: on $\mathbb R\times H^2$ the state at $T_0=1/2\pi R$ is conformal to the vacuum, temperature derivatives
 there are integrated vacuum $n$-point functions of $T$, and the planar quantity is the endpoint of a continuation in temperature; all-$n$ vacuum gap bounds
 plus uniform analyticity of that continuation would give a power law by Cauchy's estimate (\texttt{code/cft\_etas}).
+
+\textbf{Remark 14 (the hyperbolic continuation)} [D; conditional theorem P]. On $\mathbb R\times H^2_R$ use the strain $\delta g_{ij}=2h\,Y_{ij}$, $Y=dx^2-dy^2$ in
+disk coordinates, which is transverse, traceless, $-D^2Y=2Y$, of finite norm $\mathcal N_Y=\pi/6$, and not pure gauge; define
+$\eta_Y=-\lim_{\omega\to0}{\rm Im}\,G^R_{O_YO_Y}/(2\mathcal N_Y\omega)$. On the hyperbolic Einstein branch its zero-frequency solution is $H_0=1$, so
+$\eta_Y/s=1/4\pi$ at every temperature; at $T_0=1/2\pi R$ the ingoing solution is $(1-i\bar\omega/r)e^{i\bar\omega\,{\rm arccoth}\,r}$ with flux
+$-\bar\omega(1+\bar\omega^2)$ [checked symbolically], and since the $T_0$ two-point function is the conformally mapped vacuum one,
+$\eta_Y(T_0)=\pi^2C_T/(48R^2)$ is a CFT statement. With the heat capacity $c_H=T\partial_Ts$ (free of the sphere-entropy constant), the Rényi relation
+gives $c_H(T_0)=4\pi\eta_Y(T_0)$ exactly, and $8\pi\eta_Y/c_H\to4\pi\eta/s$ at the flat endpoint ($c=2s$ in $d=3$). For Einstein gravity the flat and DC
+limits commute uniformly: $\sup_{0\le\lambda\le1}|4\pi\mathcal D_E(\lambda,w)-1|\le Cw^2$ for $|w|<\delta$, $\lambda=r_h^{-2}$ [P]. Temperature derivatives
+at $T_0$ are modular cumulants $\kappa_1(K^n;A)$, i.e.\ integrated vacuum correlators with up to $n+2$ stress tensors; the rescaled retarded kernel at
+fixed $\omega/T$ also picks up time-rescaling and $q^4$ terms and contact distributions ($\mathcal D[\delta_+']=1$). Conditional theorem: if the
+deviations of the normalised $\hat\eta$ and $\hat c$ from Einstein have modular expansions with common summable majorants $\sum b_n\le\epsilon M_\eta$,
+$\sum e_n\le\epsilon M_c$, uniform on a small real-frequency region including the DC boundary, then $|4\pi\eta/s-1|\le\epsilon(M_\eta+M_c)/(1-\epsilon M_c)$;
+in Einstein gravity the Taylor radius about $T_0$ is $2/\sqrt3>1$, so the flat point lies inside the disk of convergence. Fixed-order bounds do not
+suffice ($((1-q)/(1+q))^N$ is uniformly bounded and locally small yet equals 1 at $q=0$), and the absence of a Hawking--Page transition is not an
+analyticity theorem. The open input is the all-order bound $\sum_n(|\delta v_n|+|\delta d_n|)\le C\Delta_g^{-4}$ on these integrated multi-point vacuum
+energy correlators (\texttt{code/cft\_etas}, THEOREM\_H.md).
 
 \subsection{Assumptions of the transport and spectral statements}
 \begin{center}
