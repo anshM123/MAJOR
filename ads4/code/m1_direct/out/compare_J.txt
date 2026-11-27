@@ -1,0 +1,7 @@
+# spin-J test of (fp-H) at light Delta: direct D' image vs ladder span; reference J=0 Delta=300; nu <= 6
+  Delta=10 J=2 grid 8-8-6-8-8-12-8 : max|res|/rms per entry = 2.2e+00
+  Delta=10 J=2 grid 8-8-6-8-8-12-8 [LR control]: max|res|/rms per entry = 2.2e+00
+  Delta=12 J=2 grid 8-8-6-8-8-12-8 : max|res|/rms per entry = 1.3e-01
+  Delta=12 J=2 grid 8-8-6-8-8-12-8 [LR control]: max|res|/rms per entry = 1.6e-01
+  Delta=16 J=2 grid 8-8-6-8-8-12-8 : max|res|/rms per entry = 5.6e-03
+  Delta=16 J=2 grid 8-8-6-8-8-12-8 [LR control]: max|res|/rms per entry = 5.6e-02
