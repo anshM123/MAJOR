@@ -1,10 +1,16 @@
 """Optimised sharpness family for Theorem C: F(s) = M B_N(s) ((a-g)/(a+s))^k ; maximise |F(0)| s.t. |F(n)| <= eps for all n>N.
 (|F| <= M on Re s >= -g holds for every N, a > g, k >= 0 by the maximum principle; checked on the boundary line.)"""
-import mpmath as mp
-mp.mp.dps = 50
+import numpy as np
+class _M:
+    log=staticmethod(np.log); exp=staticmethod(np.exp); inf=np.inf
+    @staticmethod
+    def mpf(x): return float(x)
+    @staticmethod
+    def nstr(x,n): return ('%.'+str(n)+'g')%x
+mp=_M()
 
 def logB(N, g, s):
-    return sum(mp.log(abs((s - n)/(s + n + 2*g))) for n in range(1, N + 1))
+    n=np.arange(1,N+1); return float(np.sum(np.log(np.abs((s - n)/(s + n + 2*g)))))
 
 def best(eps, M, g):
     L = mp.log(M/eps)

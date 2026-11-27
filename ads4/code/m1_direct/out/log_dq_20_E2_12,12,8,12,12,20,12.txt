@@ -1,1 +1,3 @@
    D=20 E2 t-node 1/8: 97s, max|eps| 3.9e+00, nbad 0
+   D=20 E2 t-node 2/8: 149s, max|eps| 4.1e+00, nbad 0
+   D=20 E2 t-node 3/8: 205s, max|eps| 4.2e+00, nbad 0
