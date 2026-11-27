@@ -1,0 +1,4 @@
+[I3] f1 = -8/r + 24/r**4 - 16/r**7,  n1 = -6/r**6
+[I3] T = T0 (1 + 2 lam);  free-energy k = 2;  Wald w = 6;  first-law check w - 2 tau1 = 2  (should equal k)
+[I2^2] f1 = -136/r + 672/r**7 - 536/r**10,  n1 = -224/r**9
+[I2^2] T = T0 (1 + 40 lam);  free-energy k = 16;  Wald w = 96;  first-law check w - 2 tau1 = 16  (should equal k)
