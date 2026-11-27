@@ -249,3 +249,21 @@ With those, a Cauchy estimate gives a power law. This is the CFT image of Propos
     and uniformity.
 * **Bottleneck.** Inclusive heavy weights in the multi-stress channels, G_{jj} = Σ_X |⟨X|T^j⟩|²/M², for j ≥ 3. Gram bounds then
   control every exchange off-diagonal.
+
+## 2026-11-27, session 5: thermal causality ("thermal CEMZ") (THEOREM_TC.md; `eikonal_check.py` → `out_eikonal_check.txt`)
+
+* **Leading-eikonal structure [D, symbolic].** In type-D thermal backgrounds the high-momentum fluctuation is type N, so
+  δ²I|_{k⁴} = δ²J|_{k⁴} = 0. The only momentum-enhanced term is
+  36q²v₁⁴·K(q)·k⁴, with K = F_II − 3qF_IJ + (9/4)q²F_JJ.
+  * The polarization factor is a square, so ≥ 0.
+  * C³ (t₄) gets only O(k²) effects, i.e. collider-type, consistent with the literature.
+* **Calibration.** I² gives K = 2a (causality ⇔ α₄ ≥ 0, the paper's quartic positivity). Heavy-scalar exchange gives
+  K = (2g₂ − 3qg₃)²/4M², a perfect square.
+* **Answer: β₅ is one-signed.** K = 3|q|β₅ for every channel, polarization and bounce depth. So causality gives only β₅ ≥ −O(Δ_g⁻²).
+  * Together with a and c: b ≥ −2√(ac), which is Remark 4's cone, or b ≥ −(4/3)a − (3/4)c.
+  * The KSS-violating sign (b > 0, since the IJ shift is −1944b) is unconstrained.
+  * Theorem H's need, |β₅| ≲ Δ_g⁻⁴/2880 from both sides, is not met. No rate.
+* **Other operators.** Gradient operators such as Y = ∇I·∇J are invisible at enhanced order (k·k = 0). Uniformity in the number of
+  Weyl factors fails: only one projected-Hessian functional is constrained.
+* **Verdict [D].** Thermal causality = heavy-exchange positivity of the Hessian of F along the curve (δI, δJ) ∝ (−6q, 9q²). This
+  closes the thermal-CEMZ route.

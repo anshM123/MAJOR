@@ -1,0 +1,13 @@
+tr(dW^2) on null v = 0 ; tr(W dW^2) = 0
+dI = -6*q*v1**2   dJ = 9*q**2*v1**2
+k^4 coefficient (self-dual block) = 9*q**2*v1**4*(4*F_II - 12*F_IJ*q + 9*F_JJ*q**2)
+  => K(q) = (4*F_II - 12*F_IJ*q + 9*F_JJ*q**2)/4    [times 36 q^2 v1^4; real waves: v1^4 -> 2 Re(v1^2)^2-type square >= 0]
+F = a I^2 + b IJ + c J^2 :  K(q) = 2*a - 3*b*q + 9*c*q**2/2
+pure beta5 IJ (a=c=0):   K(q) = -3*b*q   -> one sign for all polarisations at fixed q-sign
+heavy scalar exchange (g2 X I + g3 X J):  K(q) = (-2*g2 + 3*g3*q)**2/(4*M**2)   (perfect square: causal)
+min over q>0 at q* = [b/(3*c)]  ; K(q*) = [2*a - b**2/(2*c)]
+=> K(q) >= 0 for all q>0  <=>  b <= (2/3)*... ; at the optimum the condition reads b^2 <= 4ac (Remark 4) when q* lies in range
+on the brane exterior (s = |q| in (0, 1/2]):  K = 2*a + 3*b*s + 9*c*s**2/2
+  pure IJ: K = 3 b s  => causal iff b >= -O(slack): a LOWER bound only; b > 0 (which lowers eta/s by -1944 b) is unconstrained
+  with a, c: interior minimum at s* = -b/(3c) gives b^2 <= 4ac; endpoint s = 1/2 gives b >= -(4/3) a - (3/4) c
+  endpoint check: [-4*a/3 - 3*c/4]
