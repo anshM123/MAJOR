@@ -1,0 +1,2 @@
+   D=10 E2 t-node 1/10: 83s, max|eps| 1.2e+01, nbad 0
+   D=10 E2 t-node 2/10: 150s, max|eps| 1.2e+01, nbad 0

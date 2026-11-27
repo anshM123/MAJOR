@@ -96,3 +96,41 @@ Grades: [P] proof, [D] derivation, [D-sketch], [DV] numerically verified, [A] as
 **Most promising next step.** Aim any all-n control (for example the collaborator's coherent-source phase bound) at a real-time
 object. Candidates are the relaxation-function deviation on t ≲ log(Δ_g)/2πT, or the relative form bound on the low-frequency
 (near-horizon) sector of L. Euclidean Matsubara data are not a good target.
+
+## 2026-11-27, session 2: the real-time route (see THEOREM_R.md)
+
+### Milestone 4: early-time Lorentzian control (Lemma R3) and Theorem R2
+
+* **Lemma R3 [D-sketch].** The zero-momentum commutator at t < β/2 is fixed by the *convergent* thermal OPE. Two facts make this
+  work: Lorentzian convergence for |t| + |x| < β, and causal support |x| ≤ t.
+  * Heavy states contribute ≤ C(2t/β)^{Δ_g}.
+  * Analytic (double-trace) terms give no commutator. So the non-factorized thermal data b₁ can drop out. This is proven for
+    scalar structures and open for the spinning structures of T.
+  * Holographic evidence [DV] (`early_time_check.py`): a horizon-layer deformation changes F(s) only by e^{−2 r_*(depth)·s}. The
+    rates are 1.32 and 1.98, against tortoise predictions of 1.22 and 1.91, consistent once the width of the transition region is
+    included. So no OPE coefficient changes, and the early commutator is untouched.
+* **Theorem R2 [P].** Hypotheses: k(t) analytic and bounded by M in the sector |arg t| < α, with decay e^{−γt}, and |k| ≤ ε on
+  (0, t₂].
+  * Conclusion: |k(t)| ≤ M^{1−θ}ε^θ with the exact θ(t) = (2/π) arcsin((t₂/t)^{π/2α}).
+  * Rate: exp(−c (log 1/ε)^{1/(1+p)}). For Einstein-like data (α → π/3, from the QNM angles 55.2°, 57.3°, 58.1°;
+    `qnm_sector.py`) this is exp(−2.3 (log 1/ε)^{0.4}).
+  * This is better than any power of log, but it is not a power of Δ_g.
+
+### Milestone 5: the sign route is dead (Proposition NS)
+
+* A one-signed δΦ turns the log into Δ_g^{−2.56} (math_transfer; my Theorem R1). But:
+  * Einstein's own Φ_E oscillates at late times, with zero spacing 1.698–1.701 against π/Re ω₁ = 1.699;
+  * a nonzero deviation is one-signed only if the first QNM in which the two theories differ is purely damped
+    [P given the QNM expansion];
+  * even monotone horizon-coupling deformations give strictly log-concave F(s), hence a non-one-signed φ [DV].
+* **Conclusion.** No perturbative-around-Einstein principle can supply the sign.
+
+### Chaos, pole-skipping, modular flow (THEOREM_R.md §4)
+
+* The shear-channel pole-skipping points s = −n are horizon-*amplified*: F(−γ) ~ A w^{−γ}, while F(n) ~ A wⁿ and F(0) ~ A.
+* Chaos is the energy-channel pole-skipping point at s = +1. It is CFT-accessible through the OTOC and tip-local at O(1), but it
+  probes a different horizon coupling.
+* Modular inclusions (Leutheusser–Liu, Borchers) fix the near-horizon *kinematics*, not the coupling normalization.
+* **Concrete next test.** At linear order, compute δv_B for the θ_I I and θ_J J deformations on the brane, and check whether the
+  functional is aligned with δ(4πη/s) = −6θ_I′ − 108θ_J + 18θ_J′. If aligned, chaos fixes η at linear order. If not, there is a
+  precise obstruction.

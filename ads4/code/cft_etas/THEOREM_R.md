@@ -160,6 +160,45 @@ of the depth w_min ~ Δ_g⁻² at which bulk effective field theory breaks down.
    * What is missing is a *dynamical* statement: the low-frequency Liouvillian sector is close to the vacuum boost sector *with
      the same normalization as c_T and s*. This is the human's relative form bound restricted to that sector.
 
-## 5. Sign tests [DV, `relax_sign.py` → `out_relax_sign.txt`]
+## 5. The sign route fails generically [P given the QNM expansion; DV]
 
-(Filled in when the run completes; see the README ledger.)
+**Proposition NS.** Hypotheses:
+* For t > 0, both Φ and Φ_E have convergent QNM expansions Σ Re[r_n e^{−iω_n t}].
+* The QNMs are complex, with Re ω_n ≠ 0.
+
+Let ω_* be the slowest-decaying QNM term in which the theory and Einstein differ (a different position or a different residue).
+If ω_* is not purely imaginary, then δΦ = Φ − Φ_E changes sign infinitely often as t → ∞.
+
+**Proof.** Factor out the leading envelope e^{−γ_* t}. What remains is a finite trigonometric sum
+A cos(ω_R t + a) − B cos(ω_R′ t + b), plus o(1). This sum is almost periodic with zero mean, so it takes both signs on every
+long enough interval. ∎
+
+So a one-signed deviation requires the first QNM in which the two theories differ to be purely damped. That is non-generic for
+any theory whose QNMs are perturbations of Einstein's. The only escape is an *extra* purely damped mode decaying more slowly than
+e^{−2.664 t}.
+
+**Numerical evidence.**
+
+* **Einstein itself** [DV] (`phiE_sign2.py` → `out_phiE_sign2.txt`).
+  * Φ_E has zero crossings at t = 2.651, 4.349, 6.050, 7.740 (r₊ = 1 units).
+  * The spacings are 1.698, 1.701, 1.690, against π/Re ω₁ = 1.699.
+  * e^{2.664t}Φ_E oscillates with constant amplitude ≈ 17.5.
+  * So Φ_E is not ≥ 0. (The earlier `phiE_sign.py` run had an artifact: a missing [0, 1e-4] piece caused a −6.37e-5 plateau.)
+* **The simplest monotone deformation** (a = b = 1 + Aχ_w, positive depth measure) [DV] (`sign_obstruction.py` →
+  `out_sign_obstruction.txt`).
+  * F(s) > 0 everywhere, but log F is strictly concave on s ∈ [0, 4] for w = 0.8, 0.4, 0.1. The second differences are −0.52 …
+    −0.02.
+  * A one-signed φ would make log F convex (Hölder). So φ is not one-signed, even for a monotone horizon coupling.
+  * Hölder's sandwich F(0) ≤ F(−γ)^{1/(1+γ)}F(1)^{γ/(1+γ)} is violated: 0.1 > 0.043 at w = 0.4, γ = 0.5.
+* **The uniform direction.** a = b = 1 + A everywhere is the same as a c_T/s mismatch. It gives φ ∝ Φ_E, which oscillates.
+
+**Conclusion.** Time-domain positivity of the deviation cannot be justified by any principle that keeps the theory perturbatively
+close to Einstein. The three positivity structures have now been exhausted:
+1. total η(ω) ≥ 0, in frequency (Theorem C′: not enough);
+2. total Φ(t) ≥ 0 (false: complex QNMs);
+3. one-signed δΦ (non-generic, Proposition NS).
+
+A power law must come from a *small* real-time norm, or from a structure that is not a positivity statement.
+
+`relax_sign.py` (in `out_relax_sign.txt`) is superseded. Its deviation transforms are unreliable because the real-frequency
+deviation of a sharp layer is still O(A ω²) at the cutoff ω = 25.
