@@ -1,7 +1,6 @@
 % sec_transport.tex -- Supplemental Material section for letter_v2.tex: thermal sum rules, the universal disc, the
 % spectral-to-gap theorem, shear and Hall viscosity of the AdS4 brane, the higher-derivative remainder, the corrected
 % viscosity bound, and what an EFT-free derivation of eta/s requires.
-% Written to be \input into supplement.tex (not yet done). Needs \bibliography{refs_verified,refs_v2}.
 \section{Thermal sum rules, Hall viscosity and transport}
 \label{sec:transport}
 
@@ -10,7 +9,7 @@ the two bounds on $\tau=(t_4^2+\alpha_T^2)^{1/2}$: $\tau\le\tau_*(\Delta_g)$ at 
 $\tau\le2.8914\times10^{-8}$ at $\Delta_g\ge1000$ (Secs.~\ref{sec:full} and \ref{sec:fullpos}), each with its own inputs, and,
 for one remark, the analytic all-gap bound of Sec.~\ref{sec:fpanalytic}. Grades are those of Sec.~\ref{sec:grades}. Every
 computation cited here has a script and a recorded output in the code archive~\cite{Zenodo}, in the directories
-\texttt{code/scope\_sumrule}, \texttt{code/sumrule\_freefield}, \texttt{code/scope\_thermal} (with subdirectories
+\texttt{code/scope\_sumrule}, \texttt{code/sumrule\_freefield}, \texttt{code/hall\_sumrule\_cft}, \texttt{code/scope\_thermal} (with subdirectories
 \texttt{hall} and \texttt{allorders}) and \texttt{code/no\_eft}; each directory has a \texttt{README.md} that lists the
 scripts, their run times and their outputs.
 
@@ -80,7 +79,7 @@ $\langle T_1T_2\rangle$ vanishes, so $\mathcal S_H=0$.
 $\mathcal S_E=0.3749999601$; the integrand falls as $\omega^{-3.99}$, as the $\Delta=6$ double trace $[TT]$ predicts.
 \item\emph{Large-$N$ Chern--Simons--fermion} (\texttt{sumrule\_freefield/cs\_fermion\_probe.py}), from the exact zero-momentum
 thermal correlator of Ref.~\cite{Ghosh:2019sqf} and the energy density of Ref.~\cite{Aharony:2012ns}. The high-frequency constant
-of the shear channel reproduces the $t_4/32$ dependence with $t_4=-4\cos\pi\lambda$ to $10^{-6}$, up to a $\lambda$-independent
+of the shear channel reproduces the $t_4/32$ dependence with $t_4=-4\cos\pi\lambda$ exactly (symbolic, at every $\lambda$; \texttt{hall\_sumrule\_cft/cs\_fermion\_exact.py}), up to a $\lambda$-independent
 contact convention shared with the free Dirac fermion. This theory violates condition (b) at $\lambda\ne0$, through
 $\bar\psi\psi$, so only the OPE side of the sum rule can be tested there.
 \end{itemize}
@@ -89,34 +88,52 @@ is affine in $t_4$, and the two free points fix it; the Einstein point is a thir
 had not been checked independently before~\cite{Chowdhury:2016hjy}.
 
 \subsection{The Hall sum rule}
-\textbf{Exact statements} [D]. (1)~Since $h(t)$ is real, $\rho_+(-\omega)=-\rho_-(\omega)$ and
-$\delta\rho_+-\delta\rho_-=2\,{\rm Re}\,\delta h$. (2)~The Euclidean antisymmetric correlator is odd in the Matsubara frequency,
-so $\delta h(0)=0$, and no temperature-dependent contact term exists in the odd channel at zero momentum; the vacuum
-gravitational Chern--Simons contact term, of order $\omega^3$, cancels in $\delta h$. (3)~At high frequency
-$\delta h(i\Omega)\to J_H$, the $T$-exchange term of the OPE with the parity-odd structure of $\langle TTT\rangle$, and
-$\delta h-J_H$ decays like $\omega^{-3}$. Kramers--Kronig then gives the convergent form \eqref{eq:tr-SESH},
-$\mathcal S_H=J_H/\varepsilon$; equivalently $\mathcal S_H=\lim_{\Omega\to\infty}(\Omega/\pi\varepsilon)\int_0^\infty
-(\delta\rho_+-\delta\rho_-)(\omega^2+\Omega^2)^{-1}d\omega$, an Abel average of a function that tends to a constant. (4)~The
-Hall viscosity is the infrared moment
-$\eta_H=\pi^{-1}\int_0^\infty(\delta\rho_+-\delta\rho_-)\,\omega^{-2}\,d\omega$, when it converges. Statements (3) and (4) are
-different observables; nothing in (1)--(4) relates $J_H$ to $\eta_H$.
+\textbf{Theorem (Hall-channel sum rule)} [D]. Assume
+(H1)~a unitary CFT$_3$ with a unique conserved spin-two operator $T$;
+(H2)~the KMS state on $\mathbb R^2$ at temperature $T>0$ and zero chemical potentials, parity and time reversal possibly broken;
+(H3)~the thermal OPE governs the large-Euclidean-frequency expansion of the plane-integrated $\langle T_AT_B\rangle_\beta$, the region
+$|x|\gtrsim\beta$ contributing only terms that decay faster than any power;
+(H4)~no scalar $\mathcal O$ in $T\times T$ with $\Delta_{\mathcal O}\le3$ has both $\langle\mathcal O\rangle_\beta\ne0$ and a nonzero parity-odd
+$\langle TT\mathcal O\rangle$ coefficient (for $\Delta_{\mathcal O}<3$ it suffices that such terms be subtracted). Then
+(1)~$\delta h(i\Omega)\to J_H$ as $\Omega\to+\infty$, with
+\begin{equation}
+J_H=\sigma\,\frac{\alpha_T\,\varepsilon}{32},\qquad \mathcal S_H:=\frac{J_H}\varepsilon=\sigma\frac{\alpha_T}{32},\qquad
+\mathcal S_E-\tfrac38+i\sigma\mathcal S_H=\frac{t_4+i\alpha_T}{32},
+\label{eq:tr-SHthm}
+\end{equation}
+where $\alpha_T$ is normalized by the collider energy matrix of Ref.~\cite{CDPrakash} and $\sigma=\pm1$ is the same for every CFT
+(it depends only on orientation and helicity conventions); hence $\tau=32\,|\mathcal S_E-\tfrac38+i\sigma\mathcal S_H|$ exactly.
+(2)~$J_H$ has no contact-term ambiguity. (3)~$\delta h(i\Omega)-J_H=O(\Omega^{3-\Delta_*})$, with $\Delta_*>3$ the lowest remaining
+contributing dimension. (4)~If in addition (H5)~$\delta h^R-J_H$ is analytic in the upper half-plane and $O(|\omega|^{3-\Delta_*})$
+uniformly up to the real axis, then $\mathcal S_H=(\pi\varepsilon)^{-1}\int_{\mathbb R}\eta_H(\omega)\,d\omega$, Eq.~\eqref{eq:tr-SESH},
+with an absolutely convergent integral [D given H5].
 
-\textbf{Claim} [D-sketch; DV]. $|\mathcal S_H|=|\alpha_T|/32$. \emph{Sketch.} The $T$-exchange coefficient is extracted from the
-soft $T$ leg of $\langle TTT\rangle$. In three dimensions the parity-odd homogeneous structure is the parity-even one with a
-helicity phase on the hard legs~\cite{Jain:2021gwa}: on a transverse traceless leg of momentum $k$ the rotation
-$(\mathcal R_kX)_{ij}=\tfrac12(\epsilon_{i\ell m}\hat k^\ell X_{mj}+\epsilon_{j\ell m}\hat k^\ell X_{im})$ obeys $\mathcal R_k^2=-1$ and,
-for $k$ along Euclidean time, rotates $T_1$ into $T_2$. The rotation commutes with the extraction, so the diagonal coefficient
-$t_4/32$ becomes an antisymmetric coefficient of magnitude $|\alpha_T|/32$, with the relative normalization of $t_4$ and
-$\alpha_T$ fixed by the collider energy matrix of Ref.~\cite{CDPrakash}. A linearized check of the rotation: for the regular
-transverse graviton mode in Euclidean AdS, $\star W[e_1]=iW[e_2]$ and $\star W[e_2]=-iW[e_1]$ for the two shear
-polarizations, component by component. The step ``commutes with the extraction'' is not written out, hence the grade.
-\emph{Checks.} (a)~AdS$_4$ brane with the coupling $\lambda_Q Q$ (\texttt{scope\_sumrule/hall\_uv\_sign.py}): the
-full frequency dependence of $h(i\Omega)$ gives $\mathcal S_H=-44.99\pm0.03$ per unit $\lambda_Q$, against
-$-45=-7.5\times6$ from $|\alpha_T|/32$ with $\tilde\alpha_3=-6\lambda_Q$. The same code reproduces
-$4\pi\eta_H/s=108\lambda_Q$ as $\Omega\to0$ (Sec.~\ref{sec:transport}.F). (b)~Large-$N$ Chern--Simons--fermion, OPE side
-(\texttt{sumrule\_freefield/cs\_fermion\_probe.py}): $|\mathcal S_H|=\sin(\pi\lambda)/8=|\alpha_T|/32$, ratio $1.00001$ at
-$\lambda=0.01$, $0.3$, $0.5$, $0.9$ (limited by the fit). A temperature-dependent term linear in the frequency in that
-theory's Hall correlator, of the contact type flagged in Ref.~\cite{Ghosh:2019sqf}, prevents a test of the infrared moment there.
+\emph{Proof} (\texttt{code/hall\_sumrule\_cft/README.md}, Secs.~2--6). (i)~At zero chemical potential the rotation by $\pi$ in the
+$(\tau,x)$ plane kills odd-spin one-point functions, and unitarity leaves only $T$ and scalars with $\Delta\le3$ as non-decaying terms
+in the thermal OPE. (ii)~The most general $T$ term at zero spatial momentum is $J_E\delta_{AB}-{\rm sgn}(\Omega)J_H\epsilon_{AB}$. In
+position space its even part is a $\delta(\tau)$ distribution, where contact terms live, so $J_E$ is scheme dependent and only
+$\mathcal S_E$ is physical; its odd part is a separated-point $1/\tau$ tail, so $J_H$ is not. A rank count of $SO(3)$ invariants shows
+that no parity-odd local term proportional to $\langle T\rangle_\beta$ exists; temperature-dependent parity-odd local terms arise only
+from $\Delta=2$ scalars, and they are linear in $\omega$, not constant. (iii)~The OPE coefficient is the soft $|q|^3$ functional on the
+soft leg of $\langle TTT\rangle$. (iv)~The homogeneous and parity-odd structures are supported only on equal helicities, and the
+parity-odd one is the homogeneous one rotated by $\mathcal R_k$, $\mathcal R_k^2=-1$, on any one leg~\cite{Jain:2021gwa}; applied to a
+hard leg it commutes with (iii). (v)~In the helicity basis the collider energy matrix of Ref.~\cite{CDPrakash} has flip element
+$\propto t_4+i\alpha_T$, so the same real constant multiplies $t_4$ and $\alpha_T$. (vi)~That constant is fixed by the physical
+$t_4$-slope of $\mathcal S_E$, which is $1/32$ (Ref.~\cite{Chowdhury:2016hjy}, with the checks of Sec.~\ref{sec:transport}.B).
+(vii)~$\delta h^R(0)=0$ (the static response matrix is symmetric; equivalently $h_E$ is odd in $\omega_n$), and Kramers--Kronig under
+(H5) gives the convergent form. Steps (iv) and (v) rest on the spinor-helicity results of Ref.~\cite{Jain:2021gwa}, read but not
+re-derived. $\eta_H(\omega)$ is not sign-definite (in the bulk example below it is positive at $\omega=0$ while its integral is negative),
+so the sum rule gives no bound by itself.
+
+\emph{Checks} (both exact). (a)~Large-$N$ Chern--Simons--fermion theory: from the closed-form thermal correlator of
+Ref.~\cite{Ghosh:2019sqf} and the gap equation, the large-frequency expansion of the helicity correlator is computed symbolically at
+every 't~Hooft coupling $\lambda$; the Hall constant is exactly $\sin(\pi\lambda)/8=\alpha_T/32$ and the shear constant has slope
+exactly $-t_4/32$, for $t_4=-4\cos\pi\lambda$, $\alpha_T=4\sin\pi\lambda$ (\texttt{hall\_sumrule\_cft/cs\_fermion\_exact.py}). The term
+linear in frequency in that correlator is the exchange of $\bar\psi\psi$ ($\Delta=2$), phase-locked to the corresponding shear term,
+not an arbitrary contact term; it must be subtracted before the integral form can be tested there. (b)~AdS$_4$ brane with the coupling
+$\lambda_QQ$: the large-$\Omega$ constant is solved in closed form, $\mathcal S_H=-45\lambda_Q$ exactly, and the real-frequency integral
+gives $-45.0002$ (\texttt{hall\_sumrule\_cft/bulk\_hall\_exact.py}); with $\tilde\alpha_3=-6\lambda_Q$ and $|\alpha_T|=240|\tilde\alpha_3|$
+this is $|\alpha_T|/32$. The same calculation gives $4\pi\eta_H/s=108\lambda_Q$ as $\Omega\to0$ (Sec.~\ref{sec:transport}.F).
 
 \textbf{Relative sign} [DV]. For the cubic parity-odd coupling, with both quantities taken from the same $h$,
 $\mathcal S_H=-\tfrac5{12}\,(4\pi\eta_H/s)$ (numerically $-0.41659$ against $-5/12$): $h(i\Omega)$ starts at $+\eta_H\Omega$ and
@@ -126,9 +143,9 @@ are proportional with a real ratio. A structural argument gives the same result:
 ingoing solution and depend on the single chiral coupling $\hat g_3$ [D-sketch].
 
 \subsection{The universal disc}
-\textbf{Statement} [D given Q]. Every unitary CFT$_3$ satisfying condition (b) of Sec.~\ref{sec:transport}.B, and its
-parity-odd analogue, has $(\mathcal S_E-3/8)^2+\mathcal S_H^2\le1/64$. \emph{Proof.} The conformal-collider (energy positivity)
-bound is $t_4^2+\alpha_T^2\le16$~\cite{CDPrakash}; insert the two sum rules. The sign convention of $\mathcal S_H$ does not matter.
+\textbf{Statement} [D given Q]. Every unitary CFT$_3$ satisfying condition (b) of Sec.~\ref{sec:transport}.B and (H1)--(H4) of
+Sec.~\ref{sec:transport}.C has $(\mathcal S_E-3/8)^2+\mathcal S_H^2\le1/64$. \emph{Proof.} The conformal-collider (energy positivity)
+bound is $t_4^2+\alpha_T^2\le16$~\cite{CDPrakash}; by Eq.~\eqref{eq:tr-SHthm}, $(\mathcal S_E-3/8)^2+\mathcal S_H^2=\tau^2/1024$. The sign convention of $\mathcal S_H$ does not matter.
 The parity-even projection, $1/4\le\mathcal S_E\le1/2$, is in Ref.~\cite{Chowdhury:2016hjy}. Free scalar and free fermion lie at
 $(1/2,0)$ and $(1/4,0)$, mixtures of free fields on the diameter, Einstein gravity at the center, and the large-$N$
 Chern--Simons--matter theories, with $t_4=-4\cos\pi\lambda$, $\alpha_T=4\sin\pi\lambda$~\cite{CDPrakash}, on the circle,
@@ -145,7 +162,7 @@ $\tau_*$ (Sec.~\ref{sec:angular}) and condition (b). Then
 \Delta_g\le2.2401+\frac5{9\,\delta},
 \label{eq:tr-SG}
 \end{equation}
-with $\delta=\delta_E$; with $\delta=\delta_{\rm th}$ it also uses the Hall sum rule, which is [D-sketch].
+with $\delta=\delta_E$; with $\delta=\delta_{\rm th}$ it also uses the Hall sum rule, Eq.~\eqref{eq:tr-SHthm}, and hypothesis (H4).
 \emph{Proof.} $\delta_E=|t_4|/32\le\tau/32$ and $\delta_{\rm th}=\tau/32$. Since $\tau_*$ is strictly decreasing, $\tau\le\tau_*(\Delta_g)$
 is the first inequality. For the second write $x=\Delta_g-2$: the correction $x-x[1-49/(2x+13)^2]^{1/2}$ is at most $0.2401$,
 attained at $\Delta_g\approx8.25$ (\texttt{scope\_sumrule/gap\_inverse.py}). $\square$\\
@@ -370,7 +387,7 @@ A uniform $\Delta_g^{-4}$ bound on the resummed first time moment would therefor
 \begin{tabular}{L{6.2cm}L{9.6cm}}
 statement & inputs (grade)\\\hline
 Shear sum rule & condition (b) of Sec.~\ref{sec:transport}.B [Q; DV]\\
-Hall sum rule, magnitude & as above, parity-odd analogue; CFT argument [D-sketch], checked on the brane and the CS-fermion OPE side [DV]\\
+Hall sum rule & H1--H4 [D]; integral form also H5 [D given H5]; exact checks in large-$N$ CS-fermion theory and on the brane\\
 Universal disc & both sum rules; collider bound [Q]\\
 Theorem SG & A1$'$, A2$'$, inputs of $\tau_*$, condition (b); leading order in $1/c_T$\\
 Fixed-gap and all-gap forms & as for Eq.~(5) of the Letter, resp.\ Eq.~\eqref{eq:fp-allgap} with U1\\

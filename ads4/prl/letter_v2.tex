@@ -19,9 +19,9 @@
 
 \begin{abstract}
 Strongly coupled quantum matter with a gravitational dual is expected to share the transport of Einstein gravity, but how
-closely has not been quantified. For three-dimensional conformal field theories we show that the thermal spectral weight of
-the stress tensor in the shear and Hall channels is fixed by the two non-Einstein coefficients of its three-point function, so
-that every unitary theory lies in a disc of radius $1/8$ about the Einstein point. In theories with a large central charge, a
+closely has not been quantified. For three-dimensional conformal field theories we derive a Hall-channel counterpart of the
+known shear sum rule, so that the thermal spectral weight of the stress tensor in the two channels is fixed by the two
+non-Einstein coefficients of its three-point function and every unitary theory lies in a disc of radius $1/8$ about the Einstein point. In theories with a large central charge, a
 gap $\Delta_g$ in the higher-spin spectrum shrinks the disc to a radius of about $0.56/(\Delta_g-2)$ without any positivity input
 and, at $\Delta_g\ge1000$, to $9\times10^{-10}$, by a computer-assisted proof that a dispersive functional is positive on every
 heavy state in anti-de Sitter space. Read in reverse, a measured spectral deviation $\delta$ requires a higher-spin state below
@@ -55,7 +55,7 @@ values by the same bound.
 
 All three rest on one theorem about vacuum correlators, a bound on the deviation of the stress-tensor three-point function
 from its Einstein form. It follows from the commutativity of energy detectors, and at a gap of 1000 it is sharpened by a
-computer-assisted proof of positivity on the entire heavy spectrum. We say ``we prove'' for a written proof and
+computer-assisted proof of positivity on the entire heavy spectrum. We say ``we prove'' or ``we derive'' for a written proof and
 ``certified'' for a computer-assisted proof in interval or directed-rounding arithmetic; ``we sketch'' marks an argument
 whose details are not complete. The Supplemental Material~\cite{SM} grades every statement on this scale.
 
@@ -92,11 +92,12 @@ $\mathcal S_E=3/8+t_4/32$. For the Hall channel we find
 \label{eq:SH}
 \end{equation}
 The high-frequency tail of $\delta h$ is the exchange of $T$ with the parity-odd structure of $\langle TTT\rangle$, which in
-three dimensions is the parity-even structure rotated by a helicity phase on the hard legs~\cite{Jain:2021gwa}; the rotation
-turns the diagonal $t_4$ coefficient into an antisymmetric $\alpha_T$ coefficient of the same magnitude. We sketch this
-argument and check it twice. On the AdS$_4$ black brane with the parity-odd cubic coupling, Eq.~\eqref{eq:SH} holds to
-$10^{-3}$, and in the exactly solvable large-$N$ Chern--Simons--fermion theory~\cite{Ghosh:2019sqf} the high-frequency
-coefficient matches $\alpha_T/32$ to $10^{-5}$ at every coupling tested. We also confirm the coefficient $1/32$ of $t_4$, which had not
+three dimensions is the parity-even structure rotated by a helicity phase on one leg~\cite{Jain:2021gwa}; the rotation
+turns the $t_4$ coefficient into an antisymmetric $\alpha_T$ coefficient with the same normalization, fixed by the
+conformal-collider energy matrix. No contact term can shift it. More precisely, $\mathcal S_E-3/8+i\sigma\mathcal S_H=(t_4+i\alpha_T)/32$,
+with $\sigma=\pm1$ a universal convention sign, so $\tau=32|\mathcal S_E-3/8+i\sigma\mathcal S_H|$. We check it exactly twice:
+in the large-$N$ Chern--Simons--fermion theory~\cite{Ghosh:2019sqf} the high-frequency Hall coefficient is $\alpha_T/32$ at every
+coupling, and on the AdS$_4$ black brane with the parity-odd cubic coupling the high-frequency limit is solved in closed form. We also confirm the coefficient $1/32$ of $t_4$, which had not
 been checked independently: exact free-field calculations give $\mathcal S_E=1/2$ for a free scalar ($t_4=4$) and $1/4$ for a free
 fermion ($t_4=-4$), and a numerical calculation on the AdS$_4$ black brane gives $0.37499996$ for Einstein gravity~\cite{SM}.
 
@@ -135,7 +136,7 @@ certify at $\Delta_g=1000$, and with no light single trace in $T\times T$,
 \end{equation}
 by certified arithmetic $2.8914\times10^{-8}$. In the bulk, $\tau=240|\hat g_3|$, where $\hat g_3=\alpha_3+i\tilde\alpha_3$
 combines the parity-even and parity-odd $R^3$ couplings of Ref.~\cite{CHLPS}, so $|\hat g_3|\Lambda^4\le120$. A theory with a
-larger gap also has a gap of 1000, so Eq.~\eqref{eq:cubic} covers it. For a family of simpler functionals we prove positivity
+larger gap also has a gap of 1000, so Eq.~\eqref{eq:cubic} covers it. For a family of simpler functionals we derive positivity
 analytically at every gap above 1000; given one further technical input they give
 $\tau\le280\,[\log\frac{\Delta_g+2}3]^{1/2}(\Delta_g-2)^{-2}$~\cite{SM}.
 
@@ -246,9 +247,9 @@ threshold $a^*$. Blue: the methods for large spin near the twist edge. Every reg
 \end{figure}
 
 \textit{What is not yet a theorem}---Three steps remain conditional. The quartic functional, which bounds $G_4$ in
-Eq.~\eqref{eq:Vbound}, is positive on every state we have computed but is not certified. The CFT argument for
-Eq.~\eqref{eq:SH} is a sketch, although it is checked in two independent theories. And the transport results need the bulk
-effective theory on the brane. A CFT derivation of $\eta/s=1/4\pi$ up to powers of $1/\Delta_g$, which would remove that input, remains open; sum rules,
+Eq.~\eqref{eq:Vbound}, is positive on every state we have computed but is not certified. The integral form of
+Eq.~\eqref{eq:SH} assumes the analyticity and decay of the Hall correlator that make the dispersion relation converge, verified
+here only holographically. And the transport results need the bulk effective theory on the brane. A CFT derivation of $\eta/s=1/4\pi$ up to powers of $1/\Delta_g$, which would remove that input, remains open; sum rules,
 positivity and the KMS condition alone cannot provide it, and the Supplemental Material sets out what it requires~\cite{SM}.
 
 In ABJM theory~\cite{ABJM} the gap is the string scale, and a gap of 1000 corresponds to a 't~Hooft coupling of about

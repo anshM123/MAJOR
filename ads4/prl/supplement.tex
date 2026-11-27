@@ -12,8 +12,9 @@
 \makeatletter\renewcommand{\p@subsection}{}\makeatother
 
 \begin{document}
+\emergencystretch=3em
 
-\title{Supplemental Material for ``How Close to Einstein Must Holographic Gravity Be?''}
+\title{Supplemental Material for ``A Higher-Spin Gap Fixes the Shear and Hall Response of Holographic Quantum Matter''}
 
 \author{Ansh Mishra}
 \email{ansh.mishra2025@gmail.com}
@@ -72,75 +73,83 @@ H17 & the $O(\Lambda^{-2})$ part of the light coefficient $K$ from the $|\hat g_
 follows: ``we prove'' = [P]; ``certified'' = [certified]; ``we derive'' = [D] or [DV]; ``we sketch'', ``steps we sketch'', ``a step
 we sketch'' = [D-sketch]; ``with error control'' = [NE$\pm$]; ``computed'' (of a value) = [NE] or [DV]; ``computed in models'', ``in a
 model'', ``model input'', ``interpolated'' = [NE\,+\,M] or [M]; ``we assume'', ``assumption'', ``premises'' = [A]; ``not covered'' = [I].
-The Letter's Eqs.~(1), (2) and (3) are items (1), (2a) and (3) of the full statement (Sec.~\ref{sec:full}); ``$\QuartRep$
-otherwise; the second value uses positivity of both functionals'' is item (2b). The ``cubic functional'' is $\Omega^{EE}$ and the ``quartic
-functional'' is $\Omega^Q_{\rm up}$ (Sec.~\ref{sec:defs}); ``the light-side coefficient'' of the quartic bound is $\kappa$; the
-``dual tensor structure'' is $EE$; choosing the weights so that every heavy state contributes its flat value at leading Regge order is
-de-shifting; ``the coefficient sum rule measures'' is $\tilde g_4:=-\frac12\mathcal A_4[\text{light}]$; Eq.~(4) of the Letter is
-the sum rule of Sec.~\ref{sec:defs} in schematic form.
+The Letter's equations map as follows. Eq.~(1) is Eq.~\eqref{eq:tr-SESH}; Eq.~(2) is Eq.~\eqref{eq:tr-SHthm}; Eq.~(3) is the disc of
+Sec.~\ref{sec:transport}.D; Eqs.~(4) and (5) are items (3) and (1) of the full statement (Sec.~\ref{sec:full}); Eq.~(6) is
+Theorem SG, Eq.~\eqref{eq:tr-SG}; Eqs.~(7) and (8) are Eq.~\eqref{eq:tr-V} and its bound (Sec.~\ref{sec:transport}.F); Eqs.~(9)
+and (10) are Sec.~\ref{sec:transport}.J. The ``cubic functional'' and ``the functional'' are $\Omega^{EE}$, and the ``quartic
+functional'' is $\Omega^Q_{\rm up}$ (Sec.~\ref{sec:defs}).
 
 \emph{The Letter's assumptions.} (i) and (ii) are A1$'$ and A2$'$ below; the Letter's wording of (ii) is the sufficient
 OPE-data form of A2$'$ (anomalous dimensions $o(c_T^{-1/2})$, other squared OPE coefficients $o(1/c_T)$, uniformly in spin). (iii) is (Pos$_\Omega$) of Sec.~\ref{sec:defs}.C for
 $\Omega^{EE}$ (item 1) or $\Omega^Q_{\rm up}$ (item 2a). For $\Omega^{EE}$ at $\Delta_g=1000$ it is proved: Theorem FP
 (Sec.~\ref{sec:fullpos}) [certified, given the operator identities of Sec.~\ref{sec:angular}], so item (1) at $\Delta_g=1000$ does not
 assume it. Elsewhere (other gaps, and $\Omega^Q_{\rm up}$) the Result assumes it, and Secs.~\ref{sec:pos}--\ref{sec:allgap} give its
-evidence, which is never used as an input. The standard inputs ``listed and graded in the Supplemental Material'' are
-Table~\ref{tab:inputs}; ``the light double-trace data are those of a tree-level bulk theory, with no fine-tuned cancellation between the heavy states and the tower of bulk contact terms'' is L7(b) [A], used only for $\tilde g_4=g_4$.
+evidence, which is never used as an input. The quartic bound also uses L7(b) [A] for $\tilde g_4=g_4$. ``All bounds hold at leading
+order in $1/c_T$'' is the order of limits at the end of Sec.~\ref{sec:HK}.
 
-\emph{How close to Einstein.} Eq.~(1) is item (1), stated as in the Result with no light single trace in $T\times T$; with light single traces it is [D-sketch] through LS4 (``we sketch why Eq.~(1) still holds''): $\tau_0=(240/\Lambda^4)(16L_A/K)^{1/2}$ with $K=1-32.4/\Lambda^2$, evaluated in
-certified arithmetic. ``Also covers parity-violating theories'' is row L1, including the parity-odd, odd-twist $[TT]$ double zeros [D]
-(Sec.~\ref{sec:c1}). The energy-flux statement is Sec.~\ref{sec:flux}: [D] from the cubic bound, with quoted kinematics [Q] checked [DV].
-``A theory with a larger gap also has a gap of 1000'' is the Remark of Sec.~\ref{sec:allgap}.A, [D]. ``Positivity at its own gap
-would give the sharper bounds \dots\ 128 at 2000 and 139 at 5000'' are values of the implication (Sec.~\ref{sec:lambda}); ``near-gap
-corrections do not grow with the gap'' is the no-growth premise B$_F$ (and $H_{\rm mono\text{-}A}$), [NE], tested at $2000$ and
-$5000$ (Table~\ref{tab:gap2000}) and on an exact scalar analogue; ``at those gaps positivity is now certified for all spins up to 64 and \dots\ $\hat b\le40$'' is item (iii) at the end of Sec.~\ref{sec:fpanalytic}; the earlier uncovered band
-$33\le J\lesssim0.026\Lambda$ of Table~\ref{tab:coverGap} [I].
+\emph{Thermal spectral weight.} The shear sum rule ``Chowdhury, David, and Prakash showed'' is [Q], with the conditions of
+Sec.~\ref{sec:transport}.B; ``exact free-field calculations give $1/2$ \dots\ $1/4$'' and ``$0.37499996$ for Einstein gravity'' are
+its checks there [DV]. ``For the Hall channel we find'' Eq.~(2) is the Theorem of Sec.~\ref{sec:transport}.C [D] under (H1)--(H4),
+and its integral form [D given H5]; ``no contact term can shift it'' is item (2) of that Theorem; ``we check it exactly twice'' are
+its checks (a) and (b) [DV, symbolic]. The sum-rule condition ``no scalar of dimension at most three \dots'' is condition (b) of
+Sec.~\ref{sec:transport}.B and (H4). Eq.~(3) is [D given Q], with the collider bound of Ref.~\cite{CDPrakash} [Q]; the
+Chern--Simons--matter values $t_4+i\alpha_T=-4e^{-i\pi\lambda}$ are [Q].
 
-\emph{The stringy correction.} Eq.~(2) is item (2a): $2L_{\rm AdS}=17.2407\ln(2\Lambda/3)+B_{\rm eff}(\Lambda)$ at $\Delta_g=1000$. ``The
-subleading terms'' are L8's $g_5$ reading [D-sketch]; ``the bound without the scalar condition'' is the repair of item (2b)
-[D-sketch]; ``the sign of the light-side coefficient'' is $\kappa>0$ [D-sketch\,+\,M].
+\emph{The higher-spin gap.} Eq.~(4) is item (3), $\tau\le\frac{160}{9(\Delta_g-2)}[1-49/(2\Delta_g+9)^2]^{-1/2}$, and its
+paragraph is Sec.~\ref{sec:angular}: the ladder, first-moment and telescoping algebra [P] given the special conformal Ward
+identity and light-transform conservation as operator identities (ladder checked exactly for $J\le40$; the all-$m$ helicity norm
+[Q], Ref.~\cite{GilliozSpinors}, Eqs.~(2.37)--(2.38)); the spectral exchange ($\mathcal D=0$) [P] given unitarity, reflection
+positivity, OPE convergence and the count of conserved structures; $\mathcal L_g\to0$ [D given A2$'$] (planar factorisation state by
+state, uniformity in spin from A2$'$); the contact term [D] given the finite-frequency light-ray algebra and no scalar with
+$\Delta\le1$; light-cone convergence of the mixed commutator is an input (Ref.~[KKSDZ], Eq.~(4.66), where it is not proved).
+Eq.~(5) is item (1) with no light single trace in $T\times T$, $\tau_0=(240/\Lambda^4)(16L_A/K)^{1/2}$, ``by certified arithmetic
+$2.8914\times10^{-8}$'' [certified]. ``$\tau=240|\hat g_3|$'' is the dictionary of Sec.~\ref{sec:defs} [D]. ``A theory with a larger
+gap also has a gap of 1000'' is the Remark of Sec.~\ref{sec:allgap}.A [P]. ``For a family of simpler functionals we derive positivity
+analytically at every gap above 1000; given one further technical input'' is Theorem RP of Sec.~\ref{sec:fpanalytic} [D given U1].
 
-\emph{Without positivity.} Eq.~(3) is item (3), $\tau\le\frac{160}{9(\Delta_g-2)}[1-49/(2\Delta_g+9)^2]^{-1/2}$, and the paragraph is
-Sec.~\ref{sec:angular}: the ladder, first-moment and telescoping algebra [P] given the special conformal Ward identity and
-light-transform conservation as operator identities (ladder checked exactly for $J\le40$; the all-$m$ helicity norm [Q],
-Ref.~\cite{GilliozSpinors}, Eqs.~(2.37)--(2.38)); the spectral exchange ($\mathcal D=0$) [P] given unitarity, reflection positivity, OPE
-convergence and the count of conserved structures; $\mathcal L_g\to0$ [D given A2$'$] (planar factorisation state by state, uniformity in spin from A2$'$); the contact term [D] given the
-finite-frequency light-ray algebra and no scalar with $\Delta\le1$; light-cone convergence of the mixed commutator is an input
-(Ref.~[KKSDZ], Eq.~(4.66), where it is not proved).
+\emph{Thermal spectroscopy bounds the spectrum.} Eq.~(6) is Theorem SG [D given A1$'$, A2$'$, the inputs of item (3) and condition
+(b)]; with $\delta_{\rm th}$ in place of $\delta_E$ it also uses the Hall Theorem. ``Twist 558'' and the numbers
+$9.04\times10^{-10}$, $5.8\times10^6$, $5.6\times10^{11}$ are the examples and the fixed-gap and all-gap forms of
+Sec.~\ref{sec:transport}.E (the all-gap form [D given U1]).
 
-\emph{How the bounds arise.} Convergence of the sum rule at finite $c_T$ is the exchange theorem of Sec.~\ref{sec:defs} [D]
-($J_0<\tfrac32$ for $k=2,3,5$, $J_0<\tfrac52$ for $k=4$). ``No helicity mixing at leading Regge order'' for $EE$ is [P]; ``negative at
-large impact parameter, in a model calculation'' is [M]. De-shifting ``to about one part in $10^6$'' is the generalised Abel equation,
-certified for the load-bearing $k=4$ pieces. ``We derive that no term linear in $t_4$ or $\alpha_T$ survives'' is row L3 and
-Sec.~\ref{sec:c1}: $c_1=0$ [D] given row L1; ``a free-field evaluation of the key step confirms this to $10^{-11}$'' is the free-field evaluation
-of Sec.~\ref{sec:c1} [DV]. ``Whose coefficient we compute in closed form'' is I3: the closed-form H17 value of $K$ [D], arithmetic
-[certified]. The light single traces' ``step we sketch'' is row LS4 ([D given (E$'$)], (E$'$) [D-sketch]); ``positive on them in the
-flat limit at every mass'' is [P].
+\emph{Hall viscosity without an axion.} Eq.~(7) is Eq.~\eqref{eq:tr-V} [D; DV], computed with two independent codes
+(Sec.~\ref{sec:transport}.F); ``all independent local curvature couplings through eight derivatives'' is the basis argument of
+Sec.~\ref{sec:transport}.G [Q\,+\,D]; ``reproduces the known shear result'' is Ref.~\cite{Li:2019auk} [Q; DV]; ``the response matrix
+is antisymmetric'' [DV]. Eq.~(8) is the bound of Sec.~\ref{sec:transport}.F: the cubic part [D given item (1)]; the quartic part
+uses $|\hat g_4|\le g_4$ [Q, flat space; assumed in AdS], the quartic map with its corrected parity-odd factor [DV], and item (2a)
+[conditional on (Pos) for $\Omega^Q_{\rm up}$ and L7(b)]. ``The second-order terms are exact'' is Sec.~\ref{sec:transport}.I [D; DV].
+``A coupling $IJ$ \dots\ shifts $4\pi\eta/s$ by $-1944$'' [DV]; the remainder ``$19300\,C/\Lambda^8$'' is Proposition R of
+Sec.~\ref{sec:transport}.H [D; DV], for its stated class of operators and in its stated basis only; it is not an all-orders statement.
 
-\emph{Positivity on every heavy state.} ``In flat space we certify'' is the flat certificate NF02 [certified] (Sec.~\ref{sec:pos}).
-``its leading-Regge part loses less than $0.1\%$ of the flat-space margin on every heavy state at $\Delta_g=1000$'' is T0 (Sec.~\ref{sec:T0}) [certified]:
-floor $0.1999\,N_s$ against the flat $N_s/5$, for the exact de-shifted (target) weights: $++$ for every even $J$, $+-$ for every $J\ge4$,
-every $m\ge\Lambda$, every $\hat b$, every $\Delta_g\ge1000$; the parity-odd even-$J$ (OO) block needs in addition the cancellation of its
-EO entries and $\kappa_{\rm OO}>0$ (row values [DV]); for the published (endpoint-repaired, Table~\ref{tab:data}) continuum weights at
-$\Delta_g=1000$ it holds on every heavy state at every impact parameter [certified]. ``at $\Delta_g=1000$ the remaining finite-mass corrections do not overturn this'' is Theorem FP of
-Sec.~\ref{sec:fullpos} [certified, given Eq.~\eqref{eq:fp-target}]; ``we rewrite the action \dots\ exactly as a positive multiple of a finite ladder sum in each of two
-helicity channels'' is Eq.~\eqref{eq:fp-target} with Eq.~\eqref{eq:fp-H}; the cover is Table~\ref{tab:fpcover}: ``spins up to 1000 are certified one by one'' is its first row, ``high twist by an expansion about the leading-Regge value'' its second, ``a localized bound at large impact
-parameter'' the tail theorem and routes T$'$, T$''$, ``an exact resummation at intermediate impact parameter'' the signed transfer, and
-``a direct evaluation at small impact parameter'' the direct prefix rows. ``Its individual terms reach $10^{685}$'' and ``no favorable
-sign'' are facts (a) and (c) of Sec.~\ref{sec:fullpos}.C. ``rerun from source on separate hardware with identical output, and the main new lemmas behind them were rederived independently; the spin-by-spin and high-twist certificates were run once'' is Sec.~\ref{sec:fullpos}.I (rows 3--8 of Table~\ref{tab:fpcover} were re-run; rows 1, 2 and 9 were run once; the lemmas re-derived are listed there). The earlier evidence of Secs.~\ref{sec:pos} and \ref{sec:largespin} (Theorems W and L$'$) is now a cross-check; its
-grades are unchanged. ``With error control it holds on its binding states near the gap and at masses $1.3$--$3\Lambda$'' is the
-$\Omega^Q$ row of Table~\ref{tab:computed} ([NE$\pm$], $L\ge58$ at the binding pair; the $+-$ gap states $J=4$--$6$ given the
-saddle-point rows on the last $4\%$ of the $\nu$ range); ``elsewhere its values are computed in models or interpolated'' are the
-[NE\,+\,M] and [M] entries for $\Omega^Q_{\rm up}$ in Table~\ref{tab:computed}.
+\emph{A corrected viscosity bound.} Eqs.~(9), (10) and the disc $|\mathcal Z-108G_4|\le108G_4$ are Sec.~\ref{sec:transport}.J [D given
+the inputs of Eq.~(8), $\alpha_4\ge0$ and $\tilde\alpha_4^2\le\alpha_4\alpha_4'$ (flat space, assumed in AdS)]; ``we determined it from
+the full frequency dependence of the Hall correlator on the brane'' is the relative sign of Sec.~\ref{sec:transport}.C [DV].
 
-\emph{Einstein rigidity.} The theorem is stated, with its grades, at the end of Sec.~\ref{sec:full}; ``within $1\%$ for $\tau\le1$'' is the inversion paragraph of Sec.~\ref{sec:angular}; the Chern--Simons-matter remark is [Q]. ``A separate implementation agrees with the earlier direct evaluations \dots\ at all 116 states'' is the cross-check paragraph at the end of Sec.~\ref{sec:fullpos}.H [DV]. \emph{All-gap analytic bounds.} ``A positive-basis lemma \dots\ strictly positive on every heavy state at every gap'' is Theorems RP and MP of Sec.~\ref{sec:fpanalytic} [P given Eq.~\eqref{eq:fp-target}; MP also uses the $k=3$ prefactor, [D]]; ``one further technical input on the convergence of the sum rule'' is U1 and ``a second such input for their $k=3$ part'' is U2 there; the two bounds are Eq.~\eqref{eq:fp-allgap} [D; the second D-sketch]; the crossovers $2\times10^5$, $2\times10^4$ are stated there. \emph{Framework.} ``The exact rewriting and the kernels do not depend on the gap'' is Proposition FG (Sec.~\ref{sec:fpframe}).
+\emph{How the bound on $\tau$ arises.} Convergence of the sum rule at finite $c_T$ is the exchange theorem of Sec.~\ref{sec:defs} [D]
+($J_0<\tfrac32$ for $k=2,3,5$, $J_0<\tfrac52$ for $k=4$). ``The light side is the action on the stress-tensor block alone'' is row L1
+and Sec.~\ref{sec:c1}: $c_1=0$ [D] given row L1. ``In flat space the condition reduces to the positivity used in Ref.~\cite{CHLPS}'' is the
+flat certificate NF02 [certified] (Sec.~\ref{sec:pos}). ``We rewrite the action \dots\ exactly as a positive multiple of a finite
+ladder sum in each of two helicity channels'' is Eq.~\eqref{eq:fp-target} with Eq.~\eqref{eq:fp-H}; the cover is
+Table~\ref{tab:fpcover}: ``spins up to 1000 are certified one by one'' is its first row, ``high twist by an expansion about the
+leading-Regge value'' its second, and ``three methods valid at large, intermediate, and small impact parameter'' the tail theorem with
+routes T$'$, T$''$, the signed transfer and the direct prefix rows. ``Its terms reach $10^{685}$'' is fact (a) of
+Sec.~\ref{sec:fullpos}.C. ``Rerun on separate hardware with identical output'' is Sec.~\ref{sec:fullpos}.I (rows 3--8 of
+Table~\ref{tab:fpcover}; rows 1, 2 and 9 were run once). ``A separate implementation of the rewriting agrees with direct
+evaluations at all 116 states'' is the cross-check paragraph at the end of Sec.~\ref{sec:fullpos}.H [DV]. ``So it needs no
+certificate'' refers to Eq.~(4), whose heavy terms are non-negative [P].
 
-\emph{ABJM.} ``Assumptions (i) and (ii) hold at leading order'' and ``the scalar condition holds too'' are [D-sketch]
-(Sec.~\ref{sec:abjm}); $2.6\%$ is [DV] with the identification $\Lambda\leftrightarrow ML$ at leading order in $1/(ML)$.
+\emph{What is not yet a theorem.} ``Positive on every state we have computed but is not certified'' is the $\Omega^Q$ row of
+Table~\ref{tab:computed} ([NE$\pm$] at the binding states, [NE\,+\,M] and [M] elsewhere). The integral form of the Hall sum rule
+needs (H5). ``The Supplemental Material sets out what it requires'' is Sec.~\ref{sec:transport}.K. ABJM: ``assumptions (i) and (ii)
+hold at leading order'' is [D-sketch] (Sec.~\ref{sec:abjm}); ``supersymmetry sets $\tau=0$'' [Q]; $2.6\%$ is [DV] with the
+identification $\Lambda\leftrightarrow ML$ at leading order in $1/(ML)$.
+
+\emph{Figures.} Fig.~1 is Sec.~\ref{sec:transport}.D--E; Fig.~2 is the $\Lambda$-forms (Sec.~\ref{sec:lambda}) and the all-gap bounds
+(Sec.~\ref{sec:fpanalytic}); Fig.~3 is Table~\ref{tab:fpcover}.
 
 \emph{Data availability.} ``The code that reproduces every constant'' is Sec.~\ref{sec:repro}.
 
-\textbf{What is here.} The full statement with the lower end, the H17 remark and the
+\textbf{What is here.} The thermal sum rules, the spectral-to-gap theorem, shear and Hall viscosity and the corrected viscosity bound (Sec.~\ref{sec:transport}); the full statement with the lower end, the H17 remark and the
 inputs list I1--I6 (Sec.~\ref{sec:full}), the derivation of $c_1=0$ (Sec.~\ref{sec:c1}), the energy-flux corollary
 (Sec.~\ref{sec:flux}), the $\Lambda$-forms (Sec.~\ref{sec:lambda}), positivity at every gap $\Delta_g\ge1000$ (Sec.~\ref{sec:allgap}), the conditional remark on
 $\Delta_g\ge300$ (Sec.~\ref{sec:cor}) and the reproduction summary (Sec.~\ref{sec:repro}). The cover behind the Letter's Fig.~3 is Table~\ref{tab:fpcover}; every state list, leverage value and premise of the earlier evidence
@@ -356,7 +365,7 @@ at $O(c_T^{-2})$ [D]\\
 input & statement & used & grade\\\hline
 L2 & $|\hat g_3|^2$ light coefficient $K=K_0(1+\delta_3)$, $\delta_3=\delta K_0+$H17; $\delta K_0=-7.666\times10^{-4}$ / $-6.830\times10^{-5}$ & D & $\delta K_0$ [certified]; H17 value [D] (closed form, I3); its $t_4^2$/$\alpha_T^2$ asymmetry [D-sketch\,+\,M]\\
 L3 & the $O(t_4)$ light term $16\pi Gc_1t_4$ of $\hat C'_{EE}$ vanishes for every $\nu$, $c_1=0$, and so does the $O(\alpha_T)$ term; F$_2$: the $s$-channel $T$-family term factorises through light-ray one-point matrices, diagonal for Einstein and pure flip at $O(t_4)$, $O(\alpha_T)$; shock ($u$-channel) and $k=3$ parts $=0$ & D, Q & $c_1=0$ [D] given L1's double zeros (both parities), with the light side evaluated block-wise ($T$ block, Lemma of Sec.~\ref{sec:HK}); L4 only as the identity relating the $T$-block action to the Regge arc of the exchange diagram; F$_2$ [D\,+\,DV] (Table~\ref{tab:c1}); $O(\alpha_T)$ step [D]; shock part [P]\\
-L4 & $\Omega_k[X]=D_{\rm LR}[X]+\mathcal A_k[X]$ on every tree term; $\mathcal A_k=0$ for Regge spin $n_X<k$; at $n_X=k$ a linear functional of the top Regge coefficient & Q (D only as an identity on the exchange diagram, cf.\ L3) & [D given C$'$\,+\,Mellin convergence]; [DV] on a Witten family, incl.\ $k=4$\\
+L4 & $\Omega_k[X]=D_{\rm LR}[X]+\mathcal A_k[X]$ on every tree term; $\mathcal A_k=0$ for Regge spin $n_X<k$; at $n_X=k$ a linear functional of the top Regge coefficient & Q; D via L3 & [D given C$'$\,+\,Mellin convergence]; [DV] on a Witten family, incl.\ $k=4$\\
 L5 & Lemma C$'$ (Sec.~\ref{sec:Cprime}); Lemma A: $D_{\rm LR}=0$ on tree terms with $J_0<4$ & Q & [D] (Einstein instance not evaluated)\\
 L6 & $-\mathcal A_4[R^4]=-\hat C_4^{ds}|_{R^4}=2g_4$; $\hat g_4\to0$ & Q & [D given L5, L7(a), heavy dictionary]\\
 L6$'$ & the $R^4$ light function obeys $|L|\le C\Delta\varphi^{-2}(1+|\log\Delta\varphi|)$ at coincident angles; integrable against $C_\nu$ (criterion: growth below $\Delta\varphi^{-7/2}$) & Q & [D] given Refs.~\cite{Paulos,CGPspin,PenedonesMellin} [Q] and dispersiveness; counting lemma [P]; rests on the analytic count: the direct $\Delta\varphi$ scan is pre-asymptotic (local slopes $2.5$--$2.8$ at $\Delta\varphi=0.04$ vs.\ $p=2$), and the AdS$_4$ $R^4$ correlator was not evaluated\\

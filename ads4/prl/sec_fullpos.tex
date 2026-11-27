@@ -92,8 +92,10 @@ The proof turns the recurrence into an ODE that reduces to the Legendre equation
 
 \emph{Moments.} With the $k=2$ continuum weight $\chi$ and the cutoff $\theta$ of Sec.~\ref{sec:defs},
 \begin{equation}
-g(\nu)=-\frac{9216}{\Lambda}\,\frac{4\nu^2+1}{(4\nu^2+9)(4\nu^2+49)}\,\chi(\nu)\theta(\nu),\quad
+\begin{gathered}
+g(\nu)=-\frac{9216}{\Lambda}\,\frac{4\nu^2+1}{(4\nu^2+9)(4\nu^2+49)}\,\chi(\nu)\theta(\nu),\\
 Z_k=\int_0^\infty\!g\,z_{k+2}\,d\nu,\quad Y_k=\int_0^\infty\!g\,y_{k+2}\,d\nu,\quad Q_k=\int_0^1\!\psi_3(p)\,q_k(\Lambda^2p^2)\,dp,
+\end{gathered}
 \label{eq:fp-moments}
 \end{equation}
 with $\psi_3$ the NF02 weight, so that the $Q_k$ are exact rationals.
@@ -344,10 +346,10 @@ long coefficient table, and cells shaped to the physical region), re-certifies $
 cells, every one passing its verifier, with normalised lower bounds $\ge7.0\times10^{-6}$ except one $b=4$ cell at $9.2\times10^{-7}$
 (\texttt{code/gap\_prove/}, \texttt{code/gap\_exec2/}; same retained inputs).
 
-\emph{Code} (archived with all inputs, outputs and logs at Ref.~\cite{Zenodo}; paths relative to the archive root). \texttt{code/fullpos3/} (high twist), \texttt{code/tailcert/}, \texttt{code/analytic*/} (routes T$'$, T$''$),
+{\sloppy \emph{Code} (archived with all inputs, outputs and logs at Ref.~\cite{Zenodo}; paths relative to the archive root). \texttt{code/fullpos3/} (high twist), \texttt{code/tailcert/}, \texttt{code/analytic*/} (routes T$'$, T$''$),
 \texttt{code/locjoint/}, \texttt{code/norming/}, \texttt{code/sliver\_ext/}, \texttt{code/sliver\_L23/} (transfer and norming),
 \texttt{code/sliver\_direct*/}, \texttt{code/gap\_prove/}, \texttt{code/sliver\_fullband/}, \texttt{code/sliver\_fullcov/} (direct prefix),
-\texttt{code/fullpos/} (per-spin certificates and moments).
+\texttt{code/fullpos/} (per-spin certificates and moments).\par}
 
 \subsection{A finite-gap positivity framework}
 \label{sec:fpframe}
