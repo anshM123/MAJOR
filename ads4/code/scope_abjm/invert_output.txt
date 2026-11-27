@@ -1,0 +1,54 @@
+1. The bound B(Delta_g) [paper values; 2b at 500/2000/5000 recomputed from tab:dg, NOT stated in the paper]
+   Delta_g=  300  Lambda= 298.50  2a (scalar cond.) B=  72.041  asym=  72.040  2b (no scalar cond.)=  125.71   Y_2a=(B/2z3)^(1/6)=1.7624  Y_2b=1.9338
+   Delta_g=  500  Lambda= 498.50  2a (scalar cond.) B=  80.855  asym=  80.854  2b (no scalar cond.)=  142.15   Y_2a=(B/2z3)^(1/6)=1.7966  Y_2b=1.9738
+   Delta_g= 1000  Lambda= 998.50  2a (scalar cond.) B=  92.814  asym=  92.813  2b (no scalar cond.)=  164.51   Y_2a=(B/2z3)^(1/6)=1.8384  Y_2b=2.0224
+   Delta_g= 2000  Lambda=1998.50  2a (scalar cond.) B= 104.769  asym= 104.769  2b (no scalar cond.)=  186.90   Y_2a=(B/2z3)^(1/6)=1.8759  Y_2b=2.0659
+   Delta_g= 5000  Lambda=4998.50  2a (scalar cond.) B= 120.571  asym= 120.571  2b (no scalar cond.)=  216.53   Y_2a=(B/2z3)^(1/6)=1.9204  Y_2b=2.1172
+   2 zeta(3) = 2.40411;  2z3/92.8135 = 0.0259;  (92.8135/2z3)^(1/6) = 1.8384
+   10d flat window [0,3.000] (CHMRS-swamp): Y_10d = (3/2z3)^(1/6) = 1.0376
+   AdS5 / N=4 (CHMRS 2106.10274 eq.5.49, alpha/8piG <= 10.9/Delta_gap^6): Y_AdS5 = (10.9/2z3)^(1/6) = 1.2865
+
+2. Dictionary  ML = 2 nu^{1/4} = 2^{5/4} pi^{1/2} lambda^{1/4} = 4.21563 lambda^{1/4}
+   Delta_g=300: Lambda=ML  -> lambda = 2.514e+7;   twist(J=4)=ML-4=Delta_g -> lambda = 2.704e+7
+   Delta_g=1000: Lambda=ML  -> lambda = 3.147e+9;   twist(J=4)=ML-4=Delta_g -> lambda = 3.217e+9
+   g4/(8 pi G L^6) = zeta(3)/(32 nu^{3/2}) = 0.000428332 * lambda^{-3/2}  (leading)
+   8 pi G/L^2 = 256/c_T;  c_T = (64 sqrt2/(3 pi)) N^2/sqrt(lambda) (leading) -> g4/L^8 = 8 zeta(3)/(c_T nu^{3/2})
+
+3A. Fixed-gap inversion (the only form the paper's claims support).
+    If twist gap >= Delta_g then g4 Lambda_g^6/8piG <= B(Delta_g); ABJM: g4 Lambda^6/8piG = 2z3 (Lambda/ML)^6.
+    Violated iff ML < Lambda_g (2z3/B)^{1/6}  <=>  lambda < lambda_*.  Then ABJM has a spin>=4 single trace in TxT with twist < Delta_g.
+    Delta_g=1000 [2a, claimed gap (HLJclosed=false)         ] B=  92.814: ML_* =  543.13, lambda_* =  2.755e+8;  true twist at lambda_* ~ ML_*-4 = 539.13;  ratio Delta_g/true = 1.855  (Lambda/ML = 1.838)
+    Delta_g=1000 [2b, no scalar condition                   ] B= 164.510: ML_* =  493.71, lambda_* =  1.881e+8;  true twist at lambda_* ~ ML_*-4 = 489.71;  ratio Delta_g/true = 2.042  (Lambda/ML = 2.022)
+    Delta_g= 300 [2a, HLJclosed=true (one hypothesis open)  ] B=  72.041: ML_* =  169.37, lambda_* =  2.606e+6;  true twist at lambda_* ~ ML_*-4 = 165.37;  ratio Delta_g/true = 1.814  (Lambda/ML = 1.762)
+    Delta_g= 300 [2b at 300                                 ] B= 125.710: ML_* =  154.36, lambda_* =  1.798e+6;  true twist at lambda_* ~ ML_*-4 = 150.36;  ratio Delta_g/true = 1.995  (Lambda/ML = 1.934)
+
+3B. Running-gap inversion (needs (Pos) for Omega^Q at Delta_max(lambda); established nowhere, examined only at 300, 1000).
+    Solve 2z3 (Lambda/ML)^6 = B(Lambda) with B = eq:quarticL (2a).
+      lambda        ML      Lambda_max   Delta_max   true twist~ML-4   Y=Lambda_max/ML   Delta_max/(ML-4)   Delta_max/lambda^{1/4}
+       1.0e+4   42.1563    69.21534    70.71715       38.1563          1.6419           1.8534          7.0717
+       1.0e+5   74.9657    127.2254    128.7264       70.9657          1.6971           1.8139          7.2388
+       1.0e+6    133.31    232.5564    234.0569        129.31          1.7445             1.81          7.4015
+       1.0e+7   237.062     423.411    424.9112       233.062          1.7861           1.8232          7.5561
+      2.75e+8    542.87    998.0022    999.5023        538.87          1.8384           1.8548          7.7616
+       1.0e+9   749.657    1391.991    1393.491       745.657          1.8568           1.8688          7.8362
+      3.15e+9   998.712    1870.071    1871.571       994.712          1.8725           1.8815          7.9
+      1.0e+11   2370.62    4541.984    4543.484       2366.62          1.9159           1.9198          8.0796
+      1.0e+14   13331.0    26529.89    26531.39       13327.0          1.9901           1.9908          8.39
+      1.0e+20  421563.0    887895.4    887896.9      421559.0          2.1062           2.1062          8.879
+    Asymptotics: Y(lambda) = [ (17.24 ln(2 Y ML/3) - 19.28)/(2 zeta3) ]^{1/6}  ~ (ln lambda)^{1/6}; Delta_max ~ 4.2156 Y lambda^{1/4}
+
+4. Sensitivity of Y to the bound: Y = (B/2z3)^{1/6}
+    B=    3.00  Y=1.038
+    B=   10.90  Y=1.287
+    B=   30.00  Y=1.523
+    B=   50.00  Y=1.658
+    B=   72.04  Y=1.762
+    B=   92.81  Y=1.838
+    B=  164.50  Y=2.022
+    B=  500.00  Y=2.434
+    B= 1000.00  Y=2.732
+    B=10000.00  Y=4.010
+    A factor-2 change in B moves Y by 2^{1/6} = 1.1225 ; factor 10 by 1.4678
+
+5. M-theory regime (k fixed, N->inf), contrast only: 11d R^4 = l11^6 stu/(3*2^7) (CPY 1804.00949); no string scale.
+   g4 Lambda^6/8piG ~ (Lambda l11/L)^6/384 = B  =>  Lambda_max ~ (384 B)^{1/6} L/l11 = 5.73659688614675 L/l11 at B=92.8: Planckian; A2 (tree-level, c_T->inf at fixed gap) fails there.
