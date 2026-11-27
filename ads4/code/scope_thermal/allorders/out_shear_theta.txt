@@ -1,0 +1,6 @@
+background I, J: 12/r**6 12/r**9   first order: 0 0
+Einstein alphas: {1: r*(1 - r**3)/2}  eta0 = -1
+[theta I] alphas: {1: -2*(r - 1)*(r**2 + r + 1)*(r**4*Derivative(theta(r), r) + 3*r**3*theta(r) - r*Derivative(theta(r), r) + theta(r))/r**2, 2: (r - 1)**2*(r**2 + r + 1)**2*theta(r)}
+[theta I] (t0 = theta(1), t1 = theta'(1), ...) eta1/eta0 = 4*t0 - 6*t1  ->  dV_E = -6*t1
+[theta J] alphas: {1: 6*(r - 1)*(r**2 + r + 1)*(r**4*Derivative(theta(r), r) - r*Derivative(theta(r), r) + 7*theta(r))/r**5, 2: -3*(r - 1)**2*(r**2 + r + 1)**2*theta(r)/r**3}
+[theta J] (t0 = theta(1), t1 = theta'(1), ...) eta1/eta0 = -102*t0 + 18*t1  ->  dV_E = -108*t0 + 18*t1
