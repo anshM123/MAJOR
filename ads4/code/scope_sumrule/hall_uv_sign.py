@@ -110,23 +110,28 @@ def solve(Omv, N=48):
 
 
 if __name__ == '__main__':
-    print('\nPi(oo) = g''(0)/2 with g = (1-z^3) X_z - Omega X (requires g(0) = g\'(0) = 0)')
+    print('\nPi(oo) = g\'\'(0)/2 with g = (1-z^3) X_z - Omega X (requires g(0) = g\'(0) = 0)')
     for Omv in (1e-3, 1e-2):
         for N in (40, 60):
             g0, g1, Pi, _ = solve(Omv, N)
             print('Omega=%-7g N=%d  g(0)=%.1e g\'(0)=%.1e  Pi/Omega = %.8f   (expect 4 pi eta_H/s = 108)' % (Omv, N, g0, g1, Pi/Omv))
     print()
     rows = []
-    for Omv in (0.5, 1, 2, 5, 10, 20, 40, 80, 160):
+    for Omv in (0.5, 1, 2, 5, 10, 20, 40, 80):
         vals = []
         for N in (60, 90):
             g0, g1, Pi, _ = solve(Omv, N)
             vals.append(Pi)
         print('Omega=%-6g Pi(oo) = %.10f (N=60)  %.10f (N=90)   S_H = Pi/2 = %.6f' % (Omv, vals[0], vals[1], vals[1]/2))
         rows.append((Omv, vals[1]))
-    # Richardson in 1/Omega^3 (next OPE term ~ Omega^-3 from Delta = 6)
-    (o1, p1), (o2, p2) = rows[-2], rows[-1]
-    ext = (p2*o2**3 - p1*o1**3)/(o2**3 - o1**3)
-    print('\nlarge-Omega extrapolation: S_H = J_H/eps = %.6f per unit lam   (|alpha_T|/32 predicts |S_H| = 45)' % (ext/2))
-    print('4 pi eta_H/s = +108 lam (hall_ef, same conventions).  Ratio S_H / (4 pi eta_H/s) = %.6f' % (ext/2/108))
-    print('=> Z = V + (12/5)(S_E - 3/8 + i S_H): imaginary cubic part', 'CANCELS' if ext > 0 else 'ADDS (doubles)')
+    # large-Omega limit: fit Pi = Pi_inf + a/Omega^2 + b/Omega^3 on Omega in {10, 15, 20, 30, 40} at N = 120
+    Os = np.array([10.0, 15.0, 20.0, 30.0, 40.0])
+    Ps = np.array([solve(o, 120)[2] for o in Os])
+    M = np.vstack([np.ones_like(Os), Os**-2, Os**-3]).T
+    sol, *_ = np.linalg.lstsq(M, Ps, rcond=None)
+    print('N=120 values:', dict(zip(Os, np.round(Ps, 6))))
+    print('fit Pi = %.5f + %.2f/Omega^2 + %.2f/Omega^3' % tuple(sol))
+    ext = sol[0]
+    print('\nlarge-Omega limit: S_H = J_H/eps = %.4f per unit lam   (|alpha_T|/32 predicts |S_H| = 45)' % (ext/2))
+    print('4 pi eta_H/s = +108 lam (hall_ef, same conventions).  Ratio S_H / (4 pi eta_H/s) = %.5f  (-5/12 = %.5f)' % (ext/2/108, -5/12))
+    print('=> Z = V + (12/5)(S_E - 3/8 + i S_H): imaginary cubic part', 'CANCELS' if ext > 0 else 'ADDS (doubles); the cancelling combination is V + (12/5)(S_E - 3/8 - i S_H)')

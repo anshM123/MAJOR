@@ -1,0 +1,16 @@
+(a) (E - 108x^3 - 864x^4)/x^5 = 1944.037697057   (claim < 1945)
+    (H - 108x^3 - 432x^4)/x^5 = 3240.013648979   (claim < 3241)
+    brute-force sums vs closed forms: E rel.diff = -0.00e+00, H rel.diff = -0.00e+00
+    k = 5 algebraic monomials: shear [((1, 1), Fraction(-1944, 1))], Hall [((0, 1, 'P'), Fraction(-648, 1)), ((1, 0, 'Q'), Fraction(2592, 1))]
+    algebraic remainder R/C (units 1/Lambda^8): shear 1944.0377, Hall 3240.0136
+
+(b) checks: (grad I)^2 -> (31104, 0)  grad I . grad P -> (0, -15552)  (grad J)^2 -> (-279936, 0)
+    89 gradient monomials with k <= 10 (X-degree 1, 2)
+    k =  5: sum|dV_E| = 31104,  sum|dV_H| = 15552
+    k =  6: sum|dV_E| = 34992,  sum|dV_H| = 104976
+    k =  7: sum|dV_E| = 933120,  sum|dV_H| = 606528
+    k =  8: sum|dV_E| = 2052864,  sum|dV_H| = 2985984
+    k =  9: sum|dV_E| = 16866144,  sum|dV_H| = 13506912
+    k = 10: sum|dV_E| = 199524384,  sum|dV_H| = 93148704
+    sum_(k>=6, k<=10) |resp| x^k / x^6:  shear 34992.9, Hall 104976.6   (claim < 129000)
+    k = 5 gradient monomials: shear 31104, Hall 15552

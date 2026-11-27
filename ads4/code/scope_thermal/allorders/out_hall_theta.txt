@@ -1,0 +1,6 @@
+[theta P] sigma = -6*Derivative(theta(r), (r, 2))
+[theta P]   = c(r) theta + B'  with c = 0,  B = -6*Derivative(theta(r), r);  check residual = 0
+[theta P]   => 4 pi eta_H/s = int_1^oo sigma = -B(1) (theta, theta' -> 0 fast enough at oo) = 6*t1   (t0 = theta(1), t1 = theta'(1), t2 = theta''(1))
+[theta Q] sigma = 18*(r**2*Derivative(theta(r), (r, 2)) - 9*r*Derivative(theta(r), r) + 24*theta(r))/r**5
+[theta Q]   = c(r) theta + B'  with c = 0,  B = 18*(r*Derivative(theta(r), r) - 6*theta(r))/r**4;  check residual = 0
+[theta Q]   => 4 pi eta_H/s = int_1^oo sigma = -B(1) (theta, theta' -> 0 fast enough at oo) = 108*t0 - 18*t1   (t0 = theta(1), t1 = theta'(1), t2 = theta''(1))

@@ -6,7 +6,7 @@ source S(z) = sum_k c_k(z, Omega) Phi^(k)(z):
   c_3 = 0
   c_4 = 0
 
-Pi(oo) = g(0)/2 with g = (1-z^3) X_z - Omega X (requires g(0) = g'(0) = 0)
+Pi(oo) = g''(0)/2 with g = (1-z^3) X_z - Omega X (requires g(0) = g'(0) = 0)
 Omega=0.001   N=40  g(0)=2.2e-16 g'(0)=-3.2e-13  Pi/Omega = 107.87797655   (expect 4 pi eta_H/s = 108)
 Omega=0.001   N=60  g(0)=1.1e-16 g'(0)=-5.4e-13  Pi/Omega = 107.87797699   (expect 4 pi eta_H/s = 108)
 Omega=0.01    N=40  g(0)=3.6e-15 g'(0)=-5.7e-12  Pi/Omega = 106.78244144   (expect 4 pi eta_H/s = 108)
@@ -20,8 +20,9 @@ Omega=10     Pi(oo) = -87.0835721268 (N=60)  -87.0842021519 (N=90)   S_H = Pi/2 
 Omega=20     Pi(oo) = -89.6158342569 (N=60)  -89.6197014359 (N=90)   S_H = Pi/2 = -44.809851
 Omega=40     Pi(oo) = -89.9392952805 (N=60)  -90.0730148429 (N=90)   S_H = Pi/2 = -45.036507
 Omega=80     Pi(oo) = -89.9797856557 (N=60)  -90.0233270797 (N=90)   S_H = Pi/2 = -45.011664
-Omega=160    Pi(oo) = -89.5523960508 (N=60)  -92.0362518644 (N=90)   S_H = Pi/2 = -46.018126
+N=120 values: {np.float64(10.0): np.float64(-87.077769), np.float64(15.0): np.float64(-89.084267), np.float64(20.0): np.float64(-89.578638), np.float64(30.0): np.float64(-89.860114), np.float64(40.0): np.float64(-89.922416)}
+fit Pi = -89.98286 + 27.82/Omega^2 + 2626.57/Omega^3
 
-large-Omega extrapolation: S_H = J_H/eps = -46.161906 per unit lam   (|alpha_T|/32 predicts |S_H| = 45)
-4 pi eta_H/s = +108 lam (hall_ef, same conventions).  Ratio S_H / (4 pi eta_H/s) = -0.427425
-=> Z = V + (12/5)(S_E - 3/8 + i S_H): imaginary cubic part ADDS (doubles)
+large-Omega limit: S_H = J_H/eps = -44.9914 per unit lam   (|alpha_T|/32 predicts |S_H| = 45)
+4 pi eta_H/s = +108 lam (hall_ef, same conventions).  Ratio S_H / (4 pi eta_H/s) = -0.41659  (-5/12 = -0.41667)
+=> Z = V + (12/5)(S_E - 3/8 + i S_H): imaginary cubic part ADDS (doubles); the cancelling combination is V + (12/5)(S_E - 3/8 - i S_H)

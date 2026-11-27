@@ -1,0 +1,17 @@
+tau_* strictly decreasing on (2, 1e5]: True
+sup_D [(D-2) - (D-2)sqrt(1-49/(2D+9)^2)] = 0.240098 at D = 8.2503
+=> D_g <= 2.2401 + 5/(9 delta)  (collaborator: 2.26 + 5/(9 delta))
+2 + c_max <= 2.26: True
+
+ delta      exact D_max     2 + 5/(9 delta)   2.26 + 5/(9 delta)
+1.25e-01        6.679689          6.444444          6.704444
+1.00e-01        7.795318          7.555556          7.815556
+3.00e-02       20.699761         20.518519         20.778519
+1.00e-02       57.643878         57.555556         57.815556
+1.00e-03      557.566327        557.555556        557.815556
+1.00e-04     5557.556655       5557.555556       5557.815556
+1.00e-06   555557.555567     555557.555556     555557.815556
+
+Note: |t4| <= 4 (collider) gives delta_E <= 1/8, and tau <= 4 gives delta_th <= 1/8.
+At Delta_g = 1000: tau_*/32 = 5.5667e-04 (max allowed deviation of S_E from 3/8 without positivity);
+                   2.89e-8/32 = 9.03e-10 (with positivity, no light single traces).
