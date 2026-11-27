@@ -1,0 +1,15 @@
+/home/user/MAJOR/ads4/code/scope_sumrule/free_fields_sumrule.py:25: RuntimeWarning: overflow encountered in exp
+  nF = lambda x: 1.0/(np.exp(x) + 1.0)
+/home/user/MAJOR/ads4/code/scope_sumrule/free_fields_sumrule.py:26: RuntimeWarning: overflow encountered in expm1
+  nB = lambda x: 1.0/np.expm1(x)
+C_T-independent ratios (both species): rho_0 per eps at T=1
+Dirac:  eps = 0.5739398940 (analytic 3 zeta3/(2pi) = 0.5739398940)
+        pair/eps = -0.1250000000 (analytic -1/8)
+        W/eps    = 0.3750000000, 2D-quad 0.3750000000 (analytic 3/8)
+        S = 0.2500000000   CDP with t4=-4: 0.2500000000
+Scalar: eps = 0.3826265960 (analytic zeta3/pi = 0.3826265960)
+        pair/eps = 0.1250000000 (analytic +1/8)
+        W/eps    = 0.3750000000, 2D-quad 0.3750000000 (analytic 3/8)
+        S = 0.5000000000   CDP with t4=+4: 0.5000000000
+Line through free points: S = 0.375000 + 0.031250 t4   (CDP: 0.375 + 0.03125 t4)
+Einstein point t4 = 0 predicted by this line: 0.375000 ; holographic value checked in einstein_ads4_sumrule.py
