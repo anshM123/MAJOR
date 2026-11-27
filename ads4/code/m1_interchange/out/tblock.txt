@@ -1,0 +1,28 @@
+# 1. The stress-tensor block (Delta, J) = (3 + eps, 2), ladder b = 0 (the only ladder at J = 2)
+  k=2 per-nu image S(s): residue at eps=0 : -(s**5 - 192*s**4 + 8228*s**3 - 94752*s**2 + 291552*s - 178560)/144
+                          finite part      : (10*s**5 - 1893*s**4 + 79073*s**3 - 887142*s**2 + 2669880*s - 1608048)/432
+  k=3 per-nu image S3(s): residue          : s**2 - 18*s + 40
+  -> the continued per-block action of T has a simple pole at Delta = 3; residue and finite part are polynomials in s.
+  honest O(1/c_T) light value (row L1): -C_{EE,nu}|_E = 16 pi G/(nu^2+9/4), not of this form in any normalisation (sec. 4).
+
+# 2. Twist-1 (Delta = J + 1) poles of the b = 0 ladder, J = 2..12: order of the pole in eps at Delta = J + 1 + eps
+  J =  2: T - u_(J-1) = epsilon*(epsilon + 3)  -> simple pole at eps = 0 in the k = J ladder term (coefficient z/y_(J+2) != 0)
+  J =  4: T - u_(J-1) = epsilon*(epsilon + 7)  -> simple pole at eps = 0 in the k = J ladder term (coefficient z/y_(J+2) != 0)
+  J =  6: T - u_(J-1) = epsilon*(epsilon + 11)  -> simple pole at eps = 0 in the k = J ladder term (coefficient z/y_(J+2) != 0)
+  J =  8: T - u_(J-1) = epsilon*(epsilon + 15)  -> simple pole at eps = 0 in the k = J ladder term (coefficient z/y_(J+2) != 0)
+  J = 10: T - u_(J-1) = epsilon*(epsilon + 19)  -> simple pole at eps = 0 in the k = J ladder term (coefficient z/y_(J+2) != 0)
+  J = 12: T - u_(J-1) = epsilon*(epsilon + 23)  -> simple pole at eps = 0 in the k = J ladder term (coefficient z/y_(J+2) != 0)
+
+# 3. Even twist (double traces) are regular: min_{j<k<=n} |T - u_j| over the ladder, tau = 2..12, all J <= 40, b = 0, 4
+  smallest |T - u_j| = 2 at (tau, J, b) = (2, 1, 0)  (> 0: no pole at any [TT]_{n,J}, so 0 x finite = 0 at O(1/c_T))
+
+# 4. The honest O(1/c_T) light value is not (state-independent factor) x (polynomial), in any of the normalisations in use.
+   Per nu, a continued block image is rho(nu) * S(s) with S a polynomial (finite ladder) and rho one of: c = (4nu^2+1)/((4nu^2+9)(4nu^2+49))
+   (identity I2 / Eq. fp-moments), c/(R_- + R_+) (weight X = chi (R_- + R_+)), or 1 (g-units, as in m1_remainder/m1_n0.py).
+   R_- + R_+ = -8*(4*nu**2 + 1)*(16*nu**4 - 728*nu**2 + 969)/((4*nu**2 + 9)*(4*nu**2 + 49))
+   rho = c           : (16 pi/(nu^2+9/4))/rho = 64*pi*(4*nu**2 + 49)/(4*nu**2 + 1)   -> polynomial in nu? False
+   rho = c/(R_-+R_+) : (16 pi/(nu^2+9/4))/rho = -512*pi*(16*nu**4 - 728*nu**2 + 969)/(4*nu**2 + 9)   -> polynomial in nu? False
+   rho = 1           : (16 pi/(nu^2+9/4))/rho = 64*pi/(4*nu**2 + 9)   -> polynomial in nu? False
+   In every normalisation the honest profile has a pole at finite nu (nu = +-i/2 or +-3i/2), every continued block image
+   is entire after removing rho.  So lambda_TTT^2 * (residue, finite part or any regularisation of omega^cont[T]) + sum 0 is never
+   the light side: the block-wise light side fails on the exact tree-level correlator, per nu and for every weight.

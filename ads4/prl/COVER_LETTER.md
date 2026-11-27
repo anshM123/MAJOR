@@ -45,5 +45,5 @@ Aryan Senthilkumar ([AFFILIATION]), aryan.senthilk@gmail.com
 * **Wording matches the Letter's grades.** "Derive" for the Hall sum rule; "certify" for positivity at Δ_g = 1000; "sketch" for the
   light-state estimate; "planar limit" for the 9 × 10⁻¹⁰ radius; the transport results are stated as bulk-effective-theory results.
   The 1/Δ_g weakness and the open CFT derivation of η/s are stated, as in the Letter.
-* **Page counts (build of 27 Nov 2026):** Letter 5 pages, 2 figures; Supplemental Material 56 pages.
+* **Page counts (build of 27 Nov 2026):** Letter 5 pages, 2 figures; Supplemental Material 57 pages.
 * **AI-use disclosure** is in the Letter's acknowledgments, unchanged; it is not repeated here.

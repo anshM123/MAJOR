@@ -1,0 +1,11 @@
+# twist-tau light states, Delta_g = 1000: hhat = hhat2 (quadrature) + hhat3 (exact); [m1a moment-ball log10|hhat|]
+# tail = share of |hhat2| from nu > Lam
+  twist   6 J   2 b 0: hhat2 -5.02076e+14  hhat3  2.27156e+15  total   1.769484e+15  log10|.|   15.248 [m1a: sign +1, log10 15.248]  tail(nu>Lam)/hhat2 = -3.21e-13
+  twist   6 J   4 b 0: hhat2 -9.20327e+22  hhat3  3.05635e+23  total  2.1360265e+23  log10|.|   23.330 [m1a: sign +1, log10 23.330]  tail(nu>Lam)/hhat2 = -1.73e-12
+  twist   6 J   8 b 0: hhat2 -2.71046e+38  hhat3  6.66761e+38  total  3.9571508e+38  log10|.|   38.597 [m1a: sign +1, log10 38.597]  tail(nu>Lam)/hhat2 = -2.16e-11
+  twist   6 J   8 b 4: hhat2 -2.44439e+23  hhat3 -8.11914e+23  total -1.0563527e+24  log10|.|   24.024 [m1a: sign -1, log10 24.024]  tail(nu>Lam)/hhat2 = -1.73e-12
+  twist   6 J  20 b 0: hhat2 -1.47378e+79  hhat3  3.29318e+79  total  1.8194082e+79  log10|.|   79.260 [m1a: sign +1, log10 79.260]  tail(nu>Lam)/hhat2 = -4.21e-9
+  twist   6 J  20 b 4: hhat2 -4.05456e+66  hhat3 -8.52278e+66  total  -1.257734e+67  log10|.|   67.100 [m1a: sign -1, log10 67.100]  tail(nu>Lam)/hhat2 = -8.46e-10
+  twist   8 J   8 b 0: hhat2 -1.75904e+37  hhat3   4.3279e+37  total  2.5688534e+37  log10|.|   37.410   tail(nu>Lam)/hhat2 = -2.16e-11
+  twist  10 J   8 b 0: hhat2 -1.78338e+36  hhat3  4.38862e+36  total  2.6052388e+36  log10|.|   36.416   tail(nu>Lam)/hhat2 = -2.16e-11
+  twist  22 J   8 b 0: hhat2 -1.78467e+32  hhat3  4.39921e+32  total  2.6145418e+32  log10|.|   32.417   tail(nu>Lam)/hhat2 = -2.17e-11

@@ -1,3 +1,5 @@
 Gamma 0.0s
 Riemann 0.1s
-Weyl 5.9s
+Weyl 5.5s
+M split 6.4s
+products 35.6s

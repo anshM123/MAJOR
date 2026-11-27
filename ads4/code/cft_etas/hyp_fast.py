@@ -64,9 +64,19 @@ def Wl(a, b, c, d):
             + Rs/6*(gm(a, c)*gm(b, d) - gm(a, d)*gm(b, c)))
 M = [[trunc(Wl(*PAIRS[i], *PAIRS[j])*gi[PAIRS[j][0]]*gi[PAIRS[j][1]]) for j in range(6)] for i in range(6)]
 print('Weyl %.1fs' % (time.time() - T0)); sys.stdout.flush()
-M2 = [[trunc(sum(M[i][k]*M[k][j] for k in range(6))) for j in range(6)] for i in range(6)]
-I = trunc(4*sum(M2[i][i] for i in range(6)))
-J = trunc(8*sum(M2[i][k]*M[k][i] for i in range(6) for k in range(6)))
+def epsc(e, k):
+    return se.expand(e.diff(eps, k).subs({eps: 0})/math.factorial(k))
+Mk = [[[epsc(M[i][j], k) for j in range(6)] for i in range(6)] for k in range(3)]
+M0, M1, M2c = Mk
+print('M split %.1fs' % (time.time() - T0)); sys.stdout.flush()
+mm = lambda A, B: [[se.expand(sum(A[i][k]*B[k][j] for k in range(6))) for j in range(6)] for i in range(6)]
+tr = lambda A: se.expand(sum(A[i][i] for i in range(6)))
+M00 = mm(M0, M0); M11 = mm(M1, M1)
+print('products %.1fs' % (time.time() - T0)); sys.stdout.flush()
+I0 = 4*tr(M00); I1 = 8*tr(mm(M0, M1)); I2 = 4*(2*tr(mm(M0, M2c)) + tr(M11))
+J0 = 8*tr(mm(M00, M0)); J1 = 24*tr(mm(M00, M1)); J2 = 24*(tr(mm(M00, M2c)) + tr(mm(M0, M11)))
+I = I0 + eps*I1 + eps**2*I2
+J = J0 + eps*J1 + eps**2*J2
 print('I, J %.1fs' % (time.time() - T0)); sys.stdout.flush()
 out = {}
 for name, e in (('R', Rs), ('I', I), ('J', J)):

@@ -14,7 +14,18 @@ Units: 2πT = 1 unless stated, so β = 2π. In the numerics, r₊ = 1 and 2πT =
   4πη/s − 1 = ∫_0^∞ t k(t) dt (integrate by parts, assuming φ decays).
 * **Causal support.** The commutator ⟨[T_xy(t,x), T_xy(0)]⟩ vanishes for |x| > t. So k(t) involves only |x| ≤ t.
 
-## 1. Lemma R3: early-time real-time control by the thermal OPE [D-sketch]
+## 1. Lemma R3: early-time real-time control by the thermal OPE [D-sketch; part (iii) WITHDRAWN]
+
+> **Correction (session 3, from the collaborator; now Remark 14).** The "analytic terms drop out" claim (iii) fails beyond exact
+> mean field theory, for two reasons:
+> * An anomalous dimension lifts the zero at first order: Disc(−t²)^{n+δ/2} = iπ(−1)ⁿ δ t^{2n} + O(δ²). With λ_{ttD} = O(1),
+>   ⟨D⟩_β = O(c_T) and δ_D = O(1/c_T), double traces contribute at leading connected order.
+> * Light multi-stress primaries, such as a scalar [T³] near Δ = 9, have timelike discontinuities.
+>
+> So the early-time remainder is **not** (2t/β)^{Δ_g}, and b₁ does not drop out of the early commutator. Parts (i) and (ii)
+> (Lorentzian convergence, and the heavy-state estimate *per operator*) stand. The holographic check below shows only that deep bulk
+> layers change no OPE coefficient. It does not show that the early commutator is free of thermal one-point data. Theorem R2 is
+> unaffected as a conditional statement, but its input (B) is not supplied by the OPE.
 
 **(i) Convergence.** The thermal OPE g = Σ_O a_O (zz̄)^{Δ/2}·(structures) converges for |z|, |z̄| < 1, with
 z, z̄ = (τ ± i|x|)/β (Iliesiu–Koloğlu–Mahajan–Perlmutter–Simmons-Duffin, 1802.10266). In real time, τ = it gives
