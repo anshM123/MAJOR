@@ -550,6 +550,15 @@ $4\pi\eta/s-1\simeq108\,\zeta(3)/(32(2\pi^2\lambda)^{3/2})\approx0.046\,\lambda^
 correction. A CFT-native version would need the 3d $\mathcal N=8$ Ward identities to fix five- and six-point stress-multiplet contacts from four-point
 data (\texttt{code/cft\_etas}, THEOREM\_SUSY.md).
 
+\textbf{Remark 19 (hyperbolic transport at the CHM temperature and $\langle TTT\rangle$)} [D + DV, conditional]. Since $\partial_Ts|_{T_0}=\pi^4C_T/(6R)$
+involves only the second modular cumulant, any part of $\mathcal V(T_0)=4\pi\partial_T\eta_Y/\partial_Ts|_{T_0}-1=d\log\eta_Y/d\log T|_{T_0}-1$ fixed by
+$\langle TTT\rangle$ is exactly affine in $t_4$; Einstein ($0$), the free Dirac/Majorana fermion ($+2/15$, from an exact Kubo computation on $H^2$ that also
+reproduces $\eta_Y(T_0)=\pi^2C_T/48$ and $c_H=4\pi\eta_Y$) and the Weyl$^3$ slope then fix $\mathcal V(T_0)=-t_4/30$, provided the temperature derivative at
+$T_0$ is the insertion of $K=\int x^+T_{++}$ with no operator on the entangling surface. The free conformal scalar violates that proviso: its exact
+thermal value is $+6/5$ rather than $-2/15$, and its third cumulant is off the $\langle TTT\rangle$ line by $1/2$, the same edge-term effect known from its
+Rényi entropies (Lee--Lewkowycz--Perlmutter--Safdi; Hung--Myers--Smolkin). With that proviso the gap bounds give $|\mathcal V(T_0)|\le\tau/30$
+(\texttt{code/hyp\_identity}).
+
 \subsection{Assumptions of the transport and spectral statements}
 \begin{center}
 \begin{tabular}{L{6.2cm}L{9.6cm}}
