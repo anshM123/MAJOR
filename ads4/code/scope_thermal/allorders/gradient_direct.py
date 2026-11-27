@@ -1,4 +1,8 @@
 """
+NOTE: the background/first-law half (general N(r), f(r) curvature + high-order Euler-Lagrange + dsolve) did not finish
+within 40 min and was stopped; out_gradient_direct.txt contains the shear-side results (e1, U identity) only.
+The entropy side is done instead by Iyer-Wald (boxC_wald.py) and cross-checked by the identity route (README item 2/3).
+
 Items 2-3: direct (no integration-by-parts shortcut, no on-shell identity) shear responses for derivative operators.
   dV_E = e1 - k - 2 tau1, where
      e1   = eta_1/eta_0 at fixed horizon r_h = 1 (membrane flux of the full quadratic action, up to phi''' jets),

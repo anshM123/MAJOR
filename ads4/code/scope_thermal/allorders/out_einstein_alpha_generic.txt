@@ -1,0 +1,2 @@
+alphas: {1: -r**2*N(r)*f(r)/2}
+alpha_1 + N r^2 f/2 = 0 ; other alphas: {}

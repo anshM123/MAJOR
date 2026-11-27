@@ -1,0 +1,2 @@
+J-part Wald entropy at r_h = 1 (units 1/16piG; Einstein = 4 pi): 24*pi + lam * 1248*pi
+  => w(lam) = s_J/(4 pi) = 6 + lam * 312
