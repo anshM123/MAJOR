@@ -5,3 +5,5 @@
 4-pt D=16: monomials  606, independent polys   5, S4-symmetric local superamplitudes 1
 4-pt D=18: monomials 1560, independent polys   6, S4-symmetric local superamplitudes 1
 4-pt D=20: monomials 3556, independent polys   7, S4-symmetric local superamplitudes 2
+
+[exited with code 0]
