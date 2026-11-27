@@ -1,0 +1,6 @@
+engine built in 13 s
+background I, J, P, Q (to O(lam)): [12*(4*lam*(4*r**6 - 30*r**3 + 39) + r**6)/r**12, 12*(6*lam*(4*r**6 - 30*r**3 + 39) + r**6)/r**15, 0, 0]
+sigma_Q =  432/r**5  + lam * 216*(32*r**6 - 462*r**3 + 1035)/r**11
+int sigma =  108  + lam * 9828
+4 pi eta_H/s =  9180*kappa*lam + 108*kappa
+in alphas (lam = -alpha3/6, kap = -alpha3t/6): 255*alpha3*alpha3t - 18*alpha3t

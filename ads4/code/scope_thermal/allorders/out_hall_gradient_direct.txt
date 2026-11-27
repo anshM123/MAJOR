@@ -1,0 +1,3 @@
+sigma(r) = 7776*(7*r**3 - 30)/r**11
+terms that would be O(1) or O(w) without phi_v (must be absent): [] ;  O(w^2) terms dropped: 10
+4 pi eta_H/s = int_1^oo sigma = -15552   (claim -15552)

@@ -1,0 +1,23 @@
+(1) large-Matsubara behaviour of dG_E(w_n) (Wick contracted, p = 0, Drude excluded for n != 0)
+  scalar n=1: dG=0.018040087, wn^2 dG=0.7121941009; n=4: dG=0.0026926654, wn^2 dG=1.700834706; n=16: dG=0.00019373783, wn^2 dG=1.95800652; n=64: dG=1.2238188e-5, wn^2 dG=1.97895896; n=256: dG=7.6540382e-7, wn^2 dG=1.980296821
+         (2/pi) Int w drho = 1.98038613432  [= w_n^2 dG limit; Delta=5 data].  w_n^0 and w_n^2 coefficients: 0
+  Dirac  n=1: dG=-0.03205531, wn^2 dG=-1.265492927; n=4: dG=-0.0050101215, wn^2 dG=-3.164666732; n=16: dG=-0.00036305195, wn^2 dG=-3.669175442; n=64: dG=-2.2945774e-5, wn^2 dG=-3.710414298; n=256: dG=-1.4351289e-6, wn^2 dG=-3.713048166
+         (2/pi) Int w drho = -3.71322400186  [= w_n^2 dG limit; Delta=5 data].  w_n^0 and w_n^2 coefficients: 0
+(2) <phi^2>_beta with IR cutoff m (thermal part, massive propagator):
+   m = 1e-01 : <phi^2> = 0.37435924 ;  (1/2pi) log(1/m) = 0.3664678
+   m = 1e-02 : <phi^2> = 0.73373071 ;  (1/2pi) log(1/m) = 0.7329356
+   m = 1e-03 : <phi^2> = 1.099483 ;  (1/2pi) log(1/m) = 1.0994034
+   m = 1e-04 : <phi^2> = 1.4658792 ;  (1/2pi) log(1/m) = 1.4658712
+(3) Dirac: <psibar psi> integrand (angle-integrated, per k): 0
+    <T1(tau) psibar psi(0)> integrand (angle-integrated, per k): 0
+    <T2(tau) psibar psi(0)> integrand (angle-integrated, per k): 0
+(4) scalar T_xy at tau = 1/2: p = 0 value (euclid_tau.py) G(1/2, 0) = 0.28696995
+     p      m        G_cc         2 xi G_ci      xi^2 G_ii
+   0.40  1e-02  0.28675927  -1.569e-03  +1.450e-03
+   0.40  1e-03  0.28680687  -1.583e-03  +2.362e-03
+   0.20  1e-02  0.28688125  -3.855e-04  +2.958e-04
+   0.20  1e-03  0.28692898  -3.972e-04  +5.256e-04
+   0.10  1e-02  0.28691169  -9.042e-05  +5.633e-05
+   0.10  1e-03  0.28695922  -9.926e-05  +1.144e-04
+   0.05  1e-02  0.28691983  -1.878e-05  +9.504e-06
+   0.05  1e-03  0.28696677  -2.471e-05  +2.430e-05

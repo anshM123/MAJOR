@@ -1,0 +1,37 @@
+fermion propagator check (g.d)S at tau != 0: Matrix([[0, 0], [0, 0]]) ;  S(0+) - S(0-) = Matrix([[1, 0], [0, -1]])
+=== free real scalar (improved T; xi-term drops at p = 0)  (overall phase sign fixed by reflection positivity: +1)
+  G_T2T2(tau) per k:  a(k) = k**3*(n**2 + 2*n + 1)/(32*pi) ;  b(k) = k**3*n**2/(32*pi) ;  c(k) = k**3*n*(n + 1)/(16*pi)
+  G_T1T1(tau) per k:  a(k) = k**3*(n**2 + 2*n + 1)/(32*pi) ;  b(k) = k**3*n**2/(32*pi) ;  c(k) = k**3*n*(n + 1)/(16*pi)
+  G_T1T2(tau) per k:  a(k) = 0 ;  b(k) = 0 ;  c(k) = 0
+  KMS b - a e^{-2k} = 0
+  G_T1T1 - G_T2T2 : [0, 0, 0]   cross G_T1T2 : (0, 0, 0)
+  rho_0(w) = w**3/512  ;  rho_T/rho_0 at w = 2k: 1/tanh(k/2)
+  vacuum G_0(tau) = 3/(256*pi*tau**4)  => C_T = 3/(32*pi**2)  = 1 x 3/(32 pi^2)
+  zero-mode integrand per k (thermal - vacuum): k**2*(k*exp(k) + exp(k) - 1)/(16*pi*(exp(2*k) - 2*exp(k) + 1))
+  eps = 0.38262659603117034225   (closed form zeta(3)/pi) 1.0
+  pair  (2/pi)Int d rho/w / eps = 0.125
+  Drude beta*C / eps           = 0.375
+  S_E = (pair + Drude)/eps     = 0.5
+  Euclidean zero mode / eps    = 0.5  (must equal S_E)
+  T1-T2 cross channel identically zero: True
+=== free 2-component Dirac fermion  (overall phase sign fixed by reflection positivity: +1)
+  G_T2T2(tau) per k:  a(k) = k**3*(n**2 - 2*n + 1)/(16*pi) ;  b(k) = k**3*n**2/(16*pi) ;  c(k) = k**3*n*(1 - n)/(8*pi)
+  G_T1T1(tau) per k:  a(k) = k**3*(n**2 - 2*n + 1)/(16*pi) ;  b(k) = k**3*n**2/(16*pi) ;  c(k) = k**3*n*(1 - n)/(8*pi)
+  G_T1T2(tau) per k:  a(k) = 0 ;  b(k) = 0 ;  c(k) = 0
+  KMS b - a e^{-2k} = 0
+  G_T1T1 - G_T2T2 : [0, 0, 0]   cross G_T1T2 : (0, 0, 0)
+  rho_0(w) = w**3/256  ;  rho_T/rho_0 at w = 2k: tanh(k/2)
+  vacuum G_0(tau) = 3/(128*pi*tau**4)  => C_T = 3/(16*pi**2)  = 2 x 3/(32 pi^2)
+  zero-mode integrand per k (thermal - vacuum): k**2*(k*exp(k) - exp(k) - 1)/(8*pi*(exp(2*k) + 2*exp(k) + 1))
+  eps = 0.57393989404675551338   (closed form 3 zeta(3)/(2 pi)) 1.5
+  pair  (2/pi)Int d rho/w / eps = -0.125
+  Drude beta*C / eps           = 0.375
+  S_E = (pair + Drude)/eps     = 0.25
+  Euclidean zero mode / eps    = 0.25  (must equal S_E)
+  T1-T2 cross channel identically zero: True
+
+t4 convention (DICTIONARY_T4.md sec.1; Buchel et al. 0911.4257; CDP 1707.03007): scalar +4, Majorana/Dirac -4
+  scalar  S_E = 0.5   3/8 + t4/32 = 0.5   ratio = 1.0
+  Dirac   S_E = 0.25   3/8 + t4/32 = 0.25   ratio = 1.0
+  without the Drude (zero-frequency) weight: scalar 0.125, Dirac -0.125  (would NOT match)
+  with the Drude weight but no pair term     : scalar 0.375, Dirac 0.375

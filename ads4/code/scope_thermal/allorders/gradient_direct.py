@@ -54,10 +54,10 @@ N, f = sp.Function('N')(r), sp.Function('f')(r)
 gB = sp.diag(-N ** 2 * f, 1 / f, r ** 2, r ** 2)
 giB, GamB, RlB, RicB, RsB, WB = curvature(gB)
 IB, JB = invariants(gB, giB, WB)
-UB = gradC2(gB, giB, GamB, WB)
+UB = gradC2(gB, giB, GamB, WB) if any(w in ('U', 'I U') for w in (sys.argv[1:] or ['U'])) else None
 XII = f * sp.diff(IB, r) ** 2
 XJJ = f * sp.diff(JB, r) ** 2
-bg_ops = {'(gradI)^2': XII, '(gradJ)^2': XJJ, 'U': UB, 'I U': IB * UB}
+bg_ops = {'(gradI)^2': XII, '(gradJ)^2': XJJ, 'U': UB, 'I U': (IB * UB if UB is not None else None)}
 
 
 def EL(Lag, F):
@@ -72,7 +72,7 @@ f1, n1 = sp.Function('f1')(r), sp.Function('n1')(r)
 # claimed Wald (Euler-derivative) coefficients: A_I, A_J for F(y, X)
 boxB = lambda s: sp.diff(r ** 2 * f0 * sp.diff(s, r), r) / r ** 2
 A = {'(gradI)^2': (-2 * boxB(Is[0]), 0), '(gradJ)^2': (0, -2 * boxB(Js[0]))}
-which = sys.argv[1:] or list(bg_ops)
+which = [w.replace('_', ' ') for w in sys.argv[1:]] or list(bg_ops)
 for name in which:
     O = bg_ops[name]
     Lag = N * r ** 2 * (RsB + 6 + lam * O)
