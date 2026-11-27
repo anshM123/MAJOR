@@ -1,0 +1,11 @@
+weight at 14040 nodes: 582s
+  twist    2 J   8 b 0: hhat^(2) = -1.31437585242e+42  log10|.| = 42.119   cancellation int|gS|/|int gS| = 1.01
+  twist    2 J   8 b 4: hhat^(2) = -4.55753742715e+25  log10|.| = 25.659   cancellation int|gS|/|int gS| = 1.0
+  twist    2 J  20 b 0: hhat^(2) = -2.00707666185e+84  log10|.| = 84.303   cancellation int|gS|/|int gS| = 1.54
+  twist    2 J  20 b 4: hhat^(2) = -1.30538386655e+71  log10|.| = 71.116   cancellation int|gS|/|int gS| = 1.18
+  twist    3 J   8 b 0: hhat^(2) = -7.73016406473e+40  log10|.| = 40.888   cancellation int|gS|/|int gS| = 1.01
+  twist    4 J   8 b 0: hhat^(2) = -8.58727074782e+39  log10|.| = 39.934   cancellation int|gS|/|int gS| = 1.01
+  twist    4 J  20 b 0: hhat^(2) = -2.32753876231e+81  log10|.| = 81.367   cancellation int|gS|/|int gS| = 1.54
+  twist    2 J   4 b 0: hhat^(2) = -4.55769739253e+25  log10|.| = 25.659   cancellation int|gS|/|int gS| = 1.0
+  twist  998 J   8 b 0: hhat^(2) = 207822.518709  log10|.| = 5.318   cancellation int|gS|/|int gS| = 24.4
+  twist 1000 J   8 b 0: hhat^(2) = 209975.644695  log10|.| = 5.322   cancellation int|gS|/|int gS| = 24.3

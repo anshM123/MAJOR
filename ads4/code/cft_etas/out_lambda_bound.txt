@@ -1,0 +1,4 @@
+max_{N<=400} S_N/(3+2sqrt2)^N = 0.17662351
+inequalities (a),(b) hold on all sampled (g,N,k): True
+recursion a_N = 6a_{N-1}-a_{N-2} holds for N<60: True
+closed form matches: True  A = 0.853553

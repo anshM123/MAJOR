@@ -93,15 +93,24 @@ The steps are:
    |F − L| ≤ (M + εΛ_N)|B| on H_γ.
 5. At s = 0, |B(0)| = β_N and |L(0)| ≤ εΛ_N. ∎
 
-**Asymptotics [P for the β_N part; DV for Λ_N].**
+**Explicit constants [P; checked in `lambda_bound.py` → `out_lambda_bound.txt`].**
 
-* β_N ≤ Γ(1+2γ) N^{−2γ}.
-* (1/N) log Λ_N → log(3+2√2) = 1.7627 (numerically 1.747 at N = 120, γ = 1).
-* For γ = 0 there is a closed form, 1/|B_k(k)| = C(2k−1,k)·C(N+k,2k), which gives growth (3+2√2)^N via Σ_k C(N+k,2k)4^k ~ T_N(3).
+* **Bound on β_N.** Γ is log-convex, so log Γ(N+1+2γ) − log Γ(N+1) ≥ 2γψ(N+1). Since ψ(N+1) > log N, this gives
+  β_N ≤ Γ(1+2γ) e^{−2γψ(N+1)} ≤ Γ(1+2γ) N^{−2γ}.
+* **Bound on 1/|B_k(k)|.** Split (k+j+2γ)/|k−j| = [(k+j)/|k−j|]·(1 + 2γ/(k+j)):
+  * the product of the first factors is C(2k−1,k)·C(N+k,2k);
+  * the product of the second factors is at most exp(2γΣ_{j≤N} 1/(k+j)) ≤ (N+1)^{2γ}.
+* **Bound on Λ_N.** Use C(2k−1,k) ≤ 4^k/2. The sums a_N = Σ_k C(N+k,2k)4^k are Morgan–Voyce numbers: a_N = 6a_{N−1} − a_{N−2},
+  with a_0 = 1 and a_1 = 5. Hence a_N = A(3+2√2)^N + (1−A)(3−2√2)^N with A = (1+1/√2)/2, and
 
-Choosing N ≈ log(M/ε)/1.76 gives
+  Λ_N ≤ (N+1)^{2γ} [0.427 (3+2√2)^N + 1/2],   a₀ := log(3+2√2) = 1.7627.
 
-  |4πη/s − 1| ≤ C_γ · M · (log(M/ε))^{−2γ}.
+  Numerically, (1/N) log Λ_N = 1.747 at N = 120, γ = 1.
+* **Choice of N.** Set L = log(M/ε) and N = ⌊(L − 4γ log L)/a₀⌋. Then εΛ_N ≲ M (N+1)^{2γ} L^{−4γ}, and
+
+  |4πη/s − 1| ≤ C_γ · M · (log(M/ε))^{−2γ}
+
+  with an explicit C_γ ≈ (2Γ(1+2γ) + 0.43)·a₀^{2γ}(1+o(1)).
 
 Numerically, upper·L^{2γ}/M ≈ 6.8–9 at γ = 1 for ε = 1e-10 … 1e-160, with L = log(M/ε) (`out_pick_bound.txt`).
 

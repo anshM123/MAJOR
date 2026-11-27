@@ -22,4 +22,5 @@ for J in Js:
                 rr = SJ.ratio(o['g'], Delta, J)
                 vals.append(o['L'][0] + np.log(np.max(np.abs(rr))))
             out.append((vals[1] - vals[0])/(3*Delta))
-    print(f'J={J} Delta={Delta}: rates {np.round(out, 4)};  guess -(1-(5+J)/Delta) = {-(1-(5+J)/Delta):+.4f}; -(1-5/Delta) = {-(1-5/Delta):+.4f}', flush=True)
+    line = (f'J={J} Delta={Delta}: rates {np.round(out, 4)};  guess -(1-(5+J)/Delta) = {-(1-(5+J)/Delta):+.4f}; -(1-5/Delta) = {-(1-5/Delta):+.4f}')
+    print(line, flush=True); open(os.path.join(HERE, 'out', f'decay_{Delta:g}.txt'), 'a').write(line + '\n')
