@@ -341,3 +341,23 @@ With those, a Cauchy estimate gives a power law. This is the CFT image of Propos
   * the 3d 𝒩 = 8 five-point Mellin Ward identities are not solved here.
 * **Honest status.** Supersymmetry removes the D = 10 quintic obstruction and pushes the first independent five-point datum to
   D = 18. It does not bound that datum.
+
+## 2026-11-27, session 10: six points under 𝒩 = 8 (THEOREM_N8b.md)
+
+* **MHV n-point bound [D].** For n ≥ 5 the symmetric f must be a polynomial, so D ≥ 2n + 8.
+  * This matches the session-9 count: first five-point contact at D = 18.
+  * It matches EFK's "D^{2k}Rⁿ excluded at MHV for k ≤ 3".
+  * Six-point MHV: D ≥ 20.
+* **NMHV six points [Q, EFK 1003.5018 §4.1].** J² ↔ W₊³W₋³ is NMHV and is the elastic 3 → 3 channel.
+  * R⁶ and D²R⁶ are excluded. D⁴R⁶ (D = 16) is constructed.
+  * Not re-derived here.
+* **Taylor translation.**
+  * a₀ = 0.
+  * a₁ is four-point data (localization for R⁴).
+  * a₂ is four-point data up to c₁₈ (Δ_g⁻¹⁶).
+  * a₃ is four- and five-point data up to c₁₆⁽⁶⁾ (D⁴R⁶, Δ_g⁻¹⁴), the first independent datum.
+* **𝒩 = 8 statement.** With natural sizes [A]: localization-fixed to O(Δ_g⁻¹⁰), four-point-fixed to O(Δ_g⁻¹⁴).
+  * Unconditionally no p is justified: c₁₆⁽⁶⁾ and c₁₈ are unbounded.
+* **The bound.** D⁴R⁶ is the elastic 3 → 3 contact. It would be sign-definite given a 3 → 3 dispersion relation, and needs 3 → 3
+  superconvergence for an upper bound.
+  * c₁₈ is an interference term, bounded by Gram. R⁴-type positivity does not extend to D⁸R⁵.
