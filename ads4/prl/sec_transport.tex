@@ -426,6 +426,15 @@ With $s=4\pi\mathcal N(1+\nu)$, $|\nu|\le\varepsilon$: $|4\pi\eta/s-1|\le2\varep
 $\omega\to0$ limit is uniform; what remains is to derive the action class and $\varepsilon=O(\Delta_g^{-4})$ from the CFT. Note also that the
 collider estimate of Ref.~\cite{AKT} carries $\log\Delta_g/\Delta_g^4$, so a strict $\Delta_g^{-4}$ rate would need a sharper argument.
 
+\textbf{Remark 9 (a relaxation gap does not control the Kubo limit)} [D]. Let $z=-i\omega$, $F_M(z)=\prod_{j=1}^M\gamma_j/(z+\gamma_j)$ with
+$\gamma_j\in[\gamma,\Gamma)$, $G_0=B\Gamma z/(z+\Gamma)$ and $G_M=G_0+AzF_M$, $B>A>0$. Every pole stays at distance $\ge\gamma$ below the real axis, the
+spectral density obeys $\rho_M\ge2(B-A)\Gamma^2\omega/(\Gamma^2+\omega^2)>0$ (so a KMS two-point completion exists), the first $M-2$ inverse-frequency
+coefficients agree with $G_0$, and $\sup_\tau|\delta G_E(\tau)|\le A\Gamma^3q^{M-3}/(12T)$ with $q=\Gamma/(\Gamma+2\pi T)<1$; yet the Kubo slopes differ
+by exactly $A$. The causal kernel is $\delta K_M=Ap_M'$ with $p_M$ the density of a sum of $M$ exponential times, and
+$\int t|\delta K_M|\,dt\gtrsim A\sqrt M$. So a pole gap plus exponentially close Euclidean data still leaves a uniform analytic norm on a disk
+$|\omega|\le r$ (or a weighted causal bound) to be proved; with such a bound of size $K\Delta_g^{-4}s/4\pi$ and an entropy bound, Cauchy's estimate
+gives the theorem. These are response functions, not CFT correlators.
+
 \subsection{Assumptions of the transport and spectral statements}
 \begin{center}
 \begin{tabular}{L{6.2cm}L{9.6cm}}
