@@ -13,9 +13,11 @@ Grades: [P] proved (given the stated inputs), [D] derived, [DV] derived and chec
    (γ ~ κ/(c_T J), GFF weights, exact detector kernels, the twist-2 N-structure). The 10^{691} per-state actions sit on
    twist-2 double twists at J ≈ 0.6Λ ≈ 600. Their physical weight there is about c_T|a|² ≈ 10^{-19}/c_T. That is small only
    polynomially (∝ J^{-8}), so it removes about 20 of the 690 orders.
-   * Full spin sum, every J, by the exact generating function: |R₂| = c_T²|R| ≈ 10^{680}–10^{682}, with A_n = κ_n = 1.
+   * Full spin sum, every J, by the exact generating function: |R₂| = c_T²|R| ≈ 10^{679}–10^{682}, with A_n = κ_n = 1.
+     The central value is 5×10^{679}. The physical profile J^{−8} sits near an accidental zero crossing; generic
+     profiles give 10^{681.5}.
    * Term-wise sum of |·|: 10^{687}.
-   * Threshold: c_T* ≈ 10^{681}–10^{684}, against 10^{690} before. [E]
+   * Threshold: c_T* ≈ 10^{680}–10^{683}, against 10^{690} before. [E]
 2. **There is no cancellation that saves the bound.**
    * *Identity [P given (fp-H) at light states, DV].* The spin sum of the light actions is exactly a weighted integral of
      the generating function H_b(z) = Σ_J ĥ_b(J) z^J.
@@ -23,7 +25,7 @@ Grades: [P] proved (given the stated inputs), [D] derived, [DV] derived and chec
      (0,1): H₀(0.995) = 4×10^{10}.
    * *Even J only: does not cancel.* Bose symmetry populates only even J on both ladders. An even-J profile also samples
      H_b on (−1,0], the back-to-back detector point, where H_b(−1) = +4.0×10^{687}.
-   * *Size.* Summing over spin buys only 10^{5–6} relative to the term-wise sum. The sign of the result depends on the
+   * *Size.* Summing over spin buys only 10^{5–7} relative to the term-wise sum. The sign of the result depends on the
      spin profile (H_b(−e^{−t}) changes sign).
    * *Heavy side.* The heavy side cannot compensate. Heavy ladders have no back-to-back component, since the edge is
      suppressed by U_{b,n} ≤ r^n.
@@ -102,6 +104,7 @@ For any spin profile W(J) = ∫ρ^J dμ(ρ) with μ ≥ 0:
 | 0.005 | +1.57×10^{686} | 4.2×10^{10} |
 | 0.01 | +3.5×10^{684} | 2.0×10⁹ |
 | 0.0125 | +1.46×10^{683} | |
+| 0.01375 | −9.7×10^{682} | |
 | 0.015 | −1.27×10^{683} | |
 | 0.02 | −2.1×10^{682} | 9.2×10⁷ |
 | 0.03 | +9.1×10^{679} | |
@@ -118,12 +121,14 @@ H₄ is within a few percent of H₀ on the negative side.
 * **Why H_b(−e^{−t}) changes sign.** H_b(−e^{−t}) ≈ ∫ G(ν) e^{ν(π/2 − t/2)} dν. It samples the weight χ at decreasing ν
   as t grows, and χ changes sign near the top of its support.
 
-**Full spin sums with the physical profiles** (`out/m1d_*`; c_T|a|² fitted to C(J+1)^{−p} with p ≈ 8.0):
+**Full spin sums with the physical profiles** (`out/m1d_*`; 22 t-nodes; c_T|a|² fitted to C(J+1)^{−p} with p ≈ 8.0):
 
-* **Size.** The back-to-back part is |S| ≈ (0.5–4)×10^{668} per twist-2 family, so |R₂| ≈ 10^{680}–10^{682}. The p
-  dependence is in `out/m1d_sensitivity.txt`.
-* **Sign.** The sign flips between p = 8 and p = 9. The physical p ≈ 8 happens to sit near the zero crossing, which
-  costs about 1.5 decades.
+* **Size.** The back-to-back part is S_pp = 4.0×10^{666}, S_pm = 1.8×10^{666}, S_N = 7.1×10^{665} (linear
+  interpolation), so R₂ = 4.5×10^{679}.
+* **Generic profiles.** They give |S| ≈ 2–4×10^{668} per family: p = 6, 7 give +, p = 9, 10 give −
+  (`out/m1d_sensitivity.txt`).
+* **Sign.** The physical p ≈ 8 sits at the zero crossing, which costs about 1.5–2 decades. The sign there is not
+  resolved: the spline and linear interpolations disagree.
 * **Comparison with truncated sums.** Term-wise |·| over J ≤ 1000 is 10^{687.1}. The truncated signed sum is
   −1.3×10^{684}; the sharp cut at J = 1000 is itself an e^{πΛ/2}-exciting profile.
 * **Conclusion.** Summing over spin gains 10^{5–7}, not 10^{680}. A cancellation to O(1) would need the tree-level
@@ -139,8 +144,8 @@ at the e^{πΛ/2} scale. The heavy side is used only through Σ_heavy ≥ 0 and 
 |---|---|
 | term-wise Σ\|·\|, J ≤ 1000 (7 families) | R₂ = 1.3×10^{687} |
 | truncated signed, J ≤ 1000 | −1.3×10^{684} |
-| full even-J spin sum, twist-2 families (pp, pm, N), generating function | \|R₂\| ≈ 10^{680}–10^{682} (sign profile-dependent) |
-| threshold c_T* = π\|R₂\|/(512 n₀ L_A) | 10^{681}–10^{684} (n₀ = 4.5×10⁻⁷); 10^{675}–10^{678} if n₀ = 1 |
+| full even-J spin sum, twist-2 families (pp, pm, N), generating function | R₂ ≈ 5×10^{679} at the fitted p ≈ 8; \|R₂\| up to 10^{681.5} for nearby profiles; sign not determined |
+| threshold c_T* = π\|R₂\|/(512 n₀ L_A) | 10^{680}–10^{683} (n₀ = 4.5×10⁻⁷); 10^{674}–10^{677} if n₀ = 1 |
 | same at Δ_g = 300 (truncated signed / term-wise) | c_T* ≈ 10^{209} / 10^{211} |
 
 * **Unknown constants.** A_n (GFF normalisation on the canonical structures) and κ_n (Einstein large-spin coefficient)
@@ -204,7 +209,7 @@ without a bulk effective theory.":**
 > to e^{πΛ/2}10^{4.5}T_Δ (L0), and their physical tree-level weights decay only like J^{−8}. Summed over spin by an exact
 > generating-function identity, the e^{πΛ/2} would cancel for spin profiles that are smooth in J. It does not cancel for the
 > even-J profiles that Bose symmetry imposes, which probe the back-to-back detector configuration. The result is
-> |c_T²R| ≈ 10^{680}–10^{682} at Δ_g = 1000, with tree-level Einstein data and untracked O(1) constants. So the inequality
+> |c_T²R| ≈ 10^{679}–10^{682} at Δ_g = 1000, with tree-level Einstein data and untracked O(1) constants. So the inequality
 > constrains the exact t₄, α_T only for c_T ≳ 10^{681}. A remainder of this size is also incompatible with the sum rule
 > itself at smaller c_T. The block-wise light side (L0 with H_K) is therefore not controlled at any physically realised c_T,
 > and Eq. (5) is a statement about the limit c_T → ∞ at fixed Δ_g. This holds with or without a bulk effective theory. The
