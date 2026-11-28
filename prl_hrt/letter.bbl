@@ -1,0 +1,492 @@
+%apsrev4-2.bst 2019-01-14 (MD) hand-edited version of apsrev4-1.bst
+%Control: key (0)
+%Control: author (72) initials jnrlst
+%Control: editor formatted (1) identically to author
+%Control: production of article title (-1) disabled
+%Control: page (0) single
+%Control: year (1) truncated
+%Control: production of eprint (0) enabled
+\begin{thebibliography}{47}%
+\makeatletter
+\providecommand \@ifxundefined [1]{%
+ \@ifx{#1\undefined}
+}%
+\providecommand \@ifnum [1]{%
+ \ifnum #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+ \fi
+}%
+\providecommand \@ifx [1]{%
+ \ifx #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+ \fi
+}%
+\providecommand \natexlab [1]{#1}%
+\providecommand \enquote  [1]{``#1''}%
+\providecommand \bibnamefont  [1]{#1}%
+\providecommand \bibfnamefont [1]{#1}%
+\providecommand \citenamefont [1]{#1}%
+\providecommand \href@noop [0]{\@secondoftwo}%
+\providecommand \href [0]{\begingroup \@sanitize@url \@href}%
+\providecommand \@href[1]{\@@startlink{#1}\@@href}%
+\providecommand \@@href[1]{\endgroup#1\@@endlink}%
+\providecommand \@sanitize@url [0]{\catcode `\\12\catcode `\$12\catcode
+  `\&12\catcode `\#12\catcode `\^12\catcode `\_12\catcode `\%12\relax}%
+\providecommand \@@startlink[1]{}%
+\providecommand \@@endlink[0]{}%
+\providecommand \url  [0]{\begingroup\@sanitize@url \@url }%
+\providecommand \@url [1]{\endgroup\@href {#1}{\urlprefix }}%
+\providecommand \urlprefix  [0]{URL }%
+\providecommand \Eprint [0]{\href }%
+\providecommand \doibase [0]{https://doi.org/}%
+\providecommand \selectlanguage [0]{\@gobble}%
+\providecommand \bibinfo  [0]{\@secondoftwo}%
+\providecommand \bibfield  [0]{\@secondoftwo}%
+\providecommand \translation [1]{[#1]}%
+\providecommand \BibitemOpen [0]{}%
+\providecommand \bibitemStop [0]{}%
+\providecommand \bibitemNoStop [0]{.\EOS\space}%
+\providecommand \EOS [0]{\spacefactor3000\relax}%
+\providecommand \BibitemShut  [1]{\csname bibitem#1\endcsname}%
+\let\auto@bib@innerbib\@empty
+%</preamble>
+\bibitem [{\citenamefont {Ryu}\ and\ \citenamefont
+  {Takayanagi}(2006)}]{RyuTakayanagi2006}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Ryu}}\ and\ \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont
+  {Takayanagi}},\ }\href {https://doi.org/10.1103/PhysRevLett.96.181602}
+  {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf
+  {\bibinfo {volume} {96}},\ \bibinfo {pages} {181602} (\bibinfo {year}
+  {2006})},\ \Eprint {https://arxiv.org/abs/hep-th/0603001}
+  {arXiv:hep-th/0603001} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Hubeny}\ \emph {et~al.}(2007)\citenamefont {Hubeny},
+  \citenamefont {Rangamani},\ and\ \citenamefont {Takayanagi}}]{HRT2007}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {V.~E.}\ \bibnamefont
+  {Hubeny}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Rangamani}},\
+  and\ \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Takayanagi}},\
+  }\href {https://doi.org/10.1088/1126-6708/2007/07/062} {\bibfield  {journal}
+  {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {07}},\ \bibinfo
+  {pages} {062}},\ \Eprint {https://arxiv.org/abs/0705.0016} {arXiv:0705.0016}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Headrick}\ and\ \citenamefont
+  {Takayanagi}(2007)}]{HeadrickTakayanagi2007}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Headrick}}\ and\ \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont
+  {Takayanagi}},\ }\href {https://doi.org/10.1103/PhysRevD.76.106013}
+  {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo
+  {volume} {76}},\ \bibinfo {pages} {106013} (\bibinfo {year} {2007})},\
+  \Eprint {https://arxiv.org/abs/0704.3719} {arXiv:0704.3719} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Hayden}\ \emph {et~al.}(2013)\citenamefont {Hayden},
+  \citenamefont {Headrick},\ and\ \citenamefont
+  {Maloney}}]{HaydenHeadrickMaloney2013}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
+  {Hayden}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Headrick}},\
+  and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Maloney}},\ }\href
+  {https://doi.org/10.1103/PhysRevD.87.046003} {\bibfield  {journal} {\bibinfo
+  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo {volume} {87}},\ \bibinfo
+  {pages} {046003} (\bibinfo {year} {2013})},\ \Eprint
+  {https://arxiv.org/abs/1107.2940} {arXiv:1107.2940} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Bao}\ \emph {et~al.}(2015)\citenamefont {Bao},
+  \citenamefont {Nezami}, \citenamefont {Ooguri}, \citenamefont {Stoica},
+  \citenamefont {Sully},\ and\ \citenamefont {Walter}}]{Bao2015}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.}~\bibnamefont
+  {Bao}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Nezami}},
+  \bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Ooguri}}, \bibinfo
+  {author} {\bibfnamefont {B.}~\bibnamefont {Stoica}}, \bibinfo {author}
+  {\bibfnamefont {J.}~\bibnamefont {Sully}},\ and\ \bibinfo {author}
+  {\bibfnamefont {M.}~\bibnamefont {Walter}},\ }\href
+  {https://doi.org/10.1007/JHEP09(2015)130} {\bibfield  {journal} {\bibinfo
+  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {09}},\ \bibinfo {pages}
+  {130}},\ \Eprint {https://arxiv.org/abs/1505.07839} {arXiv:1505.07839}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Hern{\'a}ndez-Cuenca}(2019)}]{HernandezCuenca2019}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Hern{\'a}ndez-Cuenca}},\ }\href
+  {https://doi.org/10.1103/PhysRevD.100.026004} {\bibfield  {journal} {\bibinfo
+   {journal} {Phys. Rev. D}\ }\textbf {\bibinfo {volume} {100}},\ \bibinfo
+  {pages} {026004} (\bibinfo {year} {2019})},\ \Eprint
+  {https://arxiv.org/abs/1903.09148} {arXiv:1903.09148} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Avis}\ and\ \citenamefont
+  {Hern{\'a}ndez-Cuenca}(2023)}]{AvisHernandezCuenca2023}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+  {Avis}}\ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Hern{\'a}ndez-Cuenca}},\ }\href {https://doi.org/10.1016/j.dam.2022.11.016}
+  {\bibfield  {journal} {\bibinfo  {journal} {Discrete Appl. Math.}\ }\textbf
+  {\bibinfo {volume} {328}},\ \bibinfo {pages} {16} (\bibinfo {year} {2023})},\
+  \Eprint {https://arxiv.org/abs/2102.07535} {arXiv:2102.07535} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Wall}(2014)}]{Wall2014}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~C.}\ \bibnamefont
+  {Wall}},\ }\href {https://doi.org/10.1088/0264-9381/31/22/225007} {\bibfield
+  {journal} {\bibinfo  {journal} {Class. Quantum Grav.}\ }\textbf {\bibinfo
+  {volume} {31}},\ \bibinfo {pages} {225007} (\bibinfo {year} {2014})},\
+  \Eprint {https://arxiv.org/abs/1211.3494} {arXiv:1211.3494} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Grado-White}\ \emph
+  {et~al.}(2025{\natexlab{a}})\citenamefont {Grado-White}, \citenamefont
+  {Grimaldi}, \citenamefont {Headrick},\ and\ \citenamefont
+  {Hubeny}}]{GGHH2025}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Grado-White}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Grimaldi}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Headrick}},\
+  and\ \bibinfo {author} {\bibfnamefont {V.~E.}\ \bibnamefont {Hubeny}},\
+  }\href {https://doi.org/10.1007/JHEP01(2025)065} {\bibfield  {journal}
+  {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {01}},\ \bibinfo
+  {pages} {065}},\ \Eprint {https://arxiv.org/abs/2407.07165}
+  {arXiv:2407.07165} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Grimaldi}\ and\ \citenamefont
+  {Headrick}(2026)}]{GrimaldiHeadrick2026}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Grimaldi}}\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Headrick}},\ }\href@noop {} {\bibinfo {title} {Holographic entropy
+  inequalities \& typical states}} (\bibinfo {year} {2026}),\ \Eprint
+  {https://arxiv.org/abs/2610.33905} {arXiv:2610.33905} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Grado-White}\ \emph
+  {et~al.}(2025{\natexlab{b}})\citenamefont {Grado-White}, \citenamefont
+  {Grimaldi}, \citenamefont {Headrick},\ and\ \citenamefont
+  {Hubeny}}]{GGHHMinimax2025}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Grado-White}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Grimaldi}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Headrick}},\
+  and\ \bibinfo {author} {\bibfnamefont {V.~E.}\ \bibnamefont {Hubeny}},\
+  }\href {https://doi.org/10.1007/JHEP05(2025)104} {\bibfield  {journal}
+  {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {05}},\ \bibinfo
+  {pages} {104}},\ \Eprint {https://arxiv.org/abs/2502.09894}
+  {arXiv:2502.09894} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Headrick}\ and\ \citenamefont
+  {Hubeny}(2023)}]{HeadrickHubeny2023}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Headrick}}\ and\ \bibinfo {author} {\bibfnamefont {V.~E.}\ \bibnamefont
+  {Hubeny}},\ }\href {https://doi.org/10.1007/JHEP07(2023)180} {\bibfield
+  {journal} {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {07}},\
+  \bibinfo {pages} {180}},\ \Eprint {https://arxiv.org/abs/2208.10507}
+  {arXiv:2208.10507} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Zhao}(2026)}]{Zhao2026}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Zhao}},\ }\href@noop {} {\bibinfo {title} {Graph models for covariant
+  holographic entropy {I}}} (\bibinfo {year} {2026}),\ \Eprint
+  {https://arxiv.org/abs/2602.04888} {arXiv:2602.04888} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Czech}\ and\ \citenamefont
+  {Dong}(2019)}]{CzechDong2019}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Czech}}\ and\ \bibinfo {author} {\bibfnamefont {X.}~\bibnamefont {Dong}},\
+  }\href {https://doi.org/10.1007/JHEP10(2019)177} {\bibfield  {journal}
+  {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {10}},\ \bibinfo
+  {pages} {177}},\ \Eprint {https://arxiv.org/abs/1905.03787}
+  {arXiv:1905.03787} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Headrick}\ \emph {et~al.}(2014)\citenamefont
+  {Headrick}, \citenamefont {Hubeny}, \citenamefont {Lawrence},\ and\
+  \citenamefont {Rangamani}}]{HHLR2014}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Headrick}}, \bibinfo {author} {\bibfnamefont {V.~E.}\ \bibnamefont
+  {Hubeny}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Lawrence}},\
+  and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Rangamani}},\ }\href
+  {https://doi.org/10.1007/JHEP12(2014)162} {\bibfield  {journal} {\bibinfo
+  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {12}},\ \bibinfo {pages}
+  {162}},\ \Eprint {https://arxiv.org/abs/1408.6300} {arXiv:1408.6300}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Ba{\~n}ados}\ \emph {et~al.}(1992)\citenamefont
+  {Ba{\~n}ados}, \citenamefont {Teitelboim},\ and\ \citenamefont
+  {Zanelli}}]{BTZ1992}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Ba{\~n}ados}}, \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont
+  {Teitelboim}},\ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
+  {Zanelli}},\ }\href {https://doi.org/10.1103/PhysRevLett.69.1849} {\bibfield
+  {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo
+  {volume} {69}},\ \bibinfo {pages} {1849} (\bibinfo {year} {1992})},\ \Eprint
+  {https://arxiv.org/abs/hep-th/9204099} {arXiv:hep-th/9204099} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Aminneborg}\ \emph {et~al.}(1996)\citenamefont
+  {Aminneborg}, \citenamefont {Bengtsson}, \citenamefont {Holst},\ and\
+  \citenamefont {Peld{\'a}n}}]{ABHP1996}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Aminneborg}}, \bibinfo {author} {\bibfnamefont {I.}~\bibnamefont
+  {Bengtsson}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Holst}},\
+  and\ \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Peld{\'a}n}},\
+  }\href {https://doi.org/10.1088/0264-9381/13/10/010} {\bibfield  {journal}
+  {\bibinfo  {journal} {Class. Quantum Grav.}\ }\textbf {\bibinfo {volume}
+  {13}},\ \bibinfo {pages} {2707} (\bibinfo {year} {1996})},\ \Eprint
+  {https://arxiv.org/abs/gr-qc/9604005} {arXiv:gr-qc/9604005} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Aminneborg}\ \emph {et~al.}(1999)\citenamefont
+  {Aminneborg}, \citenamefont {Bengtsson},\ and\ \citenamefont
+  {Holst}}]{ABH1999}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Aminneborg}}, \bibinfo {author} {\bibfnamefont {I.}~\bibnamefont
+  {Bengtsson}},\ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Holst}},\ }\href {https://doi.org/10.1088/0264-9381/16/2/004} {\bibfield
+  {journal} {\bibinfo  {journal} {Class. Quantum Grav.}\ }\textbf {\bibinfo
+  {volume} {16}},\ \bibinfo {pages} {363} (\bibinfo {year} {1999})},\ \Eprint
+  {https://arxiv.org/abs/gr-qc/9805028} {arXiv:gr-qc/9805028} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Krasnov}(2000)}]{Krasnov2000}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {K.}~\bibnamefont
+  {Krasnov}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Adv.
+  Theor. Math. Phys.}\ }\textbf {\bibinfo {volume} {4}},\ \bibinfo {pages}
+  {929} (\bibinfo {year} {2000})},\ \Eprint
+  {https://arxiv.org/abs/hep-th/0005106} {arXiv:hep-th/0005106} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Skenderis}\ and\ \citenamefont {van
+  Rees}(2011)}]{SkenderisVanRees2011}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {K.}~\bibnamefont
+  {Skenderis}}\ and\ \bibinfo {author} {\bibfnamefont {B.~C.}\ \bibnamefont
+  {van Rees}},\ }\href {https://doi.org/10.1007/s00220-010-1163-z} {\bibfield
+  {journal} {\bibinfo  {journal} {Commun. Math. Phys.}\ }\textbf {\bibinfo
+  {volume} {301}},\ \bibinfo {pages} {583} (\bibinfo {year} {2011})},\ \Eprint
+  {https://arxiv.org/abs/0912.2090} {arXiv:0912.2090} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Mess}(2007)}]{Mess2007}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Mess}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Geom.
+  Dedicata}\ }\textbf {\bibinfo {volume} {126}},\ \bibinfo {pages} {3}
+  (\bibinfo {year} {2007})},\ \Eprint {https://arxiv.org/abs/0706.1570}
+  {arXiv:0706.1570} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Barbot}(2008)}]{Barbot2008}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {T.}~\bibnamefont
+  {Barbot}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Adv.
+  Theor. Math. Phys.}\ }\textbf {\bibinfo {volume} {12}},\ \bibinfo {pages} {1}
+  (\bibinfo {year} {2008})},\ \Eprint {https://arxiv.org/abs/math/0509552}
+  {arXiv:math/0509552} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Bonsante}\ \emph {et~al.}(2011)\citenamefont
+  {Bonsante}, \citenamefont {Krasnov},\ and\ \citenamefont
+  {Schlenker}}]{BKS2011}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {F.}~\bibnamefont
+  {Bonsante}}, \bibinfo {author} {\bibfnamefont {K.}~\bibnamefont {Krasnov}},\
+  and\ \bibinfo {author} {\bibfnamefont {J.-M.}\ \bibnamefont {Schlenker}},\
+  }\href {https://doi.org/10.1093/imrn/rnq070} {\bibfield  {journal} {\bibinfo
+  {journal} {Int. Math. Res. Not.}\ }\textbf {\bibinfo {volume} {2011}},\
+  \bibinfo {pages} {487} (\bibinfo {year} {2011})},\ \Eprint
+  {https://arxiv.org/abs/math/0610429} {arXiv:math/0610429} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Bonsante}\ and\ \citenamefont
+  {Seppi}(2020)}]{BonsanteSeppi2020}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {F.}~\bibnamefont
+  {Bonsante}}\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont
+  {Seppi}},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {In the Tradition
+  of {T}hurston}}},\ \bibinfo {editor} {edited by\ \bibinfo {editor}
+  {\bibfnamefont {K.}~\bibnamefont {Ohshika}}\ and\ \bibinfo {editor}
+  {\bibfnamefont {A.}~\bibnamefont {Papadopoulos}}}\ (\bibinfo  {publisher}
+  {Springer},\ \bibinfo {year} {2020})\ \Eprint
+  {https://arxiv.org/abs/2004.14414} {arXiv:2004.14414} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Mazzoli}\ and\ \citenamefont
+  {Viaggi}(2023)}]{MazzoliViaggi2023}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {F.}~\bibnamefont
+  {Mazzoli}}\ and\ \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Viaggi}},\ }\href {https://doi.org/10.1017/fms.2023.100} {\bibfield
+  {journal} {\bibinfo  {journal} {Forum Math. Sigma}\ }\textbf {\bibinfo
+  {volume} {11}},\ \bibinfo {pages} {e101} (\bibinfo {year} {2023})},\ \Eprint
+  {https://arxiv.org/abs/2212.11106} {arXiv:2212.11106} \BibitemShut {NoStop}%
+\bibitem [{SM()}]{SM}%
+  \BibitemOpen
+  \href@noop {} {}\bibinfo {note} {See Supplemental Material at [URL to be
+  inserted by the publisher] for complete proofs, the numerical methods and
+  their reproducibility, which includes
+  Refs.~\cite{Epstein1966,FarbMargalit2012,Hatcher1991,Penner1987,Geroch1970,ONeill1983,CzechLamprouMcCandlishSully2015,BalasubramanianEtAl2014,Maxfield2015}}\BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Mazzoli}\ and\ \citenamefont
+  {Viaggi}(2022)}]{MazzoliViaggi2022}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {F.}~\bibnamefont
+  {Mazzoli}}\ and\ \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Viaggi}},\ }\href@noop {} {\bibinfo {title} {$\mathrm{SO}_0(2,n+1)$-maximal
+  representations and hyperbolic surfaces}} (\bibinfo {year} {2022}),\ \Eprint
+  {https://arxiv.org/abs/2206.06946} {arXiv:2206.06946} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Bernal}\ and\ \citenamefont
+  {S{\'a}nchez}(2006)}]{BernalSanchez2006}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~N.}\ \bibnamefont
+  {Bernal}}\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {S{\'a}nchez}},\ }\href {https://doi.org/10.1007/s11005-006-0091-5}
+  {\bibfield  {journal} {\bibinfo  {journal} {Lett. Math. Phys.}\ }\textbf
+  {\bibinfo {volume} {77}},\ \bibinfo {pages} {183} (\bibinfo {year} {2006})},\
+  \Eprint {https://arxiv.org/abs/gr-qc/0512095} {arXiv:gr-qc/0512095}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Ak{\'e}~Hau}\ \emph {et~al.}(2021)\citenamefont
+  {Ak{\'e}~Hau}, \citenamefont {Flores},\ and\ \citenamefont
+  {S{\'a}nchez}}]{AkeFloresSanchez2021}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {L.}~\bibnamefont
+  {Ak{\'e}~Hau}}, \bibinfo {author} {\bibfnamefont {J.~L.}\ \bibnamefont
+  {Flores}},\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {S{\'a}nchez}},\ }\href {https://doi.org/10.4171/rmi/1201} {\bibfield
+  {journal} {\bibinfo  {journal} {Rev. Mat. Iberoam.}\ }\textbf {\bibinfo
+  {volume} {37}},\ \bibinfo {pages} {45} (\bibinfo {year} {2021})},\ \Eprint
+  {https://arxiv.org/abs/1808.04412} {arXiv:1808.04412} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Santal{\'o}}(1976)}]{Santalo1976}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {L.~A.}\ \bibnamefont
+  {Santal{\'o}}},\ }\href@noop {} {\emph {\bibinfo {title} {Integral Geometry
+  and Geometric Probability}}}\ (\bibinfo  {publisher} {Addison-Wesley},\
+  \bibinfo {address} {Reading, MA},\ \bibinfo {year} {1976})\BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Bonahon}(1988)}]{Bonahon1988}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {F.}~\bibnamefont
+  {Bonahon}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal}
+  {Invent. Math.}\ }\textbf {\bibinfo {volume} {92}},\ \bibinfo {pages} {139}
+  (\bibinfo {year} {1988})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Burger}\ \emph {et~al.}(2019)\citenamefont {Burger},
+  \citenamefont {Iozzi}, \citenamefont {Parreau},\ and\ \citenamefont
+  {Pozzetti}}]{BIPP2021}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Burger}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Iozzi}},
+  \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Parreau}},\ and\ \bibinfo
+  {author} {\bibfnamefont {M.~B.}\ \bibnamefont {Pozzetti}},\ }\href
+  {https://doi.org/10.1112/plms.12419} {\bibinfo {title} {Currents, systoles,
+  and compactifications of character varieties}} (\bibinfo {year} {2019}),\
+  \Eprint {https://arxiv.org/abs/1902.07680} {arXiv:1902.07680} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Mart{\'i}nez-Granado}\ and\ \citenamefont
+  {Thurston}(2026)}]{MartinezGranadoThurston2026}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+  {Mart{\'i}nez-Granado}}\ and\ \bibinfo {author} {\bibfnamefont {D.~P.}\
+  \bibnamefont {Thurston}},\ }\href@noop {} {\bibinfo {title} {Lengths as
+  intersections on surfaces}} (\bibinfo {year} {2026}),\ \Eprint
+  {https://arxiv.org/abs/2605.04031} {arXiv:2605.04031} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Zhang}\ and\ \citenamefont
+  {Chen}(2017)}]{ZhangChen2017}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.-d.}\ \bibnamefont
+  {Zhang}}\ and\ \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Chen}},\
+  }\href {https://doi.org/10.1007/JHEP01(2017)092} {\bibfield  {journal}
+  {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {01}},\ \bibinfo
+  {pages} {092}},\ \Eprint {https://arxiv.org/abs/1610.07134}
+  {arXiv:1610.07134} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Cresswell}\ and\ \citenamefont
+  {Peet}(2017)}]{CresswellPeet2017}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont
+  {Cresswell}}\ and\ \bibinfo {author} {\bibfnamefont {A.~W.}\ \bibnamefont
+  {Peet}},\ }\href {https://doi.org/10.1007/JHEP11(2017)155} {\bibfield
+  {journal} {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {11}},\
+  \bibinfo {pages} {155}},\ \Eprint {https://arxiv.org/abs/1708.09838}
+  {arXiv:1708.09838} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Grimaldi}\ \emph {et~al.}(2026)\citenamefont
+  {Grimaldi}, \citenamefont {Headrick}, \citenamefont {Hubeny},\ and\
+  \citenamefont {Shteyner}}]{GHHS2026}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Grimaldi}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Headrick}},
+  \bibinfo {author} {\bibfnamefont {V.~E.}\ \bibnamefont {Hubeny}},\ and\
+  \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Shteyner}},\ }\href@noop
+  {} {\bibinfo {title} {Combinatorial properties of holographic entropy
+  inequalities}} (\bibinfo {year} {2026}),\ \Eprint
+  {https://arxiv.org/abs/2601.09987} {arXiv:2601.09987} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Bao}\ \emph {et~al.}(2025)\citenamefont {Bao},
+  \citenamefont {Furuya},\ and\ \citenamefont {Naskar}}]{BaoFuruyaNaskar2025}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.}~\bibnamefont
+  {Bao}}, \bibinfo {author} {\bibfnamefont {K.}~\bibnamefont {Furuya}},\ and\
+  \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Naskar}},\ }\href
+  {https://doi.org/10.1007/JHEP12(2025)140} {\bibfield  {journal} {\bibinfo
+  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {12}},\ \bibinfo {pages}
+  {140}},\ \Eprint {https://arxiv.org/abs/2506.18086} {arXiv:2506.18086}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Ju}\ and\ \citenamefont {Czech}(2026)}]{JuCzech2026}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {X.-X.}\ \bibnamefont
+  {Ju}}\ and\ \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Czech}},\
+  }\href@noop {} {\bibinfo {title} {Not all holographic entropy inequalities
+  are free of area law ultraviolet divergences}} (\bibinfo {year} {2026}),\
+  \Eprint {https://arxiv.org/abs/2611.21726} {arXiv:2611.21726} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Epstein}(1966)}]{Epstein1966}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.~B.~A.}\
+  \bibnamefont {Epstein}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo
+  {journal} {Acta Math.}\ }\textbf {\bibinfo {volume} {115}},\ \bibinfo {pages}
+  {83} (\bibinfo {year} {1966})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Farb}\ and\ \citenamefont
+  {Margalit}(2012)}]{FarbMargalit2012}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Farb}}\ and\ \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+  {Margalit}},\ }\href@noop {} {\emph {\bibinfo {title} {A Primer on Mapping
+  Class Groups}}}\ (\bibinfo  {publisher} {Princeton University Press},\
+  \bibinfo {address} {Princeton},\ \bibinfo {year} {2012})\BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Hatcher}(1991)}]{Hatcher1991}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont
+  {Hatcher}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal}
+  {Topology Appl.}\ }\textbf {\bibinfo {volume} {40}},\ \bibinfo {pages} {189}
+  (\bibinfo {year} {1991})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Penner}(1987)}]{Penner1987}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.~C.}\ \bibnamefont
+  {Penner}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal}
+  {Commun. Math. Phys.}\ }\textbf {\bibinfo {volume} {113}},\ \bibinfo {pages}
+  {299} (\bibinfo {year} {1987})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Geroch}(1970)}]{Geroch1970}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.}~\bibnamefont
+  {Geroch}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {J.
+  Math. Phys.}\ }\textbf {\bibinfo {volume} {11}},\ \bibinfo {pages} {437}
+  (\bibinfo {year} {1970})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {O'Neill}(1983)}]{ONeill1983}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {O'Neill}},\ }\href@noop {} {\emph {\bibinfo {title} {Semi-{R}iemannian
+  Geometry with Applications to Relativity}}}\ (\bibinfo  {publisher} {Academic
+  Press},\ \bibinfo {address} {New York},\ \bibinfo {year} {1983})\BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Czech}\ \emph {et~al.}(2015)\citenamefont {Czech},
+  \citenamefont {Lamprou}, \citenamefont {McCandlish},\ and\ \citenamefont
+  {Sully}}]{CzechLamprouMcCandlishSully2015}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Czech}}, \bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Lamprou}},
+  \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {McCandlish}},\ and\
+  \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Sully}},\ }\href@noop {}
+  {\bibfield  {journal} {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo
+  {volume} {10}},\ \bibinfo {pages} {175}},\ \Eprint
+  {https://arxiv.org/abs/1505.05515} {arXiv:1505.05515} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Balasubramanian}\ \emph {et~al.}(2014)\citenamefont
+  {Balasubramanian}, \citenamefont {Hayden}, \citenamefont {Maloney},
+  \citenamefont {Marolf},\ and\ \citenamefont
+  {Ross}}]{BalasubramanianEtAl2014}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {V.}~\bibnamefont
+  {Balasubramanian}}, \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
+  {Hayden}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Maloney}},
+  \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Marolf}},\ and\ \bibinfo
+  {author} {\bibfnamefont {S.~F.}\ \bibnamefont {Ross}},\ }\href
+  {https://doi.org/10.1088/0264-9381/31/18/185015} {\bibfield  {journal}
+  {\bibinfo  {journal} {Class. Quantum Grav.}\ }\textbf {\bibinfo {volume}
+  {31}},\ \bibinfo {pages} {185015} (\bibinfo {year} {2014})},\ \Eprint
+  {https://arxiv.org/abs/1406.2663} {arXiv:1406.2663} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Maxfield}(2015)}]{Maxfield2015}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont
+  {Maxfield}},\ }\href {https://doi.org/10.1007/JHEP04(2015)031} {\bibfield
+  {journal} {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {04}},\
+  \bibinfo {pages} {031}},\ \Eprint {https://arxiv.org/abs/1412.0687}
+  {arXiv:1412.0687} \BibitemShut {NoStop}%
+\end{thebibliography}%

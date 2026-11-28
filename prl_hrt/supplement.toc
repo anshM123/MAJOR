@@ -1,0 +1,39 @@
+\contentsline {title}{Supplemental Material for\\ ``Time dependence does not enlarge the holographic entropy cone in three-dimensional vacuum gravity''}{1}{section*.1}%
+\tocdepth@munge 
+\contentsline {section}{\numberline {}Contents}{1}{section*.2}%
+\tocdepth@restore 
+\contentsline {section}{\numberline {S1}Overview and logical structure}{2}{section*.3}%
+\contentsline {paragraph}{\numberline {}Attribution.}{3}{section*.4}%
+\contentsline {section}{\numberline {S2}Surfaces, regions and cut classes}{3}{section*.5}%
+\contentsline {subsection}{\numberline {A}Surfaces with funnels and marked ideal points}{3}{section*.6}%
+\contentsline {subsection}{\numberline {B}Cut classes}{4}{section*.7}%
+\contentsline {subsection}{\numberline {C}Test classes and intersection numbers}{5}{section*.8}%
+\contentsline {subsection}{\numberline {D}Several metrics on one marked surface}{5}{section*.9}%
+\contentsline {subsection}{\numberline {E}Contraction maps}{5}{section*.10}%
+\contentsline {section}{\numberline {S3}The topological contraction lemma}{6}{section*.11}%
+\contentsline {section}{\numberline {S4}The renormalised Crofton formula}{7}{section*.12}%
+\contentsline {subsection}{\numberline {A}Liouville measure and cutoffs}{7}{section*.13}%
+\contentsline {subsection}{\numberline {B}The endpoint classes}{8}{section*.14}%
+\contentsline {section}{\numberline {S5}Decomposition and graph realisation}{10}{section*.15}%
+\contentsline {section}{\numberline {S6}The vacuum spacetimes and the length formula}{13}{section*.16}%
+\contentsline {subsection}{\numberline {A}The spacetimes}{13}{section*.17}%
+\contentsline {subsection}{\numberline {B}Length formula}{14}{section*.18}%
+\contentsline {section}{\numberline {S7}The HRT prescription and acausal Cauchy slices}{15}{section*.19}%
+\contentsline {subsection}{\numberline {A}Positive lifts, hulls, the domain}{15}{section*.20}%
+\contentsline {subsection}{\numberline {B}Slices, candidates, definition}{16}{section*.21}%
+\contentsline {subsection}{\numberline {C}The conformal model and the causal structure}{17}{section*.22}%
+\contentsline {section}{\numberline {S8}Pleated slices through a cut class}{20}{section*.23}%
+\contentsline {subsection}{\numberline {A}Separation}{20}{section*.24}%
+\contentsline {subsection}{\numberline {B}Invariant spun families of ideal triangles}{21}{section*.25}%
+\contentsline {subsection}{\numberline {C}The pleated slice}{23}{section*.26}%
+\contentsline {section}{\numberline {S9}Theorem H}{24}{section*.27}%
+\contentsline {section}{\numberline {S10}Smooth, compact, uniformly spacelike homology slices}{25}{section*.28}%
+\contentsline {paragraph}{\numberline {}An explicit invariant strip at a rotating horizon.}{28}{section*.29}%
+\contentsline {paragraph}{\numberline {}Collars at arc endpoints.}{28}{section*.30}%
+\contentsline {section}{\numberline {S11}Covariant entropies and the RT cone}{29}{section*.31}%
+\contentsline {section}{\numberline {S12}Numerical tests and reproducibility}{30}{section*.32}%
+\contentsline {subsection}{\numberline {A}Full-cone tests with interval parties on multiply connected surfaces}{30}{section*.33}%
+\contentsline {subsection}{\numberline {B}Identities}{31}{section*.34}%
+\contentsline {subsection}{\numberline {C}Earlier tests of the contraction-map inequalities and of the slice geometry}{32}{section*.35}%
+\contentsline {section}{\numberline {S13}Status of statements and cited inputs}{32}{section*.36}%
+\contentsline {section}{\numberline {}References}{33}{section*.37}%

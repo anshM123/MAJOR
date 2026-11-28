@@ -1,0 +1,1356 @@
+\documentclass[aps,prd,onecolumn,superscriptaddress,nofootinbib,amsmath,amssymb,11pt]{revtex4-2}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+% ---------------------------------------------------------------------------------------------------
+% SCOPE MACROS (identical to letter.tex). MATTER-SLOT (scope): redefine if the NEC extension is added.
+\newcommand{\ScopeClass}{vacuum solutions of three-dimensional gravity with negative cosmological constant}
+\newcommand{\ScopeShort}{vacuum}
+% ---------------------------------------------------------------------------------------------------
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{fact}[theorem]{Fact}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\AdS}{\mathrm{AdS}_3}
+\newcommand{\Hyp}{\mathbb{H}^2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\PSL}{\mathrm{PSL}(2,\R)}
+\newcommand{\SL}{\mathrm{SL}(2,\R)}
+\newcommand{\Cut}{\mathcal{C}}
+\newcommand{\CN}{\mathcal{C}_N}
+\newcommand{\eps}{\epsilon}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\Gq}{\mathcal{G}/\Gamma}
+\newcommand{\mbar}{\bar m}
+\newcommand{\Pt}{\tilde P}
+\newcommand{\Dt}{\tilde D}
+\newcommand{\hull}{\operatorname{hull}}
+\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Mbar}{\overline{M}}
+\newcommand{\EG}{\mathbb{E}_\Gamma}
+\newcommand{\status}[1]{\par\noindent\textit{Status:} #1\par}
+
+\begin{document}
+
+\title{Supplemental Material for\\ ``Time dependence does not enlarge the holographic entropy cone in
+three-dimensional vacuum gravity''}
+
+\author{Ansh Mishra}
+\affiliation{[Affiliation placeholder]}
+\author{Aryan Senthilkumar}
+\affiliation{[Affiliation placeholder]}
+
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+
+\section{Overview and logical structure}\label{sec:overview}
+
+This Supplement gives complete proofs of the statements of the Letter and describes the numerical tests.
+Sections~\ref{sec:setting}--\ref{sec:graph} are mathematics on hyperbolic surfaces and contain no physics.
+Gravity enters in Secs.~\ref{sec:spacetimes}--\ref{sec:main}. The logical chain is:
+\begin{enumerate}
+\item Sec.~\ref{sec:setting}: surfaces with funnels, marked ideal points, regions, cut classes $\Cut(A)$,
+test classes, intersection numbers.
+\item Sec.~\ref{sec:lemmaA}: the topological contraction lemma (Lemma~\ref{lem:A}): one cut-and-paste on one
+arrangement dominates the inputs for every test class at once.
+\item Sec.~\ref{sec:crofton}: the renormalised Crofton formula (Proposition~\ref{prop:crofton}): the
+divergence of a regulated length sits in one topological class per endpoint.
+\item Sec.~\ref{sec:graph}: the decomposition $F^\eps=G+\sum_pt_p(\eps)b_p$ (Corollary~\ref{cor:decomp}) and
+the exact graph realisation of $G$ (Theorem~\ref{thm:graph}). Consequences for every valid inequality
+(Corollary~\ref{cor:cone}) and a direct proof of the contraction-map inequalities (Corollary~\ref{cor:contraction}).
+\item Sec.~\ref{sec:spacetimes}: the \ScopeShort{} spacetimes and the length formula $\frac12(\ell_L+\ell_R)$.
+\item Sec.~\ref{sec:hrtdef}: the HRT prescription with spacelike homology, and the proof that the admissible
+slices are exactly the acausal Cauchy slices of the conformally completed spacetime (Theorems~\ref{thm:C},
+\ref{thm:E}).
+\item Sec.~\ref{sec:pleated}: the separation lemma, invariant spun families of ideal triangles, and the
+pleated slice through any cut class.
+\item Sec.~\ref{sec:thmH}: Theorem~H (HRT entropy $=$ common-class minimum).
+\item Sec.~\ref{sec:smooth}: smooth, compact, uniformly spacelike homology slices for every cut
+(Proposition~\ref{prop:Splus}).
+\item Sec.~\ref{sec:main}: the HRT entropy vector lies in the RT cone; equality of the closed cones.
+\item Sec.~\ref{sec:numerics}: numerical tests; Sec.~\ref{sec:status}: status of each statement and the cited
+inputs.
+\end{enumerate}
+
+\paragraph*{Attribution.} The mechanism of the inequalities---perform the cut-and-paste of the contraction-map
+proof in an auxiliary geometry, keep only crossing counts, and weight them by a positive measure on
+geodesics---is due to Czech and Dong~\cite{CzechDong2019}, who used it on kinematic space for simply connected
+bulks. Their passage to multiply connected bulks via the universal cover is incorrect~\cite{GGHH2025}. Here the
+argument is run on the quotient surface, with test classes for all homotopy classes and the measure on the space
+of geodesics of the quotient, and positivity is supplied by the two chiral Liouville measures; this is why the
+result is restricted to vacuum. The graph construction of Sec.~\ref{sec:graph} is that of Bao
+\emph{et al.}~\cite{Bao2015} for static RT surfaces, run in the virtual geometry of a geodesic current; the
+pseudo-metric attached to a current is due to Burger--Iozzi--Parreau--Pozzetti~\cite{BIPP2021} and is
+discussed by Mart\'inez-Granado and Thurston~\cite{MartinezGranadoThurston2026}. The acausality of pleated
+surfaces over acausal curves is a theorem of Mazzoli and Viaggi~\cite{MazzoliViaggi2022}; our Separation Lemma
+and Proposition~\ref{prop:P} are independent proofs in the setting needed here. Smooth Cauchy extensions use
+Bernal--S\'anchez~\cite{BernalSanchez2006}, and the doubling across a timelike boundary follows the method of
+Ak\'e--Flores--S\'anchez~\cite{AkeFloresSanchez2021}.
+
+% ===================================================================================================
+\section{Surfaces, regions and cut classes}\label{sec:setting}
+
+\subsection{Surfaces with funnels and marked ideal points}
+
+Let $\Gamma\subset\PSL$ be finitely generated, torsion-free, with every non-trivial element hyperbolic, and of
+the second kind (limit set $\Lambda\ne S^1$). Then $X=\Hyp/\Gamma$ is a complete orientable hyperbolic surface
+of finite topology all of whose ends are funnels; $\Gamma$ is convex cocompact and $\Lambda$ has Lebesgue
+measure zero (it has Hausdorff dimension $<1$). The trivial group ($X=\Hyp$) and cyclic groups (hyperbolic
+cylinders) are included. Put $\Omega=S^1\setminus\Lambda$; the ideal boundary $\partial_\infty X=\Omega/\Gamma$ is
+a finite union of circles, one per funnel, and $\bar X=X\cup\partial_\infty X$.
+
+A finite set $P\subset\partial_\infty X$ of \emph{marked points} cuts $\partial_\infty X$ into
+\emph{elementary pieces}. A \emph{party assignment} maps each piece to one of $1,\dots,N,O$ ($O$ is the
+purifier). A \emph{region} $A\subset\{1,\dots,N\}$ is identified with the closure of the union of the pieces
+of its parties; $\partial A\subset P$ is the set of marked points at which exactly one of the two adjacent
+pieces lies in $A$. A circle without marked points is a single piece (a whole boundary). $\Pt\subset\Omega$
+denotes the set of lifts of $P$; stabilisers of points of $\Pt$ are trivial.
+
+\subsection{Cut classes}
+
+\begin{definition}[Cuts]\label{def:cut}
+A \emph{cut} for $A$ is a finite disjoint union $c$ of smoothly embedded curves in $X$, each a closed curve
+or a proper arc whose ends converge to marked points, such that (i) exactly one arc end converges to each
+$p\in\partial A$ and none to any other marked point; (ii) there is a closed set $W\subset X$, equal to the
+closure of its interior, whose frontier in $X$ is $c$ and whose closure in $\bar X$ meets $\partial_\infty X$
+exactly in $A$ (the \emph{homology region}). $\Cut(A)$ is the set of cuts modulo isotopies of $\bar X$ fixing
+$P$, deletion of null-homotopic closed components, and deletion of pairs of isotopic closed components.
+\end{definition}
+
+Both deletions preserve (ii): swap the colour of the open disc (annulus) removed; its closure contains no
+point of $\partial_\infty X$. Every class has a representative without null-homotopic or repeated
+components. For $c\in\Cut(A)$ and $p\in P$ put $e_p(c)\in\{0,1\}$, the number of arc ends at $p$; by (i),
+$e_p(c)=[p\in\partial A]$ for every $c\in\Cut(A)$.
+
+\begin{fact}[Geodesic representatives~\cite{Epstein1966,FarbMargalit2012}]\label{fact:geod}
+(a) Every non-null-homotopic closed curve is freely homotopic to a unique closed geodesic; every proper arc
+between marked points $p\neq p'$ is homotopic rel ideal endpoints to a unique complete geodesic.
+(b) Two geodesics of $\Hyp$ meet iff their endpoint pairs strictly link on $S^1$, and then once, transversally.
+(c) For curves $\sigma\neq\sigma'$, each a closed geodesic or a complete geodesic with ideal endpoints, the
+number of intersection points (with multiplicity) is the minimum over transverse representatives homotopic rel
+ideal endpoints: it is the number of $\Gamma$-orbits of linked pairs of lifts, and linked lifts of any
+representatives must cross.
+(d) A cut without null-homotopic or repeated components is isotopic, fixing $P$, to the union $c^X$ of the
+geodesic representatives of its components, which is again a cut for $A$. Two geodesic arcs ending at the same
+ideal point are disjoint by (b).
+\end{fact}
+
+\subsection{Test classes and intersection numbers}
+
+A \emph{test class} $\tau$ is the free homotopy class of a closed curve in $X$, or the proper homotopy class of a
+proper arc whose ends converge to points of $\partial_\infty X\setminus P$, homotopies being allowed to move the
+ends within $\partial_\infty X\setminus P$. For a test class $\tau$ and a cut class $c$,
+$i(\tau,c):=\min\#(\tau'\cap c')$ over transverse representatives. A test class is \emph{trivial} if it is
+null-homotopic or homotopic into one elementary piece; then $i(\tau,c)=0$ for every cut class. If $\tau^X$ is a
+geodesic representative of $\tau$ (ideal endpoints anywhere in the prescribed pieces) and $c^X$ the geodesic
+representative of $c$, then
+\begin{equation}\label{eq:B0pre}
+i(\tau,c)=\#(\tau^X\cap c^X),
+\end{equation}
+where, if a closed component of $c^X$ equals $\tau^X$ or a geodesic covered by it, $\tau^X$ is replaced by a
+parallel copy. Indeed lifts of components of $c^X$ have endpoints in $\Lambda\cup\Gamma\cdot\Pt$; moving an ideal
+endpoint of a lift of $\tau^X$ inside a component of $\Omega\setminus\Gamma\cdot\Pt$ changes no linking, and
+Fact~\ref{fact:geod}(c) applies.
+
+\subsection{Several metrics on one marked surface}
+
+For the multi-metric statements, $(X_1,P_1)$ carries the party assignment and, for $j=2,\dots,k$, $(X_j,P_j)$ are
+surfaces as above with homeomorphisms $\varphi_j:\bar X_1\to\bar X_j$, $\varphi_j(P_1)=P_j$, carrying the party
+assignment. Cut classes and test classes on $X_j$ are identified with those on $X_1$ through $\varphi_j$;
+intersection numbers, being minima over representatives, are preserved, and the notions ``trivial'' and
+``$\tau_p$'' below are topological. Weights $w_j>0$ are fixed, $W:=\sum_jw_j$.
+
+\subsection{Contraction maps}
+
+$\sum_{l=1}^L\alpha_lS(A_l)\ge\sum_{r=1}^R\beta_rS(B_r)$ ($\alpha_l,\beta_r>0$) \emph{admits a contraction map}
+if there is $f:\{0,1\}^L\to\{0,1\}^R$ with $\|f(x)-f(x')\|_\beta\le\|x-x'\|_\alpha$ (weighted Hamming norms) and
+$f(x^{(i)})=y^{(i)}$ for all $i\in\{1,\dots,N,O\}$, where $x^{(i)}_l=[i\in A_l]$, $y^{(i)}_r=[i\in B_r]$
+\cite{Bao2015}. Repeated terms are allowed. Splitting a term $\alpha S(A)$ with integer $\alpha$ into $\alpha$
+copies with unit coefficient (the ``split form'') can create a contraction map where the weighted form has none:
+one orbit of facets of $\mathcal{C}_5$ admits a contraction map only in split
+form~\cite{AvisHernandezCuenca2023,GHHS2026}. All statements below allow repeated terms.
+
+% ===================================================================================================
+\section{The topological contraction lemma}\label{sec:lemmaA}
+
+\begin{lemma}[Topological contraction]\label{lem:A}
+Let $(X,P)$ carry a party assignment, let $\sum_l\alpha_lS(A_l)\ge\sum_r\beta_rS(B_r)$ admit a contraction map
+$f$ (repeated terms allowed), and let $\gamma_l\in\Cut(A_l)$ be arbitrary. There are $\delta_r\in\Cut(B_r)$
+such that for every test class $\tau$
+\begin{equation}\label{eq:A1}
+\sum_r\beta_r\,i(\tau,\delta_r)\le\sum_l\alpha_l\,i(\tau,\gamma_l),
+\end{equation}
+and for every marked point $p$
+\begin{equation}\label{eq:A2}
+\Delta_p:=\sum_l\alpha_l[p\in\partial A_l]-\sum_r\beta_r[p\in\partial B_r]\ge0.
+\end{equation}
+The $\delta_r$ depend on the $\gamma_l$, on $f$ and on the hyperbolic structure used to draw the arrangement,
+not on $\tau$.
+\end{lemma}
+
+\begin{proof}
+\emph{(A2).} Let the pieces adjacent to $p$ have parties $i_a,i_b$. Then $[p\in\partial A_l]=|x^{(i_a)}_l-x^{(i_b)}_l|$
+and $[p\in\partial B_r]=|y^{(i_a)}_r-y^{(i_b)}_r|$; apply the contraction property to $x^{(i_a)},x^{(i_b)}$.
+
+\emph{Construction.} Replace each $\gamma_l$ by its geodesic representative, with homology region $W_l$ (for
+repeated $A_l$ use the same representative). Let $\mathcal{A}$ be the union of these geodesics, a finite union of
+closed geodesics and complete geodesics; a \emph{vertex} is a point where two distinct geodesics of $\mathcal A$
+cross (finitely many). For a geodesic $\kappa\subset\mathcal A$ let $\Lambda(\kappa)=\{l:\kappa\subset\gamma_l\}$.
+The components of $X\setminus\mathcal A$ are \emph{cells}; for a cell $C$ put $x(C)_l=[C\subset W_l]$, well defined
+because $W_l$ is the closure of a union of components of $X\setminus\gamma_l$. Near a non-vertex point of $\kappa$
+the two sides lie one in $W_l$ and one outside if $l\in\Lambda(\kappa)$, and on the same side otherwise; so the
+cells on the two sides of $\kappa$ have bit strings differing exactly on $\Lambda(\kappa)$. A cell whose closure in
+$\bar X$ contains a piece of party $i$ has bit string $x^{(i)}$.
+
+Let $U_r$ be the closure of the union of the cells $C$ with $f(x(C))_r=1$. By the boundary conditions its
+closure in $\bar X$ contains each piece of a party in $B_r$ and no other piece; $\partial U_r$ is the union of the
+closed edges of $\mathcal A$ across which $f(x(\cdot))_r$ changes.
+
+\emph{Surgery.} Near a vertex $v$ the sectors alternate in membership of $U_r$ across the half-edges of
+$\partial U_r$ at $v$, so there is an even number of them; inside a small disc around $v$ replace $U_r$ by a set
+whose boundary consists of disjoint arcs joining these half-edges in cyclically adjacent pairs. Near a marked
+point $p$, the geodesics of $\mathcal A$ ending at $p$ are pairwise disjoint or equal and divide a neighbourhood
+of $p$ into sectors; those belonging to $\partial U_r$ are rays $\rho_1,\dots,\rho_k$ in angular order, with
+$k\equiv[p\in\partial B_r]\pmod 2$ since the outermost sectors contain the two pieces adjacent to $p$. Inside a
+horoball $H_p$ at $p$ join $\rho_1$ to $\rho_2$, $\rho_3$ to $\rho_4$, \dots\ along $\partial H_p$ and discard the
+parts of those rays inside $H_p$; a ray remains iff $p\in\partial B_r$. The result $U'_r$ is the closure of its
+interior, its closure in $\bar X$ meets $\partial_\infty X$ exactly in $B_r$, and its boundary is an embedded
+multicurve with exactly one arc end at each point of $\partial B_r$ and none elsewhere. So $\partial U'_r$ is a cut
+for $B_r$; let $\delta_r$ be its class (independent of the sizes of discs and horoballs).
+
+\emph{Proof of \eqref{eq:A1}.} If $\tau$ is trivial both sides vanish. Otherwise let $\tau^X$ be a geodesic
+representative; if it is a closed geodesic contained in $\mathcal A$, replace it by a parallel copy, and perturb
+near vertices to miss them. The resulting $\tau'$ represents $\tau$, is transverse to $\mathcal A$, and satisfies
+$\#(\tau'\cap\kappa)=i(\tau,\kappa)$ for every geodesic $\kappa\subset\mathcal A$ (by \eqref{eq:B0pre} when
+$\kappa\ne\tau^X$, the perturbation sliding crossings along $\kappa$; both sides are $0$ when $\kappa=\tau^X$, a
+component of a cut being simple). Being a fixed curve whose ends do not converge to marked points, $\tau'$ avoids
+all sufficiently small horoballs and vertex discs, so $\tau'\cap\partial U'_r=\tau'\cap\partial U_r$. Each
+$q\in\tau'\cap\mathcal A$ lies on a unique geodesic $\kappa_q$ and separates cells $C_q,C'_q$ whose bit strings
+differ exactly on $\Lambda(\kappa_q)$. Hence
+\begin{multline*}
+\sum_l\alpha_l\,i(\tau,\gamma_l)=\sum_q\sum_{l\in\Lambda(\kappa_q)}\alpha_l=\sum_q\|x(C_q)-x(C'_q)\|_\alpha
+\ge\sum_q\|f(x(C_q))-f(x(C'_q))\|_\beta\\
+=\sum_r\beta_r\#(\tau'\cap\partial U_r)=\sum_r\beta_r\#(\tau'\cap\partial U'_r)\ge\sum_r\beta_r\,i(\tau,\delta_r),
+\end{multline*}
+the last step because $\tau'$ and $\partial U'_r$ are transverse representatives of $\tau$ and of a cut whose
+reduced class is $\delta_r$.
+\end{proof}
+
+The lemma is purely topological. This is what allows one family $\delta_r$ to serve all metrics at once, and it
+is the step that fails if the two chiral surfaces are cut and pasted separately: two minimal-position arrangements
+of the same classes on different metrics differ by triangle moves, and a triangle move can change how
+$\partial U_r$ pairs the boundary points of a small disc, so separately produced outputs need not be homotopic.
+
+% ===================================================================================================
+\section{The renormalised Crofton formula}\label{sec:crofton}
+
+\subsection{Liouville measure and cutoffs}
+
+Let $\G$ be the space of unoriented geodesics of $\Hyp$ and $m$ the invariant (Liouville) measure normalised by
+$m\{g:g\cap s\ne\emptyset\}=\mathrm{length}(s)$ for every geodesic segment $s$ (Crofton formula~\cite{Santalo1976});
+in the upper half-plane, in terms of the endpoints $a<b$, $dm=da\,db/(b-a)^2$. Let $\mbar$ be the induced measure
+on $\Gq$; for a compact geodesic segment $s\subset X$, $\int\#(\hat g\cap s)\,d\mbar=\mathrm{length}(s)$. Since
+$\Lambda$ is null and $\Gamma\cdot\Pt$ countable, $\mbar$-almost every $\hat g$ has both ends in
+$\Omega\setminus\Gamma\cdot\Pt$, hence defines a test class $\tau(\hat g)$, and by \eqref{eq:B0pre}
+\begin{equation}\label{eq:B0}
+\#(\hat g\cap c^X)=i(\tau(\hat g),c)\quad\text{for $\mbar$-a.e.\ $\hat g$ and every cut class $c$.}
+\end{equation}
+
+For each $p\in P$ fix a lift $\tilde p\in\Omega$ and an upper half-plane coordinate with $\tilde p=\infty$. The set
+$\Lambda\cup(\Gamma\cdot\Pt\setminus\{\infty\})$ is closed and bounded (its accumulation points lie in $\Lambda$, and
+$\infty$ is an interior point of $\Omega$). Put $B_{\tilde p}(\eps)=\{y>1/\eps\}$, extended $\Gamma$-equivariantly,
+and fix $\eps_0$ with $1/\eps_0$ larger than the Euclidean radius of every geodesic with both ends in that set,
+and so small that the horoballs $B_p(\eps_0)\subset X$ are embedded and pairwise disjoint.
+
+\begin{fact}\label{fact:ends}
+For every cut class $c$ and $\eps\le\eps_0$, $c^X$ meets $\bigcup_pB_p(\eps)$ exactly in the terminal rays of its
+arc ends, and the regulated length $\ell^\eps(c):=\mathrm{length}(c^X\setminus\bigcup_pB_p(\eps))$ satisfies
+$\ell^\eps(c)=\ell^{\eps_0}(c)+e(c)\log(\eps_0/\eps)$ with $e(c)=\sum_pe_p(c)$.
+\end{fact}
+
+\begin{proof}
+A lift of a component of $c^X$ not ending at $\infty$ has both ends in $\Lambda\cup\Gamma\cdot\Pt\setminus\{\infty\}$,
+hence radius $<1/\eps_0$; a lift ending at $\infty$ is a vertical line, whose part above height $1/\eps_0$ has length
+$\log(\eps_0/\eps)$ below height $1/\eps$.
+\end{proof}
+
+\subsection{The endpoint classes}
+
+For $p\in P$, in the chart above let
+$q_-:=\min(\Lambda\cup\Gamma\cdot\Pt\setminus\{\infty\})$, $q_+:=\max(\cdots)$ and $d_p:=q_+-q_->0$. (The inequality
+$q_-<q_+$ fails only for $X=\Hyp$ with $|P|\le2$, a single interval in pure $\AdS$, which we exclude.) The two lifted
+pieces adjacent to $\infty$ are $(q_+,\infty)$ and $(-\infty,q_-)$. Let $\tau_p$ be the test class of the short arc
+running from one piece adjacent to $p$ to the other around $p$; its geodesics are, up to $\Gamma$, exactly
+\[
+\tilde\tau_p=\{g=(a,b):a<q_-,\ b>q_+\},
+\]
+a fundamental set since the stabiliser of $\tilde p$ is trivial. For $p\ne p'$, $\tau_p\ne\tau_{p'}$.
+
+\begin{lemma}\label{lem:taup}
+For every cut class $c$ and every $\hat g\in\tau_p$ with ends off $\Gamma\cdot\Pt$, $\#(\hat g\cap c^X)=e_p(c)$; the
+crossing, if any, is with the vertical lift $x=x_0$ of the arc end at $p$ ($x_0\in[q_-,q_+]$), at Euclidean height
+$\sqrt{(x_0-a)(b-x_0)}$.
+\end{lemma}
+
+\begin{proof}
+Lifts of components of $c^X$ not ending at $\infty$ have both ends in $[q_-,q_+]\subset(a,b)$ and are not linked with
+$g$. Lifts ending at $\infty$ correspond bijectively to arc ends of $c$ at $p$ (trivial stabiliser), so there are
+$e_p(c)\le1$ of them; such a lift is a vertical line at $x_0\in\Gamma\cdot\Pt\subset[q_-,q_+]$, linked with $g$ once.
+\end{proof}
+
+\begin{lemma}[Finite masses]\label{lem:mass}
+Closed test classes have $\mbar$-mass $0$. Every non-trivial arc class other than the $\tau_p$ has finite positive
+mass $\mbar(\tau)$; trivial arc classes and the $\tau_p$ have infinite mass.
+\end{lemma}
+
+\begin{proof}
+A closed class is one point of $\Gq$. Let $\tau$ be an arc class with lifted end pieces $I\ni a$, $J\ni b$.
+(i) If $I,J$ lie in different components of $\Omega$, a lift crosses the axis bounding the component of $I$; with
+$\beta$ the corresponding boundary geodesic, $i(\tau,\beta)\ge1$ and every geodesic of class $\tau$ meets $\beta$
+$i(\tau,\beta)$ times, so $\mbar(\tau)\,i(\tau,\beta)\le\ell(\beta)<\infty$ by Crofton. (ii) If $I,J$ lie in one
+component $(u,v)$ of $\Omega$, the side of the chord $ab$ inside $(u,v)$ contains no limit point and some number $k$
+of lifted marked points: $k=0$ is trivial, $k=1$ is $\tau_p$. For $k\ge2$ the closures of $I$ and $J$ are disjoint
+(separated on one side by the $\ge2$ marked points, on the other by $u,v$, or for trivial $\Gamma$ by further marked
+points unless the other side carries exactly one marked point $q$, in which case $\tau=\tau_q$), so
+$m(I\times J)=\iint_{I\times J}da\,db/(b-a)^2<\infty$, and the stabiliser of the pair is trivial. Positivity: $I\times
+J$ is open. Infinite mass of trivial classes and of $\tau_p$: the integral of $(b-a)^{-2}$ diverges near the common
+endpoint.
+\end{proof}
+
+Let $T:=\bigcup_p\tau_p\subset\Gq$, and let $\mbar'$ be the restriction of $\mbar$ to the geodesics whose class is
+neither trivial nor in $T$. For a cut class $c$ put
+$i(\mbar',c):=\int i(\tau(\hat g),c)\,d\mbar'(\hat g)=\sum_\tau\mbar'(\tau)\,i(\tau,c)\in[0,\infty]$. (Trivial classes
+contribute nothing in any case, since $i(\tau,c)=0$ for them.)
+
+\begin{proposition}[Renormalised Crofton formula]\label{prop:crofton}
+For every cut class $c$ and every $\eps\le\eps_0$,
+\begin{equation}\label{eq:R}
+\ell^\eps(c)=i(\mbar',c)+\sum_{p\in P}e_p(c)\log\frac{1}{\eps\,d_p},
+\qquad i(\mbar',c)=\ell^{\eps_0}(c)+\sum_pe_p(c)\log(\eps_0d_p)<\infty.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Let $c^\eps=c^X\setminus\bigcup_pB_p(\eps)$, a finite union of compact geodesic segments and closed geodesics. By
+Crofton, $\ell^\eps(c)=\int_{\Gq}\#(\hat g\cap c^\eps)\,d\mbar=I_1(\eps)+\sum_pI_p(\eps)$ with
+$I_1(\eps)=\int_{(\Gq)\setminus T}\#(\hat g\cap c^\eps)\,d\mbar$ and $I_p(\eps)=\int_{\tau_p}\#(\hat g\cap c^\eps)\,d\mbar$.
+
+\emph{$I_1$.} As $\eps\downarrow0$, $c^\eps\uparrow c^X$, so $\#(\hat g\cap c^\eps)\uparrow\#(\hat g\cap c^X)=i(\tau(\hat g),c)$
+for a.e.\ $\hat g$ by \eqref{eq:B0}, and by monotone convergence $I_1(\eps)\uparrow i(\mbar',c)\in[0,\infty]$.
+
+\emph{$I_p$.} If $e_p(c)=0$, $I_p=0$ by Lemma~\ref{lem:taup}. Otherwise unfold to $\tilde\tau_p$. The only crossing is
+with $x=x_0$, at height $h(g)=\sqrt{(x_0-a)(b-x_0)}$. That line meets the horoball family only in its two terminal
+rays (Fact~\ref{fact:ends}): the ray to $\infty$, removed iff $h>1/\eps$, and the ray to the marked point $x_0$,
+removed iff $h<\eta_\eps$, where $\eta_\eps\to0$ is the Euclidean diameter of the horoball at $x_0$. So
+$I_p(\eps)=m\{g\in\tilde\tau_p:h<1/\eps\}-m\{g\in\tilde\tau_p:h<\eta_\eps\}$. The second term tends to $0$
+(decreasing sets of finite measure with empty intersection, since $h>0$ on $\tilde\tau_p$). For the first, with
+$u=x_0-a>u_0:=x_0-q_-$, $v=b-x_0>v_0:=q_+-x_0$, $u_0+v_0=d_p$, $Y=1/\eps$, and $dm=du\,dv/(u+v)^2$:
+\[
+\begin{aligned}
+m\{uv<Y^2\}&=\int_{u_0}^{Y^2/v_0}\Big[\frac{1}{u+v_0}-\frac{u}{u^2+Y^2}\Big]du\\
+&=\log\frac{Y^2/v_0+v_0}{d_p}-\frac12\log\frac{Y^4/v_0^2+Y^2}{u_0^2+Y^2}=\log\frac{Y}{d_p}+o(1),
+\end{aligned}
+\]
+and the same limit for $v_0=0$ (upper limit $\infty$) or $u_0=0$. The limit does not depend on $x_0$, i.e.\ on $c$.
+Hence $I_p(\eps)=e_p(c)\log(1/\eps d_p)+o(1)$.
+
+\emph{Exactness.} By Fact~\ref{fact:ends}, $\ell^\eps(c)-e(c)\log(1/\eps)=\ell^{\eps_0}(c)+e(c)\log\eps_0$ for all
+$\eps\le\eps_0$. Therefore $I_1(\eps)=\ell^{\eps_0}(c)+e(c)\log\eps_0+\sum_pe_p(c)\log d_p+o(1)$ is bounded; its
+monotone limit is finite and equals $\ell^{\eps_0}(c)+\sum_pe_p(c)\log(\eps_0d_p)$. Then
+$\ell^\eps(c)=\ell^{\eps_0}(c)+e(c)\log(\eps_0/\eps)=i(\mbar',c)+\sum_pe_p(c)\log(1/\eps d_p)$ exactly.
+\end{proof}
+
+\begin{remark}
+(a) The identity holds class by class; no uniformity in $c$ is used. (b) The divergence is carried by the single
+class $\tau_p$ per marked point, whose intersection number with every cut for $A$ is the constant $[p\in\partial A]$.
+(c) Rescaling the horoball at $p$ by a factor rescales $d_p$ by the same factor; \eqref{eq:R} is covariant.
+(d) The $\tau_p$-geodesics disjoint from $B_p(\eps)$ have mass $\log(2/\eps d_p)-1+o(1)$, while those crossing
+$c^\eps$ have mass $\log(1/\eps d_p)+o(1)$; the difference $1-\log2$ is the end constant of the cruder statement
+``$\ell^\eps(c)=\int_{\G_\eps}\#(\hat g\cap c^X)\,d\mbar+(1-\log2)\,e(c)+o(1)$'' with $\G_\eps$ the geodesics avoiding
+all horoballs, which also holds and was checked numerically.
+\end{remark}
+
+% ===================================================================================================
+\section{Decomposition and graph realisation}\label{sec:graph}
+
+In the multi-metric setting fix cutoffs on each $X_j$ as above with a common $\eps_0$, write $d_p^{(j)}$ for the
+constants of Sec.~\ref{sec:crofton}, and define for a region $A$
+\begin{equation}\label{eq:F}
+F^\eps(A):=\min_{c\in\Cut(A)}\sum_jw_j\,\ell^\eps_{X_j}(c),\qquad\eps\le\eps_0.
+\end{equation}
+By Fact~\ref{fact:ends}, $\sum_jw_j\ell^\eps_{X_j}(c)=\sum_jw_j\ell^{\eps_0}_{X_j}(c)+W|\partial A|\log(\eps_0/\eps)$ on
+$\Cut(A)$. For each bound $L_0$ only finitely many classes have $\ell^{\eps_0}_{X_1}(c)\le L_0$ (their geodesic
+representatives lift to finitely many $\Gamma$-orbits of geodesics meeting a compact set with bounded length, by
+discreteness), so the minimum exists, and the set of minimisers is finite and independent of $\eps\le\eps_0$.
+
+Transport each $\mbar'_j$ to test classes of $X_1$ and put
+\begin{equation}\label{eq:mu}
+\mu':=\sum_jw_j\,\mbar'_j=\sum_\tau\mu'(\tau)\,\tau,\qquad
+t_p(\eps):=\sum_jw_j\log\frac{1}{\eps\,d_p^{(j)}},\qquad
+G(A):=\min_{c\in\Cut(A)}i(\mu',c),
+\end{equation}
+a countable positive combination over non-trivial arc classes $\tau\notin\{\tau_p\}$ with $0<\mu'(\tau)<\infty$
+(Lemma~\ref{lem:mass}). Let $b_p(A):=[p\in\partial A]$.
+
+\begin{corollary}[Decomposition]\label{cor:decomp}
+For every region $A$ and $\eps\le\eps_0$,
+\begin{equation}\label{eq:D}
+F^\eps(A)=G(A)+\sum_{p\in P}t_p(\eps)\,b_p(A).
+\end{equation}
+The minimum defining $G(A)$ is attained, at the finite, $\eps$-independent set of minimisers of $F^\eps(A)$.
+\end{corollary}
+
+\begin{proof}
+By \eqref{eq:R} for each $j$, $\sum_jw_j\ell^\eps_{X_j}(c)=i(\mu',c)+\sum_pe_p(c)t_p(\eps)$, and $e_p(c)=b_p(A)$ for
+every $c\in\Cut(A)$; on $\Cut(A)$ the two functionals differ by a constant.
+\end{proof}
+
+The vector $b_p$ is the entropy vector of a Bell pair shared by the two parties $i_p,j_p$ adjacent at $p$ (if one of
+them is the purifier, $b_p(A)=[\text{the other}\in A]$; if both pieces have the same party, $b_p=0$). It is the
+min-cut function of the graph with one unit edge between the terminals of $i_p$ and $j_p$.
+
+\begin{theorem}[Exact graph realisation]\label{thm:graph}
+$G$ is the min-cut function of a finite weighted graph whose terminals are labelled by the parties. Consequently,
+for $\eps\le\eps_1:=\min_p\prod_j(d_p^{(j)})^{-w_j/W}$ (so that all $t_p(\eps)\ge0$) and $\eps\le\eps_0$, $F^\eps$ is the
+min-cut function of the same graph with, for each $p$, an edge of weight $t_p(\eps)$ added between the terminals of
+$i_p$ and $j_p$.
+\end{theorem}
+
+\begin{proof}
+\emph{Arrangement.} Fix for every non-empty region $A$ a minimiser $c_A$ of $G(A)$ (Corollary~\ref{cor:decomp}) in
+$X_1$-geodesic position, and let $\mathcal A:=\bigcup_Ac_A^{X_1}$, a finite union of closed geodesics and complete
+geodesic arcs ending at marked points. Vertices are crossing points of distinct geodesics of $\mathcal A$ (finitely
+many); \emph{edges} are the segments of $\mathcal A$ between consecutive vertices, the terminal rays from the last
+vertex to a marked point, and vertex-free closed geodesics; \emph{cells} are the components of $X_1\setminus\mathcal A$,
+finitely many because $\mathcal A\cup\partial_\infty X_1$ is a finite graph in the compact surface $\bar X_1$.
+
+\emph{Terminals.} Every elementary piece lies in the closure of exactly one cell (closed geodesics stay in the convex
+core; arcs approach $\partial_\infty X_1$ only at marked points). Two pieces of different parties $i\ne j$ lie in
+different cells: one of them, say $i$, is not the purifier, and $c_{\{i\}}$ separates them. So each cell is either
+\emph{internal} (contains no piece) or a \emph{terminal} of a unique party.
+
+\emph{The measure.} For each class $\tau$ with $\mu'(\tau)>0$ let $\pi_\tau:=\mbar_1|_\tau/\mbar_1(\tau)$, a probability
+measure on the $X_1$-geodesics of class $\tau$ ($0<\mbar_1(\tau)<\infty$ by Lemma~\ref{lem:mass}), and
+$\hat\nu:=\sum_\tau\mu'(\tau)\pi_\tau$. Since $\hat\nu\ll\mbar_1$, $\hat\nu$-a.e.\ $\hat g$ has ends off
+$\Lambda\cup\Gamma\cdot\Pt$, is not a geodesic of $\mathcal A$, misses all vertices and is transverse to $\mathcal A$; by
+\eqref{eq:B0}, for every cut class $c$,
+\begin{equation}\label{eq:nuhat}
+\int\#(\hat g\cap c^{X_1})\,d\hat\nu=\sum_\tau\mu'(\tau)\,i(\tau,c)=i(\mu',c).
+\end{equation}
+No boundary map between $X_1$ and the $X_j$ is needed: the metric dependence sits in the numbers $\mu'(\tau)$.
+
+\emph{Weights.} $w(e):=\hat\nu\{\hat g:\hat g\text{ crosses }e\}$ (with multiplicity). Each edge lies on some $c_A$, so
+$w(e)\le i(\mu',c_A)<\infty$. The graph $\mathfrak G$ has the cells as vertices and, for each edge $e$, an edge of weight
+$w(e)$ between the two cells on its sides (distinct, since $e$ lies on some $c_A$ whose two sides differ in
+membership of $W_A$).
+
+\emph{$\mathrm{mincut}_A(\mathfrak G)\le G(A)$.} Let $S$ be the set of cells contained in the homology region $W_A$ of
+$c_A$; it contains the terminals of the parties in $A$ and no others, and an edge separates $S$ from its complement
+iff it lies on $c_A$. The cut weight is $\sum_{e\subset c_A}w(e)=\int\#(\hat g\cap c_A)\,d\hat\nu=i(\mu',c_A)=G(A)$.
+
+\emph{$\mathrm{mincut}_A(\mathfrak G)\ge G(A)$.} Let $S$ be admissible for $A$ (terminals of parties in $A$ in $S$, other
+terminals not). Let $U$ be the closure of the union of the cells in $S$; its frontier $\partial U$ is the union of the
+edges across which membership changes. Apply the surgery of Lemma~\ref{lem:A} with $U_r:=U$, $B_r:=A$: resolve at
+vertices and pair rays inside small horoballs at marked points. The outermost sectors at $p$ contain the two adjacent
+pieces, so $\partial U'$ is a cut for $A$, of some class $\delta\in\Cut(A)$ independent of the sizes. For
+$\hat\nu$-a.e.\ $\hat g$ choose the discs and horoballs so small that $\hat g$ misses them; then
+$i(\tau(\hat g),\delta)\le\#(\hat g\cap\partial U')=\#(\hat g\cap\partial U)=\sum_{e\subset\partial U}\#(\hat g\cap e)$.
+Integrating, $G(A)\le i(\mu',\delta)\le\sum_{e\subset\partial U}w(e)=\mathrm{weight}(S,S^c)$.
+
+\emph{Endpoint edges.} Merge the terminals of each party (same-label terminals are always on the same side). An
+edge of weight $t_p(\eps)\ge0$ between the terminals of $i_p$ and $j_p$ adds exactly $t_p(\eps)\,b_p(A)$ to every cut
+separating $A$ from its complement, hence to the min-cut. With \eqref{eq:D} this realises $F^\eps$.
+\end{proof}
+
+\begin{corollary}[All valid inequalities]\label{cor:cone}
+Let $Q(S)=\sum_Aq_AS(A)\ge0$ be any linear inequality valid on the RT cone $\CN$ (equivalently on all graph
+models~\cite{Bao2015}). Then for every $\eps\le\eps_0$
+\[
+Q(F^\eps)=Q(G)+\sum_pt_p(\eps)\,Q(b_p),\qquad Q(G)\ge0,\quad Q(b_p)\ge0 .
+\]
+If $Q$ is balanced at every marked point ($Q(b_p)=0$ for all $p$), $Q(F^\eps)=Q(G)\ge0$ is independent of $\eps$;
+otherwise $Q(F^\eps)-Q(G)=W\big(\sum_pQ(b_p)\big)\log(1/\eps)+\mathrm{const}\to+\infty$. For $\eps\le\min(\eps_0,\eps_1)$,
+$F^\eps\in\CN$.
+\end{corollary}
+
+\begin{proof}
+$G$ and $b_p$ are graph-model vectors (Theorem~\ref{thm:graph}); linearity and \eqref{eq:D}.
+\end{proof}
+
+No contraction map and no completeness statement about contraction maps~\cite{BaoFuruyaNaskar2025} is used, and
+nothing assumes superbalance: for a valid $Q$ that is not superbalanced~\cite{JuCzech2026}, the slack diverges
+precisely when some marked point separates parties $i,j$ with $Q(b_{ij})>0$, and is otherwise the finite number
+$Q(G)$.
+
+\begin{corollary}[Contraction-map inequalities, direct proof]\label{cor:contraction}
+If $\sum_l\alpha_lS(A_l)\ge\sum_r\beta_rS(B_r)$ admits a contraction map (repeated terms allowed), then for every
+$\eps\le\eps_0$
+\[
+\sum_l\alpha_lF^\eps(A_l)-\sum_r\beta_rF^\eps(B_r)\ge\sum_pt_p(\eps)\,\Delta_p,
+\]
+with $\Delta_p\ge0$ as in \eqref{eq:A2}; in particular the inequality holds exactly for $\eps\le\min(\eps_0,\eps_1)$, for
+all $\eps\le\eps_0$ if it is balanced at every marked point, and with slack $\to+\infty$ otherwise.
+\end{corollary}
+
+\begin{proof}
+Take minimisers $\gamma_l$ of $F^\eps(A_l)$, apply Lemma~\ref{lem:A} on $X_1$ and integrate \eqref{eq:A1} against
+$\mu'$ (all integrals finite by \eqref{eq:R}): $\sum_r\beta_ri(\mu',\delta_r)\le\sum_l\alpha_li(\mu',\gamma_l)$. By
+\eqref{eq:R}, $\sum_r\beta_rF^\eps(B_r)\le\sum_r\beta_r[i(\mu',\delta_r)+\sum_pe_p(\delta_r)t_p]\le
+\sum_l\alpha_li(\mu',\gamma_l)+\sum_pt_p\sum_r\beta_r[p\in\partial B_r]=\sum_l\alpha_lF^\eps(A_l)-\sum_pt_p\Delta_p$.
+\end{proof}
+
+\begin{remark}[Virtual static geometry]\label{rem:virtual}
+Theorem~\ref{thm:graph} is the argument of Bao \emph{et al.}~\cite{Bao2015} (cells of the union of all minimal
+surfaces) run in the geometry in which a curve $\sigma$ transverse to $\mathcal A$ has ``length''
+$\hat\nu\{\hat g\text{ crossing }\sigma\}$. This is the pseudo-metric of the current $\hat\nu$,
+$d(x,y)=\frac12[\hat\nu(\G[x,y))+\hat\nu(\G(x,y])]$~\cite{BIPP2021}, see Ref.~\cite{MartinezGranadoThurston2026}
+(eq.~(8.4), Corollary~B). Of that correspondence only the elementary direction (current $\Rightarrow$ length) is used,
+and only through crossing measures of finitely many edges; the characterisation theorem of
+Ref.~\cite{MartinezGranadoThurston2026} (Theorem~A) is proved for closed surfaces and is not used. The infinite-mass
+classes $\tau_p$ must be split off first (Proposition~\ref{prop:crofton}); without that step the terminal rays have
+infinite $\hat\nu$-length and the graph is not defined. With $P=\emptyset$ the theorem gives the full cone for
+whole-boundary parties without any limiting argument.
+\end{remark}
+
+\begin{remark}[Cutoff scheme]
+Changing the horoball normalisation at $p$ shifts $t_p$ by a constant and $G$ by a multiple of $b_p$. The statements
+``$F^\eps\in\CN$ for all sufficiently small $\eps$'' and the $\eps$-independent slack of balanced inequalities are
+scheme-independent; $\eps_1$ is not.
+\end{remark}
+
+% ===================================================================================================
+\section{The vacuum spacetimes and the length formula}\label{sec:spacetimes}
+
+\subsection{The spacetimes}
+
+$\AdS=\PSL$ with metric $ds^2=-\det(dx)$ (computations use representatives in $\SL$, defined up to sign);
+$\PSL\times\PSL$ acts by $x\mapsto g_Lxg_R^{-1}$. Let $S$ be an oriented surface of finite type with non-empty
+boundary, and $\rho_L,\rho_R:\pi_1(S)\to\PSL$, $\pi_1(S)\ne1$, two faithful representations whose images are groups as in
+Sec.~\ref{sec:setting}, holonomies of hyperbolic structures $X_L,X_R$ on the interior of $S$ in the same component of
+Teichm\"uller space (the same marking; boundary elements go to boundary elements). Then
+$\Gamma=\{(\rho_L(\gamma),\rho_R(\gamma))\}$ acts freely and properly discontinuously on the \emph{invisible domain}
+$\Dt\subset\AdS$ of its limit set $\Lambda_\Gamma\subset\partial\AdS$ (the graph of the boundary map over $\Lambda_L$),
+and $M=\Dt/\Gamma$ is a locally $\AdS$ spacetime with one asymptotically AdS region per end of
+$S$~\cite{Mess2007,Barbot2008,BKS2011,BonsanteSeppi2020}: rotating BTZ ($\pi_1=\Z$)~\cite{BTZ1992}, rotating
+multiboundary wormholes and wormholes with handles~\cite{ABHP1996,ABH1999,Krasnov2000,SkenderisVanRees2011}.
+$\rho_L=\rho_R$ is the time-symmetric case. \emph{Cited input:} proper discontinuity on $\Dt$ and on the spacetime with
+its conformal boundary, and the identification of the asymptotic boundaries below~\cite{Mess2007,Barbot2008,BKS2011}.
+\emph{Scope:} orientable quotients with all non-trivial holonomies hyperbolic (no extremal horizons, cusps or conical
+defects).
+% MATTER-SLOT (spacetimes): the class of spacetimes with matter, if added, would be described here.
+
+The $i$-th asymptotic boundary is $(I^i_L\times I^i_R)/\langle h_i\rangle$, $I^i_{L,R}$ being the components of
+$\Omega_{L,R}$ stabilised by the peripheral element $h_i$. A \emph{boundary Cauchy slice} is, in each asymptotic
+boundary, an acausal Cauchy curve of the boundary cylinder; its lift is the graph of an increasing homeomorphism
+$\psi_i:I^i_L\to I^i_R$ commuting with $h_i$.
+
+\emph{Marking.} Let $\tilde\varphi:S^1\to S^1$ be the $\rho_R\circ\rho_L^{-1}$-equivariant map equal to the boundary map
+on $\Lambda_L$ and to the translates of the $\psi_i$ on $\Omega_L$. It is a monotone bijection, hence a homeomorphism;
+it descends to $\varphi:\partial_\infty X_L\to\partial_\infty X_R$ and extends equivariantly to the disc, giving a
+homeomorphism $\bar X_L\to\bar X_R$ in the isotopy class of the marking. A finite set of points of the boundary slice
+gives $P_L$ and $P_R=\varphi(P_L)$; regions of the slice are regions for both surfaces; and for boundary points $p,q$
+with lifts $(\tilde u_p,\tilde v_p)$, $(\tilde u_q,\tilde v_q)$, $\tilde v=\tilde\varphi(\tilde u)$, the arc class on $X_L$ of
+the geodesic from $\tilde u_p$ to $\rho_L(\gamma)\tilde u_q$ corresponds to the arc class on $X_R$ of the geodesic from
+$\tilde v_p$ to $\rho_R(\gamma)\tilde v_q$. This fixes the identification of cut classes on the two surfaces, including
+boundary twists.
+
+\subsection{Length formula}
+
+Boundary points of $\AdS$ are rank-one matrices up to non-zero scale, $p=ab^T$; put $u=[a]$, $v=[Jb]$ with
+$J=\begin{pmatrix}0&1\\-1&0\end{pmatrix}$, so that $g_Lpg_R^{-1}$ corresponds to $(g_Lu,g_Rv)$, and
+$\omega(a,c):=a^TJc$. For matrices put $N(X,Y):=\tr(\adj(X)Y)$, so that $\det(X+Y)=\det X+\det Y+N(X,Y)$.
+
+\begin{proposition}[Length formula]\label{prop:length}
+(a) For $\gamma\ne1$, $(\rho_L(\gamma),\rho_R(\gamma))$ preserves a spacelike geodesic of $\AdS$ joining its attracting
+and repelling fixed points on $\Lambda_\Gamma$, contained in $\Dt$, on which it acts by translation through
+$\frac12[\ell_L(\gamma)+\ell_R(\gamma)]$. It is the only geodesic of $\Dt$ of any causal type invariant under
+$(\rho_L(\gamma),\rho_R(\gamma))$.
+(b) Let $p=ab^T$, $q=cd^T$ with $N:=\omega(a,c)\,\omega(b,d)>0$. Then $x(t)=(e^tp+e^{-t}q)/\sqrt N$ is the unit-speed
+geodesic from $q$ to $p$, and the length of its part where both coefficients are $\le1/\eps$ is $\log N+2\log(1/\eps)$.
+\end{proposition}
+
+\begin{proof}
+(a) Conjugate to $\rho_L(\gamma)=\mathrm{diag}(e^{a/2},e^{-a/2})$, $\rho_R(\gamma)=\mathrm{diag}(e^{b/2},e^{-b/2})$,
+$a=\ell_L,b=\ell_R>0$. Then $x\mapsto g_Lxg_R^{-1}$ multiplies $x_{11},x_{12},x_{21},x_{22}$ by
+$e^{(a-b)/2},e^{(a+b)/2},e^{-(a+b)/2},e^{(b-a)/2}$. The curve $s\mapsto\begin{pmatrix}0&e^s\\-e^{-s}&0\end{pmatrix}$ is a
+unit-speed spacelike geodesic ($-\det x'=1$, $x''=x$) translated by $(a+b)/2$; its ends are the matrix units
+$E_{12},E_{21}$, the attracting and repelling fixed points. Geodesics are intersections of the quadric with 2-planes;
+an invariant plane is the sum of its intersections with the eigenspaces $\R E_{12}$, $\R E_{21}$ and
+$\mathrm{span}\{E_{11},E_{22}\}$ (one eigenspace if $a=b$). If it is not $\mathrm{span}\{E_{12},E_{21}\}$, it lies in
+$\mathrm{span}\{E_{11},E_{22},E_{12}\}$, where $N(\cdot,E_{12})\equiv0$, or in $\mathrm{span}\{E_{11},E_{22},E_{21}\}$, where
+$N(\cdot,E_{21})\equiv0$. Since $E_{12},E_{21}$ represent limit points and $\Dt$ is defined by $N(\cdot,q)>0$ for all limit
+points $q$ (Sec.~\ref{sec:hrtdef}), such a plane does not meet $\Dt$. (For $a\neq b$ the second invariant spacelike
+geodesic $\mathrm{diag}(e^s,e^{-s})$, the inner horizon of BTZ, is lightlike related to $E_{12}$.)
+(b) $\det(s\,ab^T+t\,cd^T)=st\,\omega(a,c)\omega(b,d)$, so $\det x=1$, $-\det x'=1$, $x''=x$; the truncation is
+$e^{|t|}/\sqrt N\le1/\eps$, of length $2\log(\sqrt N/\eps)$.
+\end{proof}
+
+For distinct points of the graph of a monotone map the vectors can be chosen along the graph so that $N>0$ for every
+pair. In $\Hyp$ the signed distance between the horocycles at $[a]$, $[c]$ determined by $a,c$ is $2\log|\omega(a,c)|$
+(lambda lengths~\cite{Penner1987}). Hence, for every cut class $c$, with compatible cutoffs (on $X_L$ the horocycle at
+$u_p$ determined by $a_p$, on $X_R$ that at $v_p$ determined by $b_p$, the spacetime cutoff being the scale of
+$p=a_pb_p^T$),
+\begin{equation}\label{eq:length}
+L^\eps(c)=\tfrac12\big[\ell^\eps_{X_L}(c)+\ell^\eps_{X_R}(c)\big],
+\end{equation}
+where $L^\eps(c)$ is the total regulated length of the spacetime geodesics of class $c$: for a closed component in the
+conjugacy class of $\gamma$, the geodesic of (a); for an arc from $p$ to $q$ labelled by $\gamma$, the geodesic of (b) from
+$(\tilde u_p,\tilde v_p)$ to $(\rho_L(\gamma)\tilde u_q,\rho_R(\gamma)\tilde v_q)$. Rescaling $p\to p/\eps$ shrinks both chiral
+horoballs, and by Fact~\ref{fact:ends} horoball removal and horocycle distance agree below $\eps_0$. Equation
+\eqref{eq:length} is the length formula of Ref.~\cite{GGHH2025} (their appendix) in hyperbolic-surface language; for
+closed geodesics see also Refs.~\cite{MazzoliViaggi2023,BonsanteSeppi2020}. With $k=2$, $w_L=w_R=\frac12$,
+$F^\eps$ of \eqref{eq:F} is the minimum of $L^\eps$ over $\Cut(A)$.
+
+% ===================================================================================================
+\section{The HRT prescription and acausal Cauchy slices}\label{sec:hrtdef}
+
+\subsection{Positive lifts, hulls, the domain}
+
+An \emph{acausal circle} is the graph $C'\subset\mathbb{RP}^1\times\mathbb{RP}^1=\partial\AdS$ of an
+orientation-preserving homeomorphism. It has a continuous lift $p:C'\to\{\text{rank-one matrices}\}$, unique up to a
+positive function and a global sign, with $N(p,q)>0$ for distinct $p,q\in C'$ (take $a=(\cos\theta,\sin\theta)$,
+$b=(\cos\phi(\theta),\sin\phi(\theta))$ with $\phi$ increasing; then $N=\sin(\theta'-\theta)\sin(\phi'-\phi)$). For a
+closed $\Delta\subset C'$ let $K(\Delta)$ be the set of finite positive combinations $X=\sum\lambda_ip_i$, $p_i\in\Delta$,
+of at least two distinct points; then $\det X=\sum_{i<j}\lambda_i\lambda_jN(p_i,p_j)>0$ and $[X]:=X/\sqrt{\det X}\in\AdS$.
+$\hull(\Delta):=\{[X]:X\in K(\Delta)\}$: for two points the geodesic between them, for three the totally geodesic ideal
+triangle they span.
+
+Two points $x,y\in\AdS$ are \emph{spacelike separated} if $\frac12|\tr(x^{-1}y)|>1$ (joined by a spacelike geodesic).
+Set
+\[
+\Dt:=\{[X]\in\AdS: N(X,q)>0\ \text{for all }q\in\Lambda_\Gamma\}\quad(\text{for one of the lifts }\pm X),
+\]
+the invisible domain of the limit set; $M=\Dt/\Gamma$. $\Dt$ has a continuous \emph{positive lift} to $\SL$. For every
+acausal circle $C'\supset\Lambda_\Gamma$, $\hull(C')\subset\Dt$, since $N(\sum\lambda_ip_i,q)=\sum\lambda_iN(p_i,q)>0$.
+Inside $\Dt$ the separation criterion must be read with signs: two points with $\tr(X^{-1}Y)<-2$ in the positive lift are
+joined by a spacelike geodesic of $\PSL$ that leaves $\Dt$ and can be causally related inside $\Dt$ (this happens in
+rotating BTZ). The correct condition is $\tr(X^{-1}Y)>2$ in the positive lift (Lemma~\ref{lem:63a}).
+
+\subsection{Slices, candidates, definition}
+
+Fix the boundary Cauchy slice and the marked points, giving the $\Gamma$-invariant acausal circle $C$ (the lifted slice
+together with $\Lambda_\Gamma$). For a region $A$, a \emph{boundary slice through $\partial A$} is any $\Gamma$-invariant
+acausal circle $C'\supset\Lambda_\Gamma$ containing the lifts of $\partial A$; it carries the region $A'$ over the same
+intervals of the left ideal boundary as $A$ (same boundary domain of dependence).
+
+\begin{definition}[Bulk slices]\label{def:slice}
+A bulk slice anchored on $C'$ is a set $\tilde\Sigma\subset\Dt$ with
+(S1) $\tilde\Sigma\cup C'$ is a closed topological disc embedded in $\AdS\cup\partial\AdS$, with interior $\tilde\Sigma$ and
+boundary $C'$; (S2) $\tilde\Sigma$ is $\Gamma$-invariant; (S3) any two distinct points of $\tilde\Sigma$ are spacelike
+separated. $\Sigma:=\tilde\Sigma/\Gamma$.
+\end{definition}
+
+\begin{lemma}\label{lem:63a}
+If $\tilde\Sigma\subset\Dt$ satisfies (S1), (S3), then $\tr(X^{-1}Y)>2$ in the positive lift for all distinct
+$x,y\in\tilde\Sigma$, and the spacelike segment $\{[sX+tY]:s,t\ge0\}$ joining them lies in $\Dt$.
+\end{lemma}
+
+\begin{proof}
+The set of ordered pairs of distinct points of the open disc $\tilde\Sigma$ is connected; on it $\tr(X^{-1}Y)$ is continuous,
+of modulus $>2$ by (S3), and tends to $2$ at the diagonal. Then $\det(sX+tY)=s^2+t^2+st\,\tr(X^{-1}Y)>0$ and
+$N(sX+tY,q)>0$ for limit points $q$.
+\end{proof}
+
+\begin{definition}[HRT entropy]\label{def:HRT}
+A \emph{candidate} for $A$ is $(C',\tilde\Sigma,\gamma,R)$: $C'$ a boundary slice through $\partial A$; $\tilde\Sigma$ a bulk
+slice anchored on $C'$; $\gamma\subset\Sigma$ a finite disjoint union of simple complete geodesics of $M$, each closed or
+with both ends at points of $\partial A$, exactly one end at each point of $\partial A$; $R\subset\Sigma$ closed, equal to
+the closure of its interior, with frontier $\gamma$, such that the closure of its preimage in $\tilde\Sigma\cup C'$ meets
+$C'\setminus\Lambda_\Gamma$ exactly in the lift of $A'$. Then
+$S^\eps(A):=\frac{1}{4G_N}\inf\{L^\eps(\gamma)\}$ over candidates.
+\end{definition}
+
+$\gamma$ is an extremal curve anchored on $\partial A$ and $R$ a region of a slice with $\partial R=\gamma\cup A'$: the
+homology condition of Refs.~\cite{HeadrickTakayanagi2007,Wall2014,HHLR2014}. Components are required to be simple, as for an
+embedded HRT surface (without this, a self-crossing arc with a checkerboard region would be admitted in static BTZ).
+Sec.~\ref{sec:causal} shows that the slices of Definition~\ref{def:slice} are exactly the acausal Cauchy slices of the
+spacetime with its conformal boundary, so Definition~\ref{def:HRT} is the HRT prescription with the spacelike homology
+condition of Headrick--Hubeny--Lawrence--Rangamani~\cite{HHLR2014}, who require the homology region to be a region of a
+bulk Cauchy slice and require Cauchy slices to be acausal. Sec.~\ref{sec:smooth} shows that requiring the slice to be
+compact, smooth and uniformly spacelike does not change $S^\eps$. Wall's larger class of achronal slices with null pieces
+is not treated.
+
+\subsection{The conformal model and the causal structure}\label{sec:causal}
+
+Let $\bar D$ be the closed hemisphere $\{(\chi,\phi):0\le\chi\le\pi/2\}$ with the round distance $d$, and
+$E:=\bar D\times\R\ni(z,\theta)$ with metric $-d\theta^2+d\chi^2+\sin^2\chi\,d\phi^2$. With
+$R(\theta)=\begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}$,
+$S(\phi)=\begin{pmatrix}\cos\phi&\sin\phi\\\sin\phi&-\cos\phi\end{pmatrix}$ and $\sinh\rho=\tan\chi$, the map
+$(z,\theta)\mapsto X=\cosh\rho\,R(\theta)+\sinh\rho\,S(\phi)$ is a covering of $\SL$ by the interior $E^\circ$, with
+$-\det(dX)=\cos^{-2}\chi\,(-d\theta^2+d\chi^2+\sin^2\chi\,d\phi^2)$. A boundary point $(\phi,\theta)\in\partial E$
+corresponds to the ray of $R(\theta)+S(\phi)$. A causal curve of $E$ satisfies $\theta(s')-\theta(s)\ge d(z(s),z(s'))$ for
+$s<s'$; since the metric is a product and $\bar D$ is geodesically convex, $y\in J^+(x)$ iff $\theta_y-\theta_x\ge d(z_x,z_y)$.
+
+\begin{lemma}[Signed causal criterion]\label{lem:K}
+Two points of $E$ are not causally related iff $|\Delta\theta|<d(z,z')$. For two interior points this holds iff
+$|\Delta\theta|<\pi$ and $N(X,Y)>2$; for an interior and a boundary point iff $|\Delta\theta|<\pi$ and $N(X,b)>0$; for two
+boundary points iff $|\Delta\theta|<\pi$ and $N(b,b')>0$.
+\end{lemma}
+
+\begin{proof}
+$N(R(\theta),R(\theta'))=2\cos\Delta\theta$, $N(S(\phi),S(\phi'))=-2\cos\Delta\phi$, $N(R,S)=0$, so
+\[
+N(X,Y)=2\cosh\rho\cosh\rho'\cos\Delta\theta-2\sinh\rho\sinh\rho'\cos\Delta\phi,\]
+\[
+\cos d(z,z')=\frac{1+\sinh\rho\sinh\rho'\cos\Delta\phi}{\cosh\rho\cosh\rho'}.
+\]
+So $N(X,Y)>2\Leftrightarrow\cos\Delta\theta>\cos d$.
+As $d\in[0,\pi]$: if $|\Delta\theta|\le\pi$ this is $|\Delta\theta|<d$; if $|\Delta\theta|>\pi\ge d$ the points are causally
+related. The other cases are the limits $\rho'\to\infty$ and $\rho,\rho'\to\infty$.
+\end{proof}
+
+\begin{lemma}[Lifts]\label{lem:L}
+(i) An acausal circle $C'$ with positive lift lifts to a closed curve $\tilde C'\subset\partial E$, the graph $\theta=c(\phi)$
+of a function with $|c(\phi)-c(\phi')|<d(\phi,\phi')$ for $\phi\ne\phi'$; any two of its points are causally unrelated.
+(ii) Let $\tilde\Lambda\subset\tilde C$ be the lift of $\Lambda_\Gamma$ ($\Gamma\ne1$) and
+$\EG:=\{x\in E:x\text{ is causally unrelated to every }\lambda\in\tilde\Lambda\}$. Then $\EG$ is open and causally
+convex, and $(z,\theta)\mapsto[X]$ is a homeomorphism of $\EG\cap E^\circ$ onto $\Dt$, inverse to the positive lift.
+\end{lemma}
+
+\begin{proof}
+(i) Write $p(u)\in\R_+(R(\theta(u))+S(\phi(u)))$; $N(p,p')>0$ reads $\cos\Delta\theta>\cos\Delta\phi$, so $u\mapsto\phi(u)$ is
+injective, hence a homeomorphism of circles, and $\theta$ is locally a function $c$ of $\phi$ with $|\Delta c|<|\Delta\phi|$.
+A continuous lift $c:\R\to\R$ is $1$-Lipschitz with $c(\phi+2\pi)=c(\phi)+2\pi k$, $|k|\le1$; $|k|=1$ would give
+$|c(\phi+\pi)-c(\phi)|=\pi$, contradicting $\cos\Delta c>\cos\pi$. So $k=0$ and $|\Delta c|<d$; Lemma~\ref{lem:K} gives the rest.
+(ii) Openness: $\tilde\Lambda$ is compact and $\{(x,\lambda):|\theta_x-\theta_\lambda|\ge d\}$ is closed. Causal convexity: if
+a point $w$ of a causal curve from $x$ to $y$ were in $J^+(\lambda)$ so would $y$ be; if in $J^-(\lambda)$, so would $x$.
+For $x\in\EG\cap E^\circ$, Lemma~\ref{lem:K} gives $N(X,\lambda)>0$ for all $\lambda$. Injectivity: another preimage of
+$[X]$ is $(\theta+k\pi,\phi+k\pi)$, $k\ne0$; for odd $k$ its distance to $\lambda$ is $\pi-d$ and
+$|\Delta\theta+k\pi|\ge\pi-|\Delta\theta|>\pi-d$; for even $k$, $|\Delta\theta+k\pi|>\pi\ge d$. Surjectivity: for a positive
+lift $X$ and $\lambda_0\in\tilde\Lambda$, $N(X,\lambda_0)>0$ allows a preimage $x$ with $|\theta_x-\theta_{\lambda_0}|<\pi$, hence
+$<d_0:=d(z_x,z_{\lambda_0})$. For another $\lambda$, $N(X,\lambda)>0$ says $\theta_x-\theta_\lambda$ is within $d_\lambda$ of some
+$2\pi m$; $m\ne0$ would give $|\theta_\lambda-\theta_{\lambda_0}|>2\pi-d_\lambda-d_0$, whereas
+$|\theta_\lambda-\theta_{\lambda_0}|<d(z_\lambda,z_{\lambda_0})\le2\pi-d_0-d_\lambda$.
+\end{proof}
+
+The spacetime with its conformal boundary is $\Mbar:=\EG/\Gamma$, with interior $M$ and boundary $(\EG\cap\partial E)/\Gamma$,
+the union over the gaps of $\tilde C\setminus\tilde\Lambda$ of their boundary domains of dependence: one cylinder per asymptotic
+region. \emph{Cited input:} $\Gamma$ acts freely and properly discontinuously on $\EG$, boundary
+included~\cite{Barbot2008}. A \emph{Cauchy slice of $\Mbar$} is a subset met exactly once by every inextensible causal
+curve; it is acausal.
+
+\begin{theorem}[Slices are Cauchy]\label{thm:C}
+Let $\tilde\Sigma$ satisfy (S1)--(S3) with boundary $C'$. Then $\bar\Sigma:=(\tilde\Sigma\cup(C'\setminus\Lambda_\Gamma))/\Gamma$ is
+a Cauchy slice of $\Mbar$, and $\bar\Sigma\cap\partial\Mbar$ is a Cauchy slice of $\partial\Mbar$.
+\end{theorem}
+
+\begin{proof}
+Identify $\tilde\Sigma$ with its preimage in $\EG$ and let $\mathsf G$ be its closure in $E$.
+\emph{$\mathsf G=\tilde\Sigma\cup\tilde C'$.} A limit point $q$ lies over a point of $C'$ (by (S1)) and in the closure of $\EG$,
+so $|\theta_q-\theta_\lambda|\le d(z_q,z_\lambda)$ for all $\lambda$. Let $\tilde c=(\phi_c,\theta_c)\in\tilde C'$ lie over the same
+point; the other preimages are $q_k=(\phi_c+k\pi,\theta_c+k\pi)$. Choose $\lambda\ne\tilde c$ and put $d_c=d(\phi_c,\phi_\lambda)$, so
+$|\theta_c-\theta_\lambda|<d_c\le\pi$. For even $k\ne0$, $|\theta_c+k\pi-\theta_\lambda|>\pi\ge d(q_k,\lambda)$; for odd $k$,
+$d(q_k,\lambda)=\pi-d_c<|\theta_c+k\pi-\theta_\lambda|$. So $q=\tilde c$.
+\emph{Step 1.} For $x\ne y$ in $\tilde\Sigma$, $N(X,Y)>2$ (Lemma~\ref{lem:63a}), so $\cos\Delta\theta>-1$; $\Delta\theta$ is continuous on
+the connected set of pairs and vanishes at the diagonal, so $|\Delta\theta|<\pi$ and, by Lemma~\ref{lem:K}, $|\Delta\theta|<d$. For
+two points of $\tilde C'$, Lemma~\ref{lem:L}(i). By continuity $|\Delta\theta|\le d$ on $\mathsf G$, which is therefore the graph
+of a $1$-Lipschitz function over its projection.
+\emph{Step 2.} The projection $\mathsf G\to\bar D$ is continuous and injective, maps $\tilde C'$ onto $\partial\bar D$ and
+$\tilde\Sigma$ into the open disc; by invariance of domain and compactness its image is $\bar D$: $\mathsf G$ is the graph of a
+continuous $f:\bar D\to\R$.
+\emph{Step 2'.} For $x\in\tilde\Sigma$, $b\in\tilde C'$: equality $|\theta_b-\theta_x|=d$ would force slope one along the minimising
+great-circle segment from $z_x$ to $z_b$, whose other points project from $\tilde\Sigma$, contradicting Step~1. So no two
+points of $\mathsf G$ are causally related.
+\emph{Step 3.} Let $\kappa$ be an inextensible causal curve of $\EG$ missing $\mathsf G$, say in $\{\theta<f\}$, future
+directed. $\theta$ increases and is bounded, so $\kappa$ converges to $q\in E$ with $\theta_q\le f(z_q)$, $q\notin\EG$. So $q$ is
+causally related to some $\lambda$. If $q\in J^-(\lambda)$, then $\kappa\subset J^-(\lambda)$, impossible. If $q\in J^+(\lambda)$,
+$q\ne\lambda$, then $q'=(z_q,f(z_q))\in\mathsf G\cap J^+(\lambda)$, $q'\ne\lambda$, contradicting Step 2'.
+\emph{Step 4.} An intersection point lies in $\EG\cap\mathsf G=\tilde\Sigma\cup(\tilde C'\setminus\tilde\Lambda)$; by Step 1 there is
+exactly one. Inextensible causal curves of $\Mbar$ lift to inextensible causal curves of $\EG$; the boundary statement is
+the same argument in $\partial E$.
+\end{proof}
+
+\begin{theorem}[Every acausal Cauchy slice arises]\label{thm:E}
+Let $\bar\Sigma$ be a Cauchy slice of $\Mbar$ and $\hat\Sigma\subset\EG$ its preimage. Then the closure of $\hat\Sigma$ in $E$ is
+$\hat\Sigma\cup\tilde\Lambda$, $\tilde C':=(\hat\Sigma\cap\partial E)\cup\tilde\Lambda$ is the lift of a $\Gamma$-invariant acausal circle
+$C'$, and $\tilde\Sigma:=\hat\Sigma\cap E^\circ$ satisfies (S1)--(S3) with boundary $C'$. Hence $\tilde\Sigma\mapsto\bar\Sigma$ is a bijection
+between the slices of Definition~\ref{def:slice} and the Cauchy slices of $\Mbar$.
+\end{theorem}
+
+\begin{proof}
+Two points of $\hat\Sigma$ are not joined by a causal curve of $\EG$ (its projection would meet $\bar\Sigma$ twice, or be closed
+and meet it infinitely often); by causal convexity they are causally unrelated in $E$. So $\hat\Sigma$ is the graph of $g$ over
+$U\subset\bar D$ with $|g(z)-g(z')|<d(z,z')$. For $z\in\bar D\setminus z(\tilde\Lambda)$ the set $\{\theta:(z,\theta)\in\EG\}=
+\bigcap_\lambda(\theta_\lambda-d(z,z_\lambda),\theta_\lambda+d(z,z_\lambda))$ is an open interval, non-empty (it contains the point of the
+slice of Theorem~\ref{thm:C} for any pleated slice, Sec.~\ref{sec:pleated}), and the vertical segment over it is an
+inextensible causal curve of $\EG$; so $U=\bar D\setminus z(\tilde\Lambda)$. $g$ is $1$-Lipschitz, extends continuously, and
+takes the value $\theta_\lambda$ at $z_\lambda$. The closure of $\hat\Sigma$ is the graph of the extension---a closed disc---with
+boundary $\tilde C'$ satisfying $|\Delta g|<d$ for all pairs, which by Lemma~\ref{lem:K} projects to an acausal circle. This is
+(S1); (S2) is invariance; (S3) in signed form is Lemma~\ref{lem:K} with the positive lifts of Lemma~\ref{lem:L}(ii).
+\end{proof}
+
+\begin{corollary}\label{cor:HHLR}
+A candidate in the sense of Definition~\ref{def:HRT} is the same as: a Cauchy slice $\bar\Sigma$ of $\Mbar$ (necessarily
+acausal) whose boundary passes through $\partial A$; a finite disjoint union $\gamma\subset\bar\Sigma$ of simple complete
+geodesics of $M$, closed or anchored at $\partial A$; and a region $R\subset\bar\Sigma$ with $\partial R=\gamma\cup A'$.
+Restricting to slices containing $A$ itself does not change the infimum: the lower bound of Theorem~\ref{thm:H} holds for all
+slices through $\partial A$, and the candidate of the upper bound has $C'=C\supset A$.
+\end{corollary}
+% ===================================================================================================
+\section{Pleated slices through a cut class}\label{sec:pleated}
+
+\subsection{Separation}
+
+\begin{lemma}[Separation Lemma]\label{lem:sep}
+Let $C'$ be an acausal circle, $r\ne r'$ two of its points and $\alpha,\beta$ the two closed arcs of $C'$ with endpoints
+$r,r'$. For all $X\in K(\alpha)$, $Y\in K(\beta)$, $N(X,Y)\ge2\sqrt{\det X\det Y}$, with equality iff $[X]=[Y]$ lies on
+$\hull\{r,r'\}$. Hence every point of $\hull(\alpha)$ is spacelike separated from every point of $\hull(\beta)$ other than
+itself.
+\end{lemma}
+
+\begin{proof}
+Apply an isometry taking $r$ to $(\infty,\infty)$ and $r'$ to $(0,0)$. Then $C'$ is the graph of an increasing
+homeomorphism $\phi$ of $\R\cup\{\infty\}$ fixing $0,\infty$; $\alpha=\{u\in[0,\infty]\}$, $\beta=\{u\in[-\infty,0]\}$; and
+$p(u)=(u,1)^T(\phi(u),1)=\begin{pmatrix}u\phi(u)&u\\\phi(u)&1\end{pmatrix}$, $p(\infty)=E_{11}$, is a positive lift
+($N(p(u),p(u'))=(u-u')(\phi(u)-\phi(u'))>0$). Hence
+$X=\begin{pmatrix}x_{11}&x_{12}\\x_{21}&x_{22}\end{pmatrix}$, $Y=\begin{pmatrix}y_{11}&-y_{12}\\-y_{21}&y_{22}\end{pmatrix}$ with all
+$x_{ab},y_{ab}\ge0$, and
+\[
+N(X,Y)=x_{22}y_{11}+x_{11}y_{22}+x_{12}y_{21}+x_{21}y_{12}\ge2\sqrt{x_{11}x_{22}\,y_{11}y_{22}}\ge2\sqrt{\det X\det Y},
+\]
+since $x_{11}x_{22}=\det X+x_{12}x_{21}$. Equality forces $x_{12}x_{21}=y_{12}y_{21}=0$, i.e.\ both are combinations of the cut
+points only, $X=\mathrm{diag}(x_{11},x_{22})$, $Y=\mathrm{diag}(y_{11},y_{22})$, and $x_{22}y_{11}=x_{11}y_{22}$, i.e.\ $X\propto Y$.
+\end{proof}
+
+\begin{lemma}[One triangle]\label{lem:tri}
+For distinct $p_1,p_2,p_3$ on an acausal circle, $\det$ restricted to their span has signature $(1,2)$, and any two distinct
+points of the ideal triangle $\hull\{p_1,p_2,p_3\}$ are spacelike separated.
+\end{lemma}
+
+\begin{proof}
+The Gram matrix of $N$ on $p_1,p_2,p_3$ has zero diagonal and positive off-diagonal entries, trace $0$ and determinant
+$2N_{12}N_{13}N_{23}>0$, so signature $(+,-,-)$; on such a space vectors with $\det>0$ in one component satisfy the reversed
+Cauchy--Schwarz inequality $N(X,Y)\ge2\sqrt{\det X\det Y}$, with equality iff proportional.
+\end{proof}
+
+Mazzoli and Viaggi prove that for every acausal curve in $\partial\mathbb H^{2,n}$ and every maximal lamination the pleated
+set is an acausal Lipschitz surface (Ref.~\cite{MazzoliViaggi2022}, Sec.~3 and Theorem~A); with $n=1$ this contains
+Lemma~\ref{lem:sep} for pairs of geodesics and the acausality part of Proposition~\ref{prop:P}. What is needed here in
+addition is an \emph{invariant} family containing a \emph{prescribed} cut, with leaves anchored at boundary points outside the
+limit set (Lemma~\ref{lem:T}), and the identification with Cauchy slices of $\Mbar$ (Sec.~\ref{sec:causal}).
+
+\subsection{Invariant spun families of ideal triangles}
+
+Let $c\in\Cut(A)$ with geodesic representative $c^X$ on $X_L$ (distinct simple components, none null-homotopic), and let
+$\mathcal F$ be the set of lifts of its components: axes of hyperbolic elements for the closed components, chords between
+lifted marked points for the arcs.
+
+\emph{An obstruction.} An axis $\mathsf a\in\mathcal F$ with stabiliser $\langle h\rangle$ is never an edge of a triangle in a
+$\Gamma$-invariant family of ideal triangles with disjoint interiors: if it were an edge of $t$, then $ht$ would have the edge
+$\mathsf a$ on the same side, so $ht=t$; but $h$ fixes only the endpoints of $\mathsf a$. So a cut containing a closed geodesic
+does not extend to a locally finite invariant ideal triangulation with that geodesic as an edge. The family below has
+triangles accumulating on each axis from both sides, spiralling in the quotient.
+
+\begin{lemma}[Spun family]\label{lem:T}
+There is a $\Gamma$-invariant set $\mathcal T$ of ideal triangles of $\Hyp$ with pairwise disjoint interiors such that
+(T1) edges are pairwise non-crossing and cross no chord of $\mathcal F$; (T2) every arc-chord of $\mathcal F$ is an edge of two
+triangles, every axis of $\mathcal F$ is disjoint from all closed triangles, and no edge has the endpoint pair of an axis;
+(T3) the closed triangles and the axes of $\mathcal F$ cover $\Hyp$; (T4) $\mathcal T$ is locally finite in $\Hyp$ minus the axes,
+and every sequence of distinct triangles meeting a fixed compact set subconverges (Hausdorff, in the closed disc) to an
+axis of $\mathcal F$; (T5) all vertices are left coordinates of points of $C$: lifted marked points (original or auxiliary),
+dyadic points of Step~1, or endpoints of axes of $\mathcal F$.
+\end{lemma}
+
+\begin{proof}
+\emph{Step 0.} Add auxiliary marked points so that every ideal circle carries at least one; let $V_\Omega\subset\Omega$ be the set
+of lifts of all marked points (trivial stabilisers). The geodesics joining consecutive marked points of each ideal circle
+(``boundary chords'') cut off regions whose lifts are half-planes $H_e$ over the elementary arcs $e$, with trivial
+stabiliser.
+
+\emph{Step 1 (half-planes).} For each orbit of elementary arcs choose $e\cong[0,1]$, transport by $\Gamma$, and take the
+triangles with vertices $k2^{-n},(2k+1)2^{-n-1},(k+1)2^{-n}$. They have disjoint interiors, are locally finite in $H_e$ and
+cover it (a point in no triangle would lie beyond a nested sequence of chords over dyadic intervals shrinking to a point).
+
+\emph{Step 2 (pieces and corners).} The lifts of $c^X$ and of the boundary chords form a locally finite invariant family of
+disjoint chords. Let $\tilde Y$ be the closure of a complementary component that is not a half-plane, $\Gamma_Y$ its stabiliser,
+$Y=\tilde Y/\Gamma_Y$. $\tilde Y$ is closed and convex; its frontier consists of \emph{axis sides} and \emph{chord sides}; the
+closure $D_Y$ of $\tilde Y$ in the closed disc is a closed disc. A \emph{corner} is an endpoint of a chord side (a point of
+$V_\Omega$) or an axis side; corners correspond to disjoint closed subsets of $\partial D_Y$ and are cyclically ordered. For
+every axis side $\mathsf a$ choose one endpoint $e(\mathsf a,\tilde Y)$, equivariantly (possible because the stabiliser of
+$(\mathsf a,\tilde Y)$ is generated by a hyperbolic element fixing both endpoints). Let $\varepsilon$ map a corner in $V_\Omega$ to
+itself and an axis side to its chosen endpoint. Distinct axes of a discrete group share no endpoint and
+$V_\Omega\cap\Lambda=\emptyset$, so $\varepsilon$ is injective and preserves cyclic order, and the other endpoint of an axis side
+is not in its image.
+
+\emph{Step 3 (cited topological fact).} An \emph{edge} in $Y$ is an embedded arc whose ends are ideal vertices or points of
+the closed geodesics in $\partial Y$, with interior in the interior of $Y$. There is a finite family of pairwise disjoint edges
+in $Y$, containing the chord sides, such that in $\tilde Y$ (D1) every lifted edge joins two distinct corners and distinct
+lifted edges join distinct pairs; (D2) every complementary region of the lifted edges has exactly three corners, pairwise
+joined by the three lifted edges in its frontier, and every lifted edge that is not a chord side is in the frontier of
+exactly two regions. This is the existence of triangulations of a compact surface with prescribed
+vertices~\cite{Hatcher1991} applied to the surface $Y^\sharp$ obtained by collapsing each closed boundary geodesic to a point
+(the excluded small cases would require a component of $c^X$ or a boundary chord to be null-homotopic, or two distinct ones
+homotopic). (D1) uses that a non-trivial element of $\Gamma_Y$ cannot fix or exchange two distinct corners (trivial
+stabilisers of $V_\Omega$, stabilisers of distinct axes meeting trivially, no torsion).
+
+\emph{Step 4 (straightening).} For a lifted edge $\tilde e$ joining corners $\kappa,\kappa'$ let $\sigma(\tilde e)$ be the chord
+joining $\varepsilon(\kappa),\varepsilon(\kappa')$; for a region $\tilde t$ with corners $\kappa_1,\kappa_2,\kappa_3$ let
+$\sigma(\tilde t)$ be the ideal triangle on the $\varepsilon(\kappa_i)$. (a) $\sigma(\tilde e)$ lies in $\tilde Y$, is not an axis
+side and has trivial stabiliser; $\sigma(\tilde t)$ is non-degenerate, lies in $\tilde Y$, and is disjoint in $\Hyp$ from the axis
+sides (an axis side has only one endpoint in the image of $\varepsilon$; a non-trivial $g$ preserving $\sigma(\tilde e)$ would
+make it an axis sharing an endpoint with a distinct axis). (b) The chords $\sigma(\tilde e)$ are distinct and non-crossing:
+disjoint lifted edges have unlinked end pairs in $\partial D_Y$ (Jordan curve theorem) and $\varepsilon$ preserves cyclic order.
+(c) Triangles have disjoint interiors: $\tilde t'$ lies beyond one lifted edge $\tilde e$ of $\tilde t$, so $\sigma(\tilde t)$ and
+$\sigma(\tilde t')$ lie in opposite closed half-planes of $\sigma(\tilde e)$. (d) Local finiteness off the axes: if infinitely
+many distinct chords $g_n\sigma(\tilde e)$ met a compact $K$ at distance $\ge\delta$ from the axes, the corresponding points of
+$\sigma(\tilde e)$ would project into a compact set at distance $\ge\delta$ from the closed geodesics of $c^X$; each end of
+$\sigma(\tilde e)$ either leaves every compact set of $X_L$ or is asymptotic to an axis and comes within $\delta$ of a closed
+geodesic, so these points stay in a compact segment $J$, and $g_nJ\cap K\ne\emptyset$ for infinitely many distinct $g_n$,
+contradicting proper discontinuity. (e) Covering: if $z\in\tilde Y$ off the axis sides lay in no triangle, starting from a
+triangle $\sigma(\tilde t_0)\ni w_0$ one finds edges $\sigma(\tilde e_i)$ bounding nested open half-planes containing $z$ but not
+$w_0$, all crossing the compact segment $[w_0,z]$, which avoids the axes, contradicting (d).
+
+\emph{Step 5 (assembly).} Do Steps 2--4 for one piece per orbit, transport by $\Gamma$, and add the triangles of Step~1.
+(T1)--(T5) follow from Steps 1--4; for (T4), a sequence of distinct triangles meeting a compact set has a subsequence with
+converging vertices whose limit is neither a non-degenerate triangle nor a point, hence a chord that is a limit of
+infinitely many distinct edges, which by local finiteness off the axes is an axis.
+\end{proof}
+
+\subsection{The pleated slice}
+
+Let $C$ be the acausal circle of the boundary slice, $p:C\to$ its positive lift, parametrised by the left coordinate. For
+$t=(u_1,u_2,u_3)\in\mathcal T$ put $T(t)=\hull\{p(u_1),p(u_2),p(u_3)\}$; for an axis $\mathsf a=(a^-,a^+)\in\mathcal F$ put
+$g(\mathsf a)=\hull\{p(a^-),p(a^+)\}$; and $Z:=\bigcup_tT(t)\cup\bigcup_{\mathsf a}g(\mathsf a)$.
+
+\begin{proposition}[Pleated slice]\label{prop:P}
+$Z$ is a bulk slice anchored on $C$ (Definition~\ref{def:slice}), a union of totally geodesic spacelike ideal triangles and
+geodesics, and it contains $\hull\{p(u),p(u')\}$ for every chord $(u,u')\in\mathcal F$.
+\end{proposition}
+
+\begin{proof}
+$Z\subset\hull(C)\subset\Dt$ and $Z$ is invariant. (S3): for $x\ne y$ in pieces $T,T'$: if $T=T'$, Lemma~\ref{lem:tri} or
+Proposition~\ref{prop:length}(b); otherwise by (T1) the vertices of $T'$ lie in one closed arc of $C$ between two vertices
+$r,r'$ of $T$ consecutive among its vertices, and those of $T$ in the complementary arc; Lemma~\ref{lem:sep} applies.
+
+(S1): in the Klein model the triangles of $\mathcal T$ are Euclidean triangles inscribed in the unit circle. Choose a linear
+functional $\ell$ positive on $p(C)$, normalise $\ell\circ p\equiv1$, and work in the affine chart $\{\ell=1\}$, in which
+geodesics are segments and totally geodesic planes affine planes. Define $\Psi:\bar{\mathbb D}\to\{\ell=1\}$ by $p$ on the circle,
+affinely on each triangle ($\Psi(u_i)=p(u_i)$) and on each axis; definitions agree on common edges, and by (T3) $\Psi$ is
+defined everywhere, with $\Psi(\mathbb D)=Z$.
+\emph{Continuity:} off the axes by (T4); at $z=sa^++(1-s)a^-$ on an axis, triangles near $z$ have all vertices near
+$\{a^\pm\}$ by (T4), and the barycentric weight on vertices near $a^+$ tends to $s$, so $\Psi(z_n)\to\Psi(z)$; at $u$ on the circle,
+$|z_n|^2=1-\sum_{i<j}s_is_j|v_i-v_j|^2$ forces $\sum_is_i|v_i-u|^2\to0$ and uniform continuity of $p$ gives $\Psi(z_n)\to p(u)$.
+\emph{Injectivity:} on each piece $\Psi$ is affine between non-degenerate simplices (three distinct points of $p(C)$ are linearly
+independent: $\det(\lambda p_1+\mu p_2)=\lambda\mu N(p_1,p_2)$ vanishes on their span only on $\R p_1\cup\R p_2$, so $p_3$ is not in it).
+For distinct pieces, the equality case of Lemma~\ref{lem:sep} shows that common image points have weight only on the cut
+points $r,r'$, i.e.\ lie on a common edge (where the definitions agree), a common ideal vertex (not in $Z$), or nowhere; a
+triangle and an axis share at most one ideal point by (T2); distinct axes share none; and points of $\mathbb D$ have $\det>0$,
+so are not mapped to $p(C)$. A continuous injection of the compact disc into a Hausdorff space is an embedding.
+\end{proof}
+
+\begin{remark}[Asymptotically null pleats at rotating horizons]\label{rem:tilt}
+Let the stabiliser of $\mathsf a$ be generated by $h$ with
+$\rho(h)=\big(\mathrm{diag}(e^{a/2},e^{-a/2}),\,\mathrm{diag}(e^{b/2},e^{-b/2})\big)$, $a=\ell_L$, $b=\ell_R$, so that $g(\mathsf a)$ joins $E_{21}$ and $E_{12}$. The triangles adjacent to $g(\mathsf a)$ on one side are
+$\hull\{E_{12},\rho(h)^kp(v),\rho(h)^{k+1}p(v)\}$, $k\to-\infty$; modulo $E_{12}$ and up to scale
+$\rho(h)^kp(v)=E_{21}+e^{-|k|a}c_{11}E_{11}+e^{-|k|b}c_{22}E_{22}$, so their planes converge to
+$\mathrm{span}\{E_{12},E_{21},E_{11}\}$ if $a<b$, to $\mathrm{span}\{E_{12},E_{21},E_{22}\}$ if $a>b$, and are constant if $a=b$. The
+limits are the two null planes through $g(\mathsf a)$. So for $\ell_L\ne\ell_R$ the pleated slice is acausal with spacelike faces
+but not uniformly spacelike at $g(\mathsf a)$; this is forced for any invariant surface that is totally geodesic on one side of
+$g(\mathsf a)$, since $h$ acts on the normal plane by a boost of rapidity $(a-b)/2$. Sec.~\ref{sec:smooth} shows that it is an
+artefact of the construction.
+\end{remark}
+
+% ===================================================================================================
+\section{Theorem H}\label{sec:thmH}
+
+\begin{theorem}[HRT entropy as a common-class minimum]\label{thm:H}
+For every region $A$ and $\eps\le\eps_0$,
+\[
+S^\eps(A)=\frac{1}{4G_N}\min_{c\in\Cut(A)}\tfrac12\big[\ell^\eps_{X_L}(c)+\ell^\eps_{X_R}(c)\big]=\frac{F^\eps(A)}{4G_N}
+\quad(k=2,\ w_L=w_R=\tfrac12),
+\]
+and the infimum in Definition~\ref{def:HRT} is attained.
+\end{theorem}
+
+\begin{proof}
+\emph{$\ge$: every candidate is a cut class.} Let $(C',\tilde\Sigma,\gamma,R)$ be a candidate. A closed component in the class of
+$g\in\pi_1(S)$ lifts to a spacelike geodesic of $\Dt$ invariant under $(\rho_L(g),\rho_R(g))$ and translated non-trivially, hence
+(Proposition~\ref{prop:length}(a)) to $\hull\{p(a^-),p(a^+)\}$ with $a^\pm\in\Lambda_\Gamma\subset C'$. An arc component lifts to
+the geodesic between two lifted points of $\partial A$, also on $C'$. $\gamma$ is a properly embedded $1$-manifold in $\Sigma$, so
+its preimage $\tilde\gamma$ is an invariant, locally finite family of disjoint arcs, each closed in the disc $\tilde\Sigma\cup C'$ with
+endpoints on $C'$. By the Jordan curve theorem two disjoint ones have unlinked endpoint pairs. The left coordinate identifies
+$C'$ with $S^1$ equivariantly and preserving cyclic order, so the chords of $\Hyp$ with the same endpoints are pairwise
+non-crossing; they are the lifts of the $X_L$-geodesics of finitely many classes and project to an embedded geodesic
+multicurve $c^X$ with one arc end at each point of $\partial A$.
+\emph{Homology region.} Fix a piece $e_0$ of $C'\setminus\Lambda_\Gamma$. For $z$ off $\tilde\gamma$ let $n(z)$ be the number of arcs
+separating $z$ from $e_0$ (finite by local finiteness). Since $\tilde R$ is the closure of its interior with frontier $\tilde\gamma$,
+$z\in\tilde R\Leftrightarrow n(z)+[e_0\subset\tilde A']\equiv1\pmod2$. The same parity computed with the chords defines
+$\tilde W\subset\Hyp$, the closure of its interior with frontier the chords; separation of pieces depends only on the cyclic order
+of endpoints, so $\tilde W$ meets the ideal boundary in the lifts of $A$. The parity is $\Gamma$-invariant ($n(gz)-n(z)\equiv
+[ge_0\subset\tilde A']-[e_0\subset\tilde A']=0$). So $W=\tilde W/\Gamma$ is a homology region and $c:=[c^X]\in\Cut(A)$, reduced. By
+\eqref{eq:length}, $L^\eps(\gamma)=\frac12[\ell^\eps_{X_L}(c)+\ell^\eps_{X_R}(c)]$.
+
+\emph{$\le$: every cut class is a candidate.} Let $c\in\Cut(A)$, $\mathcal F,\mathcal T$ as in Lemma~\ref{lem:T}, $Z$ as in
+Proposition~\ref{prop:P}; take $C'=C$, $\tilde\Sigma=Z$, $\tilde\gamma=\bigcup_{(u,u')\in\mathcal F}\hull\{p(u),p(u')\}\subset Z$,
+$\gamma=\tilde\gamma/\Gamma$: complete geodesics, closed for the axes and anchored at $\partial A$ for the arcs, disjoint because $\Psi$
+is injective. Let $\tilde W$ be the lift of the homology region of $c^X$ and $\tilde R:=\Psi(\tilde W)$. As $\Psi$ is a homeomorphism of
+$\bar{\mathbb D}$ onto $Z\cup C$ restricting to $p$ on the circle and mapping each chord of $\mathcal F$ onto its hull, $\tilde R$ is
+closed, the closure of its interior, with frontier $\tilde\gamma$, meets $C\setminus\Lambda_\Gamma$ in the lifts of $A$, and is
+$\Gamma$-invariant ($\tilde W$ is a union of triangles of $\mathcal T$ and axes). So $(C,Z,\gamma,\tilde R/\Gamma)$ is a candidate of
+length $\frac12[\ell^\eps_{X_L}(c)+\ell^\eps_{X_R}(c)]$.
+
+The minimum over $\Cut(A)$ exists (Sec.~\ref{sec:graph}), so the infimum is attained.
+\end{proof}
+
+\begin{remark}[Non-embedded collections]\label{rem:nonembedded}
+GGHH also allow self-intersecting configurations with a mod-2 homology condition~\cite{GGHH2025}. On the surface these never
+win: if a transverse collection $c'$ of closed curves and arcs between marked points admits a $2$-colouring of $X\setminus c'$
+changing across each branch, with the pieces of $A$ on colour $1$ and one arc end at each point of $\partial A$, then resolving
+its geodesic representative at crossings as in Lemma~\ref{lem:A} gives $c\in\Cut(A)$ with $i(\tau,c)\le i(\tau,c')$ for all test
+classes; integrating against the Liouville measure (the endpoint terms being the same for $c$ and $c'$) gives
+$\ell^\eps_X(c)\le\ell^\eps_X(c')$ for every metric. The step from a spacetime configuration lying
+on no single Cauchy slice to such a collection is not written out here, so no claim is made for prescriptions that do not place
+the homology region on a slice.
+\end{remark}
+% ===================================================================================================
+\section{Smooth, compact, uniformly spacelike homology slices}\label{sec:smooth}
+
+\begin{proposition}[Smooth realisation of every cut]\label{prop:Splus}
+For every $c\in\Cut(A)$, the spacetime geodesic union $\gamma_c$ of Theorem~\ref{thm:H} (``$\le$'') lies on a compact, smooth,
+spacelike Cauchy hypersurface with boundary $\bar\Sigma\subset\Mbar$ such that: (1) the completion $\bar\gamma_c$, including every
+anchored endpoint, lies in $\bar\Sigma$; (2) $\partial\bar\Sigma$ is a smooth spacelike Cauchy curve of each boundary cylinder,
+through the points of $\partial A$; (3) the cut bounds on $\bar\Sigma$ a homology region for the boundary region $A'$ with the same
+endpoints, marking and boundary domain of dependence as $A$; (4) for any smooth representative $\bar g$ of the conformal metric
+of $\Mbar$ and any smooth Riemannian metric $h$ there is $\epsilon_\Sigma>0$ with $\bar g(v,v)\ge\epsilon_\Sigma\,h(v,v)$ for all
+$v\in T\bar\Sigma$. The interior lift satisfies (S1)--(S3).
+\end{proposition}
+
+The boundary trace may move away from $\partial A$, as Definition~\ref{def:HRT} already allows; a prescribed non-smooth
+boundary trace cannot in general be the boundary of a surface smooth up to conformal infinity. The constant $\epsilon_\Sigma$
+depends on the spacetime and the cut; no moduli-independent constant is asserted.
+
+\begin{proof}
+\emph{(1) A smooth conformal double.} Reflect the hemisphere of the conformal model through its equator: the metric
+$-d\theta^2+d\chi^2+\sin^2\chi\,d\phi^2$ extends smoothly to $S^2\times\R$, and $\chi\mapsto\pi-\chi$ preserves time orientation.
+Two copies of $\EG$, glued along their boundary diamonds, form an open subset of this double. Compatibility with the holonomy is
+seen in the ambient form $Q(X,w)=-\det X+w^2$ on $M_2(\R)\times\R$: in the positive lift a point with $\det X=1$ is the null ray
+$[(X,1)]$, its mirror is $[(X,-1)]$, and the common boundary is $w=0$. The maps $(X,w)\mapsto(g_LXg_R^{-1},w)$ and
+$\iota[(X,w)]=[(X,-w)]$ preserve $Q$ and commute, so the holonomy extends conformally across the boundary. (On the causal cover,
+the commutator of $\iota$ with a lifted holonomy is a deck transformation fixing an equatorial point, hence trivial.) The action on
+the doubled domain is free and proper, because folding a compact set to the original half gives a compact set there, where
+freeness and properness, boundary included, are part of the cited input. The quotient $\widehat M$ is a smooth Lorentzian conformal
+manifold without boundary containing two copies of $\Mbar$; choose a metric $g_d$ in the conformal class and replace it by the
+$\iota$-invariant $g_d+\iota^*g_d$ (pointwise conformal to $g_d$).
+
+\emph{(2) The double is globally hyperbolic.} Let $F:\widehat M\to\Mbar$ be the fold, $(y,z)\mapsto(y,|z|)$ in collar coordinates. A
+future causal locally Lipschitz curve folds to a future causal curve: away from the seam $F$ is a time-orientation-preserving
+isometry, and where the normal coordinate vanishes $z'=0$ almost everywhere. A non-constant curve cannot fold to a constant
+(fibres have at most two isolated points), and inextendibility is preserved (a folded endpoint at the seam is a common limit in
+both copies; near an interior point a connected tail lies in one of the two disjoint copies of a neighbourhood). Let
+$\bar\Sigma_0$ be the pleated Cauchy slice of Proposition~\ref{prop:P} and Theorem~\ref{thm:C}. Its double $F^{-1}(\bar\Sigma_0)$ is met
+by every inextendible causal curve (fold it) and is acausal (a causal curve between two of its points folds to one between two
+points of $\bar\Sigma_0$ or to a closed causal curve). So $\widehat M$ has a Cauchy surface and is globally
+hyperbolic~\cite{Geroch1970}. This is the mechanism of Ref.~\cite{AkeFloresSanchez2021}, Sec.~5.2; here the conformal reflection is
+already smooth, so no modification of the cones is needed.
+
+\emph{(3) The doubled cut is a compact smooth spacelike curve.} For an arc with positive endpoint lifts $p,q$, $N=N(p,q)>0$, the
+geodesic $X(t)=(e^tp+e^{-t}q)/\sqrt N$ is, with $u=e^{-t}$,
+\begin{equation}\label{eq:arcchart}
+[(X(t),1)]=[(p+u^2q,\;u\sqrt N)],
+\end{equation}
+since $\det(p+u^2q)=u^2N$. This is smooth through $u=0$, the reflection is $u\mapsto-u$, and the tangent $(2uq,\sqrt N)$ has
+$Q$-norm $N>0$ for every $u$; at $u=0$ it is $(0,\sqrt N)$, transverse and conformally orthogonal to the boundary. The same holds at
+$q$ with $v=e^t$. So each doubled arc is a smooth embedded spacelike circle and each closed component gives two circles; as each
+marked point carries one arc end, $K:=F^{-1}(\bar\gamma_c)$ is a compact smooth embedded spacelike $1$-manifold, acausal because it
+lies in the doubled pleated slice.
+
+\emph{(4) A compact acausal ribbon.} The normal bundle of each circle of $K$ has signature $(1,1)$ and is time-oriented;
+orientation of $\widehat M$ and of the circle fixes a smooth unit spacelike normal $n$ (boost holonomy obstructs a parallel section,
+not a smooth one). For small $\delta$ the ribbon $H_\delta=\{\exp_x(rn_x):x\in K,|r|\le\delta\}$ is a compact embedded spacelike surface
+with boundary. Some $H_\delta$ is acausal: otherwise causal pairs $x_j\ne y_j\in H_{\delta_j}$, $\delta_j\to0$, converge to $x,y\in K$ with
+$y\in J^+(x)$ (closedness of $J^+$ in a globally hyperbolic spacetime), so $x=y$ by acausality of $K$; near $x$ the fixed ribbon
+$H_{\delta_0}$ is a level set of a local temporal function, and by strong causality causal curves between points close to $x$ stay in
+a causally convex neighbourhood where no causal curve joins two points of that level set.
+
+\emph{(5) Extension and restriction.} By Bernal--S\'anchez~\cite{BernalSanchez2006}, Theorem~1.1 (with their Remark~4.14 for a
+disconnected prescribed submanifold), there is a smooth spacelike Cauchy surface $\widehat\Sigma\supset H_\delta$ of $\widehat M$. Put
+$\bar\Sigma:=\widehat\Sigma\cap\Mbar$. A spacelike plane cannot equal the timelike tangent plane of the seam, so the intersection is
+transverse and $\bar\Sigma$ is a smooth spacelike surface with boundary containing $\bar\gamma_c$. An inextendible causal curve of
+$\Mbar$ is inextendible in $\widehat M$ (an endpoint would permit a timelike continuation inside the closed half, tangent to the
+boundary if necessary), so it meets $\widehat\Sigma$ exactly once, in $\bar\Sigma$: $\bar\Sigma$ is an acausal Cauchy slice of $\Mbar$,
+and its boundary is a Cauchy curve of each boundary cylinder. Its lift satisfies (S1)--(S3) by Theorem~\ref{thm:E}. Reflection
+symmetry of $\widehat\Sigma$ is not needed.
+
+\emph{(6) Compactness and the uniform margin.} Let $\bar S$ be a connected oriented acausal Cauchy slice of $\Mbar$. By
+Theorem~\ref{thm:E} its lift is a graph over a closed disc minus the limit points on its boundary, a contractible domain, so
+$\pi_1(\bar S)=\Gamma$. Its boundary is a finite non-empty union of circles $B_i$, one per asymptotic cylinder, each a Cauchy curve of
+degree one, representing the peripheral element $h_i$ or its inverse. The relation $\prod_j[a_j,b_j]h_1\cdots h_b=1$ gives a non-zero
+signed sum of the $[B_i]$ in the kernel of $H_1(\partial\bar S;\Z)\to H_1(\bar S;\Z)$. If $\bar S$ were non-compact,
+$H_2(\bar S,\partial\bar S;\Z)\cong H^0_c(\bar S;\Z)=0$ (a relative top cycle has constant multiplicity, which cannot have compact
+support on a connected non-compact surface unless it vanishes), and the exact sequence of the pair would make that map
+injective, a contradiction. So $\bar\Sigma$ is compact, and the continuous positive function $v\mapsto\bar g(v,v)$ on its compact
+$h$-unit tangent bundle has a positive minimum $\epsilon_\Sigma$.
+
+\emph{(7) Homology.} Choose a complete future timelike vector field on $\Mbar$ tangent to the boundary (partition of unity in the
+convex future cone, rescaled to be bounded in a complete Riemannian metric). Its orbits are inextendible and meet $\bar\Sigma_0$ and
+$\bar\Sigma$ once each; the hitting map $\Phi:\bar\Sigma_0\to\bar\Sigma$ is a continuous bijection (transversality at the smooth target),
+hence a homeomorphism by compactness. It fixes $\bar\gamma_c$ pointwise (both slices contain it), preserves boundary components and
+carries each oriented boundary interval to the one with the same endpoints. Transporting the homology region of
+Theorem~\ref{thm:H} by $\Phi$ preserves closure, interior and frontier, giving a region with frontier $\gamma_c$ and boundary
+$A'$; it is smooth with corners at the anchoring points, where $\gamma_c$ meets the boundary transversally by
+\eqref{eq:arcchart}.
+\end{proof}
+
+\begin{corollary}[Theorem H with smooth slices]\label{cor:smoothH}
+Let $S^\eps_{\rm sm}(A)$ be defined as in Definition~\ref{def:HRT} with the additional requirement that the completed homology
+slice be compact, smooth and uniformly spacelike in the sense of Proposition~\ref{prop:Splus}(4). Then
+$S^\eps_{\rm sm}(A)=S^\eps(A)=F^\eps(A)/4G_N$, and the minimum is attained in the smooth class.
+\end{corollary}
+
+\begin{proof}
+Smooth candidates are candidates, so $S^\eps_{\rm sm}\ge S^\eps$; Proposition~\ref{prop:Splus} applied to a minimising class realises
+the identical geodesic union, with identical regulated length, on a smooth slice.
+\end{proof}
+
+\paragraph*{An explicit invariant strip at a rotating horizon.} The pleats of Remark~\ref{rem:tilt} are an artefact. In the
+coordinates of Proposition~\ref{prop:length}(a), with $a=\ell_L$, $b=\ell_R$, $L=\frac{a+b}2$ and $q=\frac{a-b}{a+b}$ ($|q|<1$), put
+\begin{equation}\label{eq:strip}
+\mathcal X(s,r)=\cosh r\,c(s)+\sinh r\,n(s),\qquad
+c(s)=\begin{pmatrix}0&e^s\\-e^{-s}&0\end{pmatrix},\quad n(s)=\begin{pmatrix}e^{qs}&0\\0&-e^{-qs}\end{pmatrix}.
+\end{equation}
+Then $\det\mathcal X=1$, $h\,\mathcal X(s,r)=\mathcal X(s+L,r)$ exactly, and the induced metric is
+\begin{equation}\label{eq:stripmetric}
+\mathcal X^*g=dr^2+\big[1+(1-q^2)\sinh^2r\big]\,ds^2,
+\end{equation}
+spacelike everywhere. Distinct points are spacelike separated:
+$\frac12N(\mathcal X(s,r),\mathcal X(s',r'))=\cosh(r-r')\cosh(q\Delta)+\cosh r\cosh r'[\cosh\Delta-\cosh(q\Delta)]>1$, $\Delta=s-s'$. With the
+equivariant unit timelike field $T(s)=\mathrm{diag}(e^{qs},e^{-qs})$ and $g_R=g+2T^\flat\otimes T^\flat$, one has
+$g(v,v)\ge\frac{2ab}{a^2+b^2}\,g_R(v,v)$ on the strip: the strip has an invariant spacelike margin, degenerating only as
+$\ell_L/\ell_R\to0$ or $\infty$. (We checked $\det\mathcal X=1$, the equivariance, \eqref{eq:stripmetric} and the separation identity
+symbolically.)
+
+\paragraph*{Collars at arc endpoints.} In a Poincar\'e patch $g=z^{-2}(dz^2+dx^2-dt^2)$, the geodesic from $(0,0)$ to $(X_0,T_0)$,
+$d^2=X_0^2-T_0^2>0$, has near its first endpoint $x_\gamma(z)=\frac{X_0}2(1-\sqrt{1-4z^2/d^2})$,
+$t_\gamma(z)=\frac{T_0}2(1-\sqrt{1-4z^2/d^2})$, smooth, even and $O(z^2)$, consistent with \eqref{eq:arcchart}. For a smooth boundary
+trace $t=b(x)$, $|b'|\le\kappa<1$, and a bump $\chi$ equal to $1$ near $0$, the graph of
+$F(x,z)=b(x)+\chi(x)[t_\gamma(z)-b(x_\gamma(z))]$ contains the geodesic, has the prescribed trace, and satisfies
+$\bar g|_{t=F}\ge\frac{1-\kappa^2}{2}(dx^2+dz^2)$ for small $z$. This gives the local picture directly; the doubling argument supplies
+the global extension.
+
+% ===================================================================================================
+\section{Covariant entropies and the RT cone}\label{sec:main}
+
+Let $M$ be a spacetime of Sec.~\ref{sec:spacetimes}, the parties finite unions of intervals of one boundary Cauchy slice and of
+whole boundaries, and $S^\eps$ the HRT entropy of Definition~\ref{def:HRT} (equivalently, by Corollary~\ref{cor:smoothH}, with
+smooth uniformly spacelike homology slices). By Theorem~\ref{thm:H}, $4G_NS^\eps=F^\eps$ with $k=2$, $w_L=w_R=\frac12$, $W=1$.
+
+\begin{theorem}[HRT entropies lie in the RT cone]\label{thm:HRTcone}
+With $\mu'=\frac12(\mbar'_L+\mbar'_R)$, $G(A)=\min_{c\in\Cut(A)}i(\mu',c)$ and $t_p(\eps)=\log(1/\eps)-\frac12\log(d_p^Ld_p^R)$:
+\begin{enumerate}
+\item[(i)] $4G_NS^\eps=G+\sum_pt_p(\eps)\,b_p$ exactly for $\eps\le\eps_0$, with $G$ the min-cut vector of the explicit finite graph
+of Theorem~\ref{thm:graph};
+\item[(ii)] $S^\eps\in\CN$ for $\eps\le\min(\eps_0,\eps_1)$, $\eps_1=\min_p(d_p^Ld_p^R)^{-1/2}$;
+\item[(iii)] for every linear inequality $Q\ge0$ valid on $\CN$ and every $\eps\le\eps_0$,
+$4G_N\,Q(S^\eps)=Q(G)+\sum_pt_p(\eps)Q(b_p)$ with both terms non-negative once $t_p\ge0$; the slack is $\eps$-independent if $Q$ is
+balanced at every entangling point and diverges to $+\infty$ otherwise.
+\end{enumerate}
+With $c=3/2G_N$ (AdS radius one), the Bell-pair weight is $t_p/4G_N=\frac c6\log(1/\eps)+O(1)$.
+\end{theorem}
+
+\begin{proof}
+Theorem~\ref{thm:H}, Corollary~\ref{cor:decomp}, Theorem~\ref{thm:graph} and Corollary~\ref{cor:cone}.
+\end{proof}
+
+For whole-boundary parties ($P=\emptyset$) no cutoff is involved and $4G_NS=G\in\CN$ exactly.
+
+\begin{theorem}[Equality of the closed cones]\label{thm:equality}
+Let $\mathcal H_N$ be the set of vectors $4G_NS^\eps$ over all spacetimes of Sec.~\ref{sec:spacetimes}, all $N$-party assignments,
+and all $\eps\le\min(\eps_0,\eps_1)$. Then $\overline{\R_{>0}\mathcal H_N}=\CN$, and the same holds with $\mathcal H_N$ replaced by the
+RT vectors of static wormholes with whole-boundary parties.
+\end{theorem}
+
+\begin{proof}
+$\subseteq$: Theorem~\ref{thm:HRTcone} and closedness of $\CN$. $\supseteq$: by Ref.~\cite{Bao2015} (Sec.~3.1 moves, Lemma~4), a
+graph model with positive weights can be brought, without changing its entropies, to a form with trivalent bulk vertices and
+each boundary colour on a single degree-one vertex; gluing hyperbolic pairs of pants and half-collars along geodesics of lengths
+$\lambda w(e)$ gives, for $\lambda>0$ small enough, a hyperbolic surface whose boundary RT entropies are $\lambda$ times the min-cuts.
+Continued to funnels, it is $X=\Hyp/\Gamma$ with $\Gamma$ convex cocompact, and the static spacetime with $X_L=X_R=X$ has
+$4G_NS=\lambda\cdot(\text{graph vector})$ (Theorem~\ref{thm:H}, or directly, being static). Graph vectors of connected graphs are dense in
+$\CN$, which is the set of graph vectors~\cite{Bao2015} (a disconnected graph is a limit of connected ones joined by edges of
+weight $\to0$).
+\end{proof}
+
+\begin{corollary}
+For whole-boundary parties the HRT entropy vector of any rotating wormhole of the class is, up to a positive factor, the RT
+vector of a static multiboundary wormhole with $N+1$ boundaries.
+\end{corollary}
+
+\begin{remark}[What the vacuum assumption is used for]
+The only place where vacuum enters, beyond the description of the spacetimes, is the existence of a positive measure on test
+classes whose intersection integrals reproduce all extremal lengths: here $\mu'=\frac12(\mbar'_L+\mbar'_R)$. Everything in
+Secs.~\ref{sec:lemmaA}--\ref{sec:graph} applies verbatim to any positive countable combination of non-trivial test classes with
+finite coefficients, together with endpoint constants $t_p$.
+% MATTER-SLOT (supplement): if the NEC extension is established, the construction of the replacement measure on the quotient,
+% and the corresponding version of Theorem H, would be inserted here as a new section.
+\end{remark}
+% ===================================================================================================
+\section{Numerical tests and reproducibility}\label{sec:numerics}
+
+The proofs are analytic and use no numerical input. The tests below check conclusions and intermediate identities, each with a
+control that must fail. All computations are in double precision with Python~3, NumPy and SciPy (SymPy for the exact algebra);
+random seeds are fixed and listed. The scripts are provided as ancillary files [location to be added]; the command lines are given
+with each test.
+
+\subsection{Full-cone tests with interval parties on multiply connected surfaces}
+
+\emph{Set-up} (\texttt{schottky\_cone.py <pants|torus> N trials seed}; driver \texttt{runall.sh}). Rank-two Schottky groups in the
+upper half-plane: four disjoint discs on $\R$, generators $g_k$ mapping the outside of $D_k$ onto the inside of $D_k'$. The disc order
+$D_1D_1'D_2D_2'$ gives a three-holed sphere (three funnels), the order $D_1D_2D_1'D_2'$ a one-holed torus (one funnel); discreteness
+follows from the ping-pong lemma. Two independent metrics share the combinatorics (same disc order, marked points on the same free
+arcs in the same order), which fixes a common marking; weights $w_j\in[0.2,1]$ are random (the HRT case is $w_L=w_R=\frac12$). Two to
+seven marked points are placed on the funnels; party assignments are random, and circles without marked points become whole-boundary
+pieces. For every region $A$, $F^\eps(A)$ is computed by exhaustive search over embedded cuts built from arcs $(p_i,gp_j)$ with $g$ a
+reduced word of length $\le3$ and primitive closed geodesics of word length $\le3$; simplicity, disjointness and the homology
+condition are decided from lifted endpoints (linking of translates up to a provably sufficient word length, and $\Z/2$ parity of
+separating lifts). The same class is used in both metrics. Then $t_p$ is computed from Proposition~\ref{prop:crofton} and
+$G=F^\eps-\sum_{p\in\partial A}t_p$. All facets of $\mathcal C_3,\mathcal C_4,\mathcal C_5$ (7, 20 and 372; for $N=5$ the orbit sizes
+agree with Ref.~\cite{AvisHernandezCuenca2023}) are evaluated, relative to $\max_A|S_A|$. Every third configuration is recomputed with
+words of length $\le4$. Controls: $G-\frac W2\sum_pb_p$ (wrong endpoint subtraction) and $\min_c\max_j\ell_j(c)$ (not a positive
+combination of lengths).
+
+\begin{table}[h]
+\caption{Full-cone tests. ``closed'': regions whose minimiser contains a closed geodesic; ``common$\ne$1'': regions where the
+common-class minimiser differs from the metric-1 minimiser; ``stab.'': configurations recomputed with longer words (change of $F$ in
+all of them: $0$); facet values relative to $\max|S|$; controls: configurations with a violated facet. Asterisk: wider parameter
+ranges. Seeds as set in the driver script.}
+\label{tab:schottky}
+\begin{ruledtabular}
+\begin{tabular}{lrrrrrrrrr}
+run & configs & regions & closed & common$\ne$1 & stab. & min facet $G$ & min facet $F^{10^{-5}}$ & ctl 1 & ctl 2\\
+\hline
+pants $N=3$ & 60 & 420 & 300 & 7 & 20 & $-1.8\times10^{-15}$ & $-2.7\times10^{-16}$ & 50 & 28\\
+pants $N=4$ & 40 & 600 & 430 & 6 & 13 & $-1.7\times10^{-15}$ & $-3.6\times10^{-16}$ & 40 & 27\\
+pants $N=5$ & 24 & 744 & 503 & 44 & 8 & $-1.2\times10^{-14}$ & $-1.3\times10^{-15}$ & 24 & 20\\
+torus $N=3$ & 60 & 420 & 0 & 1 & 20 & $-1.2\times10^{-15}$ & $-1.7\times10^{-16}$ & 60 & 32\\
+torus $N=4$ & 40 & 600 & 0 & 21 & 13 & $-1.5\times10^{-15}$ & $-4.7\times10^{-2}$ (1 config) & 40 & 33\\
+torus $N=5$ & 24 & 744 & 0 & 11 & 8 & $-2.1\times10^{-15}$ & $-6.3\times10^{-16}$ & 24 & 22\\
+pants $N=4^*$ & 30 & 450 & 289 & 52 & 10 & $-1.7\times10^{-15}$ & $-3.7\times10^{-16}$ & 29 & 6\\
+torus $N=4^*$ & 30 & 450 & 0 & 5 & 10 & $-1.6\times10^{-15}$ & $-2.9\times10^{-16}$ & 30 & 24\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\emph{Results} (Table~\ref{tab:schottky} and Fig.~3 of the Letter). Over 308 configurations and 4428 regions, $G$ satisfies every facet
+to rounding and is $\eps$-independent to $2\times10^{-14}$ between $\eps=10^{-3}$ and $10^{-5}$. The single violation by $F^\eps$ is the
+threshold effect predicted by Theorem~\ref{thm:graph}: in that configuration a marked point is very close to its neighbour, $d_p$ is
+large and $\min_pt_p(10^{-5})=-1.73<0$, i.e.\ $\eps>\eps_1$; the violated facet is subadditivity, which is unbalanced. At
+$\eps=10^{-12}$ all facets hold (smallest value $-8\times10^{-17}$). Both controls violate facets in most configurations.
+\emph{Limitations:} bounded word length (evidence, not proof, that the true minimiser was found); on the tori no minimiser used a
+closed geodesic; the explicit cell graph of Theorem~\ref{thm:graph} was built only on the disc; these tests check the conclusion
+$G\in\CN$.
+
+\subsection{Identities}
+
+\emph{Disc, exact graph realisation} (\texttt{disc\_exact.py}, seed 7). $X=\Hyp$, $k\in\{1,2,3\}$ metrics realised as configurations of
+the same cyclically ordered marked points (pure $\AdS$ is $k=2$, $w=\frac12$), random horoball normalisations, random party
+assignments with $N+2$ to $N+4$ pieces. $G$ is computed three ways: as $F^\eps-\sum_pt_pb_p$; as $\min_c\sum_\tau\mu'(\tau)i(\tau,c)$ with
+$\mu'(\tau)$ the Liouville masses (logarithms of cross-ratios) of pairs of non-adjacent pieces; and as the min-cut of the explicit cell
+graph of Theorem~\ref{thm:graph} (arrangement in the Klein model, one generic chord per class). For $N=3,4,5$ (300, 200, 60 trials)
+the three agree to $5.3\times10^{-14}$, and all facets hold for $F^\eps$ and for $G$ (smallest relative values $-10^{-15}$ and
+$-1.5\times10^{-14}$). $G$ satisfies the unbalanced facets too, a non-trivial check since it has no divergent terms.
+
+\emph{Cylinder, renormalised Crofton formula} (\texttt{cylinder\_identity.py}). $\Hyp/\langle z\mapsto e^\ell z\rangle$, 2--5 marked points on
+one boundary, random normalisations; for single arcs winding $0,1,2$ times, $i(\mbar',c)$ is computed as an explicit sum over test
+classes truncated at 40 periods (largest truncated mass $<10^{-16}$). In 181 cases
+$\max|\ell^\eps(c)-i(\mbar',c)-\sum_pe_p\log(1/\eps d_p)|=5.7\times10^{-14}$; for the core geodesic
+$\sum_\tau\mbar(\tau)i(\tau,\mathrm{core})=\ell$ to $4\times10^{-16}$.
+
+\emph{Facet lists and contraction maps} (\texttt{cones.py}, \texttt{check\_facets.py}, \texttt{contraction\_mrv.py}). The facet lists
+reproduce the orbit sizes of Ref.~\cite{AvisHernandezCuenca2023} (for $\mathcal C_5$: 15, 20, 45, 72, 90, 10, 60, 60, total 372). Two
+independent searches find a weighted contraction map for every orbit representative except one $\mathcal C_5$ orbit, consistent with
+Refs.~\cite{AvisHernandezCuenca2023,GHHS2026}; 200 random graph models per $N$ satisfy all facets; the non-holographic vector of
+Ref.~\cite{Bao2015} violates them.
+
+\subsection{Earlier tests of the contraction-map inequalities and of the slice geometry}
+
+\begin{table}[h]
+\caption{Further tests (violations/trials). The scripts are \texttt{contraction.py}, \texttt{annulus\_test.py 1 3000 25.0},
+\texttt{fourholed\_test.py 3 600 7 fn}, \texttt{fourholed\_certified.py 3 40}, \texttt{lemmaA\_test.py 0 400},
+\texttt{separation\_check.py 0}, \texttt{pleated\_btz\_check.py}, \texttt{spacelike\_check.py}.}
+\label{tab:earlier}
+\begin{ruledtabular}
+\begin{tabular}{p{0.34\textwidth}p{0.30\textwidth}p{0.28\textwidth}}
+test & result & control\\
+\hline
+Contraction-map certificates (SSA, MMI, 5- and 7-party cyclic), exhaustive search and integer verification & maps found and verified & reversed MMI: no map\\
+Cylinder ($\pi_1=\Z$), interval parties, $k=1,2,3$ metrics, same class in all; SSA, MMI, 5-party cyclic (3000 each), 7-party (750) & $0$ violations; smallest slack $-2\times10^{-13}$ & $\min_c\max_j\ell_j$: 923/3000 (MMI), 559/3000 (5-cyclic)\\
+Four-holed sphere ($\pi_1=F_3$), whole boundaries, Fenchel--Nielsen metrics, $k=1,2,3$; MMI, SSA & $0/600$ each; essential curve in a minimal cut in $\ge99\%$ & $\max$ functional: 299/600\\
+Same, certified enumeration (ping-pong Schottky groups, branch and bound over all words), $k=1,2$ & $0/40$ each & ---\\
+Lemma~\ref{lem:A} itself on the cylinder, exact integers, arbitrary input cuts & dominating output found in 7800/7800 & reversed MMI: none in 1077/2400\\
+Separation Lemma, random acausal circles & $0/160{,}000$; smallest ratio $1.00005$ & crossing triangles: timelike pairs in $16\%$\\
+Pleated slice of rotating BTZ, fans spiralling into the horizon, $\ell_L\ne\ell_R$ & $0/360{,}000$ pairs & triangle across the horizon: 113/90,000\\
+Lightlike tilt of pleats (Remark~\ref{rem:tilt}) & normalised $\det$ of face normals constant for $\ell_L=\ell_R$, decays to $0$ otherwise & ---\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+These earlier tests (Table~\ref{tab:earlier}) predate the full-cone results and check the contraction-map inequalities, Lemma~\ref{lem:A}
+on the cylinder, and the acausality of pleated slices. Three earlier test versions were found to be vacuous (an essential curve
+rarely entered a minimal cut) or to use a non-discrete representation; they are not counted. Lemma~\ref{lem:A} has been tested
+directly only for $\pi_1=\Z$, and the embedding part of Proposition~\ref{prop:P} is not tested numerically.
+
+% ===================================================================================================
+\section{Status of statements and cited inputs}\label{sec:status}
+
+\begin{table}[h]
+\caption{Status of the statements. ``Proved'' means a complete argument is given here, using only the cited inputs listed below
+the table.}
+\label{tab:status}
+\begin{ruledtabular}
+\begin{tabular}{p{0.45\textwidth}p{0.5\textwidth}}
+statement & status\\
+\hline
+Lemma~\ref{lem:A} (topological contraction) & proved\\
+Proposition~\ref{prop:crofton} (renormalised Crofton), Corollary~\ref{cor:decomp} (decomposition) & proved; checked numerically to $6\times10^{-14}$\\
+Theorem~\ref{thm:graph} (graph realisation), Corollaries~\ref{cor:cone}, \ref{cor:contraction} & proved; graph checked on the disc to $5\times10^{-14}$\\
+Proposition~\ref{prop:length} (length formula) & proved\\
+Theorems~\ref{thm:C}, \ref{thm:E} (slices $=$ acausal Cauchy slices of $\Mbar$) & proved for $\Gamma\ne1$, given the cited action on $\EG$\\
+Lemmas~\ref{lem:sep}, \ref{lem:tri}; Proposition~\ref{prop:P} & proved; not new in substance~\cite{MazzoliViaggi2022}\\
+Lemma~\ref{lem:T} (spun family) & proved, given the existence of triangulations with prescribed vertices~\cite{Hatcher1991}\\
+Theorem~\ref{thm:H} & proved, for slices satisfying (S1)--(S3), i.e.\ acausal Cauchy slices of $\Mbar$\\
+Proposition~\ref{prop:Splus}, Corollary~\ref{cor:smoothH} (smooth uniformly spacelike slices) & proved, given Bernal--S\'anchez Theorem~1.1 and Remark~4.14~\cite{BernalSanchez2006} and Geroch's theorem\\
+Theorem~\ref{thm:HRTcone} (HRT vector in $\CN$, every valid inequality) & proved, given the above\\
+Theorem~\ref{thm:equality} (cone equality) & proved, given Bao \emph{et al.}~\cite{Bao2015}, Sec.~3.1, Lemma~4 and the graph characterisation of $\CN$\\
+Matter; higher dimensions; extremal horizons; conical defects; non-orientable quotients; achronal slices with null pieces; homology regions not on a Cauchy slice; quantum corrections & not covered\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\emph{Cited inputs.} (i) Structure of the spacetimes: proper discontinuity of $\Gamma$ on $\Dt$ and on $\EG$ including the boundary,
+and the identification of the asymptotic regions~\cite{Mess2007,Barbot2008,BKS2011}. (ii) Convex cocompactness and measure zero of
+limit sets of Schottky-type Fuchsian groups. (iii) The Crofton formula~\cite{Santalo1976}. (iv) Geodesic representatives and minimal
+position~\cite{Epstein1966,FarbMargalit2012}. (v) Triangulations of compact surfaces with prescribed vertices~\cite{Hatcher1991}.
+(vi) Smooth Cauchy extension~\cite{BernalSanchez2006} and the Cauchy-surface criterion for global hyperbolicity~\cite{Geroch1970}.
+(vii) For the cone statements: graph models, their closedness and polyhedrality, and the realisation of graphs by hyperbolic
+surfaces~\cite{Bao2015}. No completeness statement about contraction maps~\cite{BaoFuruyaNaskar2025} and no characterisation theorem
+for currents~\cite{MartinezGranadoThurston2026} is used.
+
+\emph{Standing assumptions.} Orientable surfaces with funnel ends only; the same marking on both chiral surfaces; positive weights
+(positivity is essential: the $\max$ functional violates the inequalities); the same class in all metrics; regions are unions of
+elementary pieces on one boundary Cauchy slice; the HRT entropy is the leading classical term defined in
+Definition~\ref{def:HRT}.
+
+\bibliographystyle{apsrev4-2}
+\bibliography{refs}
+
+\end{document}
