@@ -1,0 +1,7 @@
+# g=1000 n=16 paper: tau_*=1.7814e-02 (tau g=17.81), light coef ~1120
+g=1000 n=16 kappa=1e+06: L/K=0.42 tau_h=2.7502e-02 tau_h*g=27.502 log_g(1/tau_h)=0.520 Lambda_l=252.1
+g=1000 n=16 kappa=1e+07: L/K=2.50 tau_h=1.1262e-02 tau_h*g=11.262 log_g(1/tau_h)=0.649 Lambda_l=422.8
+g=1000 n=16 kappa=3e+07: L/K=7.13 tau_h=6.6714e-03 tau_h*g=6.671 log_g(1/tau_h)=0.725 Lambda_l=445.1
+g=1000 n=16 kappa=1e+08: L/K=23.33 tau_h=3.6883e-03 tau_h*g=3.688 log_g(1/tau_h)=0.811 Lambda_l=453.5
+g=1000 n=16 kappa=3e+08: L/K=69.60 tau_h=2.1352e-03 tau_h*g=2.135 log_g(1/tau_h)=0.890 Lambda_l=455.9
+g=1000 n=16 kappa=1e+09: L/K=231.57 tau_h=1.1706e-03 tau_h*g=1.171 log_g(1/tau_h)=0.977 Lambda_l=456.8

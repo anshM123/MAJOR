@@ -1,6 +1,6 @@
 """Dual LP with endpoint (multiplier nu>=0), R_k (lambda_k, k<=K), per-harmonic M_n (mu_n, 2<=n<=N).
 Heavy:  F = nu W + sum mu_n h_n + sigma sum lambda_k r_k >= 0.
-Light (2<twist<g), optional:  F >= -(kappa-1) nu W.
+Light (2<twist<g), optional: mode 'theta': F >= -Theta W  (light coef 16 Theta/L);  mode 'nu': F >= -(kappa-1) nu W.
 Normalisation 3 nu + sum mu_n = 3.  Maximise L = sum mu_n gamma_n - lambda_2.
 Then  |c|^2 <= (3 + (kappa-1) nu E'_light)/L,   tau^2 = 16|c|^2.   (D = 0.)"""
 import numpy as np, sys, time
@@ -25,7 +25,7 @@ def build(B, J, D, K, N):
     return np.array(cols).T
 
 
-def solve(g, K, N, kappa=None, Jlin=None, Jmax=None, nJlog=80, nt=50, nlight=40, ret=False):
+def solve(g, K, N, kappa=None, mode='theta', Jlin=None, Jmax=None, nJlog=80, nt=50, nlight=40, ret=False):
     Jlin = Jlin or 12 * g; Jmax = Jmax or 3000 * g
     ts = np.concatenate([[0.0], np.geomspace(1e-3, 1e4, nt) * g])
     lh = None
@@ -37,7 +37,11 @@ def solve(g, K, N, kappa=None, Jlin=None, Jmax=None, nJlog=80, nt=50, nlight=40,
     # inequality A x >= 0 (heavy) ; light: A x + (kappa-1) nu >= 0
     Aub = -A.copy()
     if kappa is not None:
-        Aub[Lt == 1, 0] -= (kappa - 1.0)
+        if mode == 'nu':
+            Aub[Lt == 1, 0] -= (kappa - 1.0)
+    bub = np.zeros(len(J))
+    if kappa is not None and mode == 'theta':
+        bub[Lt == 1] = kappa          # F_light/W >= -Theta
     sc = np.abs(Aub).max(axis=0); sc[sc == 0] = 1
     nv = A.shape[1]
     # objective: maximise L = sum mu_n gamma_n - lambda_2
@@ -47,7 +51,7 @@ def solve(g, K, N, kappa=None, Jlin=None, Jmax=None, nJlog=80, nt=50, nlight=40,
     c[1 + nM + 2] = 1.0
     Aeq = np.zeros((1, nv)); Aeq[0, 0] = 3.0; Aeq[0, 1:1 + nM] = 1.0
     bounds = [(0, None)] + [(None, None)] * (nv - 1)
-    res = linprog(c / sc, A_ub=Aub / sc, b_ub=np.zeros(len(J)), A_eq=Aeq / sc, b_eq=[3.0], bounds=bounds, method='highs')
+    res = linprog(c / sc, A_ub=Aub / sc, b_ub=bub/1.0, A_eq=Aeq / sc, b_eq=[3.0], bounds=bounds, method='highs')
     if res.status != 0:
         return None
     x = res.x / sc
@@ -66,5 +70,5 @@ if __name__ == '__main__':
             t0 = time.time()
             o = solve(g, K, N if useM else 0, kap)
             if o is None: print(g, N, useM, 'fail', flush=True); continue
-            lc = 16 * (kap - 1) * o['nu'] / o['L'] if kap else 0
+            lc = 16 * kap / o['L'] if kap else 0
             print(f"g={g} kappa={kap} K={K} N={N if useM else 0}: L={o['L']:.4e} L/g^2={o['L']/g**2:.3f} nu={o['nu']:.3f} tau_heavy={o['tau']:.4e} tau*g={o['tau']*g:.3f} tau*g^3={o['tau']*g**3:.1f} lightcoef={lc:.4g} ({time.time()-t0:.0f}s)", flush=True)
