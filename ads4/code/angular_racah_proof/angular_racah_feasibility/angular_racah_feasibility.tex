@@ -1,0 +1,932 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,urlcolor=blue!45!black,citecolor=blue!45!black]{hyperref}
+\usepackage{enumitem}
+\setlist{itemsep=3pt,topsep=5pt}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks[2]
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\WB}{W_B}
+\newcommand{\Ph}{\Phi}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\cD}{\mathcal D}
+\newcommand{\cB}{\mathcal B}
+\newcommand{\cH}{\mathcal H}
+
+\title{Uniform Feasibility of the Angular Racah Dual}
+\author{}
+\date{November 27, 2026}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+
+\begin{abstract}
+We prove feasibility of the terminating Racah dual with degree
+$n=\lfloor g/2\rfloor$ on both angular helicity ladders, for every real gap
+$g\ge4$, every allowed integer spin, and every real dimension above the twist
+gap. The helicity-zero proof uses a contracting quadratic energy for a
+variable-coefficient Legendre recurrence. The helicity-four proof uses a
+discrete Sonin energy, reducing the entire infinite spin tail to a fixed
+degree-five inequality. That inequality has an exact integer certificate:
+two explicitly defined bivariate polynomials have 169 positive coefficients
+each. Low spins are treated by elementary identities and one displayed
+sum-of-squares decomposition. No asymptotic approximation, spin cutoff,
+twist discretization, or floating-point sign test enters the proof. The
+result gives the angular linear-programming objective
+$L=\WB n^2(n^2-1)/400$ and its corresponding exact conditional bound on
+$\tau$.
+\end{abstract}
+
+\section{The theorem and its normalization}
+\label{sec:theorem}
+
+Let $g\ge4$ be real and set
+\begin{equation}
+ n=\left\lfloor\frac g2\right\rfloor,\qquad
+ \nu=n^2,\qquad
+ C=J(J+1),\qquad T=(\Delta-1)(\Delta-2).
+ \label{eq:basic}
+\end{equation}
+The heavy-state domains are
+\begin{align}
+ \cH_0(g)&=\{(J,\Delta):J\in2\Z_{\ge0},\ \Delta\in\R,
+                  \ \Delta\ge J+g\},\notag\\
+ \cH_4(g)&=\{(J,\Delta):J\in\Z_{\ge4},\ \Delta\in\R,
+                  \ \Delta\ge J+g\}.
+ \label{eq:domains}
+\end{align}
+For $b\in\{0,4\}$, define the ladder products
+\begin{equation}
+ U_k^{(b)}(J,\Delta)
+ =\prod_{i=0}^{k-1}
+   \frac{C-(b+i)(b+i+1)}{T-(b+i)(b+i+1)},
+ \qquad U_0^{(b)}=1,
+ \label{eq:ladderU}
+\end{equation}
+and the terminating polynomial
+\begin{equation}
+ R_{n,b}(J,\Delta)
+ =\sum_{k=0}^{\min(n,J-b)}
+    \frac{(-n)_k(n)_k}{(k!)^2}U_k^{(b)}(J,\Delta).
+ \label{eq:Rdef}
+\end{equation}
+Here $(a)_k=a(a+1)\cdots(a+k-1)$, with $(a)_0=1$.
+Every denominator in the displayed finite sum is positive on
+\eqref{eq:domains}. The weights are
+\begin{equation}
+ W_b(\Delta)=\frac{T-b(b-1)}3+\frac32,
+ \qquad
+ \WB=W_4(g+4)=\frac{g^2+5g-3/2}{3}>0.
+ \label{eq:weights}
+\end{equation}
+
+\begin{theorem}[Uniform heavy feasibility]
+\label{thm:main}
+For every real $g\ge4$ and $n=\lfloor g/2\rfloor$,
+\begin{align}
+ W_0(\Delta)+\WB R_{n,0}(J,\Delta)&>0
+       &&\text{for all }(J,\Delta)\in\cH_0(g),\label{eq:main0}\\
+ W_4(\Delta)-\WB R_{n,4}(J,\Delta)&\ge0
+       &&\text{for all }(J,\Delta)\in\cH_4(g).
+       \label{eq:main4}
+\end{align}
+In particular, the coefficients
+\begin{equation}
+ \boxed{\quad
+ \lambda_kD_k^2=-\WB\frac{(-n)_k(n)_k}{(k!)^2},
+ \qquad D_k=\binom{k+3}{3},\qquad 0\le k\le n,
+ \quad}
+ \label{eq:dual}
+\end{equation}
+are feasible for both heavy ladders in the angular dual linear program.
+The helicity-four condition is saturated at $(J,\Delta)=(4,g+4)$.
+\end{theorem}
+
+The normalization in \eqref{eq:dual} is the one in the repository's
+\texttt{lp\_primal.py}, \texttt{lp\_dual.py}, and
+\texttt{racah\_explore.py}, pinned to commit
+\texttt{01b01e6811825e446632d23ee8b33aab15b52b59}; see
+Section~\ref{sec:reproducibility}. In that normalization,
+$r_k^{(b)}=D_k^2U_k^{(b)}$, so
+\begin{equation}
+ \sum_{k=0}^n\lambda_kr_k^{(b)}=-\WB R_{n,b}.
+ \label{eq:normalization}
+\end{equation}
+The theorem is a statement about the heavy conditions themselves. The precise
+linear-programming consequence, with its moment and budget hypotheses stated
+explicitly, is given in Section~\ref{sec:LP}.
+
+The proof has two different energy estimates. On the helicity-zero ladder,
+a bound slightly weaker than $|R_{n,0}|\le1$ is sufficient because the weight
+ratio supplies a strict margin. On the helicity-four ladder, the low-spin
+polynomials are bounded above by one. For the remaining spins, a Sonin energy
+gives an absolute bound by the actual weight ratio. In particular, the proof
+does not require $|R_{n,4}|\le1$, an inequality that fails in general.
+
+\section{An algebraic Racah recurrence at real dimension}
+\label{sec:recurrence}
+
+For either helicity, introduce
+\begin{equation}
+ x=J-b,\qquad N=\Delta-b-2,\qquad s=2b+1,
+ \qquad X_x=x(x+s),\qquad Y=N(N+s).
+ \label{eq:shifted}
+\end{equation}
+Then
+\begin{equation}
+ C-b(b+1)=X_x,\qquad T-b(b+1)=Y,
+ \qquad N-x=\Delta-J-2\ge g-2,
+ \label{eq:shiftedphysical}
+\end{equation}
+and
+\begin{equation}
+ R_{n,b}(J,\Delta)
+ =\Ph_x^{(s)}(N)
+ :={}_4F_3\left(
+ \begin{matrix}-n,n,-x,x+s\\1,-N,N+s\end{matrix};1\right).
+ \label{eq:4F3}
+\end{equation}
+The hypergeometric notation denotes the finite sum in \eqref{eq:Rdef}.
+Auxiliary integer indices between zero and a physical spin will be used
+below; these auxiliary values do not need to belong to a physical spectrum.
+
+\begin{lemma}[Quadratic-lattice finite differences]
+\label{lem:factorial}
+Let $s>0$ and
+\begin{equation}
+ P_k(X)=\prod_{i=0}^{k-1}\bigl(X-i(i+s)\bigr),\qquad
+ p_x^{(s)}=\frac{(x+1)(x+s)}{2x+s+1}.
+ \label{eq:Pk}
+\end{equation}
+For integers $k\ge1$, the identity
+\begin{align}
+ &p_x^{(s)}\bigl[P_k(X_{x+1})-P_k(X_x)\bigr]
+ -p_{x-1}^{(s)}\bigl[P_k(X_x)-P_k(X_{x-1})\bigr]\notag\\
+ &\hspace{40mm}=k^2(2x+s)P_{k-1}(X_x)
+ \label{eq:Pkidentity}
+\end{align}
+holds as a rational identity in $x$. At $x=0$ the backward term is set to
+zero; equivalently $p_{-1}^{(s)}=0$ there.
+\end{lemma}
+
+\begin{proof}
+Use
+\[
+ P_k(X_x)=\prod_{i=0}^{k-1}(x-i)(x+s+i).
+\]
+Away from the zeros of this product, division gives
+\begin{align*}
+ \frac{P_k(X_{x+1})}{P_k(X_x)}
+ &=\frac{(x+1)(x+s+k)}{(x-k+1)(x+s)},\\
+ \frac{P_k(X_{x-1})}{P_k(X_x)}
+ &=\frac{(x-k)(x+s-1)}{x(x+s+k-1)},\\
+ \frac{P_{k-1}(X_x)}{P_k(X_x)}
+ &=\frac1{(x-k+1)(x+s+k-1)}.
+\end{align*}
+Substituting these ratios into \eqref{eq:Pkidentity} proves it by rational
+algebra. Clearing denominators extends the identity to zeros of the products.
+The boundary value follows directly from the products.
+\end{proof}
+
+\begin{proposition}[Exact spin recurrence]
+\label{prop:recurrence}
+At fixed $N,s,n$, put $y_x=\Ph_x^{(s)}(N)$ and $\nu=n^2$. Then
+\begin{equation}
+ p_x^{(s)}(y_{x+1}-y_x)-p_{x-1}^{(s)}(y_x-y_{x-1})+q_xy_x=0,
+ \qquad q_x=\frac{(2x+s)\nu}{Y-X_x},
+ \label{eq:spinrec}
+\end{equation}
+where the displayed denominators are nonzero. The initial values are
+\begin{equation}
+ y_0=1,\qquad y_1=1-\frac{(s+1)\nu}{Y}.
+ \label{eq:initial}
+\end{equation}
+This recurrence holds for real $N$.
+\end{proposition}
+
+\begin{proof}
+Write $y_x=\sum_{k=0}^n a_kP_k(X_x)$, where
+\begin{equation}
+ a_0=1,\qquad
+ a_{k+1}=-\frac{\nu-k^2}{(k+1)^2[Y-k(k+s)]}\,a_k.
+ \label{eq:acoeffs}
+\end{equation}
+Apply Lemma~\ref{lem:factorial} term by term and use
+\begin{equation}
+ (Y-X)P_k(X)=[Y-k(k+s)]P_k(X)-P_{k+1}(X).
+ \label{eq:Pkshift}
+\end{equation}
+After multiplying the difference operator by $(Y-X_x)/(2x+s)$, the
+coefficient of each $P_k(X_x)$ in the left side of \eqref{eq:spinrec}
+vanishes by \eqref{eq:acoeffs}. At the terminating endpoint,
+$\nu-n^2=0$. The initial values follow from the finite sums at $x=0,1$.
+All operations are identities between rational functions; no orthogonality
+grid or integer restriction on $N$ is used.
+\end{proof}
+
+\section{The helicity-zero ladder}
+\label{sec:b0}
+
+Here $b=0$, $s=1$, $Y=T$, and write $F_x=\Ph_x^{(1)}$. The recurrence
+\eqref{eq:spinrec} becomes
+\begin{equation}
+ (x+1)F_{x+1}+xF_{x-1}=(2x+1)c_xF_x,
+ \qquad c_x=1-\frac{2\nu}{T-x(x+1)},
+ \label{eq:b0rec}
+\end{equation}
+with $F_0=1$ and $F_1=c_0$.
+
+\subsection{A contracting energy}
+
+For $-1<c<1$, define
+\begin{equation}
+ \mathcal E_c(u,v)=\frac{u^2+v^2-2cuv}{1-c}
+ =(1+c)v^2+\frac{(u-cv)^2}{1-c}.
+ \label{eq:E0}
+\end{equation}
+If $0\le r\le1$ and $w=(1+r)cv-ru$, symmetry in the two arguments gives
+\begin{equation}
+ \mathcal E_c(v,w)
+ =(1+c)v^2+\frac{r^2(u-cv)^2}{1-c}
+ \le\mathcal E_c(u,v).
+ \label{eq:E0contract}
+\end{equation}
+Also,
+\begin{equation}
+ \frac{\partial}{\partial c}\mathcal E_c(u,v)
+ =\frac{(u-v)^2}{(1-c)^2}\ge0.
+ \label{eq:E0parameter}
+\end{equation}
+Thus decreasing $c$ decreases this energy.
+
+Suppose $T-J(J+1)>\nu$. Then $-1<c_x<1$ for $0\le x\le J$,
+and $c_x$ decreases with $x$. In \eqref{eq:b0rec}, the transfer from
+$(F_{x-1},F_x)$ to $(F_x,F_{x+1})$ has $r=x/(x+1)$. Starting from
+\[
+ \mathcal E_{c_0}(F_0,F_1)=\mathcal E_{c_0}(1,c_0)=1+c_0,
+\]
+apply \eqref{eq:E0parameter} before each transfer
+\eqref{eq:E0contract}. One final change of parameter from $c_{J-1}$
+to $c_J$ gives
+\begin{equation}
+ (1+c_J)F_J^2\le\mathcal E_{c_J}(F_{J-1},F_J)\le1+c_0.
+ \label{eq:E0chain}
+\end{equation}
+Consequently,
+\begin{equation}
+ \boxed{\quad
+ F_J^2\le1+\frac{\nu J(J+1)}{T[T-J(J+1)-\nu]}.
+ \quad}
+ \label{eq:b0bound}
+\end{equation}
+
+\subsection{The complete tail \texorpdfstring{$J\ge4$}{J>=4}}
+
+For $J\ge4$, $g\ge4$, and $\Delta\ge J+g$,
+\begin{align}
+ T-C
+ &\ge(J+g-1)(J+g-2)-J(J+1)\notag\\
+ &=(2g-4)J+(g-1)(g-2)\notag\\
+ &\ge g^2+5g-14\ge g^2\ge4\nu.
+ \label{eq:b0gap}
+\end{align}
+All denominators in the energy argument are therefore positive, and
+\eqref{eq:b0bound} implies
+\begin{equation}
+ F_J^2\le1+\frac{C}{3T}.
+ \label{eq:b0simple}
+\end{equation}
+
+Put $B_g=3\WB=g^2+5g-3/2$ and $h=T+9/2-B_g$.
+At $T=(J+g-1)(J+g-2)$, direct algebra gives
+\begin{align}
+ T-B_g&=(J-4)(J+2g+1)+\frac{15}{2}>0,\label{eq:weightslack1}\\
+ 2h-C&=(J-4)(J+4g-3)+4>0.\label{eq:weightslack2}
+\end{align}
+Both left sides increase with $T$. Hence $0<B_g<T$ and $h>C/2$, so
+\begin{equation}
+ \left(\frac{W_0}{\WB}\right)^2
+ =\left(1+\frac h{B_g}\right)^2
+ >1+\frac C{T}>1+\frac C{3T}\ge F_J^2.
+ \label{eq:b0weighted}
+\end{equation}
+This proves \eqref{eq:main0} for every even $J\ge4$.
+For example, the same estimates give the explicit positive margin
+\begin{align}
+ W_0+\WB F_J
+ &\ge W_0-\WB\sqrt{1+C/(3T)}\notag\\
+ &\ge\frac h3-\frac{B_gC}{18T}
+ >\frac C9.
+ \label{eq:b0margin}
+\end{align}
+
+\subsection{The spins \texorpdfstring{$J=0,2$}{J=0,2}}
+
+At $J=0$, $F_0=1$, so the condition is immediate. At $J=2$,
+\begin{equation}
+ F_2=1-\frac{6\nu}{T}+\frac{6\nu(\nu-1)}{T(T-2)}.
+ \label{eq:b0spin2}
+\end{equation}
+The heavy condition gives $T\ge g(g+1)>g^2\ge4\nu$.
+Since $n\ge2$, the last term in \eqref{eq:b0spin2} is nonnegative,
+and $F_2\ge-1/2$. Moreover,
+\begin{equation}
+ W_0-\frac{\WB}{2}
+ \ge\frac{g^2-3g+21/2}{6}>0.
+ \label{eq:b0spin2weight}
+\end{equation}
+The quadratic in the numerator has positive leading coefficient and negative
+discriminant. This completes the entire helicity-zero ladder.
+
+\section{The first five helicity-four spins}
+\label{sec:b4low}
+
+For the helicity-four ladder, set
+\begin{equation}
+ x=J-4,\qquad N=\Delta-6,\qquad Y=N(N+9)=T-20,
+ \qquad y_x=\Ph_x^{(9)}(N).
+ \label{eq:b4variables}
+\end{equation}
+Since $W_4(\Delta)\ge\WB$ for $\Delta\ge J+g$ and $J\ge4$,
+the one-sided bound $y_x\le1$ suffices at any fixed low spin.
+
+At $x=0$, $y_0=1$. At $x=1$,
+\begin{equation}
+ 1-y_1=\frac{10\nu}{T-20}>0.
+ \label{eq:b4x1}
+\end{equation}
+At $x=2$,
+\begin{equation}
+ 1-y_2=\frac{22\nu(T-3\nu-27)}{(T-20)(T-30)}.
+ \label{eq:b4x2}
+\end{equation}
+Here $T\ge(2n+5)(2n+4)$, and therefore
+\[
+ T-3n^2-27\ge n^2+18n-7>0.
+\]
+The denominator in \eqref{eq:b4x2} is positive.
+
+At $x=3$, define
+\begin{equation}
+ B_3(\nu,T)=36(T-30)(T-42)-234(\nu-1)(T-42)
+                  +364(\nu-1)(\nu-4).
+ \label{eq:B3}
+\end{equation}
+Then
+\begin{equation}
+ 1-y_3=\frac{\nu B_3(\nu,T)}{(T-20)(T-30)(T-42)}.
+ \label{eq:b4x3}
+\end{equation}
+With $T_0=(2n+6)(2n+5)$, exact evaluation gives
+\begin{align}
+ B_3(n^2,T_0)&=4(n^4+297n^3+4405n^2-1089n-338)>0,
+ \label{eq:B3initial}\\
+ \partial_T B_3(n^2,T_0)&=18(3n^2+88n-11)>0,
+ \qquad\partial_T^2 B_3=72.
+ \label{eq:B3derivative}
+\end{align}
+For the first sign, $4405n^2-1089n-338\ge2978n^2$ when $n\ge1$.
+It follows that $B_3(n^2,T)>0$ for all $T\ge T_0$, as required.
+
+At $x=4$, put $D_4=Y(Y-10)(Y-22)(Y-36)$. The exact formula is
+\begin{equation}
+ 1-y_4=\frac{26\nu Q(Y,\nu)}{D_4},
+ \label{eq:b4x4}
+\end{equation}
+where
+\begin{align}
+ Q(Y,\nu)={}&2Y^3-21Y^2\nu-115Y^2+70Y\nu^2+868Y\nu+1806Y\notag\\
+            &-70\nu^3-1540\nu^2-7462\nu-6768.
+ \label{eq:Q4}
+\end{align}
+The physical condition gives $N\ge2n+2$. Write $n=m+2$ and
+$N=2n+2+t$, with $m,t\ge0$. The sum-of-squares identity in
+Appendix~\ref{app:x4} proves $Q>0$ throughout this domain. Since $D_4>0$,
+the spin $J=8$ is also feasible. Thus every $x=0,1,2,3,4$ has been covered
+for all real dimensions in its heavy domain.
+
+\section{A Sonin energy for the complete helicity-four tail}
+\label{sec:sonin}
+
+Keep $N,n$ fixed and use the auxiliary integer index $j$. The recurrence is
+\begin{equation}
+ p_j\delta_{j+1}-p_{j-1}\delta_j+q_jy_j=0,
+ \quad
+ p_j=\frac{(j+1)(j+9)}{2j+10},\quad
+ q_j=\frac{(2j+9)\nu}{Y-j(j+9)},\quad
+ \delta_j=y_j-y_{j-1}.
+ \label{eq:b4rec}
+\end{equation}
+
+\subsection{Construction and exact decrement}
+
+Define a positive auxiliary sequence by
+\begin{equation}
+ h_j=2\int_0^1\frac{t^j(1+t^8)}{1+t}\,\dd t.
+ \label{eq:hj}
+\end{equation}
+Its two essential properties are
+\begin{equation}
+ h_j>h_{j+1}>0,\qquad
+ h_j+h_{j+1}=\frac2{j+1}+\frac2{j+9}=\frac2{p_j}.
+ \label{eq:hidentity}
+\end{equation}
+The first follows from $0<t<1$, and the second follows by adding the
+integrands. For $j\ge1$, set
+\begin{equation}
+ E_j=y_j^2+\frac{h_jp_{j-1}p_j}{q_j}\delta_j\delta_{j+1}.
+ \label{eq:sonin}
+\end{equation}
+
+\begin{lemma}[Exact Sonin identity]
+\label{lem:sonin}
+Whenever the denominators are nonzero,
+\begin{equation}
+ E_{j+1}-E_j=
+ \left[
+ p_j^2\left(\frac{h_{j+1}}{q_{j+1}}-\frac{h_j}{q_j}\right)
+ +\frac{p_j}{2}(h_j-h_{j+1})
+ \right]\delta_{j+1}^2.
+ \label{eq:sonindecrement}
+\end{equation}
+Also,
+\begin{equation}
+ E_j=\left(1-\frac{h_jq_j}{4}\right)y_j^2
+ +\frac{h_jp_{j-1}^2}{q_j}
+       \left(\delta_j-\frac{q_jy_j}{2p_{j-1}}\right)^2.
+ \label{eq:soninsquare}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+In $E_{j+1}-E_j$, eliminate $\delta_{j+2}$ and $\delta_j$ using
+\begin{align*}
+ \delta_{j+2}&=\frac{p_j\delta_{j+1}-q_{j+1}(y_j+\delta_{j+1})}{p_{j+1}},\\
+ \delta_j&=\frac{p_j\delta_{j+1}+q_jy_j}{p_{j-1}}.
+\end{align*}
+The mixed term in $y_j\delta_{j+1}$ vanishes because
+$h_j+h_{j+1}=2/p_j$. The coefficient of $\delta_{j+1}^2$ is the bracket
+in \eqref{eq:sonindecrement}. For \eqref{eq:soninsquare}, eliminate
+$\delta_{j+1}$ in \eqref{eq:sonin} and complete the square.
+\end{proof}
+
+\subsection{Monotonicity throughout the physical interval}
+
+Let $x=J-4$ be the physical endpoint. For every $0\le j\le x$,
+\begin{align}
+ Y-j(j+9)&=(N-j)(N+j+9)\notag\\
+ &\ge(2n-2)(2j+2n+7)\ge4n^2.
+ \label{eq:b4gap}
+\end{align}
+The last inequality follows from
+\[
+ (2n-2)(2j+2n+7)-4n^2=(4j+10)n-4j-14\ge0
+ \qquad(n\ge2).
+\]
+Consequently,
+\begin{equation}
+ 0<z_j:=\frac{\nu}{Y-j(j+9)}\le\frac14.
+ \label{eq:zbound}
+\end{equation}
+For $j\ge1$,
+\begin{equation}
+ \frac{p_j}{2j+9}-\frac18
+ =\frac{2j^2+21j-9}{8(j+5)(2j+9)}\ge0.
+ \label{eq:pbound}
+\end{equation}
+Equations \eqref{eq:zbound}--\eqref{eq:pbound} imply $q_j\le2p_j$.
+The sequence $q_j$ is increasing as long as its denominator is positive.
+Hence the bracket in \eqref{eq:sonindecrement} is at most
+\begin{equation}
+ (h_j-h_{j+1})p_j\left(\frac12-\frac{p_j}{q_j}\right)\le0.
+ \label{eq:decrementsign}
+\end{equation}
+We have therefore proved $E_{j+1}\le E_j$ for every step needed to reach
+the physical endpoint.
+
+\subsection{A uniform lower bound for the energy}
+
+For $0\le t\le1$, the inequality $1/(1+t)\le1-t/2$ gives
+\begin{equation}
+ h_j\le H_j:=\frac2{j+1}+\frac2{j+9}-\frac1{j+2}-\frac1{j+10}.
+ \label{eq:hupper}
+\end{equation}
+For $j\ge5$,
+\begin{equation}
+ \frac43-\frac{2j+9}{4}H_j
+ =\frac{2j^4+41j^3+160j^2-869j-2502}
+ {6(j+1)(j+2)(j+9)(j+10)}\ge0.
+ \label{eq:coercivitypoly}
+\end{equation}
+Indeed, after $j=5+v$, the numerator equals
+$2v^4+81v^3+1075v^2+4806v+3528$. Together with \eqref{eq:zbound}, this
+implies $h_jq_j/4\le1/3$. The square completion
+\eqref{eq:soninsquare} therefore gives
+\begin{equation}
+ \boxed{\qquad E_j\ge\frac23y_j^2\qquad(5\le j\le x).\qquad}
+ \label{eq:coercivity}
+\end{equation}
+Combining monotonicity with \eqref{eq:coercivity},
+\begin{equation}
+ \boxed{\qquad y_x^2\le\frac32E_x\le\frac32E_5\qquad(x\ge5).\qquad}
+ \label{eq:tailreduction}
+\end{equation}
+
+All auxiliary denominators are positive because $N-j\ge g-2\ge2$ for
+$j\le x$. The expression $E_x$ contains $y_{x+1}$, which is well-defined
+by the finite sum and the recurrence. It is only an auxiliary algebraic
+value. The decrement identity is used for $j=5,\ldots,x-1$, and requires
+no physical-state assumption at $x+1$.
+
+\section{The exact degree-five certificate}
+\label{sec:certificate}
+
+The infinite tail has now been reduced to a fixed calculation. The following
+inequality is an exact polynomial statement over a real continuous domain.
+
+\begin{lemma}[Fixed-energy bound]
+\label{lem:E5}
+Let $n\ge1$, $\nu=n^2$, and $Y\ge4n^2+30n+36$. Let $y_4,y_5$ be
+the finite polynomials in \eqref{eq:4F3} with $s=9$, expressed as rational
+functions of $\nu,Y$. For $0\le h\le4/15$, define
+\begin{equation}
+ \mathcal E_5(h)=y_5^2
+ +h\frac{4225(Y-70)}{6156\nu}(y_5-y_4)^2
+ -h\frac{65}{18}y_5(y_5-y_4).
+ \label{eq:E5direct}
+\end{equation}
+Then
+\begin{equation}
+ \mathcal E_5(h)
+ <\frac23\left(\frac{Y+25/2}{4n^2+18n+25/2}\right)^2.
+ \label{eq:E5certificate}
+\end{equation}
+In particular, this applies to $E_5=\mathcal E_5(h_5)$.
+\end{lemma}
+
+The proof is given explicitly below. It combines algebraic identities with
+a finite integer-coefficient certificate. The full coefficients are recorded
+in \texttt{coefficient\_ledger.json}; the accompanying
+\texttt{verify\_angular\_racah\_feasibility.py} reconstructs the polynomials
+and checks every coefficient with exact arithmetic.
+
+\subsection{Explicit polynomials}
+
+Define
+\begin{equation}
+ \cD=Y(Y-10)(Y-22)(Y-36)(Y-52),\qquad
+ A=\cD y_5,\qquad P=\frac{\cD(y_4-y_5)}{18\nu}.
+ \label{eq:APdefs}
+\end{equation}
+These are polynomials in $\nu,Y$. A factored expression for $A$ is
+\begin{align}
+ A={}&\cD-70\nu(Y-10)(Y-22)(Y-36)(Y-52)\notag\\
+ &+1050\nu(\nu-1)(Y-22)(Y-36)(Y-52)\notag\\
+ &-5600\nu(\nu-1)(\nu-4)(Y-36)(Y-52)\notag\\
+ &+11900\nu(\nu-1)(\nu-4)(\nu-9)(Y-52)\notag\\
+ &-8568\nu(\nu-1)(\nu-4)(\nu-9)(\nu-16).
+ \label{eq:Aexplicit}
+\end{align}
+The second polynomial is
+\begin{align}
+ P={}&Y^4-28Y^3\nu-92Y^3
+       +210Y^2\nu^2+2030Y^2\nu+2668Y^2\notag\\
+ &-560Y\nu^3-10640Y\nu^2-41664Y\nu-26400Y\notag\\
+ &+476\nu^4+14840\nu^3+115388\nu^2+224112\nu+57024.
+ \label{eq:Pexplicit}
+\end{align}
+Set
+\begin{equation}
+ \cB=4225\nu(Y-70)P^2+1235\nu AP.
+ \label{eq:Bexplicit}
+\end{equation}
+Substituting \eqref{eq:APdefs} into \eqref{eq:E5direct} gives the exact
+identity
+\begin{equation}
+ \mathcal E_5(h)=\frac{19A^2+h\cB}{19\cD^2}.
+ \label{eq:E5rational}
+\end{equation}
+The cancellation of $\nu$ in \eqref{eq:APdefs} follows either directly
+from the finite sums or from $y_4-y_5=0$ at $\nu=0$.
+
+\subsection{Two integer polynomials}
+
+For $H=0,4$, define
+\begin{equation}
+ F_H(n,Y)=190(2Y+25)^2\cD^2
+ -(8n^2+36n+25)^2\bigl(285A^2+H\cB\bigr),
+ \qquad \nu=n^2.
+ \label{eq:FH}
+\end{equation}
+Equivalently,
+\begin{align}
+ F_H=60\biggl[&\frac23(Y+25/2)^2(19\cD^2)\notag\\
+ &-(4n^2+18n+25/2)^2
+       \left(19A^2+\frac H{15}\cB\right)\biggr].
+ \label{eq:FHequiv}
+\end{align}
+Now substitute
+\begin{equation}
+ n=u+1,\qquad Y=4n^2+30n+36+t,
+ \qquad u,t\ge0.
+ \label{eq:certsubstitution}
+\end{equation}
+Each resulting polynomial has the exact support
+\begin{equation}
+ F_H=\sum_{b=0}^{12}\sum_{a=0}^{24-2b}c^{(H)}_{a,b}u^at^b,
+ \qquad c^{(H)}_{a,b}\in\Z_{>0}.
+ \label{eq:certificatepositive}
+\end{equation}
+There are $\sum_{b=0}^{12}(25-2b)=169$ coefficients for each value of
+$H$. Table~\ref{tab:coefficients} lists the smallest coefficient at each
+fixed power $b$ of $t$. In every row this minimum occurs at $a=24-2b$.
+All coefficients, including these minima, are obtained by expansion of the
+explicit integer expressions \eqref{eq:Aexplicit}--\eqref{eq:FH} after
+\eqref{eq:certsubstitution}.
+
+\begin{table}[htbp]
+\centering
+\caption{Exact coefficient minima in the two degree-five energy certificates.
+For each row, $\min_{0\le a\le24-2b}c^{(H)}_{a,b}$ is shown.}
+\label{tab:coefficients}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}rrr@{}}
+\toprule
+$b$ & $H=0$ & $H=4$\\
+\midrule
+0 & 11479429120 & 912363520\\
+1 & 46534471680 & 12384399360\\
+2 & 47966530560 & 26301250560\\
+3 & 15834265600 & 29297489920\\
+4 & 5911219200 & 20565335040\\
+5 & 8419584000 & 9314150400\\
+6 & 4375338240 & 2730174720\\
+7 & 746964480 & 551278080\\
+8 & 47424000 & 88657920\\
+9 & 12524800 & 11127040\\
+10 & 784320 & 784320\\
+11 & 36480 & 36480\\
+12 & 760 & 760\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{proof}[Proof of Lemma~\ref{lem:E5}]
+The coefficient identity \eqref{eq:certificatepositive} shows that $F_0$
+and $F_4$ are strictly positive for all $u,t\ge0$, including $u=t=0$.
+Because \eqref{eq:FH} is affine in $H$, it is strictly positive for every
+$H\in[0,4]$. Thus \eqref{eq:FHequiv} proves
+\eqref{eq:E5certificate} for every $h=H/15\in[0,4/15]$, after division
+by the positive factors $60$, $19\cD^2$, and
+$(4n^2+18n+25/2)^2$.
+
+There is no zero denominator on the stated domain: $Y\ge70>52$ for
+$n\ge1$. Formula \eqref{eq:E5direct} remains regular at $Y=70$.
+For the physical theorem, $n\ge2$ gives the stronger $Y\ge112$.
+Finally, \eqref{eq:hupper} at $j=5$ gives
+\begin{equation}
+ 0<h_5\le\frac26+\frac2{14}-\frac17-\frac1{15}=\frac4{15}.
+ \label{eq:h5interval}
+\end{equation}
+The recurrence \eqref{eq:b4rec} eliminates $y_6$ from the Sonin definition
+and gives exactly \eqref{eq:E5direct} with $h=h_5$:
+$p_4=65/18$ and $q_5=19\nu/(Y-70)$. This proves the asserted estimate
+for the actual energy $E_5$.
+\end{proof}
+
+The integer expansion is the finite computational component of the proof.
+Its input is a fully specified pair of polynomials, and its output is their
+complete coefficient list. Positivity of those coefficients proves an
+inequality on the full real quadrant $u,t\ge0$. Thus this step supplies a
+continuum certificate, with no sampling parameter or numerical precision
+assumption.
+
+\section{Completion of the heavy-feasibility theorem}
+\label{sec:completion}
+
+Only the helicity-four spins $x=J-4\ge5$ remain. The physical condition
+and the definition of $n$ give
+\begin{equation}
+ N\ge x+g-2\ge g+3\ge2n+3,
+ \qquad Y\ge(2n+3)(2n+12)=4n^2+30n+36.
+ \label{eq:E5physical}
+\end{equation}
+The exact weights in these variables are
+\begin{equation}
+ W_4(\Delta)=\frac{Y+25/2}{3},\qquad
+ \WB=\frac{g^2+5g-3/2}{3}.
+ \label{eq:b4weights}
+\end{equation}
+Since $g<2n+2$,
+\begin{equation}
+ g^2+5g-\frac32\le4n^2+18n+\frac{25}{2}.
+ \label{eq:floorweight}
+\end{equation}
+Combining \eqref{eq:tailreduction}, Lemma~\ref{lem:E5}, and
+\eqref{eq:floorweight},
+\begin{equation}
+ y_x^2\le\frac32E_5
+ <\left(\frac{Y+25/2}{4n^2+18n+25/2}\right)^2
+ \le\left(\frac{W_4(\Delta)}{\WB}\right)^2.
+ \label{eq:fulltailbound}
+\end{equation}
+The weights are positive, so \eqref{eq:main4} holds strictly in this tail.
+Section~\ref{sec:b4low} covers $x=0,1,2,3,4$, and
+Section~\ref{sec:b0} covers every allowed helicity-zero spin. This proves
+Theorem~\ref{thm:main}.
+
+The floor prescription enters the proof in two distinct ways:
+$2n\le g$ gives the lower bounds used in the recurrences, while
+$g<2n+2$ gives the weight comparison \eqref{eq:floorweight}.
+Both inequalities are retained in the exact theorem. The phrase
+``$n$ approximately $g/2$'' is therefore replaced by the precise choice
+$n=\lfloor g/2\rfloor$ throughout.
+
+\begin{remark}[The proportionality constant matters]
+\label{rem:ratio}
+For fixed $x=J-4$ and $\Delta=J+g$, if $n/g\to\rho$ as $g\to\infty$,
+the finite sum has the limit
+\[
+ y_x\longrightarrow{}_2F_1(-x,x+9;1;\rho^2),
+ \qquad W_4/\WB\longrightarrow1.
+\]
+At $x=2$, the necessary limiting inequality is $\rho^2\le1/3$.
+At $x=3$, the limit is $1-36\rho^2+234\rho^4-364\rho^6$.
+Combining these two low-spin conditions gives the necessary bound
+\begin{equation}
+ \rho\le\sqrt{\frac{117-\sqrt{585}}{364}}
+ =0.504956822\ldots.
+ \label{eq:rhomax}
+\end{equation}
+In particular, the theorem cannot be extended by replacing $1/2$ with
+$0.51$ in the proportional degree choice. This observation concerns this
+specific Racah family and does not restrict other angular duals.
+\end{remark}
+
+\section{The exact angular linear-programming corollary}
+\label{sec:LP}
+
+The proven heavy conditions immediately determine the objective value of
+this particular dual. Since $D_2=10$ and
+\[
+ \frac{(-n)_2(n)_2}{(2!)^2}=\frac{n^2(n^2-1)}4,
+\]
+equation \eqref{eq:dual} gives
+\begin{equation}
+ \boxed{\quad L=-\lambda_2=\frac{\WB n^2(n^2-1)}{400}>0.\quad}
+ \label{eq:L}
+\end{equation}
+
+For clarity, the hypotheses under which this gives a bound on $\tau$ can
+be stated directly in the repository's primal normalization. Let
+$\rho_0,\rho_4$ be nonnegative heavy measures supported on
+$\cH_0(g),\cH_4(g)$. Suppose their moments exist and satisfy the angular
+harmonic-balance relations through degree $n$,
+\begin{equation}
+ \int r_k^{(4)}\,\dd\rho_4-\int r_k^{(0)}\,\dd\rho_0
+ =\begin{cases}|c|^2,&k=2,\\0,&k\ne2,\end{cases}
+ \qquad 0\le k\le n,
+ \label{eq:LPmoments}
+\end{equation}
+and the endpoint budget
+\begin{equation}
+ \int W_4\,\dd\rho_4+\int W_0\,\dd\rho_0\le3+D,
+ \qquad 3+D\ge0.
+ \label{eq:LPbudget}
+\end{equation}
+For a discrete spectrum these integrals are sums. The case $D=0$ is the
+endpoint budget used in \texttt{lp\_primal.py}; the displayed form keeps
+an explicitly specified budget correction.
+
+\begin{corollary}[Conditional angular LP bound]
+\label{cor:LP}
+Under \eqref{eq:LPmoments}--\eqref{eq:LPbudget}, with
+$\tau=4|c|$, the dual \eqref{eq:dual} gives
+\begin{equation}
+ |c|^2\le\frac{3+D}{L},\qquad
+ \boxed{\quad
+ \tau\le\frac{80\sqrt{3+D}}{\sqrt{\WB}\,n\sqrt{n^2-1}}.
+ \quad}
+ \label{eq:taubound}
+\end{equation}
+For $D=0$, the right side has the asymptotic expansion
+\begin{equation}
+ \frac{80\sqrt3}{\sqrt{\WB}\,n\sqrt{n^2-1}}
+ =\frac{960}{g^3}\left(1+O(g^{-1})\right),\qquad g\longrightarrow\infty.
+ \label{eq:tauasymptotic}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Integrate both feasible heavy conditions in their form
+\eqref{eq:normalization}. Nonnegativity of the measures and
+\eqref{eq:LPmoments} imply
+\begin{align*}
+ 0
+ &\le\int\left(W_4+\sum_k\lambda_kr_k^{(4)}\right)\dd\rho_4
+   +\int\left(W_0-\sum_k\lambda_kr_k^{(0)}\right)\dd\rho_0\\
+ &=\int W_4\,\dd\rho_4+\int W_0\,\dd\rho_0-L|c|^2.
+\end{align*}
+The budget gives $L|c|^2\le3+D$. Substituting \eqref{eq:L} and
+$\tau=4|c|$ proves \eqref{eq:taubound}.
+For \eqref{eq:tauasymptotic}, use
+\[
+ \WB=\frac{g^2}{3}\bigl(1+O(g^{-1})\bigr),\qquad
+ n=\frac g2+O(1),\qquad n\sqrt{n^2-1}=\frac{g^2}{4}\bigl(1+O(g^{-1})\bigr).
+\]
+\end{proof}
+
+The exact output of the theorem is heavy feasibility and the objective
+\eqref{eq:L}. Corollary~\ref{cor:LP} applies when the displayed moment
+relations and endpoint budget are available. It retains the correction
+$D$ explicitly; establishing or estimating that correction in a particular
+CFT is a separate input to the corollary.
+
+\section{Reproducibility and source provenance}
+\label{sec:reproducibility}
+
+The normalization was read from the directory
+\texttt{ads4/code/angular\_opt/} in
+\href{https://github.com/anshM123/MAJOR}{\texttt{anshM123/MAJOR}}, at the
+immutable commit
+\begin{center}
+\texttt{01b01e6811825e446632d23ee8b33aab15b52b59}.
+\end{center}
+The relevant source files are \texttt{lp\_primal.py},
+\texttt{lp\_dual.py}, and \texttt{racah\_explore.py}. The proof is
+expressed above entirely in finite products, rational recurrences, positive
+integrals, and explicit polynomial identities, so it can be checked without
+running the source repository's optimization or sampling routines.
+
+The accompanying verifier and coefficient ledger provide the exact finite
+arithmetic checks used by the proof:
+\begin{itemize}
+ \item \texttt{verify\_angular\_racah\_feasibility.py} reconstructs the
+ recurrence and energy identities and the fixed finite certificates.
+ \item \texttt{coefficient\_ledger.json} records every integer
+ $c^{(H)}_{a,b}$ in \eqref{eq:certificatepositive}, for $H=0$ and $H=4$.
+ The support and the row minima are specified in
+ \eqref{eq:certificatepositive} and Table~\ref{tab:coefficients}.
+\end{itemize}
+The unified verifier completes 44 exact checks, including all 338 integer
+coefficients in the two endpoint certificates; their overall minimum is
+$760$ in the integer normalization \eqref{eq:FH}.
+The degree-five energy calculation was also independently reconstructed from
+the spin recurrence, starting from $y_0=1$ and $y_1=1-10\nu/Y$.
+That reconstruction gives the same coefficient signs without using the
+finite-sum expansion for $A$ or $P$. Both versions use exact rational
+arithmetic. The all-spin and all-real-dimension parts of the argument are
+the analytic energy estimates in Sections~\ref{sec:b0} and
+\ref{sec:sonin}; the fixed coefficient check supplies their remaining
+finite endpoint inequality.
+
+\appendix
+\section{The explicit sum-of-squares certificate at \texorpdfstring{$J=8$}{J=8}}
+\label{app:x4}
+
+For $x=4$, the finite sum gives \eqref{eq:b4x4} with $Q$ in
+\eqref{eq:Q4}. The physical assumptions imply $n\ge2$ and $N\ge2n+2$.
+Set
+\begin{equation}
+ n=m+2,\qquad N=2n+2+t,\qquad m,t\ge0,
+ \qquad \nu=n^2,\quad Y=N(N+9).
+ \label{eq:x4substitution}
+\end{equation}
+Then the following exact identity holds:
+\begin{align}
+ Q={}&2m^4(m-2t-7)^2+m^4(38t^2+462t+1578)\notag\\
+ &+m^3(152t^3+3332t^2+23036t+52080)\notag\\
+ &+m^2(99t^4+3486t^3+40027t^2+182448t+281098)\notag\\
+ &+m(24t^5+1176t^4+20368t^3+150612t^2+480668t+546588)\notag\\
+ &+2t^6+126t^5+2987t^4+32844t^3+169559t^2+402738t+356184.
+ \label{eq:x4SOS}
+\end{align}
+Every term is nonnegative for $m,t\ge0$, and the constant term is strictly
+positive. Thus $Q>0$. Moreover, $N\ge6$ gives $Y\ge90$, so
+$D_4=Y(Y-10)(Y-22)(Y-36)>0$. Equation \eqref{eq:b4x4} proves $y_4<1$
+uniformly on the whole heavy region, including noninteger dimensions.
+
+The identity \eqref{eq:x4SOS} can be verified by substituting
+\eqref{eq:x4substitution} into \eqref{eq:Q4} and collecting powers of
+$m,t$. Its single square absorbs the two negative coefficients in the
+direct monomial expansion; every coefficient of the remaining polynomial
+is positive.
+
+\end{document}

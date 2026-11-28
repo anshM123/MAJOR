@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-27",
+  "result": "44 exact symbolic checks passed; both 169-term integer coefficient certificates strictly positive.",
+  "theorem_scope": "Two-ladder feasibility for real g>=4, integer n=floor(g/2), and real Delta>=J+g.",
+  "sympy_version": "1.14.0",
+  "source_commit": "01b01e6811825e446632d23ee8b33aab15b52b59",
+  "source_file_hashes": {
+    "lp_dual.py": {
+      "sha256": "c605237124b803a1a288a9bab54a11ebc6680610d5112ce04711c3b6ea4c37b4",
+      "bytes": 1716
+    },
+    "lp_primal.py": {
+      "sha256": "fcc3f798deec5d5ec78f3e9d03b6e6d96d195b6de1d3aa5c0b4164711f47854b",
+      "bytes": 2101
+    },
+    "racah_explore.py": {
+      "sha256": "5b1c14979ec263d6fadbd297e2195cc03ed302cb9a73d44765f40a5cd137db39",
+      "bytes": 1669
+    }
+  },
+  "independent_constructions": "The finite hypergeometric sum and spin recurrence agree exactly through the certificate degrees; the all-degree recurrence is independently verified as an arbitrary-symbol rational identity.",
+  "numeric_scans_used_in_proof": false,
+  "pdf_review": {
+    "pages": 13,
+    "typesetting_warnings": 0,
+    "cross_references_resolved": true,
+    "all_page_layouts_reviewed": true,
+    "selected_pages_reviewed_at_full_resolution": [
+      1,
+      6,
+      10,
+      13
+    ]
+  }
+}
