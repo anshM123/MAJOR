@@ -3,7 +3,8 @@
 % Verification: every entry with an eprint field was checked on 2026-11-28 against the arXiv export API
 % (export.arxiv.org/api/query?id_list=...): identifier, title and author list as returned by arXiv;
 % journal references and DOIs as returned by arXiv where present (for MarolfWallWang2019 and
-% GradoWhiteMarolfWeinberg2021 the volume and page are read off the DOI returned by arXiv).
+% GradoWhiteMarolfWeinberg2021 the volume and page are read off the DOI returned by arXiv; for Sorce2019 the arXiv
+% journal reference "JHEP 2019:15" and DOI 10.1007/JHEP10(2019)015 give volume 10, page 015).
 % Entries marked "NOT ON ARXIV" have no arXiv identifier; their bibliographic data are standard but could
 % not be checked against arXiv. Journal data for Mess (2007) are not in the arXiv record and are likewise
 % unverified.
@@ -515,10 +516,67 @@
   archivePrefix = {arXiv}
 }
 
+% BaoMezei2018: the arXiv record carries no journal reference or DOI; cited by eprint only.
+@misc{BaoMezei2018,
+  author  = {Bao, Ning and Mezei, M{\'a}rk},
+  title   = {On the Entropy Cone for Large Regions at Late Times},
+  year    = {2018},
+  eprint  = {1811.00019},
+  archivePrefix = {arXiv}
+}
+
+@article{LiuSuh2014,
+  author  = {Liu, Hong and Suh, S. Josephine},
+  title   = {Entanglement growth during thermalization in holographic systems},
+  journal = {Phys. Rev. D},
+  volume  = {89},
+  pages   = {066012},
+  year    = {2014},
+  doi     = {10.1103/PhysRevD.89.066012},
+  eprint  = {1311.1200},
+  archivePrefix = {arXiv}
+}
+
+@article{Sorce2019,
+  author  = {Sorce, Jonathan},
+  title   = {Holographic entanglement entropy is cutoff-covariant},
+  journal = {JHEP},
+  volume  = {10},
+  pages   = {015},
+  year    = {2019},
+  doi     = {10.1007/JHEP10(2019)015},
+  eprint  = {1908.02297},
+  archivePrefix = {arXiv}
+}
+
+@article{ParikhVanDerSchaar2015,
+  author  = {Parikh, Maulik and van der Schaar, Jan Pieter},
+  title   = {Derivation of the Null Energy Condition},
+  journal = {Phys. Rev. D},
+  volume  = {91},
+  pages   = {084002},
+  year    = {2015},
+  doi     = {10.1103/PhysRevD.91.084002},
+  eprint  = {1406.5163},
+  archivePrefix = {arXiv}
+}
+
+@article{Caginalp2020,
+  author  = {Caginalp, Reginald J.},
+  title   = {The Holographic Entropy Cone in {AdS-Vaidya} Spacetimes},
+  journal = {Phys. Rev. D},
+  volume  = {101},
+  pages   = {026010},
+  year    = {2020},
+  doi     = {10.1103/PhysRevD.101.026010},
+  eprint  = {1905.00544},
+  archivePrefix = {arXiv}
+}
+
 @misc{SM,
   note = {See Supplemental Material at [URL to be inserted by the publisher] for complete proofs, the
           numerical methods and their reproducibility, which includes
-          Refs.~\cite{Epstein1966,FarbMargalit2012,Hatcher1991,Penner1987,Geroch1970,ONeill1983,CzechLamprouMcCandlishSully2015,BalasubramanianEtAl2014,Maxfield2015,Scott1978,Ioffe1977,Sion1958,Sweers1992,GSWW1999,BHRT2015}}
+          Refs.~\cite{Epstein1966,FarbMargalit2012,Hatcher1991,Penner1987,Geroch1970,ONeill1983,CzechLamprouMcCandlishSully2015,BalasubramanianEtAl2014,Maxfield2015,Scott1978,Ioffe1977,Sion1958,Sweers1992,GSWW1999,BHRT2015,ParikhVanDerSchaar2015,Caginalp2020}}
 }
 
 % ---- NOT ON ARXIV (bibliographic data standard; not verifiable against arXiv) ----
