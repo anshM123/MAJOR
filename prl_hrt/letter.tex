@@ -47,7 +47,8 @@ equals the RT cone. The proof rests on an exact decomposition: the regulated HRT
 cutoff-independent graph-model vector plus exactly one Bell-pair term per entangling point. With matter obeying
 the null energy condition (NEC), the balanced contraction-map inequalities, and the RT cone for whole-boundary
 regions, follow from the homotopy-restricted form of the maximin hypothesis that underlies Wall's covariant proof
-of strong subadditivity. The NEC is necessary: a NEC-violating Vaidya shell violates strong subadditivity.
+of strong subadditivity. The NEC is necessary: a NEC-violating Vaidya shell violates strong subadditivity. In every
+dimension, covariant entropies of translation-invariant strips admit static graph models in a regular-maximin class.
 \end{abstract}
 
 \maketitle
@@ -75,8 +76,8 @@ inequality''~\cite{GGHH2025}. Grado-White, Grimaldi, Headrick and Hubeny (GGHH) 
 $\pi_1=\mathbb{Z}$, also with matter, which they do not claim to be fully rigorous and which the recent review
 lists as a proof~\cite{GrimaldiHeadrick2026}; they explained why it does not extend to free groups, found no
 violation in extensive numerical tests on vacuum multiboundary wormholes, and left the multiply connected case
-open~\cite{GGHH2025}. This Letter settles the vacuum case unconditionally, and reduces the case with matter to a
-maximin hypothesis.
+open~\cite{GGHH2025}. This Letter settles the vacuum case unconditionally, reduces the case with matter to a
+maximin hypothesis, and gives static graph models for strips in every dimension.
 
 \emph{Result.}---%
 For all \ScopeClass{} of the class described below---any topology, any rotation---and every assignment of
@@ -334,6 +335,38 @@ maximum principle gives $\partial_x\partial_yD>0$ on smooth nondegenerate famili
 smooth NEC-violating Vaidya--$\AdS$ shell the crossing density on a spacelike boundary slice is $-0.117$ (vacuum
 $+0.019$, NEC shell $+0.265$), a violation of SSA, in line with Ref.~\cite{CallanHeHeadrick2012}.
 
+\emph{Strips in every dimension.}---%
+Covariant strip entropies admit static graph models in every dimension, in a regular-maximin class. Let $M$ be
+asymptotically $\mathrm{AdS}_{d+1}$, $d\ge3$, obey the NEC and carry a free action of $m=d-2$ spacelike transverse
+translations, $g_D=g+G_{ij}(dy^i+A^i)(dy^j+A^j)$, and let the parties be unions of parallel strips with invariant
+entangling edges. The area per transverse volume of an invariant surface is the length of its orbit curve in
+$\hat g=\lambda^2g$, $\lambda^2=\det G$, and $\hat g$ again obeys the NEC: for null $k$ with horizontal lift $K$,
+\begin{equation}\label{eq:KKric}
+\mathrm{Ric}_{\hat g}(k,k)=\mathrm{Ric}_D(K,K)+(ku)^2+\tfrac14\mathrm{Tr}P_k^2+\tfrac12|\iota_kF|^2\ge0,
+\end{equation}
+with $u=\log\lambda$, $P=G^{-1}dG$, $F=dA$ [for isotropic untwisted fibres, $m(m+1)(k\phi)^2$].
+
+\begin{theorem}[Strips]\label{thm:strips}
+Assume further that the orbit-space Cauchy surface is a disc, that the reduced maximin problems for all strip
+intervals and unions have regular stable solutions to which Wall's joint-maximin and null-representative
+constructions apply, and the boundary behaviour stated in the \SM. Then there are constants $a_p\ge0$ and one finite
+graph $\mathfrak G$ with nonnegative capacities such that the renormalised HRT entropy densities obey
+$s^{\rm ren}(A)+\sum_pa_pb_p(A)=S_{\mathfrak G}(A)$ for all unions $A$ simultaneously. Hence $s^{\rm ren}+\sum_pC_pb_p\in\CN$
+for every endpoint counterterm $C_p\ge a_p$, and every endpoint-balanced RT inequality holds for $s^{\rm ren}$.
+\end{theorem}
+
+Symmetry is inherited also against non-symmetric competitors: averaging the indicator of any homology region over
+the transverse torus does not increase its perimeter, and coarea bounds the average below by the reduced minimum; a
+stable reduced maximin curve lifts to a fully extremal surface, which Wall's null projection makes
+HRT~\cite{Wall2014,Sorce2019,SM}. On the disc, union entropies are minima over non-crossing endpoint matchings of
+single-strip entropies $d_{ab}$. The weights $w_{ij}=\frac12(d_{ij}+d_{i+1,j+1}-d_{i,j+1}-d_{i+1,j})$ of Czech and
+Dong~\cite{CzechDong2019} are halves of conditional mutual informations, finite and nonnegative except for adjacent
+pairs, which $a_p$ repairs. Weighting test chords by $w_{ij}$ in the arrangement of all endpoint chords gives
+$\mathfrak G$; its interior vertices are essential, since a Bell-pair graph on the boundary atoms fails for
+disconnected unions. This extends the large-region, late-time result of Bao and Mezei~\cite{BaoMezei2018} to all
+widths and times. In thin-shell Vaidya--$\mathrm{AdS}_4$~\cite{LiuSuh2014}, $1\,229\,832$ evaluations of all 372
+five-party facets~\cite{HernandezCuenca2019} have minimum margin $-7.1\times10^{-14}$~\cite{SM}.
+
 \emph{Discussion.}---%
 For three-dimensional vacuum gravity, covariant holographic entropies obey exactly the inequalities of the static
 cone. The HRT functional is an RT functional for the virtual geometry of a single geodesic current on the
@@ -346,8 +379,8 @@ wormholes~\cite{Bao2015} are prior work.
 
 With matter, the current is built from SSA on the universal cover in class-restricted form; (JM) supplies it
 globally and the NEC alone supplies it locally. The open inputs are those of Wall's covariant SSA
-proof~\cite{Wall2014,MarolfWallWang2019}: existence and regularity of maximin slices. In higher dimensions there
-is no chiral decomposition and extremal surfaces are not geodesics. Within $2+1$ dimensions, open cases are
+proof~\cite{Wall2014,MarolfWallWang2019}: existence and regularity of maximin slices. Beyond invariant strips,
+higher dimensions lack both the chiral decomposition and the reduction to curves. Within $2+1$ dimensions, open cases are
 extremal horizons and conical defects, achronal homology slices with null pieces~\cite{Wall2014}, prescriptions
 not requiring the homology region to lie on a Cauchy slice, and quantum corrections, for which quantum
 maximin~\cite{AkersEtAl2020} would replace (JM). Complete proofs and the numerical methods are in the \SM.
