@@ -40,6 +40,23 @@ log('\n(3) spin-data perturbations c_J -> c_J(1 + eps w_J): d(light side)/d eps,
 for nu, r in d['nu'].items():
     I = np.array(r['I'])
     log('  nu=%5.1f  ' % float(nu) + '  '.join('%s: %+.2e' % (k, np.sum(I*w)) for k, w in profiles.items()) + '   |CL|=%.2e' % abs(r['CL']))
+log('\n(3b) large-J data replaced by an asymptotic fit: c_J exact for J <= J0, c_J -> C J^-p beyond (fit on even J in [J0/2, J0]);'
+    ' light side with these data minus the exact collective value')
+cJ = np.array(d['cJ'])
+for J0 in (10, 20, 40):
+    ev = np.arange(J0//2 + (J0//2) % 2, J0 + 1, 2)
+    sgn = np.sign(cJ[J0])
+    pp, cc = np.polyfit(np.log(ev), np.log(np.abs(cJ[ev])), 1)
+    capx = cJ.copy()
+    big = (Js > J0) & (Js % 2 == 0)
+    capx[big] = sgn*np.exp(cc)*Js[big]**pp
+    ratio = np.where(cJ != 0, capx/np.where(cJ != 0, cJ, 1), 0.0)
+    relerr = np.max(np.abs(ratio[big] - 1))
+    out = []
+    for nu, r in d['nu'].items():
+        I = np.array(r['I'])
+        out.append('nu=%s: %+.2e (|CL| %.1e)' % (nu, np.sum(I*(ratio - 1)), abs(r['CL'])))
+    log('  J0=%d (fit exponent %.3f, max rel. data error %.1e): ' % (J0, pp, relerr) + '  '.join(out))
 log('\n(4) light dimensions moved by g (first order, per unit g), compared with |CL|:')
 log('    consistent = toy with sL -> sL + g (residue function and heavy side move with it; sum rule exact);')
 log('    pole-only  = pole moved, residue function held fixed;  gamma_J = g c(J) per state, residues fixed (block-wise)')

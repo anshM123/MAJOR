@@ -1,0 +1,8 @@
+# cl_flat: c_T* (rho = 1) for the flat-limit model rho = c1 (32 Lam^2/(pi^2 c_T)) log^2 Lam
+  Delta_g=  300  Lam=  298.5  c1=  0.1  ->  c_T* = 9.4e+05   (log10 6.0)
+  Delta_g=  300  Lam=  298.5  c1=  1.0  ->  c_T* = 9.4e+06   (log10 7.0)
+  Delta_g=  300  Lam=  298.5  c1= 10.0  ->  c_T* = 9.4e+07   (log10 8.0)
+  Delta_g= 1000  Lam=  998.5  c1=  0.1  ->  c_T* = 1.5e+07   (log10 7.2)
+  Delta_g= 1000  Lam=  998.5  c1=  1.0  ->  c_T* = 1.5e+08   (log10 8.2)
+  Delta_g= 1000  Lam=  998.5  c1= 10.0  ->  c_T* = 1.5e+09   (log10 9.2)
+  compare: block-wise (m1_remainder) c_T* ~ 1e680-1e683 at Delta_g=1000; angular bound needs c_T >~ 2e8

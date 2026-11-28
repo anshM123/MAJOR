@@ -1,0 +1,166 @@
+\section{All harmonics of the angular route: a positivity-free bound at order \texorpdfstring{$\Delta_g^{-3}$}{Delta g^-3}}
+\label{sec:allk}
+
+This section proves the Letter's Eq.~(3). Notation is that of Sec.~\ref{sec:angular}. We write $g\equiv\Delta_g$ for the twist gap,
+$C=J(J+1)$, $T=T_\Delta=(\Delta-1)(\Delta-2)$, and $\rho^{(b)}_{\mathcal O}=|a_{\mathcal O,b,0}|^2$ for the rest-frame detector weight of a state on the
+helicity ladder $b\in\{0,4\}$. The endpoint weights are $W_b(\Delta)=[T-b(b-1)]/3+\tfrac32$. Code and audits: \texttt{code/angular\_verify}
+(independent derivation and LP), \texttt{code/angular\_racah\_proof} (the feasibility proof, its exact verifier, the independent audit
+\texttt{AUDIT.md}, and the light single-trace repair).
+
+\subsection{The per-harmonic rules}
+\label{sec:allk-rules}
+\textbf{Rules $R_k$} [D; DV in free fields]. Let $E_m=\int d\varphi\,e^{im\varphi}E(\varphi)/E$ be the angular Fourier modes of the energy detector
+on $|T,\lambda{=}{+}2\rangle$ at rest. Rotations act as $\varphi\to\varphi+\theta$, so $\langle\mathcal O,q|E_m|T,2\rangle\neq0$ only for $q=2+m$. Commutativity
+of the detectors at separated directions with no contact term on the diagonal, the input already used for the paper's $[E_4,E_{-4}]=0$,
+gives $\langle T|[E_m,E_{-m}]|T\rangle=0$ for every $m$. Inserting a complete set of states at rest (Parseval at fixed $m$, so no
+mode/spectral exchange and no defect) and using that $T$ itself carries only $q=\pm2$, one finds for $m=k+2$
+\begin{equation}
+\sum_{\mathcal O}\rho^{(4)}_{\mathcal O}\,r^{(4)}_k(\mathcal O)-\sum_{\mathcal O\neq T}\rho^{(0)}_{\mathcal O}\,r^{(0)}_k(\mathcal O)=\delta_{k2}\,|c|^2,\qquad
+|c|^2=\frac{t_4^2+\alpha_T^2}{16}=\frac{\tau^2}{16},
+\label{eq:allk-Rk}
+\end{equation}
+where the ladder ratios are, by the light-transform ladder of Sec.~\ref{sec:angular} item (b),
+\begin{equation}
+r^{(b)}_k=\frac{|a_{b,k}|^2}{|a_{b,0}|^2}=D_k^2\,U^{(b)}_k,\qquad D_k=\binom{k+3}3,\qquad
+U^{(b)}_k=\prod_{i=0}^{k-1}\frac{C-(b+i)(b+i+1)}{T-(b+i)(b+i+1)} .
+\label{eq:allk-ladder}
+\end{equation}
+The $b=4$ ladder needs $J\ge4+k$ and the $b=0$ ladder $J\ge k$ with $J$ even. The paper's fourth-harmonic rule is the case $k=2$ with the
+$b=0$ sum dropped. Checks: in the free scalar and fermion, $E_m$ acts as multiplication by $e^{im\varphi}(1+(-1)^m)/2$; both sides equal 1
+for even $k\neq2$, vanish for odd $k$, and at $k=2$ the spin-6 current gives $1=|c|^2$; the same amplitudes reproduce the endpoint value
+$3$ (\texttt{v1\_freefield.py}). Every mode is a legitimate smeared operator: commuting positive $E(\varphi)$ have a joint spectral measure,
+so $\|E_m|T\rangle\|^2\le\langle E_0^2\rangle=1$ uniformly in $m$ [P given the POVM]. Writing $R_k$ in terms of $\rho^{(b)}$ uses the ladder
+identity for every $k$, which the paper's telescoping already uses. An antisymmetric contact term $x(k+2)$ added to every $R_k$ leaves the
+LP optimum unchanged at $g=10,20,40$ [NE].
+
+\subsection{The linear program and its dual}
+\label{sec:allk-dual}
+Together with the endpoint rule $\sum_{\mathcal O\ne T,b}W_b\rho^{(b)}_{\mathcal O}=3+\mathcal D$, the rules \eqref{eq:allk-Rk} bound $|c|^2$. For
+multipliers $\lambda_k$, summing $\lambda_k$ times \eqref{eq:allk-Rk} and adding the endpoint rule gives
+\begin{equation}
+\sum_{\mathcal O}\Big[\rho^{(4)}_{\mathcal O}\big(W_4+\textstyle\sum_k\lambda_kr^{(4)}_k\big)+\rho^{(0)}_{\mathcal O}\big(W_0-\sum_k\lambda_kr^{(0)}_k\big)\Big]
+=3+\mathcal D+\lambda_2|c|^2 .
+\label{eq:allk-dual}
+\end{equation}
+If both brackets are non-negative on every state that can appear, then $|c|^2\le(3+\mathcal D)/L$ with $L=-\lambda_2>0$. We use the
+two-parameter Racah family
+\begin{equation}
+\lambda_kD_k^2=-A\,\frac{(-n)_k(n)_k}{(k!)^2},\qquad n=\lfloor g/2\rfloor,
+\label{eq:allk-racah}
+\end{equation}
+for which $\sum_k\lambda_kr^{(b)}_k=-A\,R_{n,b}(J,\Delta)$ with the terminating hypergeometric sum
+\begin{equation}
+R_{n,b}(J,\Delta)=\sum_{k=0}^{\min(n,J-b)}\frac{(-n)_k(n)_k}{(k!)^2}U^{(b)}_k
+={}_4F_3\!\left(\begin{matrix}-n,\ n,\ b-J,\ J+b+1\\1,\ b+2-\Delta,\ \Delta+b-1\end{matrix};1\right),
+\label{eq:allk-R}
+\end{equation}
+and $L=A\,n^2(n^2-1)/400$. The two state conditions become $W_4-A\,R_{n,4}\ge0$ and $W_0+A\,R_{n,0}\ge0$.
+
+\subsection{Heavy feasibility}
+\label{sec:allk-heavy}
+\textbf{Theorem (heavy feasibility)} [P; exact verifier; independently audited]. \emph{For real $g\ge4$, $n=\lfloor g/2\rfloor$ and
+$W_B=W_4(g+4)=(g^2+5g-\tfrac32)/3$: $W_0(\Delta)+W_BR_{n,0}(J,\Delta)>0$ for every even $J\ge0$, and $W_4(\Delta)-W_BR_{n,4}(J,\Delta)\ge0$ for every
+integer $J\ge4$, at every real $\Delta\ge J+g$.} The $b=4$ condition is saturated at $(J,\Delta)=(4,g+4)$. Both conditions are affine in the
+scale $A$ of Eq.~\eqref{eq:allk-racah} and positive at $A=0$, so they hold for every $A\in[0,W_B]$.
+
+\emph{Proof outline} (complete proof: \texttt{angular\_racah\_feasibility.pdf}; verifier: 44 exact checks and 338 positive integer
+certificate coefficients; independent audit: \texttt{AUDIT.md}, every step re-derived with separate code and 63\,000 exact-rational
+random states without violation).
+(1) \emph{Spin recurrence.} With $x=J-b$, $N=\Delta-b-2$, $s=2b+1$, $Y=N(N+s)$, the sums $y_x=R_{n,b}$ obey the exact three-term recurrence
+$p_x(y_{x+1}-y_x)-p_{x-1}(y_x-y_{x-1})+q_xy_x=0$, $p_x=(x+1)(x+s)/(2x+s+1)$, $q_x=(2x+s)n^2/(Y-x(x+s))$, $y_0=1$, $y_1=1-(s+1)n^2/Y$, valid
+for real $N$. It follows by telescoping from the identity
+$p_x[P_k(X_{x+1})-P_k(X_x)]-p_{x-1}[P_k(X_x)-P_k(X_{x-1})]=k^2(2x+s)P_{k-1}(X_x)$ for $P_k(X)=\prod_{i<k}[X-i(i+s)]$, $X_x=x(x+s)$.
+All large-$n$ dependence then enters only through fixed-degree polynomials in $n^2$, so the $e^{2n}$-size cancellations of the
+individual terms never have to be controlled.
+(2) \emph{Helicity 0.} With $F_x=y_x$ and $c_x=1-2n^2/(T-x(x+1))$ the recurrence reads $(x+1)F_{x+1}+xF_{x-1}=(2x+1)c_xF_x$. The energy
+$\mathcal E_c(u,v)=(u^2+v^2-2cuv)/(1-c)$ decreases under the transfer with $r=x/(x+1)$ and is increasing in $c$, while $c_x$ decreases in $x$;
+this gives $F_J^2\le1+n^2C/(T[T-C-n^2])$. On the heavy domain $T-C\ge4n^2$, $T-W_B\cdot3>0$ and $2h-C>0$ with $h=T+\tfrac92-3W_B$, hence
+$W_0+W_BF_J>C/9$ for $J\ge4$; $J=0,2$ are explicit.
+(3) \emph{Helicity 4.} With $h_j=2\int_0^1t^j(1+t^8)/(1+t)\,dt$, which satisfies $h_j>h_{j+1}>0$ and $h_j+h_{j+1}=2/p_j$, the Sonin energy
+$E_j=y_j^2+(h_jp_{j-1}p_j/q_j)\,\delta_j\delta_{j+1}$, $\delta_j=y_j-y_{j-1}$, has the exact decrement
+$E_{j+1}-E_j=[p_j^2(h_{j+1}/q_{j+1}-h_j/q_j)+\tfrac{p_j}2(h_j-h_{j+1})]\delta_{j+1}^2\le0$ on the heavy domain (there $q_j\le2p_j$ and $q_j$
+increases), and $E_j\ge\tfrac23y_j^2$ for $j\ge5$. So $y_x^2\le\tfrac32E_5$ for all $J\ge9$, and the remaining inequality
+$E_5<\tfrac23[(Y+\tfrac{25}2)/(4n^2+18n+\tfrac{25}2)]^2$ on $Y\ge4n^2+30n+36$ is cleared to two polynomials in $(u,t)=(n-1,\,Y-4n^2-30n-36)$ whose 169
+coefficients each are positive integers (minimum 760). Spins $J=4,\dots,8$ have explicit certificates of $y_x\le1$, the last one a
+sum-of-squares identity.
+
+\subsection{Light single traces}
+\label{sec:allk-light1}
+Assumption (i) allows light single traces of spin 0 and 2 (twist below the gap). They enter only the $b=0$ ladder with $J\le2$ and must
+satisfy $W_0+A\,R_{n,0}\ge0$ as well. At $A=W_B$ this fails on light spin-2 states for every $g$ (relative margin $-0.39$ at $g=4$, tending
+to $5/9-4\sqrt2/9\approx-0.073$). The choice
+\begin{equation}
+A=3(\sqrt2-1)\,n^2\ \ (\le W_B)
+\label{eq:allk-A}
+\end{equation}
+repairs it exactly [P; audit]. Scalars: $R_{n,0}(0,\Delta)=1$ and $W_0\ge17/12$ for $\Delta>1$. Spin 2 ($\Delta>3$, $T>2$), with $\nu=n^2$ and
+$F_2=1-6\nu/T+6\nu(\nu-1)/(T(T-2))$:
+\begin{equation}
+3T(T-2)\,\big(W_0+A\,F_2\big)=\big(T-(6-3\sqrt2)\nu\big)^2\big(T+(3+3\sqrt2)\nu\big)+\tfrac52T^2-\big(18(\sqrt2-1)\nu+9\big)T+54(\sqrt2-1)\nu^2,
+\label{eq:allk-light}
+\end{equation}
+whose quadratic remainder has negative discriminant for $\nu>1.2$, so the right side is positive for every $T>2$ when $n\ge2$. The margin is
+$\simeq3.13/n^2$ in relative units: the tangency at $\Delta\approx0.663\,g$ is genuine, so $A$ cannot be raised at leading order. The heavy
+conditions survive because $A\le W_B$.
+
+\subsection{The bound}
+\label{sec:allk-bound}
+\textbf{Corollary} [P given the inputs of item (3) of Sec.~\ref{sec:full} and the light-multi-trace limit below]. \emph{For real $g\ge4$,}
+\begin{equation}
+\tau\le\frac{80\sqrt{3+\mathcal D}}{\sqrt A\;n\sqrt{n^2-1}}
+=\frac{80\sqrt{1+\mathcal D/3}}{\sqrt{\sqrt2-1}\;n^2\sqrt{n^2-1}},\qquad n=\lfloor g/2\rfloor,
+\label{eq:allk-bound}
+\end{equation}
+\emph{so with $\mathcal D=0$, $\tau g^3\to640/\sqrt{\sqrt2-1}=994.415\ldots$} Because $n=\lfloor g/2\rfloor$, the finite-$g$ constant is larger, most
+just below an even integer:
+
+\begin{center}\footnotesize
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+$g$ & 10 & 20 & 50 & 100 & 1000 & $10^4$ & $\infty$\\\midrule
+bound on $\tau$ & $1.01$ & $0.125$ & $7.96\times10^{-3}$ & $9.95\times10^{-4}$ & $9.94\times10^{-7}$ & $9.94\times10^{-10}$ & \\
+$\tau g^3$ & 1015 & 999 & 995 & 995 & 994.4 & 994.4 & 994.4\\
+$\sup_{g'\ge g}\tau g'^3$ & 1754 & 1330 & 1119 & 1055 & 1000.4 & & 994.4\\
+$\tau_*(g)$, Eq.~(4) of Sec.~\ref{sec:angular} & 2.29 & 0.998 & 0.371 & 0.182 & $1.78\times10^{-2}$ & $1.78\times10^{-3}$ & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The bound is below the collider value $\tau\le4$ for $g>8.01$. The sharper constant $970.65$ obtained by a further adjustment of the
+higher coefficients is not used; its certificate is not yet in the repository.
+
+\subsection{What the rules cannot do}
+\label{sec:allk-nogo}
+\textbf{Three-state no-go} [P, exact]. The states $A=(b{=}0,J{=}2,\Delta{=}g{+}2)$, $B=(b{=}4,4,g{+}4)$, $C=(b{=}4,6,g{+}6)$ satisfy every $R_{k\ne2}$ and saturate
+the endpoint budget with
+$|c|^2=475200(g-2)/[g(g-1)(g+2)(g+10)(22g^3+100g^2+249g+411)]$, so no combination of the endpoint rule and the rules $R_k$ can give
+better than $\tau g^3\to4\sqrt{21600}=587.9$ (\texttt{v4\_threestate.py}). With light spin-2 single traces admitted as LP columns the
+limit rises to $\gtrsim693.6$ [P for the family value]. The LP optimum equals the three-state value at $g=10,20,40$ [NE]. The Racah dual,
+$994/g^3$, is therefore within a factor $994/694\approx1.43$ of what these rules allow.
+
+\textbf{Other positivity-free identities} [P for the identities; NE for their effect] (\texttt{code/angular\_g4}). The mixed commutator
+$[E,E^{(1)}]$ gives one exact rule per harmonic, $M_n$ ($\hat C(n)=1$ for every $n$, checked in free fields to $n=40$), whose $q$-weighted sum is
+the endpoint rule; each $M_n$ is free of the defect $\mathcal D$. Its helicity-flip channel $\langle T,-2|[E,E^{(1)}]|T,+2\rangle$ gives rules
+linear in $c$, among them the exact parity-weighted sum rules
+\begin{equation}
+\sum_{\mathcal O\ne T}\eta_{\mathcal O}\,\rho^{(0)}_{\mathcal O}\,(T_\Delta-J(J+1))=0,\qquad
+\frac{t_4}4=\sum_{\mathcal O}\eta_{\mathcal O}\,\rho^{(0)}_{\mathcal O}\Big(1-\frac{2J(J+1)}3\Big),
+\label{eq:allk-parity}
+\end{equation}
+$\eta_{\mathcal O}=\pm1$ the parity [P given the inputs of Sec.~\ref{sec:angular}]. These are not bounds on $\tau$. Every $c$-sensitive flip
+combination is enhanced by $T$ [P, exact], and adding $M_n$ and the flip rules to the LP improves the constant only, by factors $0.52$,
+$0.62$, $0.77$, $0.86$ at $g=10,20,30,40$, tending to 1 [NE]. Degree-two rules would need $[E^{(1)},E^{(1)}]$ or second moments, which the
+Regge bound does not allow, and two-detector event shapes involve heavy--heavy data. We therefore do not claim that $g^{-3}$ is optimal
+among detector constraints; what is proved is that the degree-0 rules cannot do better than $\simeq588/g^3$.
+
+\subsection{Light multi-traces: why the bound is planar}
+\label{sec:allk-planar}
+Light multi-traces (twist $<g$, both ladders, every $k$) enter Eq.~\eqref{eq:allk-dual} with the sign-indefinite bracket. Their total weight
+vanishes as $c_T\to\infty$ at fixed $g$ by A2$'$ [D given A2$'$], so Eq.~\eqref{eq:allk-bound} holds in that limit. The coefficient is
+not small: for the optimal LP dual the bracket on twist-2 double traces is $\approx1.8\times10^3$, $5.3\times10^6$, $8.3\times10^{17}$ (per unit
+$\rho$) at $g=10,20,40$, and the Racah dual gives $\approx1.4\times10^{22}$ at $g=50$, against $\le101$ for the paper's single $k=2$ rule
+(\texttt{v6\_light\_action.py}) [NE]. The bound keeps its value only if the light weight is below $\sim3\times10^{-9}$ ($g=20$) or
+$\sim3\times10^{-20}$ ($g=40$) [NE]. So, like Eq.~(5), Eq.~\eqref{eq:allk-bound} is a statement about $c_T\to\infty$ at fixed $g$, and Eq.~(4)
+of Sec.~\ref{sec:angular} remains the bound with no large constant. If the light coefficient is instead capped at a power $g^p$, the LP
+optimum scales as $\tau\sim g^{-e(p)/2}$ with $e(3)\approx2.43$ and $e(4)\approx2.77$, i.e.\ $\tau\sim g^{-1.2}$ to $g^{-1.4}$, with a polynomial
+rather than exponential threshold in $c_T$ [NE] (\texttt{code/angular\_g4}).
