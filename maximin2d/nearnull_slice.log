@@ -1,0 +1,9 @@
+vacuum             slope 0.9: nu-density = +1.8161e-01
+vacuum             slope 0.99: nu-density = +1.9023e-02
+NEC dm=+1.5        slope 0.9: nu-density = +4.0012e-01
+NEC dm=+1.5        slope 0.99: nu-density = +2.6453e-01
+NEC-viol dm=-0.8   slope 0.9: nu-density = +6.0582e-02
+NEC-viol dm=-0.8   slope 0.99: nu-density = -1.1708e-01
+step check NEC dm=+1.5, D+- with h = 0.04 : -2.49893e-01
+step check NEC dm=+1.5, D+- with h = 0.02 : -2.48603e-01
+step check NEC dm=+1.5, D+- with h = 0.01 : -2.48279e-01
