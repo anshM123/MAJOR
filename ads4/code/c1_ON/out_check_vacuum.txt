@@ -1,0 +1,11 @@
+w,J,r 0.0 0 1.0 3j-sum 0.19634954084940823 Gamma formula 0.19634954084936207
+w,J,r 0.0 3 1.0 3j-sum 0.0353677651315294 Gamma formula 0.035367765131532294
+w,J,r 1.3 2 1.0 3j-sum 0.04395206752359046 Gamma formula 0.04395206752359205
+w,J,r 5.0 7 2.0 3j-sum 0.020004425909004638 Gamma formula 0.020004425909003976
+curvature expansion of the reference at w = 2 pi:
+  r=8 J=3 (ex-P0)/corr=1.00078424  resid*r^4/P0=-1.495331e-06
+  r=8 J=20 (ex-P0)/corr=1.00055233  resid*r^4/P0=-2.735881e-05
+  r=16 J=3 (ex-P0)/corr=1.00019743  resid*r^4/P0=-3.791324e-07
+  r=16 J=20 (ex-P0)/corr=1.00018011  resid*r^4/P0=-1.118538e-05
+  r=32 J=3 (ex-P0)/corr=1.00004934  resid*r^4/P0=-9.491001e-08
+  r=32 J=20 (ex-P0)/corr=1.00004831  resid*r^4/P0=-3.188042e-06
