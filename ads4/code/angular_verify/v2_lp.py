@@ -16,6 +16,8 @@ import numpy as np
 from fractions import Fraction as Fr
 from scipy.optimize import linprog
 from common import ladder_float, ladder_exact, W, allowed
+import os
+MAXIT = int(os.environ.get("MAXIT", 30)); BATCH = int(os.environ.get("BATCH", 400))
 
 
 def three_state(g):
@@ -87,7 +89,7 @@ def run(g, N, odd_b0=False, dimgap=False):
     Rall = rows(allS, N)
     # start: low-J states only
     idx = [i for i, s in enumerate(allS) if s[1] <= 3 * g + 10 and s[2] - s[1] <= 30 * g]
-    for it in range(30):
+    for it in range(MAXIT):
         mu, lam, res = solve_dual(Rall[idx], N)
         if mu is None:
             print('  LP failed', res.message); return None
@@ -95,7 +97,7 @@ def run(g, N, odd_b0=False, dimgap=False):
         bad = np.where(viol > 1e-9 * max(lam, 1e-300))[0]
         if len(bad) == 0:
             break
-        new = list(bad[np.argsort(-viol[bad])][:400])
+        new = list(bad[np.argsort(-viol[bad])][:BATCH])
         idx = sorted(set(idx) | set(new))
     # binding states and exact check of the worst constraints
     viol = Rall @ mu - lam
