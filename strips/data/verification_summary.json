@@ -1,0 +1,24 @@
+{
+  "base_revision": "acda6f59a240537f521583630ff9e9fac71e145f",
+  "date": "2026-11-28",
+  "dependencies": {
+    "sympy": "1.14.0",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8"
+  },
+  "ricci_exact_checks": {
+    "m1_horizontal_residual": "0",
+    "m1_null_residual": "0",
+    "m1_positive_correction": "5597/50",
+    "m2_horizontal_residual": "0",
+    "m2_null_residual": "0",
+    "m2_positive_correction": "1321/50"
+  },
+  "finite_graph_equalities": 756,
+  "vaidya_facets": 372,
+  "vaidya_times": 551,
+  "vaidya_configurations": 6,
+  "numerical_scope": "sampled floating-point matching check; not rigorous interval certification",
+  "facet_representative_sha256": "f230c5bbff7e0b55001fd426593ba776a175eb6347ed386a8e6383345cbac5fe"
+}

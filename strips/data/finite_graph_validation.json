@@ -1,0 +1,175 @@
+{
+  "arithmetic": "exact rational geometry; integer capacities and flows",
+  "cases": [
+    {
+      "endpoints": 3,
+      "weights": "all_one",
+      "graph_nodes": 4,
+      "graph_edges": 3,
+      "boundary_assignments": 4,
+      "exhaustive_interior_colorings": true,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 3,
+      "weights": "random_with_zero",
+      "graph_nodes": 4,
+      "graph_edges": 3,
+      "boundary_assignments": 4,
+      "exhaustive_interior_colorings": true,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 3,
+      "weights": "sparse_crossing",
+      "graph_nodes": 4,
+      "graph_edges": 3,
+      "boundary_assignments": 4,
+      "exhaustive_interior_colorings": true,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 4,
+      "weights": "all_one",
+      "graph_nodes": 8,
+      "graph_edges": 8,
+      "boundary_assignments": 8,
+      "exhaustive_interior_colorings": true,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 4,
+      "weights": "random_with_zero",
+      "graph_nodes": 8,
+      "graph_edges": 8,
+      "boundary_assignments": 8,
+      "exhaustive_interior_colorings": true,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 4,
+      "weights": "sparse_crossing",
+      "graph_nodes": 8,
+      "graph_edges": 8,
+      "boundary_assignments": 8,
+      "exhaustive_interior_colorings": true,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 5,
+      "weights": "all_one",
+      "graph_nodes": 16,
+      "graph_edges": 20,
+      "boundary_assignments": 16,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 5,
+      "weights": "random_with_zero",
+      "graph_nodes": 16,
+      "graph_edges": 20,
+      "boundary_assignments": 16,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 5,
+      "weights": "sparse_crossing",
+      "graph_nodes": 16,
+      "graph_edges": 20,
+      "boundary_assignments": 16,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 6,
+      "weights": "all_one",
+      "graph_nodes": 31,
+      "graph_edges": 45,
+      "boundary_assignments": 32,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 6,
+      "weights": "random_with_zero",
+      "graph_nodes": 31,
+      "graph_edges": 45,
+      "boundary_assignments": 32,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 6,
+      "weights": "sparse_crossing",
+      "graph_nodes": 31,
+      "graph_edges": 45,
+      "boundary_assignments": 32,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 7,
+      "weights": "all_one",
+      "graph_nodes": 57,
+      "graph_edges": 91,
+      "boundary_assignments": 64,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 7,
+      "weights": "random_with_zero",
+      "graph_nodes": 57,
+      "graph_edges": 91,
+      "boundary_assignments": 64,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 7,
+      "weights": "sparse_crossing",
+      "graph_nodes": 57,
+      "graph_edges": 91,
+      "boundary_assignments": 64,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 8,
+      "weights": "all_one",
+      "graph_nodes": 99,
+      "graph_edges": 168,
+      "boundary_assignments": 128,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 8,
+      "weights": "random_with_zero",
+      "graph_nodes": 99,
+      "graph_edges": 168,
+      "boundary_assignments": 128,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    },
+    {
+      "endpoints": 8,
+      "weights": "sparse_crossing",
+      "graph_nodes": 99,
+      "graph_edges": 168,
+      "boundary_assignments": 128,
+      "exhaustive_interior_colorings": false,
+      "status": "all exact equalities passed"
+    }
+  ],
+  "bell_pair_countercheck": {
+    "bell_pair_graph_cut": 0,
+    "arrangement_graph_cut": 10,
+    "matching_minimum": 10
+  },
+  "total_exact_equalities": 756,
+  "seconds": 0.411,
+  "status": "PASS"
+}
