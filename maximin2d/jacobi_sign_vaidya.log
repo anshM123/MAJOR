@@ -1,0 +1,2 @@
+/home/user/MAJOR/maximin2d/jacobi_sign_vaidya.py:25: RuntimeWarning: overflow encountered in scalar power
+  return dm * 0.5 / (w * np.cosh((v - v0) / w) ** 2)
