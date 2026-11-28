@@ -1,0 +1,11 @@
+orbits needing endpoint terms (unbalanced): [np.int64(2)]
+disc    min margin per orbit (SA skipped): -1.421e-14 -1.421e-14    n/a    -2.132e-14 -2.132e-14 -5.684e-14 -2.842e-14 -2.132e-14 
+circ    min margin per orbit (SA skipped): -1.421e-14 -1.421e-14    n/a    -2.487e-14 -2.487e-14 -4.974e-14 -2.842e-14 -2.309e-14 
+K124    min margin per orbit (SA skipped): -4.441e-16 -4.441e-16    n/a    -6.661e-16 -4.441e-16 -1.776e-15 -8.882e-16 -6.661e-16  [K0-violating samples: 316]
+inflate min margin per orbit (SA skipped): -7.105e-15 -1.066e-14    n/a    -1.599e-14 -1.243e-14 -2.487e-14 -1.421e-14 -1.421e-14  [K0-violating samples: 16258]
+mix     min margin per orbit (SA skipped): -7.255e-08 -7.255e-08    n/a    -9.537e-07 -1.451e-07 -3.815e-06 -4.043e-07 -5.329e-15 
+random  min margin per orbit (SA skipped): -2.097e+00 -2.255e+00    n/a    -3.742e+00 -2.618e+00 -5.004e+00 -2.831e+00 -2.938e+00 
+
+real	2m35.802s
+user	2m35.410s
+sys	0m0.317s

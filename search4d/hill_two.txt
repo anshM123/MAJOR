@@ -1,0 +1,35 @@
+chain 0 geom=two m=5 accepted=252 final min normalised balanced margin=-8.527e-16
+chain 1 geom=two m=4 accepted=261 final min normalised balanced margin=-1.200e-15
+chain 2 geom=two m=5 accepted=231 final min normalised balanced margin=-1.221e-15
+chain 3 geom=two m=5 accepted=262 final min normalised balanced margin=-1.143e-15
+chain 4 geom=two m=5 accepted=244 final min normalised balanced margin=-3.018e-15
+chain 5 geom=two m=6 accepted=189 final min normalised balanced margin=-1.383e-15
+chain 6 geom=two m=5 accepted=111 final min normalised balanced margin=-1.598e-15
+chain 7 geom=two m=5 accepted=206 final min normalised balanced margin=-1.221e-15
+chain 8 geom=two m=5 accepted=247 final min normalised balanced margin=-1.116e-15
+chain 9 geom=two m=4 accepted=224 final min normalised balanced margin=-5.551e-16
+chain 10 geom=two m=5 accepted=170 final min normalised balanced margin=-1.270e-15
+chain 11 geom=two m=6 accepted=255 final min normalised balanced margin=-1.215e-15
+chain 12 geom=two m=5 accepted=250 final min normalised balanced margin=-1.282e-15
+chain 13 geom=two m=4 accepted=280 final min normalised balanced margin=-5.829e-16
+chain 14 geom=two m=4 accepted=71 final min normalised balanced margin=-1.091e-15
+chain 15 geom=two m=5 accepted=151 final min normalised balanced margin=-1.373e-15
+chain 16 geom=two m=6 accepted=271 final min normalised balanced margin=-1.586e-15
+chain 17 geom=two m=5 accepted=258 final min normalised balanced margin=-5.829e-16
+chain 18 geom=two m=5 accepted=92 final min normalised balanced margin=-8.505e-16
+chain 19 geom=two m=4 accepted=46 final min normalised balanced margin=-1.589e-15
+chain 20 geom=two m=5 accepted=258 final min normalised balanced margin=-1.657e-15
+chain 21 geom=two m=5 accepted=191 final min normalised balanced margin=-1.614e-15
+chain 22 geom=two m=5 accepted=229 final min normalised balanced margin=-1.625e-15
+chain 23 geom=two m=4 accepted=233 final min normalised balanced margin=-1.897e-15
+chain 24 geom=two m=4 accepted=248 final min normalised balanced margin=-1.940e-15
+chain 25 geom=two m=5 accepted=173 final min normalised balanced margin=-1.832e-15
+chain 26 geom=two m=6 accepted=203 final min normalised balanced margin=-9.043e-16
+chain 27 geom=two m=4 accepted=105 final min normalised balanced margin=-6.584e-16
+chain 28 geom=two m=5 accepted=57 final min normalised balanced margin=-1.221e-15
+chain 29 geom=two m=5 accepted=256 final min normalised balanced margin=-1.757e-15
+OVERALL min margin -3.018386870941637e-15
+
+real	4m38.663s
+user	4m30.339s
+sys	0m0.094s

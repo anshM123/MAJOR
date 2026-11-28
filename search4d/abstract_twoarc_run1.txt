@@ -1,0 +1,9 @@
+T0 max |copies - DP| = 8.881784197001252e-16
+T1 two-arc circular-decomposable: min normalised margin per orbit [-4.73e-16 -5.17e-16       inf -1.13e-15 -7.17e-16 -2.09e-15 -9.12e-16
+ -9.57e-16]
+T2 perturbed two-arc data passing all physical SSA/WM: kept 7/400; min margin per orbit [-1.79e-16 -1.79e-16       inf -6.36e-16 -3.78e-16 -1.11e-15 -5.36e-16
+ -4.65e-16]
+
+real	0m19.071s
+user	0m19.553s
+sys	0m0.050s
