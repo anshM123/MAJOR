@@ -6,7 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{31}%
+\begin{thebibliography}{51}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -59,9 +59,10 @@
   {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {10}},\ \bibinfo
   {pages} {177}},\ \Eprint {https://arxiv.org/abs/1905.03787}
   {arXiv:1905.03787} \BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Grado-White}\ \emph {et~al.}(2025)\citenamefont
-  {Grado-White}, \citenamefont {Grimaldi}, \citenamefont {Headrick},\ and\
-  \citenamefont {Hubeny}}]{GGHH2025}%
+\bibitem [{\citenamefont {Grado-White}\ \emph
+  {et~al.}(2025{\natexlab{a}})\citenamefont {Grado-White}, \citenamefont
+  {Grimaldi}, \citenamefont {Headrick},\ and\ \citenamefont
+  {Hubeny}}]{GGHH2025}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
   {Grado-White}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
@@ -134,6 +135,32 @@
   {journal} {\bibinfo  {journal} {Rev. Mat. Iberoam.}\ }\textbf {\bibinfo
   {volume} {37}},\ \bibinfo {pages} {45} (\bibinfo {year} {2021})},\ \Eprint
   {https://arxiv.org/abs/1808.04412} {arXiv:1808.04412} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Wall}(2014)}]{Wall2014}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~C.}\ \bibnamefont
+  {Wall}},\ }\href {https://doi.org/10.1088/0264-9381/31/22/225007} {\bibfield
+  {journal} {\bibinfo  {journal} {Class. Quantum Grav.}\ }\textbf {\bibinfo
+  {volume} {31}},\ \bibinfo {pages} {225007} (\bibinfo {year} {2014})},\
+  \Eprint {https://arxiv.org/abs/1211.3494} {arXiv:1211.3494} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Marolf}\ \emph {et~al.}(2019)\citenamefont {Marolf},
+  \citenamefont {Wall},\ and\ \citenamefont {Wang}}]{MarolfWallWang2019}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+  {Marolf}}, \bibinfo {author} {\bibfnamefont {A.~C.}\ \bibnamefont {Wall}},\
+  and\ \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Wang}},\ }\href
+  {https://doi.org/10.1007/JHEP05(2019)127} {\bibfield  {journal} {\bibinfo
+  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {05}},\ \bibinfo {pages}
+  {127}},\ \Eprint {https://arxiv.org/abs/1901.03879} {arXiv:1901.03879}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Bao}\ and\ \citenamefont
+  {Mezei}(2018)}]{BaoMezei2018}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.}~\bibnamefont
+  {Bao}}\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Mezei}},\
+  }\href@noop {} {\bibinfo {title} {On the entropy cone for large regions at
+  late times}} (\bibinfo {year} {2018}),\ \Eprint
+  {https://arxiv.org/abs/1811.00019} {arXiv:1811.00019} \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Epstein}(1966)}]{Epstein1966}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.~B.~A.}\
@@ -311,14 +338,6 @@
   {volume} {76}},\ \bibinfo {pages} {106013} (\bibinfo {year} {2007})},\
   \Eprint {https://arxiv.org/abs/0704.3719} {arXiv:0704.3719} \BibitemShut
   {NoStop}%
-\bibitem [{\citenamefont {Wall}(2014)}]{Wall2014}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~C.}\ \bibnamefont
-  {Wall}},\ }\href {https://doi.org/10.1088/0264-9381/31/22/225007} {\bibfield
-  {journal} {\bibinfo  {journal} {Class. Quantum Grav.}\ }\textbf {\bibinfo
-  {volume} {31}},\ \bibinfo {pages} {225007} (\bibinfo {year} {2014})},\
-  \Eprint {https://arxiv.org/abs/1211.3494} {arXiv:1211.3494} \BibitemShut
-  {NoStop}%
 \bibitem [{\citenamefont {Headrick}\ \emph {et~al.}(2014)\citenamefont
   {Headrick}, \citenamefont {Hubeny}, \citenamefont {Lawrence},\ and\
   \citenamefont {Rangamani}}]{HHLR2014}%
@@ -343,4 +362,163 @@
   {Geroch}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {J.
   Math. Phys.}\ }\textbf {\bibinfo {volume} {11}},\ \bibinfo {pages} {437}
   (\bibinfo {year} {1970})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Chru{\'s}ciel}\ \emph {et~al.}(2001)\citenamefont
+  {Chru{\'s}ciel}, \citenamefont {Delay}, \citenamefont {Galloway},\ and\
+  \citenamefont {Howard}}]{CDGH2001}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.~T.}\ \bibnamefont
+  {Chru{\'s}ciel}}, \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont
+  {Delay}}, \bibinfo {author} {\bibfnamefont {G.~J.}\ \bibnamefont
+  {Galloway}},\ and\ \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont
+  {Howard}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Ann.
+  Henri Poincar{\'e}}\ }\textbf {\bibinfo {volume} {2}},\ \bibinfo {pages}
+  {109} (\bibinfo {year} {2001})},\ \Eprint
+  {https://arxiv.org/abs/gr-qc/0001003} {arXiv:gr-qc/0001003} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Grado-White}\ \emph {et~al.}(2021)\citenamefont
+  {Grado-White}, \citenamefont {Marolf},\ and\ \citenamefont
+  {Weinberg}}]{GradoWhiteMarolfWeinberg2021}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Grado-White}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+  {Marolf}},\ and\ \bibinfo {author} {\bibfnamefont {S.~J.}\ \bibnamefont
+  {Weinberg}},\ }\href {https://doi.org/10.1007/JHEP01(2021)009} {\bibfield
+  {journal} {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {01}},\
+  \bibinfo {pages} {009}},\ \Eprint {https://arxiv.org/abs/2008.07022}
+  {arXiv:2008.07022} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Akers}\ \emph {et~al.}(2019)\citenamefont {Akers},
+  \citenamefont {Engelhardt}, \citenamefont {Penington},\ and\ \citenamefont
+  {Usatyuk}}]{AkersEtAl2020}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.}~\bibnamefont
+  {Akers}}, \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Engelhardt}},
+  \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Penington}},\ and\
+  \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Usatyuk}},\ }\href@noop
+  {} {\bibinfo {title} {Quantum maximin surfaces}} (\bibinfo {year} {2019}),\
+  \Eprint {https://arxiv.org/abs/1912.02799} {arXiv:1912.02799} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Scott}(1978)}]{Scott1978}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
+  {Scott}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {J.
+  London Math. Soc. (2)}\ }\textbf {\bibinfo {volume} {17}},\ \bibinfo {pages}
+  {555} (\bibinfo {year} {1978})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Hall}(1949)}]{Hall1949}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Hall}, \bibfnamefont {Jr.}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo
+   {journal} {Trans. Amer. Math. Soc.}\ }\textbf {\bibinfo {volume} {67}},\
+  \bibinfo {pages} {421} (\bibinfo {year} {1949})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Ioffe}(1977)}]{Ioffe1977}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~D.}\ \bibnamefont
+  {Ioffe}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {SIAM J.
+  Control Optim.}\ }\textbf {\bibinfo {volume} {15}},\ \bibinfo {pages} {521}
+  (\bibinfo {year} {1977})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Sion}(1958)}]{Sion1958}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Sion}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Pacific
+  J. Math.}\ }\textbf {\bibinfo {volume} {8}},\ \bibinfo {pages} {171}
+  (\bibinfo {year} {1958})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Galloway}\ \emph {et~al.}(1999)\citenamefont
+  {Galloway}, \citenamefont {Schleich}, \citenamefont {Witt},\ and\
+  \citenamefont {Woolgar}}]{GSWW1999}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.~J.}\ \bibnamefont
+  {Galloway}}, \bibinfo {author} {\bibfnamefont {K.}~\bibnamefont {Schleich}},
+  \bibinfo {author} {\bibfnamefont {D.~M.}\ \bibnamefont {Witt}},\ and\
+  \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont {Woolgar}},\ }\href
+  {https://doi.org/10.1103/PhysRevD.60.104039} {\bibfield  {journal} {\bibinfo
+  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo {volume} {60}},\ \bibinfo
+  {pages} {104039} (\bibinfo {year} {1999})},\ \Eprint
+  {https://arxiv.org/abs/gr-qc/9902061} {arXiv:gr-qc/9902061} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Sweers}(1992)}]{Sweers1992}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Sweers}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Math.
+  Z.}\ }\textbf {\bibinfo {volume} {209}},\ \bibinfo {pages} {251} (\bibinfo
+  {year} {1992})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Bhattacharya}\ \emph {et~al.}(2015)\citenamefont
+  {Bhattacharya}, \citenamefont {Hubeny}, \citenamefont {Rangamani},\ and\
+  \citenamefont {Takayanagi}}]{BHRT2015}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
+  {Bhattacharya}}, \bibinfo {author} {\bibfnamefont {V.~E.}\ \bibnamefont
+  {Hubeny}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Rangamani}},\
+  and\ \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Takayanagi}},\
+  }\href {https://doi.org/10.1103/PhysRevD.91.106009} {\bibfield  {journal}
+  {\bibinfo  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo {volume} {91}},\
+  \bibinfo {pages} {106009} (\bibinfo {year} {2015})},\ \Eprint
+  {https://arxiv.org/abs/1412.5472} {arXiv:1412.5472} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Sorce}(2019)}]{Sorce2019}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
+  {Sorce}},\ }\href {https://doi.org/10.1007/JHEP10(2019)015} {\bibfield
+  {journal} {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {10}},\
+  \bibinfo {pages} {015}},\ \Eprint {https://arxiv.org/abs/1908.02297}
+  {arXiv:1908.02297} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Parikh}\ and\ \citenamefont {van~der
+  Schaar}(2015)}]{ParikhVanDerSchaar2015}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Parikh}}\ and\ \bibinfo {author} {\bibfnamefont {J.~P.}\ \bibnamefont
+  {van~der Schaar}},\ }\href {https://doi.org/10.1103/PhysRevD.91.084002}
+  {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo
+  {volume} {91}},\ \bibinfo {pages} {084002} (\bibinfo {year} {2015})},\
+  \Eprint {https://arxiv.org/abs/1406.5163} {arXiv:1406.5163} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Grado-White}\ \emph
+  {et~al.}(2025{\natexlab{b}})\citenamefont {Grado-White}, \citenamefont
+  {Grimaldi}, \citenamefont {Headrick},\ and\ \citenamefont
+  {Hubeny}}]{GGHHMinimax2025}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Grado-White}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Grimaldi}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Headrick}},\
+  and\ \bibinfo {author} {\bibfnamefont {V.~E.}\ \bibnamefont {Hubeny}},\
+  }\href {https://doi.org/10.1007/JHEP05(2025)104} {\bibfield  {journal}
+  {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {05}},\ \bibinfo
+  {pages} {104}},\ \Eprint {https://arxiv.org/abs/2502.09894}
+  {arXiv:2502.09894} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Zhao}(2026)}]{Zhao2026}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Zhao}},\ }\href@noop {} {\bibinfo {title} {Graph models for covariant
+  holographic entropy {I}}} (\bibinfo {year} {2026}),\ \Eprint
+  {https://arxiv.org/abs/2602.04888} {arXiv:2602.04888} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Caginalp}(2020)}]{Caginalp2020}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.~J.}\ \bibnamefont
+  {Caginalp}},\ }\href {https://doi.org/10.1103/PhysRevD.101.026010} {\bibfield
+   {journal} {\bibinfo  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo {volume}
+  {101}},\ \bibinfo {pages} {026010} (\bibinfo {year} {2020})},\ \Eprint
+  {https://arxiv.org/abs/1905.00544} {arXiv:1905.00544} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Callan}\ \emph {et~al.}(2012)\citenamefont {Callan},
+  \citenamefont {He},\ and\ \citenamefont {Headrick}}]{CallanHeHeadrick2012}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.}~\bibnamefont
+  {Callan}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {He}},\ and\
+  \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Headrick}},\ }\href
+  {https://doi.org/10.1007/JHEP06(2012)081} {\bibfield  {journal} {\bibinfo
+  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {06}},\ \bibinfo {pages}
+  {081}},\ \Eprint {https://arxiv.org/abs/1204.2309} {arXiv:1204.2309}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Liu}\ and\ \citenamefont {Suh}(2014)}]{LiuSuh2014}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont
+  {Liu}}\ and\ \bibinfo {author} {\bibfnamefont {S.~J.}\ \bibnamefont {Suh}},\
+  }\href {https://doi.org/10.1103/PhysRevD.89.066012} {\bibfield  {journal}
+  {\bibinfo  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo {volume} {89}},\
+  \bibinfo {pages} {066012} (\bibinfo {year} {2014})},\ \Eprint
+  {https://arxiv.org/abs/1311.1200} {arXiv:1311.1200} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Hern{\'a}ndez-Cuenca}(2019)}]{HernandezCuenca2019}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Hern{\'a}ndez-Cuenca}},\ }\href
+  {https://doi.org/10.1103/PhysRevD.100.026004} {\bibfield  {journal} {\bibinfo
+   {journal} {Phys. Rev. D}\ }\textbf {\bibinfo {volume} {100}},\ \bibinfo
+  {pages} {026004} (\bibinfo {year} {2019})},\ \Eprint
+  {https://arxiv.org/abs/1903.09148} {arXiv:1903.09148} \BibitemShut {NoStop}%
 \end{thebibliography}%
