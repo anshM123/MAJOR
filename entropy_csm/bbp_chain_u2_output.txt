@@ -1,0 +1,6 @@
+R_Q*(T0)=0.445818
+F: T0+Ising+sigma 54.862346 -> T_(PhiQQ+Phi3)+sigma 51.144314 -> T_(V+PhiQQ)+sigma 48.600700 -> T_M 11.544864
+monotone decreasing: True
+relevance: PhiQQt at T0+Ising: R = 1.55830242616757 ; V at R_Q=2/3: R = 1.6666666666666665 ; sigma*Phi at R_Phi=3/4: R = 1.25
+T_(PhiQQt) without Phi^3: R_Q*=0.716313, R_Phi=0.567374 -> Phi^3 relevant (option 1 selected); R[V] there = 1.2695 -> relevant; F=30.180670
+unitarity at intermediate points: R[V](R_Q=2/3)= 1.6666666666666665  R_Phi>=1/2 ok; mesons flipped

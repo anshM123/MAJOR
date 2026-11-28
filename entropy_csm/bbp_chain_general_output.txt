@@ -1,0 +1,20 @@
+Nc=1 Nf=5: R*(T0)=0.4611; PhiQQ R=1.589; R[V](R_Q=2/3)=1.667; R_Phi(T_M+Phi)=0.800; sigmaPhi R=1.300
+   F chain: 20.4205 -> 19.4903 -> 17.4739 -> 4.0324  monotone=True
+   option-2 T_(PhiQQ): R_Q=0.7283 R_Phi=0.5435 -> Phi^3 relevant: option 1; R[V] there=1.359
+   F(T_M) for N_f=Nc+2..3Nc+3: 2.617 3.630 4.032 4.238  increasing in N_f: True
+Nc=2 Nf=8: R*(T0)=0.4458; PhiQQ R=1.558; R[V](R_Q=2/3)=1.667; R_Phi(T_M+Phi)=0.750; sigmaPhi R=1.250
+   F chain: 54.8623 -> 51.1443 -> 48.6007 -> 11.5449  monotone=True
+   option-2 T_(PhiQQ): R_Q=0.7163 R_Phi=0.5674 -> Phi^3 relevant: option 1; R[V] there=1.269
+   F(T_M) for N_f=Nc+2..3Nc+3: 5.545 8.810 10.255 11.052 11.545 11.873  increasing in N_f: True
+Nc=3 Nf=11: R*(T0)=0.4392; PhiQQ R=1.545; R[V](R_Q=2/3)=1.667; R_Phi(T_M+Phi)=0.727; sigmaPhi R=1.227
+   F chain: 105.9206 -> 97.4722 -> 94.4945 -> 22.3341  monotone=True
+   option-2 T_(PhiQQ): R_Q=0.7092 R_Phi=0.5817 -> Phi^3 relevant: option 1; R[V] there=1.199
+   F(T_M) for N_f=Nc+2..3Nc+3: 8.664 14.707 17.894 19.743 20.931 21.747 22.334 22.772  increasing in N_f: True
+Nc=4 Nf=14: R*(T0)=0.4355; PhiQQ R=1.538; R[V](R_Q=2/3)=1.667; R_Phi(T_M+Phi)=0.714; sigmaPhi R=1.214
+   F chain: 173.6044 -> 158.4620 -> 155.0958 -> 36.3516  monotone=True
+   option-2 T_(PhiQQ): R_Q=0.7044 R_Phi=0.5912 -> Phi^3 relevant: option 1; R[V] there=1.139
+   F(T_M) for N_f=Nc+2..3Nc+3: 12.477 20.778 26.420 29.809 32.052 33.629 34.788 35.667 36.352 36.895  increasing in N_f: True
+Nc=5 Nf=17: R*(T0)=0.4331; PhiQQ R=1.533; R[V](R_Q=2/3)=1.667; R_Phi(T_M+Phi)=0.706; sigmaPhi R=1.206
+   F chain: 257.9171 -> 234.1087 -> 230.3812 -> 53.5773  monotone=True
+   option-2 T_(PhiQQ): R_Q=0.7009 R_Phi=0.5981 -> Phi^3 relevant: option 1; R[V] there=1.084
+   F(T_M) for N_f=Nc+2..3Nc+3: 16.982 26.616 35.427 40.855 44.529 47.164 49.130 50.644 51.836 52.795 53.577 54.225  increasing in N_f: True

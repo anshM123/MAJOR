@@ -6,14 +6,20 @@ Scripts:
 
 Convention: C_T is quoted in units of the free real scalar, C_T/C_s = (32/π²) ∂²_b F at b=1. Because the integrand is invariant under b → 1/b, the first b-derivative vanishes. So ∂²_b F = −⟨∂²_b log(integrand)⟩, and that is evaluated exactly.
 
-## Verdict
+## Verdict (revised after the SCAN_MONOPOLE.md follow-up)
+
+**The first version of this audit concluded "existence FAIL". That was wrong; corrected in §3b.**
 
 - **The number is right.** C_T = 92.01494393, F = 11.5448642825 > 9.7041, no operator violates unitarity at R_Q = 5/8, and the Higgs branch has dimension 28 with free chirals at its generic point.
-- **The fixed point is not established.** With W = V₊ + V₋ the IR SCFT is not shown to exist.
-  - On the electric side the monopole deformation is irrelevant: Δ(V±) = 3.43 at the U(2) SQCD fixed point.
-  - On the BBP-dual side, the deforming operators V̂± fall below the unitarity bound at the undeformed U(4)+M fixed point. They decouple as free fields, so W = V̂₊ + V̂₋ becomes linear in free fields.
-- Hence neither description provides an RG flow to an SCFT with R_Q = 5/8. The localization value is the correct evaluation of a partition function, but probably not of an existing CFT.
-- **Not a counterexample as it stands.** The UV theory most plausibly flows to plain U(2) N_f=8 SQCD, which has C_T = 127.31. For that theory the Higgs-branch argument gives only R ≥ 98/127.31 = 0.77.
+- **The two simplest flows do not reach the fixed point (§3a):**
+  - From plain SQCD, the monopole deformation is irrelevant: Δ(V±) = 3.43.
+  - From the dual U(4)+M theory, V̂± are below the unitarity bound.
+- **But BBP (1703.08460 §4.1) give a 3d UV completion through auxiliary Ising SCFTs, valid for N_f ≤ 3N_c+3. Our case N_f = 8 = 3N_c+2 is exactly their worked case.** I checked it numerically (§3b):
+  - every deformation along the chain is relevant;
+  - every intermediate fixed point respects unitarity;
+  - F decreases strictly at each step (54.86 → 51.14 → 48.60 → 11.54);
+  - BBP's alternative branch (Φ³ dropped) is excluded, because Φ³ is relevant at T_{ΦQQ̃}.
+- **Consequence: this is a serious counterexample candidate, R ≥ 98/92.015 = 1.065.** It rests on standard assumptions: BBP's chain, localization with no accidental symmetry at T_M, and the thermal and moduli argument of §§4–5. None of my checks failed.
 
 ## 1. C_T at R_Q = 5/8 — computed, PASS (matches the claim)
 
@@ -73,7 +79,7 @@ The error is about 3e-9. The claim of 92.01494393 is confirmed, and so is the in
 
 There is no adjoint chiral, so there are no adjoint-dressed monopoles. U(2) has no baryons.
 
-**Existence: FAIL on both sides.**
+### 3a. The conservative flows fail (correct but not decisive)
 - **Electric side.** At the plain SQCD fixed point, R[V±] = 8(1 − 0.44582) − 1 = **3.43 > 2**, so the deformation is irrelevant.
   - Every SU(8)²-invariant deformation that breaks U(1)_T involves monopoles with R ≥ 3.4.
   - Mesonic superpotentials such as (QQ̃)^k fix R_Q ≤ 1/2, which gives R[V] ≥ 3.
@@ -84,7 +90,39 @@ There is no adjoint chiral, so there are no adjoint-dressed monopoles. U(2) has 
   - The decoupling-corrected F keeps increasing up to the convergence edge R_q → 5/8. Along the way the flux (1,−1,0,0) monopole also drops below 1/2, at R_q > 0.594.
   - The deforming operators V̂± are therefore free fields. W = V̂₊ + V̂₋ is then linear in free chirals, which signals SUSY breaking or a deformation that is not well defined, rather than a flow to an SCFT.
   - The relevance requirement R[V̂] < 2, i.e. R_q > 3/8, does hold, but it is moot.
-- F-ordering is consistent in principle (26.6 > 11.54 and 14.07 > 11.54), but no valid relevant deformation realises either flow.
+- F-ordering is consistent in principle (26.6 > 11.54 and 14.07 > 11.54), but neither simple flow works.
+
+### 3b. The BBP Ising-SCFT chain — PASS
+
+Script `bbp_chain_u2.py`, output in `bbp_chain_u2_output.txt`. The chain is
+
+T₀ ⊕ 64 Ising (Φᵢⱼ³) ⊕ 64 free σᵢⱼ → T_{ΦQQ̃+Φ³} ⊕ σ → T_{V+ΦQQ̃} ⊕ σ → T_M
+
+**Step 1: couple Φ to the mesons.**
+- ΦQQ̃ has R = 2/3 + 2(0.4458) = 1.558, so it is relevant.
+- The IR has R_Q = R_Φ = 2/3. There V± has R = 8/3 − 1 = 5/3, and Φ has R = 2/3, so nothing is below 1/2.
+- BBP's second option is T_{ΦQQ̃} with Φ³ dropped. F-maximising there gives R_Q* = 0.7163 and R_Φ = 0.567 < 2/3. So Φ³ is relevant at T_{ΦQQ̃}, and the flow ends at T_{ΦQQ̃+Φ³}. Option 2 is excluded.
+
+**Step 2: add W = V₊ + V₋.**
+- At R_Q = 2/3 this has R = 5/3, so it is relevant.
+- The IR has R_Q = 5/8 and R_Φ = 3/4; Φ³ becomes irrelevant.
+
+**Step 3: add the mass term σΦ.**
+- σΦ has R = 5/4, so it is relevant.
+- Integrating out Φ and σ leaves exactly T_M.
+
+**F-theorem along the chain.**
+
+| fixed point | F |
+|---|---|
+| T₀ ⊕ 64 Ising ⊕ 64 σ | 54.8623 |
+| T_{ΦQQ̃+Φ³} ⊕ σ | 51.1443 |
+| T_{V+ΦQQ̃} ⊕ σ | 48.6007 |
+| T_M | 11.5449 |
+
+F decreases strictly at every step.
+
+**Remaining assumptions.** The flows end at the fixed points indicated (standard), and no accidental symmetry appears beyond those checked. BBP also give the dual version of the chain in their §4.2, which avoids the free-V̂ problem of the naive U(4)+M route.
 
 ## 4. Higgs branch — PASS, conditional on the fixed point existing
 
@@ -114,8 +152,7 @@ There is no adjoint chiral, so there are no adjoint-dressed monopoles. U(2) has 
 
 ## What remains assumed
 
-- That localization with R_Q fixed by W computes the IR SCFT. This fails here unless the fixed point exists, as discussed in §3.
-- The standard prescription for decoupling free operators.
+- The fixed point exists via BBP's Ising chain (§3b), under standard SUSY RG assumptions. All the checks I can run pass.
+- Localization at R_Q = 5/8 computes the IR C_T, i.e. there is no hidden accidental symmetry. All gauge-invariant chiral operators I listed, on both sides, have R ≥ 1/2. BBP also state that T_M is completely interacting for N_f > 4(N_c+1)/3.
 - BBP duality itself. Its partition-function identity is confirmed numerically to 1e-14 at this point.
-- That no fixed point with R_Q = 5/8 exists that is reachable by a flow I did not consider. I cannot rule this out, but the standard existence arguments fail on both sides.
-- If such a fixed point is ever established, the bound R ≥ 98/92.015 = 1.065 follows from §§1, 4 and 5, which are robust.
+- Given these, §§1, 4 and 5 give c_S ≥ 98 and C_T = 92.015, so **R ≥ 1.065**.

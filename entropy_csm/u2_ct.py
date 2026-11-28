@@ -97,18 +97,18 @@ def V2(x):
 
 # ------------------------------------------------------------ grids
 class Grid:
-    def __init__(self, D, L=9.0, h=0.01):
+    def __init__(self, D, L=9.0, h=0.01, need_p2=True):
         self.D = D
         s = np.arange(0, L + h / 2, h)
         lp = np.array([logpair_b1(x, D) for x in s])
-        p2 = np.array([P2(x, D) for x in s])
+        p2 = np.array([P2(x, D) for x in s]) if need_p2 else np.zeros_like(s)
         self.s = np.concatenate([-s[:0:-1], s])
         self.lp = np.concatenate([lp[:0:-1], lp])
         self.p2 = np.concatenate([p2[:0:-1], p2])
         self.h = h
 
 
-def UN_logZ_and_d2(grid, N, Nf):
+def UN_logZ_and_d2(grid, N, Nf, eta=0.0):
     """Returns log Z(b=1) (up to the Weyl factor, which is exactly cancelled by Andreief's N!) and
     d log Z/db, d^2 log Z/db^2 at b=1, via the Andreief determinant (trapezoid rule, exponentially accurate)."""
     s, h = grid.s, grid.h
@@ -119,9 +119,10 @@ def UN_logZ_and_d2(grid, N, Nf):
     M = np.zeros((N, N)); M1 = np.zeros((N, N)); M2 = np.zeros((N, N))
     for j in range(N):
         for k in range(N):
-            E = np.exp(2 * PI * (j + k - (N - 1)) * s)
+            # eta: R-mixing with U(1)_T, factor exp(pi Q eta sum sigma) (R[V_pm] -> R0 -/+ eta)
+            E = np.exp(2 * PI * (j + k - (N - 1) + eta) * s)
             c1 = j - k
-            c2 = 2 * k - (N - 1)
+            c2 = 2 * k - (N - 1) + eta
             M[j, k] = h * np.sum(g * E)
             M1[j, k] = h * np.sum(g * E * 2 * PI * c1 * s)
             M2[j, k] = h * np.sum(g * E * (lg2 + (2 * PI * c1 * s) ** 2 + 2 * PI * c2 * s))
