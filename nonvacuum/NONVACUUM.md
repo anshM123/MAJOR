@@ -60,25 +60,33 @@ rectifiable curves.
 ### Hypotheses (all standard in the covariant holographic literature; none is proved here)
 
 * **(MM) Maximin.** (a) For every region `A`, there is a candidate `(σ_*, γ_*, R_*)` with
-  `ℓ^ren(γ_*) = min_{σ_*}(A) = sup_{σ∈𝒮(C)} min_σ(A)`. (b) For every single class `κ` (arc or closed), the
+  `ℓ^ren(γ_*) = min_{σ_*}(A) = sup_{σ∈𝒮(C)} min_σ(A)`. (b) For every single class `κ` (arc or closed) **that has a simple representative**, the
   sup defining `L(κ)` is attained by a slice `σ_κ` and an `ℓ_{σ_κ}`-minimiser `m_κ` that is a simple extremal
   geodesic; in particular `L(κ) < ∞`.
   (a) is Wall's maximin theorem (arXiv:1211.3494; existence is proved there for spacetimes without horizons
   and for Kasner-like singularities, and extended by Marolf–Wall–Wang, arXiv:1901.03879, "restricted
   maximin" anchored on a boundary Cauchy slice — exactly our `𝒮(C)` setting). (b) is the same statement with
   the minimisation restricted to one homotopy class; Wall's deformation argument is local near the
-  minimiser and is insensitive to the restriction. **Only the consequence `S(A) ≤ sup_σ min_σ(A)` of (a) is
+  minimiser and is insensitive to the restriction. (For a class with no simple representative (b) is
+  **[false]** already in vacuum: its spacetime geodesic has linked lifts and lies on no acausal slice, by the
+  Separation Lemma. Such classes are handled through covers, §3.) (b) is applied to `M` and to its finite
+  covers, which are spacetimes of the same type. **Only the consequence `S(A) ≤ sup_σ min_σ(A)` of (a) is
   used.**
-* **(MM2) Joint maximin for a nested pair.** For two arc classes `κ_1, κ_2` with lifts `ã→d̃` and `b̃→c̃`,
-  `a<b<c<d` cyclically on `∂_∞Σ̃` (the second nested inside the first),
-  `sup_σ [ℓ_σ(κ_1) + ℓ_σ(κ_2)] = L(κ_1) + L(κ_2)`.
-  This is the class-restricted form of the common-slice property for nested regions that drives Wall's
-  proof of strong subadditivity (and MWW's restricted maximin). Sketch why it should hold: maximise
-  `F(σ) = ℓ_σ(κ_1)+ℓ_σ(κ_2)`; at a maximiser the two minimisers are `σ`-geodesics in different classes, so they
-  meet in isolated transverse points; Wall's local deformation at a non-extremal point of one of them, away
-  from the other, would increase `F`; so both are extremal, and each extremal achronal curve has length
-  `≥ L` of its class by Lemma P below. The gap is the same as in Wall's single-surface argument
-  (non-unique minimisers / stability), no worse.
+* **(MM2) Joint class-maximin for non-linking families.** If `κ_1,…,κ_m` are classes whose lifts are pairwise
+  non-linking (equivalently: they have pairwise disjoint simple representatives — an "embedded
+  multi-class", not necessarily a cut), then `sup_σ Σ_i ℓ_σ(κ_i) = Σ_i L(κ_i)`.
+  Why this is the right (and plausible) hypothesis: maximise `F(σ) = Σ_i ℓ_σ(κ_i)`. Minimisers of classes with
+  non-linking lifts can be taken pairwise disjoint (bigon exchange on `σ`), so Wall's local deformation can be
+  applied near each one separately; at a maximiser all are extremal (modulo the same non-uniqueness /
+  stability gap as Wall's single-surface argument); each extremal curve on an acausal slice has length
+  `≥ L` of its class (Lemma P), whence `≥`; `≤` is trivial. In vacuum it holds by the pleated-slice
+  construction (a pleated slice containing the disjoint geodesics has a hyperbolic intrinsic metric in which
+  they are geodesics, hence minimal in their classes).
+  **Correction (Report 2).** An earlier draft stated (MM2) for every *nested* pair. That version is
+  **[false]** in general already in vacuum: if a translate of one lift links the other, the two spacetime
+  geodesics have no common acausal slice (PROOFS Separation Lemma / Mazzoli–Viaggi Lemma 3.6), and the
+  joint sup can be strictly smaller than the sum. Lemma X is now proved by passing to a finite cover in which
+  the pair becomes non-linking (§3).
 * **(R) Regularity / asymptotics.** (R1) the null-hypersurface regularity needed for Wall's projection
   (area theorem for achronal null boundaries, Chruściel–Delay–Galloway–Howard), used in Lemma P;
   (R2) bounded families of extremal geodesics with endpoints in a compact part of `C` are precompact, with
@@ -165,31 +173,56 @@ price of (MM), which in vacuum the pleated slice proves by hand.
 
 ## 3. The function D on the ideal circle and the crossing inequality
 
-For distinct `x, y ∈ C̃` let `κ_{x,y}` be the arc class in `M` of the projection of a path in `σ̄̃` from `x` to `y`
-(well defined: `σ̄̃` is simply connected, and slices are identified by the flow), and
+For distinct `x, y ∈ C̃` let `κ_{x,y}` be the arc class in `M` of the projection of a path in `σ̄̃` from `x` to `y`.
+Define, with `𝒮(C̃)` the acausal Cauchy slices of the universal cover `M̄̃` anchored at `C̃` (**not** required
+to be `Γ`-invariant) and, for `1 ≠ h ∈ Γ`, `𝒮_h` the acausal Cauchy slices of the annular cover `M̄̃/⟨h⟩`:
 
-`D(x, y) := L(κ_{x,y})`.
+`D(x, y) := sup_{σ̃ ∈ 𝒮(C̃)} ℓ_σ̃(x → y)`,   `Λ(h) := sup_{σ ∈ 𝒮_h} ℓ_σ(core class)`.
 
-So `D(x,y)` is the class-maximin renormalized length; by Lemma P and (MM)(b) it is the least length of an
-extremal geodesic of `M̃` from `x` to `y` lying on (the lift of) an acausal slice anchored at `C`. This is the
-`D` of OPEN_GAPS G2, made well defined between points on *different* lifted boundary lines: it is a
-quantity on the quotient (one homotopy class), never an HRT quantity of the non-compact cover.
-`D(γx, γy) = D(x,y)` for `γ ∈ Γ`.
+In the universal cover every arc is a single chord, and in the annular cover the core class is simple, so
+no simplicity issue arises. `D(γx, γy) = D(x,y)`. (Report 2: an earlier draft defined `D(x,y) := L(κ_{x,y})`,
+sup over *invariant* slices; that is only right for classes with simple representatives, see Lemma S.)
+
+### Lemma S (simple classes) **[proved mod (MM)(b), Lemma P]**
+
+If `κ_{x,y}` (resp. `[h]`) has a simple representative in `M`, or in some finite cover `M̂ = M̃/Γ'` of `M`, then
+`D(x,y) = L̂(κ̂_{x,y})` (resp. `Λ(h) = L̂(ĥ)`), the class-maximin length in that cover; in particular
+`D(x,y) = L(κ_{x,y})` and `Λ(h) = L(h)` when the class is simple in `M`. Every class becomes simple in some
+finite cover (closed curves: Scott's theorem; arcs: the residual-finiteness argument in the proof of Lemma
+X), so `D` and `Λ` are finite.
+
+*Proof.* `≤`: a `Γ'`-invariant slice lifts to a slice in `𝒮(C̃)` (resp. `𝒮_h` if `h ∈ Γ'`, which may be assumed for
+closed classes) and curves lift isometrically. `≥`: the class-maximin geodesic `m` of `κ̂` given by (MM)(b) in
+`M̂` lies on an acausal slice of `M̂`; its lift lies on an acausal slice of the universal (resp. annular)
+cover, and Lemma P there gives `ℓ_σ̃ ≤ ℓ^ren(m) = L̂(κ̂)` for every `σ̃`. ∎
+
+So for the components of cut classes (always simple) `D` and `Λ` coincide with the class-maximin lengths
+`L` used in Theorem H'. In vacuum `D = ½(D_L + D_R)` and `Λ(h) = ½(ℓ_L(h) + ℓ_R(h))` for all classes (a
+non-invariant pleated disc through one chord has hyperbolic intrinsic metric; Lemma P for `≤`).
 
 ### Lemma X (crossing inequality) **[proved mod (MM2)]**
 
 For `a < b < c < d` cyclically ordered in `C̃`: `D(a,c) + D(b,d) ≥ D(a,d) + D(b,c)`.
 
-*Proof.* Fix `σ`. Let `η_{ac}, η_{bd}` be curves in `σ̄̃` with these endpoints and near-minimal length. Their
-endpoints are linked, so they meet at a point `x` (Jordan, in the closed disc `σ̄̃ ∪ ∂_∞`). Exchanging the tails
-at `x` gives curves from `a` to `d` and from `b` to `c` with the same total length. Projecting to `σ̄`:
-`ℓ_σ(κ_{ad}) + ℓ_σ(κ_{bc}) ≤ ℓ_σ(κ_{ac}) + ℓ_σ(κ_{bd}) ≤ L(κ_{ac}) + L(κ_{bd})`. Take `sup_σ` of the left side and
-use (MM2) for the nested pair `(ad, bc)`. ∎
+*Proof.* (1) *Cut and paste on one slice of the universal cover.* Fix `σ̃ ∈ 𝒮(C̃)`. Near-minimising curves from
+`a` to `c` and from `b` to `d` have linked endpoints, so they meet;
+exchanging tails at a common point gives curves `a → d`, `b → c` of the same total length. Hence
+`ℓ_σ̃(a→d) + ℓ_σ̃(b→c) ≤ ℓ_σ̃(a→c) + ℓ_σ̃(b→d) ≤ D(a,c) + D(b,d)`, and so
+`sup_σ̃ [ℓ_σ̃(a→d) + ℓ_σ̃(b→c)] ≤ D(a,c) + D(b,d)`.
+(2) *Finite cover making the nested pair simple and non-linking.* Only finitely many `γ ∈ Γ ∖ {1}` make
+`γ·(ãd̃)` or `γ·(b̃c̃)` link `ãd̃` or `b̃c̃` (chords with endpoints in `C̃ = Ω_0`: all but finitely many translates of
+a chord lie in arbitrarily small arcs around points of `Λ_0`, and cannot link a chord whose endpoints are at
+positive distance from `Λ_0`). Free groups are residually finite: take a finite-index normal `Γ' ⊲ Γ`
+avoiding them, `M̂ = M̃/Γ'` (globally hyperbolic, NEC, compact Cauchy slices, finitely many boundaries). In
+`M̂` the classes `κ̂_{ad}, κ̂_{bc}` are simple and mutually non-linking.
+(3) (MM2) in `M̂` and Lemma S: `sup` over `Γ'`-invariant slices of `ℓ(κ̂_{ad}) + ℓ(κ̂_{bc})` equals
+`L̂(κ̂_{ad}) + L̂(κ̂_{bc}) = D(a,d) + D(b,c)`. Invariant slices lift to slices in `𝒮(C̃)`, so the sup in (1) is
+`≥ D(a,d) + D(b,c)`. ∎
 
 *Comment.* This is strong subadditivity on the universal cover, `S(AB)+S(BC) ≥ S(B)+S(ABC)` for the
 "intervals" `[a,c], [b,d], [b,c], [a,d]` of `∂_∞Σ̃`, but formulated on the quotient so that no maximin theory on
 the non-compact cover (infinitely many boundaries, Cantor set of ends) is needed. NEC enters through (MM2)
-(the extremality of the joint maximiser and Lemma P). Without NEC it is false in general: see §7 (Vaidya
+(extremality of the joint maximiser, and Lemma P). Without NEC it is false in general: see §7 (Vaidya
 test, NEC-violating sign).
 
 ### Lemma C (continuity) **[proved mod (MM)(b), (R)]**
@@ -197,10 +230,11 @@ test, NEC-violating sign).
 `D` is continuous on `{(x,y) ∈ C̃² : x ≠ y}`.
 
 *Proof.* Lower semicontinuity: `D = sup_σ ℓ_σ`, and for each relevant `σ` (R3) `ℓ_σ(κ_{x,y})` is continuous in
-the endpoints. Upper semicontinuity: if `x_n → x`, let `m_n` be the class-maximin extremal geodesics of
-(MM)(b), `ℓ^ren(m_n) = D(x_n, y)`. By (R2) a subsequence converges to an extremal geodesic `m` of class
-`κ_{x,y}` with `ℓ^ren(m_n) → ℓ^ren(m)`; `m` lies on a limit of the slices `σ_{κ_n}`, an achronal slice anchored
-at `C`; Lemma P (whose proof only uses achronality of the slice carrying `g`, via acausality of `C`) gives
+the endpoints. Upper semicontinuity: if `x_n → x` within a compact piece of one lifted boundary line, one finite cover
+`M̂` (Lemma X, step 2, with a uniform finite bad set) makes all `κ_{x_n,y}` simple; let `m_n` be the class-maximin
+extremal geodesics of (MM)(b) in `M̂`, `ℓ^ren(m_n) = D(x_n, y)` (Lemma S). By (R2) a subsequence converges to an extremal geodesic `m` of class
+`κ_{x,y}` with `ℓ^ren(m_n) → ℓ^ren(m)`; `m` lies on a limit of the slices `σ_{κ_n}`, an achronal slice of `M̂` anchored
+at `Ĉ`; Lemma P in the universal cover (whose proof only uses achronality of the slice carrying `g`, via acausality of `C`) gives
 `D(x,y) ≤ ℓ^ren(m) = lim D(x_n,y)`. ∎
 
 ### The measure ν **[proved, given Lemmas X, C]**
@@ -227,31 +261,36 @@ In the vacuum spacetime `D = ½(D_L + D_R)` and `ν = ½(m_L + m_R)`, the measur
 
 Let `1 ≠ h ∈ Γ` with attracting/repelling fixed points `h^±`, and `x, y ∈ C̃` on the two sides of the axis
 `(h^−, h^+)`, oriented so that `h` moves both sides from `h^−` towards `h^+`. Put
-`d_n := D(x, h^n y) − D(x, h^{n−1} y)`. Then `d_n` is non-decreasing and `lim_{n→∞} d_n = L(h)`. Consequently,
+`d_n := D(x, h^n y) − D(x, h^{n−1} y)`. Then `d_n` is non-decreasing and `lim_{n→∞} d_n = Λ(h)` (`= L(h)` if `h` is simple in `M`). Consequently,
 with `F_h := [x, hx) × (h^+, h^−)_y` (a fundamental domain for `⟨h⟩` acting on pairs linking the axis),
 
-`ν(F_h) = L(h)`.
+`ν(F_h) = Λ(h)`.
 
 *Proof.* Monotone: for `n ≥ 2` the points `x < hx < h^n y < h^{n−1} y` are cyclically ordered, and by
 invariance `ν([x,hx) × [h^n y, h^{n−1} y)) = ½[D(x,h^ny) + D(x,h^{n−2}y) − 2D(x,h^{n−1}y)] = ½(d_n − d_{n−1}) ≥ 0`.
 Hence `lim d_n = lim_n D(x, h^n y)/n` (Cesàro), possibly `+∞`.
-Upper bound: fix `σ`; let `η` be a curve in `σ̄̃` from `x` to `y`, `β̃` an `h`-invariant lift of a closed curve of
-class `h` on `σ`. `η` meets `β̃` at some `p` (linked ends). The path `η|_{[x,p]} · β̃|_{[p, h^n p]} · h^n(η|_{[p,y]})` runs
-from `x` to `h^n y` and has length `ℓ(η) + n ℓ(β)`. So `ℓ_σ(κ_{x,h^ny}) ≤ ℓ_σ(κ_{x,y}) + n ℓ_σ(h) ≤ D(x,y) + nL(h)`;
-take `sup_σ`: `D(x,h^ny) ≤ D(x,y) + nL(h)`, so `lim d_n ≤ L(h)` (no maximin needed).
-Lower bound: fix `σ` and work in the annulus `A_σ = σ̄̃/⟨h⟩`, where `x, y` project to opposite ends. An arc
+Upper bound: by subgroup separability of free groups (M. Hall: finitely generated subgroups are
+closed in the profinite topology) choose, for given `n`, a finite-index `Γ' ∋ h` avoiding the finitely many
+elements that make translates of the chord `(x, h^n y)` link it (the powers of `h` do not: `h^k(x, h^ny)` has
+both ends on one side of it). In `M̂ = M̃/Γ'`, `κ̂_{x,h^ny}` is simple, so `D(x,h^ny) = L̂(κ̂_{x,h^ny})` (Lemma S).
+Fix a `Γ'`-invariant slice `σ`; let `η` be a curve in `σ̄̃` from `x` to `y`, `β̃` the `h`-invariant lift of a closed
+curve of class `ĥ` on `σ`. `η` meets `β̃` at some `p` (linked ends). The path
+`η|_{[x,p]} · β̃|_{[p, h^n p]} · h^n(η|_{[p,y]})` runs from `x` to `h^n y` and has length `ℓ(η) + n ℓ(β)`. So
+`ℓ_σ(κ̂_{x,h^ny}) ≤ ℓ_σ(κ̂_{x,y}) + n ℓ_σ(ĥ) ≤ D(x,y) + nΛ(h)` (the last step: `σ` lifts to `𝒮(C̃)` and to `𝒮_h`).
+Take `sup_σ`: `D(x,h^ny) ≤ D(x,y) + nΛ(h)`, so `lim d_n ≤ Λ(h)`.
+Lower bound: fix `σ ∈ 𝒮_h` (a slice of the annular cover; it lifts to `𝒮(C̃)`) and work in the annulus `A_σ = σ̄`, where `x, y` project to opposite ends. An arc
 from `x` to `h^n y`, closed up by a fixed arc from `y` to `x` (joined at the cut-off at bounded cost, (R3)), is a
 closed curve of winding number `n` in `A_σ`. *In a Riemannian annulus a closed curve of winding `w` has length
 `≥ |w|·ℓ_1`*, `ℓ_1` the least length of a winding-one curve (induct on self-intersections: a simple closed
 curve has `|w| ≤ 1`; splitting at a double point gives `w = w_1 + w_2` and `L = L_1 + L_2 ≥ (|w_1|+|w_2|)ℓ_1`;
-approximate rectifiable curves by generic ones). And `ℓ_1 = ℓ_σ(h)`. So `ℓ_σ(κ_{x,h^ny}) ≥ nℓ_σ(h) − C_σ`,
-hence `lim d_n ≥ ℓ_σ(h)` for every `σ`, i.e. `≥ L(h)`.
+approximate rectifiable curves by generic ones). So `ℓ_σ̃(x → h^n y) ≥ nℓ_1 − C_σ` and `D(x,h^ny) ≥ nℓ_1 − C_σ`;
+hence `lim d_n ≥ ℓ_1(σ)` for every `σ ∈ 𝒮_h`, i.e. `≥ Λ(h)`.
 Measure: `F_h` is the increasing union over `N, M → ∞` of `[x,hx) × [h^N y, h^{−M} y)`, whose measure is, by
 invariance, `½[(D(x,h^Ny) − D(x,h^{N−1}y)) + (D(x,h^{−M−1}y) − D(x,h^{−M}y))] = ½(d_N + d'_{M+1})`, where `d'`
-is the same sequence for `h^{−1}`. Both tend to `L(h) = L(h^{−1})`. ∎
+is the same sequence for `h^{−1}`. Both tend to `Λ(h) = Λ(h^{−1})`. ∎
 
-So (ii) of OPEN_GAPS G2 holds, with the translation length *defined* as the class-maximin length `L(h)` —
-which by Lemma P / (MM)(b) is the length of the *minimal* (achronal) closed extremal geodesic in the class;
+So (ii) of OPEN_GAPS G2 holds, with the translation length *defined* as the maximin length `Λ(h)` —
+which for simple `h`, by Lemma S, is the length of the *minimal* (achronal) closed extremal geodesic in the class;
 non-minimal closed extremal geodesics in the same class are invisible to `D`.
 
 ### Lemma N2 (no mass on the limit set) **[proved, given N1, N3, (MM)(b)]**
@@ -269,7 +308,7 @@ annulus has `Λ_0 = {h^±}`, done by (a)). The `X_0`-geodesic ray to a point of 
 of a peripheral element crosses `∪κ_j` infinitely often (otherwise it ends in a complementary disc —
 impossible — or in a peripheral annulus, and then it spirals onto the boundary of the convex core and ends at
 a peripheral fixed point). Distinct crossings are with distinct lifts. Unfolding,
-`∫_{𝒫/Γ} #(lifts of κ_j linked) dν̄ = ν(F_{h_j}) = L(κ_j) < ∞` (N3, (MM)(b)), so the set where the integrand is
+`∫_{𝒫/Γ} #(lifts of κ_j linked) dν̄ = ν(F_{h_j}) = Λ(κ_j) < ∞` (N3, Lemma S; take the `κ_j` simple), so the set where the integrand is
 infinite is null. ∎
 
 ### Lemma N4 (arcs, with windows) **[proved, given N1, Lemma C]**
@@ -290,11 +329,11 @@ Fix windows `W_p` around one lift of each marked point `p ∈ P`, extended equiv
 
 `L(c) = i_W(ν, c) + Σ_{ends of c at p} λ(W_p) + err_W(c)`, `err_W(c) → 0` as the windows shrink.
 
-*Proof.* Unfold: a closed component contributes `ν(F_h ∩ 𝒫_W) ↑ ν(F_h) = L(h)` (N3; the removed pairs
+*Proof.* Unfold: a closed component contributes `ν(F_h ∩ 𝒫_W) ↑ ν(F_h) = Λ(h) = L(h)` (N3, Lemma S — components of cuts are simple; the removed pairs
 decrease to pairs with an endpoint in `Γ·P̃`, null by N1). An arc component contributes `ν(R ∩ 𝒫_W)`, and
 `ν(R) − ν(R ∩ 𝒫_W)` is the measure of pairs in `R` with an endpoint in another window; these sets are
 dominated by a fixed finite-measure rectangle and decrease to a null set (N1), so this tends to `0`; then
-use N4. By N2 the integrand is `i(τ, c)` a.e. (PROOFS (1.1)). ∎
+use N4 and `D = L` on simple arcs (Lemma S). By N2 the integrand is `i(τ, c)` a.e. (PROOFS (1.1)). ∎
 
 ## 5. Main theorem
 
@@ -330,7 +369,55 @@ geodesics are never needed.
 If all parties are unions of whole boundary circles (`P = ∅`), `(S(A))_A` lies in the RT holographic entropy
 cone. *Proof.* PROOFS §5.3 verbatim with `Σ_j w_j m̄_j` replaced by `ν̄`: by N2, `ν̄`-a.e. pair is a test class;
 discard the classes homotopic into `∂_∞X` (`i ≡ 0`); for any other test class `τ` and a peripheral class `β` at
-one of its ends, `ν̄(τ)·i(τ,β) ≤ i(ν,β) = L(β) < ∞` (N3, (MM)(b)), so the push-forward is a countable positive
+one of its ends, `ν̄(τ)·i(τ,β) ≤ i(ν,β) = L(β) < ∞` (N3, Lemma S), so the push-forward is a countable positive
 combination `μ = Σ μ_τ τ` with `i(μ, c) = L(c)` for closed multi-classes (Corollary I without windows). Then
 Lemma G, Lemma F and closedness of the cone, exactly as there; and `S = min_c i(μ, c)` by Theorem H'. ∎
 For intervals the full-cone statement is open here for the same reason as in vacuum (PROOFS §5.4).
+
+## 7. Numerical tests (thin-shell Vaidya–BTZ, two-sided, `π_1 = Z`)
+
+Set-up: eternal two-sided BTZ (`M_1 = 1`, `r_h = 1`), a null shell thrown in from the right boundary at
+boundary time `v_0`, mass after the shell `M_2 = 1 + ΔM`. Exact metric in ingoing EF coordinates
+`−(r² − M(v))dv² + 2dvdr + r²dφ²`; NEC ⇔ `ΔM ≥ 0`. Time dependent, no time-reflection symmetry, multiply
+connected. Points of the ideal circle of the cover: right line `φ ∈ R`, `h^+`, left line, `h^−`
+(`h`: `φ → φ+2π`). `L(h) = 2π` (the `M_1` bifurcation circle is untouched by the shell).
+
+**`vaidya_btz_first_order.py`** (`python3 -I vaidya_btz_first_order.py 0`; 23 s). `g = g_BTZ + ΔM θ(v−v_0)dv²`
+exactly, so `D = D_0 + ΔM D_1 + O(ΔM²)` with `D_1 = ½∫θ(v−v_0)(dv/ds)² ds` along vacuum geodesics (the
+suggested `δℓ = ½∫δg` test). Wiggly boundary slice (`t_R = 0.6 + 0.4 sin(φ+0.3)`, `t_L = 0.4 + 0.3 sin(2φ+1.1)`),
+400 random quadruples on the lifted circle (mixed sides, windings):
+`B_0 > 0` in all; `max(−B_1/B_0) = 0.0073` (first-order violation for NEC would need `ΔM > 137`);
+`max(B_1/B_0) = 0.12` (NEC-violating sign: `|ΔM| > 8`). Lemma N3: `d_n^{(0)} − 2π = −2.4, −1.3e−2, −2.5e−5, …, 0`,
+`d_n^{(1)} = 2.0e−3, 3.6e−5, …, 2e−16`: `d_n` increases to `L(h)` and the first-order shift of the limit is `0`,
+as predicted (`δL(h) = 0`).
+*Observation.* I expected tangency singularities `D_1 ~ (dist)^{3/2}` (geodesics grazing the shell inside the
+bulk), which would make first order decisive for small rectangles. Scans show that geodesics from boundary
+points at times `< v_0` never enter `{v > v_0}` (consistent with "extremal surfaces lie outside the causal
+wedge"); the only onset is at the endpoint, where `D_1 ~ δ²` is smooth. So the first-order test is
+consistent but weak.
+
+**`vaidya_btz_exact.py`** (`python3 -I vaidya_btz_exact.py`; 77 s). Exact geodesics with one crossing: a
+BTZ(`M_2`) piece from the right endpoint to a break point on the shell, then a BTZ(`M_1`) piece; the break point
+is the critical point of total renormalized length (equivalent to the refraction law `ṙ → ṙ + ½(M_before−M_after)v̇`).
+Checks: `ΔM = 0` reproduces `D_0` to `4e−16`; `dD/dΔM` matches `D_1`. Results (`v_0 = 0`, right boundary
+after the shell, rectangles with two right and two left points so that all four lengths are right–left):
+
+| `t_R, t_L` | `ΔM` | convexity `min f''` | random rectangles | `min ν/ν_0` | `d_n → 2π` |
+|---|---|---|---|---|---|
+| 0.6, 0.2 | +2, +0.5, 0, −0.3, −0.6, −0.85 | > 0.047 in all | 88–120 each, 0 with `ν < 0` | 0.998–1.000 | yes, all `ΔM` |
+| 3.0, 0.0 | +3, +1 | 0.020, 0.053 | 57, 75; 0 bad | 0.29, 0.66 | |
+| 3.0, 0.0 | −0.5, −0.9, −0.97 | 0.10, 0.096, 0.095 | 76–78; 0 bad | 0.94, 0.88, 0.86 | |
+| 3.0, 2.0 | +3, +1 | 0.008, 0.015 | 52, 68; 0 bad | 0.77, 0.98 | |
+| 3.0, 2.0 | −0.5, −0.9, −0.97 | 0.007, 0.000, 0.000 | 77, 56, 51; 0 bad | 0.57, 0.058, 0.033 | |
+| 1.0, 3.0 | ±… (5 values) | > 0.033 | 0 bad | > 0.93 | |
+
+(For `t_R = 3, t_L = 2`, `|Δφ| ≲ 1.5` the single-crossing solver fails — the geodesic then re-enters the shell
+region in the future interior; those configurations are excluded, which is a real limitation.)
+**Reading.** No violation of the crossing inequality (Lemma X) or of Lemma N3 was found for NEC shells. For
+strongly NEC-violating shells (`M_2 → 0`) the positivity margin collapses (`ν/ν_0 → 0.03`, `f'' → 0`) at the
+edge of the solvable region, but no strict violation was observed in the single-crossing regime. So the
+numerics do **not** demonstrate that NEC is necessary; that NEC-violating Vaidya geometries violate holographic
+SSA is reported in the literature (Callan–He–Headrick, JHEP 2012, AdS_3-Vaidya; citation from memory,
+arXiv number not re-checked), which is the simply connected case of Lemma X.
+What the numerics cannot test: (MM), (MM2) themselves; Theorem H' (it would need an independent HRT solver
+with homology on all slices).

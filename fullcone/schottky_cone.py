@@ -276,7 +276,7 @@ class Topology:
         A, B, ln = self.lifts(ci); sel = ln <= comp_len(self.comps[ci]) + depth + 2
         return int(linked_vec(x, y, A[sel], B[sel]).sum()) % 2
 
-def run_config(C, rng, eps_list=(1e-3, 1e-5), verbose=False):
+def run_config(C, rng, eps_list=(1e-3, 1e-5, 1e-12), verbose=False):
     comps = build_components(C)
     topo = Topology(C, comps, 0)
     good = [ci for ci in range(len(comps)) if topo.simple(ci)]
@@ -376,6 +376,9 @@ def main(topo, N, trials, seed, kmet=2, stab_every=3):
         done += 1
         stats['dG'] = max(stats['dG'], max(abs(r1['G'][m] - r2['G'][m]) for m in r1['G']))
         vF, nF = fc.facet_check(r2['F'], N); vG, nG = fc.facet_check(r1['G'], N)
+        vF12, _ = fc.facet_check(res[1e-12]['F'], N) if 1e-12 in res else (np.nan, None)
+        stats['fF12'] = min(stats.get('fF12', np.inf), vF12)
+        if vF < -1e-9: print(f"   F^eps(1e-5) violation: facet {nF}, min_p t_p(1e-5) = {r2['t'].min():.3f}, facet(F^1e-12) = {vF12:+.1e}", flush=True)
         stats['fF'] = min(stats['fF'], vF); stats['fG'] = min(stats['fG'], vG)
         if vG < -1e-9: names[nG] = names.get(nG, 0) + 1
         stats['tmin'] = min(stats['tmin'], float(r2['t'].min()))

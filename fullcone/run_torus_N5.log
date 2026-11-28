@@ -1,2 +1,25 @@
 [torus N=5] stab=None maxword=3 1/24 marks=7 pieces=7 comps=465 dG=1.4e-14 facet(F)=-1.8e-16 facet(G)=-8.2e-16 ctl=-1.6e-01 max=-6.5e-01
 [torus N=5] stab=None maxword=2 2/24 marks=7 pieces=7 comps=458 dG=1.4e-14 facet(F)=-2.5e-16 facet(G)=-2.1e-15 ctl=-1.7e-01 max=-2.5e-01
+[torus N=5] stab=0.0 maxword=2 3/24 marks=7 pieces=7 comps=450 dG=2.1e-14 facet(F)=-1.9e-16 facet(G)=-1.3e-15 ctl=-1.4e-01 max=-7.5e-02
+[torus N=5] stab=None maxword=3 4/24 marks=6 pieces=6 comps=353 dG=2.1e-14 facet(F)=-3.2e-16 facet(G)=-1.1e-15 ctl=-1.7e-01 max=-3.9e-02
+[torus N=5] stab=None maxword=3 5/24 marks=6 pieces=6 comps=339 dG=2.1e-14 facet(F)=-1.3e-16 facet(G)=-1.4e-15 ctl=-1.7e-01 max=-1.2e-02
+[torus N=5] stab=0.0 maxword=3 6/24 marks=7 pieces=7 comps=464 dG=2.1e-14 facet(F)=-2.3e-16 facet(G)=-1.6e-15 ctl=-1.9e-01 max=-1.1e-01
+[torus N=5] stab=None maxword=3 7/24 marks=7 pieces=7 comps=464 dG=2.1e-14 facet(F)=-7.0e-17 facet(G)=-8.3e-16 ctl=-1.3e-01 max=-1.1e-01
+[torus N=5] stab=None maxword=3 8/24 marks=7 pieces=7 comps=450 dG=2.1e-14 facet(F)=-5.5e-16 facet(G)=-4.2e-16 ctl=-2.0e-01 max=-3.2e-01
+[torus N=5] stab=0.0 maxword=3 9/24 marks=6 pieces=6 comps=337 dG=2.1e-14 facet(F)=-4.3e-16 facet(G)=-8.7e-16 ctl=-1.1e-01 max=-2.0e-01
+[torus N=5] stab=None maxword=2 10/24 marks=7 pieces=7 comps=443 dG=2.1e-14 facet(F)=-9.5e-17 facet(G)=-8.1e-16 ctl=-1.3e-01 max=-2.0e-02
+[torus N=5] stab=None maxword=3 11/24 marks=6 pieces=6 comps=355 dG=2.1e-14 facet(F)=-1.5e-16 facet(G)=-9.0e-16 ctl=-1.7e-01 max=-3.5e-01
+[torus N=5] stab=0.0 maxword=3 12/24 marks=6 pieces=6 comps=348 dG=2.1e-14 facet(F)=-6.3e-16 facet(G)=-6.5e-16 ctl=-1.9e-01 max=-1.2e-01
+[torus N=5] stab=None maxword=2 13/24 marks=7 pieces=7 comps=465 dG=2.1e-14 facet(F)=-1.3e-16 facet(G)=-5.2e-16 ctl=-1.6e-01 max=-1.5e-01
+[torus N=5] stab=None maxword=1 14/24 marks=7 pieces=7 comps=474 dG=2.1e-14 facet(F)=-1.7e-16 facet(G)=-1.3e-15 ctl=-1.6e-01 max=-1.0e-02
+[torus N=5] stab=0.0 maxword=2 15/24 marks=6 pieces=6 comps=331 dG=2.1e-14 facet(F)=-1.1e-16 facet(G)=-4.7e-16 ctl=-1.9e-01 max=-4.2e-02
+[torus N=5] stab=None maxword=2 16/24 marks=7 pieces=7 comps=472 dG=2.1e-14 facet(F)=-5.6e-16 facet(G)=-1.9e-15 ctl=-1.7e-01 max=-1.6e-01
+[torus N=5] stab=None maxword=2 17/24 marks=6 pieces=6 comps=341 dG=2.1e-14 facet(F)=-1.9e-16 facet(G)=-6.1e-16 ctl=-1.7e-01 max=-9.7e-16
+[torus N=5] stab=0.0 maxword=3 18/24 marks=6 pieces=6 comps=339 dG=2.1e-14 facet(F)=-3.9e-16 facet(G)=-1.3e-15 ctl=-1.8e-01 max=-2.2e-15
+[torus N=5] stab=None maxword=3 19/24 marks=7 pieces=7 comps=458 dG=2.1e-14 facet(F)=-1.8e-16 facet(G)=-9.9e-16 ctl=-1.5e-01 max=-3.9e-01
+[torus N=5] stab=None maxword=3 20/24 marks=7 pieces=7 comps=471 dG=2.1e-14 facet(F)=-2.8e-16 facet(G)=-1.6e-15 ctl=-2.4e-01 max=-1.9e-01
+[torus N=5] stab=0.0 maxword=2 21/24 marks=7 pieces=7 comps=451 dG=2.1e-14 facet(F)=-1.9e-16 facet(G)=-3.3e-16 ctl=-1.5e-01 max=-2.3e-01
+[torus N=5] stab=None maxword=3 22/24 marks=6 pieces=6 comps=353 dG=2.1e-14 facet(F)=-1.9e-16 facet(G)=-1.9e-15 ctl=-1.5e-01 max=-8.8e-03
+[torus N=5] stab=None maxword=2 23/24 marks=7 pieces=7 comps=472 dG=2.1e-14 facet(F)=-1.0e-16 facet(G)=-7.1e-16 ctl=-1.9e-01 max=-1.2e-01
+[torus N=5] stab=0.0 maxword=3 24/24 marks=6 pieces=6 comps=348 dG=2.1e-14 facet(F)=-3.0e-16 facet(G)=-1.1e-15 ctl=-1.7e-01 max=-6.6e-01
+SUMMARY torus 5 {'dG': np.float64(2.1316282072803006e-14), 'fF': -6.334730170407241e-16, 'fG': np.float64(-2.1386511110861565e-15), 'fGctl': np.float64(-0.2411147251211628), 'fmax': np.float64(-0.6579068398177769), 'nviol_ctl': np.int64(24), 'nviol_max': np.int64(22), 'inf': 0, 'tmin': 3.681388037260943, 'stab': 0.0, 'regions': 744, 'closed_in_min': 0, 'common_ne_single': 11, 'maxw_hist': {3: 14, 2: 9, 1: 1}, 'nstab': 8} {}

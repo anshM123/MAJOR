@@ -10,7 +10,7 @@ Grades: **[proved]** = complete argument here, using only PROOFS §§1–4 and s
 
 ---
 
-## 0. Summary of what was found (filled in at the end; see §9)
+## 0. Summary: see §0' at the end of this file (grades table and verdict)
 
 ---
 
@@ -479,3 +479,76 @@ recorded only as a conditional consistency check: both routes predict the same s
   discretisation ("we believe that the method can … be made mathematically rigorous"), which goes
   geometry → graph, not graph → interval geometry. The cone equality does not need it, because whole
   boundaries are among the allowed parties.
+
+---
+
+## 10. Numerical checks, part 2: two-metric pairs of pants and one-holed tori with interval parties
+
+`schottky_cone.py <pants|torus> N trials seed` (driver `runall.sh`; logs `run_*.log`). Rank-2 Schottky
+groups, two independent metrics with the same combinatorics (hence a fixed marking), random weights
+`w_j ∈ [0.2,1]`, 2–7 marked points on the funnels, random party assignments (intervals; circles without
+marked points become whole-boundary pieces). `F^ε(A)` is computed by **exhaustive search over embedded
+cuts** built from arcs `(p_i, g p_j)` (`|g| ≤ 3`) and primitive closed geodesics (`|w| ≤ 3`), with
+simplicity, disjointness and the homology condition decided exactly from lifted endpoints (linking of
+`Γ`-translates up to the provably sufficient word length `|c_1|+|c_2|+2`; Z/2 parity of separating lifts on
+all pieces and generator translates). The same class is used in both metrics. Then `t_p` from (R) and
+`G = F^ε − Σ_{p∈∂A} t_p`. Every third configuration is recomputed with words of length ≤ 4
+(`L_CHK = 10`).
+
+| run | configs | regions | minimisers using closed geodesics | common-class ≠ metric-1 minimiser | stability (len 4 vs 3) | min facet `G` | min facet `F^{10⁻⁵}` | control `G − ½W Σ b_p` violates | control `min_c max_j ℓ_j` violates |
+|---|---|---|---|---|---|---|---|---|---|
+| pants N=3 | 60 | 420 | 300 | 7 | 20 cfgs, Δ = 0 | −1.8e-15 | −2.7e-16 | 50/60 | 28/60 |
+| pants N=4 | 40 | 600 | 430 | 6 | 13, 0 | −1.7e-15 | −3.6e-16 | 40/40 | 27/40 |
+| pants N=5 | 24 | 744 | 503 | 44 | 8, 0 | −1.2e-14 | −1.3e-15 | 24/24 | 20/24 |
+| torus N=3 | 60 | 420 | 0 | 1 | 20, 0 | −1.2e-15 | −1.7e-16 | 60/60 | 32/60 |
+| torus N=4 | 40 | 600 | 0 | 21 | 13, 0 | −1.5e-15 | **−4.7e-2 (1 cfg)** | 40/40 | 33/40 |
+| torus N=5 | 24 | 744 | 0 | 11 | 8, 0 | −2.1e-15 | −6.3e-16 | 24/24 | 22/24 |
+| pants N=4, contrasting metrics (`FC_HARD=1`) | 30 | 450 | 289 | 52 | 10, 0 | −1.7e-15 | −3.7e-16 | 29/30 | 6/30 |
+| torus N=4, wide ranges (`FC_HARD=2`) | 30 | 450 | 0 | 5 | 10, 0 | −1.6e-15 | −2.9e-16 | 30/30 | 24/30 |
+
+(Facet values are relative to `max|S|`; all 7/20/372 facets of `C_3/C_4/C_5` checked. `G` was also checked
+to be `ε`-independent: max change between `ε = 10⁻³` and `10⁻⁵` is `2·10⁻¹⁴`.)
+
+**The one `F^ε` violation is the predicted threshold effect, not a counterexample.** In torus N=4
+configuration 18, `min_p t_p(10⁻⁵) = −1.73 < 0` (a marked point very close to its neighbour makes `d_p`
+large), i.e. `ε = 10⁻⁵ > ε_1`; the violated facet is **SA** (unbalanced). Rerun at `ε = 10⁻¹²`: all facets
+hold (min `−8·10⁻¹⁷`), and `G` satisfies all facets at every `ε`. This is exactly Theorem 3*: membership of
+`F^ε` needs `t_p ≥ 0`, balanced facets hold at every `ε ≤ ε_0`, unbalanced ones only once the endpoint
+Bell pairs are positive.
+
+Limitations of these tests: double precision; candidate words of bounded length (stability at length 4
+found no change in 102 rechecked configurations, but this is evidence, not a proof that the true minimiser
+was found); on the torus no minimiser used a closed geodesic; the common-class constraint changed the
+minimiser in 147 of 4428 regions; the explicit cell graph of Theorem 3* was built only in the disc
+(§6), on the Schottky surfaces only its conclusion `G ∈ C_N` was tested.
+
+---
+
+## 0'. Summary and grades (final)
+
+| Claim | Grade |
+|---|---|
+| Prop. 1 (renormalised Crofton): `ℓ^ε(c) = i(m̄',c) + Σ_p e_p(c) log(1/(ε d_p))`, exact for `ε ≤ ε_0`; the divergence sits in the single class `τ_p` | **[proved]**; numerically exact in disc and cylinder (≤ 6e-14) |
+| Corollary 2: `F^ε = G + Σ_p t_p(ε) b_p`, `G(A) = min_c i(ν,c)`, `ν` `ε`-independent | **[proved]** |
+| Theorem 3*: `G` is exactly the min-cut vector of an explicit finite graph (cells of the minimiser arrangement, weights = `ν̂`-crossing measures); `F^ε ∈ C_N` for `ε ≤ ε_1` (explicit); every valid HEI: slack `Q(G) + Σ t_p Q(b_p)`, exact for balanced, `+∞` for unbalanced | **[proved]** given PROOFS §§1–4 (incl. Lemma A's surgery step), no contraction maps, no cone closedness; disc: graph = G to 5e-14 |
+| Route R1 (six steps of PROOFS §5.4) | **[proved mod closedness of `C_N` (Bao et al.) and Lemma F (normal coordinates)]** |
+| Route R2 ("virtual static metric", MG–T pseudo-metric of the current) | **works**, = Theorem 3*; MG–T Theorem A **not** used (closed surfaces only; open case is their Conj. 11.1/11.3) |
+| Theorem 3'' (HRT, arbitrary parties, `S^ε ∈ C_N` for small `ε`) | **[proved mod Theorem H]** (acausal-slice definition; smooth-slice version for intervals still open) |
+| Cone equality `cl(R_+ 𝓗_N) = C_N` | **[proved mod Bao et al. Lemma 4/Thm 5]**; whole-boundary static wormholes suffice |
+| Rotating whole-boundary HRT vectors = static RT vectors up to scale | **[proved mod Bao et al. Lemma 4]** |
+| R0: BFN completeness ⇒ result | **[conditional]**; BFN Thm 4.1 **not established** (Lemma 4.2 uses infinite-weight "virtual edges" and assembled, not minimal, cuts); false in the weighted form |
+| Draft's Theorem 2 literally ("admits a contraction map", weighted norms) covers all `C_5` facets | **[false]**: one `C_5` orbit (60 facets) has no weighted map (Avis–HC (4.19); reproduced); fix: split form, or use Theorem 3* |
+| Every cell of the arrangement has one party; edge weights finite and positive | **[proved]** (§3) |
+| Interval-only realisation of all extreme rays on a fixed topology | **not addressed** (not needed) |
+
+**Blunt verdict.** The "contested" step is gone. For vacuum 2+1 spacetimes in the draft's class, the
+regulated HRT vector for arbitrary parties (intervals with endpoints and whole boundaries) is *exactly* a
+graph-model vector plus one Bell pair across each entangling point, so it lies in the RT cone `C_N` at every
+cut-off below an explicit threshold, and every valid RT inequality (contraction-provable or not,
+superbalanced or not) holds with the expected slack. The proof is short once one notices that the whole
+divergence of the Liouville integral sits in one test class per endpoint, whose intersection number with
+every admissible cut is the constant `[p ∈ ∂A]`. Only the physics step (Theorem H, with its slice caveats)
+is inherited. Weak points a referee will probe: the dependence on PROOFS §§1–4 (refereed only by automated
+passes), Theorem H's acausal/non-smooth slices for regions with endpoints, and the fact that my numerics on
+multiply connected surfaces test the conclusion, not the explicit graph. R0 should not be used:
+the completeness claim it needs is not proved.

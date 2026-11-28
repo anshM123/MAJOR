@@ -12,3 +12,20 @@
 [pants N=4] stab=0.0 maxword=1 12/30 marks=4 pieces=5 comps=102 dG=1.2e-14 facet(F)=-2.2e-16 facet(G)=-7.0e-16 ctl=-3.8e-01 max=-9.3e-16
 [pants N=4] stab=None maxword=1 13/30 marks=5 pieces=6 comps=211 dG=1.4e-14 facet(F)=-1.6e-16 facet(G)=-1.2e-15 ctl=-3.5e-01 max=-1.3e-15
 [pants N=4] stab=None maxword=1 14/30 marks=5 pieces=6 comps=125 dG=1.4e-14 facet(F)=-1.0e-16 facet(G)=-2.3e-16 ctl=-1.1e-01 max=-1.0e-16
+[pants N=4] stab=0.0 maxword=1 15/30 marks=5 pieces=6 comps=211 dG=1.4e-14 facet(F)=-2.9e-16 facet(G)=-1.7e-15 ctl=-2.4e-01 max=-5.2e-16
+[pants N=4] stab=None maxword=1 16/30 marks=5 pieces=6 comps=149 dG=1.4e-14 facet(F)=-3.1e-16 facet(G)=-4.0e-17 ctl=-2.0e-01 max=-1.0e-16
+[pants N=4] stab=None maxword=1 17/30 marks=4 pieces=5 comps=95 dG=1.4e-14 facet(F)=-1.8e-16 facet(G)=-2.2e-16 ctl=-1.3e-01 max=-1.6e-16
+[pants N=4] stab=0.0 maxword=1 18/30 marks=5 pieces=6 comps=211 dG=1.4e-14 facet(F)=-2.0e-16 facet(G)=-9.3e-17 ctl=-1.9e-01 max=-8.0e-16
+[pants N=4] stab=None maxword=1 19/30 marks=5 pieces=6 comps=154 dG=1.4e-14 facet(F)=-1.1e-16 facet(G)=-2.3e-16 ctl=-2.0e-01 max=-2.9e-02
+[pants N=4] stab=None maxword=1 20/30 marks=6 pieces=7 comps=213 dG=1.4e-14 facet(F)=-1.4e-16 facet(G)=-1.4e-16 ctl=-2.3e-01 max=-1.9e-15
+[pants N=4] stab=0.0 maxword=1 21/30 marks=5 pieces=6 comps=211 dG=1.4e-14 facet(F)=-1.0e-16 facet(G)=-7.8e-16 ctl=-2.4e-01 max=-7.7e-16
+[pants N=4] stab=None maxword=1 22/30 marks=6 pieces=7 comps=212 dG=1.4e-14 facet(F)=-1.1e-16 facet(G)=-7.3e-16 ctl=-1.4e-01 max=-1.5e-16
+[pants N=4] stab=None maxword=1 23/30 marks=4 pieces=5 comps=123 dG=1.4e-14 facet(F)=-3.1e-16 facet(G)=-2.1e-16 ctl=-1.8e-01 max=-4.0e-16
+[pants N=4] stab=0.0 maxword=1 24/30 marks=5 pieces=6 comps=126 dG=1.4e-14 facet(F)=+2.6e-17 facet(G)=-1.5e-16 ctl=-1.6e-01 max=-7.4e-02
+[pants N=4] stab=None maxword=1 25/30 marks=5 pieces=6 comps=154 dG=1.4e-14 facet(F)=-8.7e-17 facet(G)=-4.8e-16 ctl=-2.9e-01 max=-2.2e-15
+[pants N=4] stab=None maxword=1 26/30 marks=6 pieces=7 comps=288 dG=1.4e-14 facet(F)=-2.9e-16 facet(G)=-7.3e-16 ctl=-6.5e-02 max=-1.1e-15
+[pants N=4] stab=0.0 maxword=1 27/30 marks=5 pieces=6 comps=138 dG=1.4e-14 facet(F)=-1.2e-16 facet(G)=-1.9e-16 ctl=-2.7e-01 max=-6.7e-16
+[pants N=4] stab=None maxword=1 28/30 marks=4 pieces=6 comps=69 dG=1.4e-14 facet(F)=-6.1e-17 facet(G)=-3.2e-16 ctl=-1.9e-01 max=-5.1e-16
+[pants N=4] stab=None maxword=1 29/30 marks=6 pieces=7 comps=203 dG=1.4e-14 facet(F)=-1.1e-16 facet(G)=-1.5e-15 ctl=-1.5e-01 max=-2.2e-02
+[pants N=4] stab=0.0 maxword=1 30/30 marks=6 pieces=7 comps=188 dG=1.4e-14 facet(F)=-1.0e-16 facet(G)=-1.0e-16 ctl=-1.9e-01 max=-5.2e-16
+SUMMARY pants 4 {'dG': np.float64(1.4210854715202004e-14), 'fF': -3.6588060486127667e-16, 'fG': np.float64(-1.6541303450547034e-15), 'fGctl': np.float64(-0.492978631087844), 'fmax': np.float64(-0.2640193508435061), 'nviol_ctl': np.int64(29), 'nviol_max': np.int64(6), 'inf': 0, 'tmin': 3.4076901745459978, 'stab': 0.0, 'regions': 450, 'closed_in_min': 289, 'common_ne_single': 52, 'maxw_hist': {1: 30}, 'nstab': 10} {}
