@@ -1,0 +1,33 @@
+r=8.0 n=0 Jc=240 diff=-2.386602e-04  diff*r^2=-0.01527  (141s)
+    J=0 term=3.194e-06 cum=3.193579e-06 relerr=1.1e-14
+    J=1 term=9.000e-06 cum=1.219352e-05 relerr=2.4e-14
+    J=2 term=1.322e-05 cum=2.540954e-05 relerr=1.1e-14
+    J=5 term=1.265e-05 cum=6.822525e-05 relerr=8.2e-15
+    J=10 term=-6.929e-06 cum=7.162988e-05 relerr=5.3e-15
+    J=20 term=-9.297e-06 cum=-3.964608e-05 relerr=1.1e-14
+    J=40 term=-2.387e-06 cum=-1.291895e-04 relerr=6.0e-14
+    J=80 term=-8.828e-07 cum=-1.862111e-04 relerr=5.3e-13
+    J=160 term=-2.610e-07 cum=-2.243544e-04 relerr=1.5e-12
+    J=240 term=-1.239e-07 cum=-2.386602e-04 relerr=1.9e-12
+r=8.0 n=1 Jc=240 diff=2.697366e-05  diff*r^2=0.00173  (138s)
+    J=0 term=5.698e-08 cum=5.698477e-08 relerr=4.7e-14
+    J=1 term=1.705e-07 cum=2.275270e-07 relerr=1.4e-14
+    J=2 term=2.829e-07 cum=5.103990e-07 relerr=2.8e-14
+    J=5 term=6.047e-07 cum=2.008905e-06 relerr=7.3e-16
+    J=10 term=1.050e-06 cum=6.424232e-06 relerr=3.5e-14
+    J=20 term=1.444e-06 cum=1.966228e-05 relerr=1.8e-14
+    J=40 term=8.486e-07 cum=4.383953e-05 relerr=1.1e-14
+    J=80 term=-1.123e-07 cum=5.302383e-05 relerr=3.7e-13
+    J=160 term=-1.739e-07 cum=3.776387e-05 relerr=1.3e-12
+    J=240 term=-1.031e-07 cum=2.697366e-05 relerr=1.9e-12
+r=8.0 n=2 Jc=240 diff=2.377492e-05  diff*r^2=0.00152  (142s)
+    J=0 term=7.847e-09 cum=7.846880e-09 relerr=9.9e-13
+    J=1 term=2.352e-08 cum=3.137122e-08 relerr=8.8e-13
+    J=2 term=3.916e-08 cum=7.052965e-08 relerr=9.8e-13
+    J=5 term=8.549e-08 cum=2.808958e-07 relerr=9.8e-13
+    J=10 term=1.591e-07 cum=9.313675e-07 relerr=9.4e-13
+    J=20 term=2.816e-07 cum=3.228464e-06 relerr=7.9e-13
+    J=40 term=3.862e-07 cum=1.028158e-05 relerr=3.0e-13
+    J=80 term=2.216e-07 cum=2.315282e-05 relerr=3.2e-13
+    J=160 term=-3.217e-08 cum=2.790951e-05 relerr=9.6e-13
+    J=240 term=-5.730e-08 cum=2.377492e-05 relerr=1.7e-12

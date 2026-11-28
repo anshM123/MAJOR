@@ -59,3 +59,37 @@ Decomposition (β = 1): log Z₁ = −S(1/r) − ½ Σ_n S_n(r), S_n = Σ_J (2J+
 
 **Preliminary sign (go/no-go): c₁⁽⁰⁾ > 0.** The conjecture survives at O(N⁰). The result is small: it comes from a
 cancellation between 0.1654 and 0.1818. Independent brute-force check (method A) pending.
+
+## Milestone 3 — independent S² check and certification [C] (final; scope: sign only)
+
+**Method A check: the exact 3j-sum bubble, summed over J, against the curvature-expanded bubble used in method B**
+(`methodA_diff.py`, `out_methodA_r4.txt`, `out_methodA_r8.txt`).
+* Everything else in log Z₁ is identical between the two treatments. So method B's constant is exact iff
+  Σ_n diff_n(r) → 0, where diff_n = Σ_{J≤30r}(2J+1)[log Π^exact − log Π^expanded].
+* The results show diff_n = c_n/r² cleanly:
+
+| n | diff·r² at r=4 | diff·r² at r=8 |
+|---|---|---|
+| 0 | −0.01563 | −0.01527 |
+| 1 | 0.00179 | 0.00173 |
+| 2 | 0.00157 | 0.00152 |
+
+* At r = 4 (β/r = 1/4) the whole effect on b, summed over all n, is about −½Σ ≈ −1e-4. It vanishes like r⁻².
+* The r = 16 run was stopped for cost; it was not needed given the clean r⁻² scaling.
+
+**Error budget on b** (b = −8πc₁):
+
+| source | size |
+|---|---|
+| B₀ (n = 0 sector): J-tail truncation 6e-9, r-extrapolation 1e-9, quadrature 1e-11 relative | ±2e-8 |
+| Σ_{n≥1} B_n: quadrature validated to 1e-11, n-tail fit | ±1e-11 |
+| reference constant −ζ'(−1) | exact |
+| curvature expansion of the bubble: exact at O(K); exact-bubble residual ∝ r⁻² (method A) | 0 in the limit |
+| regulator / summation order (Lorentz-invariant vs n-outer): r⁰ part → 0 like Λ⁻² (`check_ordering.py`) | 0 in the limit |
+| per-mode Euler–Maclaurin: residual ∝ r⁻² vs direct J-sums (`check_sector_EM.py`) | 0 in the limit |
+| conservative total | \|δb\| < 1e-6, against \|b\| = 0.0163 |
+
+**Final: b = −0.01633683 ± 1e-6, so c₁⁽⁰⁾ = +6.5002e-4 ± 4e-8 > 0.**
+* Positive: the Allameh–Shaghoulian conjecture c₁ ≥ 0 holds for the critical O(N) model at O(N⁰).
+* Since c₁(N = ∞) = 0, c₁ ≈ +6.50e-4 + O(1/N) for large N. This is a consistency check, not a counterexample.
+* Calibration: the same pipeline reproduces the literature f₁ = −0.06399553 to 4e-5 relative.
