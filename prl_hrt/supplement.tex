@@ -7,7 +7,8 @@
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 
 % ---------------------------------------------------------------------------------------------------
-% SCOPE MACROS (identical to letter.tex). MATTER-SLOT (scope): redefine if the NEC extension is added.
+% SCOPE MACROS (identical to letter.tex): the class of the unconditional theorems. The conditional matter
+% result is in Secs. S11-S16 and does not use these macros.
 \newcommand{\ScopeClass}{vacuum solutions of three-dimensional gravity with negative cosmological constant}
 \newcommand{\ScopeShort}{vacuum}
 % ---------------------------------------------------------------------------------------------------
@@ -557,7 +558,7 @@ $\rho_L=\rho_R$ is the time-symmetric case. \emph{Cited input:} proper discontin
 its conformal boundary, and the identification of the asymptotic boundaries below~\cite{Mess2007,Barbot2008,BKS2011}.
 \emph{Scope:} orientable quotients with all non-trivial holonomies hyperbolic (no extremal horizons, cusps or conical
 defects).
-% MATTER-SLOT (spacetimes): the class of spacetimes with matter, if added, would be described here.
+(Spacetimes with matter are treated separately, in Sec.~\ref{sec:matter}.)
 
 The $i$-th asymptotic boundary is $(I^i_L\times I^i_R)/\langle h_i\rangle$, $I^i_{L,R}$ being the components of
 $\Omega_{L,R}$ stabilised by the peripheral element $h_i$. A \emph{boundary Cauchy slice} is, in each asymptotic
@@ -1195,14 +1196,706 @@ For whole-boundary parties the HRT entropy vector of any rotating wormhole of th
 vector of a static multiboundary wormhole with $N+1$ boundaries.
 \end{corollary}
 
-\begin{remark}[What the vacuum assumption is used for]
+\begin{remark}[What the vacuum assumption is used for]\label{rem:vacuse}
 The only place where vacuum enters, beyond the description of the spacetimes, is the existence of a positive measure on test
 classes whose intersection integrals reproduce all extremal lengths: here $\mu'=\frac12(\mbar'_L+\mbar'_R)$. Everything in
 Secs.~\ref{sec:lemmaA}--\ref{sec:graph} applies verbatim to any positive countable combination of non-trivial test classes with
-finite coefficients, together with endpoint constants $t_p$.
-% MATTER-SLOT (supplement): if the NEC extension is established, the construction of the replacement measure on the quotient,
-% and the corresponding version of Theorem H, would be inserted here as a new section.
+finite coefficients, together with endpoint constants $t_p$. With matter obeying the NEC, such a combination is
+constructed in Secs.~\ref{sec:matter}--\ref{sec:mattermain} from homotopy-restricted maximin lengths, under hypothesis (JM).
 \end{remark}
+% ===================================================================================================
+\section{Matter obeying the null energy condition: setting and hypotheses}\label{sec:matter}
+
+Sections~\ref{sec:matter}--\ref{sec:jacobi} prove Theorem~4 of the Letter. The topological and measure-theoretic parts
+of Secs.~\ref{sec:setting}--\ref{sec:graph} are reused verbatim on an auxiliary hyperbolic surface; the chiral lengths
+of the vacuum case are replaced by homotopy-restricted maximin lengths, and their positivity by strong subadditivity on
+the universal cover. The results of these sections are conditional on hypothesis (JM) below and are graded as such in
+Table~\ref{tab:status}; nothing in Secs.~\ref{sec:setting}--\ref{sec:main} depends on them.
+
+\subsection{Spacetimes, slices, classes and lengths}
+
+\emph{Spacetime.} $M$ is a smooth, time- and space-orientable, asymptotically $\AdS$ spacetime whose conformal
+compactification $\Mbar=M\cup\partial M$ is globally hyperbolic as a manifold with timelike
+boundary~\cite{AkeFloresSanchez2021}, with Cauchy slices whose closures $\bar\Sigma$ are compact orientable surfaces with
+$b\ge1$ boundary circles (one per asymptotic region). Any genus and any $b$; rotation and time dependence are allowed.
+$M$ satisfies the null curvature condition (NEC) $R_{\mu\nu}k^\mu k^\nu\ge0$ for null $k$, i.e.\ Einstein's equations
+with $T_{kk}\ge0$. $\Gamma:=\pi_1(\bar\Sigma)$ is free (trivial for a disc, $\Z$ for an annulus). Excluded are interior
+ends (cusps, extremal horizons), conical defects and non-orientable slices.
+
+\emph{Admissible slices.} Fix a boundary Cauchy slice $C\subset\partial M$ (an acausal circle in each boundary cylinder).
+$\mathcal S(C)$ is the set of acausal Cauchy slices $\bar\sigma$ of $\Mbar$ with $\bar\sigma\cap\partial M=C$ (the
+convention of Ref.~\cite{HHLR2014}; the restricted maximin setting of Ref.~\cite{MarolfWallWang2019}); we assume
+$\mathcal S(C)\ne\emptyset$. All $\bar\sigma\in\mathcal S(C)$ are identified with one another and with an abstract
+$\bar\Sigma$ by the flow of a timelike vector field tangent to $\partial M$, the identity on $C$; the inclusion
+$\bar\sigma\subset\Mbar$ is a homotopy equivalence. Hence homotopy classes do not depend on the slice: a \emph{closed
+class} is a free homotopy class of loops in $\Mbar$, and an \emph{arc class} $\kappa$ between $p,q\in C$ is a homotopy
+class rel endpoints of paths from $p$ to $q$. Unlike Definition~\ref{def:HRT}, the boundary slice is held fixed:
+allowing other boundary slices through $\partial A$ with the same boundary domain of dependence would need the
+boundary-causality invariance of HRT~\cite{HHLR2014}, which is not re-proved here.
+
+\emph{Lengths.} Fix a Fefferman--Graham defining function $z$ near $\partial M$. For a curve with $e$ ends on $\partial M$,
+$\ell^{\rm ren}:=\lim_{\eps\to0}[\ell(\text{curve}\cap\{z>\eps\})-e\log(1/\eps)]$. For $\sigma\in\mathcal S(C)$ and a class
+$\kappa$,
+\[
+\ell_\sigma(\kappa):=\inf\{\ell^{\rm ren}(\eta):\eta\subset\bar\sigma\ \text{rectifiable, in }\kappa\},\qquad
+L(\kappa):=\sup_{\sigma\in\mathcal S(C)}\ell_\sigma(\kappa),
+\]
+the \emph{class-restricted maximin length}. For a multi-class $c=\{c_1,\dots,c_m\}$, $L(c):=\sum_kL(c_k)$ and
+$\ell_\sigma(c):=\sum_k\ell_\sigma(c_k)$.
+
+\emph{Cut classes and test classes.} To use Secs.~\ref{sec:setting}--\ref{sec:graph}, fix an \emph{auxiliary} hyperbolic
+structure $X_0$ with funnel ends on the interior of $\bar\Sigma$. It plays no geometric role: it supplies an equivariant
+homeomorphism of the ideal circle $\partial_\infty\tilde\Sigma=\tilde C\sqcup\partial\Gamma$ (lifted boundary lines and
+Gromov boundary, with its cyclic order) onto $S^1=\partial\Hyp$, carrying $\tilde C$ onto $\Omega_0=S^1\setminus\Lambda_0$,
+and geodesic representatives for Lemma~\ref{lem:A}. $\Lambda_0$ is nowhere dense, so $\tilde C$ is dense in $S^1$. Marked
+points $P\subset C$, regions, $\Cut(A)$, test classes, $i(\tau,c)$ and the classes $\tau_p$ are those of
+Secs.~\ref{sec:setting}, \ref{sec:crofton} for $(X_0,P)$. $\G$ denotes the space of unordered pairs of distinct points of
+$S^1$ (geodesics of $X_0$).
+
+\begin{definition}[HRT entropy with matter]\label{def:HRTmatter}
+A \emph{candidate} for a region $A$ is $(\sigma,\gamma,R)$ with $\sigma\in\mathcal S(C)$, $\gamma\subset\sigma$ a finite disjoint
+union of simple complete spacelike geodesics of $M$ (extremal curves), each closed or with both ends in $\partial A$, one end
+at each point of $\partial A$, and $R\subset\bar\sigma$ closed, the closure of its interior, with frontier $\gamma$ and
+$R\cap C=A$. $4G_NS(A):=\inf\ell^{\rm ren}(\gamma)$ over candidates (renormalised HRT entropy).
+\end{definition}
+
+\subsection{Hypotheses}
+
+Let $M'$ be $M$ or a finite cover $\widehat M=\tilde M/\Gamma'$ ($[\Gamma:\Gamma']<\infty$), with lifted boundary slice $C'$
+and admissible slices $\mathcal S(C')$. An \emph{embedded multi-class} of $M'$ is a finite set $\{\kappa_1,\dots,\kappa_m\}$
+($m\ge1$) of non-trivial classes, arcs between points of $C'$ or closed, with pairwise disjoint simple representatives.
+
+\begin{itemize}
+\item[\textbf{(JM)}] \emph{Homotopy-restricted joint maximin.} For every $M'$ as above and every embedded multi-class
+$\{\kappa_i\}$ of $M'$, the supremum of $F(\sigma):=\sum_i\ell_\sigma(\kappa_i)$ over $\sigma\in\mathcal S(C')$ is attained at
+some $\sigma_*$, and $\sigma_*$ carries $\ell_{\sigma_*}$-minimisers $m_i\in\kappa_i$ that are pairwise disjoint complete
+extremal curves of $M'$.
+\item[\textbf{(R)}] \emph{Regularity and asymptotics.} (R1) Wall's null projection~\cite{Wall2014} applies to extremal
+curves on admissible slices: achronal boundaries are generated by null geodesics and satisfy the area (length)
+theorem~\cite{CDGH2001}. (R2) Bounded families of extremal curves with endpoints in a compact part of the lifted
+boundary slice, each lying on an admissible slice, are precompact, with convergence of renormalised lengths, and their
+limits lie on admissible slices (alternatively: Lemma~\ref{lem:P} holds for extremal curves on anchored achronal slices
+that are limits of admissible ones). (R3) Every slice with $\ell_\sigma(\kappa)>-\infty$
+for arc classes is asymptotically hyperbolic near $C$ with constants depending on $\sigma$ only, so that curves on $\sigma$
+ending at the same boundary point can be joined at the cutoff at bounded cost and $\ell_\sigma$ of arc classes is
+continuous in the endpoints. (R4) The matter obeys Fefferman--Graham falloff: null normals of an extremal curve at
+$z\approx\eps$ move $z$ by $O(z^2)$, and the regulated entropies satisfy
+$4G_NS^\eps(A)=4G_NS(A)+|\partial A|\log(1/\eps)+o(1)$.
+\end{itemize}
+
+\begin{remark}[Relation to the literature]\label{rem:JMlit}
+With $m=1$ and the minimisation taken over curves bounding regions rather than over one homotopy class, (JM) is the
+restricted maximin property of Marolf--Wall--Wang~\cite{MarolfWallWang2019}; with several classes it has the structure
+of Wall's Theorem~17~\cite{Wall2014} (joint maximisation of several minimal areas on one slice), on which Wall's covariant
+proofs of strong subadditivity and MMI rest. Wall proves existence of maximin slices for horizonless spacetimes and with
+Kasner-like singularities (his Theorems~10, 11) and extremality of \emph{stable} maximin surfaces (Theorem~15), and
+proceeds under the assumption that stable maximin surfaces exist; Marolf--Wall--Wang extend existence to generic charged
+and spinning black holes, and note that stability is proven only when the maximin slice is spacelike and smooth and is
+otherwise an assumption. Grado-White--Marolf--Weinberg~\cite{GradoWhiteMarolfWeinberg2021}
+show that restricted maximin anchored to a cutoff surface obeys SSA, entanglement wedge nesting and MMI under the NEC,
+while HRT itself can violate SSA there; Akers--Engelhardt--Penington--Usatyuk~\cite{AkersEtAl2020} formulate the quantum
+version. (JM) differs from these in two ways: the minimisation is restricted to homotopy classes of curves, and the
+property is required in finite covers of $M$, which are spacetimes of the same type (globally hyperbolic, NEC, compact
+Cauchy slices, finitely many boundaries). It is therefore exactly as conditional as Wall's covariant proofs of SSA and
+MMI, in curve and homotopy-class form. Existence and regularity of maximin slices are the assumed inputs.
+Section~\ref{sec:JMsuff} proves (JM) under a compactness and a regularity hypothesis.
+\end{remark}
+
+\begin{remark}[Achronal slices]\label{rem:achronal}
+The supremum defining $L$ may equally be taken over anchored achronal slices: once (JM) holds, Lemma~\ref{lem:P} below
+bounds $\ell_\sigma$ on every achronal target slice by the length of the extremal minimiser. (JM) may also be stated with an
+achronal maximiser $\sigma_*$, provided $\bigcup_im_i\cup C'$ is acausal; one then extends this set to an acausal Cauchy
+slice by the extension theorems of Bernal--S\'anchez~\cite{BernalSanchez2006}, in the version with timelike
+boundary~\cite{AkeFloresSanchez2021}.
+\end{remark}
+
+\begin{proposition}[(JM) holds in vacuum]\label{prop:JMvac}
+Let $M=\Dt/\Gamma$ be a spacetime of Sec.~\ref{sec:spacetimes} with boundary slice $C$. Then (JM) holds, given
+Lemma~\ref{lem:P}.
+\end{proposition}
+
+\begin{proof}
+Finite covers of $M$ are spacetimes of the same class (finite-index subgroups of convex cocompact groups are convex
+cocompact). Let $\{\kappa_i\}$ be an embedded multi-class and $g_i$ the spacetime geodesics of the classes
+(Proposition~\ref{prop:length}). The construction of Lemma~\ref{lem:T} and Proposition~\ref{prop:P} uses only that the lifts
+of the components form a $\Gamma$-invariant family of pairwise non-crossing chords and axes, so it applies verbatim to any
+embedded geodesic multicurve: it gives a pleated slice $Z$ anchored on $C$ (an acausal Cauchy slice of $\Mbar$ by
+Theorem~\ref{thm:C}) containing all $g_i$. $Z$ is a union of totally geodesic ideal triangles, its intrinsic metric is
+hyperbolic, and the $g_i$ are geodesics of it, hence $\ell_Z$-minimisers in their classes: $F(Z)=\sum_i\ell^{\rm ren}(g_i)$.
+By Lemma~\ref{lem:P}, $F(\sigma)\le\sum_i\ell^{\rm ren}(g_i)$ for every $\sigma\in\mathcal S(C)$. So the supremum is attained at
+$Z$, which carries the disjoint extremal minimisers $g_i$.
+\end{proof}
+
+\begin{proposition}[What (JM) gives]\label{prop:JMcons}
+Assume (JM) and (R1). Then:
+(a) for every embedded multi-class of $M'$, $\sup_\sigma\sum_i\ell_\sigma(\kappa_i)=\sum_iL(\kappa_i)$, and the minimisers $m_i$
+of (JM) satisfy $\ell^{\rm ren}(m_i)=L(\kappa_i)$ (joint class maximin);
+(b) in particular every simple class $\kappa$ of $M'$ has $L(\kappa)=\ell^{\rm ren}(m)$ for an extremal curve $m$ of class
+$\kappa$ on a slice of $\mathcal S(C')$ (single-class maximin), and $L(\kappa)<\infty$;
+(c) for every region $B$ and every $\delta\in\Cut(B)$ there is a candidate for $B$ of length $L(\delta)$; hence
+$4G_NS(B)\le L(\delta)$.
+\end{proposition}
+
+\begin{proof}
+(a) Each $m_i$ is an extremal curve on $\sigma_*\in\mathcal S(C')$, so $L(\kappa_i)\le\ell^{\rm ren}(m_i)$ by Lemma~\ref{lem:P}; hence
+$\sum_iL(\kappa_i)\le\sum_i\ell^{\rm ren}(m_i)=F(\sigma_*)=\sup F\le\sum_iL(\kappa_i)$, and all inequalities are equalities.
+(b) $m=1$. (c) Reduce $\delta$ (delete null-homotopic and repeated closed components); its components are simple and
+pairwise disjoint, an embedded multi-class of $M$. Let $\sigma_*$, $m_k$ be as in (JM). On $\bar\sigma_*\cong\bar\Sigma$ the
+$m_k$ are disjoint simple curves, componentwise homotopic (rel $C$ for arcs) to the components of an embedded
+representative $\delta^{\rm emb}$ bounding a region $W$ with $W\cap C=B$. By Epstein's theorem~\cite{Epstein1966} (see
+also Ref.~\cite{FarbMargalit2012}), pairwise disjoint, pairwise non-homotopic essential simple closed curves and arcs
+that are componentwise homotopic are ambient isotopic, rel $C$ for arcs; the isotopy carries $W$ to a region $R$ with
+frontier $\bigcup_km_k$ and $R\cap C=B$. So $(\sigma_*,\bigcup_km_k,R)$ is a candidate of length
+$\sum_k\ell^{\rm ren}(m_k)=\sum_kL(\delta_k)=L(\delta)$ by (a).
+\end{proof}
+
+\begin{remark}[Two false versions, repaired]\label{rem:false}
+Two natural strengthenings of (JM) are false already in vacuum, and the argument below is arranged to avoid them.
+(i)~\emph{Joint maximin for nested pairs whose lifts link.} The crossing inequality (Lemma~\ref{lem:X}) concerns a
+nested pair of chords $(a,d)$, $(b,c)$ of the universal cover. If some translate of one chord links the other, then on
+every admissible slice of $M$ the two classes have no disjoint representatives (linked lifts must cross), so no slice
+carries disjoint extremal minimisers of both, and in a rotating vacuum spacetime the two extremal geodesics need not meet
+at all; the additivity $\sup_\sigma[\ell_\sigma(\kappa_1)+\ell_\sigma(\kappa_2)]=L(\kappa_1)+L(\kappa_2)$ is then not available, and
+(JM) is not claimed for such pairs. A first version of the argument assumed joint maximin for every nested pair; the
+repair passes to a finite cover in which the pair is simple and non-linking (Lemma~\ref{lem:X}, step 2).
+(ii)~\emph{Single-class maximin for non-simple classes.} For a class without simple representative no minimiser is simple,
+and in a rotating vacuum spacetime its extremal geodesic need not lie on any admissible slice (two of its lifts have
+linked endpoints and would have to meet on a slice). Single-class maximin realised by an extremal curve is therefore not
+claimed for such classes. The repair defines the maximin quantities $D$, $\Theta$ below by suprema over slices of the
+universal and annular covers, where every chord class and the core class are simple, and identifies them with class
+maximin lengths only for classes that are simple in a finite cover (Lemma~\ref{lem:S}).
+\end{remark}
+
+% ===================================================================================================
+\section{HRT as a class-restricted maximin (Theorem H$'$)}\label{sec:Hprime}
+
+\begin{lemma}[Componentwise null projection]\label{lem:P}
+Assume (R1), (R4). Let $g$ be a complete spacelike extremal curve of $M'$, closed or with both ends on $C'$, lying on some
+$\sigma_0\in\mathcal S(C')$, and $\kappa=[g]$. Under the NEC, $\ell_\sigma(\kappa)\le\ell^{\rm ren}(g)$ for every achronal slice
+$\sigma$ anchored at $C'$; hence $L(\kappa)\le\ell^{\rm ren}(g)$.
+\end{lemma}
+
+\begin{proof}
+Let $H=1$ if $g$ is an arc and $H=\langle h\rangle$ if $g$ is closed in class $h$; let $\widehat M=\tilde M/H$ (globally hyperbolic
+with timelike boundary), $\hat g$ a lift of $g$ and $\hat\sigma_0,\hat\sigma$ the lifts of the slices. $\hat g$ is a properly embedded
+line (arc case) or an embedded closed curve (closed case, $\hat\sigma_0$ an annulus) separating $\bar{\hat\sigma}_0$ into two sides.
+Let $r\subset\bar{\hat\sigma}_0$ be the closure of one side; its part at infinity is an arc $C_L$ of the lifted boundary slice and
+its edge is $\hat g$. Both null expansions of the extremal $\hat g$ vanish; by the NEC and Raychaudhuri ($d\theta/d\lambda\le-\theta^2$
+for a one-dimensional cross-section, no shear in $2+1$) the outward null congruences from $\hat g$ have $\theta\le0$ until they
+leave the achronal boundary. This is the hypothesis of Wall's projection lemma~\cite{Wall2014}: the set
+$q:=\bar{\hat\sigma}\cap(J^+(D(r))\cup J^-(D(r)))$ is closed in $\bar{\hat\sigma}$, and its frontier lies on the outward null sheets of
+$\hat g$ and has $H^1$-measure $\le\ell(\hat g)$ (the induced metric on a null sheet is $\psi^2ds^2$ with $\psi\le1$; (R1)).
+(i) $q\cap\tilde C=C_L$: if a point $c$ of the complementary arc $C_R$ were in $J^\pm(D(r))$, extending the causal curve
+inextendibly through $D(r)$ would give a causal curve between $c\in\bar{\hat\sigma}_0$ and a point of $r\subset\bar{\hat\sigma}_0$,
+contradicting acausality. (ii) The frontier of $q$ separates $C_L$ from $C_R$ in $\bar{\hat\sigma}$. A closed set of finite
+$H^1$-measure separating the two boundary arcs of a closed disc (resp.\ the two ends of an annulus) contains a simple arc
+from one end of $\hat g$ to the other (resp.\ a simple closed curve generating $\pi_1$): a separating closed set contains a
+separating continuum (Janiszewski), and a continuum of finite length is arcwise connected. Projected to $M'$ that curve lies
+in $\kappa$ and has length $\le\ell(\hat g)$. Near the ends the null generators from points of $\hat g$ at $z\approx\eps$ move $z$ by
+$O(z^2)$ (R4), so the cutoff contributes $o(1)$.
+\end{proof}
+
+Wall's lemma is applied not to the homology region of a whole HRT configuration but to one side of a single component,
+in the cover in which that component is the whole edge. This makes the statement componentwise and class by class.
+
+\begin{lemma}[Mod-2 resolution on one slice]\label{lem:Q}
+For $\sigma\in\mathcal S(C)$ let $\min_\sigma(B)$ be the infimum of renormalised perimeters of closed sets $R\subset\bar\sigma$ (finite
+perimeter, closure of interior) with $R\cap C=B$. For every $\delta\in\Cut(B)$, $\min_\sigma(B)\le\ell_\sigma(\delta)$.
+\end{lemma}
+
+\begin{proof}
+Take near-minimising curves $\eta_k\subset\bar\sigma$ in the classes $\delta_k$ (they may cross each other and themselves). Let
+$\delta^{\rm emb}$ be an embedded representative on $\bar\sigma\cong\bar\Sigma$ with homology region $W$. A homotopy (rel endpoints,
+pushed off $C$ except at the endpoints) from $\delta^{\rm emb}_k$ to $\eta_k$ gives a mod-2 $2$-chain $H_k$ with
+$\partial H_k=\eta_k+\delta^{\rm emb}_k$ mod 2. The mod-2 flat chain $R:=W+\sum_kH_k$ is the indicator of a set of finite
+perimeter with $\partial R=\sum_k\eta_k+(\text{the part }B\text{ of }C)$ mod 2, so its perimeter is at most $\sum_k\ell(\eta_k)$, and
+$R\cap C=B$.
+\end{proof}
+
+\begin{proposition}[Sandwich]\label{prop:sandwich}
+Put $S_{\rm mm}(A):=\sup_\sigma\min_\sigma(A)$ and $S_L(A):=\inf_{c\in\Cut(A)}L(c)$. Without (JM), and given (R1), (R4),
+\[
+S_{\rm mm}(A)\le S_L(A)\le4G_NS(A).
+\]
+\end{proposition}
+
+\begin{proof}
+By Lemma~\ref{lem:Q}, $\min_\sigma(A)\le\ell_\sigma(c)$ for every $c$; take $\sup_\sigma$ and then $\inf_c$, using
+$\sup_\sigma\inf_c\le\inf_c\sup_\sigma$ and $\sup_\sigma\sum_k\le\sum_k\sup_\sigma$. For the second inequality let $(\sigma_A,\gamma,R)$ be
+any candidate with components $g_k$. On $\bar\sigma_A\cong\bar\Sigma$, $\gamma$ is an embedded multicurve bounding $R$ with $R\cap
+C=A$, so its class $c$, after deleting null-homotopic and repeated closed components (which only lowers the length), lies in
+$\Cut(A)$. Each $g_k$ lies on $\sigma_A$, so Lemma~\ref{lem:P} gives $L(c_k)\le\ell^{\rm ren}(g_k)$; sum and take the infimum
+over candidates.
+\end{proof}
+
+\begin{theorem}[Theorem H$'$]\label{thm:Hprime}
+Assume (JM), (R1), (R4). For every region $A$,
+\[
+4G_NS(A)=\inf_{c\in\Cut(A)}\sum_kL(c_k).
+\]
+If the infimum over candidates is attained by an HRT configuration, its class attains the infimum over $\Cut(A)$, and
+each of its components has the class maximin length of its class.
+\end{theorem}
+
+\begin{proof}
+``$\ge$'' is Proposition~\ref{prop:sandwich}; ``$\le$'' is Proposition~\ref{prop:JMcons}(c). For an HRT configuration with
+class $c_A$, $\sum_k\ell^{\rm ren}(g_k)=4G_NS(A)\le L(c_A)\le\sum_k\ell^{\rm ren}(g_k)$.
+\end{proof}
+
+\begin{remark}
+(1) The right-hand side classes of a contraction argument never have to be realised on a common slice:
+$4G_NS(B)\le L(\delta)$ holds for every cut class $\delta$, and $L$ is defined class by class. (2) Non-uniqueness of extremal
+curves in a class, and non-minimal extremal curves, are irrelevant: $L(\kappa)$ is the least length of an extremal curve of class
+$\kappa$ lying on an admissible slice. Unrestricted minimality among extremal curves is false: in the maximal extension of
+rotating BTZ the inner bifurcation circle $r=r_-$ is a closed extremal geodesic in the horizon class of length
+$2\pi r_-<2\pi r_+=L(h)$; it lies beyond the Cauchy horizon, on no slice of $\mathcal S(C)$. (3) Horizons play no role:
+classes are topological. (4) In vacuum every class has a unique extremal geodesic, $L(c)=\frac12[\ell_L(c)+\ell_R(c)]$, and
+Theorem~\ref{thm:Hprime} reproduces Theorem~\ref{thm:H} with the boundary slice held fixed. (5) A minimax statement of this
+form ($\inf_c\sum_k\sup_\sigma$) does not appear in the literature known to us; it is close in spirit to ``HRT $=$ maximin''.
+\end{remark}
+
+% ===================================================================================================
+\section{The measure $\nu$ on the ideal circle}\label{sec:nu}
+
+For distinct $x,y\in\tilde C$ let $\kappa_{x,y}$ be the arc class in $M$ of the projection of a path from $x$ to $y$ in the lift of
+a slice. Let $\mathcal S(\tilde C)$ be the acausal Cauchy slices of $\tilde{\Mbar}$ anchored at $\tilde C$ (\emph{not} required
+to be $\Gamma$-invariant), and for $1\ne h\in\Gamma$ let $\mathcal S_h$ be those of the annular cover $\tilde{\Mbar}/\langle h\rangle$.
+Put
+\[
+D(x,y):=\sup_{\tilde\sigma\in\mathcal S(\tilde C)}\ell_{\tilde\sigma}(x\to y),\qquad\Theta(h):=\sup_{\sigma\in\mathcal S_h}\ell_\sigma(\text{core class}).
+\]
+In the universal cover every arc is a single chord and in the annular cover the core class is simple. $D(\gamma x,\gamma y)=D(x,y)$
+for $\gamma\in\Gamma$.
+
+\begin{lemma}[Simple classes]\label{lem:S}
+Assume (JM), (R1), (R4). If $\kappa_{x,y}$ (resp.\ $[h]$) has a simple representative in some finite cover
+$\widehat M=\tilde M/\Gamma'$ of $M$ (possibly $M$ itself), then $D(x,y)=\hat L(\hat\kappa_{x,y})$ (resp.\
+$\Theta(h)=\hat L(\hat h)$), the class maximin length in that cover. Every class becomes simple in some finite cover
+(closed curves: Scott~\cite{Scott1978}; arcs: the residual-finiteness argument of Lemma~\ref{lem:X}), so $D$ and $\Theta$
+are finite.
+\end{lemma}
+
+\begin{proof}
+$\le$: a $\Gamma'$-invariant slice lifts to a slice of $\mathcal S(\tilde C)$ (resp.\ of $\mathcal S_h$ if $h\in\Gamma'$, which may be
+assumed for closed classes), and curves lift isometrically. $\ge$: the extremal curve $m$ of $\hat\kappa$ given by
+Proposition~\ref{prop:JMcons}(b) in $\widehat M$ lies on an acausal slice of $\widehat M$; its lift lies on an acausal slice of the
+universal (resp.\ annular) cover, and Lemma~\ref{lem:P} there gives $\ell_{\tilde\sigma}\le\ell^{\rm ren}(m)=\hat L(\hat\kappa)$ for every
+$\tilde\sigma$.
+\end{proof}
+
+Components of cut classes are simple in $M$, so for them $D$ and $\Theta$ are the class maximin lengths $L$ of
+Theorem~\ref{thm:Hprime}. In vacuum $D=\frac12(D_L+D_R)$ and $\Theta(h)=\frac12(\ell_L(h)+\ell_R(h))$ for all classes.
+
+\begin{lemma}[Crossing inequality: SSA on the universal cover]\label{lem:X}
+Assume (JM), (R1), (R4). For $a<b<c<d$ cyclically ordered in $\tilde C$,
+\[
+D(a,c)+D(b,d)\ge D(a,d)+D(b,c).
+\]
+\end{lemma}
+
+\begin{proof}
+(1) \emph{Cut and paste on one slice of the universal cover.} Fix $\tilde\sigma\in\mathcal S(\tilde C)$. Near-minimising curves from
+$a$ to $c$ and from $b$ to $d$ have linked endpoints, so they meet; exchanging tails at a common point gives curves $a\to d$,
+$b\to c$ of the same total length. Hence $\ell_{\tilde\sigma}(a\to d)+\ell_{\tilde\sigma}(b\to c)\le D(a,c)+D(b,d)$ for every $\tilde\sigma$.
+(2) \emph{A finite cover in which the nested pair is simple and non-linking.} Only finitely many $\gamma\in\Gamma\setminus\{1\}$
+make $\gamma(\tilde a\tilde d)$ or $\gamma(\tilde b\tilde c)$ link $\tilde a\tilde d$ or $\tilde b\tilde c$: all but finitely many translates of a
+chord with endpoints in $\Omega_0$ lie in arbitrarily small arcs around points of $\Lambda_0$, and cannot link a chord whose
+endpoints are at positive distance from $\Lambda_0$. Free groups are residually finite: take a finite-index normal
+$\Gamma'\lhd\Gamma$ avoiding these elements, and $\widehat M=\tilde M/\Gamma'$ (globally hyperbolic, NEC, compact Cauchy slices,
+finitely many boundaries). In $\widehat M$ the classes $\hat\kappa_{ad},\hat\kappa_{bc}$ are simple and mutually non-linking, an
+embedded multi-class.
+(3) By Proposition~\ref{prop:JMcons}(a) in $\widehat M$ and Lemma~\ref{lem:S}, the supremum over $\Gamma'$-invariant slices of
+$\ell(\hat\kappa_{ad})+\ell(\hat\kappa_{bc})$ is $\hat L(\hat\kappa_{ad})+\hat L(\hat\kappa_{bc})=D(a,d)+D(b,c)$. Invariant slices lift to
+slices of $\mathcal S(\tilde C)$, on which the lifted classes are the chords $a\to d$, $b\to c$, so the supremum in (1) is $\ge
+D(a,d)+D(b,c)$.
+\end{proof}
+
+This is strong subadditivity for the ``intervals'' $[a,c],[b,d],[b,c],[a,d]$ of the ideal circle of the universal cover,
+formulated on the quotient so that no maximin theory on the non-compact cover (infinitely many boundaries, a Cantor set of
+ends) is needed. The NEC enters through Lemma~\ref{lem:P}; without it the inequality fails (Sec.~\ref{sec:jacobi}).
+
+\begin{lemma}[Continuity]\label{lem:Ccont}
+Assume (JM), (R). $D$ is continuous on $\{(x,y)\in\tilde C^2:x\ne y\}$.
+\end{lemma}
+
+\begin{proof}
+Lower semicontinuity: $D=\sup_{\tilde\sigma}\ell_{\tilde\sigma}$, and each relevant $\ell_{\tilde\sigma}(x\to y)$ is continuous in the endpoints
+(R3). Upper semicontinuity: let $x_n\to x$ within a compact piece of a lifted boundary line. One finite cover $\widehat M$
+(Lemma~\ref{lem:X}, step 2, with a uniform finite set of bad elements) makes all $\kappa_{x_n,y}$ simple; let $m_n$ be the
+extremal curves of Proposition~\ref{prop:JMcons}(b) in $\widehat M$, $\ell^{\rm ren}(m_n)=D(x_n,y)$ (Lemma~\ref{lem:S}). By (R2) a
+subsequence converges to an extremal curve $m$ of class $\kappa_{x,y}$ with $\ell^{\rm ren}(m_n)\to\ell^{\rm ren}(m)$, lying on an admissible slice of
+$\widehat M$ (R2), and Lemma~\ref{lem:P} in the universal cover gives $D(x,y)\le\ell^{\rm ren}(m)=\lim D(x_n,y)$. (Under the
+compactness hypothesis (K) of Sec.~\ref{sec:JMsuff}, continuity holds without (JM) and (R2), Proposition~\ref{prop:E}.)
+\end{proof}
+
+\paragraph*{The measure.} For $x_1<x_2<y_1<y_2$ cyclically in $\tilde C$ put
+\begin{equation}\label{eq:nu}
+\nu([x_1,x_2)\times[y_1,y_2)):=\tfrac12\big[D(x_1,y_1)+D(x_2,y_2)-D(x_1,y_2)-D(x_2,y_1)\big]
+\end{equation}
+(diagonals minus sides). By Lemma~\ref{lem:X} this is $\ge0$; it is finitely additive on such rectangles (telescoping),
+$\Gamma$-invariant and symmetric in the two factors. Since $\tilde C$ is dense in $S^1$ and $D$ is continuous
+(Lemma~\ref{lem:Ccont}), the Lebesgue--Stieltjes construction gives a unique $\Gamma$-invariant Radon measure $\nu$ on $\G$, with
+\textbf{(N1)} $\nu(\{x\}\times J)=0$ for $x\in\tilde C$ and $J$ compact away from $x$ (continuity of $D$ at $x$). In vacuum, $D=\frac12(D_L+D_R)$
+and $\nu=\frac12(m_L+m_R)$ is the measure of Secs.~\ref{sec:crofton}, \ref{sec:graph} with $w_L=w_R=\frac12$; for
+$D(x,y)=2\log|x-y|+f(x)+f(y)$, $\nu$ is the Liouville measure $dx\,dy/(x-y)^2$.
+
+\begin{lemma}[Closed lengths from $d_n$]\label{lem:N3}
+Assume (JM), (R). Let $1\ne h\in\Gamma$ with attracting and repelling fixed points $h^\pm$, and $x,y\in\tilde C$ on the two sides
+of the axis $(h^-,h^+)$, oriented so that $h$ moves both sides from $h^-$ towards $h^+$. Put
+$d_n:=D(x,h^ny)-D(x,h^{n-1}y)$. Then $d_n$ is non-decreasing and $\lim_{n\to\infty}d_n=\Theta(h)$ ($=L(h)$ if $h$ is simple in
+$M$). Consequently, with $F_h:=[x,hx)\times(h^+,h^-)$ (a fundamental domain for $\langle h\rangle$ acting on pairs linking the
+axis), $\nu(F_h)=\Theta(h)$.
+\end{lemma}
+
+\begin{proof}
+\emph{Monotone.} For $n\ge2$ the points $x<hx<h^ny<h^{n-1}y$ are cyclically ordered, and by invariance
+$\nu([x,hx)\times[h^ny,h^{n-1}y))=\frac12[D(x,h^ny)+D(x,h^{n-2}y)-2D(x,h^{n-1}y)]=\frac12(d_n-d_{n-1})\ge0$. Hence $\lim
+d_n=\lim_nD(x,h^ny)/n$, possibly $+\infty$.
+\emph{Upper bound.} By subgroup separability of free groups (M.~Hall~\cite{Hall1949}: finitely generated subgroups are closed
+in the profinite topology) choose, for given $n$, a finite-index $\Gamma'\ni h$ avoiding the finitely many elements that make
+translates of the chord $(x,h^ny)$ link it (powers of $h$ do not: $h^k(x,h^ny)$ has both ends on one side of it). In
+$\widehat M=\tilde M/\Gamma'$, $\hat\kappa_{x,h^ny}$ is simple, so $D(x,h^ny)=\hat L(\hat\kappa_{x,h^ny})$ (Lemma~\ref{lem:S}). Fix a
+$\Gamma'$-invariant slice $\sigma$; let $\eta$ be a curve in the lift from $x$ to $y$, and $\tilde\beta$ the $h$-invariant lift of a
+closed curve of class $\hat h$ on $\sigma$. $\eta$ meets $\tilde\beta$ at some $p$ (linked ends). The path
+$\eta|_{[x,p]}\cdot\tilde\beta|_{[p,h^np]}\cdot h^n(\eta|_{[p,y]})$ runs from $x$ to $h^ny$ and has length $\ell(\eta)+n\,\ell(\beta)$, so
+$\ell_\sigma(\hat\kappa_{x,h^ny})\le\ell_\sigma(\hat\kappa_{x,y})+n\,\ell_\sigma(\hat h)\le D(x,y)+n\Theta(h)$ ($\sigma$ lifts to $\mathcal S(\tilde C)$
+and to $\mathcal S_h$). Taking $\sup_\sigma$, $D(x,h^ny)\le D(x,y)+n\Theta(h)$, so $\lim d_n\le\Theta(h)$.
+\emph{Lower bound.} Fix $\sigma\in\mathcal S_h$ (it lifts to $\mathcal S(\tilde C)$) and work in the annulus $\bar\sigma$, where $x,y$ project to
+opposite ends. An arc from $x$ to $h^ny$, closed up by a fixed arc from $y$ to $x$ (joined at the cutoff at bounded cost, (R3)),
+is a closed curve of winding number $n$. In a Riemannian annulus a closed curve of winding number $w$ has length $\ge|w|\ell_1$,
+$\ell_1$ the least length of a winding-one curve (induct on self-intersections: a simple closed curve has $|w|\le1$; splitting at
+a double point gives $w=w_1+w_2$ and $L=L_1+L_2\ge(|w_1|+|w_2|)\ell_1$; approximate rectifiable curves by generic ones). So
+$D(x,h^ny)\ge n\ell_1-C_\sigma$, and $\lim d_n\ge\ell_1=\ell_\sigma(\text{core})$ for every $\sigma\in\mathcal S_h$, i.e.\ $\ge\Theta(h)$.
+\emph{Measure.} $F_h$ is the increasing union over $N,M'\to\infty$ of $[x,hx)\times[h^Ny,h^{-M'}y)$, whose measure is, by invariance,
+$\frac12[(D(x,h^Ny)-D(x,h^{N-1}y))+(D(x,h^{-M'-1}y)-D(x,h^{-M'}y))]=\frac12(d_N+d'_{M'+1})$, with $d'$ the same sequence for $h^{-1}$.
+Both tend to $\Theta(h)=\Theta(h^{-1})$.
+\end{proof}
+
+So lengths of closed classes are $\nu$-masses, with the closed length \emph{defined} as the maximin length $\Theta(h)$, which for
+simple $h$ is the length of the minimal achronal closed extremal curve in the class; non-minimal closed extremal curves of the
+class are invisible to $D$. This is the step missing in Ref.~\cite{CzechDong2019} for multiply connected bulks~\cite{GGHH2025}.
+
+\begin{lemma}[Arcs with windows]\label{lem:N4}
+Assume (JM), (R). For $\tilde p\ne\tilde q$ in $\tilde C$ and windows $W_p=(p_-,p_+)\ni\tilde p$, $W_q=(q_-,q_+)\ni\tilde q$ in $\tilde C$,
+the pairs linking the chord $(\tilde p,\tilde q)$ with no endpoint in $W_p\cup W_q$ form the rectangle $R=(p_+,q_-)\times(q_+,p_-)$,
+and
+\[
+\nu(R)=\tfrac12[D(p_+,q_+)+D(p_-,q_-)-D(p_+,p_-)-D(q_+,q_-)],\qquad D(\tilde p,\tilde q)=\nu(R)+\lambda(W_p)+\lambda(W_q)+\eta(W),
+\]
+with $\lambda(W_p):=\frac12D(p_+,p_-)$ and $\eta(W)\to0$ as the windows shrink (Lemma~\ref{lem:Ccont}). $\lambda(W_p)$ depends only on
+the window and is the same for all $\Gamma$-translates.
+\end{lemma}
+
+\begin{proof}
+Eq.~\eqref{eq:nu} with $(x_1,x_2,y_1,y_2)=(p_+,q_-,q_+,p_-)$, and
+$\eta(W)=D(\tilde p,\tilde q)-\frac12[D(p_+,q_+)+D(p_-,q_-)]$.
+\end{proof}
+
+\begin{lemma}[No mass on the limit set]\label{lem:N2}
+Assume (JM), (R). $\nu$ gives measure zero to pairs with an endpoint in $\Lambda_0$. Hence $\nu$-a.e.\ pair has both endpoints in
+$\tilde C\setminus\Gamma\cdot\Pt$ and defines a test class, and Eq.~\eqref{eq:B0pre} holds $\nu$-a.e.
+\end{lemma}
+
+\begin{proof}
+(a) \emph{Fixed points.} Let $u=h^+$ and $J_0$ a fundamental interval for $h$ on one side. If $\nu(\{u\}\times J_0)=c>0$, then
+$\nu(\{u\}\times h^nJ_0)=c$ for all $n$. Take a chord $(x,y_0)$, $x,y_0\in\tilde C$ on opposite sides of the axis; the pairs $(u,v)$
+with $v$ in the infinitely many translates $h^nJ_0$ beyond $y_0$ (accumulating at $h^-$) all link the chord and avoid small
+windows at $x,y_0$, so they lie in the rectangle $R$ of Lemma~\ref{lem:N4}, which has finite measure. So $c=0$.
+(b) \emph{Other points.} Let $\{\kappa_j\}$ be a finite filling family of simple closed classes (none is needed for the disc; for
+the annulus $\Lambda_0=\{h^\pm\}$ and (a) suffices). The $X_0$-geodesic ray to a point of $\Lambda_0$ that is not a fixed point of a
+peripheral element crosses $\bigcup\kappa_j$ infinitely often (otherwise it ends in a complementary disc, which is impossible, or in a
+peripheral annulus, where it spirals onto the boundary of the convex core and ends at a peripheral fixed point), with distinct
+lifts at distinct crossings. Unfolding, $\int_{\G/\Gamma}\#(\text{lifts of }\kappa_j\text{ linked})\,d\bar\nu=\nu(F_{h_j})=\Theta(\kappa_j)<\infty$
+(Lemmas~\ref{lem:N3}, \ref{lem:S}), so the set where the integrand is infinite is null.
+\end{proof}
+
+\begin{corollary}[Lengths are $\nu$-intersections]\label{cor:I}
+Assume (JM), (R). Fix windows $W_p$ around one lift of each $p\in P$, extended equivariantly, and let $\G_W\subset\G$ be the pairs
+with no endpoint in any window. For a cut class $c$ put $i_W(\nu,c):=\int_{\G_W/\Gamma}i(\tau(\hat g),c)\,d\bar\nu(\hat g)$. Then
+\[
+L(c)=i_W(\nu,c)+\sum_{p\in P}e_p(c)\,\lambda(W_p)+{\rm err}_W(c),\qquad{\rm err}_W(c)\to0\ \text{as the windows shrink.}
+\]
+\end{corollary}
+
+\begin{proof}
+Unfold. A closed component contributes $\nu(F_h\cap\G_W)\uparrow\nu(F_h)=\Theta(h)=L(h)$ (Lemmas~\ref{lem:N3}, \ref{lem:S};
+components of cuts are simple; the removed pairs decrease to pairs with an endpoint in $\Gamma\cdot\Pt$, null by (N1)). An arc
+component contributes $\nu(R\cap\G_W)$; $\nu(R)-\nu(R\cap\G_W)$ is the measure of pairs in $R$ with an endpoint in another window,
+dominated by a fixed finite-measure rectangle and decreasing to a null set (N1), so it tends to $0$; then use Lemma~\ref{lem:N4}
+and $D=L$ on simple arcs (Lemma~\ref{lem:S}). By Lemma~\ref{lem:N2} the integrand is $i(\tau,c)$ a.e.
+\end{proof}
+
+% ===================================================================================================
+\section{Inequalities and the cone with matter}\label{sec:mattermain}
+
+\begin{theorem}[Theorem~4 of the Letter]\label{thm:M}
+Let $M$ be as in Sec.~\ref{sec:matter} and assume (JM) and (R). Let the parties be unions of elementary pieces of $C$
+(intervals and whole boundaries), and let $\sum_l\alpha_lS(A_l)\ge\sum_r\beta_rS(B_r)$ admit a contraction map (repeated terms
+allowed).
+\begin{enumerate}
+\item[(i)] If it is balanced at every marked point ($\Delta_p=0$ for all $p$ in Eq.~\eqref{eq:A2}; automatic for whole-boundary
+parties), it holds for the renormalised HRT entropies of Definition~\ref{def:HRTmatter}.
+\item[(ii)] Otherwise $\Delta_p\ge0$ for all $p$, with some $\Delta_p>0$, and for the regulated entropies
+$\sum_l\alpha_lS^\eps(A_l)-\sum_r\beta_rS^\eps(B_r)=\frac{1}{4G_N}\sum_p\Delta_p\log(1/\eps)+O(1)\to+\infty$.
+\item[(iii)] If all parties are whole boundaries, the HRT entropy vector lies in $\CN$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) Let $\eta>0$. By Theorem~\ref{thm:Hprime} choose $\gamma_l\in\Cut(A_l)$ with $L(\gamma_l)\le4G_NS(A_l)+\eta$. Lemma~\ref{lem:A}
+on $(X_0,P)$, a purely topological statement, gives $\delta_r\in\Cut(B_r)$ with
+$\sum_r\beta_ri(\tau,\delta_r)\le\sum_l\alpha_li(\tau,\gamma_l)$ for every test class $\tau$. Integrate over $\G_W/\Gamma$ against
+$\bar\nu\ge0$ (finite integrals by Corollary~\ref{cor:I}): $\sum_r\beta_ri_W(\nu,\delta_r)\le\sum_l\alpha_li_W(\nu,\gamma_l)$. By
+Corollary~\ref{cor:I} and $\Delta_p=0$ the window terms cancel point by point, so
+$\sum_l\alpha_lL(\gamma_l)-\sum_r\beta_rL(\delta_r)\ge{\rm err}_W\to0$; the left side does not depend on the windows, so it is $\ge0$.
+With $4G_NS(B_r)\le L(\delta_r)$ (Theorem~\ref{thm:Hprime}),
+$\sum_l\alpha_l4G_NS(A_l)+\eta\sum_l\alpha_l\ge\sum_r\beta_r4G_NS(B_r)$; let $\eta\to0$.
+(ii) $\Delta_p\ge0$ is Eq.~\eqref{eq:A2}. By (R4), $4G_NS^\eps(A)=4G_NS(A)+\sum_pb_p(A)\log(1/\eps)+o(1)$ with $b_p(A)=[p\in\partial A]$,
+and $\sum_l\alpha_lb_p(A_l)-\sum_r\beta_rb_p(B_r)=\Delta_p$; the renormalised combination is finite.
+(iii) Here $P=\emptyset$. By Lemma~\ref{lem:N2}, $\bar\nu$-a.e.\ pair is a test class, closed classes are $\bar\nu$-null, and classes
+homotopic into the boundary have $i\equiv0$ and are discarded. Every other test class $\tau$ is an arc crossing a peripheral
+closed geodesic $\beta$ at one of its ends, and $\bar\nu(\tau)\,i(\tau,\beta)\le\nu(F_\beta)=L(\beta)<\infty$ (Lemmas~\ref{lem:N3},
+\ref{lem:S}). So $\mu:=\sum_\tau\bar\nu(\tau)\,\tau$ is a countable positive combination of non-trivial arc test classes with finite
+coefficients, and $i(\mu,c)=L(c)$ for every closed multi-class (Corollary~\ref{cor:I} without windows). By
+Theorem~\ref{thm:Hprime}, $4G_NS(A)=\inf_ci(\mu,c)$. The proof of Theorem~\ref{thm:graph} (with $X_1=X_0$, $\mu'=\mu$, no endpoint
+edges) applies verbatim to such a combination (Remark~\ref{rem:vacuse}), except that the minimiser $c_A$ is replaced by a class with
+$i(\mu,c_A)\le4G_NS(A)+\eta$: the resulting graph has min-cuts between $4G_NS$ and $4G_NS+\eta$. Since $\CN$ is closed,
+$S\in\CN$.
+\end{proof}
+
+\begin{proposition}[Bell-pair decomposition with matter]\label{prop:bellmatter}
+Assume (JM) and (R), and exclude, as in the vacuum case, the disc with $|P|\le2$. For $p\in P$ fix a lift $\tilde p$ and let
+$a_-<\tilde p<a_+$ be the neighbouring points of $\Gamma\cdot\Pt$ on its lifted boundary line (circle, for the disc), and put
+\[
+\kappa_p:=\tfrac12\big[D(a_-,\tilde p)+D(\tilde p,a_+)-D(a_-,a_+)\big]\in\R .
+\]
+Let $\nu'$ be $\bar\nu$ restricted to test classes that are neither trivial nor among the $\tau_p$. Then $\nu'=\sum_\tau\nu'(\tau)\,\tau$ is
+a countable positive combination of arc test classes with finite coefficients, and for every cut class $c$
+\begin{equation}\label{eq:Rmatter}
+L(c)=i(\nu',c)+\sum_{p\in P}e_p(c)\,\kappa_p,\qquad i(\nu',c)<\infty .
+\end{equation}
+Consequently $4G_NS=G_\nu+\sum_p\kappa_p\,b_p$ with $G_\nu(A):=\inf_{c\in\Cut(A)}i(\nu',c)$, and $G_\nu\in\CN$. For every linear
+inequality $Q\ge0$ valid on $\CN$: $Q(4G_NS)=Q(G_\nu)+\sum_p\kappa_pQ(b_p)$ with $Q(G_\nu)\ge0$, $Q(b_p)\ge0$; if $Q$ is balanced at
+every entangling point, $Q(S)\ge0$; otherwise $4G_NQ(S^\eps)=Q(G_\nu)+\sum_p[\log(1/\eps)+\kappa_p]Q(b_p)+o(1)\to+\infty$.
+\end{proposition}
+
+\begin{proof}
+\emph{Coefficients.} By Lemma~\ref{lem:N2}, $\bar\nu$ is carried by test classes, and closed classes are null. A non-trivial arc class
+$\tau\notin\{\tau_p\}$ with end pieces $I,J$ in different components of $\Omega_0$ crosses a peripheral geodesic $\beta$, and
+$\bar\nu(\tau)\le\nu(F_\beta)=L(\beta)<\infty$ as in Theorem~\ref{thm:M}(iii). If $I,J$ lie in one component, the argument of
+Lemma~\ref{lem:mass}(ii) shows that their closures are disjoint subsets of $\tilde C$, so $\nu(I\times J)$ is given by
+Eq.~\eqref{eq:nu} and is finite.
+\emph{Endpoint classes.} By Lemma~\ref{lem:taup} (whose counting is topological), every pair in $\tau_p$ meets every cut $c$ exactly
+$e_p(c)$ times, and $\tilde\tau_p=(a_-,\tilde p)\times(\tilde p,a_+)$ is a fundamental set. With the windows of
+Corollary~\ref{cor:I}, $\tilde\tau_p\cap\G_W=[a_-^{+},p_-]\times[p_+,a_+^{-}]$, where $a_\pm^{\mp}$ are the inner edges of the windows at
+$a_\pm$ (endpoints are null by (N1)). By Eq.~\eqref{eq:nu},
+\[
+\nu(\tilde\tau_p\cap\G_W)+\lambda(W_p)=\tfrac12\big[D(a_-^+,p_+)+D(p_-,a_+^-)-D(a_-^+,a_+^-)\big]\longrightarrow\kappa_p
+\]
+as the windows shrink, by continuity of $D$ at the distinct pairs $(a_-,\tilde p),(\tilde p,a_+),(a_-,a_+)$
+(Lemma~\ref{lem:Ccont}). Note that $\lambda(W_p)=\frac12D(p_+,p_-)\to-\infty$ and $\nu(\tilde\tau_p\cap\G_W)\to+\infty$ separately.
+\emph{Identity.} Split $i_W(\nu,c)$ of Corollary~\ref{cor:I} into the $\tau_p$-part $\sum_pe_p(c)\,\nu(\tilde\tau_p\cap\G_W)$ and the rest
+$i'_W(c)$ (trivial classes contribute $0$). Then
+$L(c)=i'_W(c)+\sum_pe_p(c)[\nu(\tilde\tau_p\cap\G_W)+\lambda(W_p)]+{\rm err}_W(c)$. As the windows shrink, the bracket tends to
+$\kappa_p$, ${\rm err}_W\to0$, and $i'_W(c)\uparrow i(\nu',c)$ by monotone convergence (the sets $\G_W$ increase to the pairs with no
+endpoint in $\Gamma\cdot\Pt$, whose complement is null by (N1)). Hence $i(\nu',c)=L(c)-\sum_pe_p(c)\kappa_p$ is finite, which is
+Eq.~\eqref{eq:Rmatter}.
+\emph{Decomposition and cone.} By Theorem~\ref{thm:Hprime} and $e_p(c)=b_p(A)$ on $\Cut(A)$,
+$4G_NS(A)=\inf_c[i(\nu',c)+\sum_pb_p(A)\kappa_p]=G_\nu(A)+\sum_p\kappa_pb_p(A)$. The proof of Theorem~\ref{thm:graph} uses of $\mu'$ only
+that it is a countable positive combination of non-trivial arc test classes $\tau\notin\{\tau_p\}$ with finite coefficients, and of
+$X_1$ only Lemma~\ref{lem:mass} ($0<\mbar_1(\tau)<\infty$ for those classes); both hold for $\nu'$ on $X_0$. Run it with
+$\eta$-minimisers $c_A$ ($i(\nu',c_A)\le G_\nu(A)+\eta$): the cell graph has min-cuts $\ge G_\nu(A)$ (surgery step, unchanged) and
+$\le G_\nu(A)+\eta$. So $G_\nu$ is a limit of graph-model vectors and lies in $\CN$. The statements about $Q$ follow by linearity and
+(R4), as in Corollary~\ref{cor:cone}.
+\end{proof}
+
+\begin{remark}
+(1) Proposition~\ref{prop:bellmatter} contains Theorem~\ref{thm:M}(i),(ii) and extends it from contraction-map inequalities to every
+inequality valid on $\CN$, for interval parties. In vacuum it reduces to Corollary~\ref{cor:decomp} with the boundary slice fixed,
+the constants $-\frac12\log(d_p^Ld_p^R)$ of the horocyclic scheme being replaced by $\kappa_p$ in the Fefferman--Graham scheme. (2) Exactness of
+$S^\eps\in\CN$ at finite cutoff, as in Theorem~\ref{thm:HRTcone}(ii), is not claimed: with a Fefferman--Graham cutoff the
+regulated entropies carry $o(1)$ corrections, and $S^\eps=V^\eps+o(1)$ with $V^\eps=(G_\nu+\sum_p[\log(1/\eps)+\kappa_p]b_p)/4G_N\in\CN$ for
+small $\eps$. (3) What the proof uses: positivity of $\nu$ comes from SSA on the universal cover in class-restricted form
+(Lemma~\ref{lem:X}); the identities $L=i(\nu,\cdot)$ are elementary given positivity and Lemma~\ref{lem:N3}; the identification with
+HRT needs only Lemma~\ref{lem:P} and Proposition~\ref{prop:JMcons}(c). Pleated slices, a common slice for different HRT surfaces and
+uniqueness of extremal curves are not needed.
+\end{remark}
+
+% ===================================================================================================
+\section{Sufficient conditions for (JM), and its limits}\label{sec:JMsuff}
+
+Fix a Cauchy temporal function on $\Mbar$ adapted to the timelike boundary, $\Mbar\cong\R\times\bar\Sigma$ with $C=\{0\}\times\partial\bar\Sigma$
+(Ak\'e--Flores--S\'anchez~\cite{AkeFloresSanchez2021}, cited), and $g=-N^2dt^2+h_t(dx+\beta dt,dx+\beta dt)$. Achronal sets met once
+by each $t$-line are graphs $t=f(x)$. Let $\bar{\mathcal S}_*(C)$ be the achronal slices anchored at $C$ obeying the
+orthogonality bound $|f(z,\phi)-t_C(\phi)|\le C_0z^{1+\delta_0}$ in Fefferman--Graham coordinates (fixed $C_0,\delta_0>0$). This loses
+nothing: a slice boosted at an endpoint has $\ell^{\rm ren}=-\infty$ for arcs ending there, and once (JM) holds the supremum over any
+class between $\bar{\mathcal S}_*(C)$ and all anchored achronal slices is the same (Remark~\ref{rem:achronal}).
+
+\textbf{(K)} \emph{The closure in $\Mbar$ of the Wheeler--DeWitt set $W(C):=\Mbar\setminus(I^+(C)\cup I^-(C))$ is compact.}
+
+\begin{proposition}[Upper semicontinuity in the slice]\label{prop:U}
+If $\sigma_n\to\sigma$ uniformly (graphs $f_n\to f$) in $\bar{\mathcal S}_*(C)$, then $\limsup_n\ell_{\sigma_n}(\kappa)\le\ell_\sigma(\kappa)$ for every
+class; likewise for $F=\sum_i\ell_\sigma(\kappa_i)$ and, locally uniformly, for slices of covers.
+\end{proposition}
+
+\begin{proof}
+Let $\eta\subset\sigma$ be a competitor with spatial path $x(s)$ and project it vertically, $\eta_n(s)=(f_n(x(s)),x(s))\in\sigma_n$. With
+$w=(f\circ x)'$, $g(\eta',\eta')=Q(s,t,w):=h_t(x'+\beta w,x'+\beta w)-N^2w^2$ is a quadratic polynomial in $w$ with leading coefficient
+$h(\beta,\beta)-N^2<0$, hence concave in $w$, and $\ge0$ a.e.\ on achronal slices. So $\Psi=\sqrt Q$ ($-\infty$ where $Q<0$) is concave in $w$,
+upper semicontinuous in $(t,w)$ and bounded above by $C|x'|$. Since $f_n\circ x\to f\circ x$ uniformly with $(f_n\circ x)'\rightharpoonup^*(f\circ x)'$
+in $L^\infty$, Ioffe's lower-semicontinuity theorem for normal convex integrands~\cite{Ioffe1977}, applied to $-\Psi$, gives
+$\limsup\int\Psi(s,f_n\circ x,(f_n\circ x)')\le\int\Psi(s,f\circ x,(f\circ x)')$ on $\{z\ge\delta\}$. On $\{z<\delta\}$ the orthogonality bound
+and the Fefferman--Graham asymptotics give tails $\log(\delta/\eps)+O(\delta^{\delta_0})$ uniformly in $n$ for radial competitors, and on
+$\sigma$ a competitor can be made radial near its ends at cost $O(\delta^{\delta_0})$. Take $\eta$ near-optimal and $\delta\to0$.
+\end{proof}
+
+The opposite semicontinuity is false: in Minkowski space $\R^{2,1}$ let $\sigma=\{t=0\}$ and $\sigma_n=\{t=f_n(x)\}$ with $f_n$ a zigzag of
+slope $\pm0.99$ and amplitude $1/n$. Then $\sigma_n\to\sigma$ uniformly, but the curve $y=\text{const}$ on $\sigma_n$ has length
+$\sqrt{1-0.99^2}\approx0.14$ per unit $x$, so the distance on $\sigma_n$ between the points over $(0,0)$ and $(1,0)$ is $\le0.14$, while on
+$\sigma$ it is $1$. Length is lower semicontinuous only on a fixed spacelike slice, which is why maximisation is easy and extremality
+is hard.
+
+\begin{proposition}[Existence of maximising slices]\label{prop:E}
+Under (K), $\bar{\mathcal S}_*(C)$ is compact in $C^0$ (Arzel\`a--Ascoli: uniformly Lipschitz graphs over the compact $\bar\Sigma$; uniform
+limits of achronal graphs are achronal since $I^\pm$ are open; the orthogonality bound is closed), so every upper semicontinuous
+functional ($\ell_\sigma(\kappa)$, $\sum_i\ell_\sigma(\kappa_i)$, $\min_\sigma(A)$) attains its supremum (Proposition~\ref{prop:U}). Moreover $L(\kappa)<\infty$
+for every class, and $D$ is continuous, without (JM) or (R2): a curve on an achronal slice is no longer than its spatial path,
+bounded on the compact set; for continuity, take near-optimal slices for $D(x_n,y)$, extract a locally uniformly convergent
+subsequence, join at the cutoff, and apply Proposition~\ref{prop:U}.
+\end{proposition}
+
+\textbf{(Reg)} \emph{For an embedded multi-class $\{\kappa_i\}$, some maximiser $\sigma_*$ of $F$ over $\bar{\mathcal S}_*(C)$ is uniformly spacelike and
+Lipschitz, and $C^2$ on an open neighbourhood $U$ of $K:=\bigcup_i\bigcup\mathcal M_i$, where $\mathcal M_i$ is the set of
+$\ell_{\sigma_*}$-minimisers in $\kappa_i$.}
+
+\begin{proposition}[Proposition W2: (JM) from compactness and regularity]\label{prop:W2}
+Under (K) and (Reg), for each $i$ some $m_i\in\mathcal M_i$ is a complete extremal curve of $M$; the $m_i$ are simple and pairwise disjoint,
+and $\sigma_*$ is acausal. Hence (JM) holds for $\{\kappa_i\}$.
+\end{proposition}
+
+\begin{proof}
+(1) $\sigma_*$ is uniformly spacelike Lipschitz, so $(\sigma_*,d_{\sigma_*})$ is a compact length space after the cutoff; minimisers exist and
+near-minimising sequences subconverge uniformly, with convergence of length, to minimisers. In $U$ minimisers are $C^2$ geodesics
+of the $C^2$ metric of $\sigma_*$, and $\mathcal M_i$ is compact in $C^1$ there.
+(2) \emph{No transversal crossings.} Two minimisers, or a minimiser and a deck translate of a minimiser of the same or another
+$\kappa_j$, cannot cross transversally: their lifts have non-linking endpoints (simple, non-linking classes), so a transversal crossing
+comes with a second one; exchanging the arcs between them gives two curves with the same endpoints, hence the same classes and the
+same total length, with corners, and cutting a corner shortens one of them below the minimum (with one crossing and common
+endpoints, exchange at that point). So two minimisers through $p\in U$ are tangent at $p$ and coincide near $p$ (geodesic ODE on a
+$C^2$ surface). Therefore $h(p):=\langle H_{\mathfrak m}(p),n(p)\rangle$, the curvature vector of any minimiser $\mathfrak m\ni p$ paired with the
+unit normal $n$ of $\sigma_*$, is a well-defined continuous function on $K$ (its component tangent to $\sigma_*$ vanishes).
+(3) \emph{Danskin.} For $\varphi\in C^2_c(U\setminus C)$ let $\sigma_t$ be $\sigma_*$ pushed along $t\varphi n$ (in $\bar{\mathcal S}_*$ for small $|t|$),
+and $A_\varphi(\mathfrak m):=-\int_{\mathfrak m}h\varphi\,ds$. Then $\frac{d}{dt}|_{0^+}\ell_{\sigma_t}(\kappa_i)=\min_{\mathfrak m\in\mathcal M_i}A_\varphi(\mathfrak m)$: the
+upper bound by pushing each $\mathfrak m$; the lower bound by pulling back near-minimisers $c_t$ by the flow,
+$\ell_{\sigma_t}(\Psi_tc)=\ell_{\sigma_*}(c)+tA_\varphi(c)+O(t^2)$ uniformly for curves of bounded length, with $c_t\to\mathfrak m\in\mathcal M_i$ and
+$c_t'\to\mathfrak m'$ in $L^1$ on ${\rm supp}\,\varphi$ by (1).
+(4) Maximality of $\sigma_*$ gives $\sum_i\min_{\mathfrak m_i\in\mathcal M_i}A_\varphi(\mathfrak m_i)\le0$ for every $\varphi$.
+(5) \emph{Minimax.} $(\varphi,(\mu_i))\mapsto\sum_i\int A_\varphi\,d\mu_i$ is bilinear, continuous in $\mu\in\prod_iP(\mathcal M_i)$ (compact convex,
+weak-$*$) and in $\varphi$ in the convex set $C^2_c(U\setminus C)$. Sion's theorem~\cite{Sion1958} gives
+$\min_\mu\sup_\varphi\sum_i\int A_\varphi d\mu_i=\sup_\varphi\sum_i\min_{\mathfrak m_i}A_\varphi(\mathfrak m_i)\le0$; linearity in $\varphi$ makes the left supremum
+$0$ or $+\infty$, so some $\mu$ has $\sum_i\int A_\varphi\,d\mu_i=0$ for all $\varphi$.
+(6) \emph{The measure argument (this is where two dimensions are used).} Let $\lambda:=\sum_i\int H^1\llcorner\mathfrak m\,d\mu_i(\mathfrak m)$, a Radon
+measure carried by $K$. By (2), $\sum_i\int A_\varphi d\mu_i=-\int h\varphi\,d\lambda$, so $h=0$ $\lambda$-a.e.; hence for each $i$ and $\mu_i$-a.e.\ $\mathfrak m$,
+$h=0$ $H^1$-a.e.\ on $\mathfrak m$, so $h\equiv0$ on $\mathfrak m$ by continuity: $\mathfrak m$ is a spacetime geodesic. Each $\mu_i$ is a probability measure,
+so such an $m_i$ exists.
+(7) Distinct classes give distinct geodesics of $\sigma_*$, which by (2) cannot touch without coinciding: disjoint. A self-crossing of
+a minimiser in a simple class is excluded by the same exchange.
+(8) \emph{Acausal.} If $p,q\in\sigma_*$ were causally related, achronality forces $q\in J^+(p)\setminus I^+(p)$, and every point of the
+connecting null geodesic lies in $J^+(\sigma_*)\setminus I^+(\sigma_*)$ and in $J^-(\sigma_*)\setminus I^-(\sigma_*)$, hence in $\sigma_*$; but a null
+geodesic cannot lie in the spacelike $\sigma_*$. At $C$ the orthogonality bound makes the compactified slice $C^1$ and spacelike in the
+conformal metric. So $\sigma_*\in\mathcal S(C)$, and by Lemma~\ref{lem:P}, $F(\sigma)\le\sum_i\ell^{\rm ren}(m_i)=F(\sigma_*)$ for every
+$\sigma\in\mathcal S(C)$: $\sigma_*$ maximises $F$ over $\mathcal S(C)$.
+\end{proof}
+
+Wall's Theorem~12 and Marolf--Wall--Wang assert stability when the maximin slice is smooth and spacelike. Proposition~\ref{prop:W2} is
+a self-contained version for curves which also handles a continuum of minimisers (the measure $\lambda$: minimisers are curves on a
+surface and cannot cross, so their curvatures cannot cancel on average) and several classes at once. It does not remove the gap; it
+locates it in (Reg). Nothing known guarantees a maximiser that is smooth and spacelike near its minimisers: maximisers form a large
+family (any modification away from the minimisers that creates no short cut is again a maximiser), uniform limits of smooth slices
+can acquire null pieces exactly where lengths are maximised (the zigzag above), and on a null piece the first variation in step (3)
+is undefined.
+
+\paragraph*{(K) fails generically for NEC wormholes.} (K) holds for horizonless spacetimes, which by topological
+censorship~\cite{GSWW1999} have simply connected domains of outer communication, i.e.\ disc slices in $2+1$. For multiply connected
+NEC spacetimes it fails. Already for eternal BTZ with $t_L=t_R=0$, $W(C)$ is the Penrose diamond, whose top and bottom vertices lie on
+the singularity (marginal failure). With a thin null shell from the right boundary at $v_0<0$, masses $M_1\to M_2$, and
+$C=\{t_L=t_R=0\}$, the top vertex of $W(C)$ is where the right ray $v=0$ meets the left ray from $t_L=0$, which in the future interior
+obeys $dr/dv=(r^2-M(v))/2$. For $M\equiv M_1$ it reaches $r=0$ exactly at $v=0$; for $v>v_0$ the right-hand side is pointwise smaller
+iff $M_2>M_1$. By ODE comparison, \emph{under the NEC the left ray reaches $r=0$ at some $v_*<0$ and $W(C)$ meets the singularity along an
+interval}; under NEC violation the vertex lies in the interior. Numerically (\texttt{wdw\_singularity.py}), $v_0=-1$:
+$M_2=1.5\Rightarrow v_*=-0.352$, $1.1\Rightarrow-0.098$; $M_2=0.9\Rightarrow v_*=+0.122$, $0.5\Rightarrow+1.21$. In the case the theorem is about,
+existence of maximising slices therefore needs a barrier near the singularity; Wall's Kasner argument (his Theorem~11) requires the
+minimal area to vanish there, which for curves needs both Kasner exponents positive and fails for arc classes at BTZ-type
+degenerations. Existence is thus proved here only under (K), and is otherwise as open as in Refs.~\cite{Wall2014,MarolfWallWang2019}.
+
+\paragraph*{Focusing alone cannot replace maximin.} Every focusing argument (Wall's projection, Lemma~\ref{lem:P}, the causal-shadow
+theorem of Ref.~\cite{HHLR2014}) takes an extremal curve and produces, on another slice, a curve that is no longer: it gives upper
+bounds on $\ell_\sigma$ and lower bounds on extremal lengths. The two places where the theorem needs more are of the opposite type:
+$4G_NS(B)\le L(\delta)$ asks for an extremal configuration no longer than a supremum (an existence statement), and the crossing
+inequality asks for an upper bound on $D(a,d)+D(b,c)$, which focusing applied to the geodesics of $ac$ and $bd$ does not provide. Some
+variational existence input is unavoidable; (JM) is the minimal one used here.
+
+% ===================================================================================================
+\section{Local crossing positivity from the NEC, and its necessity}\label{sec:jacobi}
+
+Let $m$ be a complete spacelike extremal curve with unit tangent $\tau$ and arclength $s\in\R$, and $k,l$ a \emph{parallel} frame of
+future-directed null normals with $\langle k,l\rangle=-1$ (it exists since Levi-Civita transport preserves the normal bundle of a
+geodesic), $k$ pointing spatially to one side of $m$ and $l$ to the other. Write a normal Jacobi field ($J''=-R(J,\tau)\tau$) as
+$J=\alpha k+\beta l$. In three dimensions, with $\Lambda=-1$ and $8\pi G=1$,
+\[
+\langle R(l,\tau)\tau,l\rangle=R_{ll},\qquad\langle R(k,\tau)\tau,k\rangle=R_{kk},\qquad\rho:=\langle R(k,\tau)\tau,l\rangle=1-T(k,l),
+\]
+so $-R(k,\tau)\tau=\rho k+R_{kk}l$, $-R(l,\tau)\tau=R_{ll}k+\rho l$, and the Jacobi equation is the $2\times2$ system
+\begin{equation}\label{eq:jacobi}
+\alpha''=\rho\alpha+R_{ll}\beta,\qquad\beta''=R_{kk}\alpha+\rho\beta .
+\end{equation}
+With $p:=-\alpha$, $q:=\beta$ it reads $\mathcal L(p,q):=(-p''+\rho p-R_{ll}q,\,-q''+\rho q-R_{kk}p)=0$. \emph{Under the NEC the off-diagonal
+couplings $-R_{ll},-R_{kk}$ are $\le0$: the system is cooperative.} In vacuum it decouples, $\rho=1$. (The identities were also checked
+numerically, \texttt{check\_jacobi\_identities.py}.)
+
+\textbf{(ND)} $\mathcal L$ admits a strict positive supersolution on $\R$: $\phi=(\phi_1,\phi_2)$, $\phi_i\ge c>0$, $\mathcal L\phi\ge c\phi$. A sufficient
+condition is $T(k,l)+\max(T(k,k),T(l,l))\le1-c$ along $m$ (take $\phi=(1,1)$); it holds in vacuum and for weak matter.
+
+\begin{proposition}[Proposition J: local crossing positivity]\label{prop:J}
+Assume the NEC and Fefferman--Graham falloff. Let $(x,y)\mapsto m_{xy}$ be a $C^2$ family of extremal curves on an open set $U$ of pairs of
+boundary points with $D=\ell^{\rm ren}(m_{xy})$ on $U$, each satisfying (ND). For boundary null directions at the endpoints labelled by
+the frame ($k$-type, $l$-type; first index at $x$, second at $y$),
+\[
+D_{ll}\le0,\qquad D_{kk}\le0,\qquad D_{lk}>0,\qquad D_{kl}>0,
+\]
+with $D_{ll}=D_{kk}=0$ in vacuum. Hence along any spacelike boundary curves through $x$ and $y$ (tangent $a\,l-b\,k$ at $x$, $a'k-b'l$ at
+$y$, $a,b,a',b'>0$) the crossing density $\partial_s\partial_tD=aa'D_{lk}-ab'D_{ll}-ba'D_{kk}+bb'D_{kl}$ is $>0$: $\nu|_U>0$. No maximin hypothesis
+is used.
+\end{proposition}
+
+\begin{proof}
+Near the ends ($s\to\pm\infty$) Fefferman--Graham falloff gives $\rho\to1$, $R_{kk},R_{ll}\to0$, so solutions behave as $c_\pm e^{\pm s}$. Moving
+$x$ along an $l$-type (resp.\ $k$-type) boundary null vector gives the Jacobi field $J_x$ whose growing mode at $-\infty$ is a positive
+multiple of $l$ (resp.\ $k$) and which has no growing mode at $+\infty$; it exists and is unique by (ND). The mixed second derivative of
+the renormalised length is the Wronskian $W(J_x,J_y)=\langle J_x',J_y\rangle-\langle J_x,J_y'\rangle$, constant along $m$ since $R(\cdot,\tau)\tau$ is
+self-adjoint; evaluated at $+\infty$ it pairs the decaying coefficients $(c_p,c_q)$ of $J_x$ with the growing coefficient of $J_y$, giving
+$D_{\cdot k}=\kappa_0c_q$ and $D_{\cdot l}=-\kappa_0c_p$ with a universal $\kappa_0>0$ (fixed by the vacuum value $D=\log\Delta u+\log\Delta v$). For
+$l$-type data, $(p,q)\to(0,+)$ in the growing mode at $-\infty$.
+\emph{Maximum principle.} Let $w=(w_1,w_2)$ satisfy $\mathcal Lw\ge0$ on $[-S,S]$ with $w\ge0$ at $\pm S$. If $\min_i\min w_i/\phi_i=-t<0$, attained
+at an interior point $s_0$ for $i=1$ say, then $v:=w+t\phi\ge0$, $v_1(s_0)=0$, $v_1''(s_0)\ge0$, and
+$\mathcal L_1v(s_0)=-v_1''(s_0)-R_{ll}v_2(s_0)\le0$, contradicting $\mathcal L_1v\ge tc\phi_1>0$. So $w\ge0$ (this is the elementary case of the
+maximum principle for cooperative systems~\cite{Sweers1992}). Apply it to $w=(p,q)+\delta_S\phi$ with $\delta_S:=c^{-1}\max(|p(\pm S)|,|q(S)|)$,
+which tends to $0$ since $J_x$ decays at $+\infty$ and $p$ has no growing mode at $-\infty$, while $q(-S)\to+\infty$; letting $S\to\infty$
+gives $p,q\ge0$ on $\R$, hence $c_p,c_q\ge0$, and $c_q>0$ by the strong maximum principle. So $D_{ll}\le0\le D_{lk}$; $k$-type data flip the
+signs of $(p,q)$ and give $D_{kk}\le0\le D_{kl}$. In vacuum $p\equiv0$.
+\end{proof}
+
+$D_{ll}\le0$ is boundary SSA for null-deformed intervals, and the cooperative coupling is the linearisation of entanglement wedge nesting;
+the first-order-in-matter version (entanglement density proportional to integrated $T_{kk}$) is in Ref.~\cite{BHRT2015}.
+
+\paragraph*{What Proposition~\ref{prop:J} does not give globally.} Where two branches of extremal curves compete, $D=\min(D_1,D_2)$ and $\nu$
+acquires the singular part $-\partial_xg\,\partial_yg\,\delta_{\{g=0\}}$, $g:=D_1-D_2$, which is $\ge0$ iff $\partial_xg\,\partial_yg\le0$ on the tie
+locus (the dominant branch switches in an SSA-compatible direction). Statically this follows from cut-and-paste; covariantly it is implied
+by joint maximin and we know no local proof. Moreover $D=\ell^{\rm ren}(m_{xy})$ itself needs single-class maximin. So
+Proposition~\ref{prop:J} replaces (JM) only together with single-class maximin, (ND) and the tie condition, which are not more standard.
+Its value is a maximin-free proof of local positivity that shows exactly where the NEC enters (the couplings $R_{kk},R_{ll}$), and,
+with the numerics of Sec.~\ref{sec:numerics}, a demonstration that the NEC is necessary.
+
 % ===================================================================================================
 \section{Numerical tests and reproducibility}\label{sec:numerics}
 
