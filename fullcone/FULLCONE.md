@@ -310,3 +310,76 @@ explicit cell graph of §3 (arrangement of the minimisers in the Klein model of 
 on one generic chord per class). All three agree to rounding; all 372/20/7 facets hold for `F^ε` and for `G`
 (note `G` must also satisfy the **unbalanced** facets SA/Araki–Lieb, which is a non-trivial check since
 `G` has no divergent terms).
+
+*Multiply connected checks of Proposition 1 itself (`cylinder_identity.py`).* Cylinder
+`H²/⟨z ↦ e^ℓ z⟩`, 2–5 marked points on one boundary, random horoball normalisations; for single arcs
+`(x_i, λ^m x_k)` winding `m ∈ {0,1,2}` times, `i(m̄', c)` computed as the explicit sum over test classes
+(pairs of lifted pieces, log cross-ratios, plus the classes running to the other funnel), truncated at
+40 periods (largest truncated mass `< 10⁻¹⁶`): 181 cases, max `|ℓ^ε(c) − i(m̄',c) − Σ_p e_p log(1/(ε d_p))|
+= 5.7·10⁻¹⁴`. Core geodesic: `Σ_τ m(τ) i(τ, core) = ℓ` to `4·10⁻¹⁶` (Crofton sanity check).
+
+---
+
+## 7. Gravity: Theorem 3'' (HRT, arbitrary parties) and the cone equality
+
+### 7.1 Theorem 3'' [proved, given Theorem H as in PROOFS §6 (acausal-slice definition)]
+
+Let `M` be a vacuum 2+1 spacetime of the class of PROOFS §6.1 (any topology with funnel ends; rotation
+allowed), parties finite unions of intervals of one acausal boundary Cauchy slice and of whole boundaries,
+`S^ε` the HRT entropy of PROOFS §6.3. By Theorem H, `4G_N S^ε = F^ε` with `k = 2`, `w_L = w_R = ½`. Then:
+
+* `4G_N S^ε = G + Σ_p t_p(ε) b_p` exactly, with `G` the min-cut vector of a finite graph and
+  `t_p(ε) = log(1/ε) − ½ log(d_p^L d_p^R)`: **the regulated HRT vector is a graph-model vector plus one Bell
+  pair across each entangling point, of strength `(1/4G_N) t_p(ε)`** (`= (c/6) log(1/ε) + O(1)`).
+* For every `ε` below an explicit threshold, `S^ε ∈ C_N` (the RT holographic entropy cone).
+* Every linear inequality valid on `C_N` holds for `S^ε` at every `ε ≤ ε_0`: with equality of the slack to
+  the `ε`-independent number `Q(G)/4G_N ≥ 0` if it is balanced at every endpoint, and with slack
+  `→ +∞` otherwise. **No contraction map, and hence no completeness claim about contraction maps
+  (Bao–Furuya–Naskar), is used.** This removes OPEN_GAPS G4 for vacuum 2+1, and item 19 of G6a.
+
+The caveats of Theorem H are inherited unchanged (acausal, possibly non-smooth, asymptotically lightlike
+homology slices when the regions have endpoints; smooth slices only for whole-boundary parties).
+
+### 7.2 Cone equality [proved mod Bao et al. arXiv:1505.07839 §3.1 (entropy-preserving graph moves), Lemma 4, Theorem 5, Proposition 7]
+
+Let `𝓗_N` be the set of vectors `4G_N S` over all spacetimes of the class above (any topology, any rotation),
+all party assignments with `N` parties, and (for intervals) all cut-offs `ε ≤ ε_1(M)`. Then
+
+`cl(R_{>0} · 𝓗_N) = C_N`, and already `cl(R_{>0} · 𝓗_N^{static, whole boundaries}) = C_N`.
+
+*⊆:* Theorem 3'' (and `C_N` is a closed cone). *⊇:* Bao et al. Lemma 4 (read in full, §3.2): for a graph
+model with positive weights, trivalent bulk vertices and each boundary colour on a single degree-one vertex
+(any graph can be brought to this form by their §3.1 moves without changing entropies), glue hyperbolic
+pairs of pants and half-collars with gluing geodesics of length `4G_N w(e)`; for curvature sufficiently
+negative (equivalently, at curvature `−1`, after scaling all weights by a small `λ > 0`) the RT entropies of
+the boundary components equal the min-cuts. The surface (with the half-collars continued to funnels) is
+`X = H²/Γ`, Γ convex cocompact, and the time-symmetric vacuum spacetime with `X_L = X_R = X` has, by
+Theorem H (or directly, since it is static), `4G_N S = λ·(graph vector)`. Graph vectors of connected graphs
+are dense in `C_N` (`C_N` is the set of graph vectors, Bao et al. Theorem 5/Prop. 7; a disconnected graph is
+the limit of connected ones joined by edges of weight `→ 0`). Hence `C_N ⊆ cl(R_{>0} 𝓗_N^{static})`.
+
+Remarks. (i) The equality is of *closed cones of rays*; with `G_N` fixed only small entropy vectors of a ray
+are realised by the Bao et al. construction (lengths `4G_N λ w(e)` must be short). (ii) The extreme rays of
+`C_N` are in particular realised (up to scale) by static multiboundary wormholes, as Bao et al. state
+(their §2.2 for `N ≤ 4`, Lemma 4 in general). (iii) Corollary of Theorem 3* + Lemma 4: **for whole-boundary
+parties the HRT entropy vector of any rotating vacuum wormhole is, up to a positive factor, the RT vector of
+some static multiboundary wormhole with `N+1` boundaries** [proved mod Bao et al. Lemma 4] — rotation does
+not enlarge the set of entropy rays.
+
+---
+
+## 8. What changes in the draft (recommendations; no existing file was edited)
+
+1. PROOFS §5.4: replace "NOT proved" by Proposition 1 + Corollary 2 + Theorem 3* (or the R1 fill of §4).
+   Theorem 3 and Theorem 3' then hold for arbitrary parties, in the strong form "`F^ε ∈ C_N` for small `ε`".
+2. PROOFS §3, Lemma B: keep (it is used nowhere else once Theorem 3* is adopted), or replace by
+   Proposition 1, which is exact and simpler; Lemma B's `κ = 1 − log 2` is recovered as a corollary.
+3. Theorem 1/Theorem 2: can be presented as corollaries of Theorem 3* ("virtual static metric" form, §5).
+   The contraction-map statement should in any case say "admits a contraction map after splitting
+   repeated RHS terms", because one `C_5` facet has no weighted contraction map (§6; Avis–HC eq. (4.19)).
+4. OPEN_GAPS G4: resolved for this class (no reliance on contraction-map completeness). G6a item 19:
+   resolved. MANUSCRIPT §5/§10: "Theorem 3 for regions with endpoints: not proved" → proved.
+5. Cite MG–T arXiv:2605.04031 (Corollary B, eq. (8.4); BIPP21 §4) for the current ⇒ pseudo-metric step and
+   state that their Theorem A is for closed surfaces and is not used. Cite Bao et al. Lemma 4 for the cone
+   equality, Avis–Hernández-Cuenca for the `C_5` facet list.
+6. Do not claim more than is proved: the HRT statements inherit Theorem H's slice caveats.

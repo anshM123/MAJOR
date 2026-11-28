@@ -58,11 +58,17 @@ class Surface:
         arcs.append((iv[3][1], iv[0][0], iv[3][2], iv[0][2]))   # through infinity
         return arcs
 
-def random_surface(rng, topo, jitter=None):
+HARDMODE = os.environ.get("FC_HARD", "0")      # "1": thin metric 1 / fat metric 2; "2": wide independent ranges
+HARD = HARDMODE in ("1", "2")
+
+def random_surface(rng, topo, jitter=None, kind=None):
     """topo 'pants': order a A b B ; 'torus': a b A B. returns discs dict."""
     names = ['a', 'A', 'b', 'B'] if topo == 'pants' else ['a', 'b', 'A', 'B']
     while True:
-        gaps = rng.uniform(0.1, 0.6, size=4); rad = rng.uniform(0.3, 0.9, size=4)
+        if kind == 'thin': gaps = rng.uniform(0.04, 0.15, size=4); rad = rng.uniform(0.7, 1.0, size=4)
+        elif kind == 'fat': gaps = rng.uniform(0.4, 0.8, size=4); rad = rng.uniform(0.25, 0.5, size=4)
+        elif kind == 'wide': gaps = np.exp(rng.uniform(np.log(0.03), np.log(0.8), size=4)); rad = rng.uniform(0.25, 1.0, size=4)
+        else: gaps = rng.uniform(0.05, 0.6, size=4); rad = rng.uniform(0.3, 1.0, size=4)
         x = 0.0; discs = {}
         for nm, gp, rr in zip(names, gaps, rad):
             x += gp + rr; discs[nm] = (x, rr); x += rr
@@ -102,12 +108,12 @@ def linked(a, b, c, d, tol=1e-9):
 
 class Config:
     def __init__(self, rng, topo, kmet, N, nmark, L_ARC=3, L_CL=3, L_CHK=8):
-        base = random_surface(rng, topo)
+        base = random_surface(rng, topo, kind={'1': 'thin', '2': 'wide'}.get(HARDMODE))
         self.mets = []
         for j in range(kmet):
             if j == 0: discs = base
             else:   # independent geometry with the same combinatorics
-                discs = random_surface(rng, topo)
+                discs = random_surface(rng, topo, kind={'1': 'fat', '2': 'wide'}.get(HARDMODE))
             self.mets.append(Surface(discs, topo))
         S1 = self.mets[0]
         self.arcs, self.circles = boundary_circles(S1)
@@ -117,7 +123,7 @@ class Config:
         while True:
             alloc = rng.integers(0, ncirc, size=nmark)
             marked_circles = sorted(set(alloc.tolist()))
-            if topo == 'torus' or len(marked_circles) >= 1: break
+            if topo == 'torus' or (len(marked_circles) >= 1 and (not HARD or len(marked_circles) < ncirc)): break
         self.marks = []   # list of (free arc index, frac)
         for ci in range(ncirc):
             m = int((alloc == ci).sum())
@@ -149,9 +155,15 @@ class Config:
                 self.adj_pieces.setdefault(i0, [None, None])[1] = pid
                 self.adj_pieces.setdefault(i1, [None, None])[0] = pid
         self.labels = None
-        # words
+        self.set_words(L_ARC, L_CL, L_CHK)
+
+    def set_words(self, L_ARC, L_CL, L_CHK):
         self.W_ARC = words(L_ARC); self.W_CHK = words(L_CHK); self.L_CL = L_CL
-        self.mats = [[Sj.mat(w) for w in self.W_CHK] for Sj in self.mets]
+        self.mats = []
+        for Sj in self.mets:      # breadth-first products
+            mats = {(): np.eye(2)}
+            for w in self.W_CHK[1:]: mats[w] = mats[w[:-1]] @ Sj.gens[w[-1]]
+            self.mats.append([mats[w] for w in self.W_CHK])
         self.widx = {w: i for i, w in enumerate(self.W_CHK)}
 
     def assign(self, rng):
@@ -236,21 +248,23 @@ class Topology:
         self.lens = np.array([len(w) for w in C.W_CHK])
         self.M = np.array(C.mats[j])
         self.tr = {}; self.cache = {}
+        self.maxc = max(comp_len(c) for c in comps)
     def base(self, ci): return self.C.endpoints(self.comps[ci], self.j)
     def lifts(self, ci):
         if ci not in self.tr:
+            if len(self.tr) > 40: self.tr.pop(next(iter(self.tr)))   # bounded cache (memory)
             u, v = self.base(ci); M = self.M
+            sel = self.lens <= comp_len(self.comps[ci]) + self.maxc + 2; M = M[sel]
             A = (M[:, 0, 0]*u + M[:, 0, 1])/(M[:, 1, 0]*u + M[:, 1, 1])
             B = (M[:, 0, 0]*v + M[:, 0, 1])/(M[:, 1, 0]*v + M[:, 1, 1])
-            self.tr[ci] = (A, B)
+            self.tr[ci] = (A, B, self.lens[sel])
         return self.tr[ci]
     def crosses(self, ci, cj):
         key = (min(ci, cj), max(ci, cj))
         if key in self.cache: return self.cache[key]
         bound = comp_len(self.comps[ci]) + comp_len(self.comps[cj]) + 2
         if bound > self.lens.max(): raise ValueError("word bound too small")
-        sel = self.lens <= bound
-        u, v = self.base(ci); A, B = self.lifts(cj)
+        u, v = self.base(ci); A, B, ln = self.lifts(cj); sel = ln <= bound
         L = linked_vec(u, v, A[sel], B[sel])
         if ci == cj:   # remove translates that coincide with the base (stabiliser of a closed axis)
             sc = 1e-11*max(1.0, abs(u), abs(v))
@@ -259,8 +273,7 @@ class Topology:
         res = bool(L.any()); self.cache[key] = res; return res
     def simple(self, ci): return not self.crosses(ci, ci)
     def parity(self, ci, x, y, depth):
-        sel = self.lens <= comp_len(self.comps[ci]) + depth + 2
-        A, B = self.lifts(ci)
+        A, B, ln = self.lifts(ci); sel = ln <= comp_len(self.comps[ci]) + depth + 2
         return int(linked_vec(x, y, A[sel], B[sel]).sum()) % 2
 
 def run_config(C, rng, eps_list=(1e-3, 1e-5), verbose=False):
@@ -292,11 +305,11 @@ def run_config(C, rng, eps_list=(1e-3, 1e-5), verbose=False):
     results = {}
     for eps in eps_list:
         Lc = {ci: np.array(cost(ci, eps)) for ci in good}
-        F = {}; Fmax = {}; arg = {}
+        F = {}; Fmax = {}; arg = {}; arg1 = {}
         for m in range(1, 2**N):
             E = mark_endpoints(m)
             bits = region_bits(m)
-            best = [np.inf, None]; bestmax = [np.inf]
+            best = [np.inf, None]; bestmax = [np.inf]; best1 = [np.inf, None]
             # enumerate matchings with compatible arcs
             def rec(unmatched, chosen, acc):
                 if not unmatched:
@@ -318,6 +331,7 @@ def run_config(C, rng, eps_list=(1e-3, 1e-5), verbose=False):
                             tot = sum(Lc[ci] for ci in cut) if cut else np.zeros(K)
                             v = float(np.dot(w, tot))
                             if v < best[0] - 1e-12: best[0], best[1] = v, tuple(cut)
+                            if tot[0] < best1[0] - 1e-12: best1[0], best1[1] = float(tot[0]), tuple(cut)
                             bestmax[0] = min(bestmax[0], float(np.max(tot)) if cut else 0.0)
                     return
                 p = unmatched[0]
@@ -327,7 +341,7 @@ def run_config(C, rng, eps_list=(1e-3, 1e-5), verbose=False):
                     if any(topo.crosses(ci, a) for a in chosen): continue
                     rec([x for x in unmatched[1:] if x != q], chosen + [ci], acc)
             rec(E, [], 0.0)
-            F[m] = best[0]; Fmax[m] = bestmax[0]; arg[m] = best[1]
+            F[m] = best[0]; Fmax[m] = bestmax[0]; arg[m] = best[1]; arg1[m] = best1[1]
         # t_p
         t = np.zeros(n)
         for mi in range(n):
@@ -342,17 +356,16 @@ def run_config(C, rng, eps_list=(1e-3, 1e-5), verbose=False):
                 d = max(imgs) - min(imgs)
                 t[mi] += w[j]*np.log(1.0/(eps*C.hscale[j][mi]*d))
         G = {m: F[m] - sum(t[mi] for mi in mark_endpoints(m)) for m in F}
-        results[eps] = dict(F=F, G=G, Fmax=Fmax, t=t, arg=arg)
+        results[eps] = dict(F=F, G=G, Fmax=Fmax, t=t, arg=arg, arg1=arg1)
     return results, comps, good
 
-def main(topo, N, trials, seed, kmet=2):
+def main(topo, N, trials, seed, kmet=2, stab_every=3):
     rng = np.random.default_rng(seed)
     done = 0; stats = dict(dG=0.0, fF=np.inf, fG=np.inf, fGctl=np.inf, fmax=np.inf, nviol_ctl=0, nviol_max=0,
                            inf=0, tmin=np.inf, stab=0.0)
     names = {}
     while done < trials:
-        nmark = int(rng.integers(2, 6)) if topo == 'pants' else int(rng.integers(2, 6))
-        nmark += nmark % 2 if topo == 'torus' else 0
+        nmark = int(rng.integers(max(2, N - 1), N + 3))
         C = Config(rng, topo, kmet, N, nmark)
         C.w = rng.uniform(0.2, 1.0, size=kmet)
         if not C.assign(rng): continue
@@ -381,7 +394,18 @@ def main(topo, N, trials, seed, kmet=2):
         # max functional with endpoint divergences removed the same way (use t of a single metric scale)
         vm, _ = fc.facet_check({m: r2['Fmax'][m] - (r2['F'][m] - r2['G'][m])/W for m in r2['Fmax']}, N)
         stats['fmax'] = min(stats['fmax'], vm); stats['nviol_max'] += vm < -1e-9
-        print(f"[{topo} N={N}] {done}/{trials} marks={n} pieces={len(C.pieces)} comps={len(good)} "
+        maxw = max([comp_len(comps[ci]) for m in r1['arg'] for ci in r1['arg'][m]] + [0])
+        stats['regions'] = stats.get('regions', 0) + len(r1['arg'])
+        stats['closed_in_min'] = stats.get('closed_in_min', 0) + sum(any(comps[ci][0] == 'closed' for ci in r1['arg'][m]) for m in r1['arg'])
+        stats['common_ne_single'] = stats.get('common_ne_single', 0) + sum(set(r1['arg'][m]) != set(r1['arg1'][m]) for m in r1['arg'])
+        stab = None
+        if done % stab_every == 0:
+            C.set_words(4, 4, 10)
+            res2, _, _ = run_config(C, rng, eps_list=(1e-3,))
+            stab = max(abs(res2[1e-3]['F'][m] - r1['F'][m]) for m in r1['F'])
+            stats['stab'] = max(stats['stab'], stab); stats['nstab'] = stats.get('nstab', 0) + 1
+        stats['maxw_hist'] = stats.get('maxw_hist', {}); stats['maxw_hist'][maxw] = stats['maxw_hist'].get(maxw, 0) + 1
+        print(f"[{topo} N={N}] stab={stab} maxword={maxw} {done}/{trials} marks={n} pieces={len(C.pieces)} comps={len(good)} "
               f"dG={stats['dG']:.1e} facet(F)={vF:+.1e} facet(G)={vG:+.1e} ctl={vc:+.1e} max={vm:+.1e}", flush=True)
     print("SUMMARY", topo, N, stats, names, flush=True)
 
