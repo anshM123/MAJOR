@@ -45,3 +45,18 @@ nu= 40  Barnes 1.000000000000  CL=+8.972433e+02 (rad 1.4e-190)  CH=-8.972433e+02
       dims: d CL/d sL (consistent toy) = -1.094e+06 | pole moved, residue fixed: d CL/d sigma = +7.341e+22 = sum_J dI_J +7.344e+22 | gamma_J = g: sum dI_J = +7.344e+22 ; gamma_J = g*2/(2+J): -1.294e+24 ; gamma_J = g*(-1)^(J/2): -6.744e+24   (all per unit g)
 nu= 50  Barnes 1.000000000000  CL=+2.385667e+06 (rad 4.3e-184)  CH=-2.385667e+06  CL+CH=6.9e-187 | max|I_J|=5.570e+23 (J=2)  abs=1.115e+24  SB_40=-1.462e+19  SB_80=+1.157e+18  SB_160=-1.465153e+17  [6s]
       max Arb radius over I_J: 5.8e-100
+      dims: d CL/d sL (consistent toy) = -1.103e+10 | pole moved, residue fixed: d CL/d sigma = +2.145e+29 = sum_J dI_J +2.146e+29 | gamma_J = g: sum dI_J = +2.146e+29 ; gamma_J = g*2/(2+J): -4.359e+30 ; gamma_J = g*(-1)^(J/2): -2.294e+31   (all per unit g)
+nu= 60  Barnes 1.000000000000  CL=+1.902550e+10 (rad 2.2e-177)  CH=-1.902550e+10  CL+CH=-2.2e-180 | max|I_J|=1.860e+30 (J=2)  abs=3.722e+30  SB_40=+6.177e+25  SB_80=+3.901e+24  SB_160=-6.050012e+23  [6s]
+      max Arb radius over I_J: 1.0e-92
+
+convergence of the block-wise sum to the collective value (SB_N - CL)/max|I_J|, even N:
+  nu=  2 N=10:-7.4e-05 N=20:-5.7e-06 N=40:1.2e-06 N=60:5.2e-07 N=80:1.9e-07 N=120:1.4e-08 N=160:-1.0e-08
+  nu=  5 N=10:1.8e-05 N=20:-9.4e-07 N=40:4.5e-07 N=60:7.6e-07 N=80:-1.4e-07 N=120:-8.1e-08 N=160:2.9e-08
+  nu= 10 N=10:-2.8e-05 N=20:4.5e-07 N=40:-1.2e-06 N=60:1.3e-06 N=80:-4.2e-07 N=120:2.0e-07 N=160:-8.1e-08
+  nu= 20 N=10:1.2e-03 N=20:7.2e-05 N=40:4.7e-06 N=60:-2.2e-06 N=80:-3.8e-07 N=120:-2.9e-07 N=160:-1.4e-07
+  nu= 30 N=10:-1.3e-02 N=20:1.4e-04 N=40:6.8e-06 N=60:3.4e-06 N=80:-1.3e-06 N=120:-1.8e-07 N=160:-8.8e-08
+  nu= 40 N=10:-2.7e-02 N=20:5.2e-04 N=40:-1.6e-05 N=60:3.0e-06 N=80:1.8e-06 N=120:-5.6e-07 N=160:-1.0e-07
+  nu= 50 N=10:-3.6e-02 N=20:-4.9e-03 N=40:-2.6e-05 N=60:2.0e-06 N=80:2.1e-06 N=120:-1.6e-07 N=160:-2.6e-07
+  nu= 60 N=10:-4.3e-02 N=20:-1.1e-02 N=40:3.3e-05 N=60:6.0e-06 N=80:2.1e-06 N=120:-4.6e-08 N=160:-3.3e-07
+
+smeared Omega_Lam = int dp psi2(p) C_{Lam p}  (Gauss 24 nodes in p)
