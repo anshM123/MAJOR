@@ -66,25 +66,16 @@ log('per-T sum rule check: max_T |Bhat_L + Bhat_H| on the line = %.2e  (max |Bha
 
 # ---------------- pass 1: Stieltjes (monic, symmetric weight => alpha_k = 0), spin coefficients c_J
 N = P['N']
-pm, p0 = [arb(0)]*len(ys), [arb(1)]*len(ys)
-nrm_prev = None
-beta, cJ, nrm = [], [], []
 RLr = [r.real for r in RLn]
 log('imag part of R_L on the line (should be 0): %.1e' % max(abs(float(r.imag.abs_upper())) for r in RLn[::50]))
+pm, p0 = [arb(0)]*len(ys), [arb(1)]*len(ys)
+cJ, nrm, betas = [], [], []
 for k in range(N + 1):
     nk = sum(w*p*p for w, p in zip(wts, p0))
-    ck = sum(w*r*p for w, r, p in zip(wts, RLr, p0))/nk
-    b = arb(0) if k == 0 else nk/nrm_prev
-    beta.append(b); cJ.append(ck); nrm.append(nk)
-    pn = [y*p - (b*q if k > 0 else 0) for y, p, q in zip(ys, p0, pm)]
-    # next: p_{k+1} = y p_k - beta_{k+1} p_{k-1}; beta_{k+1} needs ||p_{k+1}||, computed at the next step
-    nrm_prev = nk
+    cJ.append(sum(w*r*p for w, r, p in zip(wts, RLr, p0))/nk); nrm.append(nk)
+    betas.append(arb(0) if k == 0 else nk/nrm[k - 1])          # p_{k+1} = y p_k - betas[k] p_{k-1}
     if k < N:
-        # recompute properly: p_{k+1} = y p_k - beta_k' p_{k-1} with beta_k' = ||p_k||^2/||p_{k-1}||^2
-        bk = arb(0) if k == 0 else nk/nrm[k - 1]
-        pn = [y*p - bk*q for y, p, q in zip(ys, p0, pm)]
-        pm, p0 = p0, pn
-betas = [arb(0)] + [nrm[k]/nrm[k - 1] for k in range(1, N + 1)]
+        pm, p0 = p0, [y*p - betas[k]*q for y, p, q in zip(ys, p0, pm)]
 log('pass 1 (Stieltjes) done in %.0f s' % (time.time() - t0))
 # Q_J(T) := p_J(y), monic in y.  Size of the spin-J piece of R_L at the point T' = 2Df (T = sL, y = -i sL/2):
 yst = acb(0, -sL/2)
@@ -110,20 +101,43 @@ def kernel(nu):
     nrm4 = (c.gamma()*c.conjugate().gamma())**2              # |Gamma(c)|^4
     return [h/(4*arb.pi())*g*(c - z).gamma()*(c.conjugate() - z).gamma()/nrm4 for g, z in zip(gz2, zs)]
 
+EPS = arb(10)**(-40)
+# dimension-shift tests (first order in gamma, by finite difference at 1e-40 in Arb):
+#  FL_cons : d/dsL of the exact light Bhat_L of the toy with sL -> sL + g (crossing-consistent shift; heavy side changes with it)
+#  FL_pole : d/dsigma of R_L(T + 2Df - sigma) Bfac(sigma, T) at sigma = sL with R_L held fixed (pole moved, residue not)
+#  per state: dI_J = c_J C_nu[ -(1/i) p_J'(y) Bfac(sL,T) + p_J(y) dBfac/dsigma ]  (state J moved by gamma_J, its residue held fixed)
+def _RLs(Tp, s):
+    return (s - 2*Df)**2/(s - sH)*((Tp - 2*Df)**2/((Tp - s)*(Tp - sH)))*(lambda U: (U - 2*Df)**2/((U - s)*(U - sH)))(4*Df - s - Tp)
+def _RHs(Tp, s):
+    fl_ = lambda X: (X - 2*Df)**2/((X - s)*(X - sH))
+    return (sH - 2*Df)**2/(sH - s)*fl_(Tp)*fl_(4*Df - sH - Tp)
+FL_cons = [(_RLs(T + 2*Df - sL - EPS, sL + EPS)*Bfac(sL + EPS, T) - F)/EPS for T, F in zip(Ts, FL)]
+FH_cons = [(_RHs(T + 2*Df - sH, sL + EPS)*Bfac(sH, T) - F)/EPS for T, F in zip(Ts, FH)]
+FL_pole = [(RL(T + 2*Df - sL - EPS)*Bfac(sL + EPS, T) - F)/EPS for T, F in zip(Ts, FL)]
+dBL = [(Bfac(sL + EPS, T) - b)/EPS for T, b in zip(Ts, BL)]
+log('consistent-shift per-T sum rule check: max |dBhat_L + dBhat_H| = %.1e' %
+    max(abs(float((a + b).abs_upper())) for a, b in zip(FL_cons[::97], FH_cons[::97])))
+
 def images(nu):
     K = kernel(nu)
     one = sum(K, acb(0))
-    CL = sum((k*v for k, v in zip(K, FL)), acb(0))
-    CH = sum((k*v for k, v in zip(K, FH)), acb(0))
+    dot = lambda F: sum((k*v for k, v in zip(K, F)), acb(0))
+    CL, CH, dCcons, dCpole = dot(FL), dot(FH), dot(FL_cons), dot(FL_pole)
     G = [k*b for k, b in zip(K, BL)]
-    I = []
+    G2 = [k*b for k, b in zip(K, dBL)]
+    I, dI = [], []
+    mi = acb(0, -1)                                            # 1/i
     pmm, pp = [arb(0)]*len(ys), [arb(1)]*len(ys)
+    dmm, dp = [arb(0)]*len(ys), [arb(0)]*len(ys)
     for k in range(N + 1):
         I.append(cJ[k]*sum((g*p for g, p in zip(G, pp)), acb(0)))
+        dI.append(cJ[k]*(sum((g*p for g, p in zip(G2, pp)), acb(0)) - mi*sum((g*d for g, d in zip(G, dp)), acb(0))))
         if k < N:
             pn = [y*p - betas[k]*q for y, p, q in zip(ys, pp, pmm)]
+            dn = [p + y*d - betas[k]*q for y, p, d, q in zip(ys, pp, dp, dmm)]
             pmm, pp = pp, pn
-    return one, CL, CH, I
+            dmm, dp = dp, dn
+    return one, CL, CH, I, dict(dcons=dCcons, dpole=dCpole, dI=dI)
 
 def fl(x):
     return float(x.real.mid())
@@ -133,15 +147,21 @@ log('\nper-nu images.  Barnes check: C_nu[1]*Gamma(A) = 1.  CL = collective ligh
 log('  SB_N = block-wise light sum over J <= N;  max|I_J| = largest single-state image;  abs = sum_J |I_J| (light-data-only bound)')
 for nu in P['nus']:
     t1 = time.time()
-    one, CL, CH, I = images(nu)
+    one, CL, CH, I, D = images(nu)
     S = np.cumsum([fl(x) for x in I])
     absb = sum(abs(fl(x)) for x in I)
+    radI = max(float(x.rad()) for x in I)
     big = max(abs(fl(x)) for x in I)
     jbig = int(np.argmax([abs(fl(x)) for x in I]))
     res[str(nu)] = dict(one=fl(one*A.gamma()), CL=fl(CL), CH=fl(CH), imCL=float(CL.imag.mid()), I=[fl(x) for x in I],
-                        rad=float(CL.rad()))
+                        rad=float(CL.rad()), dcons=fl(D['dcons']), dpole=fl(D['dpole']), dI=[fl(x) for x in D['dI']])
+    dI = np.array([fl(x) for x in D['dI']]); Js = np.arange(N + 1)
+    log('      dims: d CL/d sL (consistent toy) = %+.3e | pole moved, residue fixed: d CL/d sigma = %+.3e = sum_J dI_J %+.3e |'
+        ' gamma_J = g: sum dI_J = %+.3e ; gamma_J = g*2/(2+J): %+.3e ; gamma_J = g*(-1)^(J/2): %+.3e   (all per unit g)'
+        % (fl(D['dcons']), fl(D['dpole']), dI.sum(), dI.sum(), (dI*2/(2 + Js)).sum(), (dI*np.where((Js//2) % 2 == 0, 1, -1)).sum()))
     log('nu=%3d  Barnes %.12f  CL=%+.6e (rad %.1e)  CH=%+.6e  CL+CH=%.1e | max|I_J|=%.3e (J=%d)  abs=%.3e  SB_40=%+.3e  SB_80=%+.3e  SB_%d=%+.6e  [%.0fs]'
         % (nu, fl(one*A.gamma()), fl(CL), float(CL.rad()), fl(CH), fl(CL + CH), big, jbig, absb, S[min(40, N)], S[min(80, N)], N, S[-1], time.time() - t1))
+    log('      max Arb radius over I_J: %.1e' % radI)
 
 log('\nconvergence of the block-wise sum to the collective value (SB_N - CL)/max|I_J|, even N:')
 for nu in P['nus']:
@@ -158,12 +178,17 @@ for Lam in P['Lams']:
     t1 = time.time()
     acc = dict(CL=0.0, CH=0.0, I=np.zeros(N + 1), absI=np.zeros(N + 1))
     for p, w in zip(pg, wg):
-        one, CL, CH, I = images(Lam*p)
+        one, CL, CH, I, D = images(Lam*p)
+        acc.setdefault('dcons', 0.0); acc.setdefault('dpole', 0.0); acc.setdefault('dI', np.zeros(N + 1))
+        acc['dcons'] += w*psi2(p)*fl(D['dcons']); acc['dpole'] += w*psi2(p)*fl(D['dpole']); acc['dI'] += w*psi2(p)*np.array([fl(x) for x in D['dI']])
         acc['CL'] += w*psi2(p)*fl(CL); acc['CH'] += w*psi2(p)*fl(CH)
         acc['I'] += w*psi2(p)*np.array([fl(x) for x in I])
         acc['absI'] += w*psi2(p)*np.abs(np.array([fl(x) for x in I]))
     S = np.cumsum(acc['I'])
-    sm[str(Lam)] = dict(CL=acc['CL'], CH=acc['CH'], I=list(acc['I']), absI=list(acc['absI']))
+    sm[str(Lam)] = dict(CL=acc['CL'], CH=acc['CH'], I=list(acc['I']), absI=list(acc['absI']), dcons=acc['dcons'], dpole=acc['dpole'], dI=list(acc['dI']))
+    Js = np.arange(N + 1)
+    log('      dims (per unit g): consistent d/dsL = %+.3e ; pole moved = %+.3e ; gamma_J = g*2/(2+J) block-wise = %+.3e'
+        % (acc['dcons'], acc['dpole'], (acc['dI']*2/(2 + Js)).sum()))
     log('Lam=%3d  Omega[light, collective]=%+.6e  Omega[heavy]=%+.6e  max|state|=%.3e  sum|state|=%.3e  block-wise SB_N=%+.6e  e^{pi Lam/2}=%.3e  [%.0fs]'
         % (Lam, acc['CL'], acc['CH'], np.max(np.abs(acc['I'])), np.sum(np.abs(acc['I'])), S[-1], np.exp(np.pi*Lam/2), time.time() - t1))
 

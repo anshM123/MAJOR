@@ -1,1 +1,2 @@
 g=10 p=None K=32 N=24 Nf=24 flip=False: tau*=1.4539e-01 tau*g=1.454 tau*g^3=145.4 [8s]
+g=10 p=None K=32 N=24 Nf=24 flip=True: tau*=2.1611e-01 tau*g=2.161 tau*g^3=216.1 [164s]

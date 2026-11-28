@@ -153,3 +153,69 @@ The rule set is {endpoint, R_k (k ≤ K), M_n (n ≤ N)}, with heavy states only
 * **Consequence.** Every c-sensitive flip functional carries T-enhanced heavy weights (∝ T or C ~ g²). A linear bound
   |c| ≲ max(weight)/W can therefore not beat O(1)·x² from this mechanism. The power must come from cancellations, as in the diagonal
   channel.
+
+### 2d. Combined diagonal + flip, light-robust [NE] (`combo2.py`, `combo_run.py`; `combo_p4.txt`, `combo_heavy.txt`)
+* **Method.** This is an LP inner approximation of the per-state 2×2 PSD dual condition, |Ĝ| ≤ 2F̂0/s and ≤ 2sF̂4, with s updated
+  iteratively; each LP gives a valid bound. Bisection is on c = t4/4 (parity-invariant theory).
+* **Light-robust results, Θ = g⁴, K = 24, flip N_f = 24:**
+
+  | g | diagonal only, τ | + flip, τ | gain |
+  |---|---|---|---|
+  | 10 | 0.3327 | 0.3223 | 3.1% |
+  | 20 | 0.1097 | 0.1089 | 0.7% |
+  | 36 | 0.04917 | (run not finished) | |
+
+* **Verdict.** **The flip channel's gain vanishes with g. It does not change e(p) and does not break the g⁻³ wall.**
+* **Why it is asymptotically free.** Any diagonal-feasible configuration can be made flip-feasible as follows:
+  * split every b = 0-only state into two equal halves of opposite parity, which zeroes F_0, F_1 and Φ;
+  * add a "c-generator" of parity-even states that carry both ladders.
+  * The c-generator's endpoint cost is O(|c|·g) by 2b. Its R_k pollution is O(|c| k²/T²), because both ladders are present and their
+    leading terms cancel. That is ≪ |c|² when |c| ~ g⁻³ … only if |c| g⁻² ≪ |c|², i.e. it is negligible against the g⁻⁴-level target
+    and harmless at g⁻³.
+
+## Milestone 3 — conclusions and structural no-go statements (28 Nov)
+
+### 3a. What every identity considered here is [P]
+* **Per-state data is complete.** By KERNELS_D3 §5.5 (the number of independent amplitudes equals the number of conserved structures),
+  the full rest-frame transition data of one O is (λ_{++}, λ_{+−}, λ_odd) times the all-J ladders.
+* **So every rule is linear in the per-state Gram data (ρ0^±, ρ4, ξ).** This holds for any T-state matrix element of a commutator of
+  two light-ray moments, with any helicities, harmonics or moments, given the ladder. Its kernels are polynomials in (T, C) of degree
+  equal to the total moment order:
+  * degree 0: [E, E]; this gives R_k (diagonal), and in the flip channel Im-parts that are trivial for parity-invariant real data;
+  * degree 1: [E, E⁽¹⁾]; this gives the endpoint rule, M_n, F_0, F_1, F_3, F_{±p}, and Φ.
+* **Higher degree is not available.** It would need [E⁽¹⁾, E⁽¹⁾] (Regge J₀ < 1, marginal at the nonperturbative J₀ ≤ 1) or moments
+  E⁽²⁾ (J₀ < 0, false).
+* **Two-detector event shapes ⟨T|E[E, E]|T⟩** (candidate 2) bring in heavy–heavy ⟨X|E|Y⟩ data, which is not determined by T-state
+  data. Without positivity they do not close.
+
+### 3b. No-go statements
+1. **[P] The flip channel has no unenhanced c-sensitive combination** (2c): rhs = yᵀM, y_p = (p+3)(p−1)/2.
+2. **[P] Finite-harmonic obstruction for M_n** (1b, = ANGULAR_ROUTE §15).
+3. **[NE + heuristic] Degree-1 rules do not change the heavy-only g⁻³ asymptote.**
+   * They are "asymptotically free": their RHS can be met by a high-J background (M_n) or a c-generator (flip) whose budget share
+     vanishes as g → ∞.
+   * Evidence: the M_n gain ratio is 0.52, 0.62, 0.77, 0.86 at g = 10, 20, 30, 40, and the flip gain is 3% then 0.7%.
+   * **So the only identities that can move the g⁻³ wall are new degree-0 (unenhanced) rules.** In T-states the complete degree-0 set
+     is {R_k}, plus the trivial flip Im-parts. The other agent's 3-state no-go then applies to the whole class. Within positivity-free
+     T-state commutator identities with moments ≤ 1, **g⁻³ is the wall, and g⁻⁴ needs positivity or heavy–heavy data**.
+4. **[argument] ANEC positivity** (candidate 3), used through T-state data only, gives:
+   * the POVM bound E(f)² ≤ ‖f‖∞E(f);
+   * 2×2 minors with ⟨O|E|O⟩;
+   * the conformal collider bound on c.
+
+   All of these are unenhanced caps of the form Σ|a|² ≤ 1, O(1) per state. They cannot produce g-powers. A g⁻⁴ via positivity needs
+   heavy functionals of dispersive type (the paper's Ω^EE route).
+5. **[P] Parity and Bose structure** (candidate 4) do not forbid {A, B, C}:
+   * A = (b0, J = 2) is allowed in either parity; B and C are parity-even S^{+−} states.
+   * The flip channel excludes the literal configuration: it forces c = 0 unless cross-term states exist.
+   * It does not exclude the family: halve A into two parities and add a cheap c-generator.
+
+### 3c. Positive results worth keeping
+* **M_n.** These are D-free, finite-harmonic, exact per-harmonic rules: Ĉ(n) = 1 for all n. They give a constant-factor tightening at
+  finite g, which disappears asymptotically.
+* **The exact parity sum rule Φ** and the linear t4 rule:
+  * Σ_O η_O |a_{O,0}|²(T_Δ − J(J+1)) = 0;
+  * t4/4 = Σ_O η_O |a_{O,0}|²(1 − 2J(J+1)/3).
+  * These are new and positivity-free [P | the paper's inputs + mirror relation + (Av)_1]. They are not a bound on τ.
+* **Light-robust tradeoff e(p)** (1d): a polynomial light coefficient g^{p−e(p)} buys τ ~ g^{−e(p)/2}. This is a polynomial
+  threshold, not an exponential one.

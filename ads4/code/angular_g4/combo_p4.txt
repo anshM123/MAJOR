@@ -1,3 +1,5 @@
 g=10 p=4.0 K=24 N=0 Nf=24 flip=False: tau*=3.3269e-01 tau*g=3.327 tau*g^3=332.7 [4s]
 g=10 p=4.0 K=24 N=0 Nf=24 flip=True: tau*=3.2234e-01 tau*g=3.223 tau*g^3=322.3 [35s]
 g=20 p=4.0 K=24 N=0 Nf=24 flip=False: tau*=1.0969e-01 tau*g=2.194 tau*g^3=877.5 [5s]
+g=20 p=4.0 K=24 N=0 Nf=24 flip=True: tau*=1.0892e-01 tau*g=2.178 tau*g^3=871.4 [124s]
+g=36 p=4.0 K=24 N=0 Nf=24 flip=False: tau*=4.9165e-02 tau*g=1.770 tau*g^3=2293.9 [10s]
