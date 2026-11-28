@@ -1,0 +1,24 @@
+{
+  "status": "all exact checks passed",
+  "seed": 20261128,
+  "cases": 321,
+  "group_orders": [
+    2,
+    3,
+    4,
+    6
+  ],
+  "cases_with_noninvariant_minima": 1,
+  "cases_with_stabilized_edges": 321,
+  "explicit_degenerate_case": {
+    "vertices": 4,
+    "group_order": 2,
+    "cover_minimum": "2",
+    "quotient_minimum": "1",
+    "minimum_count": 4,
+    "noninvariant_minimum_count": 2,
+    "has_fixed_vertices": true,
+    "has_stabilized_edges": true
+  },
+  "interpretation": "Checks submodular invariant-minimum descent and capacity normalization only; not geometric or physical hypotheses."
+}
