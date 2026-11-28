@@ -1,0 +1,43 @@
+== calibrations ==
+free chiral C_T: 4.000000000069884 (4)
+XYZ C_T: 8.721414274671101 (8.7214)
+N=4 SQED_2: C_T=15.3029815148  1910.03600: 15.3029815144
+N=4 SQED_4: C_T=30.8910554574  1910.03600: 30.8910554568
+N=4 SU(2) w/ 3 flavours (vector-multiplet test; must equal SQED_4 by Sp(1)N_f=3 = U(1)N_f=4): 30.8910554580
+
+== U(2), N_f=8, R_Q=5/8 ==
+   2D direct quadrature: C_T=92.0149439321  F=11.544864282455
+L=8.0 h=0.01: F=11.544864282455  C_T(det)=92.0149439321  dlogZ/db=0.0e+00  sign det=1.0
+L=10.0 h=0.005: F=11.544864282455  C_T(det)=92.0149439321  dlogZ/db=0.0e+00  sign det=1.0
+claimed C_T = 92.01494393 ; difference = 2.131e-09
+F = 11.5448642825  vs  F(28 free chirals) = 9.7040605278  -> F-theorem PASS
+
+== plain U(2) N_f=8 (no W): F-maximisation over R_Q ==
+R_Q* = 0.4458179  F* = 14.07103163  C_T = 127.313214  R[V_pm] = 8(1-R_Q)-1 = 3.433457 -> monopole W IRRELEVANT at electric SQCD point
+   (F at R_Q=5/8 = 11.54486428; F-max requires F* >= F(5/8): True)
+
+== dual U(4) N_f=8 + 64 singlets M ==
+at R_q=3/8 (BBP point): F=11.544864282455  C_T=92.0149439346  (sign det 1.0, dlogZ/db 0.0e+00)
+BBP check: F_U2 - F_U4M = -8.882e-15 ; C_T diff = -2.492e-09
+undeformed U(4)+M: R_q* = 0.5828349  F* = 26.58089114  C_T = 231.822462  R[M]=0.83433  R[Vhat_pm] = 8(1-R_q)-3 = 0.337321 -> BELOW UNITARITY (Vhat free; naive F-max invalid)
+   F-theorem along U(4)+M --(Vhat)--> candidate: F_UV=26.580891 > F_IR=11.544864: True
+  F(R_q) scan of undeformed U(4)+M (uncorrected | V-hat-decoupling corrected):
+   R_q=0.375: F=11.54486  F_corr=11.54486  R[Vhat]=2.000  R[flux(1,-1,0,0)]=4.000
+   R_q=0.450: F=18.86746  F_corr=18.86746  R[Vhat]=1.400  R[flux(1,-1,0,0)]=2.800
+   R_q=0.500: F=22.96675  F_corr=22.96675  R[Vhat]=1.000  R[flux(1,-1,0,0)]=2.000
+   R_q=0.540: F=25.40534  F_corr=25.40534  R[Vhat]=0.680  R[flux(1,-1,0,0)]=1.360
+   R_q=0.560: F=26.20054  F_corr=26.20054  R[Vhat]=0.520  R[flux(1,-1,0,0)]=1.040
+   R_q=0.580: F=26.57393  F_corr=26.69273  R[Vhat]=0.360  R[flux(1,-1,0,0)]=0.720
+   R_q=0.600: F=26.24794  F_corr=26.99975  R[Vhat]=0.200  R[flux(1,-1,0,0)]=0.400
+   R_q=0.620: F=23.91160  F_corr=27.45187  R[Vhat]=0.040  R[flux(1,-1,0,0)]=0.080
+
+BBP U(4),N_f=6 at R_q=1/6: log Z = -9.306556097384 ; 36*l(1-1/3) = -9.306556097384
+
+== chiral operators (R-charges at the candidate point) ==
+  meson Q Qt (64, adj+1 of SU(8)^2)             R = 1.2500   ok
+  monopoles V_pm, flux (+-1,0) [in W]           R = 2.0000   ok
+  monopole flux (1,-1)                          R = 4.0000   ok
+  monopole flux (1,1)                           R = 6.0000   ok
+  dual: M                                       R = 1.2500   ok
+  dual: q qt (F-term zero)                      R = 0.7500   ok
+  dual monopoles Vhat_pm [in W]                 R = 2.0000   ok

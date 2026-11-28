@@ -101,3 +101,11 @@ Data sources:
 4. **F(origin) > 9.704**, as in §4.
 
 If items 1–4 hold, the argument in §2 is robust in both flat space and on S²: R ≥ 1.054.
+
+**Correction, added during the CANDIDATE_U2 audit.** I cross-checked 1910.03600's closed forms for SU(2) with k half-hypers (the SO(5) and SO(8) entries) using `u2_ct.py`. They reproduce only if the vector-multiplet term uses root σ instead of 2σ. With the correct root, SU(2) with 3 flavours gives C_T = 30.8911, exactly equal to SQED_4, as the Sp(1)_3 = U(1)_4 equivalence requires; the 1910 table instead gives 39.5 for SO(6) versus 30.9 for SU(4).
+
+Corrected values:
+- The minimal SO(8) SCFT has C_T = 50.84, not 56.59. Its ratio is then 1.27 instead of 1.42, which still passes.
+- The SO(5) row (k = 5) is SU(2) with an odd number of half-hypers, which has a parity anomaly without a Chern–Simons term. That row should be discarded.
+
+None of the conclusions above change.
