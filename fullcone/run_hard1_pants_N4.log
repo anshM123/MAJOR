@@ -10,3 +10,5 @@
 [pants N=4] stab=None maxword=1 10/30 marks=3 pieces=5 comps=42 dG=1.2e-14 facet(F)=-1.8e-16 facet(G)=-3.8e-16 ctl=-2.4e-01 max=+0.0e+00
 [pants N=4] stab=None maxword=1 11/30 marks=5 pieces=6 comps=211 dG=1.2e-14 facet(F)=-3.7e-16 facet(G)=-2.3e-16 ctl=-4.9e-01 max=-8.6e-16
 [pants N=4] stab=0.0 maxword=1 12/30 marks=4 pieces=5 comps=102 dG=1.2e-14 facet(F)=-2.2e-16 facet(G)=-7.0e-16 ctl=-3.8e-01 max=-9.3e-16
+[pants N=4] stab=None maxword=1 13/30 marks=5 pieces=6 comps=211 dG=1.4e-14 facet(F)=-1.6e-16 facet(G)=-1.2e-15 ctl=-3.5e-01 max=-1.3e-15
+[pants N=4] stab=None maxword=1 14/30 marks=5 pieces=6 comps=125 dG=1.4e-14 facet(F)=-1.0e-16 facet(G)=-2.3e-16 ctl=-1.1e-01 max=-1.0e-16
