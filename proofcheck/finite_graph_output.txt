@@ -1,0 +1,25 @@
+n=3 rep=0: T8 inverse err=0.0e+00  max|mincut-F_D|=0.0e+00  bell-graph failures=0
+n=3 rep=1: T8 inverse err=0.0e+00  max|mincut-F_D|=0.0e+00  bell-graph failures=0
+n=3 rep=2: T8 inverse err=0.0e+00  max|mincut-F_D|=0.0e+00  bell-graph failures=0
+n=3 rep=3: T8 inverse err=0.0e+00  max|mincut-F_D|=0.0e+00  bell-graph failures=0
+n=4 rep=0: T8 inverse err=1.1e-16  max|mincut-F_D|=0.0e+00  bell-graph failures=0
+n=4 rep=1: T8 inverse err=1.1e-16  max|mincut-F_D|=0.0e+00  bell-graph failures=0
+n=4 rep=2: T8 inverse err=1.1e-16  max|mincut-F_D|=0.0e+00  bell-graph failures=0
+n=4 rep=3: T8 inverse err=1.1e-16  max|mincut-F_D|=0.0e+00  bell-graph failures=2
+n=5 rep=0: T8 inverse err=2.2e-16  max|mincut-F_D|=4.4e-16  bell-graph failures=6
+n=5 rep=1: T8 inverse err=2.2e-16  max|mincut-F_D|=4.4e-16  bell-graph failures=8
+n=5 rep=2: T8 inverse err=2.2e-16  max|mincut-F_D|=4.4e-16  bell-graph failures=8
+n=5 rep=3: T8 inverse err=3.3e-16  max|mincut-F_D|=4.4e-16  bell-graph failures=8
+n=6 rep=0: T8 inverse err=5.6e-16  max|mincut-F_D|=8.9e-16  bell-graph failures=22
+n=6 rep=1: T8 inverse err=2.2e-16  max|mincut-F_D|=1.8e-15  bell-graph failures=28
+n=6 rep=2: T8 inverse err=3.3e-16  max|mincut-F_D|=4.4e-16  bell-graph failures=8
+n=6 rep=3: T8 inverse err=6.7e-16  max|mincut-F_D|=1.8e-15  bell-graph failures=30
+n=7 rep=0: T8 inverse err=7.8e-16  max|mincut-F_D|=2.7e-15  bell-graph failures=74
+n=7 rep=1: T8 inverse err=5.6e-16  max|mincut-F_D|=1.8e-15  bell-graph failures=74
+n=7 rep=2: T8 inverse err=5.6e-16  max|mincut-F_D|=1.8e-15  bell-graph failures=74
+n=7 rep=3: T8 inverse err=5.6e-16  max|mincut-F_D|=1.8e-15  bell-graph failures=72
+n=8 rep=0: T8 inverse err=6.7e-16  max|mincut-F_D|=4.4e-15  bell-graph failures=180
+n=8 rep=1: T8 inverse err=4.4e-16  max|mincut-F_D|=3.6e-15  bell-graph failures=180
+n=8 rep=2: T8 inverse err=7.8e-16  max|mincut-F_D|=4.4e-15  bell-graph failures=176
+n=8 rep=3: T8 inverse err=6.7e-16  max|mincut-F_D|=2.7e-15  bell-graph failures=152
+trials 24

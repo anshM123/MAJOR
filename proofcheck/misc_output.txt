@@ -1,0 +1,24 @@
+u0=0.3 v0=0.7 Y=10: numeric=2.305478907652 closed=2.305478907652 log(Y/d)=2.302585092994
+u0=0.3 v0=0.7 Y=1000: numeric=6.907755568982 closed=6.907755568982 log(Y/d)=6.907755278982
+u0=0.3 v0=0.7 Y=100000: numeric=11.512925464999 closed=11.512925464999 log(Y/d)=11.512925464970
+u0=1.0 v0=0.0 Y=10: numeric=2.307560258421 closed=2.307560258421 log(Y/d)=2.302585092994
+u0=1.0 v0=0.0 Y=1000: numeric=6.907755778982 closed=6.907755778982 log(Y/d)=6.907755278982
+u0=1.0 v0=0.0 Y=100000: numeric=11.512925465020 closed=11.512925465020 log(Y/d)=11.512925464970
+u0=0.0 v0=2.0 Y=10: numeric=1.629048269011 closed=1.629048269011 log(Y/d)=1.609437912434
+u0=0.0 v0=2.0 Y=1000: numeric=6.214610098418 closed=6.214610098418 log(Y/d)=6.214608098422
+u0=0.0 v0=2.0 Y=100000: numeric=10.819778284610 closed=10.819778284610 log(Y/d)=10.819778284410
+u0=0.05 v0=0.05 Y=10: numeric=4.605195185676 closed=4.605195185676 log(Y/d)=4.605170185988
+u0=0.05 v0=0.05 Y=1000: numeric=9.210340374476 closed=9.210340374476 log(Y/d)=9.210340371976
+u0=0.05 v0=0.05 Y=100000: numeric=13.815510557965 closed=13.815510557965 log(Y/d)=13.815510557964
+end-constant check: 0.006500000000000008
+end-constant check: 6.499999999995675e-05
+det X - 1 = 0
+equivariance residual = Matrix([[(exp(a/2 + s*(a - b)/(a + b)) - exp(b/2 + (a - b)*(a + b + 2*s)/(2*(a + b))))*exp(-b/2)*sinh(r), 0], [0, (exp(a/2 + b**2/(2*(a + b))) - exp(a**2/(2*(a + b)) + b/2))*exp(-a**2/(2*(a + b)) - a*s/(a + b) - a/2 + b*s/(a + b))*sinh(r)]])
+g_ss - [1+(1-q^2)sinh^2 r] = 0 ; g_rr = 1 ; g_rs = 0
+separation identity residual = 0
+d_n: [0.595983, 0.898445, 1.027176, 1.074222, 1.090416, 1.095873, 1.097698, 1.098308, 1.098511, 1.098578, 1.098601]  log(lam)= 1.0986122886681098
+monotone: True
+Riemann->Ricci consistency: True
+rho = <R(k,t)t,l> = 1 - T12  (claim 1 - T_kl = 1 - T12 )
+<R(k,t)t,k> = T11  Ric_kk = T11
+vacuum sectional K(tau,k-l...) check: Rm(t,k,t,l) at T=0 = 1

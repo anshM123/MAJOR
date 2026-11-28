@@ -1,0 +1,5 @@
+m = 1  max |Delta - c g| = 0   trace coefficient c = 4982539/21621600
+   controls (F coeff 1; P coeff 1/2): max resid = 10705/14112 -2*2**(53/99)*3**(485/594)*5**(283/594)*7**(43/198)/45 + 716623/1310400
+m = 2  max |Delta - c g| = 0   trace coefficient c = -2158473859/10147737600
+   controls (F coeff 1; P coeff 1/2): max resid = 1165328973/1603201600 20314249/686859264
+done
