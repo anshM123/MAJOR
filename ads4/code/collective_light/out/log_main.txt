@@ -36,3 +36,12 @@ nu= 10  Barnes 1.000000000000  CL=+1.175685e-03 (rad 1.0e-209)  CH=-1.175685e-03
       dims: d CL/d sL (consistent toy) = -1.493e-03 | pole moved, residue fixed: d CL/d sigma = +1.549e+04 = sum_J dI_J +1.549e+04 | gamma_J = g: sum dI_J = +1.549e+04 ; gamma_J = g*2/(2+J): -1.298e+05 ; gamma_J = g*(-1)^(J/2): -6.475e+05   (all per unit g)
 nu= 20  Barnes 1.000000000000  CL=+1.593171e-02 (rad 2.1e-203)  CH=-1.593171e-02  CL+CH=3.4e-208 | max|I_J|=5.816e+04 (J=2)  abs=1.166e+05  SB_40=+2.916e-01  SB_80=-6.104e-03  SB_160=+7.867085e-03  [6s]
       max Arb radius over I_J: 1.1e-119
+      dims: d CL/d sL (consistent toy) = -2.950e-01 | pole moved, residue fixed: d CL/d sigma = +1.660e+10 = sum_J dI_J +1.660e+10 | gamma_J = g: sum dI_J = +1.660e+10 ; gamma_J = g*2/(2+J): -1.945e+11 ; gamma_J = g*(-1)^(J/2): -9.888e+11   (all per unit g)
+nu= 30  Barnes 1.000000000000  CL=+1.438493e+00 (rad 4.2e-197)  CH=-1.438493e+00  CL+CH=3.6e-200 | max|I_J|=8.571e+10 (J=2)  abs=1.716e+11  SB_40=+5.802e+05  SB_80=-1.073e+05  SB_160=-7.516038e+03  [6s]
+      max Arb radius over I_J: 2.4e-112
+      dims: d CL/d sL (consistent toy) = -2.979e+02 | pole moved, residue fixed: d CL/d sigma = +3.019e+16 = sum_J dI_J +3.020e+16 | gamma_J = g: sum dI_J = +3.020e+16 ; gamma_J = g*2/(2+J): -4.460e+17 ; gamma_J = g*(-1)^(J/2): -2.299e+18   (all per unit g)
+nu= 40  Barnes 1.000000000000  CL=+8.972433e+02 (rad 1.4e-190)  CH=-8.972433e+02  CL+CH=-1.2e-193 | max|I_J|=1.940e+17 (J=2)  abs=3.884e+17  SB_40=-3.107e+12  SB_80=+3.588e+11  SB_160=-1.934429e+10  [6s]
+      max Arb radius over I_J: 1.0e-105
+      dims: d CL/d sL (consistent toy) = -1.094e+06 | pole moved, residue fixed: d CL/d sigma = +7.341e+22 = sum_J dI_J +7.344e+22 | gamma_J = g: sum dI_J = +7.344e+22 ; gamma_J = g*2/(2+J): -1.294e+24 ; gamma_J = g*(-1)^(J/2): -6.744e+24   (all per unit g)
+nu= 50  Barnes 1.000000000000  CL=+2.385667e+06 (rad 4.3e-184)  CH=-2.385667e+06  CL+CH=6.9e-187 | max|I_J|=5.570e+23 (J=2)  abs=1.115e+24  SB_40=-1.462e+19  SB_80=+1.157e+18  SB_160=-1.465153e+17  [6s]
+      max Arb radius over I_J: 5.8e-100
