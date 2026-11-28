@@ -11,7 +11,7 @@ import numpy as np
 from vaidya4 import Vaidya
 
 
-def batch_adaptive(V, Y0, hfac=0.02, nmax=8000, zstop=0.004, zmax=6.0, rmin=3e-4, smax=30.0):
+def batch_adaptive(V, Y0, hfac=0.02, nmax=8000, zstop=0.0008, zmax=6.0, rmin=3e-4, smax=30.0):
     Y = Y0.copy(); N = Y.shape[1]
     alive = np.ones(N, bool); status = np.zeros(N, int)
     out = np.full((3, N), np.nan); s = np.zeros(N)
@@ -43,7 +43,7 @@ def batch_adaptive(V, Y0, hfac=0.02, nmax=8000, zstop=0.004, zmax=6.0, rmin=3e-4
     return status, out
 
 
-def tri_candidates(P1, P2, ok, X, Y, target):
+def tri_candidates(P1, P2, ok, X, Y, target, maxdiam=0.3, bigcells=None, bigdiam=6.0):
     """Grid (n1 x n2) params P1,P2, images X,Y (landing r,t), mask ok.  Return
     param points (barycentric interpolation) of triangles whose image contains target."""
     n1, n2 = X.shape
@@ -57,7 +57,12 @@ def tri_candidates(P1, P2, ok, X, Y, target):
         with np.errstate(all='ignore'):
             l1 = ((tx - xa) * (yc - ya) - (xc - xa) * (ty - ya)) / det
             l2 = ((xb - xa) * (ty - ya) - (tx - xa) * (yb - ya)) / det
-        inside = m & (l1 >= -1e-9) & (l2 >= -1e-9) & (l1 + l2 <= 1 + 1e-9) & np.isfinite(det) & (det != 0)
+        diam = np.maximum.reduce([np.hypot(xb - xa, yb - ya), np.hypot(xc - xa, yc - ya), np.hypot(xc - xb, yc - yb)])
+        inside0 = m & (l1 >= -1e-9) & (l2 >= -1e-9) & (l1 + l2 <= 1 + 1e-9) & np.isfinite(det) & (det != 0)
+        if bigcells is not None:
+            for i, j in zip(*np.nonzero(inside0 & (diam >= maxdiam) & (diam < bigdiam))):
+                bigcells.add((i, j))
+        inside = inside0 & (diam < maxdiam)
         for i, j in zip(*np.nonzero(inside)):
             pa = np.array([P1[i + a[0], j + a[1]], P2[i + a[0], j + a[1]]])
             pb = np.array([P1[i + b[0], j + b[1]], P2[i + b[0], j + b[1]]])
@@ -67,7 +72,7 @@ def tri_candidates(P1, P2, ok, X, Y, target):
     return cands
 
 
-def newton2(fun, x0, target, tol=1e-10, maxit=30, h=1e-6):
+def newton2(fun, x0, target, tol=1e-9, maxit=30, h=1e-6):
     x = np.array(x0, float)
     for it in range(maxit):
         r0 = fun(x)
@@ -94,6 +99,9 @@ def newton2(fun, x0, target, tol=1e-10, maxit=30, h=1e-6):
                 break
             lam *= 0.5
         else:
+            # no decrease: accept if already at the integration noise floor
+            if np.max(np.abs(F0)) < 1e-8:
+                return x, r0
             return None
         x = x + lam * step
     r0 = fun(x)
@@ -102,12 +110,28 @@ def newton2(fun, x0, target, tol=1e-10, maxit=30, h=1e-6):
     return None
 
 
-def cluster(cands, rel=1e-3):
+def cluster(cands, rel=1e-2):
     out = []
     for c in cands:
         if not any(np.max(np.abs(c - d) / (1e-3 + np.abs(d))) < rel for d in out):
             out.append(c)
     return out
+
+
+def continuation(fun, x0, y0, y1, h0=0.05, hmin=1e-4):
+    """Follow a solution of fun(x)[:2] = y along the straight path y0 -> y1."""
+    x = np.array(x0, float); s = 0.0; h = h0; res = None
+    y0 = np.array(y0, float); y1 = np.array(y1, float)
+    while s < 1.0 - 1e-14:
+        sn = min(1.0, s + h)
+        r = newton2(fun, x, y0 + sn * (y1 - y0), maxit=12)
+        if r is None:
+            h *= 0.5
+            if h < hmin:
+                return None
+            continue
+        x, res = r; s = sn; h = min(2 * h, 0.2)
+    return x, res
 
 
 def dedupe(sols, tol=1e-6):
@@ -118,8 +142,31 @@ def dedupe(sols, tol=1e-6):
     return out
 
 
+def find_preimages(V, initfun, P1, P2, ok, X, Y, target, depth=2, nsub=9):
+    """Triangle search with local batch refinement of cells whose image is large."""
+    big = set()
+    cands = tri_candidates(P1, P2, ok, X, Y, target, bigcells=big)
+    if depth == 0 or not big:
+        return cands
+    big = sorted(big)[:400]
+    subs = []
+    for (i, j) in big:
+        a0, a1 = P1[i, j], P1[i + 1, j]; b0, b1 = P2[i, j], P2[i, j + 1]
+        A, B = np.meshgrid(np.linspace(a0, a1, nsub), np.linspace(b0, b1, nsub), indexing='ij')
+        subs.append((A, B))
+    Y0 = np.array([initfun(a, b) for A, B in subs for a, b in zip(A.ravel(), B.ravel())]).T
+    st, out = batch_adaptive(V, Y0)
+    n = nsub * nsub
+    for k, (A, B) in enumerate(subs):
+        sl = slice(k * n, (k + 1) * n)
+        okk = (st[sl] == 1).reshape(A.shape)
+        cands += find_preimages(V, initfun, A, B, okk, out[0, sl].reshape(A.shape), out[1, sl].reshape(A.shape),
+                                target, depth - 1, nsub)
+    return cands
+
+
 class Pieces:
-    def __init__(self, V, cap_grid=(200, 200), tube_grid=(181, 181), zs=1e-3):
+    def __init__(self, V, cap_grid=(200, 200), tube_grid=(321, 321), zs=2e-4):
         self.V = V; self.zs = zs; self.cap_grid = cap_grid; self.tube_grid = tube_grid
         self._capscan = None; self._tubescan = {}
 
@@ -148,12 +195,18 @@ class Pieces:
         self._capscan = (P1, P2, ok, out[0].reshape(P1.shape), out[1].reshape(P1.shape))
         return self._capscan
 
-    def caps(self, R, t):
+    def caps(self, R, t, continue_from_vacuum=True):
         if self._capscan is None:
             self.cap_scan()
         P1, P2, ok, X, Y = self._capscan
         sols = []
-        for x0 in cluster(tri_candidates(P1, P2, ok, X, Y, (R, t))):
+        if continue_from_vacuum:
+            ts = min(t, -8 * self.V.dlt - 0.05)
+            r = continuation(self.cap_fun, (ts - R, R), (R, ts), (R, t))
+            if r is not None:
+                sols.append(r)
+        init = lambda a, b: self.V.cap_init(a, b, d0=1e-3)
+        for x0 in cluster(find_preimages(self.V, init, P1, P2, ok, X, Y, (R, t))):
             res = newton2(self.cap_fun, x0, np.array([R, t]))
             if res is not None:
                 sols.append(res)
@@ -172,14 +225,14 @@ class Pieces:
             return (res['r'], res['t'], res['A'])
         return fun
 
-    def tube_scan(self, r1, t1, urange=6.0):
+    def tube_scan(self, r1, t1, urange=13.0):
         key = (round(r1, 12), round(t1, 12))
         if key in self._tubescan:
             return self._tubescan[key]
         n1, n2 = self.tube_grid
         u = np.linspace(-urange, urange, n1); w = np.linspace(-urange, urange, n2)
         P1, P2 = np.meshgrid(np.sinh(u) / r1**3, np.sinh(w) / r1**3, indexing='ij')
-        Y0 = np.array([self.V.edge_init(r1, t1, a, b, zs=0.01) for a, b in zip(P1.ravel(), P2.ravel())]).T
+        Y0 = np.array([self.V.edge_init(r1, t1, a, b, zs=0.002) for a, b in zip(P1.ravel(), P2.ravel())]).T
         st, out = batch_adaptive(self.V, Y0)
         ok = (st == 1).reshape(P1.shape)
         scan = (P1, P2, ok, out[0].reshape(P1.shape), out[1].reshape(P1.shape))
@@ -189,7 +242,8 @@ class Pieces:
     def tubes(self, r1, t1, r2, t2):
         P1, P2, ok, X, Y = self.tube_scan(r1, t1)
         sols = []
-        for x0 in cluster(tri_candidates(P1, P2, ok, X, Y, (r2, t2))):
+        init = lambda a, b: self.V.edge_init(r1, t1, a, b, zs=0.002)
+        for x0 in cluster(find_preimages(self.V, init, P1, P2, ok, X, Y, (r2, t2))):
             res = newton2(self.tube_fun(r1, t1), x0, np.array([r2, t2]))
             if res is not None:
                 sols.append(res)

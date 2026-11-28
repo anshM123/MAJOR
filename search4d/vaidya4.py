@@ -26,8 +26,8 @@ class Vaidya:
         self.M = M; self.dlt = dlt; self.sign = 1.0 if NEC else -1.0
 
     def m(self, v):
-        return self.sign * 0.5 * self.M * (1.0 + np.tanh(v / self.dlt)) if self.sign > 0 else \
-            0.5 * self.M * (1.0 - np.tanh(v / self.dlt))  # NEC-violating: mass decreasing to 0
+        # NEC=False: negative-energy shell, m(v) = -M/2 (1+tanh) (m' < 0 violates the NEC)
+        return self.sign * 0.5 * self.M * (1.0 + np.tanh(v / self.dlt))
 
     def mp(self, v):
         c = 1.0 / np.cosh(np.clip(v / self.dlt, -350, 350))

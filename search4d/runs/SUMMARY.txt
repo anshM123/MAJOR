@@ -1,0 +1,42 @@
+dlt=0.02  t0=0.0  kappa=-0.6  minmargin=-8.53e-14 Kmin=-2.22e-16 onesided=0 nvec=4000 maxcapbranches=1 224s
+dlt=0.02  t0=0.0  kappa=0.0   minmargin=-5.86e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 366s
+dlt=0.02  t0=0.0  kappa=0.0   minmargin=-4.26e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 359s
+dlt=0.02  t0=0.0  kappa=0.6   minmargin=-5.68e-14 Kmin=-1.11e-16 onesided=0 nvec=4000 maxcapbranches=1 299s
+dlt=0.02  t0=0.3  kappa=0.0   minmargin=-5.15e-14 Kmin=-1.11e-16 onesided=0 nvec=4000 maxcapbranches=1 367s
+dlt=0.02  t0=0.3  kappa=0.0   minmargin=-4.62e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 530s
+dlt=0.02  t0=0.6  kappa=0.0   minmargin=-6.04e-14 Kmin=-3.33e-16 onesided=0 nvec=4000 maxcapbranches=1 390s
+dlt=0.02  t0=0.6  kappa=0.0   minmargin=-5.15e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 522s
+dlt=0.02  t0=1.0  kappa=0.0   minmargin=-7.11e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 366s
+dlt=0.02  t0=1.0  kappa=0.0   minmargin=-4.97e-14 Kmin=-2.22e-16 onesided=0 nvec=4000 maxcapbranches=1 307s
+dlt=0.02  t0=1.0  kappa=0.6   minmargin=-5.68e-14 Kmin=-1.11e-16 onesided=2 nvec=4000 maxcapbranches=1 220s
+dlt=0.02  t0=1.5  kappa=0.0   minmargin=-4.97e-14 Kmin=-2.22e-16 onesided=0 nvec=4000 maxcapbranches=1 200s
+dlt=0.02  t0=1.5  kappa=0.0   minmargin=-4.26e-14 Kmin=-2.22e-16 onesided=0 nvec=4000 maxcapbranches=1 253s
+dlt=0.02  t0=2.5  kappa=0.0   minmargin=-5.68e-14 Kmin=-5.55e-17 onesided=0 nvec=4000 maxcapbranches=1 197s
+dlt=0.02  t0=2.5  kappa=0.0   minmargin=-4.26e-14 Kmin=-1.11e-16 onesided=0 nvec=4000 maxcapbranches=1 345s
+dlt=0.1   t0=0.0  kappa=0.0   minmargin=-6.04e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 349s
+dlt=0.1   t0=0.0  kappa=0.6   minmargin=-7.82e-14 Kmin=-2.22e-16 onesided=0 nvec=4000 maxcapbranches=1 264s
+dlt=0.1   t0=0.3  kappa=0.0   minmargin=-7.82e-14 Kmin=-2.22e-16 onesided=0 nvec=4000 maxcapbranches=1 354s
+dlt=0.1   t0=0.3  kappa=0.6   minmargin=-6.39e-14 Kmin=-2.22e-16 onesided=4 nvec=4000 maxcapbranches=1 237s
+dlt=0.1   t0=1.0  kappa=-0.6  minmargin=-6.39e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 366s
+dlt=0.1   t0=1.0  kappa=0.6   minmargin=-6.39e-14 Kmin=-2.22e-16 onesided=3 nvec=4000 maxcapbranches=1 253s
+dlt=0.1   t0=1.5  kappa=-0.6  minmargin=-7.82e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 397s
+dlt=0.1   t0=2.5  kappa=0.6   minmargin=-7.82e-14 Kmin=-1.11e-16 onesided=4 nvec=4000 maxcapbranches=1 303s
+dlt=0.3   t0=0.0  kappa=-0.6  minmargin=-9.95e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 237s
+dlt=0.3   t0=0.0  kappa=0.0   minmargin=-7.82e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 434s
+dlt=0.3   t0=0.0  kappa=0.6   minmargin=-7.82e-14 Kmin=-3.33e-16 onesided=0 nvec=4000 maxcapbranches=1 266s
+dlt=0.3   t0=0.3  kappa=0.0   minmargin=-8.53e-14 Kmin=-2.22e-16 onesided=0 nvec=4000 maxcapbranches=1 393s
+dlt=0.3   t0=0.6  kappa=0.0   minmargin=-7.64e-14 Kmin=-3.33e-16 onesided=0 nvec=4000 maxcapbranches=1 397s
+dlt=0.3   t0=1.0  kappa=0.0   minmargin=-7.11e-14 Kmin=-4.44e-16 onesided=0 nvec=4000 maxcapbranches=1 348s
+dlt=0.3   t0=1.5  kappa=0.0   minmargin=-6.75e-14 Kmin=-2.22e-16 onesided=0 nvec=4000 maxcapbranches=1 301s
+dlt=0.3   t0=2.5  kappa=0.0   minmargin=-8.53e-14 Kmin=-4.16e-16 onesided=0 nvec=4000 maxcapbranches=1 284s
+runs 31 vectors 124000 edges 248 edges without cap 0 one-sided tubes 13 propagated branches 169
+max two-end area mismatch (pairs found from both ends): 2.14381220331461e-07
+min K-slack (SSA/WM instances): -4.440892098500626e-16
+  MMI(3)     min margin -2.842e-14
+  MMI(comp)  min margin -3.375e-14
+  SA         min margin +inf
+  n5#90      min margin -5.207e-14
+  n5#72      min margin -3.553e-14
+  n5#60a     min margin -9.948e-14
+  n5#60b     min margin -6.750e-14
+  n5#10      min margin -4.263e-14
