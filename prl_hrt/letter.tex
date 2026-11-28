@@ -6,11 +6,9 @@
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 
 % ---------------------------------------------------------------------------------------------------
-% SCOPE MACROS. The present draft covers vacuum solutions only.
-% MATTER-SLOT (scope): if the extension to matter obeying the null energy condition is established,
-% redefine \ScopeClass and \ScopeShort here and fill the MATTER-SLOT blocks below. Nothing else in the
-% statements refers to the vacuum assumption except the positivity of the Liouville measures (see the
-% MATTER-SLOT block in the mechanism paragraph and in the discussion).
+% SCOPE MACROS. \ScopeClass/\ScopeShort describe the class of the unconditional theorems (Theorems 1-3),
+% which remains vacuum. The matter result (Theorem 4, conditional on hypothesis (JM)) is stated separately
+% in the paragraph "Matter" and does not use these macros.
 \newcommand{\ScopeClass}{vacuum solutions of three-dimensional gravity with negative cosmological constant}
 \newcommand{\ScopeShort}{vacuum}
 % ---------------------------------------------------------------------------------------------------
@@ -30,7 +28,6 @@
 \begin{document}
 
 \title{Time dependence does not enlarge the holographic entropy cone\\ in three-dimensional vacuum gravity}
-% MATTER-SLOT (title): replace "vacuum gravity" if the result is extended to matter.
 
 \author{Ansh Mishra}
 \affiliation{[Affiliation placeholder]}
@@ -42,12 +39,15 @@
 \begin{abstract}
 In time-reflection-symmetric holographic states the Ryu--Takayanagi (RT) entropies obey the linear
 inequalities of the holographic entropy cone. Whether time dependence allows the covariant
-Hubeny--Rangamani--Takayanagi (HRT) entropies to leave this cone has been an open question. We settle it for
-\ScopeShort{} three-dimensional gravity with negative cosmological constant, for every topology (rotating BTZ
+Hubeny--Rangamani--Takayanagi (HRT) entropies to leave this cone has been an open question. We settle it
+unconditionally for \ScopeShort{} three-dimensional gravity with negative cosmological constant, for every topology (rotating BTZ
 black holes, rotating multiboundary wormholes, wormholes with handles) and arbitrary boundary regions: the HRT
 entropy vector lies in the RT cone at every sufficiently small cutoff, and the closure of the covariant cone
 equals the RT cone. The proof rests on an exact decomposition: the regulated HRT vector is a
-cutoff-independent graph-model vector plus exactly one Bell-pair term per entangling point.
+cutoff-independent graph-model vector plus exactly one Bell-pair term per entangling point. With matter obeying
+the null energy condition (NEC), the balanced contraction-map inequalities, and the RT cone for whole-boundary
+regions, follow from the homotopy-restricted form of the maximin hypothesis that underlies Wall's covariant proof
+of strong subadditivity. The NEC is necessary: a NEC-violating Vaidya shell violates strong subadditivity.
 \end{abstract}
 
 \maketitle
@@ -75,15 +75,17 @@ inequality''~\cite{GGHH2025}. Grado-White, Grimaldi, Headrick and Hubeny (GGHH) 
 $\pi_1=\mathbb{Z}$, also with matter, which they do not claim to be fully rigorous and which the recent review
 lists as a proof~\cite{GrimaldiHeadrick2026}; they explained why it does not extend to free groups, found no
 violation in extensive numerical tests on vacuum multiboundary wormholes, and left the multiply connected case
-open~\cite{GGHH2025}. This Letter settles the vacuum case.
+open~\cite{GGHH2025}. This Letter settles the vacuum case unconditionally, and reduces the case with matter to a
+maximin hypothesis.
 
 \emph{Result.}---%
 For all \ScopeClass{} of the class described below---any topology, any rotation---and every assignment of
 $N$ parties to boundary intervals and whole asymptotic boundaries, the HRT entropy vector lies in $\CN$ for
 every cutoff below an explicit threshold; every valid RT inequality holds, with a cutoff-independent slack if
 it is balanced at the entangling points and a slack diverging to $+\infty$ otherwise; and the closure of the
-set of covariant entropy rays is $\CN$. Time dependence does not enlarge the cone.
-% MATTER-SLOT (result): if extended, state here the class "with matter obeying the NEC" and its hypotheses.
+set of covariant entropy rays is $\CN$. Time dependence does not enlarge the cone. With matter obeying the null
+energy condition (NEC) we prove the balanced contraction-map inequalities, and the cone for whole-boundary parties,
+assuming a homotopy-restricted maximin property (Theorem~\ref{thm:matter}).
 
 The HRT prescription is used in its standard form: a minimal extremal curve $\gamma$ anchored at $\partial A$,
 with a homology region $R$, $\partial R=\gamma\cup A$, lying on a Cauchy slice of the conformally completed
@@ -145,14 +147,10 @@ the cut and spirals onto its closed geodesics, and replace each triangle by the 
 of $\AdS$ on the corresponding boundary points. A separation lemma---convex hulls of complementary arcs of an
 acausal circle are spacelike separated---makes the union an acausal disc, a pleated surface of the kind studied
 by Mazzoli and Viaggi~\cite{MazzoliViaggi2022}, and we show that it is a Cauchy slice of the completed spacetime.
-At a horizon with angular momentum ($\ell_L\neq\ell_R$) the pleats tilt towards the null planes. This is an
-artefact of the construction: doubling the conformal spacetime across its timelike boundary makes the
-compactified cut a compact acausal spacelike curve, and the extension theorems of
+At a rotating horizon ($\ell_L\neq\ell_R$) the pleats tilt towards the null planes. This is an artefact: doubling
+the conformal spacetime across its timelike boundary, the extension theorems of
 Refs.~\cite{BernalSanchez2006,AkeFloresSanchez2021} give a compact, smooth, uniformly spacelike Cauchy slice
-containing the same geodesics. Near a rotating horizon the strip
-$X(s,r)=\cosh r\,c(s)+\sinh r\,n(s)$, with $c(s)$ the horizon geodesic and $n(s)$ a normal that boosts along
-it at rate $q=(\ell_L-\ell_R)/(\ell_L+\ell_R)$, is exactly invariant and has induced metric
-$dr^2+[1+(1-q^2)\sinh^2r]\,ds^2$~\cite{SM}.
+containing the same geodesics~\cite{SM}.
 
 \emph{Why the common class was the obstacle.}---%
 If the two chiral lengths in Eq.~\eqref{eq:H} were minimised separately, $F^\eps$ would be the average of two
@@ -168,13 +166,10 @@ ideal boundary and a cut $c$ in geodesic position, the number of crossings is th
 $i(g,c)$, a topological invariant on the quotient surface. Hence, for cuts without endpoints, $\frac12(\ell_L+\ell_R)(c)=i(\mu,c)$ with
 $\mu=\frac12(m_L+m_R)$, a single positive measure on topological classes of geodesics (a geodesic current).
 Equation~\eqref{eq:H} is then an RT problem in a \emph{virtual static geometry}: lengths of curves are
-$\mu$-masses of the geodesics they cross, in the sense of the pseudo-metrics associated with currents
-(Refs.~\cite{BIPP2021,MartinezGranadoThurston2026}; we use only this elementary direction, not their
-characterisation theorem, which is proved for closed surfaces). Static methods then apply, provided they are
+$\mu$-masses of the geodesics they cross, in the sense of the pseudo-metrics associated with
+currents~\cite{BIPP2021,MartinezGranadoThurston2026} (only this elementary direction is used). Static methods then apply, provided they are
 run on the quotient surface and with topological input only. Related quotient constructions of kinematic space
 for static BTZ, multiboundary and conical geometries appear in Refs.~\cite{ZhangChen2017,CresswellPeet2017}.
-% MATTER-SLOT (mechanism): with matter, mu would be replaced by a positive Gamma-invariant measure on pairs
-% of boundary points built from the extremal lengths on the universal cover; positivity would come from the NEC.
 
 Figure~\ref{fig:mechanism}(a) shows the cut-and-paste step in topological form. Given cuts $\gamma_l$ for the
 regions on the larger side of an inequality, label each cell of their arrangement (drawn on one chiral surface)
@@ -288,36 +283,74 @@ Theorem~\ref{thm:main}(i) predicts. Two control functionals violate facets in mo
 The proofs are analytic; numerics test conclusions only. On rank-two Schottky surfaces (three-holed spheres and
 one-holed tori) with two independent metrics of common marking, random positive weights generalising
 $w_L=w_R=\frac12$, $N=3$--$5$ parties and 2--7 marked points, we computed $F^\eps$ by exhaustive search over
-embedded cuts with bounded word length (stable under increasing the length in all 102 rechecked
-configurations), extracted $G$ from Eq.~\eqref{eq:decomp}, and evaluated all facets (Fig.~\ref{fig:numerics}).
+embedded cuts with bounded word length, extracted $G$ from Eq.~\eqref{eq:decomp}, and evaluated all facets (Fig.~\ref{fig:numerics}).
 Over 4428 regions, $G$ is $\eps$-independent to $2\times10^{-14}$ and satisfies every facet; the common-class
 constraint changes the minimiser in 147 regions. Two controls---subtracting only half the endpoint terms, and
 $\min_c\max_j\ell_j(c)$---violate facets in most configurations. On the disc, the explicit graph of
 Theorem~\ref{thm:main}(i) reproduces $G$ to $5\times10^{-14}$, and on the cylinder Eq.~\eqref{eq:crofton}
 holds to $6\times10^{-14}$~\cite{SM}.
 
+\emph{Matter.}---%
+Let $M$ be an asymptotically $\AdS$ spacetime of any spatial topology, globally hyperbolic with timelike conformal
+boundary and obeying the NEC, $R_{\mu\nu}k^\mu k^\nu\ge0$ for null $k$; fix a boundary Cauchy slice $C$ and use
+renormalised lengths. Chiral lengths no longer exist; their role is taken by homotopy-restricted maximin. For a
+class $\kappa$ of closed curves or of arcs between boundary points, let $\ell_\sigma(\kappa)$ be the least length of a
+curve in $\kappa$ on a slice $\sigma$, and $L(\kappa)=\sup_\sigma\ell_\sigma(\kappa)$ over acausal Cauchy slices anchored
+at $C$, as in restricted maximin~\cite{MarolfWallWang2019,GradoWhiteMarolfWeinberg2021}. We assume:
+(JM) \emph{for disjoint simple classes $\kappa_1,\dots,\kappa_m$, in $M$ and in its finite covers,
+$\sup_\sigma\sum_i\ell_\sigma(\kappa_i)$ is attained on a slice carrying minimisers of the $\kappa_i$ that are disjoint
+extremal geodesics.} This is the curve analogue, restricted to homotopy classes, of the maximin property on which
+Wall's covariant proofs of SSA and MMI rest~\cite{Wall2014}. It holds in vacuum, through the pleated slices of
+Theorem~\ref{thm:H}, and whenever the Wheeler--DeWitt patch of $C$ is precompact and a maximising slice is $C^2$
+and spacelike near its minimal curves~\cite{SM}. Existence and regularity of maximin slices are thus the assumed
+inputs; precompactness fails generically for NEC wormholes, whose Wheeler--DeWitt patches reach the singularity.
+
+\begin{theorem}[Matter]\label{thm:matter}
+Assume (JM) and the asymptotic regularity stated in the \SM. For parties of intervals of $C$ and whole boundaries,
+the renormalised HRT entropies satisfy every contraction-map inequality balanced at every entangling point;
+unbalanced ones hold with slack diverging as the cutoff is removed. For whole-boundary parties the HRT entropy
+vector lies in $\CN$.
+\end{theorem}
+
+Three steps replace $\mu$~\cite{SM}. (1)~$4G_NS(A)=\inf_{c\in\Cut(A)}\sum_kL(c_k)$. Wall's null
+projection~\cite{Wall2014,CDGH2001}, applied to one HRT component in the cover in which it is the whole edge, shows
+without any maximin input that its length is at least $L$ of its class; (JM) gives the converse. (2)~Let $D(x,y)$ be the maximin length between
+lifted boundary points on the universal cover. For cyclically ordered $a,b,c,d$, cut-and-paste on one slice and
+(JM) give $D(a,c)+D(b,d)\ge D(a,d)+D(b,c)$, SSA on the cover. Hence
+$\nu([x_1,x_2)\times[y_1,y_2))=\frac12[D(x_1,y_1)+D(x_2,y_2)-D(x_1,y_2)-D(x_2,y_1)]$ is a positive $\pi_1$-invariant
+measure on pairs of ideal points. (3)~For $h\in\pi_1$, $D(x,h^ny)-D(x,h^{n-1}y)$ increases to $L(h)$, so $\nu$ of a
+fundamental domain of pairs linking the axis of $h$ is $L(h)$: closed lengths are $\nu$-masses, the missing step for
+multiply connected bulks~\cite{CzechDong2019,GGHH2025}. With $\nu$ for $\mu$ the contraction argument applies
+verbatim. Already in vacuum, joint maximin fails for classes whose lifts link and single-class maximin for
+non-simple classes; finite covers in which the classes become simple and unlinked avoid both~\cite{Hall1949,SM}.
+The renormalised Crofton argument also goes through for $\nu$: under the same hypotheses Eq.~\eqref{eq:decomp}
+holds for the renormalised entropies with a graph-model vector $G$, so interval parties obey every valid
+inequality in the sense of Theorem~\ref{thm:main}(ii)~\cite{SM}.
+
+The NEC enters only through positivity of $\nu$, and does so locally without maximin. Along an extremal
+geodesic, in a parallel frame of null normals $k,l$, the Jacobi equation for $J=\alpha k+\beta l$ reads
+$\alpha''=\rho\alpha+R_{ll}\beta$, $\beta''=R_{kk}\alpha+\rho\beta$. The NEC makes this system cooperative, and its
+maximum principle gives $\partial_x\partial_yD>0$ on smooth nondegenerate families~\cite{SM}. The NEC is necessary: for a
+smooth NEC-violating Vaidya--$\AdS$ shell the crossing density on a spacelike boundary slice is $-0.117$ (vacuum
+$+0.019$, NEC shell $+0.265$), a violation of SSA, in line with Ref.~\cite{CallanHeHeadrick2012}.
+
 \emph{Discussion.}---%
 For three-dimensional vacuum gravity, covariant holographic entropies obey exactly the inequalities of the static
-cone: the closure of the set of covariant entropy rays is the RT cone. The mechanism is that the HRT functional is
-an RT functional for the virtual geometry of a single geodesic current on the quotient surface, and that the
-ultraviolet divergence separates exactly into Bell pairs at the entangling points. The same decomposition makes
-the UV structure of every valid inequality explicit. The novelty is the identification of the HRT entropy with
-this functional for every cut class (Theorem~\ref{thm:H}), the topological contraction on the quotient, the
-renormalised Crofton formula and the graph realisation; the pleated geometry~\cite{MazzoliViaggi2022}, the
-correspondence between currents and pseudo-metrics~\cite{BIPP2021,MartinezGranadoThurston2026}, the extension
+cone. The HRT functional is an RT functional for the virtual geometry of a single geodesic current on the
+quotient surface, and the ultraviolet divergence separates exactly into Bell pairs at the entangling points. New are
+Theorem~\ref{thm:H} for every cut class, the topological contraction, the renormalised Crofton formula and the
+graph realisation; the pleated geometry~\cite{MazzoliViaggi2022}, the correspondence
+between currents and pseudo-metrics~\cite{BIPP2021,MartinezGranadoThurston2026}, the extension
 theorems~\cite{BernalSanchez2006,AkeFloresSanchez2021} and the realisation of graphs by static
 wormholes~\cite{Bao2015} are prior work.
 
-Vacuum enters only through positivity of $\mu$, which here is a sum of two Liouville measures. With matter
-obeying the null energy condition, Czech and Dong obtain a positive measure from strong subadditivity on the
-universal cover~\cite{CzechDong2019}; the missing step for multiply connected bulks is to turn it into a
-$\pi_1$-invariant measure on the quotient whose integrals reproduce the lengths of closed extremal curves.
-% MATTER-SLOT (discussion): replace the preceding two sentences by the statement of the matter result and its
-% hypotheses if that extension is established.
-In higher dimensions there is no chiral decomposition and extremal surfaces are not geodesics. Within $2+1$
-dimensions, open cases are extremal horizons and conical defects, achronal homology slices with null
-pieces~\cite{Wall2014}, prescriptions not requiring the homology region to lie on a Cauchy slice, and quantum
-corrections. Complete proofs and the numerical methods are in the \SM.
+With matter, the current is built from SSA on the universal cover in class-restricted form; (JM) supplies it
+globally and the NEC alone supplies it locally. The open inputs are those of Wall's covariant SSA
+proof~\cite{Wall2014,MarolfWallWang2019}: existence and regularity of maximin slices. In higher dimensions there
+is no chiral decomposition and extremal surfaces are not geodesics. Within $2+1$ dimensions, open cases are
+extremal horizons and conical defects, achronal homology slices with null pieces~\cite{Wall2014}, prescriptions
+not requiring the homology region to lie on a Cauchy slice, and quantum corrections, for which quantum
+maximin~\cite{AkersEtAl2020} would replace (JM). Complete proofs and the numerical methods are in the \SM.
 
 \begin{acknowledgments}
 [Acknowledgments placeholder.]

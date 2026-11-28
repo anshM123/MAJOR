@@ -2,7 +2,8 @@
 %
 % Verification: every entry with an eprint field was checked on 2026-11-28 against the arXiv export API
 % (export.arxiv.org/api/query?id_list=...): identifier, title and author list as returned by arXiv;
-% journal references and DOIs as returned by arXiv where present.
+% journal references and DOIs as returned by arXiv where present (for MarolfWallWang2019 and
+% GradoWhiteMarolfWeinberg2021 the volume and page are read off the DOI returned by arXiv).
 % Entries marked "NOT ON ARXIV" have no arXiv identifier; their bibliographic data are standard but could
 % not be checked against arXiv. Journal data for Mess (2007) are not in the arXiv record and are likewise
 % unverified.
@@ -434,10 +435,90 @@
   archivePrefix = {arXiv}
 }
 
+@article{MarolfWallWang2019,
+  author  = {Marolf, Donald and Wall, Aron C. and Wang, Zhencheng},
+  title   = {Restricted Maximin surfaces and {HRT} in generic black hole spacetimes},
+  journal = {JHEP},
+  volume  = {05},
+  pages   = {127},
+  year    = {2019},
+  doi     = {10.1007/JHEP05(2019)127},
+  eprint  = {1901.03879},
+  archivePrefix = {arXiv}
+}
+
+% AkersEtAl2020: the arXiv record carries no journal reference or DOI; cited by eprint only.
+@misc{AkersEtAl2020,
+  author  = {Akers, Chris and Engelhardt, Netta and Penington, Geoff and Usatyuk, Mykhaylo},
+  title   = {Quantum Maximin Surfaces},
+  year    = {2019},
+  eprint  = {1912.02799},
+  archivePrefix = {arXiv}
+}
+
+@article{GradoWhiteMarolfWeinberg2021,
+  author  = {Grado-White, Brianna and Marolf, Donald and Weinberg, Sean J.},
+  title   = {Radial Cutoffs and Holographic Entanglement},
+  journal = {JHEP},
+  volume  = {01},
+  pages   = {009},
+  year    = {2021},
+  doi     = {10.1007/JHEP01(2021)009},
+  eprint  = {2008.07022},
+  archivePrefix = {arXiv}
+}
+
+@article{CallanHeHeadrick2012,
+  author  = {Callan, Robert and He, Jianyang and Headrick, Matthew},
+  title   = {Strong subadditivity and the covariant holographic entanglement entropy formula},
+  journal = {JHEP},
+  volume  = {06},
+  pages   = {081},
+  year    = {2012},
+  doi     = {10.1007/JHEP06(2012)081},
+  eprint  = {1204.2309},
+  archivePrefix = {arXiv}
+}
+
+@article{CDGH2001,
+  author  = {Chru{\'s}ciel, Piotr T. and Delay, Erwann and Galloway, Gregory J. and Howard, Ralph},
+  title   = {Regularity of Horizons and The Area Theorem},
+  journal = {Ann. Henri Poincar{\'e}},
+  volume  = {2},
+  pages   = {109},
+  year    = {2001},
+  eprint  = {gr-qc/0001003},
+  archivePrefix = {arXiv}
+}
+
+@article{GSWW1999,
+  author  = {Galloway, G. J. and Schleich, K. and Witt, D. M. and Woolgar, E.},
+  title   = {Topological Censorship and Higher Genus Black Holes},
+  journal = {Phys. Rev. D},
+  volume  = {60},
+  pages   = {104039},
+  year    = {1999},
+  doi     = {10.1103/PhysRevD.60.104039},
+  eprint  = {gr-qc/9902061},
+  archivePrefix = {arXiv}
+}
+
+@article{BHRT2015,
+  author  = {Bhattacharya, Jyotirmoy and Hubeny, Veronika E. and Rangamani, Mukund and Takayanagi, Tadashi},
+  title   = {Entanglement density and gravitational thermodynamics},
+  journal = {Phys. Rev. D},
+  volume  = {91},
+  pages   = {106009},
+  year    = {2015},
+  doi     = {10.1103/PhysRevD.91.106009},
+  eprint  = {1412.5472},
+  archivePrefix = {arXiv}
+}
+
 @misc{SM,
   note = {See Supplemental Material at [URL to be inserted by the publisher] for complete proofs, the
           numerical methods and their reproducibility, which includes
-          Refs.~\cite{Epstein1966,FarbMargalit2012,Hatcher1991,Penner1987,Geroch1970,ONeill1983,CzechLamprouMcCandlishSully2015,BalasubramanianEtAl2014,Maxfield2015}}
+          Refs.~\cite{Epstein1966,FarbMargalit2012,Hatcher1991,Penner1987,Geroch1970,ONeill1983,CzechLamprouMcCandlishSully2015,BalasubramanianEtAl2014,Maxfield2015,Scott1978,Ioffe1977,Sion1958,Sweers1992,GSWW1999,BHRT2015}}
 }
 
 % ---- NOT ON ARXIV (bibliographic data standard; not verifiable against arXiv) ----
@@ -509,4 +590,49 @@
   publisher = {Academic Press},
   address   = {New York},
   year      = {1983}
+}
+
+@article{Hall1949,
+  author  = {Hall, Jr., Marshall},
+  title   = {Coset representations in free groups},
+  journal = {Trans. Amer. Math. Soc.},
+  volume  = {67},
+  pages   = {421},
+  year    = {1949}
+}
+
+@article{Scott1978,
+  author  = {Scott, Peter},
+  title   = {Subgroups of surface groups are almost geometric},
+  journal = {J. London Math. Soc. (2)},
+  volume  = {17},
+  pages   = {555},
+  year    = {1978}
+}
+
+@article{Ioffe1977,
+  author  = {Ioffe, A. D.},
+  title   = {On lower semicontinuity of integral functionals. {I}},
+  journal = {SIAM J. Control Optim.},
+  volume  = {15},
+  pages   = {521},
+  year    = {1977}
+}
+
+@article{Sion1958,
+  author  = {Sion, Maurice},
+  title   = {On general minimax theorems},
+  journal = {Pacific J. Math.},
+  volume  = {8},
+  pages   = {171},
+  year    = {1958}
+}
+
+@article{Sweers1992,
+  author  = {Sweers, Guido},
+  title   = {Strong positivity in {$C(\bar\Omega)$} for elliptic systems},
+  journal = {Math. Z.},
+  volume  = {209},
+  pages   = {251},
+  year    = {1992}
 }

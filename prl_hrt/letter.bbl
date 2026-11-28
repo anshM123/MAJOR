@@ -6,7 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{47}%
+\begin{thebibliography}{53}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -306,7 +306,7 @@
   \href@noop {} {}\bibinfo {note} {See Supplemental Material at [URL to be
   inserted by the publisher] for complete proofs, the numerical methods and
   their reproducibility, which includes
-  Refs.~\cite{Epstein1966,FarbMargalit2012,Hatcher1991,Penner1987,Geroch1970,ONeill1983,CzechLamprouMcCandlishSully2015,BalasubramanianEtAl2014,Maxfield2015}}\BibitemShut
+  Refs.~\cite{Epstein1966,FarbMargalit2012,Hatcher1991,Penner1987,Geroch1970,ONeill1983,CzechLamprouMcCandlishSully2015,BalasubramanianEtAl2014,Maxfield2015,Scott1978,Ioffe1977,Sion1958,Sweers1992,GSWW1999,BHRT2015}}\BibitemShut
   {NoStop}%
 \bibitem [{\citenamefont {Mazzoli}\ and\ \citenamefont
   {Viaggi}(2022)}]{MazzoliViaggi2022}%
@@ -416,6 +416,67 @@
   }\href@noop {} {\bibinfo {title} {Not all holographic entropy inequalities
   are free of area law ultraviolet divergences}} (\bibinfo {year} {2026}),\
   \Eprint {https://arxiv.org/abs/2611.21726} {arXiv:2611.21726} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Marolf}\ \emph {et~al.}(2019)\citenamefont {Marolf},
+  \citenamefont {Wall},\ and\ \citenamefont {Wang}}]{MarolfWallWang2019}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+  {Marolf}}, \bibinfo {author} {\bibfnamefont {A.~C.}\ \bibnamefont {Wall}},\
+  and\ \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Wang}},\ }\href
+  {https://doi.org/10.1007/JHEP05(2019)127} {\bibfield  {journal} {\bibinfo
+  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {05}},\ \bibinfo {pages}
+  {127}},\ \Eprint {https://arxiv.org/abs/1901.03879} {arXiv:1901.03879}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Grado-White}\ \emph {et~al.}(2021)\citenamefont
+  {Grado-White}, \citenamefont {Marolf},\ and\ \citenamefont
+  {Weinberg}}]{GradoWhiteMarolfWeinberg2021}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Grado-White}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+  {Marolf}},\ and\ \bibinfo {author} {\bibfnamefont {S.~J.}\ \bibnamefont
+  {Weinberg}},\ }\href {https://doi.org/10.1007/JHEP01(2021)009} {\bibfield
+  {journal} {\bibinfo  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {01}},\
+  \bibinfo {pages} {009}},\ \Eprint {https://arxiv.org/abs/2008.07022}
+  {arXiv:2008.07022} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Chru{\'s}ciel}\ \emph {et~al.}(2001)\citenamefont
+  {Chru{\'s}ciel}, \citenamefont {Delay}, \citenamefont {Galloway},\ and\
+  \citenamefont {Howard}}]{CDGH2001}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.~T.}\ \bibnamefont
+  {Chru{\'s}ciel}}, \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont
+  {Delay}}, \bibinfo {author} {\bibfnamefont {G.~J.}\ \bibnamefont
+  {Galloway}},\ and\ \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont
+  {Howard}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Ann.
+  Henri Poincar{\'e}}\ }\textbf {\bibinfo {volume} {2}},\ \bibinfo {pages}
+  {109} (\bibinfo {year} {2001})},\ \Eprint
+  {https://arxiv.org/abs/gr-qc/0001003} {arXiv:gr-qc/0001003} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Hall}(1949)}]{Hall1949}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Hall}, \bibfnamefont {Jr.}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo
+   {journal} {Trans. Amer. Math. Soc.}\ }\textbf {\bibinfo {volume} {67}},\
+  \bibinfo {pages} {421} (\bibinfo {year} {1949})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Callan}\ \emph {et~al.}(2012)\citenamefont {Callan},
+  \citenamefont {He},\ and\ \citenamefont {Headrick}}]{CallanHeHeadrick2012}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.}~\bibnamefont
+  {Callan}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {He}},\ and\
+  \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Headrick}},\ }\href
+  {https://doi.org/10.1007/JHEP06(2012)081} {\bibfield  {journal} {\bibinfo
+  {journal} {JHEP}\ }\textbf {\bibinfo {volume} {06}},\ \bibinfo {pages}
+  {081}},\ \Eprint {https://arxiv.org/abs/1204.2309} {arXiv:1204.2309}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Akers}\ \emph {et~al.}(2019)\citenamefont {Akers},
+  \citenamefont {Engelhardt}, \citenamefont {Penington},\ and\ \citenamefont
+  {Usatyuk}}]{AkersEtAl2020}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.}~\bibnamefont
+  {Akers}}, \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Engelhardt}},
+  \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Penington}},\ and\
+  \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Usatyuk}},\ }\href@noop
+  {} {\bibinfo {title} {Quantum maximin surfaces}} (\bibinfo {year} {2019}),\
+  \Eprint {https://arxiv.org/abs/1912.02799} {arXiv:1912.02799} \BibitemShut
   {NoStop}%
 \bibitem [{\citenamefont {Epstein}(1966)}]{Epstein1966}%
   \BibitemOpen

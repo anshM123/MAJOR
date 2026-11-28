@@ -1,0 +1,83 @@
+This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: letter.aux
+The style file: apsrev4-2.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: letterNotes.bib
+Database file #2: refs.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+apsrev4-2.bst 2019-01-14 (MD) hand-edited version of apsrev4-1.bst
+Control: key (0) 
+Control: author (72) initials jnrlst
+Control: editor formatted (1) identically to author
+Control: production of article title (-1) disabled
+Control: page (0) single
+Control: year (1) truncated
+Control: production of eprint (0) enabled
+Warning--missing number in HRT2007
+Warning--missing number in Bao2015
+Warning--missing number in GGHH2025
+Warning--missing number in GGHHMinimax2025
+Warning--missing number in HeadrickHubeny2023
+Warning--missing number in CzechDong2019
+Warning--missing number in HHLR2014
+Warning--empty year in SM
+Warning--missing number in ZhangChen2017
+Warning--missing number in CresswellPeet2017
+Warning--missing number in BaoFuruyaNaskar2025
+Warning--missing number in MarolfWallWang2019
+Warning--missing number in GradoWhiteMarolfWeinberg2021
+Warning--missing number in CallanHeHeadrick2012
+Warning--missing number in CzechLamprouMcCandlishSully2015
+Warning--missing number in Maxfield2015
+You've used 53 entries,
+            6079 wiz_defined-function locations,
+            2027 strings with 23667 characters,
+and the built_in function-call counts, 49616 in all, are:
+= -- 3791
+> -- 1102
+< -- 243
++ -- 377
+- -- 250
+* -- 7582
+:= -- 4847
+add.period$ -- 53
+call.type$ -- 53
+change.case$ -- 221
+chr.to.int$ -- 52
+cite$ -- 71
+duplicate$ -- 4555
+empty$ -- 3573
+format.name$ -- 661
+if$ -- 9932
+int.to.chr$ -- 2
+int.to.str$ -- 61
+missing$ -- 609
+newline$ -- 211
+num.names$ -- 157
+pop$ -- 1884
+preamble$ -- 1
+purify$ -- 264
+quote$ -- 0
+skip$ -- 2192
+stack$ -- 0
+substring$ -- 1152
+swap$ -- 4230
+text.length$ -- 126
+text.prefix$ -- 0
+top$ -- 8
+type$ -- 706
+warning$ -- 16
+while$ -- 145
+width$ -- 0
+write$ -- 489
+(There were 16 warnings)
