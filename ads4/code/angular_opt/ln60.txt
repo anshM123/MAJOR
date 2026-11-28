@@ -1,0 +1,4 @@
+g=60 p=3.5 n=10: L=3.3310e+04 L/g^2=9.253 tau_heavy=3.7961e-02 tau*g=2.278 lightcoef=803.7
+g=60 p=3.5 n=16: L=3.4672e+04 L/g^2=9.631 tau_heavy=3.7207e-02 tau*g=2.232 lightcoef=772.1
+g=60 p=3.5 n=24: L=3.4910e+04 L/g^2=9.697 tau_heavy=3.7080e-02 tau*g=2.225 lightcoef=766.8
+g=60 p=3.5 n=32: L=3.4964e+04 L/g^2=9.712 tau_heavy=3.7052e-02 tau*g=2.223 lightcoef=765.6

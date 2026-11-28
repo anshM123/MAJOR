@@ -1,0 +1,11 @@
+paper K = 151266.2710310918  paper tau = 0.017813512719664144  paper light coef ~ 16*70 = 1120
+g=1000 n=12 kappa=1e+05: L=1.1000e+04 L/K=0.07 tau_heavy=6.6058e-02 lightcoef=145.5
+g=1000 n=12 kappa=1e+06: L=1.1000e+05 L/K=0.73 tau_heavy=2.0889e-02 lightcoef=145.5
+g=1000 n=12 kappa=1e+07: L=5.1304e+05 L/K=3.39 tau_heavy=9.6726e-03 lightcoef=311.9
+g=1000 n=12 kappa=1e+08: L=3.8413e+06 L/K=25.39 tau_heavy=3.5349e-03 lightcoef=416.5
+g=1000 n=12 kappa=3e+08: L=8.1281e+06 L/K=53.73 tau_heavy=2.4301e-03 lightcoef=590.5
+g=1000 n=12 kappa=1e+09: L=8.5228e+06 L/K=56.34 tau_heavy=2.3732e-03 lightcoef=1877
+g=1000 n=12 kappa=1e+10: L=8.5228e+06 L/K=56.34 tau_heavy=2.3732e-03 lightcoef=1.877e+04
+g=1000 n=12 kappa=1e+11: L=8.5228e+06 L/K=56.34 tau_heavy=2.3732e-03 lightcoef=1.877e+05
+g=1000 n=12 kappa=1e+12: L=8.5228e+06 L/K=56.34 tau_heavy=2.3732e-03 lightcoef=1.877e+06
+g=1000 n=12 kappa=1e+14: L=8.5228e+06 L/K=56.34 tau_heavy=2.3732e-03 lightcoef=1.877e+08

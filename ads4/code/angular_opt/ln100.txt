@@ -1,0 +1,5 @@
+g=100 p=3.5 n=10: L=1.1253e+05 L/g^2=11.253 tau_heavy=2.0653e-02 tau*g=2.065 lightcoef=1422
+g=100 p=3.5 n=16: L=1.1825e+05 L/g^2=11.825 tau_heavy=2.0147e-02 tau*g=2.015 lightcoef=1353
+g=100 p=3.5 n=24: L=1.1965e+05 L/g^2=11.965 tau_heavy=2.0030e-02 tau*g=2.003 lightcoef=1337
+g=100 p=3.5 n=32: L=1.1996e+05 L/g^2=11.996 tau_heavy=2.0003e-02 tau*g=2.000 lightcoef=1334
+g=100 p=3.5 n=40: L=1.2004e+05 L/g^2=12.004 tau_heavy=1.9996e-02 tau*g=2.000 lightcoef=1333

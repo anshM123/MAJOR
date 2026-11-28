@@ -1,0 +1,7 @@
+g=24 n=16 p=2 kappa=576: L=6.3360e+01 log_g L=1.305 tau_heavy*g=20.889 lightcoef=145.5
+g=24 n=16 p=2.5 kappa=2.82e+03: L=1.7212e+02 log_g L=1.620 tau_heavy*g=12.674 lightcoef=262.3
+g=24 n=16 p=3 kappa=1.38e+04: L=5.9703e+02 log_g L=2.011 tau_heavy*g=6.805 lightcoef=370.5
+g=24 n=16 p=3.5 kappa=6.77e+04: L=2.5742e+03 log_g L=2.471 tau_heavy*g=3.277 lightcoef=420.9
+g=24 n=16 p=4 kappa=3.32e+05: L=5.3216e+03 log_g L=2.700 tau_heavy*g=2.279 lightcoef=997.5
+g=24 n=16 p=5 kappa=7.96e+06: L=1.4012e+04 log_g L=3.004 tau_heavy*g=1.405 lightcoef=9093
+g=24 n=16 p=6 kappa=1.91e+08: L=2.7149e+04 log_g L=3.212 tau_heavy*g=1.009 lightcoef=1.126e+05

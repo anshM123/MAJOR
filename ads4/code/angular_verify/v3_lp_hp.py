@@ -8,7 +8,8 @@ B_n is evaluated in 256-bit ball arithmetic (python-flint).  The LP is
     min lam  s.t.  sigma_i f(i)/W_i <= lam  for all generated states,   mu_2 = 1,
 with constraint generation over the full candidate set, then an exact-rational re-check of the
 certificate on the most binding states.  |c|^2_max = 3 lam.
-usage: python3 v3_lp_hp.py g N [light] [odd_b0]
+usage: python3 v3_lp_hp.py g N [light] [odd_b0] [contact|contact3]
+  contact  : allow an unknown antisymmetric contact term x (k+2) in every R_k (x free); contact3 adds x' (k+2)^3 too
   light : add light columns (b=0, J=0 with 1/2<=D<g ; b=0, J=2 with 3<D<g+2): light single traces / any light state
           of spin <= 2, which enter ONLY the b=0 side.  They are given their endpoint cost W (no A2' suppression).
 """
@@ -46,9 +47,9 @@ def candidates(g, light=False, odd_b0=False):
             for t in ts:
                 out.append((b, J, Fr(J + g) + t))
     if light:
-        for D in [Fr(x).limit_denominator(64) for x in np.linspace(0.5, g - 1e-3, 200)]:
+        for D in [Fr(x).limit_denominator(10**6) for x in np.linspace(0.5, g - 1e-3, 200)]:
             out.append((0, 0, D))
-        for D in [Fr(x).limit_denominator(64) for x in np.linspace(3.001, g + 2 - 1e-3, 200)]:
+        for D in [Fr(x).limit_denominator(10**6) for x in np.concatenate([3 + np.geomspace(1e-4, 1, 40), np.linspace(4, g + 2 - 1e-3, 200)])]:
             out.append((0, 2, D))
     return out
 
@@ -77,7 +78,7 @@ def basis_rows(S, N, MT):
     return out
 
 
-def run(g, N, light=False, odd_b0=False):
+def run(g, N, light=False, odd_b0=False, contact=0):
     t0 = time.time()
     M = Mmat(N)
     MT = arb_mat([[arb(M[n][k].numerator) / M[n][k].denominator for n in range(N + 1)] for k in range(N + 1)])
@@ -89,7 +90,12 @@ def run(g, N, light=False, odd_b0=False):
     for it in range(MAXIT):
         A = np.hstack([B[idx], -np.ones((len(idx), 1))])
         c = np.zeros(N + 2); c[-1] = 1.0
-        res = linprog(c, A_ub=A, b_ub=np.zeros(len(idx)), A_eq=np.append(a_eq, 0.0)[None, :], b_eq=[100.0],
+        Aeq = [np.append(a_eq, 0.0)]; beq = [100.0]
+        # contact-term sensitivity: a free unknown x_p (k+2)^p added to every R_k  ->  dual needs sum_k mu_k (k+2)^p = 0
+        for p in ([1] if contact >= 1 else []) + ([3] if contact >= 2 else []):
+            row = np.array([sum(float(M[n][k]) * (k + 2) ** p / comb(k + 3, 3) ** 2 for k in range(N + 1)) for n in range(N + 1)])
+            Aeq.append(np.append(row / np.abs(row).max(), 0.0)); beq.append(0.0)
+        res = linprog(c, A_ub=A, b_ub=np.zeros(len(idx)), A_eq=np.array(Aeq), b_eq=beq,
                       bounds=[(None, None)] * (N + 1) + [(0, None)], method='highs')
         if res.status != 0:
             print('LP status', res.status, res.message); return None
@@ -111,16 +117,17 @@ def run(g, N, light=False, odd_b0=False):
         f = sum(m * x for m, x in zip(mus, r))
         worst = max(worst, float((1 if b == 4 else -1) * f / W(b, D)) / lam - 1)
     return dict(c2=3 * lam, it=it + 1, worst=worst, binding=[S[i] for i in order[:8]], t=time.time() - t0,
-                nS=len(S), mu2=float(mus[2]))
+                nS=len(S), mu2=float(mus[2]), sumc=float(sum(abs(x) for x in cks)), mus=mus, maxc=float(max(abs(x) for x in cks)))
 
 
 if __name__ == '__main__':
     g = int(sys.argv[1]); N = int(sys.argv[2]); fl = sys.argv[3:]
     from v2_lp import three_state
     c3, _ = three_state(g)
-    o = run(g, N, light='light' in fl, odd_b0='odd_b0' in fl)
+    o = run(g, N, light='light' in fl, odd_b0='odd_b0' in fl, contact=2 if 'contact3' in fl else (1 if 'contact' in fl else 0))
     if o:
         print(f"g={g} N={N} {fl}: LP |c|^2={o['c2']:.8e}  3-state={float(c3):.8e}  ratio={o['c2']/float(c3):.6f}  "
               f"tau g^3={4*o['c2']**0.5*g**3:.2f} (3-state {4*float(c3)**0.5*g**3:.2f})  iters={o['it']}  "
               f"exact rel. viol={o['worst']:.1e}  states={o['nS']}  {o['t']:.0f}s")
+        print(f"   dual size: sum_k |mu_k| binom(k+3,3)^2 = {o['sumc']:.3e}  (max term {o['maxc']:.3e}); paper k=2 rule: 100")
         print('   binding:', [(b, J, float(D - J - g)) for (b, J, D) in o['binding']])

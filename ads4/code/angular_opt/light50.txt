@@ -1,0 +1,9 @@
+g=50 n=24 kappa=1: L=1.1000e-01 L/kappa=0.11 heavy-tau=2.0889e+01 light-coef 16kappa/L=145.5
+g=50 n=24 kappa=100: L=1.1000e+01 L/kappa=0.11 heavy-tau=2.0889e+00 light-coef 16kappa/L=145.5
+g=50 n=24 kappa=2.5e+03: L=2.7500e+02 L/kappa=0.11 heavy-tau=4.1779e-01 light-coef 16kappa/L=145.5
+g=50 n=24 kappa=1e+04: L=6.6158e+02 L/kappa=0.06616 heavy-tau=2.6936e-01 light-coef 16kappa/L=241.8
+g=50 n=24 kappa=1e+05: L=4.0966e+03 L/kappa=0.04097 heavy-tau=1.0825e-01 light-coef 16kappa/L=390.6
+g=50 n=24 kappa=1e+06: L=2.2974e+04 L/kappa=0.02297 heavy-tau=4.5709e-02 light-coef 16kappa/L=696.4
+g=50 n=24 kappa=1e+07: L=4.3355e+04 L/kappa=0.004335 heavy-tau=3.3274e-02 light-coef 16kappa/L=3690
+g=50 n=24 kappa=1e+08: L=1.0206e+05 L/kappa=0.001021 heavy-tau=2.1687e-02 light-coef 16kappa/L=1.568e+04
+g=50 n=24 kappa=1e+10: L=1.3554e+05 L/kappa=1.355e-05 heavy-tau=1.8819e-02 light-coef 16kappa/L=1.18e+06
