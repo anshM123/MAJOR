@@ -157,16 +157,53 @@ What happens on the light b=0 states:
 
   The worst point is at T ≈ (6 − 3√2)n², that is Δ ≈ 0.66g. `v10_racah_light.py 100 50` independently gives −0.125. The −0.14% in `angular_verify/README.md` was run at n = 53, not at n = ⌊g/2⌋.
 
-**Extending the theorem to light spin 0/2 single traces works.** The note `LIGHT_SINGLE_TRACE_REPAIR.md` proposes rescaling W_B to A = 3(√2−1)n² and supports it only numerically. I checked it and found a short exact proof:
-- **Heavy conditions survive.** Both heavy conditions are affine in the scale t of the dual. They hold at t = 0 (W_b > 0) and at t = W_B by the theorem. So they hold for 0 ≤ t ≤ W_B. Also A ≤ W_B, because (4n² + 10n − 3/2)/3 − 3(√2−1)n² > 0, using 4 − 9(√2−1) ≈ 0.272 > 0.
-- **Light spin 2 holds exactly.** Set ν = n². Then 3T(T−2)(W_0 + A F_2) = (T − (6−3√2)ν)²(T + (3+3√2)ν) + d(T), with d(T) = (5/2)T² − (18(√2−1)ν + 9)T + 54(√2−1)ν² (verified). The discriminant of d is (1512 − 1188√2)ν² + 324(√2−1)ν + 81, which is negative for ν > 1.2. So d > 0, and the margin is positive for all T > 2 (Δ > 3) and every n ≥ 2. The relative margin is about 3.13/n², so the asymptotic tangency is real.
-- **Cost.** L = A n²(n²−1)/400, so τ ≲ 994.4/g³ instead of 960/g³.
+**Extending the theorem to light spin 0/2 single traces works.** A rescaled dual fixes it; see section 9, where I prove the collaborator's repair exactly.
 
 **Light multi-traces (A2′) remain completely outside both the theorem and the repair.** They enter every R_k on **both** ladders at twist < g, with r_k up to about D_k². Extending to them needs one of two things:
 - (i) a feasibility statement for the Racah dual on the whole unitarity region of both ladders at twist below g. That is not plausible: W_B·|R| can far exceed W at low twist, and `v6` reports enormous dual values there.
 - (ii) a separate quantitative bound on the light spectral weight E_light, the c_T → ∞ remainder described in `angular_verify/README.md` (a).
 
 The corollary should state explicitly that it needs this input.
+
+## 9. The collaborator's light single-trace repair (`LIGHT_SINGLE_TRACE_REPAIR.md`): correct, now with an exact proof
+
+**Claim.** Replace W_B by A = 3(√2−1)n², with n = ⌊g/2⌋. The dual λ_k D_k² = −A(−n)_k(n)_k/(k!)² is then feasible on:
+- both heavy ladders;
+- light scalars;
+- light spin-2 states with 3 < Δ < g+2.
+
+It gives τ ≲ 994.4/g³. The note supports the light spin-2 step only numerically (mpmath, g ≤ 10⁴). All parts are confirmed below, and the numerical step is replaced by a proof.
+
+1. **A ≤ W_B for every real g ≥ 4.** [V]
+   - Since g ≥ 2n, W_B ≥ (4n² + 10n − 3/2)/3.
+   - (4n² + 10n − 3/2)/3 − 3(√2−1)n² = [(26 − 18√2)n² + 20n − 3]/6 > 0, because 26 − 18√2 ≈ 0.544.
+2. **Heavy conditions are preserved.** [V-hand]
+   - At fixed (J, Δ), W_0 + tR_{n,0} and W_4 − tR_{n,4} are affine in the scale t.
+   - Both are positive at t = 0 (W_b > 0), and nonnegative or positive at t = W_B by the theorem. So they hold for every t ∈ [0, W_B], including t = A.
+   - This is the note's sign argument, rephrased.
+   - The helicity-4 condition is no longer saturated at (4, g+4): it now has strict margin W_B − A > 0.
+3. **Light scalars.** R_{n,0}(0, Δ) = 1, and W_0 ≥ 17/12 > 0 for every real Δ. [V]
+4. **Light spin-2 window.** [V]
+   - For a non-conserved spin-2 state in 3d, unitarity gives Δ > 3. The lightness condition gives Δ < g+2, and Δ ≥ g+2 is heavy and already covered. So the window is T = (Δ−1)(Δ−2) ∈ (2, g(g+1)).
+   - Only k ≤ 2 contributes, so with ν = n², R_{n,0}(2, Δ) = F_2 = 1 − 6ν/T + 6ν(ν−1)/(T(T−2)). Its denominators are positive, since T > 0 and T − 2 = Δ(Δ−3) > 0.
+   - Exact decomposition:
+     3T(T−2)·(W_0 + A F_2) = (T − (6−3√2)ν)²·(T + (3+3√2)ν) + d(T),
+     d(T) = (5/2)T² − (18(√2−1)ν + 9)T + 54(√2−1)ν².
+     The cubic is A's tangency polynomial: a³ + 9(√2−1)(a² − 6a + 6) = (a − 6 + 3√2)²(a + 3 + 3√2).
+   - The discriminant of d is (1512 − 1188√2)ν² + 324(√2−1)ν + 81. Its leading coefficient is ≈ −168.1, and its only positive root is ν ≈ 1.200. So for ν ≥ 4 (n ≥ 2), d(T) > 0 for every real T.
+   - Hence W_0 + A F_2 > 0 on the **whole half-line T > 2**, uniformly in g. This holds regardless of the upper end of the window.
+   - The relative margin is O(1/n²):
+     - Exact critical-point evaluation gives n² × margin → 3.1297 as n → ∞.
+     - The minimum over 2×10⁴ random (g, Δ) with g ∈ [4, 2000] is n² × margin = 1.60, at g ≈ 5.4 (n = 2).
+     - This matches the note's 1.3e-7 at g = 10⁴ (3.13/5000² = 1.25e-7).
+   - So the asymptotic tangency at Δ ≈ √(6−3√2)·n ≈ 0.663g is real, and the scale A cannot be enlarged at leading order.
+5. **The 994.4 constant.** [V]
+   - L = A n²(n²−1)/400, so τ ≤ 80√3/(√A · n√(n²−1)).
+   - With n = g/2 + O(1) this is (640/√(√2−1))·g⁻³(1 + O(1/g)) = 994.41534…/g³. The note's 994.415… is correct.
+   - Caveat on reading this number: it is a g → ∞ coefficient. At finite g, τg³ from this bound is 1014.9 at g = 10 and 994.61 at g = 100. When g sits just below an even integer (n = ⌊g/2⌋ is smallest relative to g) it is much larger: 1753 at g = 11.999 and 1055 at g = 101.999. The 960 bound of the original dual has the same floor effect.
+6. **Still not covered: light multi-traces.** The repair covers light **single traces of spin 0 and 2** only, which are b=0 and J ≤ 2. Light multi-traces enter both ladders at every k, and they need the separate E_light input described in section 8.
+
+**Grade.** The repair is correct. With items 1–4 it is now an exact statement: the rescaled dual is feasible on heavy ∪ light-scalar ∪ light-spin-2 states for all real g ≥ 4. It costs 960 → 994.4 in the asymptotic coefficient.
 
 ## Minor issues (none affects correctness)
 

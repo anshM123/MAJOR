@@ -9,3 +9,12 @@ Replace W_B in the Racah dual by A = 3(sqrt2 - 1) n^2 (n = floor(g/2)).
   Numerical check (coordinator, mpmath, g = 4..10^4, 2e4 points per g): min (W_0 + A R)/W_0 = 1.3e-7 >= 0,
   approached at large g near Delta ~ 0.66 g (tight).
 * Cubic coefficient: L = A n^2 (n^2-1)/400, tau <= 80 sqrt(3)/(sqrt(A) n sqrt(n^2-1)) -> 994.415.../g^3.
+
+## Sharper repair (collaborator, 2026-11-28, later)
+Keeping the k = 0 coefficient fixed and adjusting the higher coefficients gives a proved cubic coefficient 970.651...,
+covering every allowed light scalar and long spin-2 dimension. (Coefficients and proof to be added to this folder.)
+
+## Multi-traces (collaborator)
+The exponential light double-trace action survives small anomalous-dimension shifts, so the mean-field zeros do not
+remove it. Open: a controlled cancellation in the full CFT sum, or a better functional built from the additional moment
+identities (cf. code/angular_g4, per-harmonic rules M_n and the light-robust trade-off).
