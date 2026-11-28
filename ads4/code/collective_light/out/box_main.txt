@@ -1,0 +1,70 @@
+# cl_box tag=main  Df=1.0 sL=2.5 sH=40.0  nodes=12801 h=0.05 Y=320.0 N=160 prec=700
+per-T sum rule check: max_T |Bhat_L + Bhat_H| on the line = 8.81e-213  (max |Bhat_L| = 1.36e-03)
+imag part of R_L on the line (should be 0): 4.7e-213
+pass 1 (Stieltjes) done in 3 s
+
+spin data: c_J ||Q_J|| (L2 size), c_J Q_J(T'=2Df) (the coefficient of each state's t-image e^{pi nu/2} term)
+  J=  0  c_J||Q_J|| = -1.277e-05   c_J Q_J(2Df) = -5.055e-06   partial sum = -5.055e-06
+  J=  2  c_J||Q_J|| = -7.415e-06   c_J Q_J(2Df) = +7.697e-06   partial sum = +2.642e-06
+  J=  4  c_J||Q_J|| = -2.877e-07   c_J Q_J(2Df) = -4.497e-07   partial sum = +2.192e-06
+  J=  6  c_J||Q_J|| = +1.439e-07   c_J Q_J(2Df) = -2.926e-07   partial sum = +1.900e-06
+  J=  8  c_J||Q_J|| = -8.147e-08   c_J Q_J(2Df) = -2.013e-07   partial sum = +1.698e-06
+  J= 10  c_J||Q_J|| = +5.166e-08   c_J Q_J(2Df) = -1.489e-07   partial sum = +1.549e-06
+  J= 12  c_J||Q_J|| = -3.534e-08   c_J Q_J(2Df) = -1.158e-07   partial sum = +1.434e-06
+  J= 20  c_J||Q_J|| = -1.189e-08   c_J Q_J(2Df) = -5.615e-08   partial sum = +1.142e-06
+  J= 40  c_J||Q_J|| = -2.613e-09   c_J Q_J(2Df) = -2.047e-08   partial sum = +8.246e-07
+  J= 60  c_J||Q_J|| = -1.065e-09   c_J Q_J(2Df) = -1.125e-08   partial sum = +6.781e-07
+  J= 80  c_J||Q_J|| = -5.613e-10   c_J Q_J(2Df) = -7.343e-09   partial sum = +5.894e-07
+  J=100  c_J||Q_J|| = -3.412e-10   c_J Q_J(2Df) = -5.269e-09   partial sum = +5.283e-07
+  J=120  c_J||Q_J|| = -2.270e-10   c_J Q_J(2Df) = -4.016e-09   partial sum = +4.830e-07
+  J=140  c_J||Q_J|| = -1.608e-10   c_J Q_J(2Df) = -3.191e-09   partial sum = +4.476e-07
+  J=160  c_J||Q_J|| = -1.193e-10   c_J Q_J(2Df) = -2.615e-09   partial sum = +4.190e-07
+  exact R_L(2Df) = 0 (double zero)
+consistent-shift per-T sum rule check: max |dBhat_L + dBhat_H| = 4.3e-172
+
+per-nu images.  Barnes check: C_nu[1]*Gamma(A) = 1.  CL = collective light, CH = heavy side, CL+CH = 0 exactly.
+  SB_N = block-wise light sum over J <= N;  max|I_J| = largest single-state image;  abs = sum_J |I_J| (light-data-only bound)
+      dims: d CL/d sL (consistent toy) = -3.597e-05 | pole moved, residue fixed: d CL/d sigma = -3.500e-04 = sum_J dI_J -3.500e-04 | gamma_J = g: sum dI_J = -3.500e-04 ; gamma_J = g*2/(2+J): -3.431e-04 ; gamma_J = g*(-1)^(J/2): -3.230e-04   (all per unit g)
+nu=  2  Barnes 1.000000000000  CL=+8.496760e-05 (rad 1.5e-211)  CH=-8.496760e-05  CL+CH=-2.3e-215 | max|I_J|=7.773e-05 (J=0)  abs=8.518e-05  SB_40=+8.497e-05  SB_80=+8.497e-05  SB_160=+8.496759e-05  [6s]
+      max Arb radius over I_J: 1.3e-129
+      dims: d CL/d sL (consistent toy) = -4.728e-05 | pole moved, residue fixed: d CL/d sigma = -8.810e-04 = sum_J dI_J -8.810e-04 | gamma_J = g: sum dI_J = -8.810e-04 ; gamma_J = g*2/(2+J): -1.661e-03 ; gamma_J = g*(-1)^(J/2): -3.998e-03   (all per unit g)
+nu=  5  Barnes 1.000000000000  CL=+3.014809e-04 (rad 6.1e-211)  CH=-3.014809e-04  CL+CH=-1.9e-214 | max|I_J|=5.296e-04 (J=0)  abs=7.583e-04  SB_40=+3.015e-04  SB_80=+3.015e-04  SB_160=+3.014809e-04  [6s]
+      max Arb radius over I_J: 3.8e-128
+      dims: d CL/d sL (consistent toy) = -7.090e-05 | pole moved, residue fixed: d CL/d sigma = +4.759e-02 = sum_J dI_J +4.759e-02 | gamma_J = g: sum dI_J = +4.759e-02 ; gamma_J = g*2/(2+J): -2.410e-01 ; gamma_J = g*(-1)^(J/2): -1.178e+00   (all per unit g)
+nu= 10  Barnes 1.000000000000  CL=+1.175685e-03 (rad 1.0e-209)  CH=-1.175685e-03  CL+CH=-2.2e-212 | max|I_J|=1.093e-01 (J=2)  abs=2.207e-01  SB_40=+1.176e-03  SB_80=+1.176e-03  SB_160=+1.175676e-03  [6s]
+      max Arb radius over I_J: 8.6e-126
+      dims: d CL/d sL (consistent toy) = -1.493e-03 | pole moved, residue fixed: d CL/d sigma = +1.549e+04 = sum_J dI_J +1.549e+04 | gamma_J = g: sum dI_J = +1.549e+04 ; gamma_J = g*2/(2+J): -1.298e+05 ; gamma_J = g*(-1)^(J/2): -6.475e+05   (all per unit g)
+nu= 20  Barnes 1.000000000000  CL=+1.593171e-02 (rad 2.1e-203)  CH=-1.593171e-02  CL+CH=3.4e-208 | max|I_J|=5.816e+04 (J=2)  abs=1.166e+05  SB_40=+2.916e-01  SB_80=-6.104e-03  SB_160=+7.867085e-03  [6s]
+      max Arb radius over I_J: 1.1e-119
+      dims: d CL/d sL (consistent toy) = -2.950e-01 | pole moved, residue fixed: d CL/d sigma = +1.660e+10 = sum_J dI_J +1.660e+10 | gamma_J = g: sum dI_J = +1.660e+10 ; gamma_J = g*2/(2+J): -1.945e+11 ; gamma_J = g*(-1)^(J/2): -9.888e+11   (all per unit g)
+nu= 30  Barnes 1.000000000000  CL=+1.438493e+00 (rad 4.2e-197)  CH=-1.438493e+00  CL+CH=3.6e-200 | max|I_J|=8.571e+10 (J=2)  abs=1.716e+11  SB_40=+5.802e+05  SB_80=-1.073e+05  SB_160=-7.516038e+03  [6s]
+      max Arb radius over I_J: 2.4e-112
+      dims: d CL/d sL (consistent toy) = -2.979e+02 | pole moved, residue fixed: d CL/d sigma = +3.019e+16 = sum_J dI_J +3.020e+16 | gamma_J = g: sum dI_J = +3.020e+16 ; gamma_J = g*2/(2+J): -4.460e+17 ; gamma_J = g*(-1)^(J/2): -2.299e+18   (all per unit g)
+nu= 40  Barnes 1.000000000000  CL=+8.972433e+02 (rad 1.4e-190)  CH=-8.972433e+02  CL+CH=-1.2e-193 | max|I_J|=1.940e+17 (J=2)  abs=3.884e+17  SB_40=-3.107e+12  SB_80=+3.588e+11  SB_160=-1.934429e+10  [6s]
+      max Arb radius over I_J: 1.0e-105
+      dims: d CL/d sL (consistent toy) = -1.094e+06 | pole moved, residue fixed: d CL/d sigma = +7.341e+22 = sum_J dI_J +7.344e+22 | gamma_J = g: sum dI_J = +7.344e+22 ; gamma_J = g*2/(2+J): -1.294e+24 ; gamma_J = g*(-1)^(J/2): -6.744e+24   (all per unit g)
+nu= 50  Barnes 1.000000000000  CL=+2.385667e+06 (rad 4.3e-184)  CH=-2.385667e+06  CL+CH=6.9e-187 | max|I_J|=5.570e+23 (J=2)  abs=1.115e+24  SB_40=-1.462e+19  SB_80=+1.157e+18  SB_160=-1.465153e+17  [6s]
+      max Arb radius over I_J: 5.8e-100
+      dims: d CL/d sL (consistent toy) = -1.103e+10 | pole moved, residue fixed: d CL/d sigma = +2.145e+29 = sum_J dI_J +2.146e+29 | gamma_J = g: sum dI_J = +2.146e+29 ; gamma_J = g*2/(2+J): -4.359e+30 ; gamma_J = g*(-1)^(J/2): -2.294e+31   (all per unit g)
+nu= 60  Barnes 1.000000000000  CL=+1.902550e+10 (rad 2.2e-177)  CH=-1.902550e+10  CL+CH=-2.2e-180 | max|I_J|=1.860e+30 (J=2)  abs=3.722e+30  SB_40=+6.177e+25  SB_80=+3.901e+24  SB_160=-6.050012e+23  [6s]
+      max Arb radius over I_J: 1.0e-92
+
+convergence of the block-wise sum to the collective value (SB_N - CL)/max|I_J|, even N:
+  nu=  2 N=10:-7.4e-05 N=20:-5.7e-06 N=40:1.2e-06 N=60:5.2e-07 N=80:1.9e-07 N=120:1.4e-08 N=160:-1.0e-08
+  nu=  5 N=10:1.8e-05 N=20:-9.4e-07 N=40:4.5e-07 N=60:7.6e-07 N=80:-1.4e-07 N=120:-8.1e-08 N=160:2.9e-08
+  nu= 10 N=10:-2.8e-05 N=20:4.5e-07 N=40:-1.2e-06 N=60:1.3e-06 N=80:-4.2e-07 N=120:2.0e-07 N=160:-8.1e-08
+  nu= 20 N=10:1.2e-03 N=20:7.2e-05 N=40:4.7e-06 N=60:-2.2e-06 N=80:-3.8e-07 N=120:-2.9e-07 N=160:-1.4e-07
+  nu= 30 N=10:-1.3e-02 N=20:1.4e-04 N=40:6.8e-06 N=60:3.4e-06 N=80:-1.3e-06 N=120:-1.8e-07 N=160:-8.8e-08
+  nu= 40 N=10:-2.7e-02 N=20:5.2e-04 N=40:-1.6e-05 N=60:3.0e-06 N=80:1.8e-06 N=120:-5.6e-07 N=160:-1.0e-07
+  nu= 50 N=10:-3.6e-02 N=20:-4.9e-03 N=40:-2.6e-05 N=60:2.0e-06 N=80:2.1e-06 N=120:-1.6e-07 N=160:-2.6e-07
+  nu= 60 N=10:-4.3e-02 N=20:-1.1e-02 N=40:3.3e-05 N=60:6.0e-06 N=80:2.1e-06 N=120:-4.6e-08 N=160:-3.3e-07
+
+smeared Omega_Lam = int dp psi2(p) C_{Lam p}  (Gauss 24 nodes in p)
+      dims (per unit g): consistent d/dsL = -2.641e-04 ; pole moved = -2.643e-03 ; gamma_J = g*2/(2+J) block-wise = -1.432e-02
+Lam= 10  Omega[light, collective]=+1.424468e-03  Omega[heavy]=-1.424468e-03  max|state|=5.474e-03  sum|state|=9.572e-03  block-wise SB_N=+1.424468e-03  e^{pi Lam/2}=6.636e+06  [152s]
+      dims (per unit g): consistent d/dsL = -4.489e-04 ; pole moved = +3.737e+01 ; gamma_J = g*2/(2+J) block-wise = -2.749e+02
+Lam= 20  Omega[light, collective]=+5.919894e-03  Omega[heavy]=-5.919894e-03  max|state|=1.239e+02  sum|state|=2.481e+02  block-wise SB_N=+5.919891e-03  e^{pi Lam/2}=4.403e+13  [154s]
+      dims (per unit g): consistent d/dsL = -4.257e-03 ; pole moved = +6.859e+06 ; gamma_J = g*2/(2+J) block-wise = -7.437e+07
+Lam= 30  Omega[light, collective]=+3.816656e-02  Omega[heavy]=-3.816656e-02  max|state|=3.290e+07  sum|state|=6.587e+07  block-wise SB_N=+2.440479e-01  e^{pi Lam/2}=2.922e+20  [147s]
+      dims (per unit g): consistent d/dsL = -5.404e-01 ; pole moved = +3.700e+12 ; gamma_J = g*2/(2+J) block-wise = -5.171e+13
+Lam= 40  Omega[light, collective]=+2.134533e+00  Omega[heavy]=-2.134533e+00  max|state|=2.257e+13  sum|state|=4.516e+13  block-wise SB_N=-3.434113e+05  e^{pi Lam/2}=1.939e+27  [148s]

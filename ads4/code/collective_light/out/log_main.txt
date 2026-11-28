@@ -64,3 +64,8 @@ smeared Omega_Lam = int dp psi2(p) C_{Lam p}  (Gauss 24 nodes in p)
 Lam= 10  Omega[light, collective]=+1.424468e-03  Omega[heavy]=-1.424468e-03  max|state|=5.474e-03  sum|state|=9.572e-03  block-wise SB_N=+1.424468e-03  e^{pi Lam/2}=6.636e+06  [152s]
       dims (per unit g): consistent d/dsL = -4.489e-04 ; pole moved = +3.737e+01 ; gamma_J = g*2/(2+J) block-wise = -2.749e+02
 Lam= 20  Omega[light, collective]=+5.919894e-03  Omega[heavy]=-5.919894e-03  max|state|=1.239e+02  sum|state|=2.481e+02  block-wise SB_N=+5.919891e-03  e^{pi Lam/2}=4.403e+13  [154s]
+      dims (per unit g): consistent d/dsL = -4.257e-03 ; pole moved = +6.859e+06 ; gamma_J = g*2/(2+J) block-wise = -7.437e+07
+Lam= 30  Omega[light, collective]=+3.816656e-02  Omega[heavy]=-3.816656e-02  max|state|=3.290e+07  sum|state|=6.587e+07  block-wise SB_N=+2.440479e-01  e^{pi Lam/2}=2.922e+20  [147s]
+      dims (per unit g): consistent d/dsL = -5.404e-01 ; pole moved = +3.700e+12 ; gamma_J = g*2/(2+J) block-wise = -5.171e+13
+Lam= 40  Omega[light, collective]=+2.134533e+00  Omega[heavy]=-2.134533e+00  max|state|=2.257e+13  sum|state|=4.516e+13  block-wise SB_N=-3.434113e+05  e^{pi Lam/2}=1.939e+27  [148s]
+total 654 s
