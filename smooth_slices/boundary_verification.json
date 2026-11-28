@@ -1,0 +1,107 @@
+{
+  "all_passed": true,
+  "check_count": 23,
+  "method": "exact symbolic identities; every residual simplifies to zero",
+  "python_version": "3.13.18",
+  "sympy_version": "1.14.0",
+  "checks": [
+    {
+      "name": "ambient.endpoint_p_rank_one",
+      "passed": true
+    },
+    {
+      "name": "ambient.endpoint_q_rank_one",
+      "passed": true
+    },
+    {
+      "name": "ambient.polarization",
+      "passed": true
+    },
+    {
+      "name": "ambient.null_conic",
+      "passed": true
+    },
+    {
+      "name": "ambient.tangent_norm_equals_N",
+      "passed": true
+    },
+    {
+      "name": "ambient.reflection_matrix_part",
+      "passed": true
+    },
+    {
+      "name": "ambient.reflection_normal_part",
+      "passed": true
+    },
+    {
+      "name": "ambient.endpoint_radial_tangent",
+      "passed": true
+    },
+    {
+      "name": "poincare.endpoint_plane",
+      "passed": true
+    },
+    {
+      "name": "poincare.endpoint_semicircle",
+      "passed": true
+    },
+    {
+      "name": "poincare.even_position",
+      "passed": true
+    },
+    {
+      "name": "poincare.endpoint_position",
+      "passed": true
+    },
+    {
+      "name": "poincare.endpoint_radial_tangent",
+      "passed": true
+    },
+    {
+      "name": "poincare.conformal_tangent_norm",
+      "passed": true
+    },
+    {
+      "name": "btz.exact_conformal_metric",
+      "passed": true
+    },
+    {
+      "name": "btz.even_metric_coefficients",
+      "passed": true
+    },
+    {
+      "name": "btz.reflection_isometry",
+      "passed": true
+    },
+    {
+      "name": "btz.boundary_metric",
+      "passed": true
+    },
+    {
+      "name": "btz.tangential_determinant",
+      "passed": true
+    },
+    {
+      "name": "ode.conserved_momenta",
+      "passed": true
+    },
+    {
+      "name": "ode.physical_unit_speed",
+      "passed": true
+    },
+    {
+      "name": "ode.odd_endpoint_derivative",
+      "passed": true
+    },
+    {
+      "name": "ode.conformal_tangent_norm",
+      "passed": true
+    }
+  ],
+  "positivity_assumptions": [
+    "Ambient endpoint polarization N>0.",
+    "Poincare endpoints obey X^2-T^2>0 and |z|<sqrt(X^2-T^2)/2.",
+    "In a sufficiently thin BTZ collar A>0 and 1-z^2 H>0."
+  ],
+  "scope": "These checks verify local identities only. Embeddedness, compactness, global acausality, Cauchy extension, and homology require the analytic proofs."
+}

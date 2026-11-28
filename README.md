@@ -14,6 +14,8 @@ manuscript.
 |---|---|
 | `MANUSCRIPT.md` | Draft paper: statements, ideas of proofs, status of every claim |
 | `PROOFS.md` | Complete proofs |
+| `SMOOTH_SLICES.md` | G1 regularity upgrade: smooth uniformly spacelike homology slices through complete HRT cuts, including boundary endpoints |
+| `smooth_slices/` | Exact symbolic checks of the rotating strip and conformal endpoint formulas |
 | `PROBLEM.md` | The question and why it matters |
 | `LITERATURE.md` | Prior work and what was and was not known |
 | `APPROACHES.md` | Proof strategies tried, including the ones that failed |
@@ -30,6 +32,11 @@ The status of every statement is tabulated in `PROOFS.md` §7 and `MANUSCRIPT.md
 relying on any claim. The work was developed with AI assistance (Claude) and has been checked by automated
 adversarial review and numerical falsification tests, not yet by independent human experts, and it is not
 formalised in a proof assistant.
+
+Revision 8 adds Proposition S+ in `PROOFS.md` §6.6b. It removes the smooth-slice restriction to
+whole-boundary regions by doubling across the timelike conformal boundary, extending the doubled compact
+cut, and restricting back with homology preserved. The detailed proof is in `SMOOTH_SLICES.md`; the other
+standing assumptions and open questions remain listed in `OPEN_GAPS.md`.
 
 ## Reproducing the numerical tests
 

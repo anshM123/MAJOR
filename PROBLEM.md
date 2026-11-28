@@ -56,8 +56,9 @@ Stated separately for the two parts, because their verification status differs.
   This is what the numerical experiments of arXiv:2407.07165 tested and left open as a proof.
 * **Gravitational part** (Theorem H: the HRT entropy, defined with acausal bulk slices, equals that
   functional; hence Theorem 2). Proved in PROOFS.md §§6.3–6.7 without any admissibility hypothesis; status of
-  the independent audit: see OPEN_GAPS.md G6. Not proved for a definition that demands a smooth, uniformly
-  spacelike slice.
+  the independent audit: see OPEN_GAPS.md G6. Proposition S+ (PROOFS §6.6b; SMOOTH_SLICES.md) now proves
+  the identical entropy with smooth, uniformly spacelike completed Cauchy slices, including for interval
+  regions. Its new input is a compact extension theorem applied after conformal doubling.
 
 If both parts survive expert verification: **Level 4** (a new theorem settling a significant special case of
 an open problem). Not Level 1–3: matter, higher dimensions, and inequalities without contraction maps for

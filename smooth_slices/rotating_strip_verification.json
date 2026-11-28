@@ -1,0 +1,31 @@
+{
+  "purpose": "Exact local algebra audit; inequalities are proved analytically in SMOOTH_SLICES.md \u00a79",
+  "sympy_version": "1.14.0",
+  "checks": {
+    "ambient_frame_gram": true,
+    "frame_derivatives": true,
+    "Phi_determinant": true,
+    "Phi_metric_rr": true,
+    "Phi_metric_rs": true,
+    "Phi_metric_ss": true,
+    "T_tangent_to_AdS": true,
+    "pairwise_N_formula": true,
+    "pairwise_positive_decomposition": true,
+    "positive_conformal_sine": true,
+    "holonomy_equivariance": true,
+    "uniform_margin_holonomy_formula": true,
+    "auxiliary_Riemannian_metric": true,
+    "normal_orthogonal_r": true,
+    "normal_orthogonal_s": true,
+    "normal_norm": true,
+    "F_determinant": true,
+    "F_full_metric": true,
+    "F_metric_determinant": true,
+    "inverse_metric_tau_tau": true,
+    "compactified_induced_metric": true,
+    "compactified_ambient_boundary_metric": true,
+    "compactified_ambient_nondegenerate": true
+  },
+  "all_passed": true,
+  "number_of_checks": 23
+}

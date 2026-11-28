@@ -72,8 +72,16 @@ full-text searches of the two closest papers, and should still be treated as "no
 
 Consequence for this work: the slices of PROOFS §6.3 (embedded, invariant, pairwise spacelike separated) are of
 the acausal kind. The pleated slices constructed there are not smooth and, at rotating closed geodesics, not
-uniformly spacelike; neither source demands that. Not proved: that the slices of §6.3 are exactly the acausal
-Cauchy slices of the spacetime with its boundary (PROOFS §6.3, Remark (iv)).
+uniformly spacelike; neither source demands that. Theorems C and E in PROOFS §6.3b establish the Cauchy
+identification. Proposition S+ (§6.6b, revision 8) now realizes the same cuts on smooth uniformly spacelike
+completed Cauchy slices, including for endpoint regions.
+
+The smooth extension input is Bernal–Sánchez, *Further results on the smoothability of Cauchy hypersurfaces
+and Cauchy time functions*, Lett. Math. Phys. 77 (2006), 183–197, arXiv:gr-qc/0512095, Theorem 1.1 and
+disconnected-case Remark 4.14. The global doubling mechanism is also used by Aké–Flores–Sánchez,
+*Structure of globally hyperbolic spacetimes-with-timelike-boundary*, Rev. Mat. Iberoam. 37 (2021), 45–94,
+arXiv:1808.04412v4, §5.2. The new application uses the exact smooth AdS conformal double and reflected
+geodesic ends, so the prescribed set is compact and the cited extension hypotheses are verified.
 
 Pleated surfaces and spiralling laminations: Thurston's notes, ch. 8; Bonahon, *Ann. Fac. Sci. Toulouse* 5
 (1996); Casson–Bleiler, ch. 4–6. In AdS geometry pleated surfaces appear as boundaries of convex cores (Mess);

@@ -22,13 +22,14 @@ Headrick–Hubeny–Lawrence–Rangamani; the slice need not be smooth), equals 
 classes `c` of `½(ℓ_{X_L}(c) + ℓ_{X_R}(c))`, the same class on both sides. The homology region is constructed
 explicitly as a pleated surface whose triangles spiral onto the closed geodesics of the cut; that such
 surfaces are acausal embedded discs is, in a neighbouring setting, a theorem of Mazzoli and Viaggi, and we
-give a self-contained proof for the case needed. For regions that are unions of whole boundaries a smooth
-spacelike slice is obtained from the extension theorem of Bernal and Sánchez. (ii) That functional satisfies
+give a self-contained proof for the case needed. A smooth conformal-double construction and the extension
+theorem of Bernal and Sánchez then realize every cut on a smooth uniformly spacelike completed Cauchy slice,
+including for regions with endpoints. (ii) That functional satisfies
 every holographic entropy inequality admitting a contraction map, for arbitrary boundary regions, and lies
 in the full RT cone when the parties are unions of whole boundaries. Consequently the HRT entropies of these
 spacetimes, so defined, obey all contraction-map inequalities, with no time-symmetry and no energy
-condition. Not proved: the same statement for a definition requiring a smooth, uniformly spacelike homology
-region when regions have endpoints. The mechanism for (ii) is that of Czech and Dong; the new step is to run
+condition. The smooth version permits the same boundary-trace freedom through the anchoring points as the
+original prescription. The mechanism for (ii) is that of Czech and Dong; the new step is to run
 it on the quotient surface, where a crossing inequality holds for every homotopy class of test curve and can
 be integrated against the Liouville measures of both chiral surfaces.
 
@@ -215,9 +216,10 @@ pleated slice. ∎
 momentum) the faces of the pleated slice accumulate and tilt towards the two lightlike planes through the
 geodesic: the slice is acausal, each face is spacelike, but it is not uniformly spacelike there. This is
 forced for any invariant slice that is totally geodesic on one side of the geodesic, because the group acts
-on its normal plane by a boost. If the homology region were required to be smooth and uniformly spacelike, a
-further argument (replacing the slice near such geodesics by a boost-twisted smooth strip) would be needed;
-it is not given here.
+on its normal plane by a boost. This is a feature of that pleated construction. Proposition S+ below
+replaces the containing slice while keeping the complete geodesic cut fixed, and supplies smooth uniformly
+spacelike homology regions. An explicit invariant strip through a rotating axis is given in
+SMOOTH_SLICES.md §9.
 
 **The slices are exactly the acausal Cauchy slices (Theorems C and E).** Work in the conformal model
 `E = (closed hemisphere) × R` of the universal cover of `AdS_3` with its boundary, with metric
@@ -236,14 +238,31 @@ conditions. Hence the definition used here is the HRT prescription with the homo
 Headrick–Hubeny–Lawrence–Rangamani: the homology region is a region of an acausal Cauchy slice of the
 bulk with its boundary.
 
-**Smooth slices for whole-boundary regions (Proposition S).** If the cut consists of closed geodesics only,
-they are acausal in the globally hyperbolic quotient `Ω/Γ` of the invisible domain of the boundary slice (of
-which the pleated slice is a Cauchy surface, by the argument of Theorem C). A thin smooth spacelike strip
-around them is a compact acausal spacelike hypersurface with boundary, to which the extension theorem of
-Bernal–Sánchez applies as stated; it gives a smooth spacelike Cauchy surface containing the geodesics,
-whose lift is a slice in our sense. So for regions that are unions of whole boundaries, Theorem H and
-Theorem 3′ hold with smooth spacelike homology regions, including at rotating horizons. For regions with
-endpoints the smooth version is open.
+**Smooth uniformly spacelike slices for all regions (Proposition S+).** The noncompactness of an anchored
+physical arc can be removed by doubling the conformal spacetime across its timelike boundary. In the
+ambient model `Q(X,w) = −det X + w²`, holonomy acts on `X` and commutes with the reflection `w → −w`.
+The double is smooth and globally hyperbolic: folding a causal curve preserves causality and
+inextendibility, so the doubled original acausal Cauchy slice is Cauchy.
+
+For endpoint lifts `p,q` with `N = N(p,q) > 0`, a geodesic has the null-ray expression
+`[(p + u²q, u√N)]` near an endpoint. It continues smoothly under `u → −u`, and its endpoint tangent has
+positive norm `N`. Thus the doubled cut is a compact smooth acausal spacelike union of circles. A thin
+compact ribbon around it is acausal by closedness of `J⁺` and strong causality. Bernal–Sánchez Theorem 1.1
+(including the disconnected case in Remark 4.14) supplies a smooth spacelike Cauchy surface containing
+that ribbon. Its restriction to the physical half is transverse to the timelike boundary and is again
+Cauchy; no reflection symmetry of the final surface is necessary.
+
+The completed quotient slice is compact. Its boundary circles represent the marked peripheral elements,
+whose sum vanishes in the abelianized surface group. If the slice were noncompact, ordinary relative
+`H_2` would vanish and the map from boundary `H_1` to surface `H_1` would be injective, contradicting that
+nonzero peripheral relation. Positivity on the compact unit tangent bundle therefore gives a uniform
+spacelike margin relative to any fixed smooth auxiliary metric in the conformal completion.
+
+A complete timelike flow tangent to the boundary carries the old homology region to the new slice and
+fixes the cut pointwise. The boundary Cauchy curve may move through the prescribed endpoints, as the
+definition already allows. The regulated geodesic lengths are unchanged, so the HRT minimum is the same
+with smooth uniformly spacelike slices. The full proof is in PROOFS §6.6b and SMOOTH_SLICES.md; the general
+doubling method is also used by Aké–Flores–Sánchez, arXiv:1808.04412v4, §5.2.
 
 ## 8. Numerical tests
 
@@ -278,22 +297,25 @@ vacuous or used a non-discrete representation and are documented, not counted.
   neighbouring setting (free groups with funnels; boundary curve a Cauchy slice strictly containing the limit
   set; arcs ending at boundary points). We were not aware of this work when the proofs were written; it was
   found by an automated referee.
-* The extension theorem used for smooth slices: Bernal–Sánchez, arXiv:gr-qc/0512095.
+* The extension theorem used for smooth slices: Bernal–Sánchez, arXiv:gr-qc/0512095. The general doubling
+  mechanism for globally hyperbolic spacetimes with timelike boundary: Aké–Flores–Sánchez,
+  arXiv:1808.04412v4, §5.2.
 
 **New, to our knowledge** (literature search through 15 November 2026; not exhaustive).
 * Lemma A in the form "one set of output classes works for every test class", and Theorem 1: the
   contraction-map inequalities for the common-class functional `min_c Σ_j w_j ℓ_{X_j}(c)` on surfaces of
   arbitrary topology. This is the step that arXiv:2407.07165 found missing for multiply connected bulks.
-* The use of a pleated (or, for closed cuts, smooth) slice as the HRT homology region, giving Theorem H: the
+* The use of a pleated slice, upgraded by Proposition S+ to a smooth uniformly spacelike completed slice
+  for every cut, as the HRT homology region, giving Theorem H: the
   HRT entropy defined with acausal slices equals the minimum over topological cut classes. Earlier treatments
   (Maxfield, arXiv:1412.0687; arXiv:2407.07165) take the equivalence of the spacelike and the topological
   homology condition as an assumption.
 * Consequently Theorems 2 and 3′.
 
-**What a reader should not conclude.** That the HRT cone equals the RT cone in general; that the result
-holds with matter or in higher dimensions; that Theorem 2 holds for a definition of HRT demanding a smooth,
-uniformly spacelike homology region when regions have endpoints (proved only for whole-boundary regions,
-and there only given the cited theorems of Proposition S).
+**What a reader should not conclude.** That the HRT cone equals the RT cone in general, or that the result
+holds with matter or in higher dimensions. Proposition S+ does establish the smooth uniformly spacelike
+version for all regions in the stated geometry and boundary-trace convention. Its margin is uniform on a
+fixed completed quotient slice; no moduli-independent constant is asserted.
 
 ## 10. Status of statements
 
@@ -307,9 +329,9 @@ and there only given the cited theorems of Proposition S).
 | Invariant spun family of ideal triangles containing a cut (Lemma T) | proved given one cited topological fact (triangulations with prescribed vertices); spiralling step proved |
 | Pleated slice (Proposition P) | proved; not new in substance (Mazzoli–Viaggi) |
 | Theorem H (homology region on an acausal Cauchy slice of the spacetime with boundary) | proved; two independent automated audits, no error found in the statement, all gaps they listed filled (fills not re-read); see OPEN_GAPS.md G6 |
-| Theorem H with smooth spacelike slices | whole-boundary regions: proved given cited theorems; regions with endpoints: **not proved** |
+| Theorem H with smooth spacelike slices | proved for whole-boundary and endpoint regions by Proposition S+; uses the existing geometric inputs and Bernal–Sánchez |
 | Theorems 2 and 3' (HRT) | proved; no admissibility hypothesis; for the definition of §7 with acausal slices |
-| Same statements for smooth, uniformly spacelike homology regions | **not proved** |
+| Same statements for smooth, uniformly spacelike homology regions | proved by Proposition S+; completed quotient compactness supplies the uniform margin; automated review and exact local algebra checks, no human or formal verification |
 | Non-vacuum spacetimes, higher dimensions | not covered |
 
 ## References

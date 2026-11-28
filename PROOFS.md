@@ -1,4 +1,4 @@
-# PROOFS (revision 5: Hypothesis H removed)
+# PROOFS (revision 8: smooth uniformly spacelike homology slices, including endpoints)
 
 Status legend: **[proved]** = complete argument written here, relying only on cited standard facts;
 **[standard]** = textbook fact, cited; **[assumed]** = hypothesis, stated explicitly where used.
@@ -577,9 +577,11 @@ only" and "(S1)–(S3) and piecewise totally geodesic with spacelike faces", bec
 (S1), (S2) and its proof of `≤` produces slices of the latter kind. (ii) The slices produced in §6.6 are acausal and have spacelike faces, but they are bent along geodesics,
 and at a closed component of `γ` with `ℓ_L ≠ ℓ_R` their faces accumulate and become asymptotically lightlike
 (Remark after Proposition P). If the definition required the homology region to be *smooth* and *uniformly*
-spacelike, an additional argument would be needed: rounding a crease is elementary where the bending is
-locally finite, but near such closed components the slice has to be replaced by a boost-twisted smooth
-strip. That is **not carried out here**; Theorem H is proved for the definition as stated, with (S3).
+spacelike, an additional argument is needed. Proposition S+ (§6.6b) now supplies it: double the conformal
+spacetime and the cut, extend a compact acausal spacelike ribbon by Bernal–Sánchez, and restrict to the
+physical half. The resulting completed quotient slice is smooth and uniformly spacelike, with the same
+geodesics and homology, for endpoint regions as well as whole-boundary regions. Uniformity is relative to
+any fixed smooth auxiliary metric on the compact quotient, as defined in §6.6b.
 (iii) Components of `γ` are required to be simple, as for an HRT surface that is an embedded submanifold; the
 proof of `≥` in Theorem H uses this (the first referee of revision 5 exhibited, for static BTZ, a
 self-crossing arc plus the horizon with a checkerboard region, which the earlier wording admitted). For
@@ -1008,8 +1010,9 @@ referee: normalised `det` of the face normals falls from `6.8·10^{-2}` to `2.3�
 any invariant surface that is totally geodesic on one side of `g(A)`: `h` acts on the normal plane of `g(A)`
 by a boost of rapidity `(a−b)/2`, and the only boost-invariant normal directions are null. An invariant
 surface that is smooth and spacelike along `g(A)` must have a tangent plane that is boosted steadily along
-the geodesic; such strips exist locally, but fitting one into a global invariant slice is not done here. This
-is the content of the caveat about smooth slices in §6.3.
+the geodesic. Explicit such strips and a global replacement through the entire cut are now supplied by
+Proposition S+ (§6.6b) and SMOOTH_SLICES.md §§9–10. This degeneration remains a property of the pleated
+construction, not an obstruction to smooth uniformly spacelike homology realization.
 
 ### 6.6a Proposition S (smooth spacelike slices for cuts made of closed geodesics) **[proved, given one cited theorem used within its stated hypotheses]**
 
@@ -1048,8 +1051,9 @@ disjoint simple closed spacelike geodesics. `H_0` is acausal in `N`: a causal cu
 of `H_0`, or a closed one through a point of `H_0`, lifts to a causal curve of `Ω` between two distinct points
 of `⋃ g(A') ⊂ Z`, contradicting Step 1. The normal bundle of each component is a rank-2 bundle with fibre
 metric of signature `(1,1)`, time-oriented because `N` is; it therefore has a smooth unit spacelike section
-`n` (the unit spacelike vectors of a time-oriented `(1,1)` plane form two lines exchanged by `−1`, and the
-bundle of such lines over a circle is trivial since `N` is orientable). For small `δ > 0`,
+`n`: orient the circle and use the ambient orientation to orient its normal plane; a chosen future timelike
+normal then selects an oriented orthogonal spacelike direction. Equivalently the oriented, time-oriented
+normal structure group is the contractible group `SO⁺(1,1)`. For small `δ > 0`,
 `H_δ := {exp(s·n(t)) : |s| ≤ δ}` is a smooth compact embedded surface with boundary, spacelike (its tangent
 plane along `H_0` is spanned by the spacelike tangent and the orthogonal spacelike `n`; spacelikeness is an
 open condition). *`H_δ` is acausal for small `δ`:* otherwise there are causally related `x_k ≠ y_k` in
@@ -1073,9 +1077,114 @@ distinct points (S3). ∎
 boundary components, the infimum in the definition of `S^ε(A)` is unchanged when slices are in addition
 required to be smooth spacelike surfaces: it is `≥` the unrestricted infimum, and Proposition S applied to a
 minimising class (which has no arcs), with the homology region defined by the parity rule of §6.7, gives a
-candidate with a smooth slice. For regions with endpoints the smooth version remains **open**: the arcs are
-not compact, so the extension theorem does not apply, and near an arc's end the slice would have to be
-controlled up to the conformal boundary.
+candidate with a smooth slice. The conformal-double argument in Proposition S+ below extends this to
+regions with endpoints and also proves a uniform spacelike margin up to conformal infinity.
+
+### 6.6b Proposition S+ (smooth uniformly spacelike slices, including endpoints) **[proved, using Bernal–Sánchez]**
+
+**Proposition S+.** For every `c ∈ 𝒞(A)`, the same spacetime geodesic union `γ_c` constructed in Proposition
+P lies on a compact smooth spacelike Cauchy hypersurface-with-boundary `Σ̄ ⊂ M̄`. It has the correct homology
+region for `A`, its boundary curve passes through `∂A`, and its interior lift satisfies (S1)–(S3). For any
+smooth representative `ḡ` of the quotient conformal metric and any fixed smooth auxiliary Riemannian metric
+`h`, there is `ε > 0` such that `ḡ(v,v) ≥ ε h(v,v)` for all `v ∈ TΣ̄`. Thus the spacelike margin is uniform on
+the completed quotient. The constant may depend on the geometry and the cut.
+
+The boundary trace may change away from the anchoring points, exactly as allowed in §6.3. A boundary trace
+prescribed to be nonsmooth is not claimed to be preserved pointwise. The homology region is smooth with
+the usual corners where an arc meets the conformal boundary.
+
+*Proof.* A full expansion, explicit rotating strips, boundary collars, and exact algebra checks are in
+[SMOOTH_SLICES.md](SMOOTH_SLICES.md). Here are all global steps.
+
+*(1) Smooth conformal double.* Reflect the hemisphere in the conformal model of §6.3b across its equator.
+The metric `−dθ² + dχ² + sin²χ dφ²` extends smoothly to `S² × R`, and reflection preserves time orientation.
+The holonomy extends conformally and commutes with reflection. To see this without a coordinate
+assumption, use the null-cone model `Q(X,w) = −det X + w²`: the positive matrix lift of an AdS point is the
+null ray `[(X,1)]`, the boundary is `w = 0`, reflection sends `w → −w`, and holonomy acts on `X` alone.
+Work in the positive lift / Einstein causal cover already fixed by §6.3b; this is not an embedding of all
+of PSL by `(X,1)`. The doubled `𝔼_Γ` is open in that cover. The Γ-action is free and proper because folding
+compact sets gives compact sets in the original half, where freeness and properness, including at the
+boundary, are part of the existing §6.1 input. The quotient is the smooth conformal double `M̂ = D M̄`.
+Choose a smooth representative `g_d` and replace it by `g_d + ι^*g_d`, where `ι` is reflection. The summands
+are pointwise positive conformal multiples, so this gives a reflection-invariant Lorentz metric with the
+same cones.
+
+*(2) The double is globally hyperbolic.* The fold `F : M̂ → M̄` is locally `(y,z) → (y,|z|)`. It sends future
+causal locally Lipschitz curves to future causal curves. Away from the seam it is an isometry; on the zero
+set of the normal coordinate one has `z' = 0` almost everywhere, so its tangent there is unchanged. A
+nonconstant curve cannot fold to a constant since each fiber has at most two isolated points. If a folded
+tail had an endpoint, the original tail would have an endpoint too: at a seam point both copies converge
+to the same point, while near an interior point a connected tail lies in one of the two disjoint copies
+of a small neighborhood. Thus folding preserves inextendibility. The double of the original acausal
+Cauchy slice `Σ̄_0` from Proposition P and Theorem C is Cauchy and acausal: a causal pair folds to a pair in
+`Σ̄_0` or to a closed causal curve, both impossible. The boundaryless Cauchy criterion gives global
+hyperbolicity. This is the mechanism in Aké–Flores–Sánchez, arXiv:1808.04412v4, §5.2; here the exact AdS
+conformal reflection supplies smoothness without modifying the causal cones.
+
+*(3) The compactified cut doubles smoothly.* For an arc with positive endpoint lifts `p,q` and
+`N = N(p,q) > 0`, §6.2 gives `X(t) = (e^t p + e^(−t) q)/√N`. Setting `u = e^(−t)` yields the exact null ray
+
+`[(X(t),1)] = [(p + u²q, u√N)]`.
+
+This is smooth through `u = 0`; reflection is `u → −u`. Its endpoint tangent is represented by `(0,√N)`,
+of positive `Q`-norm `N`, and is transverse and conformally orthogonal to the boundary. The other endpoint
+has the same formula with `p,q` interchanged and `v = e^t`. Thus each doubled arc is a smooth embedded
+spacelike circle; each closed component gives two circles. The one-end-per-point condition prevents
+branching. The resulting `K = F^(−1)(γ̄_c)` is compact and acausal, being a subset of the doubled old slice.
+
+*(4) A compact acausal spacelike ribbon.* Orient the circles of `K`. The ambient orientation and time
+orientation supply a smooth unit spacelike normal `n` on each circle; boosted holonomy obstructs a
+parallel section, not a smooth section. A sufficiently thin normal ribbon
+`H_δ = {exp_x(r n_x): x ∈ K, |r| ≤ δ}` is compact, embedded and spacelike. Some such ribbon is globally
+acausal: otherwise causal pairs `x_j,y_j ∈ H_(δ_j)`, `δ_j → 0`, converge to `x,y ∈ K`. Closedness of `J⁺`
+forces a causal relation between the limits, hence `x = y` by acausality of `K`. Near that point the fixed
+smooth ribbon `H_(δ_0)` is a zero level of a temporal coordinate. A sufficiently small causally convex
+neighborhood then forbids a causal pair on that zero level, a contradiction.
+
+*(5) Extend and restrict.* Bernal–Sánchez Theorem 1.1, with the disconnected case explicitly covered by
+their Remark 4.14, supplies a smooth spacelike Cauchy surface `Σ̂ ⊃ H_δ` in `M̂`. This is a compact prescribed
+submanifold with nonempty boundary in a boundaryless globally hyperbolic spacetime, exactly within the
+theorem's hypotheses. If the cut is empty, apply the same theorem to a small acausal spacelike disc.
+Let `Σ̄ = Σ̂ ∩ M̄`. A spacelike two-plane cannot equal the timelike tangent two-plane of the seam, so the
+intersection is transverse and `Σ̄` is smooth with boundary. A causal curve inextendible in `M̄` is also
+inextendible in `M̂`: any new endpoint would lie in the closed half and permit a timelike continuation
+inside it, tangent to the timelike boundary if necessary. It therefore crosses `Σ̄` exactly once. Thus
+`Σ̄` is acausal Cauchy and contains the original cut. Reflection invariance of `Σ̂` is not required. Theorem
+E gives (S1)–(S3) for its lift, which is automatically Γ-invariant.
+
+*(6) Compactness and uniformity.* For any quotient acausal Cauchy surface `S̄`, its lift in Theorem E is a graph over
+a disc with the limit-set points of its boundary removed, a contractible domain. Hence `π_1(S̄) = Γ`.
+Its boundary is a finite nonempty union of Cauchy circles `B_i`, one per asymptotic cylinder; each represents
+the corresponding marked peripheral element `h_i` or its inverse, with degree one. The marked compact
+surface relation `∏[a_j,b_j] h_1⋯h_b = 1` gives a nonzero signed sum of the `[B_i]` in the kernel of
+`H_1(∂S̄;Z) → H_1(S̄;Z)`. If `S̄` were noncompact, ordinary relative homology would instead give
+`H_2(S̄,∂S̄;Z) = H_c^0(S̄;Z) = 0`. Equivalently a relative top-dimensional cycle has constant orientation
+multiplicity, which cannot have compact support on a connected noncompact surface unless it vanishes.
+The long exact sequence would make the boundary map injective, a contradiction. Thus `S̄` is compact.
+Apply this to the new slice: strict positivity of `ḡ(v,v)` on its compact `h`-unit tangent bundle gives the
+claimed `ε > 0`. No equivariance of the affine map `Ψ` in Proposition P is assumed in this argument.
+
+*(7) Homology.* Choose a complete future timelike vector field tangent to the boundary, by partition of
+unity within the convex future timelike cone and positive rescaling in a complete auxiliary Riemannian
+metric. Its inextendible orbits meet the old and new Cauchy slices once. The hitting map from the old to
+the new slice is continuous by transversality of the smooth target, bijective, and therefore a homeomorphism
+by compactness. It fixes `γ̄_c` pointwise since both slices already contain it, preserves boundary components,
+and carries each oriented boundary interval to the corresponding one through the fixed endpoints.
+Transporting the old homology region preserves interior, closure and frontier. This gives the required
+region on the new slice, with the same curve and endpoint marking. ∎
+
+For trivial `Γ` (global AdS), use the full conformal hemisphere `E` and its double `S² × R`. The original
+acausal graph is Cauchy because conformal time is unbounded along inextendible causal curves; the remaining
+doubling, extension, restriction and homology arguments apply directly. The restricted slice is a graph
+over the closed hemisphere by the vertical timelike curves, so (S1)–(S3) follow directly without invoking
+the nontrivial-group version of Theorem E. Its boundary circle is trivial in the fundamental group; the
+compactness argument uses the disc peripheral relation, not a nontrivial stabilizer generator.
+
+**Corollary (Theorem H with smooth uniformly spacelike homology regions, all regions).** Let `S^ε_sm(A)`
+be the entropy with this extra regularity requirement. Its candidates form a subclass, so
+`S^ε_sm(A) ≥ S^ε(A)`. A minimizing class in Theorem H is realized by Proposition S+ on such a slice with
+the identical regulated geodesic length. Therefore `S^ε_sm(A) = S^ε(A)`, and the minimum is attained in the
+smooth class. Theorem 2 has the same upgrade for arbitrary interval and whole-boundary regions.
 
 ### 6.7 Theorem H (the HRT entropy is the minimum over cut classes) **[proved, given Lemma T]**
 
@@ -1184,10 +1293,10 @@ containing intervals the corresponding statement is **not proved** (§5.4).
 * *Gravitational input:* the HRT prescription in the following form and nothing else. `S(A)` is `1/4G_N` times
   the least regulated length of a finite disjoint union `γ` of simple complete geodesics of `M`, closed or
   anchored at `∂A`, for which there is a Cauchy slice `Σ̄` of the spacetime with its conformal boundary `M̄`
-  (necessarily acausal; not required to be smooth) with boundary through `∂A` and a region `R ⊂ Σ̄` with
+  (necessarily acausal) with boundary through `∂A` and a region `R ⊂ Σ̄` with
   `∂R = γ ∪ A`. By Theorems C and E this is the definition of §6.3. The null curvature condition, maximin
-  and minimax are not used. **Not covered:** definitions requiring a smooth, uniformly spacelike homology
-  region when regions have endpoints (covered for whole-boundary regions by Proposition S); definitions
+  and minimax are not used. Proposition S+ proves the same entropy if the completed slice is required to be
+  smooth and uniformly spacelike, including when regions have endpoints. **Not covered:** definitions
   allowing achronal slices with null pieces (Wall); definitions in which the homology region is not required
   to lie in a Cauchy slice.
 * *Cited mathematics:* the structure of the spacetimes (Mess; Barbot; Bonsante–Krasnov–Schlenker), namely
@@ -1212,7 +1321,7 @@ text adds, and what their paper does not contain:
 3. the homology region and the converse direction, i.e. Theorem H;
 4. Lemma A, Lemma B, Theorem 1, Theorem 3 and their consequence for HRT (Theorems 2, 3').
 
-## 7. Status table (§§1–5 after three referee passes; §§6.3–6.9: revision 7)
+## 7. Status table (§§1–5 after three referee passes; §6.6b: revision 8 regularity upgrade)
 
 | Statement | Status |
 |---|---|
@@ -1230,12 +1339,12 @@ text adds, and what their paper does not contain:
 | Lemma T (invariant spun family of ideal triangles containing a cut; closed geodesics are not edges, triangles spiral onto them) | proved given one cited topological fact (triangulations of a compact surface with prescribed vertices); the spiralling step is proved in the text |
 | Proposition P (pleated slice: embedded, invariant, pairwise spacelike separated, contains the geodesics) | proved, given Lemma T |
 | §6.3b: Lemma K (signed causal criterion), Lemma L, Theorem C (slices of §6.3 are acausal Cauchy slices of the spacetime with boundary), Theorem E (converse) | proved for non-trivial `Γ`, given the cited free and properly discontinuous action on the spacetime with boundary. One automated audit: Lemma K, Lemma L correct; Theorems C, E correct modulo three fillable gaps, filled in this revision (the fills not re-read) |
-| Theorem H (HRT entropy of §6.3 = minimum over cut classes) | proved, given Lemma T and the standard fact in Lemma 6.3a, **for the definition of §6.3** (homology region on an acausal, possibly non-smooth and asymptotically lightlike slice; simple components). One independent automated audit of revision 5: no error in the statement, gaps G2–G4 repaired in revision 6. Closed-geodesic case re-audited separately: see OPEN_GAPS.md G6 |
-| Theorem 2 (HRT, contraction-map inequalities, arbitrary regions) | proved for the HRT entropy of §6.3 (acausal slices); with smooth spacelike slices only when no region has endpoints |
+| Theorem H (HRT entropy of §6.3 = minimum over cut classes) | proved, given Lemma T and the standing geometric inputs; the original proof uses acausal pleated slices, and Proposition S+ gives the same minimum with smooth uniformly spacelike completed slices for all regions. Earlier audit history: OPEN_GAPS.md G6 |
+| Theorem 2 (HRT, contraction-map inequalities, arbitrary regions) | proved for the HRT entropy of §6.3; Proposition S+ gives the same entropy with smooth uniformly spacelike completed slices for all regions |
 | Theorem 3' (HRT, full cone, whole-boundary parties) | proved for the HRT entropy of §6.3; also with smooth spacelike homology regions, given Proposition S |
 | Lemma 6.4 / Proposition P: novelty | **not new in substance**: Mazzoli–Viaggi, arXiv:2206.06946 (Lemma 3.6, Theorem A); independent proofs here in a different setting |
 | Proposition S (smooth spacelike slice through a cut made of closed geodesics) | proved given Bernal–Sánchez Theorem 1.1, applied to a compact acausal spacelike strip with boundary (hypotheses verified in the text; their proof not re-read) and Geroch's theorem; revision 7, not yet refereed |
-| Variant of the definition with *smooth* spacelike slices, regions with endpoints | **not proved** |
+| Proposition S+ (smooth uniformly spacelike completed slices, including endpoints) | proved from the existing acausal Cauchy realization by a smooth conformal double, compact ribbon extension, restriction and homology transfer; Bernal–Sánchez Theorem 1.1 / Remark 4.14 used within stated hypotheses; exact local algebra checked in smooth_slices/; automated review, not human or formal verification |
 | Matter; higher dimensions; cusps; conical defects; non-orientable quotients; endpoints not on one slice | not covered |
 
 **Standing assumptions** (collected at the referee's request): every `X_j` is orientable with funnel ends
