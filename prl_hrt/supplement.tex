@@ -89,6 +89,18 @@ pleated slice through any cut class.
 \item Sec.~\ref{sec:smooth}: smooth, compact, uniformly spacelike homology slices for every cut
 (Proposition~\ref{prop:Splus}).
 \item Sec.~\ref{sec:main}: the HRT entropy vector lies in the RT cone; equality of the closed cones.
+\end{enumerate}
+Sections~\ref{sec:setting}--\ref{sec:main} are unconditional (given the cited inputs of Sec.~\ref{sec:status}). The
+following sections contain the two further results of the Letter, which are conditional on maximin hypotheses stated
+there:
+\begin{enumerate}
+\setcounter{enumi}{10}
+\item Secs.~\ref{sec:matter}--\ref{sec:jacobi}: matter obeying the NEC in $2+1$ dimensions (Theorem~4 of the Letter):
+setting and hypothesis (JM), including two false strengthenings (Remark~\ref{rem:false}); HRT as class-restricted maximin
+(Theorem~\ref{thm:Hprime}); the measure $\nu$ from SSA on the universal cover; the inequalities, the cone for whole-boundary
+parties and the Bell-pair decomposition (Theorem~\ref{thm:M}, Proposition~\ref{prop:bellmatter}); sufficient conditions for (JM)
+and its limits (Sec.~\ref{sec:JMsuff}); local positivity from the NEC without maximin (Proposition~\ref{prop:J}).
+\item Sec.~\ref{sec:strips}: translation-invariant strips in every dimension (Theorem~5 of the Letter).
 \item Sec.~\ref{sec:numerics}: numerical tests; Sec.~\ref{sec:status}: status of each statement and the cited
 inputs.
 \end{enumerate}
@@ -106,7 +118,13 @@ discussed by Mart\'inez-Granado and Thurston~\cite{MartinezGranadoThurston2026}.
 surfaces over acausal curves is a theorem of Mazzoli and Viaggi~\cite{MazzoliViaggi2022}; our Separation Lemma
 and Proposition~\ref{prop:P} are independent proofs in the setting needed here. Smooth Cauchy extensions use
 Bernal--S\'anchez~\cite{BernalSanchez2006}, and the doubling across a timelike boundary follows the method of
-Ak\'e--Flores--S\'anchez~\cite{AkeFloresSanchez2021}.
+Ak\'e--Flores--S\'anchez~\cite{AkeFloresSanchez2021}. With matter, the maximin framework, the null projection and the
+joint maximisation of several minimal areas on one slice are Wall's~\cite{Wall2014}, and restricted maximin anchored on a
+boundary slice is due to Marolf--Wall--Wang~\cite{MarolfWallWang2019}; the passage from SSA on a cover to a positive measure
+is Czech--Dong's~\cite{CzechDong2019}, here carried out on the quotient. For strips, the conditional-mutual-information weights
+are those of Czech--Dong~\cite{CzechDong2019} (their Eq.~(2.11)), the graph characterisation of the cone is
+Ref.~\cite{Bao2015}, and the membrane-regime transfer of static inequalities to higher-dimensional thermalisation is
+Bao--Mezei's~\cite{BaoMezei2018}.
 
 % ===================================================================================================
 \section{Surfaces, regions and cut classes}\label{sec:setting}
@@ -1897,6 +1915,341 @@ Its value is a maximin-free proof of local positivity that shows exactly where t
 with the numerics of Sec.~\ref{sec:numerics}, a demonstration that the NEC is necessary.
 
 % ===================================================================================================
+\section{Translation-invariant strips in every dimension}\label{sec:strips}
+
+This section proves Theorem~5 of the Letter. It is independent of Secs.~\ref{sec:matter}--\ref{sec:jacobi} and uses
+Secs.~\ref{sec:setting}--\ref{sec:graph} only for the idea of the arrangement graph. The result is conditional on the
+regular-maximin hypotheses (H4) below; it is \emph{not} a statement about every NEC spacetime.
+
+\subsection{Setting, hypotheses and statement}
+
+Let $(M,g_D)$ be a classical asymptotically locally $\mathrm{AdS}_{d+1}$ Einstein spacetime, $D=d+1=m+3$, $m=d-2\ge1$,
+satisfying the null convergence condition $\mathrm{Ric}_D(K,K)\ge0$ for null $K$ (equivalent to the NEC of the matter
+through the classical Einstein equations). Assume:
+\begin{enumerate}
+\item[(H1)] \emph{Regular translations.} A free spacelike translation action in $m$ directions with positive-definite orbit
+metric. Transverse entropy densities are defined by admissible periodic quotients (a transverse torus $T^m$ of coordinate
+volume $V$) and their decompactification limit. Anisotropic orbit sizes and time--orbit or space--orbit cross terms are
+allowed.
+\item[(H2)] \emph{Invariant boundary data.} The parties are disjoint unions of bounded parallel strips over a boundary Cauchy
+curve in the orbit space, with translation-invariant entangling edges and domains; the quotient curve may have any spacelike
+time profile $t=t(x)$. (A boundary slice $t=f(x,y)$ with $f$ varying along an edge breaks the symmetry and is excluded.)
+\item[(H3)] \emph{Disc homology.} The relevant orbit-space Cauchy surface is a disc (or half-plane); cuts are finite, proper and
+end only at the marked strip endpoints, with no further internal boundaries or relative-homology endpoints.
+\item[(H4)] \emph{Maximin admissibility.} The reduced weighted maximin problems, Eq.~\eqref{eq:redmaximin}, have regular stable
+solutions for every interval between marked endpoints and every required strip union; the null-representative comparison
+and the positive weighted joint-maximin construction of Wall~\cite{Wall2014} apply to the finite laminar families of these
+intervals; at the anchors, same-anchor extremal asymptotics~\cite{Sorce2019} and conformally regular spacelike slices hold,
+and the representatives agree with their short local null projections (sufficient conditions in Sec.~\ref{sec:stripUV}); one
+asymptotic boundary prescription is used throughout.
+\end{enumerate}
+Let $s^{\rm ren}(A):=S^{\rm ren}_{\rm HRT}(A)/V$ be the HRT entropy density after local endpoint subtraction (in units
+$4G_D=1$), let $p$ run over the marked strip endpoints, and $b_p(A):=[p\in\partial A]$.
+
+\begin{theorem}[Theorem~5 of the Letter]\label{thm:strips}
+Under (H1)--(H4) there are finite constants $a_p\ge0$ and one finite graph $\mathfrak G$ with nonnegative capacities such that,
+simultaneously for every union $A$ of parties,
+\begin{equation}\label{eq:T1}
+s^{\rm ren}(A)+\sum_pa_p\,b_p(A)=S_{\mathfrak G}(A).
+\end{equation}
+Consequently, for every local endpoint-counterterm prescription $C_p\ge a_p$,
+\begin{equation}\label{eq:T2}
+s^{\rm ct}(A):=s^{\rm ren}(A)+\sum_pC_pb_p(A)=S_{\mathfrak G}(A)+\sum_p(C_p-a_p)b_p(A)\in\CN,
+\end{equation}
+for every number $N$ of parties, at arbitrary strip widths and boundary times; and every endpoint-balanced RT inequality
+($\sum_Aq_Ab_p(A)=0$ for all $p$) holds for $s^{\rm ren}$ itself.
+\end{theorem}
+
+The conclusion is containment in the full RT cone. It does not assert that every ray of $\CN$ is realised by strips in a disc
+geometry, nor that the bare renormalised vector is a graph vector: a single vacuum $\mathrm{AdS}_4$ strip already has a
+negative finite term $\propto-1/w$. For a flat boundary the leading counterterm per endpoint is
+$C_p(\eps)=L^{d-1}/[4G_D(d-2)\eps^{d-2}]\to+\infty$, so $C_p\ge a_p$ holds at sufficiently small cutoff for each fixed state
+and endpoint set (no state-independent bound is asserted).
+
+\subsection{Reduction to an effective three-dimensional metric}\label{sec:stripred}
+
+Write the invariant metric in Kaluza--Klein form
+\begin{equation}\label{eq:KK}
+g_D=g_{ab}dx^adx^b+G_{ij}(dy^i+A^i_adx^a)(dy^j+A^j_bdx^b),\qquad G>0,
+\end{equation}
+with $g$ Lorentzian on the three-dimensional orbit space $B$, and put $\lambda=\sqrt{\det G}$, $u=\log\lambda$,
+$\widehat g:=\lambda^2g$, $P_a=G^{-1}\partial_aG$, $F^i=dA^i$.
+
+\emph{Area identity.} For a spacelike curve $\gamma\subset B$ the induced metric of its invariant lift has block form with Schur
+complement $g(\dot\gamma,\dot\gamma)$, so $\det h=\det G\,g(\dot\gamma,\dot\gamma)$ and
+\begin{equation}\label{eq:T3}
+\frac{\mathrm{Area}(\pi^{-1}\gamma)}{V}=\int_\gamma\lambda\,ds_g=\mathrm{Length}_{\widehat g}(\gamma),
+\end{equation}
+also with cross terms, componentwise for disconnected cuts. For $G=e^{2\phi}I_m$, $\widehat g=e^{2m\phi}g$.
+
+\begin{proposition}[The effective metric obeys null convergence]\label{prop:KKric}
+For a $g$-null vector $k$ with horizontal lift $K=k^a(\partial_a-A^i_a\partial_{y^i})$ (a null vector of $g_D$),
+\begin{equation}\label{eq:T4}
+\mathrm{Ric}_{\widehat g}(k,k)=\mathrm{Ric}_D(K,K)+(ku)^2+\tfrac14\mathrm{Tr}(P_k^2)+\tfrac12G_{ij}(\iota_kF^i)_a(\iota_kF^j)^a\ \ge0 .
+\end{equation}
+In the isotropic untwisted case the added terms are $m(m+1)(k\phi)^2$.
+\end{proposition}
+
+\begin{proof}
+The horizontal Ricci identity for \eqref{eq:KK} is
+$\mathrm{Ric}_D(K,K)=\mathrm{Ric}_g(k,k)-k^ak^b\nabla_a\nabla_bu-\frac14\mathrm{Tr}(P_k^2)-\frac12G_{ij}(\iota_kF^i)_a(\iota_kF^j)^a$. For $A=0$ the
+mixed Christoffels $\Gamma^a_{ij}=-\frac12g^{ab}\partial_bG_{ij}$, $\Gamma^i_{aj}=\frac12(G^{-1}\partial_aG)^i{}_j$ contribute
+$-\frac12\mathrm{Tr}(G^{-1}\nabla_a\partial_bG)+\frac14\mathrm{Tr}(P_aP_b)=-\nabla_a\nabla_bu-\frac14\mathrm{Tr}(P_aP_b)$ to horizontal Ricci; for
+$A\ne0$, the horizontal frame $E_a=\partial_a-A^i_a\partial_i$ has $[E_a,E_b]=-F^i_{ab}\partial_i$, which adds
+$-\frac12G_{ij}F^i_{ac}F^j{}_b{}^c$. In base dimension three the conformal formula gives, on null vectors,
+$\mathrm{Ric}_{\widehat g}(k,k)=\mathrm{Ric}_g(k,k)-k^ak^b\nabla_a\nabla_bu+(ku)^2$. Combining gives \eqref{eq:T4}. Positivity: $P_k$ is similar to the
+real symmetric $G^{-1/2}(\partial_kG)G^{-1/2}$, so $\mathrm{Tr}P_k^2\ge0$; each $\iota_kF^i$ annihilates $k$, and the inverse Lorentzian form
+is positive semidefinite on the annihilator of a null vector, so the last term is $\ge0$. An exact symbolic check from metric
+two-jets ($m=1,2$, nonzero gauge fields and varying fibre metrics) has zero residual (\texttt{check\_kk\_ricci.py}).
+\end{proof}
+
+The single-circle Einstein-frame version of this inheritance is discussed by Parikh and van der Schaar~\cite{ParikhVanDerSchaar2015};
+\eqref{eq:T4} includes varying fibre shape and Kaluza--Klein gauge fields. The effective metric is \emph{not} asymptotically
+$\AdS$: near a Poincar\'e boundary $\widehat g\sim z^{-2(m+1)}(-dt^2+dx^2+dz^2)$. Maximin is therefore applied to the original
+area-density functional; no $\AdS$ asymptotic theorem (in particular none from Secs.~\ref{sec:matter}--\ref{sec:jacobi}) is
+imported. With $\sigma$ an invariantly liftable Cauchy slice of $B$, the reduced weighted maximin problem is
+\begin{equation}\label{eq:redmaximin}
+L_*(A)=\sup_\sigma\inf_{\gamma\sim A,\ \gamma\subset\sigma}\mathrm{Length}_{\widehat g}(\gamma).
+\end{equation}
+
+\emph{Invariant Cauchy slices.} For a base spacelike Cauchy slice $\sigma$, $\pi^{-1}\sigma$ is spacelike by \eqref{eq:KK} and Cauchy (a
+full inextendible causal curve projects to a base causal curve with no ordinary endpoint, since a local temporal coordinate
+bounds the fibre velocity). Invariant Cauchy temporal functions exist: average a smooth Cauchy temporal function over the Haar
+measure of $T^m$ (future timelike covectors form a convex cone; divergence along inextendible causal curves is uniform in the
+group element by compactness). This does not assert that averaging a maximising slice preserves its maximin value.
+
+\subsection{Symmetry inheritance against arbitrary competitors}\label{sec:stripsym}
+
+\begin{lemma}[Spatial symmetry by averaging and coarea]\label{lem:BV}
+On an invariant spacelike slice $\Sigma=\pi^{-1}\sigma$ with invariant boundary trace $A$ (compact spatial regulator), the
+unrestricted infimum of the perimeters $P(R)$ of admissible homology regions $R$ equals $V\cdot L_\sigma(A)$, the minimum
+$\widehat g$-length of reduced cuts on $\sigma$.
+\end{lemma}
+
+\begin{proof}
+Let $R$ be any admissible region, with no symmetry assumed, and $f=\int_{T^m}\chi_{gR}\,d\mu(g)$. Isometric invariance and
+convexity of total variation give $|Df|(\Sigma)\le P(R)$; $f$ is invariant, takes values in $[0,1]$, and has trace $\chi_A$. By
+\eqref{eq:KK}, $|Df|(\Sigma)=V\int_\sigma\lambda|df|\,d{\rm vol}$, and weighted coarea gives
+$\int_\sigma\lambda|df|\,d{\rm vol}=\int_0^1P_\lambda(\{f>s\})\,ds$. For a.e.\ $s$ the level set $\{f>s\}$ has trace $A$ and its boundary is an
+admissible reduced cut, so $P(R)\ge VL_\sigma(A)$. Lifting a reduced minimiser gives equality by \eqref{eq:T3}.
+\end{proof}
+
+The comparison includes disconnected, winding and non-symmetric competitors and needs only finite perimeter. Convexity is
+never applied to a subtracted (renormalised) perimeter; the passage to the conformal boundary is Sec.~\ref{sec:stripUV}.
+
+\begin{lemma}[Extremality of invariant lifts]\label{lem:liftext}
+If $\gamma$ is $\widehat g$-extremal, $X=\pi^{-1}\gamma$ is extremal for the full area.
+\end{lemma}
+
+\begin{proof}
+$H_X$ is invariant and horizontal (vertical vectors are tangent to $X$). Invariant normal variations are arbitrary normal
+variations of $\gamma$ lifted horizontally, and their first variation vanishes by \eqref{eq:T3}; a nonzero $H_X$ would be detected by
+an invariant variation supported over a short segment of $\gamma$. So $H_X=0$, and the first variation vanishes also for
+$y$-dependent variations.
+\end{proof}
+
+\begin{theorem}[Translational HRT reduction]\label{thm:stripsym}
+Under (H1), (H2), (H4), for each strip union $A$ with stable reduced maximiser $\gamma_*$ on an invariantly liftable slice $\sigma_*$,
+$X_*=\pi^{-1}\gamma_*$ is an HRT surface and $s^{\rm ren}(A)=\mathrm{Length}^{\rm ren}_{\widehat g}(\gamma_*)$.
+\end{theorem}
+
+\begin{proof}
+Stable reduced maximin is $\widehat g$-extremal by Wall's two-normal-directions argument (or by Lemma~\ref{lem:regmax}), so $X_*$ is fully
+extremal (Lemma~\ref{lem:liftext}), and by Lemma~\ref{lem:BV} it minimises area against \emph{all} cuts on $\Sigma_*=\pi^{-1}\sigma_*$. For any
+full extremal surface $Y$ with the same anchors and homology, its null representative $\tilde Y$ on $\Sigma_*$ (from the appropriate null
+normal sheets, generators discarded at caustics; initial expansion zero) obeys $\mathrm{Area}(\tilde Y)\le\mathrm{Area}(Y)$ by Raychaudhuri and
+the null convergence of $g_D$~\cite{Wall2014}, and has the required homology. So
+$\mathrm{Area}(X_*)\le\mathrm{Area}(\tilde Y)\le\mathrm{Area}(Y)$, and $X_*$ is a least-area extremal surface. For asymptotic anchors this is
+understood as the cutoff comparison of Sec.~\ref{sec:stripUV} followed by the finite same-anchor limit. No uniqueness, strict focusing or
+Jacobi nondegeneracy is used.
+\end{proof}
+
+This differs from the symmetry argument of Ref.~\cite{GGHH2025} (Appendix~B), which treats finite isometry groups under a
+genericity assumption on null Jacobi operators; here the group is a torus and no genericity is assumed, while stable reduced
+maximin existence is kept explicit. For $\R^m$ translations the theorem is applied with periodic identifications: every period gives
+the same reduced problem and the full HRT area, including periodic non-symmetric competitors, is $V$ times the reduced length, so the
+density is period independent. (On a non-compact slice a F\o lner average gives $P(R;\sigma\times Q_L)/|Q_L|\ge L_\sigma(A)-C/L$; extending the
+covariant comparison to aperiodic competitors needs a transverse-displacement bound for null representatives, and without it the
+statement is for the periodic density.)
+
+\subsection{The conformal boundary: relative-cutoff averaging}\label{sec:stripUV}
+
+Let $\Sigma_\eps=\Sigma\cap\{z\ge\eps\}$, $B_\eps=\Sigma\cap\{z=\eps\}$, $a_\eps$ the trace of the homology region $R_X$ of $X$ on $B_\eps$, and for a
+competitor $R$ with trace $b_\eps$ let $E_\eps=\{a_\eps\ne b_\eps\}$.
+
+\begin{lemma}[Relative-cutoff averaging]\label{lem:relcut}
+For a.e.\ small regular $\eps$, $\mathrm{Area}(X\cap\Sigma_\eps)\le P_\eps(R)+\mathcal H^{d-1}(E_\eps)$ for every finite-perimeter homology region $R$
+in $\Sigma_\eps$, symmetric or not.
+\end{lemma}
+
+\begin{proof}
+Replace $R$ in a layer $\eps<z<\eps+\eta$ by $R_X$; BV gluing gives
+$P_\eps(R_\eta)\le P_\eps(R)+\mathcal H^{d-1}(E_{\eps+\eta})+P(R_X;\eps<z<\eps+\eta)$, and along a trace-convergent sequence $\eta\to0$ the error terms
+tend to $\mathcal H^{d-1}(E_\eps)$. Average $\chi_{R_\eta}$ over the torus and apply coarea as in Lemma~\ref{lem:BV}; a.e.\ level set has exactly
+the trace of $R_X$ at $z=\eps$ and glues to $R_X$'s own collar $0<z<\eps$ with no interface, so spatial minimality of $\gamma$ gives
+$P_\eps(R_\eta)\ge\mathrm{Area}(X\cap\Sigma_\eps)$.
+\end{proof}
+
+If $\bar h_\Sigma=z^2h_\Sigma$ extends positive definite at the edges and $E_\eps$ lies in edge bands of total normal coordinate width
+$\delta_\eps$, then $\mathcal H^{d-1}(E_\eps)/V\le C\eps^{-(d-1)}\delta_\eps$, and the error vanishes if $\delta_\eps=o(\eps^{d-1})$. This scale is supplied by
+same-anchor extremal asymptotics: for extremal $X$, $Y$ with a common anchor, $U_Y-U_X=o(z^{d-1})$ in boundary-adapted normal graph
+coordinates ($O(z^d|\log z|^q)$ in the smooth or polyhomogeneous class); Sorce~\cite{Sorce2019} (\S3.1, Lemma~2, whose $d$ is the bulk
+dimension) fixes the embedding through order $z^{D-2}=z^{d-1}$. If $\Sigma\supset X$ is uniformly spacelike for $\bar g=z^2g_D$ with
+defining function $F$, then $F(Y(z,y))=o(z^{d-1})$ and $|dF(k)|\ge c>0$ for regularly normalised null normals, so the local null
+projection of $Y$ meets $\Sigma$ at flight parameter $o(z^{d-1})$ and $\delta_\eps=o(\eps^{d-1})$. Containment of $X$ is essential: for the vertical
+plane $t=x=0$ in Poincar\'e $\AdS$ and the uniformly spacelike slice $t=az$, the mismatch is $O(z)$.
+
+\emph{Locality of the representative} (sufficient conditions): a smooth causal collar with closed causal relation in the compact
+region considered and causally convex neighbourhoods of the anchors; $\bar Y$ a compact embedded $C^2$ spacelike submanifold with
+boundary the entangling edges; $J^\pm(p)\cap\bar Y=\{p\}$ for each anchor $p$ (implied by a conformally regular acausal slice containing
+$\bar Y$); and the representative is the usual boundary of the future or past domain, proper, with conformal boundary exactly the
+anchors. If remote generators replaced the local sheet near $p$, compactness and closedness of $J$ would make $p$ causally related to a
+point of $\bar Y\setminus\{p\}$. Where these conditions are not checked, (H4) retains the weaker explicit hypothesis that near each anchor
+the representative is the short local null-normal projection of $Y$ with bounded derivatives.
+
+\emph{Aligned focusing.} With $\rho_\eps=o(\eps^{d-1})$ a monotone envelope of the displacement, generators contributing to
+$\tilde Y\cap\{z\ge\eps\}$ originate in $Y\cap\{z\ge\eps-\rho_\eps\}$; focusing gives
+$\mathrm{Area}(\tilde Y_\eps)\le\mathrm{Area}(Y_\eps)+CV\rho_\eps\eps^{-(d-1)}=\mathrm{Area}(Y_\eps)+o(V)$. With Lemma~\ref{lem:relcut},
+$\mathrm{Area}(X_\eps)\le\mathrm{Area}(Y_\eps)+o(V)$; same-anchor extremal surfaces have equal local divergences, so
+$\mathrm{Area}^{\rm ren}(X)\le\mathrm{Area}^{\rm ren}(Y)$. No renormalised area of the generally non-extremal representative is needed, and no
+statement is made about HRT at a finite radial wall~\cite{GradoWhiteMarolfWeinberg2021}.
+
+\subsection{The existence input: compactness and regular maximisers}\label{sec:stripexist}
+
+On a compact globally hyperbolic slab $g=-N^2dt^2+h_t$, $t_-(x)\le t\le t_+(x)$, over a compact spatial domain with fixed regulated anchors
+and smooth weight $\lambda>0$ bounded away from zero, let $\mathcal F$ be the continuous achronal graphs between the barriers with the
+prescribed trace, and $L(f)=\inf_CL_C(f)$ with $L_C(f)=\int_C\lambda\sqrt{h_f(\dot C,\dot C)-N^2((f\circ C)')^2}\,ds$.
+
+\begin{lemma}[Compactness]\label{lem:stripcompact}
+$\mathcal F$ is compact in $C^0$, $L$ is upper semicontinuous, and $\max_{\mathcal F}L$ is attained.
+\end{lemma}
+
+\begin{proof}
+Uniform light-cone opening gives a common Lipschitz bound; uniform limits of achronal graphs are achronal; Arzel\`a--Ascoli. For fixed
+$C$, the integrand is concave in the time derivative $v\mapsto\lambda\sqrt{a-N^2v^2}$ with uniformly convergent coefficients, so
+$\limsup L_C(f_n)\le L_C(f)$; an infimum of upper semicontinuous functions is upper semicontinuous.
+\end{proof}
+
+\begin{lemma}[Extremality at a regular maximiser]\label{lem:regmax}
+If the maximum is attained on a smooth spacelike graph $f_0$, minimising cuts have the prescribed anchors, the family $\mathcal M$ of
+minimising cuts is compact in $C^1$ on interior compacta (also for minimisers in nearby smooth metrics), and both signs of normal-time
+variations are admissible near $\bigcup\mathcal M$, then some $C\in\mathcal M$ is $\widehat g$-extremal.
+\end{lemma}
+
+\begin{proof}
+In Gaussian normal coordinates $\widehat g=-d\tau^2+q_\tau$, $\tau=0$ on $f_0$. Distinct minimising cuts cannot cross transversally
+(union/intersection of homology regions and corner rounding) and tangential contact forces coincidence, so $\bigcup\mathcal M$ is a geodesic
+lamination with continuous tangent $T$; put $b=\frac12\partial_\tau q_\tau(T,T)|_0$. A deformation $\tau=\epsilon v$ changes $L_C$ by
+$\epsilon\int_Cvb\,ds+O(\epsilon^2)$. If no $C\in\mathcal M$ had $b\equiv0$, compactness would give $\inf_C\int_C\chi b^2>0$ for a cutoff $\chi$ away from the
+anchors; approximating $\chi b$ by a smooth $v$ gives $\int_Cvb\ge\delta>0$ for all $C\in\mathcal M$, and by $C^1$ compactness of minimisers in the
+deformed metrics $L(f_\epsilon)\ge L(f_0)+\frac12\epsilon\delta$, contradicting maximality.
+\end{proof}
+
+This is the strip analogue of Proposition~\ref{prop:W2} (there a minimax/measure argument, here a direct uniform-improvement argument);
+it allows degeneracies and continuous families, and does not prove regularity of a null or non-smooth maximiser. \emph{Black-brane
+barrier.} Inside a planar Schwarzschild--$\mathrm{AdS}_{d+1}$ horizon, $\tau\propto r^{d/2}$, the Kasner exponents are
+$p_{t_s}=-(d-2)/d$, $p_x=p_{y_i}=2/d$, and with $\lambda=r^{d-2}$ the reduced spatial metric at constant $\tau$ behaves as
+$\widehat q_{t_st_s}\propto\tau^{2(d-2)/d}$, $\widehat q_{xx}\propto\tau^{4(d-1)/d}$, both increasing away from the singularity in a small collar
+for $d\ge3$. Clamping $f\mapsto\max(f,\tau_0)$ cannot decrease any reduced cut length, giving an achronal barrier away from the
+singularity, the invariant analogue of Wall's Kasner argument (his Theorem~11). For Vaidya geometries this covers the final stationary
+region; a global statement through a quench needs control of the time-dependent collar and, for a thin shell, of the shell--singularity
+junction, which is part of (H4).
+
+\subsection{Strip unions are non-crossing matching minima}\label{sec:stripmatch}
+
+Let $d_{ab}$ be the renormalised single-strip entropy density between marked endpoints $p_a,p_b$. Under (H1)--(H4), for every union $A$,
+\begin{equation}\label{eq:T7}
+s^{\rm ren}(A)=\min_{\Pi\in\mathrm{NC}(\partial A)}\sum_{\{a,b\}\in\Pi}d_{ab},
+\end{equation}
+with $\mathrm{NC}(\partial A)$ the non-crossing perfect matchings of $\partial A$ on the disc.
+\emph{Lower bound.} The invariant HRT surface (Theorem~\ref{thm:stripsym}) projects, via an invariant complete timelike flow (average a
+future timelike field over the torus), to disjoint embedded arcs and closed curves on the orbit-space disc. A closed component bounds a
+disc; deleting it and reversing the homology colour inside lowers the area. Each remaining arc is an admissible single-strip candidate,
+so its density is $\ge d_{ab}$, and its endpoints form a non-crossing matching.
+\emph{Upper bound.} The intervals of a non-crossing matching form a laminar family (pairwise nested or disjoint). Wall's Theorem~17 and
+Corollary~17(h)~\cite{Wall2014} give common-slice minimality for nested pairs and disjoint families; the same positive weighted
+joint-maximin argument applies to any finite laminar family (minimise all areas on one slice, maximise the positively weighted sum,
+uncross, use local variations at disjoint components and group coincident ones), under the same existence and stability conditions,
+which are part of (H4). The single-strip HRT surfaces on the common slice have disjoint union and a symmetric-difference homology region
+with trace $A$; the candidate has the matching cost.
+
+\subsection{The finite graph theorem}\label{sec:stripgraph}
+
+Place $n\ge2$ marked points $p_0,\dots,p_{n-1}$ in cyclic order on a disc boundary, with atoms $Z_i$ from $p_i$ to $p_{i+1}$ (indices mod
+$n$); on a line, the two exterior rays and any purifier form the last atom. For a real symmetric $D$ with $D_{ii}=0$ put
+\begin{equation}\label{eq:T8}
+w_{ij}=\tfrac12\big(D_{ij}+D_{i+1,j+1}-D_{i,j+1}-D_{i+1,j}\big),
+\end{equation}
+the weights of Czech and Dong~\cite{CzechDong2019} (their Eq.~(2.11)). For a pure state on the cyclic atoms with $D_{ab}=S(Z_a\cdots Z_{b-1})$,
+$w_{ij}=\frac12I(Z_i:Z_j|Z_{i+1}\cdots Z_{j-1})$; for adjacent atoms, half a mutual information. For $a<b<c<d$ the required inequalities are
+$D_{ac}+D_{bd}\ge D_{ad}+D_{bc}$ (SSA) and $D_{ac}+D_{bd}\ge D_{ab}+D_{cd}$ (weak monotonicity). Both hold for HRT data under (H4): the first is
+Wall's covariant SSA; for the second take the common maximin slice on which the HRT surfaces of the disjoint $[a,b]$, $[c,d]$ are
+minimal (Wall's Corollary~17(h)), project those of $[a,c]$, $[b,d]$ to it by null representatives, cut and rejoin the crossing arcs.
+\emph{Telescoping} gives the exact inverse
+\begin{equation}\label{eq:T9}
+D_{ab}=\sum_{i\in I(a,b),\ j\notin I(a,b)}w_{ij},
+\end{equation}
+$I(a,b)$ the atoms on the oriented arc from $p_a$ to $p_b$: twice the right side telescopes first in $i$ and then in $j$ to
+$D_{ab}-D_{bb}-D_{aa}+D_{ba}=2D_{ab}$.
+
+\begin{theorem}[Finite graph theorem]\label{thm:finitegraph}
+If all $w_{ij}\ge0$, there is one finite graph with nonnegative capacities whose min-cut for every union of atoms (grouped into any
+number of parties, one of them the purifier) is $F_D(A):=\min_{\Pi\in\mathrm{NC}(\partial A)}\sum_{\{a,b\}\in\Pi}D_{ab}$.
+\end{theorem}
+
+\begin{proof}
+Let $\mathcal A$ be the union of \emph{all} chords $[p_a,p_b]$ in an auxiliary round disc, subdivided at intersections. For each pair
+$\{i,j\}$ choose a generic test chord $\tau_{ij}$ from $Z_i$ to $Z_j$ (missing vertices and edges of $\mathcal A$) with weight $w_{ij}$, and give
+each edge $e$ of $\mathcal A$ capacity $c(e)=\sum_{i<j}w_{ij}\#(\tau_{ij}\cap e)$. The graph has the cells of $\mathcal A$ as vertices (interior cells
+included) and an edge of capacity $c(e)$ across each edge $e$; boundary cells are labelled by their atoms' parties (distinct for
+$n\ge3$: the adjacent chord cuts off a cap), and same-party vertices are merged. A chord $[p_a,p_b]$ crosses $\tau_{ij}$ iff $i,j$ lie on
+opposite sides, so by \eqref{eq:T9} its total capacity is $D_{ab}$.
+\emph{Upper bound.} A non-crossing matching bounds a checkerboard region with trace $A$; selecting its cells gives a cut of capacity
+equal to its cost. \emph{Lower bound.} The frontier of any admissible cell selection is resolved at interior vertices and at marked points
+inside small discs avoiding all test chords; closed components are removed by recolouring; the remaining arcs form a non-crossing
+matching, and straightening each arc to its chord does not increase its intersection with any test chord (the minimum is one for
+alternating endpoint pairs and zero otherwise). So every cut costs at least some matching.
+\end{proof}
+
+The interior cells are essential: the Bell-pair graph on the atoms with capacities $w_{ij}$ reproduces single intervals but not
+disconnected unions; for four atoms and $A=Z_0\cup Z_2$ the matching minimum exceeds its cut by $2\min(w_{02},w_{13})$. Then $\CN$ membership
+follows from the graph characterisation of the RT cone~\cite{Bao2015}, with no list of inequalities and no contraction maps. An
+exact-rational implementation (\texttt{verify\_finite\_graph.py}) confirms 756 min-cut/matching equalities for 3--8 endpoints,
+including zero capacities and a case where the boundary-only Bell graph fails.
+
+\subsection{Endpoint completion and proof of Theorem~\ref{thm:strips}}\label{sec:stripUVcompl}
+
+Form $w^0_{ij}$ from the finite data $d$ by \eqref{eq:T8} with $d_{aa}=0$. Endpoint divergences cancel in every non-adjacent weight, so
+SSA and weak monotonicity give $w^0_{ij}\ge0$ there; adjacent weights can be negative (renormalised entropy is not an entropy). For $n\ge3$
+put
+\begin{equation}\label{eq:T10}
+a_p=\max\{0,-w^0_{p-1,p}\},\qquad D^*_{ab}=d_{ab}+a_a+a_b\ (a\ne b),
+\end{equation}
+which changes only $w^0_{p-1,p}$, adding $a_p$. All weights of $D^*$ are nonnegative, and Theorem~\ref{thm:finitegraph} gives a graph
+$\mathfrak G$ with $S_{\mathfrak G}=F_{D^*}$. Every matching uses each endpoint of $\partial A$ once, so $F_{D^*}(A)=F_d(A)+\sum_{p\in\partial A}a_p$,
+which with \eqref{eq:T7} is \eqref{eq:T1}. The single-edge Bell graph between the labels adjacent to $p$ has entropy vector $b_p$; adding
+capacity $C_p-a_p\ge0$ gives \eqref{eq:T2}. For two endpoints the condition is $d_{01}+C_0+C_1\ge0$. Endpoint-balanced inequalities
+annihilate every $b_p$, so they hold for $s^{\rm ren}$. This is the strip counterpart of Corollary~\ref{cor:decomp}; it works for power-law
+divergences as well as logarithmic ones. \qed
+
+\emph{Regulators.} The exact statement \eqref{eq:T2} uses an endpoint-counterterm prescription. A literal radial truncation generally has
+$D^\eps_{ab}=d_{ab}+C_a(\eps)+C_b(\eps)+r^\eps_{ab}$ with $r^\eps_{ab}\to0$, which alone does not give exact finite-cutoff membership when a
+non-adjacent weight vanishes: for $n=4$, $D^0_{ab}=2U$ ($a\ne b$) minus $\eps$ times a circular split metric keeps all distances positive but
+gives $D^\eps_{02}+D^\eps_{13}-D^\eps_{03}-D^\eps_{12}=-2\eps$ (an obstruction to the inference, not an HRT counterexample). What holds is
+$|F_{D^\eps}(A)-F^{\rm ct}(A)|\le\frac12|\partial A|\max|r^\eps|$: the distance from $\CN$ is $O(\max|r^\eps|)$, endpoint-balanced inequalities hold
+for the renormalised data, and inequalities with a positive Bell-pair divergence hold at small cutoff. Under smooth common-slice
+regularity the four-distinct-endpoint inequalities are strict (crossing smooth minimisers cannot be tangent), and with unique
+single-interval and union minimisers this upgrades to exact radial-cutoff membership at small $\eps$; this refinement is not needed for
+Theorem~\ref{thm:strips}. Blanket claims of UV cancellation for unknown facets are not used~\cite{JuCzech2026}.
+
+\emph{Relation to prior work.} Czech and Dong~\cite{CzechDong2019} prove contraction-map inequalities in $2+1$ dimensions and note that
+their ordering argument does not obviously extend to higher dimensions; their weights \eqref{eq:T8} are used here. Bao and
+Mezei~\cite{BaoMezei2018} transfer static inequalities to higher-dimensional thermalisation for the leading extensive entropy of large
+regions at late times, in the membrane regime; Theorem~\ref{thm:strips} holds at all widths and times. The conditional covariant graph
+constructions of Refs.~\cite{GGHHMinimax2025,Zhao2026} assume cooperating time sheets or exposed regions. Numerical tests of five-region
+inequalities in $\AdS$--Vaidya appear in Ref.~\cite{Caginalp2020}.
+
+% ===================================================================================================
 \section{Numerical tests and reproducibility}\label{sec:numerics}
 
 The proofs are analytic and use no numerical input. The tests below check conclusions and intermediate identities, each with a
@@ -1943,7 +2296,18 @@ torus $N=4^*$ & 30 & 450 & 0 & 5 & 10 & $-1.6\times10^{-15}$ & $-2.9\times10^{-1
 \end{ruledtabular}
 \end{table}
 
-\emph{Results} (Table~\ref{tab:schottky} and Fig.~3 of the Letter). Over 308 configurations and 4428 regions, $G$ satisfies every facet
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{fig/fig3_numerics.pdf}
+\caption{Smallest facet value $\min_QQ(\cdot)/\max_A|S_A|$ of $\mathcal{C}_3,\mathcal{C}_4,\mathcal{C}_5$
+(7, 20 and 372 facets) for 308 random configurations on pairs of pants (P) and one-holed tori (T) with two
+metrics of common marking, $N=3,4,5$ parties (asterisk: wider parameter ranges). $G$ and $F^\eps$ lie at
+rounding level; the single $F^\eps$ outlier has $\eps>\eps_1$ and is removed at smaller $\eps$, as
+Theorem~2(i) of the Letter (Theorem~\ref{thm:HRTcone}(ii)) predicts. Two control functionals violate facets in most configurations.}
+\label{fig:numericsSM}
+\end{figure}
+
+\emph{Results} (Table~\ref{tab:schottky} and Fig.~\ref{fig:numericsSM}). Over 308 configurations and 4428 regions, $G$ satisfies every facet
 to rounding and is $\eps$-independent to $2\times10^{-14}$ between $\eps=10^{-3}$ and $10^{-5}$. The single violation by $F^\eps$ is the
 threshold effect predicted by Theorem~\ref{thm:graph}: in that configuration a marked point is very close to its neighbour, $d_p$ is
 large and $\min_pt_p(10^{-5})=-1.73<0$, i.e.\ $\eps>\eps_1$; the violated facet is subadditivity, which is unbalanced. At
@@ -2002,6 +2366,107 @@ on the cylinder, and the acausality of pleated slices. Three earlier test versio
 rarely entered a minimal cut) or to use a non-discrete representation; they are not counted. Lemma~\ref{lem:A} has been tested
 directly only for $\pi_1=\Z$, and the embedding part of Proposition~\ref{prop:P} is not tested numerically.
 
+\subsection{Matter in $2+1$ dimensions: Vaidya tests}\label{sec:numvaidya3}
+
+These tests concern Secs.~\ref{sec:nu}--\ref{sec:jacobi}. They test the crossing inequality, Lemma~\ref{lem:N3} and
+Proposition~\ref{prop:J}; they cannot test (JM) itself or Theorem~\ref{thm:Hprime}, which would need an independent HRT
+solver with homology on all slices.
+
+\emph{Thin-shell Vaidya--BTZ, two-sided, $\pi_1=\Z$} (\texttt{vaidya\_btz\_first\_order.py 0}, 23\,s; \texttt{vaidya\_btz\_exact.py},
+77\,s). Eternal BTZ ($M_1=1$) with a null shell from the right boundary at boundary time $v_0$, mass $M_2=1+\Delta M$ after it;
+metric $-(r^2-M(v))dv^2+2dvdr+r^2d\phi^2$, NEC $\Leftrightarrow\Delta M\ge0$; $L(h)=2\pi$. \emph{First order}, $D=D_0+\Delta M\,D_1$ with
+$D_1=\frac12\int\theta(v-v_0)(dv/ds)^2ds$ along vacuum geodesics, on a wiggly boundary slice ($t_R=0.6+0.4\sin(\phi+0.3)$,
+$t_L=0.4+0.3\sin(2\phi+1.1)$) and 400 random quadruples on the lifted circle: the vacuum rectangle values $B_0$ are positive in all, and
+$\max(-B_1/B_0)=0.0073$ (a first-order NEC violation would need $\Delta M>137$). Lemma~\ref{lem:N3}: $d^{(0)}_n-2\pi=-2.4$,
+$-1.3\times10^{-2}$, $-2.5\times10^{-5},\dots$, and $d^{(1)}_n=2.0\times10^{-3},3.6\times10^{-5},\dots,2\times10^{-16}$: $d_n$ increases to
+$L(h)$ with vanishing first-order shift of the limit, as predicted. \emph{Exact} single-crossing geodesics (a BTZ($M_2$) piece and a
+BTZ($M_1$) piece joined at the critical break point on the shell, equivalent to the refraction law) reproduce $D_0$ to
+$4\times10^{-16}$ at $\Delta M=0$ and $dD/d\Delta M=0.059838$ from both codes. For $(t_R,t_L)\in\{(0.6,0.2),(3,0),(3,2),(1,3)\}$ and
+$\Delta M$ from $+3$ to $-0.97$, between 51 and 120 random rectangles per case, no rectangle has $\nu<0$, and $d_n\to2\pi$ throughout. For
+strongly NEC-violating shells the positivity margin collapses ($\min\nu/\nu_0\to0.03$) at the edge of the solvable region but does not
+become negative there; configurations whose geodesics re-enter the shell region (e.g.\ $t_R=3,t_L=2$, $|\Delta\phi|\lesssim1.5$) are
+outside the single-crossing solver and excluded. This solver therefore does not exhibit the necessity of the NEC.
+
+\emph{Smooth planar Vaidya--$\AdS$, test of Proposition~\ref{prop:J}} (\texttt{check\_nec\_sign.py}, \texttt{check\_jacobi\_identities.py},
+\texttt{jacobi\_sign\_vaidya.py}, 5\,min; \texttt{nearnull\_slice.py}, 25\,s). $ds^2=z^{-2}(-(1-m(v)z^2)dv^2-2dv\,dz+dx^2)$ with
+$m=m_0+\Delta m\,(1+\tanh((v-v_0)/w))/2$; NEC $\Leftrightarrow m'\ge0$ ($R_{ab}+2g_{ab}=\frac12zm'\delta^v_a\delta^v_b$, checked symbolically).
+Geodesics by Hamiltonian shooting (DOP853, rtol $10^{-12}$, cutoff $2\times10^{-4}$, mass continuation); mixed derivatives by 4-point
+differences with $h=0.02$ (step check $h=0.04,0.02,0.01$: $D_{ll}=-0.24989,-0.24860,-0.24828$). With $+$ the future-right and $-$ the
+future-left null direction and $x_1<x_2$, $D_{++}=D_{lk}$, $D_{--}=D_{kl}$, $D_{+-}=D_{ll}$, $D_{-+}=D_{kk}$. Endpoint pairs
+$(v,x)$: $((0,0),(0.4,1.5))$, $((-0.3,0),(0.6,1.2))$, $((0.5,0),(-0.2,1.3))$, $((0.2,0),(0.2,2.0))$. Results in
+Table~\ref{tab:jacobi}: all 16 NEC sign predictions hold, the vacuum cross terms vanish to solver accuracy, and \emph{every}
+NEC-violating case flips the sign of both cross terms. On a spacelike boundary slice that is nearly null at the endpoints (slope
+$+S$ at $P=(0,0)$, $-S$ at $Q=(0.4,1.5)$), the crossing density $\partial_s\partial_tD$ is, for $S=0.9$ and $S=0.99$: vacuum $+0.182$, $+0.019$;
+NEC shell $\Delta m=+1.5$: $+0.400$, $+0.265$; NEC-violating $\Delta m=-0.8$: $+0.061$, $\mathbf{-0.117}$. Without the NEC the crossing
+inequality, here ordinary SSA for intervals of one boundary slice, fails on an admissible slice, consistent with
+Ref.~\cite{CallanHeHeadrick2012}.
+
+\begin{table}[h]
+\caption{Signs of the null mixed derivatives of $D$ in smooth planar Vaidya--$\AdS$ (four endpoint configurations per row;
+ranges over the configurations). Proposition~\ref{prop:J} predicts $D_{lk},D_{kl}>0$ and $D_{ll},D_{kk}\le0$ under the NEC, with
+$D_{ll}=D_{kk}=0$ in vacuum. Last column: crossing density on a spacelike boundary slice with endpoint slopes $\pm0.5/\mp0.3$.}
+\label{tab:jacobi}
+\begin{ruledtabular}
+\begin{tabular}{lccccc}
+geometry $(m_0,\Delta m,v_0,w)$ & $D_{lk}$ & $D_{kl}$ & $D_{ll}$ & $D_{kk}$ & $\nu$-density\\
+\hline
+vacuum $(1,0,0,0.3)$ & $0.64\dots10.9$ & $0.72\dots45.8$ & $\le6\times10^{-7}$ & $\le6\times10^{-7}$ & $>0$\\
+NEC $(1,1.5,0,0.3)$ & $>0$ & $>0$ & $-0.11\dots-0.40$ & $-0.005\dots-0.06$ & $>0$\\
+NEC $(0.5,4,0.2,0.25)$ & $>0$ & $>0$ & $-0.06\dots-0.45$ & $-0.008\dots-0.22$ & $>0$\\
+NEC-violating $(1,-0.8,0,0.3)$ & $>0$ & $>0$ & $+0.06\dots+0.23$ & $+0.003\dots+0.04$ & $>0$\\
+NEC-violating $(1,-0.95,0.2,0.25)$ & $>0$ & $>0$ & $+0.013\dots+0.11$ & $+0.001\dots+0.06$ & $>0$\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\emph{Wheeler--DeWitt patch} (\texttt{wdw\_singularity.py}): the numbers quoted in Sec.~\ref{sec:JMsuff}.
+
+\subsection{Strips in $\mathrm{AdS}_4$: thin-shell Vaidya}\label{sec:numstrips}
+
+These tests concern Sec.~\ref{sec:strips} (\texttt{vaidya\_strips.py}, about 8\,s before plotting;
+\texttt{verify\_finite\_graph.py}; \texttt{check\_kk\_ricci.py}; \texttt{expand\_facets.py}). Geometry
+$ds^2=z^{-2}[-(1-\Theta(v)z^3)dv^2-2dv\,dz+dx^2+dy^2]$, AdS radius and final horizon radius one; the strip area functional
+$\mathcal A=\int dx\,z^{-2}\sqrt{1-fv'^2-2v'z'}$ with the equations of Liu and Suh~\cite{LiuSuh2014} (Sec.~III.A). For each shell ratio
+$r=z_c/z_t$ a scalar equation fixes the turning point from the width; all intersections visible in the parameterised scan are
+bracketed and refined, and up to three candidates (two shell-crossing, one static) are compared, with the smallest area selected; the
+family is not assumed monotone in boundary time. An analytic short-strip bound excludes deep radially returning branches in this
+reflection-symmetric family (for the largest width, $z_t\le0.748$ and all returning solutions lie outside the final horizon). The
+reflection-symmetric solver is a numerical restriction separate from the transverse-translation theorem; the matching formula
+\eqref{eq:T7} is an analytic input, and the computation does not independently establish symmetry or common maximin slices.
+
+Configurations: contiguous strips of widths $(0.10,0.14,0.18,0.16,0.12)$, and separated width-$0.12$ strips with gap $0.0741$; the
+first 3, 4 and all 5 parties of each (six cases). All 372 five-party facets~\cite{HernandezCuenca2019} (eight orbits under $S_6$,
+expanded from the author-maintained representatives; absent parties set empty) are evaluated at 551 boundary times (a uniform
+401-point grid on $[-0.025,0.7724]$, the quench and static-admissibility times, and refinements in the narrow saturation windows):
+$1\,229\,832$ evaluations. The cone test uses a common radial truncation $\eps=10^{-4}$, $\mathcal A_\eps=2/\eps+a_\eps$; for a union with
+$m_I$ connected intervals every matching has divergence $2m_I/\eps$, and $\sum_Ic_I\mathcal A_\eps(I)=(2/\eps)\sum_Ic_Im_I+\sum_Ic_Ia_\eps(I)$ is
+evaluated with the integer UV coefficient kept exactly (it is nonnegative in every case). The minimum margin is $-7.11\times10^{-14}$, with
+none below the tolerance $-2\times10^{-8}$; the separated pair loses mutual information at $t/z_h\simeq0.2336006115$
+(Figs.~\ref{fig:strips1}, \ref{fig:strips2}). Validation: width and time residuals $1.2\times10^{-14}$ and $6\times10^{-16}$; quadrature
+refinement (160 to 320 nodes) changes width, time and finite area below $9\times10^{-15}$; 48 independent multistart solves agree with
+continuation to $1.6\times10^{-12}$. These are sampled floating-point checks at a literal radial truncation, which is a different regulator
+from the endpoint prescription of Theorem~\ref{thm:strips}; they are evidence, not an all-time proof. The exact-rational graph check
+verifies 756 min-cut/matching equalities (3--8 endpoints), and the Kaluza--Klein Ricci identity \eqref{eq:T4} is checked symbolically.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{fig/strips_vaidya_entropy_cone.pdf}
+\caption{Thin-shell thermalisation in $\mathrm{AdS}_4$. (a)~Vacuum-subtracted strip entropies, in units $4G_NS/L_y$, for several widths
+(final horizon radius one). (b)~Mutual information between neighbouring width-$0.12$ strips separated by $0.0741$; the connected phase
+disappears at $t\simeq0.23360$. At 551 sampled times all 372 five-party facets hold for the contiguous and separated three-, four- and
+five-strip configurations, with largest negative residual $7.11\times10^{-14}$ (roundoff).}
+\label{fig:strips1}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{fig/strips_vaidya_diagnostics.pdf}
+\caption{Diagnostics for Fig.~\ref{fig:strips1}. (a),~(b) as there. (c)~Upper and lower envelopes of the UV-finite facet margins in
+each of the eight facet orbits. (d)~Minimum over all 372 facets, in units of $10^{-12}$, for the six configurations (contiguous and
+disjoint, 3, 4, 5 parties): all minima are at roundoff level and are shown with their signs.}
+\label{fig:strips2}
+\end{figure}
+
 % ===================================================================================================
 \section{Status of statements and cited inputs}\label{sec:status}
 
@@ -2024,7 +2489,31 @@ Theorem~\ref{thm:H} & proved, for slices satisfying (S1)--(S3), i.e.\ acausal Ca
 Proposition~\ref{prop:Splus}, Corollary~\ref{cor:smoothH} (smooth uniformly spacelike slices) & proved, given Bernal--S\'anchez Theorem~1.1 and Remark~4.14~\cite{BernalSanchez2006} and Geroch's theorem\\
 Theorem~\ref{thm:HRTcone} (HRT vector in $\CN$, every valid inequality) & proved, given the above\\
 Theorem~\ref{thm:equality} (cone equality) & proved, given Bao \emph{et al.}~\cite{Bao2015}, Sec.~3.1, Lemma~4 and the graph characterisation of $\CN$\\
-Matter; higher dimensions; extremal horizons; conical defects; non-orientable quotients; achronal slices with null pieces; homology regions not on a Cauchy slice; quantum corrections & not covered\\
+\multicolumn{2}{l}{\emph{Matter in $2+1$ dimensions (Secs.~\ref{sec:matter}--\ref{sec:jacobi}); (R) is assumed throughout}}\\
+Proposition~\ref{prop:JMvac} ((JM) in vacuum) & proved, given Lemma~\ref{lem:P}\\
+Proposition~\ref{prop:JMcons} (consequences of (JM)) & proved mod (JM); uses Epstein's theorem~\cite{Epstein1966}\\
+Remark~\ref{rem:false} (joint maximin for linking pairs; single-class maximin for non-simple classes) & false as stated; not used\\
+Lemma~\ref{lem:P} (componentwise null projection) & proved mod Wall's projection lemma~\cite{Wall2014} and (R1), (R4)\\
+Lemma~\ref{lem:Q}, Proposition~\ref{prop:sandwich} (sandwich) & proved (no maximin hypothesis)\\
+Theorem~\ref{thm:Hprime} (Theorem H$'$) & proved mod (JM)\\
+Lemmas~\ref{lem:S}, \ref{lem:X} (crossing inequality), \ref{lem:Ccont}, \ref{lem:N3}, \ref{lem:N4}, \ref{lem:N2}; Corollary~\ref{cor:I} & proved mod (JM), (R); uses residual finiteness, Hall's and Scott's theorems~\cite{Hall1949,Scott1978}\\
+Theorem~\ref{thm:M} (Theorem~4 of the Letter) & proved mod (JM), (R); not unconditional\\
+Proposition~\ref{prop:bellmatter} (Bell-pair decomposition, all valid inequalities for intervals) & proved mod (JM), (R)\\
+Propositions~\ref{prop:U}, \ref{prop:E} (usc; existence of maximisers; continuity of $D$) & proved mod (K), Ioffe's theorem~\cite{Ioffe1977}, Fefferman--Graham asymptotics\\
+Proposition~\ref{prop:W2} ((JM) from (K) and (Reg)) & proved mod (K), (Reg), Sion's theorem~\cite{Sion1958}\\
+(K) for NEC thin-shell Vaidya--BTZ wormholes & fails (ODE comparison; numerics)\\
+Proposition~\ref{prop:J} (local crossing positivity) & proved mod (ND), Fefferman--Graham falloff; no maximin hypothesis\\
+NEC necessity (Table~\ref{tab:jacobi}) & numerical: crossing density $-0.117$ on an admissible slice for a NEC-violating shell\\
+\multicolumn{2}{l}{\emph{Strips in $d+1\ge4$ dimensions (Sec.~\ref{sec:strips})}}\\
+Area identity \eqref{eq:T3}, Proposition~\ref{prop:KKric} (effective NEC) & proved; checked symbolically\\
+Lemmas~\ref{lem:BV}, \ref{lem:liftext}, \ref{lem:relcut} (symmetry by averaging; extremal lifts; relative cutoff) & proved\\
+Theorem~\ref{thm:stripsym} (invariant HRT surface) & proved mod (H4) (stable reduced maximin; boundary behaviour~\cite{Sorce2019})\\
+Lemmas~\ref{lem:stripcompact}, \ref{lem:regmax} & proved under their stated compact-slab and regularity hypotheses\\
+Matching formula \eqref{eq:T7} & proved mod (H3), (H4) (laminar joint maximin)\\
+Theorem~\ref{thm:finitegraph} (finite graph theorem) & proved; 756 exact checks\\
+Theorem~\ref{thm:strips} (Theorem~5 of the Letter) & proved mod (H1)--(H4); not a statement about all NEC spacetimes\\
+\multicolumn{2}{l}{\emph{Not covered}}\\
+Matter without (JM); higher dimensions beyond invariant strips; extremal horizons; conical defects; non-orientable quotients; achronal slices with null pieces; homology regions not on a Cauchy slice; quantum corrections & not covered\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
@@ -2036,7 +2525,15 @@ position~\cite{Epstein1966,FarbMargalit2012}. (v) Triangulations of compact surf
 (vi) Smooth Cauchy extension~\cite{BernalSanchez2006} and the Cauchy-surface criterion for global hyperbolicity~\cite{Geroch1970}.
 (vii) For the cone statements: graph models, their closedness and polyhedrality, and the realisation of graphs by hyperbolic
 surfaces~\cite{Bao2015}. No completeness statement about contraction maps~\cite{BaoFuruyaNaskar2025} and no characterisation theorem
-for currents~\cite{MartinezGranadoThurston2026} is used.
+for currents~\cite{MartinezGranadoThurston2026} is used. (viii) For the matter results: Wall's null projection and maximin
+framework~\cite{Wall2014,MarolfWallWang2019}; the area theorem for achronal null boundaries~\cite{CDGH2001}; Epstein's
+theorem~\cite{Epstein1966}; residual finiteness of free groups, subgroup separability~\cite{Hall1949} and Scott's
+theorem~\cite{Scott1978}; Ioffe's semicontinuity theorem~\cite{Ioffe1977}; Sion's minimax theorem~\cite{Sion1958}; the
+structure of globally hyperbolic spacetimes with timelike boundary~\cite{AkeFloresSanchez2021}; topological
+censorship~\cite{GSWW1999}. Existence and regularity of (homotopy-restricted) maximin slices are \emph{assumed}, through (JM).
+(ix) For the strips: Wall's Theorems~15, 17, Corollary~17(h) and Theorem~11~\cite{Wall2014}; same-anchor extremal
+asymptotics~\cite{Sorce2019}; the graph characterisation of $\CN$~\cite{Bao2015}; existence and regularity of stable reduced
+maximin are \emph{assumed}, through (H4).
 
 \emph{Standing assumptions.} Orientable surfaces with funnel ends only; the same marking on both chiral surfaces; positive weights
 (positivity is essential: the $\max$ functional violates the inequalities); the same class in all metrics; regions are unions of

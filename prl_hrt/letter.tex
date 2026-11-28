@@ -88,11 +88,10 @@ set of covariant entropy rays is $\CN$. Time dependence does not enlarge the con
 energy condition (NEC) we prove the balanced contraction-map inequalities, and the cone for whole-boundary parties,
 assuming a homotopy-restricted maximin property (Theorem~\ref{thm:matter}).
 
-The HRT prescription is used in its standard form: a minimal extremal curve $\gamma$ anchored at $\partial A$,
-with a homology region $R$, $\partial R=\gamma\cup A$, lying on a Cauchy slice of the conformally completed
-spacetime~\cite{HHLR2014}. We show that the answer is the same whether the slice is only required to be
-acausal (the convention of Ref.~\cite{HHLR2014}) or to be compact, smooth and uniformly spacelike. The
-statements concern the leading classical term.
+HRT is used in its standard form: a minimal extremal curve $\gamma$ anchored at $\partial A$ with a homology
+region $R$, $\partial R=\gamma\cup A$, on an acausal Cauchy slice of the conformally completed
+spacetime~\cite{HHLR2014}; requiring the slice to be compact, smooth and uniformly spacelike gives the same
+answer. The statements concern the leading classical term.
 
 \emph{Setting.}---%
 Locally $\AdS$ spacetimes are quotients of $\AdS=\mathrm{PSL}(2,\mathbb{R})$, with isometries
@@ -122,10 +121,8 @@ illustrates a cut on the two chiral surfaces.
 \includegraphics[width=\columnwidth]{fig/fig1_wormhole.pdf}
 \caption{The two chiral surfaces $X_L$, $X_R$ of a rotating three-boundary wormhole (pairs of pants;
 shaded annuli are funnels, dashed circles horizons, thick circles conformal boundaries). The region $A$
-(blue) is an interval $[p,p']$ of boundary~1 together with all of boundary~2. One cut class $c$ (red),
-an arc from $p$ to $p'$ around funnel~2, has different lengths on the two surfaces; the HRT curve of class
-$c$ has length $\frac12[\ell_L(c)+\ell_R(c)]$, and the minimum is taken over classes common to both
-surfaces.}
+(blue) is an interval $[p,p']$ of boundary~1 together with all of boundary~2. A cut class $c$ (red) has
+different lengths on the two surfaces; its HRT curve has length $\frac12[\ell_L(c)+\ell_R(c)]$.}
 \label{fig:wormhole}
 \end{figure}
 
@@ -185,10 +182,9 @@ The theorem below is stronger: it needs no contraction map.
 \centering
 \includegraphics[width=\textwidth]{fig/fig2_mechanism.pdf}
 \caption{(a)~Cut-and-paste on one arrangement (strong subadditivity; local picture on the quotient surface,
-Klein model). Cells carry the bits $(x_{AB},x_{BC})$; the outputs $\delta_B$ and $\delta_{ABC}$ bound the cells
-labelled $11$ and the cells $\neq00$, resolved at the vertex. Any geodesic $g$ crosses the inputs at least as
-often as the outputs; integrating over $g$ with the measure $\mu$ gives the inequality for both chiral lengths
-simultaneously. (b)~Chart with the entangling point $p$ at $\infty$. All other ideal points lie in
+Klein model). Cells carry the bits $(x_{AB},x_{BC})$; the outputs $\delta_B$, $\delta_{ABC}$ bound the cells
+labelled $11$ and $\neq00$. Any geodesic $g$ crosses the inputs at least as often as the outputs; integrating
+against $\mu$ gives the inequality for both chiral lengths at once. (b)~Chart with the entangling point $p$ at $\infty$. All other ideal points lie in
 $[q_-,q_+]$. Geodesics of the class $\tau_p$ (gray) connect the two pieces adjacent to $p$; each crosses the cut
 arc ending at $p$ (red) exactly once. Their mass up to the horoball is $\log(1/\eps d_p)+o(1)$, independent of
 the cut. (c)~The resulting entropy vector: a finite graph whose min-cuts give the finite part $G$, plus one
@@ -227,8 +223,7 @@ where $G(A)=\min_{c\in\Cut(A)}i(\mu',c)$, $\mu'=\frac12(m'_L+m'_R)$, is independ
 the entropy vector of a Bell pair shared by the two parties adjacent at $p$ (the purifier included). With
 $c=3/2G_N$, the Bell-pair weight is $t_p/4G_N=(c/6)\log(1/\eps)+O(1)$: \emph{the ultraviolet divergence of the HRT
 entropies is exactly one Bell-pair term per entangling point}, carrying the universal $(c/6)\log(1/\eps)$ of
-each endpoint, and everything else is a finite, cutoff-independent vector $G$. A change of cutoff scheme at $p$
-shifts $t_p$ by a constant and $G$ by a multiple of $b_p$.
+each endpoint, and everything else is a finite, cutoff-independent vector $G$.
 
 \emph{The cone.}---%
 \begin{theorem}[Covariant entropies lie in the RT cone]\label{thm:main}
@@ -253,9 +248,8 @@ weight $t_p\ge0$ between the terminals adjacent at each $p$ realises $4G_NS^\eps
 
 No contraction map and no completeness claim about contraction maps~\cite{BaoFuruyaNaskar2025} is used, so (ii)
 covers every facet of $\CN$, including the facet orbit of $\mathcal{C}_5$ that has no contraction map in
-weighted form~\cite{AvisHernandezCuenca2023} and inequalities that are not superbalanced~\cite{JuCzech2026}.
-For the latter, Eq.~\eqref{eq:decomp} locates the divergence: it comes from the entangling points between
-parties $i,j$ with $Q(b_{ij})>0$.
+weighted form~\cite{AvisHernandezCuenca2023} and inequalities that are not superbalanced~\cite{JuCzech2026}, whose divergence Eq.~\eqref{eq:decomp} locates
+at the entangling points with $Q(b_p)>0$.
 
 \begin{theorem}[Cone equality]\label{thm:equality}
 Let $\mathcal{H}_N$ be the set of vectors $4G_NS^\eps$ over all spacetimes of the class, all $N$-party
@@ -265,37 +259,22 @@ multiboundary wormholes with whole-boundary parties already suffice.
 
 The inclusion $\subseteq$ is Theorem~\ref{thm:main}. For $\supseteq$, every graph model is realised, up to scale,
 by the RT entropies of a hyperbolic surface glued from pairs of pants along geodesics of lengths proportional to
-the edge weights~\cite{Bao2015}; that surface with $X_L=X_R$ is a static wormhole. For whole-boundary parties
-the HRT vector of any rotating wormhole is therefore, up to a positive factor, the RT vector of a static
-multiboundary wormhole.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{fig/fig3_numerics.pdf}
-\caption{Smallest facet value $\min_QQ(\cdot)/\max_A|S_A|$ of $\mathcal{C}_3,\mathcal{C}_4,\mathcal{C}_5$
-(7, 20 and 372 facets) for 308 random configurations on pairs of pants (P) and one-holed tori (T) with two
-metrics of common marking, $N=3,4,5$ parties (asterisk: wider parameter ranges). $G$ and $F^\eps$ lie at
-rounding level; the single $F^\eps$ outlier has $\eps>\eps_1$ and is removed at smaller $\eps$, as
-Theorem~\ref{thm:main}(i) predicts. Two control functionals violate facets in most configurations.}
-\label{fig:numerics}
-\end{figure}
+the edge weights~\cite{Bao2015}; that surface with $X_L=X_R$ is a static wormhole.
 
 \emph{Numerical tests.}---%
 The proofs are analytic; numerics test conclusions only. On rank-two Schottky surfaces (three-holed spheres and
 one-holed tori) with two independent metrics of common marking, random positive weights generalising
 $w_L=w_R=\frac12$, $N=3$--$5$ parties and 2--7 marked points, we computed $F^\eps$ by exhaustive search over
-embedded cuts with bounded word length, extracted $G$ from Eq.~\eqref{eq:decomp}, and evaluated all facets (Fig.~\ref{fig:numerics}).
-Over 4428 regions, $G$ is $\eps$-independent to $2\times10^{-14}$ and satisfies every facet; the common-class
-constraint changes the minimiser in 147 regions. Two controls---subtracting only half the endpoint terms, and
-$\min_c\max_j\ell_j(c)$---violate facets in most configurations. On the disc, the explicit graph of
+embedded cuts with bounded word length, extracted $G$ from Eq.~\eqref{eq:decomp}, and evaluated all facets~\cite{SM}. Over 4428 regions, $G$ is $\eps$-independent to $2\times10^{-14}$ and satisfies every facet; the common-class
+constraint changes the minimiser in 147 regions. Two controls (half the endpoint terms; $\min_c\max_j\ell_j(c)$) violate
+facets in most configurations. On the disc, the explicit graph of
 Theorem~\ref{thm:main}(i) reproduces $G$ to $5\times10^{-14}$, and on the cylinder Eq.~\eqref{eq:crofton}
 holds to $6\times10^{-14}$~\cite{SM}.
 
 \emph{Matter.}---%
 Let $M$ be an asymptotically $\AdS$ spacetime of any spatial topology, globally hyperbolic with timelike conformal
 boundary and obeying the NEC, $R_{\mu\nu}k^\mu k^\nu\ge0$ for null $k$; fix a boundary Cauchy slice $C$ and use
-renormalised lengths. Chiral lengths no longer exist; their role is taken by homotopy-restricted maximin. For a
-class $\kappa$ of closed curves or of arcs between boundary points, let $\ell_\sigma(\kappa)$ be the least length of a
+renormalised lengths. Homotopy-restricted maximin replaces the chiral lengths. For a class $\kappa$ of closed curves or of arcs between boundary points, let $\ell_\sigma(\kappa)$ be the least length of a
 curve in $\kappa$ on a slice $\sigma$, and $L(\kappa)=\sup_\sigma\ell_\sigma(\kappa)$ over acausal Cauchy slices anchored
 at $C$, as in restricted maximin~\cite{MarolfWallWang2019,GradoWhiteMarolfWeinberg2021}. We assume:
 (JM) \emph{for disjoint simple classes $\kappa_1,\dots,\kappa_m$, in $M$ and in its finite covers,
@@ -355,9 +334,9 @@ $s^{\rm ren}(A)+\sum_pa_pb_p(A)=S_{\mathfrak G}(A)$ for all unions $A$ simultane
 for every endpoint counterterm $C_p\ge a_p$, and every endpoint-balanced RT inequality holds for $s^{\rm ren}$.
 \end{theorem}
 
-Symmetry is inherited also against non-symmetric competitors: averaging the indicator of any homology region over
-the transverse torus does not increase its perimeter, and coarea bounds the average below by the reduced minimum; a
-stable reduced maximin curve lifts to a fully extremal surface, which Wall's null projection makes
+Symmetry is inherited even against non-symmetric competitors: averaging the indicator of any homology region over
+the transverse torus does not increase its perimeter, and coarea bounds the average by the reduced minimum; a stable
+reduced maximin curve lifts to a fully extremal surface, which Wall's null projection makes
 HRT~\cite{Wall2014,Sorce2019,SM}. On the disc, union entropies are minima over non-crossing endpoint matchings of
 single-strip entropies $d_{ab}$. The weights $w_{ij}=\frac12(d_{ij}+d_{i+1,j+1}-d_{i,j+1}-d_{i+1,j})$ of Czech and
 Dong~\cite{CzechDong2019} are halves of conditional mutual informations, finite and nonnegative except for adjacent
@@ -369,8 +348,7 @@ five-party facets~\cite{HernandezCuenca2019} have minimum margin $-7.1\times10^{
 
 \emph{Discussion.}---%
 For three-dimensional vacuum gravity, covariant holographic entropies obey exactly the inequalities of the static
-cone. The HRT functional is an RT functional for the virtual geometry of a single geodesic current on the
-quotient surface, and the ultraviolet divergence separates exactly into Bell pairs at the entangling points. New are
+cone. New are
 Theorem~\ref{thm:H} for every cut class, the topological contraction, the renormalised Crofton formula and the
 graph realisation; the pleated geometry~\cite{MazzoliViaggi2022}, the correspondence
 between currents and pseudo-metrics~\cite{BIPP2021,MartinezGranadoThurston2026}, the extension
