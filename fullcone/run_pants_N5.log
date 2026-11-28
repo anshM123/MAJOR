@@ -9,3 +9,17 @@
 [pants N=5] stab=0.0 maxword=1 9/24 marks=5 pieces=6 comps=138 dG=2.1e-14 facet(F)=-6.2e-16 facet(G)=-7.6e-16 ctl=-2.2e-01 max=-7.8e-02
 [pants N=5] stab=None maxword=1 10/24 marks=7 pieces=7 comps=386 dG=2.1e-14 facet(F)=-2.8e-16 facet(G)=-1.2e-14 ctl=-4.0e-01 max=-4.5e-01
 [pants N=5] stab=None maxword=1 11/24 marks=7 pieces=7 comps=351 dG=2.1e-14 facet(F)=-1.5e-16 facet(G)=-4.4e-16 ctl=-1.7e-01 max=-5.6e-16
+[pants N=5] stab=0.0 maxword=1 12/24 marks=7 pieces=7 comps=364 dG=2.1e-14 facet(F)=-1.3e-15 facet(G)=-2.1e-15 ctl=-2.1e-01 max=-7.2e-02
+[pants N=5] stab=None maxword=1 13/24 marks=6 pieces=7 comps=234 dG=2.1e-14 facet(F)=-1.8e-16 facet(G)=-7.0e-16 ctl=-1.8e-01 max=-1.0e-15
+[pants N=5] stab=None maxword=1 14/24 marks=6 pieces=6 comps=253 dG=2.1e-14 facet(F)=-2.9e-16 facet(G)=-1.4e-15 ctl=-2.0e-01 max=-2.6e-01
+[pants N=5] stab=0.0 maxword=1 15/24 marks=5 pieces=6 comps=211 dG=2.1e-14 facet(F)=-6.1e-16 facet(G)=-6.7e-16 ctl=-3.8e-01 max=-1.2e-15
+[pants N=5] stab=None maxword=1 16/24 marks=7 pieces=7 comps=407 dG=2.1e-14 facet(F)=-3.3e-16 facet(G)=-7.9e-16 ctl=-2.3e-01 max=-1.5e-01
+[pants N=5] stab=None maxword=1 17/24 marks=6 pieces=7 comps=217 dG=2.1e-14 facet(F)=-6.8e-16 facet(G)=-7.8e-16 ctl=-1.4e-01 max=-5.0e-02
+[pants N=5] stab=0.0 maxword=1 18/24 marks=4 pieces=6 comps=56 dG=2.1e-14 facet(F)=-1.7e-16 facet(G)=-6.0e-16 ctl=-1.6e-01 max=-9.3e-02
+[pants N=5] stab=None maxword=1 19/24 marks=7 pieces=7 comps=389 dG=2.1e-14 facet(F)=-1.6e-16 facet(G)=-2.2e-15 ctl=-2.1e-01 max=-1.2e-02
+[pants N=5] stab=None maxword=1 20/24 marks=6 pieces=7 comps=212 dG=2.1e-14 facet(F)=-4.7e-16 facet(G)=-7.3e-16 ctl=-2.9e-01 max=-3.6e-01
+[pants N=5] stab=0.0 maxword=1 21/24 marks=7 pieces=7 comps=387 dG=2.1e-14 facet(F)=-3.8e-16 facet(G)=-1.4e-15 ctl=-3.7e-01 max=-1.4e-02
+[pants N=5] stab=None maxword=1 22/24 marks=5 pieces=6 comps=138 dG=2.1e-14 facet(F)=-3.6e-16 facet(G)=-4.3e-16 ctl=-2.5e-01 max=-2.0e-01
+[pants N=5] stab=None maxword=1 23/24 marks=7 pieces=8 comps=261 dG=2.1e-14 facet(F)=-1.6e-16 facet(G)=-9.6e-16 ctl=-1.1e-01 max=-2.4e-01
+[pants N=5] stab=0.0 maxword=1 24/24 marks=7 pieces=7 comps=364 dG=2.1e-14 facet(F)=-2.0e-16 facet(G)=-8.5e-16 ctl=-3.3e-01 max=-1.0e-01
+SUMMARY pants 5 {'dG': np.float64(2.1316282072803006e-14), 'fF': -1.2949501434633276e-15, 'fG': np.float64(-1.1890986986817114e-14), 'fGctl': np.float64(-0.402766109328676), 'fmax': np.float64(-0.6279233069062192), 'nviol_ctl': np.int64(24), 'nviol_max': np.int64(20), 'inf': 0, 'tmin': 3.6492099605514112, 'stab': 0.0, 'regions': 744, 'closed_in_min': 503, 'common_ne_single': 44, 'maxw_hist': {1: 24}, 'nstab': 8} {}

@@ -25,7 +25,8 @@ no limit point). In the chart of PROOFS §3.2 (`p̃ = ∞`, `B_p̃(ε) = {y > 1/
 `q_- := min(Λ ∪ Γ·P̃ \ {∞})`, `q_+ := max(Λ ∪ Γ·P̃ \ {∞})`, `d_p := q_+ − q_- > 0`
 
 (the set is closed and bounded, PROOFS §3.2; `q_±` are the lifts of the marked points adjacent to `p` along its
-boundary circle, possibly translates of `p` itself). The two lifted pieces adjacent to `∞` are `(q_+, ∞)` and
+boundary circle, possibly translates of `p` itself). We assume `q_- < q_+`, which fails only for `X = H²` with `|P| ≤ 2`
+(a single interval in pure AdS3, `N = 1`, trivial); then also `τ_p ≠ τ_{p'}` for `p ≠ p'`. The two lifted pieces adjacent to `∞` are `(q_+, ∞)` and
 `(−∞, q_-)`, and the geodesics of class `τ_p` are, in this chart and up to `Γ`, exactly
 
 `τ̃_p = {g = (a, b) : a < q_-, b > q_+}`   (stabiliser of `p̃` is trivial, so this is a fundamental set).
@@ -383,3 +384,98 @@ not enlarge the set of entropy rays.
    state that their Theorem A is for closed surfaces and is not used. Cite Bao et al. Lemma 4 for the cone
    equality, Avis–Hernández-Cuenca for the `C_5` facet list.
 6. Do not claim more than is proved: the HRT statements inherit Theorem H's slice caveats.
+
+---
+
+## 9. Route R0 (contraction-map completeness shortcut), checked at the coordinator's request
+
+### 9.1 What Bao–Furuya–Naskar actually state (arXiv:2506.18086 = JHEP 12 (2025) 140; full text read: §1, §2, §4)
+
+* **Statement (their Theorem 4.1).** For a candidate inequality `Σ_i α_i S_{P_i} ≥ Σ_j β_j S_{Q_j}` with
+  `α_i, β_j ∈ Z_+`, `P_i, Q_j` non-empty subsets of the `n` parties (purifier `O` separate), it is a valid
+  HEI iff there is a contraction map `f : {0,1}^M → {0,1}^N` with `M = Σα_i`, `N = Σβ_j`, i.e. for the
+  **unit-split form** (each term repeated with multiplicity, unweighted Hamming distances; this is "case
+  (1b)" of Grimaldi–Headrick–Hubeny–Shteyner arXiv:2601.09987 App. A), with the boundary conditions
+  `f(x_{A_k}) = y_{A_k}` for all `n+1` colours. "Valid" = holds for every RT geometry (equivalently every
+  graph model, Bao et al.). Nothing restricts it to balanced inequalities: as stated it covers SA/Araki–Lieb
+  and non-superbalanced facets too. Rational coefficients reduce to integers by scaling.
+* **Their own disclaimers (§1):** (i) reliance on geometry ↔ graph duality; (ii) only linear inequalities
+  with rational coefficients; (iii) "we take some of those insights, for instance, certain adjacency
+  conditions, as physical requirements to construct our proof. We justify their existence and provide
+  supporting evidence".
+* **Why it is not a proof (my reading of §4).** Lemma 4.2 asserts: "for a non-contraction map `f̃`
+  satisfying the homology conditions, there exists at least one geometry that does not satisfy the HEI".
+  As stated this is false for every valid HEI that has a contraction map (MMI has many maps that are not
+  contractions, yet no geometry violates MMI; BFN's own §3 calls such maps ones that "fail a valid HEI").
+  The proof builds a graph `G̃` containing "virtual edges" `0̃_Ẽ` of **infinite** weight (eq. (58): the
+  resulting `S*` "is divergent by definition", and "any geometry realized by `G̃` cannot give the proper
+  holographic entanglement entropy"), and evaluates the RHS as the weight of the cuts **assembled through
+  `f̃`** (eq. (60)), not as the RHS min-cuts. A violation of `Σ (assembled cut weights)` by an
+  infinite-weight graph says nothing about the min-cut inequality on legitimate graphs. The step from
+  "every non-contraction map is defective" to "some legitimate graph violates the inequality" — the whole
+  content of completeness — is missing. **Grade of BFN Theorem 4.1: not established** (it may well be true;
+  it is consistent with all known `N ≤ 6` data, but only in the split form).
+* **Others' hesitation, confirmed.** GHHS 2601.09987 v1 §2.4: "an argument was recently given for the
+  converse [BFN]. Throughout this paper, we will assume that this is the case"; v2 (comments field read):
+  "clarified that our results apply to contraction-provable HEIs", i.e. they withdrew the assumption.
+  GHHS App. A also records that the **weighted** form (case (2b), the one in PROOFS §1.5) fails for one
+  `N = 5` facet (Avis–HC eq. (4.19)); our §6 search reproduces this. So "every valid HEI has a contraction
+  map" is false in the weighted form and unproved in the split form.
+
+### 9.2 What R0 would give, and its grade
+
+(b) *Rescaling and splitting are harmless for Theorem 2* **[proved]**. Multiplying an inequality by a
+positive integer multiplies both sides of (A1) and of Theorem 1's conclusion by the same factor. Splitting
+`α_l S(A_l)` into `α_l` copies is allowed in Lemma A (the `A_l` need not be distinct: take the same minimiser
+`γ_l` for repeated terms; the `δ_r` for repeated `B_r` may differ, and `F(B_r) ≤ Σ_j w_j ℓ_j(δ_r)` holds
+for each copy); `Δ_p` is computed with multiplicity and is the same number. So Theorem 2 holds for every
+inequality with a split-form contraction map, which covers the `C_5` facet with no weighted map.
+
+(c) *Endpoint regulators.* Given (b), R0 would read: if BFN's Theorem 4.1 holds, every valid `Q` has a
+split contraction map, so by Theorem 1, `Q(F^ε) ≥ 0` for all `ε ≤ ε_0` when `Q` is balanced at every marked
+point, and `Q(F^ε) − W Δ_Q log(ε_0/ε) = const` with `Δ_Q = Σ_p Δ_p ≥ 0` otherwise (PROOFS Lemma A (A2)
+gives `Δ_p ≥ 0` for every contraction-provable `Q`; for an arbitrary valid `Q`, `Δ_p(Q) = Q(b_{ij}) ≥ 0`
+because the Bell pair is a graph). Since `C_N` has finitely many facets, `F^ε ∈ C_N` for `ε` below some
+(non-explicit) threshold. **Grade: [conditional on BFN Theorem 4.1, which is not established].**
+
+On Ju–Czech (arXiv:2611.21726: not every facet is superbalanced): no effect on either route. The per-endpoint
+slack is `t_p(ε) Q(b_{ij})` with `(i,j)` the parties adjacent at `p`; `Q(b_{ij}) ≥ 0` for **every** valid `Q`
+(Bell pairs are graph models), whether or not `Q` is superbalanced. A non-superbalanced facet with
+`Q(b_{ij}) > 0` has divergent positive slack exactly when `i, j` are adjacent at some endpoint, and finite
+`ε`-independent slack `Q(G)` otherwise. The `Δ ≥ 0` step of PROOFS Lemma A (A2)/Theorem 1(2) uses only the
+contraction property at the two adjacent colours, so it too is valid for every contraction-provable facet,
+balanced or not; nothing there assumes superbalance.
+
+**Strongest correct statement for interval regions (this is Theorem 3*, unconditional):**
+`F^ε = G + Σ_p t_p(ε) b_{i_p j_p}` exactly for all `ε ≤ ε_0`, with `G` the min-cut vector of an explicit
+finite graph and `t_p(ε) = W log(1/ε) − Σ_j w_j log d_p^{(j)}`; hence (1) `F^ε ∈ C_N` for all
+`ε ≤ ε_1 = min_p Π_j (d_p^{(j)})^{−w_j/W}` (explicit); (2) for every valid `Q` and every `ε ≤ ε_0`,
+`Q(F^ε) = Q(G) + Σ_p t_p(ε) Q(b_{i_p j_p})`, both terms `≥ 0` once `t_p ≥ 0`, the first independent of `ε`;
+(3) scheme independence: changing the horoball normalisation at `p` shifts `t_p` by a constant and `G` by a
+multiple of `b_{i_p j_p}`, so "`F^ε ∈ C_N` for all sufficiently small `ε`" and the `ε`-independent slack of
+balanced inequalities are scheme-independent, while the statement "`G ∈ C_N`" holds in the adapted scheme.
+
+### 9.3 Decision
+
+R0 does not work as a rigorous route: its key input is an unproved claim (and false in the weighted form
+the draft uses). **R2/Theorem 3* remains the main route**; it needs no contraction maps, gives an explicit
+finite graph and an explicit cut-off threshold, and is strictly stronger than what R0 would give. R0 is
+recorded only as a conditional consistency check: both routes predict the same slack structure.
+
+### 9.4 (d) Reverse inclusion `C_N ⊆ cl(R_+ 𝓗_N)`: literature check
+
+* Bao et al. arXiv:1505.07839 (read §§2.2, 3.2, 3.3, App. A): **Lemma 4** (graph → hyperbolic surface;
+  pairs of pants per trivalent bulk vertex, half-collars per boundary vertex, gluing geodesics of length
+  `4G_N w(e)`, curvature sufficiently negative; proof by the collar lemma) and **Theorem 5** ("(1) can be
+  restricted to two-dimensional manifolds of constant negative curvature"). The surfaces are `t = 0` slices
+  of static multiboundary wormholes (their §5; Skenderis–van Rees, Brill). Parties are **whole boundaries,
+  one boundary per colour**. Exact realisation, up to the overall scale fixed by the curvature/`G_N`.
+  **No higher dimensions are needed** in 2+1; §3.3 only remarks that the construction generalises.
+* Every extreme ray, indeed every graph vector, is therefore realised up to scale by a static vacuum
+  2+1 spacetime with whole-boundary parties; with our §7.2 this gives `cl(R_+ 𝓗_N) = C_N` **[proved mod
+  Bao et al. Lemma 4, §3.1 moves, Thm 5/Prop. 7]**.
+* **Not claimed / not checked:** realisation of all extreme rays with *interval* parties on a fixed
+  topology (e.g. intervals on the single boundary of pure AdS3 or BTZ). Bao et al. App. A only sketches a
+  discretisation ("we believe that the method can … be made mathematically rigorous"), which goes
+  geometry → graph, not graph → interval geometry. The cone equality does not need it, because whole
+  boundaries are among the allowed parties.

@@ -33,3 +33,9 @@
 [pants N=4] stab=0.0 maxword=1 33/40 marks=6 pieces=6 comps=285 dG=2.1e-14 facet(F)=-1.4e-16 facet(G)=-6.0e-16 ctl=-8.6e-02 max=-1.2e-15
 [pants N=4] stab=None maxword=1 34/40 marks=4 pieces=5 comps=141 dG=2.1e-14 facet(F)=-1.7e-16 facet(G)=-1.5e-15 ctl=-4.5e-01 max=-5.8e-01
 [pants N=4] stab=None maxword=1 35/40 marks=6 pieces=6 comps=285 dG=2.1e-14 facet(F)=-1.2e-16 facet(G)=-9.1e-16 ctl=-1.1e+00 max=-8.4e-01
+[pants N=4] stab=0.0 maxword=1 36/40 marks=5 pieces=5 comps=190 dG=2.1e-14 facet(F)=-1.9e-16 facet(G)=-1.6e-15 ctl=-5.0e-01 max=-5.1e-01
+[pants N=4] stab=None maxword=1 37/40 marks=5 pieces=6 comps=138 dG=2.1e-14 facet(F)=-1.1e-16 facet(G)=-1.0e-15 ctl=-6.1e-01 max=-2.2e-01
+[pants N=4] stab=None maxword=1 38/40 marks=6 pieces=7 comps=202 dG=2.1e-14 facet(F)=-1.5e-16 facet(G)=-1.9e-16 ctl=-6.2e-01 max=-3.1e-15
+[pants N=4] stab=0.0 maxword=1 39/40 marks=6 pieces=6 comps=285 dG=2.1e-14 facet(F)=-1.7e-16 facet(G)=-1.0e-15 ctl=-7.8e-01 max=-6.2e-16
+[pants N=4] stab=None maxword=1 40/40 marks=4 pieces=5 comps=141 dG=2.1e-14 facet(F)=-1.4e-16 facet(G)=-7.3e-16 ctl=-5.2e-01 max=-4.4e-02
+SUMMARY pants 4 {'dG': np.float64(2.1316282072803006e-14), 'fF': -3.565514542027705e-16, 'fG': np.float64(-1.6758145266079345e-15), 'fGctl': np.float64(-1.0789353163952828), 'fmax': np.float64(-0.8401474190192423), 'nviol_ctl': np.int64(40), 'nviol_max': np.int64(27), 'inf': 0, 'tmin': 1.8994909143633083, 'stab': 0.0, 'regions': 600, 'closed_in_min': 430, 'common_ne_single': 6, 'maxw_hist': {1: 40}, 'nstab': 13} {}

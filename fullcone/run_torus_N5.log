@@ -1,0 +1,2 @@
+[torus N=5] stab=None maxword=3 1/24 marks=7 pieces=7 comps=465 dG=1.4e-14 facet(F)=-1.8e-16 facet(G)=-8.2e-16 ctl=-1.6e-01 max=-6.5e-01
+[torus N=5] stab=None maxword=2 2/24 marks=7 pieces=7 comps=458 dG=1.4e-14 facet(F)=-2.5e-16 facet(G)=-2.1e-15 ctl=-1.7e-01 max=-2.5e-01

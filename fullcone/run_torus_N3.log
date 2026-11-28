@@ -1,0 +1,5 @@
+[torus N=3] stab=None maxword=2 1/60 marks=4 pieces=4 comps=167 dG=7.1e-15 facet(F)=+6.7e-17 facet(G)=-6.3e-16 ctl=-3.0e-01 max=+1.2e-02
+[torus N=3] stab=None maxword=3 2/60 marks=5 pieces=5 comps=253 dG=7.1e-15 facet(F)=+0.0e+00 facet(G)=-2.1e-16 ctl=-2.0e-01 max=-2.5e-03
+[torus N=3] stab=0.0 maxword=3 3/60 marks=4 pieces=4 comps=170 dG=7.1e-15 facet(F)=+1.4e-16 facet(G)=+2.6e-16 ctl=-2.3e-01 max=-1.2e-01
+[torus N=3] stab=None maxword=1 4/60 marks=4 pieces=4 comps=153 dG=7.1e-15 facet(F)=+0.0e+00 facet(G)=+2.8e-16 ctl=-5.9e-01 max=+9.8e-16
+[torus N=3] stab=None maxword=3 5/60 marks=4 pieces=4 comps=167 dG=7.1e-15 facet(F)=+0.0e+00 facet(G)=+0.0e+00 ctl=-1.8e-01 max=-1.0e-01

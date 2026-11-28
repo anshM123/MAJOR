@@ -1,0 +1,12 @@
+[pants N=4] stab=None maxword=1 1/30 marks=4 pieces=5 comps=88 dG=7.1e-15 facet(F)=-2.9e-16 facet(G)=-4.3e-16 ctl=-2.0e-01 max=-2.0e-16
+[pants N=4] stab=None maxword=1 2/30 marks=4 pieces=5 comps=101 dG=7.1e-15 facet(F)=-1.5e-16 facet(G)=-7.9e-16 ctl=-1.5e-01 max=-5.2e-16
+[pants N=4] stab=0.0 maxword=1 3/30 marks=6 pieces=7 comps=212 dG=7.1e-15 facet(F)=-1.8e-16 facet(G)=-3.8e-16 ctl=-5.5e-16 max=-4.6e-02
+[pants N=4] stab=None maxword=1 4/30 marks=4 pieces=5 comps=101 dG=7.1e-15 facet(F)=-1.6e-16 facet(G)=-3.0e-16 ctl=-7.5e-02 max=-2.6e-01
+[pants N=4] stab=None maxword=1 5/30 marks=6 pieces=7 comps=306 dG=1.2e-14 facet(F)=-2.0e-16 facet(G)=-7.8e-16 ctl=-4.2e-01 max=-5.3e-16
+[pants N=4] stab=0.0 maxword=1 6/30 marks=4 pieces=5 comps=123 dG=1.2e-14 facet(F)=-9.3e-17 facet(G)=-2.2e-16 ctl=-2.5e-01 max=-4.3e-16
+[pants N=4] stab=None maxword=1 7/30 marks=3 pieces=5 comps=36 dG=1.2e-14 facet(F)=-3.6e-16 facet(G)=-1.0e-15 ctl=-3.0e-01 max=-3.0e-02
+[pants N=4] stab=None maxword=1 8/30 marks=4 pieces=5 comps=123 dG=1.2e-14 facet(F)=-5.2e-17 facet(G)=-3.1e-16 ctl=-2.6e-01 max=-1.3e-16
+[pants N=4] stab=0.0 maxword=1 9/30 marks=6 pieces=7 comps=213 dG=1.2e-14 facet(F)=-1.4e-16 facet(G)=-3.8e-16 ctl=-1.4e-01 max=-5.7e-16
+[pants N=4] stab=None maxword=1 10/30 marks=3 pieces=5 comps=42 dG=1.2e-14 facet(F)=-1.8e-16 facet(G)=-3.8e-16 ctl=-2.4e-01 max=+0.0e+00
+[pants N=4] stab=None maxword=1 11/30 marks=5 pieces=6 comps=211 dG=1.2e-14 facet(F)=-3.7e-16 facet(G)=-2.3e-16 ctl=-4.9e-01 max=-8.6e-16
+[pants N=4] stab=0.0 maxword=1 12/30 marks=4 pieces=5 comps=102 dG=1.2e-14 facet(F)=-2.2e-16 facet(G)=-7.0e-16 ctl=-3.8e-01 max=-9.3e-16

@@ -1,0 +1,8 @@
+[torus N=4] stab=None maxword=3 1/30 marks=5 pieces=5 comps=252 dG=1.4e-14 facet(F)=-9.2e-17 facet(G)=-1.3e-15 ctl=-2.2e-01 max=-3.0e-01
+[torus N=4] stab=None maxword=3 2/30 marks=5 pieces=5 comps=253 dG=1.4e-14 facet(F)=-1.3e-16 facet(G)=-2.1e-16 ctl=-2.0e-01 max=-6.9e-02
+[torus N=4] stab=0.0 maxword=3 3/30 marks=5 pieces=5 comps=252 dG=1.4e-14 facet(F)=+0.0e+00 facet(G)=-9.5e-16 ctl=-2.3e-01 max=-3.8e-01
+[torus N=4] stab=None maxword=3 4/30 marks=5 pieces=5 comps=252 dG=1.4e-14 facet(F)=-1.4e-16 facet(G)=-6.7e-16 ctl=-2.0e-01 max=-4.6e-01
+[torus N=4] stab=None maxword=2 5/30 marks=5 pieces=5 comps=253 dG=1.4e-14 facet(F)=-2.6e-16 facet(G)=-1.4e-15 ctl=-2.3e-01 max=-1.1e-15
+[torus N=4] stab=0.0 maxword=2 6/30 marks=5 pieces=5 comps=246 dG=1.4e-14 facet(F)=-1.3e-16 facet(G)=-5.9e-16 ctl=-3.0e-01 max=-1.1e-15
+[torus N=4] stab=None maxword=3 7/30 marks=5 pieces=5 comps=245 dG=1.4e-14 facet(F)=-1.6e-16 facet(G)=-4.3e-16 ctl=-2.2e-01 max=-2.6e-01
+[torus N=4] stab=None maxword=2 8/30 marks=5 pieces=5 comps=245 dG=1.4e-14 facet(F)=-1.6e-16 facet(G)=-2.9e-16 ctl=-2.9e-01 max=-2.7e-01

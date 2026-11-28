@@ -1,0 +1,2 @@
+[torus N=4] stab=None maxword=1 1/40 marks=6 pieces=6 comps=341 dG=1.1e-14 facet(F)=-1.8e-16 facet(G)=-2.4e-16 ctl=-3.5e-01 max=-8.5e-02
+[torus N=4] stab=None maxword=3 2/40 marks=6 pieces=6 comps=351 dG=1.1e-14 facet(F)=-6.8e-17 facet(G)=-2.2e-16 ctl=-1.8e-01 max=-3.6e-02
