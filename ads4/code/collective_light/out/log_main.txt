@@ -1,3 +1,38 @@
 # cl_box tag=main  Df=1.0 sL=2.5 sH=40.0  nodes=12801 h=0.05 Y=320.0 N=160 prec=700
 per-T sum rule check: max_T |Bhat_L + Bhat_H| on the line = 8.81e-213  (max |Bhat_L| = 1.36e-03)
 imag part of R_L on the line (should be 0): 4.7e-213
+pass 1 (Stieltjes) done in 3 s
+
+spin data: c_J ||Q_J|| (L2 size), c_J Q_J(T'=2Df) (the coefficient of each state's t-image e^{pi nu/2} term)
+  J=  0  c_J||Q_J|| = -1.277e-05   c_J Q_J(2Df) = -5.055e-06   partial sum = -5.055e-06
+  J=  2  c_J||Q_J|| = -7.415e-06   c_J Q_J(2Df) = +7.697e-06   partial sum = +2.642e-06
+  J=  4  c_J||Q_J|| = -2.877e-07   c_J Q_J(2Df) = -4.497e-07   partial sum = +2.192e-06
+  J=  6  c_J||Q_J|| = +1.439e-07   c_J Q_J(2Df) = -2.926e-07   partial sum = +1.900e-06
+  J=  8  c_J||Q_J|| = -8.147e-08   c_J Q_J(2Df) = -2.013e-07   partial sum = +1.698e-06
+  J= 10  c_J||Q_J|| = +5.166e-08   c_J Q_J(2Df) = -1.489e-07   partial sum = +1.549e-06
+  J= 12  c_J||Q_J|| = -3.534e-08   c_J Q_J(2Df) = -1.158e-07   partial sum = +1.434e-06
+  J= 20  c_J||Q_J|| = -1.189e-08   c_J Q_J(2Df) = -5.615e-08   partial sum = +1.142e-06
+  J= 40  c_J||Q_J|| = -2.613e-09   c_J Q_J(2Df) = -2.047e-08   partial sum = +8.246e-07
+  J= 60  c_J||Q_J|| = -1.065e-09   c_J Q_J(2Df) = -1.125e-08   partial sum = +6.781e-07
+  J= 80  c_J||Q_J|| = -5.613e-10   c_J Q_J(2Df) = -7.343e-09   partial sum = +5.894e-07
+  J=100  c_J||Q_J|| = -3.412e-10   c_J Q_J(2Df) = -5.269e-09   partial sum = +5.283e-07
+  J=120  c_J||Q_J|| = -2.270e-10   c_J Q_J(2Df) = -4.016e-09   partial sum = +4.830e-07
+  J=140  c_J||Q_J|| = -1.608e-10   c_J Q_J(2Df) = -3.191e-09   partial sum = +4.476e-07
+  J=160  c_J||Q_J|| = -1.193e-10   c_J Q_J(2Df) = -2.615e-09   partial sum = +4.190e-07
+  exact R_L(2Df) = 0 (double zero)
+consistent-shift per-T sum rule check: max |dBhat_L + dBhat_H| = 4.3e-172
+
+per-nu images.  Barnes check: C_nu[1]*Gamma(A) = 1.  CL = collective light, CH = heavy side, CL+CH = 0 exactly.
+  SB_N = block-wise light sum over J <= N;  max|I_J| = largest single-state image;  abs = sum_J |I_J| (light-data-only bound)
+      dims: d CL/d sL (consistent toy) = -3.597e-05 | pole moved, residue fixed: d CL/d sigma = -3.500e-04 = sum_J dI_J -3.500e-04 | gamma_J = g: sum dI_J = -3.500e-04 ; gamma_J = g*2/(2+J): -3.431e-04 ; gamma_J = g*(-1)^(J/2): -3.230e-04   (all per unit g)
+nu=  2  Barnes 1.000000000000  CL=+8.496760e-05 (rad 1.5e-211)  CH=-8.496760e-05  CL+CH=-2.3e-215 | max|I_J|=7.773e-05 (J=0)  abs=8.518e-05  SB_40=+8.497e-05  SB_80=+8.497e-05  SB_160=+8.496759e-05  [6s]
+      max Arb radius over I_J: 1.3e-129
+      dims: d CL/d sL (consistent toy) = -4.728e-05 | pole moved, residue fixed: d CL/d sigma = -8.810e-04 = sum_J dI_J -8.810e-04 | gamma_J = g: sum dI_J = -8.810e-04 ; gamma_J = g*2/(2+J): -1.661e-03 ; gamma_J = g*(-1)^(J/2): -3.998e-03   (all per unit g)
+nu=  5  Barnes 1.000000000000  CL=+3.014809e-04 (rad 6.1e-211)  CH=-3.014809e-04  CL+CH=-1.9e-214 | max|I_J|=5.296e-04 (J=0)  abs=7.583e-04  SB_40=+3.015e-04  SB_80=+3.015e-04  SB_160=+3.014809e-04  [6s]
+      max Arb radius over I_J: 3.8e-128
+      dims: d CL/d sL (consistent toy) = -7.090e-05 | pole moved, residue fixed: d CL/d sigma = +4.759e-02 = sum_J dI_J +4.759e-02 | gamma_J = g: sum dI_J = +4.759e-02 ; gamma_J = g*2/(2+J): -2.410e-01 ; gamma_J = g*(-1)^(J/2): -1.178e+00   (all per unit g)
+nu= 10  Barnes 1.000000000000  CL=+1.175685e-03 (rad 1.0e-209)  CH=-1.175685e-03  CL+CH=-2.2e-212 | max|I_J|=1.093e-01 (J=2)  abs=2.207e-01  SB_40=+1.176e-03  SB_80=+1.176e-03  SB_160=+1.175676e-03  [6s]
+      max Arb radius over I_J: 8.6e-126
+      dims: d CL/d sL (consistent toy) = -1.493e-03 | pole moved, residue fixed: d CL/d sigma = +1.549e+04 = sum_J dI_J +1.549e+04 | gamma_J = g: sum dI_J = +1.549e+04 ; gamma_J = g*2/(2+J): -1.298e+05 ; gamma_J = g*(-1)^(J/2): -6.475e+05   (all per unit g)
+nu= 20  Barnes 1.000000000000  CL=+1.593171e-02 (rad 2.1e-203)  CH=-1.593171e-02  CL+CH=3.4e-208 | max|I_J|=5.816e+04 (J=2)  abs=1.166e+05  SB_40=+2.916e-01  SB_80=-6.104e-03  SB_160=+7.867085e-03  [6s]
+      max Arb radius over I_J: 1.1e-119

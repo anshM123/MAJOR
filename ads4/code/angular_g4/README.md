@@ -169,9 +169,12 @@ The rule set is {endpoint, R_k (k ≤ K), M_n (n ≤ N)}, with heavy states only
 * **Why it is asymptotically free.** Any diagonal-feasible configuration can be made flip-feasible as follows:
   * split every b = 0-only state into two equal halves of opposite parity, which zeroes F_0, F_1 and Φ;
   * add a "c-generator" of parity-even states that carry both ladders.
-  * The c-generator's endpoint cost is O(|c|·g) by 2b. Its R_k pollution is O(|c| k²/T²), because both ladders are present and their
-    leading terms cancel. That is ≪ |c|² when |c| ~ g⁻³ … only if |c| g⁻² ≪ |c|², i.e. it is negligible against the g⁻⁴-level target
-    and harmless at g⁻³.
+  * The c-generator's endpoint cost is O(|c|·g) by 2b. It carries both ladders, and their leading terms cancel in R_k, so its R_k
+    pollution is about ρ·k²/T ~ |c|/T² ~ g⁻⁷ at |c| ~ g⁻³. That is ≪ |c|² ~ g⁻⁶, so it is harmless.
+* **Heavy-only run with flip (g = 10): an artefact, not a loss of information.** It gave τ = 0.216 against 0.1454 without flip. The
+  dual multipliers are huge there, and the iterated PSD inner approximation (2 s-updates) is poor. The bound is valid but not
+  optimal. A proper SOCP (Clarabel) failed numerically. The heavy-only flip effect is therefore covered by the 2d argument, not by
+  this number.
 
 ## Milestone 3 — conclusions and structural no-go statements (28 Nov)
 
