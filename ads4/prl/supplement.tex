@@ -14,7 +14,7 @@
 \begin{document}
 \emergencystretch=3em
 
-\title{Supplemental Material for ``A Higher-Spin Gap Constrains the Shear and Hall Spectral Weight of Three-Dimensional Conformal Field Theories''}
+\title{Supplemental Material for ``Energy Detectors Bound Non-Einstein Gravity by the Inverse Cube of the Higher-Spin Gap''}
 
 \author{Ansh Mishra}
 \email{ansh.mishra2025@gmail.com}
@@ -70,90 +70,65 @@ H17 & the $O(\Lambda^{-2})$ part of the light coefficient $K$ from the $|\hat g_
 \end{center}
 
 \textbf{The Letter's wording.} The Letter's main text carries no grade tags. Its words map to the grades as
-follows: ``we prove'' = [P]; ``certified'' = [certified]; ``we derive'' = [D] or [DV]; ``we sketch'', ``steps we sketch'', ``a step
-we sketch'' = [D-sketch]; ``with error control'' = [NE$\pm$]; ``computed'' (of a value) = [NE] or [DV]; ``computed in models'', ``in a
-model'', ``model input'', ``interpolated'' = [NE\,+\,M] or [M]; ``we assume'', ``assumption'', ``premises'' = [A]; ``not covered'' = [I].
-The Letter's equations map as follows. Eq.~(1) is Eq.~\eqref{eq:tr-SESH}; Eq.~(2) is Eq.~\eqref{eq:tr-SHthm}; Eq.~(3) is the disc of
-Sec.~\ref{sec:transport}.D; Eqs.~(4) and (5) are items (3) and (1) of the full statement (Sec.~\ref{sec:full}); Eq.~(6) is
-Theorem SG, Eq.~\eqref{eq:tr-SG}; Eqs.~(7) and (8) are Eq.~\eqref{eq:tr-V} and its bound (Sec.~\ref{sec:transport}.F); Eq.~(9) and
-the combination $\mathcal Z$ are Sec.~\ref{sec:transport}.J. ``A second functional'' and ``the functional'' are $\Omega^{EE}$; the
-``quartic functional'' is $\Omega^Q_{\rm up}$ (Sec.~\ref{sec:defs}).
+follows: ``we prove'' = [P]; ``certified'' = [certified]; ``we derive'' = [D] or [DV]; ``we sketch'' = [D-sketch]; ``we check'',
+``computed'' (of a value) = [DV] or [NE]; ``numerical linear programs'', ``numerical evidence'' = [NE]; ``we assume'', ``assumption'',
+``inputs'' = [A]. The Letter's equations map as follows. Eq.~(1) is item (3) of the full statement (Sec.~\ref{sec:full}) and
+Sec.~\ref{sec:angular}; Eq.~(2) is Eq.~\eqref{eq:allk-Rk}; Eq.~(3) is the Corollary of Sec.~\ref{sec:allk}.E, Eq.~\eqref{eq:allk-bound};
+Eq.~(4) is item (1) of the full statement. ``The functional'' of Eq.~(4) is $\Omega^{EE}$ (Sec.~\ref{sec:defs}).
 
-\emph{Introduction.} The parametric statements ``$|t_4|,|\alpha_T|\lesssim\log\Delta_g/\Delta_g^4$'' and ``force $t_4\to0$ as the gap
-grows'' are [Q] from the cited works; ``explicit constants are known in flat space'' is Ref.~\cite{CHLPS} [Q].
+\emph{Abstract and Introduction.} ``Expected to fall as $\log\Delta_g/\Delta_g^4$'', ``force $t_4\to0$'', the flat-space and AdS dispersive
+constants, and $\tau\le4$ are [Q] from the cited works; $\tau=240|\hat g_3|$ is the dictionary of Sec.~\ref{sec:defs} [D], of which only the
+modulus of the $\alpha_T$ part is used. ``The only bound with explicit constants that needs no positivity input'' refers to our earlier
+Eq.~(1) and is a search-level statement. ``We prove $\tau\le994/\Delta_g^3$ asymptotically, with an explicit bound at every gap'' is the
+Corollary of Sec.~\ref{sec:allk}.E [P given the inputs of item (3) and the planar limit of Sec.~\ref{sec:allk}.G]. ``Cannot reach beyond
+$588/\Delta_g^3$'' is the three-state no-go of Sec.~\ref{sec:allk}.F [P].
 
-\emph{The Letter's assumptions.} (i) and (ii) are A1$'$ and A2$'$ below; the Letter's wording of (ii) is the sufficient OPE-data
-form of A2$'$ (Corollary A$'$ of \texttt{code/no\_eft/NOTE.md}: anomalous dimensions $o(c_T^{-1/2})$ and other squared OPE coefficients
-$o(1/c_T)$, uniformly in spin, imply the weighted detector condition of A2$'$ [D for twist $\ge10$; below twist 10 via the components $F_{2,2},F_{1,1},F_{1,2}$, D-sketch]). ``Tree-level Einstein gravity in AdS$_4$ satisfies it'' is [computed exponents, constants not tracked], \texttt{code/a2prime\_einstein} (row A2$'$). (iii) is (Pos$_\Omega$) of
-Sec.~\ref{sec:defs}.C for $\Omega^{EE}$ (item 1) or $\Omega^Q_{\rm up}$ (item 2a). ``All bounds below are statements at leading
-order in $1/c_T$'' is the order of limits at the end of Sec.~\ref{sec:HK}.
+\emph{Assumptions.} (i) and (ii) are A1$'$ and A2$'$ (Table~\ref{tab:inputs}); the Letter's wording of (ii) is the sufficient OPE-data
+form of A2$'$ (Corollary A$'$ of \texttt{code/no\_eft/NOTE.md}) [D for twist $\ge10$; below twist 10, D-sketch]. ``It holds for tree-level
+Einstein gravity'' is [computed exponents, constants not tracked], \texttt{code/a2prime\_einstein}. The three inputs are those of item (3):
+the detector identities (inputs R1; ladder checked exactly for $J\le40$, all-$m$ helicity norm [Q], Ref.~\cite{GilliozSpinors}); the
+light-cone convergence of the mixed commutator [A], Ref.~\cite{KKSDZ}, Eq.~(4.66); and the scalar condition. ``No positivity of any
+functional is assumed'' applies to Eqs.~(1)--(3).
 
-\emph{Thermal spectral weight.} ``Chowdhury, David and Prakash showed'' is [Q], with the conditions of Sec.~\ref{sec:transport}.B;
-``exact free-field calculations give $1/2$ \dots\ $1/4$'' and ``$0.37499996$ for Einstein gravity'' are its checks there [DV]; ``for
-which we found no earlier independent check'' is a search-level statement. ``For the Hall channel we derive'' Eq.~(2) is the
-Theorem of Sec.~\ref{sec:transport}.C [D] under (H1)--(H4); ``no contact term can shift the result'' is its item (2); ``we check the
-high-frequency constants exactly'' are its checks (a) and (b) [DV, symbolic], which test the OPE side, not the integrals. The
-conditions paragraph is condition (b) of Sec.~\ref{sec:transport}.B, (H4), and (H5) for the integral form of $\mathcal S_H$
-[D given H5]. Eq.~(3) is [D given Q], with the collider bound of Ref.~\cite{CDPrakash} [Q]; the Chern--Simons--matter values
-$t_4+i\alpha_T=-4e^{-i\pi\lambda}$ are [Q], and these theories violate condition (b) through $\bar\psi\psi$.
+\emph{Energy detectors at every harmonic.} The ladder ratios are Sec.~\ref{sec:angular} item (b) [P given light-transform conservation];
+Eq.~(2) is [D] with a free-field check [DV] (Sec.~\ref{sec:allk}.A, \texttt{code/angular\_verify/v1\_freefield.py}); $|c|^2=\tau^2/16$ is the
+three-dimensional collider normalization [Q]. ``Earlier work used only $k=2$'' is Sec.~\ref{sec:angular} item (d). The weight sum rule is
+the endpoint rule of Sec.~\ref{sec:angular} [P given its inputs], with spectral defect $\mathcal D=0$ (Sec.~\ref{sec:angcross}) [P given
+unitarity, reflection positivity, OPE convergence and the count of conserved structures].
 
-\emph{The higher-spin gap.} Eq.~(4) is item (3), and its paragraph is Sec.~\ref{sec:angular}: the ladder, first-moment and
-telescoping algebra [P] given the special conformal Ward identity and light-transform conservation as operator identities (ladder
-checked exactly for $J\le40$; the all-$m$ helicity norm [Q], Ref.~\cite{GilliozSpinors}, Eqs.~(2.37)--(2.38)); the spectral exchange
-($\mathcal D=0$) [P] given unitarity, reflection positivity, OPE convergence and the count of conserved structures;
-$\mathcal L_g\to0$ [D given A2$'$], with $\mathcal L_g\le70\,\mathcal E_{\rm light}$ and no exponential constant; the contact term [D]
-given the finite-frequency light-ray algebra and no scalar with $\Delta\le1$; light-cone convergence of the mixed commutator is an
-input (Ref.~\cite{KKSDZ}, Eq.~(4.66), where it is not proved). ``Below the collider bound only for $\Delta_g>6.7$'': $\tau_*=4$ at
-$\Delta_g=6.68$ [DV]. Eq.~(5) is item (1) with no light single trace in $T\times T$, $\tau_0=(240/\Lambda^4)(16L_A/K)^{1/2}=2.8914\times10^{-8}$,
-whose fourth digit moves within the $\pm0.021\%$ band of H17 [M]. Its net grade is that of item (1): positivity on every heavy state
-[certified] (Theorem FP, given Eq.~\eqref{eq:fp-target}, which is [D] given the operator identities of Sec.~\ref{sec:angular}); the
-light-remainder step [D-sketch] for twist $>5$ through L0 and [A] for the light-cone sector. ``Grows like $e^{\pi\Lambda/2}$ \dots\ not defined state by state'' and the light-cone assumption are the end of Sec.~\ref{sec:HK}, row L0 and \texttt{code/m1\_interchange}. ``$\tau=240|\hat g_3|$'' is the dictionary of Sec.~\ref{sec:defs} [D], whose $\alpha_T$ part has an
-undetermined sign; only the modulus is used. ``A theory with a larger gap also has a gap of 1000'' is the Remark of
-Sec.~\ref{sec:allgap}.A [P]. ``For a family of simpler functionals we derive positivity at every gap above 1000; given a further
-input that we check only numerically'' is Theorem RP of Sec.~\ref{sec:fpanalytic} [D given U1], U1 being [A] with a numerical sign
-check.
+\emph{The bound.} The dual and its conditions are Sec.~\ref{sec:allk}.B. ``We prove that the dual is feasible on every heavy state'' is the
+heavy-feasibility Theorem of Sec.~\ref{sec:allk}.C [P; exact verifier; independent audit]. ``Light single traces \dots\ exactly'' is
+Sec.~\ref{sec:allk}.D, Eq.~\eqref{eq:allk-light} [P]. Eq.~(3) and the finite-gap constants $1754$, $1056$, $1001$ and $9.9\times10^{-7}$ are the
+Corollary and table of Sec.~\ref{sec:allk}.E [P; DV for the table]. ``Below the collider bound for $\Delta_g>8.01$'' [DV].
+$|\hat g_3|\Delta_g^3\lesssim4.1$ is Eq.~(3) divided by 240.
 
-\emph{Thermal spectroscopy bounds the spectrum.} Eq.~(6) is Theorem SG [D given A1$'$, A2$'$, the inputs of item (3) and condition
-(b)]; with $\delta_{\rm th}$ in place of $\delta_E$ it also uses the Hall Theorem. ``Twist 558'' and the all-gap form with the numbers
-$5.8\times10^6$ and $5.6\times10^{11}$ are the examples and the all-gap form of Sec.~\ref{sec:transport}.E [D given U1].
+\emph{What limits the power.} The three-state configuration and $588$ are Sec.~\ref{sec:allk}.F [P]; $694$ [P for the family value];
+``the further exact identities'' are the rules $M_n$ and the flip rules of Sec.~\ref{sec:allk}.F [P for the identities]; ``improve the
+constant by factors that tend to one'' [NE]; ``needs input beyond commutators of detectors in states created by $T$'' summarizes that
+section and is not a theorem.
 
-\emph{Hall viscosity without an axion.} ``Planar limit taken first'' is Remark 1 of Sec.~\ref{sec:transport}.K [Q]. Eq.~(7) is
-Eq.~\eqref{eq:tr-V} [D; DV] (Sec.~\ref{sec:transport}.F); ``two separate codes'' are \texttt{scope\_thermal/hall/hall\_ef.py} and the
-bivector computation, both by the authors; ``an independent re-derivation confirms the $Q$ coefficient'' is a third, separately written
-sympy script (explicit Weyl tensor and dual in ingoing coordinates, Euler--Lagrange in $\chi$), which gives $\sigma_Q=432/r^5$ and the
-Einstein normalization 1 [DV]. ``All independent local curvature couplings through eight
-derivatives'' is the basis argument of Sec.~\ref{sec:transport}.G [Q\,+\,D]; ``reproduces Ref.~\cite{Li:2019auk}'' [Q; DV]; ``the
-response matrix is antisymmetric'' [DV]. Eq.~(8): the cubic part [D given item (1) and the bulk effective theory on the brane]; the
-quartic part uses $|\hat g_4|\le g_4$ [Q, flat space; assumed in AdS], the quartic map [DV], and item (2a) [conditional on (Pos) for
-$\Omega^Q_{\rm up}$ and L7(b)]. ``The second-order terms, exact'' is Sec.~\ref{sec:transport}.I [D; DV]. ``A coupling $IJ$ \dots\
-shifts $4\pi\eta/s$ by $-1944$'' [DV]; ``$2\times10^{-20}C$'' is Proposition R of Sec.~\ref{sec:transport}.H [D; DV], for its stated
-class and basis only. ``$|\eta_H|/s\le1.1\times10^{-4}$'' is $(3/40)\tau_*(1000)/4\pi$ [D given the inputs of item (3) and the brane].
+\emph{The planar limit.} Sec.~\ref{sec:allk}.G: the vanishing of the light weight [D given A2$'$]; ``$10^{17}$ at $\Delta_g=40$'' and the
+exponential growth [NE]; ``at most 70 times the light weight'' for Eq.~(1) is $\mathcal L_g\le70\,\mathcal E_{\rm light}$ of
+Sec.~\ref{sec:angular}; ``between $\Delta_g^{-1.2}$ and $\Delta_g^{-1.4}$'' [NE].
 
-\emph{A corrected viscosity bound.} Eq.~(9) and $\mathcal Z$ are Sec.~\ref{sec:transport}.J [D given the inputs of Eq.~(8),
-$\alpha_4\ge0$ (flat space, assumed in AdS) and the scalar condition]; ``we determine it on the brane'' is the relative sign of
-Sec.~\ref{sec:transport}.C [DV].
+\emph{A dispersive bound.} Eq.~(4) is item (1) with no light single trace in $T\times T$, $\tau_0=2.8914\times10^{-8}$, whose fourth digit
+moves within the $\pm0.021\%$ band of H17 [M]. Its net grade is that of item (1): positivity on every heavy state [certified] (Theorem FP,
+Sec.~\ref{sec:fullpos}, given Eq.~\eqref{eq:fp-target}, which is [D] given the detector identities); the light-remainder step [D-sketch] for
+twist $>5$ through L0 and [A] for the light-cone sector (end of Sec.~\ref{sec:HK}, \texttt{code/m1\_interchange}). ``A theory with a larger gap
+also has a gap of 1000'' is the Remark of Sec.~\ref{sec:allgap}.A [P].
 
-\emph{How the bound on $\tau$ arises.} ``Converges given the Regge bound of Ref.~\cite{KKSDZ} and its light-cone assumption'' is the
-exchange theorem of Sec.~\ref{sec:defs} [D] ($J_0<\tfrac32$ for $k=2,3,5$, $J_0<\tfrac52$ for $k=4$), with the caveat of
-Ref.~\cite{KKSDZ}, Sec.~4.2.6. ``The light side is the stress-tensor block \dots\ plus the double-trace remainder'' is row L1, row L0 and
-Sec.~\ref{sec:c1}. ``In flat space this is the positivity of Ref.~\cite{CHLPS}'' is the flat certificate NF02 [certified]
-(Sec.~\ref{sec:pos}). ``Exactly as a positive multiple of a finite ladder sum'' is Eq.~\eqref{eq:fp-target} with Eq.~\eqref{eq:fp-H};
-``terms reach $10^{685}$'' is fact (a) of Sec.~\ref{sec:fullpos}.C; ``cover the heavy spectrum with certificates'' is
-Table~\ref{tab:fpcover}, whose provenance is Sec.~\ref{sec:fullpos}.I (rows 3--8 re-run on separate hardware, row 2 run on two
-machines, rows 1 and 9 run once). ``The same light-ray operator identities'' are those of Sec.~\ref{sec:angular} (inputs R1 below).
-``Heavy terms are non-negative by an exact telescoping identity'' is Eq.~(4)'s heavy side [P].
+\emph{A thermal readout.} The shear sum rule is [Q], Ref.~\cite{Chowdhury:2016hjy}, with the conditions of Sec.~\ref{sec:transport}.B; the
+Hall counterpart is the Theorem of Sec.~\ref{sec:transport}.C [D] under (H1)--(H4), its integral form [D given H5]; ``we check the Hall
+coefficient exactly'' tests the high-frequency (OPE) side [DV]. $\Delta_g\le2.24+5/(9\delta)$ is Theorem SG, Eq.~\eqref{eq:tr-SG};
+$\Delta_g<3.21\,\delta^{-1/3}$ for $\delta\le3\times10^{-5}$ uses $\sup_{\Delta_g\ge100}\tau\Delta_g^3\le1056$ from Sec.~\ref{sec:allk}.E [P given the
+same inputs, planar].
 
-\emph{What is not yet a theorem.} The quartic functional: the $\Omega^Q$ row of Table~\ref{tab:computed} ([NE$\pm$] at the binding
-states, [NE\,+\,M] and [M] elsewhere). ``Sum rules, positivity and the KMS condition alone cannot give it'' is Remark 5 of
-Sec.~\ref{sec:transport}.K [D]. ABJM: ``a gap of 1000 corresponds to $\lambda\approx3\times10^9$'' and ``$2.6\%$'' are [DV] with the
-identification $\Lambda\leftrightarrow ML$ at leading order in $1/(ML)$ (Sec.~\ref{sec:abjm}).
+\emph{Figure.} Fig.~1: $\tau_*$ (Sec.~\ref{sec:angular}), Eq.~(3) (Sec.~\ref{sec:allk}), the limit $588/\Delta_g^3$ (Sec.~\ref{sec:allk}.F), and the
+$\Lambda$-form of $\Omega^{EE}$ at its own gap (Sec.~\ref{sec:lambda}), which is a value of the implication with positivity assumed except at
+$\Delta_g=1000$. Script: \texttt{fig/make\_fig\_angular.py}.
+\emph{Data availability.} ``The code that reproduces every constant'' is Sec.~\ref{sec:repro} and \texttt{code/angular\_racah\_proof}.
 
-\emph{Figures.} Fig.~1 is Sec.~\ref{sec:transport}.D--E; Fig.~2 is the $\Lambda$-forms (Sec.~\ref{sec:lambda}), item (3) and the
-all-gap bounds (Sec.~\ref{sec:fpanalytic}); its open circles at 2000 and 5000 are the recomputed near-gap states of
-Sec.~\ref{sec:allgap}.
-\emph{Data availability.} ``The code that reproduces every constant'' is Sec.~\ref{sec:repro}.
-
-\textbf{What is here.} The thermal sum rules, the spectral-to-gap theorem, shear and Hall viscosity and the corrected viscosity bound (Sec.~\ref{sec:transport}); the full statement with the lower end, the H17 remark and the
+\textbf{What is here.} The all-harmonic angular bound (Sec.~\ref{sec:allk}); the thermal sum rules, the spectral-to-gap theorem, shear and Hall viscosity and the corrected viscosity bound (Sec.~\ref{sec:transport}); the full statement with the lower end, the H17 remark and the
 inputs list I1--I6 (Sec.~\ref{sec:full}), the derivation of $c_1=0$ (Sec.~\ref{sec:c1}), the energy-flux corollary
 (Sec.~\ref{sec:flux}), the $\Lambda$-forms (Sec.~\ref{sec:lambda}), positivity at every gap $\Delta_g\ge1000$ (Sec.~\ref{sec:allgap}), the conditional remark on
 $\Delta_g\ge300$ (Sec.~\ref{sec:cor}) and the reproduction summary (Sec.~\ref{sec:repro}). The cover of the heavy spectrum at $\Delta_g=1000$ is Table~\ref{tab:fpcover}; every state list, leverage value and premise of the earlier evidence
@@ -2205,6 +2180,8 @@ $B_N=O(1/N)$ (sharp for this input) and $\mathcal D=0$. Below twist 10 ($h<5$) t
 light-transform conservation and the all-$m$ helicity norms of Ref.~\cite{GilliozSpinors} (Eqs.~(2.37)--(2.38), derived there from the
 special conformal Ward identity); everything else is exact for symbolic
 $J$. The symbolic checks are part of the reproduction code (\texttt{reproduce.py} and the scripts it calls).
+
+\input{sec_angular_allk}
 
 \input{sec_transport}
 

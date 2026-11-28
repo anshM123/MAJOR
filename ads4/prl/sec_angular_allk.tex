@@ -74,7 +74,7 @@ All large-$n$ dependence then enters only through fixed-degree polynomials in $n
 individual terms never have to be controlled.
 (2) \emph{Helicity 0.} With $F_x=y_x$ and $c_x=1-2n^2/(T-x(x+1))$ the recurrence reads $(x+1)F_{x+1}+xF_{x-1}=(2x+1)c_xF_x$. The energy
 $\mathcal E_c(u,v)=(u^2+v^2-2cuv)/(1-c)$ decreases under the transfer with $r=x/(x+1)$ and is increasing in $c$, while $c_x$ decreases in $x$;
-this gives $F_J^2\le1+n^2C/(T[T-C-n^2])$. On the heavy domain $T-C\ge4n^2$, $T-W_B\cdot3>0$ and $2h-C>0$ with $h=T+\tfrac92-3W_B$, hence
+this gives $F_J^2\le1+n^2C/(T[T-C-n^2])$. On the heavy domain $T-C\ge4n^2$, $T>3W_B$ and $2h-C>0$ with $h=T+\tfrac92-3W_B$, hence
 $W_0+W_BF_J>C/9$ for $J\ge4$; $J=0,2$ are explicit.
 (3) \emph{Helicity 4.} With $h_j=2\int_0^1t^j(1+t^8)/(1+t)\,dt$, which satisfies $h_j>h_{j+1}>0$ and $h_j+h_{j+1}=2/p_j$, the Sonin energy
 $E_j=y_j^2+(h_jp_{j-1}p_j/q_j)\,\delta_j\delta_{j+1}$, $\delta_j=y_j-y_{j-1}$, has the exact decrement
@@ -121,7 +121,7 @@ $g$ & 10 & 20 & 50 & 100 & 1000 & $10^4$ & $\infty$\\\midrule
 bound on $\tau$ & $1.01$ & $0.125$ & $7.96\times10^{-3}$ & $9.95\times10^{-4}$ & $9.94\times10^{-7}$ & $9.94\times10^{-10}$ & \\
 $\tau g^3$ & 1015 & 999 & 995 & 995 & 994.4 & 994.4 & 994.4\\
 $\sup_{g'\ge g}\tau g'^3$ & 1754 & 1330 & 1119 & 1055 & 1000.4 & & 994.4\\
-$\tau_*(g)$, Eq.~(4) of Sec.~\ref{sec:angular} & 2.29 & 0.998 & 0.371 & 0.182 & $1.78\times10^{-2}$ & $1.78\times10^{-3}$ & \\
+$\tau_*(g)$ of Sec.~\ref{sec:angular} & 2.29 & 0.998 & 0.371 & 0.182 & $1.78\times10^{-2}$ & $1.78\times10^{-3}$ & \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -160,7 +160,7 @@ vanishes as $c_T\to\infty$ at fixed $g$ by A2$'$ [D given A2$'$], so Eq.~\eqref{
 not small: for the optimal LP dual the bracket on twist-2 double traces is $\approx1.8\times10^3$, $5.3\times10^6$, $8.3\times10^{17}$ (per unit
 $\rho$) at $g=10,20,40$, and the Racah dual gives $\approx1.4\times10^{22}$ at $g=50$, against $\le101$ for the paper's single $k=2$ rule
 (\texttt{v6\_light\_action.py}) [NE]. The bound keeps its value only if the light weight is below $\sim3\times10^{-9}$ ($g=20$) or
-$\sim3\times10^{-20}$ ($g=40$) [NE]. So, like Eq.~(5), Eq.~\eqref{eq:allk-bound} is a statement about $c_T\to\infty$ at fixed $g$, and Eq.~(4)
-of Sec.~\ref{sec:angular} remains the bound with no large constant. If the light coefficient is instead capped at a power $g^p$, the LP
+$\sim3\times10^{-20}$ ($g=40$) [NE]. So, like the dispersive bound of item (1) of Sec.~\ref{sec:full}, Eq.~\eqref{eq:allk-bound} is a statement about $c_T\to\infty$ at fixed
+$g$, and $\tau_*$ of Sec.~\ref{sec:angular} remains the bound with no large constant. If the light coefficient is instead capped at a power $g^p$, the LP
 optimum scales as $\tau\sim g^{-e(p)/2}$ with $e(3)\approx2.43$ and $e(4)\approx2.77$, i.e.\ $\tau\sim g^{-1.2}$ to $g^{-1.4}$, with a polynomial
 rather than exponential threshold in $c_T$ [NE] (\texttt{code/angular\_g4}).

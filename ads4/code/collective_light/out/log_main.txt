@@ -60,3 +60,7 @@ convergence of the block-wise sum to the collective value (SB_N - CL)/max|I_J|, 
   nu= 60 N=10:-4.3e-02 N=20:-1.1e-02 N=40:3.3e-05 N=60:6.0e-06 N=80:2.1e-06 N=120:-4.6e-08 N=160:-3.3e-07
 
 smeared Omega_Lam = int dp psi2(p) C_{Lam p}  (Gauss 24 nodes in p)
+      dims (per unit g): consistent d/dsL = -2.641e-04 ; pole moved = -2.643e-03 ; gamma_J = g*2/(2+J) block-wise = -1.432e-02
+Lam= 10  Omega[light, collective]=+1.424468e-03  Omega[heavy]=-1.424468e-03  max|state|=5.474e-03  sum|state|=9.572e-03  block-wise SB_N=+1.424468e-03  e^{pi Lam/2}=6.636e+06  [152s]
+      dims (per unit g): consistent d/dsL = -4.489e-04 ; pole moved = +3.737e+01 ; gamma_J = g*2/(2+J) block-wise = -2.749e+02
+Lam= 20  Omega[light, collective]=+5.919894e-03  Omega[heavy]=-5.919894e-03  max|state|=1.239e+02  sum|state|=2.481e+02  block-wise SB_N=+5.919891e-03  e^{pi Lam/2}=4.403e+13  [154s]
