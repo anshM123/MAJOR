@@ -1228,7 +1228,7 @@ Sections~\ref{sec:matter}--\ref{sec:jacobi} prove Theorem~4 of the Letter. The t
 of Secs.~\ref{sec:setting}--\ref{sec:graph} are reused verbatim on an auxiliary hyperbolic surface; the chiral lengths
 of the vacuum case are replaced by homotopy-restricted maximin lengths, and their positivity by strong subadditivity on
 the universal cover. The results of these sections are conditional on hypothesis (JM) below and are graded as such in
-Table~\ref{tab:status}; nothing in Secs.~\ref{sec:setting}--\ref{sec:main} depends on them.
+Table~\ref{tab:status2}; nothing in Secs.~\ref{sec:setting}--\ref{sec:main} depends on them.
 
 \subsection{Spacetimes, slices, classes and lengths}
 
@@ -1597,9 +1597,10 @@ class are invisible to $D$. This is the step missing in Ref.~\cite{CzechDong2019
 Assume (JM), (R). For $\tilde p\ne\tilde q$ in $\tilde C$ and windows $W_p=(p_-,p_+)\ni\tilde p$, $W_q=(q_-,q_+)\ni\tilde q$ in $\tilde C$,
 the pairs linking the chord $(\tilde p,\tilde q)$ with no endpoint in $W_p\cup W_q$ form the rectangle $R=(p_+,q_-)\times(q_+,p_-)$,
 and
-\[
-\nu(R)=\tfrac12[D(p_+,q_+)+D(p_-,q_-)-D(p_+,p_-)-D(q_+,q_-)],\qquad D(\tilde p,\tilde q)=\nu(R)+\lambda(W_p)+\lambda(W_q)+\eta(W),
-\]
+\begin{gather*}
+\nu(R)=\tfrac12[D(p_+,q_+)+D(p_-,q_-)-D(p_+,p_-)-D(q_+,q_-)],\\
+D(\tilde p,\tilde q)=\nu(R)+\lambda(W_p)+\lambda(W_q)+\eta(W),
+\end{gather*}
 with $\lambda(W_p):=\frac12D(p_+,p_-)$ and $\eta(W)\to0$ as the windows shrink (Lemma~\ref{lem:Ccont}). $\lambda(W_p)$ depends only on
 the window and is the same for all $\Gamma$-translates.
 \end{lemma}
@@ -1710,7 +1711,8 @@ $a_\pm$ (endpoints are null by (N1)). By Eq.~\eqref{eq:nu},
 \[
 \nu(\tilde\tau_p\cap\G_W)+\lambda(W_p)=\tfrac12\big[D(a_-^+,p_+)+D(p_-,a_+^-)-D(a_-^+,a_+^-)\big]\longrightarrow\kappa_p
 \]
-as the windows shrink, by continuity of $D$ at the distinct pairs $(a_-,\tilde p),(\tilde p,a_+),(a_-,a_+)$
+as the windows shrink, by continuity of $D$ at the three pairs of distinct points $(a_-,\tilde p)$, $(\tilde p,a_+)$ and
+$(a_-,a_+)$
 (Lemma~\ref{lem:Ccont}). Note that $\lambda(W_p)=\frac12D(p_+,p_-)\to-\infty$ and $\nu(\tilde\tau_p\cap\G_W)\to+\infty$ separately.
 \emph{Identity.} Split $i_W(\nu,c)$ of Corollary~\ref{cor:I} into the $\tau_p$-part $\sum_pe_p(c)\,\nu(\tilde\tau_p\cap\G_W)$ and the rest
 $i'_W(c)$ (trivial classes contribute $0$). Then
@@ -1846,9 +1848,9 @@ existence of maximising slices therefore needs a barrier near the singularity; W
 minimal area to vanish there, which for curves needs both Kasner exponents positive and fails for arc classes at BTZ-type
 degenerations. Existence is thus proved here only under (K), and is otherwise as open as in Refs.~\cite{Wall2014,MarolfWallWang2019}.
 
-\paragraph*{Focusing alone cannot replace maximin.} Every focusing argument (Wall's projection, Lemma~\ref{lem:P}, the causal-shadow
-theorem of Ref.~\cite{HHLR2014}) takes an extremal curve and produces, on another slice, a curve that is no longer: it gives upper
-bounds on $\ell_\sigma$ and lower bounds on extremal lengths. The two places where the theorem needs more are of the opposite type:
+\paragraph*{Focusing alone cannot replace maximin.} Every focusing argument takes an extremal curve and produces, on another slice, a curve that is no longer: it gives upper
+bounds on $\ell_\sigma$ and lower bounds on extremal lengths; this applies to Wall's projection, to Lemma~\ref{lem:P} and to the
+causal-shadow theorem of Ref.~\cite{HHLR2014}. The two places where the theorem needs more are of the opposite type:
 $4G_NS(B)\le L(\delta)$ asks for an extremal configuration no longer than a supremum (an existence statement), and the crossing
 inequality asks for an upper bound on $D(a,d)+D(b,c)$, which focusing applied to the geodesics of $ac$ and $bd$ does not provide. Some
 variational existence input is unavoidable; (JM) is the minimal one used here.
@@ -2372,6 +2374,7 @@ These tests concern Secs.~\ref{sec:nu}--\ref{sec:jacobi}. They test the crossing
 Proposition~\ref{prop:J}; they cannot test (JM) itself or Theorem~\ref{thm:Hprime}, which would need an independent HRT
 solver with homology on all slices.
 
+\begin{sloppypar}
 \emph{Thin-shell Vaidya--BTZ, two-sided, $\pi_1=\Z$} (\texttt{vaidya\_btz\_first\_order.py 0}, 23\,s; \texttt{vaidya\_btz\_exact.py},
 77\,s). Eternal BTZ ($M_1=1$) with a null shell from the right boundary at boundary time $v_0$, mass $M_2=1+\Delta M$ after it;
 metric $-(r^2-M(v))dv^2+2dvdr+r^2d\phi^2$, NEC $\Leftrightarrow\Delta M\ge0$; $L(h)=2\pi$. \emph{First order}, $D=D_0+\Delta M\,D_1$ with
@@ -2386,7 +2389,9 @@ $\Delta M$ from $+3$ to $-0.97$, between 51 and 120 random rectangles per case, 
 strongly NEC-violating shells the positivity margin collapses ($\min\nu/\nu_0\to0.03$) at the edge of the solvable region but does not
 become negative there; configurations whose geodesics re-enter the shell region (e.g.\ $t_R=3,t_L=2$, $|\Delta\phi|\lesssim1.5$) are
 outside the single-crossing solver and excluded. This solver therefore does not exhibit the necessity of the NEC.
+\end{sloppypar}
 
+\begin{sloppypar}
 \emph{Smooth planar Vaidya--$\AdS$, test of Proposition~\ref{prop:J}} (\texttt{check\_nec\_sign.py}, \texttt{check\_jacobi\_identities.py},
 \texttt{jacobi\_sign\_vaidya.py}, 5\,min; \texttt{nearnull\_slice.py}, 25\,s). $ds^2=z^{-2}(-(1-m(v)z^2)dv^2-2dv\,dz+dx^2)$ with
 $m=m_0+\Delta m\,(1+\tanh((v-v_0)/w))/2$; NEC $\Leftrightarrow m'\ge0$ ($R_{ab}+2g_{ab}=\frac12zm'\delta^v_a\delta^v_b$, checked symbolically).
@@ -2400,6 +2405,7 @@ $+S$ at $P=(0,0)$, $-S$ at $Q=(0.4,1.5)$), the crossing density $\partial_s\part
 NEC shell $\Delta m=+1.5$: $+0.400$, $+0.265$; NEC-violating $\Delta m=-0.8$: $+0.061$, $\mathbf{-0.117}$. Without the NEC the crossing
 inequality, here ordinary SSA for intervals of one boundary slice, fails on an admissible slice, consistent with
 Ref.~\cite{CallanHeHeadrick2012}.
+\end{sloppypar}
 
 \begin{table}[h]
 \caption{Signs of the null mixed derivatives of $D$ in smooth planar Vaidya--$\AdS$ (four endpoint configurations per row;
@@ -2423,6 +2429,7 @@ NEC-violating $(1,-0.95,0.2,0.25)$ & $>0$ & $>0$ & $+0.013\dots+0.11$ & $+0.001\
 
 \subsection{Strips in $\mathrm{AdS}_4$: thin-shell Vaidya}\label{sec:numstrips}
 
+\begin{sloppypar}
 These tests concern Sec.~\ref{sec:strips} (\texttt{vaidya\_strips.py}, about 8\,s before plotting;
 \texttt{verify\_finite\_graph.py}; \texttt{check\_kk\_ricci.py}; \texttt{expand\_facets.py}). Geometry
 $ds^2=z^{-2}[-(1-\Theta(v)z^3)dv^2-2dv\,dz+dx^2+dy^2]$, AdS radius and final horizon radius one; the strip area functional
@@ -2433,6 +2440,7 @@ family is not assumed monotone in boundary time. An analytic short-strip bound e
 reflection-symmetric family (for the largest width, $z_t\le0.748$ and all returning solutions lie outside the final horizon). The
 reflection-symmetric solver is a numerical restriction separate from the transverse-translation theorem; the matching formula
 \eqref{eq:T7} is an analytic input, and the computation does not independently establish symmetry or common maximin slices.
+\end{sloppypar}
 
 Configurations: contiguous strips of widths $(0.10,0.14,0.18,0.16,0.12)$, and separated width-$0.12$ strips with gap $0.0741$; the
 first 3, 4 and all 5 parties of each (six cases). All 372 five-party facets~\cite{HernandezCuenca2019} (eight orbits under $S_6$,
@@ -2471,7 +2479,7 @@ disjoint, 3, 4, 5 parties): all minima are at roundoff level and are shown with 
 \section{Status of statements and cited inputs}\label{sec:status}
 
 \begin{table}[h]
-\caption{Status of the statements. ``Proved'' means a complete argument is given here, using only the cited inputs listed below
+\caption{Status of the unconditional statements (Secs.~\ref{sec:setting}--\ref{sec:main}). ``Proved'' means a complete argument is given here, using only the cited inputs listed below
 the table.}
 \label{tab:status}
 \begin{ruledtabular}
@@ -2489,6 +2497,19 @@ Theorem~\ref{thm:H} & proved, for slices satisfying (S1)--(S3), i.e.\ acausal Ca
 Proposition~\ref{prop:Splus}, Corollary~\ref{cor:smoothH} (smooth uniformly spacelike slices) & proved, given Bernal--S\'anchez Theorem~1.1 and Remark~4.14~\cite{BernalSanchez2006} and Geroch's theorem\\
 Theorem~\ref{thm:HRTcone} (HRT vector in $\CN$, every valid inequality) & proved, given the above\\
 Theorem~\ref{thm:equality} (cone equality) & proved, given Bao \emph{et al.}~\cite{Bao2015}, Sec.~3.1, Lemma~4 and the graph characterisation of $\CN$\\
+Matter without (JM); higher dimensions beyond invariant strips; extremal horizons; conical defects; non-orientable quotients; achronal slices with null pieces; homology regions not on a Cauchy slice; quantum corrections & not covered\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\begin{table}[h]
+\caption{Status of the conditional results (Secs.~\ref{sec:matter}--\ref{sec:strips}). ``Proved mod X'' means a complete argument is
+given here, assuming X and the cited inputs listed below.}
+\label{tab:status2}
+\begin{ruledtabular}
+\begin{tabular}{p{0.45\textwidth}p{0.5\textwidth}}
+statement & status\\
+\hline
 \multicolumn{2}{l}{\emph{Matter in $2+1$ dimensions (Secs.~\ref{sec:matter}--\ref{sec:jacobi}); (R) is assumed throughout}}\\
 Proposition~\ref{prop:JMvac} ((JM) in vacuum) & proved, given Lemma~\ref{lem:P}\\
 Proposition~\ref{prop:JMcons} (consequences of (JM)) & proved mod (JM); uses Epstein's theorem~\cite{Epstein1966}\\
@@ -2512,8 +2533,6 @@ Lemmas~\ref{lem:stripcompact}, \ref{lem:regmax} & proved under their stated comp
 Matching formula \eqref{eq:T7} & proved mod (H3), (H4) (laminar joint maximin)\\
 Theorem~\ref{thm:finitegraph} (finite graph theorem) & proved; 756 exact checks\\
 Theorem~\ref{thm:strips} (Theorem~5 of the Letter) & proved mod (H1)--(H4); not a statement about all NEC spacetimes\\
-\multicolumn{2}{l}{\emph{Not covered}}\\
-Matter without (JM); higher dimensions beyond invariant strips; extremal horizons; conical defects; non-orientable quotients; achronal slices with null pieces; homology regions not on a Cauchy slice; quantum corrections & not covered\\
 \end{tabular}
 \end{ruledtabular}
 \end{table}
