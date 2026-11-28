@@ -76,7 +76,9 @@ def pi_th(n, u, m=None, d=0):
                    + e / (e - 1) ** 2 / E ** 2 - gE / E + g / E ** 2)
             Euu = -s2 / (8 * E * E) * Eu
             return sin(th) * (gEE * Eu * Eu + gE * Euu)
-        return quad(f, [0, pi / 4, pi / 2]) / (4 * pi)
+        sc = 2 / sqrt(u + 1)
+        pts = sorted(set([mpf(0)] + [sc * 2 ** k for k in range(-1, 9) if sc * 2 ** k < pi / 2] + [pi / 4, pi / 2]))
+        return quad(f, pts) / (4 * pi)
     w = 2 * pi * n
 
     def f(q):
