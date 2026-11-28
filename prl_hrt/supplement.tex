@@ -501,6 +501,17 @@ edge of weight $t_p(\eps)\ge0$ between the terminals of $i_p$ and $j_p$ adds exa
 separating $A$ from its complement, hence to the min-cut. With \eqref{eq:D} this realises $F^\eps$.
 \end{proof}
 
+\begin{remark}[Closed classes with positive weight]\label{rem:closedw}
+Theorem~\ref{thm:graph} and its proof extend to $\mu'+\sum_\beta\mu'(\beta)\,\beta$ with finitely many non-trivial closed test classes
+$\beta$ of finite weight $\mu'(\beta)>0$ (and with $c_A$ minimisers, or $\eta$-minimisers as in Proposition~\ref{prop:bellmatter}, of the
+enlarged functional). For each $\beta$ fix the representative $\beta'$ of the proof of Lemma~\ref{lem:A}: the $X_1$-geodesic,
+replaced by a parallel copy if it lies in $\mathcal A$, perturbed off the vertices. Then $\#(\beta'\cap\kappa)=i(\beta,\kappa)$ for every
+geodesic $\kappa\subset\mathcal A$, and $\beta'$ misses all sufficiently small vertex discs and horoballs. Add $\mu'(\beta)\#(\beta'\cap e)$ to
+$w(e)$. In the bound $\mathrm{mincut}_A\le$ the added cut weight is $\mu'(\beta)\#(\beta'\cap c_A)=\mu'(\beta)\,i(\beta,c_A)$; in the bound
+$\ge$, $i(\beta,\delta)\le\#(\beta'\cap\partial U')=\#(\beta'\cap\partial U)=\sum_{e\subset\partial U}\#(\beta'\cap e)$. Both bounds, and
+finiteness of the weights, hold as before.
+\end{remark}
+
 \begin{corollary}[All valid inequalities]\label{cor:cone}
 Let $Q(S)=\sum_Aq_AS(A)\ge0$ be any linear inequality valid on the RT cone $\CN$ (equivalently on all graph
 models~\cite{Bao2015}). Then for every $\eps\le\eps_0$
@@ -1195,7 +1206,7 @@ For whole-boundary parties ($P=\emptyset$) no cutoff is involved and $4G_NS=G\in
 \begin{theorem}[Equality of the closed cones]\label{thm:equality}
 Let $\mathcal H_N$ be the set of vectors $4G_NS^\eps$ over all spacetimes of Sec.~\ref{sec:spacetimes}, all $N$-party assignments,
 and all $\eps\le\min(\eps_0,\eps_1)$. Then $\overline{\R_{>0}\mathcal H_N}=\CN$, and the same holds with $\mathcal H_N$ replaced by the
-RT vectors of static wormholes with whole-boundary parties.
+RT vectors of time-symmetric ($X_L=X_R$) wormholes with whole-boundary parties.
 \end{theorem}
 
 \begin{proof}
@@ -1203,22 +1214,26 @@ $\subseteq$: Theorem~\ref{thm:HRTcone} and closedness of $\CN$. $\supseteq$: by 
 graph model with positive weights can be brought, without changing its entropies, to a form with trivalent bulk vertices and
 each boundary colour on a single degree-one vertex; gluing hyperbolic pairs of pants and half-collars along geodesics of lengths
 $\lambda w(e)$ gives, for $\lambda>0$ small enough, a hyperbolic surface whose boundary RT entropies are $\lambda$ times the min-cuts.
-Continued to funnels, it is $X=\Hyp/\Gamma$ with $\Gamma$ convex cocompact, and the static spacetime with $X_L=X_R=X$ has
-$4G_NS=\lambda\cdot(\text{graph vector})$ (Theorem~\ref{thm:H}, or directly, being static). Graph vectors of connected graphs are dense in
+Continued to funnels, it is $X=\Hyp/\Gamma$ with $\Gamma$ convex cocompact, and the time-symmetric spacetime with $X_L=X_R=X$ has
+$4G_NS=\lambda\cdot(\text{graph vector})$ (Theorem~\ref{thm:H}, or directly, by RT on the time-reflection-invariant slice). For
+non-abelian $\Gamma$ these spacetimes are not static: a Killing field of $M$ lifts to an element of $\mathfrak{sl}_2\oplus\mathfrak{sl}_2$
+invariant under $\mathrm{Ad}(\Gamma)$, and a non-elementary Fuchsian group fixes no non-zero vector of $\mathfrak{sl}_2$, so $M$ has no
+Killing field; only time-reflection symmetry is used. Graph vectors of connected graphs are dense in
 $\CN$, which is the set of graph vectors~\cite{Bao2015} (a disconnected graph is a limit of connected ones joined by edges of
 weight $\to0$).
 \end{proof}
 
 \begin{corollary}
 For whole-boundary parties the HRT entropy vector of any rotating wormhole of the class is, up to a positive factor, the RT
-vector of a static multiboundary wormhole with $N+1$ boundaries.
+vector of a time-symmetric (non-rotating) multiboundary wormhole with $N+1$ boundaries.
 \end{corollary}
 
 \begin{remark}[What the vacuum assumption is used for]\label{rem:vacuse}
 The only place where vacuum enters, beyond the description of the spacetimes, is the existence of a positive measure on test
 classes whose intersection integrals reproduce all extremal lengths: here $\mu'=\frac12(\mbar'_L+\mbar'_R)$. Everything in
-Secs.~\ref{sec:lemmaA}--\ref{sec:graph} applies verbatim to any positive countable combination of non-trivial test classes with
-finite coefficients, together with endpoint constants $t_p$. With matter obeying the NEC, such a combination is
+Secs.~\ref{sec:lemmaA}--\ref{sec:graph} applies verbatim to any positive countable combination of non-trivial arc test classes
+$\tau\notin\{\tau_p\}$, and finitely many closed test classes (Remark~\ref{rem:closedw}), with finite coefficients, together with endpoint
+constants $t_p$. With matter obeying the NEC, such a combination is
 constructed in Secs.~\ref{sec:matter}--\ref{sec:mattermain} from homotopy-restricted maximin lengths, under hypothesis (JM).
 \end{remark}
 % ===================================================================================================
@@ -1227,7 +1242,8 @@ constructed in Secs.~\ref{sec:matter}--\ref{sec:mattermain} from homotopy-restri
 Sections~\ref{sec:matter}--\ref{sec:jacobi} prove Theorem~4 of the Letter. The topological and measure-theoretic parts
 of Secs.~\ref{sec:setting}--\ref{sec:graph} are reused verbatim on an auxiliary hyperbolic surface; the chiral lengths
 of the vacuum case are replaced by homotopy-restricted maximin lengths, and their positivity by strong subadditivity on
-the universal cover. The results of these sections are conditional on hypothesis (JM) below and are graded as such in
+the universal cover. The results of these sections are conditional on hypothesis (JM) and the regularity hypotheses (R) below,
+and are graded as such in
 Table~\ref{tab:status2}; nothing in Secs.~\ref{sec:setting}--\ref{sec:main} depends on them.
 
 \subsection{Spacetimes, slices, classes and lengths}
@@ -1286,20 +1302,35 @@ and admissible slices $\mathcal S(C')$. An \emph{embedded multi-class} of $M'$ i
 \begin{itemize}
 \item[\textbf{(JM)}] \emph{Homotopy-restricted joint maximin.} For every $M'$ as above and every embedded multi-class
 $\{\kappa_i\}$ of $M'$, the supremum of $F(\sigma):=\sum_i\ell_\sigma(\kappa_i)$ over $\sigma\in\mathcal S(C')$ is attained at
-some $\sigma_*$, and $\sigma_*$ carries $\ell_{\sigma_*}$-minimisers $m_i\in\kappa_i$ that are pairwise disjoint complete
-extremal curves of $M'$.
+some $\sigma_*$, and $\sigma_*$ carries $\ell_{\sigma_*}$-minimisers $m_i\in\kappa_i$ that are simple, pairwise disjoint,
+complete extremal curves of $M'$.
 \item[\textbf{(R)}] \emph{Regularity and asymptotics.} (R1) Wall's null projection~\cite{Wall2014} applies to extremal
 curves on admissible slices: achronal boundaries are generated by null geodesics and satisfy the area (length)
-theorem~\cite{CDGH2001}. (R2) Bounded families of extremal curves with endpoints in a compact part of the lifted
-boundary slice, each lying on an admissible slice, are precompact, with convergence of renormalised lengths, and their
-limits lie on admissible slices (alternatively: Lemma~\ref{lem:P} holds for extremal curves on anchored achronal slices
-that are limits of admissible ones). (R3) Every slice with $\ell_\sigma(\kappa)>-\infty$
+theorem~\cite{CDGH2001}. (R2) \emph{Uniform boundary behaviour of maximisers.} For every $r>0$ there is a function
+$\omega_r$ with $\omega_r(s)\to0$ as $s\to0$ such that, for every $M'$ as above and every embedded multi-class of $M'$, the
+maximiser $\sigma_*$ in (JM) can be chosen so that its lift $\tilde\sigma_*$ to the universal cover satisfies
+\[
+\ell_{\tilde\sigma_*}(x'\to y)\le\ell_{\tilde\sigma_*}(x\to y)+\omega_r\big(d(x,x')\big)
+\]
+for all $x,x',y\in\tilde C$ with $x,x'$ on one lifted boundary line and $d(x,y),d(x',y)\ge r$; here $d$ is the distance along
+lifted boundary lines in the lifted boundary metric ($d=\infty$ between different lines), and $\ell_{\tilde\sigma}(x\to y)$ is the
+infimum of renormalised lengths of curves on $\tilde\sigma$ from $x$ to $y$. (R3) Every slice with $\ell_\sigma(\kappa)>-\infty$
 for arc classes is asymptotically hyperbolic near $C$ with constants depending on $\sigma$ only, so that curves on $\sigma$
 ending at the same boundary point can be joined at the cutoff at bounded cost and $\ell_\sigma$ of arc classes is
 continuous in the endpoints. (R4) The matter obeys Fefferman--Graham falloff: null normals of an extremal curve at
-$z\approx\eps$ move $z$ by $O(z^2)$, and the regulated entropies satisfy
+$z\approx\eps$ move $z$ by $O(z^2)$; near an endpoint $a\in C'$ the outward null sheets of an extremal curve ending at $a$
+meet every anchored achronal slice in a curve ending at $a$; and the regulated entropies satisfy
 $4G_NS^\eps(A)=4G_NS(A)+|\partial A|\log(1/\eps)+o(1)$.
 \end{itemize}
+(R2) is a uniform form of the joining property in (R3): the modulus of continuity of renormalised lengths in the endpoints
+is the same for all the chosen maximising slices. It is used only in
+Lemma~\ref{lem:Ccont} (continuity of the maximin distance $D$ below). It does not follow from a $C^0$ bound on the slices near $C$
+alone: a zigzag of slope $\pm0.99$ and small amplitude near one boundary point, as in Sec.~\ref{sec:JMsuff}, shortens the curves
+ending there by a factor $\approx0.14$ without moving the slice appreciably. It is the behaviour expected of maximisers whose
+induced metrics are uniformly close to the hyperbolic metric in a fixed collar of $C'$. Precompactness of families of extremal
+curves, with convergence of renormalised lengths, would not replace it: a limit of minimisers on varying slices need not be a
+minimiser on the limit slice (length is not lower semicontinuous in the slice, Sec.~\ref{sec:JMsuff}), and Lemma~\ref{lem:P}
+bounds $D$ only from above by lengths of extremal curves, which gives lower, not upper, semicontinuity.
 
 \begin{remark}[Relation to the literature]\label{rem:JMlit}
 With $m=1$ and the minimisation taken over curves bounding regions rather than over one homotopy class, (JM) is the
@@ -1339,13 +1370,14 @@ cocompact). Let $\{\kappa_i\}$ be an embedded multi-class and $g_i$ the spacetim
 of the components form a $\Gamma$-invariant family of pairwise non-crossing chords and axes, so it applies verbatim to any
 embedded geodesic multicurve: it gives a pleated slice $Z$ anchored on $C$ (an acausal Cauchy slice of $\Mbar$ by
 Theorem~\ref{thm:C}) containing all $g_i$. $Z$ is a union of totally geodesic ideal triangles, its intrinsic metric is
-hyperbolic, and the $g_i$ are geodesics of it, hence $\ell_Z$-minimisers in their classes: $F(Z)=\sum_i\ell^{\rm ren}(g_i)$.
+hyperbolic, and the $g_i$ are geodesics of it, hence $\ell_Z$-minimisers in their classes: $F(Z)=\sum_i\ell^{\rm ren}(g_i)$; they
+are simple and pairwise disjoint, since their lifts are pairwise non-crossing chords and axes with distinct endpoints.
 By Lemma~\ref{lem:P}, $F(\sigma)\le\sum_i\ell^{\rm ren}(g_i)$ for every $\sigma\in\mathcal S(C)$. So the supremum is attained at
 $Z$, which carries the disjoint extremal minimisers $g_i$.
 \end{proof}
 
 \begin{proposition}[What (JM) gives]\label{prop:JMcons}
-Assume (JM) and (R1). Then:
+Assume (JM), (R1), (R4). Then:
 (a) for every embedded multi-class of $M'$, $\sup_\sigma\sum_i\ell_\sigma(\kappa_i)=\sum_iL(\kappa_i)$, and the minimisers $m_i$
 of (JM) satisfy $\ell^{\rm ren}(m_i)=L(\kappa_i)$ (joint class maximin);
 (b) in particular every simple class $\kappa$ of $M'$ has $L(\kappa)=\ell^{\rm ren}(m)$ for an extremal curve $m$ of class
@@ -1388,15 +1420,18 @@ maximin lengths only for classes that are simple in a finite cover (Lemma~\ref{l
 \section{HRT as a class-restricted maximin (Theorem H$'$)}\label{sec:Hprime}
 
 \begin{lemma}[Componentwise null projection]\label{lem:P}
-Assume (R1), (R4). Let $g$ be a complete spacelike extremal curve of $M'$, closed or with both ends on $C'$, lying on some
-$\sigma_0\in\mathcal S(C')$, and $\kappa=[g]$. Under the NEC, $\ell_\sigma(\kappa)\le\ell^{\rm ren}(g)$ for every achronal slice
-$\sigma$ anchored at $C'$; hence $L(\kappa)\le\ell^{\rm ren}(g)$.
+Assume (R1), (R4). Let $M'=\tilde M/\Gamma''$ for a subgroup $\Gamma''\subset\Gamma$: $M$ itself, a finite cover, an annular
+cover $\tilde M/\langle h\rangle$ or the universal cover $\tilde M$, with lifted boundary slice $C'$; slices of $M'$ are not required to
+be invariant under any group. Let $g$ be a \emph{simple} complete spacelike extremal curve of $M'$, closed or with both ends on
+$C'$, lying on some $\sigma_0\in\mathcal S(C')$, and $\kappa=[g]$. Under the NEC, $\ell_\sigma(\kappa)\le\ell^{\rm ren}(g)$ for every
+achronal slice $\sigma$ of $\Mbar'$ anchored at $C'$; hence $L(\kappa)\le\ell^{\rm ren}(g)$.
 \end{lemma}
 
 \begin{proof}
-Let $H=1$ if $g$ is an arc and $H=\langle h\rangle$ if $g$ is closed in class $h$; let $\widehat M=\tilde M/H$ (globally hyperbolic
-with timelike boundary), $\hat g$ a lift of $g$ and $\hat\sigma_0,\hat\sigma$ the lifts of the slices. $\hat g$ is a properly embedded
-line (arc case) or an embedded closed curve (closed case, $\hat\sigma_0$ an annulus) separating $\bar{\hat\sigma}_0$ into two sides.
+Let $H=1$ if $g$ is an arc and $H=\langle h\rangle\subset\Gamma''$ if $g$ is closed in class $h$; let $\widehat M=\tilde M/H$ (a cover of
+$M'$, globally hyperbolic with timelike boundary), $\hat g$ a lift of $g$ and $\hat\sigma_0,\hat\sigma$ the preimages of the slices.
+Since $g$ is simple, $\hat g$ is a properly embedded line (arc case) or an embedded closed curve (closed case, $\hat\sigma_0$ an
+annulus) separating $\bar{\hat\sigma}_0$ into two sides.
 Let $r\subset\bar{\hat\sigma}_0$ be the closure of one side; its part at infinity is an arc $C_L$ of the lifted boundary slice and
 its edge is $\hat g$. Both null expansions of the extremal $\hat g$ vanish; by the NEC and Raychaudhuri ($d\theta/d\lambda\le-\theta^2$
 for a one-dimensional cross-section, no shear in $2+1$) the outward null congruences from $\hat g$ have $\theta\le0$ until they
@@ -1405,12 +1440,24 @@ $q:=\bar{\hat\sigma}\cap(J^+(D(r))\cup J^-(D(r)))$ is closed in $\bar{\hat\sigma
 $\hat g$ and has $H^1$-measure $\le\ell(\hat g)$ (the induced metric on a null sheet is $\psi^2ds^2$ with $\psi\le1$; (R1)).
 (i) $q\cap\tilde C=C_L$: if a point $c$ of the complementary arc $C_R$ were in $J^\pm(D(r))$, extending the causal curve
 inextendibly through $D(r)$ would give a causal curve between $c\in\bar{\hat\sigma}_0$ and a point of $r\subset\bar{\hat\sigma}_0$,
-contradicting acausality. (ii) The frontier of $q$ separates $C_L$ from $C_R$ in $\bar{\hat\sigma}$. A closed set of finite
-$H^1$-measure separating the two boundary arcs of a closed disc (resp.\ the two ends of an annulus) contains a simple arc
-from one end of $\hat g$ to the other (resp.\ a simple closed curve generating $\pi_1$): a separating closed set contains a
-separating continuum (Janiszewski), and a continuum of finite length is arcwise connected. Projected to $M'$ that curve lies
-in $\kappa$ and has length $\le\ell(\hat g)$. Near the ends the null generators from points of $\hat g$ at $z\approx\eps$ move $z$ by
-$O(z^2)$ (R4), so the cutoff contributes $o(1)$.
+contradicting acausality. (ii) The frontier $F$ of $q$ separates $C_L$ from $C_R$ in $\bar{\hat\sigma}$.
+\emph{Closed case.} $F$ is a closed set of $H^1$-measure $\le\ell(\hat g)<\infty$ separating the two ends of the annulus $\hat\sigma$, so it
+contains a simple closed curve generating $\pi_1$: a separating closed set contains a separating continuum (Janiszewski), and a
+continuum of finite length is arcwise connected. Projected to $M'$ that curve lies in $\kappa$ and has length $\le\ell(\hat g)$.
+\emph{Arc case.} Now $\ell(\hat g)=\infty$, and the argument is run at a cutoff. Let $a,b\in\tilde C$ be the ends of $\hat g$ and fix $\eps_0>0$.
+The points of $F$ on generators from the compact part $K_0:=\hat g\cap\{z\ge\eps_0\}$ form a compact set of finite $H^1$-measure
+disjoint from $\tilde C$: it lies in $(J^+(K_0)\cap J^-(\hat\sigma))\cup(J^-(K_0)\cap J^+(\hat\sigma))$, which is compact by global
+hyperbolicity, and a point of $\tilde C$ in it would be causally related to a point of $\hat g\subset\bar{\hat\sigma}_0$, contradicting
+acausality of $\bar{\hat\sigma}_0$. By (R4) the generators from the terminal rays $\hat g\cap\{z<\eps_0\}$ move $z$ by $O(z^2)$, and near
+$a$ and $b$ the set $F$ consists of two curves $c_a,c_b$ ending at $a,b$, images of the terminal rays, no longer than these in every
+layer $\{\eps_1<z<\eps_2\}$ up to $O(\eps_2^2)$ shifts of the layer (R1). So for small $\eps$, $F\cap\{z\le2\eps\}\subset c_a\cup c_b$. Let $K_\eps:=\bar{\hat\sigma}\cap\{z\ge\eps\}$, a
+closed disc after adding the ends of $\hat\sigma$ that do not lie on $\tilde C$. For small $\eps$ the compact set $F\cap K_\eps$ meets
+$\partial K_\eps$ only in small sets $J_a\subset c_a$, $J_b\subset c_b$, and separates in $K_\eps$ the two complementary arcs of
+$\partial K_\eps\setminus(J_a\cup J_b)$ (a path between them avoiding $F$, extended vertically to $\tilde C$, would join $C_L$ to $C_R$).
+Hence it contains a continuum meeting $J_a$ and $J_b$ (Janiszewski), which has finite length and therefore contains a simple arc
+from some $u\in J_a$ to some $v\in J_b$, of length $\le\ell(\hat g\cap\{z\ge\eps-O(\eps^2)\})$. Continuing along $c_a$ from $u$ to $a$
+and along $c_b$ from $v$ to $b$ gives a curve on $\hat\sigma$ from $a$ to $b$, of class $\kappa$ after projection, with
+$\ell^{\rm ren}\le\ell^{\rm ren}(\hat g)+O(\eps)$. Let $\eps\to0$.
 \end{proof}
 
 Wall's lemma is applied not to the homology region of a whole HRT configuration but to one side of a single component,
@@ -1489,16 +1536,18 @@ for $\gamma\in\Gamma$.
 Assume (JM), (R1), (R4). If $\kappa_{x,y}$ (resp.\ $[h]$) has a simple representative in some finite cover
 $\widehat M=\tilde M/\Gamma'$ of $M$ (possibly $M$ itself), then $D(x,y)=\hat L(\hat\kappa_{x,y})$ (resp.\
 $\Theta(h)=\hat L(\hat h)$), the class maximin length in that cover. Every class becomes simple in some finite cover
-(closed curves: Scott~\cite{Scott1978}; arcs: the residual-finiteness argument of Lemma~\ref{lem:X}), so $D$ and $\Theta$
-are finite.
+(closed curves: Scott~\cite{Scott1978}; arcs: the residual-finiteness argument of Lemma~\ref{lem:X}, step 2, applied to the
+single chord $(x,y)$, which also separates the endpoints), so $D$ and $\Theta$ are finite.
 \end{lemma}
 
 \begin{proof}
-$\le$: a $\Gamma'$-invariant slice lifts to a slice of $\mathcal S(\tilde C)$ (resp.\ of $\mathcal S_h$ if $h\in\Gamma'$, which may be
-assumed for closed classes), and curves lift isometrically. $\ge$: the extremal curve $m$ of $\hat\kappa$ given by
-Proposition~\ref{prop:JMcons}(b) in $\widehat M$ lies on an acausal slice of $\widehat M$; its lift lies on an acausal slice of the
-universal (resp.\ annular) cover, and Lemma~\ref{lem:P} there gives $\ell_{\tilde\sigma}\le\ell^{\rm ren}(m)=\hat L(\hat\kappa)$ for every
-$\tilde\sigma$.
+$D\ge\hat L$: a $\Gamma'$-invariant slice lifts to a slice of $\mathcal S(\tilde C)$ (resp.\ of $\mathcal S_h$ if $h\in\Gamma'$, which
+may be assumed for closed classes), and curves lift isometrically, so $\ell_\sigma(\hat\kappa)\le\ell_{\tilde\sigma}(x\to y)\le D(x,y)$
+for every $\Gamma'$-invariant $\sigma$. $D\le\hat L$: the extremal curve $m$ of $\hat\kappa$ given by Proposition~\ref{prop:JMcons}(b) in
+$\widehat M$ is simple (by (JM)) and lies on an acausal slice of $\widehat M$; its lift $\tilde m$ to the universal (resp.\ annular)
+cover is a simple extremal curve lying on the lifted acausal slice, and Lemma~\ref{lem:P}, applied in that cover to $\tilde m$ and to
+an arbitrary, not necessarily invariant, slice $\tilde\sigma$, gives $\ell_{\tilde\sigma}(x\to y)\le\ell^{\rm ren}(\tilde m)=\ell^{\rm
+ren}(m)=\hat L(\hat\kappa)$ (resp.\ $\ell_\sigma(\text{core class})\le\ell^{\rm ren}(m)$ for $\sigma\in\mathcal S_h$).
 \end{proof}
 
 Components of cut classes are simple in $M$, so for them $D$ and $\Theta$ are the class maximin lengths $L$ of
@@ -1518,10 +1567,16 @@ $b\to c$ of the same total length. Hence $\ell_{\tilde\sigma}(a\to d)+\ell_{\til
 (2) \emph{A finite cover in which the nested pair is simple and non-linking.} Only finitely many $\gamma\in\Gamma\setminus\{1\}$
 make $\gamma(\tilde a\tilde d)$ or $\gamma(\tilde b\tilde c)$ link $\tilde a\tilde d$ or $\tilde b\tilde c$: all but finitely many translates of a
 chord with endpoints in $\Omega_0$ lie in arbitrarily small arcs around points of $\Lambda_0$, and cannot link a chord whose
-endpoints are at positive distance from $\Lambda_0$. Free groups are residually finite: take a finite-index normal
-$\Gamma'\lhd\Gamma$ avoiding these elements, and $\widehat M=\tilde M/\Gamma'$ (globally hyperbolic, NEC, compact Cauchy slices,
-finitely many boundaries). In $\widehat M$ the classes $\hat\kappa_{ad},\hat\kappa_{bc}$ are simple and mutually non-linking, an
-embedded multi-class.
+endpoints are at positive distance from $\Lambda_0$. Only finitely many $\gamma\ne1$ map one of the points $a,b,c,d$ to one of
+them: $\Gamma$ acts freely on $\tilde C\subset\Omega_0$, so for each ordered pair at most one $\gamma$ does. Free groups are residually finite: take a finite-index normal $\Gamma'\lhd\Gamma$ avoiding all these elements, and
+$\widehat M=\tilde M/\Gamma'$ (globally hyperbolic, NEC, compact Cauchy slices, finitely many boundaries). In $\widehat M$ the four
+points project to four distinct points of $\widehat C$, and the classes $\hat\kappa_{ad},\hat\kappa_{bc}$ are simple, have distinct
+endpoints and are mutually non-linking: an embedded multi-class (its geodesic representatives on the lifted auxiliary
+surface are disjoint and simple, Fact~\ref{fact:geod}(b)). The same construction with one chord gives a finite cover in
+which a single class $\kappa_{x,y}$ is simple with distinct endpoints (Lemma~\ref{lem:S}); for instance, for the chords
+$(h^{-1}\tilde p,\tilde p)$, $(\tilde p,h\tilde p)$, $(h^{-1}\tilde p,h\tilde p)$ of Proposition~\ref{prop:bellmatter} when $p$ is the only
+marked point on its circle ($h$ the peripheral element), the cover avoids $h^{\pm1}$, resp.\ $h^{\pm2}$, which would make the arc a
+loop at one boundary point.
 (3) By Proposition~\ref{prop:JMcons}(a) in $\widehat M$ and Lemma~\ref{lem:S}, the supremum over $\Gamma'$-invariant slices of
 $\ell(\hat\kappa_{ad})+\ell(\hat\kappa_{bc})$ is $\hat L(\hat\kappa_{ad})+\hat L(\hat\kappa_{bc})=D(a,d)+D(b,c)$. Invariant slices lift to
 slices of $\mathcal S(\tilde C)$, on which the lifted classes are the chords $a\to d$, $b\to c$, so the supremum in (1) is $\ge
@@ -1533,25 +1588,45 @@ formulated on the quotient so that no maximin theory on the non-compact cover (i
 ends) is needed. The NEC enters through Lemma~\ref{lem:P}; without it the inequality fails (Sec.~\ref{sec:jacobi}).
 
 \begin{lemma}[Continuity]\label{lem:Ccont}
-Assume (JM), (R). $D$ is continuous on $\{(x,y)\in\tilde C^2:x\ne y\}$.
+Assume (JM), (R). $D$ is jointly continuous on $\{(x,y)\in\tilde C^2:x\ne y\}$: for $r>0$, $d(x,y)\ge2r$ and
+$d(x,x'),d(y,y')\le r/2$,
+\[
+|D(x',y')-D(x,y)|\le\omega_r\big(d(x,x')\big)+\omega_r\big(d(y,y')\big),
+\]
+with $\omega_r$ from (R2).
 \end{lemma}
 
 \begin{proof}
-Lower semicontinuity: $D=\sup_{\tilde\sigma}\ell_{\tilde\sigma}$, and each relevant $\ell_{\tilde\sigma}(x\to y)$ is continuous in the endpoints
-(R3). Upper semicontinuity: let $x_n\to x$ within a compact piece of a lifted boundary line. One finite cover $\widehat M$
-(Lemma~\ref{lem:X}, step 2, with a uniform finite set of bad elements) makes all $\kappa_{x_n,y}$ simple; let $m_n$ be the
-extremal curves of Proposition~\ref{prop:JMcons}(b) in $\widehat M$, $\ell^{\rm ren}(m_n)=D(x_n,y)$ (Lemma~\ref{lem:S}). By (R2) a
-subsequence converges to an extremal curve $m$ of class $\kappa_{x,y}$ with $\ell^{\rm ren}(m_n)\to\ell^{\rm ren}(m)$, lying on an admissible slice of
-$\widehat M$ (R2), and Lemma~\ref{lem:P} in the universal cover gives $D(x,y)\le\ell^{\rm ren}(m)=\lim D(x_n,y)$. (Under the
-compactness hypothesis (K) of Sec.~\ref{sec:JMsuff}, continuity holds without (JM) and (R2), Proposition~\ref{prop:E}.)
+Let $\mathcal S_\sharp\subset\mathcal S(\tilde C)$ be the set of lifts to the universal cover of the maximisers chosen in (R2), over all
+finite covers $M'$ (including $M$) and all embedded multi-classes, and $D_\sharp(x,y):=\sup_{\tilde\sigma\in\mathcal S_\sharp}\ell_{\tilde\sigma}(x\to y)$.
+Clearly $D_\sharp\le D$. Conversely, given $x\ne y$, take a finite cover $\widehat M$ in which $\hat\kappa_{x,y}$ is simple with distinct
+endpoints (Lemma~\ref{lem:X}, step 2) and apply (JM) and (R2) to the single class $\{\hat\kappa_{x,y}\}$: the chosen maximiser $\sigma_*$ carries
+a minimiser $m$ with $\ell_{\sigma_*}(\hat\kappa_{x,y})=\ell^{\rm ren}(m)=\hat L(\hat\kappa_{x,y})=D(x,y)$ (Proposition~\ref{prop:JMcons}(a),
+Lemma~\ref{lem:S}). Curves on $\tilde\sigma_*$ from $x$ to $y$ project to curves of class $\hat\kappa_{x,y}$ on $\sigma_*$ of the same length, so
+$\ell_{\tilde\sigma_*}(x\to y)\ge\ell_{\sigma_*}(\hat\kappa_{x,y})=D(x,y)$, and $D\le D_\sharp$. Hence $D=D_\sharp$ is the supremum of a family of
+functions which, by (R2) (applied in each variable, with $\ell_{\tilde\sigma}(x\to y)=\ell_{\tilde\sigma}(y\to x)$), satisfy
+$\ell_{\tilde\sigma}(x'\to y')\le\ell_{\tilde\sigma}(x\to y)+\omega_r(d(x,x'))+\omega_r(d(y,y'))$ and the same with the primed and unprimed
+points exchanged, under the stated distance conditions (which make all distances to which (R2) is applied, such as $d(x',y)$ and $d(x',y')$,
+at least $r$). Taking the
+supremum over $\tilde\sigma\in\mathcal S_\sharp$ gives the estimate; $D$ is finite by Lemma~\ref{lem:S}.
 \end{proof}
+
+Only upper bounds on lengths of the transferred curves are needed here, but on \emph{varying} slices; this is why the uniformity
+in (R2) is required, and why (R3), which controls each slice separately, gives only lower semicontinuity of $D$. An alternative,
+not used below, replaces (R2) by precompactness of the maximisers: if, for endpoint data in a compact set, the maximisers of (JM)
+in one finite cover converge in the topology of Proposition~\ref{prop:U} to an anchored achronal slice $\sigma_\infty$ on which
+competitors can be made radial near their ends at a cost tending to $0$ with the cutoff, then
+the proof of Proposition~\ref{prop:U} with moving endpoints (vertical projection on $\{z\ge\delta\}$, a horizontal joining path
+at height $\delta$ and radial tails on the approximating slices, all of which are upper bounds) gives
+$\limsup_nD(x_n,y_n)\le\ell_{\sigma_\infty}(\hat\kappa_{x,y})\le D(x,y)$, the last step by Lemma~\ref{lem:P} on the achronal slice
+$\sigma_\infty$ (Remark~\ref{rem:achronal}); lower semicontinuity follows from (R3).
 
 \paragraph*{The measure.} For $x_1<x_2<y_1<y_2$ cyclically in $\tilde C$ put
 \begin{equation}\label{eq:nu}
 \nu([x_1,x_2)\times[y_1,y_2)):=\tfrac12\big[D(x_1,y_1)+D(x_2,y_2)-D(x_1,y_2)-D(x_2,y_1)\big]
 \end{equation}
 (diagonals minus sides). By Lemma~\ref{lem:X} this is $\ge0$; it is finitely additive on such rectangles (telescoping),
-$\Gamma$-invariant and symmetric in the two factors. Since $\tilde C$ is dense in $S^1$ and $D$ is continuous
+$\Gamma$-invariant and symmetric in the two factors. Since $\tilde C$ is dense in $S^1$ and $D$ is jointly continuous
 (Lemma~\ref{lem:Ccont}), the Lebesgue--Stieltjes construction gives a unique $\Gamma$-invariant Radon measure $\nu$ on $\G$, with
 \textbf{(N1)} $\nu(\{x\}\times J)=0$ for $x\in\tilde C$ and $J$ compact away from $x$ (continuity of $D$ at $x$). In vacuum, $D=\frac12(D_L+D_R)$
 and $\nu=\frac12(m_L+m_R)$ is the measure of Secs.~\ref{sec:crofton}, \ref{sec:graph} with $w_L=w_R=\frac12$; for
@@ -1571,7 +1646,8 @@ $\nu([x,hx)\times[h^ny,h^{n-1}y))=\frac12[D(x,h^ny)+D(x,h^{n-2}y)-2D(x,h^{n-1}y)
 d_n=\lim_nD(x,h^ny)/n$, possibly $+\infty$.
 \emph{Upper bound.} By subgroup separability of free groups (M.~Hall~\cite{Hall1949}: finitely generated subgroups are closed
 in the profinite topology) choose, for given $n$, a finite-index $\Gamma'\ni h$ avoiding the finitely many elements that make
-translates of the chord $(x,h^ny)$ link it (powers of $h$ do not: $h^k(x,h^ny)$ has both ends on one side of it). In
+translates of the chord $(x,h^ny)$ link it or map one of its endpoints to the other (powers of $h$ do neither: $h^k(x,h^ny)$ has
+both ends on one side of it, and $h$ preserves the two sides of its axis). In
 $\widehat M=\tilde M/\Gamma'$, $\hat\kappa_{x,h^ny}$ is simple, so $D(x,h^ny)=\hat L(\hat\kappa_{x,h^ny})$ (Lemma~\ref{lem:S}). Fix a
 $\Gamma'$-invariant slice $\sigma$; let $\eta$ be a curve in the lift from $x$ to $y$, and $\tilde\beta$ the $h$-invariant lift of a
 closed curve of class $\hat h$ on $\sigma$. $\eta$ meets $\tilde\beta$ at some $p$ (linked ends). The path
@@ -1611,21 +1687,32 @@ $\eta(W)=D(\tilde p,\tilde q)-\frac12[D(p_+,q_+)+D(p_-,q_-)]$.
 \end{proof}
 
 \begin{lemma}[No mass on the limit set]\label{lem:N2}
-Assume (JM), (R). $\nu$ gives measure zero to pairs with an endpoint in $\Lambda_0$. Hence $\nu$-a.e.\ pair has both endpoints in
-$\tilde C\setminus\Gamma\cdot\Pt$ and defines a test class, and Eq.~\eqref{eq:B0pre} holds $\nu$-a.e.
+Assume (JM), (R). $\nu$ gives measure zero to the pairs with an endpoint in $\Lambda_0$, except possibly for atoms, of finite mass,
+at the axis pairs $(h^+,h^-)$ of peripheral elements $h$ (those homotopic into a boundary circle; for the annulus, the core). Hence
+$\nu$-a.e.\ pair either has both endpoints in $\tilde C\setminus\Gamma\cdot\Pt$ and defines an arc test class, or is such an axis pair
+and defines a peripheral closed test class, and Eq.~\eqref{eq:B0pre} holds $\nu$-a.e.
 \end{lemma}
 
 \begin{proof}
 (a) \emph{Fixed points.} Let $u=h^+$ and $J_0$ a fundamental interval for $h$ on one side. If $\nu(\{u\}\times J_0)=c>0$, then
 $\nu(\{u\}\times h^nJ_0)=c$ for all $n$. Take a chord $(x,y_0)$, $x,y_0\in\tilde C$ on opposite sides of the axis; the pairs $(u,v)$
 with $v$ in the infinitely many translates $h^nJ_0$ beyond $y_0$ (accumulating at $h^-$) all link the chord and avoid small
-windows at $x,y_0$, so they lie in the rectangle $R$ of Lemma~\ref{lem:N4}, which has finite measure. So $c=0$.
+windows at $x,y_0$, so they lie in the rectangle $R$ of Lemma~\ref{lem:N4}, which has finite measure. So $c=0$. Since
+$S^1\setminus\{h^+,h^-\}$ is the union of the translates $h^nJ_0$ of fundamental intervals on its two sides, $\{h^\pm\}\times(S^1\setminus
+\{h^+,h^-\})$ is null; the single pair $(h^+,h^-)$ is not covered by this argument.
 (b) \emph{Other points.} Let $\{\kappa_j\}$ be a finite filling family of simple closed classes (none is needed for the disc; for
-the annulus $\Lambda_0=\{h^\pm\}$ and (a) suffices). The $X_0$-geodesic ray to a point of $\Lambda_0$ that is not a fixed point of a
+the annulus $\Lambda_0=\{h^\pm\}$ with $h$ the core, which is peripheral, and (a) covers every pair except $(h^+,h^-)$). The $X_0$-geodesic ray to a point of $\Lambda_0$ that is not a fixed point of a
 peripheral element crosses $\bigcup\kappa_j$ infinitely often (otherwise it ends in a complementary disc, which is impossible, or in a
 peripheral annulus, where it spirals onto the boundary of the convex core and ends at a peripheral fixed point), with distinct
 lifts at distinct crossings. Unfolding, $\int_{\G/\Gamma}\#(\text{lifts of }\kappa_j\text{ linked})\,d\bar\nu=\nu(F_{h_j})=\Theta(\kappa_j)<\infty$
-(Lemmas~\ref{lem:N3}, \ref{lem:S}), so the set where the integrand is infinite is null.
+(Lemmas~\ref{lem:N3}, \ref{lem:S}), so the set where the integrand is infinite is null. For a non-peripheral $h$ this includes the
+axis pair $(h^+,h^-)$. (c) \emph{Peripheral axis pairs.} For peripheral $h$ neither (a) nor (b) excludes an atom at $(h^+,h^-)$,
+and we do not exclude it (an atom there is compatible with positivity of $\nu$ and with Lemma~\ref{lem:N3}, which involves only
+pairs linking the axis). Its mass is finite: the pair lies
+in a rectangle with corners in $\tilde C$, of finite measure by Eq.~\eqref{eq:nu}. The pair is the endpoint pair of the axis of $h$, a lift of the
+peripheral closed geodesic $\beta$ of $X_0$, and for a cut class $c$ in geodesic position the number of $\Gamma$-orbits of lifts of components of $c$ linked
+with it is $i(\beta,c)$ (Fact~\ref{fact:geod}(c); a component equal to $\beta$ contributes $0=i(\beta,\beta)$), which is
+Eq.~\eqref{eq:B0pre} at the atom. If the boundary circle of $\beta$ carries no marked point, $\beta$ is trivial and $i(\beta,\cdot)\equiv0$.
 \end{proof}
 
 \begin{corollary}[Lengths are $\nu$-intersections]\label{cor:I}
@@ -1671,8 +1758,8 @@ With $4G_NS(B_r)\le L(\delta_r)$ (Theorem~\ref{thm:Hprime}),
 $\sum_l\alpha_l4G_NS(A_l)+\eta\sum_l\alpha_l\ge\sum_r\beta_r4G_NS(B_r)$; let $\eta\to0$.
 (ii) $\Delta_p\ge0$ is Eq.~\eqref{eq:A2}. By (R4), $4G_NS^\eps(A)=4G_NS(A)+\sum_pb_p(A)\log(1/\eps)+o(1)$ with $b_p(A)=[p\in\partial A]$,
 and $\sum_l\alpha_lb_p(A_l)-\sum_r\beta_rb_p(B_r)=\Delta_p$; the renormalised combination is finite.
-(iii) Here $P=\emptyset$. By Lemma~\ref{lem:N2}, $\bar\nu$-a.e.\ pair is a test class, closed classes are $\bar\nu$-null, and classes
-homotopic into the boundary have $i\equiv0$ and are discarded. Every other test class $\tau$ is an arc crossing a peripheral
+(iii) Here $P=\emptyset$. By Lemma~\ref{lem:N2}, $\bar\nu$-a.e.\ pair is a test class, and the only closed classes of positive mass are
+peripheral; these, like all classes homotopic into the boundary, are trivial for $P=\emptyset$, have $i\equiv0$ and are discarded. Every other test class $\tau$ is an arc crossing a peripheral
 closed geodesic $\beta$ at one of its ends, and $\bar\nu(\tau)\,i(\tau,\beta)\le\nu(F_\beta)=L(\beta)<\infty$ (Lemmas~\ref{lem:N3},
 \ref{lem:S}). So $\mu:=\sum_\tau\bar\nu(\tau)\,\tau$ is a countable positive combination of non-trivial arc test classes with finite
 coefficients, and $i(\mu,c)=L(c)$ for every closed multi-class (Corollary~\ref{cor:I} without windows). By
@@ -1689,7 +1776,8 @@ $a_-<\tilde p<a_+$ be the neighbouring points of $\Gamma\cdot\Pt$ on its lifted 
 \kappa_p:=\tfrac12\big[D(a_-,\tilde p)+D(\tilde p,a_+)-D(a_-,a_+)\big]\in\R .
 \]
 Let $\nu'$ be $\bar\nu$ restricted to test classes that are neither trivial nor among the $\tau_p$. Then $\nu'=\sum_\tau\nu'(\tau)\,\tau$ is
-a countable positive combination of arc test classes with finite coefficients, and for every cut class $c$
+a countable positive combination of arc test classes and of the finitely many peripheral closed test classes
+(Lemma~\ref{lem:N2}(c)), with finite coefficients, and for every cut class $c$
 \begin{equation}\label{eq:Rmatter}
 L(c)=i(\nu',c)+\sum_{p\in P}e_p(c)\,\kappa_p,\qquad i(\nu',c)<\infty .
 \end{equation}
@@ -1699,7 +1787,8 @@ every entangling point, $Q(S)\ge0$; otherwise $4G_NQ(S^\eps)=Q(G_\nu)+\sum_p[\lo
 \end{proposition}
 
 \begin{proof}
-\emph{Coefficients.} By Lemma~\ref{lem:N2}, $\bar\nu$ is carried by test classes, and closed classes are null. A non-trivial arc class
+\emph{Coefficients.} By Lemma~\ref{lem:N2}, $\bar\nu$ is carried by test classes; the only closed classes of positive mass are peripheral,
+and their masses are finite (Lemma~\ref{lem:N2}(c)). A non-trivial arc class
 $\tau\notin\{\tau_p\}$ with end pieces $I,J$ in different components of $\Omega_0$ crosses a peripheral geodesic $\beta$, and
 $\bar\nu(\tau)\le\nu(F_\beta)=L(\beta)<\infty$ as in Theorem~\ref{thm:M}(iii). If $I,J$ lie in one component, the argument of
 Lemma~\ref{lem:mass}(ii) shows that their closures are disjoint subsets of $\tilde C$, so $\nu(I\times J)$ is given by
@@ -1711,9 +1800,10 @@ $a_\pm$ (endpoints are null by (N1)). By Eq.~\eqref{eq:nu},
 \[
 \nu(\tilde\tau_p\cap\G_W)+\lambda(W_p)=\tfrac12\big[D(a_-^+,p_+)+D(p_-,a_+^-)-D(a_-^+,a_+^-)\big]\longrightarrow\kappa_p
 \]
-as the windows shrink, by continuity of $D$ at the three pairs of distinct points $(a_-,\tilde p)$, $(\tilde p,a_+)$ and
-$(a_-,a_+)$
-(Lemma~\ref{lem:Ccont}). Note that $\lambda(W_p)=\frac12D(p_+,p_-)\to-\infty$ and $\nu(\tilde\tau_p\cap\G_W)\to+\infty$ separately.
+as the windows shrink, by joint continuity of $D$ at the three pairs of distinct points $(a_-,\tilde p)$, $(\tilde p,a_+)$ and
+$(a_-,a_+)$ (Lemma~\ref{lem:Ccont}; both arguments move). These three values are finite by Lemma~\ref{lem:S}, in covers given by
+Lemma~\ref{lem:X}, step 2, which also separate the endpoints when $p$ is the only marked point on its circle and
+$a_\pm=h^{\pm1}\tilde p$. Note that $\lambda(W_p)=\frac12D(p_+,p_-)\to-\infty$ and $\nu(\tilde\tau_p\cap\G_W)\to+\infty$ separately.
 \emph{Identity.} Split $i_W(\nu,c)$ of Corollary~\ref{cor:I} into the $\tau_p$-part $\sum_pe_p(c)\,\nu(\tilde\tau_p\cap\G_W)$ and the rest
 $i'_W(c)$ (trivial classes contribute $0$). Then
 $L(c)=i'_W(c)+\sum_pe_p(c)[\nu(\tilde\tau_p\cap\G_W)+\lambda(W_p)]+{\rm err}_W(c)$. As the windows shrink, the bracket tends to
@@ -1723,7 +1813,8 @@ Eq.~\eqref{eq:Rmatter}.
 \emph{Decomposition and cone.} By Theorem~\ref{thm:Hprime} and $e_p(c)=b_p(A)$ on $\Cut(A)$,
 $4G_NS(A)=\inf_c[i(\nu',c)+\sum_pb_p(A)\kappa_p]=G_\nu(A)+\sum_p\kappa_pb_p(A)$. The proof of Theorem~\ref{thm:graph} uses of $\mu'$ only
 that it is a countable positive combination of non-trivial arc test classes $\tau\notin\{\tau_p\}$ with finite coefficients, and of
-$X_1$ only Lemma~\ref{lem:mass} ($0<\mbar_1(\tau)<\infty$ for those classes); both hold for $\nu'$ on $X_0$. Run it with
+$X_1$ only Lemma~\ref{lem:mass} ($0<\mbar_1(\tau)<\infty$ for those classes); both hold for the arc part of $\nu'$ on $X_0$, and the
+peripheral closed part is handled by Remark~\ref{rem:closedw}. Run it with
 $\eta$-minimisers $c_A$ ($i(\nu',c_A)\le G_\nu(A)+\eta$): the cell graph has min-cuts $\ge G_\nu(A)$ (surgery step, unchanged) and
 $\le G_\nu(A)+\eta$. So $G_\nu$ is a limit of graph-model vectors and lies in $\CN$. The statements about $Q$ follow by linearity and
 (R4), as in Corollary~\ref{cor:cone}.
@@ -1779,18 +1870,23 @@ is hard.
 Under (K), $\bar{\mathcal S}_*(C)$ is compact in $C^0$ (Arzel\`a--Ascoli: uniformly Lipschitz graphs over the compact $\bar\Sigma$; uniform
 limits of achronal graphs are achronal since $I^\pm$ are open; the orthogonality bound is closed), so every upper semicontinuous
 functional ($\ell_\sigma(\kappa)$, $\sum_i\ell_\sigma(\kappa_i)$, $\min_\sigma(A)$) attains its supremum (Proposition~\ref{prop:U}). Moreover $L(\kappa)<\infty$
-for every class, and $D$ is continuous, without (JM) or (R2): a curve on an achronal slice is no longer than its spatial path,
-bounded on the compact set; for continuity, take near-optimal slices for $D(x_n,y)$, extract a locally uniformly convergent
-subsequence, join at the cutoff, and apply Proposition~\ref{prop:U}.
+for every class, without (JM): a curve on an achronal slice is no longer than its spatial path, bounded on the compact set.
+The same holds with $C$ replaced by its lift $C'$ to a finite cover $M'$: $W(C')$ is the preimage of $W(C)$, so (K) for $M$ implies (K)
+for $M'$.
 \end{proposition}
 
-\textbf{(Reg)} \emph{For an embedded multi-class $\{\kappa_i\}$, some maximiser $\sigma_*$ of $F$ over $\bar{\mathcal S}_*(C)$ is uniformly spacelike and
-Lipschitz, and $C^2$ on an open neighbourhood $U$ of $K:=\bigcup_i\bigcup\mathcal M_i$, where $\mathcal M_i$ is the set of
-$\ell_{\sigma_*}$-minimisers in $\kappa_i$.}
+Continuity of $D$ is not claimed here: comparing $\ell_{\sigma_n}(x_n\to y)$ with $\ell_{\sigma_n}(x\to y)$ on a sequence of slices needs
+lower bounds on lengths near $C$ that are uniform in $n$, and the orthogonality bound does not give them (a zigzag as above, of
+amplitude $\le C_0z^{1+\delta_0}$ near one boundary point, shortens all curves ending there). This is the role of (R2).
+
+\textbf{(Reg)} \emph{Let $M'$ be $M$ or a finite cover. For an embedded multi-class $\{\kappa_i\}$ of $M'$, some maximiser $\sigma_*$ of $F$ over
+$\bar{\mathcal S}_*(C')$ is uniformly spacelike and Lipschitz (everywhere), and $C^2$ on an open neighbourhood $U$ of
+$K:=\bigcup_i\bigcup\mathcal M_i$, where $\mathcal M_i$ is the set of $\ell_{\sigma_*}$-minimisers in $\kappa_i$.}
 
 \begin{proposition}[Proposition W2: (JM) from compactness and regularity]\label{prop:W2}
-Under (K) and (Reg), for each $i$ some $m_i\in\mathcal M_i$ is a complete extremal curve of $M$; the $m_i$ are simple and pairwise disjoint,
-and $\sigma_*$ is acausal. Hence (JM) holds for $\{\kappa_i\}$.
+Let $M'$ be $M$ or a finite cover. Under (K) for $M$ and (Reg) for $M'$, for each $i$ some $m_i\in\mathcal M_i$ is a complete extremal
+curve of $M'$; the $m_i$ are simple and pairwise disjoint, and $\sigma_*$ is acausal. Hence (JM) holds for $\{\kappa_i\}$; if (Reg) holds
+for every embedded multi-class of $M$ and of all its finite covers, (JM) holds.
 \end{proposition}
 
 \begin{proof}
@@ -1823,8 +1919,9 @@ a minimiser in a simple class is excluded by the same exchange.
 (8) \emph{Acausal.} If $p,q\in\sigma_*$ were causally related, achronality forces $q\in J^+(p)\setminus I^+(p)$, and every point of the
 connecting null geodesic lies in $J^+(\sigma_*)\setminus I^+(\sigma_*)$ and in $J^-(\sigma_*)\setminus I^-(\sigma_*)$, hence in $\sigma_*$; but a null
 geodesic cannot lie in the spacelike $\sigma_*$. At $C$ the orthogonality bound makes the compactified slice $C^1$ and spacelike in the
-conformal metric. So $\sigma_*\in\mathcal S(C)$, and by Lemma~\ref{lem:P}, $F(\sigma)\le\sum_i\ell^{\rm ren}(m_i)=F(\sigma_*)$ for every
-$\sigma\in\mathcal S(C)$: $\sigma_*$ maximises $F$ over $\mathcal S(C)$.
+conformal metric. So $\sigma_*\in\mathcal S(C')$, and by Lemma~\ref{lem:P} (in $M'$, the $m_i$ being simple),
+$F(\sigma)\le\sum_i\ell^{\rm ren}(m_i)=F(\sigma_*)$ for every $\sigma\in\mathcal S(C')$: $\sigma_*$ maximises $F$ over $\mathcal S(C')$. (The steps
+above use only the geometry of $M'$, and existence of $\sigma_*$ is Proposition~\ref{prop:E} for $M'$.)
 \end{proof}
 
 Wall's Theorem~12 and Marolf--Wall--Wang assert stability when the maximin slice is smooth and spacelike. Proposition~\ref{prop:W2} is
@@ -2183,10 +2280,10 @@ $n$); on a line, the two exterior rays and any purifier form the last atom. For 
 w_{ij}=\tfrac12\big(D_{ij}+D_{i+1,j+1}-D_{i,j+1}-D_{i+1,j}\big),
 \end{equation}
 the weights of Czech and Dong~\cite{CzechDong2019} (their Eq.~(2.11)). For a pure state on the cyclic atoms with $D_{ab}=S(Z_a\cdots Z_{b-1})$,
-$w_{ij}=\frac12I(Z_i:Z_j|Z_{i+1}\cdots Z_{j-1})$; for adjacent atoms, half a mutual information. For $a<b<c<d$ the required inequalities are
-$D_{ac}+D_{bd}\ge D_{ad}+D_{bc}$ (SSA) and $D_{ac}+D_{bd}\ge D_{ab}+D_{cd}$ (weak monotonicity). Both hold for HRT data under (H4): the first is
-Wall's covariant SSA; for the second take the common maximin slice on which the HRT surfaces of the disjoint $[a,b]$, $[c,d]$ are
-minimal (Wall's Corollary~17(h)), project those of $[a,c]$, $[b,d]$ to it by null representatives, cut and rejoin the crossing arcs.
+$w_{ij}=\frac12I(Z_i:Z_j|Z_{i+1}\cdots Z_{j-1})$; for adjacent atoms, half a mutual information. For cyclically ordered $a<b<c<d$ the required inequality is
+$D_{ac}+D_{bd}\ge D_{ad}+D_{bc}$ (SSA), which enters $w_{ij}$ for non-adjacent atoms. The weak-monotonicity form
+$D_{ac}+D_{bd}\ge D_{ab}+D_{cd}$ is the same inequality for the cyclically rotated quadruple $(b,c,d,a)$, so it is implied and needs no
+separate input. For HRT data under (H4) it is Wall's covariant SSA.
 \emph{Telescoping} gives the exact inverse
 \begin{equation}\label{eq:T9}
 D_{ab}=\sum_{i\in I(a,b),\ j\notin I(a,b)}w_{ij},
@@ -2517,11 +2614,11 @@ Remark~\ref{rem:false} (joint maximin for linking pairs; single-class maximin fo
 Lemma~\ref{lem:P} (componentwise null projection) & proved mod Wall's projection lemma~\cite{Wall2014} and (R1), (R4)\\
 Lemma~\ref{lem:Q}, Proposition~\ref{prop:sandwich} (sandwich) & proved (no maximin hypothesis)\\
 Theorem~\ref{thm:Hprime} (Theorem H$'$) & proved mod (JM)\\
-Lemmas~\ref{lem:S}, \ref{lem:X} (crossing inequality), \ref{lem:Ccont}, \ref{lem:N3}, \ref{lem:N4}, \ref{lem:N2}; Corollary~\ref{cor:I} & proved mod (JM), (R); uses residual finiteness, Hall's and Scott's theorems~\cite{Hall1949,Scott1978}\\
+Lemmas~\ref{lem:S}, \ref{lem:X} (crossing inequality), \ref{lem:Ccont}, \ref{lem:N3}, \ref{lem:N4}, \ref{lem:N2}; Corollary~\ref{cor:I} & proved mod (JM), (R); continuity of $D$ (Lemma~\ref{lem:Ccont}) uses the uniformity hypothesis (R2); Lemma~\ref{lem:N2} leaves possible atoms on peripheral axis pairs, which are carried along; uses residual finiteness, Hall's and Scott's theorems~\cite{Hall1949,Scott1978}\\
 Theorem~\ref{thm:M} (Theorem~4 of the Letter) & proved mod (JM), (R); not unconditional\\
 Proposition~\ref{prop:bellmatter} (Bell-pair decomposition, all valid inequalities for intervals) & proved mod (JM), (R)\\
-Propositions~\ref{prop:U}, \ref{prop:E} (usc; existence of maximisers; continuity of $D$) & proved mod (K), Ioffe's theorem~\cite{Ioffe1977}, Fefferman--Graham asymptotics\\
-Proposition~\ref{prop:W2} ((JM) from (K) and (Reg)) & proved mod (K), (Reg), Sion's theorem~\cite{Sion1958}\\
+Propositions~\ref{prop:U}, \ref{prop:E} (usc; existence of maximisers) & proved mod (K), Ioffe's theorem~\cite{Ioffe1977}, Fefferman--Graham asymptotics\\
+Proposition~\ref{prop:W2} ((JM) from (K) and (Reg)) & proved mod (K), (Reg) in $M$ and its finite covers, Sion's theorem~\cite{Sion1958}\\
 (K) for NEC thin-shell Vaidya--BTZ wormholes & fails (ODE comparison; numerics)\\
 Proposition~\ref{prop:J} (local crossing positivity) & proved mod (ND), Fefferman--Graham falloff; no maximin hypothesis\\
 NEC necessity (Table~\ref{tab:jacobi}) & numerical: crossing density $-0.117$ on an admissible slice for a NEC-violating shell\\

@@ -47,7 +47,7 @@ equals the RT cone. The proof rests on an exact decomposition: the regulated HRT
 cutoff-independent graph-model vector plus exactly one Bell-pair term per entangling point. With matter obeying
 the null energy condition (NEC), the balanced contraction-map inequalities, and the RT cone for whole-boundary
 regions, follow from the homotopy-restricted form of the maximin hypothesis that underlies Wall's covariant proof
-of strong subadditivity. The NEC is necessary: a NEC-violating Vaidya shell violates strong subadditivity. In every
+of strong subadditivity, together with regularity assumptions. The NEC is necessary: a NEC-violating Vaidya shell violates strong subadditivity. In every
 dimension, covariant entropies of translation-invariant strips admit static graph models in a regular-maximin class.
 \end{abstract}
 
@@ -86,7 +86,7 @@ every cutoff below an explicit threshold; every valid RT inequality holds, with 
 it is balanced at the entangling points and a slack diverging to $+\infty$ otherwise; and the closure of the
 set of covariant entropy rays is $\CN$. Time dependence does not enlarge the cone. With matter obeying the null
 energy condition (NEC) we prove the balanced contraction-map inequalities, and the cone for whole-boundary parties,
-assuming a homotopy-restricted maximin property (Theorem~\ref{thm:matter}).
+assuming a homotopy-restricted maximin property and regularity hypotheses (Theorem~\ref{thm:matter}).
 
 HRT is used in its standard form: a minimal extremal curve $\gamma$ anchored at $\partial A$ with a homology
 region $R$, $\partial R=\gamma\cup A$, on an acausal Cauchy slice of the conformally completed
@@ -102,7 +102,7 @@ $X_L=\Hyp/\rho_L$ and $X_R=\Hyp/\rho_R$ with funnel ends. The group $\Gamma=\{(\
 acts properly discontinuously on the invisible domain $\tilde D$ of its limit set, and $M=\tilde D/\Gamma$ is a vacuum
 spacetime with one asymptotic region per funnel~\cite{Mess2007,Barbot2008,BKS2011,BonsanteSeppi2020}. This
 covers rotating BTZ ($\pi_1=\mathbb{Z}$), rotating multiboundary wormholes and wormholes with handles. $M$ is
-time-symmetric iff $X_L=X_R$; for $X_L\neq X_R$ and non-abelian $\pi_1$ it is not even stationary. Excluded
+time-symmetric iff $X_L=X_R$; for non-abelian $\pi_1$ it has no Killing field. Excluded
 are extremal horizons (parabolic holonomy), conical defects and non-orientable quotients; global $\AdS$ is
 covered by Ref.~\cite{CzechDong2019}.
 
@@ -184,7 +184,7 @@ The theorem below is stronger: it needs no contraction map.
 \caption{(a)~Cut-and-paste on one arrangement (strong subadditivity; local picture on the quotient surface,
 Klein model). Cells carry the bits $(x_{AB},x_{BC})$; the outputs $\delta_B$, $\delta_{ABC}$ bound the cells
 labelled $11$ and $\neq00$. Any geodesic $g$ crosses the inputs at least as often as the outputs; integrating
-against $\mu$ gives the inequality for both chiral lengths at once. (b)~Chart with the entangling point $p$ at $\infty$. All other ideal points lie in
+against $\mu$ gives the inequality for both chiral lengths at once. (b)~Chart with the entangling point $p$ at $\infty$. All limit points and other lifted marked points lie in
 $[q_-,q_+]$. Geodesics of the class $\tau_p$ (gray) connect the two pieces adjacent to $p$; each crosses the cut
 arc ending at $p$ (red) exactly once. Their mass up to the horoball is $\log(1/\eps d_p)+o(1)$, independent of
 the cut. (c)~The resulting entropy vector: a finite graph whose min-cuts give the finite part $G$, plus one
@@ -198,7 +198,7 @@ a single topological class per endpoint. For $p\in P$, let $\tau_p$ be the class
 two boundary pieces adjacent to $p$ around $p$ [Fig.~\ref{fig:mechanism}(b)]. Every cut for $A$ crosses
 every geodesic of $\tau_p$ exactly $e_p=[p\in\partial A]$ times, independently of the cut. In a chart with $p$ at
 $\infty$ and cutoff horoball $\{y>1/\eps\}$, let $d_p$ be the length of the smallest interval containing all
-other ideal points.
+limit points and all other lifted marked points.
 
 \begin{proposition}[Renormalised Crofton formula]\label{prop:crofton}
 Let $m'_X$ be the Liouville measure of $X$ with the classes $\tau_p$ removed. Every class other than the
@@ -253,13 +253,13 @@ at the entangling points with $Q(b_p)>0$.
 
 \begin{theorem}[Cone equality]\label{thm:equality}
 Let $\mathcal{H}_N$ be the set of vectors $4G_NS^\eps$ over all spacetimes of the class, all $N$-party
-assignments and all $\eps$ below the threshold. Then $\overline{\mathbb{R}_{>0}\mathcal{H}_N}=\CN$; static
-multiboundary wormholes with whole-boundary parties already suffice.
+assignments and all $\eps$ below the threshold. Then $\overline{\mathbb{R}_{>0}\mathcal{H}_N}=\CN$;
+time-symmetric multiboundary wormholes with whole-boundary parties already suffice.
 \end{theorem}
 
 The inclusion $\subseteq$ is Theorem~\ref{thm:main}. For $\supseteq$, every graph model is realised, up to scale,
 by the RT entropies of a hyperbolic surface glued from pairs of pants along geodesics of lengths proportional to
-the edge weights~\cite{Bao2015}; that surface with $X_L=X_R$ is a static wormhole.
+the edge weights~\cite{Bao2015}; that surface with $X_L=X_R$ is a time-symmetric wormhole.
 
 \emph{Numerical tests.}---%
 The proofs are analytic; numerics test conclusions only. On rank-two Schottky surfaces (three-holed spheres and
@@ -278,34 +278,36 @@ renormalised lengths. Homotopy-restricted maximin replaces the chiral lengths. F
 curve in $\kappa$ on a slice $\sigma$, and $L(\kappa)=\sup_\sigma\ell_\sigma(\kappa)$ over acausal Cauchy slices anchored
 at $C$, as in restricted maximin~\cite{MarolfWallWang2019,GradoWhiteMarolfWeinberg2021}. We assume:
 (JM) \emph{for disjoint simple classes $\kappa_1,\dots,\kappa_m$, in $M$ and in its finite covers,
-$\sup_\sigma\sum_i\ell_\sigma(\kappa_i)$ is attained on a slice carrying minimisers of the $\kappa_i$ that are disjoint
+$\sup_\sigma\sum_i\ell_\sigma(\kappa_i)$ is attained on a slice carrying minimisers of the $\kappa_i$ that are simple, disjoint
 extremal geodesics.} This is the curve analogue, restricted to homotopy classes, of the maximin property on which
 Wall's covariant proofs of SSA and MMI rest~\cite{Wall2014}. It holds in vacuum, through the pleated slices of
-Theorem~\ref{thm:H}, and whenever the Wheeler--DeWitt patch of $C$ is precompact and a maximising slice is $C^2$
-and spacelike near its minimal curves~\cite{SM}. Existence and regularity of maximin slices are thus the assumed
+Theorem~\ref{thm:H} and Wall's null projection, and whenever the Wheeler--DeWitt patch of $C$ is precompact and, in $M$ and its finite
+covers, some maximising slice is uniformly spacelike and Lipschitz, and $C^2$ near its minimal curves~\cite{SM}. Existence and regularity of maximin slices are thus the assumed
 inputs; precompactness fails generically for NEC wormholes, whose Wheeler--DeWitt patches reach the singularity.
 
 \begin{theorem}[Matter]\label{thm:matter}
-Assume (JM) and the asymptotic regularity stated in the \SM. For parties of intervals of $C$ and whole boundaries,
+Assume (JM) and hypotheses (R) of the \SM: Wall's null projection and the area theorem for extremal curves;
+(JM) maximisers with renormalised lengths equicontinuous in the endpoints; asymptotic hyperbolicity of slices;
+Fefferman--Graham falloff. For parties of intervals of $C$ and whole boundaries,
 the renormalised HRT entropies satisfy every contraction-map inequality balanced at every entangling point;
 unbalanced ones hold with slack diverging as the cutoff is removed. For whole-boundary parties the HRT entropy
 vector lies in $\CN$.
 \end{theorem}
 
 Three steps replace $\mu$~\cite{SM}. (1)~$4G_NS(A)=\inf_{c\in\Cut(A)}\sum_kL(c_k)$. Wall's null
-projection~\cite{Wall2014,CDGH2001}, applied to one HRT component in the cover in which it is the whole edge, shows
-without any maximin input that its length is at least $L$ of its class; (JM) gives the converse. (2)~Let $D(x,y)$ be the maximin length between
+projection~\cite{Wall2014,CDGH2001}, applied componentwise in covers, shows without any maximin input that each HRT
+component is at least as long as $L$ of its class; (JM) gives the converse. (2)~Let $D(x,y)$ be the maximin length between
 lifted boundary points on the universal cover. For cyclically ordered $a,b,c,d$, cut-and-paste on one slice and
 (JM) give $D(a,c)+D(b,d)\ge D(a,d)+D(b,c)$, SSA on the cover. Hence
 $\nu([x_1,x_2)\times[y_1,y_2))=\frac12[D(x_1,y_1)+D(x_2,y_2)-D(x_1,y_2)-D(x_2,y_1)]$ is a positive $\pi_1$-invariant
 measure on pairs of ideal points. (3)~For $h\in\pi_1$, $D(x,h^ny)-D(x,h^{n-1}y)$ increases to $L(h)$, so $\nu$ of a
 fundamental domain of pairs linking the axis of $h$ is $L(h)$: closed lengths are $\nu$-masses, the missing step for
 multiply connected bulks~\cite{CzechDong2019,GGHH2025}. With $\nu$ for $\mu$ the contraction argument applies
-verbatim. Already in vacuum, joint maximin fails for classes whose lifts link and single-class maximin for
-non-simple classes; finite covers in which the classes become simple and unlinked avoid both~\cite{Hall1949,SM}.
+verbatim. Finite covers in which the classes become simple and unlinked avoid two maximin statements that fail
+already in vacuum~\cite{Hall1949,SM}.
 The renormalised Crofton argument also goes through for $\nu$: under the same hypotheses Eq.~\eqref{eq:decomp}
-holds for the renormalised entropies with a graph-model vector $G$, so interval parties obey every valid
-inequality in the sense of Theorem~\ref{thm:main}(ii)~\cite{SM}.
+holds for the renormalised entropies with a graph-model vector $G$, so for interval parties every valid
+inequality holds for the renormalised entropies if balanced, and with diverging slack otherwise~\cite{SM}.
 
 The NEC enters only through positivity of $\nu$, and does so locally without maximin. Along an extremal
 geodesic, in a parallel frame of null normals $k,l$, the Jacobi equation for $J=\alpha k+\beta l$ reads
@@ -352,7 +354,7 @@ cone. New are
 Theorem~\ref{thm:H} for every cut class, the topological contraction, the renormalised Crofton formula and the
 graph realisation; the pleated geometry~\cite{MazzoliViaggi2022}, the correspondence
 between currents and pseudo-metrics~\cite{BIPP2021,MartinezGranadoThurston2026}, the extension
-theorems~\cite{BernalSanchez2006,AkeFloresSanchez2021} and the realisation of graphs by static
+theorems~\cite{BernalSanchez2006,AkeFloresSanchez2021} and the realisation of graphs by time-symmetric
 wormholes~\cite{Bao2015} are prior work.
 
 With matter, the current is built from SSA on the universal cover in class-restricted form; (JM) supplies it

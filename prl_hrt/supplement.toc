@@ -15,9 +15,9 @@
 \contentsline {subsection}{\numberline {A}Liouville measure and cutoffs}{9}{section*.13}%
 \contentsline {subsection}{\numberline {B}The endpoint classes}{9}{section*.14}%
 \contentsline {section}{\numberline {S5}Decomposition and graph realisation}{11}{section*.15}%
-\contentsline {section}{\numberline {S6}The vacuum spacetimes and the length formula}{14}{section*.16}%
-\contentsline {subsection}{\numberline {A}The spacetimes}{14}{section*.17}%
-\contentsline {subsection}{\numberline {B}Length formula}{15}{section*.18}%
+\contentsline {section}{\numberline {S6}The vacuum spacetimes and the length formula}{15}{section*.16}%
+\contentsline {subsection}{\numberline {A}The spacetimes}{15}{section*.17}%
+\contentsline {subsection}{\numberline {B}Length formula}{16}{section*.18}%
 \contentsline {section}{\numberline {S7}The HRT prescription and acausal Cauchy slices}{17}{section*.19}%
 \contentsline {subsection}{\numberline {A}Positive lifts, hulls, the domain}{17}{section*.20}%
 \contentsline {subsection}{\numberline {B}Slices, candidates, definition}{17}{section*.21}%
@@ -27,36 +27,36 @@
 \contentsline {subsection}{\numberline {B}Invariant spun families of ideal triangles}{22}{section*.25}%
 \contentsline {subsection}{\numberline {C}The pleated slice}{24}{section*.26}%
 \contentsline {section}{\numberline {S9}Theorem H}{25}{section*.27}%
-\contentsline {section}{\numberline {S10}Smooth, compact, uniformly spacelike homology slices}{26}{section*.28}%
+\contentsline {section}{\numberline {S10}Smooth, compact, uniformly spacelike homology slices}{27}{section*.28}%
 \contentsline {paragraph}{\numberline {}An explicit invariant strip at a rotating horizon.}{29}{section*.29}%
 \contentsline {paragraph}{\numberline {}Collars at arc endpoints.}{30}{section*.30}%
 \contentsline {section}{\numberline {S11}Covariant entropies and the RT cone}{30}{section*.31}%
-\contentsline {section}{\numberline {S12}Matter obeying the null energy condition: setting and hypotheses}{31}{section*.32}%
-\contentsline {subsection}{\numberline {A}Spacetimes, slices, classes and lengths}{31}{section*.33}%
+\contentsline {section}{\numberline {S12}Matter obeying the null energy condition: setting and hypotheses}{32}{section*.32}%
+\contentsline {subsection}{\numberline {A}Spacetimes, slices, classes and lengths}{32}{section*.33}%
 \contentsline {subsection}{\numberline {B}Hypotheses}{33}{section*.34}%
-\contentsline {section}{\numberline {S13}HRT as a class-restricted maximin (Theorem H$'$)}{35}{section*.35}%
-\contentsline {section}{\numberline {S14}The measure $\nu $ on the ideal circle}{37}{section*.36}%
-\contentsline {paragraph}{\numberline {}The measure.}{39}{section*.37}%
-\contentsline {section}{\numberline {S15}Inequalities and the cone with matter}{41}{section*.38}%
-\contentsline {section}{\numberline {S16}Sufficient conditions for (JM), and its limits}{44}{section*.39}%
-\contentsline {paragraph}{\numberline {}(K) fails generically for NEC wormholes.}{46}{section*.40}%
-\contentsline {paragraph}{\numberline {}Focusing alone cannot replace maximin.}{47}{section*.41}%
-\contentsline {section}{\numberline {S17}Local crossing positivity from the NEC, and its necessity}{47}{section*.42}%
-\contentsline {paragraph}{\numberline {}What Proposition~\ref {prop:J} does not give globally.}{48}{section*.43}%
-\contentsline {section}{\numberline {S18}Translation-invariant strips in every dimension}{49}{section*.44}%
-\contentsline {subsection}{\numberline {A}Setting, hypotheses and statement}{49}{section*.45}%
-\contentsline {subsection}{\numberline {B}Reduction to an effective three-dimensional metric}{50}{section*.46}%
-\contentsline {subsection}{\numberline {C}Symmetry inheritance against arbitrary competitors}{52}{section*.47}%
-\contentsline {subsection}{\numberline {D}The conformal boundary: relative-cutoff averaging}{53}{section*.48}%
-\contentsline {subsection}{\numberline {E}The existence input: compactness and regular maximisers}{54}{section*.49}%
-\contentsline {subsection}{\numberline {F}Strip unions are non-crossing matching minima}{55}{section*.50}%
-\contentsline {subsection}{\numberline {G}The finite graph theorem}{56}{section*.51}%
-\contentsline {subsection}{\numberline {H}Endpoint completion and proof of Theorem~\ref {thm:strips}}{57}{section*.52}%
-\contentsline {section}{\numberline {S19}Numerical tests and reproducibility}{58}{section*.53}%
-\contentsline {subsection}{\numberline {A}Full-cone tests with interval parties on multiply connected surfaces}{58}{section*.54}%
-\contentsline {subsection}{\numberline {B}Identities}{60}{section*.55}%
-\contentsline {subsection}{\numberline {C}Earlier tests of the contraction-map inequalities and of the slice geometry}{61}{section*.56}%
-\contentsline {subsection}{\numberline {D}Matter in $2+1$ dimensions: Vaidya tests}{61}{section*.57}%
-\contentsline {subsection}{\numberline {E}Strips in $\mathrm {AdS}_4$: thin-shell Vaidya}{63}{section*.58}%
-\contentsline {section}{\numberline {S20}Status of statements and cited inputs}{64}{section*.59}%
-\contentsline {section}{\numberline {}References}{65}{section*.60}%
+\contentsline {section}{\numberline {S13}HRT as a class-restricted maximin (Theorem H$'$)}{36}{section*.35}%
+\contentsline {section}{\numberline {S14}The measure $\nu $ on the ideal circle}{39}{section*.36}%
+\contentsline {paragraph}{\numberline {}The measure.}{41}{section*.37}%
+\contentsline {section}{\numberline {S15}Inequalities and the cone with matter}{44}{section*.38}%
+\contentsline {section}{\numberline {S16}Sufficient conditions for (JM), and its limits}{47}{section*.39}%
+\contentsline {paragraph}{\numberline {}(K) fails generically for NEC wormholes.}{50}{section*.40}%
+\contentsline {paragraph}{\numberline {}Focusing alone cannot replace maximin.}{50}{section*.41}%
+\contentsline {section}{\numberline {S17}Local crossing positivity from the NEC, and its necessity}{50}{section*.42}%
+\contentsline {paragraph}{\numberline {}What Proposition~\ref {prop:J} does not give globally.}{52}{section*.43}%
+\contentsline {section}{\numberline {S18}Translation-invariant strips in every dimension}{52}{section*.44}%
+\contentsline {subsection}{\numberline {A}Setting, hypotheses and statement}{52}{section*.45}%
+\contentsline {subsection}{\numberline {B}Reduction to an effective three-dimensional metric}{54}{section*.46}%
+\contentsline {subsection}{\numberline {C}Symmetry inheritance against arbitrary competitors}{55}{section*.47}%
+\contentsline {subsection}{\numberline {D}The conformal boundary: relative-cutoff averaging}{56}{section*.48}%
+\contentsline {subsection}{\numberline {E}The existence input: compactness and regular maximisers}{57}{section*.49}%
+\contentsline {subsection}{\numberline {F}Strip unions are non-crossing matching minima}{59}{section*.50}%
+\contentsline {subsection}{\numberline {G}The finite graph theorem}{59}{section*.51}%
+\contentsline {subsection}{\numberline {H}Endpoint completion and proof of Theorem~\ref {thm:strips}}{60}{section*.52}%
+\contentsline {section}{\numberline {S19}Numerical tests and reproducibility}{61}{section*.53}%
+\contentsline {subsection}{\numberline {A}Full-cone tests with interval parties on multiply connected surfaces}{62}{section*.54}%
+\contentsline {subsection}{\numberline {B}Identities}{63}{section*.55}%
+\contentsline {subsection}{\numberline {C}Earlier tests of the contraction-map inequalities and of the slice geometry}{64}{section*.56}%
+\contentsline {subsection}{\numberline {D}Matter in $2+1$ dimensions: Vaidya tests}{64}{section*.57}%
+\contentsline {subsection}{\numberline {E}Strips in $\mathrm {AdS}_4$: thin-shell Vaidya}{67}{section*.58}%
+\contentsline {section}{\numberline {S20}Status of statements and cited inputs}{68}{section*.59}%
+\contentsline {section}{\numberline {}References}{69}{section*.60}%
