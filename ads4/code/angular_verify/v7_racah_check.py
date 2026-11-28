@@ -56,9 +56,6 @@ for J in range(0, 4 * n):
             continue
         D = Fr(J + 2)
         f = F(b, J, D)
-        ex = (f if b == 4 else -f) - (Fr(3) / (1 / L * 1)) * 0   # excess of sigma f over 0
-        if float(-ex) < wl[0]:
-            pass
         val = float((f if b == 4 else -f))
         if val > wl[0]:
             wl = (val, (b, J))
